@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ImportBinding/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ImportBinding/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ImportBinding/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<98> s<97> l<1:1> el<1:0>
 n<> u<2> t<Package> p<78> s<3> l<1:1> el<1:8>
@@ -101,19 +101,19 @@ n<> u<95> t<Module_declaration> p<96> c<84> l<15:1> el<19:10>
 n<> u<96> t<Description> p<97> c<95> l<15:1> el<19:10>
 n<> u<97> t<Source_text> p<98> c<79> l<1:1> el<19:10>
 n<> u<98> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "lc_ctrl_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ImportBinding/dut.sv:1:1: No timescale set for "lc_ctrl_pkg".
 
-[WRN:PA0205] dut.sv:15:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ImportBinding/dut.sv:15:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "lc_ctrl_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/ImportBinding/dut.sv:1:1: Compile package "lc_ctrl_pkg".
 
-[INF:CP0303] dut.sv:15:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ImportBinding/dut.sv:15:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:15:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ImportBinding/dut.sv:15:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -161,11 +161,11 @@ range                                                 13
 ref_obj                                                7
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ImportBinding/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImportBinding/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ImportBinding/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ImportBinding/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ImportBinding/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ImportBinding/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -174,7 +174,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:lc_ctrl_pkg
@@ -182,7 +182,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (lc_ctrl_pkg::TxWidth), line:3:18, endln:3:25
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17
@@ -197,23 +197,23 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:11:23, endln:11:36
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |vpiTypespec:
     \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:4:4, endln:7:15
       |vpiParent:
-      \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
       |vpiName:lc_ctrl_pkg::lc_tx_t
       |vpiTypedefAlias:
       \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15
         |vpiParent:
-        \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+        \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
         |vpiName:lc_ctrl_pkg::lc_tx_e
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiBaseTypespec:
         \_logic_typespec: , line:4:17, endln:4:36
           |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:4:23, endln:4:36
             |vpiLeftRange:
@@ -245,13 +245,13 @@ design: (work@top)
           |vpiDecompile:4'b0101
           |vpiSize:4
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
       |vpiBaseTypespec:
       \_logic_typespec: , line:4:17, endln:4:36
         |vpiParent:
         \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:4:4, endln:7:15
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiRange:
         \_range: , line:4:23, endln:4:36
           |vpiParent:
@@ -293,7 +293,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:29
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:4
@@ -307,7 +307,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:11:23, endln:11:42
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |vpiRhs:
     \_ref_obj: (Off), line:11:39, endln:11:42
       |vpiName:Off
@@ -318,10 +318,10 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |vpiName:lc_ctrl_pkg::lc_tx_e
     |vpiInstance:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:17, endln:4:36
       |vpiInstance:
@@ -370,7 +370,7 @@ design: (work@top)
       |vpiSize:4
   |vpiDefName:lc_ctrl_pkg
 |uhdmtopPackages:
-\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:lc_ctrl_pkg
@@ -378,14 +378,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (lc_ctrl_pkg::TxWidth), line:3:18, endln:3:25
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TxWidth), line:3:18, endln:3:25
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:TxWidth
@@ -393,7 +393,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:11:23, endln:11:36
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |BIN:0101
     |vpiTypespec:
     \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:4:4, endln:7:15
@@ -402,7 +402,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:29
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:4
@@ -416,7 +416,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:11:23, endln:11:42
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
     |vpiRhs:
     \_constant: , line:11:39, endln:11:42
       |vpiDecompile:4'b0101
@@ -434,14 +434,14 @@ design: (work@top)
   |vpiDefName:lc_ctrl_pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.LC_TX_DEFAULT), line:11:23, endln:11:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |BIN:0101
     |vpiTypespec:
     \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
@@ -454,13 +454,13 @@ design: (work@top)
         \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
         |vpiName:lc_ctrl_pkg::lc_tx_e
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiBaseTypespec:
         \_logic_typespec: , line:4:17, endln:4:36
           |vpiParent:
           \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15
           |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:4:23, endln:4:36
             |vpiParent:
@@ -498,13 +498,13 @@ design: (work@top)
           |vpiDecompile:4'b0101
           |vpiSize:4
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
       |vpiBaseTypespec:
       \_logic_typespec: , line:4:17, endln:4:36
         |vpiParent:
         \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiRange:
         \_range: , line:4:23, endln:4:36
           |vpiParent:
@@ -547,14 +547,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.TxWidth), line:3:18, endln:3:25
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17
       |vpiParent:
       \_parameter: (work@top.TxWidth), line:3:18, endln:3:25
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:TxWidth
@@ -563,7 +563,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:29
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiParent:
@@ -576,7 +576,7 @@ design: (work@top)
         |vpiParent:
         \_constant: , line:3:28, endln:3:29
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -589,7 +589,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.TxWidth), line:3:18, endln:3:25
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiName:TxWidth
@@ -598,7 +598,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:11:23, endln:11:42
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |vpiRhs:
     \_constant: , line:11:39, endln:11:42
       |vpiParent:
@@ -617,13 +617,13 @@ design: (work@top)
           \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
           |vpiName:lc_ctrl_pkg::lc_tx_e
           |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
           |vpiBaseTypespec:
           \_logic_typespec: , line:4:17, endln:4:36
             |vpiParent:
             \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15
             |vpiInstance:
-            \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+            \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
             |vpiRange:
             \_range: , line:4:23, endln:4:36
               |vpiParent:
@@ -661,13 +661,13 @@ design: (work@top)
             |vpiDecompile:4'b0101
             |vpiSize:4
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiBaseTypespec:
         \_logic_typespec: , line:4:17, endln:4:36
           |vpiParent:
           \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
           |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:4:23, endln:4:36
             |vpiParent:
@@ -721,13 +721,13 @@ design: (work@top)
           \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
           |vpiName:lc_ctrl_pkg::lc_tx_e
           |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
           |vpiBaseTypespec:
           \_logic_typespec: , line:4:17, endln:4:36
             |vpiParent:
             \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15
             |vpiInstance:
-            \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+            \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
             |vpiRange:
             \_range: , line:4:23, endln:4:36
               |vpiParent:
@@ -765,13 +765,13 @@ design: (work@top)
             |vpiDecompile:4'b0101
             |vpiSize:4
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiBaseTypespec:
         \_logic_typespec: , line:4:17, endln:4:36
           |vpiParent:
           \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
           |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:4:23, endln:4:36
             |vpiParent:
@@ -819,12 +819,12 @@ design: (work@top)
   \_import_typespec: (lc_ctrl_pkg), line:16:8, endln:16:22
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.LC_TX_DEFAULT), line:11:23, endln:11:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |BIN:0101
     |vpiTypespec:
     \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
@@ -837,13 +837,13 @@ design: (work@top)
         \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
         |vpiName:lc_ctrl_pkg::lc_tx_e
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiBaseTypespec:
         \_logic_typespec: , line:4:17, endln:4:36
           |vpiParent:
           \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:4:4, endln:7:15
           |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:4:23, endln:4:36
             |vpiParent:
@@ -881,13 +881,13 @@ design: (work@top)
           |vpiDecompile:4'b0101
           |vpiSize:4
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
       |vpiBaseTypespec:
       \_logic_typespec: , line:4:17, endln:4:36
         |vpiParent:
         \_enum_typespec: (lc_tx_t), line:4:4, endln:7:15
         |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
         |vpiRange:
         \_range: , line:4:23, endln:4:36
           |vpiParent:
@@ -930,14 +930,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.TxWidth), line:3:18, endln:3:25
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17
       |vpiParent:
       \_parameter: (work@top.TxWidth), line:3:18, endln:3:25
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:1:1, endln:13:11
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:1:1, endln:13:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:TxWidth
@@ -946,7 +946,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:29
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:4
@@ -960,7 +960,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:11:23, endln:11:42
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:15:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ImportBinding/dut.sv, line:15:1, endln:19:10
     |vpiRhs:
     \_constant: , line:11:39, endln:11:42
       |vpiDecompile:4'b0101

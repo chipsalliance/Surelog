@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/VarRangeTypedef/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/VarRangeTypedef/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<42> s<41> l<1:1> el<1:0>
 n<> u<2> t<Package> p<39> s<3> l<1:1> el<1:8>
@@ -45,11 +45,11 @@ n<> u<39> t<Package_declaration> p<40> c<2> l<1:1> el<6:11>
 n<> u<40> t<Description> p<41> c<39> l<1:1> el<6:11>
 n<> u<41> t<Source_text> p<42> c<40> l<1:1> el<6:11>
 n<> u<42> t<Top_level_rule> c<1> l<1:1> el<8:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv:1:1: No timescale set for "pkg".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv:1:1: Compile package "pkg".
 
 [INF:EL0526] Design Elaboration...
 
@@ -87,11 +87,11 @@ range                                                  2
 struct_typespec                                        3
 typespec_member                                        3
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/VarRangeTypedef/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VarRangeTypedef/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/VarRangeTypedef/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/VarRangeTypedef/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/VarRangeTypedef/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/VarRangeTypedef/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -100,7 +100,7 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pkg
@@ -108,10 +108,10 @@ design: (unnamed)
   |vpiTypedef:
   \_struct_typespec: (pkg::a), line:2:12, endln:2:18
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::a
     |vpiInstance:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (x), line:3:16, endln:3:17
@@ -124,14 +124,14 @@ design: (unnamed)
         \_typespec_member: (x), line:3:16, endln:3:17
         |vpiInstance:
         \_package: (pkg)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:7
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:12
   |vpiDefName:pkg
 |uhdmtopPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pkg
@@ -139,10 +139,10 @@ design: (unnamed)
   |vpiTypedef:
   \_struct_typespec: (pkg::a), line:2:12, endln:2:18
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::a
     |vpiInstance:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (x), line:3:16, endln:3:17
@@ -154,8 +154,8 @@ design: (unnamed)
         |vpiParent:
         \_typespec_member: (x), line:3:16, endln:3:17
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
-      |vpiRefFile:dut.sv
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
+      |vpiRefFile:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:7
       |vpiRefEndLineNo:3
@@ -163,10 +163,10 @@ design: (unnamed)
   |vpiTypedef:
   \_array_typespec: (pkg::b)
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::b
     |vpiInstance:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
     |vpiRange:
     \_range: , line:5:15, endln:5:20
       |vpiLeftRange:
@@ -191,7 +191,7 @@ design: (unnamed)
       |vpiTypedefAlias:
       \_struct_typespec: (pkg::a), line:2:12, endln:2:18
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (x), line:3:16, endln:3:17
@@ -203,8 +203,8 @@ design: (unnamed)
           |vpiParent:
           \_typespec_member: (x), line:3:16, endln:3:17
           |vpiInstance:
-          \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
-        |vpiRefFile:dut.sv
+          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv, line:1:1, endln:6:11
+        |vpiRefFile:${SURELOG_DIR}/tests/VarRangeTypedef/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3

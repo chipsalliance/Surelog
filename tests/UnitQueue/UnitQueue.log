@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/UnitQueue/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UnitQueue/slpp_all/surelog.log.
 
 LIB:  work
-FILE: top.v
+FILE: ${SURELOG_DIR}/tests/UnitQueue/top.v
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<184> s<183> l<2:1> el<1:2>
 n<c1> u<2> t<StringConst> p<12> s<9> l<2:7> el<2:9>
@@ -447,9 +447,9 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[INF:CP0302] top.v:2:1: Compile class "work@c1".
+[INF:CP0302] ${SURELOG_DIR}/tests/UnitQueue/top.v:2:1: Compile class "work@c1".
 
-[INF:CP0302] top.v:7:1: Compile class "work@c2".
+[INF:CP0302] ${SURELOG_DIR}/tests/UnitQueue/top.v:7:1: Compile class "work@c2".
 
 [INF:EL0526] Design Elaboration...
 
@@ -463,17 +463,17 @@ Instance tree:
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-[ERR:CP0332] top.v:13:3: Function "atoiq" is not defined for variable "q" of type string,
-             top.v:10:3: type definition.
+[ERR:CP0332] ${SURELOG_DIR}/tests/UnitQueue/top.v:13:3: Function "atoiq" is not defined for variable "q" of type string,
+             ${SURELOG_DIR}/tests/UnitQueue/top.v:10:3: type definition.
 
-[ERR:CP0332] top.v:15:3: Function "toto" is not defined for variable "q" of type queue,
-             top.v:10:3: type definition.
+[ERR:CP0332] ${SURELOG_DIR}/tests/UnitQueue/top.v:15:3: Function "toto" is not defined for variable "q" of type queue,
+             ${SURELOG_DIR}/tests/UnitQueue/top.v:10:3: type definition.
 
-[ERR:CP0332] top.v:17:3: Function "atoiq" is not defined for variable "q2" of type work@c1,
-             top.v:2:1: type definition.
+[ERR:CP0332] ${SURELOG_DIR}/tests/UnitQueue/top.v:17:3: Function "atoiq" is not defined for variable "q2" of type work@c1,
+             ${SURELOG_DIR}/tests/UnitQueue/top.v:2:1: type definition.
 
-[ERR:CP0332] top.v:19:3: Function "toto" is not defined for variable "q2" of type queue,
-             top.v:2:1: type definition.
+[ERR:CP0332] ${SURELOG_DIR}/tests/UnitQueue/top.v:19:3: Function "toto" is not defined for variable "q2" of type queue,
+             ${SURELOG_DIR}/tests/UnitQueue/top.v:2:1: type definition.
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -503,7 +503,7 @@ string_typespec                                        1
 string_var                                             1
 task                                                   9
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/UnitQueue/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitQueue/slpp_all/surelog.uhdm ...
 
 [  FATAL] : 0
 [ SYNTAX] : 0

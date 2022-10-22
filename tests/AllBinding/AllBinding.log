@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/AllBinding/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/surelog.log.
 
 LIB:  work
-FILE: enum.sv
+FILE: ${SURELOG_DIR}/tests/AllBinding/enum.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<40> s<39> l<1:1> el<1:0>
 n<> u<2> t<IntVec_TypeLogic> p<13> s<12> l<1:14> el<1:19>
@@ -44,7 +44,7 @@ n<> u<38> t<Description> p<39> c<37> l<1:1> el<5:24>
 n<> u<39> t<Source_text> p<40> c<38> l<1:1> el<5:24>
 n<> u<40> t<Top_level_rule> c<1> l<1:1> el<6:1>
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/AllBinding/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<27> s<26> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<13> s<3> l<1:1> el<1:7>
@@ -73,15 +73,15 @@ n<> u<24> t<Module_declaration> p<25> c<13> l<1:1> el<5:10>
 n<> u<25> t<Description> p<26> c<24> l<1:1> el<5:10>
 n<> u<26> t<Source_text> p<27> c<25> l<1:1> el<5:10>
 n<> u<27> t<Top_level_rule> c<1> l<1:1> el<6:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/AllBinding/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/AllBinding/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/AllBinding/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -121,11 +121,11 @@ port                                                   3
 range                                                  1
 ref_obj                                                3
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/AllBinding/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/AllBinding/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/AllBinding/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -134,7 +134,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -142,19 +142,19 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiName:dmem2exu_resp_i
     |vpiFullName:work@top.dmem2exu_resp_i
   |vpiNet:
   \_logic_net: (work@top.dmem2exu_resp_ii), line:3:37, endln:3:53
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiName:dmem2exu_resp_ii
     |vpiFullName:work@top.dmem2exu_resp_ii
   |vpiPort:
   \_port: (dmem2exu_resp_i), line:1:57, endln:1:72
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiName:dmem2exu_resp_i
     |vpiDirection:1
     |vpiLowConn:
@@ -209,12 +209,12 @@ design: (work@top)
 |vpiTypedef:
 \_enum_typespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top
   |vpiVariables:
   \_enum_var: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_enum_typespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
     |vpiName:dmem2exu_resp_i
@@ -223,7 +223,7 @@ design: (work@top)
   |vpiVariables:
   \_enum_var: (work@top.dmem2exu_resp_ii), line:3:37, endln:3:53
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_enum_typespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
     |vpiName:dmem2exu_resp_ii
@@ -235,7 +235,7 @@ design: (work@top)
   |vpiPort:
   \_port: (dmem2exu_resp_i), line:1:57, endln:1:72
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiName:dmem2exu_resp_i
     |vpiDirection:1
     |vpiLowConn:
@@ -249,7 +249,7 @@ design: (work@top)
     |vpiTypedef:
     \_enum_typespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

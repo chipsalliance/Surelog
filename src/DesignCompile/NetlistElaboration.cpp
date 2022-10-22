@@ -530,6 +530,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
         assigns->push_back(assign);
       }
     }
+    netlist->process_stmts(component->getProcesses());
   }
 
   if (recurse) {

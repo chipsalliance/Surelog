@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/UndersVal/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UndersVal/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/UndersVal/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<68> s<67> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -71,11 +71,11 @@ n<> u<65> t<Module_declaration> p<66> c<6> l<1:1> el<12:10>
 n<> u<66> t<Description> p<67> c<65> l<1:1> el<12:10>
 n<> u<67> t<Source_text> p<68> c<66> l<1:1> el<12:10>
 n<> u<68> t<Top_level_rule> c<1> l<1:1> el<15:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UndersVal/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/UndersVal/dut.sv:1:1: Compile module "work@dut".
 
 LIB:  work
 FILE: builtin.sv
@@ -337,7 +337,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/UndersVal/dut.sv:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -391,11 +391,11 @@ package                                                2
 range                                                  1
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/UndersVal/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UndersVal/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UndersVal/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UndersVal/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/UndersVal/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UndersVal/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -879,17 +879,17 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UndersVal/dut.sv, line:1:1, endln:12:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiTypedef:
   \_enum_typespec: (err_code_e), line:3:3, endln:10:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UndersVal/dut.sv, line:1:1, endln:12:10
     |vpiName:err_code_e
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UndersVal/dut.sv, line:1:1, endln:12:10
     |vpiBaseTypespec:
     \_logic_typespec: , line:3:16, endln:3:28
       |vpiRange:
@@ -948,7 +948,7 @@ design: (work@dut)
       |vpiSize:32
   |vpiDefName:work@dut
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UndersVal/dut.sv, line:1:1, endln:12:10
   |vpiName:work@dut
   |vpiTypedef:
   \_enum_typespec: (err_code_e), line:3:3, endln:10:16

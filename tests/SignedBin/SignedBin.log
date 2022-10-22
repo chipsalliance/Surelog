@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/SignedBin/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/SignedBin/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/SignedBin/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<49> s<48> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<13> s<3> l<1:1> el<1:7>
@@ -52,19 +52,19 @@ n<> u<46> t<Module_declaration> p<47> c<20> l<7:1> el<10:10>
 n<> u<47> t<Description> p<48> c<46> l<7:1> el<10:10>
 n<> u<48> t<Source_text> p<49> c<15> l<1:1> el<10:10>
 n<> u<49> t<Top_level_rule> c<1> l<1:1> el<12:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "prim_subreg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SignedBin/dut.sv:1:1: No timescale set for "prim_subreg".
 
-[WRN:PA0205] dut.sv:7:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SignedBin/dut.sv:7:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:7:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/SignedBin/dut.sv:7:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@prim_subreg".
+[INF:CP0303] ${SURELOG_DIR}/tests/SignedBin/dut.sv:1:1: Compile module "work@prim_subreg".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:7:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/SignedBin/dut.sv:7:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -100,11 +100,11 @@ operation                                              2
 port                                                   3
 ref_obj                                                3
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/SignedBin/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SignedBin/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/SignedBin/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SignedBin/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/SignedBin/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SignedBin/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -113,13 +113,13 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:5:10
+\_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@prim_subreg
@@ -127,14 +127,14 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
     |vpiName:test
     |vpiFullName:work@prim_subreg.test
     |vpiNetType:36
   |vpiPort:
   \_port: (test), line:2:13, endln:2:17
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
     |vpiName:test
     |vpiDirection:1
     |vpiLowConn:
@@ -144,35 +144,35 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:2:7, endln:2:12
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
+  \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
     |vpiName:s
     |vpiFullName:work@dut.s
     |vpiDefName:work@prim_subreg
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/SignedBin/dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
       |vpiParent:
-      \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
+      \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
       |vpiTypespec:
       \_logic_typespec: , line:2:7, endln:2:12
       |vpiName:test
       |vpiFullName:work@dut.s.test
       |vpiNetType:36
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
     |vpiPort:
     \_port: (test), line:2:13, endln:2:17
       |vpiParent:
-      \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
+      \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
       |vpiName:test
       |vpiDirection:1
       |vpiHighConn:
@@ -195,7 +195,7 @@ design: (work@dut)
       |vpiTypedef:
       \_logic_typespec: , line:2:7, endln:2:12
       |vpiInstance:
-      \_module: work@prim_subreg (work@dut.s), file:dut.sv, line:9:1, endln:9:36
+      \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

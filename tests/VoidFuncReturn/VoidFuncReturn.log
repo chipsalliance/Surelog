@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/VoidFuncReturn/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/VoidFuncReturn/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<102> s<101> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -105,15 +105,15 @@ n<> u<99> t<Module_declaration> p<100> c<6> l<1:1> el<11:10>
 n<> u<100> t<Description> p<101> c<99> l<1:1> el<11:10>
 n<> u<101> t<Source_text> p<102> c<100> l<1:1> el<11:10>
 n<> u<102> t<Top_level_rule> c<1> l<1:1> el<12:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -140,7 +140,7 @@ ref_obj                                                4
 return_stmt                                            1
 sys_func_call                                          2
 === UHDM Object Stats End ===
-[ERR:UH0715] dut.sv:5:8: Void function "add" returns a value.
+[ERR:UH0715] ${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv:5:8: Void function "add" returns a value.
 
 [INF:UH0707] Elaborating UHDM...
 
@@ -159,11 +159,11 @@ ref_obj                                                8
 return_stmt                                            2
 sys_func_call                                          4
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/VoidFuncReturn/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VoidFuncReturn/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/VoidFuncReturn/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/VoidFuncReturn/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/VoidFuncReturn/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/VoidFuncReturn/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -172,7 +172,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -180,12 +180,12 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.add), line:3:1, endln:6:12
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
     |vpiName:add
     |vpiFullName:work@top.add
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
     |vpiIODecl:
     \_io_decl: (a), line:3:23, endln:3:24
       |vpiDirection:1
@@ -260,11 +260,11 @@ design: (work@top)
             |vpiActual:
             \_io_decl: (b), line:3:30, endln:3:31
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
   |vpiProcess:
   \_initial: , line:8:1, endln:9:29
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
     |vpiStmt:
     \_sys_func_call: ($display), line:9:1, endln:9:28
       |vpiParent:
@@ -302,19 +302,19 @@ design: (work@top)
         \_function: (work@top.add), line:3:1, endln:6:12
       |vpiName:$display
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@top.add), line:3:1, endln:6:12
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
     |vpiName:add
     |vpiFullName:work@top.add
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
     |vpiIODecl:
     \_io_decl: (a), line:3:23, endln:3:24
       |vpiParent:
@@ -385,12 +385,12 @@ design: (work@top)
             |vpiActual:
             \_io_decl: (b), line:3:30, endln:3:31
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
   |vpiTopModule:1
   |vpiProcess:
   \_initial: , line:8:1, endln:9:29
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VoidFuncReturn/dut.sv, line:1:1, endln:11:10
     |vpiStmt:
     \_sys_func_call: ($display), line:9:1, endln:9:28
       |vpiParent:

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/NamedEventHierPath/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/NamedEventHierPath/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<67> s<66> l<1:1> el<1:0>
 n<> u<2> t<Package> p<64> s<3> l<1:1> el<1:8>
@@ -70,13 +70,13 @@ n<> u<64> t<Package_declaration> p<65> c<2> l<1:1> el<14:11>
 n<> u<65> t<Description> p<66> c<64> l<1:1> el<14:11>
 n<> u<66> t<Source_text> p<67> c<65> l<1:1> el<14:11>
 n<> u<67> t<Top_level_rule> c<1> l<1:1> el<16:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pack".
+[WRN:PA0205] ${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv:1:1: No timescale set for "pack".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pack".
+[INF:CP0301] ${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv:1:1: Compile package "pack".
 
-[INF:CP0302] dut.sv:3:1: Compile class "pack::uvm_event_base".
+[INF:CP0302] ${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv:3:1: Compile class "pack::uvm_event_base".
 
 [INF:EL0526] Design Elaboration...
 
@@ -126,11 +126,11 @@ package                                                3
 ref_obj                                                6
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/NamedEventHierPath/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NamedEventHierPath/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/NamedEventHierPath/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/NamedEventHierPath/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/NamedEventHierPath/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/NamedEventHierPath/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -139,14 +139,14 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:14:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pack
   |vpiFullName:pack::
   |vpiDefName:pack
 |uhdmtopPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:14:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pack
@@ -154,22 +154,22 @@ design: (unnamed)
   |vpiDefName:pack
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (pack::uvm_event_base), file:dut.sv, line:3:9, endln:12:9
+  \_class_defn: (pack::uvm_event_base), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:3:9, endln:12:9
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:1:1, endln:14:11
     |vpiName:uvm_event_base
     |vpiFullName:pack::uvm_event_base
     |vpiNamedEvent:
     \_named_event: (pack::uvm_event_base::m_event), line:4:23, endln:4:30
       |vpiParent:
-      \_class_defn: (pack::uvm_event_base), file:dut.sv, line:3:9, endln:12:9
+      \_class_defn: (pack::uvm_event_base), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:3:9, endln:12:9
       |vpiName:m_event
       |vpiFullName:pack::uvm_event_base::m_event
     |vpiVirtual:1
     |vpiMethod:
     \_function: (pack::uvm_event_base::do_copy), line:6:1, endln:6:8
       |vpiParent:
-      \_class_defn: (pack::uvm_event_base), file:dut.sv, line:3:9, endln:12:9
+      \_class_defn: (pack::uvm_event_base), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:3:9, endln:12:9
       |vpiName:do_copy
       |vpiFullName:pack::uvm_event_base::do_copy
       |vpiVariables:
@@ -179,14 +179,14 @@ design: (unnamed)
         |vpiTypespec:
         \_class_typespec: 
           |vpiClassDefn:
-          \_class_defn: (pack::uvm_event_base), file:dut.sv, line:3:9, endln:12:9
+          \_class_defn: (pack::uvm_event_base), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:3:9, endln:12:9
         |vpiName:e
         |vpiFullName:pack::uvm_event_base::do_copy::e
       |vpiMethod:1
       |vpiVisibility:1
       |vpiVirtual:1
       |vpiParent:
-      \_class_defn: (pack::uvm_event_base), file:dut.sv, line:3:9, endln:12:9
+      \_class_defn: (pack::uvm_event_base), file:${SURELOG_DIR}/tests/NamedEventHierPath/dut.sv, line:3:9, endln:12:9
       |vpiIODecl:
       \_io_decl: (rhs), line:6:43, endln:6:46
         |vpiParent:

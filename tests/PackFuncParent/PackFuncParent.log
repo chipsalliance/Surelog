@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackFuncParent/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackFuncParent/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackFuncParent/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<211> s<210> l<1:1> el<1:0>
 n<> u<2> t<Package> p<161> s<3> l<1:1> el<1:8>
@@ -214,19 +214,19 @@ n<> u<208> t<Module_declaration> p<209> c<184> l<13:1> el<15:10>
 n<> u<209> t<Description> p<210> c<208> l<13:1> el<15:10>
 n<> u<210> t<Source_text> p<211> c<162> l<1:1> el<15:10>
 n<> u<211> t<Top_level_rule> c<1> l<1:1> el<17:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "my_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackFuncParent/dut.sv:1:1: No timescale set for "my_pkg".
 
-[WRN:PA0205] dut.sv:13:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackFuncParent/dut.sv:13:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "my_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackFuncParent/dut.sv:1:1: Compile package "my_pkg".
 
-[INF:CP0303] dut.sv:13:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackFuncParent/dut.sv:13:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:13:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PackFuncParent/dut.sv:13:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -282,11 +282,11 @@ range                                                 20
 ref_obj                                               21
 return_stmt                                            8
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackFuncParent/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackFuncParent/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackFuncParent/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackFuncParent/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackFuncParent/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackFuncParent/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -295,7 +295,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+\_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:my_pkg
@@ -304,7 +304,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (my_pkg::sbox4_8bit), line:2:4, endln:4:28
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiName:sbox4_8bit
     |vpiFullName:my_pkg::sbox4_8bit
     |vpiVisibility:1
@@ -334,7 +334,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiIODecl:
     \_io_decl: (state_in), line:2:58, endln:2:66
       |vpiParent:
@@ -376,11 +376,11 @@ design: (work@top)
         |vpiActual:
         \_io_decl: (state_in), line:2:58, endln:2:66
     |vpiInstance:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
   |vpiTaskFunc:
   \_function: (my_pkg::sbox4_16bit), line:6:4, endln:10:29
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiName:sbox4_16bit
     |vpiFullName:my_pkg::sbox4_16bit
     |vpiVariables:
@@ -440,7 +440,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiIODecl:
     \_io_decl: (state_in), line:6:61, endln:6:69
       |vpiParent:
@@ -558,9 +558,9 @@ design: (work@top)
           |vpiActual:
           \_logic_var: (my_pkg::sbox4_16bit::state_out), line:7:20, endln:7:29
     |vpiInstance:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
 |uhdmtopPackages:
-\_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+\_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:my_pkg
@@ -570,7 +570,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (my_pkg::sbox4_8bit), line:2:4, endln:4:28
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiName:sbox4_8bit
     |vpiFullName:my_pkg::sbox4_8bit
     |vpiVisibility:1
@@ -580,7 +580,7 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:34
         |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:2:29, endln:2:34
           |vpiLeftRange:
@@ -600,7 +600,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiIODecl:
     \_io_decl: (state_in), line:2:58, endln:2:66
       |vpiParent:
@@ -610,7 +610,7 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:2:46, endln:2:57
         |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:2:52, endln:2:57
           |vpiLeftRange:
@@ -642,11 +642,11 @@ design: (work@top)
         |vpiActual:
         \_io_decl: (state_in), line:2:58, endln:2:66
     |vpiInstance:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
   |vpiTaskFunc:
   \_function: (my_pkg::sbox4_16bit), line:6:4, endln:10:29
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiName:sbox4_16bit
     |vpiFullName:my_pkg::sbox4_16bit
     |vpiVariables:
@@ -656,7 +656,7 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:19
         |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:7:13, endln:7:19
           |vpiParent:
@@ -686,7 +686,7 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:6:23, endln:6:35
         |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:6:29, endln:6:35
           |vpiLeftRange:
@@ -706,7 +706,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
     |vpiIODecl:
     \_io_decl: (state_in), line:6:61, endln:6:69
       |vpiParent:
@@ -716,7 +716,7 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:6:48, endln:6:60
         |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:6:54, endln:6:60
           |vpiLeftRange:
@@ -824,9 +824,9 @@ design: (work@top)
           |vpiActual:
           \_logic_var: (my_pkg::sbox4_16bit::state_out), line:7:20, endln:7:29
     |vpiInstance:
-    \_package: my_pkg (my_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -834,14 +834,14 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.o), line:13:32, endln:13:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
   |vpiPort:
   \_port: (o), line:13:32, endln:13:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -871,7 +871,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:14:11, endln:14:44
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiRhs:
     \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:21
       |vpiParent:
@@ -896,14 +896,14 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:13:32, endln:13:33
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@top.o), line:13:32, endln:13:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiTypespec:
     \_logic_typespec: , line:13:19, endln:13:31
       |vpiRange:
@@ -931,7 +931,7 @@ design: (work@top)
   |vpiPort:
   \_port: (o), line:13:32, endln:13:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -965,11 +965,11 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
   |vpiContAssign:
   \_cont_assign: , line:14:11, endln:14:44
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:13:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiRhs:
     \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:21
       |vpiParent:

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/DefaultNetType/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/DefaultNetType/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/DefaultNetType/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<360> s<359> l<1:1> el<1:0>
 n<> u<2> t<NetType_Wire> p<3> l<1:18> el<1:22>
@@ -363,35 +363,35 @@ n<> u<357> t<Module_declaration> p<358> c<186> l<28:1> el<49:10>
 n<> u<358> t<Description> p<359> c<357> l<28:1> el<49:10>
 n<> u<359> t<Source_text> p<360> c<5> l<1:1> el<49:10>
 n<> u<360> t<Top_level_rule> c<1> l<1:1> el<50:1>
-[WRN:PA0205] dut.sv:3:1: No timescale set for "ok".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:3:1: No timescale set for "ok".
 
-[WRN:PA0205] dut.sv:11:1: No timescale set for "M1".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:11:1: No timescale set for "M1".
 
-[WRN:PA0205] dut.sv:14:1: No timescale set for "bad1".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:14:1: No timescale set for "bad1".
 
-[WRN:PA0205] dut.sv:28:1: No timescale set for "bad2".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:28:1: No timescale set for "bad2".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:11:1: Compile module "work@M1".
+[INF:CP0303] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:11:1: Compile module "work@M1".
 
-[INF:CP0303] dut.sv:14:1: Compile module "work@bad1".
+[INF:CP0303] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:14:1: Compile module "work@bad1".
 
-[INF:CP0303] dut.sv:28:1: Compile module "work@bad2".
+[INF:CP0303] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:28:1: Compile module "work@bad2".
 
-[INF:CP0303] dut.sv:3:1: Compile module "work@ok".
+[INF:CP0303] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:3:1: Compile module "work@ok".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:3:1: Top level module "work@ok".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:3:1: Top level module "work@ok".
 
-[NTE:EL0503] dut.sv:14:1: Top level module "work@bad1".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:14:1: Top level module "work@bad1".
 
-[NTE:EL0503] dut.sv:28:1: Top level module "work@bad2".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:28:1: Top level module "work@bad2".
 
 [NTE:EL0504] Multiple top level modules in design.
 
-[ERR:EL0535] dut.sv:47:7: Illegal implicit net "b".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:47:7: Illegal implicit net "b".
 
 [NTE:EL0508] Nb Top level modules: 3.
 
@@ -403,19 +403,19 @@ n<> u<360> t<Top_level_rule> c<1> l<1:1> el<50:1>
 
 [INF:UH0706] Creating UHDM Model...
 
-[ERR:EL0535] dut.sv:16:8: Illegal implicit net "b".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:16:8: Illegal implicit net "b".
 
-[ERR:EL0535] dut.sv:32:21: Illegal implicit net "clock".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:32:21: Illegal implicit net "clock".
 
-[ERR:EL0535] dut.sv:33:4: Illegal implicit net "clear".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:33:4: Illegal implicit net "clear".
 
-[ERR:EL0535] dut.sv:40:14: Illegal implicit net "mode".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:40:14: Illegal implicit net "mode".
 
-[ERR:EL0535] dut.sv:41:21: Illegal implicit net "operation".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:41:21: Illegal implicit net "operation".
 
-[ERR:EL0535] dut.sv:42:21: Illegal implicit net "operation".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:42:21: Illegal implicit net "operation".
 
-[ERR:EL0535] dut.sv:43:22: Illegal implicit net "operation".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:43:22: Illegal implicit net "operation".
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 2
@@ -469,11 +469,11 @@ port                                                   3
 range                                                  4
 ref_obj                                               47
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/DefaultNetType/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefaultNetType/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DefaultNetType/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DefaultNetType/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/DefaultNetType/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DefaultNetType/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -482,7 +482,7 @@ design: (work@ok)
 |vpiElaborated:1
 |vpiName:work@ok
 |uhdmallModules:
-\_module: work@M1 (work@M1), file:dut.sv, line:11:1, endln:12:10
+\_module: work@M1 (work@M1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:11:1, endln:12:10
   |vpiParent:
   \_design: (work@ok)
   |vpiFullName:work@M1
@@ -490,13 +490,13 @@ design: (work@ok)
   |vpiNet:
   \_logic_net: (work@M1.b), line:11:17, endln:11:18
     |vpiParent:
-    \_module: work@M1 (work@M1), file:dut.sv, line:11:1, endln:12:10
+    \_module: work@M1 (work@M1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:11:1, endln:12:10
     |vpiName:b
     |vpiFullName:work@M1.b
   |vpiPort:
   \_port: (b), line:11:17, endln:11:18
     |vpiParent:
-    \_module: work@M1 (work@M1), file:dut.sv, line:11:1, endln:12:10
+    \_module: work@M1 (work@M1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:11:1, endln:12:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -506,7 +506,7 @@ design: (work@ok)
     |vpiTypedef:
     \_logic_typespec: , line:11:17, endln:11:17
 |uhdmallModules:
-\_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+\_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
   |vpiParent:
   \_design: (work@ok)
   |vpiFullName:work@bad1
@@ -514,7 +514,7 @@ design: (work@ok)
   |vpiTaskFunc:
   \_function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiName:__truncate_to_2_bits
     |vpiFullName:work@bad1.__truncate_to_2_bits
     |vpiVisibility:1
@@ -541,7 +541,7 @@ design: (work@ok)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiIODecl:
     \_io_decl: (i), line:18:49, endln:18:50
       |vpiDirection:1
@@ -589,18 +589,18 @@ design: (work@ok)
         |vpiActual:
         \_logic_var: (__truncate_to_2_bits), line:18:10, endln:18:15
     |vpiInstance:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
   |vpiNet:
   \_logic_net: (work@bad1.a), line:15:5, endln:15:6
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiName:a
     |vpiFullName:work@bad1.a
     |vpiNetType:48
   |vpiContAssign:
   \_cont_assign: , line:16:8, endln:16:11
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiRhs:
     \_ref_obj: (work@bad1.a), line:16:10, endln:16:11
       |vpiParent:
@@ -616,7 +616,7 @@ design: (work@ok)
       |vpiName:b
       |vpiFullName:work@bad1.b
 |uhdmallModules:
-\_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+\_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
   |vpiParent:
   \_design: (work@ok)
   |vpiFullName:work@bad2
@@ -624,19 +624,19 @@ design: (work@ok)
   |vpiNet:
   \_logic_net: (work@bad2.currentState), line:30:22, endln:30:34
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiName:currentState
     |vpiFullName:work@bad2.currentState
   |vpiNet:
   \_logic_net: (work@bad2.nextState), line:30:36, endln:30:45
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiName:nextState
     |vpiFullName:work@bad2.nextState
   |vpiProcess:
   \_always: , line:32:1, endln:37:4
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiStmt:
     \_event_control: , line:32:11, endln:32:27
       |vpiParent:
@@ -718,7 +718,7 @@ design: (work@ok)
   |vpiProcess:
   \_always: , line:39:3, endln:45:8
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiStmt:
     \_begin: (work@bad2), line:39:15, endln:45:8
       |vpiParent:
@@ -825,7 +825,7 @@ design: (work@ok)
               |vpiFullName:work@bad2.operation
     |vpiAlwaysType:2
 |uhdmallModules:
-\_module: work@ok (work@ok), file:dut.sv, line:3:1, endln:7:10
+\_module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
   |vpiParent:
   \_design: (work@ok)
   |vpiFullName:work@ok
@@ -833,14 +833,14 @@ design: (work@ok)
   |vpiNet:
   \_logic_net: (work@ok.a), line:4:5, endln:4:6
     |vpiParent:
-    \_module: work@ok (work@ok), file:dut.sv, line:3:1, endln:7:10
+    \_module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
     |vpiName:a
     |vpiFullName:work@ok.a
     |vpiNetType:48
   |vpiContAssign:
   \_cont_assign: , line:5:8, endln:5:11
     |vpiParent:
-    \_module: work@ok (work@ok), file:dut.sv, line:3:1, endln:7:10
+    \_module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
     |vpiRhs:
     \_ref_obj: (work@ok.a), line:5:10, endln:5:11
       |vpiParent:
@@ -922,14 +922,14 @@ design: (work@ok)
     |vpiDecompile:2'd0
     |vpiSize:2
 |uhdmtopModules:
-\_module: work@ok (work@ok), file:dut.sv, line:3:1, endln:7:10
+\_module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
   |vpiName:work@ok
   |vpiDefName:work@ok
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@ok.a), line:4:5, endln:4:6
     |vpiParent:
-    \_module: work@ok (work@ok), file:dut.sv, line:3:1, endln:7:10
+    \_module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:4:1, endln:4:4
     |vpiName:a
@@ -943,7 +943,7 @@ design: (work@ok)
   |vpiContAssign:
   \_cont_assign: , line:5:8, endln:5:11
     |vpiParent:
-    \_module: work@ok (work@ok), file:dut.sv, line:3:1, endln:7:10
+    \_module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
     |vpiRhs:
     \_ref_obj: (work@ok.a), line:5:10, endln:5:11
       |vpiParent:
@@ -961,21 +961,21 @@ design: (work@ok)
       |vpiActual:
       \_logic_net: (b)
 |uhdmtopModules:
-\_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+\_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
   |vpiName:work@bad1
   |vpiDefName:work@bad1
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiName:__truncate_to_2_bits
     |vpiFullName:work@bad1.__truncate_to_2_bits
     |vpiVisibility:1
     |vpiReturn:
     \_logic_var: , line:18:10, endln:18:15
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiIODecl:
     \_io_decl: (i), line:18:49, endln:18:50
       |vpiParent:
@@ -1007,11 +1007,11 @@ design: (work@ok)
         |vpiActual:
         \_logic_var: , line:18:10, endln:18:15
     |vpiInstance:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
   |vpiNet:
   \_logic_net: (work@bad1.a), line:15:5, endln:15:6
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiTypespec:
     \_logic_typespec: , line:15:1, endln:15:4
     |vpiName:a
@@ -1021,7 +1021,7 @@ design: (work@ok)
   |vpiContAssign:
   \_cont_assign: , line:16:8, endln:16:11
     |vpiParent:
-    \_module: work@bad1 (work@bad1), file:dut.sv, line:14:1, endln:22:10
+    \_module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiRhs:
     \_ref_obj: (work@bad1.a), line:16:10, endln:16:11
       |vpiParent:
@@ -1037,12 +1037,12 @@ design: (work@ok)
       |vpiName:b
       |vpiFullName:work@bad1.b
 |uhdmtopModules:
-\_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+\_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
   |vpiName:work@bad2
   |vpiVariables:
   \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiTypespec:
     \_enum_typespec: 
       |vpiEnumConst:
@@ -1075,7 +1075,7 @@ design: (work@ok)
   |vpiVariables:
   \_enum_var: (work@bad2.nextState), line:30:36, endln:30:45
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiTypespec:
     \_enum_typespec: 
     |vpiName:nextState
@@ -1086,14 +1086,14 @@ design: (work@ok)
   |vpiNet:
   \_logic_net: (work@bad2.b), line:47:7, endln:47:8
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiName:b
     |vpiFullName:work@bad2.b
   |vpiTopModule:1
   |vpiProcess:
   \_always: , line:32:1, endln:37:4
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiStmt:
     \_event_control: , line:32:11, endln:32:27
       |vpiParent:
@@ -1175,7 +1175,7 @@ design: (work@ok)
   |vpiProcess:
   \_always: , line:39:3, endln:45:8
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiStmt:
     \_begin: (work@bad2), line:39:15, endln:45:8
       |vpiParent:
@@ -1282,28 +1282,28 @@ design: (work@ok)
               |vpiFullName:work@bad2.operation
     |vpiAlwaysType:2
   |vpiModule:
-  \_module: work@M1 (work@bad2.m1), file:dut.sv, line:47:1, endln:47:10
+  \_module: work@M1 (work@bad2.m1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:47:1, endln:47:10
     |vpiParent:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiName:m1
     |vpiFullName:work@bad2.m1
     |vpiDefName:work@M1
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/DefaultNetType/dut.sv
     |vpiDefLineNo:11
     |vpiNet:
     \_logic_net: (work@bad2.m1.b), line:11:17, endln:11:18
       |vpiParent:
-      \_module: work@M1 (work@bad2.m1), file:dut.sv, line:47:1, endln:47:10
+      \_module: work@M1 (work@bad2.m1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:47:1, endln:47:10
       |vpiTypespec:
       \_logic_typespec: , line:11:17, endln:11:17
       |vpiName:b
       |vpiFullName:work@bad2.m1.b
     |vpiInstance:
-    \_module: work@bad2 (work@bad2), file:dut.sv, line:28:1, endln:49:10
+    \_module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiPort:
     \_port: (b), line:11:17, endln:11:18
       |vpiParent:
-      \_module: work@M1 (work@bad2.m1), file:dut.sv, line:47:1, endln:47:10
+      \_module: work@M1 (work@bad2.m1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:47:1, endln:47:10
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
@@ -1325,7 +1325,7 @@ design: (work@ok)
       |vpiTypedef:
       \_logic_typespec: , line:11:17, endln:11:17
       |vpiInstance:
-      \_module: work@M1 (work@bad2.m1), file:dut.sv, line:47:1, endln:47:10
+      \_module: work@M1 (work@bad2.m1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:47:1, endln:47:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

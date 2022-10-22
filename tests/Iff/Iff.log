@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/Iff/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/Iff/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/Iff/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<112> s<111> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -115,15 +115,15 @@ n<> u<109> t<Module_declaration> p<110> c<6> l<1:1> el<8:10>
 n<> u<110> t<Description> p<111> c<109> l<1:1> el<8:10>
 n<> u<111> t<Source_text> p<112> c<110> l<1:1> el<8:10>
 n<> u<112> t<Top_level_rule> c<1> l<1:1> el<9:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "block_tb".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Iff/dut.sv:1:1: No timescale set for "block_tb".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@block_tb".
+[INF:CP0303] ${SURELOG_DIR}/tests/Iff/dut.sv:1:1: Compile module "work@block_tb".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@block_tb".
+[NTE:EL0503] ${SURELOG_DIR}/tests/Iff/dut.sv:1:1: Top level module "work@block_tb".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -163,11 +163,11 @@ module                                                 2
 operation                                              6
 ref_obj                                                8
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/Iff/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Iff/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Iff/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Iff/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/Iff/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Iff/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -176,7 +176,7 @@ design: (work@block_tb)
 |vpiElaborated:1
 |vpiName:work@block_tb
 |uhdmallModules:
-\_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+\_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@block_tb)
   |vpiFullName:work@block_tb
@@ -184,35 +184,35 @@ design: (work@block_tb)
   |vpiNet:
   \_logic_net: (work@block_tb.clk), line:2:7, endln:2:10
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiName:clk
     |vpiFullName:work@block_tb.clk
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@block_tb.en), line:3:7, endln:3:9
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiName:en
     |vpiFullName:work@block_tb.en
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@block_tb.a), line:4:7, endln:4:8
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@block_tb.y), line:5:6, endln:5:7
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiName:y
     |vpiFullName:work@block_tb.y
     |vpiNetType:48
   |vpiProcess:
   \_always: , line:6:2, endln:7:18
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiStmt:
     \_event_control: , line:6:9, endln:6:35
       |vpiParent:
@@ -279,14 +279,14 @@ design: (work@block_tb)
           \_logic_net: (work@block_tb.y), line:5:6, endln:5:7
     |vpiAlwaysType:1
 |uhdmtopModules:
-\_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+\_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
   |vpiName:work@block_tb
   |vpiDefName:work@block_tb
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@block_tb.clk), line:2:7, endln:2:10
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:2:2, endln:2:6
     |vpiName:clk
@@ -295,7 +295,7 @@ design: (work@block_tb)
   |vpiNet:
   \_logic_net: (work@block_tb.en), line:3:7, endln:3:9
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:3:2, endln:3:6
     |vpiName:en
@@ -304,7 +304,7 @@ design: (work@block_tb)
   |vpiNet:
   \_logic_net: (work@block_tb.a), line:4:7, endln:4:8
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:4:2, endln:4:6
     |vpiName:a
@@ -313,7 +313,7 @@ design: (work@block_tb)
   |vpiNet:
   \_logic_net: (work@block_tb.y), line:5:6, endln:5:7
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:5:2, endln:5:5
     |vpiName:y
@@ -323,7 +323,7 @@ design: (work@block_tb)
   |vpiProcess:
   \_always: , line:6:2, endln:7:18
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiStmt:
     \_event_control: , line:6:9, endln:6:35
       |vpiParent:
@@ -386,7 +386,7 @@ design: (work@block_tb)
   |vpiContAssign:
   \_cont_assign: , line:2:7, endln:2:10
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:2:13, endln:2:14
@@ -401,7 +401,7 @@ design: (work@block_tb)
   |vpiContAssign:
   \_cont_assign: , line:3:7, endln:3:9
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:3:12, endln:3:13
@@ -416,7 +416,7 @@ design: (work@block_tb)
   |vpiContAssign:
   \_cont_assign: , line:4:7, endln:4:8
     |vpiParent:
-    \_module: work@block_tb (work@block_tb), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:4:11, endln:4:12

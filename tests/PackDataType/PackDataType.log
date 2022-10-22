@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackDataType/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackDataType/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackDataType/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<180> s<179> l<1:1> el<1:0>
 n<> u<2> t<Package> p<66> s<3> l<1:1> el<1:8>
@@ -183,19 +183,19 @@ n<> u<177> t<Module_declaration> p<178> c<89> l<16:1> el<24:10>
 n<> u<178> t<Description> p<179> c<177> l<16:1> el<24:10>
 n<> u<179> t<Source_text> p<180> c<67> l<1:1> el<24:10>
 n<> u<180> t<Top_level_rule> c<1> l<1:1> el<25:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "keymgr_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackDataType/dut.sv:1:1: No timescale set for "keymgr_pkg".
 
-[WRN:PA0205] dut.sv:13:1: No timescale set for "OK".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackDataType/dut.sv:13:1: No timescale set for "OK".
 
-[WRN:PA0205] dut.sv:16:1: No timescale set for "kmac_keymgr".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackDataType/dut.sv:16:1: No timescale set for "kmac_keymgr".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "keymgr_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackDataType/dut.sv:1:1: Compile package "keymgr_pkg".
 
-[INF:CP0303] dut.sv:13:1: Compile module "work@OK".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackDataType/dut.sv:13:1: Compile module "work@OK".
 
-[INF:CP0303] dut.sv:16:1: Compile module "work@kmac_keymgr".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackDataType/dut.sv:16:1: Compile module "work@kmac_keymgr".
 
 LIB:  work
 FILE: builtin.sv
@@ -457,9 +457,9 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:19:2: Compile generate block "work@kmac_keymgr.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/PackDataType/dut.sv:19:2: Compile generate block "work@kmac_keymgr.genblk1".
 
-[NTE:EL0503] dut.sv:16:1: Top level module "work@kmac_keymgr".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PackDataType/dut.sv:16:1: Top level module "work@kmac_keymgr".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -541,11 +541,11 @@ struct_typespec                                        2
 task                                                  18
 typespec_member                                        6
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackDataType/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackDataType/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackDataType/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackDataType/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackDataType/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackDataType/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -561,7 +561,7 @@ design: (work@kmac_keymgr)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+\_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
   |vpiParent:
   \_design: (work@kmac_keymgr)
   |vpiName:keymgr_pkg
@@ -569,7 +569,7 @@ design: (work@kmac_keymgr)
   |vpiParameter:
   \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24
     |vpiParent:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:12, endln:3:15
@@ -584,7 +584,7 @@ design: (work@kmac_keymgr)
   |vpiParamAssign:
   \_param_assign: , line:3:16, endln:3:30
     |vpiParent:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiRhs:
     \_constant: , line:3:27, endln:3:30
       |vpiDecompile:256
@@ -598,10 +598,10 @@ design: (work@kmac_keymgr)
   |vpiTypedef:
   \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
     |vpiParent:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiName:keymgr_pkg::kmac_data_rsp_t
     |vpiInstance:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (ready), line:6:11, endln:6:16
@@ -614,7 +614,7 @@ design: (work@kmac_keymgr)
         \_typespec_member: (ready), line:6:11, endln:6:16
         |vpiInstance:
         \_package: (keymgr_pkg)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackDataType/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:6
@@ -630,7 +630,7 @@ design: (work@kmac_keymgr)
         \_typespec_member: (done), line:7:11, endln:7:15
         |vpiInstance:
         \_package: (keymgr_pkg)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackDataType/dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:7
@@ -679,7 +679,7 @@ design: (work@kmac_keymgr)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackDataType/dut.sv
       |vpiRefLineNo:8
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:8
@@ -724,7 +724,7 @@ design: (work@kmac_keymgr)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+\_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
   |vpiParent:
   \_design: (work@kmac_keymgr)
   |vpiName:keymgr_pkg
@@ -732,14 +732,14 @@ design: (work@kmac_keymgr)
   |vpiParameter:
   \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24
     |vpiParent:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |UINT:256
     |vpiTypespec:
     \_int_typespec: , line:3:12, endln:3:15
       |vpiParent:
       \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24
       |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:KeyWidth
@@ -747,7 +747,7 @@ design: (work@kmac_keymgr)
   |vpiParamAssign:
   \_param_assign: , line:3:16, endln:3:30
     |vpiParent:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiRhs:
     \_constant: , line:3:27, endln:3:30
       |vpiDecompile:256
@@ -761,10 +761,10 @@ design: (work@kmac_keymgr)
   |vpiTypedef:
   \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
     |vpiParent:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiName:keymgr_pkg::kmac_data_rsp_t
     |vpiInstance:
-    \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (ready), line:6:11, endln:6:16
@@ -776,8 +776,8 @@ design: (work@kmac_keymgr)
         |vpiParent:
         \_typespec_member: (ready), line:6:11, endln:6:16
         |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
-      |vpiRefFile:dut.sv
+        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
+      |vpiRefFile:${SURELOG_DIR}/tests/PackDataType/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:6
@@ -792,8 +792,8 @@ design: (work@kmac_keymgr)
         |vpiParent:
         \_typespec_member: (done), line:7:11, endln:7:15
         |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
-      |vpiRefFile:dut.sv
+        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
+      |vpiRefFile:${SURELOG_DIR}/tests/PackDataType/dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:7
@@ -808,7 +808,7 @@ design: (work@kmac_keymgr)
         |vpiParent:
         \_typespec_member: (digest_share0), line:8:27, endln:8:40
         |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:dut.sv, line:1:1, endln:11:11
+        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:8:11, endln:8:26
           |vpiParent:
@@ -829,7 +829,7 @@ design: (work@kmac_keymgr)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackDataType/dut.sv
       |vpiRefLineNo:8
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:8
@@ -1267,20 +1267,20 @@ design: (work@kmac_keymgr)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@OK (work@OK), file:dut.sv, line:13:1, endln:14:10
+\_module: work@OK (work@OK), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:13:1, endln:14:10
   |vpiParent:
   \_design: (work@kmac_keymgr)
   |vpiFullName:work@OK
   |vpiDefName:work@OK
 |uhdmallModules:
-\_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+\_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
   |vpiParent:
   \_design: (work@kmac_keymgr)
   |vpiFullName:work@kmac_keymgr
   |vpiParameter:
   \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |UINT:247
     |vpiTypespec:
     \_int_typespec: , line:18:13, endln:18:16
@@ -1294,7 +1294,7 @@ design: (work@kmac_keymgr)
   |vpiParamAssign:
   \_param_assign: , line:18:17, endln:18:67
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiRhs:
     \_constant: , line:18:33, endln:18:67
       |vpiDecompile:247
@@ -1309,21 +1309,21 @@ design: (work@kmac_keymgr)
   |vpiNet:
   \_logic_net: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiName:keymgr_data_o
     |vpiFullName:work@kmac_keymgr.keymgr_data_o
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:41
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiName:keymgr_digest
     |vpiFullName:work@kmac_keymgr.keymgr_digest
     |vpiNetType:36
   |vpiPort:
   \_port: (keymgr_data_o), line:16:55, endln:16:68
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiName:keymgr_data_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1333,12 +1333,12 @@ design: (work@kmac_keymgr)
     |vpiTypedef:
     \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
 |uhdmtopModules:
-\_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+\_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
   |vpiName:work@kmac_keymgr
   |vpiVariables:
   \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiSize:2
     |vpiTypespec:
     \_array_typespec: 
@@ -1419,7 +1419,7 @@ design: (work@kmac_keymgr)
   |vpiParameter:
   \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18:17, endln:18:30
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |UINT:247
     |vpiTypespec:
     \_int_typespec: , line:18:13, endln:18:16
@@ -1433,7 +1433,7 @@ design: (work@kmac_keymgr)
   |vpiParamAssign:
   \_param_assign: , line:18:17, endln:18:67
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiRhs:
     \_constant: , line:18:33, endln:18:67
       |vpiDecompile:247
@@ -1449,7 +1449,7 @@ design: (work@kmac_keymgr)
   |vpiNet:
   \_struct_net: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiTypespec:
     \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
     |vpiName:keymgr_data_o
@@ -1459,7 +1459,7 @@ design: (work@kmac_keymgr)
   |vpiPort:
   \_port: (keymgr_data_o), line:16:55, endln:16:68
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiName:keymgr_data_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1473,11 +1473,11 @@ design: (work@kmac_keymgr)
     |vpiTypedef:
     \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
     |vpiInstance:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
   |vpiGenScopeArray:
   \_gen_scope_array: (work@kmac_keymgr.genblk1), line:19:2, endln:20:12
     |vpiParent:
-    \_module: work@kmac_keymgr (work@kmac_keymgr), file:dut.sv, line:16:1, endln:24:10
+    \_module: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiName:genblk1
     |vpiFullName:work@kmac_keymgr.genblk1
     |vpiGenScope:
@@ -1486,13 +1486,13 @@ design: (work@kmac_keymgr)
       \_gen_scope_array: (work@kmac_keymgr.genblk1), line:19:2, endln:20:12
       |vpiFullName:work@kmac_keymgr.genblk1
       |vpiModule:
-      \_module: work@OK (work@kmac_keymgr.genblk1.ok), file:dut.sv, line:20:4, endln:20:12
+      \_module: work@OK (work@kmac_keymgr.genblk1.ok), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:20:4, endln:20:12
         |vpiParent:
         \_gen_scope: (work@kmac_keymgr.genblk1)
         |vpiName:ok
         |vpiFullName:work@kmac_keymgr.genblk1.ok
         |vpiDefName:work@OK
-        |vpiDefFile:dut.sv
+        |vpiDefFile:${SURELOG_DIR}/tests/PackDataType/dut.sv
         |vpiDefLineNo:13
 ===================
 [  FATAL] : 0

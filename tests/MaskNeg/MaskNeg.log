@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/MaskNeg/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/MaskNeg/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/MaskNeg/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<57> s<56> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -60,19 +60,19 @@ n<> u<54> t<Module_declaration> p<55> c<31> l<5:1> el<9:10>
 n<> u<55> t<Description> p<56> c<54> l<5:1> el<9:10>
 n<> u<56> t<Source_text> p<57> c<28> l<1:1> el<9:10>
 n<> u<57> t<Top_level_rule> c<1> l<1:1> el<10:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/MaskNeg/dut.sv:1:1: No timescale set for "dut".
 
-[WRN:PA0205] dut.sv:5:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/MaskNeg/dut.sv:5:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/MaskNeg/dut.sv:1:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:5:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/MaskNeg/dut.sv:5:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:5:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/MaskNeg/dut.sv:5:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -106,11 +106,11 @@ param_assign                                           2
 parameter                                              2
 range                                                  2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/MaskNeg/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MaskNeg/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/MaskNeg/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/MaskNeg/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/MaskNeg/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/MaskNeg/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -119,14 +119,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:3:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.RESVAL), line:2:26, endln:2:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:3:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:25
       |vpiParent:
@@ -154,32 +154,32 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:26, endln:2:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:3:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:1:1, endln:3:10
     |vpiLhs:
     \_parameter: (work@dut.RESVAL), line:2:26, endln:2:32
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:5:1, endln:9:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:5:1, endln:9:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:5:1, endln:9:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:5:1, endln:9:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@dut (work@top.u_dut), file:dut.sv, line:6:4, endln:8:14
+  \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:6:4, endln:8:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:9:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:5:1, endln:9:10
     |vpiName:u_dut
     |vpiFullName:work@top.u_dut
     |vpiParameter:
     \_parameter: (work@top.u_dut.RESVAL), line:2:26, endln:2:32
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:6:4, endln:8:14
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:6:4, endln:8:14
       |vpiTypespec:
       \_logic_typespec: , line:2:14, endln:2:25
         |vpiParent:
@@ -209,7 +209,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:26, endln:2:32
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:6:4, endln:8:14
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:6:4, endln:8:14
       |vpiOverriden:1
       |vpiRhs:
       \_constant: 
@@ -222,10 +222,10 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.u_dut.RESVAL), line:2:26, endln:2:32
     |vpiDefName:work@dut
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/MaskNeg/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:9:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:5:1, endln:9:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

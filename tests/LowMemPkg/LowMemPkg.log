@@ -1,11 +1,11 @@
-[INF:CM0023] Creating log file ../../build/regression/LowMemPkg/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/surelog.log.
 
-Running: cd "${SURELOG_DIR}/tests/LowMemPkg"; "${SURELOG_DIR}/build/bin/surelog" -o "../../build/regression/LowMemPkg" -nostdout -batch "../../build/regression/LowMemPkg/slpp_all/pp_batch.txt"
+Running: cd "${SURELOG_DIR}/tests/LowMemPkg"; "${SURELOG_DIR}/build/bin/surelog" -o "${SURELOG_DIR}/build/regression/LowMemPkg" -nostdout -batch "${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/pp_batch.txt"
 Surelog preproc status: 0
-Running: cd "${SURELOG_DIR}/tests/LowMemPkg"; "${SURELOG_DIR}/build/bin/surelog" -o "../../build/regression/LowMemPkg" -nostdout -batch "../../build/regression/LowMemPkg/slpp_all/parser_batch.txt"
+Running: cd "${SURELOG_DIR}/tests/LowMemPkg"; "${SURELOG_DIR}/build/bin/surelog" -o "${SURELOG_DIR}/build/regression/LowMemPkg" -nostdout -batch "${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/parser_batch.txt"
 Surelog parsing status: 0
 LIB:  work
-FILE: wddr_pkg.sv
+FILE: ${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<15> s<14> l<19:1> el<17:85>
 n<> u<2> t<Package> p<12> s<3> l<19:1> el<19:8>
@@ -23,16 +23,16 @@ n<> u<13> t<Description> p<14> c<12> l<19:1> el<22:11>
 n<> u<14> t<Source_text> p<15> c<13> l<19:1> el<22:11>
 n<> u<15> t<Top_level_rule> c<1> l<19:1> el<23:1>
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/LowMemPkg/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<38> s<37> f<23> l<3:1> el<2:2>
-n<wddr_pkg> u<2> t<StringConst> p<3> f<23> l<3:8> el<3:16>
-n<> u<3> t<Package_import_item> p<4> c<2> f<23> l<3:8> el<3:19>
-n<> u<4> t<Package_import_declaration> p<5> c<3> f<23> l<3:1> el<3:20>
-n<> u<5> t<Data_declaration> p<6> c<4> f<23> l<3:1> el<3:20>
-n<> u<6> t<Package_or_generate_item_declaration> p<7> c<5> f<23> l<3:1> el<3:20>
-n<> u<7> t<Package_item> p<8> c<6> f<23> l<3:1> el<3:20>
-n<> u<8> t<Description> p<37> c<7> s<36> f<23> l<3:1> el<3:20>
+n<> u<1> t<Null_rule> p<38> s<37> f<24> l<3:1> el<2:2>
+n<wddr_pkg> u<2> t<StringConst> p<3> f<24> l<3:8> el<3:16>
+n<> u<3> t<Package_import_item> p<4> c<2> f<24> l<3:8> el<3:19>
+n<> u<4> t<Package_import_declaration> p<5> c<3> f<24> l<3:1> el<3:20>
+n<> u<5> t<Data_declaration> p<6> c<4> f<24> l<3:1> el<3:20>
+n<> u<6> t<Package_or_generate_item_declaration> p<7> c<5> f<24> l<3:1> el<3:20>
+n<> u<7> t<Package_item> p<8> c<6> f<24> l<3:1> el<3:20>
+n<> u<8> t<Description> p<37> c<7> s<36> f<24> l<3:1> el<3:20>
 n<> u<9> t<Module_keyword> p<13> s<10> l<4:1> el<4:7>
 n<top> u<10> t<StringConst> p<13> s<12> l<4:8> el<4:11>
 n<> u<11> t<Port> p<12> l<4:12> el<4:12>
@@ -61,21 +61,21 @@ n<> u<33> t<Non_port_module_item> p<34> c<32> l<6:4> el<6:12>
 n<> u<34> t<Module_item> p<35> c<33> l<6:4> el<6:12>
 n<> u<35> t<Module_declaration> p<36> c<13> l<4:1> el<8:10>
 n<> u<36> t<Description> p<37> c<35> l<4:1> el<8:10>
-n<> u<37> t<Source_text> p<38> c<8> f<23> l<3:1> el<8:10>
-n<> u<38> t<Top_level_rule> c<1> f<23> l<3:1> el<9:1>
-[WRN:PA0205] wddr_pkg.sv:19:1: No timescale set for "wddr_pkg".
+n<> u<37> t<Source_text> p<38> c<8> f<24> l<3:1> el<8:10>
+n<> u<38> t<Top_level_rule> c<1> f<24> l<3:1> el<9:1>
+[WRN:PA0205] ${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv:19:1: No timescale set for "wddr_pkg".
 
-[WRN:PA0205] dut.sv:4:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/LowMemPkg/dut.sv:4:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] wddr_pkg.sv:19:1: Compile package "wddr_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv:19:1: Compile package "wddr_pkg".
 
-[INF:CP0303] dut.sv:4:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/LowMemPkg/dut.sv:4:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:4:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/LowMemPkg/dut.sv:4:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -107,11 +107,11 @@ logic_var                                              2
 module                                                 2
 package                                                3
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/LowMemPkg/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -120,10 +120,10 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |vpiIncludeFileInfo:
-\_include_file_info: , file:dut.sv, line:2:10, endln:2:25
-  |vpiIncludedFile:pack_incl.svh
+\_include_file_info: , file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:2:10, endln:2:25
+  |vpiIncludedFile:${SURELOG_DIR}/tests/LowMemPkg/pack_incl.svh
 |uhdmallPackages:
-\_package: wddr_pkg (wddr_pkg::), file:wddr_pkg.sv, line:19:1, endln:22:11
+\_package: wddr_pkg (wddr_pkg::), file:${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv, line:19:1, endln:22:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:wddr_pkg
@@ -131,13 +131,13 @@ design: (work@top)
   |vpiTypedef:
   \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
     |vpiParent:
-    \_package: wddr_pkg (wddr_pkg::), file:wddr_pkg.sv, line:19:1, endln:22:11
+    \_package: wddr_pkg (wddr_pkg::), file:${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv, line:19:1, endln:22:11
     |vpiName:wddr_pkg::my_logic
     |vpiInstance:
-    \_package: wddr_pkg (wddr_pkg::), file:wddr_pkg.sv, line:19:1, endln:22:11
+    \_package: wddr_pkg (wddr_pkg::), file:${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv, line:19:1, endln:22:11
   |vpiDefName:wddr_pkg
 |uhdmtopPackages:
-\_package: wddr_pkg (wddr_pkg::), file:wddr_pkg.sv, line:19:1, endln:22:11
+\_package: wddr_pkg (wddr_pkg::), file:${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv, line:19:1, endln:22:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:wddr_pkg
@@ -145,14 +145,14 @@ design: (work@top)
   |vpiTypedef:
   \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:8:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiName:wddr_pkg::my_logic
     |vpiInstance:
-    \_package: wddr_pkg (wddr_pkg::), file:wddr_pkg.sv, line:19:1, endln:22:11
+    \_package: wddr_pkg (wddr_pkg::), file:${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv, line:19:1, endln:22:11
   |vpiDefName:wddr_pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:4:1, endln:8:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -162,24 +162,24 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.a), line:5:13, endln:5:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:8:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@top.b), line:6:10, endln:6:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:8:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:4:1, endln:8:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.a), line:5:13, endln:5:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:8:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
     |vpiName:a
@@ -188,7 +188,7 @@ design: (work@top)
   |vpiVariables:
   \_logic_var: (work@top.b), line:6:10, endln:6:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:4:1, endln:8:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:6:4, endln:6:9
     |vpiName:b

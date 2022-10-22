@@ -1,23 +1,23 @@
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="BLAH"
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:3:4: Compile generate block "work@top.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:3:4: Compile generate block "work@top.genblk1".
 
-[INF:CP0335] dut.sv:24:4: Compile generate block "work@top.genblk8".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:4:7: Cannot find a module definition for "work@top.genblk1::GOOD_BLAH".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:4:7: Cannot find a module definition for "work@top.genblk1::GOOD_BLAH".
 
-[WRN:EL0500] dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -48,21 +48,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -83,19 +83,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:BLAH
@@ -110,7 +110,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
@@ -119,7 +119,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7
       |vpiFullName:work@top.genblk1
       |vpiModule:
-      \_module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good), file:dut.sv, line:4:7, endln:4:24
+      \_module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:4:7, endln:4:24
         |vpiParent:
         \_gen_scope: (work@top.genblk1)
         |vpiName:good
@@ -128,7 +128,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk8
     |vpiFullName:work@top.genblk8
     |vpiGenScope:
@@ -137,7 +137,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
       |vpiFullName:work@top.genblk8
       |vpiModule:
-      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:dut.sv, line:25:7, endln:25:21
+      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
         |vpiParent:
         \_gen_scope: (work@top.genblk8)
         |vpiName:good
@@ -152,19 +152,19 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=4'b1001
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:6:4: Compile generate block "work@top.genblk2".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:6:4: Compile generate block "work@top.genblk2".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:7:7: Cannot find a module definition for "work@top.genblk2::GOOD_BIN1".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:7:7: Cannot find a module definition for "work@top.genblk2::GOOD_BIN1".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -195,21 +195,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -230,19 +230,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:4'b1001
@@ -257,7 +257,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk2), line:6:4, endln:8:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk2
     |vpiFullName:work@top.genblk2
     |vpiGenScope:
@@ -266,7 +266,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk2), line:6:4, endln:8:7
       |vpiFullName:work@top.genblk2
       |vpiModule:
-      \_module: work@top.genblk2::GOOD_BIN1 (work@top.genblk2.good), file:dut.sv, line:7:7, endln:7:24
+      \_module: work@top.genblk2::GOOD_BIN1 (work@top.genblk2.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:7:7, endln:7:24
         |vpiParent:
         \_gen_scope: (work@top.genblk2)
         |vpiName:good
@@ -281,15 +281,15 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp='b1002
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -316,21 +316,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -351,19 +351,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:'b1002
@@ -383,19 +383,19 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp='hFF
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:12:4: Compile generate block "work@top.genblk4".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:12:4: Compile generate block "work@top.genblk4".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:13:7: Cannot find a module definition for "work@top.genblk4::GOOD_HEXA".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:13:7: Cannot find a module definition for "work@top.genblk4::GOOD_HEXA".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -426,21 +426,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -461,19 +461,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:'hFF
@@ -487,7 +487,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk4), line:12:4, endln:14:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk4
     |vpiFullName:work@top.genblk4
     |vpiGenScope:
@@ -496,7 +496,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk4), line:12:4, endln:14:7
       |vpiFullName:work@top.genblk4
       |vpiModule:
-      \_module: work@top.genblk4::GOOD_HEXA (work@top.genblk4.good), file:dut.sv, line:13:7, endln:13:24
+      \_module: work@top.genblk4::GOOD_HEXA (work@top.genblk4.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:13:7, endln:13:24
         |vpiParent:
         \_gen_scope: (work@top.genblk4)
         |vpiName:good
@@ -511,19 +511,19 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=-12
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:15:4: Compile generate block "work@top.genblk5".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:15:4: Compile generate block "work@top.genblk5".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:16:7: Cannot find a module definition for "work@top.genblk5::GOOD_MINUS12".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:16:7: Cannot find a module definition for "work@top.genblk5::GOOD_MINUS12".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -554,21 +554,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -589,19 +589,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:-12
@@ -616,7 +616,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk5), line:15:4, endln:17:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk5
     |vpiFullName:work@top.genblk5
     |vpiGenScope:
@@ -625,7 +625,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk5), line:15:4, endln:17:7
       |vpiFullName:work@top.genblk5
       |vpiModule:
-      \_module: work@top.genblk5::GOOD_MINUS12 (work@top.genblk5.good), file:dut.sv, line:16:7, endln:16:27
+      \_module: work@top.genblk5::GOOD_MINUS12 (work@top.genblk5.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:16:7, endln:16:27
         |vpiParent:
         \_gen_scope: (work@top.genblk5)
         |vpiName:good
@@ -640,19 +640,19 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=12
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:18:4: Compile generate block "work@top.genblk6".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:18:4: Compile generate block "work@top.genblk6".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:19:7: Cannot find a module definition for "work@top.genblk6::GOOD_12".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:19:7: Cannot find a module definition for "work@top.genblk6::GOOD_12".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -683,21 +683,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -718,19 +718,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:12
@@ -745,7 +745,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk6), line:18:4, endln:20:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk6
     |vpiFullName:work@top.genblk6
     |vpiGenScope:
@@ -754,7 +754,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk6), line:18:4, endln:20:7
       |vpiFullName:work@top.genblk6
       |vpiModule:
-      \_module: work@top.genblk6::GOOD_12 (work@top.genblk6.good), file:dut.sv, line:19:7, endln:19:22
+      \_module: work@top.genblk6::GOOD_12 (work@top.genblk6.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:19:7, endln:19:22
         |vpiParent:
         \_gen_scope: (work@top.genblk6)
         |vpiName:good
@@ -769,19 +769,19 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=12.12
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:21:4: Compile generate block "work@top.genblk7".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:21:4: Compile generate block "work@top.genblk7".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:22:7: Cannot find a module definition for "work@top.genblk7::GOOD_REAL12".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:22:7: Cannot find a module definition for "work@top.genblk7::GOOD_REAL12".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -812,21 +812,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -847,19 +847,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:12.120000
@@ -874,7 +874,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk7), line:21:4, endln:23:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk7
     |vpiFullName:work@top.genblk7
     |vpiGenScope:
@@ -883,7 +883,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk7), line:21:4, endln:23:7
       |vpiFullName:work@top.genblk7
       |vpiModule:
-      \_module: work@top.genblk7::GOOD_REAL12 (work@top.genblk7.good), file:dut.sv, line:22:7, endln:22:26
+      \_module: work@top.genblk7::GOOD_REAL12 (work@top.genblk7.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:22:7, endln:22:26
         |vpiParent:
         \_gen_scope: (work@top.genblk7)
         |vpiName:good
@@ -898,31 +898,31 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=0
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:3:4: Compile generate block "work@top.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:3:4: Compile generate block "work@top.genblk1".
 
-[INF:CP0335] dut.sv:24:4: Compile generate block "work@top.genblk8".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
 
-[INF:CP0335] dut.sv:27:4: Compile generate block "work@top.genblk9".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:27:4: Compile generate block "work@top.genblk9".
 
-[INF:CP0335] dut.sv:30:4: Compile generate block "work@top.genblk10".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:30:4: Compile generate block "work@top.genblk10".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:4:7: Cannot find a module definition for "work@top.genblk1::GOOD_BLAH".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:4:7: Cannot find a module definition for "work@top.genblk1::GOOD_BLAH".
 
-[WRN:EL0500] dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
 
-[WRN:EL0500] dut.sv:28:7: Cannot find a module definition for "work@top.genblk9::GOOD_STR_WITH_DOT".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:28:7: Cannot find a module definition for "work@top.genblk9::GOOD_STR_WITH_DOT".
 
-[WRN:EL0500] dut.sv:31:7: Cannot find a module definition for "work@top.genblk10::GOOD_MINUS_STR".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:31:7: Cannot find a module definition for "work@top.genblk10::GOOD_MINUS_STR".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -953,21 +953,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -988,19 +988,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:0
@@ -1015,7 +1015,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
@@ -1024,7 +1024,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7
       |vpiFullName:work@top.genblk1
       |vpiModule:
-      \_module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good), file:dut.sv, line:4:7, endln:4:24
+      \_module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:4:7, endln:4:24
         |vpiParent:
         \_gen_scope: (work@top.genblk1)
         |vpiName:good
@@ -1033,7 +1033,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk8
     |vpiFullName:work@top.genblk8
     |vpiGenScope:
@@ -1042,7 +1042,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
       |vpiFullName:work@top.genblk8
       |vpiModule:
-      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:dut.sv, line:25:7, endln:25:21
+      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
         |vpiParent:
         \_gen_scope: (work@top.genblk8)
         |vpiName:good
@@ -1051,7 +1051,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk9
     |vpiFullName:work@top.genblk9
     |vpiGenScope:
@@ -1060,7 +1060,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7
       |vpiFullName:work@top.genblk9
       |vpiModule:
-      \_module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good), file:dut.sv, line:28:7, endln:28:32
+      \_module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:28:7, endln:28:32
         |vpiParent:
         \_gen_scope: (work@top.genblk9)
         |vpiName:good
@@ -1069,7 +1069,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk10
     |vpiFullName:work@top.genblk10
     |vpiGenScope:
@@ -1078,7 +1078,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7
       |vpiFullName:work@top.genblk10
       |vpiModule:
-      \_module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good), file:dut.sv, line:31:7, endln:31:29
+      \_module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:31:7, endln:31:29
         |vpiParent:
         \_gen_scope: (work@top.genblk10)
         |vpiName:good
@@ -1093,23 +1093,23 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="STR.WITH.DOT"
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:24:4: Compile generate block "work@top.genblk8".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
 
-[INF:CP0335] dut.sv:27:4: Compile generate block "work@top.genblk9".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:27:4: Compile generate block "work@top.genblk9".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
 
-[WRN:EL0500] dut.sv:28:7: Cannot find a module definition for "work@top.genblk9::GOOD_STR_WITH_DOT".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:28:7: Cannot find a module definition for "work@top.genblk9::GOOD_STR_WITH_DOT".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -1140,21 +1140,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -1175,19 +1175,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:STR.WITH.DOT
@@ -1202,7 +1202,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk8
     |vpiFullName:work@top.genblk8
     |vpiGenScope:
@@ -1211,7 +1211,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
       |vpiFullName:work@top.genblk8
       |vpiModule:
-      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:dut.sv, line:25:7, endln:25:21
+      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
         |vpiParent:
         \_gen_scope: (work@top.genblk8)
         |vpiName:good
@@ -1220,7 +1220,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk9
     |vpiFullName:work@top.genblk9
     |vpiGenScope:
@@ -1229,7 +1229,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7
       |vpiFullName:work@top.genblk9
       |vpiModule:
-      \_module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good), file:dut.sv, line:28:7, endln:28:32
+      \_module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:28:7, endln:28:32
         |vpiParent:
         \_gen_scope: (work@top.genblk9)
         |vpiName:good
@@ -1244,23 +1244,23 @@ design: (work@top)
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="-STR"
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:24:4: Compile generate block "work@top.genblk8".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
 
-[INF:CP0335] dut.sv:30:4: Compile generate block "work@top.genblk10".
+[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:30:4: Compile generate block "work@top.genblk10".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
 
-[WRN:EL0500] dut.sv:31:7: Cannot find a module definition for "work@top.genblk10::GOOD_MINUS_STR".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:31:7: Cannot find a module definition for "work@top.genblk10::GOOD_MINUS_STR".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -1291,21 +1291,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:1'b0
@@ -1326,19 +1326,19 @@ design: (work@top)
     \_parameter: (work@top.p), line:2:15, endln:2:16
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:-STR
@@ -1353,7 +1353,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk8
     |vpiFullName:work@top.genblk8
     |vpiGenScope:
@@ -1362,7 +1362,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
       |vpiFullName:work@top.genblk8
       |vpiModule:
-      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:dut.sv, line:25:7, endln:25:21
+      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
         |vpiParent:
         \_gen_scope: (work@top.genblk8)
         |vpiName:good
@@ -1371,7 +1371,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:33:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiName:genblk10
     |vpiFullName:work@top.genblk10
     |vpiGenScope:
@@ -1380,7 +1380,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7
       |vpiFullName:work@top.genblk10
       |vpiModule:
-      \_module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good), file:dut.sv, line:31:7, endln:31:29
+      \_module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:31:7, endln:31:29
         |vpiParent:
         \_gen_scope: (work@top.genblk10)
         |vpiName:good

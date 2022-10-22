@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BadScope/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BadScope/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BadScope/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<146> s<145> l<2:1> el<1:2>
 n<> u<2> t<Package> p<28> s<3> l<2:1> el<2:8>
@@ -149,21 +149,21 @@ n<> u<143> t<Module_declaration> p<144> c<34> l<12:1> el<26:10>
 n<> u<144> t<Description> p<145> c<143> l<12:1> el<26:10>
 n<> u<145> t<Source_text> p<146> c<29> l<2:1> el<26:10>
 n<> u<146> t<Top_level_rule> c<1> l<2:1> el<28:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "pack".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BadScope/dut.sv:2:1: No timescale set for "pack".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "top3".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BadScope/dut.sv:12:1: No timescale set for "top3".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:2:1: Compile package "pack".
+[INF:CP0301] ${SURELOG_DIR}/tests/BadScope/dut.sv:2:1: Compile package "pack".
 
-[INF:CP0303] dut.sv:12:1: Compile module "work@top3".
+[INF:CP0303] ${SURELOG_DIR}/tests/BadScope/dut.sv:12:1: Compile module "work@top3".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:12:1: Top level module "work@top3".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BadScope/dut.sv:12:1: Top level module "work@top3".
 
-[ERR:UH0712] dut.sv:21:40: Undefined pattern key "mie".
+[ERR:UH0712] ${SURELOG_DIR}/tests/BadScope/dut.sv:21:40: Undefined pattern key "mie".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -213,11 +213,11 @@ tagged_pattern                                        20
 typespec_member                                       15
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BadScope/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BadScope/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BadScope/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BadScope/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BadScope/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BadScope/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -226,7 +226,7 @@ design: (work@top3)
 |vpiElaborated:1
 |vpiName:work@top3
 |uhdmallPackages:
-\_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
   |vpiParent:
   \_design: (work@top3)
   |vpiName:pack
@@ -234,10 +234,10 @@ design: (work@top3)
   |vpiTypedef:
   \_struct_typespec: (pack::status_t), line:4:10, endln:4:16
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
     |vpiName:pack::status_t
     |vpiInstance:
-    \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (A), line:5:16, endln:5:17
@@ -250,7 +250,7 @@ design: (work@top3)
         \_typespec_member: (A), line:5:16, endln:5:17
         |vpiInstance:
         \_package: (pack)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:5
@@ -266,14 +266,14 @@ design: (work@top3)
         \_typespec_member: (B), line:6:16, endln:6:17
         |vpiInstance:
         \_package: (pack)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:6
       |vpiRefEndColumnNo:10
   |vpiDefName:pack
 |uhdmtopPackages:
-\_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
   |vpiParent:
   \_design: (work@top3)
   |vpiName:pack
@@ -281,10 +281,10 @@ design: (work@top3)
   |vpiTypedef:
   \_struct_typespec: (pack::status_t), line:4:10, endln:4:16
     |vpiParent:
-    \_module: work@top3 (work@top3), file:dut.sv, line:12:1, endln:26:10
+    \_module: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
     |vpiName:pack::status_t
     |vpiInstance:
-    \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (A), line:5:16, endln:5:17
@@ -296,8 +296,8 @@ design: (work@top3)
         |vpiParent:
         \_typespec_member: (A), line:5:16, endln:5:17
         |vpiInstance:
-        \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
-      |vpiRefFile:dut.sv
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
+      |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:5
@@ -312,8 +312,8 @@ design: (work@top3)
         |vpiParent:
         \_typespec_member: (B), line:6:16, endln:6:17
         |vpiInstance:
-        \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
-      |vpiRefFile:dut.sv
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
+      |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:6
@@ -321,14 +321,14 @@ design: (work@top3)
   |vpiDefName:pack
   |vpiTop:1
 |uhdmallModules:
-\_module: work@top3 (work@top3), file:dut.sv, line:12:1, endln:26:10
+\_module: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
   |vpiParent:
   \_design: (work@top3)
   |vpiFullName:work@top3
   |vpiParameter:
   \_parameter: (work@top3.MSTATUS_RST_VAL), line:21:22, endln:21:37
     |vpiParent:
-    \_module: work@top3 (work@top3), file:dut.sv, line:12:1, endln:26:10
+    \_module: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
     |vpiTypespec:
     \_struct_typespec: (pack::status_t), line:4:10, endln:4:16
     |vpiLocalParam:1
@@ -337,7 +337,7 @@ design: (work@top3)
   |vpiParamAssign:
   \_param_assign: , line:21:22, endln:25:54
     |vpiParent:
-    \_module: work@top3 (work@top3), file:dut.sv, line:12:1, endln:26:10
+    \_module: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
     |vpiRhs:
     \_operation: , line:21:40, endln:25:54
       |vpiOpType:75
@@ -405,19 +405,19 @@ design: (work@top3)
   \_import_typespec: (pack), line:13:8, endln:13:15
   |vpiDefName:work@top3
 |uhdmtopModules:
-\_module: work@top3 (work@top3), file:dut.sv, line:12:1, endln:26:10
+\_module: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
   |vpiName:work@top3
   |vpiParameter:
   \_parameter: (work@top3.MSTATUS_RST_VAL), line:21:22, endln:21:37
     |vpiParent:
-    \_module: work@top3 (work@top3), file:dut.sv, line:12:1, endln:26:10
+    \_module: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
     |vpiTypespec:
     \_struct_typespec: (pack::status_t), line:4:10, endln:4:16
       |vpiParent:
       \_parameter: (work@top3.MSTATUS_RST_VAL), line:21:22, endln:21:37
       |vpiName:pack::status_t
       |vpiInstance:
-      \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
+      \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (A), line:5:16, endln:5:17
@@ -429,8 +429,8 @@ design: (work@top3)
           |vpiParent:
           \_typespec_member: (A), line:5:16, endln:5:17
           |vpiInstance:
-          \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
-        |vpiRefFile:dut.sv
+          \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
+        |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:5
@@ -445,8 +445,8 @@ design: (work@top3)
           |vpiParent:
           \_typespec_member: (B), line:6:16, endln:6:17
           |vpiInstance:
-          \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
-        |vpiRefFile:dut.sv
+          \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
+        |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:6
@@ -457,7 +457,7 @@ design: (work@top3)
   |vpiParamAssign:
   \_param_assign: , line:21:22, endln:25:54
     |vpiParent:
-    \_module: work@top3 (work@top3), file:dut.sv, line:12:1, endln:26:10
+    \_module: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
     |vpiRhs:
     \_operation: , line:21:40, endln:25:54
       |vpiParent:
@@ -468,7 +468,7 @@ design: (work@top3)
         \_operation: , line:21:40, endln:25:54
         |vpiName:pack::status_t
         |vpiInstance:
-        \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (A), line:5:16, endln:5:17
@@ -480,8 +480,8 @@ design: (work@top3)
             |vpiParent:
             \_typespec_member: (A), line:5:16, endln:5:17
             |vpiInstance:
-            \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
-          |vpiRefFile:dut.sv
+            \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
+          |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
           |vpiRefLineNo:5
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:5
@@ -496,8 +496,8 @@ design: (work@top3)
             |vpiParent:
             \_typespec_member: (B), line:6:16, endln:6:17
             |vpiInstance:
-            \_package: pack (pack::), file:dut.sv, line:2:1, endln:9:11
-          |vpiRefFile:dut.sv
+            \_package: pack (pack::), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:2:1, endln:9:11
+          |vpiRefFile:${SURELOG_DIR}/tests/BadScope/dut.sv
           |vpiRefLineNo:6
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:6

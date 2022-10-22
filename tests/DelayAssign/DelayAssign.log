@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/DelayAssign/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/DelayAssign/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/DelayAssign/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<690> s<689> l<2:1> el<1:2>
 n<"DPI-C"> u<2> t<StringLiteral> p<65> s<63> l<2:8> el<2:15>
@@ -693,11 +693,11 @@ n<> u<687> t<Module_declaration> p<688> c<204> l<16:1> el<79:10>
 n<> u<688> t<Description> p<689> c<687> l<16:1> el<79:10>
 n<> u<689> t<Source_text> p<690> c<68> l<2:1> el<79:10>
 n<> u<690> t<Top_level_rule> c<1> l<2:1> el<80:1>
-[WRN:PA0205] dut.sv:16:1: No timescale set for "SimDTM".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DelayAssign/dut.sv:16:1: No timescale set for "SimDTM".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:16:1: Compile module "work@SimDTM".
+[INF:CP0303] ${SURELOG_DIR}/tests/DelayAssign/dut.sv:16:1: Compile module "work@SimDTM".
 
 LIB:  work
 FILE: builtin.sv
@@ -957,12 +957,12 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[NTE:CP0309] dut.sv:20:17: Implicit port type (wire) for "debug_req_valid",
+[NTE:CP0309] ${SURELOG_DIR}/tests/DelayAssign/dut.sv:20:17: Implicit port type (wire) for "debug_req_valid",
 there are 5 more instances of this message.
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:16:1: Top level module "work@SimDTM".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DelayAssign/dut.sv:16:1: Top level module "work@SimDTM".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -1044,11 +1044,11 @@ range                                                 28
 ref_obj                                              104
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/DelayAssign/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DelayAssign/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DelayAssign/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DelayAssign/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/DelayAssign/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DelayAssign/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1532,7 +1532,7 @@ design: (work@SimDTM)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+\_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiParent:
   \_design: (work@SimDTM)
   |vpiFullName:work@SimDTM
@@ -1540,149 +1540,149 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.clk), line:17:9, endln:17:12
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:clk
     |vpiFullName:work@SimDTM.clk
   |vpiNet:
   \_logic_net: (work@SimDTM.reset), line:18:9, endln:18:14
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:reset
     |vpiFullName:work@SimDTM.reset
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_valid), line:20:17, endln:20:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_valid
     |vpiFullName:work@SimDTM.debug_req_valid
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_ready), line:21:17, endln:21:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_ready
     |vpiFullName:work@SimDTM.debug_req_ready
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_bits_addr), line:22:17, endln:22:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_addr
     |vpiFullName:work@SimDTM.debug_req_bits_addr
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_bits_op), line:23:17, endln:23:34
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_op
     |vpiFullName:work@SimDTM.debug_req_bits_op
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_bits_data), line:24:17, endln:24:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_data
     |vpiFullName:work@SimDTM.debug_req_bits_data
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_valid), line:26:17, endln:26:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_valid
     |vpiFullName:work@SimDTM.debug_resp_valid
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_ready), line:27:17, endln:27:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_ready
     |vpiFullName:work@SimDTM.debug_resp_ready
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_bits_resp), line:28:17, endln:28:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_bits_resp
     |vpiFullName:work@SimDTM.debug_resp_bits_resp
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_bits_data), line:29:17, endln:29:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_bits_data
     |vpiFullName:work@SimDTM.debug_resp_bits_data
   |vpiNet:
   \_logic_net: (work@SimDTM.exit), line:31:17, endln:31:21
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:exit
     |vpiFullName:work@SimDTM.exit
   |vpiNet:
   \_logic_net: (work@SimDTM.r_reset), line:34:7, endln:34:14
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:r_reset
     |vpiFullName:work@SimDTM.r_reset
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_req_ready), line:36:13, endln:36:30
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_req_ready
     |vpiFullName:work@SimDTM.__debug_req_ready
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_resp_valid), line:37:13, endln:37:31
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_resp_valid
     |vpiFullName:work@SimDTM.__debug_resp_valid
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_resp_bits_resp), line:38:20, endln:38:42
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_resp_bits_resp
     |vpiFullName:work@SimDTM.__debug_resp_bits_resp
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39:20, endln:39:42
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_resp_bits_data
     |vpiFullName:work@SimDTM.__debug_resp_bits_data
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_req_valid), line:41:7, endln:41:24
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_req_valid
     |vpiFullName:work@SimDTM.__debug_req_valid
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_req_bits_addr), line:42:7, endln:42:28
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_req_bits_addr
     |vpiFullName:work@SimDTM.__debug_req_bits_addr
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_req_bits_op), line:43:7, endln:43:26
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_req_bits_op
     |vpiFullName:work@SimDTM.__debug_req_bits_op
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_req_bits_data), line:44:7, endln:44:28
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_req_bits_data
     |vpiFullName:work@SimDTM.__debug_req_bits_data
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_resp_ready), line:45:7, endln:45:25
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__debug_resp_ready
     |vpiFullName:work@SimDTM.__debug_resp_ready
   |vpiNet:
   \_logic_net: (work@SimDTM.__exit), line:46:7, endln:46:13
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:__exit
     |vpiFullName:work@SimDTM.__exit
   |vpiPort:
   \_port: (clk), line:17:9, endln:17:12
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1694,7 +1694,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (reset), line:18:9, endln:18:14
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -1706,7 +1706,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_req_valid), line:20:17, endln:20:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_valid
     |vpiDirection:2
     |vpiLowConn:
@@ -1718,7 +1718,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_req_ready), line:21:17, endln:21:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_ready
     |vpiDirection:1
     |vpiLowConn:
@@ -1730,7 +1730,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_req_bits_addr), line:22:17, endln:22:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_addr
     |vpiDirection:2
     |vpiLowConn:
@@ -1760,7 +1760,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_req_bits_op), line:23:17, endln:23:34
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_op
     |vpiDirection:2
     |vpiLowConn:
@@ -1790,7 +1790,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_req_bits_data), line:24:17, endln:24:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_data
     |vpiDirection:2
     |vpiLowConn:
@@ -1820,7 +1820,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_resp_valid), line:26:17, endln:26:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_valid
     |vpiDirection:1
     |vpiLowConn:
@@ -1832,7 +1832,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_resp_ready), line:27:17, endln:27:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_ready
     |vpiDirection:2
     |vpiLowConn:
@@ -1844,7 +1844,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_resp_bits_resp), line:28:17, endln:28:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_bits_resp
     |vpiDirection:1
     |vpiLowConn:
@@ -1874,7 +1874,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (debug_resp_bits_data), line:29:17, endln:29:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_bits_data
     |vpiDirection:1
     |vpiLowConn:
@@ -1904,7 +1904,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (exit), line:31:17, endln:31:21
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:exit
     |vpiDirection:2
     |vpiLowConn:
@@ -1934,7 +1934,7 @@ design: (work@SimDTM)
   |vpiProcess:
   \_always: , line:55:3, endln:78:6
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiStmt:
     \_event_control: , line:55:10, endln:55:24
       |vpiParent:
@@ -2174,7 +2174,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:48:15, endln:48:50
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:48:10, endln:48:14
       |vpiDecompile:#0.1
@@ -2200,7 +2200,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:49:15, endln:49:63
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:49:10, endln:49:14
       |vpiDecompile:#0.1
@@ -2240,7 +2240,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:50:15, endln:50:59
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:50:10, endln:50:14
       |vpiDecompile:#0.1
@@ -2280,7 +2280,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:51:15, endln:51:64
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:51:10, endln:51:14
       |vpiDecompile:#0.1
@@ -2320,7 +2320,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:52:15, endln:52:52
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:52:10, endln:52:14
       |vpiDecompile:#0.1
@@ -2346,7 +2346,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:53:15, endln:53:28
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:53:10, endln:53:14
       |vpiDecompile:#0.1
@@ -2370,12 +2370,12 @@ design: (work@SimDTM)
       |vpiActual:
       \_logic_net: (work@SimDTM.exit), line:31:17, endln:31:21
 |uhdmtopModules:
-\_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+\_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiName:work@SimDTM
   |vpiVariables:
   \_bit_var: (work@SimDTM.r_reset), line:34:7, endln:34:14
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_bit_typespec: , line:34:3, endln:34:6
     |vpiName:r_reset
@@ -2384,7 +2384,7 @@ design: (work@SimDTM)
   |vpiVariables:
   \_bit_var: (work@SimDTM.__debug_req_valid), line:41:7, endln:41:24
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_bit_typespec: , line:41:3, endln:41:6
     |vpiName:__debug_req_valid
@@ -2393,7 +2393,7 @@ design: (work@SimDTM)
   |vpiVariables:
   \_int_var: (work@SimDTM.__debug_req_bits_addr), line:42:7, endln:42:28
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_int_typespec: , line:42:3, endln:42:6
       |vpiSigned:1
@@ -2403,7 +2403,7 @@ design: (work@SimDTM)
   |vpiVariables:
   \_int_var: (work@SimDTM.__debug_req_bits_op), line:43:7, endln:43:26
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_int_typespec: , line:43:3, endln:43:6
       |vpiSigned:1
@@ -2413,7 +2413,7 @@ design: (work@SimDTM)
   |vpiVariables:
   \_int_var: (work@SimDTM.__debug_req_bits_data), line:44:7, endln:44:28
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_int_typespec: , line:44:3, endln:44:6
       |vpiSigned:1
@@ -2423,7 +2423,7 @@ design: (work@SimDTM)
   |vpiVariables:
   \_bit_var: (work@SimDTM.__debug_resp_ready), line:45:7, endln:45:25
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_bit_typespec: , line:45:3, endln:45:6
     |vpiName:__debug_resp_ready
@@ -2432,7 +2432,7 @@ design: (work@SimDTM)
   |vpiVariables:
   \_int_var: (work@SimDTM.__exit), line:46:7, endln:46:13
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_int_typespec: , line:46:3, endln:46:6
       |vpiSigned:1
@@ -2444,7 +2444,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.clk), line:17:9, endln:17:12
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:17:9, endln:17:9
     |vpiName:clk
@@ -2452,7 +2452,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.reset), line:18:9, endln:18:14
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:18:9, endln:18:9
     |vpiName:reset
@@ -2460,7 +2460,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_valid), line:20:17, endln:20:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:20:17, endln:20:17
     |vpiName:debug_req_valid
@@ -2468,7 +2468,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_ready), line:21:17, endln:21:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:21:17, endln:21:17
     |vpiName:debug_req_ready
@@ -2476,7 +2476,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_bits_addr), line:22:17, endln:22:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:22:10, endln:22:16
       |vpiRange:
@@ -2502,7 +2502,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_bits_op), line:23:17, endln:23:34
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:23:10, endln:23:16
       |vpiRange:
@@ -2528,7 +2528,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_req_bits_data), line:24:17, endln:24:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:24:10, endln:24:16
       |vpiRange:
@@ -2554,7 +2554,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_valid), line:26:17, endln:26:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:26:17, endln:26:17
     |vpiName:debug_resp_valid
@@ -2562,7 +2562,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_ready), line:27:17, endln:27:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:27:17, endln:27:17
     |vpiName:debug_resp_ready
@@ -2570,7 +2570,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_bits_resp), line:28:17, endln:28:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:28:10, endln:28:16
       |vpiRange:
@@ -2596,7 +2596,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.debug_resp_bits_data), line:29:17, endln:29:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:29:10, endln:29:16
       |vpiRange:
@@ -2622,7 +2622,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.exit), line:31:17, endln:31:21
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:31:10, endln:31:16
       |vpiRange:
@@ -2648,7 +2648,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_req_ready), line:36:13, endln:36:30
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:36:3, endln:36:7
     |vpiName:__debug_req_ready
@@ -2657,7 +2657,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_resp_valid), line:37:13, endln:37:31
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:37:3, endln:37:7
     |vpiName:__debug_resp_valid
@@ -2666,7 +2666,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_resp_bits_resp), line:38:20, endln:38:42
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:38:3, endln:38:14
       |vpiRange:
@@ -2693,7 +2693,7 @@ design: (work@SimDTM)
   |vpiNet:
   \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39:20, endln:39:42
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiTypespec:
     \_logic_typespec: , line:39:3, endln:39:14
       |vpiRange:
@@ -2721,7 +2721,7 @@ design: (work@SimDTM)
   |vpiPort:
   \_port: (clk), line:17:9, endln:17:12
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -2735,11 +2735,11 @@ design: (work@SimDTM)
     |vpiTypedef:
     \_logic_typespec: , line:17:9, endln:17:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (reset), line:18:9, endln:18:14
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -2753,11 +2753,11 @@ design: (work@SimDTM)
     |vpiTypedef:
     \_logic_typespec: , line:18:9, endln:18:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_req_valid), line:20:17, endln:20:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_valid
     |vpiDirection:2
     |vpiLowConn:
@@ -2771,11 +2771,11 @@ design: (work@SimDTM)
     |vpiTypedef:
     \_logic_typespec: , line:20:17, endln:20:17
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_req_ready), line:21:17, endln:21:32
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_ready
     |vpiDirection:1
     |vpiLowConn:
@@ -2789,11 +2789,11 @@ design: (work@SimDTM)
     |vpiTypedef:
     \_logic_typespec: , line:21:17, endln:21:17
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_req_bits_addr), line:22:17, endln:22:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_addr
     |vpiDirection:2
     |vpiLowConn:
@@ -2827,11 +2827,11 @@ design: (work@SimDTM)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_req_bits_op), line:23:17, endln:23:34
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_op
     |vpiDirection:2
     |vpiLowConn:
@@ -2865,11 +2865,11 @@ design: (work@SimDTM)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_req_bits_data), line:24:17, endln:24:36
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_req_bits_data
     |vpiDirection:2
     |vpiLowConn:
@@ -2903,11 +2903,11 @@ design: (work@SimDTM)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_resp_valid), line:26:17, endln:26:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_valid
     |vpiDirection:1
     |vpiLowConn:
@@ -2921,11 +2921,11 @@ design: (work@SimDTM)
     |vpiTypedef:
     \_logic_typespec: , line:26:17, endln:26:17
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_resp_ready), line:27:17, endln:27:33
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_ready
     |vpiDirection:2
     |vpiLowConn:
@@ -2939,11 +2939,11 @@ design: (work@SimDTM)
     |vpiTypedef:
     \_logic_typespec: , line:27:17, endln:27:17
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_resp_bits_resp), line:28:17, endln:28:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_bits_resp
     |vpiDirection:1
     |vpiLowConn:
@@ -2977,11 +2977,11 @@ design: (work@SimDTM)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (debug_resp_bits_data), line:29:17, endln:29:37
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:debug_resp_bits_data
     |vpiDirection:1
     |vpiLowConn:
@@ -3015,11 +3015,11 @@ design: (work@SimDTM)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiPort:
   \_port: (exit), line:31:17, endln:31:21
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiName:exit
     |vpiDirection:2
     |vpiLowConn:
@@ -3053,11 +3053,11 @@ design: (work@SimDTM)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
   |vpiProcess:
   \_always: , line:55:3, endln:78:6
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiStmt:
     \_event_control: , line:55:10, endln:55:24
       |vpiParent:
@@ -3279,7 +3279,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:36:13, endln:36:30
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiNetDeclAssign:1
     |vpiDelay:
     \_constant: , line:36:8, endln:36:12
@@ -3300,7 +3300,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:37:13, endln:37:31
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiNetDeclAssign:1
     |vpiDelay:
     \_constant: , line:37:8, endln:37:12
@@ -3321,7 +3321,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:38:20, endln:38:42
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiNetDeclAssign:1
     |vpiDelay:
     \_constant: , line:38:15, endln:38:19
@@ -3355,7 +3355,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:39:20, endln:39:42
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiNetDeclAssign:1
     |vpiDelay:
     \_constant: , line:39:15, endln:39:19
@@ -3376,7 +3376,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:48:15, endln:48:50
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:48:10, endln:48:14
     |vpiRhs:
@@ -3398,7 +3398,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:49:15, endln:49:63
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:49:10, endln:49:14
     |vpiRhs:
@@ -3428,7 +3428,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:50:15, endln:50:59
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:50:10, endln:50:14
     |vpiRhs:
@@ -3458,7 +3458,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:51:15, endln:51:64
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:51:10, endln:51:14
     |vpiRhs:
@@ -3488,7 +3488,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:52:15, endln:52:52
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:52:10, endln:52:14
     |vpiRhs:
@@ -3510,7 +3510,7 @@ design: (work@SimDTM)
   |vpiContAssign:
   \_cont_assign: , line:53:15, endln:53:28
     |vpiParent:
-    \_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16:1, endln:79:10
+    \_module: work@SimDTM (work@SimDTM), file:${SURELOG_DIR}/tests/DelayAssign/dut.sv, line:16:1, endln:79:10
     |vpiDelay:
     \_constant: , line:53:10, endln:53:14
     |vpiRhs:

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/TaskBind/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/TaskBind/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/TaskBind/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<79> s<78> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -82,15 +82,15 @@ n<> u<76> t<Module_declaration> p<77> c<4> l<1:1> el<9:10>
 n<> u<77> t<Description> p<78> c<76> l<1:1> el<9:10>
 n<> u<78> t<Source_text> p<79> c<77> l<1:1> el<9:10>
 n<> u<79> t<Top_level_rule> c<1> l<1:1> el<11:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "tb".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TaskBind/dut.sv:1:1: No timescale set for "tb".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@tb".
+[INF:CP0303] ${SURELOG_DIR}/tests/TaskBind/dut.sv:1:1: Compile module "work@tb".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@tb".
+[NTE:EL0503] ${SURELOG_DIR}/tests/TaskBind/dut.sv:1:1: Top level module "work@tb".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -136,11 +136,11 @@ sys_func_call                                          2
 task                                                   2
 task_call                                              2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/TaskBind/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaskBind/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/TaskBind/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaskBind/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/TaskBind/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaskBind/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -149,7 +149,7 @@ design: (work@tb)
 |vpiElaborated:1
 |vpiName:work@tb
 |uhdmallModules:
-\_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+\_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_design: (work@tb)
   |vpiFullName:work@tb
@@ -157,7 +157,7 @@ design: (work@tb)
   |vpiTaskFunc:
   \_task: (work@tb.display), line:4:2, endln:8:9
     |vpiParent:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
     |vpiName:display
     |vpiFullName:work@tb.display
     |vpiVariables:
@@ -173,7 +173,7 @@ design: (work@tb)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiParent:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
     |vpiStmt:
     \_begin: (work@tb.display)
       |vpiParent:
@@ -252,11 +252,11 @@ design: (work@tb)
           \_integer_var: (work@tb.display.i), line:5:10, endln:5:11
         |vpiName:$display
     |vpiInstance:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
   |vpiProcess:
   \_initial: , line:2:2, endln:2:20
     |vpiParent:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
     |vpiStmt:
     \_task_call: (display), line:2:10, endln:2:19
       |vpiParent:
@@ -265,14 +265,14 @@ design: (work@tb)
       |vpiTask:
       \_task: (work@tb.display), line:4:2, endln:8:9
 |uhdmtopModules:
-\_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+\_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
   |vpiName:work@tb
   |vpiDefName:work@tb
   |vpiTop:1
   |vpiTaskFunc:
   \_task: (work@tb.display), line:4:2, endln:8:9
     |vpiParent:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
     |vpiName:display
     |vpiFullName:work@tb.display
     |vpiVariables:
@@ -287,7 +287,7 @@ design: (work@tb)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiParent:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
     |vpiStmt:
     \_begin: (work@tb.display)
       |vpiParent:
@@ -362,12 +362,12 @@ design: (work@tb)
           \_integer_var: (work@tb.display.i), line:5:10, endln:5:11
         |vpiName:$display
     |vpiInstance:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
   |vpiTopModule:1
   |vpiProcess:
   \_initial: , line:2:2, endln:2:20
     |vpiParent:
-    \_module: work@tb (work@tb), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
     |vpiStmt:
     \_task_call: (display), line:2:10, endln:2:19
       |vpiParent:

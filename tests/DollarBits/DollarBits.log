@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/DollarBits/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/DollarBits/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/DollarBits/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<175> s<174> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<68> s<3> l<1:1> el<1:7>
@@ -178,19 +178,19 @@ n<> u<172> t<Module_declaration> p<173> c<128> l<7:1> el<9:10>
 n<> u<173> t<Description> p<174> c<172> l<7:1> el<9:10>
 n<> u<174> t<Source_text> p<175> c<85> l<1:1> el<9:10>
 n<> u<175> t<Top_level_rule> c<1> l<1:1> el<10:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "other".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DollarBits/dut.sv:1:1: No timescale set for "other".
 
-[WRN:PA0205] dut.sv:7:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DollarBits/dut.sv:7:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:7:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/DollarBits/dut.sv:7:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@other".
+[INF:CP0303] ${SURELOG_DIR}/tests/DollarBits/dut.sv:1:1: Compile module "work@other".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:7:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DollarBits/dut.sv:7:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -234,11 +234,11 @@ port                                                  12
 range                                                 17
 ref_obj                                               22
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/DollarBits/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DollarBits/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DollarBits/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DollarBits/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/DollarBits/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DollarBits/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -247,7 +247,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -255,21 +255,21 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.in), line:7:30, endln:7:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:in
     |vpiFullName:work@dut.in
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.out), line:7:52, endln:7:55
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:out
     |vpiFullName:work@dut.out
     |vpiNetType:36
   |vpiPort:
   \_port: (in), line:7:30, endln:7:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:in
     |vpiDirection:1
     |vpiLowConn:
@@ -299,7 +299,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (out), line:7:52, endln:7:55
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -327,14 +327,14 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
 |uhdmallModules:
-\_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+\_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@other
   |vpiParameter:
   \_parameter: (work@other.Width), line:2:19, endln:2:24
     |vpiParent:
-    \_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:2:15, endln:2:18
@@ -347,7 +347,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:28
     |vpiParent:
-    \_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
       |vpiDecompile:1
@@ -362,21 +362,21 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@other.in), line:3:27, endln:3:29
     |vpiParent:
-    \_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiName:in
     |vpiFullName:work@other.in
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@other.out), line:3:55, endln:3:58
     |vpiParent:
-    \_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiName:out
     |vpiFullName:work@other.out
     |vpiNetType:36
   |vpiPort:
   \_port: (in), line:3:27, endln:3:29
     |vpiParent:
-    \_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiName:in
     |vpiDirection:1
     |vpiLowConn:
@@ -416,7 +416,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (out), line:3:55, endln:3:58
     |vpiParent:
-    \_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -456,7 +456,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:4:11, endln:4:19
     |vpiParent:
-    \_module: work@other (work@other), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_ref_obj: (work@other.in), line:4:17, endln:4:19
       |vpiParent:
@@ -474,14 +474,14 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@dut.in), line:7:30, endln:7:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiTypespec:
     \_logic_typespec: , line:7:19, endln:7:29
       |vpiRange:
@@ -508,7 +508,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.out), line:7:52, endln:7:55
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiTypespec:
     \_logic_typespec: , line:7:41, endln:7:51
       |vpiRange:
@@ -536,7 +536,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (in), line:7:30, endln:7:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:in
     |vpiDirection:1
     |vpiLowConn:
@@ -570,11 +570,11 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
   |vpiPort:
   \_port: (out), line:7:52, endln:7:55
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -608,17 +608,17 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
   |vpiModule:
-  \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+  \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:oth
     |vpiFullName:work@dut.oth
     |vpiParameter:
     \_parameter: (work@dut.oth.Width), line:2:19, endln:2:24
       |vpiParent:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |UINT:1
       |vpiTypespec:
       \_int_typespec: , line:2:15, endln:2:18
@@ -631,7 +631,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:2:19, endln:2:28
       |vpiParent:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:27, endln:2:28
@@ -644,12 +644,12 @@ design: (work@dut)
       |vpiLhs:
       \_parameter: (work@dut.oth.Width), line:2:19, endln:2:24
     |vpiDefName:work@other
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/DollarBits/dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29
       |vpiParent:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |vpiTypespec:
       \_logic_typespec: , line:3:10, endln:3:26
         |vpiRange:
@@ -676,7 +676,7 @@ design: (work@dut)
     |vpiNet:
     \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58
       |vpiParent:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |vpiTypespec:
       \_logic_typespec: , line:3:38, endln:3:54
         |vpiRange:
@@ -701,11 +701,11 @@ design: (work@dut)
       |vpiFullName:work@dut.oth.out
       |vpiNetType:36
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:9:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiPort:
     \_port: (in), line:3:27, endln:3:29
       |vpiParent:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |vpiName:in
       |vpiDirection:1
       |vpiHighConn:
@@ -747,11 +747,11 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
     |vpiPort:
     \_port: (out), line:3:55, endln:3:58
       |vpiParent:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |vpiName:out
       |vpiDirection:2
       |vpiHighConn:
@@ -793,11 +793,11 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
     |vpiContAssign:
     \_cont_assign: , line:4:11, endln:4:19
       |vpiParent:
-      \_module: work@other (work@dut.oth), file:dut.sv, line:8:4, endln:8:57
+      \_module: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |vpiRhs:
       \_ref_obj: (work@dut.oth.in), line:4:17, endln:4:19
         |vpiParent:

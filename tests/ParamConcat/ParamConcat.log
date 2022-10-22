@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ParamConcat/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamConcat/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamConcat/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<127> s<126> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<31> s<3> l<1:1> el<1:7>
@@ -130,15 +130,15 @@ n<> u<124> t<Module_declaration> p<125> c<41> l<6:1> el<19:10>
 n<> u<125> t<Description> p<126> c<124> l<6:1> el<19:10>
 n<> u<126> t<Source_text> p<127> c<33> l<1:1> el<19:10>
 n<> u<127> t<Top_level_rule> c<1> l<1:1> el<21:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "ibex_csr".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamConcat/dut.sv:1:1: No timescale set for "ibex_csr".
 
-[WRN:PA0205] dut.sv:6:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamConcat/dut.sv:6:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@ibex_csr".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamConcat/dut.sv:1:1: Compile module "work@ibex_csr".
 
-[INF:CP0303] dut.sv:6:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamConcat/dut.sv:6:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -400,7 +400,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:6:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamConcat/dut.sv:6:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -470,11 +470,11 @@ tagged_pattern                                        14
 task                                                  18
 typespec_member                                       14
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ParamConcat/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamConcat/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ParamConcat/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamConcat/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ParamConcat/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamConcat/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -958,14 +958,14 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@ibex_csr (work@ibex_csr), file:dut.sv, line:1:1, endln:4:10
+\_module: work@ibex_csr (work@ibex_csr), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@ibex_csr
   |vpiParameter:
   \_parameter: (work@ibex_csr.ResetValue), line:2:25, endln:2:35
     |vpiParent:
-    \_module: work@ibex_csr (work@ibex_csr), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@ibex_csr (work@ibex_csr), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:1:1, endln:4:10
     |BIN:0
     |vpiTypespec:
     \_bit_typespec: , line:2:15, endln:2:24
@@ -994,7 +994,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:25, endln:2:40
     |vpiParent:
-    \_module: work@ibex_csr (work@ibex_csr), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@ibex_csr (work@ibex_csr), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:2:38, endln:2:40
       |vpiDecompile:'0
@@ -1007,21 +1007,21 @@ design: (work@top)
     \_parameter: (work@ibex_csr.ResetValue), line:2:25, endln:2:35
   |vpiDefName:work@ibex_csr
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.MSTATUS_RST_VAL), line:14:23, endln:14:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
     |vpiTypespec:
     \_struct_typespec: (status_t), line:9:11, endln:9:17
       |vpiParent:
-      \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
       |vpiName:status_t
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (mie), line:10:11, endln:10:14
@@ -1032,7 +1032,7 @@ design: (work@top)
         \_logic_typespec: , line:10:5, endln:10:10
           |vpiParent:
           \_typespec_member: (mie), line:10:11, endln:10:14
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
         |vpiRefLineNo:10
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:10
@@ -1046,7 +1046,7 @@ design: (work@top)
         \_logic_typespec: , line:11:5, endln:11:10
           |vpiParent:
           \_typespec_member: (mpie), line:11:11, endln:11:15
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
         |vpiRefLineNo:11
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:11
@@ -1057,7 +1057,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:14:23, endln:15:53
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
     |vpiRhs:
     \_operation: , line:14:41, endln:15:53
       |vpiOpType:75
@@ -1089,19 +1089,19 @@ design: (work@top)
   \_struct_typespec: (status_t), line:9:11, endln:9:17
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.MSTATUS_RST_VAL), line:14:23, endln:14:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
     |vpiTypespec:
     \_struct_typespec: (status_t), line:9:11, endln:9:17
       |vpiParent:
       \_parameter: (work@top.MSTATUS_RST_VAL), line:14:23, endln:14:38
       |vpiName:status_t
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (mie), line:10:11, endln:10:14
@@ -1112,7 +1112,7 @@ design: (work@top)
         \_logic_typespec: , line:10:5, endln:10:10
           |vpiParent:
           \_typespec_member: (mie), line:10:11, endln:10:14
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
         |vpiRefLineNo:10
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:10
@@ -1126,7 +1126,7 @@ design: (work@top)
         \_logic_typespec: , line:11:5, endln:11:10
           |vpiParent:
           \_typespec_member: (mpie), line:11:11, endln:11:15
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
         |vpiRefLineNo:11
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:11
@@ -1137,7 +1137,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:14:23, endln:15:53
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
     |vpiRhs:
     \_operation: , line:14:41, endln:15:53
       |vpiParent:
@@ -1157,7 +1157,7 @@ design: (work@top)
           \_logic_typespec: , line:10:5, endln:10:10
             |vpiParent:
             \_typespec_member: (mie), line:10:11, endln:10:14
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
           |vpiRefLineNo:10
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:10
@@ -1171,7 +1171,7 @@ design: (work@top)
           \_logic_typespec: , line:11:5, endln:11:10
             |vpiParent:
             \_typespec_member: (mpie), line:11:11, endln:11:15
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
           |vpiRefLineNo:11
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:11
@@ -1201,15 +1201,15 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@ibex_csr (work@top.u_mstatus_csr), file:dut.sv, line:16:3, endln:18:21
+  \_module: work@ibex_csr (work@top.u_mstatus_csr), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:16:3, endln:18:21
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
     |vpiName:u_mstatus_csr
     |vpiFullName:work@top.u_mstatus_csr
     |vpiParameter:
     \_parameter: (work@top.u_mstatus_csr.ResetValue), line:2:25, endln:2:35
       |vpiParent:
-      \_module: work@ibex_csr (work@top.u_mstatus_csr), file:dut.sv, line:16:3, endln:18:21
+      \_module: work@ibex_csr (work@top.u_mstatus_csr), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:16:3, endln:18:21
       |BIN:0
       |vpiTypespec:
       \_bit_typespec: , line:2:15, endln:2:24
@@ -1240,7 +1240,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:25, endln:2:40
       |vpiParent:
-      \_module: work@ibex_csr (work@top.u_mstatus_csr), file:dut.sv, line:16:3, endln:18:21
+      \_module: work@ibex_csr (work@top.u_mstatus_csr), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:16:3, endln:18:21
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:17:18, endln:17:35
@@ -1264,7 +1264,7 @@ design: (work@top)
               \_logic_typespec: , line:10:5, endln:10:10
                 |vpiParent:
                 \_typespec_member: (mie), line:10:11, endln:10:14
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
               |vpiRefLineNo:10
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:10
@@ -1278,7 +1278,7 @@ design: (work@top)
               \_logic_typespec: , line:11:5, endln:11:10
                 |vpiParent:
                 \_typespec_member: (mpie), line:11:11, endln:11:15
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
               |vpiRefLineNo:11
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:11
@@ -1303,10 +1303,10 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.u_mstatus_csr.ResetValue), line:2:25, endln:2:35
     |vpiDefName:work@ibex_csr
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ParamConcat/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:19:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

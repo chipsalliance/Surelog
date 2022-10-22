@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/EvalFuncArray/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/EvalFuncArray/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/EvalFuncArray/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<193> s<192> l<1:1> el<1:0>
 n<> u<2> t<Package> p<190> s<3> l<1:1> el<1:8>
@@ -196,11 +196,11 @@ n<> u<190> t<Package_declaration> p<191> c<2> l<1:1> el<24:11>
 n<> u<191> t<Description> p<192> c<190> l<1:1> el<24:11>
 n<> u<192> t<Source_text> p<193> c<191> l<1:1> el<24:11>
 n<> u<193> t<Top_level_rule> c<1> l<1:1> el<27:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "earlgrey".
+[WRN:PA0205] ${SURELOG_DIR}/tests/EvalFuncArray/dut.sv:1:1: No timescale set for "earlgrey".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "earlgrey".
+[INF:CP0301] ${SURELOG_DIR}/tests/EvalFuncArray/dut.sv:1:1: Compile package "earlgrey".
 
 LIB:  work
 FILE: builtin.sv
@@ -540,11 +540,11 @@ ref_obj                                               45
 return_stmt                                            4
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/EvalFuncArray/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EvalFuncArray/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/EvalFuncArray/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/EvalFuncArray/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/EvalFuncArray/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/EvalFuncArray/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -560,7 +560,7 @@ design: (unnamed)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+\_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:earlgrey
@@ -568,7 +568,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:3:27
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:14
       |vpiParent:
@@ -582,7 +582,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:24
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |UINT:5
     |vpiTypespec:
     \_int_typespec: , line:10:11, endln:10:14
@@ -597,7 +597,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:9:5
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_func_call: (max_info_pages), line:3:33, endln:3:47
       |vpiArgument:
@@ -643,7 +643,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:10:15, endln:10:28
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_constant: , line:10:27, endln:10:28
       |vpiDecompile:5
@@ -658,7 +658,7 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (earlgrey::max_info_pages), line:12:4, endln:21:14
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiName:max_info_pages
     |vpiFullName:earlgrey::max_info_pages
     |vpiVariables:
@@ -684,7 +684,7 @@ design: (unnamed)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiIODecl:
     \_io_decl: (infos), line:12:50, endln:12:55
       |vpiParent:
@@ -922,7 +922,7 @@ design: (unnamed)
           |vpiActual:
           \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
     |vpiInstance:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
 |uhdmtopPackages:
 \_package: builtin (builtin::)
   |vpiParent:
@@ -962,7 +962,7 @@ design: (unnamed)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+\_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:earlgrey
@@ -970,13 +970,13 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:3:27
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:14
       |vpiParent:
       \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:3:27
       |vpiInstance:
-      \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+      \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfosPerBank
@@ -984,14 +984,14 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:24
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |UINT:5
     |vpiTypespec:
     \_int_typespec: , line:10:11, endln:10:14
       |vpiParent:
       \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:24
       |vpiInstance:
-      \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+      \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfoTypes
@@ -999,7 +999,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:9:5
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_constant: , line:7:5, endln:7:7
       |vpiDecompile:18
@@ -1011,7 +1011,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:10:15, endln:10:28
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_constant: , line:10:27, endln:10:28
       |vpiDecompile:5
@@ -1027,7 +1027,7 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (earlgrey::max_info_pages), line:12:4, endln:21:14
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiName:max_info_pages
     |vpiFullName:earlgrey::max_info_pages
     |vpiVariables:
@@ -1037,7 +1037,7 @@ design: (unnamed)
       |vpiTypespec:
       \_int_typespec: , line:14:5, endln:14:8
         |vpiInstance:
-        \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+        \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
         |vpiSigned:1
       |vpiName:current_max
       |vpiFullName:earlgrey::max_info_pages::current_max
@@ -1049,11 +1049,11 @@ design: (unnamed)
       |vpiTypespec:
       \_integer_typespec: , line:12:23, endln:12:30
         |vpiInstance:
-        \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+        \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
     |vpiIODecl:
     \_io_decl: (infos), line:12:50, endln:12:55
       |vpiParent:
@@ -1093,7 +1093,7 @@ design: (unnamed)
       |vpiTypedef:
       \_int_typespec: , line:12:46, endln:12:49
         |vpiInstance:
-        \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+        \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (earlgrey::max_info_pages)
@@ -1154,7 +1154,7 @@ design: (unnamed)
             |vpiTypespec:
             \_int_typespec: , line:15:10, endln:15:13
               |vpiInstance:
-              \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+              \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
               |vpiSigned:1
             |vpiName:i
             |vpiFullName:earlgrey::max_info_pages::i
@@ -1291,7 +1291,7 @@ design: (unnamed)
           |vpiActual:
           \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
     |vpiInstance:
-    \_package: earlgrey (earlgrey::), file:dut.sv, line:1:1, endln:24:11
+    \_package: earlgrey (earlgrey::), file:${SURELOG_DIR}/tests/EvalFuncArray/dut.sv, line:1:1, endln:24:11
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:

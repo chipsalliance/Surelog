@@ -1,13 +1,13 @@
-[INF:CM0023] Creating log file ../../build/regression/UnitEnum/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UnitEnum/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[INF:PP0122] Preprocessing source file "top.v".
+[INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/UnitEnum/top.v".
 
-[INF:PA0201] Parsing source file "top.v".
+[INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/UnitEnum/top.v".
 
 LIB:  work
-FILE: top.v
+FILE: ${SURELOG_DIR}/tests/UnitEnum/top.v
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<110> s<109> l<2:1> el<1:2>
 n<> u<2> t<Package> p<25> s<3> l<2:1> el<2:8>
@@ -119,15 +119,15 @@ n<> u<107> t<Module_declaration> p<108> c<38> l<14:1> el<24:10>
 n<> u<108> t<Description> p<109> c<107> l<14:1> el<24:10>
 n<> u<109> t<Source_text> p<110> c<26> l<2:1> el<24:10>
 n<> u<110> t<Top_level_rule> c<1> l<2:1> el<26:1>
-[WRN:PA0205] top.v:2:1: No timescale set for "pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitEnum/top.v:2:1: No timescale set for "pkg".
 
-[WRN:PA0205] top.v:14:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitEnum/top.v:14:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] top.v:2:1: Compile package "pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/UnitEnum/top.v:2:1: Compile package "pkg".
 
-[INF:CP0303] top.v:14:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitEnum/top.v:14:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -383,19 +383,19 @@ n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:11>
 n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 [INF:CP0302] Compile class "work@mailbox".
 
-[INF:CP0302] top.v:3:1: Compile class "pkg::Configuration1".
+[INF:CP0302] ${SURELOG_DIR}/tests/UnitEnum/top.v:3:1: Compile class "pkg::Configuration1".
 
 [INF:CP0302] Compile class "work@process".
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[INF:CP0302] top.v:10:1: Compile class "work@Configuration2".
+[INF:CP0302] ${SURELOG_DIR}/tests/UnitEnum/top.v:10:1: Compile class "work@Configuration2".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] top.v:14:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/UnitEnum/top.v:14:1: Top level module "work@top".
 
-[ERR:CP0317] top.v:21:13: Undefined type "Environment".
+[ERR:CP0317] ${SURELOG_DIR}/tests/UnitEnum/top.v:21:13: Undefined type "Environment".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -428,11 +428,11 @@ package                                                5
 task                                                   9
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/UnitEnum/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitEnum/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnitEnum/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnitEnum/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/UnitEnum/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnitEnum/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -447,7 +447,7 @@ design: (work@top)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: pkg (pkg::), file:top.v, line:2:1, endln:8:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:2:1, endln:8:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:pkg
@@ -455,10 +455,10 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (pkg::fsm_t_pkg), line:6:1, endln:6:48
     |vpiParent:
-    \_package: pkg (pkg::), file:top.v, line:2:1, endln:8:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:2:1, endln:8:11
     |vpiName:pkg::fsm_t_pkg
     |vpiInstance:
-    \_package: pkg (pkg::), file:top.v, line:2:1, endln:8:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:2:1, endln:8:11
     |vpiEnumConst:
     \_enum_const: (IDLE), line:6:16, endln:6:20
       |vpiName:IDLE
@@ -523,7 +523,7 @@ design: (work@top)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: pkg (pkg::), file:top.v, line:2:1, endln:8:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:2:1, endln:8:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:pkg
@@ -531,10 +531,10 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (pkg::fsm_t_pkg), line:6:1, endln:6:48
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiName:pkg::fsm_t_pkg
     |vpiInstance:
-    \_package: pkg (pkg::), file:top.v, line:2:1, endln:8:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:2:1, endln:8:11
     |vpiEnumConst:
     \_enum_const: (IDLE), line:6:16, endln:6:20
       |vpiName:IDLE
@@ -562,13 +562,13 @@ design: (work@top)
   |vpiDefName:pkg
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (pkg::Configuration1), file:top.v, line:3:1, endln:4:9
+  \_class_defn: (pkg::Configuration1), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:3:1, endln:4:9
     |vpiParent:
-    \_package: pkg (pkg::), file:top.v, line:2:1, endln:8:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:2:1, endln:8:11
     |vpiName:Configuration1
     |vpiFullName:pkg::Configuration1
 |uhdmallClasses:
-\_class_defn: (work@Configuration2), file:top.v, line:10:1, endln:11:9
+\_class_defn: (work@Configuration2), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:10:1, endln:11:9
   |vpiParent:
   \_design: (work@top)
   |vpiName:work@Configuration2
@@ -938,17 +938,17 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
   \_enum_typespec: (fsm_t), line:16:1, endln:16:44
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiName:fsm_t
     |vpiInstance:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiEnumConst:
     \_enum_const: (IDLE), line:16:16, endln:16:20
       |vpiName:IDLE
@@ -981,40 +981,40 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.state), line:18:7, endln:18:12
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiName:state
     |vpiFullName:work@top.state
   |vpiNet:
   \_logic_net: (work@top.state2), line:19:11, endln:19:17
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiName:state2
     |vpiFullName:work@top.state2
   |vpiNet:
   \_logic_net: (work@top.env), line:21:13, endln:21:16
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiName:env
     |vpiFullName:work@top.env
   |vpiNet:
   \_logic_net: (work@top.cfg), line:22:16, endln:22:19
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiName:cfg
     |vpiFullName:work@top.cfg
   |vpiNet:
   \_logic_net: (work@top.cfg), line:23:16, endln:23:19
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiName:cfg
     |vpiFullName:work@top.cfg
 |uhdmtopModules:
-\_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
   |vpiName:work@top
   |vpiVariables:
   \_enum_var: (work@top.state), line:18:7, endln:18:12
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiTypespec:
     \_enum_typespec: (fsm_t), line:16:1, endln:16:44
     |vpiName:state
@@ -1023,7 +1023,7 @@ design: (work@top)
   |vpiVariables:
   \_enum_var: (work@top.state2), line:19:11, endln:19:17
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiTypespec:
     \_enum_typespec: (pkg::fsm_t_pkg), line:6:1, endln:6:48
     |vpiName:state2
@@ -1032,24 +1032,24 @@ design: (work@top)
   |vpiVariables:
   \_class_var: (work@top.cfg), line:22:16, endln:22:19
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiTypespec:
     \_class_typespec: (Configuration1), line:22:1, endln:22:15
       |vpiName:Configuration1
       |vpiClassDefn:
-      \_class_defn: (pkg::Configuration1), file:top.v, line:3:1, endln:4:9
+      \_class_defn: (pkg::Configuration1), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:3:1, endln:4:9
     |vpiName:cfg
     |vpiFullName:work@top.cfg
     |vpiVisibility:1
   |vpiVariables:
   \_class_var: (work@top.cfg), line:23:16, endln:23:19
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiTypespec:
     \_class_typespec: (Configuration2), line:23:1, endln:23:15
       |vpiName:Configuration2
       |vpiClassDefn:
-      \_class_defn: (work@Configuration2), file:top.v, line:10:1, endln:11:9
+      \_class_defn: (work@Configuration2), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:10:1, endln:11:9
     |vpiName:cfg
     |vpiFullName:work@top.cfg
     |vpiVisibility:1
@@ -1064,7 +1064,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.env), line:21:13, endln:21:16
     |vpiParent:
-    \_module: work@top (work@top), file:top.v, line:14:1, endln:24:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnitEnum/top.v, line:14:1, endln:24:10
     |vpiTypespec:
     \_unsupported_typespec: (Environment), line:21:1, endln:21:12
       |vpiName:Environment

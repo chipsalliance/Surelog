@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/DefaultTag/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/DefaultTag/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/DefaultTag/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<129> s<128> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -132,15 +132,15 @@ n<> u<126> t<Module_declaration> p<127> c<6> l<1:1> el<9:10>
 n<> u<127> t<Description> p<128> c<126> l<1:1> el<9:10>
 n<> u<128> t<Source_text> p<129> c<127> l<1:1> el<9:10>
 n<> u<129> t<Top_level_rule> c<1> l<1:1> el<11:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DefaultTag/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/DefaultTag/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DefaultTag/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -182,11 +182,11 @@ struct_typespec                                        6
 tagged_pattern                                        27
 typespec_member                                       24
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/DefaultTag/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefaultTag/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DefaultTag/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DefaultTag/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/DefaultTag/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DefaultTag/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -195,21 +195,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.X), line:8:23, endln:8:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_struct_typespec: (struct_1), line:2:12, endln:2:18
       |vpiParent:
-      \_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
       |vpiName:struct_1
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:3:19, endln:3:20
@@ -240,7 +240,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
@@ -274,7 +274,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:4
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:4
@@ -308,7 +308,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:5
@@ -342,7 +342,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:6
@@ -352,7 +352,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:23, endln:8:55
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_operation: , line:8:27, endln:8:55
       |vpiOpType:75
@@ -395,19 +395,19 @@ design: (work@top)
   \_struct_typespec: (struct_1), line:2:12, endln:2:18
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.X), line:8:23, endln:8:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_struct_typespec: (struct_1), line:2:12, endln:2:18
       |vpiParent:
       \_parameter: (work@top.X), line:8:23, endln:8:24
       |vpiName:struct_1
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:3:19, endln:3:20
@@ -438,7 +438,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:3
@@ -472,7 +472,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:4
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:4
@@ -506,7 +506,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:5
@@ -540,7 +540,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:6
@@ -550,7 +550,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:23, endln:8:55
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:9:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultTag/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_operation: , line:8:27, endln:8:55
       |vpiParent:
@@ -590,7 +590,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:3
@@ -624,7 +624,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
           |vpiRefLineNo:4
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:4
@@ -658,7 +658,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
           |vpiRefLineNo:5
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:5
@@ -692,7 +692,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/DefaultTag/dut.sv
           |vpiRefLineNo:6
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:6

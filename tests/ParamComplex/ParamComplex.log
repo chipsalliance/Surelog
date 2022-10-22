@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ParamComplex/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamComplex/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamComplex/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<177> s<176> l<1:1> el<1:0>
 n<> u<2> t<Package> p<38> s<3> l<1:1> el<1:8>
@@ -180,19 +180,19 @@ n<> u<174> t<Module_declaration> p<175> c<173> l<17:1> el<22:10>
 n<> u<175> t<Description> p<176> c<174> l<17:1> el<22:10>
 n<> u<176> t<Source_text> p<177> c<39> l<1:1> el<22:10>
 n<> u<177> t<Top_level_rule> c<1> l<1:1> el<23:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamComplex/dut.sv:1:1: No timescale set for "pkg".
 
-[WRN:PA0205] dut.sv:9:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamComplex/dut.sv:9:1: No timescale set for "top".
 
-[WRN:PA0205] dut.sv:17:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamComplex/dut.sv:17:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/ParamComplex/dut.sv:1:1: Compile package "pkg".
 
-[INF:CP0303] dut.sv:17:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamComplex/dut.sv:17:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:9:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamComplex/dut.sv:9:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -454,7 +454,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:9:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamComplex/dut.sv:9:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -526,11 +526,11 @@ tagged_pattern                                        14
 task                                                  18
 typespec_member                                       16
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ParamComplex/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamComplex/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ParamComplex/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamComplex/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ParamComplex/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamComplex/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -546,7 +546,7 @@ design: (work@top)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:pkg
@@ -554,10 +554,10 @@ design: (work@top)
   |vpiTypedef:
   \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::complex_t
     |vpiInstance:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:3:11, endln:3:12
@@ -570,7 +570,7 @@ design: (work@top)
         \_typespec_member: (a), line:3:11, endln:3:12
         |vpiInstance:
         \_package: (pkg)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
@@ -606,7 +606,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:4
@@ -651,7 +651,7 @@ design: (work@top)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:pkg
@@ -659,10 +659,10 @@ design: (work@top)
   |vpiTypedef:
   \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::complex_t
     |vpiInstance:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:3:11, endln:3:12
@@ -674,8 +674,8 @@ design: (work@top)
         |vpiParent:
         \_typespec_member: (a), line:3:11, endln:3:12
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
-      |vpiRefFile:dut.sv
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
@@ -690,7 +690,7 @@ design: (work@top)
         |vpiParent:
         \_typespec_member: (b), line:4:17, endln:4:18
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
         |vpiRange:
         \_range: , line:4:11, endln:4:16
           |vpiParent:
@@ -711,7 +711,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:4
@@ -1149,14 +1149,14 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:22:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.size), line:18:19, endln:18:23
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: , line:18:15, endln:18:18
@@ -1169,7 +1169,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@dut.init), line:19:30, endln:19:34
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
     |BIN:0
     |vpiTypespec:
     \_bit_typespec: , line:19:15, endln:19:29
@@ -1208,7 +1208,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:18:19, endln:18:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
     |vpiRhs:
     \_constant: , line:18:26, endln:18:27
       |vpiDecompile:0
@@ -1222,7 +1222,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:19:30, endln:19:39
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
     |vpiRhs:
     \_constant: , line:19:37, endln:19:39
       |vpiDecompile:'0
@@ -1235,14 +1235,14 @@ design: (work@top)
     \_parameter: (work@dut.init), line:19:30, endln:19:34
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.init_val), line:10:30, endln:10:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
     |vpiTypespec:
     \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
     |vpiLocalParam:1
@@ -1251,7 +1251,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:30, endln:10:58
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
     |vpiRhs:
     \_operation: , line:10:41, endln:10:58
       |vpiOpType:75
@@ -1281,19 +1281,19 @@ design: (work@top)
     \_parameter: (work@top.init_val), line:10:30, endln:10:38
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.init_val), line:10:30, endln:10:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
     |vpiTypespec:
     \_struct_typespec: (pkg::complex_t), line:2:11, endln:2:17
       |vpiParent:
       \_parameter: (work@top.init_val), line:10:30, endln:10:38
       |vpiName:pkg::complex_t
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:3:11, endln:3:12
@@ -1305,8 +1305,8 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (a), line:3:11, endln:3:12
           |vpiInstance:
-          \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
-        |vpiRefFile:dut.sv
+          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:3
@@ -1321,7 +1321,7 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (b), line:4:17, endln:4:18
           |vpiInstance:
-          \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
           |vpiRange:
           \_range: , line:4:11, endln:4:16
             |vpiParent:
@@ -1342,7 +1342,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
         |vpiRefLineNo:4
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:4
@@ -1353,7 +1353,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:30, endln:10:58
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
     |vpiRhs:
     \_operation: , line:10:41, endln:10:58
       |vpiParent:
@@ -1364,7 +1364,7 @@ design: (work@top)
         \_operation: , line:10:41, endln:10:58
         |vpiName:pkg::complex_t
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (a), line:3:11, endln:3:12
@@ -1376,8 +1376,8 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (a), line:3:11, endln:3:12
             |vpiInstance:
-            \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
-          |vpiRefFile:dut.sv
+            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:3
@@ -1392,7 +1392,7 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (b), line:4:17, endln:4:18
             |vpiInstance:
-            \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
             |vpiRange:
             \_range: , line:4:11, endln:4:16
               |vpiParent:
@@ -1413,7 +1413,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
           |vpiRefLineNo:4
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:4
@@ -1441,15 +1441,15 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@dut (work@top.asgn0), file:dut.sv, line:11:4, endln:14:16
+  \_module: work@dut (work@top.asgn0), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:11:4, endln:14:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
     |vpiName:asgn0
     |vpiFullName:work@top.asgn0
     |vpiParameter:
     \_parameter: (work@top.asgn0.size), line:18:19, endln:18:23
       |vpiParent:
-      \_module: work@dut (work@top.asgn0), file:dut.sv, line:11:4, endln:14:16
+      \_module: work@dut (work@top.asgn0), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:11:4, endln:14:16
       |UINT:0
       |vpiTypespec:
       \_int_typespec: , line:18:15, endln:18:18
@@ -1462,7 +1462,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.asgn0.init), line:19:30, endln:19:34
       |vpiParent:
-      \_module: work@dut (work@top.asgn0), file:dut.sv, line:11:4, endln:14:16
+      \_module: work@dut (work@top.asgn0), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:11:4, endln:14:16
       |BIN:0
       |vpiTypespec:
       \_bit_typespec: , line:19:15, endln:19:29
@@ -1506,7 +1506,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:18:19, endln:18:27
       |vpiParent:
-      \_module: work@dut (work@top.asgn0), file:dut.sv, line:11:4, endln:14:16
+      \_module: work@dut (work@top.asgn0), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:11:4, endln:14:16
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:18:26, endln:18:27
@@ -1521,7 +1521,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:19:30, endln:19:39
       |vpiParent:
-      \_module: work@dut (work@top.asgn0), file:dut.sv, line:11:4, endln:14:16
+      \_module: work@dut (work@top.asgn0), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:11:4, endln:14:16
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:13:15, endln:13:25
@@ -1536,7 +1536,7 @@ design: (work@top)
             \_operation: , line:13:16, endln:13:24
             |vpiName:pkg::complex_t
             |vpiInstance:
-            \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (a), line:3:11, endln:3:12
@@ -1548,8 +1548,8 @@ design: (work@top)
                 |vpiParent:
                 \_typespec_member: (a), line:3:11, endln:3:12
                 |vpiInstance:
-                \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
-              |vpiRefFile:dut.sv
+                \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+              |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
               |vpiRefLineNo:3
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:3
@@ -1564,7 +1564,7 @@ design: (work@top)
                 |vpiParent:
                 \_typespec_member: (b), line:4:17, endln:4:18
                 |vpiInstance:
-                \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:6:11
+                \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
                 |vpiRange:
                 \_range: , line:4:11, endln:4:16
                   |vpiParent:
@@ -1585,7 +1585,7 @@ design: (work@top)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
               |vpiRefLineNo:4
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:4
@@ -1610,10 +1610,10 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.asgn0.init), line:19:30, endln:19:34
     |vpiDefName:work@dut
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
     |vpiDefLineNo:17
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

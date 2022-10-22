@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/TypeDefScope/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/TypeDefScope/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/TypeDefScope/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<96> s<95> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<17> s<3> l<1:1> el<1:7>
@@ -99,11 +99,11 @@ n<> u<93> t<Module_declaration> p<94> c<17> l<1:1> el<18:11>
 n<> u<94> t<Description> p<95> c<93> l<1:1> el<18:11>
 n<> u<95> t<Source_text> p<96> c<94> l<1:1> el<18:11>
 n<> u<96> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TypeDefScope/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/TypeDefScope/dut.sv:1:1: Compile module "work@dut".
 
 LIB:  work
 FILE: builtin.sv
@@ -363,12 +363,12 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[WRN:CP0310] dut.sv:1:13: Port "a" definition missing its direction (input, output, inout),
+[WRN:CP0310] ${SURELOG_DIR}/tests/TypeDefScope/dut.sv:1:13: Port "a" definition missing its direction (input, output, inout),
 there are 1 more instances of this message.
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/TypeDefScope/dut.sv:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -436,11 +436,11 @@ string_typespec                                        4
 task                                                  18
 unsupported_typespec                                   3
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/TypeDefScope/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypeDefScope/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/TypeDefScope/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TypeDefScope/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/TypeDefScope/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TypeDefScope/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -924,7 +924,7 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -932,7 +932,7 @@ design: (work@dut)
   |vpiTaskFunc:
   \_function: (work@dut.UVMC_set_config_object), line:3:4, endln:15:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:UVMC_set_config_object
     |vpiFullName:work@dut.UVMC_set_config_object
     |vpiVariables:
@@ -955,7 +955,7 @@ design: (work@dut)
       |vpiFullName:work@dut.UVMC_set_config_object.comp
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiIODecl:
     \_io_decl: (type_name), line:3:49, endln:3:58
       |vpiDirection:1
@@ -1000,23 +1000,23 @@ design: (work@dut)
       \_logic_typespec: (converter2), line:9:9, endln:9:14
         |vpiName:converter2
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
   |vpiNet:
   \_logic_net: (work@dut.a), line:1:13, endln:1:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:a
     |vpiFullName:work@dut.a
   |vpiNet:
   \_logic_net: (work@dut.b), line:1:16, endln:1:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiPort:
   \_port: (a), line:1:13, endln:1:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:a
     |vpiDirection:3
     |vpiLowConn:
@@ -1026,7 +1026,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (b), line:1:16, endln:1:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:b
     |vpiDirection:3
     |vpiLowConn:
@@ -1034,14 +1034,14 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:16, endln:1:17
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@dut.UVMC_set_config_object), line:3:4, endln:15:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:UVMC_set_config_object
     |vpiFullName:work@dut.UVMC_set_config_object
     |vpiVariables:
@@ -1066,7 +1066,7 @@ design: (work@dut)
       \_ref_var: (work@dut.UVMC_set_config_object.comp), line:12:15, endln:12:19
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiIODecl:
     \_io_decl: (type_name), line:3:49, endln:3:58
       |vpiParent:
@@ -1135,24 +1135,24 @@ design: (work@dut)
       |vpiTypedef:
       \_logic_typespec: (converter2), line:9:9, endln:9:14
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
   |vpiNet:
   \_logic_net: (work@dut.a), line:1:13, endln:1:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:a
     |vpiFullName:work@dut.a
   |vpiNet:
   \_logic_net: (work@dut.b), line:1:16, endln:1:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiTopModule:1
   |vpiPort:
   \_port: (a), line:1:13, endln:1:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:a
     |vpiDirection:3
     |vpiLowConn:
@@ -1164,11 +1164,11 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.a), line:1:13, endln:1:14
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
   |vpiPort:
   \_port: (b), line:1:16, endln:1:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
     |vpiName:b
     |vpiDirection:3
     |vpiLowConn:
@@ -1180,7 +1180,7 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:16, endln:1:17
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefScope/dut.sv, line:1:1, endln:18:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

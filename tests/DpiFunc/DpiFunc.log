@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/DpiFunc/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/DpiFunc/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/DpiFunc/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<44> s<43> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -47,11 +47,11 @@ n<> u<41> t<Module_declaration> p<42> c<6> l<1:1> el<6:10>
 n<> u<42> t<Description> p<43> c<41> l<1:1> el<6:10>
 n<> u<43> t<Source_text> p<44> c<42> l<1:1> el<6:10>
 n<> u<44> t<Top_level_rule> c<1> l<1:1> el<7:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DpiFunc/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/DpiFunc/dut.sv:1:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -313,7 +313,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DpiFunc/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -365,11 +365,11 @@ package                                                2
 return_stmt                                            2
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/DpiFunc/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DpiFunc/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DpiFunc/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DpiFunc/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/DpiFunc/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DpiFunc/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -853,7 +853,7 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -861,7 +861,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.func_1), line:2:3, endln:2:34
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
     |vpiName:func_1
     |vpiFullName:work@top.func_1
     |vpiAccessType:3
@@ -874,7 +874,7 @@ design: (work@top)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
     |vpiStmt:
     \_return_stmt: , line:4:5, endln:4:11
       |vpiParent:
@@ -888,16 +888,16 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@top.func_1), line:2:3, endln:2:34
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
     |vpiName:func_1
     |vpiFullName:work@top.func_1
     |vpiAccessType:3
@@ -906,7 +906,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:3:12, endln:3:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
     |vpiStmt:
     \_return_stmt: , line:4:5, endln:4:11
       |vpiParent:
@@ -914,7 +914,7 @@ design: (work@top)
       |vpiCondition:
       \_constant: , line:4:12, endln:4:13
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiFunc/dut.sv, line:1:1, endln:6:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

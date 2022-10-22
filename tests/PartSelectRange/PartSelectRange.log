@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PartSelectRange/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PartSelectRange/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PartSelectRange/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<218> s<217> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -221,27 +221,27 @@ n<> u<215> t<Module_declaration> p<216> c<6> l<1:1> el<19:10>
 n<> u<216> t<Description> p<217> c<215> l<1:1> el<19:10>
 n<> u<217> t<Source_text> p<218> c<216> l<1:1> el<19:10>
 n<> u<218> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "test".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:1:1: No timescale set for "test".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@test".
+[INF:CP0303] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:1:1: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:7:3: Compile generate block "work@test.loop[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:7:3: Compile generate block "work@test.loop[0]".
 
-[INF:CP0335] dut.sv:9:2: Compile generate block "work@test.loop[0].foo".
+[INF:CP0335] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:9:2: Compile generate block "work@test.loop[0].foo".
 
-[INF:CP0335] dut.sv:7:3: Compile generate block "work@test.loop[1]".
+[INF:CP0335] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:7:3: Compile generate block "work@test.loop[1]".
 
-[INF:CP0335] dut.sv:15:7: Compile generate block "work@test.loop[1].bar".
+[INF:CP0335] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:15:7: Compile generate block "work@test.loop[1].bar".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@test".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:1:1: Top level module "work@test".
 
-[WRN:EL0500] dut.sv:11:7: Cannot find a module definition for "work@test.loop[0].foo::foo".
+[WRN:EL0500] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:11:7: Cannot find a module definition for "work@test.loop[0].foo::foo".
 
-[WRN:EL0500] dut.sv:15:7: Cannot find a module definition for "work@test.loop[1].bar::bar".
+[WRN:EL0500] ${SURELOG_DIR}/tests/PartSelectRange/dut.sv:15:7: Cannot find a module definition for "work@test.loop[1].bar::bar".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -287,11 +287,11 @@ part_select                                            3
 range                                                  2
 ref_obj                                                9
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PartSelectRange/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectRange/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PartSelectRange/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PartSelectRange/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PartSelectRange/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectRange/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -300,14 +300,14 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+\_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.MAP), line:3:19, endln:3:22
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |BIN:0100
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:18
@@ -336,7 +336,7 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (work@test.N), line:4:13, endln:4:14
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -345,7 +345,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:19, endln:3:33
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |vpiRhs:
     \_constant: , line:3:25, endln:3:33
       |vpiDecompile:4'b01_00
@@ -359,7 +359,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:4:13, endln:4:18
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:2
@@ -372,12 +372,12 @@ design: (work@test)
     \_parameter: (work@test.N), line:4:13, endln:4:14
   |vpiDefName:work@test
 |uhdmtopModules:
-\_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+\_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
   |vpiName:work@test
   |vpiParameter:
   \_parameter: (work@test.MAP), line:3:19, endln:3:22
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |BIN:0100
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:18
@@ -408,7 +408,7 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (work@test.N), line:4:13, endln:4:14
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -419,7 +419,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:19, endln:3:33
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |vpiRhs:
     \_constant: , line:3:25, endln:3:33
       |vpiDecompile:4'b0100
@@ -433,7 +433,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:4:13, endln:4:18
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:2
@@ -450,7 +450,7 @@ design: (work@test)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.loop[0]), line:8:6, endln:17:9
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |vpiName:loop[0]
     |vpiFullName:work@test.loop[0]
     |vpiGenScope:
@@ -480,7 +480,7 @@ design: (work@test)
           \_gen_scope_array: (work@test.loop[0].foo), line:9:2, endln:16:7
           |vpiFullName:work@test.loop[0].foo
           |vpiModule:
-          \_module: work@test.loop[0].foo::foo (work@test.loop[0].foo.i0), file:dut.sv, line:11:7, endln:11:17
+          \_module: work@test.loop[0].foo::foo (work@test.loop[0].foo.i0), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:11:7, endln:11:17
             |vpiParent:
             \_gen_scope: (work@test.loop[0].foo)
             |vpiName:i0
@@ -489,7 +489,7 @@ design: (work@test)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.loop[1]), line:8:6, endln:17:9
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |vpiName:loop[1]
     |vpiFullName:work@test.loop[1]
     |vpiGenScope:
@@ -519,7 +519,7 @@ design: (work@test)
           \_gen_scope_array: (work@test.loop[1].bar), line:15:7, endln:15:17
           |vpiFullName:work@test.loop[1].bar
           |vpiModule:
-          \_module: work@test.loop[1].bar::bar (work@test.loop[1].bar.i0), file:dut.sv, line:15:7, endln:15:17
+          \_module: work@test.loop[1].bar::bar (work@test.loop[1].bar.i0), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:15:7, endln:15:17
             |vpiParent:
             \_gen_scope: (work@test.loop[1].bar)
             |vpiName:i0

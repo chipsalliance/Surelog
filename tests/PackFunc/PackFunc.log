@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackFunc/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackFunc/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackFunc/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<127> s<126> l<1:1> el<1:0>
 n<> u<2> t<Package> p<31> s<3> l<1:1> el<1:8>
@@ -130,15 +130,15 @@ n<> u<124> t<Package_declaration> p<125> c<33> l<8:1> el<22:11>
 n<> u<125> t<Description> p<126> c<124> l<8:1> el<22:11>
 n<> u<126> t<Source_text> p<127> c<32> l<1:1> el<22:11>
 n<> u<127> t<Top_level_rule> c<1> l<1:1> el<23:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "b".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackFunc/dut.sv:1:1: No timescale set for "b".
 
-[WRN:PA0205] dut.sv:8:1: No timescale set for "aa".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackFunc/dut.sv:8:1: No timescale set for "aa".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "b".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackFunc/dut.sv:1:1: Compile package "b".
 
-[INF:CP0301] dut.sv:8:1: Compile package "aa".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackFunc/dut.sv:8:1: Compile package "aa".
 
 [INF:EL0526] Design Elaboration...
 
@@ -194,11 +194,11 @@ sys_func_call                                          6
 typespec_member                                        4
 unsupported_typespec                                   4
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackFunc/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackFunc/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackFunc/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackFunc/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackFunc/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackFunc/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -207,7 +207,7 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: b (b::), file:dut.sv, line:1:1, endln:6:11
+\_package: b (b::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:b
@@ -215,10 +215,10 @@ design: (unnamed)
   |vpiTypedef:
   \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
     |vpiParent:
-    \_package: b (b::), file:dut.sv, line:1:1, endln:6:11
+    \_package: b (b::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:1:1, endln:6:11
     |vpiName:b::foo_bar_t
     |vpiInstance:
-    \_package: b (b::), file:dut.sv, line:1:1, endln:6:11
+    \_package: b (b::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:1:1, endln:6:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (vc), line:3:26, endln:3:28
@@ -251,14 +251,14 @@ design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackFunc/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:17
   |vpiDefName:b
 |uhdmallPackages:
-\_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+\_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:aa
@@ -267,7 +267,7 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (aa::foo_bar), line:10:3, endln:21:14
     |vpiParent:
-    \_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+    \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
     |vpiName:foo_bar
     |vpiFullName:aa::foo_bar
     |vpiVariables:
@@ -277,10 +277,10 @@ design: (unnamed)
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
         |vpiParent:
-        \_package: b (b::), file:dut.sv, line:1:1, endln:6:11
+        \_package: b (b::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:1:1, endln:6:11
         |vpiName:b::foo_bar_t
         |vpiInstance:
-        \_package: b (b::), file:dut.sv, line:1:1, endln:6:11
+        \_package: b (b::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:1:1, endln:6:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (vc), line:3:26, endln:3:28
@@ -292,7 +292,7 @@ design: (unnamed)
             |vpiParent:
             \_typespec_member: (vc), line:3:26, endln:3:28
             |vpiInstance:
-            \_package: b (b::), file:dut.sv, line:1:1, endln:6:11
+            \_package: b (b::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:1:1, endln:6:11
             |vpiRange:
             \_range: , line:3:11, endln:3:17
               |vpiParent:
@@ -313,7 +313,7 @@ design: (unnamed)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/PackFunc/dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:3
@@ -377,7 +377,7 @@ design: (unnamed)
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
     |vpiParent:
-    \_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+    \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
     |vpiIODecl:
     \_io_decl: (a), line:12:24, endln:12:25
       |vpiParent:
@@ -414,9 +414,9 @@ design: (unnamed)
           |vpiActual:
           \_struct_var: , line:10:22, endln:10:34
     |vpiInstance:
-    \_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+    \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
 |uhdmtopPackages:
-\_package: b (b::), file:dut.sv, line:1:1, endln:6:11
+\_package: b (b::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:b
@@ -426,7 +426,7 @@ design: (unnamed)
   |vpiDefName:b
   |vpiTop:1
 |uhdmtopPackages:
-\_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+\_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:aa
@@ -436,7 +436,7 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (aa::foo_bar), line:10:3, endln:21:14
     |vpiParent:
-    \_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+    \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
     |vpiName:foo_bar
     |vpiFullName:aa::foo_bar
     |vpiVariables:
@@ -455,7 +455,7 @@ design: (unnamed)
       |vpiTypespec:
       \_logic_typespec: , line:15:5, endln:15:23
         |vpiInstance:
-        \_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+        \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
         |vpiRange:
         \_range: , line:15:9, endln:15:23
           |vpiParent:
@@ -504,7 +504,7 @@ design: (unnamed)
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
     |vpiParent:
-    \_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+    \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
     |vpiIODecl:
     \_io_decl: (a), line:12:24, endln:12:25
       |vpiParent:
@@ -541,7 +541,7 @@ design: (unnamed)
           |vpiActual:
           \_struct_var: , line:10:22, endln:10:34
     |vpiInstance:
-    \_package: aa (aa::), file:dut.sv, line:8:1, endln:22:11
+    \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

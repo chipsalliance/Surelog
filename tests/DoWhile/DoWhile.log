@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/DoWhile/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/DoWhile/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/DoWhile/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<74> s<73> l<1:1> el<1:0>
 n<> u<2> t<Package> p<71> s<3> l<1:1> el<1:8>
@@ -77,11 +77,11 @@ n<> u<71> t<Package_declaration> p<72> c<2> l<1:1> el<14:11>
 n<> u<72> t<Description> p<73> c<71> l<1:1> el<14:11>
 n<> u<73> t<Source_text> p<74> c<72> l<1:1> el<14:11>
 n<> u<74> t<Top_level_rule> c<1> l<1:1> el<15:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "toto".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DoWhile/dut.sv:1:1: No timescale set for "toto".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "toto".
+[INF:CP0301] ${SURELOG_DIR}/tests/DoWhile/dut.sv:1:1: Compile package "toto".
 
 LIB:  work
 FILE: builtin.sv
@@ -405,15 +405,15 @@ ref_obj                                               30
 task                                                  18
 wait_stmt                                              4
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:10:14: Unresolved hierarchical reference "m_type_names.next".
+[ERR:UH0725] ${SURELOG_DIR}/tests/DoWhile/dut.sv:10:14: Unresolved hierarchical reference "m_type_names.next".
 
-[ERR:UH0725] dut.sv:7:11: Unresolved hierarchical reference "m_sync[i].m_state".
+[ERR:UH0725] ${SURELOG_DIR}/tests/DoWhile/dut.sv:7:11: Unresolved hierarchical reference "m_sync[i].m_state".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/DoWhile/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DoWhile/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DoWhile/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DoWhile/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/DoWhile/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DoWhile/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -429,7 +429,7 @@ design: (unnamed)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+\_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:toto
@@ -438,12 +438,12 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
     |vpiName:uvm_default_factory::print
     |vpiFullName:toto::uvm_default_factory::print
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
     |vpiStmt:
     \_do_while: , line:6:3, endln:10:36
       |vpiParent:
@@ -536,7 +536,7 @@ design: (unnamed)
             |vpiName:qs
             |vpiFullName:toto::uvm_default_factory::print::qs
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
 |uhdmtopPackages:
 \_package: builtin (builtin::)
   |vpiParent:
@@ -576,7 +576,7 @@ design: (unnamed)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+\_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:toto
@@ -586,12 +586,12 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (toto::uvm_default_factory::print), line:4:1, endln:12:12
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
     |vpiName:uvm_default_factory::print
     |vpiFullName:toto::uvm_default_factory::print
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
     |vpiStmt:
     \_do_while: , line:6:3, endln:10:36
       |vpiParent:
@@ -684,7 +684,7 @@ design: (unnamed)
             |vpiName:qs
             |vpiFullName:toto::uvm_default_factory::print::qs
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:14:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/DoWhile/dut.sv, line:1:1, endln:14:11
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:

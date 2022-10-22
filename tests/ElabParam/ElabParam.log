@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ElabParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ElabParam/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ElabParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<201> s<200> l<1:1> el<1:0>
 n<> u<2> t<Package> p<51> s<3> l<1:1> el<1:8>
@@ -204,15 +204,15 @@ n<> u<198> t<Module_declaration> p<199> c<68> l<11:2> el<18:11>
 n<> u<199> t<Description> p<200> c<198> l<11:2> el<18:11>
 n<> u<200> t<Source_text> p<201> c<52> l<1:1> el<18:11>
 n<> u<201> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ElabParam/dut.sv:1:1: No timescale set for "top_pkg".
 
-[WRN:PA0205] dut.sv:11:2: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ElabParam/dut.sv:11:2: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "top_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/ElabParam/dut.sv:1:1: Compile package "top_pkg".
 
-[INF:CP0303] dut.sv:11:2: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/ElabParam/dut.sv:11:2: Compile module "work@dut".
 
 LIB:  work
 FILE: builtin.sv
@@ -474,7 +474,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:11:2: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ElabParam/dut.sv:11:2: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -544,11 +544,11 @@ range                                                 10
 ref_obj                                               12
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ElabParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ElabParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ElabParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ElabParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ElabParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ElabParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -564,7 +564,7 @@ design: (work@dut)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+\_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
   |vpiParent:
   \_design: (work@dut)
   |vpiName:top_pkg
@@ -572,7 +572,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (top_pkg::PMP_CFG_W), line:7:25, endln:7:34
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:7:12, endln:7:24
@@ -585,7 +585,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:7:25, endln:7:38
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |vpiRhs:
     \_constant: , line:7:37, endln:7:38
       |vpiDecompile:2
@@ -599,10 +599,10 @@ design: (work@dut)
   |vpiTypedef:
   \_enum_typespec: (top_pkg::opcode_e), line:2:4, endln:5:15
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |vpiName:top_pkg::opcode_e
     |vpiInstance:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |vpiBaseTypespec:
     \_logic_typespec: , line:2:17, endln:2:28
       |vpiInstance:
@@ -677,7 +677,7 @@ design: (work@dut)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+\_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
   |vpiParent:
   \_design: (work@dut)
   |vpiName:top_pkg
@@ -685,20 +685,20 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (top_pkg::PMP_CFG_W), line:7:25, endln:7:34
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:7:12, endln:7:24
       |vpiParent:
       \_parameter: (top_pkg::PMP_CFG_W), line:7:25, endln:7:34
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |vpiName:PMP_CFG_W
     |vpiFullName:top_pkg::PMP_CFG_W
   |vpiParamAssign:
   \_param_assign: , line:7:25, endln:7:38
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |vpiRhs:
     \_constant: , line:7:37, endln:7:38
       |vpiDecompile:2
@@ -712,14 +712,14 @@ design: (work@dut)
   |vpiTypedef:
   \_enum_typespec: (top_pkg::opcode_e), line:2:4, endln:5:15
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |vpiName:top_pkg::opcode_e
     |vpiInstance:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
     |vpiBaseTypespec:
     \_logic_typespec: , line:2:17, endln:2:28
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:1:1, endln:9:12
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:1:1, endln:9:12
       |vpiRange:
       \_range: , line:2:23, endln:2:28
         |vpiLeftRange:
@@ -1183,7 +1183,7 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -1191,21 +1191,21 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.a), line:14:15, endln:14:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@dut.b), line:15:14, endln:15:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:48
   |vpiPort:
   \_port: (a), line:11:14, endln:11:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -1235,7 +1235,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (b), line:11:17, endln:11:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
@@ -1265,7 +1265,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:16:11, endln:17:46
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiRhs:
     \_operation: , line:16:15, endln:17:46
       |vpiParent:
@@ -1325,14 +1325,14 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.b), line:15:14, endln:15:15
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@dut.a), line:14:15, endln:14:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiTypespec:
     \_logic_typespec: , line:14:4, endln:14:14
       |vpiRange:
@@ -1359,7 +1359,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.b), line:15:14, endln:15:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiTypespec:
     \_logic_typespec: , line:15:4, endln:15:13
       |vpiRange:
@@ -1387,7 +1387,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (a), line:11:14, endln:11:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -1421,11 +1421,11 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
   |vpiPort:
   \_port: (b), line:11:17, endln:11:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
@@ -1459,11 +1459,11 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
   |vpiContAssign:
   \_cont_assign: , line:16:11, endln:17:46
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:11:2, endln:18:11
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ElabParam/dut.sv, line:11:2, endln:18:11
     |vpiRhs:
     \_operation: , line:16:15, endln:17:46
       |vpiParent:

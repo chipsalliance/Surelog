@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/MacroArgMismatch/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/MacroArgMismatch/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<62> s<61> l<2:1> el<1:2>
 n<> u<2> t<Module_keyword> p<11> s<3> l<2:1> el<2:7>
@@ -65,15 +65,15 @@ n<> u<59> t<Module_declaration> p<60> c<11> l<2:1> el<6:10>
 n<> u<60> t<Description> p<61> c<59> l<2:1> el<6:10>
 n<> u<61> t<Source_text> p<62> c<60> l<2:1> el<6:10>
 n<> u<62> t<Top_level_rule> c<1> l<2:1> el<7:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "test".
+[WRN:PA0205] ${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv:2:1: No timescale set for "test".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:2:1: Compile module "work@test".
+[INF:CP0303] ${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv:2:1: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:2:1: Top level module "work@test".
+[NTE:EL0503] ${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv:2:1: Top level module "work@test".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -113,11 +113,11 @@ operation                                              4
 port                                                   3
 ref_obj                                                9
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/MacroArgMismatch/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MacroArgMismatch/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/MacroArgMismatch/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/MacroArgMismatch/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/MacroArgMismatch/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/MacroArgMismatch/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -126,7 +126,7 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+\_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@test
@@ -134,20 +134,20 @@ design: (work@test)
   |vpiNet:
   \_logic_net: (work@test.clk), line:2:19, endln:2:22
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiName:clk
     |vpiFullName:work@test.clk
   |vpiNet:
   \_logic_net: (work@test.d), line:3:5, endln:3:6
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiName:d
     |vpiFullName:work@test.d
     |vpiNetType:48
   |vpiPort:
   \_port: (clk), line:2:19, endln:2:22
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -159,7 +159,7 @@ design: (work@test)
   |vpiProcess:
   \_always: , line:4:1, endln:5:17
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiStmt:
     \_event_control: , line:4:8, endln:4:22
       |vpiParent:
@@ -210,14 +210,14 @@ design: (work@test)
           |#1
     |vpiAlwaysType:1
 |uhdmtopModules:
-\_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+\_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@test.clk), line:2:19, endln:2:22
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiTypespec:
     \_logic_typespec: , line:2:19, endln:2:19
     |vpiName:clk
@@ -225,7 +225,7 @@ design: (work@test)
   |vpiNet:
   \_logic_net: (work@test.d), line:3:5, endln:3:6
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiTypespec:
     \_logic_typespec: , line:3:1, endln:3:4
     |vpiName:d
@@ -235,7 +235,7 @@ design: (work@test)
   |vpiPort:
   \_port: (clk), line:2:19, endln:2:22
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -249,11 +249,11 @@ design: (work@test)
     |vpiTypedef:
     \_logic_typespec: , line:2:19, endln:2:19
     |vpiInstance:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
   |vpiProcess:
   \_always: , line:4:1, endln:5:17
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:2:1, endln:6:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiStmt:
     \_event_control: , line:4:8, endln:4:22
       |vpiParent:

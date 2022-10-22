@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ParamFromPackage/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamFromPackage/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<124> s<123> l<1:1> el<1:0>
 n<> u<2> t<Package> p<40> s<3> l<1:1> el<1:8>
@@ -127,23 +127,23 @@ n<> u<121> t<Module_declaration> p<122> c<101> l<12:1> el<14:10>
 n<> u<122> t<Description> p<123> c<121> l<12:1> el<14:10>
 n<> u<123> t<Source_text> p<124> c<41> l<1:1> el<14:10>
 n<> u<124> t<Top_level_rule> c<1> l<1:1> el<15:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "aes_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:1:1: No timescale set for "aes_pkg".
 
-[WRN:PA0205] dut.sv:5:1: No timescale set for "aes_cipher_core".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:5:1: No timescale set for "aes_cipher_core".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:12:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "aes_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:1:1: Compile package "aes_pkg".
 
-[INF:CP0303] dut.sv:5:1: Compile module "work@aes_cipher_core".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:5:1: Compile module "work@aes_cipher_core".
 
-[INF:CP0303] dut.sv:12:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:12:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:12:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:12:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -179,11 +179,11 @@ param_assign                                          10
 parameter                                             11
 range                                                 26
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ParamFromPackage/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamFromPackage/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ParamFromPackage/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamFromPackage/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ParamFromPackage/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamFromPackage/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -192,7 +192,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+\_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:aes_pkg
@@ -200,7 +200,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (aes_pkg::X), line:2:31, endln:2:32
     |vpiParent:
-    \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
     |HEX:abcd
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:30
@@ -249,7 +249,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:31, endln:2:43
     |vpiParent:
-    \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:35, endln:2:43
       |vpiDecompile:32'habcd
@@ -262,7 +262,7 @@ design: (work@top)
     \_parameter: (aes_pkg::X), line:2:31, endln:2:32
   |vpiDefName:aes_pkg
 |uhdmtopPackages:
-\_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+\_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:aes_pkg
@@ -270,14 +270,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (aes_pkg::X), line:2:31, endln:2:32
     |vpiParent:
-    \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
     |HEX:abcd
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:30
       |vpiParent:
       \_parameter: (aes_pkg::X), line:2:31, endln:2:32
       |vpiInstance:
-      \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+      \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
       |vpiRange:
       \_range: , line:2:20, endln:2:25
         |vpiLeftRange:
@@ -319,7 +319,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:31, endln:2:43
     |vpiParent:
-    \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:35, endln:2:43
       |vpiDecompile:32'habcd
@@ -333,21 +333,21 @@ design: (work@top)
   |vpiDefName:aes_pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@aes_cipher_core (work@aes_cipher_core), file:dut.sv, line:5:1, endln:10:10
+\_module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@aes_cipher_core
   |vpiParameter:
   \_parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
     |vpiParent:
-    \_module: work@aes_cipher_core (work@aes_cipher_core), file:dut.sv, line:5:1, endln:10:10
+    \_module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |HEX:abcd
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:30
       |vpiParent:
       \_parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
       |vpiInstance:
-      \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+      \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
       |vpiRange:
       \_range: , line:2:20, endln:2:25
         |vpiParent:
@@ -394,7 +394,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@aes_cipher_core.P), line:7:34, endln:7:35
     |vpiParent:
-    \_module: work@aes_cipher_core (work@aes_cipher_core), file:dut.sv, line:5:1, endln:10:10
+    \_module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |HEX:abcd
     |vpiTypespec:
     \_logic_typespec: , line:7:17, endln:7:33
@@ -441,7 +441,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:24
     |vpiParent:
-    \_module: work@aes_cipher_core (work@aes_cipher_core), file:dut.sv, line:5:1, endln:10:10
+    \_module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |UINT:0
     |vpiTypespec:
     \_logic_typespec: , line:8:17, endln:8:22
@@ -452,7 +452,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:31, endln:2:43
     |vpiParent:
-    \_module: work@aes_cipher_core (work@aes_cipher_core), file:dut.sv, line:5:1, endln:10:10
+    \_module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:35, endln:2:43
       |vpiParent:
@@ -465,7 +465,7 @@ design: (work@top)
         |vpiParent:
         \_constant: , line:2:35, endln:2:43
         |vpiInstance:
-        \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+        \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
         |vpiRange:
         \_range: , line:2:20, endln:2:25
           |vpiParent:
@@ -517,7 +517,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
         |vpiInstance:
-        \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+        \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
         |vpiRange:
         \_range: , line:2:20, endln:2:25
           |vpiParent:
@@ -564,7 +564,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:7:34, endln:7:39
     |vpiParent:
-    \_module: work@aes_cipher_core (work@aes_cipher_core), file:dut.sv, line:5:1, endln:10:10
+    \_module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |vpiRhs:
     \_constant: , line:7:38, endln:7:39
       |vpiDecompile:32'habcd
@@ -578,7 +578,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:23, endln:8:28
     |vpiParent:
-    \_module: work@aes_cipher_core (work@aes_cipher_core), file:dut.sv, line:5:1, endln:10:10
+    \_module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |vpiRhs:
     \_constant: , line:8:27, endln:8:28
       |vpiDecompile:0
@@ -593,34 +593,34 @@ design: (work@top)
   \_import_typespec: (aes_pkg), line:5:31, endln:5:41
   |vpiDefName:work@aes_cipher_core
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:12:1, endln:14:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:12:1, endln:14:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:dut.sv, line:13:4, endln:13:49
+  \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:13:4, endln:13:49
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:12:1, endln:14:10
     |vpiName:u_aes_cipher_core
     |vpiFullName:work@top.u_aes_cipher_core
     |vpiParameter:
     \_parameter: (work@top.u_aes_cipher_core.X), line:2:31, endln:2:32
       |vpiParent:
-      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:dut.sv, line:13:4, endln:13:49
+      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:13:4, endln:13:49
       |HEX:abcd
       |vpiTypespec:
       \_logic_typespec: , line:2:14, endln:2:30
         |vpiParent:
         \_parameter: (work@top.u_aes_cipher_core.X), line:2:31, endln:2:32
         |vpiInstance:
-        \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+        \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
         |vpiRange:
         \_range: , line:2:20, endln:2:25
           |vpiParent:
@@ -667,7 +667,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.u_aes_cipher_core.P), line:7:34, endln:7:35
       |vpiParent:
-      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:dut.sv, line:13:4, endln:13:49
+      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:13:4, endln:13:49
       |HEX:abcd
       |vpiTypespec:
       \_logic_typespec: , line:7:17, endln:7:33
@@ -718,7 +718,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.u_aes_cipher_core.Z), line:8:23, endln:8:24
       |vpiParent:
-      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:dut.sv, line:13:4, endln:13:49
+      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:13:4, endln:13:49
       |UINT:0
       |vpiTypespec:
       \_logic_typespec: , line:8:17, endln:8:22
@@ -729,7 +729,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:7:34, endln:7:39
       |vpiParent:
-      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:dut.sv, line:13:4, endln:13:49
+      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:13:4, endln:13:49
       |vpiRhs:
       \_constant: , line:7:38, endln:7:39
         |vpiDecompile:32'habcd
@@ -740,7 +740,7 @@ design: (work@top)
           |vpiParent:
           \_constant: , line:7:38, endln:7:39
           |vpiInstance:
-          \_package: aes_pkg (aes_pkg::), file:dut.sv, line:1:1, endln:3:11
+          \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
           |vpiRange:
           \_range: , line:2:20, endln:2:25
             |vpiParent:
@@ -787,7 +787,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:8:23, endln:8:28
       |vpiParent:
-      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:dut.sv, line:13:4, endln:13:49
+      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:13:4, endln:13:49
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:27, endln:8:28
@@ -802,7 +802,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:31, endln:2:43
       |vpiParent:
-      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:dut.sv, line:13:4, endln:13:49
+      \_module: work@aes_cipher_core (work@top.u_aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:13:4, endln:13:49
       |vpiRhs:
       \_constant: , line:2:35, endln:2:43
         |vpiDecompile:32'habcd
@@ -814,10 +814,10 @@ design: (work@top)
     |vpiTypedef:
     \_import_typespec: (aes_pkg), line:5:31, endln:5:41
     |vpiDefName:work@aes_cipher_core
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv
     |vpiDefLineNo:5
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:14:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:12:1, endln:14:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

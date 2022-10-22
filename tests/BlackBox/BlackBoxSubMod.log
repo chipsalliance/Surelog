@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BlackBoxSubMod/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BlackBoxSubMod/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BlackBox/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<121> s<120> l<5:1> el<4:2>
 n<> u<2> t<Module_keyword> p<6> s<3> l<5:1> el<5:7>
@@ -124,25 +124,25 @@ n<> u<118> t<Module_declaration> p<119> c<82> l<25:1> el<34:10>
 n<> u<119> t<Description> p<120> c<118> l<25:1> el<34:10>
 n<> u<120> t<Source_text> p<121> c<21> l<5:1> el<34:10>
 n<> u<121> t<Top_level_rule> c<1> l<5:1> el<34:10>
-[WRN:PA0205] dut.sv:5:1: No timescale set for "core".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackBox/dut.sv:5:1: No timescale set for "core".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "nyuzi".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackBox/dut.sv:12:1: No timescale set for "nyuzi".
 
-[WRN:PA0205] dut.sv:25:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackBox/dut.sv:25:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:5:1: Compile module "work@core".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackBox/dut.sv:5:1: Compile module "work@core".
 
-[INF:CP0342] dut.sv:12:1: Skipping blackboxed module "work@nyuzi".
+[INF:CP0342] ${SURELOG_DIR}/tests/BlackBox/dut.sv:12:1: Skipping blackboxed module "work@nyuzi".
 
-[INF:CP0303] dut.sv:25:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackBox/dut.sv:25:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:25:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BlackBox/dut.sv:25:1: Top level module "work@top".
 
-[INF:EL0543] dut.sv:12:1: Skipping blackboxed module "work@nyuzi".
+[INF:EL0543] ${SURELOG_DIR}/tests/BlackBox/dut.sv:12:1: Skipping blackboxed module "work@nyuzi".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -176,13 +176,13 @@ logic_net                                              2
 module                                                 5
 ref_obj                                               10
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:31:16: Unresolved hierarchical reference "nyuzi.core_gen[0].core.wb_writeback_en".
+[ERR:UH0725] ${SURELOG_DIR}/tests/BlackBox/dut.sv:31:16: Unresolved hierarchical reference "nyuzi.core_gen[0].core.wb_writeback_en".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BlackBoxSubMod/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BlackBoxSubMod/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BlackBoxSubMod/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BlackBoxSubMod/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BlackBoxSubMod/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BlackBoxSubMod/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -191,7 +191,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@core (work@core), file:dut.sv, line:5:1, endln:9:10
+\_module: work@core (work@core), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:5:1, endln:9:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@core
@@ -199,17 +199,17 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@core.wb_writeback_en), line:7:5, endln:7:20
     |vpiParent:
-    \_module: work@core (work@core), file:dut.sv, line:5:1, endln:9:10
+    \_module: work@core (work@core), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:5:1, endln:9:10
     |vpiName:wb_writeback_en
     |vpiFullName:work@core.wb_writeback_en
 |uhdmallModules:
-\_module: work@nyuzi (work@nyuzi), file:dut.sv, line:12:1, endln:21:10
+\_module: work@nyuzi (work@nyuzi), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:12:1, endln:21:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@nyuzi
   |vpiDefName:work@nyuzi
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:25:1, endln:34:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:25:1, endln:34:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -217,7 +217,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:31:12, endln:31:54
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:1, endln:34:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:25:1, endln:34:10
     |vpiRhs:
     \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
       |vpiParent:
@@ -260,7 +260,7 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (o)
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:25:1, endln:34:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:25:1, endln:34:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
@@ -270,20 +270,20 @@ design: (work@top)
     |vpiNetType:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@nyuzi (work@top.nyuzi), file:dut.sv, line:29:1, endln:29:16
+  \_module: work@nyuzi (work@top.nyuzi), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:29:1, endln:29:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:1, endln:34:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:25:1, endln:34:10
     |vpiName:nyuzi
     |vpiFullName:work@top.nyuzi
     |vpiDefName:work@nyuzi
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/BlackBox/dut.sv
     |vpiDefLineNo:12
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:25:1, endln:34:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:25:1, endln:34:10
   |vpiContAssign:
   \_cont_assign: , line:31:12, endln:31:54
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:1, endln:34:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:25:1, endln:34:10
     |vpiRhs:
     \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
       |vpiParent:
@@ -295,7 +295,7 @@ design: (work@top)
         \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:nyuzi
         |vpiActual:
-        \_module: work@nyuzi (work@top.nyuzi), file:dut.sv, line:29:1, endln:29:16
+        \_module: work@nyuzi (work@top.nyuzi), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:29:1, endln:29:16
       |vpiActual:
       \_bit_select: (core_gen), line:31:22, endln:31:30
         |vpiParent:

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../../build/regression/IfElseIf3/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/IfElseIf3/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<116> s<115> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -119,26 +119,26 @@ n<> u<113> t<Module_declaration> p<114> c<13> l<4:1> el<19:10>
 n<> u<114> t<Description> p<115> c<113> l<4:1> el<19:10>
 n<> u<115> t<Source_text> p<116> c<8> l<1:1> el<19:10>
 n<> u<116> t<Top_level_rule> c<1> l<1:1> el<21:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "GOOD".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:1:1: No timescale set for "GOOD".
 
-[WRN:PA0205] dut.sv:4:1: No timescale set for "axi".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:4:1: No timescale set for "axi".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@GOOD".
+[INF:CP0303] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:1:1: Compile module "work@GOOD".
 
-[INF:CP0303] dut.sv:4:1: Compile module "work@axi".
+[INF:CP0303] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:4:1: Compile module "work@axi".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:11:7: Compile generate block "work@axi.LAST_NODE".
+[INF:CP0335] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:11:7: Compile generate block "work@axi.LAST_NODE".
 
 Instance tree:
 [TOP] work@axi work@axi
 [SCO] work@axi.LAST_NODE work@axi.LAST_NODE
 [MOD] work@GOOD work@axi.LAST_NODE.good
 
-[NTE:EL0503] dut.sv:4:1: Top level module "work@axi".
+[NTE:EL0503] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:4:1: Top level module "work@axi".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -148,11 +148,11 @@ Instance tree:
 
 [NTE:EL0511] Nb leaf instances: 1.
 
-[NTE:EL0523] dut.sv:4:1: Instance "work@axi".
+[NTE:EL0523] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:4:1: Instance "work@axi".
 
-[NTE:EL0522] dut.sv:11:7: Scope "work@axi.LAST_NODE".
+[NTE:EL0522] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:11:7: Scope "work@axi.LAST_NODE".
 
-[NTE:EL0523] dut.sv:12:10: Instance "work@axi.LAST_NODE.good".
+[NTE:EL0523] ${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv:12:10: Instance "work@axi.LAST_NODE.good".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -180,11 +180,11 @@ operation                                              1
 param_assign                                           4
 parameter                                              4
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../../build/regression/IfElseIf3/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfElseIf3/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../../build/regression/IfElseIf3/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/IfElseIf3/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../../build/regression/IfElseIf3/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/IfElseIf3/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -193,20 +193,20 @@ design: (work@axi)
 |vpiElaborated:1
 |vpiName:work@axi
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD), file:dut.sv, line:1:1, endln:2:10
+\_module: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:1:1, endln:2:10
   |vpiParent:
   \_design: (work@axi)
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+\_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
   |vpiParent:
   \_design: (work@axi)
   |vpiFullName:work@axi
   |vpiParameter:
   \_parameter: (work@axi.j), line:6:15, endln:6:16
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -215,7 +215,7 @@ design: (work@axi)
   |vpiParameter:
   \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:5
     |vpiTypespec:
     \_int_typespec: 
@@ -224,7 +224,7 @@ design: (work@axi)
   |vpiParamAssign:
   \_param_assign: , line:6:15, endln:6:20
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |vpiRhs:
     \_constant: , line:6:19, endln:6:20
       |vpiDecompile:0
@@ -238,7 +238,7 @@ design: (work@axi)
   |vpiParamAssign:
   \_param_assign: , line:7:15, endln:7:34
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:34
       |vpiDecompile:5
@@ -251,12 +251,12 @@ design: (work@axi)
     \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
   |vpiDefName:work@axi
 |uhdmtopModules:
-\_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+\_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
   |vpiName:work@axi
   |vpiParameter:
   \_parameter: (work@axi.j), line:6:15, endln:6:16
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -267,7 +267,7 @@ design: (work@axi)
   |vpiParameter:
   \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:5
     |vpiTypespec:
     \_int_typespec: 
@@ -278,7 +278,7 @@ design: (work@axi)
   |vpiParamAssign:
   \_param_assign: , line:6:15, endln:6:20
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |vpiRhs:
     \_constant: , line:6:19, endln:6:20
       |vpiDecompile:0
@@ -292,7 +292,7 @@ design: (work@axi)
   |vpiParamAssign:
   \_param_assign: , line:7:15, endln:7:34
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:34
       |vpiDecompile:5
@@ -309,7 +309,7 @@ design: (work@axi)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@axi.LAST_NODE), line:11:7, endln:16:10
     |vpiParent:
-    \_module: work@axi (work@axi), file:dut.sv, line:4:1, endln:19:10
+    \_module: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |vpiName:LAST_NODE
     |vpiFullName:work@axi.LAST_NODE
     |vpiGenScope:
@@ -318,13 +318,13 @@ design: (work@axi)
       \_gen_scope_array: (work@axi.LAST_NODE), line:11:7, endln:16:10
       |vpiFullName:work@axi.LAST_NODE
       |vpiModule:
-      \_module: work@GOOD (work@axi.LAST_NODE.good), file:dut.sv, line:12:10, endln:12:22
+      \_module: work@GOOD (work@axi.LAST_NODE.good), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:12:10, endln:12:22
         |vpiParent:
         \_gen_scope: (work@axi.LAST_NODE)
         |vpiName:good
         |vpiFullName:work@axi.LAST_NODE.good
         |vpiDefName:work@GOOD
-        |vpiDefFile:dut.sv
+        |vpiDefFile:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv
         |vpiDefLineNo:1
 ===================
 [  FATAL] : 0

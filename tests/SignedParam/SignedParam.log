@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/SignedParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/SignedParam/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/SignedParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<26> s<25> l<2:1> el<1:2>
 n<> u<2> t<Module_keyword> p<22> s<3> l<2:1> el<2:7>
@@ -29,11 +29,11 @@ n<> u<23> t<Module_declaration> p<24> c<22> l<2:1> el<10:10>
 n<> u<24> t<Description> p<25> c<23> l<2:1> el<10:10>
 n<> u<25> t<Source_text> p<26> c<24> l<2:1> el<10:10>
 n<> u<26> t<Top_level_rule> c<1> l<2:1> el<11:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "prim_pad_wrapper".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SignedParam/dut.sv:2:1: No timescale set for "prim_pad_wrapper".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:2:1: Compile module "work@prim_pad_wrapper".
+[INF:CP0303] ${SURELOG_DIR}/tests/SignedParam/dut.sv:2:1: Compile module "work@prim_pad_wrapper".
 
 LIB:  work
 FILE: builtin.sv
@@ -295,7 +295,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:2:1: Top level module "work@prim_pad_wrapper".
+[NTE:EL0503] ${SURELOG_DIR}/tests/SignedParam/dut.sv:2:1: Top level module "work@prim_pad_wrapper".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -349,11 +349,11 @@ param_assign                                           2
 parameter                                              2
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/SignedParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SignedParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/SignedParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SignedParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/SignedParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SignedParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -837,14 +837,14 @@ design: (work@prim_pad_wrapper)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:dut.sv, line:2:1, endln:10:10
+\_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:${SURELOG_DIR}/tests/SignedParam/dut.sv, line:2:1, endln:10:10
   |vpiParent:
   \_design: (work@prim_pad_wrapper)
   |vpiFullName:work@prim_pad_wrapper
   |vpiParameter:
   \_parameter: (work@prim_pad_wrapper.AttrDw), line:6:26, endln:6:32
     |vpiParent:
-    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:dut.sv, line:2:1, endln:10:10
+    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:${SURELOG_DIR}/tests/SignedParam/dut.sv, line:2:1, endln:10:10
     |UINT:6
     |vpiTypespec:
     \_int_typespec: , line:6:15, endln:6:18
@@ -857,7 +857,7 @@ design: (work@prim_pad_wrapper)
   |vpiParamAssign:
   \_param_assign: , line:6:26, endln:6:36
     |vpiParent:
-    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:dut.sv, line:2:1, endln:10:10
+    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:${SURELOG_DIR}/tests/SignedParam/dut.sv, line:2:1, endln:10:10
     |vpiRhs:
     \_constant: , line:6:35, endln:6:36
       |vpiDecompile:6
@@ -870,12 +870,12 @@ design: (work@prim_pad_wrapper)
     \_parameter: (work@prim_pad_wrapper.AttrDw), line:6:26, endln:6:32
   |vpiDefName:work@prim_pad_wrapper
 |uhdmtopModules:
-\_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:dut.sv, line:2:1, endln:10:10
+\_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:${SURELOG_DIR}/tests/SignedParam/dut.sv, line:2:1, endln:10:10
   |vpiName:work@prim_pad_wrapper
   |vpiParameter:
   \_parameter: (work@prim_pad_wrapper.AttrDw), line:6:26, endln:6:32
     |vpiParent:
-    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:dut.sv, line:2:1, endln:10:10
+    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:${SURELOG_DIR}/tests/SignedParam/dut.sv, line:2:1, endln:10:10
     |UINT:6
     |vpiTypespec:
     \_int_typespec: , line:6:15, endln:6:18
@@ -888,7 +888,7 @@ design: (work@prim_pad_wrapper)
   |vpiParamAssign:
   \_param_assign: , line:6:26, endln:6:36
     |vpiParent:
-    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:dut.sv, line:2:1, endln:10:10
+    \_module: work@prim_pad_wrapper (work@prim_pad_wrapper), file:${SURELOG_DIR}/tests/SignedParam/dut.sv, line:2:1, endln:10:10
     |vpiRhs:
     \_constant: , line:6:35, endln:6:36
       |vpiDecompile:6

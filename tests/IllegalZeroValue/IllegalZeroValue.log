@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/IllegalZeroValue/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/IllegalZeroValue/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<29> s<28> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -32,17 +32,17 @@ n<> u<26> t<Module_declaration> p<27> c<6> l<1:1> el<5:10>
 n<> u<27> t<Description> p<28> c<26> l<1:1> el<5:10>
 n<> u<28> t<Source_text> p<29> c<27> l<1:1> el<5:10>
 n<> u<29> t<Top_level_rule> c<1> l<1:1> el<6:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "test".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv:1:1: No timescale set for "test".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@test".
+[INF:CP0303] ${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv:1:1: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@test".
+[NTE:EL0503] ${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv:1:1: Top level module "work@test".
 
-[ERR:EL0536] dut.sv:3:13: Illegal Zero or negative size "work@test"
+[ERR:EL0536] ${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv:3:13: Illegal Zero or negative size "work@test"
              text: reg illegal[0];
              value: UINT:0.
 
@@ -78,11 +78,11 @@ module                                                 3
 operation                                              1
 range                                                  1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/IllegalZeroValue/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IllegalZeroValue/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/IllegalZeroValue/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/IllegalZeroValue/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/IllegalZeroValue/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/IllegalZeroValue/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -91,7 +91,7 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test), file:dut.sv, line:1:1, endln:5:10
+\_module: work@test (work@test), file:${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@test
@@ -99,19 +99,19 @@ design: (work@test)
   |vpiNet:
   \_logic_net: (work@test.illegal), line:3:5, endln:3:12
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv, line:1:1, endln:5:10
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
 |uhdmtopModules:
-\_module: work@test (work@test), file:dut.sv, line:1:1, endln:5:10
+\_module: work@test (work@test), file:${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv, line:1:1, endln:5:10
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
   |vpiArrayNet:
   \_array_net: (work@test.illegal), line:3:5, endln:3:12
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv, line:1:1, endln:5:10
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiRange:

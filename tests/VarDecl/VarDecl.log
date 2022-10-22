@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/VarDecl/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/VarDecl/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/VarDecl/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<79> s<78> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<13> s<3> l<1:1> el<1:7>
@@ -82,15 +82,15 @@ n<> u<76> t<Module_declaration> p<77> c<13> l<1:1> el<7:16>
 n<> u<77> t<Description> p<78> c<76> l<1:1> el<7:16>
 n<> u<78> t<Source_text> p<79> c<77> l<1:1> el<7:16>
 n<> u<79> t<Top_level_rule> c<1> l<1:1> el<8:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/VarDecl/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/VarDecl/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/VarDecl/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -138,11 +138,11 @@ operation                                              4
 port                                                   3
 ref_obj                                                7
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/VarDecl/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VarDecl/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/VarDecl/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/VarDecl/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/VarDecl/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/VarDecl/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -151,7 +151,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -159,7 +159,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.theta), line:2:4, endln:6:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiName:theta
     |vpiFullName:work@top.theta
     |vpiVisibility:1
@@ -169,7 +169,7 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiStmt:
     \_for_stmt: (work@top.theta), line:3:7, endln:3:10
       |vpiParent:
@@ -247,18 +247,18 @@ design: (work@top)
           |vpiFullName:work@top.theta.a
           |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
   |vpiNet:
   \_logic_net: (work@top.o), line:1:25, endln:1:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
   |vpiPort:
   \_port: (o), line:1:25, endln:1:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -268,14 +268,14 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:1:19, endln:1:24
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@top.theta), line:2:4, endln:6:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiName:theta
     |vpiFullName:work@top.theta
     |vpiVisibility:1
@@ -283,7 +283,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: , line:2:23, endln:2:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiStmt:
     \_for_stmt: (work@top.theta), line:3:7, endln:3:10
       |vpiParent:
@@ -347,11 +347,11 @@ design: (work@top)
           |vpiFullName:work@top.theta.a
           |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
   |vpiNet:
   \_logic_net: (work@top.o), line:1:25, endln:1:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiTypespec:
     \_logic_typespec: , line:1:19, endln:1:24
     |vpiName:o
@@ -361,7 +361,7 @@ design: (work@top)
   |vpiPort:
   \_port: (o), line:1:25, endln:1:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -375,7 +375,7 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:1:19, endln:1:24
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

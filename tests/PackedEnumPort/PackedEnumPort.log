@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackedEnumPort/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackedEnumPort/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<125> s<124> l<2:1> el<1:2>
 n<> u<2> t<Package> p<37> s<3> l<2:1> el<2:8>
@@ -128,23 +128,23 @@ n<> u<122> t<Module_declaration> p<123> c<73> l<24:1> el<37:16>
 n<> u<123> t<Description> p<124> c<122> l<24:1> el<37:16>
 n<> u<124> t<Source_text> p<125> c<38> l<2:1> el<37:16>
 n<> u<125> t<Top_level_rule> c<1> l<2:1> el<38:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "lc_ctrl_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv:2:1: No timescale set for "lc_ctrl_pkg".
 
-[WRN:PA0205] dut.sv:11:1: No timescale set for "lc_ctrl_fsm".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv:11:1: No timescale set for "lc_ctrl_fsm".
 
-[WRN:PA0205] dut.sv:24:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv:24:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:2:1: Compile package "lc_ctrl_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv:2:1: Compile package "lc_ctrl_pkg".
 
-[INF:CP0303] dut.sv:11:1: Compile module "work@lc_ctrl_fsm".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv:11:1: Compile module "work@lc_ctrl_fsm".
 
-[INF:CP0303] dut.sv:24:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv:24:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:24:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PackedEnumPort/dut.sv:24:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -194,11 +194,11 @@ port                                                   9
 range                                                  4
 ref_obj                                               11
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackedEnumPort/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnumPort/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackedEnumPort/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackedEnumPort/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackedEnumPort/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnumPort/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -207,7 +207,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
   |vpiParent:
   \_design: (work@top)
   |vpiName:lc_ctrl_pkg
@@ -215,10 +215,10 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:3:4, endln:5:14
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiName:lc_ctrl_pkg::lc_tx_e
     |vpiInstance:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiBaseTypespec:
     \_logic_typespec: , line:3:17, endln:3:28
       |vpiInstance:
@@ -249,7 +249,7 @@ design: (work@top)
       |vpiSize:4
   |vpiDefName:lc_ctrl_pkg
 |uhdmtopPackages:
-\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+\_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
   |vpiParent:
   \_design: (work@top)
   |vpiName:lc_ctrl_pkg
@@ -257,14 +257,14 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:3:4, endln:5:14
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiName:lc_ctrl_pkg::lc_tx_e
     |vpiInstance:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiBaseTypespec:
     \_logic_typespec: , line:3:17, endln:3:28
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
       |vpiRange:
       \_range: , line:3:23, endln:3:28
         |vpiLeftRange:
@@ -292,18 +292,18 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
     |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiName:lc_ctrl_pkg::lc_tx_t
     |vpiTypedefAlias:
     \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:3:4, endln:5:14
     |vpiInstance:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiBaseTypespec:
     \_logic_typespec: , line:3:17, endln:3:28
       |vpiParent:
       \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
       |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:dut.sv, line:2:1, endln:8:25
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
       |vpiRange:
       \_range: , line:3:23, endln:3:28
         |vpiParent:
@@ -335,7 +335,7 @@ design: (work@top)
   |vpiDefName:lc_ctrl_pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@lc_ctrl_fsm (work@lc_ctrl_fsm), file:dut.sv, line:11:1, endln:16:24
+\_module: work@lc_ctrl_fsm (work@lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:11:1, endln:16:24
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@lc_ctrl_fsm
@@ -343,14 +343,14 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31
     |vpiParent:
-    \_module: work@lc_ctrl_fsm (work@lc_ctrl_fsm), file:dut.sv, line:11:1, endln:16:24
+    \_module: work@lc_ctrl_fsm (work@lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:11:1, endln:16:24
     |vpiName:lc_clk_byp_ack_i
     |vpiFullName:work@lc_ctrl_fsm.lc_clk_byp_ack_i
     |vpiNetType:36
   |vpiPort:
   \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
     |vpiParent:
-    \_module: work@lc_ctrl_fsm (work@lc_ctrl_fsm), file:dut.sv, line:11:1, endln:16:24
+    \_module: work@lc_ctrl_fsm (work@lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:11:1, endln:16:24
     |vpiName:lc_clk_byp_ack_i
     |vpiDirection:1
     |vpiLowConn:
@@ -360,7 +360,7 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:13:9, endln:13:14
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -368,25 +368,25 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.o), line:24:23, endln:24:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
   \_logic_net: (work@top.p), line:24:37, endln:24:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiNet:
   \_logic_net: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:lc_clk_byp_ack
     |vpiFullName:work@top.lc_clk_byp_ack
   |vpiPort:
   \_port: (o), line:24:23, endln:24:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -399,7 +399,7 @@ design: (work@top)
   |vpiPort:
   \_port: (p), line:24:37, endln:24:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:p
     |vpiDirection:2
     |vpiLowConn:
@@ -410,12 +410,12 @@ design: (work@top)
     \_int_typespec: , line:24:33, endln:24:36
       |vpiSigned:1
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
   |vpiName:work@top
   |vpiVariables:
   \_int_var: (work@top.o), line:24:23, endln:24:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiTypespec:
     \_int_typespec: , line:24:19, endln:24:22
       |vpiSigned:1
@@ -426,7 +426,7 @@ design: (work@top)
   |vpiVariables:
   \_int_var: (work@top.p), line:24:37, endln:24:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiTypespec:
     \_int_typespec: , line:24:33, endln:24:36
       |vpiSigned:1
@@ -437,7 +437,7 @@ design: (work@top)
   |vpiVariables:
   \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:lc_clk_byp_ack
     |vpiFullName:work@top.lc_clk_byp_ack
     |vpiVisibility:1
@@ -473,7 +473,7 @@ design: (work@top)
   |vpiPort:
   \_port: (o), line:24:23, endln:24:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -488,11 +488,11 @@ design: (work@top)
     \_int_typespec: , line:24:19, endln:24:22
       |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
   |vpiPort:
   \_port: (p), line:24:37, endln:24:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:p
     |vpiDirection:2
     |vpiLowConn:
@@ -507,31 +507,31 @@ design: (work@top)
     \_int_typespec: , line:24:33, endln:24:36
       |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
   |vpiModule:
-  \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:dut.sv, line:34:4, endln:36:6
+  \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:34:4, endln:36:6
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiName:u_lc_ctrl_fsm
     |vpiFullName:work@top.u_lc_ctrl_fsm
     |vpiDefName:work@lc_ctrl_fsm
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv
     |vpiDefLineNo:11
     |vpiNet:
     \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31
       |vpiParent:
-      \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:dut.sv, line:34:4, endln:36:6
+      \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:34:4, endln:36:6
       |vpiTypespec:
       \_logic_typespec: , line:13:9, endln:13:14
       |vpiName:lc_clk_byp_ack_i
       |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
       |vpiNetType:36
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:24:1, endln:37:16
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiPort:
     \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
       |vpiParent:
-      \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:dut.sv, line:34:4, endln:36:6
+      \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:34:4, endln:36:6
       |vpiName:lc_clk_byp_ack_i
       |vpiDirection:1
       |vpiHighConn:
@@ -567,7 +567,7 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:13:9, endln:13:14
       |vpiInstance:
-      \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:dut.sv, line:34:4, endln:36:6
+      \_module: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:34:4, endln:36:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

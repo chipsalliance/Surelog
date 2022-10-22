@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/TaggedPatternLogic/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/TaggedPatternLogic/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<98> s<97> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -101,15 +101,15 @@ n<> u<95> t<Module_declaration> p<96> c<6> l<1:1> el<15:10>
 n<> u<96> t<Description> p<97> c<95> l<1:1> el<15:10>
 n<> u<97> t<Source_text> p<98> c<96> l<1:1> el<15:10>
 n<> u<98> t<Top_level_rule> c<1> l<1:1> el<16:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -151,11 +151,11 @@ struct_typespec                                        6
 tagged_pattern                                        28
 typespec_member                                       18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/TaggedPatternLogic/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaggedPatternLogic/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/TaggedPatternLogic/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaggedPatternLogic/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/TaggedPatternLogic/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaggedPatternLogic/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -164,21 +164,21 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
     |vpiTypespec:
     \_struct_typespec: (complex_t), line:2:11, endln:2:17
       |vpiParent:
-      \_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
       |vpiName:complex_t
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (addr), line:3:17, endln:3:21
@@ -209,7 +209,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:3
@@ -223,7 +223,7 @@ design: (work@top)
         \_logic_typespec: , line:4:5, endln:4:10
           |vpiParent:
           \_typespec_member: (sel), line:4:11, endln:4:14
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
         |vpiRefLineNo:4
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:4
@@ -237,7 +237,7 @@ design: (work@top)
         \_logic_typespec: , line:5:5, endln:5:10
           |vpiParent:
           \_typespec_member: (rd), line:5:11, endln:5:13
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:5
@@ -247,7 +247,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:23, endln:12:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
     |vpiRhs:
     \_operation: , line:8:37, endln:12:4
       |vpiOpType:75
@@ -300,19 +300,19 @@ design: (work@top)
   \_struct_typespec: (complex_t), line:2:11, endln:2:17
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
     |vpiTypespec:
     \_struct_typespec: (complex_t), line:2:11, endln:2:17
       |vpiParent:
       \_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
       |vpiName:complex_t
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (addr), line:3:17, endln:3:21
@@ -343,7 +343,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:3
@@ -357,7 +357,7 @@ design: (work@top)
         \_logic_typespec: , line:4:5, endln:4:10
           |vpiParent:
           \_typespec_member: (sel), line:4:11, endln:4:14
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
         |vpiRefLineNo:4
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:4
@@ -371,7 +371,7 @@ design: (work@top)
         \_logic_typespec: , line:5:5, endln:5:10
           |vpiParent:
           \_typespec_member: (rd), line:5:11, endln:5:13
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:5
@@ -381,7 +381,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:23, endln:12:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
     |vpiRhs:
     \_operation: , line:8:37, endln:12:4
       |vpiParent:
@@ -421,7 +421,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
           |vpiRefLineNo:3
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:3
@@ -435,7 +435,7 @@ design: (work@top)
           \_logic_typespec: , line:4:5, endln:4:10
             |vpiParent:
             \_typespec_member: (sel), line:4:11, endln:4:14
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
           |vpiRefLineNo:4
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:4
@@ -449,7 +449,7 @@ design: (work@top)
           \_logic_typespec: , line:5:5, endln:5:10
             |vpiParent:
             \_typespec_member: (rd), line:5:11, endln:5:13
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
           |vpiRefLineNo:5
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:5

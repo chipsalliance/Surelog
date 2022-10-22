@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ParamNoDefault/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamNoDefault/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<122> s<121> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -125,23 +125,23 @@ n<> u<119> t<Module_declaration> p<120> c<36> l<6:1> el<18:10>
 n<> u<120> t<Description> p<121> c<119> l<6:1> el<18:10>
 n<> u<121> t<Source_text> p<122> c<31> l<1:1> el<18:10>
 n<> u<122> t<Top_level_rule> c<1> l<1:1> el<19:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv:1:1: No timescale set for "dut".
 
-[WRN:PA0205] dut.sv:6:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv:6:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv:1:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:6:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv:6:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:6:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv:6:1: Top level module "work@top".
 
-[ERR:UH0712] dut.sv:14:27: Undefined pattern key "b".
+[ERR:UH0712] ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv:14:27: Undefined pattern key "b".
 
-[ERR:UH0712] dut.sv:17:13: Undefined pattern key "b".
+[ERR:UH0712] ${SURELOG_DIR}/tests/ParamNoDefault/dut.sv:17:13: Undefined pattern key "b".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -183,11 +183,11 @@ struct_typespec                                        6
 tagged_pattern                                        12
 typespec_member                                        6
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ParamNoDefault/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamNoDefault/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ParamNoDefault/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamNoDefault/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ParamNoDefault/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamNoDefault/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -196,14 +196,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:4:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.A), line:2:26, endln:2:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:25
       |vpiParent:
@@ -231,26 +231,26 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:26, endln:2:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:1:1, endln:4:10
     |vpiLhs:
     \_parameter: (work@dut.A), line:2:26, endln:2:27
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.X), line:14:23, endln:14:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
     |vpiTypespec:
     \_struct_typespec: (struct_1), line:7:12, endln:7:18
       |vpiParent:
-      \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
       |vpiName:struct_1
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:8:19, endln:8:20
@@ -281,7 +281,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv
         |vpiRefLineNo:8
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:8
@@ -291,7 +291,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:14:23, endln:14:42
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
     \_operation: , line:14:27, endln:14:42
       |vpiOpType:75
@@ -323,19 +323,19 @@ design: (work@top)
   \_struct_typespec: (struct_1), line:7:12, endln:7:18
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.X), line:14:23, endln:14:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
     |vpiTypespec:
     \_struct_typespec: (struct_1), line:7:12, endln:7:18
       |vpiParent:
       \_parameter: (work@top.X), line:14:23, endln:14:24
       |vpiName:struct_1
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:8:19, endln:8:20
@@ -366,7 +366,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv
         |vpiRefLineNo:8
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:8
@@ -376,7 +376,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:14:23, endln:14:42
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
     \_operation: , line:14:27, endln:14:42
       |vpiParent:
@@ -416,7 +416,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv
           |vpiRefLineNo:8
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:8
@@ -464,15 +464,15 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@dut (work@top.u_dut), file:dut.sv, line:17:4, endln:17:25
+  \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:17:4, endln:17:25
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
     |vpiName:u_dut
     |vpiFullName:work@top.u_dut
     |vpiParameter:
     \_parameter: (work@top.u_dut.A), line:2:26, endln:2:27
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:17:4, endln:17:25
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:17:4, endln:17:25
       |vpiTypespec:
       \_logic_typespec: , line:2:14, endln:2:25
         |vpiParent:
@@ -502,7 +502,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:26, endln:2:27
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:17:4, endln:17:25
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:17:4, endln:17:25
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:17:13, endln:17:14
@@ -512,10 +512,10 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.u_dut.A), line:2:26, endln:2:27
     |vpiDefName:work@dut
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:6:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

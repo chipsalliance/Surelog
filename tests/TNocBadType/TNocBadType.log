@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/TNocBadType/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/TNocBadType/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<56> s<55> l<1:1> el<1:0>
 n<> u<2> t<Interface> p<5> s<4> l<1:1> el<1:10>
@@ -59,23 +59,23 @@ n<> u<53> t<Module_declaration> p<54> c<21> l<7:1> el<13:10>
 n<> u<54> t<Description> p<55> c<53> l<7:1> el<13:10>
 n<> u<55> t<Source_text> p<56> c<18> l<1:1> el<13:10>
 n<> u<56> t<Top_level_rule> c<1> l<1:1> el<14:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "tnoc_types".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TNocBadType/dut.sv:1:1: No timescale set for "tnoc_types".
 
-[WRN:PA0205] dut.sv:7:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TNocBadType/dut.sv:7:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0304] dut.sv:1:1: Compile interface "work@tnoc_types".
+[INF:CP0304] ${SURELOG_DIR}/tests/TNocBadType/dut.sv:1:1: Compile interface "work@tnoc_types".
 
-[INF:CP0303] dut.sv:7:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/TNocBadType/dut.sv:7:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[ERR:CP0317] dut.sv:10:11: Undefined type "types".
+[ERR:CP0317] ${SURELOG_DIR}/tests/TNocBadType/dut.sv:10:11: Undefined type "types".
 
-[NTE:EL0503] dut.sv:7:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/TNocBadType/dut.sv:7:1: Top level module "work@top".
 
-[ERR:EL0538] dut.sv:8:16: Illegal use of an interface as a signal type for "types".
+[ERR:EL0538] ${SURELOG_DIR}/tests/TNocBadType/dut.sv:8:16: Illegal use of an interface as a signal type for "types".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -109,11 +109,11 @@ logic_var                                              1
 module                                                 2
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/TNocBadType/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/TNocBadType/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/TNocBadType/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -122,51 +122,51 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallInterfaces:
-\_interface: work@tnoc_types (work@tnoc_types), file:dut.sv, line:1:1, endln:4:13
+\_interface: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:1:1, endln:4:13
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@tnoc_types
   |vpiTypedef:
   \_int_typespec: (tnoc_common_header), line:2:10, endln:2:13
     |vpiParent:
-    \_interface: work@tnoc_types (work@tnoc_types), file:dut.sv, line:1:1, endln:4:13
+    \_interface: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:1:1, endln:4:13
     |vpiName:tnoc_common_header
     |vpiInstance:
-    \_interface: work@tnoc_types (work@tnoc_types), file:dut.sv, line:1:1, endln:4:13
+    \_interface: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:1:1, endln:4:13
     |vpiSigned:1
   |vpiDefName:work@tnoc_types
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:7:1, endln:13:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
   \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiName:tnoc_common_header
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
   |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.types), line:8:16, endln:8:21
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiName:types
     |vpiFullName:work@top.types
   |vpiNet:
   \_logic_net: (work@top.common_header), line:12:23, endln:12:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiName:common_header
     |vpiFullName:work@top.common_header
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:7:1, endln:13:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.common_header), line:12:23, endln:12:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiTypespec:
     \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
     |vpiName:common_header

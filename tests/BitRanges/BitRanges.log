@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BitRanges/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BitRanges/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BitRanges/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<56> s<55> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<52> s<3> l<1:1> el<1:7>
@@ -59,15 +59,15 @@ n<> u<53> t<Module_declaration> p<54> c<52> l<1:1> el<6:10>
 n<> u<54> t<Description> p<55> c<53> l<1:1> el<6:10>
 n<> u<55> t<Source_text> p<56> c<54> l<1:1> el<6:10>
 n<> u<56> t<Top_level_rule> c<1> l<1:1> el<7:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BitRanges/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BitRanges/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BitRanges/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -107,11 +107,11 @@ port                                                   6
 range                                                 11
 ref_obj                                                6
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BitRanges/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitRanges/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BitRanges/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BitRanges/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BitRanges/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BitRanges/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -120,7 +120,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -128,19 +128,19 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.dmi_req_ram), line:3:21, endln:3:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiName:dmi_req_ram
     |vpiFullName:work@top.dmi_req_ram
   |vpiNet:
   \_logic_net: (work@top.dmi_req_addr), line:4:21, endln:4:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiName:dmi_req_addr
     |vpiFullName:work@top.dmi_req_addr
   |vpiPort:
   \_port: (dmi_req_ram), line:3:21, endln:3:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiName:dmi_req_ram
     |vpiDirection:2
     |vpiLowConn:
@@ -193,7 +193,7 @@ design: (work@top)
   |vpiPort:
   \_port: (dmi_req_addr), line:4:21, endln:4:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiName:dmi_req_addr
     |vpiDirection:2
     |vpiLowConn:
@@ -221,12 +221,12 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
   |vpiName:work@top
   |vpiVariables:
   \_array_var: (work@top.dmi_req_ram), line:3:21, endln:3:40
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiSize:2
     |vpiTypespec:
     \_array_typespec: 
@@ -283,7 +283,7 @@ design: (work@top)
   |vpiVariables:
   \_bit_var: (work@top.dmi_req_addr), line:4:21, endln:4:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_bit_typespec: , line:4:10, endln:4:19
       |vpiRange:
@@ -313,7 +313,7 @@ design: (work@top)
   |vpiPort:
   \_port: (dmi_req_ram), line:3:21, endln:3:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiName:dmi_req_ram
     |vpiDirection:2
     |vpiLowConn:
@@ -347,11 +347,11 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
   |vpiPort:
   \_port: (dmi_req_addr), line:4:21, endln:4:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
     |vpiName:dmi_req_addr
     |vpiDirection:2
     |vpiLowConn:
@@ -385,7 +385,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitRanges/dut.sv, line:1:1, endln:6:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

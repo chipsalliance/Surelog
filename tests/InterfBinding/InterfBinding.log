@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/InterfBinding/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/InterfBinding/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/InterfBinding/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<110> s<109> l<1:1> el<1:0>
 n<> u<2> t<Package> p<28> s<3> l<1:1> el<1:8>
@@ -113,23 +113,23 @@ n<> u<107> t<Module_declaration> p<108> c<88> l<29:1> el<36:10>
 n<> u<108> t<Description> p<109> c<107> l<29:1> el<36:10>
 n<> u<109> t<Source_text> p<110> c<29> l<1:1> el<36:10>
 n<> u<110> t<Top_level_rule> c<1> l<1:1> el<37:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pack".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InterfBinding/dut.sv:1:1: No timescale set for "pack".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "ControllerIF".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InterfBinding/dut.sv:12:1: No timescale set for "ControllerIF".
 
-[WRN:PA0205] dut.sv:29:1: No timescale set for "BypassNetwork".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InterfBinding/dut.sv:29:1: No timescale set for "BypassNetwork".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pack".
+[INF:CP0301] ${SURELOG_DIR}/tests/InterfBinding/dut.sv:1:1: Compile package "pack".
 
-[INF:CP0303] dut.sv:29:1: Compile module "work@BypassNetwork".
+[INF:CP0303] ${SURELOG_DIR}/tests/InterfBinding/dut.sv:29:1: Compile module "work@BypassNetwork".
 
-[INF:CP0304] dut.sv:12:1: Compile interface "work@ControllerIF".
+[INF:CP0304] ${SURELOG_DIR}/tests/InterfBinding/dut.sv:12:1: Compile interface "work@ControllerIF".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:29:1: Top level module "work@BypassNetwork".
+[NTE:EL0503] ${SURELOG_DIR}/tests/InterfBinding/dut.sv:29:1: Top level module "work@BypassNetwork".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -181,11 +181,11 @@ struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/InterfBinding/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfBinding/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/InterfBinding/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfBinding/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/InterfBinding/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InterfBinding/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -194,7 +194,7 @@ design: (work@BypassNetwork)
 |vpiElaborated:1
 |vpiName:work@BypassNetwork
 |uhdmallPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:8:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:1:1, endln:8:11
   |vpiParent:
   \_design: (work@BypassNetwork)
   |vpiName:pack
@@ -202,10 +202,10 @@ design: (work@BypassNetwork)
   |vpiTypedef:
   \_struct_typespec: (pack::PipelineControll), line:2:9, endln:2:15
     |vpiParent:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiName:pack::PipelineControll
     |vpiInstance:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:8:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:1:1, endln:8:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (stall), line:4:11, endln:4:16
@@ -217,8 +217,8 @@ design: (work@BypassNetwork)
         |vpiParent:
         \_typespec_member: (stall), line:4:11, endln:4:16
         |vpiInstance:
-        \_package: pack (pack::), file:dut.sv, line:1:1, endln:8:11
-      |vpiRefFile:dut.sv
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:1:1, endln:8:11
+      |vpiRefFile:${SURELOG_DIR}/tests/InterfBinding/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:4
@@ -233,15 +233,15 @@ design: (work@BypassNetwork)
         |vpiParent:
         \_typespec_member: (clear), line:5:11, endln:5:16
         |vpiInstance:
-        \_package: pack (pack::), file:dut.sv, line:1:1, endln:8:11
-      |vpiRefFile:dut.sv
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:1:1, endln:8:11
+      |vpiRefFile:${SURELOG_DIR}/tests/InterfBinding/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:5
       |vpiRefEndColumnNo:10
   |vpiDefName:pack
 |uhdmtopPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:8:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:1:1, endln:8:11
   |vpiParent:
   \_design: (work@BypassNetwork)
   |vpiName:pack
@@ -251,7 +251,7 @@ design: (work@BypassNetwork)
   |vpiDefName:pack
   |vpiTop:1
 |uhdmallInterfaces:
-\_interface: work@ControllerIF (work@ControllerIF), file:dut.sv, line:12:1, endln:25:13
+\_interface: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
   |vpiParent:
   \_design: (work@BypassNetwork)
   |vpiFullName:work@ControllerIF
@@ -261,27 +261,27 @@ design: (work@BypassNetwork)
   |vpiNet:
   \_logic_net: (work@ControllerIF.clk), line:14:14, endln:14:17
     |vpiParent:
-    \_interface: work@ControllerIF (work@ControllerIF), file:dut.sv, line:12:1, endln:25:13
+    \_interface: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
     |vpiName:clk
     |vpiFullName:work@ControllerIF.clk
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@ControllerIF.backEnd), line:18:21, endln:18:28
     |vpiParent:
-    \_interface: work@ControllerIF (work@ControllerIF), file:dut.sv, line:12:1, endln:25:13
+    \_interface: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
     |vpiName:backEnd
     |vpiFullName:work@ControllerIF.backEnd
   |vpiNet:
   \_logic_net: (work@ControllerIF.rst), line:15:14, endln:15:17
     |vpiParent:
-    \_interface: work@ControllerIF (work@ControllerIF), file:dut.sv, line:12:1, endln:25:13
+    \_interface: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
     |vpiName:rst
     |vpiFullName:work@ControllerIF.rst
     |vpiNetType:36
   |vpiModport:
   \_modport: (BypassNetwork), line:20:12, endln:20:25
     |vpiParent:
-    \_interface: work@ControllerIF (work@ControllerIF), file:dut.sv, line:12:1, endln:25:13
+    \_interface: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
     |vpiName:BypassNetwork
     |vpiIODecl:
     \_io_decl: (backEnd), line:22:11, endln:22:18
@@ -290,7 +290,7 @@ design: (work@BypassNetwork)
   |vpiPort:
   \_port: (clk), line:14:14, endln:14:17
     |vpiParent:
-    \_interface: work@ControllerIF (work@ControllerIF), file:dut.sv, line:12:1, endln:25:13
+    \_interface: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -300,7 +300,7 @@ design: (work@BypassNetwork)
   |vpiPort:
   \_port: (rst), line:15:14, endln:15:17
     |vpiParent:
-    \_interface: work@ControllerIF (work@ControllerIF), file:dut.sv, line:12:1, endln:25:13
+    \_interface: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
     |vpiName:rst
     |vpiDirection:1
     |vpiLowConn:
@@ -308,7 +308,7 @@ design: (work@BypassNetwork)
       |vpiActual:
       \_logic_net: (work@ControllerIF.rst), line:15:14, endln:15:17
 |uhdmallModules:
-\_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+\_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
   |vpiParent:
   \_design: (work@BypassNetwork)
   |vpiFullName:work@BypassNetwork
@@ -318,13 +318,13 @@ design: (work@BypassNetwork)
   |vpiNet:
   \_logic_net: (work@BypassNetwork.ctrl), line:30:32, endln:30:36
     |vpiParent:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiName:ctrl
     |vpiFullName:work@BypassNetwork.ctrl
   |vpiPort:
   \_port: (ctrl), line:30:32, endln:30:36
     |vpiParent:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiName:ctrl
     |vpiDirection:3
     |vpiLowConn:
@@ -340,7 +340,7 @@ design: (work@BypassNetwork)
   |vpiContAssign:
   \_cont_assign: , line:33:9, endln:33:25
     |vpiParent:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiRhs:
     \_hier_path: (ctrl.backEnd), line:33:13, endln:33:25
       |vpiParent:
@@ -363,7 +363,7 @@ design: (work@BypassNetwork)
       |vpiActual:
       \_logic_net: (o)
 |uhdmtopModules:
-\_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+\_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
   |vpiName:work@BypassNetwork
   |vpiTypedef:
   \_struct_typespec: (pack::PipelineControll), line:2:9, endln:2:15
@@ -377,7 +377,7 @@ design: (work@BypassNetwork)
   |vpiPort:
   \_port: (ctrl), line:30:32, endln:30:36
     |vpiParent:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiName:ctrl
     |vpiDirection:3
     |vpiLowConn:
@@ -394,18 +394,18 @@ design: (work@BypassNetwork)
       |vpiName:BypassNetwork
       |vpiIsModPort:1
     |vpiInstance:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
   |vpiInterface:
-  \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:dut.sv, line:29:0
+  \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
     |vpiParent:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiName:ctrl
     |vpiFullName:work@BypassNetwork.ctrl
     |vpiDefName:work@ControllerIF
     |vpiModport:
     \_modport: (BypassNetwork), line:20:12, endln:20:25
       |vpiParent:
-      \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:dut.sv, line:29:0
+      \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
       |vpiName:BypassNetwork
       |vpiIODecl:
       \_io_decl: (backEnd), line:22:11, endln:22:18
@@ -417,11 +417,11 @@ design: (work@BypassNetwork)
           \_struct_typespec: (pack::PipelineControll), line:2:9, endln:2:15
           |vpiName:backEnd
       |vpiInterface:
-      \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:dut.sv, line:29:0
+      \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
   |vpiContAssign:
   \_cont_assign: , line:33:9, endln:33:25
     |vpiParent:
-    \_module: work@BypassNetwork (work@BypassNetwork), file:dut.sv, line:29:1, endln:36:10
+    \_module: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiRhs:
     \_hier_path: (ctrl.backEnd), line:33:13, endln:33:25
       |vpiParent:
@@ -433,7 +433,7 @@ design: (work@BypassNetwork)
         \_hier_path: (ctrl.backEnd), line:33:13, endln:33:25
         |vpiName:ctrl
         |vpiActual:
-        \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:dut.sv, line:29:0
+        \_interface: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
       |vpiActual:
       \_ref_obj: (backEnd), line:33:18, endln:33:25
         |vpiParent:

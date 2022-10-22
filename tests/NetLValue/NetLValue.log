@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/NetLValue/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/NetLValue/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<112> s<111> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -115,11 +115,11 @@ n<> u<109> t<Module_declaration> p<110> c<4> l<1:1> el<10:10>
 n<> u<110> t<Description> p<111> c<109> l<1:1> el<10:10>
 n<> u<111> t<Source_text> p<112> c<110> l<1:1> el<10:10>
 n<> u<112> t<Top_level_rule> c<1> l<1:1> el<11:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "t".
+[WRN:PA0205] ${SURELOG_DIR}/tests/NetLValue/dut.sv:1:1: No timescale set for "t".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@t".
+[INF:CP0303] ${SURELOG_DIR}/tests/NetLValue/dut.sv:1:1: Compile module "work@t".
 
 [INF:EL0526] Design Elaboration...
 
@@ -127,7 +127,7 @@ Instance tree:
 [TOP] work@t work@t
 [SCO] work@t.UNNAMED work@t.UNNAMED
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@t".
+[NTE:EL0503] ${SURELOG_DIR}/tests/NetLValue/dut.sv:1:1: Top level module "work@t".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -137,9 +137,9 @@ Instance tree:
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-[NTE:EL0523] dut.sv:1:1: Instance "work@t".
+[NTE:EL0523] ${SURELOG_DIR}/tests/NetLValue/dut.sv:1:1: Instance "work@t".
 
-[NTE:EL0522] dut.sv:6:16: Scope "work@t.UNNAMED".
+[NTE:EL0522] ${SURELOG_DIR}/tests/NetLValue/dut.sv:6:16: Scope "work@t.UNNAMED".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -185,11 +185,11 @@ struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/NetLValue/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/NetLValue/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/NetLValue/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -198,17 +198,17 @@ design: (work@t)
 |vpiElaborated:1
 |vpiName:work@t
 |uhdmallModules:
-\_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+\_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
   |vpiParent:
   \_design: (work@t)
   |vpiFullName:work@t
   |vpiTypedef:
   \_struct_typespec: (S), line:2:12, endln:2:18
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiName:S
     |vpiInstance:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespecMember:
     \_typespec_member: (x), line:2:25, endln:2:26
       |vpiParent:
@@ -219,7 +219,7 @@ design: (work@t)
         |vpiParent:
         \_typespec_member: (x), line:2:25, endln:2:26
         |vpiSigned:1
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/NetLValue/dut.sv
       |vpiRefLineNo:2
       |vpiRefColumnNo:21
       |vpiRefEndLineNo:2
@@ -228,19 +228,19 @@ design: (work@t)
   |vpiNet:
   \_logic_net: (work@t.s), line:3:11, endln:3:12
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiName:s
     |vpiFullName:work@t.s
   |vpiNet:
   \_logic_net: (work@t.y), line:4:8, endln:4:9
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiName:y
     |vpiFullName:work@t.y
   |vpiProcess:
   \_always: , line:6:4, endln:9:7
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiStmt:
     \_begin: (work@t), line:6:16, endln:9:7
       |vpiParent:
@@ -324,12 +324,12 @@ design: (work@t)
             |vpiName:x
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+\_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
   |vpiName:work@t
   |vpiVariables:
   \_packed_array_var: (work@t.s), line:3:11, endln:3:12
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiName:s
     |vpiFullName:work@t.s
     |vpiVisibility:1
@@ -361,7 +361,7 @@ design: (work@t)
   |vpiVariables:
   \_int_var: (work@t.y), line:4:8, endln:4:9
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_int_typespec: , line:4:4, endln:4:7
       |vpiSigned:1
@@ -376,7 +376,7 @@ design: (work@t)
   |vpiProcess:
   \_always: , line:6:4, endln:9:7
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiStmt:
     \_begin: (work@t), line:6:16, endln:9:7
       |vpiParent:

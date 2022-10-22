@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/FuncDeclScope/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<288> s<287> l<1:1> el<1:0>
 n<> u<2> t<Interface> p<5> s<4> l<1:1> el<1:10>
@@ -291,23 +291,23 @@ n<> u<285> t<Module_declaration> p<286> c<143> l<21:1> el<40:10>
 n<> u<286> t<Description> p<287> c<285> l<21:1> el<40:10>
 n<> u<287> t<Source_text> p<288> c<140> l<1:1> el<40:10>
 n<> u<288> t<Top_level_rule> c<1> l<1:1> el<41:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "intf".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:1:1: No timescale set for "intf".
 
-[WRN:PA0205] dut.sv:21:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:21:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0304] dut.sv:1:1: Compile interface "work@intf".
+[INF:CP0304] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:1:1: Compile interface "work@intf".
 
-[INF:CP0303] dut.sv:21:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:21:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:9:4: Compile generate block "work@top.interf.gen_block".
+[INF:CP0335] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:9:4: Compile generate block "work@top.interf.gen_block".
 
-[INF:CP0335] dut.sv:29:4: Compile generate block "work@top.gen_block".
+[INF:CP0335] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:29:4: Compile generate block "work@top.gen_block".
 
-[NTE:EL0503] dut.sv:21:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:21:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -359,11 +359,11 @@ parameter                                              4
 ref_obj                                                3
 return_stmt                                            5
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncDeclScope/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -372,14 +372,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallInterfaces:
-\_interface: work@intf (work@intf), file:dut.sv, line:1:1, endln:18:13
+\_interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@intf
   |vpiParameter:
   \_parameter: (work@intf.Depth), line:2:27, endln:2:32
     |vpiParent:
-    \_interface: work@intf (work@intf), file:dut.sv, line:1:1, endln:18:13
+    \_interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:26
@@ -390,7 +390,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:27, endln:2:36
     |vpiParent:
-    \_interface: work@intf (work@intf), file:dut.sv, line:1:1, endln:18:13
+    \_interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiRhs:
     \_constant: , line:2:35, endln:2:36
       |vpiDecompile:4
@@ -405,28 +405,28 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@intf.get2), line:5:4, endln:7:18
     |vpiParent:
-    \_interface: work@intf (work@intf), file:dut.sv, line:1:1, endln:18:13
+    \_interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiName:get2
     |vpiFullName:work@intf.get2
     |vpiParent:
-    \_interface: work@intf (work@intf), file:dut.sv, line:1:1, endln:18:13
+    \_interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiInstance:
-    \_interface: work@intf (work@intf), file:dut.sv, line:1:1, endln:18:13
+    \_interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
   |vpiNet:
   \_logic_net: (work@intf.o), line:3:27, endln:3:28
     |vpiParent:
-    \_interface: work@intf (work@intf), file:dut.sv, line:1:1, endln:18:13
+    \_interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiName:o
     |vpiFullName:work@intf.o
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.Depth), line:22:27, endln:22:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:22:14, endln:22:26
@@ -437,7 +437,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:22:27, endln:22:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiRhs:
     \_constant: , line:22:35, endln:22:36
       |vpiDecompile:4
@@ -452,7 +452,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.get4), line:25:4, endln:27:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:get4
     |vpiFullName:work@top.get4
     |vpiVisibility:1
@@ -464,7 +464,7 @@ design: (work@top)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiStmt:
     \_return_stmt: , line:26:10, endln:26:16
       |vpiParent:
@@ -478,20 +478,20 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiNet:
   \_logic_net: (work@top.o), line:23:27, endln:23:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:o
     |vpiFullName:work@top.o
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiName:work@top
   |vpiVariables:
   \_int_var: (work@top.o), line:23:27, endln:23:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiTypespec:
     \_int_typespec: , line:23:4, endln:23:7
       |vpiSigned:1
@@ -501,7 +501,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.Depth), line:22:27, endln:22:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:22:14, endln:22:26
@@ -512,7 +512,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:22:27, endln:22:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiRhs:
     \_constant: , line:22:35, endln:22:36
       |vpiDecompile:4
@@ -528,7 +528,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.get4), line:25:4, endln:27:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:get4
     |vpiFullName:work@top.get4
     |vpiVisibility:1
@@ -536,7 +536,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:25:23, endln:25:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiStmt:
     \_return_stmt: , line:26:10, endln:26:16
       |vpiParent:
@@ -544,18 +544,18 @@ design: (work@top)
       |vpiCondition:
       \_constant: , line:26:17, endln:26:18
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiTopModule:1
   |vpiInterface:
-  \_interface: work@intf (work@top.interf), file:dut.sv, line:28:3, endln:28:17
+  \_interface: work@intf (work@top.interf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:28:3, endln:28:17
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:interf
     |vpiFullName:work@top.interf
     |vpiVariables:
     \_int_var: (work@top.interf.o), line:3:27, endln:3:28
       |vpiParent:
-      \_interface: work@intf (work@top.interf), file:dut.sv, line:28:3, endln:28:17
+      \_interface: work@intf (work@top.interf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:28:3, endln:28:17
       |vpiTypespec:
       \_int_typespec: , line:3:4, endln:3:7
         |vpiSigned:1
@@ -565,7 +565,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.interf.Depth), line:2:27, endln:2:32
       |vpiParent:
-      \_interface: work@intf (work@top.interf), file:dut.sv, line:28:3, endln:28:17
+      \_interface: work@intf (work@top.interf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:28:3, endln:28:17
       |UINT:4
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:26
@@ -576,7 +576,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:27, endln:2:36
       |vpiParent:
-      \_interface: work@intf (work@top.interf), file:dut.sv, line:28:3, endln:28:17
+      \_interface: work@intf (work@top.interf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:28:3, endln:28:17
       |vpiRhs:
       \_constant: , line:2:35, endln:2:36
         |vpiDecompile:4
@@ -588,16 +588,16 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.interf.Depth), line:2:27, endln:2:32
     |vpiDefName:work@intf
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv
     |vpiDefLineNo:1
     |vpiTaskFunc:
     \_function: (work@intf.get2), line:5:4, endln:7:18
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.interf.gen_block), line:9:4, endln:17:19
       |vpiParent:
-      \_interface: work@intf (work@top.interf), file:dut.sv, line:28:3, endln:28:17
+      \_interface: work@intf (work@top.interf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:28:3, endln:28:17
       |vpiName:gen_block
       |vpiFullName:work@top.interf.gen_block
       |vpiGenScope:
@@ -655,7 +655,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.gen_block), line:29:4, endln:37:19
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:21:1, endln:40:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:gen_block
     |vpiFullName:work@top.gen_block
     |vpiGenScope:

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ConcatOrder/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ConcatOrder/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ConcatOrder/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<320> s<319> l<1:1> el<1:0>
 n<> u<2> t<Package> p<210> s<3> l<1:1> el<1:8>
@@ -323,25 +323,25 @@ n<> u<317> t<Module_declaration> p<318> c<274> l<39:2> el<54:11>
 n<> u<318> t<Description> p<319> c<317> l<39:2> el<54:11>
 n<> u<319> t<Source_text> p<320> c<211> l<1:1> el<54:11>
 n<> u<320> t<Top_level_rule> c<1> l<1:1> el<56:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "bp_common_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:1:1: No timescale set for "bp_common_pkg".
 
-[WRN:PA0205] dut.sv:35:1: No timescale set for "GOOD".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:35:1: No timescale set for "GOOD".
 
-[WRN:PA0205] dut.sv:39:2: No timescale set for "testbench".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:39:2: No timescale set for "testbench".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "bp_common_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:1:1: Compile package "bp_common_pkg".
 
-[INF:CP0303] dut.sv:35:1: Compile module "work@GOOD".
+[INF:CP0303] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:35:1: Compile module "work@GOOD".
 
-[INF:CP0303] dut.sv:39:2: Compile module "work@testbench".
+[INF:CP0303] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:39:2: Compile module "work@testbench".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:48:2: Compile generate block "work@testbench.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:48:2: Compile generate block "work@testbench.genblk1".
 
-[NTE:EL0503] dut.sv:39:2: Top level module "work@testbench".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:39:2: Top level module "work@testbench".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -409,11 +409,11 @@ sys_func_call                                          4
 tagged_pattern                                        24
 typespec_member                                       34
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ConcatOrder/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConcatOrder/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ConcatOrder/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ConcatOrder/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ConcatOrder/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ConcatOrder/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -422,7 +422,7 @@ design: (work@testbench)
 |vpiElaborated:1
 |vpiName:work@testbench
 |uhdmallPackages:
-\_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+\_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
   |vpiParent:
   \_design: (work@testbench)
   |vpiName:bp_common_pkg
@@ -430,7 +430,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:22
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -440,21 +440,21 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:25
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiLocalParam:1
     |vpiName:lg_max_cfgs
     |vpiFullName:bp_common_pkg::lg_max_cfgs
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:10:61
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -467,7 +467,7 @@ design: (work@testbench)
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
           \_package: (bp_common_pkg)
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -478,7 +478,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:13:53
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_packed_array_typespec: , line:13:11, endln:13:26
       |vpiParent:
@@ -522,7 +522,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:25:44
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
     |vpiLocalParam:1
@@ -531,7 +531,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:44
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
     |vpiLocalParam:1
@@ -540,7 +540,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:29
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_constant: , line:2:28, endln:2:29
       |vpiDecompile:2
@@ -554,7 +554,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:71
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_operation: , line:3:30, endln:3:70
       |vpiOpType:32
@@ -603,7 +603,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:10:31, endln:11:27
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_operation: , line:11:7, endln:11:27
       |vpiOpType:75
@@ -623,7 +623,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:13:42, endln:17:4
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_operation: , line:14:3, endln:17:4
       |vpiOpType:33
@@ -646,7 +646,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:25:28, endln:28:8
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_operation: , line:26:5, endln:28:8
       |vpiOpType:75
@@ -666,7 +666,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:30:28, endln:30:63
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_ref_obj: (bp_default_cfg_p), line:30:47, endln:30:63
       |vpiName:bp_default_cfg_p
@@ -677,10 +677,10 @@ design: (work@testbench)
   |vpiTypedef:
   \_enum_typespec: (bp_common_pkg::bp_params_e), line:19:3, endln:23:17
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiName:bp_common_pkg::bp_params_e
     |vpiInstance:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiBaseTypespec:
     \_bit_typespec: , line:19:16, endln:19:37
       |vpiInstance:
@@ -731,7 +731,7 @@ design: (work@testbench)
   \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
   |vpiDefName:bp_common_pkg
 |uhdmtopPackages:
-\_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+\_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
   |vpiParent:
   \_design: (work@testbench)
   |vpiName:bp_common_pkg
@@ -739,7 +739,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::max_cfgs), line:2:14, endln:2:22
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -749,7 +749,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::lg_max_cfgs), line:3:14, endln:3:25
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |INT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -759,14 +759,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:10:61
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
-      \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+      \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -778,8 +778,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -790,13 +790,13 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:13:53
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_packed_array_typespec: , line:13:11, endln:13:26
       |vpiParent:
       \_parameter: (bp_common_pkg::all_cfgs_gp), line:13:42, endln:13:53
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiRange:
       \_range: , line:13:27, endln:13:41
         |vpiLeftRange:
@@ -822,7 +822,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_default_cfg_p), line:25:28, endln:25:44
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
     |vpiLocalParam:1
@@ -831,7 +831,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (bp_common_pkg::bp_unicore_cfg_p), line:30:28, endln:30:44
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
     |vpiLocalParam:1
@@ -840,7 +840,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:29
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_constant: , line:2:28, endln:2:29
       |vpiDecompile:2
@@ -854,7 +854,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:71
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_constant: , line:3:30, endln:3:45
       |vpiDecompile:1
@@ -868,7 +868,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:10:31, endln:11:27
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_operation: , line:11:7, endln:11:27
       |vpiOpType:75
@@ -888,7 +888,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:13:42, endln:17:4
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_operation: , line:14:3, endln:17:4
       |vpiOpType:33
@@ -912,7 +912,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:25:28, endln:28:8
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_operation: , line:26:5, endln:28:8
       |vpiOpType:75
@@ -932,7 +932,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:30:28, endln:30:63
     |vpiParent:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiRhs:
     \_ref_obj: (bp_default_cfg_p), line:30:47, endln:30:63
       |vpiName:bp_default_cfg_p
@@ -943,14 +943,14 @@ design: (work@testbench)
   |vpiTypedef:
   \_enum_typespec: (bp_common_pkg::bp_params_e), line:19:3, endln:23:17
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiName:bp_common_pkg::bp_params_e
     |vpiInstance:
-    \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+    \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
     |vpiBaseTypespec:
     \_bit_typespec: , line:19:16, endln:19:37
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiRange:
       \_range: , line:19:20, endln:19:37
         |vpiLeftRange:
@@ -986,26 +986,26 @@ design: (work@testbench)
   |vpiDefName:bp_common_pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD), file:dut.sv, line:35:1, endln:37:10
+\_module: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:35:1, endln:37:10
   |vpiParent:
   \_design: (work@testbench)
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+\_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
   |vpiParent:
   \_design: (work@testbench)
   |vpiFullName:work@testbench
   |vpiParameter:
   \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:13:53
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_packed_array_typespec: , line:13:11, endln:13:26
       |vpiParent:
       \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:13:53
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiRange:
       \_range: , line:13:27, endln:13:41
         |vpiParent:
@@ -1032,7 +1032,7 @@ design: (work@testbench)
         \_packed_array_typespec: , line:13:11, endln:13:26
         |vpiName:bp_common_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1044,8 +1044,8 @@ design: (work@testbench)
             |vpiParent:
             \_typespec_member: (cce_ucode), line:7:22, endln:7:31
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-          |vpiRefFile:dut.sv
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -1056,14 +1056,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:25:44
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
       \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:25:44
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1075,8 +1075,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1088,14 +1088,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:10:61
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
       \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:10:61
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1107,8 +1107,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1120,14 +1120,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:44
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
       \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:44
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1139,8 +1139,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1152,7 +1152,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.lg_max_cfgs), line:3:14, endln:3:25
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |INT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -1165,7 +1165,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.max_cfgs), line:2:14, endln:2:22
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -1178,7 +1178,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_params_p), line:41:26, endln:41:37
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_enum_typespec: (bp_common_pkg::bp_params_e), line:19:3, endln:23:17
     |vpiName:bp_params_p
@@ -1186,7 +1186,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:47
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
     |vpiLocalParam:1
@@ -1195,14 +1195,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.cce_ucode_p), line:44:18, endln:44:29
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiLocalParam:1
     |vpiName:cce_ucode_p
     |vpiFullName:work@testbench.cce_ucode_p
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:29
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_constant: , line:2:28, endln:2:29
       |vpiParent:
@@ -1231,7 +1231,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:71
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_constant: , line:3:30, endln:3:45
       |vpiParent:
@@ -1260,7 +1260,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:10:31, endln:11:27
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_operation: , line:11:7, endln:11:27
       |vpiParent:
@@ -1293,7 +1293,7 @@ design: (work@testbench)
         \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:10:61
         |vpiName:bp_common_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1305,8 +1305,8 @@ design: (work@testbench)
             |vpiParent:
             \_typespec_member: (cce_ucode), line:7:22, endln:7:31
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-          |vpiRefFile:dut.sv
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -1318,7 +1318,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:13:42, endln:17:4
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_operation: , line:14:3, endln:17:4
       |vpiParent:
@@ -1346,7 +1346,7 @@ design: (work@testbench)
         |vpiParent:
         \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:13:53
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiRange:
         \_range: , line:13:27, endln:13:41
           |vpiParent:
@@ -1373,7 +1373,7 @@ design: (work@testbench)
           \_packed_array_typespec: , line:13:11, endln:13:26
           |vpiName:bp_common_pkg::bp_proc_param_s
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
           |vpiPacked:1
           |vpiTypespecMember:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1385,8 +1385,8 @@ design: (work@testbench)
               |vpiParent:
               \_typespec_member: (cce_ucode), line:7:22, endln:7:31
               |vpiInstance:
-              \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-            |vpiRefFile:dut.sv
+              \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+            |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
             |vpiRefLineNo:7
             |vpiRefColumnNo:5
             |vpiRefEndLineNo:7
@@ -1397,7 +1397,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:25:28, endln:28:8
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_operation: , line:26:5, endln:28:8
       |vpiParent:
@@ -1430,7 +1430,7 @@ design: (work@testbench)
         \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:25:44
         |vpiName:bp_common_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1442,8 +1442,8 @@ design: (work@testbench)
             |vpiParent:
             \_typespec_member: (cce_ucode), line:7:22, endln:7:31
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-          |vpiRefFile:dut.sv
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -1455,7 +1455,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:30:28, endln:30:63
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_ref_obj: (work@testbench.bp_default_cfg_p), line:30:47, endln:30:63
       |vpiParent:
@@ -1472,7 +1472,7 @@ design: (work@testbench)
         \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:44
         |vpiName:bp_common_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1484,8 +1484,8 @@ design: (work@testbench)
             |vpiParent:
             \_typespec_member: (cce_ucode), line:7:22, endln:7:31
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-          |vpiRefFile:dut.sv
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -1497,7 +1497,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:41:26, endln:41:70
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_ref_obj: (e_bp_multicore_1_cce_ucode_cfg), line:41:40, endln:41:70
       |vpiName:e_bp_multicore_1_cce_ucode_cfg
@@ -1508,7 +1508,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:43:34, endln:43:74
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:43:50, endln:43:74
       |vpiParent:
@@ -1526,7 +1526,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:44:18, endln:44:70
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_hier_path: (proc_param_lp.cce_ucode), line:44:47, endln:44:70
       |vpiName:proc_param_lp.cce_ucode
@@ -1548,18 +1548,18 @@ design: (work@testbench)
   \_import_typespec: (bp_common_pkg), line:40:9, endln:40:25
   |vpiDefName:work@testbench
 |uhdmtopModules:
-\_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+\_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
   |vpiName:work@testbench
   |vpiParameter:
   \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:13:53
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_packed_array_typespec: , line:13:11, endln:13:26
       |vpiParent:
       \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:13:53
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiRange:
       \_range: , line:13:27, endln:13:41
         |vpiParent:
@@ -1586,7 +1586,7 @@ design: (work@testbench)
         \_packed_array_typespec: , line:13:11, endln:13:26
         |vpiName:bp_common_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1598,8 +1598,8 @@ design: (work@testbench)
             |vpiParent:
             \_typespec_member: (cce_ucode), line:7:22, endln:7:31
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-          |vpiRefFile:dut.sv
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -1610,14 +1610,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:25:44
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
       \_parameter: (work@testbench.bp_default_cfg_p), line:25:28, endln:25:44
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1629,8 +1629,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1642,14 +1642,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:10:61
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
       \_parameter: (work@testbench.bp_multicore_1_cce_ucode_cfg_p), line:10:31, endln:10:61
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1661,8 +1661,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1674,14 +1674,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:44
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
       \_parameter: (work@testbench.bp_unicore_cfg_p), line:30:28, endln:30:44
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1693,8 +1693,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1706,7 +1706,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.lg_max_cfgs), line:3:14, endln:3:25
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |INT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -1719,7 +1719,7 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.max_cfgs), line:2:14, endln:2:22
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -1732,20 +1732,20 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.bp_params_p), line:41:26, endln:41:37
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_enum_typespec: (bp_common_pkg::bp_params_e), line:19:3, endln:23:17
       |vpiParent:
       \_parameter: (work@testbench.bp_params_p), line:41:26, endln:41:37
       |vpiName:bp_common_pkg::bp_params_e
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiBaseTypespec:
       \_bit_typespec: , line:19:16, endln:19:37
         |vpiParent:
         \_enum_typespec: (bp_common_pkg::bp_params_e), line:19:3, endln:23:17
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiRange:
         \_range: , line:19:20, endln:19:37
           |vpiParent:
@@ -1787,14 +1787,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:47
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:5:16
       |vpiParent:
       \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:47
       |vpiName:bp_common_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+      \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1806,8 +1806,8 @@ design: (work@testbench)
           |vpiParent:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-        |vpiRefFile:dut.sv
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+        |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1818,14 +1818,14 @@ design: (work@testbench)
   |vpiParameter:
   \_parameter: (work@testbench.cce_ucode_p), line:44:18, endln:44:29
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiLocalParam:1
     |vpiName:cce_ucode_p
     |vpiFullName:work@testbench.cce_ucode_p
   |vpiParamAssign:
   \_param_assign: , line:41:26, endln:41:70
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_constant: , line:41:40, endln:41:70
       |vpiDecompile:1
@@ -1839,7 +1839,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:43:34, endln:43:74
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:43:50, endln:43:74
       |vpiParent:
@@ -1859,13 +1859,13 @@ design: (work@testbench)
           \_constant: , line:43:62, endln:43:73
           |vpiName:bp_common_pkg::bp_params_e
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
           |vpiBaseTypespec:
           \_bit_typespec: , line:19:16, endln:19:37
             |vpiParent:
             \_enum_typespec: (bp_common_pkg::bp_params_e), line:19:3, endln:23:17
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
             |vpiRange:
             \_range: , line:19:20, endln:19:37
               |vpiParent:
@@ -1908,7 +1908,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:44:18, endln:44:70
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_constant: , line:44:47, endln:44:70
       |vpiDecompile:1
@@ -1920,7 +1920,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:29
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_constant: , line:2:28, endln:2:29
       |vpiDecompile:2
@@ -1934,7 +1934,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:71
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_constant: , line:3:28, endln:3:71
       |vpiDecompile:1
@@ -1948,7 +1948,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:10:31, endln:11:27
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_operation: , line:11:7, endln:11:27
       |vpiParent:
@@ -1959,7 +1959,7 @@ design: (work@testbench)
         \_operation: , line:11:7, endln:11:27
         |vpiName:bp_common_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -1971,8 +1971,8 @@ design: (work@testbench)
             |vpiParent:
             \_typespec_member: (cce_ucode), line:7:22, endln:7:31
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-          |vpiRefFile:dut.sv
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -1991,7 +1991,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:13:42, endln:17:4
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_operation: , line:14:3, endln:17:4
       |vpiTypespec:
@@ -1999,7 +1999,7 @@ design: (work@testbench)
         |vpiParent:
         \_operation: , line:14:3, endln:17:4
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiRange:
         \_range: , line:13:27, endln:13:41
           |vpiParent:
@@ -2026,7 +2026,7 @@ design: (work@testbench)
           \_packed_array_typespec: , line:13:11, endln:13:26
           |vpiName:bp_common_pkg::bp_proc_param_s
           |vpiInstance:
-          \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+          \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
           |vpiPacked:1
           |vpiTypespecMember:
           \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -2038,8 +2038,8 @@ design: (work@testbench)
               |vpiParent:
               \_typespec_member: (cce_ucode), line:7:22, endln:7:31
               |vpiInstance:
-              \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-            |vpiRefFile:dut.sv
+              \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+            |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
             |vpiRefLineNo:7
             |vpiRefColumnNo:5
             |vpiRefEndLineNo:7
@@ -2065,7 +2065,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:25:28, endln:28:8
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_operation: , line:26:5, endln:28:8
       |vpiParent:
@@ -2076,7 +2076,7 @@ design: (work@testbench)
         \_operation: , line:26:5, endln:28:8
         |vpiName:bp_common_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
+        \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cce_ucode), line:7:22, endln:7:31
@@ -2088,8 +2088,8 @@ design: (work@testbench)
             |vpiParent:
             \_typespec_member: (cce_ucode), line:7:22, endln:7:31
             |vpiInstance:
-            \_package: bp_common_pkg (bp_common_pkg::), file:dut.sv, line:1:1, endln:32:11
-          |vpiRefFile:dut.sv
+            \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+          |vpiRefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -2108,7 +2108,7 @@ design: (work@testbench)
   |vpiParamAssign:
   \_param_assign: , line:30:28, endln:30:63
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_ref_obj: (bp_default_cfg_p), line:30:47, endln:30:63
       |vpiName:bp_default_cfg_p
@@ -2128,7 +2128,7 @@ design: (work@testbench)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@testbench.genblk1), line:48:2, endln:52:5
     |vpiParent:
-    \_module: work@testbench (work@testbench), file:dut.sv, line:39:2, endln:54:11
+    \_module: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiName:genblk1
     |vpiFullName:work@testbench.genblk1
     |vpiGenScope:
@@ -2137,13 +2137,13 @@ design: (work@testbench)
       \_gen_scope_array: (work@testbench.genblk1), line:48:2, endln:52:5
       |vpiFullName:work@testbench.genblk1
       |vpiModule:
-      \_module: work@GOOD (work@testbench.genblk1.good), file:dut.sv, line:49:6, endln:49:18
+      \_module: work@GOOD (work@testbench.genblk1.good), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:49:6, endln:49:18
         |vpiParent:
         \_gen_scope: (work@testbench.genblk1)
         |vpiName:good
         |vpiFullName:work@testbench.genblk1.good
         |vpiDefName:work@GOOD
-        |vpiDefFile:dut.sv
+        |vpiDefFile:${SURELOG_DIR}/tests/ConcatOrder/dut.sv
         |vpiDefLineNo:35
 ===================
 [  FATAL] : 0

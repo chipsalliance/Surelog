@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/CastStructMember/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/CastStructMember/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/CastStructMember/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<120> s<119> l<2:1> el<1:2>
 n<> u<2> t<Struct_keyword> p<3> l<2:9> el<2:15>
@@ -123,15 +123,15 @@ n<> u<117> t<Module_declaration> p<118> c<22> l<6:1> el<10:10>
 n<> u<118> t<Description> p<119> c<117> l<6:1> el<10:10>
 n<> u<119> t<Source_text> p<120> c<17> l<2:1> el<10:10>
 n<> u<120> t<Top_level_rule> c<1> l<2:1> el<13:1>
-[WRN:PA0205] dut.sv:6:1: No timescale set for "Foo".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastStructMember/dut.sv:6:1: No timescale set for "Foo".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:6:1: Compile module "work@Foo".
+[INF:CP0303] ${SURELOG_DIR}/tests/CastStructMember/dut.sv:6:1: Compile module "work@Foo".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:6:1: Top level module "work@Foo".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CastStructMember/dut.sv:6:1: Top level module "work@Foo".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -179,11 +179,11 @@ ref_obj                                                4
 struct_typespec                                        2
 typespec_member                                        2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CastStructMember/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastStructMember/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CastStructMember/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastStructMember/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CastStructMember/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CastStructMember/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -192,14 +192,14 @@ design: (work@Foo)
 |vpiElaborated:1
 |vpiName:work@Foo
 |uhdmallModules:
-\_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+\_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
   |vpiParent:
   \_design: (work@Foo)
   |vpiFullName:work@Foo
   |vpiParameter:
   \_parameter: (work@Foo.w), line:7:22, endln:7:23
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_struct_typespec: (width_t), line:2:9, endln:2:15
       |vpiParent:
@@ -217,7 +217,7 @@ design: (work@Foo)
           |vpiParent:
           \_typespec_member: (WIDTH), line:3:7, endln:3:12
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/CastStructMember/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:3
@@ -228,7 +228,7 @@ design: (work@Foo)
   |vpiParamAssign:
   \_param_assign: , line:7:22, endln:7:38
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiRhs:
     \_operation: , line:7:26, endln:7:38
       |vpiTypespec:
@@ -251,26 +251,26 @@ design: (work@Foo)
   |vpiNet:
   \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiName:t1
     |vpiFullName:work@Foo.t1
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiName:t2
     |vpiFullName:work@Foo.t2
     |vpiNetType:1
 |vpiTypedef:
 \_struct_typespec: (width_t), line:2:9, endln:2:15
 |uhdmtopModules:
-\_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+\_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
   |vpiName:work@Foo
   |vpiParameter:
   \_parameter: (work@Foo.w), line:7:22, endln:7:23
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_struct_typespec: (width_t), line:2:9, endln:2:15
       |vpiParent:
@@ -288,7 +288,7 @@ design: (work@Foo)
           |vpiParent:
           \_typespec_member: (WIDTH), line:3:7, endln:3:12
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/CastStructMember/dut.sv
         |vpiRefLineNo:3
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:3
@@ -299,7 +299,7 @@ design: (work@Foo)
   |vpiParamAssign:
   \_param_assign: , line:7:22, endln:7:38
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiRhs:
     \_operation: , line:7:26, endln:7:38
       |vpiTypespec:
@@ -323,7 +323,7 @@ design: (work@Foo)
   |vpiNet:
   \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:8:3, endln:8:14
       |vpiRange:
@@ -350,7 +350,7 @@ design: (work@Foo)
   |vpiNet:
   \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:9:3, endln:9:14
       |vpiRange:
@@ -378,7 +378,7 @@ design: (work@Foo)
   |vpiContAssign:
   \_cont_assign: , line:8:15, endln:8:17
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_operation: , line:8:20, endln:8:31
@@ -400,7 +400,7 @@ design: (work@Foo)
   |vpiContAssign:
   \_cont_assign: , line:9:15, endln:9:17
     |vpiParent:
-    \_module: work@Foo (work@Foo), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_operation: , line:9:20, endln:9:25

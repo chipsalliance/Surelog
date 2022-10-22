@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/Inverter/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/Inverter/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/Inverter/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<92> s<91> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<19> s<3> l<1:1> el<1:7>
@@ -95,19 +95,19 @@ n<> u<89> t<Module_declaration> p<90> c<71> l<7:1> el<12:10>
 n<> u<90> t<Description> p<91> c<89> l<7:1> el<12:10>
 n<> u<91> t<Source_text> p<92> c<53> l<1:1> el<12:10>
 n<> u<92> t<Top_level_rule> c<1> l<1:1> el<13:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Inverter/dut.sv:1:1: No timescale set for "top".
 
-[WRN:PA0205] dut.sv:7:1: No timescale set for "inverter".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Inverter/dut.sv:7:1: No timescale set for "inverter".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:7:1: Compile module "work@inverter".
+[INF:CP0303] ${SURELOG_DIR}/tests/Inverter/dut.sv:7:1: Compile module "work@inverter".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/Inverter/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/Inverter/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -141,11 +141,11 @@ operation                                              3
 port                                                  16
 ref_obj                                               30
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/Inverter/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Inverter/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Inverter/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Inverter/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/Inverter/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Inverter/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -154,7 +154,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@inverter (work@inverter), file:dut.sv, line:7:1, endln:12:10
+\_module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@inverter
@@ -162,21 +162,21 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@inverter.a), line:8:13, endln:8:14
     |vpiParent:
-    \_module: work@inverter (work@inverter), file:dut.sv, line:7:1, endln:12:10
+    \_module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
     |vpiName:a
     |vpiFullName:work@inverter.a
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@inverter.b), line:9:14, endln:9:15
     |vpiParent:
-    \_module: work@inverter (work@inverter), file:dut.sv, line:7:1, endln:12:10
+    \_module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
     |vpiName:b
     |vpiFullName:work@inverter.b
     |vpiNetType:1
   |vpiPort:
   \_port: (a), line:8:13, endln:8:14
     |vpiParent:
-    \_module: work@inverter (work@inverter), file:dut.sv, line:7:1, endln:12:10
+    \_module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -188,7 +188,7 @@ design: (work@top)
   |vpiPort:
   \_port: (b), line:9:14, endln:9:15
     |vpiParent:
-    \_module: work@inverter (work@inverter), file:dut.sv, line:7:1, endln:12:10
+    \_module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
@@ -200,7 +200,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:11:8, endln:11:12
     |vpiParent:
-    \_module: work@inverter (work@inverter), file:dut.sv, line:7:1, endln:12:10
+    \_module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
     |vpiRhs:
     \_operation: , line:11:10, endln:11:12
       |vpiParent:
@@ -223,7 +223,7 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.i1.b), line:9:14, endln:9:15
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -231,21 +231,21 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.a), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.b), line:2:14, endln:2:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:1
   |vpiPort:
   \_port: (a), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -257,7 +257,7 @@ design: (work@top)
   |vpiPort:
   \_port: (b), line:2:14, endln:2:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
@@ -267,14 +267,14 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:2:9, endln:2:13
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@top.a), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:1:18, endln:1:22
     |vpiName:a
@@ -283,7 +283,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.b), line:2:14, endln:2:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:2:9, endln:2:13
     |vpiName:b
@@ -292,7 +292,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.tmp), line:3:17, endln:3:20
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:tmp
     |vpiFullName:work@top.tmp
     |vpiNetType:1
@@ -300,7 +300,7 @@ design: (work@top)
   |vpiPort:
   \_port: (a), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -314,11 +314,11 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:1:18, endln:1:22
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiPort:
   \_port: (b), line:2:14, endln:2:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
@@ -332,20 +332,20 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:2:9, endln:2:13
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiModule:
-  \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+  \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:i1
     |vpiFullName:work@top.i1
     |vpiDefName:work@inverter
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/Inverter/dut.sv
     |vpiDefLineNo:7
     |vpiNet:
     \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
       |vpiParent:
-      \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+      \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiTypespec:
       \_logic_typespec: , line:8:8, endln:8:12
       |vpiName:a
@@ -354,18 +354,18 @@ design: (work@top)
     |vpiNet:
     \_logic_net: (work@top.i1.b), line:9:14, endln:9:15
       |vpiParent:
-      \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+      \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiTypespec:
       \_logic_typespec: , line:9:9, endln:9:13
       |vpiName:b
       |vpiFullName:work@top.i1.b
       |vpiNetType:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiPort:
     \_port: (a), line:8:13, endln:8:14
       |vpiParent:
-      \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+      \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
@@ -387,11 +387,11 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:8:8, endln:8:12
       |vpiInstance:
-      \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+      \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
     |vpiPort:
     \_port: (b), line:9:14, endln:9:15
       |vpiParent:
-      \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+      \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiName:b
       |vpiDirection:2
       |vpiHighConn:
@@ -413,11 +413,11 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:9:9, endln:9:13
       |vpiInstance:
-      \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+      \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
     |vpiContAssign:
     \_cont_assign: , line:11:8, endln:11:12
       |vpiParent:
-      \_module: work@inverter (work@top.i1), file:dut.sv, line:3:3, endln:3:22
+      \_module: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiRhs:
       \_operation: , line:11:10, endln:11:12
         |vpiParent:
@@ -440,18 +440,18 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.i1.b), line:9:14, endln:9:15
   |vpiModule:
-  \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+  \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:i2
     |vpiFullName:work@top.i2
     |vpiDefName:work@inverter
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/Inverter/dut.sv
     |vpiDefLineNo:7
     |vpiNet:
     \_logic_net: (work@top.i2.a), line:8:13, endln:8:14
       |vpiParent:
-      \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+      \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiTypespec:
       \_logic_typespec: , line:8:8, endln:8:12
       |vpiName:a
@@ -460,18 +460,18 @@ design: (work@top)
     |vpiNet:
     \_logic_net: (work@top.i2.b), line:9:14, endln:9:15
       |vpiParent:
-      \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+      \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiTypespec:
       \_logic_typespec: , line:9:9, endln:9:13
       |vpiName:b
       |vpiFullName:work@top.i2.b
       |vpiNetType:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiPort:
     \_port: (a), line:8:13, endln:8:14
       |vpiParent:
-      \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+      \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
@@ -493,11 +493,11 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:8:8, endln:8:12
       |vpiInstance:
-      \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+      \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
     |vpiPort:
     \_port: (b), line:9:14, endln:9:15
       |vpiParent:
-      \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+      \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiName:b
       |vpiDirection:2
       |vpiHighConn:
@@ -519,11 +519,11 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:9:9, endln:9:13
       |vpiInstance:
-      \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+      \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
     |vpiContAssign:
     \_cont_assign: , line:11:8, endln:11:12
       |vpiParent:
-      \_module: work@inverter (work@top.i2), file:dut.sv, line:4:3, endln:4:22
+      \_module: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiRhs:
       \_operation: , line:11:10, endln:11:12
         |vpiParent:

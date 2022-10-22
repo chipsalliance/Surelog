@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/UnitThisNew/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UnitThisNew/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/UnitThisNew/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<292> s<291> l<1:1> el<1:0>
 n<> u<2> t<Package> p<289> s<3> l<1:1> el<1:8>
@@ -295,11 +295,11 @@ n<> u<289> t<Package_declaration> p<290> c<2> l<1:1> el<44:11>
 n<> u<290> t<Description> p<291> c<289> l<1:1> el<44:11>
 n<> u<291> t<Source_text> p<292> c<290> l<1:1> el<44:11>
 n<> u<292> t<Top_level_rule> c<1> l<1:1> el<45:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "toto".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitThisNew/dut.sv:1:1: No timescale set for "toto".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "toto".
+[INF:CP0301] ${SURELOG_DIR}/tests/UnitThisNew/dut.sv:1:1: Compile package "toto".
 
 LIB:  work
 FILE: builtin.sv
@@ -647,15 +647,15 @@ string_var                                             6
 task                                                  18
 unsupported_typespec                                  12
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:27:8: Unresolved hierarchical reference "this.fields.get_lsb_pos_in_register".
+[ERR:UH0725] ${SURELOG_DIR}/tests/UnitThisNew/dut.sv:27:8: Unresolved hierarchical reference "this.fields.get_lsb_pos_in_register".
 
-[ERR:UH0725] dut.sv:33:11: Unresolved hierarchical reference "this.stream_handle".
+[ERR:UH0725] ${SURELOG_DIR}/tests/UnitThisNew/dut.sv:33:11: Unresolved hierarchical reference "this.stream_handle".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/UnitThisNew/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitThisNew/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnitThisNew/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnitThisNew/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/UnitThisNew/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnitThisNew/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -671,7 +671,7 @@ design: (unnamed)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+\_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:toto
@@ -680,7 +680,7 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_string_to_action
     |vpiFullName:toto::uvm_string_to_action
     |vpiVariables:
@@ -746,7 +746,7 @@ design: (unnamed)
         |vpiInstance:
         \_package: (toto)
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (action_str), line:3:56, endln:3:66
       |vpiParent:
@@ -769,11 +769,11 @@ design: (unnamed)
         |vpiInstance:
         \_package: (toto)
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_object::clone), line:7:5, endln:13:16
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_object::clone
     |vpiFullName:toto::uvm_object::clone
     |vpiVisibility:1
@@ -785,7 +785,7 @@ design: (unnamed)
         |vpiInstance:
         \_package: (toto)
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_begin: (toto::uvm_object::clone)
       |vpiParent:
@@ -839,11 +839,11 @@ design: (unnamed)
           |vpiName:tmp
           |vpiFullName:toto::uvm_object::clone::tmp
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::m_initialize), line:16:1, endln:22:13
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:m_initialize
     |vpiFullName:toto::m_initialize
     |vpiVisibility:1
@@ -855,7 +855,7 @@ design: (unnamed)
         |vpiInstance:
         \_package: (toto)
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_begin: (toto::m_initialize)
       |vpiParent:
@@ -940,16 +940,16 @@ design: (unnamed)
           |vpiName:m_b_inst
           |vpiFullName:toto::m_initialize::m_b_inst
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_reg::add_field), line:25:1, endln:30:12
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_reg::add_field
     |vpiFullName:toto::uvm_reg::add_field
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (field), line:25:48, endln:25:53
       |vpiParent:
@@ -991,11 +991,11 @@ design: (unnamed)
         \_if_stmt: , line:27:4, endln:28:7
         |vpiFullName:toto::uvm_reg::add_field
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_transaction::is_recording_enabled), line:32:1, endln:34:12
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_transaction::is_recording_enabled
     |vpiFullName:toto::uvm_transaction::is_recording_enabled
     |vpiVisibility:1
@@ -1006,7 +1006,7 @@ design: (unnamed)
         |vpiInstance:
         \_package: (toto)
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_return_stmt: , line:33:3, endln:33:9
       |vpiParent:
@@ -1040,11 +1040,11 @@ design: (unnamed)
           |UINT:0
           |vpiConstType:11
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_reg_backdoor::start_update_thread), line:36:1, endln:42:15
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_reg_backdoor::start_update_thread
     |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
     |vpiVariables:
@@ -1068,7 +1068,7 @@ design: (unnamed)
         |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (element), line:36:64, endln:36:71
       |vpiParent:
@@ -1129,7 +1129,7 @@ design: (unnamed)
               |STRING:this
               |vpiConstType:6
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
 |uhdmtopPackages:
 \_package: builtin (builtin::)
   |vpiParent:
@@ -1169,7 +1169,7 @@ design: (unnamed)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+\_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:toto
@@ -1179,7 +1179,7 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_string_to_action
     |vpiFullName:toto::uvm_string_to_action
     |vpiVariables:
@@ -1209,7 +1209,7 @@ design: (unnamed)
         |vpiElemTypespec:
         \_string_typespec: , line:4:7, endln:4:13
           |vpiInstance:
-          \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+          \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
       |vpiName:actions
       |vpiFullName:toto::uvm_string_to_action::actions
       |vpiArrayType:4
@@ -1243,9 +1243,9 @@ design: (unnamed)
       |vpiTypespec:
       \_bit_typespec: , line:3:23, endln:3:26
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (action_str), line:3:56, endln:3:66
       |vpiParent:
@@ -1255,7 +1255,7 @@ design: (unnamed)
       |vpiTypedef:
       \_string_typespec: , line:3:49, endln:3:55
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (action), line:3:86, endln:3:92
       |vpiParent:
@@ -1266,13 +1266,13 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_action), line:3:75, endln:3:85
         |vpiName:uvm_action
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_object::clone), line:7:5, endln:13:16
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_object::clone
     |vpiFullName:toto::uvm_object::clone
     |vpiVisibility:1
@@ -1282,9 +1282,9 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_object), line:7:14, endln:7:24
         |vpiName:uvm_object
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_begin: (toto::uvm_object::clone)
       |vpiParent:
@@ -1338,11 +1338,11 @@ design: (unnamed)
           |vpiName:tmp
           |vpiFullName:toto::uvm_object::clone::tmp
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::m_initialize), line:16:1, endln:22:13
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:m_initialize
     |vpiFullName:toto::m_initialize
     |vpiVisibility:1
@@ -1352,9 +1352,9 @@ design: (unnamed)
       \_unsupported_typespec: (this_type), line:16:10, endln:16:19
         |vpiName:this_type
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_begin: (toto::m_initialize)
       |vpiParent:
@@ -1439,16 +1439,16 @@ design: (unnamed)
           |vpiName:m_b_inst
           |vpiFullName:toto::m_initialize::m_b_inst
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_reg::add_field), line:25:1, endln:30:12
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_reg::add_field
     |vpiFullName:toto::uvm_reg::add_field
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (field), line:25:48, endln:25:53
       |vpiParent:
@@ -1459,7 +1459,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_reg_field), line:25:34, endln:25:47
         |vpiName:uvm_reg_field
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_if_stmt: , line:27:4, endln:28:7
       |vpiParent:
@@ -1490,11 +1490,11 @@ design: (unnamed)
         \_if_stmt: , line:27:4, endln:28:7
         |vpiFullName:toto::uvm_reg::add_field
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_transaction::is_recording_enabled), line:32:1, endln:34:12
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_transaction::is_recording_enabled
     |vpiFullName:toto::uvm_transaction::is_recording_enabled
     |vpiVisibility:1
@@ -1503,9 +1503,9 @@ design: (unnamed)
       |vpiTypespec:
       \_bit_typespec: , line:32:10, endln:32:13
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_return_stmt: , line:33:3, endln:33:9
       |vpiParent:
@@ -1539,11 +1539,11 @@ design: (unnamed)
           |UINT:0
           |vpiConstType:11
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
   \_function: (toto::uvm_reg_backdoor::start_update_thread), line:36:1, endln:42:15
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiName:uvm_reg_backdoor::start_update_thread
     |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
     |vpiVariables:
@@ -1554,7 +1554,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_reg), line:37:7, endln:37:14
         |vpiName:uvm_reg
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
       |vpiName:rg
       |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
       |vpiActual:
@@ -1567,7 +1567,7 @@ design: (unnamed)
         |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
     |vpiVisibility:1
     |vpiParent:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (element), line:36:64, endln:36:71
       |vpiParent:
@@ -1578,7 +1578,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_object), line:36:53, endln:36:63
         |vpiName:uvm_object
         |vpiInstance:
-        \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_begin: (toto::uvm_reg_backdoor::start_update_thread)
       |vpiParent:
@@ -1628,7 +1628,7 @@ design: (unnamed)
               |STRING:this
               |vpiConstType:6
     |vpiInstance:
-    \_package: toto (toto::), file:dut.sv, line:1:1, endln:44:11
+    \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:

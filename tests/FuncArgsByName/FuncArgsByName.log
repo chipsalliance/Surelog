@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/FuncArgsByName/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/FuncArgsByName/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncArgsByName/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<97> s<96> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -100,11 +100,11 @@ n<> u<94> t<Module_declaration> p<95> c<6> l<1:1> el<18:10>
 n<> u<95> t<Description> p<96> c<94> l<1:1> el<18:10>
 n<> u<96> t<Source_text> p<97> c<95> l<1:1> el<18:10>
 n<> u<97> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncArgsByName/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/FuncArgsByName/dut.sv:1:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -366,7 +366,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/FuncArgsByName/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -426,11 +426,11 @@ package                                                2
 string_typespec                                        2
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncArgsByName/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncArgsByName/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncArgsByName/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncArgsByName/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncArgsByName/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncArgsByName/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -914,7 +914,7 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -922,7 +922,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.m_matches_type_pair), line:3:4, endln:5:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiName:m_matches_type_pair
     |vpiFullName:work@top.m_matches_type_pair
     |vpiVisibility:1
@@ -931,7 +931,7 @@ design: (work@top)
       |vpiTypespec:
       \_bit_typespec: , line:3:13, endln:3:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiIODecl:
     \_io_decl: (match_type_pair), line:3:44, endln:3:59
       |vpiDirection:1
@@ -945,16 +945,16 @@ design: (work@top)
       |vpiTypedef:
       \_string_typespec: , line:4:7, endln:4:13
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
   |vpiTaskFunc:
   \_function: (work@top.func), line:7:4, endln:16:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiName:func
     |vpiFullName:work@top.func
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiStmt:
     \_begin: (work@top.func)
       |vpiParent:
@@ -1030,23 +1030,23 @@ design: (work@top)
         |vpiFunction:
         \_function: (work@top.m_matches_type_pair), line:3:4, endln:5:15
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@top.m_matches_type_pair), line:3:4, endln:5:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiName:m_matches_type_pair
     |vpiFullName:work@top.m_matches_type_pair
     |vpiVisibility:1
     |vpiReturn:
     \_bit_var: , line:3:13, endln:3:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiIODecl:
     \_io_decl: (match_type_pair), line:3:44, endln:3:59
       |vpiParent:
@@ -1064,16 +1064,16 @@ design: (work@top)
       |vpiTypedef:
       \_string_typespec: , line:4:7, endln:4:13
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
   |vpiTaskFunc:
   \_function: (work@top.func), line:7:4, endln:16:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiName:func
     |vpiFullName:work@top.func
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
     |vpiStmt:
     \_begin: (work@top.func)
       |vpiParent:
@@ -1113,7 +1113,7 @@ design: (work@top)
         |vpiFunction:
         \_function: (work@top.m_matches_type_pair), line:3:4, endln:5:15
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncArgsByName/dut.sv, line:1:1, endln:18:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

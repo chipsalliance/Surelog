@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/WildConn/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/WildConn/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/WildConn/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<51> s<50> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<18> s<3> l<1:1> el<1:7>
@@ -54,15 +54,15 @@ n<> u<48> t<Module_declaration> p<49> c<37> l<7:1> el<17:10>
 n<> u<49> t<Description> p<50> c<48> l<7:1> el<17:10>
 n<> u<50> t<Source_text> p<51> c<20> l<1:1> el<17:10>
 n<> u<51> t<Top_level_rule> c<1> l<1:1> el<18:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "MOD".
+[WRN:PA0205] ${SURELOG_DIR}/tests/WildConn/dut.sv:1:1: No timescale set for "MOD".
 
-[WRN:PA0205] dut.sv:7:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/WildConn/dut.sv:7:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@MOD".
+[INF:CP0303] ${SURELOG_DIR}/tests/WildConn/dut.sv:1:1: Compile module "work@MOD".
 
-[INF:CP0303] dut.sv:7:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/WildConn/dut.sv:7:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -324,7 +324,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:7:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/WildConn/dut.sv:7:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -382,11 +382,11 @@ port                                                  12
 ref_obj                                               16
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/WildConn/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/WildConn/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/WildConn/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/WildConn/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/WildConn/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/WildConn/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -870,7 +870,7 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@MOD (work@MOD), file:dut.sv, line:1:1, endln:5:10
+\_module: work@MOD (work@MOD), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@MOD
@@ -878,21 +878,21 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@MOD.a), line:2:3, endln:2:4
     |vpiParent:
-    \_module: work@MOD (work@MOD), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@MOD (work@MOD), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiFullName:work@MOD.a
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@MOD.b), line:3:3, endln:3:4
     |vpiParent:
-    \_module: work@MOD (work@MOD), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@MOD (work@MOD), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiFullName:work@MOD.b
     |vpiNetType:36
   |vpiPort:
   \_port: (a), line:2:3, endln:2:4
     |vpiParent:
-    \_module: work@MOD (work@MOD), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@MOD (work@MOD), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -904,7 +904,7 @@ design: (work@top)
   |vpiPort:
   \_port: (b), line:3:3, endln:3:4
     |vpiParent:
-    \_module: work@MOD (work@MOD), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@MOD (work@MOD), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -914,7 +914,7 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:1:19, endln:1:24
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -922,21 +922,21 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.a), line:8:3, endln:8:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@top.b), line:9:3, endln:9:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
   |vpiPort:
   \_port: (a), line:8:3, endln:8:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -948,7 +948,7 @@ design: (work@top)
   |vpiPort:
   \_port: (b), line:9:3, endln:9:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -958,14 +958,14 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:7:18, endln:7:23
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@top.a), line:8:3, endln:8:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiTypespec:
     \_logic_typespec: , line:7:18, endln:7:23
     |vpiName:a
@@ -974,7 +974,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.b), line:9:3, endln:9:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiTypespec:
     \_logic_typespec: , line:7:18, endln:7:23
     |vpiName:b
@@ -984,7 +984,7 @@ design: (work@top)
   |vpiPort:
   \_port: (a), line:8:3, endln:8:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -998,11 +998,11 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:7:18, endln:7:23
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
   |vpiPort:
   \_port: (b), line:9:3, endln:9:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -1016,20 +1016,20 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:7:18, endln:7:23
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
   |vpiModule:
-  \_module: work@MOD (work@top.u1), file:dut.sv, line:12:3, endln:15:5
+  \_module: work@MOD (work@top.u1), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:12:3, endln:15:5
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiName:u1
     |vpiFullName:work@top.u1
     |vpiDefName:work@MOD
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/WildConn/dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@top.u1.a), line:2:3, endln:2:4
       |vpiParent:
-      \_module: work@MOD (work@top.u1), file:dut.sv, line:12:3, endln:15:5
+      \_module: work@MOD (work@top.u1), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:12:3, endln:15:5
       |vpiTypespec:
       \_logic_typespec: , line:1:19, endln:1:24
       |vpiName:a
@@ -1038,18 +1038,18 @@ design: (work@top)
     |vpiNet:
     \_logic_net: (work@top.u1.b), line:3:3, endln:3:4
       |vpiParent:
-      \_module: work@MOD (work@top.u1), file:dut.sv, line:12:3, endln:15:5
+      \_module: work@MOD (work@top.u1), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:12:3, endln:15:5
       |vpiTypespec:
       \_logic_typespec: , line:1:19, endln:1:24
       |vpiName:b
       |vpiFullName:work@top.u1.b
       |vpiNetType:36
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:7:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
     |vpiPort:
     \_port: (a), line:2:3, endln:2:4
       |vpiParent:
-      \_module: work@MOD (work@top.u1), file:dut.sv, line:12:3, endln:15:5
+      \_module: work@MOD (work@top.u1), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:12:3, endln:15:5
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
@@ -1071,11 +1071,11 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:1:19, endln:1:24
       |vpiInstance:
-      \_module: work@MOD (work@top.u1), file:dut.sv, line:12:3, endln:15:5
+      \_module: work@MOD (work@top.u1), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:12:3, endln:15:5
     |vpiPort:
     \_port: (b), line:3:3, endln:3:4
       |vpiParent:
-      \_module: work@MOD (work@top.u1), file:dut.sv, line:12:3, endln:15:5
+      \_module: work@MOD (work@top.u1), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:12:3, endln:15:5
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
@@ -1097,7 +1097,7 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:1:19, endln:1:24
       |vpiInstance:
-      \_module: work@MOD (work@top.u1), file:dut.sv, line:12:3, endln:15:5
+      \_module: work@MOD (work@top.u1), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:12:3, endln:15:5
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

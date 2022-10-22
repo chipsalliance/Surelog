@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackageType/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackageType/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackageType/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<119> s<118> l<1:1> el<1:0>
 n<> u<2> t<Package> p<116> s<3> l<1:1> el<1:8>
@@ -122,11 +122,11 @@ n<> u<116> t<Package_declaration> p<117> c<2> l<1:1> el<24:11>
 n<> u<117> t<Description> p<118> c<116> l<1:1> el<24:11>
 n<> u<118> t<Source_text> p<119> c<117> l<1:1> el<24:11>
 n<> u<119> t<Top_level_rule> c<1> l<1:1> el<25:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "bp_common_aviary_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageType/dut.sv:1:1: No timescale set for "bp_common_aviary_pkg".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "bp_common_aviary_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackageType/dut.sv:1:1: Compile package "bp_common_aviary_pkg".
 
 LIB:  work
 FILE: builtin.sv
@@ -460,11 +460,11 @@ tagged_pattern                                         6
 task                                                  18
 typespec_member                                       12
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackageType/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageType/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackageType/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackageType/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackageType/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackageType/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -480,7 +480,7 @@ design: (unnamed)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:bp_common_aviary_pkg
@@ -488,7 +488,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |UINT:128
     |vpiTypespec:
     \_int_typespec: 
@@ -498,21 +498,21 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::lg_max_cfgs), line:11:14, endln:11:25
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiLocalParam:1
     |vpiName:lg_max_cfgs
     |vpiFullName:bp_common_aviary_pkg::lg_max_cfgs
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_inv_cfg_p), line:13:30, endln:13:42
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:3:15
       |vpiParent:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (num_core), line:5:11, endln:5:19
@@ -526,7 +526,7 @@ design: (unnamed)
           |vpiInstance:
           \_package: (bp_common_aviary_pkg)
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:5
@@ -543,7 +543,7 @@ design: (unnamed)
           |vpiInstance:
           \_package: (bp_common_aviary_pkg)
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:6
@@ -554,7 +554,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
     \_packed_array_typespec: , line:18:13, endln:18:28
       |vpiParent:
@@ -598,7 +598,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:10:14, endln:10:31
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_constant: , line:10:28, endln:10:31
       |vpiDecompile:128
@@ -612,7 +612,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:11:14, endln:11:44
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_sys_func_call: ($clog2), line:11:28, endln:11:44
       |vpiArgument:
@@ -628,7 +628,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:13:30, endln:14:22
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_operation: , line:14:5, endln:14:22
       |vpiOpType:75
@@ -648,7 +648,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:18:44, endln:21:4
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_operation: , line:19:3, endln:21:4
       |vpiOpType:33
@@ -703,7 +703,7 @@ design: (unnamed)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:bp_common_aviary_pkg
@@ -711,7 +711,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |UINT:128
     |vpiTypespec:
     \_int_typespec: 
@@ -721,7 +721,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::lg_max_cfgs), line:11:14, endln:11:25
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |UINT:7
     |vpiTypespec:
     \_int_typespec: 
@@ -731,14 +731,14 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_inv_cfg_p), line:13:30, endln:13:42
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:3:15
       |vpiParent:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (num_core), line:5:11, endln:5:19
@@ -750,9 +750,9 @@ design: (unnamed)
           |vpiParent:
           \_typespec_member: (num_core), line:5:11, endln:5:19
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:5
@@ -767,9 +767,9 @@ design: (unnamed)
           |vpiParent:
           \_typespec_member: (num_cce), line:6:11, endln:6:18
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:3
         |vpiRefEndLineNo:6
@@ -780,13 +780,13 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
     \_packed_array_typespec: , line:18:13, endln:18:28
       |vpiParent:
       \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
       |vpiRange:
       \_range: , line:18:29, endln:18:43
         |vpiLeftRange:
@@ -812,7 +812,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:10:14, endln:10:31
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_constant: , line:10:28, endln:10:31
       |vpiDecompile:128
@@ -826,7 +826,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:11:14, endln:11:44
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_constant: , line:11:28, endln:11:44
       |vpiDecompile:7
@@ -840,7 +840,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:13:30, endln:14:22
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_operation: , line:14:5, endln:14:22
       |vpiOpType:75
@@ -860,7 +860,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:18:44, endln:21:4
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:24:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiRhs:
     \_operation: , line:19:3, endln:21:4
       |vpiOpType:33

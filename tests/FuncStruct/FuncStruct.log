@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/FuncStruct/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncStruct/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<225> s<224> l<1:1> el<1:0>
 n<> u<2> t<Package> p<114> s<3> l<1:1> el<1:8>
@@ -228,19 +228,19 @@ n<> u<222> t<Module_declaration> p<223> c<123> l<12:1> el<19:10>
 n<> u<223> t<Description> p<224> c<222> l<12:1> el<19:10>
 n<> u<224> t<Source_text> p<225> c<115> l<1:1> el<19:10>
 n<> u<225> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "hmac_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncStruct/dut.sv:1:1: No timescale set for "hmac_pkg".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncStruct/dut.sv:12:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "hmac_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/FuncStruct/dut.sv:1:1: Compile package "hmac_pkg".
 
-[INF:CP0303] dut.sv:12:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/FuncStruct/dut.sv:12:1: Compile module "work@dut".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:12:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/FuncStruct/dut.sv:12:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -296,11 +296,11 @@ packed_array_typespec                                  2
 range                                                 26
 ref_obj                                               23
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncStruct/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncStruct/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncStruct/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -309,7 +309,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+\_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:hmac_pkg
@@ -317,10 +317,10 @@ design: (work@dut)
   |vpiTypedef:
   \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
     |vpiParent:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiName:hmac_pkg::sha_word_t
     |vpiInstance:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiRange:
     \_range: , line:2:15, endln:2:21
       |vpiLeftRange:
@@ -343,7 +343,7 @@ design: (work@dut)
   |vpiTaskFunc:
   \_function: (hmac_pkg::compress), line:3:1, endln:8:12
     |vpiParent:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiName:compress
     |vpiFullName:hmac_pkg::compress
     |vpiVariables:
@@ -434,7 +434,7 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiParent:
@@ -602,9 +602,9 @@ design: (work@dut)
           |vpiActual:
           \_logic_var: , line:3:20, endln:3:36
     |vpiInstance:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
 |uhdmtopPackages:
-\_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+\_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:hmac_pkg
@@ -612,10 +612,10 @@ design: (work@dut)
   |vpiTypedef:
   \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiName:hmac_pkg::sha_word_t
     |vpiInstance:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiRange:
     \_range: , line:2:15, endln:2:21
       |vpiLeftRange:
@@ -639,7 +639,7 @@ design: (work@dut)
   |vpiTaskFunc:
   \_function: (hmac_pkg::compress), line:3:1, endln:8:12
     |vpiParent:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiName:compress
     |vpiFullName:hmac_pkg::compress
     |vpiVariables:
@@ -652,7 +652,7 @@ design: (work@dut)
         |vpiTypedefAlias:
         \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
         |vpiInstance:
-        \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiRange:
         \_range: , line:2:15, endln:2:21
           |vpiParent:
@@ -683,14 +683,14 @@ design: (work@dut)
       |vpiTypespec:
       \_logic_typespec: , line:3:20, endln:3:30
         |vpiInstance:
-        \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiElemTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
           |vpiName:sha_word_t
           |vpiTypedefAlias:
           \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
           |vpiInstance:
-          \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+          \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
           |vpiRange:
           \_range: , line:2:15, endln:2:21
             |vpiParent:
@@ -730,7 +730,7 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiParent:
@@ -743,7 +743,7 @@ design: (work@dut)
         |vpiTypedefAlias:
         \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
         |vpiInstance:
-        \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiRange:
         \_range: , line:2:15, endln:2:21
           |vpiParent:
@@ -779,14 +779,14 @@ design: (work@dut)
       |vpiTypedef:
       \_logic_typespec: , line:3:73, endln:3:83
         |vpiInstance:
-        \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiElemTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
           |vpiName:sha_word_t
           |vpiTypedefAlias:
           \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
           |vpiInstance:
-          \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+          \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
           |vpiRange:
           \_range: , line:2:15, endln:2:21
             |vpiParent:
@@ -898,9 +898,9 @@ design: (work@dut)
           |vpiActual:
           \_logic_var: , line:3:20, endln:3:36
     |vpiInstance:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -912,7 +912,7 @@ design: (work@dut)
   |vpiTaskFunc:
   \_function: (hmac_pkg::compress), line:3:1, endln:8:12
     |vpiParent:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiName:compress
     |vpiFullName:hmac_pkg::compress
     |vpiVariables:
@@ -929,7 +929,7 @@ design: (work@dut)
     |vpiReturn:
     \_logic_var: , line:3:20, endln:3:36
     |vpiParent:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiDirection:1
@@ -994,25 +994,25 @@ design: (work@dut)
           |vpiIndex:
           \_constant: , line:7:12, endln:7:13
     |vpiInstance:
-    \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+    \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
   |vpiNet:
   \_logic_net: (work@dut.w), line:14:19, endln:14:20
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiName:w
     |vpiFullName:work@dut.w
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.hash), line:15:18, endln:15:22
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiName:hash
     |vpiFullName:work@dut.hash
     |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:16:8, endln:16:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiRhs:
     \_constant: , line:16:15, endln:16:27
       |vpiParent:
@@ -1042,7 +1042,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:17:8, endln:17:35
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiRhs:
     \_func_call: (compress), line:17:15, endln:17:35
       |vpiParent:
@@ -1085,17 +1085,17 @@ design: (work@dut)
       |vpiActual:
       \_logic_var: (work@dut.hash), line:15:18, endln:15:22
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
   |vpiName:work@dut
   |vpiVariables:
   \_logic_var: (work@dut.w), line:14:19, endln:14:20
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
       |vpiName:sha_word_t
       |vpiInstance:
-      \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+      \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
       |vpiRange:
       \_range: , line:2:15, endln:2:21
         |vpiParent:
@@ -1122,12 +1122,12 @@ design: (work@dut)
   |vpiVariables:
   \_logic_var: (work@dut.hash), line:15:18, endln:15:22
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
       |vpiName:sha_word_t
       |vpiInstance:
-      \_package: hmac_pkg (hmac_pkg::), file:dut.sv, line:1:1, endln:9:11
+      \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
       |vpiRange:
       \_range: , line:2:15, endln:2:21
         |vpiParent:
@@ -1160,7 +1160,7 @@ design: (work@dut)
   |vpiTaskFunc:
   \_function: (hmac_pkg::compress), line:3:1, endln:8:12
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiName:compress
     |vpiFullName:hmac_pkg::compress
     |vpiVariables:
@@ -1177,7 +1177,7 @@ design: (work@dut)
     |vpiReturn:
     \_logic_var: , line:3:20, endln:3:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiParent:
@@ -1257,12 +1257,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_var: , line:3:20, endln:3:36
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:16:8, endln:16:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiRhs:
     \_constant: , line:16:15, endln:16:27
     |vpiLhs:
@@ -1284,7 +1284,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:17:8, endln:17:35
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:12:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiRhs:
     \_func_call: (compress), line:17:15, endln:17:35
       |vpiParent:

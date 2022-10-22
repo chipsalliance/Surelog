@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/StructStructHierPath/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/StructStructHierPath/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<226> s<225> l<2:1> el<1:2>
 n<> u<2> t<Package> p<139> s<3> l<2:1> el<2:8>
@@ -229,19 +229,19 @@ n<> u<223> t<Module_declaration> p<224> c<152> l<28:1> el<37:10>
 n<> u<224> t<Description> p<225> c<223> l<28:1> el<37:10>
 n<> u<225> t<Source_text> p<226> c<140> l<2:1> el<37:10>
 n<> u<226> t<Top_level_rule> c<1> l<2:1> el<38:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "riscv_isa_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/StructStructHierPath/dut.sv:2:1: No timescale set for "riscv_isa_pkg".
 
-[WRN:PA0205] dut.sv:28:1: No timescale set for "r5p_wbu".
+[WRN:PA0205] ${SURELOG_DIR}/tests/StructStructHierPath/dut.sv:28:1: No timescale set for "r5p_wbu".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:2:1: Compile package "riscv_isa_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/StructStructHierPath/dut.sv:2:1: Compile package "riscv_isa_pkg".
 
-[INF:CP0303] dut.sv:28:1: Compile module "work@r5p_wbu".
+[INF:CP0303] ${SURELOG_DIR}/tests/StructStructHierPath/dut.sv:28:1: Compile module "work@r5p_wbu".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:28:1: Top level module "work@r5p_wbu".
+[NTE:EL0503] ${SURELOG_DIR}/tests/StructStructHierPath/dut.sv:28:1: Top level module "work@r5p_wbu".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -299,11 +299,11 @@ struct_net                                             1
 struct_typespec                                        8
 typespec_member                                       18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/StructStructHierPath/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StructStructHierPath/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/StructStructHierPath/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StructStructHierPath/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/StructStructHierPath/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StructStructHierPath/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -312,7 +312,7 @@ design: (work@r5p_wbu)
 |vpiElaborated:1
 |vpiName:work@r5p_wbu
 |uhdmallPackages:
-\_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+\_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
   |vpiParent:
   \_design: (work@r5p_wbu)
   |vpiName:riscv_isa_pkg
@@ -320,10 +320,10 @@ design: (work@r5p_wbu)
   |vpiTypedef:
   \_struct_typespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:19:15
     |vpiParent:
-    \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+    \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
     |vpiName:riscv_isa_pkg::ctl_t
     |vpiInstance:
-    \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+    \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (gpr), line:21:14, endln:21:17
@@ -333,10 +333,10 @@ design: (work@r5p_wbu)
       |vpiTypespec:
       \_struct_typespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:4:15
         |vpiParent:
-        \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+        \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
         |vpiName:riscv_isa_pkg::gpr_t
         |vpiInstance:
-        \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+        \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (e), line:9:5, endln:9:6
@@ -361,7 +361,7 @@ design: (work@r5p_wbu)
                 \_typespec_member: (rs1), line:6:19, endln:6:22
                 |vpiInstance:
                 \_package: (riscv_isa_pkg)
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:6
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:6
@@ -377,7 +377,7 @@ design: (work@r5p_wbu)
                 \_typespec_member: (rs2), line:7:19, endln:7:22
                 |vpiInstance:
                 \_package: (riscv_isa_pkg)
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:7
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:7
@@ -393,12 +393,12 @@ design: (work@r5p_wbu)
                 \_typespec_member: (rd), line:8:19, endln:8:21
                 |vpiInstance:
                 \_package: (riscv_isa_pkg)
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:8
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:8
               |vpiRefEndColumnNo:10
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
           |vpiRefLineNo:5
           |vpiRefColumnNo:3
           |vpiRefEndLineNo:9
@@ -459,7 +459,7 @@ design: (work@r5p_wbu)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:11
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:11
@@ -508,7 +508,7 @@ design: (work@r5p_wbu)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:12
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:12
@@ -557,17 +557,17 @@ design: (work@r5p_wbu)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:13
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:13
               |vpiRefEndColumnNo:18
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
           |vpiRefLineNo:10
           |vpiRefColumnNo:3
           |vpiRefEndLineNo:14
           |vpiRefEndColumnNo:4
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
       |vpiRefLineNo:21
       |vpiRefColumnNo:3
       |vpiRefEndLineNo:21
@@ -576,7 +576,7 @@ design: (work@r5p_wbu)
   \_struct_typespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:4:15
   |vpiDefName:riscv_isa_pkg
 |uhdmtopPackages:
-\_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+\_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
   |vpiParent:
   \_design: (work@r5p_wbu)
   |vpiName:riscv_isa_pkg
@@ -584,10 +584,10 @@ design: (work@r5p_wbu)
   |vpiTypedef:
   \_struct_typespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:19:15
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:riscv_isa_pkg::ctl_t
     |vpiInstance:
-    \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+    \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (gpr), line:21:14, endln:21:17
@@ -597,10 +597,10 @@ design: (work@r5p_wbu)
       |vpiTypespec:
       \_struct_typespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:4:15
         |vpiParent:
-        \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+        \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
         |vpiName:riscv_isa_pkg::gpr_t
         |vpiInstance:
-        \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+        \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (e), line:9:5, endln:9:6
@@ -612,7 +612,7 @@ design: (work@r5p_wbu)
             |vpiParent:
             \_typespec_member: (e), line:9:5, endln:9:6
             |vpiInstance:
-            \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+            \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (rs1), line:6:19, endln:6:22
@@ -624,8 +624,8 @@ design: (work@r5p_wbu)
                 |vpiParent:
                 \_typespec_member: (rs1), line:6:19, endln:6:22
                 |vpiInstance:
-                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
-              |vpiRefFile:dut.sv
+                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:6
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:6
@@ -640,8 +640,8 @@ design: (work@r5p_wbu)
                 |vpiParent:
                 \_typespec_member: (rs2), line:7:19, endln:7:22
                 |vpiInstance:
-                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
-              |vpiRefFile:dut.sv
+                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:7
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:7
@@ -656,13 +656,13 @@ design: (work@r5p_wbu)
                 |vpiParent:
                 \_typespec_member: (rd), line:8:19, endln:8:21
                 |vpiInstance:
-                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
-              |vpiRefFile:dut.sv
+                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:8
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:8
               |vpiRefEndColumnNo:10
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
           |vpiRefLineNo:5
           |vpiRefColumnNo:3
           |vpiRefEndLineNo:9
@@ -677,7 +677,7 @@ design: (work@r5p_wbu)
             |vpiParent:
             \_typespec_member: (a), line:14:5, endln:14:6
             |vpiInstance:
-            \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+            \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (rs1), line:11:19, endln:11:22
@@ -689,7 +689,7 @@ design: (work@r5p_wbu)
                 |vpiParent:
                 \_typespec_member: (rs1), line:11:19, endln:11:22
                 |vpiInstance:
-                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
                 |vpiRange:
                 \_range: , line:11:11, endln:11:18
                   |vpiParent:
@@ -710,7 +710,7 @@ design: (work@r5p_wbu)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:11
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:11
@@ -725,7 +725,7 @@ design: (work@r5p_wbu)
                 |vpiParent:
                 \_typespec_member: (rs2), line:12:19, endln:12:22
                 |vpiInstance:
-                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
                 |vpiRange:
                 \_range: , line:12:11, endln:12:18
                   |vpiParent:
@@ -746,7 +746,7 @@ design: (work@r5p_wbu)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:12
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:12
@@ -761,7 +761,7 @@ design: (work@r5p_wbu)
                 |vpiParent:
                 \_typespec_member: (rd), line:13:19, endln:13:21
                 |vpiInstance:
-                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:dut.sv, line:2:1, endln:26:26
+                \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
                 |vpiRange:
                 \_range: , line:13:11, endln:13:18
                   |vpiParent:
@@ -782,17 +782,17 @@ design: (work@r5p_wbu)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
-              |vpiRefFile:dut.sv
+              |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
               |vpiRefLineNo:13
               |vpiRefColumnNo:5
               |vpiRefEndLineNo:13
               |vpiRefEndColumnNo:18
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
           |vpiRefLineNo:10
           |vpiRefColumnNo:3
           |vpiRefEndLineNo:14
           |vpiRefEndColumnNo:4
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
       |vpiRefLineNo:21
       |vpiRefColumnNo:3
       |vpiRefEndLineNo:21
@@ -802,7 +802,7 @@ design: (work@r5p_wbu)
   |vpiDefName:riscv_isa_pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+\_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
   |vpiParent:
   \_design: (work@r5p_wbu)
   |vpiFullName:work@r5p_wbu
@@ -816,20 +816,20 @@ design: (work@r5p_wbu)
   |vpiNet:
   \_logic_net: (work@r5p_wbu.ctl), line:28:31, endln:28:34
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:ctl
     |vpiFullName:work@r5p_wbu.ctl
   |vpiNet:
   \_logic_net: (work@r5p_wbu.wen), line:30:7, endln:30:10
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:wen
     |vpiFullName:work@r5p_wbu.wen
     |vpiNetType:48
   |vpiPort:
   \_port: (ctl), line:28:31, endln:28:34
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:ctl
     |vpiDirection:1
     |vpiLowConn:
@@ -841,7 +841,7 @@ design: (work@r5p_wbu)
   |vpiProcess:
   \_always: , line:31:3, endln:34:6
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiStmt:
     \_event_control: , line:31:13, endln:31:27
       |vpiParent:
@@ -914,7 +914,7 @@ design: (work@r5p_wbu)
               \_logic_net: (work@r5p_wbu.wen), line:30:7, endln:30:10
     |vpiAlwaysType:3
 |uhdmtopModules:
-\_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+\_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
   |vpiName:work@r5p_wbu
   |vpiTypedef:
   \_struct_typespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:19:15
@@ -927,7 +927,7 @@ design: (work@r5p_wbu)
   |vpiNet:
   \_struct_net: (work@r5p_wbu.ctl), line:28:31, endln:28:34
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiTypespec:
     \_struct_typespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:19:15
     |vpiName:ctl
@@ -935,7 +935,7 @@ design: (work@r5p_wbu)
   |vpiNet:
   \_logic_net: (work@r5p_wbu.wen), line:30:7, endln:30:10
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiTypespec:
     \_logic_typespec: , line:30:3, endln:30:6
     |vpiName:wen
@@ -953,7 +953,7 @@ design: (work@r5p_wbu)
   |vpiPort:
   \_port: (ctl), line:28:31, endln:28:34
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:ctl
     |vpiDirection:1
     |vpiLowConn:
@@ -967,11 +967,11 @@ design: (work@r5p_wbu)
     |vpiTypedef:
     \_struct_typespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:19:15
     |vpiInstance:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
   |vpiProcess:
   \_always: , line:31:3, endln:34:6
     |vpiParent:
-    \_module: work@r5p_wbu (work@r5p_wbu), file:dut.sv, line:28:1, endln:37:10
+    \_module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiStmt:
     \_event_control: , line:31:13, endln:31:27
       |vpiParent:

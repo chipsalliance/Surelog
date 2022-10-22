@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/Assignments/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/Assignments/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/Assignments/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<313> s<312> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<17> s<3> l<1:1> el<1:7>
@@ -316,11 +316,11 @@ n<> u<310> t<Module_declaration> p<311> c<17> l<1:1> el<22:10>
 n<> u<311> t<Description> p<312> c<310> l<1:1> el<22:10>
 n<> u<312> t<Source_text> p<313> c<311> l<1:1> el<22:10>
 n<> u<313> t<Top_level_rule> c<1> l<1:1> el<24:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Assignments/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/Assignments/dut.sv:1:1: Compile module "work@dut".
 
 LIB:  work
 FILE: builtin.sv
@@ -580,11 +580,11 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[NTE:CP0309] dut.sv:1:17: Implicit port type (wire) for "o".
+[NTE:CP0309] ${SURELOG_DIR}/tests/Assignments/dut.sv:1:17: Implicit port type (wire) for "o".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/Assignments/dut.sv:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -632,11 +632,11 @@ range                                                  1
 ref_obj                                               30
 task                                                   9
 === UHDM Object Stats End ===
-[ERR:UH0718] dut.sv:17:5: Illegal lhs of type wire "a".
+[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:17:5: Illegal lhs of type wire "a".
 
-[ERR:UH0718] dut.sv:18:5: Illegal lhs of type wire "nba".
+[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:18:5: Illegal lhs of type wire "nba".
 
-[ERR:UH0718] dut.sv:19:5: Illegal lhs of type wire "bb".
+[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:19:5: Illegal lhs of type wire "bb".
 
 [INF:UH0707] Elaborating UHDM...
 
@@ -676,11 +676,11 @@ range                                                  2
 ref_obj                                               58
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/Assignments/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Assignments/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Assignments/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Assignments/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/Assignments/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Assignments/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1164,7 +1164,7 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -1172,12 +1172,12 @@ design: (work@dut)
   |vpiTaskFunc:
   \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:uvm_packer::get_packed_bits
     |vpiFullName:work@dut.uvm_packer::get_packed_bits
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiIODecl:
     \_io_decl: (stream), line:5:62, endln:5:68
       |vpiDirection:6
@@ -1464,23 +1464,23 @@ design: (work@dut)
               |vpiActual:
               \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:14, endln:10:15
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
   |vpiNet:
   \_logic_net: (work@dut.clk), line:1:12, endln:1:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:clk
     |vpiFullName:work@dut.clk
   |vpiNet:
   \_logic_net: (work@dut.o), line:1:17, endln:1:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:o
     |vpiFullName:work@dut.o
   |vpiPort:
   \_port: (clk), line:1:12, endln:1:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1492,7 +1492,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (o), line:1:17, endln:1:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -1504,7 +1504,7 @@ design: (work@dut)
   |vpiProcess:
   \_always: , line:14:3, endln:20:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiStmt:
     \_event_control: , line:14:10, endln:14:24
       |vpiParent:
@@ -1661,19 +1661,19 @@ design: (work@dut)
             |#1
     |vpiAlwaysType:1
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:uvm_packer::get_packed_bits
     |vpiFullName:work@dut.uvm_packer::get_packed_bits
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiIODecl:
     \_io_decl: (stream), line:5:62, endln:5:68
       |vpiParent:
@@ -1930,11 +1930,11 @@ design: (work@dut)
             |vpiActual:
             \_io_decl: (stream), line:5:62, endln:5:68
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
   |vpiNet:
   \_logic_net: (work@dut.clk), line:1:12, endln:1:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiTypespec:
     \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:clk
@@ -1942,7 +1942,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.o), line:1:17, endln:1:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:o
@@ -1987,7 +1987,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (clk), line:1:12, endln:1:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -2001,11 +2001,11 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
   |vpiPort:
   \_port: (o), line:1:17, endln:1:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -2019,11 +2019,11 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
   |vpiProcess:
   \_always: , line:14:3, endln:20:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:22:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiStmt:
     \_event_control: , line:14:10, endln:14:24
       |vpiParent:

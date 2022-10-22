@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/InvalidTypeParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<53> s<52> l<1:1> el<1:0>
 n<> u<2> t<Interface> p<5> s<4> l<1:1> el<1:10>
@@ -56,19 +56,19 @@ n<> u<50> t<Module_declaration> p<51> c<31> l<5:1> el<7:10>
 n<> u<51> t<Description> p<52> c<50> l<5:1> el<7:10>
 n<> u<52> t<Source_text> p<53> c<28> l<1:1> el<7:10>
 n<> u<53> t<Top_level_rule> c<1> l<1:1> el<8:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "Interface".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:1:1: No timescale set for "Interface".
 
-[WRN:PA0205] dut.sv:5:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:5:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0304] dut.sv:1:1: Compile interface "work@Interface".
+[INF:CP0304] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:1:1: Compile interface "work@Interface".
 
-[INF:CP0303] dut.sv:5:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:5:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:5:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv:5:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -102,11 +102,11 @@ logic_var                                              1
 module                                                 3
 type_parameter                                         1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/InvalidTypeParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -115,55 +115,55 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallInterfaces:
-\_interface: work@Interface (work@Interface), file:dut.sv, line:1:1, endln:4:13
+\_interface: work@Interface (work@Interface), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:1:1, endln:4:13
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@Interface
   |vpiParameter:
   \_type_parameter: (work@Interface.P), line:2:20, endln:2:21
     |vpiParent:
-    \_interface: work@Interface (work@Interface), file:dut.sv, line:1:1, endln:4:13
+    \_interface: work@Interface (work@Interface), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:1:1, endln:4:13
     |vpiName:P
     |vpiFullName:work@Interface.P
   |vpiDefName:work@Interface
   |vpiNet:
   \_logic_net: (work@Interface.x), line:3:7, endln:3:8
     |vpiParent:
-    \_interface: work@Interface (work@Interface), file:dut.sv, line:1:1, endln:4:13
+    \_interface: work@Interface (work@Interface), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:1:1, endln:4:13
     |vpiName:x
     |vpiFullName:work@Interface.x
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:5:1, endln:7:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:5:1, endln:7:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiInterface:
-  \_interface: work@Interface (work@top.intf), file:dut.sv, line:6:5, endln:6:27
+  \_interface: work@Interface (work@top.intf), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:6:5, endln:6:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
     |vpiName:intf
     |vpiFullName:work@top.intf
     |vpiVariables:
     \_logic_var: (work@top.intf.x), line:3:7, endln:3:8
       |vpiParent:
-      \_interface: work@Interface (work@top.intf), file:dut.sv, line:6:5, endln:6:27
+      \_interface: work@Interface (work@top.intf), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:6:5, endln:6:27
       |vpiName:x
       |vpiFullName:work@top.intf.x
       |vpiVisibility:1
     |vpiParameter:
     \_type_parameter: (work@Interface.P), line:2:20, endln:2:21
     |vpiDefName:work@Interface
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

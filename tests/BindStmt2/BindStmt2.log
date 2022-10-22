@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BindStmt2/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BindStmt2/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BindStmt2/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<556> s<555> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<209> s<3> l<1:1> el<1:7>
@@ -559,25 +559,25 @@ n<> u<553> t<Module_declaration> p<554> c<465> l<56:1> el<71:10>
 n<> u<554> t<Description> p<555> c<553> l<56:1> el<71:10>
 n<> u<555> t<Source_text> p<556> c<281> l<1:1> el<71:10>
 n<> u<556> t<Top_level_rule> c<1> l<1:1> el<72:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "rv_dm".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:1:1: No timescale set for "rv_dm".
 
-[WRN:PA0205] dut.sv:36:1: No timescale set for "dmidpi".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:36:1: No timescale set for "dmidpi".
 
-[WRN:PA0205] dut.sv:56:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:56:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:36:1: Compile module "work@dmidpi".
+[INF:CP0303] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:36:1: Compile module "work@dmidpi".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@rv_dm".
+[INF:CP0303] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:1:1: Compile module "work@rv_dm".
 
-[INF:CP0303] dut.sv:56:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:56:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@rv_dm".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:1:1: Top level module "work@rv_dm".
 
-[NTE:EL0503] dut.sv:56:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:56:1: Top level module "work@top".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -633,21 +633,21 @@ ref_obj                                              108
 string_typespec                                        2
 unsupported_typespec                                  23
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:62:22: Unresolved hierarchical reference "dmi_req.addr".
+[ERR:UH0725] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:62:22: Unresolved hierarchical reference "dmi_req.addr".
 
-[ERR:UH0725] dut.sv:63:22: Unresolved hierarchical reference "dmi_req.op".
+[ERR:UH0725] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:63:22: Unresolved hierarchical reference "dmi_req.op".
 
-[ERR:UH0725] dut.sv:64:22: Unresolved hierarchical reference "dmi_req.data".
+[ERR:UH0725] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:64:22: Unresolved hierarchical reference "dmi_req.data".
 
-[ERR:UH0725] dut.sv:67:22: Unresolved hierarchical reference "dmi_rsp.data".
+[ERR:UH0725] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:67:22: Unresolved hierarchical reference "dmi_rsp.data".
 
-[ERR:UH0725] dut.sv:68:22: Unresolved hierarchical reference "dmi_rsp.resp".
+[ERR:UH0725] ${SURELOG_DIR}/tests/BindStmt2/dut.sv:68:22: Unresolved hierarchical reference "dmi_rsp.resp".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BindStmt2/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BindStmt2/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BindStmt2/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BindStmt2/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BindStmt2/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BindStmt2/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -656,14 +656,14 @@ design: (work@rv_dm)
 |vpiElaborated:1
 |vpiName:work@rv_dm
 |uhdmallModules:
-\_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+\_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
   |vpiParent:
   \_design: (work@rv_dm)
   |vpiFullName:work@dmidpi
   |vpiParameter:
   \_parameter: (work@dmidpi.Name), line:37:20, endln:37:24
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |STRING:dmi0
     |vpiTypespec:
     \_string_typespec: , line:37:13, endln:37:19
@@ -674,7 +674,7 @@ design: (work@rv_dm)
   |vpiParameter:
   \_parameter: (work@dmidpi.ListenPort), line:38:17, endln:38:27
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |UINT:44853
     |vpiTypespec:
     \_int_typespec: , line:38:13, endln:38:16
@@ -687,7 +687,7 @@ design: (work@rv_dm)
   |vpiParamAssign:
   \_param_assign: , line:37:20, endln:37:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiRhs:
     \_constant: , line:37:27, endln:37:33
       |vpiDecompile:dmi0
@@ -701,7 +701,7 @@ design: (work@rv_dm)
   |vpiParamAssign:
   \_param_assign: , line:38:17, endln:38:35
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiRhs:
     \_constant: , line:38:30, endln:38:35
       |vpiDecompile:44853
@@ -716,79 +716,79 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@dmidpi.clk_i), line:40:21, endln:40:26
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:clk_i
     |vpiFullName:work@dmidpi.clk_i
   |vpiNet:
   \_logic_net: (work@dmidpi.rst_ni), line:41:21, endln:41:27
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:rst_ni
     |vpiFullName:work@dmidpi.rst_ni
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_req_valid), line:43:21, endln:43:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_valid
     |vpiFullName:work@dmidpi.dmi_req_valid
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_req_ready), line:44:21, endln:44:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_ready
     |vpiFullName:work@dmidpi.dmi_req_ready
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_req_addr), line:45:21, endln:45:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_addr
     |vpiFullName:work@dmidpi.dmi_req_addr
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_req_op), line:46:21, endln:46:31
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_op
     |vpiFullName:work@dmidpi.dmi_req_op
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_req_data), line:47:21, endln:47:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_data
     |vpiFullName:work@dmidpi.dmi_req_data
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_rsp_valid), line:48:21, endln:48:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_valid
     |vpiFullName:work@dmidpi.dmi_rsp_valid
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_rsp_ready), line:49:21, endln:49:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_ready
     |vpiFullName:work@dmidpi.dmi_rsp_ready
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_rsp_data), line:50:21, endln:50:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_data
     |vpiFullName:work@dmidpi.dmi_rsp_data
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_rsp_resp), line:51:21, endln:51:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_resp
     |vpiFullName:work@dmidpi.dmi_rsp_resp
   |vpiNet:
   \_logic_net: (work@dmidpi.dmi_rst_n), line:52:21, endln:52:30
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rst_n
     |vpiFullName:work@dmidpi.dmi_rst_n
   |vpiPort:
   \_port: (clk_i), line:40:21, endln:40:26
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
@@ -800,7 +800,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (rst_ni), line:41:21, endln:41:27
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:rst_ni
     |vpiDirection:1
     |vpiLowConn:
@@ -812,7 +812,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_req_valid), line:43:21, endln:43:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_valid
     |vpiDirection:2
     |vpiLowConn:
@@ -824,7 +824,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_req_ready), line:44:21, endln:44:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_ready
     |vpiDirection:1
     |vpiLowConn:
@@ -836,7 +836,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_req_addr), line:45:21, endln:45:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_addr
     |vpiDirection:2
     |vpiLowConn:
@@ -866,7 +866,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_req_op), line:46:21, endln:46:31
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_op
     |vpiDirection:2
     |vpiLowConn:
@@ -896,7 +896,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_req_data), line:47:21, endln:47:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_req_data
     |vpiDirection:2
     |vpiLowConn:
@@ -926,7 +926,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_rsp_valid), line:48:21, endln:48:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_valid
     |vpiDirection:1
     |vpiLowConn:
@@ -938,7 +938,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_rsp_ready), line:49:21, endln:49:34
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_ready
     |vpiDirection:2
     |vpiLowConn:
@@ -950,7 +950,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_rsp_data), line:50:21, endln:50:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_data
     |vpiDirection:1
     |vpiLowConn:
@@ -980,7 +980,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_rsp_resp), line:51:21, endln:51:33
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rsp_resp
     |vpiDirection:1
     |vpiLowConn:
@@ -1010,7 +1010,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmi_rst_n), line:52:21, endln:52:30
     |vpiParent:
-    \_module: work@dmidpi (work@dmidpi), file:dut.sv, line:36:1, endln:54:10
+    \_module: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |vpiName:dmi_rst_n
     |vpiDirection:2
     |vpiLowConn:
@@ -1020,14 +1020,14 @@ design: (work@rv_dm)
     |vpiTypedef:
     \_bit_typespec: , line:52:10, endln:52:13
 |uhdmallModules:
-\_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+\_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiParent:
   \_design: (work@rv_dm)
   |vpiFullName:work@rv_dm
   |vpiParameter:
   \_parameter: (work@rv_dm.NrHarts), line:2:30, endln:2:37
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:16
@@ -1040,7 +1040,7 @@ design: (work@rv_dm)
   |vpiParameter:
   \_parameter: (work@rv_dm.IdcodeValue), line:3:30, endln:3:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |HEX:00000001
     |vpiTypespec:
     \_logic_typespec: , line:3:13, endln:3:25
@@ -1069,7 +1069,7 @@ design: (work@rv_dm)
   |vpiParamAssign:
   \_param_assign: , line:2:30, endln:2:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiRhs:
     \_constant: , line:2:40, endln:2:41
       |vpiDecompile:1
@@ -1083,7 +1083,7 @@ design: (work@rv_dm)
   |vpiParamAssign:
   \_param_assign: , line:3:30, endln:3:57
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiRhs:
     \_constant: , line:3:44, endln:3:57
       |vpiDecompile:32'h0000_0001
@@ -1098,145 +1098,145 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.clk_i), line:5:30, endln:5:35
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:clk_i
     |vpiFullName:work@rv_dm.clk_i
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.rst_ni), line:6:30, endln:6:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:rst_ni
     |vpiFullName:work@rv_dm.rst_ni
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.hw_debug_en_i), line:8:31, endln:8:44
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:hw_debug_en_i
     |vpiFullName:work@rv_dm.hw_debug_en_i
   |vpiNet:
   \_logic_net: (work@rv_dm.testmode_i), line:9:30, endln:9:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:testmode_i
     |vpiFullName:work@rv_dm.testmode_i
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.ndmreset_o), line:10:30, endln:10:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:ndmreset_o
     |vpiFullName:work@rv_dm.ndmreset_o
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.dmactive_o), line:11:30, endln:11:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmactive_o
     |vpiFullName:work@rv_dm.dmactive_o
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.debug_req_o), line:12:30, endln:12:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:debug_req_o
     |vpiFullName:work@rv_dm.debug_req_o
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.unavailable_i), line:13:30, endln:13:43
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:unavailable_i
     |vpiFullName:work@rv_dm.unavailable_i
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.tl_d_i), line:17:30, endln:17:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_i
     |vpiFullName:work@rv_dm.tl_d_i
   |vpiNet:
   \_logic_net: (work@rv_dm.tl_d_o), line:18:30, endln:18:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_o
     |vpiFullName:work@rv_dm.tl_d_o
   |vpiNet:
   \_logic_net: (work@rv_dm.tl_h_o), line:21:30, endln:21:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_o
     |vpiFullName:work@rv_dm.tl_h_o
   |vpiNet:
   \_logic_net: (work@rv_dm.tl_h_i), line:22:30, endln:22:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_i
     |vpiFullName:work@rv_dm.tl_h_i
   |vpiNet:
   \_logic_net: (work@rv_dm.jtag_req_i), line:24:31, endln:24:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_req_i
     |vpiFullName:work@rv_dm.jtag_req_i
   |vpiNet:
   \_logic_net: (work@rv_dm.jtag_rsp_o), line:25:31, endln:25:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_rsp_o
     |vpiFullName:work@rv_dm.jtag_rsp_o
   |vpiNet:
   \_logic_net: (work@rv_dm.dmi_req), line:28:18, endln:28:25
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_req
     |vpiFullName:work@rv_dm.dmi_req
   |vpiNet:
   \_logic_net: (work@rv_dm.dmi_rsp), line:29:18, endln:29:25
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_rsp
     |vpiFullName:work@rv_dm.dmi_rsp
   |vpiNet:
   \_logic_net: (work@rv_dm.dmi_req_valid), line:30:9, endln:30:22
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_req_valid
     |vpiFullName:work@rv_dm.dmi_req_valid
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.dmi_req_ready), line:30:24, endln:30:37
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_req_ready
     |vpiFullName:work@rv_dm.dmi_req_ready
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.dmi_rsp_valid), line:31:9, endln:31:22
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_rsp_valid
     |vpiFullName:work@rv_dm.dmi_rsp_valid
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.dmi_rsp_ready), line:31:24, endln:31:37
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_rsp_ready
     |vpiFullName:work@rv_dm.dmi_rsp_ready
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rv_dm.dmi_rst_n), line:32:9, endln:32:18
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_rst_n
     |vpiFullName:work@rv_dm.dmi_rst_n
     |vpiNetType:36
   |vpiPort:
   \_port: (clk_i), line:5:30, endln:5:35
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1248,7 +1248,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (rst_ni), line:6:30, endln:6:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:rst_ni
     |vpiDirection:1
     |vpiLowConn:
@@ -1260,7 +1260,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (hw_debug_en_i), line:8:31, endln:8:44
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:hw_debug_en_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1273,7 +1273,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (testmode_i), line:9:30, endln:9:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:testmode_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1285,7 +1285,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (ndmreset_o), line:10:30, endln:10:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:ndmreset_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1297,7 +1297,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (dmactive_o), line:11:30, endln:11:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmactive_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1309,7 +1309,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (debug_req_o), line:12:30, endln:12:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:debug_req_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1349,7 +1349,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (unavailable_i), line:13:30, endln:13:43
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:unavailable_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1389,7 +1389,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (tl_d_i), line:17:30, endln:17:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1402,7 +1402,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (tl_d_o), line:18:30, endln:18:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1415,7 +1415,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (tl_h_o), line:21:30, endln:21:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1428,7 +1428,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (tl_h_i), line:22:30, endln:22:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1441,7 +1441,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (jtag_req_i), line:24:31, endln:24:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_req_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1454,7 +1454,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (jtag_rsp_o), line:25:31, endln:25:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_rsp_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1465,81 +1465,81 @@ design: (work@rv_dm)
     \_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
       |vpiName:jtag_pkg::jtag_rsp_t
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:56:1, endln:71:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:56:1, endln:71:10
   |vpiParent:
   \_design: (work@rv_dm)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+\_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiName:work@rv_dm
   |vpiVariables:
   \_logic_var: (work@rv_dm.hw_debug_en_i), line:8:31, endln:8:44
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:hw_debug_en_i
     |vpiFullName:work@rv_dm.hw_debug_en_i
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.tl_d_i), line:17:30, endln:17:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_i
     |vpiFullName:work@rv_dm.tl_d_i
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.tl_d_o), line:18:30, endln:18:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_o
     |vpiFullName:work@rv_dm.tl_d_o
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.tl_h_o), line:21:30, endln:21:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_o
     |vpiFullName:work@rv_dm.tl_h_o
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.tl_h_i), line:22:30, endln:22:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_i
     |vpiFullName:work@rv_dm.tl_h_i
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.jtag_req_i), line:24:31, endln:24:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_req_i
     |vpiFullName:work@rv_dm.jtag_req_i
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.jtag_rsp_o), line:25:31, endln:25:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_rsp_o
     |vpiFullName:work@rv_dm.jtag_rsp_o
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.dmi_req), line:28:18, endln:28:25
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_req
     |vpiFullName:work@rv_dm.dmi_req
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.dmi_rsp), line:29:18, endln:29:25
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmi_rsp
     |vpiFullName:work@rv_dm.dmi_rsp
     |vpiVisibility:1
   |vpiVariables:
   \_logic_var: (work@rv_dm.dmi_req_valid), line:30:9, endln:30:22
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:30:3, endln:30:8
     |vpiName:dmi_req_valid
@@ -1548,7 +1548,7 @@ design: (work@rv_dm)
   |vpiVariables:
   \_logic_var: (work@rv_dm.dmi_req_ready), line:30:24, endln:30:37
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:30:3, endln:30:8
     |vpiName:dmi_req_ready
@@ -1557,7 +1557,7 @@ design: (work@rv_dm)
   |vpiVariables:
   \_logic_var: (work@rv_dm.dmi_rsp_valid), line:31:9, endln:31:22
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:31:3, endln:31:8
     |vpiName:dmi_rsp_valid
@@ -1566,7 +1566,7 @@ design: (work@rv_dm)
   |vpiVariables:
   \_logic_var: (work@rv_dm.dmi_rsp_ready), line:31:24, endln:31:37
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:31:3, endln:31:8
     |vpiName:dmi_rsp_ready
@@ -1575,7 +1575,7 @@ design: (work@rv_dm)
   |vpiVariables:
   \_logic_var: (work@rv_dm.dmi_rst_n), line:32:9, endln:32:18
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:32:3, endln:32:8
     |vpiName:dmi_rst_n
@@ -1584,7 +1584,7 @@ design: (work@rv_dm)
   |vpiParameter:
   \_parameter: (work@rv_dm.NrHarts), line:2:30, endln:2:37
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:16
@@ -1597,7 +1597,7 @@ design: (work@rv_dm)
   |vpiParameter:
   \_parameter: (work@rv_dm.IdcodeValue), line:3:30, endln:3:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |HEX:00000001
     |vpiTypespec:
     \_logic_typespec: , line:3:13, endln:3:25
@@ -1628,7 +1628,7 @@ design: (work@rv_dm)
   |vpiParamAssign:
   \_param_assign: , line:2:30, endln:2:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiRhs:
     \_constant: , line:2:40, endln:2:41
       |vpiDecompile:1
@@ -1642,7 +1642,7 @@ design: (work@rv_dm)
   |vpiParamAssign:
   \_param_assign: , line:3:30, endln:3:57
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiRhs:
     \_constant: , line:3:44, endln:3:57
       |vpiDecompile:32'h00000001
@@ -1658,7 +1658,7 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.clk_i), line:5:30, endln:5:35
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:5:10, endln:5:15
     |vpiName:clk_i
@@ -1667,7 +1667,7 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.rst_ni), line:6:30, endln:6:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:6:10, endln:6:15
     |vpiName:rst_ni
@@ -1676,7 +1676,7 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.testmode_i), line:9:30, endln:9:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:9:10, endln:9:15
     |vpiName:testmode_i
@@ -1685,7 +1685,7 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.ndmreset_o), line:10:30, endln:10:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:10:10, endln:10:15
     |vpiName:ndmreset_o
@@ -1694,7 +1694,7 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.dmactive_o), line:11:30, endln:11:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:11:10, endln:11:15
     |vpiName:dmactive_o
@@ -1703,7 +1703,7 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.debug_req_o), line:12:30, endln:12:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:12:10, endln:12:29
       |vpiRange:
@@ -1730,7 +1730,7 @@ design: (work@rv_dm)
   |vpiNet:
   \_logic_net: (work@rv_dm.unavailable_i), line:13:30, endln:13:43
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
     \_logic_typespec: , line:13:10, endln:13:29
       |vpiRange:
@@ -1758,7 +1758,7 @@ design: (work@rv_dm)
   |vpiPort:
   \_port: (clk_i), line:5:30, endln:5:35
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1772,11 +1772,11 @@ design: (work@rv_dm)
     |vpiTypedef:
     \_logic_typespec: , line:5:10, endln:5:15
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (rst_ni), line:6:30, endln:6:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:rst_ni
     |vpiDirection:1
     |vpiLowConn:
@@ -1790,11 +1790,11 @@ design: (work@rv_dm)
     |vpiTypedef:
     \_logic_typespec: , line:6:10, endln:6:15
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (hw_debug_en_i), line:8:31, endln:8:44
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:hw_debug_en_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1809,11 +1809,11 @@ design: (work@rv_dm)
     \_unsupported_typespec: (lc_ctrl_pkg::lc_tx_t), line:8:10, endln:8:23
       |vpiName:lc_ctrl_pkg::lc_tx_t
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (testmode_i), line:9:30, endln:9:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:testmode_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1827,11 +1827,11 @@ design: (work@rv_dm)
     |vpiTypedef:
     \_logic_typespec: , line:9:10, endln:9:15
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (ndmreset_o), line:10:30, endln:10:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:ndmreset_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1845,11 +1845,11 @@ design: (work@rv_dm)
     |vpiTypedef:
     \_logic_typespec: , line:10:10, endln:10:15
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (dmactive_o), line:11:30, endln:11:40
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:dmactive_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1863,11 +1863,11 @@ design: (work@rv_dm)
     |vpiTypedef:
     \_logic_typespec: , line:11:10, endln:11:15
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (debug_req_o), line:12:30, endln:12:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:debug_req_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1901,11 +1901,11 @@ design: (work@rv_dm)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (unavailable_i), line:13:30, endln:13:43
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:unavailable_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1939,11 +1939,11 @@ design: (work@rv_dm)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (tl_d_i), line:17:30, endln:17:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1958,11 +1958,11 @@ design: (work@rv_dm)
     \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:17:10, endln:17:20
       |vpiName:tlul_pkg::tl_h2d_t
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (tl_d_o), line:18:30, endln:18:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_d_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1977,11 +1977,11 @@ design: (work@rv_dm)
     \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:18:10, endln:18:20
       |vpiName:tlul_pkg::tl_d2h_t
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (tl_h_o), line:21:30, endln:21:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1996,11 +1996,11 @@ design: (work@rv_dm)
     \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:21:10, endln:21:20
       |vpiName:tlul_pkg::tl_h2d_t
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (tl_h_i), line:22:30, endln:22:36
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:tl_h_i
     |vpiDirection:1
     |vpiLowConn:
@@ -2015,11 +2015,11 @@ design: (work@rv_dm)
     \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:22:10, endln:22:20
       |vpiName:tlul_pkg::tl_d2h_t
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (jtag_req_i), line:24:31, endln:24:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_req_i
     |vpiDirection:1
     |vpiLowConn:
@@ -2034,11 +2034,11 @@ design: (work@rv_dm)
     \_unsupported_typespec: (jtag_pkg::jtag_req_t), line:24:10, endln:24:20
       |vpiName:jtag_pkg::jtag_req_t
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
   \_port: (jtag_rsp_o), line:25:31, endln:25:41
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:jtag_rsp_o
     |vpiDirection:2
     |vpiLowConn:
@@ -2053,16 +2053,16 @@ design: (work@rv_dm)
     \_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
       |vpiName:jtag_pkg::jtag_rsp_t
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiModule:
-  \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+  \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiParent:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiName:u_dmidpi
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.clk_i), line:40:21, endln:40:26
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:40:10, endln:40:13
       |vpiName:clk_i
@@ -2071,7 +2071,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.rst_ni), line:41:21, endln:41:27
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:41:10, endln:41:13
       |vpiName:rst_ni
@@ -2080,7 +2080,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_valid), line:43:21, endln:43:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:43:10, endln:43:13
       |vpiName:dmi_req_valid
@@ -2089,7 +2089,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_ready), line:44:21, endln:44:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:44:10, endln:44:13
       |vpiName:dmi_req_ready
@@ -2098,7 +2098,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_addr), line:45:21, endln:45:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:45:10, endln:45:19
         |vpiRange:
@@ -2125,7 +2125,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_op), line:46:21, endln:46:31
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:46:10, endln:46:19
         |vpiRange:
@@ -2152,7 +2152,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_data), line:47:21, endln:47:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:47:10, endln:47:20
         |vpiRange:
@@ -2179,7 +2179,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_valid), line:48:21, endln:48:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:48:10, endln:48:13
       |vpiName:dmi_rsp_valid
@@ -2188,7 +2188,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_ready), line:49:21, endln:49:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:49:10, endln:49:13
       |vpiName:dmi_rsp_ready
@@ -2197,7 +2197,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_data), line:50:21, endln:50:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:50:10, endln:50:20
         |vpiRange:
@@ -2224,7 +2224,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_resp), line:51:21, endln:51:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:51:10, endln:51:19
         |vpiRange:
@@ -2251,7 +2251,7 @@ design: (work@rv_dm)
     |vpiVariables:
     \_bit_var: (work@rv_dm.u_dmidpi.dmi_rst_n), line:52:21, endln:52:30
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
       \_bit_typespec: , line:52:10, endln:52:13
       |vpiName:dmi_rst_n
@@ -2260,7 +2260,7 @@ design: (work@rv_dm)
     |vpiParameter:
     \_parameter: (work@rv_dm.u_dmidpi.Name), line:37:20, endln:37:24
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |STRING:dmi0
       |vpiTypespec:
       \_string_typespec: , line:37:13, endln:37:19
@@ -2271,7 +2271,7 @@ design: (work@rv_dm)
     |vpiParameter:
     \_parameter: (work@rv_dm.u_dmidpi.ListenPort), line:38:17, endln:38:27
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |UINT:44853
       |vpiTypespec:
       \_int_typespec: , line:38:13, endln:38:16
@@ -2284,7 +2284,7 @@ design: (work@rv_dm)
     |vpiParamAssign:
     \_param_assign: , line:37:20, endln:37:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiRhs:
       \_constant: , line:37:27, endln:37:33
         |vpiDecompile:dmi0
@@ -2298,7 +2298,7 @@ design: (work@rv_dm)
     |vpiParamAssign:
     \_param_assign: , line:38:17, endln:38:35
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiRhs:
       \_constant: , line:38:30, endln:38:35
         |vpiDecompile:44853
@@ -2310,14 +2310,14 @@ design: (work@rv_dm)
       |vpiLhs:
       \_parameter: (work@rv_dm.u_dmidpi.ListenPort), line:38:17, endln:38:27
     |vpiDefName:work@dmidpi
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/BindStmt2/dut.sv
     |vpiDefLineNo:36
     |vpiInstance:
-    \_module: work@rv_dm (work@rv_dm), file:dut.sv, line:1:1, endln:34:10
+    \_module: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiPort:
     \_port: (clk_i), line:40:21, endln:40:26
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:clk_i
       |vpiDirection:1
       |vpiLowConn:
@@ -2331,11 +2331,11 @@ design: (work@rv_dm)
       |vpiTypedef:
       \_bit_typespec: , line:40:10, endln:40:13
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (rst_ni), line:41:21, endln:41:27
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:rst_ni
       |vpiDirection:1
       |vpiLowConn:
@@ -2349,11 +2349,11 @@ design: (work@rv_dm)
       |vpiTypedef:
       \_bit_typespec: , line:41:10, endln:41:13
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_req_valid), line:43:21, endln:43:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_req_valid
       |vpiDirection:2
       |vpiLowConn:
@@ -2367,11 +2367,11 @@ design: (work@rv_dm)
       |vpiTypedef:
       \_bit_typespec: , line:43:10, endln:43:13
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_req_ready), line:44:21, endln:44:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_req_ready
       |vpiDirection:1
       |vpiLowConn:
@@ -2385,11 +2385,11 @@ design: (work@rv_dm)
       |vpiTypedef:
       \_bit_typespec: , line:44:10, endln:44:13
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_req_addr), line:45:21, endln:45:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_req_addr
       |vpiDirection:2
       |vpiHighConn:
@@ -2440,11 +2440,11 @@ design: (work@rv_dm)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_req_op), line:46:21, endln:46:31
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_req_op
       |vpiDirection:2
       |vpiHighConn:
@@ -2495,11 +2495,11 @@ design: (work@rv_dm)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_req_data), line:47:21, endln:47:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_req_data
       |vpiDirection:2
       |vpiHighConn:
@@ -2550,11 +2550,11 @@ design: (work@rv_dm)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_rsp_valid), line:48:21, endln:48:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_rsp_valid
       |vpiDirection:1
       |vpiLowConn:
@@ -2568,11 +2568,11 @@ design: (work@rv_dm)
       |vpiTypedef:
       \_bit_typespec: , line:48:10, endln:48:13
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_rsp_ready), line:49:21, endln:49:34
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_rsp_ready
       |vpiDirection:2
       |vpiLowConn:
@@ -2586,11 +2586,11 @@ design: (work@rv_dm)
       |vpiTypedef:
       \_bit_typespec: , line:49:10, endln:49:13
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_rsp_data), line:50:21, endln:50:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_rsp_data
       |vpiDirection:1
       |vpiHighConn:
@@ -2641,11 +2641,11 @@ design: (work@rv_dm)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_rsp_resp), line:51:21, endln:51:33
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_rsp_resp
       |vpiDirection:1
       |vpiHighConn:
@@ -2696,11 +2696,11 @@ design: (work@rv_dm)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
     \_port: (dmi_rst_n), line:52:21, endln:52:30
       |vpiParent:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiName:dmi_rst_n
       |vpiDirection:2
       |vpiHighConn:
@@ -2722,9 +2722,9 @@ design: (work@rv_dm)
       |vpiTypedef:
       \_bit_typespec: , line:52:10, endln:52:13
       |vpiInstance:
-      \_module: work@dmidpi (u_dmidpi), file:dut.sv, line:57:14, endln:70:5
+      \_module: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:56:1, endln:71:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:56:1, endln:71:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1

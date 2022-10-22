@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/Delay2Param/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/Delay2Param/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/Delay2Param/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<383> s<382> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<30> s<3> l<1:1> el<1:7>
@@ -386,33 +386,33 @@ n<> u<380> t<Module_declaration> p<381> c<310> l<23:1> el<29:10>
 n<> u<381> t<Description> p<382> c<380> l<23:1> el<29:10>
 n<> u<382> t<Source_text> p<383> c<90> l<1:1> el<29:10>
 n<> u<383> t<Top_level_rule> c<1> l<1:1> el<31:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "iNToRawFN".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:1:1: No timescale set for "iNToRawFN".
 
-[WRN:PA0205] dut.sv:6:1: No timescale set for "iNToRawFN3".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:6:1: No timescale set for "iNToRawFN3".
 
-[WRN:PA0205] dut.sv:14:1: No timescale set for "BUFG".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:14:1: No timescale set for "BUFG".
 
-[WRN:PA0205] dut.sv:23:1: No timescale set for "iNToRecFN".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:23:1: No timescale set for "iNToRecFN".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0305] dut.sv:14:1: Compile udp "work@BUFG".
+[INF:CP0305] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:14:1: Compile udp "work@BUFG".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@iNToRawFN".
+[INF:CP0303] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:1:1: Compile module "work@iNToRawFN".
 
-[INF:CP0303] dut.sv:6:1: Compile module "work@iNToRawFN3".
+[INF:CP0303] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:6:1: Compile module "work@iNToRawFN3".
 
-[INF:CP0303] dut.sv:23:1: Compile module "work@iNToRecFN".
+[INF:CP0303] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:23:1: Compile module "work@iNToRecFN".
 
-[WRN:CP0310] dut.sv:1:44: Port "signedIn" definition missing its direction (input, output, inout),
+[WRN:CP0310] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:1:44: Port "signedIn" definition missing its direction (input, output, inout),
 there are 1 more instances of this message.
 
-[WRN:CP0310] dut.sv:6:70: Port "signedIn" definition missing its direction (input, output, inout),
+[WRN:CP0310] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:6:70: Port "signedIn" definition missing its direction (input, output, inout),
 there are 1 more instances of this message.
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:23:1: Top level module "work@iNToRecFN".
+[NTE:EL0503] ${SURELOG_DIR}/tests/Delay2Param/dut.sv:23:1: Top level module "work@iNToRecFN".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -464,11 +464,11 @@ table_entry                                            2
 udp                                                    1
 udp_defn                                               1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/Delay2Param/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Delay2Param/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Delay2Param/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Delay2Param/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/Delay2Param/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Delay2Param/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -518,14 +518,14 @@ design: (work@iNToRecFN)
     |vpiSize:1
     |STRING:1 : 1
 |uhdmallModules:
-\_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+\_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@iNToRecFN)
   |vpiFullName:work@iNToRawFN
   |vpiParameter:
   \_parameter: (work@iNToRawFN.intWidth), line:1:29, endln:1:37
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -534,14 +534,14 @@ design: (work@iNToRecFN)
   |vpiParameter:
   \_parameter: (work@iNToRawFN.expWidth), line:2:16, endln:2:24
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiLocalParam:1
     |vpiName:expWidth
     |vpiFullName:work@iNToRawFN.expWidth
   |vpiParamAssign:
   \_param_assign: , line:1:29, endln:1:41
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:1:40, endln:1:41
       |vpiDecompile:1
@@ -555,7 +555,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:2:16, endln:2:46
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_operation: , line:2:27, endln:2:46
       |vpiOpType:24
@@ -583,26 +583,26 @@ design: (work@iNToRecFN)
   |vpiNet:
   \_logic_net: (work@iNToRawFN.adjustedNormDist), line:3:29, endln:3:45
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiName:adjustedNormDist
     |vpiFullName:work@iNToRawFN.adjustedNormDist
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@iNToRawFN.signedIn), line:1:44, endln:1:52
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiName:signedIn
     |vpiFullName:work@iNToRawFN.signedIn
   |vpiNet:
   \_logic_net: (work@iNToRawFN.sExp), line:1:54, endln:1:58
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiName:sExp
     |vpiFullName:work@iNToRawFN.sExp
   |vpiPort:
   \_port: (signedIn), line:1:44, endln:1:52
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiName:signedIn
     |vpiDirection:3
     |vpiLowConn:
@@ -612,7 +612,7 @@ design: (work@iNToRecFN)
   |vpiPort:
   \_port: (sExp), line:1:54, endln:1:58
     |vpiParent:
-    \_module: work@iNToRawFN (work@iNToRawFN), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |vpiName:sExp
     |vpiDirection:3
     |vpiLowConn:
@@ -620,14 +620,14 @@ design: (work@iNToRecFN)
       |vpiActual:
       \_logic_net: (work@iNToRawFN.sExp), line:1:54, endln:1:58
 |uhdmallModules:
-\_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+\_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
   |vpiParent:
   \_design: (work@iNToRecFN)
   |vpiFullName:work@iNToRawFN3
   |vpiParameter:
   \_parameter: (work@iNToRawFN3.intWidth), line:6:30, endln:6:38
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -636,7 +636,7 @@ design: (work@iNToRecFN)
   |vpiParameter:
   \_parameter: (work@iNToRawFN3.intWidth2), line:6:54, endln:6:63
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -645,21 +645,21 @@ design: (work@iNToRecFN)
   |vpiParameter:
   \_parameter: (work@iNToRawFN3.expWidth), line:7:16, endln:7:24
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiLocalParam:1
     |vpiName:expWidth
     |vpiFullName:work@iNToRawFN3.expWidth
   |vpiParameter:
   \_parameter: (work@iNToRawFN3.expWidth2), line:8:16, endln:8:25
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiLocalParam:1
     |vpiName:expWidth2
     |vpiFullName:work@iNToRawFN3.expWidth2
   |vpiParamAssign:
   \_param_assign: , line:6:30, endln:6:42
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiRhs:
     \_constant: , line:6:41, endln:6:42
       |vpiDecompile:1
@@ -673,7 +673,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:6:54, endln:6:67
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiRhs:
     \_constant: , line:6:66, endln:6:67
       |vpiDecompile:1
@@ -687,7 +687,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:7:16, endln:7:46
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiRhs:
     \_operation: , line:7:27, endln:7:46
       |vpiOpType:24
@@ -714,7 +714,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:8:16, endln:8:48
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiRhs:
     \_operation: , line:8:28, endln:8:48
       |vpiOpType:24
@@ -742,33 +742,33 @@ design: (work@iNToRecFN)
   |vpiNet:
   \_logic_net: (work@iNToRawFN3.adjustedNormDist), line:9:29, endln:9:45
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiName:adjustedNormDist
     |vpiFullName:work@iNToRawFN3.adjustedNormDist
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@iNToRawFN3.adjustedNormDist2), line:10:30, endln:10:47
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiName:adjustedNormDist2
     |vpiFullName:work@iNToRawFN3.adjustedNormDist2
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@iNToRawFN3.signedIn), line:6:70, endln:6:78
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiName:signedIn
     |vpiFullName:work@iNToRawFN3.signedIn
   |vpiNet:
   \_logic_net: (work@iNToRawFN3.sExp), line:6:80, endln:6:84
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiName:sExp
     |vpiFullName:work@iNToRawFN3.sExp
   |vpiPort:
   \_port: (signedIn), line:6:70, endln:6:78
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiName:signedIn
     |vpiDirection:3
     |vpiLowConn:
@@ -778,7 +778,7 @@ design: (work@iNToRecFN)
   |vpiPort:
   \_port: (sExp), line:6:80, endln:6:84
     |vpiParent:
-    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:dut.sv, line:6:1, endln:11:10
+    \_module: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |vpiName:sExp
     |vpiDirection:3
     |vpiLowConn:
@@ -786,14 +786,14 @@ design: (work@iNToRecFN)
       |vpiActual:
       \_logic_net: (work@iNToRawFN3.sExp), line:6:80, endln:6:84
 |uhdmallModules:
-\_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+\_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
   |vpiParent:
   \_design: (work@iNToRecFN)
   |vpiFullName:work@iNToRecFN
   |vpiParameter:
   \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:38
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
     \_int_typespec: 
@@ -802,7 +802,7 @@ design: (work@iNToRecFN)
   |vpiParameter:
   \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:64
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
     \_int_typespec: 
@@ -811,7 +811,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:23:30, endln:23:43
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiRhs:
     \_constant: , line:23:41, endln:23:43
       |vpiDecompile:64
@@ -825,7 +825,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:23:55, endln:23:69
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiRhs:
     \_constant: , line:23:67, endln:23:69
       |vpiDecompile:64
@@ -838,12 +838,12 @@ design: (work@iNToRecFN)
     \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:64
   |vpiDefName:work@iNToRecFN
 |uhdmtopModules:
-\_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+\_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
   |vpiName:work@iNToRecFN
   |vpiParameter:
   \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:38
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
     \_int_typespec: 
@@ -854,7 +854,7 @@ design: (work@iNToRecFN)
   |vpiParameter:
   \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:64
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
     \_int_typespec: 
@@ -865,7 +865,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:23:30, endln:23:43
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiRhs:
     \_constant: , line:23:41, endln:23:43
       |vpiDecompile:64
@@ -879,7 +879,7 @@ design: (work@iNToRecFN)
   |vpiParamAssign:
   \_param_assign: , line:23:55, endln:23:69
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiRhs:
     \_constant: , line:23:67, endln:23:69
       |vpiDecompile:64
@@ -895,28 +895,28 @@ design: (work@iNToRecFN)
   |vpiNet:
   \_logic_net: (work@iNToRecFN.signedIn), line:24:33, endln:24:41
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiName:signedIn
     |vpiFullName:work@iNToRecFN.signedIn
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@iNToRecFN.sExp), line:24:43, endln:24:47
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiName:sExp
     |vpiFullName:work@iNToRecFN.sExp
     |vpiNetType:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+  \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiName:iNToRawFN
     |vpiFullName:work@iNToRecFN.iNToRawFN
     |vpiParameter:
     \_parameter: (work@iNToRecFN.iNToRawFN.intWidth), line:1:29, endln:1:37
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |UINT:1
       |vpiTypespec:
       \_int_typespec: 
@@ -927,14 +927,14 @@ design: (work@iNToRecFN)
     |vpiParameter:
     \_parameter: (work@iNToRecFN.iNToRawFN.expWidth), line:2:16, endln:2:24
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiLocalParam:1
       |vpiName:expWidth
       |vpiFullName:work@iNToRecFN.iNToRawFN.expWidth
     |vpiParamAssign:
     \_param_assign: , line:1:29, endln:1:41
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:1:40, endln:1:41
@@ -949,7 +949,7 @@ design: (work@iNToRecFN)
     |vpiParamAssign:
     \_param_assign: , line:2:16, endln:2:46
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiRhs:
       \_constant: , line:2:27, endln:2:46
         |vpiDecompile:7
@@ -959,12 +959,12 @@ design: (work@iNToRecFN)
       |vpiLhs:
       \_parameter: (work@iNToRecFN.iNToRawFN.expWidth), line:2:16, endln:2:24
     |vpiDefName:work@iNToRawFN
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/Delay2Param/dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@iNToRecFN.iNToRawFN.adjustedNormDist), line:3:29, endln:3:45
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiTypespec:
       \_logic_typespec: , line:3:5, endln:3:28
         |vpiRange:
@@ -991,21 +991,21 @@ design: (work@iNToRecFN)
     |vpiNet:
     \_logic_net: (work@iNToRecFN.iNToRawFN.signedIn), line:1:44, endln:1:52
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiName:signedIn
       |vpiFullName:work@iNToRecFN.iNToRawFN.signedIn
     |vpiNet:
     \_logic_net: (work@iNToRecFN.iNToRawFN.sExp), line:1:54, endln:1:58
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiName:sExp
       |vpiFullName:work@iNToRecFN.iNToRawFN.sExp
     |vpiInstance:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiPort:
     \_port: (signedIn), line:1:44, endln:1:52
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiName:signedIn
       |vpiDirection:3
       |vpiHighConn:
@@ -1025,11 +1025,11 @@ design: (work@iNToRecFN)
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN.signedIn), line:1:44, endln:1:52
       |vpiInstance:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
     |vpiPort:
     \_port: (sExp), line:1:54, endln:1:58
       |vpiParent:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |vpiName:sExp
       |vpiDirection:3
       |vpiHighConn:
@@ -1049,17 +1049,17 @@ design: (work@iNToRecFN)
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN.sExp), line:1:54, endln:1:58
       |vpiInstance:
-      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:dut.sv, line:24:2, endln:24:49
+      \_module: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
   |vpiModule:
-  \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+  \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiName:iNToRawFN3
     |vpiFullName:work@iNToRecFN.iNToRawFN3
     |vpiParameter:
     \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth), line:6:30, endln:6:38
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |UINT:1
       |vpiTypespec:
       \_int_typespec: 
@@ -1070,7 +1070,7 @@ design: (work@iNToRecFN)
     |vpiParameter:
     \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth2), line:6:54, endln:6:63
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |UINT:1
       |vpiTypespec:
       \_int_typespec: 
@@ -1081,21 +1081,21 @@ design: (work@iNToRecFN)
     |vpiParameter:
     \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth), line:7:16, endln:7:24
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiLocalParam:1
       |vpiName:expWidth
       |vpiFullName:work@iNToRecFN.iNToRawFN3.expWidth
     |vpiParameter:
     \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth2), line:8:16, endln:8:25
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiLocalParam:1
       |vpiName:expWidth2
       |vpiFullName:work@iNToRecFN.iNToRawFN3.expWidth2
     |vpiParamAssign:
     \_param_assign: , line:6:30, endln:6:42
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:6:41, endln:6:42
@@ -1110,7 +1110,7 @@ design: (work@iNToRecFN)
     |vpiParamAssign:
     \_param_assign: , line:6:54, endln:6:67
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:6:66, endln:6:67
@@ -1125,7 +1125,7 @@ design: (work@iNToRecFN)
     |vpiParamAssign:
     \_param_assign: , line:7:16, endln:7:46
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiRhs:
       \_constant: , line:7:27, endln:7:46
         |vpiDecompile:7
@@ -1137,7 +1137,7 @@ design: (work@iNToRecFN)
     |vpiParamAssign:
     \_param_assign: , line:8:16, endln:8:48
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiRhs:
       \_constant: , line:8:28, endln:8:48
         |vpiDecompile:7
@@ -1147,12 +1147,12 @@ design: (work@iNToRecFN)
       |vpiLhs:
       \_parameter: (work@iNToRecFN.iNToRawFN3.expWidth2), line:8:16, endln:8:25
     |vpiDefName:work@iNToRawFN3
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/Delay2Param/dut.sv
     |vpiDefLineNo:6
     |vpiNet:
     \_logic_net: (work@iNToRecFN.iNToRawFN3.adjustedNormDist), line:9:29, endln:9:45
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiTypespec:
       \_logic_typespec: , line:9:5, endln:9:28
         |vpiRange:
@@ -1179,7 +1179,7 @@ design: (work@iNToRecFN)
     |vpiNet:
     \_logic_net: (work@iNToRecFN.iNToRawFN3.adjustedNormDist2), line:10:30, endln:10:47
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiTypespec:
       \_logic_typespec: , line:10:5, endln:10:29
         |vpiRange:
@@ -1206,21 +1206,21 @@ design: (work@iNToRecFN)
     |vpiNet:
     \_logic_net: (work@iNToRecFN.iNToRawFN3.signedIn), line:6:70, endln:6:78
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiName:signedIn
       |vpiFullName:work@iNToRecFN.iNToRawFN3.signedIn
     |vpiNet:
     \_logic_net: (work@iNToRecFN.iNToRawFN3.sExp), line:6:80, endln:6:84
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiName:sExp
       |vpiFullName:work@iNToRecFN.iNToRawFN3.sExp
     |vpiInstance:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiPort:
     \_port: (signedIn), line:6:70, endln:6:78
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiName:signedIn
       |vpiDirection:3
       |vpiHighConn:
@@ -1240,11 +1240,11 @@ design: (work@iNToRecFN)
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN3.signedIn), line:6:70, endln:6:78
       |vpiInstance:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
     |vpiPort:
     \_port: (sExp), line:6:80, endln:6:84
       |vpiParent:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |vpiName:sExp
       |vpiDirection:3
       |vpiHighConn:
@@ -1264,11 +1264,11 @@ design: (work@iNToRecFN)
         |vpiActual:
         \_logic_net: (work@iNToRecFN.iNToRawFN3.sExp), line:6:80, endln:6:84
       |vpiInstance:
-      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:dut.sv, line:25:2, endln:25:62
+      \_module: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
   |vpiPrimitive:
-  \_udp: work@BUFG (work@iNToRecFN.), file:dut.sv, line:27:1, endln:27:21
+  \_udp: work@BUFG (work@iNToRecFN.), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
     |vpiParent:
-    \_module: work@iNToRecFN (work@iNToRecFN), file:dut.sv, line:23:1, endln:29:10
+    \_module: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiDefName:work@BUFG
     |vpiFullName:work@iNToRecFN.
     |vpiDelay:

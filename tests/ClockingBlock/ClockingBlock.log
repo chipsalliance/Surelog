@@ -1,9 +1,9 @@
-[INF:CM0023] Creating log file ../../build/regression/ClockingBlock/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ClockingBlock/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ClockingBlock/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<96> s<95> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<11> s<3> l<1:1> el<1:7>
@@ -101,11 +101,11 @@ n<> u<93> t<Module_declaration> p<94> c<11> l<1:1> el<17:10>
 n<> u<94> t<Description> p<95> c<93> l<1:1> el<17:10>
 n<> u<95> t<Source_text> p<96> c<94> l<1:1> el<17:10>
 n<> u<96> t<Top_level_rule> c<1> l<1:1> el<19:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ClockingBlock/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ClockingBlock/dut.sv:1:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -367,7 +367,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ClockingBlock/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -437,13 +437,13 @@ port                                                   3
 ref_obj                                               13
 task                                                  18
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:14:29: Unresolved hierarchical reference "top.to".
+[ERR:UH0725] ${SURELOG_DIR}/tests/ClockingBlock/dut.sv:14:29: Unresolved hierarchical reference "top.to".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ClockingBlock/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClockingBlock/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ClockingBlock/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClockingBlock/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ClockingBlock/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClockingBlock/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -927,7 +927,7 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -935,7 +935,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.clk), line:2:8, endln:2:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiName:clk
     |vpiFullName:work@top.clk
   |vpiGlobalClocking:
@@ -979,7 +979,7 @@ design: (work@top)
   |vpiPort:
   \_port: (clk), line:2:8, endln:2:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1037,14 +1037,14 @@ design: (work@top)
         \_ref_obj: (to), line:14:33, endln:14:35
           |vpiName:to
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@top.clk), line:2:8, endln:2:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiTypespec:
     \_logic_typespec: , line:2:8, endln:2:8
     |vpiName:clk
@@ -1053,7 +1053,7 @@ design: (work@top)
   |vpiGlobalClocking:
   \_clocking_block: (work@top.cb), line:9:3, endln:9:49
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiName:cb
     |vpiFullName:work@top.cb
     |vpiClockingEvent:
@@ -1074,11 +1074,11 @@ design: (work@top)
           |vpiActual:
           \_logic_net: (work@top.clk), line:2:8, endln:2:11
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
   |vpiDefaultClocking:
   \_clocking_block: (work@top.unnamed_clocking_block), line:5:3, endln:7:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiName:unnamed_clocking_block
     |vpiFullName:work@top.unnamed_clocking_block
     |vpiOutputEdge:50
@@ -1105,11 +1105,11 @@ design: (work@top)
           |vpiActual:
           \_logic_net: (work@top.clk), line:2:8, endln:2:11
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
   |vpiPort:
   \_port: (clk), line:2:8, endln:2:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1123,11 +1123,11 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: , line:2:8, endln:2:8
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
   |vpiClockingBlock:
   \_clocking_block: (work@top.cb1), line:11:3, endln:15:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiName:cb1
     |vpiFullName:work@top.cb1
     |vpiInputSkew:
@@ -1158,7 +1158,7 @@ design: (work@top)
           |vpiActual:
           \_logic_net: (work@top.clk), line:2:8, endln:2:11
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
     |vpiClockingIODecl:
     \_clocking_io_decl: (from_Dut), line:13:14, endln:13:22
       |vpiParent:
@@ -1188,7 +1188,7 @@ design: (work@top)
           \_hier_path: (top.to), line:14:29, endln:14:35
           |vpiName:top
           |vpiActual:
-          \_module: work@top (work@top), file:dut.sv, line:1:1, endln:17:10
+          \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingBlock/dut.sv, line:1:1, endln:17:10
         |vpiActual:
         \_ref_obj: (to), line:14:33, endln:14:35
           |vpiParent:

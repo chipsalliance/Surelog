@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/HierPathLhs/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/HierPathLhs/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/HierPathLhs/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<142> s<141> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -145,23 +145,23 @@ n<> u<139> t<Module_declaration> p<140> c<58> l<8:1> el<16:10>
 n<> u<140> t<Description> p<141> c<139> l<8:1> el<16:10>
 n<> u<141> t<Source_text> p<142> c<55> l<1:1> el<16:10>
 n<> u<142> t<Top_level_rule> c<1> l<1:1> el<17:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "alert_handler_reg_wrap".
+[WRN:PA0205] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:1:1: No timescale set for "alert_handler_reg_wrap".
 
-[WRN:PA0205] dut.sv:8:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:8:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@alert_handler_reg_wrap".
+[INF:CP0303] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:1:1: Compile module "work@alert_handler_reg_wrap".
 
-[INF:CP0303] dut.sv:8:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:8:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:2:3: Compile generate block "work@alert_handler_reg_wrap.gen_alert_cause[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:2:3: Compile generate block "work@alert_handler_reg_wrap.gen_alert_cause[0]".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@alert_handler_reg_wrap".
+[NTE:EL0503] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:1:1: Top level module "work@alert_handler_reg_wrap".
 
-[NTE:EL0503] dut.sv:8:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:8:1: Top level module "work@top".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -219,13 +219,13 @@ struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:3:12: Unresolved hierarchical reference "hw2reg.alert_cause[k].d".
+[ERR:UH0725] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:3:12: Unresolved hierarchical reference "hw2reg.alert_cause[k].d".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/HierPathLhs/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathLhs/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/HierPathLhs/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathLhs/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/HierPathLhs/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HierPathLhs/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -234,23 +234,23 @@ design: (work@alert_handler_reg_wrap)
 |vpiElaborated:1
 |vpiName:work@alert_handler_reg_wrap
 |uhdmallModules:
-\_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:dut.sv, line:1:1, endln:5:10
+\_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@alert_handler_reg_wrap)
   |vpiFullName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
   |vpiParent:
   \_design: (work@alert_handler_reg_wrap)
   |vpiFullName:work@top
   |vpiTypedef:
   \_struct_typespec: (struct_t), line:9:11, endln:9:17
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
     |vpiName:struct_t
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (x), line:10:9, endln:10:10
@@ -262,7 +262,7 @@ design: (work@alert_handler_reg_wrap)
         |vpiParent:
         \_typespec_member: (x), line:10:9, endln:10:10
         |vpiSigned:1
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/HierPathLhs/dut.sv
       |vpiRefLineNo:10
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:10
@@ -271,13 +271,13 @@ design: (work@alert_handler_reg_wrap)
   |vpiNet:
   \_logic_net: (work@top.a), line:13:23, endln:13:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiContAssign:
   \_cont_assign: , line:15:10, endln:15:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
     |vpiRhs:
     \_constant: , line:15:25, endln:15:26
       |vpiParent:
@@ -317,7 +317,7 @@ design: (work@alert_handler_reg_wrap)
         |vpiActual:
         \_packed_array_var: (work@top.a), line:13:23, endln:13:24
           |vpiParent:
-          \_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+          \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
           |vpiName:a
           |vpiFullName:work@top.a
           |vpiVisibility:1
@@ -382,7 +382,7 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
 |uhdmtopModules:
-\_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:dut.sv, line:1:1, endln:5:10
+\_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:1:1, endln:5:10
   |vpiName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
   |vpiTop:1
@@ -390,7 +390,7 @@ design: (work@alert_handler_reg_wrap)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
     |vpiParent:
-    \_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:1:1, endln:5:10
     |vpiName:gen_alert_cause[0]
     |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0]
     |vpiGenScope:
@@ -453,7 +453,7 @@ design: (work@alert_handler_reg_wrap)
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:d
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
   |vpiName:work@top
   |vpiVariables:
   \_packed_array_var: (work@top.a), line:13:23, endln:13:24
@@ -465,7 +465,7 @@ design: (work@alert_handler_reg_wrap)
   |vpiContAssign:
   \_cont_assign: , line:15:10, endln:15:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:16:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
     |vpiRhs:
     \_constant: , line:15:25, endln:15:26
     |vpiLhs:

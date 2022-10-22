@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/GenScopeHierPath2/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<328> s<327> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<22> s<3> l<1:1> el<1:7>
@@ -331,24 +331,24 @@ n<> u<325> t<Module_declaration> p<326> c<22> l<1:1> el<25:10>
 n<> u<326> t<Description> p<327> c<325> l<1:1> el<25:10>
 n<> u<327> t<Source_text> p<328> c<326> l<1:1> el<25:10>
 n<> u<328> t<Top_level_rule> c<1> l<1:1> el<26:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "mod".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:1:1: No timescale set for "mod".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@mod".
+[INF:CP0303] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:1:1: Compile module "work@mod".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:14:10: Compile generate block "work@mod.blk4".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:14:10: Compile generate block "work@mod.blk4".
 
-[INF:CP0335] dut.sv:17:5: Compile generate block "work@mod.genblk2".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:17:5: Compile generate block "work@mod.genblk2".
 
 Instance tree:
 [TOP] work@mod work@mod
 [SCO] work@mod.blk4 work@mod.blk4
 [SCO] work@mod.genblk2 work@mod.genblk2
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@mod".
+[NTE:EL0503] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:1:1: Top level module "work@mod".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -358,11 +358,11 @@ Instance tree:
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-[NTE:EL0523] dut.sv:1:1: Instance "work@mod".
+[NTE:EL0523] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:1:1: Instance "work@mod".
 
-[NTE:EL0522] dut.sv:14:10: Scope "work@mod.blk4".
+[NTE:EL0522] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:14:10: Scope "work@mod.blk4".
 
-[NTE:EL0522] dut.sv:17:5: Scope "work@mod.genblk2".
+[NTE:EL0522] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:17:5: Scope "work@mod.genblk2".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -408,11 +408,11 @@ range                                                  5
 ref_obj                                               11
 sys_func_call                                          2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -421,14 +421,14 @@ design: (work@mod)
 |vpiElaborated:1
 |vpiName:work@mod
 |uhdmallModules:
-\_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+\_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
   |vpiParent:
   \_design: (work@mod)
   |vpiFullName:work@mod
   |vpiParameter:
   \_parameter: (work@mod.P), line:4:15, endln:4:16
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -437,7 +437,7 @@ design: (work@mod)
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:20
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiRhs:
     \_constant: , line:4:19, endln:4:20
       |vpiDecompile:0
@@ -452,14 +452,14 @@ design: (work@mod)
   |vpiNet:
   \_logic_net: (work@mod.out), line:2:24, endln:2:27
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiName:out
     |vpiFullName:work@mod.out
     |vpiNetType:1
   |vpiPort:
   \_port: (out), line:2:24, endln:2:27
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -487,12 +487,12 @@ design: (work@mod)
           |UINT:0
           |vpiConstType:9
 |uhdmtopModules:
-\_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+\_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
   |vpiName:work@mod
   |vpiParameter:
   \_parameter: (work@mod.P), line:4:15, endln:4:16
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -503,7 +503,7 @@ design: (work@mod)
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:20
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiRhs:
     \_constant: , line:4:19, endln:4:20
       |vpiDecompile:0
@@ -519,7 +519,7 @@ design: (work@mod)
   |vpiNet:
   \_logic_net: (work@mod.out), line:2:24, endln:2:27
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
     \_logic_typespec: , line:2:12, endln:2:23
       |vpiRange:
@@ -547,7 +547,7 @@ design: (work@mod)
   |vpiPort:
   \_port: (out), line:2:24, endln:2:27
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -581,11 +581,11 @@ design: (work@mod)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
   |vpiGenScopeArray:
   \_gen_scope_array: (work@mod.blk4), line:14:10, endln:16:8
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiName:blk4
     |vpiFullName:work@mod.blk4
     |vpiGenScope:
@@ -637,7 +637,7 @@ design: (work@mod)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@mod.genblk2), line:17:5, endln:24:36
     |vpiParent:
-    \_module: work@mod (work@mod), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiName:genblk2
     |vpiFullName:work@mod.genblk2
     |vpiGenScope:

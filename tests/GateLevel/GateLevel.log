@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/GateLevel/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/GateLevel/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/GateLevel/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<482> s<481> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<77> s<3> l<1:1> el<1:7>
@@ -485,11 +485,11 @@ n<> u<479> t<Module_declaration> p<480> c<77> l<1:1> el<20:10>
 n<> u<480> t<Description> p<481> c<479> l<1:1> el<20:10>
 n<> u<481> t<Source_text> p<482> c<480> l<1:1> el<20:10>
 n<> u<482> t<Top_level_rule> c<1> l<1:1> el<21:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "LogicGates".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GateLevel/dut.sv:1:1: No timescale set for "LogicGates".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@LogicGates".
+[INF:CP0303] ${SURELOG_DIR}/tests/GateLevel/dut.sv:1:1: Compile module "work@LogicGates".
 
 LIB:  work
 FILE: builtin.sv
@@ -749,16 +749,16 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[NTE:CP0309] dut.sv:1:23: Implicit port type (wire) for "y1",
+[NTE:CP0309] ${SURELOG_DIR}/tests/GateLevel/dut.sv:1:23: Implicit port type (wire) for "y1",
 there are 8 more instances of this message.
 
-[WRN:CP0310] dut.sv:1:53: Port "y10" definition missing its direction (input, output, inout).
+[WRN:CP0310] ${SURELOG_DIR}/tests/GateLevel/dut.sv:1:53: Port "y10" definition missing its direction (input, output, inout).
 
-[ERR:CP0340] dut.sv:1:53: Port "y10" of unspecified type.
+[ERR:CP0340] ${SURELOG_DIR}/tests/GateLevel/dut.sv:1:53: Port "y10" of unspecified type.
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@LogicGates".
+[NTE:EL0503] ${SURELOG_DIR}/tests/GateLevel/dut.sv:1:1: Top level module "work@LogicGates".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -824,11 +824,11 @@ ref_obj                                               77
 switch_tran                                            1
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/GateLevel/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GateLevel/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/GateLevel/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GateLevel/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/GateLevel/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/GateLevel/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1312,7 +1312,7 @@ design: (work@LogicGates)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+\_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiParent:
   \_design: (work@LogicGates)
   |vpiFullName:work@LogicGates
@@ -1320,79 +1320,79 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:a
     |vpiFullName:work@LogicGates.a
   |vpiNet:
   \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:b
     |vpiFullName:work@LogicGates.b
   |vpiNet:
   \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y1
     |vpiFullName:work@LogicGates.y1
   |vpiNet:
   \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y2
     |vpiFullName:work@LogicGates.y2
   |vpiNet:
   \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y3
     |vpiFullName:work@LogicGates.y3
   |vpiNet:
   \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y4
     |vpiFullName:work@LogicGates.y4
   |vpiNet:
   \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y5
     |vpiFullName:work@LogicGates.y5
   |vpiNet:
   \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y6
     |vpiFullName:work@LogicGates.y6
   |vpiNet:
   \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y7
     |vpiFullName:work@LogicGates.y7
   |vpiNet:
   \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y8
     |vpiFullName:work@LogicGates.y8
   |vpiNet:
   \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y9
     |vpiFullName:work@LogicGates.y9
   |vpiNet:
   \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y10
     |vpiFullName:work@LogicGates.y10
   |vpiPort:
   \_port: (a), line:1:19, endln:1:20
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -1404,7 +1404,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (b), line:1:21, endln:1:22
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -1416,7 +1416,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y1), line:1:23, endln:1:25
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y1
     |vpiDirection:2
     |vpiLowConn:
@@ -1428,7 +1428,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y2), line:1:26, endln:1:28
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y2
     |vpiDirection:2
     |vpiLowConn:
@@ -1440,7 +1440,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y3), line:1:29, endln:1:31
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y3
     |vpiDirection:2
     |vpiLowConn:
@@ -1452,7 +1452,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y4), line:1:32, endln:1:34
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y4
     |vpiDirection:2
     |vpiLowConn:
@@ -1464,7 +1464,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y5), line:1:35, endln:1:37
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y5
     |vpiDirection:2
     |vpiLowConn:
@@ -1476,7 +1476,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y6), line:1:38, endln:1:40
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y6
     |vpiDirection:2
     |vpiLowConn:
@@ -1488,7 +1488,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y7), line:1:41, endln:1:43
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y7
     |vpiDirection:2
     |vpiLowConn:
@@ -1500,7 +1500,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y8), line:1:45, endln:1:47
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y8
     |vpiDirection:2
     |vpiLowConn:
@@ -1512,7 +1512,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y9), line:1:49, endln:1:51
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y9
     |vpiDirection:2
     |vpiLowConn:
@@ -1524,7 +1524,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (y10), line:1:53, endln:1:56
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y10
     |vpiDirection:2
     |vpiLowConn:
@@ -1532,14 +1532,14 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56
 |uhdmtopModules:
-\_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+\_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiName:work@LogicGates
   |vpiDefName:work@LogicGates
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:a
@@ -1547,7 +1547,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:b
@@ -1555,7 +1555,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y1
@@ -1563,7 +1563,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y2
@@ -1571,7 +1571,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y3
@@ -1579,7 +1579,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y4
@@ -1587,7 +1587,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y5
@@ -1595,7 +1595,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y6
@@ -1603,7 +1603,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y7
@@ -1611,7 +1611,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y8
@@ -1619,7 +1619,7 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y9
@@ -1627,48 +1627,48 @@ design: (work@LogicGates)
   |vpiNet:
   \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y10
     |vpiFullName:work@LogicGates.y10
   |vpiNet:
   \_logic_net: (work@LogicGates.nn), line:15:29, endln:15:31
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:nn
     |vpiFullName:work@LogicGates.nn
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@LogicGates.out2), line:16:25, endln:16:29
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:out2
     |vpiFullName:work@LogicGates.out2
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@LogicGates.out3), line:17:37, endln:17:41
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:out3
     |vpiFullName:work@LogicGates.out3
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@LogicGates.p1), line:18:12, endln:18:14
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:p1
     |vpiFullName:work@LogicGates.p1
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@LogicGates.p2), line:18:15, endln:18:17
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:p2
     |vpiFullName:work@LogicGates.p2
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@LogicGates.p3), line:18:18, endln:18:20
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:p3
     |vpiFullName:work@LogicGates.p3
     |vpiNetType:1
@@ -1676,7 +1676,7 @@ design: (work@LogicGates)
   |vpiPort:
   \_port: (a), line:1:19, endln:1:20
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -1690,11 +1690,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (b), line:1:21, endln:1:22
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -1708,11 +1708,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y1), line:1:23, endln:1:25
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y1
     |vpiDirection:2
     |vpiLowConn:
@@ -1726,11 +1726,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y2), line:1:26, endln:1:28
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y2
     |vpiDirection:2
     |vpiLowConn:
@@ -1744,11 +1744,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y3), line:1:29, endln:1:31
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y3
     |vpiDirection:2
     |vpiLowConn:
@@ -1762,11 +1762,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y4), line:1:32, endln:1:34
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y4
     |vpiDirection:2
     |vpiLowConn:
@@ -1780,11 +1780,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y5), line:1:35, endln:1:37
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y5
     |vpiDirection:2
     |vpiLowConn:
@@ -1798,11 +1798,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y6), line:1:38, endln:1:40
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y6
     |vpiDirection:2
     |vpiLowConn:
@@ -1816,11 +1816,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y7), line:1:41, endln:1:43
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y7
     |vpiDirection:2
     |vpiLowConn:
@@ -1834,11 +1834,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y8), line:1:45, endln:1:47
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y8
     |vpiDirection:2
     |vpiLowConn:
@@ -1852,11 +1852,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y9), line:1:49, endln:1:51
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y9
     |vpiDirection:2
     |vpiLowConn:
@@ -1870,11 +1870,11 @@ design: (work@LogicGates)
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
   \_port: (y10), line:1:53, endln:1:56
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiName:y10
     |vpiDirection:2
     |vpiLowConn:
@@ -1886,11 +1886,11 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56
     |vpiInstance:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPrimitive:
   \_gate: work@and (work@LogicGates.), line:5:6, endln:5:14
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@and
     |vpiFullName:work@LogicGates.
     |vpiPrimType:1
@@ -1938,7 +1938,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@or (work@LogicGates.), line:6:5, endln:6:13
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@or
     |vpiFullName:work@LogicGates.
     |vpiPrimType:4
@@ -1986,7 +1986,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@not (work@LogicGates.), line:7:6, endln:7:12
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@not
     |vpiFullName:work@LogicGates.
     |vpiPrimType:8
@@ -2020,7 +2020,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@nand (work@LogicGates.), line:8:7, endln:8:15
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@nand
     |vpiFullName:work@LogicGates.
     |vpiPrimType:2
@@ -2068,7 +2068,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@nor (work@LogicGates.), line:9:6, endln:9:14
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@nor
     |vpiFullName:work@LogicGates.
     |vpiPrimType:3
@@ -2116,7 +2116,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@xor (work@LogicGates.), line:10:6, endln:10:14
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@xor
     |vpiFullName:work@LogicGates.
     |vpiPrimType:5
@@ -2164,7 +2164,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@xnor (work@LogicGates.), line:11:7, endln:11:15
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@xnor
     |vpiFullName:work@LogicGates.
     |vpiPrimType:6
@@ -2212,7 +2212,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@and (work@LogicGates.a1), line:13:14, endln:13:25
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@and
     |vpiName:a1
     |vpiFullName:work@LogicGates.a1
@@ -2267,7 +2267,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@or (work@LogicGates.a2), line:14:13, endln:14:31
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@or
     |vpiName:a2
     |vpiFullName:work@LogicGates.a2
@@ -2364,7 +2364,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@nand (work@LogicGates.a3), line:15:25, endln:15:38
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@nand
     |vpiName:a3
     |vpiFullName:work@LogicGates.a3
@@ -2458,7 +2458,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@bufif0 (work@LogicGates.a4), line:16:21, endln:16:36
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@bufif0
     |vpiName:a4
     |vpiFullName:work@LogicGates.a4
@@ -2537,7 +2537,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@bufif0 (work@LogicGates.a5), line:17:33, endln:17:48
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@bufif0
     |vpiName:a5
     |vpiFullName:work@LogicGates.a5
@@ -2652,7 +2652,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_switch_tran: work@pmos (work@LogicGates.a6), line:18:8, endln:18:21
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@pmos
     |vpiName:a6
     |vpiFullName:work@LogicGates.a6
@@ -2701,7 +2701,7 @@ design: (work@LogicGates)
   |vpiPrimitive:
   \_gate: work@pullup (work@LogicGates.a7), line:19:10, endln:19:17
     |vpiParent:
-    \_module: work@LogicGates (work@LogicGates), file:dut.sv, line:1:1, endln:20:10
+    \_module: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiDefName:work@pullup
     |vpiName:a7
     |vpiFullName:work@LogicGates.a7

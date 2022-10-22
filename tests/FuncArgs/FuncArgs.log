@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/FuncArgs/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/FuncArgs/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncArgs/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<320> s<319> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<44> s<3> l<1:1> el<1:7>
@@ -323,15 +323,15 @@ n<> u<317> t<Module_declaration> p<318> c<44> l<1:1> el<25:10>
 n<> u<318> t<Description> p<319> c<317> l<1:1> el<25:10>
 n<> u<319> t<Source_text> p<320> c<318> l<1:1> el<25:10>
 n<> u<320> t<Top_level_rule> c<1> l<1:1> el<26:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncArgs/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/FuncArgs/dut.sv:1:1: Compile module "work@dut".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/FuncArgs/dut.sv:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -383,11 +383,11 @@ port                                                   9
 range                                                 18
 ref_obj                                               39
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncArgs/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncArgs/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncArgs/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncArgs/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncArgs/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncArgs/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -396,7 +396,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -404,7 +404,7 @@ design: (work@dut)
   |vpiTaskFunc:
   \_function: (work@dut.pow_a), line:5:9, endln:12:20
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:pow_a
     |vpiFullName:work@dut.pow_a
     |vpiVisibility:1
@@ -432,7 +432,7 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiIODecl:
     \_io_decl: (base), line:6:29, endln:6:33
       |vpiParent:
@@ -585,11 +585,11 @@ design: (work@dut)
             |vpiActual:
             \_logic_var: (pow_a), line:5:28, endln:5:33
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiTaskFunc:
   \_function: (work@dut.pow_b), line:14:9, endln:21:20
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:pow_b
     |vpiFullName:work@dut.pow_b
     |vpiVisibility:1
@@ -617,7 +617,7 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiIODecl:
     \_io_decl: (base), line:15:29, endln:15:33
       |vpiParent:
@@ -770,32 +770,32 @@ design: (work@dut)
             |vpiActual:
             \_logic_var: (pow_b), line:14:28, endln:14:33
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiNet:
   \_logic_net: (work@dut.inp), line:2:26, endln:2:29
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:inp
     |vpiFullName:work@dut.inp
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@dut.out1), line:3:27, endln:3:31
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:out1
     |vpiFullName:work@dut.out1
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@dut.out2), line:3:33, endln:3:37
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:out2
     |vpiFullName:work@dut.out2
     |vpiNetType:1
   |vpiPort:
   \_port: (inp), line:2:26, endln:2:29
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
@@ -825,7 +825,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (out1), line:3:27, endln:3:31
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:out1
     |vpiDirection:2
     |vpiLowConn:
@@ -855,7 +855,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (out2), line:3:33, endln:3:37
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:out2
     |vpiDirection:2
     |vpiLowConn:
@@ -885,7 +885,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:23:16, endln:23:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiRhs:
     \_func_call: (pow_a), line:23:23, endln:23:36
       |vpiParent:
@@ -920,7 +920,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:24:16, endln:24:34
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiRhs:
     \_func_call: (pow_b), line:24:23, endln:24:34
       |vpiParent:
@@ -953,14 +953,14 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.out2), line:3:33, endln:3:37
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@dut.pow_a), line:5:9, endln:12:20
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:pow_a
     |vpiFullName:work@dut.pow_a
     |vpiVisibility:1
@@ -968,7 +968,7 @@ design: (work@dut)
     |vpiReturn:
     \_logic_var: , line:5:28, endln:5:33
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiIODecl:
     \_io_decl: (base), line:6:29, endln:6:33
       |vpiParent:
@@ -1083,11 +1083,11 @@ design: (work@dut)
             |vpiActual:
             \_logic_var: , line:5:28, endln:5:33
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiTaskFunc:
   \_function: (work@dut.pow_b), line:14:9, endln:21:20
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:pow_b
     |vpiFullName:work@dut.pow_b
     |vpiVisibility:1
@@ -1095,7 +1095,7 @@ design: (work@dut)
     |vpiReturn:
     \_logic_var: , line:14:28, endln:14:33
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiIODecl:
     \_io_decl: (base), line:15:29, endln:15:33
       |vpiParent:
@@ -1210,11 +1210,11 @@ design: (work@dut)
             |vpiActual:
             \_logic_var: , line:14:28, endln:14:33
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiNet:
   \_logic_net: (work@dut.inp), line:2:26, endln:2:29
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
     \_logic_typespec: , line:2:15, endln:2:25
       |vpiRange:
@@ -1241,7 +1241,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.out1), line:3:27, endln:3:31
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
     \_logic_typespec: , line:3:16, endln:3:26
       |vpiRange:
@@ -1268,7 +1268,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.out2), line:3:33, endln:3:37
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
     \_logic_typespec: , line:3:16, endln:3:26
     |vpiName:out2
@@ -1278,7 +1278,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (inp), line:2:26, endln:2:29
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
@@ -1312,11 +1312,11 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiPort:
   \_port: (out1), line:3:27, endln:3:31
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:out1
     |vpiDirection:2
     |vpiLowConn:
@@ -1350,11 +1350,11 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiPort:
   \_port: (out2), line:3:33, endln:3:37
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiName:out2
     |vpiDirection:2
     |vpiLowConn:
@@ -1368,11 +1368,11 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:3:16, endln:3:26
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiContAssign:
   \_cont_assign: , line:23:16, endln:23:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiRhs:
     \_func_call: (pow_a), line:23:23, endln:23:36
       |vpiParent:
@@ -1401,7 +1401,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:24:16, endln:24:34
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:25:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiRhs:
     \_func_call: (pow_b), line:24:23, endln:24:34
       |vpiParent:

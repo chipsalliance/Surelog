@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/IntegerConcat/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/IntegerConcat/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/IntegerConcat/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<221> s<220> l<1:1> el<1:0>
 n<> u<2> t<Package> p<155> s<3> l<1:1> el<1:8>
@@ -224,23 +224,23 @@ n<> u<218> t<Module_declaration> p<219> c<187> l<22:1> el<26:10>
 n<> u<219> t<Description> p<220> c<218> l<22:1> el<26:10>
 n<> u<220> t<Source_text> p<221> c<156> l<1:1> el<26:10>
 n<> u<221> t<Top_level_rule> c<1> l<1:1> el<27:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IntegerConcat/dut.sv:1:1: No timescale set for "pkg".
 
-[WRN:PA0205] dut.sv:16:1: No timescale set for "test".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IntegerConcat/dut.sv:16:1: No timescale set for "test".
 
-[WRN:PA0205] dut.sv:22:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IntegerConcat/dut.sv:22:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/IntegerConcat/dut.sv:1:1: Compile package "pkg".
 
-[INF:CP0303] dut.sv:22:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/IntegerConcat/dut.sv:22:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:16:1: Compile module "work@test".
+[INF:CP0303] ${SURELOG_DIR}/tests/IntegerConcat/dut.sv:16:1: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:22:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/IntegerConcat/dut.sv:22:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -284,11 +284,11 @@ range                                                 20
 ref_obj                                               34
 sys_func_call                                          4
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/IntegerConcat/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IntegerConcat/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/IntegerConcat/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/IntegerConcat/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/IntegerConcat/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/IntegerConcat/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -297,7 +297,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:pkg
@@ -305,7 +305,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::FLASH_INFO_PER_BANK), line:2:16, endln:2:35
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:2:12, endln:2:15
@@ -321,7 +321,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::InfosPerBank), line:3:15, endln:3:27
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:14
       |vpiParent:
@@ -335,7 +335,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::InfoPageW), line:4:15, endln:4:24
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiTypespec:
     \_int_typespec: , line:4:11, endln:4:14
       |vpiParent:
@@ -349,7 +349,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::NumSeeds), line:5:15, endln:5:23
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:5:11, endln:5:14
@@ -364,7 +364,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::CreatorInfoPage), line:6:15, endln:6:30
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:6:11, endln:6:14
@@ -379,7 +379,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::OwnerInfoPage), line:7:15, endln:7:28
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:7:11, endln:7:14
@@ -394,7 +394,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::SeedInfoPageSel), line:8:47, endln:8:62
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiTypespec:
     \_logic_typespec: , line:8:11, endln:8:46
       |vpiParent:
@@ -466,7 +466,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:16, endln:2:37
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:2:36, endln:2:37
       |vpiDecompile:4
@@ -480,7 +480,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:52
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_ref_obj: (FLASH_INFO_PER_BANK), line:3:33, endln:3:52
       |vpiName:FLASH_INFO_PER_BANK
@@ -491,7 +491,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:53
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_sys_func_call: ($clog2), line:4:33, endln:4:53
       |vpiArgument:
@@ -507,7 +507,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:5:15, endln:5:27
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:5:26, endln:5:27
       |vpiDecompile:2
@@ -521,7 +521,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:6:15, endln:6:34
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
       |vpiDecompile:1
@@ -535,7 +535,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:7:15, endln:7:32
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:7:31, endln:7:32
       |vpiDecompile:2
@@ -549,7 +549,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:8:47, endln:12:2
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_operation: , line:9:1, endln:12:2
       |vpiOpType:33
@@ -571,7 +571,7 @@ design: (work@dut)
     \_parameter: (pkg::SeedInfoPageSel), line:8:47, endln:8:62
   |vpiDefName:pkg
 |uhdmtopPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:pkg
@@ -579,14 +579,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::FLASH_INFO_PER_BANK), line:2:16, endln:2:35
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:2:12, endln:2:15
       |vpiParent:
       \_parameter: (pkg::FLASH_INFO_PER_BANK), line:2:16, endln:2:35
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -595,14 +595,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::InfosPerBank), line:3:15, endln:3:27
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:14
       |vpiParent:
       \_parameter: (pkg::InfosPerBank), line:3:15, endln:3:27
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfosPerBank
@@ -610,14 +610,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::InfoPageW), line:4:15, endln:4:24
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:4:11, endln:4:14
       |vpiParent:
       \_parameter: (pkg::InfoPageW), line:4:15, endln:4:24
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfoPageW
@@ -625,14 +625,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::NumSeeds), line:5:15, endln:5:23
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:5:11, endln:5:14
       |vpiParent:
       \_parameter: (pkg::NumSeeds), line:5:15, endln:5:23
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:NumSeeds
@@ -640,14 +640,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::CreatorInfoPage), line:6:15, endln:6:30
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:6:11, endln:6:14
       |vpiParent:
       \_parameter: (pkg::CreatorInfoPage), line:6:15, endln:6:30
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:CreatorInfoPage
@@ -655,14 +655,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::OwnerInfoPage), line:7:15, endln:7:28
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:7:11, endln:7:14
       |vpiParent:
       \_parameter: (pkg::OwnerInfoPage), line:7:15, endln:7:28
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:OwnerInfoPage
@@ -670,13 +670,13 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (pkg::SeedInfoPageSel), line:8:47, endln:8:62
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiTypespec:
     \_logic_typespec: , line:8:11, endln:8:46
       |vpiParent:
       \_parameter: (pkg::SeedInfoPageSel), line:8:47, endln:8:62
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiRange:
       \_range: , line:8:17, endln:8:31
         |vpiLeftRange:
@@ -718,7 +718,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:16, endln:2:37
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:2:36, endln:2:37
       |vpiDecompile:4
@@ -732,7 +732,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:52
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:3:33, endln:3:52
       |vpiDecompile:4
@@ -746,7 +746,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:53
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:4:33, endln:4:53
       |vpiDecompile:2
@@ -760,7 +760,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:5:15, endln:5:27
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:5:26, endln:5:27
       |vpiDecompile:2
@@ -774,7 +774,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:6:15, endln:6:34
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
       |vpiDecompile:1
@@ -788,7 +788,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:7:15, endln:7:32
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:7:31, endln:7:32
       |vpiDecompile:2
@@ -802,7 +802,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:8:47, endln:12:2
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_operation: , line:9:1, endln:12:2
       |vpiOpType:33
@@ -826,21 +826,21 @@ design: (work@dut)
   |vpiDefName:pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.CreatorInfoPage), line:6:15, endln:6:30
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:6:11, endln:6:14
       |vpiParent:
       \_parameter: (work@dut.CreatorInfoPage), line:6:15, endln:6:30
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:CreatorInfoPage
@@ -849,14 +849,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.FLASH_INFO_PER_BANK), line:2:16, endln:2:35
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:2:12, endln:2:15
       |vpiParent:
       \_parameter: (work@dut.FLASH_INFO_PER_BANK), line:2:16, endln:2:35
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -866,14 +866,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.InfoPageW), line:4:15, endln:4:24
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:4:11, endln:4:14
       |vpiParent:
       \_parameter: (work@dut.InfoPageW), line:4:15, endln:4:24
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfoPageW
@@ -882,14 +882,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.InfosPerBank), line:3:15, endln:3:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:14
       |vpiParent:
       \_parameter: (work@dut.InfosPerBank), line:3:15, endln:3:27
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfosPerBank
@@ -898,14 +898,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.NumSeeds), line:5:15, endln:5:23
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:5:11, endln:5:14
       |vpiParent:
       \_parameter: (work@dut.NumSeeds), line:5:15, endln:5:23
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:NumSeeds
@@ -914,14 +914,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.OwnerInfoPage), line:7:15, endln:7:28
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:7:11, endln:7:14
       |vpiParent:
       \_parameter: (work@dut.OwnerInfoPage), line:7:15, endln:7:28
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:OwnerInfoPage
@@ -930,13 +930,13 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.SeedInfoPageSel), line:8:47, endln:8:62
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiTypespec:
     \_logic_typespec: , line:8:11, endln:8:46
       |vpiParent:
       \_parameter: (work@dut.SeedInfoPageSel), line:8:47, endln:8:62
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiRange:
       \_range: , line:8:17, endln:8:31
         |vpiParent:
@@ -983,7 +983,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:16, endln:2:37
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:2:36, endln:2:37
       |vpiParent:
@@ -996,7 +996,7 @@ design: (work@dut)
         |vpiParent:
         \_constant: , line:2:36, endln:2:37
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -1009,7 +1009,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.FLASH_INFO_PER_BANK), line:2:16, endln:2:35
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiLocalParam:1
@@ -1019,7 +1019,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:52
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:3:33, endln:3:52
       |vpiParent:
@@ -1032,7 +1032,7 @@ design: (work@dut)
         |vpiParent:
         \_constant: , line:3:33, endln:3:52
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -1045,7 +1045,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.InfosPerBank), line:3:15, endln:3:27
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiName:InfosPerBank
@@ -1054,7 +1054,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:53
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:4:33, endln:4:53
       |vpiParent:
@@ -1067,7 +1067,7 @@ design: (work@dut)
         |vpiParent:
         \_constant: , line:4:33, endln:4:53
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -1080,7 +1080,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.InfoPageW), line:4:15, endln:4:24
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiName:InfoPageW
@@ -1089,7 +1089,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:5:15, endln:5:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:5:26, endln:5:27
       |vpiParent:
@@ -1102,7 +1102,7 @@ design: (work@dut)
         |vpiParent:
         \_constant: , line:5:26, endln:5:27
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -1115,7 +1115,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.NumSeeds), line:5:15, endln:5:23
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiName:NumSeeds
@@ -1124,7 +1124,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:6:15, endln:6:34
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
       |vpiParent:
@@ -1137,7 +1137,7 @@ design: (work@dut)
         |vpiParent:
         \_constant: , line:6:33, endln:6:34
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -1150,7 +1150,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.CreatorInfoPage), line:6:15, endln:6:30
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiName:CreatorInfoPage
@@ -1159,7 +1159,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:7:15, endln:7:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:7:31, endln:7:32
       |vpiParent:
@@ -1172,7 +1172,7 @@ design: (work@dut)
         |vpiParent:
         \_constant: , line:7:31, endln:7:32
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -1185,7 +1185,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.OwnerInfoPage), line:7:15, endln:7:28
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiName:OwnerInfoPage
@@ -1194,7 +1194,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:8:47, endln:12:2
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_operation: , line:9:1, endln:12:2
       |vpiParent:
@@ -1222,7 +1222,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.SeedInfoPageSel), line:8:47, endln:8:62
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiRange:
         \_range: , line:8:17, endln:8:31
           |vpiParent:
@@ -1270,14 +1270,14 @@ design: (work@dut)
   \_import_typespec: (pkg), line:23:8, endln:23:14
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@test (work@test), file:dut.sv, line:16:1, endln:20:10
+\_module: work@test (work@test), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:16:1, endln:20:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.p), line:17:25, endln:17:26
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:16:1, endln:20:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:16:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:17:13, endln:17:24
       |vpiParent:
@@ -1305,24 +1305,24 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:17:25, endln:17:26
     |vpiParent:
-    \_module: work@test (work@test), file:dut.sv, line:16:1, endln:20:10
+    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:16:1, endln:20:10
     |vpiLhs:
     \_parameter: (work@test.p), line:17:25, endln:17:26
   |vpiDefName:work@test
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
   |vpiName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.CreatorInfoPage), line:6:15, endln:6:30
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:6:11, endln:6:14
       |vpiParent:
       \_parameter: (work@dut.CreatorInfoPage), line:6:15, endln:6:30
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:CreatorInfoPage
@@ -1331,14 +1331,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.FLASH_INFO_PER_BANK), line:2:16, endln:2:35
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:2:12, endln:2:15
       |vpiParent:
       \_parameter: (work@dut.FLASH_INFO_PER_BANK), line:2:16, endln:2:35
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1348,14 +1348,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.InfoPageW), line:4:15, endln:4:24
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:4:11, endln:4:14
       |vpiParent:
       \_parameter: (work@dut.InfoPageW), line:4:15, endln:4:24
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfoPageW
@@ -1364,14 +1364,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.InfosPerBank), line:3:15, endln:3:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:14
       |vpiParent:
       \_parameter: (work@dut.InfosPerBank), line:3:15, endln:3:27
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:InfosPerBank
@@ -1380,14 +1380,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.NumSeeds), line:5:15, endln:5:23
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:5:11, endln:5:14
       |vpiParent:
       \_parameter: (work@dut.NumSeeds), line:5:15, endln:5:23
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:NumSeeds
@@ -1396,14 +1396,14 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.OwnerInfoPage), line:7:15, endln:7:28
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:7:11, endln:7:14
       |vpiParent:
       \_parameter: (work@dut.OwnerInfoPage), line:7:15, endln:7:28
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:OwnerInfoPage
@@ -1412,13 +1412,13 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.SeedInfoPageSel), line:8:47, endln:8:62
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiTypespec:
     \_logic_typespec: , line:8:11, endln:8:46
       |vpiParent:
       \_parameter: (work@dut.SeedInfoPageSel), line:8:47, endln:8:62
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
       |vpiRange:
       \_range: , line:8:17, endln:8:31
         |vpiParent:
@@ -1465,7 +1465,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:16, endln:2:37
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:2:36, endln:2:37
       |vpiDecompile:4
@@ -1479,7 +1479,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:52
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:3:33, endln:3:52
       |vpiDecompile:4
@@ -1493,7 +1493,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:4:15, endln:4:53
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:4:33, endln:4:53
       |vpiDecompile:2
@@ -1507,7 +1507,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:5:15, endln:5:27
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:5:26, endln:5:27
       |vpiDecompile:2
@@ -1521,7 +1521,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:6:15, endln:6:34
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
       |vpiDecompile:1
@@ -1535,7 +1535,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:7:15, endln:7:32
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_constant: , line:7:31, endln:7:32
       |vpiDecompile:2
@@ -1549,7 +1549,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:8:47, endln:12:2
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiRhs:
     \_operation: , line:9:1, endln:12:2
       |vpiTypespec:
@@ -1557,7 +1557,7 @@ design: (work@dut)
         |vpiParent:
         \_operation: , line:9:1, endln:12:2
         |vpiInstance:
-        \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:14:11
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:1:1, endln:14:11
         |vpiRange:
         \_range: , line:8:17, endln:8:31
           |vpiParent:
@@ -1622,15 +1622,15 @@ design: (work@dut)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@test (work@dut.t), file:dut.sv, line:25:1, endln:25:33
+  \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:25:1, endln:25:33
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
     |vpiName:t
     |vpiFullName:work@dut.t
     |vpiParameter:
     \_parameter: (work@dut.t.p), line:17:25, endln:17:26
       |vpiParent:
-      \_module: work@test (work@dut.t), file:dut.sv, line:25:1, endln:25:33
+      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:25:1, endln:25:33
       |vpiTypespec:
       \_logic_typespec: , line:17:13, endln:17:24
         |vpiParent:
@@ -1660,7 +1660,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:17:25, endln:17:26
       |vpiParent:
-      \_module: work@test (work@dut.t), file:dut.sv, line:25:1, endln:25:33
+      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:25:1, endln:25:33
       |vpiOverriden:1
       |vpiRhs:
       \_constant: 
@@ -1673,10 +1673,10 @@ design: (work@dut)
       |vpiLhs:
       \_parameter: (work@dut.t.p), line:17:25, endln:17:26
     |vpiDefName:work@test
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/IntegerConcat/dut.sv
     |vpiDefLineNo:16
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:22:1, endln:26:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/IntegerConcat/dut.sv, line:22:1, endln:26:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

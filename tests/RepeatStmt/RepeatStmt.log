@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/RepeatStmt/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/RepeatStmt/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/RepeatStmt/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<160> s<159> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -163,21 +163,21 @@ n<> u<157> t<Module_declaration> p<158> c<13> l<4:1> el<23:10>
 n<> u<158> t<Description> p<159> c<157> l<4:1> el<23:10>
 n<> u<159> t<Source_text> p<160> c<8> l<1:1> el<23:10>
 n<> u<160> t<Top_level_rule> c<1> l<1:1> el<24:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "GOOD".
+[WRN:PA0205] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:1:1: No timescale set for "GOOD".
 
-[WRN:PA0205] dut.sv:4:1: No timescale set for "constfunc11".
+[WRN:PA0205] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:4:1: No timescale set for "constfunc11".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@GOOD".
+[INF:CP0303] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:1:1: Compile module "work@GOOD".
 
-[INF:CP0303] dut.sv:4:1: Compile module "work@constfunc11".
+[INF:CP0303] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:4:1: Compile module "work@constfunc11".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:19:1: Compile generate block "work@constfunc11.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:19:1: Compile generate block "work@constfunc11.genblk1".
 
-[NTE:EL0503] dut.sv:4:1: Top level module "work@constfunc11".
+[NTE:EL0503] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:4:1: Top level module "work@constfunc11".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -233,11 +233,11 @@ range                                                  5
 ref_obj                                                8
 repeat                                                 2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/RepeatStmt/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/RepeatStmt/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/RepeatStmt/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/RepeatStmt/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/RepeatStmt/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/RepeatStmt/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -246,27 +246,27 @@ design: (work@constfunc11)
 |vpiElaborated:1
 |vpiName:work@constfunc11
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD), file:dut.sv, line:1:1, endln:2:10
+\_module: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:1:1, endln:2:10
   |vpiParent:
   \_design: (work@constfunc11)
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+\_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
   |vpiParent:
   \_design: (work@constfunc11)
   |vpiFullName:work@constfunc11
   |vpiParameter:
   \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiLocalParam:1
     |vpiName:val0
     |vpiFullName:work@constfunc11.val0
   |vpiParamAssign:
   \_param_assign: , line:17:12, endln:17:26
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiRhs:
     \_func_call: (pow2), line:17:19, endln:17:23
       |vpiArgument:
@@ -286,7 +286,7 @@ design: (work@constfunc11)
   |vpiTaskFunc:
   \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiName:pow2
     |vpiFullName:work@constfunc11.pow2
     |vpiVisibility:1
@@ -313,7 +313,7 @@ design: (work@constfunc11)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiIODecl:
     \_io_decl: (x), line:6:34, endln:6:35
       |vpiDirection:1
@@ -419,21 +419,21 @@ design: (work@constfunc11)
               |vpiActual:
               \_logic_var: (pow2), line:6:10, endln:6:16
     |vpiInstance:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
 |uhdmtopModules:
-\_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+\_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
   |vpiName:work@constfunc11
   |vpiParameter:
   \_parameter: (work@constfunc11.val0), line:17:12, endln:17:16
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiLocalParam:1
     |vpiName:val0
     |vpiFullName:work@constfunc11.val0
   |vpiParamAssign:
   \_param_assign: , line:17:12, endln:17:26
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiRhs:
     \_constant: , line:17:19, endln:17:26
       |vpiDecompile:16
@@ -447,14 +447,14 @@ design: (work@constfunc11)
   |vpiTaskFunc:
   \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiName:pow2
     |vpiFullName:work@constfunc11.pow2
     |vpiVisibility:1
     |vpiReturn:
     \_logic_var: , line:6:10, endln:6:16
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiIODecl:
     \_io_decl: (x), line:6:34, endln:6:35
       |vpiParent:
@@ -532,12 +532,12 @@ design: (work@constfunc11)
               |vpiActual:
               \_logic_var: , line:6:10, endln:6:16
     |vpiInstance:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4
     |vpiParent:
-    \_module: work@constfunc11 (work@constfunc11), file:dut.sv, line:4:1, endln:23:10
+    \_module: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiName:genblk1
     |vpiFullName:work@constfunc11.genblk1
     |vpiGenScope:
@@ -546,13 +546,13 @@ design: (work@constfunc11)
       \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4
       |vpiFullName:work@constfunc11.genblk1
       |vpiModule:
-      \_module: work@GOOD (work@constfunc11.genblk1.good), file:dut.sv, line:20:4, endln:20:16
+      \_module: work@GOOD (work@constfunc11.genblk1.good), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:20:4, endln:20:16
         |vpiParent:
         \_gen_scope: (work@constfunc11.genblk1)
         |vpiName:good
         |vpiFullName:work@constfunc11.genblk1.good
         |vpiDefName:work@GOOD
-        |vpiDefFile:dut.sv
+        |vpiDefFile:${SURELOG_DIR}/tests/RepeatStmt/dut.sv
         |vpiDefLineNo:1
 ===================
 [  FATAL] : 0

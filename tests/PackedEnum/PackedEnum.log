@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackedEnum/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackedEnum/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<79> s<78> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -82,15 +82,15 @@ n<> u<76> t<Module_declaration> p<77> c<4> l<1:1> el<8:10>
 n<> u<77> t<Description> p<78> c<76> l<1:1> el<8:10>
 n<> u<78> t<Source_text> p<79> c<77> l<1:1> el<8:10>
 n<> u<79> t<Top_level_rule> c<1> l<1:1> el<9:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackedEnum/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackedEnum/dut.sv:1:1: Compile module "work@dut".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PackedEnum/dut.sv:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -132,11 +132,11 @@ struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackedEnum/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackedEnum/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackedEnum/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -145,17 +145,17 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:8:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiTypedef:
   \_enum_typespec: (cstate_e), line:2:4, endln:2:47
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiName:cstate_e
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiBaseTypespec:
     \_logic_typespec: , line:2:17, endln:2:22
     |vpiEnumConst:
@@ -174,16 +174,16 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiName:hw2reg_wrap_t
     |vpiFullName:work@dut.hw2reg_wrap_t
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:8:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
   |vpiName:work@dut
   |vpiVariables:
   \_struct_var: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_struct_typespec: , line:4:4, endln:4:10
       |vpiPacked:1
@@ -218,7 +218,7 @@ design: (work@dut)
               |vpiConstType:9
           |vpiElemTypespec:
           \_enum_typespec: (cstate_e), line:2:4, endln:2:47
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:5
@@ -252,7 +252,7 @@ design: (work@dut)
               |vpiSize:64
               |UINT:2
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
         |vpiRefLineNo:6
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:6
