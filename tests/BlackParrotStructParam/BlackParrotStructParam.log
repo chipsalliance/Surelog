@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BlackParrotStructParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BlackParrotStructParam/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<360> s<359> l<1:1> el<1:0>
 n<> u<2> t<Package> p<241> s<3> l<1:1> el<1:8>
@@ -363,15 +363,15 @@ n<> u<357> t<Module_declaration> p<358> c<298> l<55:1> el<66:10>
 n<> u<358> t<Description> p<359> c<357> l<55:1> el<66:10>
 n<> u<359> t<Source_text> p<360> c<242> l<1:1> el<66:10>
 n<> u<360> t<Top_level_rule> c<1> l<1:1> el<69:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "bp_common_aviary_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:1:1: No timescale set for "bp_common_aviary_pkg".
 
-[WRN:PA0205] dut.sv:55:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:55:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "bp_common_aviary_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:1:1: Compile package "bp_common_aviary_pkg".
 
-[INF:CP0303] dut.sv:55:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:55:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -633,11 +633,11 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:62:2: Compile generate block "work@top.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:62:2: Compile generate block "work@top.genblk1".
 
-[NTE:EL0503] dut.sv:55:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:55:1: Top level module "work@top".
 
-[WRN:EL0500] dut.sv:63:5: Cannot find a module definition for "work@top.genblk1::OK".
+[WRN:EL0500] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:63:5: Cannot find a module definition for "work@top.genblk1::OK".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -729,11 +729,11 @@ tagged_pattern                                        50
 task                                                  18
 typespec_member                                       54
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BlackParrotStructParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BlackParrotStructParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BlackParrotStructParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BlackParrotStructParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BlackParrotStructParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BlackParrotStructParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -749,7 +749,7 @@ design: (work@top)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:bp_common_aviary_pkg
@@ -757,7 +757,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::max_cfgs), line:3:14, endln:3:22
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -767,14 +767,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_default_cfg_p), line:10:30, endln:10:46
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -788,7 +788,7 @@ design: (work@top)
           |vpiInstance:
           \_package: (bp_common_aviary_pkg)
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -799,7 +799,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_unicore_cfg_p), line:15:29, endln:15:45
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -808,7 +808,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -817,7 +817,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -826,7 +826,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -835,7 +835,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:42:41, endln:42:52
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_packed_array_typespec: , line:42:12, endln:42:27
       |vpiParent:
@@ -866,7 +866,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:29
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:1
@@ -880,7 +880,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:30, endln:13:8
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:11:5, endln:13:8
       |vpiOpType:75
@@ -900,7 +900,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:15:29, endln:15:64
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_ref_obj: (bp_default_cfg_p), line:15:48, endln:15:64
       |vpiName:bp_default_cfg_p
@@ -911,7 +911,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:17:30, endln:20:8
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:18:5, endln:20:8
       |vpiOpType:75
@@ -931,7 +931,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:22:29, endln:30:8
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:23:7, endln:30:8
       |vpiOpType:75
@@ -951,7 +951,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:32:28, endln:40:10
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:33:7, endln:40:10
       |vpiOpType:75
@@ -971,7 +971,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:42:41, endln:46:4
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:43:3, endln:46:4
       |vpiOpType:33
@@ -987,10 +987,10 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:48:2, endln:51:17
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiName:bp_common_aviary_pkg::bp_params_e
     |vpiInstance:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiBaseTypespec:
     \_bit_typespec: , line:48:15, endln:48:31
       |vpiInstance:
@@ -1060,7 +1060,7 @@ design: (work@top)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+\_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:bp_common_aviary_pkg
@@ -1068,7 +1068,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::max_cfgs), line:3:14, endln:3:22
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -1078,14 +1078,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_default_cfg_p), line:10:30, endln:10:46
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
-      \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -1097,9 +1097,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1110,7 +1110,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_unicore_cfg_p), line:15:29, endln:15:45
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -1119,7 +1119,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -1128,7 +1128,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -1137,7 +1137,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -1146,13 +1146,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:42:41, endln:42:52
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiTypespec:
     \_packed_array_typespec: , line:42:12, endln:42:27
       |vpiParent:
       \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:42:41, endln:42:52
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiRange:
       \_range: , line:42:28, endln:42:40
         |vpiLeftRange:
@@ -1182,7 +1182,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:29
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:1
@@ -1196,7 +1196,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:30, endln:13:8
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:11:5, endln:13:8
       |vpiOpType:75
@@ -1216,7 +1216,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:15:29, endln:15:64
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_ref_obj: (bp_default_cfg_p), line:15:48, endln:15:64
       |vpiName:bp_default_cfg_p
@@ -1227,7 +1227,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:17:30, endln:20:8
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:18:5, endln:20:8
       |vpiOpType:75
@@ -1247,7 +1247,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:22:29, endln:30:8
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:23:7, endln:30:8
       |vpiOpType:75
@@ -1267,7 +1267,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:32:28, endln:40:10
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:33:7, endln:40:10
       |vpiOpType:75
@@ -1287,7 +1287,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:42:41, endln:46:4
     |vpiParent:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiRhs:
     \_operation: , line:43:3, endln:46:4
       |vpiOpType:33
@@ -1304,14 +1304,14 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:48:2, endln:51:17
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiName:bp_common_aviary_pkg::bp_params_e
     |vpiInstance:
-    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
     |vpiBaseTypespec:
     \_bit_typespec: , line:48:15, endln:48:31
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiRange:
       \_range: , line:48:19, endln:48:31
         |vpiLeftRange:
@@ -1775,20 +1775,20 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.all_cfgs_gp), line:42:41, endln:42:52
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_packed_array_typespec: , line:42:12, endln:42:27
       |vpiParent:
       \_parameter: (work@top.all_cfgs_gp), line:42:41, endln:42:52
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiRange:
       \_range: , line:42:28, endln:42:40
         |vpiParent:
@@ -1819,7 +1819,7 @@ design: (work@top)
         \_packed_array_typespec: , line:42:12, endln:42:27
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -1831,9 +1831,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -1844,14 +1844,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_default_cfg_p), line:10:30, endln:10:46
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_default_cfg_p), line:10:30, endln:10:46
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -1863,9 +1863,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1877,14 +1877,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -1896,9 +1896,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1910,14 +1910,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -1929,9 +1929,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1943,14 +1943,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -1962,9 +1962,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -1976,14 +1976,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_unicore_cfg_p), line:15:29, endln:15:45
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_unicore_cfg_p), line:15:29, endln:15:45
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -1995,9 +1995,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -2009,7 +2009,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.max_cfgs), line:3:14, endln:3:22
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -2022,7 +2022,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_params_p), line:56:25, endln:56:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:48:2, endln:51:17
     |vpiName:bp_params_p
@@ -2030,7 +2030,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.proc_param_lp), line:57:30, endln:57:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
     |vpiLocalParam:1
@@ -2039,14 +2039,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.cc_x_dim_p), line:58:14, endln:58:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiLocalParam:1
     |vpiName:cc_x_dim_p
     |vpiFullName:work@top.cc_x_dim_p
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:29
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiParent:
@@ -2075,7 +2075,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:30, endln:13:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:11:5, endln:13:8
       |vpiParent:
@@ -2108,7 +2108,7 @@ design: (work@top)
         \_parameter: (work@top.bp_default_cfg_p), line:10:30, endln:10:46
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2120,9 +2120,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -2134,7 +2134,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:15:29, endln:15:64
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_ref_obj: (work@top.bp_default_cfg_p), line:15:48, endln:15:64
       |vpiParent:
@@ -2151,7 +2151,7 @@ design: (work@top)
         \_parameter: (work@top.bp_unicore_cfg_p), line:15:29, endln:15:45
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2163,9 +2163,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -2177,7 +2177,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:17:30, endln:20:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:18:5, endln:20:8
       |vpiParent:
@@ -2210,7 +2210,7 @@ design: (work@top)
         \_parameter: (work@top.bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2222,9 +2222,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -2236,7 +2236,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:22:29, endln:30:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:23:7, endln:30:8
       |vpiParent:
@@ -2269,7 +2269,7 @@ design: (work@top)
         \_parameter: (work@top.bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2281,9 +2281,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -2295,7 +2295,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:32:28, endln:40:10
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:33:7, endln:40:10
       |vpiParent:
@@ -2328,7 +2328,7 @@ design: (work@top)
         \_parameter: (work@top.bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2340,9 +2340,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -2354,7 +2354,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:42:41, endln:46:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:43:3, endln:46:4
       |vpiParent:
@@ -2376,7 +2376,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.all_cfgs_gp), line:42:41, endln:42:52
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiRange:
         \_range: , line:42:28, endln:42:40
           |vpiParent:
@@ -2407,7 +2407,7 @@ design: (work@top)
           \_packed_array_typespec: , line:42:12, endln:42:27
           |vpiName:bp_common_aviary_pkg::bp_proc_param_s
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiPacked:1
           |vpiTypespecMember:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2419,9 +2419,9 @@ design: (work@top)
               |vpiParent:
               \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
               |vpiInstance:
-              \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+              \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
               |vpiSigned:1
-            |vpiRefFile:dut.sv
+            |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
             |vpiRefLineNo:7
             |vpiRefColumnNo:5
             |vpiRefEndLineNo:7
@@ -2432,7 +2432,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:56:25, endln:56:55
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_ref_obj: (e_bp_default_cfg), line:56:39, endln:56:55
       |vpiName:e_bp_default_cfg
@@ -2443,7 +2443,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:57:30, endln:57:70
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:57:46, endln:57:70
       |vpiParent:
@@ -2461,7 +2461,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:58:14, endln:58:50
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_hier_path: (proc_param_lp.cc_x_dim), line:58:28, endln:58:50
       |vpiName:proc_param_lp.cc_x_dim
@@ -2485,17 +2485,17 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.aa), line:60:25, endln:60:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiName:aa
     |vpiFullName:work@top.aa
     |vpiNetType:36
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.aa), line:60:25, endln:60:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_logic_typespec: , line:60:2, endln:60:24
       |vpiRange:
@@ -2540,13 +2540,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.all_cfgs_gp), line:42:41, endln:42:52
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_packed_array_typespec: , line:42:12, endln:42:27
       |vpiParent:
       \_parameter: (work@top.all_cfgs_gp), line:42:41, endln:42:52
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiRange:
       \_range: , line:42:28, endln:42:40
         |vpiParent:
@@ -2577,7 +2577,7 @@ design: (work@top)
         \_packed_array_typespec: , line:42:12, endln:42:27
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2589,9 +2589,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -2602,14 +2602,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_default_cfg_p), line:10:30, endln:10:46
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_default_cfg_p), line:10:30, endln:10:46
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2621,9 +2621,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -2635,14 +2635,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_multicore_1_cce_ucode_cfg_p), line:22:29, endln:22:59
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2654,9 +2654,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -2668,14 +2668,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_multicore_cce_ucode_half_cfg_p), line:32:28, endln:32:61
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2687,9 +2687,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -2701,14 +2701,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_multicore_cce_ucode_half_override_p), line:17:30, endln:17:68
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2720,9 +2720,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -2734,14 +2734,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_unicore_cfg_p), line:15:29, endln:15:45
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.bp_unicore_cfg_p), line:15:29, endln:15:45
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2753,9 +2753,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -2767,7 +2767,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.max_cfgs), line:3:14, endln:3:22
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -2780,20 +2780,20 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.bp_params_p), line:56:25, endln:56:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:48:2, endln:51:17
       |vpiParent:
       \_parameter: (work@top.bp_params_p), line:56:25, endln:56:36
       |vpiName:bp_common_aviary_pkg::bp_params_e
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiBaseTypespec:
       \_bit_typespec: , line:48:15, endln:48:31
         |vpiParent:
         \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:48:2, endln:51:17
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiRange:
         \_range: , line:48:19, endln:48:31
           |vpiParent:
@@ -2831,14 +2831,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.proc_param_lp), line:57:30, endln:57:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiTypespec:
     \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:9, endln:5:15
       |vpiParent:
       \_parameter: (work@top.proc_param_lp), line:57:30, endln:57:43
       |vpiName:bp_common_aviary_pkg::bp_proc_param_s
       |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2850,9 +2850,9 @@ design: (work@top)
           |vpiParent:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
         |vpiRefLineNo:7
         |vpiRefColumnNo:5
         |vpiRefEndLineNo:7
@@ -2863,14 +2863,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.cc_x_dim_p), line:58:14, endln:58:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiLocalParam:1
     |vpiName:cc_x_dim_p
     |vpiFullName:work@top.cc_x_dim_p
   |vpiParamAssign:
   \_param_assign: , line:56:25, endln:56:55
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_constant: , line:56:39, endln:56:55
       |vpiDecompile:0
@@ -2884,7 +2884,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:57:30, endln:57:70
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:57:46, endln:57:70
       |vpiParent:
@@ -2904,13 +2904,13 @@ design: (work@top)
           \_constant: , line:57:58, endln:57:69
           |vpiName:bp_common_aviary_pkg::bp_params_e
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiBaseTypespec:
           \_bit_typespec: , line:48:15, endln:48:31
             |vpiParent:
             \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:48:2, endln:51:17
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiRange:
             \_range: , line:48:19, endln:48:31
               |vpiParent:
@@ -2949,7 +2949,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:58:14, endln:58:50
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_constant: , line:58:28, endln:58:50
       |vpiDecompile:1
@@ -2961,7 +2961,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:29
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_constant: , line:3:28, endln:3:29
       |vpiDecompile:1
@@ -2975,7 +2975,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:30, endln:13:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:11:5, endln:13:8
       |vpiParent:
@@ -2986,7 +2986,7 @@ design: (work@top)
         \_operation: , line:11:5, endln:13:8
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -2998,9 +2998,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -3019,7 +3019,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:15:29, endln:15:64
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_ref_obj: (bp_default_cfg_p), line:15:48, endln:15:64
       |vpiName:bp_default_cfg_p
@@ -3030,7 +3030,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:17:30, endln:20:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:18:5, endln:20:8
       |vpiParent:
@@ -3041,7 +3041,7 @@ design: (work@top)
         \_operation: , line:18:5, endln:20:8
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -3053,9 +3053,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -3074,7 +3074,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:22:29, endln:30:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:23:7, endln:30:8
       |vpiParent:
@@ -3085,7 +3085,7 @@ design: (work@top)
         \_operation: , line:23:7, endln:30:8
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -3097,9 +3097,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -3118,7 +3118,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:32:28, endln:40:10
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:33:7, endln:40:10
       |vpiParent:
@@ -3129,7 +3129,7 @@ design: (work@top)
         \_operation: , line:33:7, endln:40:10
         |vpiName:bp_common_aviary_pkg::bp_proc_param_s
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -3141,9 +3141,9 @@ design: (work@top)
             |vpiParent:
             \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
             |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
             |vpiSigned:1
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
           |vpiRefLineNo:7
           |vpiRefColumnNo:5
           |vpiRefEndLineNo:7
@@ -3162,7 +3162,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:42:41, endln:46:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_operation: , line:43:3, endln:46:4
       |vpiTypespec:
@@ -3170,7 +3170,7 @@ design: (work@top)
         |vpiParent:
         \_operation: , line:43:3, endln:46:4
         |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
         |vpiRange:
         \_range: , line:42:28, endln:42:40
           |vpiParent:
@@ -3201,7 +3201,7 @@ design: (work@top)
           \_packed_array_typespec: , line:42:12, endln:42:27
           |vpiName:bp_common_aviary_pkg::bp_proc_param_s
           |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
           |vpiPacked:1
           |vpiTypespecMember:
           \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
@@ -3213,9 +3213,9 @@ design: (work@top)
               |vpiParent:
               \_typespec_member: (cc_x_dim), line:7:13, endln:7:21
               |vpiInstance:
-              \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:dut.sv, line:1:1, endln:53:11
+              \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:1:1, endln:53:11
               |vpiSigned:1
-            |vpiRefFile:dut.sv
+            |vpiRefFile:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv
             |vpiRefLineNo:7
             |vpiRefColumnNo:5
             |vpiRefEndLineNo:7
@@ -3243,7 +3243,7 @@ design: (work@top)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1), line:62:2, endln:64:5
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:55:1, endln:66:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
@@ -3252,7 +3252,7 @@ design: (work@top)
       \_gen_scope_array: (work@top.genblk1), line:62:2, endln:64:5
       |vpiFullName:work@top.genblk1
       |vpiModule:
-      \_module: work@top.genblk1::OK (work@top.genblk1.ok), file:dut.sv, line:63:5, endln:63:13
+      \_module: work@top.genblk1::OK (work@top.genblk1.ok), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:63:5, endln:63:13
         |vpiParent:
         \_gen_scope: (work@top.genblk1)
         |vpiName:ok

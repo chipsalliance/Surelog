@@ -1,9 +1,9 @@
-[INF:CM0023] Creating log file ../../build/regression/CaseInside/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/CaseInside/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
 LIB:  work
-FILE: top.sv
+FILE: ${SURELOG_DIR}/tests/CaseInside/top.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<159> s<158> l<1:1> el<1:0>
 n<> u<2> t<Package> p<42> s<3> l<1:1> el<1:8>
@@ -164,15 +164,15 @@ n<> u<156> t<Module_declaration> p<157> c<48> l<12:1> el<29:20>
 n<> u<157> t<Description> p<158> c<156> l<12:1> el<29:20>
 n<> u<158> t<Source_text> p<159> c<43> l<1:1> el<29:20>
 n<> u<159> t<Top_level_rule> c<1> l<1:1> el<30:1>
-[WRN:PA0205] top.sv:1:1: No timescale set for "dm".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CaseInside/top.sv:1:1: No timescale set for "dm".
 
-[WRN:PA0205] top.sv:12:1: No timescale set for "dm_csrs".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CaseInside/top.sv:12:1: No timescale set for "dm_csrs".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] top.sv:1:1: Compile package "dm".
+[INF:CP0301] ${SURELOG_DIR}/tests/CaseInside/top.sv:1:1: Compile package "dm".
 
-[INF:CP0303] top.sv:12:1: Compile module "work@dm_csrs".
+[INF:CP0303] ${SURELOG_DIR}/tests/CaseInside/top.sv:12:1: Compile module "work@dm_csrs".
 
 LIB:  work
 FILE: builtin.sv
@@ -434,7 +434,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] top.sv:12:1: Top level module "work@dm_csrs".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CaseInside/top.sv:12:1: Top level module "work@dm_csrs".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -476,9 +476,9 @@ range                                                  2
 ref_obj                                                5
 task                                                   9
 === UHDM Object Stats End ===
-[ERR:UH0718] top.sv:19:11: Illegal lhs of type wire "resp_queue_data".
+[ERR:UH0718] ${SURELOG_DIR}/tests/CaseInside/top.sv:19:11: Illegal lhs of type wire "resp_queue_data".
 
-[ERR:UH0718] top.sv:23:27: Illegal lhs of type wire "resp_queue_data".
+[ERR:UH0718] ${SURELOG_DIR}/tests/CaseInside/top.sv:23:27: Illegal lhs of type wire "resp_queue_data".
 
 [INF:UH0707] Elaborating UHDM...
 
@@ -512,13 +512,13 @@ range                                                  2
 ref_obj                                               10
 task                                                  18
 === UHDM Object Stats End ===
-[ERR:UH0725] top.sv:15:27: Unresolved hierarchical reference "dmi_req_i.addr".
+[ERR:UH0725] ${SURELOG_DIR}/tests/CaseInside/top.sv:15:27: Unresolved hierarchical reference "dmi_req_i.addr".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CaseInside/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CaseInside/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CaseInside/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CaseInside/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CaseInside/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CaseInside/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -534,7 +534,7 @@ design: (work@dm_csrs)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
+\_package: dm (dm::), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:1:1, endln:10:16
   |vpiParent:
   \_design: (work@dm_csrs)
   |vpiName:dm
@@ -542,10 +542,10 @@ design: (work@dm_csrs)
   |vpiTypedef:
   \_enum_typespec: (dm::dm_csr_e), line:4:3, endln:8:14
     |vpiParent:
-    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:1:1, endln:10:16
     |vpiName:dm::dm_csr_e
     |vpiInstance:
-    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:1:1, endln:10:16
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:16, endln:4:27
       |vpiInstance:
@@ -626,7 +626,7 @@ design: (work@dm_csrs)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
+\_package: dm (dm::), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:1:1, endln:10:16
   |vpiParent:
   \_design: (work@dm_csrs)
   |vpiName:dm
@@ -634,14 +634,14 @@ design: (work@dm_csrs)
   |vpiTypedef:
   \_enum_typespec: (dm::dm_csr_e), line:4:3, endln:8:14
     |vpiParent:
-    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:1:1, endln:10:16
     |vpiName:dm::dm_csr_e
     |vpiInstance:
-    \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:1:1, endln:10:16
     |vpiBaseTypespec:
     \_logic_typespec: , line:4:16, endln:4:27
       |vpiInstance:
-      \_package: dm (dm::), file:top.sv, line:1:1, endln:10:16
+      \_package: dm (dm::), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:1:1, endln:10:16
       |vpiRange:
       \_range: , line:4:22, endln:4:27
         |vpiLeftRange:
@@ -1111,7 +1111,7 @@ design: (work@dm_csrs)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
+\_module: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:12:1, endln:29:20
   |vpiParent:
   \_design: (work@dm_csrs)
   |vpiFullName:work@dm_csrs
@@ -1119,7 +1119,7 @@ design: (work@dm_csrs)
   |vpiProcess:
   \_always: , line:13:3, endln:28:6
     |vpiParent:
-    \_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
+    \_module: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:12:1, endln:29:20
     |vpiStmt:
     \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
       |vpiParent:
@@ -1255,7 +1255,7 @@ design: (work@dm_csrs)
           \_case_stmt: , line:15:7, endln:26:14
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
+\_module: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:12:1, endln:29:20
   |vpiName:work@dm_csrs
   |vpiDefName:work@dm_csrs
   |vpiTop:1
@@ -1271,7 +1271,7 @@ design: (work@dm_csrs)
   |vpiProcess:
   \_always: , line:13:3, endln:28:6
     |vpiParent:
-    \_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12:1, endln:29:20
+    \_module: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/CaseInside/top.sv, line:12:1, endln:29:20
     |vpiStmt:
     \_named_begin: (work@dm_csrs.csr_read_write), line:13:15, endln:28:6
       |vpiParent:

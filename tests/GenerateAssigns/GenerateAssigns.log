@@ -1,13 +1,13 @@
-[INF:CM0023] Creating log file ../../build/regression/GenerateAssigns/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/GenerateAssigns/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[INF:PP0122] Preprocessing source file "top.v".
+[INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/GenerateAssigns/top.v".
 
-[INF:PA0201] Parsing source file "top.v".
+[INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/GenerateAssigns/top.v".
 
 LIB:  work
-FILE: top.v
+FILE: ${SURELOG_DIR}/tests/GenerateAssigns/top.v
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<257> s<256> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<23> s<3> l<1:1> el<1:7>
@@ -266,11 +266,11 @@ n<> u<254> t<Module_declaration> p<255> c<23> l<1:1> el<43:10>
 n<> u<255> t<Description> p<256> c<254> l<1:1> el<43:10>
 n<> u<256> t<Source_text> p<257> c<255> l<1:1> el<43:10>
 n<> u<257> t<Top_level_rule> c<1> l<1:1> el<44:1>
-[WRN:PA0205] top.v:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] top.v:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:1:1: Compile module "work@dut".
 
 LIB:  work
 FILE: builtin.sv
@@ -530,20 +530,20 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[NTE:CP0309] top.v:1:37: Implicit port type (wire) for "y".
+[NTE:CP0309] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:1:37: Implicit port type (wire) for "y".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] top.v:28:5: Compile generate block "work@dut.u2".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:28:5: Compile generate block "work@dut.u2".
 
-[INF:CP0335] top.v:29:7: Compile generate block "work@dut.u2.u1".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:29:7: Compile generate block "work@dut.u2.u1".
 
 Instance tree:
 [TOP] work@dut work@dut
 [SCO] work@dut.u2 work@dut.u2
 [SCO] work@dut.u2.u1 work@dut.u2.u1
 
-[NTE:EL0503] top.v:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -553,11 +553,11 @@ Instance tree:
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-[NTE:EL0523] top.v:1:1: Instance "work@dut".
+[NTE:EL0523] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:1:1: Instance "work@dut".
 
-[NTE:EL0522] top.v:28:5: Scope "work@dut.u2".
+[NTE:EL0522] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:28:5: Scope "work@dut.u2".
 
-[NTE:EL0522] top.v:29:7: Scope "work@dut.u2.u1".
+[NTE:EL0522] ${SURELOG_DIR}/tests/GenerateAssigns/top.v:29:7: Scope "work@dut.u2.u1".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -589,11 +589,11 @@ port                                                   6
 ref_obj                                                9
 task                                                   9
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/GenerateAssigns/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateAssigns/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/GenerateAssigns/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenerateAssigns/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/GenerateAssigns/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/GenerateAssigns/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1011,14 +1011,14 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.p), line:2:13, endln:2:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -1027,7 +1027,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.q), line:2:20, endln:2:21
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -1036,7 +1036,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:13, endln:2:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:17, endln:2:18
       |vpiDecompile:2
@@ -1050,7 +1050,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:20, endln:2:25
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:24, endln:2:25
       |vpiDecompile:4
@@ -1065,25 +1065,25 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.a), line:1:18, endln:1:19
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:a
     |vpiFullName:work@dut.a
   |vpiNet:
   \_logic_net: (work@dut.b), line:1:27, endln:1:28
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiNet:
   \_logic_net: (work@dut.y), line:1:37, endln:1:38
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:y
     |vpiFullName:work@dut.y
   |vpiPort:
   \_port: (a), line:1:18, endln:1:19
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -1095,7 +1095,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (b), line:1:27, endln:1:28
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -1107,7 +1107,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (y), line:1:37, endln:1:38
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:y
     |vpiDirection:2
     |vpiLowConn:
@@ -1117,12 +1117,12 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:1:37, endln:1:37
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
   |vpiName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.p), line:2:13, endln:2:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -1133,7 +1133,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.q), line:2:20, endln:2:21
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -1144,7 +1144,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:13, endln:2:18
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:17, endln:2:18
       |vpiDecompile:2
@@ -1158,7 +1158,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:20, endln:2:25
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:24, endln:2:25
       |vpiDecompile:4
@@ -1174,7 +1174,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.a), line:1:18, endln:1:19
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiTypespec:
     \_logic_typespec: , line:1:18, endln:1:18
     |vpiName:a
@@ -1182,7 +1182,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.b), line:1:27, endln:1:28
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiTypespec:
     \_logic_typespec: , line:1:27, endln:1:27
     |vpiName:b
@@ -1190,7 +1190,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.y), line:1:37, endln:1:38
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiTypespec:
     \_logic_typespec: , line:1:37, endln:1:37
     |vpiName:y
@@ -1199,7 +1199,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (a), line:1:18, endln:1:19
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -1213,7 +1213,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (b), line:1:27, endln:1:28
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -1227,7 +1227,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (y), line:1:37, endln:1:38
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:y
     |vpiDirection:2
     |vpiLowConn:
@@ -1241,7 +1241,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.u2), line:28:5, endln:41:8
     |vpiParent:
-    \_module: work@dut (work@dut), file:top.v, line:1:1, endln:43:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiName:u2
     |vpiFullName:work@dut.u2
     |vpiGenScope:

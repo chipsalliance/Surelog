@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/UnelabPack/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/UnelabPack/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<42> s<41> l<1:1> el<1:0>
 n<> u<2> t<Package> p<18> s<3> l<1:1> el<1:8>
@@ -45,15 +45,15 @@ n<> u<39> t<Package_declaration> p<40> c<20> l<5:1> el<7:11>
 n<> u<40> t<Description> p<41> c<39> l<5:1> el<7:11>
 n<> u<41> t<Source_text> p<42> c<19> l<1:1> el<7:11>
 n<> u<42> t<Top_level_rule> c<1> l<1:1> el<8:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pkg1".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnelabPack/dut.sv:1:1: No timescale set for "pkg1".
 
-[WRN:PA0205] dut.sv:5:1: No timescale set for "pkg2".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnelabPack/dut.sv:5:1: No timescale set for "pkg2".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pkg1".
+[INF:CP0301] ${SURELOG_DIR}/tests/UnelabPack/dut.sv:1:1: Compile package "pkg1".
 
-[INF:CP0301] dut.sv:5:1: Compile package "pkg2".
+[INF:CP0301] ${SURELOG_DIR}/tests/UnelabPack/dut.sv:5:1: Compile package "pkg2".
 
 [INF:EL0526] Design Elaboration...
 
@@ -89,11 +89,11 @@ param_assign                                           8
 parameter                                              8
 ref_obj                                                3
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/UnelabPack/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnelabPack/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/UnelabPack/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -102,7 +102,7 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: pkg1 (pkg1::), file:dut.sv, line:1:1, endln:3:11
+\_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pkg1
@@ -110,7 +110,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (pkg1::X), line:2:12, endln:2:13
     |vpiParent:
-    \_package: pkg1 (pkg1::), file:dut.sv, line:1:1, endln:3:11
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -120,7 +120,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:2:12, endln:2:17
     |vpiParent:
-    \_package: pkg1 (pkg1::), file:dut.sv, line:1:1, endln:3:11
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:16, endln:2:17
       |vpiDecompile:4
@@ -133,7 +133,7 @@ design: (unnamed)
     \_parameter: (pkg1::X), line:2:12, endln:2:13
   |vpiDefName:pkg1
 |uhdmallPackages:
-\_package: pkg2 (pkg2::), file:dut.sv, line:5:1, endln:7:11
+\_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pkg2
@@ -141,14 +141,14 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (pkg2::Y), line:6:12, endln:6:13
     |vpiParent:
-    \_package: pkg2 (pkg2::), file:dut.sv, line:5:1, endln:7:11
+    \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |vpiLocalParam:1
     |vpiName:Y
     |vpiFullName:pkg2::Y
   |vpiParamAssign:
   \_param_assign: , line:6:12, endln:6:23
     |vpiParent:
-    \_package: pkg2 (pkg2::), file:dut.sv, line:5:1, endln:7:11
+    \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |vpiRhs:
     \_ref_obj: (pkg1::X), line:6:16, endln:6:22
       |vpiName:pkg1::X
@@ -158,7 +158,7 @@ design: (unnamed)
     \_parameter: (pkg2::Y), line:6:12, endln:6:13
   |vpiDefName:pkg2
 |uhdmtopPackages:
-\_package: pkg1 (pkg1::), file:dut.sv, line:1:1, endln:3:11
+\_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pkg1
@@ -166,7 +166,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (pkg1::X), line:2:12, endln:2:13
     |vpiParent:
-    \_package: pkg1 (pkg1::), file:dut.sv, line:1:1, endln:3:11
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -176,7 +176,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:2:12, endln:2:17
     |vpiParent:
-    \_package: pkg1 (pkg1::), file:dut.sv, line:1:1, endln:3:11
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:16, endln:2:17
       |vpiDecompile:4
@@ -190,7 +190,7 @@ design: (unnamed)
   |vpiDefName:pkg1
   |vpiTop:1
 |uhdmtopPackages:
-\_package: pkg2 (pkg2::), file:dut.sv, line:5:1, endln:7:11
+\_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pkg2
@@ -198,7 +198,7 @@ design: (unnamed)
   |vpiParameter:
   \_parameter: (pkg2::Y), line:6:12, endln:6:13
     |vpiParent:
-    \_package: pkg2 (pkg2::), file:dut.sv, line:5:1, endln:7:11
+    \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -208,7 +208,7 @@ design: (unnamed)
   |vpiParamAssign:
   \_param_assign: , line:6:12, endln:6:23
     |vpiParent:
-    \_package: pkg2 (pkg2::), file:dut.sv, line:5:1, endln:7:11
+    \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |vpiRhs:
     \_constant: , line:6:16, endln:6:22
       |vpiDecompile:4

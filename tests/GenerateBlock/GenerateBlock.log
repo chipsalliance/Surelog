@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/GenerateBlock/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/GenerateBlock/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/GenerateBlock/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<161> s<160> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -164,21 +164,21 @@ n<> u<158> t<Module_declaration> p<159> c<4> l<1:1> el<19:10>
 n<> u<159> t<Description> p<160> c<158> l<1:1> el<19:10>
 n<> u<160> t<Source_text> p<161> c<159> l<1:1> el<19:10>
 n<> u<161> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "gen_test9".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenerateBlock/dut.sv:1:1: No timescale set for "gen_test9".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@gen_test9".
+[INF:CP0303] ${SURELOG_DIR}/tests/GenerateBlock/dut.sv:1:1: Compile module "work@gen_test9".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:3:9: Compile generate block "work@gen_test9.A".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenerateBlock/dut.sv:3:9: Compile generate block "work@gen_test9.A".
 
-[INF:CP0335] dut.sv:6:25: Compile generate block "work@gen_test9.A.B".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenerateBlock/dut.sv:6:25: Compile generate block "work@gen_test9.A.B".
 
-[INF:CP0335] dut.sv:11:25: Compile generate block "work@gen_test9.A.C".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenerateBlock/dut.sv:11:25: Compile generate block "work@gen_test9.A.C".
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@gen_test9".
+[NTE:EL0503] ${SURELOG_DIR}/tests/GenerateBlock/dut.sv:1:1: Top level module "work@gen_test9".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -220,11 +220,11 @@ operation                                              4
 range                                                  8
 ref_obj                                               10
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/GenerateBlock/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateBlock/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/GenerateBlock/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenerateBlock/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/GenerateBlock/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/GenerateBlock/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -233,7 +233,7 @@ design: (work@gen_test9)
 |vpiElaborated:1
 |vpiName:work@gen_test9
 |uhdmallModules:
-\_module: work@gen_test9 (work@gen_test9), file:dut.sv, line:1:1, endln:19:10
+\_module: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
   |vpiParent:
   \_design: (work@gen_test9)
   |vpiFullName:work@gen_test9
@@ -241,19 +241,19 @@ design: (work@gen_test9)
   |vpiNet:
   \_logic_net: (work@gen_test9.w), line:2:20, endln:2:21
     |vpiParent:
-    \_module: work@gen_test9 (work@gen_test9), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
     |vpiName:w
     |vpiFullName:work@gen_test9.w
     |vpiNetType:1
 |uhdmtopModules:
-\_module: work@gen_test9 (work@gen_test9), file:dut.sv, line:1:1, endln:19:10
+\_module: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
   |vpiName:work@gen_test9
   |vpiDefName:work@gen_test9
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@gen_test9.w), line:2:20, endln:2:21
     |vpiParent:
-    \_module: work@gen_test9 (work@gen_test9), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:2:9, endln:2:19
       |vpiRange:
@@ -281,7 +281,7 @@ design: (work@gen_test9)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@gen_test9.A), line:3:9, endln:18:20
     |vpiParent:
-    \_module: work@gen_test9 (work@gen_test9), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
     |vpiName:A
     |vpiFullName:work@gen_test9.A
     |vpiGenScope:
@@ -493,7 +493,7 @@ design: (work@gen_test9)
   |vpiContAssign:
   \_cont_assign: , line:2:20, endln:2:21
     |vpiParent:
-    \_module: work@gen_test9 (work@gen_test9), file:dut.sv, line:1:1, endln:19:10
+    \_module: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:2:24, endln:2:29

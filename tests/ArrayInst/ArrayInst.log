@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ArrayInst/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ArrayInst/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ArrayInst/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<89> s<88> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -92,23 +92,23 @@ n<> u<86> t<Module_declaration> p<87> c<40> l<8:1> el<10:10>
 n<> u<87> t<Description> p<88> c<86> l<8:1> el<10:10>
 n<> u<88> t<Source_text> p<89> c<8> l<1:1> el<10:10>
 n<> u<89> t<Top_level_rule> c<1> l<1:1> el<11:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "qq".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ArrayInst/dut.sv:1:1: No timescale set for "qq".
 
-[WRN:PA0205] dut.sv:4:1: No timescale set for "flop".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ArrayInst/dut.sv:4:1: No timescale set for "flop".
 
-[WRN:PA0205] dut.sv:8:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ArrayInst/dut.sv:8:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:4:1: Compile module "work@flop".
+[INF:CP0303] ${SURELOG_DIR}/tests/ArrayInst/dut.sv:4:1: Compile module "work@flop".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@qq".
+[INF:CP0303] ${SURELOG_DIR}/tests/ArrayInst/dut.sv:1:1: Compile module "work@qq".
 
-[INF:CP0303] dut.sv:8:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ArrayInst/dut.sv:8:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:8:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ArrayInst/dut.sv:8:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -138,11 +138,11 @@ module_array                                          13
 module_typespec                                       13
 range                                                 39
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ArrayInst/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ArrayInst/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ArrayInst/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ArrayInst/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ArrayInst/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ArrayInst/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -151,7 +151,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@flop (work@flop), file:dut.sv, line:4:1, endln:6:10
+\_module: work@flop (work@flop), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:4:1, endln:6:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@flop
@@ -159,7 +159,7 @@ design: (work@top)
   |vpiModuleArray:
   \_module_array: (work@qq), line:5:6, endln:5:7
     |vpiParent:
-    \_module: work@flop (work@flop), file:dut.sv, line:4:1, endln:6:10
+    \_module: work@flop (work@flop), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:4:1, endln:6:10
     |vpiName:q
     |vpiFullName:work@qq
     |vpiRange:
@@ -184,13 +184,13 @@ design: (work@top)
     \_module_typespec: (qq), line:5:3, endln:5:5
       |vpiName:qq
 |uhdmallModules:
-\_module: work@qq (work@qq), file:dut.sv, line:1:1, endln:2:10
+\_module: work@qq (work@qq), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:1:1, endln:2:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@qq
   |vpiDefName:work@qq
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -198,7 +198,7 @@ design: (work@top)
   |vpiModuleArray:
   \_module_array: (work@flop), line:9:8, endln:9:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances1
     |vpiFullName:work@flop
     |vpiRange:
@@ -225,7 +225,7 @@ design: (work@top)
   |vpiModuleArray:
   \_module_array: (work@flop), line:9:32, endln:9:47
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2
     |vpiFullName:work@flop
     |vpiRange:
@@ -268,48 +268,48 @@ design: (work@top)
     \_module_typespec: (flop), line:9:3, endln:9:7
       |vpiName:flop
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances1[0]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances1[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances1[0]
     |vpiFullName:work@top.flop_instances1[0]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances1[0].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances1[0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances1[0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances1[0].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances1[0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances1[0].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances1[0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances1[0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances1[0].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances1[0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances1[0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -331,49 +331,49 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances1[0].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances1[0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances1[0].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances1[0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances1[1]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances1[1]
     |vpiFullName:work@top.flop_instances1[1]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances1[1].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances1[1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances1[1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances1[1].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances1[1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances1[1].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances1[1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances1[1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances1[1].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances1[1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances1[1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -395,49 +395,49 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances1[1].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances1[1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances1[1].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances1[1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances2[0][0]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2[0][0]
     |vpiFullName:work@top.flop_instances2[0][0]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[0][0].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[0][0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[0][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances2[0][0].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[0][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[0][0].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[0][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[0][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances2[0][0].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[0][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[0][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -459,49 +459,49 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[0][0].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[0][0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[0][0].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[0][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances2[0][1]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2[0][1]
     |vpiFullName:work@top.flop_instances2[0][1]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[0][1].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[0][1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[0][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances2[0][1].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[0][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[0][1].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[0][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[0][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances2[0][1].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[0][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[0][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -523,49 +523,49 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[0][1].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[0][1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[0][1].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[0][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances2[1][0]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2[1][0]
     |vpiFullName:work@top.flop_instances2[1][0]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[1][0].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[1][0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[1][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances2[1][0].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[1][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[1][0].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[1][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[1][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances2[1][0].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[1][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[1][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -587,49 +587,49 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[1][0].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[1][0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[1][0].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[1][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances2[1][1]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2[1][1]
     |vpiFullName:work@top.flop_instances2[1][1]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[1][1].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[1][1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[1][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances2[1][1].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[1][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[1][1].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[1][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[1][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances2[1][1].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[1][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[1][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -651,49 +651,49 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[1][1].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[1][1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[1][1].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[1][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances2[2][0]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2[2][0]
     |vpiFullName:work@top.flop_instances2[2][0]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[2][0].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[2][0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[2][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances2[2][0].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[2][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[2][0].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[2][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[2][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances2[2][0].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[2][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[2][0]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -715,49 +715,49 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[2][0].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[2][0].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[2][0].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[2][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModule:
-  \_module: work@flop (work@top.flop_instances2[2][1]), file:dut.sv, line:9:3, endln:9:60
+  \_module: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2[2][1]
     |vpiFullName:work@top.flop_instances2[2][1]
     |vpiDefName:work@flop
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[2][1].q[0]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[2][1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[2][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[0]
       |vpiFullName:work@top.flop_instances2[2][1].q[0]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[2][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@qq (work@top.flop_instances2[2][1].q[1]), file:dut.sv, line:5:3, endln:5:15
+    \_module: work@qq (work@top.flop_instances2[2][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[2][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q[1]
       |vpiFullName:work@top.flop_instances2[2][1].q[1]
       |vpiDefName:work@qq
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ArrayInst/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@flop (work@top.flop_instances2[2][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModuleArray:
     \_module_array: (work@qq), line:5:6, endln:5:7
       |vpiParent:
-      \_module: work@flop (work@top.flop_instances2[2][1]), file:dut.sv, line:9:3, endln:9:60
+      \_module: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
       |vpiName:q
       |vpiFullName:work@qq
       |vpiRange:
@@ -779,16 +779,16 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[2][1].q[0]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[2][1].q[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiModule:
-      \_module: work@qq (work@top.flop_instances2[2][1].q[1]), file:dut.sv, line:5:3, endln:5:15
+      \_module: work@qq (work@top.flop_instances2[2][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
       \_module_typespec: (qq), line:5:3, endln:5:5
         |vpiName:qq
   |vpiModuleArray:
   \_module_array: (work@flop), line:9:8, endln:9:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances1
     |vpiFullName:work@flop
     |vpiRange:
@@ -810,16 +810,16 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances1[0]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances1[0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances1[1]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiElemTypespec:
     \_module_typespec: (flop), line:9:3, endln:9:7
       |vpiName:flop
   |vpiModuleArray:
   \_module_array: (work@flop), line:9:32, endln:9:47
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
     |vpiName:flop_instances2
     |vpiFullName:work@flop
     |vpiRange:
@@ -859,17 +859,17 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances2[0][0]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances2[0][1]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances2[1][0]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances2[1][1]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances2[2][0]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiModule:
-    \_module: work@flop (work@top.flop_instances2[2][1]), file:dut.sv, line:9:3, endln:9:60
+    \_module: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiElemTypespec:
     \_module_typespec: (flop), line:9:3, endln:9:7
       |vpiName:flop

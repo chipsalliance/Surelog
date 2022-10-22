@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/CovMacro/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/CovMacro/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/CovMacro/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<422> s<421> l<2:1> el<1:2>
 n<> u<2> t<Module_keyword> p<4> s<3> l<2:1> el<2:7>
@@ -425,15 +425,15 @@ n<> u<419> t<Module_declaration> p<420> c<11> l<5:1> el<25:10>
 n<> u<420> t<Description> p<421> c<419> l<5:1> el<25:10>
 n<> u<421> t<Source_text> p<422> c<6> l<2:1> el<25:10>
 n<> u<422> t<Top_level_rule> c<1> l<2:1> el<26:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "DUT".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CovMacro/dut.sv:2:1: No timescale set for "DUT".
 
-[WRN:PA0205] dut.sv:5:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CovMacro/dut.sv:5:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:2:1: Compile module "work@DUT".
+[INF:CP0303] ${SURELOG_DIR}/tests/CovMacro/dut.sv:2:1: Compile module "work@DUT".
 
-[INF:CP0303] dut.sv:5:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/CovMacro/dut.sv:5:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -695,7 +695,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:5:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CovMacro/dut.sv:5:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -763,11 +763,11 @@ ref_obj                                               42
 sys_func_call                                         24
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CovMacro/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CovMacro/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CovMacro/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CovMacro/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CovMacro/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CovMacro/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1251,13 +1251,13 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@DUT (work@DUT), file:dut.sv, line:2:1, endln:3:10
+\_module: work@DUT (work@DUT), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:2:1, endln:3:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@DUT
   |vpiDefName:work@DUT
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -1265,19 +1265,19 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.i), line:6:18, endln:6:19
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:i
     |vpiFullName:work@top.i
   |vpiNet:
   \_logic_net: (work@top.r), line:7:10, endln:7:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:r
     |vpiFullName:work@top.r
   |vpiProcess:
   \_initial: , line:11:5, endln:24:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiStmt:
     \_begin: (work@top), line:11:13, endln:24:8
       |vpiParent:
@@ -1765,12 +1765,12 @@ design: (work@top)
           |vpiActual:
           \_real_var: (work@top.r), line:7:10, endln:7:11
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
   |vpiName:work@top
   |vpiVariables:
   \_int_var: (work@top.i), line:6:18, endln:6:19
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiTypespec:
     \_int_typespec: , line:6:5, endln:6:17
     |vpiName:i
@@ -1779,7 +1779,7 @@ design: (work@top)
   |vpiVariables:
   \_real_var: (work@top.r), line:7:10, endln:7:11
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiTypespec:
     \_real_typespec: , line:7:5, endln:7:9
     |vpiName:r
@@ -1791,7 +1791,7 @@ design: (work@top)
   |vpiProcess:
   \_initial: , line:11:5, endln:24:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiStmt:
     \_begin: (work@top), line:11:13, endln:24:8
       |vpiParent:
@@ -1830,7 +1830,7 @@ design: (work@top)
               \_hier_path: (work@top.$root.top), line:12:42, endln:12:51
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
           |vpiName:$coverage_control
         |vpiLhs:
         \_ref_obj: (work@top.i), line:12:9, endln:12:10
@@ -1900,14 +1900,14 @@ design: (work@top)
               \_hier_path: (work@top.$root.top.unit1), line:14:42, endln:14:57
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit1)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit1), line:14:42, endln:14:57
               |vpiName:unit1
               |vpiActual:
-              \_module: work@DUT (work@top.unit1), file:dut.sv, line:8:5, endln:8:17
+              \_module: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
           |vpiName:$coverage_control
         |vpiLhs:
         \_ref_obj: (work@top.i), line:14:9, endln:14:10
@@ -1950,14 +1950,14 @@ design: (work@top)
               \_hier_path: (work@top.$root.top.unit2), line:15:43, endln:15:58
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit2)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit2), line:15:43, endln:15:58
               |vpiName:unit2
               |vpiActual:
-              \_module: work@DUT (work@top.unit2), file:dut.sv, line:9:5, endln:9:17
+              \_module: work@DUT (work@top.unit2), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:9:5, endln:9:17
           |vpiName:$coverage_control
         |vpiLhs:
         \_ref_obj: (work@top.i), line:15:9, endln:15:10
@@ -2050,14 +2050,14 @@ design: (work@top)
               \_hier_path: (work@top.$root.top.unit1), line:18:35, endln:18:50
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit1)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit1), line:18:35, endln:18:50
               |vpiName:unit1
               |vpiActual:
-              \_module: work@DUT (work@top.unit1), file:dut.sv, line:8:5, endln:8:17
+              \_module: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
           |vpiName:$coverage_get
         |vpiLhs:
         \_ref_obj: (work@top.r), line:18:9, endln:18:10
@@ -2147,27 +2147,27 @@ design: (work@top)
           |vpiActual:
           \_real_var: (work@top.r), line:7:10, endln:7:11
   |vpiModule:
-  \_module: work@DUT (work@top.unit1), file:dut.sv, line:8:5, endln:8:17
+  \_module: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:unit1
     |vpiFullName:work@top.unit1
     |vpiDefName:work@DUT
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/CovMacro/dut.sv
     |vpiDefLineNo:2
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
   |vpiModule:
-  \_module: work@DUT (work@top.unit2), file:dut.sv, line:9:5, endln:9:17
+  \_module: work@DUT (work@top.unit2), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:9:5, endln:9:17
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:unit2
     |vpiFullName:work@top.unit2
     |vpiDefName:work@DUT
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/CovMacro/dut.sv
     |vpiDefLineNo:2
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:5:1, endln:25:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

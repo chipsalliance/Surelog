@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BitsArray/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BitsArray/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BitsArray/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<195> s<194> l<2:1> el<1:2>
 n<> u<2> t<Module_keyword> p<44> s<3> l<2:1> el<2:7>
@@ -198,25 +198,25 @@ n<> u<192> t<Module_declaration> p<193> c<148> l<23:1> el<30:10>
 n<> u<193> t<Description> p<194> c<192> l<23:1> el<30:10>
 n<> u<194> t<Source_text> p<195> c<46> l<2:1> el<30:10>
 n<> u<195> t<Top_level_rule> c<1> l<2:1> el<32:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "aes_reg_status".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BitsArray/dut.sv:2:1: No timescale set for "aes_reg_status".
 
-[WRN:PA0205] dut.sv:9:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BitsArray/dut.sv:9:1: No timescale set for "top".
 
-[WRN:PA0205] dut.sv:23:1: No timescale set for "toto".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BitsArray/dut.sv:23:1: No timescale set for "toto".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:2:1: Compile module "work@aes_reg_status".
+[INF:CP0303] ${SURELOG_DIR}/tests/BitsArray/dut.sv:2:1: Compile module "work@aes_reg_status".
 
-[INF:CP0303] dut.sv:9:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BitsArray/dut.sv:9:1: Compile module "work@top".
 
-[INF:CP0303] dut.sv:23:1: Compile module "work@toto".
+[INF:CP0303] ${SURELOG_DIR}/tests/BitsArray/dut.sv:23:1: Compile module "work@toto".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:9:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BitsArray/dut.sv:9:1: Top level module "work@top".
 
-[NTE:EL0503] dut.sv:23:1: Top level module "work@toto".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BitsArray/dut.sv:23:1: Top level module "work@toto".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -272,11 +272,11 @@ port                                                   3
 range                                                 13
 ref_obj                                               10
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BitsArray/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitsArray/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BitsArray/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BitsArray/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BitsArray/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BitsArray/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -285,14 +285,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@aes_reg_status (work@aes_reg_status), file:dut.sv, line:2:1, endln:7:10
+\_module: work@aes_reg_status (work@aes_reg_status), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:2:1, endln:7:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@aes_reg_status
   |vpiParameter:
   \_parameter: (work@aes_reg_status.Width), line:3:18, endln:3:23
     |vpiParent:
-    \_module: work@aes_reg_status (work@aes_reg_status), file:dut.sv, line:2:1, endln:7:10
+    \_module: work@aes_reg_status (work@aes_reg_status), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:2:1, endln:7:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17
@@ -305,7 +305,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:27
     |vpiParent:
-    \_module: work@aes_reg_status (work@aes_reg_status), file:dut.sv, line:2:1, endln:7:10
+    \_module: work@aes_reg_status (work@aes_reg_status), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:2:1, endln:7:10
     |vpiRhs:
     \_constant: , line:3:26, endln:3:27
       |vpiDecompile:1
@@ -320,14 +320,14 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@aes_reg_status.we_i), line:5:28, endln:5:32
     |vpiParent:
-    \_module: work@aes_reg_status (work@aes_reg_status), file:dut.sv, line:2:1, endln:7:10
+    \_module: work@aes_reg_status (work@aes_reg_status), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:2:1, endln:7:10
     |vpiName:we_i
     |vpiFullName:work@aes_reg_status.we_i
     |vpiNetType:36
   |vpiPort:
   \_port: (we_i), line:5:28, endln:5:32
     |vpiParent:
-    \_module: work@aes_reg_status (work@aes_reg_status), file:dut.sv, line:2:1, endln:7:10
+    \_module: work@aes_reg_status (work@aes_reg_status), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:2:1, endln:7:10
     |vpiName:we_i
     |vpiDirection:1
     |vpiLowConn:
@@ -365,7 +365,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -373,25 +373,25 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.fcoe_reserved_before_sof), line:11:8, endln:11:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
     |vpiName:fcoe_reserved_before_sof
     |vpiFullName:work@top.fcoe_reserved_before_sof
   |vpiNet:
   \_logic_net: (work@top.key_init_we), line:13:16, endln:13:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
     |vpiName:key_init_we
     |vpiFullName:work@top.key_init_we
     |vpiNetType:36
 |uhdmallModules:
-\_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+\_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@toto
   |vpiParameter:
   \_parameter: (work@toto.a), line:27:14, endln:27:15
     |vpiParent:
-    \_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+    \_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -400,7 +400,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:27:14, endln:27:52
     |vpiParent:
-    \_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+    \_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |vpiRhs:
     \_constant: , line:27:18, endln:27:52
       |vpiDecompile:1
@@ -415,16 +415,16 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@toto.fcoe_reserved_before_sof), line:25:6, endln:25:30
     |vpiParent:
-    \_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+    \_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |vpiName:fcoe_reserved_before_sof
     |vpiFullName:work@toto.fcoe_reserved_before_sof
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
   |vpiName:work@top
   |vpiVariables:
   \_array_var: (work@top.fcoe_reserved_before_sof), line:11:8, endln:11:34
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
     |vpiSize:1
     |vpiTypespec:
     \_array_typespec: 
@@ -443,7 +443,7 @@ design: (work@top)
   |vpiVariables:
   \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
     |vpiSize:2
     |vpiTypespec:
     \_array_typespec: 
@@ -525,15 +525,15 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:dut.sv, line:15:4, endln:19:6
+  \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:15:4, endln:19:6
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
     |vpiName:u_reg_status_key_init
     |vpiFullName:work@top.u_reg_status_key_init
     |vpiParameter:
     \_parameter: (work@top.u_reg_status_key_init.Width), line:3:18, endln:3:23
       |vpiParent:
-      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:dut.sv, line:15:4, endln:19:6
+      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:15:4, endln:19:6
       |UINT:1
       |vpiTypespec:
       \_int_typespec: , line:3:14, endln:3:17
@@ -546,7 +546,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:3:18, endln:3:27
       |vpiParent:
-      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:dut.sv, line:15:4, endln:19:6
+      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:15:4, endln:19:6
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:3:26, endln:3:27
@@ -559,12 +559,12 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.u_reg_status_key_init.Width), line:3:18, endln:3:23
     |vpiDefName:work@aes_reg_status
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/BitsArray/dut.sv
     |vpiDefLineNo:2
     |vpiNet:
     \_logic_net: (work@top.u_reg_status_key_init.we_i), line:5:28, endln:5:32
       |vpiParent:
-      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:dut.sv, line:15:4, endln:19:6
+      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:15:4, endln:19:6
       |vpiTypespec:
       \_logic_typespec: , line:5:10, endln:5:27
         |vpiRange:
@@ -589,11 +589,11 @@ design: (work@top)
       |vpiFullName:work@top.u_reg_status_key_init.we_i
       |vpiNetType:36
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:21:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:9:1, endln:21:10
     |vpiPort:
     \_port: (we_i), line:5:28, endln:5:32
       |vpiParent:
-      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:dut.sv, line:15:4, endln:19:6
+      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:15:4, endln:19:6
       |vpiName:we_i
       |vpiDirection:1
       |vpiHighConn:
@@ -676,14 +676,14 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:dut.sv, line:15:4, endln:19:6
+      \_module: work@aes_reg_status (work@top.u_reg_status_key_init), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:15:4, endln:19:6
 |uhdmtopModules:
-\_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+\_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
   |vpiName:work@toto
   |vpiVariables:
   \_array_var: (work@toto.fcoe_reserved_before_sof), line:25:6, endln:25:32
     |vpiParent:
-    \_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+    \_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |vpiSize:1
     |vpiTypespec:
     \_array_typespec: 
@@ -702,7 +702,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@toto.a), line:27:14, endln:27:15
     |vpiParent:
-    \_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+    \_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -713,7 +713,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:27:14, endln:27:52
     |vpiParent:
-    \_module: work@toto (work@toto), file:dut.sv, line:23:1, endln:30:10
+    \_module: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |vpiRhs:
     \_constant: , line:27:18, endln:27:52
       |vpiDecompile:1

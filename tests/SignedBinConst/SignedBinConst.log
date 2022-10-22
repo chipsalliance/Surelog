@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/SignedBinConst/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/SignedBinConst/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/SignedBinConst/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<161> s<160> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -164,21 +164,21 @@ n<> u<158> t<Module_declaration> p<159> c<86> l<8:1> el<12:10>
 n<> u<159> t<Description> p<160> c<158> l<8:1> el<12:10>
 n<> u<160> t<Source_text> p<161> c<81> l<1:1> el<12:10>
 n<> u<161> t<Top_level_rule> c<1> l<1:1> el<13:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top1".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SignedBinConst/dut.sv:1:1: No timescale set for "top1".
 
-[WRN:PA0205] dut.sv:8:1: No timescale set for "top2".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SignedBinConst/dut.sv:8:1: No timescale set for "top2".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top1".
+[INF:CP0303] ${SURELOG_DIR}/tests/SignedBinConst/dut.sv:1:1: Compile module "work@top1".
 
-[INF:CP0303] dut.sv:8:1: Compile module "work@top2".
+[INF:CP0303] ${SURELOG_DIR}/tests/SignedBinConst/dut.sv:8:1: Compile module "work@top2".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top1".
+[NTE:EL0503] ${SURELOG_DIR}/tests/SignedBinConst/dut.sv:1:1: Top level module "work@top1".
 
-[NTE:EL0503] dut.sv:8:1: Top level module "work@top2".
+[NTE:EL0503] ${SURELOG_DIR}/tests/SignedBinConst/dut.sv:8:1: Top level module "work@top2".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -220,11 +220,11 @@ param_assign                                           6
 parameter                                              6
 range                                                  8
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/SignedBinConst/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SignedBinConst/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/SignedBinConst/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SignedBinConst/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/SignedBinConst/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SignedBinConst/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -233,14 +233,14 @@ design: (work@top1)
 |vpiElaborated:1
 |vpiName:work@top1
 |uhdmallModules:
-\_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+\_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@top1)
   |vpiFullName:work@top1
   |vpiParameter:
   \_parameter: (work@top1.p1), line:2:19, endln:2:21
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |BIN:1
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:18
@@ -269,7 +269,7 @@ design: (work@top1)
   |vpiParameter:
   \_parameter: (work@top1.p2), line:3:19, endln:3:21
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |BIN:10
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:18
@@ -298,7 +298,7 @@ design: (work@top1)
   |vpiParameter:
   \_parameter: (work@top1.p3), line:4:17, endln:4:19
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |BIN:10
     |vpiTypespec:
     \_int_typespec: , line:4:13, endln:4:16
@@ -311,7 +311,7 @@ design: (work@top1)
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:30
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:2:25, endln:2:30
       |vpiDecompile:1'sb1
@@ -325,7 +325,7 @@ design: (work@top1)
   |vpiParamAssign:
   \_param_assign: , line:3:19, endln:3:31
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:3:25, endln:3:31
       |vpiDecompile:2'sb10
@@ -339,7 +339,7 @@ design: (work@top1)
   |vpiParamAssign:
   \_param_assign: , line:4:17, endln:4:29
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:4:23, endln:4:29
       |vpiDecompile:2'sb10
@@ -352,7 +352,7 @@ design: (work@top1)
     \_parameter: (work@top1.p3), line:4:17, endln:4:19
   |vpiDefName:work@top1
 |uhdmallModules:
-\_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+\_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
   |vpiParent:
   \_design: (work@top1)
   |vpiFullName:work@top2
@@ -360,30 +360,30 @@ design: (work@top1)
   |vpiNet:
   \_logic_net: (work@top2.p1), line:9:13, endln:9:15
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiName:p1
     |vpiFullName:work@top2.p1
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@top2.p2), line:10:13, endln:10:15
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiName:p2
     |vpiFullName:work@top2.p2
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@top2.p3), line:11:7, endln:11:9
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiName:p3
     |vpiFullName:work@top2.p3
 |uhdmtopModules:
-\_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+\_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top1
   |vpiParameter:
   \_parameter: (work@top1.p1), line:2:19, endln:2:21
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |BIN:1
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:18
@@ -414,7 +414,7 @@ design: (work@top1)
   |vpiParameter:
   \_parameter: (work@top1.p2), line:3:19, endln:3:21
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |BIN:10
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:18
@@ -445,7 +445,7 @@ design: (work@top1)
   |vpiParameter:
   \_parameter: (work@top1.p3), line:4:17, endln:4:19
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |BIN:10
     |vpiTypespec:
     \_int_typespec: , line:4:13, endln:4:16
@@ -458,7 +458,7 @@ design: (work@top1)
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:30
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:2:25, endln:2:30
       |vpiDecompile:3
@@ -472,7 +472,7 @@ design: (work@top1)
   |vpiParamAssign:
   \_param_assign: , line:3:19, endln:3:31
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:3:25, endln:3:31
       |vpiDecompile:2'b10
@@ -486,7 +486,7 @@ design: (work@top1)
   |vpiParamAssign:
   \_param_assign: , line:4:17, endln:4:29
     |vpiParent:
-    \_module: work@top1 (work@top1), file:dut.sv, line:1:1, endln:5:10
+    \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:4:23, endln:4:29
       |vpiDecompile:-2
@@ -501,12 +501,12 @@ design: (work@top1)
   |vpiTop:1
   |vpiTopModule:1
 |uhdmtopModules:
-\_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+\_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
   |vpiName:work@top2
   |vpiVariables:
   \_int_var: (work@top2.p3), line:11:7, endln:11:19
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiTypespec:
     \_int_typespec: , line:11:3, endln:11:6
       |vpiSigned:1
@@ -527,7 +527,7 @@ design: (work@top1)
   |vpiNet:
   \_logic_net: (work@top2.p1), line:9:13, endln:9:24
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiTypespec:
     \_logic_typespec: , line:9:3, endln:9:12
       |vpiRange:
@@ -554,7 +554,7 @@ design: (work@top1)
   |vpiNet:
   \_logic_net: (work@top2.p2), line:10:13, endln:10:25
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiTypespec:
     \_logic_typespec: , line:10:3, endln:10:12
       |vpiRange:
@@ -582,7 +582,7 @@ design: (work@top1)
   |vpiContAssign:
   \_cont_assign: , line:9:13, endln:9:15
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:9:19, endln:9:24
@@ -600,7 +600,7 @@ design: (work@top1)
   |vpiContAssign:
   \_cont_assign: , line:10:13, endln:10:15
     |vpiParent:
-    \_module: work@top2 (work@top2), file:dut.sv, line:8:1, endln:12:10
+    \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
     |vpiNetDeclAssign:1
     |vpiRhs:
     \_constant: , line:10:19, endln:10:25

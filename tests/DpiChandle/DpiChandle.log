@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/DpiChandle/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/DpiChandle/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/DpiChandle/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<41> s<40> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -44,11 +44,11 @@ n<> u<38> t<Module_declaration> p<39> c<4> l<1:1> el<7:10>
 n<> u<39> t<Description> p<40> c<38> l<1:1> el<7:10>
 n<> u<40> t<Source_text> p<41> c<39> l<1:1> el<7:10>
 n<> u<41> t<Top_level_rule> c<1> l<1:1> el<8:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/DpiChandle/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/DpiChandle/dut.sv:1:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -310,7 +310,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/DpiChandle/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -364,11 +364,11 @@ module                                                 2
 package                                                2
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/DpiChandle/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DpiChandle/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/DpiChandle/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DpiChandle/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/DpiChandle/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DpiChandle/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -852,7 +852,7 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -860,7 +860,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.test_output), line:2:4, endln:3:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiName:test_output
     |vpiFullName:work@top.test_output
     |vpiAccessType:4
@@ -871,20 +871,20 @@ design: (work@top)
       |vpiTypespec:
       \_chandle_typespec: , line:3:6, endln:3:13
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
   |vpiTaskFunc:
   \_function: (work@top.test_input), line:5:4, endln:6:40
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiName:test_input
     |vpiFullName:work@top.test_input
     |vpiAccessType:4
     |vpiVisibility:1
     |vpiDPICStr:2
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiIODecl:
     \_io_decl: (in), line:6:36, endln:6:38
       |vpiDirection:1
@@ -892,16 +892,16 @@ design: (work@top)
       |vpiTypedef:
       \_chandle_typespec: , line:6:28, endln:6:35
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@top.test_output), line:2:4, endln:3:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiName:test_output
     |vpiFullName:work@top.test_output
     |vpiAccessType:4
@@ -910,20 +910,20 @@ design: (work@top)
     |vpiReturn:
     \_chandle_var: , line:3:6, endln:3:13
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
   |vpiTaskFunc:
   \_function: (work@top.test_input), line:5:4, endln:6:40
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiName:test_input
     |vpiFullName:work@top.test_input
     |vpiAccessType:4
     |vpiVisibility:1
     |vpiDPICStr:2
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
     |vpiIODecl:
     \_io_decl: (in), line:6:36, endln:6:38
       |vpiParent:
@@ -933,7 +933,7 @@ design: (work@top)
       |vpiTypedef:
       \_chandle_typespec: , line:6:28, endln:6:35
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/DpiChandle/dut.sv, line:1:1, endln:7:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

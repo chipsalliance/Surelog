@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PreprocFunc/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PreprocFunc/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PreprocFunc/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<369> s<368> l<5:1> el<4:2>
 n<> u<2> t<Module_keyword> p<6> s<3> l<5:1> el<5:7>
@@ -372,11 +372,11 @@ n<> u<366> t<Module_declaration> p<367> c<6> l<5:1> el<45:10>
 n<> u<367> t<Description> p<368> c<366> l<5:1> el<45:10>
 n<> u<368> t<Source_text> p<369> c<367> l<5:1> el<45:10>
 n<> u<369> t<Top_level_rule> c<1> l<5:1> el<46:1>
-[WRN:PA0205] dut.sv:5:1: No timescale set for "asym_ram".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PreprocFunc/dut.sv:5:1: No timescale set for "asym_ram".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:5:1: Compile module "work@asym_ram".
+[INF:CP0303] ${SURELOG_DIR}/tests/PreprocFunc/dut.sv:5:1: Compile module "work@asym_ram".
 
 LIB:  work
 FILE: builtin.sv
@@ -638,7 +638,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:5:1: Top level module "work@asym_ram".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PreprocFunc/dut.sv:5:1: Top level module "work@asym_ram".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -720,11 +720,11 @@ ref_obj                                               35
 ref_var                                                2
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PreprocFunc/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PreprocFunc/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PreprocFunc/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PreprocFunc/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PreprocFunc/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PreprocFunc/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -733,8 +733,8 @@ design: (work@asym_ram)
 |vpiElaborated:1
 |vpiName:work@asym_ram
 |vpiIncludeFileInfo:
-\_include_file_info: , file:dut.sv, line:2:10, endln:2:17
-  |vpiIncludedFile:inc.h
+\_include_file_info: , file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:2:10, endln:2:17
+  |vpiIncludedFile:${SURELOG_DIR}/tests/PreprocFunc/inc.h
 |uhdmallPackages:
 \_package: builtin (builtin::)
   |vpiParent:
@@ -1211,14 +1211,14 @@ design: (work@asym_ram)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+\_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
   |vpiParent:
   \_design: (work@asym_ram)
   |vpiFullName:work@asym_ram
   |vpiParameter:
   \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:17
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -1227,7 +1227,7 @@ design: (work@asym_ram)
   |vpiParameter:
   \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:17
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -1236,35 +1236,35 @@ design: (work@asym_ram)
   |vpiParameter:
   \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:20
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:maxWIDTH
     |vpiFullName:work@asym_ram.maxWIDTH
   |vpiParameter:
   \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:20
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:minWIDTH
     |vpiFullName:work@asym_ram.minWIDTH
   |vpiParameter:
   \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:17
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:RATIO
     |vpiFullName:work@asym_ram.RATIO
   |vpiParameter:
   \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:21
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:log2RATIO
     |vpiFullName:work@asym_ram.log2RATIO
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:21
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:6:20, endln:6:21
       |vpiDecompile:4
@@ -1278,7 +1278,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:7:11, endln:7:21
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:7:20, endln:7:21
       |vpiDecompile:4
@@ -1292,7 +1292,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:30:12, endln:30:66
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_operation: , line:30:23, endln:30:66
       |vpiOpType:33
@@ -1331,7 +1331,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:35:12, endln:35:66
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_operation: , line:35:23, endln:35:66
       |vpiOpType:33
@@ -1370,7 +1370,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:39:12, endln:39:39
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_operation: , line:39:20, endln:39:39
       |vpiOpType:12
@@ -1389,7 +1389,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:42:12, endln:42:35
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_func_call: (log2), line:42:24, endln:42:28
       |vpiArgument:
@@ -1406,7 +1406,7 @@ design: (work@asym_ram)
   |vpiTaskFunc:
   \_function: (work@asym_ram.log2), line:13:1, endln:28:12
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiName:log2
     |vpiFullName:work@asym_ram.log2
     |vpiVariables:
@@ -1451,7 +1451,7 @@ design: (work@asym_ram)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiIODecl:
     \_io_decl: (value), line:14:15, endln:14:20
       |vpiParent:
@@ -1690,14 +1690,14 @@ design: (work@asym_ram)
               |vpiActual:
               \_integer_var: (log2), line:13:10, endln:13:17
     |vpiInstance:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
 |uhdmtopModules:
-\_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+\_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
   |vpiName:work@asym_ram
   |vpiParameter:
   \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:17
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -1708,7 +1708,7 @@ design: (work@asym_ram)
   |vpiParameter:
   \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:17
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: 
@@ -1719,35 +1719,35 @@ design: (work@asym_ram)
   |vpiParameter:
   \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:20
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:maxWIDTH
     |vpiFullName:work@asym_ram.maxWIDTH
   |vpiParameter:
   \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:20
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:minWIDTH
     |vpiFullName:work@asym_ram.minWIDTH
   |vpiParameter:
   \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:17
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:RATIO
     |vpiFullName:work@asym_ram.RATIO
   |vpiParameter:
   \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:21
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiLocalParam:1
     |vpiName:log2RATIO
     |vpiFullName:work@asym_ram.log2RATIO
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:21
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:6:20, endln:6:21
       |vpiDecompile:4
@@ -1761,7 +1761,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:7:11, endln:7:21
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:7:20, endln:7:21
       |vpiDecompile:4
@@ -1775,7 +1775,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:30:12, endln:30:66
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:30:23, endln:30:66
       |vpiDecompile:64'b0000000000000000000000000000000000000000000000000000000000000100
@@ -1787,7 +1787,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:35:12, endln:35:66
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:35:23, endln:35:66
       |vpiDecompile:64'b0000000000000000000000000000000000000000000000000000000000000100
@@ -1799,7 +1799,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:39:12, endln:39:39
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:39:20, endln:39:39
       |vpiDecompile:1
@@ -1811,7 +1811,7 @@ design: (work@asym_ram)
   |vpiParamAssign:
   \_param_assign: , line:42:12, endln:42:35
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:42:24, endln:42:35
       |vpiDecompile:1
@@ -1825,7 +1825,7 @@ design: (work@asym_ram)
   |vpiTaskFunc:
   \_function: (work@asym_ram.log2), line:13:1, endln:28:12
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiName:log2
     |vpiFullName:work@asym_ram.log2
     |vpiVariables:
@@ -1851,7 +1851,7 @@ design: (work@asym_ram)
     |vpiReturn:
     \_integer_var: , line:13:10, endln:13:17
     |vpiParent:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiIODecl:
     \_io_decl: (value), line:14:15, endln:14:20
       |vpiParent:
@@ -2055,7 +2055,7 @@ design: (work@asym_ram)
               |vpiActual:
               \_integer_var: , line:13:10, endln:13:17
     |vpiInstance:
-    \_module: work@asym_ram (work@asym_ram), file:dut.sv, line:5:1, endln:45:10
+    \_module: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0
@@ -2065,4 +2065,4 @@ design: (work@asym_ram)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PreprocFunc/dut.sv | ${SURELOG_DIR}/build/regression/PreprocFunc/roundtrip/dut_000.sv | 7 | 45 |
+[roundtrip]: ${SURELOG_DIR}/tests/PreprocFunc/dut.sv | ${SURELOG_DIR}/build/regression/PreprocFunc/roundtrip/dut_000.sv | 8 | 45 |

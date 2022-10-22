@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackageTypeParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackageTypeParam/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<155> s<154> l<1:1> el<1:0>
 n<> u<2> t<Package> p<70> s<3> l<1:1> el<1:8>
@@ -158,19 +158,19 @@ n<> u<152> t<Module_declaration> p<153> c<116> l<12:1> el<28:21>
 n<> u<153> t<Description> p<154> c<152> l<12:1> el<28:21>
 n<> u<154> t<Source_text> p<155> c<71> l<1:1> el<28:21>
 n<> u<155> t<Top_level_rule> c<1> l<1:1> el<29:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "new_package".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageTypeParam/dut.sv:1:1: No timescale set for "new_package".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "module_a".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageTypeParam/dut.sv:12:1: No timescale set for "module_a".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "new_package".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackageTypeParam/dut.sv:1:1: Compile package "new_package".
 
-[INF:CP0303] dut.sv:12:1: Compile module "work@module_a".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackageTypeParam/dut.sv:12:1: Compile module "work@module_a".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:12:1: Top level module "work@module_a".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PackageTypeParam/dut.sv:12:1: Top level module "work@module_a".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -224,11 +224,11 @@ struct_typespec                                        2
 type_parameter                                         1
 typespec_member                                       10
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackageTypeParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageTypeParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackageTypeParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackageTypeParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackageTypeParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackageTypeParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -237,7 +237,7 @@ design: (work@module_a)
 |vpiElaborated:1
 |vpiName:work@module_a
 |uhdmallPackages:
-\_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+\_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
   |vpiParent:
   \_design: (work@module_a)
   |vpiName:new_package
@@ -245,10 +245,10 @@ design: (work@module_a)
   |vpiTypedef:
   \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
     |vpiParent:
-    \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+    \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
     |vpiName:new_package::zzz
     |vpiInstance:
-    \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+    \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:3:19, endln:3:20
@@ -281,7 +281,7 @@ design: (work@module_a)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
@@ -317,7 +317,7 @@ design: (work@module_a)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:4
@@ -333,7 +333,7 @@ design: (work@module_a)
         \_typespec_member: (c), line:5:19, endln:5:20
         |vpiInstance:
         \_package: (new_package)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:5
@@ -349,7 +349,7 @@ design: (work@module_a)
         \_typespec_member: (d), line:6:19, endln:6:20
         |vpiInstance:
         \_package: (new_package)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:6
@@ -365,14 +365,14 @@ design: (work@module_a)
         \_typespec_member: (e), line:7:19, endln:7:20
         |vpiInstance:
         \_package: (new_package)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:7
       |vpiRefEndColumnNo:10
   |vpiDefName:new_package
 |uhdmtopPackages:
-\_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+\_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
   |vpiParent:
   \_design: (work@module_a)
   |vpiName:new_package
@@ -380,10 +380,10 @@ design: (work@module_a)
   |vpiTypedef:
   \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
     |vpiParent:
-    \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+    \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
     |vpiName:new_package::zzz
     |vpiInstance:
-    \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+    \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:3:19, endln:3:20
@@ -395,7 +395,7 @@ design: (work@module_a)
         |vpiParent:
         \_typespec_member: (a), line:3:19, endln:3:20
         |vpiInstance:
-        \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+        \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
         |vpiRange:
         \_range: , line:3:11, endln:3:18
           |vpiParent:
@@ -416,7 +416,7 @@ design: (work@module_a)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
@@ -431,7 +431,7 @@ design: (work@module_a)
         |vpiParent:
         \_typespec_member: (b), line:4:19, endln:4:20
         |vpiInstance:
-        \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
+        \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
         |vpiRange:
         \_range: , line:4:11, endln:4:16
           |vpiParent:
@@ -452,7 +452,7 @@ design: (work@module_a)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:4
@@ -467,8 +467,8 @@ design: (work@module_a)
         |vpiParent:
         \_typespec_member: (c), line:5:19, endln:5:20
         |vpiInstance:
-        \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
-      |vpiRefFile:dut.sv
+        \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:5
@@ -483,8 +483,8 @@ design: (work@module_a)
         |vpiParent:
         \_typespec_member: (d), line:6:19, endln:6:20
         |vpiInstance:
-        \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
-      |vpiRefFile:dut.sv
+        \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:6
@@ -499,8 +499,8 @@ design: (work@module_a)
         |vpiParent:
         \_typespec_member: (e), line:7:19, endln:7:20
         |vpiInstance:
-        \_package: new_package (new_package::), file:dut.sv, line:1:1, endln:9:25
-      |vpiRefFile:dut.sv
+        \_package: new_package (new_package::), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:1:1, endln:9:25
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:7
@@ -508,14 +508,14 @@ design: (work@module_a)
   |vpiDefName:new_package
   |vpiTop:1
 |uhdmallModules:
-\_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+\_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
   |vpiParent:
   \_design: (work@module_a)
   |vpiFullName:work@module_a
   |vpiParameter:
   \_type_parameter: (work@module_a.TYPE_PARAMETER), line:14:20, endln:14:34
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:TYPE_PARAMETER
     |vpiFullName:work@module_a.TYPE_PARAMETER
     |vpiTypespec:
@@ -524,25 +524,25 @@ design: (work@module_a)
   |vpiNet:
   \_logic_net: (work@module_a.input_struct), line:17:25, endln:17:37
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:input_struct
     |vpiFullName:work@module_a.input_struct
   |vpiNet:
   \_logic_net: (work@module_a.output_struct), line:18:26, endln:18:39
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:output_struct
     |vpiFullName:work@module_a.output_struct
   |vpiNet:
   \_logic_net: (work@module_a.clk), line:19:10, endln:19:13
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:clk
     |vpiFullName:work@module_a.clk
   |vpiPort:
   \_port: (input_struct), line:17:25, endln:17:37
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:input_struct
     |vpiDirection:1
     |vpiLowConn:
@@ -554,7 +554,7 @@ design: (work@module_a)
   |vpiPort:
   \_port: (output_struct), line:18:26, endln:18:39
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:output_struct
     |vpiDirection:2
     |vpiLowConn:
@@ -566,7 +566,7 @@ design: (work@module_a)
   |vpiPort:
   \_port: (clk), line:19:10, endln:19:13
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -578,7 +578,7 @@ design: (work@module_a)
   |vpiProcess:
   \_always: , line:23:3, endln:25:6
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiStmt:
     \_event_control: , line:23:13, endln:23:27
       |vpiParent:
@@ -624,7 +624,7 @@ design: (work@module_a)
             \_struct_net: (work@module_a.output_struct), line:18:26, endln:18:39
     |vpiAlwaysType:3
 |uhdmtopModules:
-\_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+\_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
   |vpiName:work@module_a
   |vpiParameter:
   \_type_parameter: (work@module_a.TYPE_PARAMETER), line:14:20, endln:14:34
@@ -633,7 +633,7 @@ design: (work@module_a)
   |vpiNet:
   \_struct_net: (work@module_a.input_struct), line:17:25, endln:17:37
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiTypespec:
     \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
     |vpiName:input_struct
@@ -641,7 +641,7 @@ design: (work@module_a)
   |vpiNet:
   \_struct_net: (work@module_a.output_struct), line:18:26, endln:18:39
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiTypespec:
     \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
     |vpiName:output_struct
@@ -649,7 +649,7 @@ design: (work@module_a)
   |vpiNet:
   \_logic_net: (work@module_a.clk), line:19:10, endln:19:13
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiTypespec:
     \_logic_typespec: , line:19:10, endln:19:10
     |vpiName:clk
@@ -658,7 +658,7 @@ design: (work@module_a)
   |vpiPort:
   \_port: (input_struct), line:17:25, endln:17:37
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:input_struct
     |vpiDirection:1
     |vpiLowConn:
@@ -672,11 +672,11 @@ design: (work@module_a)
     |vpiTypedef:
     \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
     |vpiInstance:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
   |vpiPort:
   \_port: (output_struct), line:18:26, endln:18:39
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:output_struct
     |vpiDirection:2
     |vpiLowConn:
@@ -690,11 +690,11 @@ design: (work@module_a)
     |vpiTypedef:
     \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
     |vpiInstance:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
   |vpiPort:
   \_port: (clk), line:19:10, endln:19:13
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -708,11 +708,11 @@ design: (work@module_a)
     |vpiTypedef:
     \_logic_typespec: , line:19:10, endln:19:10
     |vpiInstance:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
   |vpiProcess:
   \_always: , line:23:3, endln:25:6
     |vpiParent:
-    \_module: work@module_a (work@module_a), file:dut.sv, line:12:1, endln:28:21
+    \_module: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiStmt:
     \_event_control: , line:23:13, endln:23:27
       |vpiParent:

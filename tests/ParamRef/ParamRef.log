@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ParamRef/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamRef/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamRef/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<186> s<185> l<1:1> el<1:0>
 n<> u<2> t<Package> p<20> s<3> l<1:1> el<1:8>
@@ -189,31 +189,31 @@ n<> u<183> t<Module_declaration> p<184> c<163> l<25:1> el<27:10>
 n<> u<184> t<Description> p<185> c<183> l<25:1> el<27:10>
 n<> u<185> t<Source_text> p<186> c<21> l<1:1> el<27:10>
 n<> u<186> t<Top_level_rule> c<1> l<1:1> el<28:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "tl_main_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamRef/dut.sv:1:1: No timescale set for "tl_main_pkg".
 
-[WRN:PA0205] dut.sv:5:1: No timescale set for "dm".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamRef/dut.sv:5:1: No timescale set for "dm".
 
-[WRN:PA0205] dut.sv:10:1: No timescale set for "top_earlgrey".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamRef/dut.sv:10:1: No timescale set for "top_earlgrey".
 
-[WRN:PA0205] dut.sv:18:1: No timescale set for "rv_core_ibex".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamRef/dut.sv:18:1: No timescale set for "rv_core_ibex".
 
-[WRN:PA0205] dut.sv:25:1: No timescale set for "ibex_core".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamRef/dut.sv:25:1: No timescale set for "ibex_core".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "tl_main_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/ParamRef/dut.sv:1:1: Compile package "tl_main_pkg".
 
-[INF:CP0301] dut.sv:5:1: Compile package "dm".
+[INF:CP0301] ${SURELOG_DIR}/tests/ParamRef/dut.sv:5:1: Compile package "dm".
 
-[INF:CP0303] dut.sv:25:1: Compile module "work@ibex_core".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamRef/dut.sv:25:1: Compile module "work@ibex_core".
 
-[INF:CP0303] dut.sv:18:1: Compile module "work@rv_core_ibex".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamRef/dut.sv:18:1: Compile module "work@rv_core_ibex".
 
-[INF:CP0303] dut.sv:10:1: Compile module "work@top_earlgrey".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamRef/dut.sv:10:1: Compile module "work@top_earlgrey".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:10:1: Top level module "work@top_earlgrey".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamRef/dut.sv:10:1: Top level module "work@top_earlgrey".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -255,11 +255,11 @@ parameter                                             19
 range                                                  5
 ref_obj                                                8
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ParamRef/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamRef/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ParamRef/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamRef/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ParamRef/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamRef/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -268,7 +268,7 @@ design: (work@top_earlgrey)
 |vpiElaborated:1
 |vpiName:work@top_earlgrey
 |uhdmallPackages:
-\_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+\_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_design: (work@top_earlgrey)
   |vpiName:tl_main_pkg
@@ -276,7 +276,7 @@ design: (work@top_earlgrey)
   |vpiParameter:
   \_parameter: (tl_main_pkg::ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
     |vpiParent:
-    \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:2:15, endln:2:18
@@ -292,7 +292,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:43
     |vpiParent:
-    \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:42, endln:2:43
       |vpiDecompile:1
@@ -305,7 +305,7 @@ design: (work@top_earlgrey)
     \_parameter: (tl_main_pkg::ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
   |vpiDefName:tl_main_pkg
 |uhdmallPackages:
-\_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+\_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
   |vpiParent:
   \_design: (work@top_earlgrey)
   |vpiName:dm
@@ -313,7 +313,7 @@ design: (work@top_earlgrey)
   |vpiParameter:
   \_parameter: (dm::HaltAddress), line:6:19, endln:6:30
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |UINT:10
     |vpiTypespec:
     \_int_typespec: , line:6:15, endln:6:18
@@ -329,7 +329,7 @@ design: (work@top_earlgrey)
   |vpiParameter:
   \_parameter: (dm::ExceptionAddress), line:7:28, endln:7:44
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiTypespec:
     \_logic_typespec: , line:7:15, endln:7:27
       |vpiParent:
@@ -360,7 +360,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:6:19, endln:6:35
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_constant: , line:6:33, endln:6:35
       |vpiDecompile:10
@@ -374,7 +374,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:7:28, endln:7:62
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_operation: , line:7:47, endln:7:62
       |vpiOpType:24
@@ -397,7 +397,7 @@ design: (work@top_earlgrey)
     \_parameter: (dm::ExceptionAddress), line:7:28, endln:7:44
   |vpiDefName:dm
 |uhdmtopPackages:
-\_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+\_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_design: (work@top_earlgrey)
   |vpiName:tl_main_pkg
@@ -405,14 +405,14 @@ design: (work@top_earlgrey)
   |vpiParameter:
   \_parameter: (tl_main_pkg::ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
     |vpiParent:
-    \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:2:15, endln:2:18
       |vpiParent:
       \_parameter: (tl_main_pkg::ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
       |vpiInstance:
-      \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+      \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -421,7 +421,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:43
     |vpiParent:
-    \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+    \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:42, endln:2:43
       |vpiDecompile:1
@@ -435,7 +435,7 @@ design: (work@top_earlgrey)
   |vpiDefName:tl_main_pkg
   |vpiTop:1
 |uhdmtopPackages:
-\_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+\_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
   |vpiParent:
   \_design: (work@top_earlgrey)
   |vpiName:dm
@@ -443,14 +443,14 @@ design: (work@top_earlgrey)
   |vpiParameter:
   \_parameter: (dm::HaltAddress), line:6:19, endln:6:30
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |UINT:10
     |vpiTypespec:
     \_int_typespec: , line:6:15, endln:6:18
       |vpiParent:
       \_parameter: (dm::HaltAddress), line:6:19, endln:6:30
       |vpiInstance:
-      \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+      \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -459,13 +459,13 @@ design: (work@top_earlgrey)
   |vpiParameter:
   \_parameter: (dm::ExceptionAddress), line:7:28, endln:7:44
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiTypespec:
     \_logic_typespec: , line:7:15, endln:7:27
       |vpiParent:
       \_parameter: (dm::ExceptionAddress), line:7:28, endln:7:44
       |vpiInstance:
-      \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+      \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
       |vpiRange:
       \_range: , line:7:21, endln:7:27
         |vpiLeftRange:
@@ -490,7 +490,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:6:19, endln:6:35
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_constant: , line:6:33, endln:6:35
       |vpiDecompile:10
@@ -504,7 +504,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:7:28, endln:7:62
     |vpiParent:
-    \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+    \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_operation: , line:7:47, endln:7:62
       |vpiOpType:24
@@ -528,14 +528,14 @@ design: (work@top_earlgrey)
   |vpiDefName:dm
   |vpiTop:1
 |uhdmallModules:
-\_module: work@ibex_core (work@ibex_core), file:dut.sv, line:25:1, endln:27:10
+\_module: work@ibex_core (work@ibex_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:25:1, endln:27:10
   |vpiParent:
   \_design: (work@top_earlgrey)
   |vpiFullName:work@ibex_core
   |vpiParameter:
   \_parameter: (work@ibex_core.DmExceptionAddr), line:26:27, endln:26:42
     |vpiParent:
-    \_module: work@ibex_core (work@ibex_core), file:dut.sv, line:25:1, endln:27:10
+    \_module: work@ibex_core (work@ibex_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:25:1, endln:27:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:26:14, endln:26:26
@@ -546,7 +546,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:26:27, endln:26:46
     |vpiParent:
-    \_module: work@ibex_core (work@ibex_core), file:dut.sv, line:25:1, endln:27:10
+    \_module: work@ibex_core (work@ibex_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:25:1, endln:27:10
     |vpiRhs:
     \_constant: , line:26:45, endln:26:46
       |vpiDecompile:4
@@ -559,14 +559,14 @@ design: (work@top_earlgrey)
     \_parameter: (work@ibex_core.DmExceptionAddr), line:26:27, endln:26:42
   |vpiDefName:work@ibex_core
 |uhdmallModules:
-\_module: work@rv_core_ibex (work@rv_core_ibex), file:dut.sv, line:18:1, endln:23:10
+\_module: work@rv_core_ibex (work@rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:18:1, endln:23:10
   |vpiParent:
   \_design: (work@top_earlgrey)
   |vpiFullName:work@rv_core_ibex
   |vpiParameter:
   \_parameter: (work@rv_core_ibex.DmExceptionAddr), line:19:27, endln:19:42
     |vpiParent:
-    \_module: work@rv_core_ibex (work@rv_core_ibex), file:dut.sv, line:18:1, endln:23:10
+    \_module: work@rv_core_ibex (work@rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:18:1, endln:23:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:19:14, endln:19:26
@@ -577,7 +577,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:19:27, endln:19:46
     |vpiParent:
-    \_module: work@rv_core_ibex (work@rv_core_ibex), file:dut.sv, line:18:1, endln:23:10
+    \_module: work@rv_core_ibex (work@rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:18:1, endln:23:10
     |vpiRhs:
     \_constant: , line:19:45, endln:19:46
       |vpiDecompile:3
@@ -590,21 +590,21 @@ design: (work@top_earlgrey)
     \_parameter: (work@rv_core_ibex.DmExceptionAddr), line:19:27, endln:19:42
   |vpiDefName:work@rv_core_ibex
 |uhdmallModules:
-\_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+\_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
   |vpiParent:
   \_design: (work@top_earlgrey)
   |vpiFullName:work@top_earlgrey
   |vpiParameter:
   \_parameter: (work@top_earlgrey.ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
     |vpiParent:
-    \_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:2:15, endln:2:18
       |vpiParent:
       \_parameter: (work@top_earlgrey.ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
       |vpiInstance:
-      \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+      \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -614,7 +614,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:43
     |vpiParent:
-    \_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
     |vpiRhs:
     \_constant: , line:2:42, endln:2:43
       |vpiParent:
@@ -627,7 +627,7 @@ design: (work@top_earlgrey)
         |vpiParent:
         \_constant: , line:2:42, endln:2:43
         |vpiInstance:
-        \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+        \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -640,7 +640,7 @@ design: (work@top_earlgrey)
         |vpiParent:
         \_parameter: (work@top_earlgrey.ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
         |vpiInstance:
-        \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+        \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiLocalParam:1
@@ -651,19 +651,19 @@ design: (work@top_earlgrey)
   \_import_typespec: (tl_main_pkg), line:11:10, endln:11:24
   |vpiDefName:work@top_earlgrey
 |uhdmtopModules:
-\_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+\_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
   |vpiName:work@top_earlgrey
   |vpiParameter:
   \_parameter: (work@top_earlgrey.ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
     |vpiParent:
-    \_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:2:15, endln:2:18
       |vpiParent:
       \_parameter: (work@top_earlgrey.ADDR_SPACE_DEBUG_MEM), line:2:19, endln:2:39
       |vpiInstance:
-      \_package: tl_main_pkg (tl_main_pkg::), file:dut.sv, line:1:1, endln:3:11
+      \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -673,7 +673,7 @@ design: (work@top_earlgrey)
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:43
     |vpiParent:
-    \_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
     |vpiRhs:
     \_constant: , line:2:42, endln:2:43
       |vpiDecompile:1
@@ -690,15 +690,15 @@ design: (work@top_earlgrey)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:dut.sv, line:13:3, endln:15:22
+  \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:13:3, endln:15:22
     |vpiParent:
-    \_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
     |vpiName:u_rv_core_ibex
     |vpiFullName:work@top_earlgrey.u_rv_core_ibex
     |vpiParameter:
     \_parameter: (work@top_earlgrey.u_rv_core_ibex.DmExceptionAddr), line:19:27, endln:19:42
       |vpiParent:
-      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:dut.sv, line:13:3, endln:15:22
+      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:13:3, endln:15:22
       |UINT:3
       |vpiTypespec:
       \_int_typespec: , line:19:14, endln:19:26
@@ -709,7 +709,7 @@ design: (work@top_earlgrey)
     |vpiParamAssign:
     \_param_assign: , line:19:27, endln:19:46
       |vpiParent:
-      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:dut.sv, line:13:3, endln:15:22
+      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:13:3, endln:15:22
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:14:23, endln:14:66
@@ -745,20 +745,20 @@ design: (work@top_earlgrey)
       |vpiLhs:
       \_parameter: (work@top_earlgrey.u_rv_core_ibex.DmExceptionAddr), line:19:27, endln:19:42
     |vpiDefName:work@rv_core_ibex
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ParamRef/dut.sv
     |vpiDefLineNo:18
     |vpiInstance:
-    \_module: work@top_earlgrey (work@top_earlgrey), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
     |vpiModule:
-    \_module: work@ibex_core (work@top_earlgrey.u_rv_core_ibex.u_core), file:dut.sv, line:20:4, endln:22:14
+    \_module: work@ibex_core (work@top_earlgrey.u_rv_core_ibex.u_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:20:4, endln:22:14
       |vpiParent:
-      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:dut.sv, line:13:3, endln:15:22
+      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:13:3, endln:15:22
       |vpiName:u_core
       |vpiFullName:work@top_earlgrey.u_rv_core_ibex.u_core
       |vpiParameter:
       \_parameter: (work@top_earlgrey.u_rv_core_ibex.u_core.DmExceptionAddr), line:26:27, endln:26:42
         |vpiParent:
-        \_module: work@ibex_core (work@top_earlgrey.u_rv_core_ibex.u_core), file:dut.sv, line:20:4, endln:22:14
+        \_module: work@ibex_core (work@top_earlgrey.u_rv_core_ibex.u_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:20:4, endln:22:14
         |UINT:4
         |vpiTypespec:
         \_int_typespec: , line:26:14, endln:26:26
@@ -769,7 +769,7 @@ design: (work@top_earlgrey)
       |vpiParamAssign:
       \_param_assign: , line:26:27, endln:26:46
         |vpiParent:
-        \_module: work@ibex_core (work@top_earlgrey.u_rv_core_ibex.u_core), file:dut.sv, line:20:4, endln:22:14
+        \_module: work@ibex_core (work@top_earlgrey.u_rv_core_ibex.u_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:20:4, endln:22:14
         |vpiOverriden:1
         |vpiRhs:
         \_operation: , line:21:24, endln:21:39
@@ -793,7 +793,7 @@ design: (work@top_earlgrey)
               |vpiParent:
               \_operation: , line:7:47, endln:7:62
               |vpiInstance:
-              \_package: dm (dm::), file:dut.sv, line:5:1, endln:8:16
+              \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
               |vpiRange:
               \_range: , line:7:21, endln:7:27
                 |vpiParent:
@@ -831,10 +831,10 @@ design: (work@top_earlgrey)
         |vpiLhs:
         \_parameter: (work@top_earlgrey.u_rv_core_ibex.u_core.DmExceptionAddr), line:26:27, endln:26:42
       |vpiDefName:work@ibex_core
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/ParamRef/dut.sv
       |vpiDefLineNo:25
       |vpiInstance:
-      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:dut.sv, line:13:3, endln:15:22
+      \_module: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:13:3, endln:15:22
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

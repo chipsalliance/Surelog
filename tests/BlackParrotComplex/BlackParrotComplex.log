@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BlackParrotComplex/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BlackParrotComplex/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<2875> s<2874> l<3:1> el<1:3>
 n<> u<2> t<Module_keyword> p<6> s<3> l<3:1> el<3:7>
@@ -2878,19 +2878,19 @@ n<> u<2872> t<Module_declaration> p<2873> c<2780> l<79:1> el<88:10>
 n<> u<2873> t<Description> p<2874> c<2872> l<79:1> el<88:10>
 n<> u<2874> t<Source_text> p<2875> c<2675> l<3:1> el<88:10>
 n<> u<2875> t<Top_level_rule> c<1> l<3:1> el<90:1>
-[WRN:PA0205] dut.sv:3:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:3:1: No timescale set for "top".
 
-[WRN:PA0205] dut.sv:67:1: No timescale set for "middle".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:67:1: No timescale set for "middle".
 
-[WRN:PA0205] dut.sv:79:1: No timescale set for "bottom".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:79:1: No timescale set for "bottom".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:79:1: Compile module "work@bottom".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:79:1: Compile module "work@bottom".
 
-[INF:CP0303] dut.sv:67:1: Compile module "work@middle".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:67:1: Compile module "work@middle".
 
-[INF:CP0303] dut.sv:3:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:3:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -3152,11 +3152,11 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:3:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:3:1: Top level module "work@top".
 
-[NTE:EL0503] dut.sv:67:1: Top level module "work@middle".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:67:1: Top level module "work@middle".
 
-[NTE:EL0503] dut.sv:79:1: Top level module "work@bottom".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:79:1: Top level module "work@bottom".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -3232,11 +3232,11 @@ sys_func_call                                          3
 task                                                  18
 var_select                                           132
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BlackParrotComplex/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BlackParrotComplex/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BlackParrotComplex/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BlackParrotComplex/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BlackParrotComplex/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BlackParrotComplex/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -3720,14 +3720,14 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+\_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@bottom
   |vpiParameter:
   \_parameter: (work@bottom.A3), line:81:17, endln:81:19
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiSize:1
     |vpiTypespec:
     \_array_typespec: 
@@ -3764,13 +3764,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@bottom.A), line:82:13, endln:82:14
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiName:A
     |vpiFullName:work@bottom.A
   |vpiParamAssign:
   \_param_assign: , line:81:17, endln:81:36
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiRhs:
     \_operation: , line:81:27, endln:81:36
       |vpiOpType:33
@@ -3803,7 +3803,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:82:13, endln:82:22
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiRhs:
     \_bit_select: (A3), line:82:17, endln:82:22
       |vpiParent:
@@ -3822,14 +3822,14 @@ design: (work@top)
     \_parameter: (work@bottom.A), line:82:13, endln:82:14
   |vpiDefName:work@bottom
 |uhdmallModules:
-\_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+\_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@middle
   |vpiParameter:
   \_parameter: (work@middle.A3), line:69:17, endln:69:19
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiSize:1
     |vpiTypespec:
     \_array_typespec: 
@@ -3866,13 +3866,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@middle.A), line:70:13, endln:70:14
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiName:A
     |vpiFullName:work@middle.A
   |vpiParamAssign:
   \_param_assign: , line:69:17, endln:69:37
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiRhs:
     \_operation: , line:69:27, endln:69:37
       |vpiOpType:75
@@ -3899,7 +3899,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:70:13, endln:70:22
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiRhs:
     \_bit_select: (A3), line:70:17, endln:70:22
       |vpiParent:
@@ -3918,14 +3918,14 @@ design: (work@top)
     \_parameter: (work@middle.A), line:70:13, endln:70:14
   |vpiDefName:work@middle
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.i), line:4:13, endln:4:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -3935,7 +3935,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.dims_p), line:5:12, endln:5:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -3944,13 +3944,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.dirs_lp), line:6:11, endln:6:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiName:dirs_lp
     |vpiFullName:work@top.dirs_lp
   |vpiParameter:
   \_parameter: (work@top.StrictXY), line:8:34, endln:8:42
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiTypespec:
     \_bit_typespec: , line:8:14, endln:8:33
       |vpiParent:
@@ -4015,7 +4015,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.StrictX), line:27:36, endln:27:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiTypespec:
     \_bit_typespec: , line:27:16, endln:27:35
       |vpiParent:
@@ -4080,7 +4080,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:64
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiTypespec:
     \_bit_typespec: , line:40:12, endln:40:47
       |vpiParent:
@@ -4164,14 +4164,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:45:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiLocalParam:1
     |vpiName:output_dirs_sparse_lp
     |vpiFullName:work@top.output_dirs_sparse_lp
   |vpiParamAssign:
   \_param_assign: , line:4:13, endln:4:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:0
@@ -4185,7 +4185,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:5:12, endln:5:35
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_constant: , line:5:34, endln:5:35
       |vpiDecompile:2
@@ -4199,7 +4199,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:39
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:6:29, endln:6:39
       |vpiOpType:24
@@ -4234,7 +4234,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:34, endln:25:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:9:31, endln:25:33
       |vpiOpType:33
@@ -4333,7 +4333,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:27:36, endln:38:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:28:32, endln:38:32
       |vpiOpType:33
@@ -4400,7 +4400,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:40:48, endln:40:102
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:40:68, endln:40:102
       |vpiOpType:32
@@ -4437,7 +4437,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:45:12, endln:51:249
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:45:36, endln:51:249
       |vpiOpType:24
@@ -7635,7 +7635,7 @@ design: (work@top)
   |vpiProcess:
   \_initial: , line:56:1, endln:58:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiStmt:
     \_begin: (work@top), line:56:9, endln:58:4
       |vpiParent:
@@ -7661,12 +7661,12 @@ design: (work@top)
           |vpiFullName:work@top.output_dirs_sparse_lp
         |vpiName:$display
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.i), line:4:13, endln:4:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -7678,7 +7678,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.dims_p), line:5:12, endln:5:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -7689,13 +7689,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.dirs_lp), line:6:11, endln:6:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiName:dirs_lp
     |vpiFullName:work@top.dirs_lp
   |vpiParameter:
   \_parameter: (work@top.StrictXY), line:8:34, endln:8:42
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiTypespec:
     \_bit_typespec: , line:8:14, endln:8:33
       |vpiParent:
@@ -7766,7 +7766,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.StrictX), line:27:36, endln:27:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiTypespec:
     \_bit_typespec: , line:27:16, endln:27:35
       |vpiParent:
@@ -7837,7 +7837,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:64
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiTypespec:
     \_bit_typespec: , line:40:12, endln:40:47
       |vpiParent:
@@ -7933,14 +7933,14 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:45:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiLocalParam:1
     |vpiName:output_dirs_sparse_lp
     |vpiFullName:work@top.output_dirs_sparse_lp
   |vpiParamAssign:
   \_param_assign: , line:4:13, endln:4:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:0
@@ -7954,7 +7954,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:5:12, endln:5:35
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_constant: , line:5:34, endln:5:35
       |vpiDecompile:2
@@ -7968,7 +7968,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:39
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_constant: , line:6:29, endln:6:39
       |vpiDecompile:5
@@ -7980,7 +7980,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:34, endln:25:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:9:31, endln:25:33
       |vpiTypespec:
@@ -8084,7 +8084,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:27:36, endln:38:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:28:32, endln:38:32
       |vpiTypespec:
@@ -8156,7 +8156,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:40:48, endln:40:102
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:9:31, endln:25:33
     |vpiLhs:
@@ -8164,7 +8164,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:45:12, endln:51:249
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_constant: , line:45:36, endln:51:249
       |vpiDecompile:5
@@ -8179,7 +8179,7 @@ design: (work@top)
   |vpiProcess:
   \_initial: , line:56:1, endln:58:4
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:3:1, endln:64:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiStmt:
     \_begin: (work@top), line:56:9, endln:58:4
       |vpiParent:
@@ -8201,12 +8201,12 @@ design: (work@top)
           \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:45:33
         |vpiName:$display
 |uhdmtopModules:
-\_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+\_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
   |vpiName:work@middle
   |vpiParameter:
   \_parameter: (work@middle.A3), line:69:17, endln:69:19
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiSize:1
     |vpiTypespec:
     \_array_typespec: 
@@ -8263,13 +8263,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@middle.A), line:70:13, endln:70:14
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiName:A
     |vpiFullName:work@middle.A
   |vpiParamAssign:
   \_param_assign: , line:69:17, endln:69:37
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiRhs:
     \_operation: , line:69:27, endln:69:37
       |vpiParent:
@@ -8333,7 +8333,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:70:13, endln:70:22
     |vpiParent:
-    \_module: work@middle (work@middle), file:dut.sv, line:67:1, endln:76:10
+    \_module: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
     |vpiRhs:
     \_constant: , line:70:17, endln:70:22
       |vpiDecompile:1
@@ -8346,12 +8346,12 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
 |uhdmtopModules:
-\_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+\_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
   |vpiName:work@bottom
   |vpiParameter:
   \_parameter: (work@bottom.A3), line:81:17, endln:81:19
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiSize:1
     |vpiTypespec:
     \_array_typespec: 
@@ -8408,13 +8408,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@bottom.A), line:82:13, endln:82:14
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiName:A
     |vpiFullName:work@bottom.A
   |vpiParamAssign:
   \_param_assign: , line:81:17, endln:81:36
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiRhs:
     \_operation: , line:81:27, endln:81:36
       |vpiTypespec:
@@ -8449,7 +8449,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:82:13, endln:82:22
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:dut.sv, line:79:1, endln:88:10
+    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
     |vpiRhs:
     \_constant: , line:82:17, endln:82:22
       |vpiDecompile:3

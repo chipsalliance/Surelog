@@ -1,20 +1,20 @@
-[INF:CM0023] Creating log file ../../build/regression/FuncParam/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/FuncParam/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[INF:PP0122] Preprocessing source file "dut.sv".
+[INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/FuncParam/dut.sv".
 
-[INF:PA0201] Parsing source file "dut.sv".
+[INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/FuncParam/dut.sv".
 
-[WRN:PA0205] dut.sv:1:1: No timescale set for "prim_lfsr".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncParam/dut.sv:1:1: No timescale set for "prim_lfsr".
 
-[WRN:PA0205] dut.sv:10:1: No timescale set for "aes_prng".
+[WRN:PA0205] ${SURELOG_DIR}/tests/FuncParam/dut.sv:10:1: No timescale set for "aes_prng".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:10:1: Compile module "work@aes_prng".
+[INF:CP0303] ${SURELOG_DIR}/tests/FuncParam/dut.sv:10:1: Compile module "work@aes_prng".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@prim_lfsr".
+[INF:CP0303] ${SURELOG_DIR}/tests/FuncParam/dut.sv:1:1: Compile module "work@prim_lfsr".
 
 [INF:CP0302] Compile class "work@mailbox".
 
@@ -24,7 +24,7 @@
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:10:1: Top level module "work@aes_prng".
+[NTE:EL0503] ${SURELOG_DIR}/tests/FuncParam/dut.sv:10:1: Top level module "work@aes_prng".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -92,11 +92,11 @@ ref_obj                                                7
 return_stmt                                            3
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/FuncParam/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncParam/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/FuncParam/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncParam/slpp_unit/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/FuncParam/slpp_unit/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncParam/slpp_unit/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -580,20 +580,20 @@ design: (work@aes_prng)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@aes_prng (work@aes_prng), file:dut.sv, line:10:1, endln:19:10
+\_module: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
   |vpiParent:
   \_design: (work@aes_prng)
   |vpiFullName:work@aes_prng
   |vpiDefName:work@aes_prng
 |uhdmallModules:
-\_module: work@prim_lfsr (work@prim_lfsr), file:dut.sv, line:1:1, endln:8:10
+\_module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@aes_prng)
   |vpiFullName:work@prim_lfsr
   |vpiParameter:
   \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:33
     |vpiParent:
-    \_module: work@prim_lfsr (work@prim_lfsr), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:1:1, endln:8:10
     |UINT:12
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:26
@@ -604,7 +604,7 @@ design: (work@aes_prng)
   |vpiParamAssign:
   \_param_assign: , line:2:27, endln:2:38
     |vpiParent:
-    \_module: work@prim_lfsr (work@prim_lfsr), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:1:1, endln:8:10
     |vpiRhs:
     \_constant: , line:2:36, endln:2:38
       |vpiDecompile:12
@@ -619,7 +619,7 @@ design: (work@aes_prng)
   |vpiTaskFunc:
   \_function: (work@prim_lfsr.compute), line:3:4, endln:6:15
     |vpiParent:
-    \_module: work@prim_lfsr (work@prim_lfsr), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:1:1, endln:8:10
     |vpiName:compute
     |vpiFullName:work@prim_lfsr.compute
     |vpiVariables:
@@ -696,7 +696,7 @@ design: (work@aes_prng)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_module: work@prim_lfsr (work@prim_lfsr), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:1:1, endln:8:10
     |vpiStmt:
     \_begin: (work@prim_lfsr.compute)
       |vpiParent:
@@ -717,23 +717,23 @@ design: (work@aes_prng)
           |vpiActual:
           \_logic_var: (work@prim_lfsr.compute.next_state), line:4:26, endln:4:36
     |vpiInstance:
-    \_module: work@prim_lfsr (work@prim_lfsr), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:1:1, endln:8:10
 |uhdmtopModules:
-\_module: work@aes_prng (work@aes_prng), file:dut.sv, line:10:1, endln:19:10
+\_module: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
   |vpiName:work@aes_prng
   |vpiDefName:work@aes_prng
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:dut.sv, line:11:4, endln:13:17
+  \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:11:4, endln:13:17
     |vpiParent:
-    \_module: work@aes_prng (work@aes_prng), file:dut.sv, line:10:1, endln:19:10
+    \_module: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
     |vpiName:u_lfsr16
     |vpiFullName:work@aes_prng.u_lfsr16
     |vpiParameter:
     \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:dut.sv, line:11:4, endln:13:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:11:4, endln:13:17
       |UINT:12
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:26
@@ -744,7 +744,7 @@ design: (work@aes_prng)
     |vpiParamAssign:
     \_param_assign: , line:2:27, endln:2:38
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:dut.sv, line:11:4, endln:13:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:11:4, endln:13:17
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:36, endln:2:38
@@ -757,12 +757,12 @@ design: (work@aes_prng)
       |vpiLhs:
       \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
     |vpiDefName:work@prim_lfsr
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/FuncParam/dut.sv
     |vpiDefLineNo:1
     |vpiTaskFunc:
     \_function: (work@aes_prng.u_lfsr16.compute), line:3:4, endln:6:15
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:dut.sv, line:11:4, endln:13:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:11:4, endln:13:17
       |vpiName:compute
       |vpiFullName:work@aes_prng.u_lfsr16.compute
       |vpiVariables:
@@ -778,7 +778,7 @@ design: (work@aes_prng)
       |vpiReturn:
       \_logic_var: , line:3:23, endln:3:41
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:dut.sv, line:11:4, endln:13:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:11:4, endln:13:17
       |vpiStmt:
       \_begin: (work@aes_prng.u_lfsr16.compute)
         |vpiParent:
@@ -805,19 +805,19 @@ design: (work@aes_prng)
             |vpiActual:
             \_logic_var: (work@prim_lfsr.compute.next_state), line:4:26, endln:4:36
       |vpiInstance:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:dut.sv, line:11:4, endln:13:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr16), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:11:4, endln:13:17
     |vpiInstance:
-    \_module: work@aes_prng (work@aes_prng), file:dut.sv, line:10:1, endln:19:10
+    \_module: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
   |vpiModule:
-  \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:dut.sv, line:15:3, endln:17:17
+  \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
     |vpiParent:
-    \_module: work@aes_prng (work@aes_prng), file:dut.sv, line:10:1, endln:19:10
+    \_module: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
     |vpiName:u_lfsr18
     |vpiFullName:work@aes_prng.u_lfsr18
     |vpiParameter:
     \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:33
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:dut.sv, line:15:3, endln:17:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
       |UINT:12
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:26
@@ -828,7 +828,7 @@ design: (work@aes_prng)
     |vpiParamAssign:
     \_param_assign: , line:2:27, endln:2:38
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:dut.sv, line:15:3, endln:17:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:36, endln:2:38
@@ -841,12 +841,12 @@ design: (work@aes_prng)
       |vpiLhs:
       \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:33
     |vpiDefName:work@prim_lfsr
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/FuncParam/dut.sv
     |vpiDefLineNo:1
     |vpiTaskFunc:
     \_function: (work@aes_prng.u_lfsr18.compute), line:3:4, endln:6:15
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:dut.sv, line:15:3, endln:17:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
       |vpiName:compute
       |vpiFullName:work@aes_prng.u_lfsr18.compute
       |vpiVariables:
@@ -862,7 +862,7 @@ design: (work@aes_prng)
       |vpiReturn:
       \_logic_var: , line:3:23, endln:3:41
       |vpiParent:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:dut.sv, line:15:3, endln:17:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
       |vpiStmt:
       \_begin: (work@aes_prng.u_lfsr18.compute)
         |vpiParent:
@@ -889,9 +889,9 @@ design: (work@aes_prng)
             |vpiActual:
             \_logic_var: (work@prim_lfsr.compute.next_state), line:4:26, endln:4:36
       |vpiInstance:
-      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:dut.sv, line:15:3, endln:17:17
+      \_module: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
     |vpiInstance:
-    \_module: work@aes_prng (work@aes_prng), file:dut.sv, line:10:1, endln:19:10
+    \_module: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

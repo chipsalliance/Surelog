@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/AlwaysNoElab/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/AlwaysNoElab/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<145> s<144> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<21> s<3> l<1:1> el<1:7>
@@ -148,11 +148,11 @@ n<> u<142> t<Module_declaration> p<143> c<21> l<1:1> el<12:10>
 n<> u<143> t<Description> p<144> c<142> l<1:1> el<12:10>
 n<> u<144> t<Source_text> p<145> c<143> l<1:1> el<12:10>
 n<> u<145> t<Top_level_rule> c<1> l<1:1> el<14:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv:1:1: Compile module "work@dut".
 
 LIB:  work
 FILE: builtin.sv
@@ -414,7 +414,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -486,11 +486,11 @@ ref_obj                                                8
 sys_func_call                                          1
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/AlwaysNoElab/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AlwaysNoElab/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/AlwaysNoElab/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AlwaysNoElab/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/AlwaysNoElab/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/AlwaysNoElab/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -974,14 +974,14 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.NrDevices), line:2:17, endln:2:26
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |UINT:1
     |vpiSigned:1
     |vpiName:NrDevices
@@ -989,7 +989,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_int_typespec: , line:5:14, endln:5:26
       |vpiParent:
@@ -1004,7 +1004,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:30
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiRhs:
     \_constant: , line:2:29, endln:2:30
       |vpiDecompile:1
@@ -1021,7 +1021,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:5:27, endln:5:83
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiRhs:
     \_operation: , line:5:46, endln:5:83
       |vpiOpType:32
@@ -1067,20 +1067,20 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.device_sel_req), line:6:32, endln:6:46
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiName:device_sel_req
     |vpiFullName:work@dut.device_sel_req
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.device), line:7:7, endln:7:13
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiName:device
     |vpiFullName:work@dut.device
   |vpiProcess:
   \_always: , line:8:3, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiStmt:
     \_begin: (work@dut), line:8:15, endln:10:6
       |vpiParent:
@@ -1117,12 +1117,12 @@ design: (work@dut)
           \_logic_var: (work@dut.device_sel_req), line:6:32, endln:6:46
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
   |vpiName:work@dut
   |vpiVariables:
   \_logic_var: (work@dut.device_sel_req), line:6:32, endln:6:46
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_logic_typespec: , line:6:3, endln:6:31
       |vpiRange:
@@ -1167,7 +1167,7 @@ design: (work@dut)
   |vpiVariables:
   \_int_var: (work@dut.device), line:7:7, endln:7:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_int_typespec: , line:7:3, endln:7:6
       |vpiSigned:1
@@ -1183,7 +1183,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.NrDevices), line:2:17, endln:2:26
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |UINT:1
     |vpiSigned:1
     |vpiName:NrDevices
@@ -1191,7 +1191,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_int_typespec: , line:5:14, endln:5:26
       |vpiParent:
@@ -1204,7 +1204,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:30
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiRhs:
     \_constant: , line:2:29, endln:2:30
       |vpiDecompile:3
@@ -1216,7 +1216,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:5:27, endln:5:83
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiRhs:
     \_constant: , line:5:46, endln:5:83
       |vpiDecompile:2
@@ -1233,7 +1233,7 @@ design: (work@dut)
   |vpiProcess:
   \_always: , line:8:3, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:12:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiStmt:
     \_begin: (work@dut), line:8:15, endln:10:6
       |vpiParent:

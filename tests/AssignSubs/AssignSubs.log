@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/AssignSubs/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/AssignSubs/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/AssignSubs/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<160> s<159> l<1:1> el<1:0>
 n<> u<2> t<Package> p<29> s<3> l<1:1> el<1:8>
@@ -163,21 +163,21 @@ n<> u<157> t<Module_declaration> p<158> c<40> l<7:1> el<19:10>
 n<> u<158> t<Description> p<159> c<157> l<7:1> el<19:10>
 n<> u<159> t<Source_text> p<160> c<30> l<1:1> el<19:10>
 n<> u<160> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/AssignSubs/dut.sv:1:1: No timescale set for "pkg".
 
-[WRN:PA0205] dut.sv:7:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/AssignSubs/dut.sv:7:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/AssignSubs/dut.sv:1:1: Compile package "pkg".
 
-[INF:CP0303] dut.sv:7:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/AssignSubs/dut.sv:7:1: Compile module "work@dut".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:14:2: Compile generate block "work@dut.genblk1[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/AssignSubs/dut.sv:14:2: Compile generate block "work@dut.genblk1[0]".
 
-[NTE:EL0503] dut.sv:7:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/AssignSubs/dut.sv:7:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -245,11 +245,11 @@ port                                                   3
 range                                                  5
 ref_obj                                               11
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/AssignSubs/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssignSubs/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/AssignSubs/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AssignSubs/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/AssignSubs/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/AssignSubs/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -258,7 +258,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:5:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:pkg
@@ -266,10 +266,10 @@ design: (work@dut)
   |vpiTypedef:
   \_enum_typespec: (pkg::priv_lvl_e), line:2:2, endln:4:16
     |vpiParent:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:5:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
     |vpiName:pkg::priv_lvl_e
     |vpiInstance:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:5:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
     |vpiBaseTypespec:
     \_logic_typespec: , line:2:15, endln:2:26
       |vpiInstance:
@@ -300,7 +300,7 @@ design: (work@dut)
       |vpiSize:4
   |vpiDefName:pkg
 |uhdmtopPackages:
-\_package: pkg (pkg::), file:dut.sv, line:1:1, endln:5:11
+\_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:pkg
@@ -308,14 +308,14 @@ design: (work@dut)
   |vpiTypedef:
   \_enum_typespec: (pkg::priv_lvl_e), line:2:2, endln:4:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiName:pkg::priv_lvl_e
     |vpiInstance:
-    \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:5:11
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
     |vpiBaseTypespec:
     \_logic_typespec: , line:2:15, endln:2:26
       |vpiInstance:
-      \_package: pkg (pkg::), file:dut.sv, line:1:1, endln:5:11
+      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
       |vpiRange:
       \_range: , line:2:21, endln:2:26
         |vpiLeftRange:
@@ -343,7 +343,7 @@ design: (work@dut)
   |vpiDefName:pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -355,20 +355,20 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.c), line:12:14, endln:12:15
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiName:c
     |vpiFullName:work@dut.c
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.a0), line:7:12, endln:7:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiName:a0
     |vpiFullName:work@dut.a0
   |vpiPort:
   \_port: (a0), line:7:12, endln:7:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiName:a0
     |vpiDirection:1
     |vpiLowConn:
@@ -378,12 +378,12 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:8:8, endln:8:8
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
   |vpiName:work@dut
   |vpiVariables:
   \_array_var: (work@dut.c), line:12:14, endln:12:19
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiSize:4
     |vpiTypespec:
     \_array_typespec: 
@@ -470,7 +470,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.a0), line:7:12, endln:7:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:8:8, endln:8:8
     |vpiName:a0
@@ -479,7 +479,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (a0), line:7:12, endln:7:14
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiName:a0
     |vpiDirection:1
     |vpiLowConn:
@@ -493,11 +493,11 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:8:8, endln:8:8
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.genblk1[0]), line:14:33, endln:18:5
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:7:1, endln:19:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiName:genblk1[0]
     |vpiFullName:work@dut.genblk1[0]
     |vpiGenScope:

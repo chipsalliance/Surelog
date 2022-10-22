@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/CastToParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/CastToParam/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/CastToParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<86> s<85> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<37> s<3> l<1:1> el<1:7>
@@ -89,15 +89,15 @@ n<> u<83> t<Module_declaration> p<84> c<37> l<1:1> el<11:10>
 n<> u<84> t<Description> p<85> c<83> l<1:1> el<11:10>
 n<> u<85> t<Source_text> p<86> c<84> l<1:1> el<11:10>
 n<> u<86> t<Top_level_rule> c<1> l<1:1> el<12:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastToParam/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/CastToParam/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CastToParam/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -141,11 +141,11 @@ range                                                  1
 ref_obj                                                5
 return_stmt                                            2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CastToParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastToParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CastToParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastToParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CastToParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CastToParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -154,14 +154,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.Depth), line:2:27, endln:2:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:26
@@ -172,7 +172,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:15
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:26
@@ -187,7 +187,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:27, endln:2:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:2:35, endln:2:36
       |vpiDecompile:3
@@ -201,7 +201,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:27, endln:3:41
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:3:39, endln:3:41
       |vpiDecompile:15
@@ -216,7 +216,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.get_casted_depth), line:8:4, endln:10:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiName:get_casted_depth
     |vpiFullName:work@top.get_casted_depth
     |vpiVisibility:1
@@ -254,7 +254,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiStmt:
     \_return_stmt: , line:9:7, endln:9:13
       |vpiParent:
@@ -273,14 +273,14 @@ design: (work@top)
           |vpiName:Depth
           |vpiFullName:work@top.get_casted_depth.Depth
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.Depth), line:2:27, endln:2:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:26
@@ -291,7 +291,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:15
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:26
@@ -304,7 +304,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:27, endln:2:36
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:2:35, endln:2:36
       |vpiDecompile:3
@@ -318,7 +318,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:27, endln:3:41
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:3:39, endln:3:41
       |vpiDecompile:15
@@ -334,7 +334,7 @@ design: (work@top)
   |vpiTaskFunc:
   \_function: (work@top.get_casted_depth), line:8:4, endln:10:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiName:get_casted_depth
     |vpiFullName:work@top.get_casted_depth
     |vpiVisibility:1
@@ -342,7 +342,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: , line:8:23, endln:8:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiStmt:
     \_return_stmt: , line:9:7, endln:9:13
       |vpiParent:
@@ -363,7 +363,7 @@ design: (work@top)
           |vpiActual:
           \_parameter: (work@top.Depth), line:2:27, endln:2:32
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

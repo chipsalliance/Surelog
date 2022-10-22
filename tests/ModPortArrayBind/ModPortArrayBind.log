@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ModPortArrayBind/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ModPortArrayBind/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<155> s<154> l<2:1> el<1:2>
 n<> u<2> t<Interface> p<7> s<4> l<2:1> el<2:10>
@@ -158,23 +158,23 @@ n<> u<152> t<Module_declaration> p<153> c<75> l<12:1> el<29:10>
 n<> u<153> t<Description> p<154> c<152> l<12:1> el<29:10>
 n<> u<154> t<Source_text> p<155> c<35> l<2:1> el<29:10>
 n<> u<155> t<Top_level_rule> c<1> l<2:1> el<30:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "r5p_bus_if".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv:2:1: No timescale set for "r5p_bus_if".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "r5p_bus_dec".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv:12:1: No timescale set for "r5p_bus_dec".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:12:1: Compile module "work@r5p_bus_dec".
+[INF:CP0303] ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv:12:1: Compile module "work@r5p_bus_dec".
 
-[INF:CP0304] dut.sv:2:1: Compile interface "work@r5p_bus_if".
+[INF:CP0304] ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv:2:1: Compile interface "work@r5p_bus_if".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:21:1: Compile generate block "work@r5p_bus_dec.gen_loop[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv:21:1: Compile generate block "work@r5p_bus_dec.gen_loop[0]".
 
-[INF:CP0335] dut.sv:21:1: Compile generate block "work@r5p_bus_dec.gen_loop[1]".
+[INF:CP0335] ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv:21:1: Compile generate block "work@r5p_bus_dec.gen_loop[1]".
 
-[NTE:EL0503] dut.sv:12:1: Top level module "work@r5p_bus_dec".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv:12:1: Top level module "work@r5p_bus_dec".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -240,11 +240,11 @@ port                                                   3
 range                                                  3
 ref_obj                                               25
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ModPortArrayBind/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortArrayBind/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ModPortArrayBind/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ModPortArrayBind/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ModPortArrayBind/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ModPortArrayBind/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -253,7 +253,7 @@ design: (work@r5p_bus_dec)
 |vpiElaborated:1
 |vpiName:work@r5p_bus_dec
 |uhdmallInterfaces:
-\_interface: work@r5p_bus_if (work@r5p_bus_if), file:dut.sv, line:2:1, endln:10:25
+\_interface: work@r5p_bus_if (work@r5p_bus_if), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:2:1, endln:10:25
   |vpiParent:
   \_design: (work@r5p_bus_dec)
   |vpiFullName:work@r5p_bus_if
@@ -261,28 +261,28 @@ design: (work@r5p_bus_dec)
   |vpiNet:
   \_logic_net: (work@r5p_bus_if.vld), line:4:17, endln:4:20
     |vpiParent:
-    \_interface: work@r5p_bus_if (work@r5p_bus_if), file:dut.sv, line:2:1, endln:10:25
+    \_interface: work@r5p_bus_if (work@r5p_bus_if), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:2:1, endln:10:25
     |vpiName:vld
     |vpiFullName:work@r5p_bus_if.vld
     |vpiNetType:36
   |vpiModport:
   \_modport: (man), line:6:11, endln:6:14
     |vpiParent:
-    \_interface: work@r5p_bus_if (work@r5p_bus_if), file:dut.sv, line:2:1, endln:10:25
+    \_interface: work@r5p_bus_if (work@r5p_bus_if), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:2:1, endln:10:25
     |vpiName:man
     |vpiIODecl:
     \_io_decl: (vld), line:7:11, endln:7:14
       |vpiDirection:2
       |vpiName:vld
 |uhdmallModules:
-\_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+\_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
   |vpiParent:
   \_design: (work@r5p_bus_dec)
   |vpiFullName:work@r5p_bus_dec
   |vpiParameter:
   \_parameter: (work@r5p_bus_dec.BN), line:13:16, endln:13:18
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:13:3, endln:13:15
@@ -293,7 +293,7 @@ design: (work@r5p_bus_dec)
   |vpiParamAssign:
   \_param_assign: , line:13:16, endln:13:22
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiRhs:
     \_constant: , line:13:21, endln:13:22
       |vpiDecompile:2
@@ -308,13 +308,13 @@ design: (work@r5p_bus_dec)
   |vpiNet:
   \_logic_net: (work@r5p_bus_dec.m), line:15:18, endln:15:19
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:m
     |vpiFullName:work@r5p_bus_dec.m
   |vpiPort:
   \_port: (m), line:15:18, endln:15:19
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:m
     |vpiDirection:3
     |vpiLowConn:
@@ -363,7 +363,7 @@ design: (work@r5p_bus_dec)
   |vpiInterfaceArray:
   \_interface_array: (r5p_bus_if.man), line:15:18, endln:15:19
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:m
     |vpiFullName:r5p_bus_if.man
     |vpiRange:
@@ -398,12 +398,12 @@ design: (work@r5p_bus_dec)
     \_interface_typespec: (r5p_bus_if.man), line:15:3, endln:15:17
       |vpiName:r5p_bus_if.man
 |uhdmtopModules:
-\_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+\_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
   |vpiName:work@r5p_bus_dec
   |vpiParameter:
   \_parameter: (work@r5p_bus_dec.BN), line:13:16, endln:13:18
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:13:3, endln:13:15
@@ -414,7 +414,7 @@ design: (work@r5p_bus_dec)
   |vpiParamAssign:
   \_param_assign: , line:13:16, endln:13:22
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiRhs:
     \_constant: , line:13:21, endln:13:22
       |vpiDecompile:2
@@ -431,7 +431,7 @@ design: (work@r5p_bus_dec)
   |vpiPort:
   \_port: (m), line:15:18, endln:15:19
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:m
     |vpiDirection:3
     |vpiLowConn:
@@ -448,18 +448,18 @@ design: (work@r5p_bus_dec)
       |vpiName:man
       |vpiIsModPort:1
     |vpiInstance:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
   |vpiInterface:
-  \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:dut.sv, line:12:0
+  \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:m[0]
     |vpiFullName:work@r5p_bus_dec.m[0]
     |vpiDefName:work@r5p_bus_if
     |vpiModport:
     \_modport: (man), line:6:11, endln:6:14
       |vpiParent:
-      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:dut.sv, line:12:0
+      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
       |vpiName:man
       |vpiIODecl:
       \_io_decl: (vld), line:7:11, endln:7:14
@@ -472,18 +472,18 @@ design: (work@r5p_bus_dec)
           |vpiName:vld
           |vpiVisibility:1
       |vpiInterface:
-      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:dut.sv, line:12:0
+      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
   |vpiInterface:
-  \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:dut.sv, line:12:0
+  \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:m[1]
     |vpiFullName:work@r5p_bus_dec.m[1]
     |vpiDefName:work@r5p_bus_if
     |vpiModport:
     \_modport: (man), line:6:11, endln:6:14
       |vpiParent:
-      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:dut.sv, line:12:0
+      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
       |vpiName:man
       |vpiIODecl:
       \_io_decl: (vld), line:7:11, endln:7:14
@@ -496,11 +496,11 @@ design: (work@r5p_bus_dec)
           |vpiName:vld
           |vpiVisibility:1
       |vpiInterface:
-      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:dut.sv, line:12:0
+      \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
   |vpiInterfaceArray:
   \_interface_array: (work@r5p_bus_dec.m), line:15:18, endln:15:19
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:m
     |vpiFullName:work@r5p_bus_dec.m
     |vpiSize:2
@@ -523,13 +523,13 @@ design: (work@r5p_bus_dec)
         |UINT:0
         |vpiConstType:9
     |vpiInstance:
-    \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:dut.sv, line:12:0
+    \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
     |vpiInstance:
-    \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:dut.sv, line:12:0
+    \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
   |vpiGenScopeArray:
   \_gen_scope_array: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:gen_loop[0]
     |vpiFullName:work@r5p_bus_dec.gen_loop[0]
     |vpiGenScope:
@@ -613,7 +613,7 @@ design: (work@r5p_bus_dec)
               |vpiActual:
               \_parameter: (work@r5p_bus_dec.gen_loop[0].i), line:21:0
             |vpiActual:
-            \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:dut.sv, line:12:0
+            \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
           |vpiActual:
           \_ref_obj: (vld)
             |vpiParent:
@@ -624,7 +624,7 @@ design: (work@r5p_bus_dec)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
     |vpiParent:
-    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:dut.sv, line:12:1, endln:29:10
+    \_module: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |vpiName:gen_loop[1]
     |vpiFullName:work@r5p_bus_dec.gen_loop[1]
     |vpiGenScope:
@@ -708,7 +708,7 @@ design: (work@r5p_bus_dec)
               |vpiActual:
               \_parameter: (work@r5p_bus_dec.gen_loop[1].i), line:21:0
             |vpiActual:
-            \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:dut.sv, line:12:0
+            \_interface: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
           |vpiActual:
           \_ref_obj: (vld)
             |vpiParent:

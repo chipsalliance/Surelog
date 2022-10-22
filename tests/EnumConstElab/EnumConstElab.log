@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/EnumConstElab/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/EnumConstElab/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/EnumConstElab/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<315> s<314> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -318,23 +318,23 @@ n<> u<312> t<Module_declaration> p<313> c<188> l<26:1> el<44:10>
 n<> u<313> t<Description> p<314> c<312> l<26:1> el<44:10>
 n<> u<314> t<Source_text> p<315> c<57> l<1:1> el<44:10>
 n<> u<315> t<Top_level_rule> c<1> l<1:1> el<45:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "prim_subreg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/EnumConstElab/dut.sv:1:1: No timescale set for "prim_subreg".
 
-[WRN:PA0205] dut.sv:6:1: No timescale set for "prim_subreg_shadow".
+[WRN:PA0205] ${SURELOG_DIR}/tests/EnumConstElab/dut.sv:6:1: No timescale set for "prim_subreg_shadow".
 
-[WRN:PA0205] dut.sv:26:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/EnumConstElab/dut.sv:26:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@prim_subreg".
+[INF:CP0303] ${SURELOG_DIR}/tests/EnumConstElab/dut.sv:1:1: Compile module "work@prim_subreg".
 
-[INF:CP0303] dut.sv:6:1: Compile module "work@prim_subreg_shadow".
+[INF:CP0303] ${SURELOG_DIR}/tests/EnumConstElab/dut.sv:6:1: Compile module "work@prim_subreg_shadow".
 
-[INF:CP0303] dut.sv:26:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/EnumConstElab/dut.sv:26:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:26:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/EnumConstElab/dut.sv:26:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -388,11 +388,11 @@ struct_typespec                                       16
 tagged_pattern                                        18
 typespec_member                                       32
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/EnumConstElab/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumConstElab/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/EnumConstElab/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/EnumConstElab/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/EnumConstElab/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/EnumConstElab/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -401,14 +401,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:4:10
+\_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@prim_subreg
   |vpiParameter:
   \_parameter: (work@prim_subreg.RESVAL), line:2:26, endln:2:32
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:1:1, endln:4:10
     |BIN:0
     |vpiTypespec:
     \_logic_typespec: , line:2:14, endln:2:25
@@ -437,7 +437,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:26, endln:2:37
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:2:35, endln:2:37
       |vpiDecompile:'0
@@ -452,25 +452,25 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@prim_subreg.a), line:3:8, endln:3:9
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg), file:dut.sv, line:1:1, endln:4:10
+    \_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:1:1, endln:4:10
     |vpiName:a
     |vpiFullName:work@prim_subreg.a
 |uhdmallModules:
-\_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+\_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@prim_subreg_shadow
   |vpiParameter:
   \_parameter: (work@prim_subreg_shadow.RESVAL), line:16:23, endln:16:29
     |vpiParent:
-    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
     |vpiTypespec:
     \_struct_typespec: (struct_t), line:7:12, endln:7:18
       |vpiParent:
-      \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+      \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
       |vpiName:struct_t
       |vpiInstance:
-      \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+      \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:8:19, endln:8:20
@@ -501,7 +501,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
         |vpiRefLineNo:8
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:8
@@ -535,7 +535,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
         |vpiRefLineNo:9
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:9
@@ -545,7 +545,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:16:23, endln:19:5
     |vpiParent:
-    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
     |vpiRhs:
     \_operation: , line:16:32, endln:19:5
       |vpiOpType:75
@@ -576,10 +576,10 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (enum_t), line:12:4, endln:14:13
     |vpiParent:
-    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
     |vpiName:enum_t
     |vpiInstance:
-    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+    \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
     |vpiBaseTypespec:
     \_logic_typespec: , line:12:17, endln:12:28
       |vpiRange:
@@ -610,21 +610,21 @@ design: (work@top)
   \_struct_typespec: (struct_t), line:7:12, endln:7:18
   |vpiDefName:work@prim_subreg_shadow
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.CTRL_RESET), line:36:23, endln:36:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiTypespec:
     \_struct_typespec: (struct_t), line:27:12, endln:27:18
       |vpiParent:
-      \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
       |vpiName:struct_t
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:28:19, endln:28:20
@@ -655,7 +655,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
         |vpiRefLineNo:28
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:28
@@ -689,7 +689,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
         |vpiRefLineNo:29
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:29
@@ -699,7 +699,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:36:23, endln:39:5
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiRhs:
     \_operation: , line:36:36, endln:39:5
       |vpiOpType:75
@@ -730,10 +730,10 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (enum_t), line:32:4, endln:34:13
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiName:enum_t
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiBaseTypespec:
     \_logic_typespec: , line:32:17, endln:32:28
       |vpiRange:
@@ -764,19 +764,19 @@ design: (work@top)
   \_struct_typespec: (struct_t), line:27:12, endln:27:18
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.CTRL_RESET), line:36:23, endln:36:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiTypespec:
     \_struct_typespec: (struct_t), line:27:12, endln:27:18
       |vpiParent:
       \_parameter: (work@top.CTRL_RESET), line:36:23, endln:36:33
       |vpiName:struct_t
       |vpiInstance:
-      \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+      \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (a), line:28:19, endln:28:20
@@ -807,7 +807,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
         |vpiRefLineNo:28
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:28
@@ -841,7 +841,7 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
         |vpiRefLineNo:29
         |vpiRefColumnNo:7
         |vpiRefEndLineNo:29
@@ -851,7 +851,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:36:23, endln:39:5
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiRhs:
     \_operation: , line:36:36, endln:39:5
       |vpiParent:
@@ -891,7 +891,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
           |vpiRefLineNo:28
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:28
@@ -925,7 +925,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
           |vpiRefLineNo:29
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:29
@@ -957,22 +957,22 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:dut.sv, line:41:4, endln:43:29
+  \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:41:4, endln:43:29
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiName:u_ctrl_reg_shadowed
     |vpiFullName:work@top.u_ctrl_reg_shadowed
     |vpiParameter:
     \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:16:23, endln:16:29
       |vpiParent:
-      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:dut.sv, line:41:4, endln:43:29
+      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:41:4, endln:43:29
       |vpiTypespec:
       \_struct_typespec: (struct_t), line:7:12, endln:7:18
         |vpiParent:
         \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:16:23, endln:16:29
         |vpiName:struct_t
         |vpiInstance:
-        \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:dut.sv, line:6:1, endln:24:10
+        \_module: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:6:1, endln:24:10
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (a), line:8:19, endln:8:20
@@ -1003,7 +1003,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
           |vpiRefLineNo:8
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:8
@@ -1037,7 +1037,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
-          |vpiRefFile:dut.sv
+          |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
           |vpiRefLineNo:9
           |vpiRefColumnNo:7
           |vpiRefEndLineNo:9
@@ -1047,7 +1047,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:16:23, endln:19:5
       |vpiParent:
-      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:dut.sv, line:41:4, endln:43:29
+      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:41:4, endln:43:29
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:42:15, endln:42:25
@@ -1088,7 +1088,7 @@ design: (work@top)
                   |vpiSize:64
                   |UINT:0
                   |vpiConstType:9
-            |vpiRefFile:dut.sv
+            |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
             |vpiRefLineNo:28
             |vpiRefColumnNo:7
             |vpiRefEndLineNo:28
@@ -1122,7 +1122,7 @@ design: (work@top)
                   |vpiSize:64
                   |UINT:0
                   |vpiConstType:9
-            |vpiRefFile:dut.sv
+            |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
             |vpiRefLineNo:29
             |vpiRefColumnNo:7
             |vpiRefEndLineNo:29
@@ -1151,20 +1151,20 @@ design: (work@top)
     |vpiTypedef:
     \_struct_typespec: (struct_t), line:7:12, endln:7:18
     |vpiDefName:work@prim_subreg_shadow
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
     |vpiDefLineNo:6
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:26:1, endln:44:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:26:1, endln:44:10
     |vpiModule:
-    \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:dut.sv, line:21:4, endln:23:20
+    \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:21:4, endln:23:20
       |vpiParent:
-      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:dut.sv, line:41:4, endln:43:29
+      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:41:4, endln:43:29
       |vpiName:staged_reg
       |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg
       |vpiVariables:
       \_int_var: (work@top.u_ctrl_reg_shadowed.staged_reg.a), line:3:8, endln:3:24
         |vpiParent:
-        \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:dut.sv, line:21:4, endln:23:20
+        \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:21:4, endln:23:20
         |vpiTypespec:
         \_int_typespec: , line:3:4, endln:3:7
           |vpiSigned:1
@@ -1211,7 +1211,7 @@ design: (work@top)
       |vpiParameter:
       \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:2:26, endln:2:32
         |vpiParent:
-        \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:dut.sv, line:21:4, endln:23:20
+        \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:21:4, endln:23:20
         |BIN:0
         |vpiTypespec:
         \_logic_typespec: , line:2:14, endln:2:25
@@ -1242,7 +1242,7 @@ design: (work@top)
       |vpiParamAssign:
       \_param_assign: , line:2:26, endln:2:37
         |vpiParent:
-        \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:dut.sv, line:21:4, endln:23:20
+        \_module: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:21:4, endln:23:20
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:22:15, endln:22:21
@@ -1252,10 +1252,10 @@ design: (work@top)
         |vpiLhs:
         \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:2:26, endln:2:32
       |vpiDefName:work@prim_subreg
-      |vpiDefFile:dut.sv
+      |vpiDefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:dut.sv, line:41:4, endln:43:29
+      \_module: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:${SURELOG_DIR}/tests/EnumConstElab/dut.sv, line:41:4, endln:43:29
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

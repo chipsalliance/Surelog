@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/UnsizedParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UnsizedParam/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/UnsizedParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<135> s<134> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -138,19 +138,19 @@ n<> u<132> t<Module_declaration> p<133> c<101> l<8:1> el<11:10>
 n<> u<133> t<Description> p<134> c<132> l<8:1> el<11:10>
 n<> u<134> t<Source_text> p<135> c<96> l<1:1> el<11:10>
 n<> u<135> t<Top_level_rule> c<1> l<1:1> el<12:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "submodule".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnsizedParam/dut.sv:1:1: No timescale set for "submodule".
 
-[WRN:PA0205] dut.sv:8:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnsizedParam/dut.sv:8:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@submodule".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnsizedParam/dut.sv:1:1: Compile module "work@submodule".
 
-[INF:CP0303] dut.sv:8:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnsizedParam/dut.sv:8:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:8:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/UnsizedParam/dut.sv:8:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -194,11 +194,11 @@ parameter                                              6
 range                                                  7
 ref_obj                                               13
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/UnsizedParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/UnsizedParam/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnsizedParam/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/UnsizedParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -207,14 +207,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+\_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@submodule
   |vpiParameter:
   \_parameter: (work@submodule.X), line:2:18, endln:2:19
     |vpiParent:
-    \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
     |UINT:20
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:17
@@ -227,7 +227,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@submodule.Y), line:4:24, endln:4:25
     |vpiParent:
-    \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
     |BIN:1
     |vpiTypespec:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:25
@@ -237,10 +237,10 @@ design: (work@top)
       |vpiTypedefAlias:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:25
         |vpiParent:
-        \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+        \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
         |vpiName:my_type_t
         |vpiInstance:
-        \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+        \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
         |vpiRange:
         \_range: , line:3:18, endln:3:25
           |vpiLeftRange:
@@ -305,7 +305,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:18, endln:2:24
     |vpiParent:
-    \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:2:22, endln:2:24
       |vpiDecompile:20
@@ -319,7 +319,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:4:24, endln:4:30
     |vpiParent:
-    \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:4:28, endln:4:30
       |vpiDecompile:'1
@@ -336,7 +336,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:5:11, endln:5:22
     |vpiParent:
-    \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_operation: , line:5:15, endln:5:22
       |vpiParent:
@@ -360,27 +360,27 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (a)
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:8:1, endln:11:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:8:1, endln:11:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@submodule (work@top.u_sub_default), file:dut.sv, line:9:4, endln:9:30
+  \_module: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
     |vpiName:u_sub_default
     |vpiFullName:work@top.u_sub_default
     |vpiParameter:
     \_parameter: (work@top.u_sub_default.X), line:2:18, endln:2:19
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_default), file:dut.sv, line:9:4, endln:9:30
+      \_module: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
       |UINT:20
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17
@@ -393,7 +393,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.u_sub_default.Y), line:4:24, endln:4:25
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_default), file:dut.sv, line:9:4, endln:9:30
+      \_module: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
       |BIN:1
       |vpiTypespec:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:25
@@ -406,7 +406,7 @@ design: (work@top)
           \_logic_typespec: (my_type_t), line:3:12, endln:3:25
           |vpiName:my_type_t
           |vpiInstance:
-          \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+          \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
           |vpiRange:
           \_range: , line:3:18, endln:3:25
             |vpiParent:
@@ -478,7 +478,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:18, endln:2:24
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_default), file:dut.sv, line:9:4, endln:9:30
+      \_module: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
       |vpiRhs:
       \_constant: , line:2:22, endln:2:24
         |vpiDecompile:20
@@ -492,7 +492,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:4:24, endln:4:30
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_default), file:dut.sv, line:9:4, endln:9:30
+      \_module: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
       |vpiRhs:
       \_constant: , line:4:28, endln:4:30
         |vpiDecompile:1048575
@@ -506,18 +506,18 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:25
     |vpiDefName:work@submodule
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/UnsizedParam/dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (a)
       |vpiName:a
       |vpiNetType:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
     |vpiContAssign:
     \_cont_assign: , line:5:11, endln:5:22
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_default), file:dut.sv, line:9:4, endln:9:30
+      \_module: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
       |vpiRhs:
       \_operation: , line:5:15, endln:5:22
         |vpiParent:
@@ -542,15 +542,15 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (a)
   |vpiModule:
-  \_module: work@submodule (work@top.u_sub_5), file:dut.sv, line:10:4, endln:10:33
+  \_module: work@submodule (work@top.u_sub_5), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:10:4, endln:10:33
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
     |vpiName:u_sub_5
     |vpiFullName:work@top.u_sub_5
     |vpiParameter:
     \_parameter: (work@top.u_sub_5.X), line:2:18, endln:2:19
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_5), file:dut.sv, line:10:4, endln:10:33
+      \_module: work@submodule (work@top.u_sub_5), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:10:4, endln:10:33
       |UINT:20
       |vpiTypespec:
       \_int_typespec: , line:2:14, endln:2:17
@@ -563,7 +563,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.u_sub_5.Y), line:4:24, endln:4:25
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_5), file:dut.sv, line:10:4, endln:10:33
+      \_module: work@submodule (work@top.u_sub_5), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:10:4, endln:10:33
       |BIN:1
       |vpiTypespec:
       \_logic_typespec: (my_type_t), line:3:12, endln:3:25
@@ -576,7 +576,7 @@ design: (work@top)
           \_logic_typespec: (my_type_t), line:3:12, endln:3:25
           |vpiName:my_type_t
           |vpiInstance:
-          \_module: work@submodule (work@submodule), file:dut.sv, line:1:1, endln:6:10
+          \_module: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
           |vpiRange:
           \_range: , line:3:18, endln:3:25
             |vpiParent:
@@ -648,7 +648,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:18, endln:2:24
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_5), file:dut.sv, line:10:4, endln:10:33
+      \_module: work@submodule (work@top.u_sub_5), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:10:4, endln:10:33
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:22, endln:2:24
@@ -663,7 +663,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:4:24, endln:4:30
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_5), file:dut.sv, line:10:4, endln:10:33
+      \_module: work@submodule (work@top.u_sub_5), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:10:4, endln:10:33
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:4:28, endln:4:30
@@ -678,14 +678,14 @@ design: (work@top)
     |vpiTypedef:
     \_logic_typespec: (my_type_t), line:3:12, endln:3:25
     |vpiDefName:work@submodule
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/UnsizedParam/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:8:1, endln:11:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
     |vpiContAssign:
     \_cont_assign: , line:5:11, endln:5:22
       |vpiParent:
-      \_module: work@submodule (work@top.u_sub_5), file:dut.sv, line:10:4, endln:10:33
+      \_module: work@submodule (work@top.u_sub_5), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:10:4, endln:10:33
       |vpiRhs:
       \_operation: , line:5:15, endln:5:22
         |vpiParent:

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/CmdLineOverride/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<31> s<30> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
@@ -34,21 +34,21 @@ n<> u<28> t<Module_declaration> p<29> c<27> l<5:1> el<6:10>
 n<> u<29> t<Description> p<30> c<28> l<5:1> el<6:10>
 n<> u<30> t<Source_text> p<31> c<24> l<1:1> el<6:10>
 n<> u<31> t<Top_level_rule> c<1> l<1:1> el<8:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "foo".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv:1:1: No timescale set for "foo".
 
-[WRN:PA0205] dut.sv:5:1: No timescale set for "baz".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv:5:1: No timescale set for "baz".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:5:1: Compile module "work@baz".
+[INF:CP0303] ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv:5:1: Compile module "work@baz".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@foo".
+[INF:CP0303] ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv:1:1: Compile module "work@foo".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@foo".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv:1:1: Top level module "work@foo".
 
-[NTE:EL0503] dut.sv:5:1: Top level module "work@baz".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv:5:1: Top level module "work@baz".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -82,11 +82,11 @@ module                                                 5
 param_assign                                           2
 parameter                                              2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CmdLineOverride/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -95,20 +95,20 @@ design: (work@foo)
 |vpiElaborated:1
 |vpiName:work@foo
 |uhdmallModules:
-\_module: work@baz (work@baz), file:dut.sv, line:5:1, endln:6:10
+\_module: work@baz (work@baz), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:5:1, endln:6:10
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@baz
   |vpiDefName:work@baz
 |uhdmallModules:
-\_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+\_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@foo
   |vpiParameter:
   \_parameter: (work@foo.bar), line:2:17, endln:2:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |UINT:0
     |vpiSigned:1
     |vpiName:bar
@@ -116,7 +116,7 @@ design: (work@foo)
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:24
     |vpiParent:
-    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:2:23, endln:2:24
       |vpiDecompile:0
@@ -132,12 +132,12 @@ design: (work@foo)
     \_parameter: (work@foo.bar), line:2:17, endln:2:20
   |vpiDefName:work@foo
 |uhdmtopModules:
-\_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+\_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
   |vpiName:work@foo
   |vpiParameter:
   \_parameter: (work@foo.bar), line:2:17, endln:2:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |UINT:0
     |vpiSigned:1
     |vpiName:bar
@@ -145,7 +145,7 @@ design: (work@foo)
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:24
     |vpiParent:
-    \_module: work@foo (work@foo), file:dut.sv, line:1:1, endln:3:10
+    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:2:23, endln:2:24
       |vpiDecompile:1
@@ -158,7 +158,7 @@ design: (work@foo)
   |vpiTop:1
   |vpiTopModule:1
 |uhdmtopModules:
-\_module: work@baz (work@baz), file:dut.sv, line:5:1, endln:6:10
+\_module: work@baz (work@baz), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:5:1, endln:6:10
   |vpiName:work@baz
   |vpiDefName:work@baz
   |vpiTop:1

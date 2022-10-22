@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BitsLogic/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BitsLogic/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BitsLogic/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<171> s<170> l<1:1> el<1:0>
 n<> u<2> t<Package> p<21> s<3> l<1:1> el<1:8>
@@ -174,19 +174,19 @@ n<> u<168> t<Module_declaration> p<169> c<34> l<12:1> el<28:10>
 n<> u<169> t<Description> p<170> c<168> l<12:1> el<28:10>
 n<> u<170> t<Source_text> p<171> c<22> l<1:1> el<28:10>
 n<> u<171> t<Top_level_rule> c<1> l<1:1> el<29:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "SchedulerTypes".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BitsLogic/dut.sv:1:1: No timescale set for "SchedulerTypes".
 
-[WRN:PA0205] dut.sv:12:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BitsLogic/dut.sv:12:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "SchedulerTypes".
+[INF:CP0301] ${SURELOG_DIR}/tests/BitsLogic/dut.sv:1:1: Compile package "SchedulerTypes".
 
-[INF:CP0303] dut.sv:12:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BitsLogic/dut.sv:12:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:12:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BitsLogic/dut.sv:12:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -234,11 +234,11 @@ range                                                  6
 struct_typespec                                        3
 typespec_member                                        6
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BitsLogic/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitsLogic/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BitsLogic/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BitsLogic/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BitsLogic/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BitsLogic/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -247,7 +247,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallPackages:
-\_package: SchedulerTypes (SchedulerTypes::), file:dut.sv, line:1:1, endln:8:11
+\_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:SchedulerTypes
@@ -255,10 +255,10 @@ design: (work@top)
   |vpiTypedef:
   \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiName:SchedulerTypes::IntIssueQueueEntry
     |vpiInstance:
-    \_package: SchedulerTypes (SchedulerTypes::), file:dut.sv, line:1:1, endln:8:11
+    \_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (a), line:5:11, endln:5:12
@@ -270,15 +270,15 @@ design: (work@top)
         |vpiParent:
         \_typespec_member: (a), line:5:11, endln:5:12
         |vpiInstance:
-        \_package: SchedulerTypes (SchedulerTypes::), file:dut.sv, line:1:1, endln:8:11
-      |vpiRefFile:dut.sv
+        \_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
+      |vpiRefFile:${SURELOG_DIR}/tests/BitsLogic/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:5
       |vpiRefEndColumnNo:10
   |vpiDefName:SchedulerTypes
 |uhdmtopPackages:
-\_package: SchedulerTypes (SchedulerTypes::), file:dut.sv, line:1:1, endln:8:11
+\_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:SchedulerTypes
@@ -288,14 +288,14 @@ design: (work@top)
   |vpiDefName:SchedulerTypes
   |vpiTop:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.p), line:24:11, endln:24:12
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |UINT:12
     |vpiTypespec:
     \_int_typespec: 
@@ -304,7 +304,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:24:11, endln:24:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiRhs:
     \_constant: , line:24:15, endln:24:38
       |vpiDecompile:12
@@ -320,10 +320,10 @@ design: (work@top)
   |vpiTypedef:
   \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiName:ReplayQueueEntry
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (intValid), line:16:23, endln:16:31
@@ -354,7 +354,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/BitsLogic/dut.sv
       |vpiRefLineNo:16
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:16
@@ -390,7 +390,7 @@ design: (work@top)
             |vpiConstType:9
         |vpiElemTypespec:
         \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/BitsLogic/dut.sv
       |vpiRefLineNo:17
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:17
@@ -424,7 +424,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/BitsLogic/dut.sv
       |vpiRefLineNo:20
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:20
@@ -458,7 +458,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/BitsLogic/dut.sv
       |vpiRefLineNo:21
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:21
@@ -467,17 +467,17 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.b), line:26:15, endln:26:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.b), line:26:15, endln:26:16
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiTypespec:
     \_logic_typespec: , line:26:1, endln:26:14
       |vpiRange:
@@ -522,7 +522,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.p), line:24:11, endln:24:12
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |UINT:12
     |vpiTypespec:
     \_int_typespec: 
@@ -533,7 +533,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:24:11, endln:24:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:12:1, endln:28:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiRhs:
     \_constant: , line:24:15, endln:24:38
       |vpiDecompile:12

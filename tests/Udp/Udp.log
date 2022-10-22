@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/Udp/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/Udp/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/Udp/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<649> s<648> l<1:1> el<1:0>
 n<> u<2> t<Primitive> p<8> s<3> l<1:1> el<1:10>
@@ -652,27 +652,27 @@ n<> u<646> t<Module_declaration> p<647> c<338> l<84:1> el<106:10>
 n<> u<647> t<Description> p<648> c<646> l<84:1> el<106:10>
 n<> u<648> t<Source_text> p<649> c<44> l<1:1> el<106:10>
 n<> u<649> t<Top_level_rule> c<1> l<1:1> el<108:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "udp_body".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Udp/dut.sv:1:1: No timescale set for "udp_body".
 
-[WRN:PA0205] dut.sv:21:1: No timescale set for "udp_latch".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Udp/dut.sv:21:1: No timescale set for "udp_latch".
 
-[WRN:PA0205] dut.sv:37:1: No timescale set for "udp_sequential".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Udp/dut.sv:37:1: No timescale set for "udp_sequential".
 
-[WRN:PA0205] dut.sv:59:1: No timescale set for "udp_sequential_initial".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Udp/dut.sv:59:1: No timescale set for "udp_sequential_initial".
 
-[WRN:PA0205] dut.sv:84:1: No timescale set for "udp_body_tb".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Udp/dut.sv:84:1: No timescale set for "udp_body_tb".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0305] dut.sv:1:1: Compile udp "work@udp_body".
+[INF:CP0305] ${SURELOG_DIR}/tests/Udp/dut.sv:1:1: Compile udp "work@udp_body".
 
-[INF:CP0303] dut.sv:84:1: Compile module "work@udp_body_tb".
+[INF:CP0303] ${SURELOG_DIR}/tests/Udp/dut.sv:84:1: Compile module "work@udp_body_tb".
 
-[INF:CP0305] dut.sv:21:1: Compile udp "work@udp_latch".
+[INF:CP0305] ${SURELOG_DIR}/tests/Udp/dut.sv:21:1: Compile udp "work@udp_latch".
 
-[INF:CP0305] dut.sv:37:1: Compile udp "work@udp_sequential".
+[INF:CP0305] ${SURELOG_DIR}/tests/Udp/dut.sv:37:1: Compile udp "work@udp_sequential".
 
-[INF:CP0305] dut.sv:59:1: Compile udp "work@udp_sequential_initial".
+[INF:CP0305] ${SURELOG_DIR}/tests/Udp/dut.sv:59:1: Compile udp "work@udp_sequential_initial".
 
 LIB:  work
 FILE: builtin.sv
@@ -934,7 +934,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:84:1: Top level module "work@udp_body_tb".
+[NTE:EL0503] ${SURELOG_DIR}/tests/Udp/dut.sv:84:1: Top level module "work@udp_body_tb".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -1010,11 +1010,11 @@ task                                                  18
 udp                                                    1
 udp_defn                                               4
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/Udp/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Udp/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/Udp/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Udp/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/Udp/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Udp/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -1805,7 +1805,7 @@ design: (work@udp_body_tb)
         |vpiName:q
         |vpiFullName:work@udp_sequential_initial.q
 |uhdmallModules:
-\_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+\_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
   |vpiParent:
   \_design: (work@udp_body_tb)
   |vpiFullName:work@udp_body_tb
@@ -1813,28 +1813,28 @@ design: (work@udp_body_tb)
   |vpiNet:
   \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiName:b
     |vpiFullName:work@udp_body_tb.b
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiName:c
     |vpiFullName:work@udp_body_tb.c
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@udp_body_tb.a), line:87:6, endln:87:7
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiName:a
     |vpiFullName:work@udp_body_tb.a
     |vpiNetType:1
   |vpiProcess:
   \_initial: , line:91:1, endln:104:4
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiStmt:
     \_begin: (work@udp_body_tb), line:91:9, endln:104:4
       |vpiParent:
@@ -2148,14 +2148,14 @@ design: (work@udp_body_tb)
           \_delay_control: , line:103:3, endln:103:5
           |vpiName:$finish
 |uhdmtopModules:
-\_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+\_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
   |vpiName:work@udp_body_tb
   |vpiDefName:work@udp_body_tb
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiTypespec:
     \_logic_typespec: , line:86:1, endln:86:4
     |vpiName:b
@@ -2164,7 +2164,7 @@ design: (work@udp_body_tb)
   |vpiNet:
   \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiTypespec:
     \_logic_typespec: , line:86:1, endln:86:4
     |vpiName:c
@@ -2173,7 +2173,7 @@ design: (work@udp_body_tb)
   |vpiNet:
   \_logic_net: (work@udp_body_tb.a), line:87:6, endln:87:7
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiTypespec:
     \_logic_typespec: , line:87:1, endln:87:5
     |vpiName:a
@@ -2183,7 +2183,7 @@ design: (work@udp_body_tb)
   |vpiProcess:
   \_initial: , line:91:1, endln:104:4
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiStmt:
     \_begin: (work@udp_body_tb), line:91:9, endln:104:4
       |vpiParent:
@@ -2431,9 +2431,9 @@ design: (work@udp_body_tb)
           \_delay_control: , line:103:3, endln:103:5
           |vpiName:$finish
   |vpiPrimitive:
-  \_udp: work@udp_body (work@udp_body_tb.udp), file:dut.sv, line:89:1, endln:89:22
+  \_udp: work@udp_body (work@udp_body_tb.udp), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:89:1, endln:89:22
     |vpiParent:
-    \_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84:1, endln:106:10
+    \_module: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
     |vpiDefName:work@udp_body
     |vpiName:udp
     |vpiFullName:work@udp_body_tb.udp

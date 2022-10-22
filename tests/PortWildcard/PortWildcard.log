@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PortWildcard/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PortWildcard/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PortWildcard/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<160> s<159> l<3:1> el<1:5>
 n<> u<2> t<Module_keyword> p<82> s<3> l<3:1> el<3:7>
@@ -163,15 +163,15 @@ n<> u<157> t<Module_declaration> p<158> c<89> l<15:1> el<21:10>
 n<> u<158> t<Description> p<159> c<157> l<15:1> el<21:10>
 n<> u<159> t<Source_text> p<160> c<84> l<3:1> el<21:10>
 n<> u<160> t<Top_level_rule> c<1> l<3:1> el<22:1>
-[WRN:PA0205] dut.sv:3:1: No timescale set for "rvdff".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PortWildcard/dut.sv:3:1: No timescale set for "rvdff".
 
-[WRN:PA0205] dut.sv:15:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PortWildcard/dut.sv:15:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:15:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/PortWildcard/dut.sv:15:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:3:1: Compile module "work@rvdff".
+[INF:CP0303] ${SURELOG_DIR}/tests/PortWildcard/dut.sv:3:1: Compile module "work@rvdff".
 
 LIB:  work
 FILE: builtin.sv
@@ -433,7 +433,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:15:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PortWildcard/dut.sv:15:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -499,11 +499,11 @@ range                                                  8
 ref_obj                                               29
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PortWildcard/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortWildcard/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PortWildcard/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PortWildcard/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PortWildcard/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PortWildcard/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -987,7 +987,7 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -995,14 +995,14 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiName:rst_l
     |vpiFullName:work@dut.rst_l
     |vpiNetType:36
   |vpiPort:
   \_port: (rst_l), line:16:31, endln:16:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiName:rst_l
     |vpiDirection:1
     |vpiLowConn:
@@ -1012,14 +1012,14 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:16:7, endln:16:12
 |uhdmallModules:
-\_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+\_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@rvdff
   |vpiParameter:
   \_parameter: (work@rvdff.WIDTH), line:3:27, endln:3:32
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -1028,7 +1028,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:3:27, endln:3:34
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiRhs:
     \_constant: , line:3:33, endln:3:34
       |vpiDecompile:1
@@ -1043,35 +1043,35 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@rvdff.din), line:5:30, endln:5:33
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:din
     |vpiFullName:work@rvdff.din
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rvdff.clk), line:6:28, endln:6:31
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:clk
     |vpiFullName:work@rvdff.clk
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rvdff.rst_l), line:7:36, endln:7:41
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:rst_l
     |vpiFullName:work@rvdff.rst_l
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@rvdff.dout), line:9:31, endln:9:35
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:dout
     |vpiFullName:work@rvdff.dout
     |vpiNetType:36
   |vpiPort:
   \_port: (din), line:5:30, endln:5:33
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:din
     |vpiDirection:1
     |vpiLowConn:
@@ -1111,7 +1111,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (clk), line:6:28, endln:6:31
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1123,7 +1123,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (rst_l), line:7:36, endln:7:41
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:rst_l
     |vpiDirection:1
     |vpiLowConn:
@@ -1135,7 +1135,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (dout), line:9:31, endln:9:35
     |vpiParent:
-    \_module: work@rvdff (work@rvdff), file:dut.sv, line:3:1, endln:13:10
+    \_module: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiName:dout
     |vpiDirection:2
     |vpiLowConn:
@@ -1173,14 +1173,14 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiTypespec:
     \_logic_typespec: , line:16:7, endln:16:12
     |vpiName:rst_l
@@ -1189,7 +1189,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.free_clk), line:17:40, endln:17:48
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiName:free_clk
     |vpiFullName:work@dut.free_clk
     |vpiNetType:1
@@ -1213,7 +1213,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (rst_l), line:16:31, endln:16:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiName:rst_l
     |vpiDirection:1
     |vpiLowConn:
@@ -1227,17 +1227,17 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:16:7, endln:16:12
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
   |vpiModule:
-  \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+  \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiName:freezerfpc_ff
     |vpiFullName:work@dut.freezerfpc_ff
     |vpiParameter:
     \_parameter: (work@dut.freezerfpc_ff.WIDTH), line:3:27, endln:3:32
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |UINT:1
       |vpiTypespec:
       \_int_typespec: 
@@ -1248,7 +1248,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:3:27, endln:3:34
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:3:33, endln:3:34
@@ -1261,12 +1261,12 @@ design: (work@dut)
       |vpiLhs:
       \_parameter: (work@dut.freezerfpc_ff.WIDTH), line:3:27, endln:3:32
     |vpiDefName:work@rvdff
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/PortWildcard/dut.sv
     |vpiDefLineNo:3
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.din), line:5:30, endln:5:33
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:5:12, endln:5:29
         |vpiRange:
@@ -1293,7 +1293,7 @@ design: (work@dut)
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.clk), line:6:28, endln:6:31
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:6:12, endln:6:17
       |vpiName:clk
@@ -1302,7 +1302,7 @@ design: (work@dut)
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.rst_l), line:7:36, endln:7:41
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:7:12, endln:7:17
       |vpiName:rst_l
@@ -1311,7 +1311,7 @@ design: (work@dut)
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.dout), line:9:31, endln:9:35
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:9:13, endln:9:30
         |vpiRange:
@@ -1336,11 +1336,11 @@ design: (work@dut)
       |vpiFullName:work@dut.freezerfpc_ff.dout
       |vpiNetType:36
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:15:1, endln:21:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiPort:
     \_port: (din), line:5:30, endln:5:33
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiName:din
       |vpiDirection:1
       |vpiHighConn:
@@ -1395,11 +1395,11 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
     |vpiPort:
     \_port: (clk), line:6:28, endln:6:31
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
@@ -1421,11 +1421,11 @@ design: (work@dut)
       |vpiTypedef:
       \_logic_typespec: , line:6:12, endln:6:17
       |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
     |vpiPort:
     \_port: (rst_l), line:7:36, endln:7:41
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiName:rst_l
       |vpiDirection:1
       |vpiHighConn:
@@ -1447,11 +1447,11 @@ design: (work@dut)
       |vpiTypedef:
       \_logic_typespec: , line:7:12, endln:7:17
       |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
     |vpiPort:
     \_port: (dout), line:9:31, endln:9:35
       |vpiParent:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiName:dout
       |vpiDirection:2
       |vpiHighConn:
@@ -1506,7 +1506,7 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff), file:dut.sv, line:17:3, endln:19:77
+      \_module: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

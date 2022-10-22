@@ -1663,51 +1663,53 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
       }
     }
 
+    // Processes
+    m->Process(netlist->process_stmts());
+    if (m->Process()) {
+      for (auto ps : *m->Process()) {
+        ps->VpiParent(m);
+      }
+    }
+
     std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
     if (gen_scope_arrays) {
-      for (gen_scope_array* scope_arr : *gen_scope_arrays) {
-        for (gen_scope* scope : *scope_arr->Gen_scopes()) {
-          m->Process(scope->Process());
-          if (m->Process()) {
-            for (auto ps : *m->Process()) {
-              ps->VpiParent(m);
-            }
-          }
+      // for (gen_scope_array* scope_arr : *gen_scope_arrays) {
+      // for (gen_scope* scope : *scope_arr->Gen_scopes()) {
 
-          writeElabParameters(s, instance, m, exprBuilder);
+      writeElabParameters(s, instance, m, exprBuilder);
 
-          // Loop indexes
-          for (auto& param : instance->getMappedValues()) {
-            const std::string& name = param.first;
-            Value* val = param.second.first;
-            VectorOfany* params = nullptr;
-            params = m->Parameters();
-            if (params == nullptr) {
-              params = s.MakeAnyVec();
-            }
-            m->Parameters(params);
-            bool found = false;
-            for (auto p : *params) {
-              if (p->VpiName() == name) {
-                found = true;
-                break;
-              }
-            }
-            if (!found) {
-              parameter* p = s.MakeParameter();
-              p->VpiName(name);
-              if (val && val->isValid()) p->VpiValue(val->uhdmValue());
-              p->VpiFile(fileSystem->toPath(instance->getFileId()).string());
-              p->VpiLineNo(param.second.second);
-              p->VpiParent(m);
-              p->VpiLocalParam(true);
-              int_typespec* ts = s.MakeInt_typespec();
-              p->Typespec(ts);
-              params->push_back(p);
-            }
+      // Loop indexes
+      for (auto& param : instance->getMappedValues()) {
+        const std::string& name = param.first;
+        Value* val = param.second.first;
+        VectorOfany* params = nullptr;
+        params = m->Parameters();
+        if (params == nullptr) {
+          params = s.MakeAnyVec();
+        }
+        m->Parameters(params);
+        bool found = false;
+        for (auto p : *params) {
+          if (p->VpiName() == name) {
+            found = true;
+            break;
           }
         }
+        if (!found) {
+          parameter* p = s.MakeParameter();
+          p->VpiName(name);
+          if (val && val->isValid()) p->VpiValue(val->uhdmValue());
+          p->VpiFile(fileSystem->toPath(instance->getFileId()).string());
+          p->VpiLineNo(param.second.second);
+          p->VpiParent(m);
+          p->VpiLocalParam(true);
+          int_typespec* ts = s.MakeInt_typespec();
+          p->Typespec(ts);
+          params->push_back(p);
+        }
       }
+      //}
+      //}
     }
 
     m->Variables(netlist->variables());
@@ -2968,6 +2970,9 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
         assigns->push_back(obj);
       }
     }
+
+    // Processes
+    m->Process(netlist->process_stmts());
   }
 
   if (mod) {
@@ -3090,14 +3095,6 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     }
   }
 
-  // Processes
-  m->Process(mod->getProcesses());
-  if (m->Process()) {
-    for (auto ps : *m->Process()) {
-      ps->VpiParent(m);
-    }
-  }
-
   if (netlist) {
     if (netlist->cont_assigns()) {
       std::vector<cont_assign*>* assigns = m->Cont_assigns();
@@ -3109,6 +3106,9 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
         assigns->push_back(obj);
       }
     }
+
+    // Processes
+    m->Process(netlist->process_stmts());
   }
 
   // Modports

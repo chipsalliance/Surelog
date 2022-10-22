@@ -1,15 +1,15 @@
 ERROR: No Python allowed, check your arguments!
 ERROR: No Python allowed, check your arguments!
-[INF:CM0023] Creating log file ../../build/regression/UnitPython/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UnitPython/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[INF:PP0122] Preprocessing source file "top.v".
+[INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/UnitPython/top.v".
 
-[INF:PA0201] Parsing source file "top.v".
+[INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/UnitPython/top.v".
 
 LIB:  work
-FILE: top.v
+FILE: ${SURELOG_DIR}/tests/UnitPython/top.v
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<127> s<126> l<2:1> el<1:2>
 n<> u<2> t<Package> p<25> s<3> l<2:1> el<2:8>
@@ -138,19 +138,19 @@ n<> u<124> t<Module_declaration> p<125> c<45> l<16:1> el<28:10>
 n<> u<125> t<Description> p<126> c<124> l<16:1> el<28:10>
 n<> u<126> t<Source_text> p<127> c<26> l<2:1> el<28:10>
 n<> u<127> t<Top_level_rule> c<1> l<2:1> el<30:1>
-[WRN:PA0205] top.v:2:1: No timescale set for "pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitPython/top.v:2:1: No timescale set for "pkg".
 
-[WRN:PA0205] top.v:13:1: No timescale set for "bottom".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitPython/top.v:13:1: No timescale set for "bottom".
 
-[WRN:PA0205] top.v:16:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitPython/top.v:16:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] top.v:2:1: Compile package "pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/UnitPython/top.v:2:1: Compile package "pkg".
 
-[INF:CP0303] top.v:13:1: Compile module "work@bottom".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitPython/top.v:13:1: Compile module "work@bottom".
 
-[INF:CP0303] top.v:16:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitPython/top.v:16:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -406,19 +406,19 @@ n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:11>
 n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 [INF:CP0302] Compile class "work@mailbox".
 
-[INF:CP0302] top.v:3:1: Compile class "pkg::Configuration1".
+[INF:CP0302] ${SURELOG_DIR}/tests/UnitPython/top.v:3:1: Compile class "pkg::Configuration1".
 
 [INF:CP0302] Compile class "work@process".
 
 [INF:CP0302] Compile class "work@semaphore".
 
-[INF:CP0302] top.v:10:1: Compile class "work@Configuration2".
+[INF:CP0302] ${SURELOG_DIR}/tests/UnitPython/top.v:10:1: Compile class "work@Configuration2".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] top.v:16:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/UnitPython/top.v:16:1: Top level module "work@top".
 
-[ERR:CP0317] top.v:25:13: Undefined type "Environment".
+[ERR:CP0317] ${SURELOG_DIR}/tests/UnitPython/top.v:25:13: Undefined type "Environment".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -451,7 +451,7 @@ package                                                5
 task                                                   9
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/UnitPython/slpp_unit/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitPython/slpp_unit/surelog.uhdm ...
 
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/StringPort/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/StringPort/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/StringPort/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<41> s<40> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<13> s<3> l<1:1> el<1:7>
@@ -44,11 +44,11 @@ n<> u<38> t<Module_declaration> p<39> c<13> l<1:1> el<6:10>
 n<> u<39> t<Description> p<40> c<38> l<1:1> el<6:10>
 n<> u<40> t<Source_text> p<41> c<39> l<1:1> el<6:10>
 n<> u<41> t<Top_level_rule> c<1> l<1:1> el<7:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/StringPort/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/StringPort/dut.sv:1:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -310,7 +310,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/StringPort/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -376,11 +376,11 @@ string_typespec                                        3
 string_var                                             1
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/StringPort/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StringPort/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/StringPort/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StringPort/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/StringPort/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StringPort/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -864,7 +864,7 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -872,13 +872,13 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.o), line:1:26, endln:1:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:1:26, endln:1:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -890,7 +890,7 @@ design: (work@top)
   |vpiProcess:
   \_initial: , line:3:4, endln:5:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
     |vpiStmt:
     \_begin: (work@top), line:3:12, endln:5:7
       |vpiParent:
@@ -919,12 +919,12 @@ design: (work@top)
           |vpiActual:
           \_string_var: (work@top.o), line:1:26, endln:1:27
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
   |vpiName:work@top
   |vpiVariables:
   \_string_var: (work@top.o), line:1:26, endln:1:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_string_typespec: , line:1:19, endln:1:25
     |vpiName:o
@@ -936,7 +936,7 @@ design: (work@top)
   |vpiPort:
   \_port: (o), line:1:26, endln:1:27
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -950,11 +950,11 @@ design: (work@top)
     |vpiTypedef:
     \_string_typespec: , line:1:19, endln:1:25
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
   |vpiProcess:
   \_initial: , line:3:4, endln:5:7
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:6:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringPort/dut.sv, line:1:1, endln:6:10
     |vpiStmt:
     \_begin: (work@top), line:3:12, endln:5:7
       |vpiParent:

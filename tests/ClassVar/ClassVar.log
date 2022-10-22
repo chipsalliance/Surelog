@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ClassVar/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ClassVar/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ClassVar/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<120> s<119> l<1:1> el<1:0>
 n<> u<2> t<Package> p<117> s<3> l<1:1> el<1:8>
@@ -123,15 +123,15 @@ n<> u<117> t<Package_declaration> p<118> c<2> l<1:1> el<28:11>
 n<> u<118> t<Description> p<119> c<117> l<1:1> el<28:11>
 n<> u<119> t<Source_text> p<120> c<118> l<1:1> el<28:11>
 n<> u<120> t<Top_level_rule> c<1> l<1:1> el<29:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pack".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ClassVar/dut.sv:1:1: No timescale set for "pack".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pack".
+[INF:CP0301] ${SURELOG_DIR}/tests/ClassVar/dut.sv:1:1: Compile package "pack".
 
-[INF:CP0302] dut.sv:7:1: Compile class "pack::uvm_hdl_path_concat".
+[INF:CP0302] ${SURELOG_DIR}/tests/ClassVar/dut.sv:7:1: Compile class "pack::uvm_hdl_path_concat".
 
-[INF:CP0302] dut.sv:11:1: Compile class "pack::uvm_mem_mam".
+[INF:CP0302] ${SURELOG_DIR}/tests/ClassVar/dut.sv:11:1: Compile class "pack::uvm_mem_mam".
 
 [INF:EL0526] Design Elaboration...
 
@@ -197,11 +197,11 @@ struct_var                                             2
 typespec_member                                        2
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ClassVar/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassVar/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ClassVar/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClassVar/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ClassVar/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClassVar/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -210,7 +210,7 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pack
@@ -218,10 +218,10 @@ design: (unnamed)
   |vpiTypedef:
   \_struct_typespec: (pack::uvm_hdl_path_slice), line:3:9, endln:3:15
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
     |vpiName:pack::uvm_hdl_path_slice
     |vpiInstance:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
     |vpiTypespecMember:
     \_typespec_member: (spath), line:4:11, endln:4:16
       |vpiParent:
@@ -233,14 +233,14 @@ design: (unnamed)
         \_typespec_member: (spath), line:4:11, endln:4:16
         |vpiInstance:
         \_package: (pack)
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/ClassVar/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:4
       |vpiRefEndLineNo:4
       |vpiRefEndColumnNo:10
   |vpiDefName:pack
 |uhdmtopPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pack
@@ -248,10 +248,10 @@ design: (unnamed)
   |vpiTypedef:
   \_struct_typespec: (pack::uvm_hdl_path_slice), line:3:9, endln:3:15
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
     |vpiName:pack::uvm_hdl_path_slice
     |vpiInstance:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
     |vpiTypespecMember:
     \_typespec_member: (spath), line:4:11, endln:4:16
       |vpiParent:
@@ -262,8 +262,8 @@ design: (unnamed)
         |vpiParent:
         \_typespec_member: (spath), line:4:11, endln:4:16
         |vpiInstance:
-        \_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
-      |vpiRefFile:dut.sv
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
+      |vpiRefFile:${SURELOG_DIR}/tests/ClassVar/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:4
       |vpiRefEndLineNo:4
@@ -271,15 +271,15 @@ design: (unnamed)
   |vpiDefName:pack
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (pack::uvm_hdl_path_concat), file:dut.sv, line:7:1, endln:9:9
+  \_class_defn: (pack::uvm_hdl_path_concat), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:7:1, endln:9:9
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
     |vpiName:uvm_hdl_path_concat
     |vpiFullName:pack::uvm_hdl_path_concat
     |vpiVariables:
     \_array_var: (pack::uvm_hdl_path_concat::slices), line:8:23, endln:8:29
       |vpiParent:
-      \_class_defn: (pack::uvm_hdl_path_concat), file:dut.sv, line:7:1, endln:9:9
+      \_class_defn: (pack::uvm_hdl_path_concat), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:7:1, endln:9:9
       |vpiSize:1
       |vpiTypespec:
       \_array_typespec: 
@@ -297,15 +297,15 @@ design: (unnamed)
         \_struct_typespec: (pack::uvm_hdl_path_slice), line:3:9, endln:3:15
         |vpiFullName:pack::uvm_hdl_path_concat::slices
   |vpiClassDefn:
-  \_class_defn: (pack::uvm_mem_mam), file:dut.sv, line:11:1, endln:26:9
+  \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:11:1, endln:26:9
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:28:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:1:1, endln:28:11
     |vpiName:uvm_mem_mam
     |vpiFullName:pack::uvm_mem_mam
     |vpiMethod:
     \_function: (pack::uvm_mem_mam::check_reg), line:13:1, endln:13:10
       |vpiParent:
-      \_class_defn: (pack::uvm_mem_mam), file:dut.sv, line:11:1, endln:26:9
+      \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:11:1, endln:26:9
       |vpiName:check_reg
       |vpiFullName:pack::uvm_mem_mam::check_reg
       |vpiVariables:
@@ -335,7 +335,7 @@ design: (unnamed)
           |vpiElemTypespec:
           \_class_typespec: 
             |vpiClassDefn:
-            \_class_defn: (pack::uvm_hdl_path_concat), file:dut.sv, line:7:1, endln:9:9
+            \_class_defn: (pack::uvm_hdl_path_concat), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:7:1, endln:9:9
         |vpiName:paths
         |vpiFullName:pack::uvm_mem_mam::check_reg::paths
         |vpiArrayType:4
@@ -350,7 +350,7 @@ design: (unnamed)
       |vpiVisibility:2
       |vpiVirtual:1
       |vpiParent:
-      \_class_defn: (pack::uvm_mem_mam), file:dut.sv, line:11:1, endln:26:9
+      \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:11:1, endln:26:9
       |vpiStmt:
       \_begin: (pack::uvm_mem_mam::check_reg)
         |vpiParent:
@@ -430,7 +430,7 @@ design: (unnamed)
               |vpiTypespec:
               \_class_typespec: 
                 |vpiClassDefn:
-                \_class_defn: (pack::uvm_hdl_path_concat), file:dut.sv, line:7:1, endln:9:9
+                \_class_defn: (pack::uvm_hdl_path_concat), file:${SURELOG_DIR}/tests/ClassVar/dut.sv, line:7:1, endln:9:9
               |vpiName:path
               |vpiFullName:pack::uvm_mem_mam::check_reg::path
             |vpiVariables:

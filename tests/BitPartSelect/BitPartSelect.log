@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/BitPartSelect/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BitPartSelect/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/BitPartSelect/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<213> s<212> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -216,15 +216,15 @@ n<> u<210> t<Module_declaration> p<211> c<6> l<1:1> el<10:10>
 n<> u<211> t<Description> p<212> c<210> l<1:1> el<10:10>
 n<> u<212> t<Source_text> p<213> c<211> l<1:1> el<10:10>
 n<> u<213> t<Top_level_rule> c<1> l<1:1> el<12:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BitPartSelect/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BitPartSelect/dut.sv:1:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BitPartSelect/dut.sv:1:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -272,11 +272,11 @@ part_select                                            2
 range                                                  8
 ref_obj                                                8
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/BitPartSelect/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitPartSelect/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/BitPartSelect/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BitPartSelect/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/BitPartSelect/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BitPartSelect/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -285,14 +285,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.Width), line:2:27, endln:2:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:16
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:26
@@ -303,7 +303,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.Depth), line:3:27, endln:3:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:26
@@ -314,7 +314,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:37
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:4:15, endln:4:27
@@ -326,7 +326,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:27, endln:2:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:41, endln:2:43
       |vpiDecompile:16
@@ -340,7 +340,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:27, endln:3:41
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:3:40, endln:3:41
       |vpiDecompile:4
@@ -354,7 +354,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:4:28, endln:4:41
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:4:40, endln:4:41
       |vpiDecompile:2
@@ -369,28 +369,28 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.storage), line:5:33, endln:5:40
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiName:storage
     |vpiFullName:work@top.storage
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@top.storage_rdata), line:6:22, endln:6:35
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiName:storage_rdata
     |vpiFullName:work@top.storage_rdata
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@top.fifo_rptr), line:7:25, endln:7:34
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiName:fifo_rptr
     |vpiFullName:work@top.fifo_rptr
     |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_bit_select: (work@top.storage), line:9:27, endln:9:60
       |vpiParent:
@@ -439,12 +439,12 @@ design: (work@top)
       |vpiActual:
       \_logic_var: (work@top.storage_rdata), line:6:22, endln:6:35
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
   |vpiName:work@top
   |vpiVariables:
   \_logic_var: (work@top.storage), line:5:33, endln:5:40
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:5:4, endln:5:32
       |vpiRange:
@@ -525,7 +525,7 @@ design: (work@top)
   |vpiVariables:
   \_logic_var: (work@top.storage_rdata), line:6:22, endln:6:35
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:6:4, endln:6:21
       |vpiRange:
@@ -570,7 +570,7 @@ design: (work@top)
   |vpiVariables:
   \_logic_var: (work@top.fifo_rptr), line:7:25, endln:7:34
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:7:3, endln:7:24
       |vpiRange:
@@ -615,7 +615,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.Width), line:2:27, endln:2:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:16
     |vpiTypespec:
     \_int_typespec: , line:2:14, endln:2:26
@@ -626,7 +626,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.Depth), line:3:27, endln:3:32
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:26
@@ -637,7 +637,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:37
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:4:15, endln:4:27
@@ -649,7 +649,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:27, endln:2:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:41, endln:2:43
       |vpiDecompile:16
@@ -663,7 +663,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:27, endln:3:41
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:3:40, endln:3:41
       |vpiDecompile:4
@@ -677,7 +677,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:4:28, endln:4:41
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:4:40, endln:4:41
       |vpiDecompile:2
@@ -694,7 +694,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:60
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:1:1, endln:10:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_bit_select: (work@top.storage), line:9:27, endln:9:60
       |vpiParent:

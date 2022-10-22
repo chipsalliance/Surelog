@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackageVar/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackageVar/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PackageVar/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<205> s<204> l<1:1> el<1:0>
 n<> u<2> t<Package> p<202> s<3> l<1:1> el<1:8>
@@ -208,17 +208,17 @@ n<> u<202> t<Package_declaration> p<203> c<2> l<1:1> el<42:11>
 n<> u<203> t<Description> p<204> c<202> l<1:1> el<42:11>
 n<> u<204> t<Source_text> p<205> c<203> l<1:1> el<42:11>
 n<> u<205> t<Top_level_rule> c<1> l<1:1> el<44:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "pack".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageVar/dut.sv:1:1: No timescale set for "pack".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "pack".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackageVar/dut.sv:1:1: Compile package "pack".
 
-[INF:CP0302] dut.sv:13:1: Compile class "pack::ovm_object".
+[INF:CP0302] ${SURELOG_DIR}/tests/PackageVar/dut.sv:13:1: Compile class "pack::ovm_object".
 
-[INF:CP0302] dut.sv:6:1: Compile class "pack::ovm_options_container".
+[INF:CP0302] ${SURELOG_DIR}/tests/PackageVar/dut.sv:6:1: Compile class "pack::ovm_options_container".
 
-[INF:CP0302] dut.sv:3:1: Compile class "pack::ovm_printer".
+[INF:CP0302] ${SURELOG_DIR}/tests/PackageVar/dut.sv:3:1: Compile class "pack::ovm_printer".
 
 [INF:EL0526] Design Elaboration...
 
@@ -272,11 +272,11 @@ operation                                              4
 package                                                3
 ref_obj                                               48
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackageVar/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageVar/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackageVar/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackageVar/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackageVar/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackageVar/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -285,7 +285,7 @@ design: (unnamed)
 |vpiElaborated:1
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pack
@@ -293,7 +293,7 @@ design: (unnamed)
   |vpiVariables:
   \_class_var: (pack::ovm_auto_options_object), line:11:23, endln:11:46
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
     |vpiTypespec:
     \_class_typespec: (ovm_options_container), line:11:1, endln:11:22
       |vpiParent:
@@ -302,7 +302,7 @@ design: (unnamed)
       |vpiInstance:
       \_package: (pack)
       |vpiClassDefn:
-      \_class_defn: (pack::ovm_options_container), file:dut.sv, line:6:1, endln:8:9
+      \_class_defn: (pack::ovm_options_container), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:6:1, endln:8:9
     |vpiName:ovm_auto_options_object
     |vpiFullName:pack::ovm_auto_options_object
     |vpiVisibility:1
@@ -313,12 +313,12 @@ design: (unnamed)
   |vpiTaskFunc:
   \_function: (pack::ovm_object::print), line:23:1, endln:39:12
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
     |vpiName:ovm_object::print
     |vpiFullName:pack::ovm_object::print
     |vpiVisibility:1
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
     |vpiIODecl:
     \_io_decl: (printer), line:23:45, endln:23:52
       |vpiParent:
@@ -331,7 +331,7 @@ design: (unnamed)
         |vpiInstance:
         \_package: (pack)
         |vpiClassDefn:
-        \_class_defn: (pack::ovm_printer), file:dut.sv, line:3:1, endln:4:9
+        \_class_defn: (pack::ovm_printer), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:3:1, endln:4:9
     |vpiStmt:
     \_begin: (pack::ovm_object::print)
       |vpiParent:
@@ -511,9 +511,9 @@ design: (unnamed)
               \_io_decl: (printer), line:23:45, endln:23:52
             |vpiName:do_print
     |vpiInstance:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
 |uhdmtopPackages:
-\_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+\_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
   |vpiParent:
   \_design: (unnamed)
   |vpiName:pack
@@ -521,16 +521,16 @@ design: (unnamed)
   |vpiVariables:
   \_class_var: (pack::ovm_auto_options_object), line:11:23, endln:11:46
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
     |vpiTypespec:
     \_class_typespec: (ovm_options_container), line:11:1, endln:11:22
       |vpiParent:
       \_class_var: (pack::ovm_auto_options_object), line:11:23, endln:11:46
       |vpiName:ovm_options_container
       |vpiInstance:
-      \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+      \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
       |vpiClassDefn:
-      \_class_defn: (pack::ovm_options_container), file:dut.sv, line:6:1, endln:8:9
+      \_class_defn: (pack::ovm_options_container), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:6:1, endln:8:9
     |vpiName:ovm_auto_options_object
     |vpiFullName:pack::ovm_auto_options_object
     |vpiVisibility:1
@@ -540,22 +540,22 @@ design: (unnamed)
   |vpiDefName:pack
   |vpiTop:1
   |vpiClassDefn:
-  \_class_defn: (pack::ovm_object), file:dut.sv, line:13:1, endln:21:9
+  \_class_defn: (pack::ovm_object), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:13:1, endln:21:9
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
     |vpiName:ovm_object
     |vpiFullName:pack::ovm_object
     |vpiMethod:
     \_function: (pack::ovm_object::print), line:15:1, endln:15:7
       |vpiParent:
-      \_class_defn: (pack::ovm_object), file:dut.sv, line:13:1, endln:21:9
+      \_class_defn: (pack::ovm_object), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:13:1, endln:21:9
       |vpiName:print
       |vpiFullName:pack::ovm_object::print
       |vpiMethod:1
       |vpiAccessType:2
       |vpiVisibility:1
       |vpiParent:
-      \_class_defn: (pack::ovm_object), file:dut.sv, line:13:1, endln:21:9
+      \_class_defn: (pack::ovm_object), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:13:1, endln:21:9
       |vpiIODecl:
       \_io_decl: (printer), line:15:40, endln:15:47
         |vpiParent:
@@ -566,16 +566,16 @@ design: (unnamed)
         \_class_typespec: (ovm_printer), line:15:28, endln:15:39
           |vpiName:ovm_printer
           |vpiClassDefn:
-          \_class_defn: (pack::ovm_printer), file:dut.sv, line:3:1, endln:4:9
+          \_class_defn: (pack::ovm_printer), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:3:1, endln:4:9
     |vpiMethod:
     \_function: (pack::ovm_object::print), line:23:1, endln:39:12
       |vpiParent:
-      \_class_defn: (pack::ovm_object), file:dut.sv, line:13:1, endln:21:9
+      \_class_defn: (pack::ovm_object), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:13:1, endln:21:9
       |vpiName:print
       |vpiFullName:pack::ovm_object::print
       |vpiVisibility:1
       |vpiParent:
-      \_class_defn: (pack::ovm_object), file:dut.sv, line:13:1, endln:21:9
+      \_class_defn: (pack::ovm_object), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:13:1, endln:21:9
       |vpiIODecl:
       \_io_decl: (printer), line:23:45, endln:23:52
         |vpiParent:
@@ -586,9 +586,9 @@ design: (unnamed)
         \_class_typespec: (ovm_printer), line:23:33, endln:23:44
           |vpiName:ovm_printer
           |vpiInstance:
-          \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+          \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
           |vpiClassDefn:
-          \_class_defn: (pack::ovm_printer), file:dut.sv, line:3:1, endln:4:9
+          \_class_defn: (pack::ovm_printer), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:3:1, endln:4:9
       |vpiStmt:
       \_begin: (pack::ovm_object::print)
         |vpiParent:
@@ -768,32 +768,32 @@ design: (unnamed)
                 \_io_decl: (printer), line:23:45, endln:23:52
               |vpiName:do_print
       |vpiInstance:
-      \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+      \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
   |vpiClassDefn:
-  \_class_defn: (pack::ovm_options_container), file:dut.sv, line:6:1, endln:8:9
+  \_class_defn: (pack::ovm_options_container), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:6:1, endln:8:9
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
     |vpiName:ovm_options_container
     |vpiFullName:pack::ovm_options_container
     |vpiVariables:
     \_class_var: (pack::ovm_options_container::printer), line:7:17, endln:7:24
       |vpiParent:
-      \_class_defn: (pack::ovm_options_container), file:dut.sv, line:6:1, endln:8:9
+      \_class_defn: (pack::ovm_options_container), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:6:1, endln:8:9
       |vpiTypespec:
       \_class_typespec: (ovm_printer), line:7:1, endln:7:12
         |vpiParent:
         \_class_var: (pack::ovm_options_container::printer), line:7:17, endln:7:24
         |vpiName:ovm_printer
         |vpiClassDefn:
-        \_class_defn: (pack::ovm_printer), file:dut.sv, line:3:1, endln:4:9
+        \_class_defn: (pack::ovm_printer), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:3:1, endln:4:9
       |vpiName:printer
       |vpiFullName:pack::ovm_options_container::printer
       |vpiAutomatic:1
       |vpiVisibility:1
   |vpiClassDefn:
-  \_class_defn: (pack::ovm_printer), file:dut.sv, line:3:1, endln:4:9
+  \_class_defn: (pack::ovm_printer), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:3:1, endln:4:9
     |vpiParent:
-    \_package: pack (pack::), file:dut.sv, line:1:1, endln:42:11
+    \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
     |vpiName:ovm_printer
     |vpiFullName:pack::ovm_printer
 ===================

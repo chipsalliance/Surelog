@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/GenNet/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/GenNet/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<239> s<238> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<54> s<3> l<1:1> el<1:7>
@@ -242,21 +242,21 @@ n<> u<236> t<Module_declaration> p<237> c<207> l<17:1> el<23:10>
 n<> u<237> t<Description> p<238> c<236> l<17:1> el<23:10>
 n<> u<238> t<Source_text> p<239> c<202> l<1:1> el<23:10>
 n<> u<239> t<Top_level_rule> c<1> l<1:1> el<24:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "prim_subreg_arb".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenNet/dut.sv:1:1: No timescale set for "prim_subreg_arb".
 
-[WRN:PA0205] dut.sv:17:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenNet/dut.sv:17:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:17:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/GenNet/dut.sv:17:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@prim_subreg_arb".
+[INF:CP0303] ${SURELOG_DIR}/tests/GenNet/dut.sv:1:1: Compile module "work@prim_subreg_arb".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:12:5: Compile generate block "work@dut.m1.gen_ro".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenNet/dut.sv:12:5: Compile generate block "work@dut.m1.gen_ro".
 
-[NTE:EL0503] dut.sv:17:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/GenNet/dut.sv:17:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -308,11 +308,11 @@ range                                                  7
 ref_obj                                                8
 string_typespec                                        2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/GenNet/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/GenNet/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/GenNet/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -321,20 +321,20 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:23:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@prim_subreg_arb (work@prim_subreg_arb), file:dut.sv, line:1:1, endln:15:10
+\_module: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@prim_subreg_arb
   |vpiParameter:
   \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:19
     |vpiParent:
-    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
     |UINT:32
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:16
@@ -347,7 +347,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:25
     |vpiParent:
-    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
     |STRING:RW
     |vpiTypespec:
     \_string_typespec: 
@@ -356,7 +356,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:30
     |vpiParent:
-    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
     |vpiRhs:
     \_constant: , line:2:28, endln:2:30
       |vpiDecompile:32
@@ -370,7 +370,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:32
     |vpiParent:
-    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
     |vpiRhs:
     \_constant: , line:3:28, endln:3:32
       |vpiDecompile:RW
@@ -385,13 +385,13 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@prim_subreg_arb.q), line:5:18, endln:5:19
     |vpiParent:
-    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
     |vpiName:q
     |vpiFullName:work@prim_subreg_arb.q
   |vpiPort:
   \_port: (q), line:5:18, endln:5:19
     |vpiParent:
-    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:dut.sv, line:1:1, endln:15:10
+    \_module: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
     |vpiName:q
     |vpiDirection:1
     |vpiLowConn:
@@ -429,21 +429,21 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:23:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+  \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:23:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
     |vpiName:m1
     |vpiFullName:work@dut.m1
     |vpiParameter:
     \_parameter: (work@dut.m1.DW), line:2:17, endln:2:19
       |vpiParent:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
       |UINT:32
       |vpiTypespec:
       \_int_typespec: , line:2:13, endln:2:16
@@ -456,7 +456,7 @@ design: (work@dut)
     |vpiParameter:
     \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:25
       |vpiParent:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
       |STRING:RW
       |vpiTypespec:
       \_string_typespec: 
@@ -467,7 +467,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:2:17, endln:2:30
       |vpiParent:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:28, endln:2:30
@@ -482,7 +482,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:3:17, endln:3:32
       |vpiParent:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:3:28, endln:3:32
@@ -495,12 +495,12 @@ design: (work@dut)
       |vpiLhs:
       \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:25
     |vpiDefName:work@prim_subreg_arb
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/GenNet/dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19
       |vpiParent:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
       |vpiTypespec:
       \_logic_typespec: , line:5:9, endln:5:17
         |vpiRange:
@@ -524,11 +524,11 @@ design: (work@dut)
       |vpiName:q
       |vpiFullName:work@dut.m1.q
     |vpiInstance:
-    \_module: work@dut (work@dut), file:dut.sv, line:17:1, endln:23:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
     |vpiPort:
     \_port: (q), line:5:18, endln:5:19
       |vpiParent:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
       |vpiName:q
       |vpiDirection:1
       |vpiLowConn:
@@ -562,11 +562,11 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
     |vpiGenScopeArray:
     \_gen_scope_array: (work@dut.m1.gen_ro), line:12:5, endln:12:32
       |vpiParent:
-      \_module: work@prim_subreg_arb (work@dut.m1), file:dut.sv, line:19:2, endln:22:9
+      \_module: work@prim_subreg_arb (work@dut.m1), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:19:2, endln:22:9
       |vpiName:gen_ro
       |vpiFullName:work@dut.m1.gen_ro
       |vpiGenScope:

@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/CastUnsigned/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/CastUnsigned/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/CastUnsigned/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<140> s<139> l<2:1> el<1:2>
 n<> u<2> t<Module_keyword> p<6> s<3> l<2:1> el<2:7>
@@ -143,15 +143,15 @@ n<> u<137> t<Module_declaration> p<138> c<108> l<15:1> el<17:10>
 n<> u<138> t<Description> p<139> c<137> l<15:1> el<17:10>
 n<> u<139> t<Source_text> p<140> c<105> l<2:1> el<17:10>
 n<> u<140> t<Top_level_rule> c<1> l<2:1> el<18:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastUnsigned/dut.sv:2:1: No timescale set for "top".
 
-[WRN:PA0205] dut.sv:15:1: No timescale set for "M".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastUnsigned/dut.sv:15:1: No timescale set for "M".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:15:1: Compile module "work@M".
+[INF:CP0303] ${SURELOG_DIR}/tests/CastUnsigned/dut.sv:15:1: Compile module "work@M".
 
-[INF:CP0303] dut.sv:2:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/CastUnsigned/dut.sv:2:1: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -413,9 +413,9 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:2:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CastUnsigned/dut.sv:2:1: Top level module "work@top".
 
-[NTE:EL0503] dut.sv:15:1: Top level module "work@M".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CastUnsigned/dut.sv:15:1: Top level module "work@M".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -499,13 +499,13 @@ string_typespec                                        1
 sys_func_call                                          2
 task                                                  18
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:9:9: Unresolved hierarchical reference "hw2reg.stall".
+[ERR:UH0725] ${SURELOG_DIR}/tests/CastUnsigned/dut.sv:9:9: Unresolved hierarchical reference "hw2reg.stall".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CastUnsigned/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastUnsigned/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CastUnsigned/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastUnsigned/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CastUnsigned/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CastUnsigned/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -989,14 +989,14 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@M (work@M), file:dut.sv, line:15:1, endln:17:10
+\_module: work@M (work@M), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:15:1, endln:17:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@M
   |vpiParameter:
   \_parameter: (work@M.P), line:16:26, endln:16:27
     |vpiParent:
-    \_module: work@M (work@M), file:dut.sv, line:15:1, endln:17:10
+    \_module: work@M (work@M), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:15:1, endln:17:10
     |BIN:0
     |vpiTypespec:
     \_logic_typespec: , line:16:14, endln:16:25
@@ -1025,7 +1025,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:16:26, endln:16:32
     |vpiParent:
-    \_module: work@M (work@M), file:dut.sv, line:15:1, endln:17:10
+    \_module: work@M (work@M), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:15:1, endln:17:10
     |vpiRhs:
     \_constant: , line:16:30, endln:16:32
       |vpiDecompile:'0
@@ -1038,14 +1038,14 @@ design: (work@top)
     \_parameter: (work@M.P), line:16:26, endln:16:27
   |vpiDefName:work@M
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.INIT), line:4:19, endln:4:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
     |BIN:0
     |vpiTypespec:
     \_int_typespec: , line:4:12, endln:4:18
@@ -1057,7 +1057,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:4:19, endln:4:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
     |vpiRhs:
     \_constant: , line:4:26, endln:4:28
       |vpiDecompile:'0
@@ -1071,15 +1071,15 @@ design: (work@top)
   |vpiTypedef:
   \_interface_typespec: (foo_if), line:3:19, endln:3:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
     |vpiName:foo_if
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
   |vpiDefName:work@top
   |vpiProcess:
   \_always: , line:7:3, endln:11:6
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
     |vpiStmt:
     \_named_begin: (work@top.proc_stall_tieoff), line:7:15, endln:11:6
       |vpiParent:
@@ -1157,12 +1157,12 @@ design: (work@top)
                 |vpiName:stall
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.INIT), line:4:19, endln:4:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
     |BIN:0
     |vpiTypespec:
     \_int_typespec: , line:4:12, endln:4:18
@@ -1174,7 +1174,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:4:19, endln:4:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
     |vpiRhs:
     \_constant: , line:4:26, endln:4:28
       |vpiDecompile:32'b0
@@ -1201,7 +1201,7 @@ design: (work@top)
   |vpiProcess:
   \_always: , line:7:3, endln:11:6
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:2:1, endln:13:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:2:1, endln:13:10
     |vpiStmt:
     \_named_begin: (work@top.proc_stall_tieoff), line:7:15, endln:11:6
       |vpiParent:
@@ -1281,12 +1281,12 @@ design: (work@top)
                 |vpiName:stall
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@M (work@M), file:dut.sv, line:15:1, endln:17:10
+\_module: work@M (work@M), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:15:1, endln:17:10
   |vpiName:work@M
   |vpiParameter:
   \_parameter: (work@M.P), line:16:26, endln:16:27
     |vpiParent:
-    \_module: work@M (work@M), file:dut.sv, line:15:1, endln:17:10
+    \_module: work@M (work@M), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:15:1, endln:17:10
     |BIN:0
     |vpiTypespec:
     \_logic_typespec: , line:16:14, endln:16:25
@@ -1317,7 +1317,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:16:26, endln:16:32
     |vpiParent:
-    \_module: work@M (work@M), file:dut.sv, line:15:1, endln:17:10
+    \_module: work@M (work@M), file:${SURELOG_DIR}/tests/CastUnsigned/dut.sv, line:15:1, endln:17:10
     |vpiRhs:
     \_constant: , line:16:30, endln:16:32
       |vpiDecompile:8'b0

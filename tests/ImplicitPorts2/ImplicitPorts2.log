@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ImplicitPorts2/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ImplicitPorts2/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<107> s<106> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -110,21 +110,21 @@ n<> u<104> t<Module_declaration> p<105> c<75> l<11:1> el<15:10>
 n<> u<105> t<Description> p<106> c<104> l<11:1> el<15:10>
 n<> u<106> t<Source_text> p<107> c<53> l<1:1> el<15:10>
 n<> u<107> t<Top_level_rule> c<1> l<1:1> el<16:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "implicit".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv:1:1: No timescale set for "implicit".
 
-[WRN:PA0205] dut.sv:11:1: No timescale set for "dff".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv:11:1: No timescale set for "dff".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:11:1: Compile module "work@dff".
+[INF:CP0303] ${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv:11:1: Compile module "work@dff".
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@implicit".
+[INF:CP0303] ${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv:1:1: Compile module "work@implicit".
 
-[NTE:CP0309] dut.sv:11:16: Implicit port type (wire) for "q_bar".
+[NTE:CP0309] ${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv:11:16: Implicit port type (wire) for "q_bar".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1:1: Top level module "work@implicit".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv:1:1: Top level module "work@implicit".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -154,11 +154,11 @@ module                                                 5
 port                                                   9
 ref_obj                                               14
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ImplicitPorts2/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitPorts2/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ImplicitPorts2/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ImplicitPorts2/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ImplicitPorts2/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitPorts2/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -167,7 +167,7 @@ design: (work@implicit)
 |vpiElaborated:1
 |vpiName:work@implicit
 |uhdmallModules:
-\_module: work@dff (work@dff), file:dut.sv, line:11:1, endln:15:10
+\_module: work@dff (work@dff), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:11:1, endln:15:10
   |vpiParent:
   \_design: (work@implicit)
   |vpiFullName:work@dff
@@ -175,26 +175,26 @@ design: (work@implicit)
   |vpiNet:
   \_logic_net: (work@dff.q), line:14:7, endln:14:8
     |vpiParent:
-    \_module: work@dff (work@dff), file:dut.sv, line:11:1, endln:15:10
+    \_module: work@dff (work@dff), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:11:1, endln:15:10
     |vpiName:q
     |vpiFullName:work@dff.q
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@dff.q_bar), line:11:16, endln:11:21
     |vpiParent:
-    \_module: work@dff (work@dff), file:dut.sv, line:11:1, endln:15:10
+    \_module: work@dff (work@dff), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:11:1, endln:15:10
     |vpiName:q_bar
     |vpiFullName:work@dff.q_bar
   |vpiNet:
   \_logic_net: (work@dff.clk), line:11:23, endln:11:26
     |vpiParent:
-    \_module: work@dff (work@dff), file:dut.sv, line:11:1, endln:15:10
+    \_module: work@dff (work@dff), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:11:1, endln:15:10
     |vpiName:clk
     |vpiFullName:work@dff.clk
   |vpiPort:
   \_port: (q), line:11:13, endln:11:14
     |vpiParent:
-    \_module: work@dff (work@dff), file:dut.sv, line:11:1, endln:15:10
+    \_module: work@dff (work@dff), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:11:1, endln:15:10
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:
@@ -206,7 +206,7 @@ design: (work@implicit)
   |vpiPort:
   \_port: (q_bar), line:11:16, endln:11:21
     |vpiParent:
-    \_module: work@dff (work@dff), file:dut.sv, line:11:1, endln:15:10
+    \_module: work@dff (work@dff), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:11:1, endln:15:10
     |vpiName:q_bar
     |vpiDirection:2
     |vpiLowConn:
@@ -218,7 +218,7 @@ design: (work@implicit)
   |vpiPort:
   \_port: (clk), line:11:23, endln:11:26
     |vpiParent:
-    \_module: work@dff (work@dff), file:dut.sv, line:11:1, endln:15:10
+    \_module: work@dff (work@dff), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:11:1, endln:15:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -228,7 +228,7 @@ design: (work@implicit)
     |vpiTypedef:
     \_logic_typespec: , line:12:9, endln:12:9
 |uhdmallModules:
-\_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+\_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@implicit)
   |vpiFullName:work@implicit
@@ -236,26 +236,26 @@ design: (work@implicit)
   |vpiNet:
   \_logic_net: (work@implicit.clk), line:2:7, endln:2:10
     |vpiParent:
-    \_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
     |vpiName:clk
     |vpiFullName:work@implicit.clk
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@implicit.q), line:3:8, endln:3:9
     |vpiParent:
-    \_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
     |vpiName:q
     |vpiFullName:work@implicit.q
     |vpiNetType:1
 |uhdmtopModules:
-\_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+\_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
   |vpiName:work@implicit
   |vpiDefName:work@implicit
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@implicit.clk), line:2:7, endln:2:10
     |vpiParent:
-    \_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:2:3, endln:2:6
     |vpiName:clk
@@ -264,7 +264,7 @@ design: (work@implicit)
   |vpiNet:
   \_logic_net: (work@implicit.q), line:3:8, endln:3:9
     |vpiParent:
-    \_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:q
@@ -272,18 +272,18 @@ design: (work@implicit)
     |vpiNetType:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+  \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
     |vpiParent:
-    \_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
     |vpiName:u0
     |vpiFullName:work@implicit.u0
     |vpiDefName:work@dff
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv
     |vpiDefLineNo:11
     |vpiNet:
     \_logic_net: (work@implicit.u0.q), line:14:7, endln:14:8
       |vpiParent:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
       |vpiTypespec:
       \_logic_typespec: , line:14:3, endln:14:6
       |vpiName:q
@@ -292,7 +292,7 @@ design: (work@implicit)
     |vpiNet:
     \_logic_net: (work@implicit.u0.q_bar), line:11:16, endln:11:21
       |vpiParent:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
       |vpiTypespec:
       \_logic_typespec: , line:13:10, endln:13:10
       |vpiName:q_bar
@@ -300,17 +300,17 @@ design: (work@implicit)
     |vpiNet:
     \_logic_net: (work@implicit.u0.clk), line:11:23, endln:11:26
       |vpiParent:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
       |vpiTypespec:
       \_logic_typespec: , line:12:9, endln:12:9
       |vpiName:clk
       |vpiFullName:work@implicit.u0.clk
     |vpiInstance:
-    \_module: work@implicit (work@implicit), file:dut.sv, line:1:1, endln:8:10
+    \_module: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
     |vpiPort:
     \_port: (q), line:11:13, endln:11:14
       |vpiParent:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
       |vpiName:q
       |vpiDirection:2
       |vpiHighConn:
@@ -332,11 +332,11 @@ design: (work@implicit)
       |vpiTypedef:
       \_logic_typespec: , line:13:10, endln:13:10
       |vpiInstance:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
     |vpiPort:
     \_port: (q_bar), line:11:16, endln:11:21
       |vpiParent:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
       |vpiName:q_bar
       |vpiDirection:2
       |vpiLowConn:
@@ -350,11 +350,11 @@ design: (work@implicit)
       |vpiTypedef:
       \_logic_typespec: , line:13:10, endln:13:10
       |vpiInstance:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
     |vpiPort:
     \_port: (clk), line:11:23, endln:11:26
       |vpiParent:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
@@ -376,7 +376,7 @@ design: (work@implicit)
       |vpiTypedef:
       \_logic_typespec: , line:12:9, endln:12:9
       |vpiInstance:
-      \_module: work@dff (work@implicit.u0), file:dut.sv, line:6:3, endln:6:20
+      \_module: work@dff (work@implicit.u0), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:6:3, endln:6:20
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

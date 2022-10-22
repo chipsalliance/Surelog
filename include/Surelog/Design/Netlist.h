@@ -63,6 +63,7 @@ class Netlist {
   std::vector<UHDM::expr*>* delays() { return m_delays; }
   std::vector<UHDM::range*>* ranges() { return m_ranges; }
   std::vector<UHDM::cont_assign*>* cont_assigns() { return m_assign_stmts; }
+  std::vector<UHDM::process_stmt*>* process_stmts() { return m_process_stmts; }
   std::vector<UHDM::param_assign*>* param_assigns() { return m_param_assigns; }
 
   void interfaces(std::vector<UHDM::interface*>* interfaces) {
@@ -93,6 +94,9 @@ class Netlist {
   void cont_assigns(std::vector<UHDM::cont_assign*>* assigns) {
     m_assign_stmts = assigns;
   }
+  void process_stmts(std::vector<UHDM::process_stmt*>* stmts) {
+    m_process_stmts = stmts;
+  }
   void param_assigns(std::vector<UHDM::param_assign*>* assigns) {
     m_param_assigns = assigns;
   }
@@ -121,7 +125,7 @@ class Netlist {
   std::vector<UHDM::range*>* m_ranges = nullptr;
   std::vector<UHDM::cont_assign*>* m_assign_stmts = nullptr;
   std::vector<UHDM::param_assign*>* m_param_assigns = nullptr;
-
+  std::vector<UHDM::process_stmt*>* m_process_stmts = nullptr;
   // Helpers
   std::vector<UHDM::port*> m_actualPorts;
   SymbolTable m_symbolTable;

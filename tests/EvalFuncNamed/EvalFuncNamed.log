@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/EvalFuncNamed/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/EvalFuncNamed/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<222> s<221> l<1:1> el<1:0>
 n<> u<2> t<Package> p<110> s<3> l<1:1> el<1:8>
@@ -225,19 +225,19 @@ n<> u<219> t<Module_declaration> p<220> c<218> l<23:1> el<31:10>
 n<> u<220> t<Description> p<221> c<219> l<23:1> el<31:10>
 n<> u<221> t<Source_text> p<222> c<111> l<1:1> el<31:10>
 n<> u<222> t<Top_level_rule> c<1> l<1:1> el<32:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "my_funcs".
+[WRN:PA0205] ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv:1:1: No timescale set for "my_funcs".
 
-[WRN:PA0205] dut.sv:16:1: No timescale set for "my_module_types".
+[WRN:PA0205] ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv:16:1: No timescale set for "my_module_types".
 
-[WRN:PA0205] dut.sv:23:1: No timescale set for "t".
+[WRN:PA0205] ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv:23:1: No timescale set for "t".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "my_funcs".
+[INF:CP0301] ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv:1:1: Compile package "my_funcs".
 
-[INF:CP0301] dut.sv:16:1: Compile package "my_module_types".
+[INF:CP0301] ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv:16:1: Compile package "my_module_types".
 
-[INF:CP0303] dut.sv:23:1: Compile module "work@t".
+[INF:CP0303] ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv:23:1: Compile module "work@t".
 
 LIB:  work
 FILE: builtin.sv
@@ -499,7 +499,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:23:1: Top level module "work@t".
+[NTE:EL0503] ${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv:23:1: Top level module "work@t".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -573,11 +573,11 @@ range                                                  8
 ref_obj                                               63
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/EvalFuncNamed/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EvalFuncNamed/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/EvalFuncNamed/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/EvalFuncNamed/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/EvalFuncNamed/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/EvalFuncNamed/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -593,7 +593,7 @@ design: (work@t)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+\_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (work@t)
   |vpiName:my_funcs
@@ -602,7 +602,7 @@ design: (work@t)
   |vpiTaskFunc:
   \_function: (my_funcs::simple_minus), line:3:4, endln:7:15
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiName:simple_minus
     |vpiFullName:my_funcs::simple_minus
     |vpiVisibility:1
@@ -616,7 +616,7 @@ design: (work@t)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiIODecl:
     \_io_decl: (value1), line:3:51, endln:3:57
       |vpiParent:
@@ -680,11 +680,11 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:3:23, endln:3:26
     |vpiInstance:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
   |vpiTaskFunc:
   \_function: (my_funcs::simple_func), line:9:4, endln:13:15
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiName:simple_func
     |vpiFullName:my_funcs::simple_func
     |vpiVisibility:1
@@ -698,7 +698,7 @@ design: (work@t)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiIODecl:
     \_io_decl: (value1), line:9:50, endln:9:56
       |vpiParent:
@@ -764,9 +764,9 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:9:23, endln:9:26
     |vpiInstance:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
 |uhdmallPackages:
-\_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+\_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
   |vpiParent:
   \_design: (work@t)
   |vpiName:my_module_types
@@ -774,7 +774,7 @@ design: (work@t)
   |vpiParameter:
   \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:23
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |UINT:3
     |vpiTypespec:
     \_int_typespec: 
@@ -784,14 +784,14 @@ design: (work@t)
   |vpiParameter:
   \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:24
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiLocalParam:1
     |vpiName:MY_PARAM2
     |vpiFullName:my_module_types::MY_PARAM2
   |vpiParamAssign:
   \_param_assign: , line:19:15, endln:19:27
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiRhs:
     \_constant: , line:19:26, endln:19:27
       |vpiDecompile:3
@@ -805,7 +805,7 @@ design: (work@t)
   |vpiParamAssign:
   \_param_assign: , line:20:15, endln:20:64
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiRhs:
     \_func_call: (simple_func), line:20:27, endln:20:38
       |vpiArgument:
@@ -835,7 +835,7 @@ design: (work@t)
   |vpiTaskFunc:
   \_function: (my_module_types::simple_minus), line:3:4, endln:7:15
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiName:simple_minus
     |vpiFullName:my_module_types::simple_minus
     |vpiVisibility:1
@@ -845,11 +845,11 @@ design: (work@t)
       |vpiTypespec:
       \_int_typespec: , line:3:23, endln:3:26
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiIODecl:
     \_io_decl: (value1), line:3:51, endln:3:57
       |vpiParent:
@@ -861,7 +861,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value1), line:3:51, endln:3:57
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value2), line:3:69, endln:3:75
@@ -874,7 +874,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value2), line:3:69, endln:3:75
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (my_module_types::simple_minus), line:4:7, endln:6:10
@@ -917,11 +917,11 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:3:23, endln:3:26
     |vpiInstance:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
   |vpiTaskFunc:
   \_function: (my_module_types::simple_func), line:9:4, endln:13:15
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiName:simple_func
     |vpiFullName:my_module_types::simple_func
     |vpiVisibility:1
@@ -931,11 +931,11 @@ design: (work@t)
       |vpiTypespec:
       \_int_typespec: , line:9:23, endln:9:26
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiIODecl:
     \_io_decl: (value1), line:9:50, endln:9:56
       |vpiParent:
@@ -947,7 +947,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value1), line:9:50, endln:9:56
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value2), line:9:68, endln:9:74
@@ -960,7 +960,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value2), line:9:68, endln:9:74
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (my_module_types::simple_func), line:10:7, endln:12:10
@@ -1005,7 +1005,7 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:9:23, endln:9:26
     |vpiInstance:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
 |uhdmtopPackages:
 \_package: builtin (builtin::)
   |vpiParent:
@@ -1045,7 +1045,7 @@ design: (work@t)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+\_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_design: (work@t)
   |vpiName:my_funcs
@@ -1055,7 +1055,7 @@ design: (work@t)
   |vpiTaskFunc:
   \_function: (my_funcs::simple_minus), line:3:4, endln:7:15
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiName:simple_minus
     |vpiFullName:my_funcs::simple_minus
     |vpiVisibility:1
@@ -1063,7 +1063,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:3:23, endln:3:26
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiIODecl:
     \_io_decl: (value1), line:3:51, endln:3:57
       |vpiParent:
@@ -1073,7 +1073,7 @@ design: (work@t)
       |vpiTypedef:
       \_int_typespec: , line:3:47, endln:3:50
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value2), line:3:69, endln:3:75
@@ -1084,7 +1084,7 @@ design: (work@t)
       |vpiTypedef:
       \_int_typespec: , line:3:65, endln:3:68
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (my_funcs::simple_minus), line:4:7, endln:6:10
@@ -1127,11 +1127,11 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:3:23, endln:3:26
     |vpiInstance:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
   |vpiTaskFunc:
   \_function: (my_funcs::simple_func), line:9:4, endln:13:15
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiName:simple_func
     |vpiFullName:my_funcs::simple_func
     |vpiVisibility:1
@@ -1139,7 +1139,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:9:23, endln:9:26
     |vpiParent:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
     |vpiIODecl:
     \_io_decl: (value1), line:9:50, endln:9:56
       |vpiParent:
@@ -1149,7 +1149,7 @@ design: (work@t)
       |vpiTypedef:
       \_int_typespec: , line:9:46, endln:9:49
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value2), line:9:68, endln:9:74
@@ -1160,7 +1160,7 @@ design: (work@t)
       |vpiTypedef:
       \_int_typespec: , line:9:64, endln:9:67
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (my_funcs::simple_func), line:10:7, endln:12:10
@@ -1205,9 +1205,9 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:9:23, endln:9:26
     |vpiInstance:
-    \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+    \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
 |uhdmtopPackages:
-\_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+\_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
   |vpiParent:
   \_design: (work@t)
   |vpiName:my_module_types
@@ -1215,7 +1215,7 @@ design: (work@t)
   |vpiParameter:
   \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:23
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |UINT:3
     |vpiTypespec:
     \_int_typespec: 
@@ -1225,7 +1225,7 @@ design: (work@t)
   |vpiParameter:
   \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:24
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |INT:12
     |vpiTypespec:
     \_int_typespec: 
@@ -1235,7 +1235,7 @@ design: (work@t)
   |vpiParamAssign:
   \_param_assign: , line:19:15, endln:19:27
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiRhs:
     \_constant: , line:19:26, endln:19:27
       |vpiDecompile:3
@@ -1249,7 +1249,7 @@ design: (work@t)
   |vpiParamAssign:
   \_param_assign: , line:20:15, endln:20:64
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiRhs:
     \_constant: , line:20:27, endln:20:64
       |vpiDecompile:12
@@ -1267,7 +1267,7 @@ design: (work@t)
   |vpiTaskFunc:
   \_function: (my_module_types::simple_minus), line:3:4, endln:7:15
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiName:simple_minus
     |vpiFullName:my_module_types::simple_minus
     |vpiVisibility:1
@@ -1275,7 +1275,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:3:23, endln:3:26
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiIODecl:
     \_io_decl: (value1), line:3:51, endln:3:57
       |vpiParent:
@@ -1287,7 +1287,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value1), line:3:51, endln:3:57
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value2), line:3:69, endln:3:75
@@ -1300,7 +1300,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value2), line:3:69, endln:3:75
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (my_module_types::simple_minus), line:4:7, endln:6:10
@@ -1343,11 +1343,11 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:3:23, endln:3:26
     |vpiInstance:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
   |vpiTaskFunc:
   \_function: (my_module_types::simple_func), line:9:4, endln:13:15
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiName:simple_func
     |vpiFullName:my_module_types::simple_func
     |vpiVisibility:1
@@ -1355,7 +1355,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:9:23, endln:9:26
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiIODecl:
     \_io_decl: (value1), line:9:50, endln:9:56
       |vpiParent:
@@ -1367,7 +1367,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value1), line:9:50, endln:9:56
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value2), line:9:68, endln:9:74
@@ -1380,7 +1380,7 @@ design: (work@t)
         |vpiParent:
         \_io_decl: (value2), line:9:68, endln:9:74
         |vpiInstance:
-        \_package: my_funcs (my_funcs::), file:dut.sv, line:1:1, endln:14:11
+        \_package: my_funcs (my_funcs::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:1:1, endln:14:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (my_module_types::simple_func), line:10:7, endln:12:10
@@ -1425,7 +1425,7 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:9:23, endln:9:26
     |vpiInstance:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
@@ -1857,14 +1857,14 @@ design: (work@t)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+\_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
   |vpiParent:
   \_design: (work@t)
   |vpiFullName:work@t
   |vpiParameter:
   \_parameter: (work@t.MY_PARAM), line:19:15, endln:19:23
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: 
@@ -1877,7 +1877,7 @@ design: (work@t)
   |vpiParameter:
   \_parameter: (work@t.MY_PARAM2), line:20:15, endln:20:24
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |INT:12
     |vpiTypespec:
     \_int_typespec: 
@@ -1890,7 +1890,7 @@ design: (work@t)
   |vpiParamAssign:
   \_param_assign: , line:19:15, endln:19:27
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiRhs:
     \_constant: , line:19:26, endln:19:27
       |vpiParent:
@@ -1919,7 +1919,7 @@ design: (work@t)
   |vpiParamAssign:
   \_param_assign: , line:20:15, endln:20:64
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiRhs:
     \_constant: , line:20:27, endln:20:64
       |vpiParent:
@@ -1951,7 +1951,7 @@ design: (work@t)
   |vpiTaskFunc:
   \_function: (my_module_types::simple_minus), line:3:4, endln:7:15
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiName:simple_minus
     |vpiFullName:my_module_types::simple_minus
     |vpiVisibility:1
@@ -1959,7 +1959,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:3:23, endln:3:26
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiIODecl:
     \_io_decl: (value1), line:3:51, endln:3:57
       |vpiParent:
@@ -2017,11 +2017,11 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:3:23, endln:3:26
     |vpiInstance:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
   |vpiTaskFunc:
   \_function: (my_module_types::simple_func), line:9:4, endln:13:15
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiName:simple_func
     |vpiFullName:my_module_types::simple_func
     |vpiVisibility:1
@@ -2029,7 +2029,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:9:23, endln:9:26
     |vpiParent:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
     |vpiIODecl:
     \_io_decl: (value1), line:9:50, endln:9:56
       |vpiParent:
@@ -2089,30 +2089,30 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:9:23, endln:9:26
     |vpiInstance:
-    \_package: my_module_types (my_module_types::), file:dut.sv, line:16:1, endln:21:11
+    \_package: my_module_types (my_module_types::), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:16:1, endln:21:11
   |vpiNet:
   \_logic_net: (work@t.i_clk), line:26:14, endln:26:19
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:i_clk
     |vpiFullName:work@t.i_clk
   |vpiNet:
   \_logic_net: (work@t.i_d), line:27:27, endln:27:30
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:i_d
     |vpiFullName:work@t.i_d
   |vpiNet:
   \_logic_net: (work@t.o_q), line:28:33, endln:28:36
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:o_q
     |vpiFullName:work@t.o_q
     |vpiNetType:36
   |vpiPort:
   \_port: (i_clk), line:26:14, endln:26:19
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:i_clk
     |vpiDirection:1
     |vpiLowConn:
@@ -2124,7 +2124,7 @@ design: (work@t)
   |vpiPort:
   \_port: (i_d), line:27:27, endln:27:30
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:i_d
     |vpiDirection:1
     |vpiLowConn:
@@ -2171,7 +2171,7 @@ design: (work@t)
   |vpiPort:
   \_port: (o_q), line:28:33, endln:28:36
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:o_q
     |vpiDirection:2
     |vpiLowConn:
@@ -2216,12 +2216,12 @@ design: (work@t)
           |UINT:0
           |vpiConstType:9
 |uhdmtopModules:
-\_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+\_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
   |vpiName:work@t
   |vpiParameter:
   \_parameter: (work@t.MY_PARAM), line:19:15, endln:19:23
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: 
@@ -2234,7 +2234,7 @@ design: (work@t)
   |vpiParameter:
   \_parameter: (work@t.MY_PARAM2), line:20:15, endln:20:24
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |INT:12
     |vpiTypespec:
     \_int_typespec: 
@@ -2247,7 +2247,7 @@ design: (work@t)
   |vpiParamAssign:
   \_param_assign: , line:19:15, endln:19:27
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiRhs:
     \_constant: , line:19:26, endln:19:27
       |vpiDecompile:3
@@ -2261,7 +2261,7 @@ design: (work@t)
   |vpiParamAssign:
   \_param_assign: , line:20:15, endln:20:64
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiRhs:
     \_constant: , line:20:27, endln:20:64
       |vpiDecompile:12
@@ -2279,7 +2279,7 @@ design: (work@t)
   |vpiTaskFunc:
   \_function: (my_module_types::simple_minus), line:3:4, endln:7:15
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:simple_minus
     |vpiFullName:my_module_types::simple_minus
     |vpiVisibility:1
@@ -2287,7 +2287,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:3:23, endln:3:26
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiIODecl:
     \_io_decl: (value1), line:3:51, endln:3:57
       |vpiParent:
@@ -2345,11 +2345,11 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:3:23, endln:3:26
     |vpiInstance:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
   |vpiTaskFunc:
   \_function: (my_module_types::simple_func), line:9:4, endln:13:15
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:simple_func
     |vpiFullName:my_module_types::simple_func
     |vpiVisibility:1
@@ -2357,7 +2357,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:9:23, endln:9:26
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiIODecl:
     \_io_decl: (value1), line:9:50, endln:9:56
       |vpiParent:
@@ -2417,11 +2417,11 @@ design: (work@t)
           |vpiActual:
           \_int_var: , line:9:23, endln:9:26
     |vpiInstance:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
   |vpiNet:
   \_logic_net: (work@t.i_clk), line:26:14, endln:26:19
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiTypespec:
     \_logic_typespec: , line:26:14, endln:26:14
     |vpiName:i_clk
@@ -2429,7 +2429,7 @@ design: (work@t)
   |vpiNet:
   \_logic_net: (work@t.i_d), line:27:27, endln:27:30
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiTypespec:
     \_logic_typespec: , line:27:11, endln:27:25
       |vpiRange:
@@ -2455,7 +2455,7 @@ design: (work@t)
   |vpiNet:
   \_logic_net: (work@t.o_q), line:28:33, endln:28:36
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiTypespec:
     \_logic_typespec: , line:28:12, endln:28:32
       |vpiRange:
@@ -2483,7 +2483,7 @@ design: (work@t)
   |vpiPort:
   \_port: (i_clk), line:26:14, endln:26:19
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:i_clk
     |vpiDirection:1
     |vpiLowConn:
@@ -2497,11 +2497,11 @@ design: (work@t)
     |vpiTypedef:
     \_logic_typespec: , line:26:14, endln:26:14
     |vpiInstance:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
   |vpiPort:
   \_port: (i_d), line:27:27, endln:27:30
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:i_d
     |vpiDirection:1
     |vpiLowConn:
@@ -2535,11 +2535,11 @@ design: (work@t)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
   |vpiPort:
   \_port: (o_q), line:28:33, endln:28:36
     |vpiParent:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
     |vpiName:o_q
     |vpiDirection:2
     |vpiLowConn:
@@ -2573,7 +2573,7 @@ design: (work@t)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@t (work@t), file:dut.sv, line:23:1, endln:31:10
+    \_module: work@t (work@t), file:${SURELOG_DIR}/tests/EvalFuncNamed/dut.sv, line:23:1, endln:31:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

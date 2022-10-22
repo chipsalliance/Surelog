@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ParamMultiConcat/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamMultiConcat/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<159> s<158> l<1:1> el<1:0>
 n<> u<2> t<Module_keyword> p<36> s<3> l<1:1> el<1:7>
@@ -162,19 +162,19 @@ n<> u<156> t<Module_declaration> p<157> c<41> l<9:1> el<18:10>
 n<> u<157> t<Description> p<158> c<156> l<9:1> el<18:10>
 n<> u<158> t<Source_text> p<159> c<38> l<1:1> el<18:10>
 n<> u<159> t<Top_level_rule> c<1> l<1:1> el<20:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv:1:1: No timescale set for "dut".
 
-[WRN:PA0205] dut.sv:9:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv:9:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv:1:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:9:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv:9:1: Compile module "work@top".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:9:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv:9:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -216,11 +216,11 @@ port                                                   3
 range                                                  4
 ref_obj                                                6
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ParamMultiConcat/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamMultiConcat/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ParamMultiConcat/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamMultiConcat/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ParamMultiConcat/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamMultiConcat/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -229,14 +229,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:1:1, endln:7:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@dut
   |vpiParameter:
   \_parameter: (work@dut.Width), line:3:18, endln:3:23
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_int_typespec: , line:3:14, endln:3:17
       |vpiParent:
@@ -248,20 +248,20 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:18, endln:3:23
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:1:1, endln:7:10
     |vpiLhs:
     \_parameter: (work@dut.Width), line:3:18, endln:3:23
   |vpiDefName:work@dut
   |vpiNet:
   \_logic_net: (work@dut.wmask_i), line:5:22, endln:5:29
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:1:1, endln:7:10
     |vpiName:wmask_i
     |vpiFullName:work@dut.wmask_i
   |vpiPort:
   \_port: (wmask_i), line:5:22, endln:5:29
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:1:1, endln:7:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:1:1, endln:7:10
     |vpiName:wmask_i
     |vpiDirection:1
     |vpiLowConn:
@@ -299,14 +299,14 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.Width), line:10:18, endln:10:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |UINT:16
     |vpiTypespec:
     \_int_typespec: , line:10:14, endln:10:17
@@ -319,7 +319,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.EccWidth), line:11:18, endln:11:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:11:14, endln:11:17
@@ -332,7 +332,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.BBB), line:12:15, endln:12:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiTypespec:
     \_int_typespec: , line:12:11, endln:12:14
       |vpiParent:
@@ -344,7 +344,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:18, endln:10:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:26, endln:10:28
       |vpiDecompile:16
@@ -358,7 +358,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:11:18, endln:11:30
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
       |vpiDecompile:3
@@ -372,7 +372,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:12:15, endln:12:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_operation: , line:12:21, endln:12:43
       |vpiOpType:34
@@ -406,12 +406,12 @@ design: (work@top)
     \_parameter: (work@top.BBB), line:12:15, endln:12:18
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
   |vpiName:work@top
   |vpiParameter:
   \_parameter: (work@top.Width), line:10:18, endln:10:23
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |UINT:16
     |vpiTypespec:
     \_int_typespec: , line:10:14, endln:10:17
@@ -424,7 +424,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.EccWidth), line:11:18, endln:11:26
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:11:14, endln:11:17
@@ -437,7 +437,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@top.BBB), line:12:15, endln:12:18
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiTypespec:
     \_int_typespec: , line:12:11, endln:12:14
       |vpiParent:
@@ -449,7 +449,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:18, endln:10:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:26, endln:10:28
       |vpiDecompile:16
@@ -463,7 +463,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:11:18, endln:11:30
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
       |vpiDecompile:3
@@ -477,7 +477,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:12:15, endln:12:43
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:12:21, endln:12:43
       |vpiDecompile:32'b1111111111111111111
@@ -492,15 +492,15 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module: work@dut (work@top.u_dut), file:dut.sv, line:13:4, endln:17:6
+  \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:13:4, endln:17:6
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiName:u_dut
     |vpiFullName:work@top.u_dut
     |vpiParameter:
     \_parameter: (work@top.u_dut.Width), line:3:18, endln:3:23
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:13:4, endln:17:6
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:13:4, endln:17:6
       |vpiTypespec:
       \_int_typespec: , line:3:14, endln:3:17
         |vpiParent:
@@ -512,7 +512,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:3:18, endln:3:23
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:13:4, endln:17:6
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:13:4, endln:17:6
       |vpiOverriden:1
       |vpiRhs:
       \_constant: 
@@ -525,12 +525,12 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.u_dut.Width), line:3:18, endln:3:23
     |vpiDefName:work@dut
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv
     |vpiDefLineNo:1
     |vpiNet:
     \_logic_net: (work@top.u_dut.wmask_i), line:5:22, endln:5:29
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:13:4, endln:17:6
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:13:4, endln:17:6
       |vpiTypespec:
       \_logic_typespec: , line:5:10, endln:5:21
         |vpiRange:
@@ -554,11 +554,11 @@ design: (work@top)
       |vpiName:wmask_i
       |vpiFullName:work@top.u_dut.wmask_i
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:9:1, endln:18:10
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiPort:
     \_port: (wmask_i), line:5:22, endln:5:29
       |vpiParent:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:13:4, endln:17:6
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:13:4, endln:17:6
       |vpiName:wmask_i
       |vpiDirection:1
       |vpiHighConn:
@@ -601,7 +601,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@dut (work@top.u_dut), file:dut.sv, line:13:4, endln:17:6
+      \_module: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:13:4, endln:17:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

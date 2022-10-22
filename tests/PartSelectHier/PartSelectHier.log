@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PartSelectHier/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PartSelectHier/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/PartSelectHier/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<109> s<108> l<1:1> el<1:0>
 n<> u<2> t<Package> p<31> s<3> l<1:1> el<1:8>
@@ -112,19 +112,19 @@ n<> u<106> t<Module_declaration> p<107> c<37> l<6:1> el<10:10>
 n<> u<107> t<Description> p<108> c<106> l<6:1> el<10:10>
 n<> u<108> t<Source_text> p<109> c<32> l<1:1> el<10:10>
 n<> u<109> t<Top_level_rule> c<1> l<1:1> el<11:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "tlul_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PartSelectHier/dut.sv:1:1: No timescale set for "tlul_pkg".
 
-[WRN:PA0205] dut.sv:6:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PartSelectHier/dut.sv:6:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "tlul_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/PartSelectHier/dut.sv:1:1: Compile package "tlul_pkg".
 
-[INF:CP0303] dut.sv:6:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/PartSelectHier/dut.sv:6:1: Compile module "work@dut".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:6:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PartSelectHier/dut.sv:6:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -172,11 +172,11 @@ struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PartSelectHier/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectHier/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PartSelectHier/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PartSelectHier/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PartSelectHier/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectHier/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -185,7 +185,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: tlul_pkg (tlul_pkg::), file:dut.sv, line:1:1, endln:5:11
+\_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:1:1, endln:5:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:tlul_pkg
@@ -193,10 +193,10 @@ design: (work@dut)
   |vpiTypedef:
   \_struct_typespec: (tlul_pkg::tl_d2h_t), line:2:11, endln:2:17
     |vpiParent:
-    \_package: tlul_pkg (tlul_pkg::), file:dut.sv, line:1:1, endln:5:11
+    \_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:1:1, endln:5:11
     |vpiName:tlul_pkg::tl_d2h_t
     |vpiInstance:
-    \_package: tlul_pkg (tlul_pkg::), file:dut.sv, line:1:1, endln:5:11
+    \_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:1:1, endln:5:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (d_source), line:3:20, endln:3:28
@@ -229,14 +229,14 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PartSelectHier/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:18
   |vpiDefName:tlul_pkg
 |uhdmtopPackages:
-\_package: tlul_pkg (tlul_pkg::), file:dut.sv, line:1:1, endln:5:11
+\_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:1:1, endln:5:11
   |vpiParent:
   \_design: (work@dut)
   |vpiName:tlul_pkg
@@ -244,10 +244,10 @@ design: (work@dut)
   |vpiTypedef:
   \_struct_typespec: (tlul_pkg::tl_d2h_t), line:2:11, endln:2:17
     |vpiParent:
-    \_package: tlul_pkg (tlul_pkg::), file:dut.sv, line:1:1, endln:5:11
+    \_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:1:1, endln:5:11
     |vpiName:tlul_pkg::tl_d2h_t
     |vpiInstance:
-    \_package: tlul_pkg (tlul_pkg::), file:dut.sv, line:1:1, endln:5:11
+    \_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:1:1, endln:5:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (d_source), line:3:20, endln:3:28
@@ -259,7 +259,7 @@ design: (work@dut)
         |vpiParent:
         \_typespec_member: (d_source), line:3:20, endln:3:28
         |vpiInstance:
-        \_package: tlul_pkg (tlul_pkg::), file:dut.sv, line:1:1, endln:5:11
+        \_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:1:1, endln:5:11
         |vpiRange:
         \_range: , line:3:12, endln:3:18
           |vpiParent:
@@ -280,7 +280,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/PartSelectHier/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:3
@@ -288,7 +288,7 @@ design: (work@dut)
   |vpiDefName:tlul_pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -296,21 +296,21 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.drsp_fifo_o), line:7:22, endln:7:33
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
     |vpiName:drsp_fifo_o
     |vpiFullName:work@dut.drsp_fifo_o
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@dut.hfifo_rspid), line:8:15, endln:8:26
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
     |vpiName:hfifo_rspid
     |vpiFullName:work@dut.hfifo_rspid
     |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:9:10, endln:9:49
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
     |vpiRhs:
     \_hier_path: (drsp_fifo_o.d_source[8:3]), line:9:24, endln:9:49
       |vpiParent:
@@ -348,12 +348,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_var: (work@dut.hfifo_rspid), line:8:15, endln:8:26
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
   |vpiName:work@dut
   |vpiVariables:
   \_logic_var: (work@dut.hfifo_rspid), line:8:15, endln:8:26
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:8:3, endln:8:14
       |vpiRange:
@@ -400,7 +400,7 @@ design: (work@dut)
   |vpiNet:
   \_struct_net: (work@dut.drsp_fifo_o), line:7:22, endln:7:33
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_struct_typespec: (tlul_pkg::tl_d2h_t), line:2:11, endln:2:17
     |vpiName:drsp_fifo_o
@@ -410,7 +410,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:9:10, endln:9:49
     |vpiParent:
-    \_module: work@dut (work@dut), file:dut.sv, line:6:1, endln:10:10
+    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
     |vpiRhs:
     \_hier_path: (drsp_fifo_o.d_source[8:3]), line:9:24, endln:9:49
       |vpiParent:

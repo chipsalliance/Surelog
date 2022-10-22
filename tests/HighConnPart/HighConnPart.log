@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/HighConnPart/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/HighConnPart/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<232> s<231> l<1:1> el<1:0>
 n<none> u<2> t<StringConst> p<3> l<1:18> el<1:22>
@@ -235,19 +235,19 @@ n<> u<229> t<Module_declaration> p<230> c<207> l<21:1> el<28:10>
 n<> u<230> t<Description> p<231> c<229> l<21:1> el<28:10>
 n<> u<231> t<Source_text> p<232> c<5> l<1:1> el<28:10>
 n<> u<232> t<Top_level_rule> c<1> l<1:1> el<29:1>
-[WRN:PA0205] dut.sv:3:1: No timescale set for "Device".
+[WRN:PA0205] ${SURELOG_DIR}/tests/HighConnPart/dut.sv:3:1: No timescale set for "Device".
 
-[WRN:PA0205] dut.sv:21:1: No timescale set for "Helper".
+[WRN:PA0205] ${SURELOG_DIR}/tests/HighConnPart/dut.sv:21:1: No timescale set for "Helper".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:3:1: Compile module "work@Device".
+[INF:CP0303] ${SURELOG_DIR}/tests/HighConnPart/dut.sv:3:1: Compile module "work@Device".
 
-[INF:CP0303] dut.sv:21:1: Compile module "work@Helper".
+[INF:CP0303] ${SURELOG_DIR}/tests/HighConnPart/dut.sv:21:1: Compile module "work@Helper".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:3:1: Top level module "work@Device".
+[NTE:EL0503] ${SURELOG_DIR}/tests/HighConnPart/dut.sv:3:1: Top level module "work@Device".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -287,11 +287,11 @@ port                                                  21
 range                                                 27
 ref_obj                                               42
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/HighConnPart/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/HighConnPart/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/HighConnPart/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -300,7 +300,7 @@ design: (work@Device)
 |vpiElaborated:1
 |vpiName:work@Device
 |uhdmallModules:
-\_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+\_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
   |vpiParent:
   \_design: (work@Device)
   |vpiFullName:work@Device
@@ -308,28 +308,28 @@ design: (work@Device)
   |vpiNet:
   \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:doubleNibble
     |vpiFullName:work@Device.doubleNibble
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@Device.sum), line:5:23, endln:5:26
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:sum
     |vpiFullName:work@Device.sum
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@Device.ignored), line:11:16, endln:11:23
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:ignored
     |vpiFullName:work@Device.ignored
     |vpiNetType:1
   |vpiPort:
   \_port: (doubleNibble), line:4:22, endln:4:34
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:doubleNibble
     |vpiDirection:1
     |vpiLowConn:
@@ -359,7 +359,7 @@ design: (work@Device)
   |vpiPort:
   \_port: (sum), line:5:23, endln:5:26
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:sum
     |vpiDirection:2
     |vpiLowConn:
@@ -387,7 +387,7 @@ design: (work@Device)
           |UINT:0
           |vpiConstType:9
 |uhdmallModules:
-\_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+\_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
   |vpiParent:
   \_design: (work@Device)
   |vpiFullName:work@Helper
@@ -395,28 +395,28 @@ design: (work@Device)
   |vpiNet:
   \_logic_net: (work@Helper.a), line:22:22, endln:22:23
     |vpiParent:
-    \_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+    \_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:a
     |vpiFullName:work@Helper.a
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@Helper.b), line:22:25, endln:22:26
     |vpiParent:
-    \_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+    \_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:b
     |vpiFullName:work@Helper.b
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@Helper.result), line:23:23, endln:23:29
     |vpiParent:
-    \_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+    \_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:result
     |vpiFullName:work@Helper.result
     |vpiNetType:1
   |vpiPort:
   \_port: (a), line:22:22, endln:22:23
     |vpiParent:
-    \_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+    \_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -446,7 +446,7 @@ design: (work@Device)
   |vpiPort:
   \_port: (b), line:22:25, endln:22:26
     |vpiParent:
-    \_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+    \_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -476,7 +476,7 @@ design: (work@Device)
   |vpiPort:
   \_port: (result), line:23:23, endln:23:29
     |vpiParent:
-    \_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+    \_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:result
     |vpiDirection:2
     |vpiLowConn:
@@ -506,7 +506,7 @@ design: (work@Device)
   |vpiContAssign:
   \_cont_assign: , line:26:12, endln:26:26
     |vpiParent:
-    \_module: work@Helper (work@Helper), file:dut.sv, line:21:1, endln:28:10
+    \_module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiRhs:
     \_operation: , line:26:21, endln:26:26
       |vpiParent:
@@ -537,14 +537,14 @@ design: (work@Device)
       |vpiActual:
       \_logic_net: (work@Device.instance1.result), line:23:23, endln:23:29
 |uhdmtopModules:
-\_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+\_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
   |vpiName:work@Device
   |vpiDefName:work@Device
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:4:11, endln:4:21
       |vpiRange:
@@ -571,7 +571,7 @@ design: (work@Device)
   |vpiNet:
   \_logic_net: (work@Device.sum), line:5:23, endln:5:26
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:5:12, endln:5:22
       |vpiRange:
@@ -598,7 +598,7 @@ design: (work@Device)
   |vpiNet:
   \_logic_net: (work@Device.ignored), line:11:16, endln:11:23
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:11:5, endln:11:15
       |vpiRange:
@@ -626,7 +626,7 @@ design: (work@Device)
   |vpiPort:
   \_port: (doubleNibble), line:4:22, endln:4:34
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:doubleNibble
     |vpiDirection:1
     |vpiLowConn:
@@ -660,11 +660,11 @@ design: (work@Device)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
   |vpiPort:
   \_port: (sum), line:5:23, endln:5:26
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:sum
     |vpiDirection:2
     |vpiLowConn:
@@ -698,20 +698,20 @@ design: (work@Device)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
   |vpiModule:
-  \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+  \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:instance1
     |vpiFullName:work@Device.instance1
     |vpiDefName:work@Helper
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/HighConnPart/dut.sv
     |vpiDefLineNo:21
     |vpiNet:
     \_logic_net: (work@Device.instance1.a), line:22:22, endln:22:23
       |vpiParent:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiTypespec:
       \_logic_typespec: , line:22:11, endln:22:21
         |vpiRange:
@@ -738,7 +738,7 @@ design: (work@Device)
     |vpiNet:
     \_logic_net: (work@Device.instance1.b), line:22:25, endln:22:26
       |vpiParent:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiTypespec:
       \_logic_typespec: , line:22:11, endln:22:21
       |vpiName:b
@@ -747,7 +747,7 @@ design: (work@Device)
     |vpiNet:
     \_logic_net: (work@Device.instance1.result), line:23:23, endln:23:29
       |vpiParent:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiTypespec:
       \_logic_typespec: , line:23:12, endln:23:22
         |vpiRange:
@@ -772,11 +772,11 @@ design: (work@Device)
       |vpiFullName:work@Device.instance1.result
       |vpiNetType:1
     |vpiInstance:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiPort:
     \_port: (a), line:22:22, endln:22:23
       |vpiParent:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
@@ -834,11 +834,11 @@ design: (work@Device)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
     |vpiPort:
     \_port: (b), line:22:25, endln:22:26
       |vpiParent:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
@@ -876,11 +876,11 @@ design: (work@Device)
       |vpiTypedef:
       \_logic_typespec: , line:22:11, endln:22:21
       |vpiInstance:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
     |vpiPort:
     \_port: (result), line:23:23, endln:23:29
       |vpiParent:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiName:result
       |vpiDirection:2
       |vpiHighConn:
@@ -922,11 +922,11 @@ design: (work@Device)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
     |vpiContAssign:
     \_cont_assign: , line:26:12, endln:26:26
       |vpiParent:
-      \_module: work@Helper (work@Device.instance1), file:dut.sv, line:9:5, endln:9:65
+      \_module: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiRhs:
       \_operation: , line:26:21, endln:26:26
         |vpiParent:
@@ -957,18 +957,18 @@ design: (work@Device)
         |vpiActual:
         \_logic_net: (work@Device.instance1.result), line:23:23, endln:23:29
   |vpiModule:
-  \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+  \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
     |vpiParent:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:instance2
     |vpiFullName:work@Device.instance2
     |vpiDefName:work@Helper
-    |vpiDefFile:dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/HighConnPart/dut.sv
     |vpiDefLineNo:21
     |vpiNet:
     \_logic_net: (work@Device.instance2.a), line:22:22, endln:22:23
       |vpiParent:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiTypespec:
       \_logic_typespec: , line:22:11, endln:22:21
         |vpiRange:
@@ -995,7 +995,7 @@ design: (work@Device)
     |vpiNet:
     \_logic_net: (work@Device.instance2.b), line:22:25, endln:22:26
       |vpiParent:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiTypespec:
       \_logic_typespec: , line:22:11, endln:22:21
       |vpiName:b
@@ -1004,7 +1004,7 @@ design: (work@Device)
     |vpiNet:
     \_logic_net: (work@Device.instance2.result), line:23:23, endln:23:29
       |vpiParent:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiTypespec:
       \_logic_typespec: , line:23:12, endln:23:22
         |vpiRange:
@@ -1029,11 +1029,11 @@ design: (work@Device)
       |vpiFullName:work@Device.instance2.result
       |vpiNetType:1
     |vpiInstance:
-    \_module: work@Device (work@Device), file:dut.sv, line:3:1, endln:19:10
+    \_module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiPort:
     \_port: (a), line:22:22, endln:22:23
       |vpiParent:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
@@ -1091,11 +1091,11 @@ design: (work@Device)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
     |vpiPort:
     \_port: (b), line:22:25, endln:22:26
       |vpiParent:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
@@ -1133,11 +1133,11 @@ design: (work@Device)
       |vpiTypedef:
       \_logic_typespec: , line:22:11, endln:22:21
       |vpiInstance:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
     |vpiPort:
     \_port: (result), line:23:23, endln:23:29
       |vpiParent:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiName:result
       |vpiDirection:2
       |vpiHighConn:
@@ -1179,11 +1179,11 @@ design: (work@Device)
             |UINT:0
             |vpiConstType:9
       |vpiInstance:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
     |vpiContAssign:
     \_cont_assign: , line:26:12, endln:26:26
       |vpiParent:
-      \_module: work@Helper (work@Device.instance2), file:dut.sv, line:12:5, endln:16:7
+      \_module: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiRhs:
       \_operation: , line:26:21, endln:26:26
         |vpiParent:

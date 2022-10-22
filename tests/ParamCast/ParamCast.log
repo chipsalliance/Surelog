@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/ParamCast/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamCast/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamCast/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<90> s<89> l<1:1> el<1:0>
 n<> u<2> t<Package> p<41> s<3> l<1:1> el<1:8>
@@ -93,15 +93,15 @@ n<> u<87> t<Module_declaration> p<88> c<47> l<15:1> el<18:10>
 n<> u<88> t<Description> p<89> c<87> l<15:1> el<18:10>
 n<> u<89> t<Source_text> p<90> c<42> l<1:1> el<18:10>
 n<> u<90> t<Top_level_rule> c<1> l<1:1> el<19:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "otp_ctrl_part_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamCast/dut.sv:1:1: No timescale set for "otp_ctrl_part_pkg".
 
-[WRN:PA0205] dut.sv:15:1: No timescale set for "otp_ctrl".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamCast/dut.sv:15:1: No timescale set for "otp_ctrl".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "otp_ctrl_part_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/ParamCast/dut.sv:1:1: Compile package "otp_ctrl_part_pkg".
 
-[INF:CP0303] dut.sv:15:1: Compile module "work@otp_ctrl".
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamCast/dut.sv:15:1: Compile module "work@otp_ctrl".
 
 LIB:  work
 FILE: builtin.sv
@@ -363,7 +363,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:15:1: Top level module "work@otp_ctrl".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ParamCast/dut.sv:15:1: Top level module "work@otp_ctrl".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -429,11 +429,11 @@ range                                                  2
 ref_obj                                                6
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/ParamCast/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamCast/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/ParamCast/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamCast/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/ParamCast/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamCast/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -449,7 +449,7 @@ design: (work@otp_ctrl)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
   |vpiParent:
   \_design: (work@otp_ctrl)
   |vpiName:otp_ctrl_part_pkg
@@ -457,7 +457,7 @@ design: (work@otp_ctrl)
   |vpiParameter:
   \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
     |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
     |vpiTypespec:
     \_int_typespec: , line:10:12, endln:10:15
       |vpiParent:
@@ -471,7 +471,7 @@ design: (work@otp_ctrl)
   |vpiParamAssign:
   \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_operation: , line:10:28, endln:10:46
       |vpiTypespec:
@@ -492,10 +492,10 @@ design: (work@otp_ctrl)
   |vpiTypedef:
   \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16
     |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
     |vpiName:otp_ctrl_part_pkg::part_idx_e
     |vpiInstance:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
     |vpiEnumConst:
     \_enum_const: (CreatorSwCfgIdx), line:4:5, endln:4:20
       |vpiName:CreatorSwCfgIdx
@@ -560,7 +560,7 @@ design: (work@otp_ctrl)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+\_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
   |vpiParent:
   \_design: (work@otp_ctrl)
   |vpiName:otp_ctrl_part_pkg
@@ -568,14 +568,14 @@ design: (work@otp_ctrl)
   |vpiParameter:
   \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
     |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:10:12, endln:10:15
       |vpiParent:
       \_parameter: (otp_ctrl_part_pkg::NumAgents), line:10:16, endln:10:25
       |vpiInstance:
-      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:NumAgents
@@ -583,7 +583,7 @@ design: (work@otp_ctrl)
   |vpiParamAssign:
   \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_constant: , line:10:28, endln:10:46
       |vpiSize:32
@@ -596,10 +596,10 @@ design: (work@otp_ctrl)
   |vpiTypedef:
   \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:3:1, endln:8:16
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
     |vpiName:otp_ctrl_part_pkg::part_idx_e
     |vpiInstance:
-    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+    \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
     |vpiEnumConst:
     \_enum_const: (CreatorSwCfgIdx), line:4:5, endln:4:20
       |vpiName:CreatorSwCfgIdx
@@ -1057,21 +1057,21 @@ design: (work@otp_ctrl)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+\_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
   |vpiParent:
   \_design: (work@otp_ctrl)
   |vpiFullName:work@otp_ctrl
   |vpiParameter:
   \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:10:12, endln:10:15
       |vpiParent:
       \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
       |vpiInstance:
-      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:NumAgents
@@ -1080,7 +1080,7 @@ design: (work@otp_ctrl)
   |vpiParamAssign:
   \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:28, endln:10:46
       |vpiParent:
@@ -1092,7 +1092,7 @@ design: (work@otp_ctrl)
         |vpiParent:
         \_constant: , line:10:28, endln:10:46
         |vpiInstance:
-        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
         |vpiSigned:1
       |vpiConstType:9
     |vpiLhs:
@@ -1105,7 +1105,7 @@ design: (work@otp_ctrl)
         |vpiParent:
         \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
         |vpiInstance:
-        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+        \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
         |vpiSigned:1
       |vpiSigned:1
       |vpiName:NumAgents
@@ -1119,17 +1119,17 @@ design: (work@otp_ctrl)
   |vpiNet:
   \_logic_net: (work@otp_ctrl.part_otp_arb_req), line:17:28, endln:17:44
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
     |vpiName:part_otp_arb_req
     |vpiFullName:work@otp_ctrl.part_otp_arb_req
     |vpiNetType:36
 |uhdmtopModules:
-\_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+\_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
   |vpiName:work@otp_ctrl
   |vpiVariables:
   \_logic_var: (work@otp_ctrl.part_otp_arb_req), line:17:28, endln:17:44
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
     |vpiTypespec:
     \_logic_typespec: , line:17:3, endln:17:24
       |vpiRange:
@@ -1174,14 +1174,14 @@ design: (work@otp_ctrl)
   |vpiParameter:
   \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
     |UINT:3
     |vpiTypespec:
     \_int_typespec: , line:10:12, endln:10:15
       |vpiParent:
       \_parameter: (work@otp_ctrl.NumAgents), line:10:16, endln:10:25
       |vpiInstance:
-      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:dut.sv, line:1:1, endln:12:11
+      \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
       |vpiSigned:1
     |vpiSigned:1
     |vpiName:NumAgents
@@ -1190,7 +1190,7 @@ design: (work@otp_ctrl)
   |vpiParamAssign:
   \_param_assign: , line:10:16, endln:10:46
     |vpiParent:
-    \_module: work@otp_ctrl (work@otp_ctrl), file:dut.sv, line:15:1, endln:18:10
+    \_module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:15:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:28, endln:10:46
       |vpiDecompile:3

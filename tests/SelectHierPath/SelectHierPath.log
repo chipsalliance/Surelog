@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/SelectHierPath/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/SelectHierPath/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/SelectHierPath/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<81> s<80> l<1:1> el<1:0>
 n<> u<2> t<Struct_keyword> p<3> l<1:9> el<1:15>
@@ -84,15 +84,15 @@ n<> u<78> t<Module_declaration> p<79> c<40> l<10:1> el<16:10>
 n<> u<79> t<Description> p<80> c<78> l<10:1> el<16:10>
 n<> u<80> t<Source_text> p<81> c<18> l<1:1> el<16:10>
 n<> u<81> t<Top_level_rule> c<1> l<1:1> el<17:1>
-[WRN:PA0205] dut.sv:10:1: No timescale set for "IntegerRegisterWriteStage".
+[WRN:PA0205] ${SURELOG_DIR}/tests/SelectHierPath/dut.sv:10:1: No timescale set for "IntegerRegisterWriteStage".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:10:1: Compile module "work@IntegerRegisterWriteStage".
+[INF:CP0303] ${SURELOG_DIR}/tests/SelectHierPath/dut.sv:10:1: Compile module "work@IntegerRegisterWriteStage".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:10:1: Top level module "work@IntegerRegisterWriteStage".
+[NTE:EL0503] ${SURELOG_DIR}/tests/SelectHierPath/dut.sv:10:1: Top level module "work@IntegerRegisterWriteStage".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -140,11 +140,11 @@ struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/SelectHierPath/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SelectHierPath/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/SelectHierPath/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SelectHierPath/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/SelectHierPath/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SelectHierPath/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -153,7 +153,7 @@ design: (work@IntegerRegisterWriteStage)
 |vpiElaborated:1
 |vpiName:work@IntegerRegisterWriteStage
 |uhdmallModules:
-\_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:dut.sv, line:10:1, endln:16:10
+\_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
   |vpiParent:
   \_design: (work@IntegerRegisterWriteStage)
   |vpiFullName:work@IntegerRegisterWriteStage
@@ -161,13 +161,13 @@ design: (work@IntegerRegisterWriteStage)
   |vpiNet:
   \_logic_net: (work@IntegerRegisterWriteStage.pipeReg), line:12:34, endln:12:41
     |vpiParent:
-    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
     |vpiName:pipeReg
     |vpiFullName:work@IntegerRegisterWriteStage.pipeReg
   |vpiContAssign:
   \_cont_assign: , line:14:8, endln:14:40
     |vpiParent:
-    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
     |vpiRhs:
     \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
       |vpiParent:
@@ -222,7 +222,7 @@ design: (work@IntegerRegisterWriteStage)
       |vpiParent:
       \_typespec_member: (nextAddr), line:2:9, endln:2:17
       |vpiSigned:1
-    |vpiRefFile:dut.sv
+    |vpiRefFile:${SURELOG_DIR}/tests/SelectHierPath/dut.sv
     |vpiRefLineNo:2
     |vpiRefColumnNo:5
     |vpiRefEndLineNo:2
@@ -242,13 +242,13 @@ design: (work@IntegerRegisterWriteStage)
     |vpiName:brResult
     |vpiTypespec:
     \_struct_typespec: (BranchResult), line:1:9, endln:1:15
-    |vpiRefFile:dut.sv
+    |vpiRefFile:${SURELOG_DIR}/tests/SelectHierPath/dut.sv
     |vpiRefLineNo:6
     |vpiRefColumnNo:5
     |vpiRefEndLineNo:6
     |vpiRefEndColumnNo:17
 |uhdmtopModules:
-\_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:dut.sv, line:10:1, endln:16:10
+\_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
   |vpiName:work@IntegerRegisterWriteStage
   |vpiDefName:work@IntegerRegisterWriteStage
   |vpiTop:1
@@ -259,7 +259,7 @@ design: (work@IntegerRegisterWriteStage)
   |vpiArrayNet:
   \_array_net: (work@IntegerRegisterWriteStage.pipeReg), line:12:34, endln:12:41
     |vpiParent:
-    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
     |vpiSize:2
     |vpiName:pipeReg
     |vpiFullName:work@IntegerRegisterWriteStage.pipeReg
@@ -301,7 +301,7 @@ design: (work@IntegerRegisterWriteStage)
   |vpiContAssign:
   \_cont_assign: , line:14:8, endln:14:40
     |vpiParent:
-    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:dut.sv, line:10:1, endln:16:10
+    \_module: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
     |vpiRhs:
     \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
       |vpiParent:

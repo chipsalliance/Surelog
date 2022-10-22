@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/CastTypespec/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/CastTypespec/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<443> s<442> l<2:1> el<1:2>
 n<> u<2> t<Package> p<136> s<3> l<2:1> el<2:8>
@@ -446,19 +446,19 @@ n<> u<440> t<Module_declaration> p<441> c<186> l<25:3> el<42:12>
 n<> u<441> t<Description> p<442> c<440> l<25:3> el<42:12>
 n<> u<442> t<Source_text> p<443> c<137> l<2:1> el<42:12>
 n<> u<443> t<Top_level_rule> c<1> l<2:1> el<44:1>
-[WRN:PA0205] dut.sv:2:1: No timescale set for "top_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:2:1: No timescale set for "top_pkg".
 
-[WRN:PA0205] dut.sv:14:3: No timescale set for "tlul_adapter_host".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:14:3: No timescale set for "tlul_adapter_host".
 
-[WRN:PA0205] dut.sv:25:3: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:25:3: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:2:1: Compile package "top_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:2:1: Compile package "top_pkg".
 
-[INF:CP0303] dut.sv:14:3: Compile module "work@tlul_adapter_host".
+[INF:CP0303] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:14:3: Compile module "work@tlul_adapter_host".
 
-[INF:CP0303] dut.sv:25:3: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:25:3: Compile module "work@top".
 
 LIB:  work
 FILE: builtin.sv
@@ -720,9 +720,9 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:14:3: Top level module "work@tlul_adapter_host".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:14:3: Top level module "work@tlul_adapter_host".
 
-[NTE:EL0503] dut.sv:25:3: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:25:3: Top level module "work@top".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -778,7 +778,7 @@ tagged_pattern                                         2
 task                                                   9
 typespec_member                                        5
 === UHDM Object Stats End ===
-[ERR:UH0718] dut.sv:38:7: Illegal lhs of type wire "resumereq_o".
+[ERR:UH0718] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:7: Illegal lhs of type wire "resumereq_o".
 
 [INF:UH0707] Elaborating UHDM...
 
@@ -824,13 +824,13 @@ tagged_pattern                                         2
 task                                                  18
 typespec_member                                        5
 === UHDM Object Stats End ===
-[ERR:UH0725] dut.sv:38:20: Unresolved hierarchical reference "dmcontrol_q.resumereq".
+[ERR:UH0725] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:20: Unresolved hierarchical reference "dmcontrol_q.resumereq".
 
-[INF:UH0708] Writing UHDM DB: ../../build/regression/CastTypespec/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/CastTypespec/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/CastTypespec/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -846,7 +846,7 @@ design: (work@tlul_adapter_host)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+\_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
   |vpiParent:
   \_design: (work@tlul_adapter_host)
   |vpiName:top_pkg
@@ -854,7 +854,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_AW), line:4:18, endln:4:23
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:32
     |vpiTypespec:
     \_int_typespec: , line:4:14, endln:4:17
@@ -870,7 +870,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DW), line:5:18, endln:5:23
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:32
     |vpiTypespec:
     \_int_typespec: , line:5:14, endln:5:17
@@ -886,7 +886,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_AIW), line:6:18, endln:6:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:8
     |vpiTypespec:
     \_int_typespec: , line:6:14, endln:6:17
@@ -902,7 +902,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DIW), line:7:18, endln:7:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:7:14, endln:7:17
@@ -918,7 +918,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DUW), line:8:18, endln:8:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:16
     |vpiTypespec:
     \_int_typespec: , line:8:14, endln:8:17
@@ -934,7 +934,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DBW), line:9:18, endln:9:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiTypespec:
     \_int_typespec: , line:9:14, endln:9:17
       |vpiParent:
@@ -949,7 +949,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_SZW), line:10:18, endln:10:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiTypespec:
     \_int_typespec: , line:10:14, endln:10:17
       |vpiParent:
@@ -964,7 +964,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:4:18, endln:4:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:4:24, endln:4:26
       |vpiDecompile:32
@@ -978,7 +978,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:5:18, endln:5:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:5:24, endln:5:26
       |vpiDecompile:32
@@ -992,7 +992,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:6:18, endln:6:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:6:25, endln:6:26
       |vpiDecompile:8
@@ -1006,7 +1006,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:7:18, endln:7:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:7:25, endln:7:26
       |vpiDecompile:1
@@ -1020,7 +1020,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:8:18, endln:8:27
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:8:25, endln:8:27
       |vpiDecompile:16
@@ -1034,7 +1034,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:9:18, endln:9:35
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_operation: , line:9:26, endln:9:34
       |vpiOpType:23
@@ -1058,7 +1058,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:10:18, endln:10:49
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_sys_func_call: ($clog2), line:10:25, endln:10:49
       |vpiArgument:
@@ -1129,7 +1129,7 @@ design: (work@tlul_adapter_host)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+\_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
   |vpiParent:
   \_design: (work@tlul_adapter_host)
   |vpiName:top_pkg
@@ -1137,14 +1137,14 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_AW), line:4:18, endln:4:23
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:32
     |vpiTypespec:
     \_int_typespec: , line:4:14, endln:4:17
       |vpiParent:
       \_parameter: (top_pkg::TL_AW), line:4:18, endln:4:23
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1153,14 +1153,14 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DW), line:5:18, endln:5:23
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:32
     |vpiTypespec:
     \_int_typespec: , line:5:14, endln:5:17
       |vpiParent:
       \_parameter: (top_pkg::TL_DW), line:5:18, endln:5:23
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1169,14 +1169,14 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_AIW), line:6:18, endln:6:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:8
     |vpiTypespec:
     \_int_typespec: , line:6:14, endln:6:17
       |vpiParent:
       \_parameter: (top_pkg::TL_AIW), line:6:18, endln:6:24
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1185,14 +1185,14 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DIW), line:7:18, endln:7:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:7:14, endln:7:17
       |vpiParent:
       \_parameter: (top_pkg::TL_DIW), line:7:18, endln:7:24
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1201,14 +1201,14 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DUW), line:8:18, endln:8:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:16
     |vpiTypespec:
     \_int_typespec: , line:8:14, endln:8:17
       |vpiParent:
       \_parameter: (top_pkg::TL_DUW), line:8:18, endln:8:24
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1217,14 +1217,14 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_DBW), line:9:18, endln:9:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:4
     |vpiTypespec:
     \_int_typespec: , line:9:14, endln:9:17
       |vpiParent:
       \_parameter: (top_pkg::TL_DBW), line:9:18, endln:9:24
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1233,14 +1233,14 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (top_pkg::TL_SZW), line:10:18, endln:10:24
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:10:14, endln:10:17
       |vpiParent:
       \_parameter: (top_pkg::TL_SZW), line:10:18, endln:10:24
       |vpiInstance:
-      \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+      \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
       |vpiSigned:1
     |vpiSigned:1
     |vpiLocalParam:1
@@ -1249,7 +1249,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:4:18, endln:4:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:4:24, endln:4:26
       |vpiDecompile:32
@@ -1263,7 +1263,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:5:18, endln:5:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:5:24, endln:5:26
       |vpiDecompile:32
@@ -1277,7 +1277,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:6:18, endln:6:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:6:25, endln:6:26
       |vpiDecompile:8
@@ -1291,7 +1291,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:7:18, endln:7:26
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:7:25, endln:7:26
       |vpiDecompile:1
@@ -1305,7 +1305,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:8:18, endln:8:27
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:8:25, endln:8:27
       |vpiDecompile:16
@@ -1319,7 +1319,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:9:18, endln:9:35
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:9:26, endln:9:31
       |vpiDecompile:4
@@ -1333,7 +1333,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:10:18, endln:10:49
     |vpiParent:
-    \_package: top_pkg (top_pkg::), file:dut.sv, line:2:1, endln:12:13
+    \_package: top_pkg (top_pkg::), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:2:1, endln:12:13
     |vpiRhs:
     \_constant: , line:10:25, endln:10:49
       |vpiDecompile:2
@@ -1777,7 +1777,7 @@ design: (work@tlul_adapter_host)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@tlul_adapter_host (work@tlul_adapter_host), file:dut.sv, line:14:3, endln:23:12
+\_module: work@tlul_adapter_host (work@tlul_adapter_host), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:14:3, endln:23:12
   |vpiParent:
   \_design: (work@tlul_adapter_host)
   |vpiFullName:work@tlul_adapter_host
@@ -1785,7 +1785,7 @@ design: (work@tlul_adapter_host)
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:19:6
     |vpiParent:
-    \_module: work@tlul_adapter_host (work@tlul_adapter_host), file:dut.sv, line:14:3, endln:23:12
+    \_module: work@tlul_adapter_host (work@tlul_adapter_host), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:14:3, endln:23:12
     |vpiRhs:
     \_operation: , line:16:19, endln:19:6
       |vpiParent:
@@ -1829,14 +1829,14 @@ design: (work@tlul_adapter_host)
       |vpiActual:
       \_logic_net: (tl_o)
 |uhdmallModules:
-\_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
   |vpiParent:
   \_design: (work@tlul_adapter_host)
   |vpiFullName:work@top
   |vpiParameter:
   \_parameter: (work@top.HartSelLen), line:35:14, endln:35:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -1846,7 +1846,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:35:14, endln:35:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiRhs:
     \_constant: , line:35:27, endln:35:28
       |vpiDecompile:2
@@ -1860,10 +1860,10 @@ design: (work@tlul_adapter_host)
   |vpiTypedef:
   \_struct_typespec: (ab_t), line:27:13, endln:27:19
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiName:ab_t
     |vpiInstance:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiTypespecMember:
     \_typespec_member: (a), line:27:25, endln:27:26
       |vpiParent:
@@ -1874,7 +1874,7 @@ design: (work@tlul_adapter_host)
         |vpiParent:
         \_typespec_member: (a), line:27:25, endln:27:26
         |vpiSigned:1
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/CastTypespec/dut.sv
       |vpiRefLineNo:27
       |vpiRefColumnNo:21
       |vpiRefEndLineNo:27
@@ -1889,7 +1889,7 @@ design: (work@tlul_adapter_host)
         |vpiParent:
         \_typespec_member: (b), line:27:27, endln:27:31
         |vpiSigned:1
-      |vpiRefFile:dut.sv
+      |vpiRefFile:${SURELOG_DIR}/tests/CastTypespec/dut.sv
       |vpiRefLineNo:27
       |vpiRefColumnNo:21
       |vpiRefEndLineNo:27
@@ -1898,31 +1898,31 @@ design: (work@tlul_adapter_host)
   |vpiNet:
   \_logic_net: (work@top.XYZ), line:26:25, endln:26:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiName:XYZ
     |vpiFullName:work@top.XYZ
   |vpiNet:
   \_logic_net: (work@top.a), line:28:9, endln:28:10
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiNet:
   \_logic_net: (work@top.b), line:28:11, endln:28:12
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
   \_logic_net: (work@top.c), line:28:13, endln:28:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiName:c
     |vpiFullName:work@top.c
   |vpiProcess:
   \_initial: , line:30:5, endln:33:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiStmt:
     \_begin: (work@top), line:30:13, endln:33:8
       |vpiParent:
@@ -2073,7 +2073,7 @@ design: (work@tlul_adapter_host)
   |vpiProcess:
   \_always: , line:36:3, endln:40:6
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiStmt:
     \_named_begin: (work@top.p_outmux), line:36:15, endln:40:6
       |vpiParent:
@@ -2162,7 +2162,7 @@ design: (work@tlul_adapter_host)
               \_logic_net: (resumereq_o)
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@tlul_adapter_host (work@tlul_adapter_host), file:dut.sv, line:14:3, endln:23:12
+\_module: work@tlul_adapter_host (work@tlul_adapter_host), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:14:3, endln:23:12
   |vpiName:work@tlul_adapter_host
   |vpiDefName:work@tlul_adapter_host
   |vpiTop:1
@@ -2178,7 +2178,7 @@ design: (work@tlul_adapter_host)
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:19:6
     |vpiParent:
-    \_module: work@tlul_adapter_host (work@tlul_adapter_host), file:dut.sv, line:14:3, endln:23:12
+    \_module: work@tlul_adapter_host (work@tlul_adapter_host), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:14:3, endln:23:12
     |vpiRhs:
     \_operation: , line:16:19, endln:19:6
       |vpiParent:
@@ -2197,12 +2197,12 @@ design: (work@tlul_adapter_host)
       |vpiActual:
       \_logic_net: (tl_o)
 |uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
   |vpiName:work@top
   |vpiVariables:
   \_struct_var: (work@top.XYZ), line:26:25, endln:26:38
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiTypespec:
     \_struct_typespec: , line:26:5, endln:26:11
       |vpiTypespecMember:
@@ -2215,7 +2215,7 @@ design: (work@tlul_adapter_host)
           |vpiParent:
           \_typespec_member: (X), line:26:17, endln:26:18
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/CastTypespec/dut.sv
         |vpiRefLineNo:26
         |vpiRefColumnNo:13
         |vpiRefEndLineNo:26
@@ -2230,7 +2230,7 @@ design: (work@tlul_adapter_host)
           |vpiParent:
           \_typespec_member: (Y), line:26:19, endln:26:20
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/CastTypespec/dut.sv
         |vpiRefLineNo:26
         |vpiRefColumnNo:13
         |vpiRefEndLineNo:26
@@ -2245,7 +2245,7 @@ design: (work@tlul_adapter_host)
           |vpiParent:
           \_typespec_member: (Z), line:26:21, endln:26:22
           |vpiSigned:1
-        |vpiRefFile:dut.sv
+        |vpiRefFile:${SURELOG_DIR}/tests/CastTypespec/dut.sv
         |vpiRefLineNo:26
         |vpiRefColumnNo:13
         |vpiRefEndLineNo:26
@@ -2278,7 +2278,7 @@ design: (work@tlul_adapter_host)
   |vpiVariables:
   \_int_var: (work@top.a), line:28:9, endln:28:10
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiTypespec:
     \_int_typespec: , line:28:5, endln:28:8
       |vpiSigned:1
@@ -2288,7 +2288,7 @@ design: (work@tlul_adapter_host)
   |vpiVariables:
   \_int_var: (work@top.b), line:28:11, endln:28:12
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiTypespec:
     \_int_typespec: , line:28:5, endln:28:8
     |vpiName:b
@@ -2297,7 +2297,7 @@ design: (work@tlul_adapter_host)
   |vpiVariables:
   \_int_var: (work@top.c), line:28:13, endln:28:14
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiTypespec:
     \_int_typespec: , line:28:5, endln:28:8
     |vpiName:c
@@ -2306,7 +2306,7 @@ design: (work@tlul_adapter_host)
   |vpiParameter:
   \_parameter: (work@top.HartSelLen), line:35:14, endln:35:24
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -2318,7 +2318,7 @@ design: (work@tlul_adapter_host)
   |vpiParamAssign:
   \_param_assign: , line:35:14, endln:35:28
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiRhs:
     \_constant: , line:35:27, endln:35:28
       |vpiDecompile:2
@@ -2349,7 +2349,7 @@ design: (work@tlul_adapter_host)
   |vpiProcess:
   \_initial: , line:30:5, endln:33:8
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiStmt:
     \_begin: (work@top), line:30:13, endln:33:8
       |vpiParent:
@@ -2453,7 +2453,7 @@ design: (work@tlul_adapter_host)
   |vpiProcess:
   \_always: , line:36:3, endln:40:6
     |vpiParent:
-    \_module: work@top (work@top), file:dut.sv, line:25:3, endln:42:12
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CastTypespec/dut.sv, line:25:3, endln:42:12
     |vpiStmt:
     \_named_begin: (work@top.p_outmux), line:36:15, endln:40:6
       |vpiParent:

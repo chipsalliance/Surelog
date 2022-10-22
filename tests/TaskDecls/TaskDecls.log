@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/TaskDecls/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/TaskDecls/slpp_all/surelog.log.
 
 LIB:  work
-FILE: dut.sv
+FILE: ${SURELOG_DIR}/tests/TaskDecls/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<226> s<225> l<1:1> el<1:0>
 n<> u<2> t<Package> p<64> s<3> l<1:1> el<1:8>
@@ -229,15 +229,15 @@ n<> u<223> t<Module_declaration> p<224> c<68> l<18:1> el<38:10>
 n<> u<224> t<Description> p<225> c<223> l<18:1> el<38:10>
 n<> u<225> t<Source_text> p<226> c<65> l<1:1> el<38:10>
 n<> u<226> t<Top_level_rule> c<1> l<1:1> el<39:1>
-[WRN:PA0205] dut.sv:1:1: No timescale set for "uvm_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TaskDecls/dut.sv:1:1: No timescale set for "uvm_pkg".
 
-[WRN:PA0205] dut.sv:18:1: No timescale set for "gen_errors".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TaskDecls/dut.sv:18:1: No timescale set for "gen_errors".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] dut.sv:1:1: Compile package "uvm_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/TaskDecls/dut.sv:1:1: Compile package "uvm_pkg".
 
-[INF:CP0303] dut.sv:18:1: Compile module "work@gen_errors".
+[INF:CP0303] ${SURELOG_DIR}/tests/TaskDecls/dut.sv:18:1: Compile module "work@gen_errors".
 
 LIB:  work
 FILE: builtin.sv
@@ -499,7 +499,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:18:1: Top level module "work@gen_errors".
+[NTE:EL0503] ${SURELOG_DIR}/tests/TaskDecls/dut.sv:18:1: Top level module "work@gen_errors".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -573,11 +573,11 @@ range                                                  3
 ref_obj                                               21
 task                                                  24
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/TaskDecls/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaskDecls/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/TaskDecls/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaskDecls/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/TaskDecls/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaskDecls/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -593,7 +593,7 @@ design: (work@gen_errors)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+\_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
   |vpiParent:
   \_design: (work@gen_errors)
   |vpiName:uvm_pkg
@@ -602,7 +602,7 @@ design: (work@gen_errors)
   |vpiTaskFunc:
   \_task: (uvm_pkg::uvm_wait_for_nba_region), line:3:1, endln:13:8
     |vpiParent:
-    \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+    \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
     |vpiName:uvm_wait_for_nba_region
     |vpiFullName:uvm_pkg::uvm_wait_for_nba_region
     |vpiVariables:
@@ -631,7 +631,7 @@ design: (work@gen_errors)
       |vpiSigned:1
     |vpiVisibility:1
     |vpiParent:
-    \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+    \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
     |vpiStmt:
     \_begin: (uvm_pkg::uvm_wait_for_nba_region)
       |vpiParent:
@@ -702,7 +702,7 @@ design: (work@gen_errors)
           |vpiActual:
           \_int_var: (uvm_pkg::uvm_wait_for_nba_region::nba), line:5:7, endln:5:10
     |vpiInstance:
-    \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+    \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
 |uhdmtopPackages:
 \_package: builtin (builtin::)
   |vpiParent:
@@ -742,7 +742,7 @@ design: (work@gen_errors)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+\_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
   |vpiParent:
   \_design: (work@gen_errors)
   |vpiName:uvm_pkg
@@ -752,7 +752,7 @@ design: (work@gen_errors)
   |vpiTaskFunc:
   \_task: (uvm_pkg::uvm_wait_for_nba_region), line:3:1, endln:13:8
     |vpiParent:
-    \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+    \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
     |vpiName:uvm_wait_for_nba_region
     |vpiFullName:uvm_pkg::uvm_wait_for_nba_region
     |vpiVariables:
@@ -762,7 +762,7 @@ design: (work@gen_errors)
       |vpiTypespec:
       \_int_typespec: , line:5:3, endln:5:6
         |vpiInstance:
-        \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+        \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
         |vpiSigned:1
       |vpiName:nba
       |vpiFullName:uvm_pkg::uvm_wait_for_nba_region::nba
@@ -774,14 +774,14 @@ design: (work@gen_errors)
       |vpiTypespec:
       \_int_typespec: , line:6:3, endln:6:6
         |vpiInstance:
-        \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+        \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
         |vpiSigned:1
       |vpiName:next_nba
       |vpiFullName:uvm_pkg::uvm_wait_for_nba_region::next_nba
       |vpiSigned:1
     |vpiVisibility:1
     |vpiParent:
-    \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+    \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
     |vpiStmt:
     \_begin: (uvm_pkg::uvm_wait_for_nba_region)
       |vpiParent:
@@ -852,7 +852,7 @@ design: (work@gen_errors)
           |vpiActual:
           \_int_var: (uvm_pkg::uvm_wait_for_nba_region::nba), line:5:7, endln:5:10
     |vpiInstance:
-    \_package: uvm_pkg (uvm_pkg::), file:dut.sv, line:1:1, endln:15:11
+    \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:1:1, endln:15:11
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:builtin.sv
   |vpiParent:
@@ -1284,14 +1284,14 @@ design: (work@gen_errors)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+\_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
   |vpiParent:
   \_design: (work@gen_errors)
   |vpiFullName:work@gen_errors
   |vpiParameter:
   \_parameter: (work@gen_errors.width_a), line:19:12, endln:19:19
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |UINT:8
     |vpiTypespec:
     \_int_typespec: 
@@ -1300,7 +1300,7 @@ design: (work@gen_errors)
   |vpiParamAssign:
   \_param_assign: , line:19:12, endln:19:23
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |vpiRhs:
     \_constant: , line:19:22, endln:19:23
       |vpiDecompile:8
@@ -1315,7 +1315,7 @@ design: (work@gen_errors)
   |vpiTaskFunc:
   \_task: (work@gen_errors.A), line:20:4, endln:35:11
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |vpiName:A
     |vpiFullName:work@gen_errors.A
     |vpiVariables:
@@ -1346,7 +1346,7 @@ design: (work@gen_errors)
         |vpiName:llen
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |vpiIODecl:
     \_io_decl: (l), line:21:26, endln:21:27
       |vpiParent:
@@ -1465,14 +1465,14 @@ design: (work@gen_errors)
             |vpiActual:
             \_io_decl: (C), line:25:14, endln:25:15
     |vpiInstance:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
 |uhdmtopModules:
-\_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+\_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
   |vpiName:work@gen_errors
   |vpiParameter:
   \_parameter: (work@gen_errors.width_a), line:19:12, endln:19:19
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |UINT:8
     |vpiTypespec:
     \_int_typespec: 
@@ -1483,7 +1483,7 @@ design: (work@gen_errors)
   |vpiParamAssign:
   \_param_assign: , line:19:12, endln:19:23
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |vpiRhs:
     \_constant: , line:19:22, endln:19:23
       |vpiDecompile:8
@@ -1499,7 +1499,7 @@ design: (work@gen_errors)
   |vpiTaskFunc:
   \_task: (work@gen_errors.A), line:20:4, endln:35:11
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |vpiName:A
     |vpiFullName:work@gen_errors.A
     |vpiVariables:
@@ -1527,7 +1527,7 @@ design: (work@gen_errors)
         |vpiFullName:work@gen_errors.A.llen
     |vpiVisibility:1
     |vpiParent:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
     |vpiIODecl:
     \_io_decl: (l), line:21:26, endln:21:27
       |vpiParent:
@@ -1593,7 +1593,7 @@ design: (work@gen_errors)
             |vpiActual:
             \_io_decl: (C), line:25:14, endln:25:15
     |vpiInstance:
-    \_module: work@gen_errors (work@gen_errors), file:dut.sv, line:18:1, endln:38:10
+    \_module: work@gen_errors (work@gen_errors), file:${SURELOG_DIR}/tests/TaskDecls/dut.sv, line:18:1, endln:38:10
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

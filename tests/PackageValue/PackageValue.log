@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file ../../build/regression/PackageValue/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/PackageValue/slpp_all/surelog.log.
 
 LIB:  work
-FILE: top.sv
+FILE: ${SURELOG_DIR}/tests/PackageValue/top.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<578> s<577> l<1:1> el<1:0>
 n<> u<2> t<Package> p<25> s<3> l<1:1> el<1:8>
@@ -581,23 +581,23 @@ n<> u<575> t<Package_declaration> p<576> c<445> l<55:1> el<72:11>
 n<> u<576> t<Description> p<577> c<575> l<55:1> el<72:11>
 n<> u<577> t<Source_text> p<578> c<26> l<1:1> el<72:11>
 n<> u<578> t<Top_level_rule> c<1> l<1:1> el<73:1>
-[WRN:PA0205] top.sv:1:1: No timescale set for "prim_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageValue/top.sv:1:1: No timescale set for "prim_pkg".
 
-[WRN:PA0205] top.sv:11:1: No timescale set for "prim_diff_decode".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageValue/top.sv:11:1: No timescale set for "prim_diff_decode".
 
-[WRN:PA0205] top.sv:37:1: No timescale set for "riscv".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageValue/top.sv:37:1: No timescale set for "riscv".
 
-[WRN:PA0205] top.sv:55:1: No timescale set for "ariane_pkg".
+[WRN:PA0205] ${SURELOG_DIR}/tests/PackageValue/top.sv:55:1: No timescale set for "ariane_pkg".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0301] top.sv:1:1: Compile package "prim_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackageValue/top.sv:1:1: Compile package "prim_pkg".
 
-[INF:CP0301] top.sv:37:1: Compile package "riscv".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackageValue/top.sv:37:1: Compile package "riscv".
 
-[INF:CP0301] top.sv:55:1: Compile package "ariane_pkg".
+[INF:CP0301] ${SURELOG_DIR}/tests/PackageValue/top.sv:55:1: Compile package "ariane_pkg".
 
-[INF:CP0303] top.sv:11:1: Compile module "work@prim_diff_decode".
+[INF:CP0303] ${SURELOG_DIR}/tests/PackageValue/top.sv:11:1: Compile module "work@prim_diff_decode".
 
 LIB:  work
 FILE: builtin.sv
@@ -859,7 +859,7 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] top.sv:17:5: Compile generate block "work@prim_diff_decode.gen_pad_generic".
+[INF:CP0335] ${SURELOG_DIR}/tests/PackageValue/top.sv:17:5: Compile generate block "work@prim_diff_decode.gen_pad_generic".
 
 Instance tree:
 [TOP] work@prim_diff_decode work@prim_diff_decode
@@ -867,7 +867,7 @@ Instance tree:
 [SCO] work@prim_diff_decode.gen_pad_generic.p_diff_fsm work@prim_diff_decode.gen_pad_generic.p_diff_fsm
 [SCO] work@prim_diff_decode.gen_pad_generic.p_diff_fsm.UNNAMED work@prim_diff_decode.gen_pad_generic.p_diff_fsm.UNNAMED
 
-[NTE:EL0503] top.sv:11:1: Top level module "work@prim_diff_decode".
+[NTE:EL0503] ${SURELOG_DIR}/tests/PackageValue/top.sv:11:1: Top level module "work@prim_diff_decode".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -877,13 +877,13 @@ Instance tree:
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-[NTE:EL0523] top.sv:11:1: Instance "work@prim_diff_decode".
+[NTE:EL0523] ${SURELOG_DIR}/tests/PackageValue/top.sv:11:1: Instance "work@prim_diff_decode".
 
-[NTE:EL0522] top.sv:17:5: Scope "work@prim_diff_decode.gen_pad_generic".
+[NTE:EL0522] ${SURELOG_DIR}/tests/PackageValue/top.sv:17:5: Scope "work@prim_diff_decode.gen_pad_generic".
 
-[NTE:EL0522] top.sv:19:17: Scope "work@prim_diff_decode.gen_pad_generic.p_diff_fsm".
+[NTE:EL0522] ${SURELOG_DIR}/tests/PackageValue/top.sv:19:17: Scope "work@prim_diff_decode.gen_pad_generic.p_diff_fsm".
 
-[NTE:EL0522] top.sv:24:19: Scope "work@prim_diff_decode.gen_pad_generic.p_diff_fsm.UNNAMED".
+[NTE:EL0522] ${SURELOG_DIR}/tests/PackageValue/top.sv:24:19: Scope "work@prim_diff_decode.gen_pad_generic.p_diff_fsm.UNNAMED".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -957,11 +957,11 @@ range                                                 88
 ref_obj                                               44
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: ../../build/regression/PackageValue/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageValue/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ../../build/regression/PackageValue/slpp_all/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackageValue/slpp_all/surelog.uhdm.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: ../../build/regression/PackageValue/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackageValue/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -977,7 +977,7 @@ design: (work@prim_diff_decode)
   |vpiFullName:builtin::
   |vpiDefName:builtin
 |uhdmallPackages:
-\_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+\_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
   |vpiParent:
   \_design: (work@prim_diff_decode)
   |vpiName:prim_pkg
@@ -985,10 +985,10 @@ design: (work@prim_diff_decode)
   |vpiTypedef:
   \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
     |vpiParent:
-    \_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+    \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
     |vpiName:prim_pkg::impl_e
     |vpiInstance:
-    \_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+    \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
     |vpiBaseTypespec:
     \_integer_typespec: , line:4:16, endln:4:23
       |vpiInstance:
@@ -1008,7 +1008,7 @@ design: (work@prim_diff_decode)
       |vpiSize:64
   |vpiDefName:prim_pkg
 |uhdmallPackages:
-\_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+\_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
   |vpiParent:
   \_design: (work@prim_diff_decode)
   |vpiName:riscv
@@ -1016,7 +1016,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000001
     |vpiTypespec:
     \_logic_typespec: , line:39:16, endln:39:28
@@ -1048,7 +1048,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000002
     |vpiTypespec:
     \_logic_typespec: , line:40:16, endln:40:28
@@ -1080,7 +1080,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000020
     |vpiTypespec:
     \_logic_typespec: , line:41:16, endln:41:28
@@ -1112,7 +1112,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000100
     |vpiTypespec:
     \_logic_typespec: , line:42:16, endln:42:28
@@ -1144,7 +1144,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00006000
     |vpiTypespec:
     \_logic_typespec: , line:43:16, endln:43:28
@@ -1176,7 +1176,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00018000
     |vpiTypespec:
     \_logic_typespec: , line:44:16, endln:44:28
@@ -1208,7 +1208,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00040000
     |vpiTypespec:
     \_logic_typespec: , line:45:16, endln:45:28
@@ -1240,7 +1240,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00080000
     |vpiTypespec:
     \_logic_typespec: , line:46:16, endln:46:28
@@ -1272,7 +1272,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000010
     |vpiTypespec:
     \_logic_typespec: , line:47:16, endln:47:28
@@ -1304,7 +1304,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:0000000300000000
     |vpiTypespec:
     \_logic_typespec: , line:48:16, endln:48:28
@@ -1336,7 +1336,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:8000000000000000
     |vpiTypespec:
     \_logic_typespec: , line:49:16, endln:49:28
@@ -1368,7 +1368,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:80000000
     |vpiTypespec:
     \_logic_typespec: , line:50:16, endln:50:28
@@ -1400,7 +1400,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:39:29, endln:39:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:39:44, endln:39:56
       |vpiDecompile:64'h00000001
@@ -1414,7 +1414,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:40:29, endln:40:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:40:44, endln:40:56
       |vpiDecompile:64'h00000002
@@ -1428,7 +1428,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:41:29, endln:41:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:41:44, endln:41:56
       |vpiDecompile:64'h00000020
@@ -1442,7 +1442,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:42:29, endln:42:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:42:44, endln:42:56
       |vpiDecompile:64'h00000100
@@ -1456,7 +1456,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:43:29, endln:43:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:43:44, endln:43:56
       |vpiDecompile:64'h00006000
@@ -1470,7 +1470,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:44:29, endln:44:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:44:44, endln:44:56
       |vpiDecompile:64'h00018000
@@ -1484,7 +1484,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:45:29, endln:45:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:45:44, endln:45:56
       |vpiDecompile:64'h00040000
@@ -1498,7 +1498,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:46:29, endln:46:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:46:44, endln:46:56
       |vpiDecompile:64'h00080000
@@ -1512,7 +1512,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:47:29, endln:47:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:47:44, endln:47:56
       |vpiDecompile:64'h00000010
@@ -1526,7 +1526,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:48:29, endln:48:64
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:48:44, endln:48:64
       |vpiDecompile:64'h0000000300000000
@@ -1540,7 +1540,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:49:29, endln:49:64
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:49:44, endln:49:64
       |vpiDecompile:64'h8000000000000000
@@ -1554,7 +1554,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:50:29, endln:50:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:50:44, endln:50:56
       |vpiDecompile:64'h80000000
@@ -1567,7 +1567,7 @@ design: (work@prim_diff_decode)
     \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
   |vpiDefName:riscv
 |uhdmallPackages:
-\_package: ariane_pkg (ariane_pkg::), file:top.sv, line:55:1, endln:72:11
+\_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
   |vpiParent:
   \_design: (work@prim_diff_decode)
   |vpiName:ariane_pkg
@@ -1575,7 +1575,7 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
     |vpiParent:
-    \_package: ariane_pkg (ariane_pkg::), file:top.sv, line:55:1, endln:72:11
+    \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
     |vpiTypespec:
     \_logic_typespec: , line:58:15, endln:58:27
       |vpiParent:
@@ -1606,7 +1606,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:58:28, endln:69:73
     |vpiParent:
-    \_package: ariane_pkg (ariane_pkg::), file:top.sv, line:55:1, endln:72:11
+    \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
     |vpiRhs:
     \_operation: , line:58:53, endln:69:73
       |vpiOpType:29
@@ -1786,7 +1786,7 @@ design: (work@prim_diff_decode)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmtopPackages:
-\_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+\_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
   |vpiParent:
   \_design: (work@prim_diff_decode)
   |vpiName:prim_pkg
@@ -1794,14 +1794,14 @@ design: (work@prim_diff_decode)
   |vpiTypedef:
   \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
     |vpiParent:
-    \_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+    \_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |vpiName:prim_pkg::impl_e
     |vpiInstance:
-    \_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+    \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
     |vpiBaseTypespec:
     \_integer_typespec: , line:4:16, endln:4:23
       |vpiInstance:
-      \_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+      \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (ImplGeneric), line:5:5, endln:5:20
@@ -1818,7 +1818,7 @@ design: (work@prim_diff_decode)
   |vpiDefName:prim_pkg
   |vpiTop:1
 |uhdmtopPackages:
-\_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+\_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
   |vpiParent:
   \_design: (work@prim_diff_decode)
   |vpiName:riscv
@@ -1826,14 +1826,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000001
     |vpiTypespec:
     \_logic_typespec: , line:39:16, endln:39:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:39:22, endln:39:28
         |vpiLeftRange:
@@ -1858,14 +1858,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000002
     |vpiTypespec:
     \_logic_typespec: , line:40:16, endln:40:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:40:22, endln:40:28
         |vpiLeftRange:
@@ -1890,14 +1890,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000020
     |vpiTypespec:
     \_logic_typespec: , line:41:16, endln:41:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:41:22, endln:41:28
         |vpiLeftRange:
@@ -1922,14 +1922,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000100
     |vpiTypespec:
     \_logic_typespec: , line:42:16, endln:42:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:42:22, endln:42:28
         |vpiLeftRange:
@@ -1954,14 +1954,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00006000
     |vpiTypespec:
     \_logic_typespec: , line:43:16, endln:43:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:43:22, endln:43:28
         |vpiLeftRange:
@@ -1986,14 +1986,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00018000
     |vpiTypespec:
     \_logic_typespec: , line:44:16, endln:44:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:44:22, endln:44:28
         |vpiLeftRange:
@@ -2018,14 +2018,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00040000
     |vpiTypespec:
     \_logic_typespec: , line:45:16, endln:45:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:45:22, endln:45:28
         |vpiLeftRange:
@@ -2050,14 +2050,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00080000
     |vpiTypespec:
     \_logic_typespec: , line:46:16, endln:46:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:46:22, endln:46:28
         |vpiLeftRange:
@@ -2082,14 +2082,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000010
     |vpiTypespec:
     \_logic_typespec: , line:47:16, endln:47:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:47:22, endln:47:28
         |vpiLeftRange:
@@ -2114,14 +2114,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:0000000300000000
     |vpiTypespec:
     \_logic_typespec: , line:48:16, endln:48:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:48:22, endln:48:28
         |vpiLeftRange:
@@ -2146,14 +2146,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:8000000000000000
     |vpiTypespec:
     \_logic_typespec: , line:49:16, endln:49:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:49:22, endln:49:28
         |vpiLeftRange:
@@ -2178,14 +2178,14 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:80000000
     |vpiTypespec:
     \_logic_typespec: , line:50:16, endln:50:28
       |vpiParent:
       \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
       |vpiInstance:
-      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
       |vpiRange:
       \_range: , line:50:22, endln:50:28
         |vpiLeftRange:
@@ -2210,7 +2210,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:39:29, endln:39:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:39:44, endln:39:56
       |vpiDecompile:64'h00000001
@@ -2224,7 +2224,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:40:29, endln:40:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:40:44, endln:40:56
       |vpiDecompile:64'h00000002
@@ -2238,7 +2238,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:41:29, endln:41:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:41:44, endln:41:56
       |vpiDecompile:64'h00000020
@@ -2252,7 +2252,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:42:29, endln:42:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:42:44, endln:42:56
       |vpiDecompile:64'h00000100
@@ -2266,7 +2266,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:43:29, endln:43:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:43:44, endln:43:56
       |vpiDecompile:64'h00006000
@@ -2280,7 +2280,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:44:29, endln:44:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:44:44, endln:44:56
       |vpiDecompile:64'h00018000
@@ -2294,7 +2294,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:45:29, endln:45:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:45:44, endln:45:56
       |vpiDecompile:64'h00040000
@@ -2308,7 +2308,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:46:29, endln:46:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:46:44, endln:46:56
       |vpiDecompile:64'h00080000
@@ -2322,7 +2322,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:47:29, endln:47:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:47:44, endln:47:56
       |vpiDecompile:64'h00000010
@@ -2336,7 +2336,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:48:29, endln:48:64
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:48:44, endln:48:64
       |vpiDecompile:64'h0000000300000000
@@ -2350,7 +2350,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:49:29, endln:49:64
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:49:44, endln:49:64
       |vpiDecompile:64'h8000000000000000
@@ -2364,7 +2364,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:50:29, endln:50:56
     |vpiParent:
-    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |vpiRhs:
     \_constant: , line:50:44, endln:50:56
       |vpiDecompile:64'h80000000
@@ -2378,7 +2378,7 @@ design: (work@prim_diff_decode)
   |vpiDefName:riscv
   |vpiTop:1
 |uhdmtopPackages:
-\_package: ariane_pkg (ariane_pkg::), file:top.sv, line:55:1, endln:72:11
+\_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
   |vpiParent:
   \_design: (work@prim_diff_decode)
   |vpiName:ariane_pkg
@@ -2386,13 +2386,13 @@ design: (work@prim_diff_decode)
   |vpiParameter:
   \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
     |vpiParent:
-    \_package: ariane_pkg (ariane_pkg::), file:top.sv, line:55:1, endln:72:11
+    \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
     |vpiTypespec:
     \_logic_typespec: , line:58:15, endln:58:27
       |vpiParent:
       \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
       |vpiInstance:
-      \_package: ariane_pkg (ariane_pkg::), file:top.sv, line:55:1, endln:72:11
+      \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
       |vpiRange:
       \_range: , line:58:21, endln:58:27
         |vpiLeftRange:
@@ -2417,7 +2417,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:58:28, endln:69:73
     |vpiParent:
-    \_package: ariane_pkg (ariane_pkg::), file:top.sv, line:55:1, endln:72:11
+    \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
     |vpiRhs:
     \_operation: , line:58:53, endln:69:73
       |vpiOpType:29
@@ -2483,7 +2483,7 @@ design: (work@prim_diff_decode)
                               |vpiParent:
                               \_constant: , line:58:53, endln:58:60
                               |vpiInstance:
-                              \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                              \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                               |vpiRange:
                               \_range: , line:39:22, endln:39:28
                                 |vpiParent:
@@ -2517,7 +2517,7 @@ design: (work@prim_diff_decode)
                               |vpiParent:
                               \_constant: , line:59:54, endln:59:61
                               |vpiInstance:
-                              \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                              \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                               |vpiRange:
                               \_range: , line:40:22, endln:40:28
                                 |vpiParent:
@@ -2551,7 +2551,7 @@ design: (work@prim_diff_decode)
                             |vpiParent:
                             \_constant: , line:60:54, endln:60:61
                             |vpiInstance:
-                            \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                            \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                             |vpiRange:
                             \_range: , line:41:22, endln:41:28
                               |vpiParent:
@@ -2585,7 +2585,7 @@ design: (work@prim_diff_decode)
                           |vpiParent:
                           \_constant: , line:61:54, endln:61:61
                           |vpiInstance:
-                          \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                          \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                           |vpiRange:
                           \_range: , line:42:22, endln:42:28
                             |vpiParent:
@@ -2619,7 +2619,7 @@ design: (work@prim_diff_decode)
                         |vpiParent:
                         \_constant: , line:62:54, endln:62:61
                         |vpiInstance:
-                        \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                        \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                         |vpiRange:
                         \_range: , line:43:22, endln:43:28
                           |vpiParent:
@@ -2653,7 +2653,7 @@ design: (work@prim_diff_decode)
                       |vpiParent:
                       \_constant: , line:63:54, endln:63:61
                       |vpiInstance:
-                      \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                       |vpiRange:
                       \_range: , line:44:22, endln:44:28
                         |vpiParent:
@@ -2687,7 +2687,7 @@ design: (work@prim_diff_decode)
                     |vpiParent:
                     \_constant: , line:64:54, endln:64:61
                     |vpiInstance:
-                    \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                    \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                     |vpiRange:
                     \_range: , line:45:22, endln:45:28
                       |vpiParent:
@@ -2721,7 +2721,7 @@ design: (work@prim_diff_decode)
                   |vpiParent:
                   \_constant: , line:65:54, endln:65:61
                   |vpiInstance:
-                  \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                   |vpiRange:
                   \_range: , line:46:22, endln:46:28
                     |vpiParent:
@@ -2755,7 +2755,7 @@ design: (work@prim_diff_decode)
                 |vpiParent:
                 \_constant: , line:66:54, endln:66:61
                 |vpiInstance:
-                \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+                \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
                 |vpiRange:
                 \_range: , line:47:22, endln:47:28
                   |vpiParent:
@@ -2789,7 +2789,7 @@ design: (work@prim_diff_decode)
               |vpiParent:
               \_constant: , line:67:54, endln:67:61
               |vpiInstance:
-              \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+              \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
               |vpiRange:
               \_range: , line:41:22, endln:41:28
                 |vpiParent:
@@ -2823,7 +2823,7 @@ design: (work@prim_diff_decode)
             |vpiParent:
             \_constant: , line:68:54, endln:68:61
             |vpiInstance:
-            \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+            \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
             |vpiRange:
             \_range: , line:48:22, endln:48:28
               |vpiParent:
@@ -2857,7 +2857,7 @@ design: (work@prim_diff_decode)
           |vpiParent:
           \_constant: , line:69:54, endln:69:61
           |vpiInstance:
-          \_package: riscv (riscv::), file:top.sv, line:37:1, endln:53:11
+          \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
           |vpiRange:
           \_range: , line:49:22, endln:49:28
             |vpiParent:
@@ -3314,14 +3314,14 @@ design: (work@prim_diff_decode)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+\_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
   |vpiParent:
   \_design: (work@prim_diff_decode)
   |vpiFullName:work@prim_diff_decode
   |vpiParameter:
   \_parameter: (work@prim_diff_decode.Impl), line:12:30, endln:12:34
     |vpiParent:
-    \_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+    \_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |UINT:1
     |vpiTypespec:
     \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
@@ -3330,7 +3330,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:12:30, endln:12:58
     |vpiParent:
-    \_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+    \_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |vpiRhs:
     \_constant: , line:12:37, endln:12:47
       |vpiDecompile:1
@@ -3347,12 +3347,12 @@ design: (work@prim_diff_decode)
   \_import_typespec: (prim_pkg), line:15:12, endln:15:23
   |vpiDefName:work@prim_diff_decode
 |uhdmtopModules:
-\_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+\_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
   |vpiName:work@prim_diff_decode
   |vpiParameter:
   \_parameter: (work@prim_diff_decode.Impl), line:12:30, endln:12:34
     |vpiParent:
-    \_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+    \_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |UINT:1
     |vpiTypespec:
     \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
@@ -3360,13 +3360,13 @@ design: (work@prim_diff_decode)
       \_parameter: (work@prim_diff_decode.Impl), line:12:30, endln:12:34
       |vpiName:prim_pkg::impl_e
       |vpiInstance:
-      \_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+      \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
       |vpiBaseTypespec:
       \_integer_typespec: , line:4:16, endln:4:23
         |vpiParent:
         \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
         |vpiInstance:
-        \_package: prim_pkg (prim_pkg::), file:top.sv, line:1:1, endln:9:11
+        \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
         |vpiSigned:1
       |vpiEnumConst:
       \_enum_const: (ImplGeneric), line:5:5, endln:5:20
@@ -3389,7 +3389,7 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:12:30, endln:12:58
     |vpiParent:
-    \_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+    \_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |vpiRhs:
     \_constant: , line:12:37, endln:12:58
       |vpiDecompile:1
@@ -3410,7 +3410,7 @@ design: (work@prim_diff_decode)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@prim_diff_decode.gen_pad_generic), line:17:5, endln:31:6
     |vpiParent:
-    \_module: work@prim_diff_decode (work@prim_diff_decode), file:top.sv, line:11:1, endln:33:10
+    \_module: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |vpiName:gen_pad_generic
     |vpiFullName:work@prim_diff_decode.gen_pad_generic
     |vpiGenScope:
