@@ -653,7 +653,7 @@ install(
 
 # Libraries
 install(
-  TARGETS  surelog
+  TARGETS roundtrip surelog
   EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
