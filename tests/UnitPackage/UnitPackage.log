@@ -727,10 +727,10 @@ n<> u<240> t<Top_level_rule> c<1> l<5:1> el<31:1>
 [INF:CP0303] ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv:11:1: Compile module "work@simple_package".
 
 LIB:  work
-FILE: builtin.sv
+FILE: ${SURELOG_DIR}/tests/UnitPackage/builtin.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<249> s<248> f<0> l<0:11>
-n<mailbox> u<2> t<StringConst> p<102> s<16> f<0> l<0:17>
+n<> u<1> t<Null_rule> p<249> s<248> f<0> l<0:3>
+n<mailbox> u<2> t<StringConst> p<102> s<16> f<0> l<0:9>
 n<> u<3> t<IntegerAtomType_Int> p<4> f<0> l<0:19>
 n<> u<4> t<Data_type> p<5> c<3> f<0> l<0:19>
 n<> u<5> t<Data_type_or_implicit> p<11> c<4> s<6> f<0> l<0:19>
@@ -828,12 +828,12 @@ n<> u<96> t<Function_body_declaration> p<97> c<88> f<0> l<0:14>
 n<> u<97> t<Function_declaration> p<98> c<96> f<0> l<0:5>
 n<> u<98> t<Class_method> p<99> c<97> f<0> l<0:5>
 n<> u<99> t<Class_item> p<102> c<98> s<101> f<0> l<0:5>
-n<> u<100> t<Class> p<102> s<2> f<0> l<0:11>
+n<> u<100> t<Class> p<102> s<2> f<0> l<0:3>
 n<> u<101> t<Endclass> p<102> f<0> l<0:3>
-n<> u<102> t<Class_declaration> p<103> c<100> f<0> l<0:11>
-n<> u<103> t<Package_or_generate_item_declaration> p<104> c<102> f<0> l<0:11>
-n<> u<104> t<Package_item> p<105> c<103> f<0> l<0:11>
-n<> u<105> t<Description> p<248> c<104> s<174> f<0> l<0:11>
+n<> u<102> t<Class_declaration> p<103> c<100> f<0> l<0:3>
+n<> u<103> t<Package_or_generate_item_declaration> p<104> c<102> f<0> l<0:3>
+n<> u<104> t<Package_item> p<105> c<103> f<0> l<0:3>
+n<> u<105> t<Description> p<248> c<104> s<174> f<0> l<0:3>
 n<process> u<106> t<StringConst> p<171> s<122> f<0> l<0:9>
 n<FINISHED> u<107> t<StringConst> p<108> f<0> l<0:20>
 n<> u<108> t<Enum_name_declaration> p<117> c<107> s<110> f<0> l<0:20>
@@ -976,8 +976,8 @@ n<> u<244> t<Class_declaration> p<245> c<242> f<0> l<0:3>
 n<> u<245> t<Package_or_generate_item_declaration> p<246> c<244> f<0> l<0:3>
 n<> u<246> t<Package_item> p<247> c<245> f<0> l<0:3>
 n<> u<247> t<Description> p<248> c<246> f<0> l<0:3>
-n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:11>
-n<> u<249> t<Top_level_rule> c<1> f<0> l<0:11>
+n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:3>
+n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
 [INF:CP0302] Compile class "work@mailbox".
 
 [INF:CP0302] Compile class "work@process".
@@ -1108,7 +1108,7 @@ typespec_member                                        6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitPackage/slpp_unit/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnitPackage/slpp_unit/surelog.uhdm.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnitPackage/slpp_unit/checker/surelog.chk.html ...
 
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnitPackage/slpp_unit/surelog.uhdm ...
 
@@ -2504,14 +2504,14 @@ design: (work@simple_package)
     |vpiInstance:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:builtin.sv
+\_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiParent:
   \_design: (work@simple_package)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -2520,9 +2520,9 @@ design: (work@simple_package)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:builtin.sv
+        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -2541,7 +2541,7 @@ design: (work@simple_package)
   |vpiMethod:
   \_function: (work@mailbox::num)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -2553,17 +2553,17 @@ design: (work@simple_package)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiMethod:
   \_task: (work@mailbox::put)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -2573,7 +2573,7 @@ design: (work@simple_package)
   |vpiMethod:
   \_function: (work@mailbox::try_put)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -2581,7 +2581,7 @@ design: (work@simple_package)
     |vpiReturn:
     \_logic_var: 
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -2591,13 +2591,13 @@ design: (work@simple_package)
   |vpiMethod:
   \_task: (work@mailbox::get)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -2607,7 +2607,7 @@ design: (work@simple_package)
   |vpiMethod:
   \_function: (work@mailbox::try_get)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -2619,7 +2619,7 @@ design: (work@simple_package)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -2629,13 +2629,13 @@ design: (work@simple_package)
   |vpiMethod:
   \_task: (work@mailbox::peek)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -2645,7 +2645,7 @@ design: (work@simple_package)
   |vpiMethod:
   \_function: (work@mailbox::try_peek)
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -2657,7 +2657,7 @@ design: (work@simple_package)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@mailbox), file:builtin.sv
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -2665,14 +2665,14 @@ design: (work@simple_package)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
-\_class_defn: (work@process), file:builtin.sv
+\_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiParent:
   \_design: (work@simple_package)
   |vpiName:work@process
   |vpiTypedef:
   \_enum_typespec: (state)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
@@ -2717,7 +2717,7 @@ design: (work@simple_package)
   |vpiMethod:
   \_function: (work@process::self)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -2727,13 +2727,13 @@ design: (work@simple_package)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@process), file:builtin.sv
+        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -2743,7 +2743,7 @@ design: (work@simple_package)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
-        \_class_defn: (work@process), file:builtin.sv
+        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
@@ -2776,56 +2776,56 @@ design: (work@simple_package)
           |vpiDecompile:4
           |vpiSize:64
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiMethod:
   \_task: (work@process::await)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiMethod:
   \_task: (work@process::suspend)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiMethod:
   \_task: (work@process::resume)
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@process), file:builtin.sv
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:builtin.sv
+\_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
   |vpiParent:
   \_design: (work@simple_package)
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new)
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -2834,9 +2834,9 @@ design: (work@simple_package)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:builtin.sv
+        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -2855,13 +2855,13 @@ design: (work@simple_package)
   |vpiMethod:
   \_task: (work@semaphore::put)
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -2880,13 +2880,13 @@ design: (work@simple_package)
   |vpiMethod:
   \_task: (work@semaphore::get)
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
     |vpiVisibility:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -2905,7 +2905,7 @@ design: (work@simple_package)
   |vpiMethod:
   \_function: (work@semaphore::try_get)
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -2917,7 +2917,7 @@ design: (work@simple_package)
         |vpiSigned:1
       |vpiSigned:1
     |vpiParent:
-    \_class_defn: (work@semaphore), file:builtin.sv
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:

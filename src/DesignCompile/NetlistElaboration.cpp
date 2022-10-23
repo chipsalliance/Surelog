@@ -705,6 +705,28 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   std::vector<UHDM::port*>* ports = netlist->ports();
   DesignComponent* comp = instance->getDefinition();
   std::vector<Signal*>* signals = nullptr;
+  std::string instName = instance->getInstanceName();
+  bool instanceArray = false;
+  int instanceArrayIndex = 0;
+  {
+    std::string indexS;
+    bool inValue = false;
+    for (uint64_t i = instName.size() - 1; i > 1; i--) {
+      char c = instName[i];
+      if (c == '[') {
+        break;
+      }
+      if (inValue) {
+        indexS += c;
+      }
+      if (c == ']') {
+        instanceArray = true;
+        inValue = true;
+      }
+    }
+    std::reverse(indexS.begin(), indexS.end());
+    instanceArrayIndex = std::atoll(indexS.c_str());
+  }
   if (comp) {
     signals = &comp->getPorts();
   }
@@ -830,15 +852,53 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             port* p = (*ports)[index];
 
             if ((!bit_or_part_select) && (fC->Type(sigId) == slStringConst)) {
-              ref_obj* ref = s.MakeRef_obj();
-              fC->populateCoreMembers(sigId, sigId, ref);
-              p->High_conn(ref);
-              ref->VpiName(sigName);
+              bool bitBlast = false;
+              any* net = nullptr;
               if (parent) {
-                ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-                any* net = bind_net_(fC, sigId, parent,
-                                     instance->getInstanceBinding(), sigName);
-                ref->Actual_group(net);
+                net = bind_net_(fC, sigId, parent,
+                                instance->getInstanceBinding(), sigName);
+              }
+              if (instanceArray) {
+                if (parent) {
+                  if (net) {
+                    UHDM_OBJECT_TYPE ntype = net->UhdmType();
+                    if (ntype == uhdmlogic_net) {
+                      logic_net* lnet = (logic_net*)net;
+                      if (const logic_typespec* tps =
+                              (logic_typespec*)lnet->Typespec()) {
+                        if (tps->Ranges()) bitBlast = true;
+                      }
+                    } else if (ntype == uhdmarray_net) {
+                      array_net* lnet = (array_net*)net;
+                      if (const array_typespec* tps =
+                              (array_typespec*)lnet->Typespec()) {
+                        if (tps->Ranges()) bitBlast = true;
+                      }
+                    }
+                  }
+                }
+              }
+              if (bitBlast) {
+                bit_select* sel = s.MakeBit_select();
+                sel->VpiName(sigName);
+                constant* c = s.MakeConstant();
+                c->VpiValue("UINT:" + std::to_string(instanceArrayIndex));
+                c->VpiDecompile(std::to_string(instanceArrayIndex));
+                c->VpiSize(32);
+                fC->populateCoreMembers(sigId, sigId, c);
+                sel->VpiIndex(c);
+                p->High_conn(sel);
+                fC->populateCoreMembers(sigId, sigId, sel);
+                sel->Actual_group(net);
+              } else {
+                ref_obj* ref = s.MakeRef_obj();
+                fC->populateCoreMembers(sigId, sigId, ref);
+                p->High_conn(ref);
+                ref->VpiName(sigName);
+                if (parent) {
+                  ref->VpiFullName(parent->getFullPathName() + "." + sigName);
+                  ref->Actual_group(net);
+                }
               }
             } else {
               any* exp = nullptr;
