@@ -711,7 +711,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   {
     std::string indexS;
     bool inValue = false;
-    if (instName.size()) {
+    if (!instName.empty()) {
       for (uint64_t i = instName.size() - 1; i > 1; i--) {
         char c = instName[i];
         if (c == '[') {
@@ -726,7 +726,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
       }
     }
-    if (indexS.size()) {
+    if (!indexS.empty()) {
       std::reverse(indexS.begin(), indexS.end());
       instanceArrayIndex = std::atoll(indexS.c_str());
     }
