@@ -711,21 +711,25 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   {
     std::string indexS;
     bool inValue = false;
-    for (uint64_t i = instName.size() - 1; i > 1; i--) {
-      char c = instName[i];
-      if (c == '[') {
-        break;
-      }
-      if (inValue) {
-        indexS += c;
-      }
-      if (c == ']') {
-        instanceArray = true;
-        inValue = true;
+    if (instName.size()) {
+      for (uint64_t i = instName.size() - 1; i > 1; i--) {
+        char c = instName[i];
+        if (c == '[') {
+          break;
+        }
+        if (inValue) {
+          indexS += c;
+        }
+        if (c == ']') {
+          instanceArray = true;
+          inValue = true;
+        }
       }
     }
-    std::reverse(indexS.begin(), indexS.end());
-    instanceArrayIndex = std::atoll(indexS.c_str());
+    if (indexS.size()) {
+      std::reverse(indexS.begin(), indexS.end());
+      instanceArrayIndex = std::atoll(indexS.c_str());
+    }
   }
   if (comp) {
     signals = &comp->getPorts();
