@@ -2054,6 +2054,12 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     while (var) {
       if (fC->Type(var) == slStringConst) {
         fullPath += fC->SymName(var);
+      } else if (fC->Type(var) == slConstant_expression) {
+        NodeId Constant_primary = fC->Child(var);
+        NodeId Primary_literal = fC->Child(Constant_primary);
+        NodeId IntConst = fC->Child(Primary_literal);
+        const std::string& name = fC->SymName(IntConst);
+        fullPath += "[" + name + "]";
       }
       var = fC->Sibling(var);
       bool isString = false;
