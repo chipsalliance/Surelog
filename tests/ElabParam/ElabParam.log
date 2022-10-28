@@ -490,8 +490,8 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              41
-cont_assign                                            1
+constant                                              43
+cont_assign                                            2
 design                                                 1
 enum_const                                             9
 enum_typespec                                          3
@@ -499,38 +499,8 @@ enum_var                                               1
 function                                               9
 int_typespec                                          13
 int_var                                                4
-integer_typespec                                       2
+integer_typespec                                       4
 io_decl                                               11
-logic_net                                              4
-logic_typespec                                         8
-logic_var                                              1
-module                                                 5
-operation                                              4
-package                                                5
-param_assign                                           4
-parameter                                              4
-port                                                   4
-range                                                 10
-ref_obj                                                8
-task                                                   9
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
-class_defn                                             8
-class_typespec                                         4
-class_var                                              3
-constant                                              41
-cont_assign                                            2
-design                                                 1
-enum_const                                            14
-enum_typespec                                          4
-enum_var                                               1
-function                                              18
-int_typespec                                          13
-int_var                                                4
-integer_typespec                                       2
-io_decl                                               22
 logic_net                                              4
 logic_typespec                                         8
 logic_var                                              1
@@ -539,9 +509,39 @@ operation                                              8
 package                                                5
 param_assign                                           4
 parameter                                              4
+port                                                   4
+range                                                 10
+ref_obj                                               10
+task                                                   9
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                              43
+cont_assign                                            3
+design                                                 1
+enum_const                                            14
+enum_typespec                                          4
+enum_var                                               1
+function                                              18
+int_typespec                                          13
+int_var                                                4
+integer_typespec                                       4
+io_decl                                               22
+logic_net                                              4
+logic_typespec                                         8
+logic_var                                              1
+module                                                 5
+operation                                             12
+package                                                5
+param_assign                                           4
+parameter                                              4
 port                                                   6
 range                                                 10
-ref_obj                                               12
+ref_obj                                               14
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ElabParam/slpp_all/surelog.uhdm ...
@@ -1475,15 +1475,27 @@ design: (work@dut)
         \_operation: , line:16:15, endln:17:46
         |vpiTypespec:
         \_integer_typespec: , line:16:15, endln:16:16
+          |vpiParent:
+          \_operation: , line:16:15, endln:16:37
+          |INT:4
         |vpiOpType:67
         |vpiOperand:
         \_constant: , line:16:18, endln:16:36
+          |vpiParent:
+          \_operation: , line:16:15, endln:16:37
+          |vpiDecompile:2
+          |vpiSize:32
+          |UINT:2
+          |vpiConstType:9
       |vpiOperand:
       \_operation: , line:17:17, endln:17:46
         |vpiParent:
         \_operation: , line:16:15, endln:17:46
         |vpiTypespec:
         \_integer_typespec: , line:17:17, endln:17:18
+          |vpiParent:
+          \_operation: , line:17:17, endln:17:46
+          |INT:5
         |vpiOpType:67
         |vpiOperand:
         \_operation: , line:17:20, endln:17:45
@@ -1500,6 +1512,12 @@ design: (work@dut)
             \_logic_net: (work@dut.a), line:14:15, endln:14:16
           |vpiOperand:
           \_constant: , line:17:25, endln:17:45
+            |vpiParent:
+            \_operation: , line:17:20, endln:17:45
+            |vpiDecompile:6'h03
+            |vpiSize:6
+            |HEX:03
+            |vpiConstType:5
     |vpiLhs:
     \_ref_obj: (work@dut.b), line:16:11, endln:16:12
       |vpiParent:

@@ -384,25 +384,25 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              21
-cont_assign                                            1
+constant                                              23
+cont_assign                                            2
 design                                                 1
-enum_const                                            11
-enum_typespec                                          3
+enum_const                                            14
+enum_typespec                                          4
 enum_var                                               2
 function                                               9
-hier_path                                              1
+hier_path                                              2
 int_typespec                                           9
 int_var                                                4
 io_decl                                               11
 logic_net                                              1
-logic_typespec                                         2
+logic_typespec                                         3
 logic_var                                              1
 module                                                 4
-operation                                              1
+operation                                              2
 package                                                5
-range                                                  2
-ref_obj                                                3
+range                                                  3
+ref_obj                                                6
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -411,25 +411,25 @@ task                                                   9
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              21
-cont_assign                                            2
+constant                                              23
+cont_assign                                            3
 design                                                 1
-enum_const                                            16
-enum_typespec                                          4
+enum_const                                            19
+enum_typespec                                          5
 enum_var                                               2
 function                                              18
-hier_path                                              2
+hier_path                                              3
 int_typespec                                           9
 int_var                                                4
 io_decl                                               22
 logic_net                                              1
-logic_typespec                                         2
+logic_typespec                                         3
 logic_var                                              1
 module                                                 4
-operation                                              2
+operation                                              3
 package                                                5
-range                                                  2
-ref_obj                                                6
+range                                                  3
+ref_obj                                                9
 task                                                  18
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/CastEnum/dut.sv:15:33: Unresolved hierarchical reference "dmi_req_i.op".
@@ -1099,6 +1099,61 @@ design: (work@dm_csrs)
       \_cont_assign: , line:15:10, endln:15:46
       |vpiTypespec:
       \_enum_typespec: (dm::dtm_op_e), line:3:1, endln:7:12
+        |vpiParent:
+        \_operation: , line:15:19, endln:15:46
+        |vpiName:dm::dtm_op_e
+        |vpiInstance:
+        \_package: dm (dm::), file:${SURELOG_DIR}/tests/CastEnum/dut.sv, line:1:1, endln:9:11
+        |vpiBaseTypespec:
+        \_logic_typespec: , line:3:14, endln:3:25
+          |vpiParent:
+          \_enum_typespec: (dm::dtm_op_e), line:3:1, endln:7:12
+          |vpiInstance:
+          \_package: dm (dm::), file:${SURELOG_DIR}/tests/CastEnum/dut.sv, line:1:1, endln:9:11
+          |vpiRange:
+          \_range: , line:3:20, endln:3:25
+            |vpiParent:
+            \_logic_typespec: , line:3:14, endln:3:25
+            |vpiLeftRange:
+            \_constant: , line:3:21, endln:3:22
+              |vpiParent:
+              \_range: , line:3:20, endln:3:25
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:3:23, endln:3:24
+              |vpiParent:
+              \_range: , line:3:20, endln:3:25
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+        |vpiEnumConst:
+        \_enum_const: (DTM_NOP), line:4:3, endln:4:19
+          |vpiParent:
+          \_enum_typespec: (dm::dtm_op_e), line:3:1, endln:7:12
+          |vpiName:DTM_NOP
+          |HEX:0
+          |vpiDecompile:2'h0
+          |vpiSize:2
+        |vpiEnumConst:
+        \_enum_const: (DTM_READ), line:5:3, endln:5:19
+          |vpiParent:
+          \_enum_typespec: (dm::dtm_op_e), line:3:1, endln:7:12
+          |vpiName:DTM_READ
+          |HEX:1
+          |vpiDecompile:2'h1
+          |vpiSize:2
+        |vpiEnumConst:
+        \_enum_const: (DTM_WRITE), line:6:3, endln:6:19
+          |vpiParent:
+          \_enum_typespec: (dm::dtm_op_e), line:3:1, endln:7:12
+          |vpiName:DTM_WRITE
+          |HEX:2
+          |vpiDecompile:2'h2
+          |vpiSize:2
       |vpiOpType:67
       |vpiOperand:
       \_hier_path: (dmi_req_i.op), line:15:33, endln:15:45

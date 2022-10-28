@@ -248,36 +248,14 @@ n<> u<220> t<Top_level_rule> c<1> l<1:1> el<23:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              41
-cont_assign                                            1
-design                                                 1
-enum_const                                             4
-enum_typespec                                          2
-import_typespec                                        4
-int_typespec                                           8
-integer_typespec                                       2
-logic_net                                              4
-logic_typespec                                         8
-module                                                 5
-operation                                              4
-package                                                3
-param_assign                                           6
-parameter                                              7
-port                                                   4
-range                                                 10
-ref_obj                                                9
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              41
+constant                                              42
 cont_assign                                            2
 design                                                 1
 enum_const                                             4
 enum_typespec                                          2
 import_typespec                                        4
 int_typespec                                           8
-integer_typespec                                       2
+integer_typespec                                       4
 logic_net                                              4
 logic_typespec                                         8
 module                                                 5
@@ -285,9 +263,31 @@ operation                                              8
 package                                                3
 param_assign                                           6
 parameter                                              7
+port                                                   4
+range                                                 10
+ref_obj                                               12
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              42
+cont_assign                                            3
+design                                                 1
+enum_const                                             4
+enum_typespec                                          2
+import_typespec                                        4
+int_typespec                                           8
+integer_typespec                                       4
+logic_net                                              4
+logic_typespec                                         8
+module                                                 5
+operation                                             12
+package                                                3
+param_assign                                           6
+parameter                                              7
 port                                                   6
 range                                                 10
-ref_obj                                               14
+ref_obj                                               17
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneImport/slpp_all/surelog.uhdm ...
 
@@ -839,15 +839,27 @@ design: (work@dut)
         \_operation: , line:18:14, endln:19:35
         |vpiTypespec:
         \_integer_typespec: , line:18:14, endln:18:15
+          |vpiParent:
+          \_operation: , line:18:14, endln:18:35
+          |INT:3
         |vpiOpType:67
         |vpiOperand:
         \_constant: , line:18:17, endln:18:34
+          |vpiParent:
+          \_operation: , line:18:14, endln:18:35
+          |vpiDecompile:2
+          |vpiSize:32
+          |UINT:2
+          |vpiConstType:9
       |vpiOperand:
       \_operation: , line:19:15, endln:19:35
         |vpiParent:
         \_operation: , line:18:14, endln:19:35
         |vpiTypespec:
         \_integer_typespec: , line:19:15, endln:19:16
+          |vpiParent:
+          \_operation: , line:19:15, endln:19:35
+          |INT:3
         |vpiOpType:67
         |vpiOperand:
         \_operation: , line:19:18, endln:19:34

@@ -175,23 +175,23 @@ assignment                                             1
 begin                                                  1
 bit_select                                             1
 constant                                              15
-cont_assign                                            1
+cont_assign                                            2
 design                                                 1
 enum_const                                             2
 enum_typespec                                          1
 enum_var                                               2
-func_call                                              1
+func_call                                              2
 function                                               1
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         1
 module                                                 3
-operation                                              1
+operation                                              2
 packed_array_typespec                                  2
 packed_array_var                                       2
 range                                                  5
-ref_obj                                                4
+ref_obj                                                5
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -202,23 +202,23 @@ assignment                                             2
 begin                                                  2
 bit_select                                             2
 constant                                              15
-cont_assign                                            2
+cont_assign                                            3
 design                                                 1
 enum_const                                             2
 enum_typespec                                          1
 enum_var                                               4
-func_call                                              2
+func_call                                              3
 function                                               2
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         1
 module                                                 3
-operation                                              2
+operation                                              3
 packed_array_typespec                                  2
 packed_array_var                                       4
 range                                                  7
-ref_obj                                                8
+ref_obj                                                9
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnumVar/slpp_all/surelog.uhdm ...
@@ -609,6 +609,9 @@ design: (work@top)
       \_cont_assign: , line:15:11, endln:15:29
       |vpiTypespec:
       \_int_typespec: , line:15:15, endln:15:18
+        |vpiParent:
+        \_operation: , line:15:15, endln:15:29
+        |vpiSigned:1
       |vpiOpType:67
       |vpiOperand:
       \_func_call: (get_BA), line:15:20, endln:15:28

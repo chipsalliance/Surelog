@@ -118,8 +118,8 @@ case_stmt                                              4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             674
-cont_assign                                           11
+constant                                             676
+cont_assign                                           14
 delay_control                                          3
 design                                                 1
 enum_const                                             5
@@ -144,7 +144,7 @@ logic_typespec                                       209
 logic_var                                              2
 module                                                38
 named_begin                                            4
-operation                                            262
+operation                                            266
 package                                                2
 param_assign                                          14
 parameter                                             14
@@ -152,7 +152,7 @@ part_select                                            9
 port                                                 163
 prim_term                                             31
 range                                                133
-ref_obj                                              645
+ref_obj                                              653
 ref_var                                               11
 repeat                                                 8
 switch_tran                                            4
@@ -13179,8 +13179,68 @@ design: (work@dff_async_reset)
         \_logic_net: (work@syn_fifo.rd_en), line:14:1, endln:14:6
   |vpiContAssign:
   \_cont_assign: , line:45:8, endln:45:44
+    |vpiRhs:
+    \_operation: , line:45:16, endln:45:43
+      |vpiParent:
+      \_cont_assign: , line:45:8, endln:45:44
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (status_cnt), line:45:16, endln:45:26
+        |vpiParent:
+        \_operation: , line:45:16, endln:45:43
+        |vpiName:status_cnt
+      |vpiOperand:
+      \_operation: , line:45:31, endln:45:42
+        |vpiParent:
+        \_operation: , line:45:16, endln:45:43
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (RAM_DEPTH), line:45:31, endln:45:40
+          |vpiParent:
+          \_operation: , line:45:31, endln:45:42
+          |vpiName:RAM_DEPTH
+        |vpiOperand:
+        \_constant: , line:45:41, endln:45:42
+          |vpiParent:
+          \_operation: , line:45:31, endln:45:42
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (full), line:45:8, endln:45:12
+      |vpiParent:
+      \_cont_assign: , line:45:8, endln:45:44
+      |vpiName:full
+      |vpiActual:
+      \_logic_net: (work@syn_fifo.full), line:18:1, endln:18:5
   |vpiContAssign:
   \_cont_assign: , line:46:8, endln:46:33
+    |vpiRhs:
+    \_operation: , line:46:17, endln:46:32
+      |vpiParent:
+      \_cont_assign: , line:46:8, endln:46:33
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (status_cnt), line:46:17, endln:46:27
+        |vpiParent:
+        \_operation: , line:46:17, endln:46:32
+        |vpiName:status_cnt
+      |vpiOperand:
+      \_constant: , line:46:31, endln:46:32
+        |vpiParent:
+        \_operation: , line:46:17, endln:46:32
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (empty), line:46:8, endln:46:13
+      |vpiParent:
+      \_cont_assign: , line:46:8, endln:46:33
+      |vpiName:empty
+      |vpiActual:
+      \_logic_net: (work@syn_fifo.empty), line:17:1, endln:17:6
 |uhdmtopModules:
 \_module: work@uart (work@uart), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/uart.v, line:8:1, endln:155:10
   |vpiName:work@uart
@@ -14701,6 +14761,28 @@ design: (work@dff_async_reset)
     \_always: , line:115:2, endln:120:5
     |vpiContAssign:
     \_cont_assign: , line:92:9, endln:92:40
+      |vpiRhs:
+      \_operation: , line:92:23, endln:92:40
+        |vpiParent:
+        \_cont_assign: , line:92:9, endln:92:40
+        |vpiOpType:28
+        |vpiOperand:
+        \_ref_obj: (minPrio), line:92:23, endln:92:30
+          |vpiParent:
+          \_operation: , line:92:23, endln:92:40
+          |vpiName:minPrio
+        |vpiOperand:
+        \_ref_obj: (request), line:92:33, endln:92:40
+          |vpiParent:
+          \_operation: , line:92:23, endln:92:40
+          |vpiName:request
+      |vpiLhs:
+      \_ref_obj: (prioRequest), line:92:9, endln:92:20
+        |vpiParent:
+        \_cont_assign: , line:92:9, endln:92:40
+        |vpiName:prioRequest
+        |vpiActual:
+        \_logic_net: (work@top.U.prioRequest), line:44:24, endln:44:35
 |uhdmtopModules:
 \_module: work@full_adder_gates (work@full_adder_gates), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/full_adder.v, line:7:1, endln:18:10
   |vpiName:work@full_adder_gates

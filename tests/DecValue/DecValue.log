@@ -120,33 +120,33 @@ n<> u<95> t<Top_level_rule> c<1> l<1:1> el<9:1>
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                               8
-cont_assign                                            1
-design                                                 1
-int_typespec                                           8
-int_var                                                1
-logic_net                                              1
-module                                                 4
-operation                                              3
-param_assign                                           6
-parameter                                              6
-port                                                   2
-ref_obj                                                6
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               8
 cont_assign                                            2
 design                                                 1
-int_typespec                                           8
+int_typespec                                           9
 int_var                                                1
 logic_net                                              1
 module                                                 4
 operation                                              4
 param_assign                                           6
 parameter                                              6
+port                                                   2
+ref_obj                                                8
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                               8
+cont_assign                                            3
+design                                                 1
+int_typespec                                           9
+int_var                                                1
+logic_net                                              1
+module                                                 4
+operation                                              5
+param_assign                                           6
+parameter                                              6
 port                                                   3
-ref_obj                                                9
+ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DecValue/slpp_all/surelog.uhdm ...
 
@@ -390,6 +390,9 @@ design: (work@top)
       \_cont_assign: , line:6:11, endln:6:22
       |vpiTypespec:
       \_int_typespec: , line:6:15, endln:6:18
+        |vpiParent:
+        \_operation: , line:6:15, endln:6:22
+        |vpiSigned:1
       |vpiOpType:67
       |vpiOperand:
       \_ref_obj: (work@top.C), line:6:20, endln:6:21
