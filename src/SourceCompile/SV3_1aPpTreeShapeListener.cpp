@@ -250,14 +250,15 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
         fileName,
         m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths(),
         getSymbolTable());
-    if (fileId) {
-      fileName = fileSystem->toSymbol(fileId);
-    } else {
+    if (!fileId) {
       // If failed to locate, then assume the same folder as the includer file
       // and let it fail down the stream.
       fileId = fileSystem->getSibling(m_pp->getCompileSourceFile()->getFileId(),
                                       fileName, getSymbolTable());
     }
+
+    const std::string_view filePath = fileSystem->toSymbol(fileId);
+    const SymbolId symbolId = getSymbolTable()->registerSymbol(fileName);
 
     if (m_pp->getCompileSourceFile()->getCommandLineParser()->verbose()) {
       Location loc(fileId);
@@ -279,7 +280,8 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
     unsigned int lineSum = m_pp->getSumLineCount() + 1;
     openingIndex = m_pp->getSourceFile()->addIncludeFileInfo(
         /* context */ IncludeFileInfo::Context::INCLUDE,
-        /* sectionStartLine*/ 1, /* sectionFile */ fileId,
+        /* sectionStartLine*/ 1, /* sectionSymbolId */ symbolId,
+        /* sectionFileId */ fileId,
         /* originalStartLine */ lineSum,
         /* originalStartColumn */ startLineCol.second,
         /* originalEndLine */ lineSum + (endLineCol.first - startLineCol.first),
@@ -299,7 +301,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
     std::string post;
 
     if (!m_pp->m_instructions.m_filterFileLine) {
-      pre = "`line 1 \"" + fileName + "\" 1\n";
+      pre = StrCat("`line 1 \"", filePath, "\" 1\n");
       if (m_pp->getCompileSourceFile()
               ->getCommandLineParser()
               ->lineOffsetsAsComments()) {
@@ -313,7 +315,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                 ->lineOffsetsAsComments()) {
           post = "\n/* SLline " +
                  std::to_string(info->m_startLine + startLineCol.first) +
-                 " \"" + fileSystem->toPath(info->m_fileId).string() +
+                 " \"\"^\"" + fileSystem->toPath(info->m_fileId).string() +
                  "\" 0 */\n";
         } else {
           post = "\n`line " +
@@ -325,7 +327,8 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
           post =
-              "\n/* SLline " + std::to_string(startLineCol.first + 1) + " \"" +
+              "\n/* SLline " + std::to_string(startLineCol.first + 1) +
+              " \"\"^\"" +
               fileSystem->toPath(m_pp->getFileId(startLineCol.first)).string() +
               "\" 2 */\n";
         } else {
@@ -347,7 +350,8 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
     int closingIndex = m_pp->getSourceFile()->addIncludeFileInfo(
         /* context */ IncludeFileInfo::Context::INCLUDE,
         /* sectionStartLine */ startLineCol.first,
-        /* sectionFile */ m_pp->getFileId(startLineCol.first),
+        /* sectionSymbolId */ BadSymbolId,
+        /* sectionFileId */ m_pp->getFileId(startLineCol.first),
         /* originalStartLine */ lineSum,
         /* originalStartColumn */ startLineCol.second,
         /* originalEndLine */ lineSum + (endLineCol.first - startLineCol.first),
@@ -470,7 +474,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     if (macroInf) {
       unsigned int lineSum = m_pp->getSumLineCount() + 1;
       openingIndex = m_pp->getSourceFile()->addIncludeFileInfo(
-          IncludeFileInfo::Context::MACRO, macroInf->m_startLine,
+          IncludeFileInfo::Context::MACRO, macroInf->m_startLine, BadSymbolId,
           macroInf->m_fileId, lineSum, startLineCol.second,
           lineSum + (endLineCol.first - startLineCol.first), endLineCol.second,
           IncludeFileInfo::Action::PUSH);
@@ -546,14 +550,14 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
         if (nbCRinArgs) lineSum -= nbCRinArgs;
 
         closingIndex = m_pp->getSourceFile()->addIncludeFileInfo(
-            IncludeFileInfo::Context::MACRO, origLine, fileId, lineSum,
-            startLineCol.second,
+            IncludeFileInfo::Context::MACRO, origLine, BadSymbolId, fileId,
+            lineSum, startLineCol.second,
             lineSum + (endLineCol.first - startLineCol.first),
             endLineCol.second, IncludeFileInfo::Action::POP, openingIndex, 0);
       } else {
         closingIndex = m_pp->getSourceFile()->addIncludeFileInfo(
-            IncludeFileInfo::Context::MACRO, origLine + nbCRinArgs, fileId,
-            lineSum, startLineCol.second,
+            IncludeFileInfo::Context::MACRO, origLine + nbCRinArgs, BadSymbolId,
+            fileId, lineSum, startLineCol.second,
             lineSum + (endLineCol.first - startLineCol.first),
             endLineCol.second, IncludeFileInfo::Action::POP, openingIndex, 0);
       }
@@ -622,7 +626,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
 
       unsigned int lineSum = m_pp->getSumLineCount() + 1;
       openingIndex = m_pp->getSourceFile()->addIncludeFileInfo(
-          IncludeFileInfo::Context::MACRO, macroInf->m_startLine,
+          IncludeFileInfo::Context::MACRO, macroInf->m_startLine, BadSymbolId,
           macroInf->m_fileId, lineSum, startLineCol.second,
           lineSum + (endLineCol.first - startLineCol.first), endLineCol.second,
           IncludeFileInfo::Action::PUSH);
@@ -690,7 +694,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
       if (nbCRinMacroBody) {
         unsigned int lineSum = m_pp->getSumLineCount() + 1;
         int closingIndex = m_pp->getSourceFile()->addIncludeFileInfo(
-            IncludeFileInfo::Context::MACRO, line, fileId, lineSum,
+            IncludeFileInfo::Context::MACRO, line, BadSymbolId, fileId, lineSum,
             startLineCol.first,
             lineSum + (endLineCol.first - startLineCol.first),
             endLineCol.second, IncludeFileInfo::Action::POP, openingIndex, 0);

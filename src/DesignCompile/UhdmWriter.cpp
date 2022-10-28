@@ -3689,7 +3689,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
             (ifi.m_action == IncludeFileInfo::Action::PUSH)) {
           include_file_info* const pifi = s.MakeInclude_file_info();
           pifi->VpiFile(fileSystem->toPath(pf->getRawFileId()).string());
-          pifi->VpiIncludedFile(fileSystem->toPath(ifi.m_sectionFile).string());
+          pifi->VpiIncludedFile(
+              fileSystem->toPath(ifi.m_sectionFileId).string());
           pifi->VpiLineNo(ifi.m_originalStartLine);
           pifi->VpiColumnNo(ifi.m_originalStartColumn);
           pifi->VpiEndLineNo(ifi.m_originalEndLine);

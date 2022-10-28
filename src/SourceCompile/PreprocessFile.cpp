@@ -53,7 +53,7 @@ const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 const char* const PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
 IncludeFileInfo PreprocessFile::s_badIncludeFileInfo(
-    IncludeFileInfo::Context::NONE, 0, BadPathId, 0, 0, 0, 0,
+    IncludeFileInfo::Context::NONE, 0, BadSymbolId, BadPathId, 0, 0, 0, 0,
     IncludeFileInfo::Action::NONE);
 
 void PreprocessFile::SpecialInstructions::print() {
@@ -546,15 +546,16 @@ unsigned int PreprocessFile::getSumLineCount() {
 
 int PreprocessFile::addIncludeFileInfo(
     IncludeFileInfo::Context context, unsigned int sectionStartLine,
-    PathId sectionFile, unsigned int originalStartLine,
-    unsigned int originalStartColumn, unsigned int originalEndLine,
-    unsigned int originalEndColumn, IncludeFileInfo::Action action,
-    int indexOpening /* = 0 */, int indexClosing /* = 0 */) {
+    SymbolId sectionSymbolId, PathId sectionFileId,
+    unsigned int originalStartLine, unsigned int originalStartColumn,
+    unsigned int originalEndLine, unsigned int originalEndColumn,
+    IncludeFileInfo::Action action, int indexOpening /* = 0 */,
+    int indexClosing /* = 0 */) {
   int index = m_includeFileInfo.size();
-  m_includeFileInfo.emplace_back(context, sectionStartLine, sectionFile,
-                                 originalStartLine, originalStartColumn,
-                                 originalEndLine, originalEndColumn, action,
-                                 indexOpening, indexClosing);
+  m_includeFileInfo.emplace_back(
+      context, sectionStartLine, sectionSymbolId, sectionFileId,
+      originalStartLine, originalStartColumn, originalEndLine,
+      originalEndColumn, action, indexOpening, indexClosing);
   return index;
 }
 
@@ -562,8 +563,8 @@ void PreprocessFile::resetIncludeFileInfo() {
   clearIncludeFileInfo();
   if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
       (!m_compileSourceFile->m_commandLineParser->lowMem())) {
-    addIncludeFileInfo(IncludeFileInfo::Context::NONE, 0, m_fileId, 0, 0, 0, 0,
-                       IncludeFileInfo::Action::POP, 0, 0);
+    addIncludeFileInfo(IncludeFileInfo::Context::NONE, 0, BadSymbolId, m_fileId,
+                       0, 0, 0, 0, IncludeFileInfo::Action::POP, 0, 0);
   }
 }
 
@@ -634,8 +635,8 @@ std::string PreprocessFile::reportIncludeInfo() const {
         (info.m_action == IncludeFileInfo::Action::PUSH) ? "in" : "out";
     strm << context << " " << info.m_originalStartLine << ","
          << info.m_originalStartColumn << ":" << info.m_originalEndLine << ","
-         << info.m_originalEndColumn << " "
-         << fileSystem->toPath(info.m_sectionFile).string() << " "
+         << info.m_originalEndColumn << " " << getSymbol(info.m_sectionSymbolId)
+         << "^" << fileSystem->toPath(info.m_sectionFileId).string() << " "
          << info.m_sectionStartLine << " " << action << std::endl;
   }
   return strm.str();

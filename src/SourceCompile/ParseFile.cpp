@@ -169,8 +169,7 @@ void ParseFile::buildLineInfoCache_() {
       while (1) {
         if ((lineItr >= infos[index].m_originalStartLine) &&
             (infos[index].m_action == IncludeFileInfo::Action::POP)) {
-          PathId fileId = infos[index].m_sectionFile;
-          fileInfoCache[lineItr] = fileId;
+          fileInfoCache[lineItr] = infos[index].m_sectionFileId;
           unsigned int l = infos[index].m_sectionStartLine +
                            (lineItr - infos[index].m_originalStartLine);
           lineInfoCache[lineItr] = l;
@@ -191,8 +190,7 @@ void ParseFile::buildLineInfoCache_() {
             (infos[index].m_indexClosing > -1) &&
             (lineItr <
              infos[infos[index].m_indexClosing].m_originalStartLine)) {
-          PathId fileId = infos[index].m_sectionFile;
-          fileInfoCache[lineItr] = fileId;
+          fileInfoCache[lineItr] = infos[index].m_sectionFileId;
           unsigned int l = infos[index].m_sectionStartLine +
                            (lineItr - infos[index].m_originalStartLine);
           lineInfoCache[lineItr] = l;

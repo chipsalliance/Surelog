@@ -36,24 +36,19 @@ class IncludeFileInfo {
   enum class Action : unsigned int { NONE = 0, PUSH = 1, POP = 2 };
 
   IncludeFileInfo(Context context, unsigned int sectionStartLine,
-                  PathId sectionFile, unsigned int originalStartLine,
+                  SymbolId sectionSymbolId, PathId sectionFileId,
+                  unsigned int originalStartLine,
                   unsigned int originalStartColumn,
                   unsigned int originalEndLine, unsigned int originalEndColumn,
                   Action action)
-      : m_context(context),
-        m_sectionStartLine(sectionStartLine),
-        m_sectionFile(sectionFile),
-        m_originalStartLine(originalStartLine),
-        m_originalStartColumn(originalStartColumn),
-        m_originalEndLine(originalEndLine),
-        m_originalEndColumn(originalEndColumn),
-        m_action(action),
-        m_indexOpening(-1),
-        m_indexClosing(-1) {}
+      : IncludeFileInfo(context, sectionStartLine, sectionSymbolId,
+                        sectionFileId, originalStartLine, originalStartColumn,
+                        originalEndLine, originalEndColumn, action, -1, -1) {}
   IncludeFileInfo(const IncludeFileInfo& i)
       : m_context(i.m_context),
         m_sectionStartLine(i.m_sectionStartLine),
-        m_sectionFile(i.m_sectionFile),
+        m_sectionSymbolId(i.m_sectionSymbolId),
+        m_sectionFileId(i.m_sectionFileId),
         m_originalStartLine(i.m_originalStartLine),
         m_originalStartColumn(i.m_originalStartColumn),
         m_originalEndLine(i.m_originalEndLine),
@@ -62,24 +57,27 @@ class IncludeFileInfo {
         m_indexOpening(i.m_indexOpening),
         m_indexClosing(i.m_indexClosing) {}
   IncludeFileInfo(Context context, unsigned int sectionStartLine,
-                  PathId sectionFile, unsigned int originalStartLine,
+                  SymbolId sectionSymbolId, PathId sectionFileId,
+                  unsigned int originalStartLine,
                   unsigned int originalStartColumn,
                   unsigned int originalEndLine, unsigned int originalEndColumn,
-                  Action type, int indexOpening, int indexClosing)
+                  Action action, int indexOpening, int indexClosing)
       : m_context(context),
         m_sectionStartLine(sectionStartLine),
-        m_sectionFile(sectionFile),
+        m_sectionSymbolId(sectionSymbolId),
+        m_sectionFileId(sectionFileId),
         m_originalStartLine(originalStartLine),
         m_originalStartColumn(originalStartColumn),
         m_originalEndLine(originalEndLine),
         m_originalEndColumn(originalEndColumn),
-        m_action(type),
+        m_action(action),
         m_indexOpening(indexOpening),
         m_indexClosing(indexClosing) {}
 
   const Context m_context;
   unsigned int m_sectionStartLine = 0;
-  PathId m_sectionFile;
+  SymbolId m_sectionSymbolId;
+  PathId m_sectionFileId;
   unsigned int m_originalStartLine = 0;
   unsigned int m_originalStartColumn = 0;
   const unsigned int m_originalEndLine = 0;

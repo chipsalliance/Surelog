@@ -558,6 +558,7 @@ function(register_gtests)
 endfunction()
 
 register_gtests(
+  src/Cache/PPCache_test.cpp
   src/CommandLine/CommandLineParser_test.cpp
   src/Common/FileSystem_test.cpp
   src/Common/PathId_test.cpp

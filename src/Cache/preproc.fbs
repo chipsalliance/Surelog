@@ -41,6 +41,7 @@ table Macro {
 table IncludeFileInfo {
   context:uint;
   section_start_line:uint;
+  section_symbol_id:ulong;
   section_file_id:ulong;
   original_start_line:uint;
   original_start_column:uint;
@@ -60,11 +61,9 @@ table LineTranslationInfo {
 table PPCache {
   header:CACHE.Header;
   macros:[Macro];
-  includes:[ulong];
   body:string;
   errors:[CACHE.Error];
   symbols:[string];
-  cmd_include_paths:[ulong];
   cmd_define_options:[string]; 
   time_info:[CACHE.TimeInfo];
   line_translation_vec:[LineTranslationInfo];
