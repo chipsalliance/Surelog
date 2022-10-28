@@ -47,6 +47,7 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/SynthSubset.h>
 #include <uhdm/UhdmLint.h>
@@ -1619,6 +1620,57 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
   return true;
 }
 
+void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
+                                  DesignComponent* mod, any* m,
+                                  std::vector<cont_assign*>* assigns) {
+  if (netlist->cont_assigns()) {
+    for (auto assign : *netlist->cont_assigns()) {
+      const expr* lhs = assign->Lhs();
+      const expr* rhs = assign->Rhs();
+      const typespec* tps = lhs->Typespec();
+      if (lhs->UhdmType() == uhdmref_obj) {
+        UHDM::any* var =
+            m_helper.bindVariable(mod, m, lhs->VpiName(), m_compileDesign);
+        if (var) {
+          if (rhs->UhdmType() == uhdmoperation) {
+            ElaboratorListener listener(&s, false, true);
+            assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+            lhs = assign->Lhs();
+            rhs = assign->Rhs();
+            tps = lhs->Typespec();
+            ref_obj* ref = (ref_obj*)lhs;
+            ref->Actual_group(var);
+          }
+
+          if (expr* exp = any_cast<expr*>(var)) {
+            if (const typespec* temp = exp->Typespec()) {
+              tps = temp;
+            }
+          }
+        }
+      }
+
+      if (tps) {
+        UHDM::ExprEval eval(true);
+        expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+        if (tmp->UhdmType() == uhdmoperation) {
+          ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+        }
+      } else if (rhs->UhdmType() == uhdmoperation) {
+        operation* op = (operation*)rhs;
+        if (const typespec* tps = op->Typespec()) {
+          UHDM::ExprEval eval(true);
+          expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+          if (tmp->UhdmType() == uhdmoperation) {
+            ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+          }
+        }
+      }
+      assigns->push_back(assign);
+    }
+  }
+}
+
 bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
                                    gen_scope* m, ExprBuilder& exprBuilder) {
   FileSystem* const fileSystem = FileSystem::getInstance();
@@ -1657,9 +1709,9 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
         m->Cont_assigns(s.MakeCont_assignVec());
         assigns = m->Cont_assigns();
       }
-      for (auto obj : *netlist->cont_assigns()) {
+      writeCont_assign(netlist, s, mod, m, assigns);
+      for (auto obj : *assigns) {
         obj->VpiParent(m);
-        assigns->push_back(obj);
       }
     }
 
@@ -2966,9 +3018,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
         m->Cont_assigns(s.MakeCont_assignVec());
         assigns = m->Cont_assigns();
       }
-      for (auto obj : *netlist->cont_assigns()) {
-        assigns->push_back(obj);
-      }
+      writeCont_assign(netlist, s, mod, m, assigns);
     }
 
     // Processes
@@ -3102,9 +3152,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
         m->Cont_assigns(s.MakeCont_assignVec());
         assigns = m->Cont_assigns();
       }
-      for (auto obj : *netlist->cont_assigns()) {
-        assigns->push_back(obj);
-      }
+      writeCont_assign(netlist, s, mod, m, assigns);
     }
 
     // Processes

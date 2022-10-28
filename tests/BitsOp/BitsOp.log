@@ -52,8 +52,8 @@ assignment                                             1
 begin                                                  2
 bit_typespec                                           4
 bit_var                                                1
-constant                                             300
-cont_assign                                            1
+constant                                             306
+cont_assign                                            2
 design                                                 1
 enum_const                                             4
 enum_typespec                                          2
@@ -62,23 +62,23 @@ if_stmt                                                2
 import_typespec                                        1
 int_typespec                                          85
 logic_net                                             10
-logic_typespec                                        38
+logic_typespec                                        41
 logic_var                                              4
 module                                                16
 named_begin                                            1
-operation                                             77
+operation                                             78
 package                                               12
 packed_array_typespec                                  5
 param_assign                                          96
 parameter                                             96
 part_select                                            1
 port                                                   2
-range                                                 40
-ref_obj                                               89
+range                                                 43
+ref_obj                                               91
 struct_net                                             2
-struct_typespec                                        8
+struct_typespec                                        9
 sys_func_call                                         27
-typespec_member                                       29
+typespec_member                                       32
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -88,8 +88,8 @@ assignment                                             2
 begin                                                  4
 bit_typespec                                           4
 bit_var                                                1
-constant                                             300
-cont_assign                                            2
+constant                                             306
+cont_assign                                            3
 design                                                 1
 enum_const                                             4
 enum_typespec                                          2
@@ -98,23 +98,23 @@ if_stmt                                                4
 import_typespec                                        1
 int_typespec                                          85
 logic_net                                             10
-logic_typespec                                        38
+logic_typespec                                        41
 logic_var                                              4
 module                                                16
 named_begin                                            2
-operation                                             80
+operation                                             81
 package                                               12
 packed_array_typespec                                  5
 param_assign                                          96
 parameter                                             96
 part_select                                            2
 port                                                   3
-range                                                 40
-ref_obj                                               98
+range                                                 43
+ref_obj                                              100
 struct_net                                             2
-struct_typespec                                        8
+struct_typespec                                        9
 sys_func_call                                         28
-typespec_member                                       29
+typespec_member                                       32
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitsOp/slpp_unit/surelog.uhdm ...
 
@@ -3379,6 +3379,114 @@ design: (work@dut)
       \_cont_assign: , line:115:10, endln:115:37
       |vpiTypespec:
       \_struct_typespec: (dmi_t), line:106:11, endln:106:17
+        |vpiParent:
+        \_operation: , line:115:25, endln:115:37
+        |vpiName:dmi_t
+        |vpiInstance:
+        \_module: work@dmi_jtag (work@dmi_jtag), file:${SURELOG_DIR}/tests/BitsOp/dut.sv, line:104:1, endln:127:21
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (address), line:107:18, endln:107:25
+          |vpiParent:
+          \_struct_typespec: (dmi_t), line:106:11, endln:106:17
+          |vpiName:address
+          |vpiTypespec:
+          \_logic_typespec: , line:107:5, endln:107:16
+            |vpiParent:
+            \_typespec_member: (address), line:107:18, endln:107:25
+            |vpiRange:
+            \_range: , line:107:11, endln:107:16
+              |vpiParent:
+              \_logic_typespec: , line:107:5, endln:107:16
+              |vpiLeftRange:
+              \_constant: , line:107:12, endln:107:13
+                |vpiParent:
+                \_range: , line:107:11, endln:107:16
+                |vpiDecompile:6
+                |vpiSize:64
+                |UINT:6
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:107:14, endln:107:15
+                |vpiParent:
+                \_range: , line:107:11, endln:107:16
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiRefFile:${SURELOG_DIR}/tests/BitsOp/dut.sv
+          |vpiRefLineNo:107
+          |vpiRefColumnNo:5
+          |vpiRefEndLineNo:107
+          |vpiRefEndColumnNo:16
+        |vpiTypespecMember:
+        \_typespec_member: (data), line:108:18, endln:108:22
+          |vpiParent:
+          \_struct_typespec: (dmi_t), line:106:11, endln:106:17
+          |vpiName:data
+          |vpiTypespec:
+          \_logic_typespec: , line:108:5, endln:108:17
+            |vpiParent:
+            \_typespec_member: (data), line:108:18, endln:108:22
+            |vpiRange:
+            \_range: , line:108:11, endln:108:17
+              |vpiParent:
+              \_logic_typespec: , line:108:5, endln:108:17
+              |vpiLeftRange:
+              \_constant: , line:108:12, endln:108:14
+                |vpiParent:
+                \_range: , line:108:11, endln:108:17
+                |vpiDecompile:31
+                |vpiSize:64
+                |UINT:31
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:108:15, endln:108:16
+                |vpiParent:
+                \_range: , line:108:11, endln:108:17
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiRefFile:${SURELOG_DIR}/tests/BitsOp/dut.sv
+          |vpiRefLineNo:108
+          |vpiRefColumnNo:5
+          |vpiRefEndLineNo:108
+          |vpiRefEndColumnNo:17
+        |vpiTypespecMember:
+        \_typespec_member: (op), line:109:18, endln:109:20
+          |vpiParent:
+          \_struct_typespec: (dmi_t), line:106:11, endln:106:17
+          |vpiName:op
+          |vpiTypespec:
+          \_logic_typespec: , line:109:5, endln:109:16
+            |vpiParent:
+            \_typespec_member: (op), line:109:18, endln:109:20
+            |vpiRange:
+            \_range: , line:109:11, endln:109:16
+              |vpiParent:
+              \_logic_typespec: , line:109:5, endln:109:16
+              |vpiLeftRange:
+              \_constant: , line:109:12, endln:109:13
+                |vpiParent:
+                \_range: , line:109:11, endln:109:16
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:109:14, endln:109:15
+                |vpiParent:
+                \_range: , line:109:11, endln:109:16
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiRefFile:${SURELOG_DIR}/tests/BitsOp/dut.sv
+          |vpiRefLineNo:109
+          |vpiRefColumnNo:5
+          |vpiRefEndLineNo:109
+          |vpiRefEndColumnNo:16
       |vpiOpType:67
       |vpiOperand:
       \_ref_obj: (work@dmi_jtag.dr_q), line:115:32, endln:115:36

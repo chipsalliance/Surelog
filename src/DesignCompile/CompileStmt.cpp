@@ -2804,8 +2804,17 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
       break;
     }
     case uhdmmodule: {
-      // We never get here, as modules are built as DesignComponent, not as
-      // UHDM::module. Need late binding.
+      module* mod = (module*)scope;
+      if (mod->Variables()) {
+        for (auto var : *mod->Variables()) {
+          if (var->VpiName() == name) return var;
+        }
+      }
+      if (mod->Nets()) {
+        for (auto var : *mod->Nets()) {
+          if (var->VpiName() == name) return var;
+        }
+      }
       break;
     }
     default:

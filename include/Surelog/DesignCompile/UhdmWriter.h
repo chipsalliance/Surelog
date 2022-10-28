@@ -109,6 +109,9 @@ class UhdmWriter final {
                     UhdmWriter::ComponentMap& componentMap,
                     UhdmWriter::ModPortMap& modPortMap,
                     ModuleInstance* instance = nullptr);
+  void writeCont_assign(Netlist* netlist, UHDM::Serializer& s,
+                        DesignComponent* mod, UHDM::any* scope,
+                        std::vector<UHDM::cont_assign*>* assigns);
 
   void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m,
                    UhdmWriter::ComponentMap& componentMap);

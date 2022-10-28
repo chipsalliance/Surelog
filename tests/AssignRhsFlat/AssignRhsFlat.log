@@ -136,37 +136,37 @@ n<> u<112> t<Top_level_rule> c<1> l<1:1> el<15:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               4
-cont_assign                                            1
+constant                                              12
+cont_assign                                            2
 design                                                 1
-int_typespec                                           4
+int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         2
 module                                                 2
-operation                                              3
-ref_obj                                                1
-string_typespec                                        3
+operation                                             10
+ref_obj                                                2
+string_typespec                                        9
 struct_typespec                                        3
 struct_var                                             1
-tagged_pattern                                         4
+tagged_pattern                                        12
 typespec_member                                        7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               8
-cont_assign                                            2
+constant                                              17
+cont_assign                                            3
 design                                                 1
-int_typespec                                           5
+int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         2
 module                                                 2
-operation                                              8
-ref_obj                                                2
-string_typespec                                        6
+operation                                             16
+ref_obj                                                3
+string_typespec                                        9
 struct_typespec                                        3
 struct_var                                             1
-tagged_pattern                                         8
+tagged_pattern                                        12
 typespec_member                                        7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssignRhsFlat/slpp_all/surelog.uhdm ...
@@ -400,13 +400,46 @@ design: (work@dut)
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:12:39, endln:12:40
+        |vpiParent:
+        \_tagged_pattern: , line:12:39, endln:12:40
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
       |vpiOperand:
       \_operation: , line:12:22, endln:12:32
+        |vpiParent:
+        \_operation: , line:12:15, endln:12:61
+        |vpiOpType:75
+        |vpiOperand:
+        \_constant: , line:12:24, endln:12:28
+          |vpiParent:
+          \_operation: , line:12:22, endln:12:32
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:12:30, endln:12:31
+          |vpiParent:
+          \_operation: , line:12:22, endln:12:32
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
       |vpiOperand:
       \_operation: 
+        |vpiParent:
+        \_operation: , line:12:15, endln:12:61
         |vpiOpType:33
         |vpiOperand:
         \_constant: , line:12:58, endln:12:59
+          |vpiParent:
+          \_tagged_pattern: , line:12:58, endln:12:59
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
         |vpiOperand:
         \_constant: , line:12:58, endln:12:59
     |vpiLhs:
