@@ -202,7 +202,6 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
   if (clp->parseOnly() || clp->lowMem()) {
     return true;
   }
-
   if (!MACROCACHE::PPCacheBufferHasIdentifier(content.data())) {
     return false;
   }
@@ -213,61 +212,65 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
   FileSystem* const fileSystem = FileSystem::getInstance();
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(content.data());
   const auto header = ppcache->header();
+
+  if (m_isPrecompiled) {
+    // For precompiled, check only the signature & version (so using
+    // BadPathId instead of the actual arguments)
+    return checkIfCacheIsValid(header, FlbSchemaVersion, BadPathId, BadPathId);
+  }
+
+  if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                           m_pp->getFileId(LINE1))) {
+    return false;
+  }
+
   const auto cacheSymbols = ppcache->symbols();
 
-  if (!m_isPrecompiled) {
-    if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
-                             m_pp->getFileId(LINE1),
-                             m_pp->getCompileSourceFile()->getSymbolTable())) {
-      return false;
-    }
+  /* Cache the include paths list */
+  const auto& includePathList = clp->getIncludePaths();
+  std::vector<fs::path> include_path_vec;
+  include_path_vec.reserve(includePathList.size());
+  for (const auto& pathId : includePathList) {
+    include_path_vec.emplace_back(fileSystem->toPath(pathId));
+  }
 
-    /* Cache the include paths list */
-    const auto& includePathList = clp->getIncludePaths();
-    std::vector<fs::path> include_path_vec;
-    include_path_vec.reserve(includePathList.size());
-    for (const auto& pathId : includePathList) {
-      include_path_vec.emplace_back(fileSystem->toPath(pathId));
-    }
+  std::vector<fs::path> cache_include_path_vec;
+  cache_include_path_vec.reserve(ppcache->cmd_include_paths()->size());
+  for (auto include : *ppcache->cmd_include_paths()) {
+    cache_include_path_vec.emplace_back(
+        cacheSymbols->Get(include)->string_view());
+  }
+  if (!compareVectors(include_path_vec, cache_include_path_vec)) {
+    return false;
+  }
 
-    std::vector<fs::path> cache_include_path_vec;
-    cache_include_path_vec.reserve(ppcache->cmd_include_paths()->size());
-    for (auto include : *ppcache->cmd_include_paths()) {
-      cache_include_path_vec.emplace_back(
-          cacheSymbols->Get(include)->string_view());
-    }
-    if (!compareVectors(include_path_vec, cache_include_path_vec)) {
-      return false;
-    }
+  /* Cache the defines on the command line */
+  const auto& defineList = clp->getDefineList();
+  std::vector<std::string> define_vec;
+  define_vec.reserve(defineList.size());
+  for (const auto& definePair : defineList) {
+    std::string spath =
+        m_pp->getSymbol(definePair.first) + "=" + definePair.second;
+    define_vec.emplace_back(std::move(spath));
+  }
 
-    /* Cache the defines on the command line */
-    const auto& defineList = clp->getDefineList();
-    std::vector<std::string> define_vec;
-    define_vec.reserve(defineList.size());
-    for (const auto& definePair : defineList) {
-      std::string spath =
-          m_pp->getSymbol(definePair.first) + "=" + definePair.second;
-      define_vec.emplace_back(std::move(spath));
-    }
+  std::vector<std::string> cache_define_vec;
+  cache_define_vec.reserve(ppcache->cmd_define_options()->size());
+  for (const auto* cmd_define_option : *ppcache->cmd_define_options()) {
+    cache_define_vec.emplace_back(cmd_define_option->string_view());
+  }
+  if (!compareVectors(define_vec, cache_define_vec)) {
+    return false;
+  }
 
-    std::vector<std::string> cache_define_vec;
-    cache_define_vec.reserve(ppcache->cmd_define_options()->size());
-    for (const auto* cmd_define_option : *ppcache->cmd_define_options()) {
-      cache_define_vec.emplace_back(cmd_define_option->string_view());
-    }
-    if (!compareVectors(define_vec, cache_define_vec)) {
-      return false;
-    }
-
-    /* All includes*/
-    if (auto includes = ppcache->includes()) {
-      for (auto include : *includes) {
-        PathId includeFileId = fileSystem->toPathId(
-            cacheSymbols->Get(include)->string_view(),
-            m_pp->getCompileSourceFile()->getSymbolTable());
-        if (!checkCacheIsValid_(getCacheFileId_(includeFileId))) {
-          return false;
-        }
+  /* All includes*/
+  if (auto includes = ppcache->includes()) {
+    for (auto include : *includes) {
+      PathId includeFileId =
+          fileSystem->toPathId(cacheSymbols->Get(include)->string_view(),
+                               m_pp->getCompileSourceFile()->getSymbolTable());
+      if (!checkCacheIsValid_(getCacheFileId_(includeFileId))) {
+        return false;
       }
     }
   }

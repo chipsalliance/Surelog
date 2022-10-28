@@ -144,14 +144,15 @@ bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(content.data());
   auto header = ppcache->header();
-  if (!m_isPrecompiled &&
-      !checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
-                           m_parse->getPpFileId(),
-                           m_parse->getCompileSourceFile()->getSymbolTable())) {
-    return false;
-  }
 
-  return true;
+  if (m_isPrecompiled) {
+    // For precompiled, check only the signature & version (so using
+    // BadPathId instead of the actual arguments)
+    return checkIfCacheIsValid(header, FlbSchemaVersion, BadPathId, BadPathId);
+  } else {
+    return checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                               m_parse->getPpFileId());
+  }
 }
 
 bool ParseCache::isValid() {

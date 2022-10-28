@@ -51,8 +51,7 @@ bool Cache::openFlatBuffers(PathId cacheFileId,
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string_view schemaVersion,
-                                PathId cacheFileId, PathId sourceFileId,
-                                SymbolTable* symbolTable) const {
+                                PathId cacheFileId, PathId sourceFileId) const {
   /* Schema version */
   if (schemaVersion != header->flb_version()->string_view()) {
     return false;
@@ -70,7 +69,7 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
   }
 
   /* Timestamp Cache vs Orig File */
-  if (cacheFileId) {
+  if (cacheFileId && sourceFileId) {
     FileSystem* const fileSystem = FileSystem::getInstance();
     std::filesystem::file_time_type ct = fileSystem->modtime(cacheFileId);
     std::filesystem::file_time_type ft = fileSystem->modtime(sourceFileId);

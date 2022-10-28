@@ -69,7 +69,7 @@ class Cache {
 
   bool checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                            std::string_view schemaVersion, PathId cacheFileId,
-                           PathId sourceFileId, SymbolTable* symbolTable) const;
+                           PathId sourceFileId) const;
 
   flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
       flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion);
