@@ -550,7 +550,9 @@ function(register_gtests)
     # course a lot unnecessary churn if headers are modified.
     # Often it is sufficient to just have a few depeendencies.
     target_link_libraries(${test_bin} surelog gtest gmock gtest_main)
-    gtest_discover_tests(${test_bin} TEST_PREFIX "${test_prefix}/")
+    gtest_discover_tests(${test_bin}
+      TEST_PREFIX "${test_prefix}/"
+      DISCOVERY_TIMEOUT 60)
 
     # Now, add this binary to our UnitTests target that it builds this
     add_dependencies(UnitTests ${test_bin})
