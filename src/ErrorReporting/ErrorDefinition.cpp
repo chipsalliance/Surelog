@@ -200,6 +200,8 @@ bool ErrorDefinition::init() {
       "Working directory option \"%s\" is missing directory");
   rec(CMD_CD_MISSING_DIR, WARNING, CMD,
       "Current directory option \"%s\" is missing directory");
+  rec(CMD_REMAP_MISSING_DIRS, WARNING, CMD,
+      "Remapping option \"%s\" expects two absolute directory entries");
   rec(PP_CANNOT_OPEN_FILE, ERROR, PP, "Cannot open file \"%s\"");
   rec(PP_CANNOT_OPEN_INCLUDE_FILE, ERROR, PP,
       "Cannot open include file \"%s\"");

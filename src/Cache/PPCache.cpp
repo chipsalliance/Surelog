@@ -39,9 +39,10 @@
 #include <iostream>
 
 namespace SURELOG {
-PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
+static constexpr std::string_view FlbSchemaVersion = "1.5";
+static constexpr std::string_view UnknownRawPath = "<unknown>";
 
-static const char FlbSchemaVersion[] = "1.5";
+PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
 PathId PPCache::getCacheFileId_(PathId sourceFileId) {
   if (!sourceFileId) sourceFileId = m_pp->getFileId(LINE1);
@@ -94,9 +95,10 @@ bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
       tokens.emplace_back(macro_token->string_view());
     }
     m_pp->recordMacro(
-        cacheSymbols.getSymbol(SymbolId(macro->name_id(), "<unknown>")),
-        fileSystem->copy(PathId(&cacheSymbols, macro->file_id(), "<unknown>"),
-                         m_pp->getCompileSourceFile()->getSymbolTable()),
+        cacheSymbols.getSymbol(SymbolId(macro->name_id(), UnknownRawPath)),
+        fileSystem->toPathId(fileSystem->remap(cacheSymbols.getSymbol(
+                                 SymbolId(macro->file_id(), UnknownRawPath))),
+                             m_pp->getCompileSourceFile()->getSymbolTable()),
         macro->start_line(), macro->start_column(), macro->end_line(),
         macro->end_column(), args, tokens);
   }
@@ -106,8 +108,9 @@ bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
     for (const CACHE::TimeInfo* fbtimeinfo : *ppcache->time_info()) {
       TimeInfo timeInfo;
       timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->type();
-      timeInfo.m_fileId = fileSystem->copy(
-          PathId(&cacheSymbols, fbtimeinfo->file_id(), BadRawPath),
+      timeInfo.m_fileId = fileSystem->toPathId(
+          fileSystem->remap(cacheSymbols.getSymbol(
+              SymbolId(fbtimeinfo->file_id(), UnknownRawPath))),
           m_pp->getCompileSourceFile()->getSymbolTable());
       timeInfo.m_line = fbtimeinfo->line();
       timeInfo.m_timeUnit = (TimeInfo::Unit)fbtimeinfo->time_unit();
@@ -122,8 +125,9 @@ bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
   if (recursionDepth == 0) {
     const auto* lineinfos = ppcache->line_translation_vec();
     for (const MACROCACHE::LineTranslationInfo* lineinfo : *lineinfos) {
-      PathId pretendFileId = fileSystem->copy(
-          PathId(&cacheSymbols, lineinfo->pretend_file_id(), "<unknown>"),
+      PathId pretendFileId = fileSystem->toPathId(
+          fileSystem->remap(cacheSymbols.getSymbol(
+              SymbolId(lineinfo->pretend_file_id(), UnknownRawPath))),
           m_pp->getCompileSourceFile()->getSymbolTable());
       PreprocessFile::LineTranslationInfo lineFileInfo(
           pretendFileId, lineinfo->original_line(), lineinfo->pretend_line());
@@ -137,9 +141,10 @@ bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
     SymbolId sectionSymbolId =
         m_pp->getCompileSourceFile()->getSymbolTable()->copyFrom(
             SymbolId(incinfo->section_symbol_id(), "<unknown"), &cacheSymbols);
-    PathId sectionFileId = fileSystem->copy(
-        PathId(&cacheSymbols, incinfo->section_file_id(), "<unknown>"),
-        m_pp->getCompileSourceFile()->getSymbolTable());
+    PathId sectionFileId =
+        fileSystem->toPathId(fileSystem->remap(cacheSymbols.getSymbol(SymbolId(
+                                 incinfo->section_file_id(), UnknownRawPath))),
+                             m_pp->getCompileSourceFile()->getSymbolTable());
     // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
     // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() <<
     // " t:" << incinfo->m_type() << "\n";
@@ -249,9 +254,10 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
           static_cast<IncludeFileInfo::Action>(incinfo->action());
       if ((context == IncludeFileInfo::Context::INCLUDE) &&
           (action == IncludeFileInfo::Action::PUSH)) {
+        std::string cachedFile = fileSystem->remap(
+            cacheSymbols->Get(incinfo->section_file_id())->string_view());
         PathId cachedFileId = fileSystem->toPathId(
-            cacheSymbols->Get(incinfo->section_file_id())->string_view(),
-            m_pp->getCompileSourceFile()->getSymbolTable());
+            cachedFile, m_pp->getCompileSourceFile()->getSymbolTable());
         PathId sessionFileId = fileSystem->locate(
             cacheSymbols->Get(incinfo->section_symbol_id())->string_view(),
             clp->getIncludePaths(),

@@ -474,6 +474,32 @@ bool FileSystem::saveContent(PathId fileId, const std::vector<char> &data) {
   return saveContent(fileId, data, false);
 }
 
+bool FileSystem::addMapping(std::string_view what, std::string_view with) {
+  std::filesystem::path original = normalize(what);
+  std::filesystem::path replacement = normalize(with);
+
+  if (!original.is_absolute() || !replacement.is_absolute()) return false;
+
+  Mapping &mapping = m_mappings.emplace_back();
+  mapping.m_what = original.string();
+  mapping.m_with = replacement.string();
+  return true;
+}
+
+std::string FileSystem::remap(std::string_view what) {
+  for (const Mapping &mapping : m_mappings) {
+    if (mapping.m_what == what) {
+      return mapping.m_with;
+    } else if ((mapping.m_what.length() < what.length()) &&
+               (what.compare(0, mapping.m_what.length(), mapping.m_what) ==
+                0)) {
+      return std::string(mapping.m_with)
+          .append(what.substr(mapping.m_what.length()));
+    }
+  }
+  return std::string(what);
+}
+
 struct ConfigurationComparer final {
   bool operator()(const FileSystem::Configuration &lhs,
                   const FileSystem::Configuration &rhs) const {
@@ -484,21 +510,21 @@ struct ConfigurationComparer final {
   }
 };
 
-void FileSystem::addConfiguration(const std::filesystem::path &dir) {
+void FileSystem::addConfiguration(const std::filesystem::path &sourceDir) {
   int32_t editCount = 0;
   for (Configuration &configuration : m_configurations) {
-    if (is_subpath(configuration.m_sourceDir, dir)) {
+    if (is_subpath(configuration.m_sourceDir, sourceDir)) {
       return;
-    } else if (is_subpath(dir, configuration.m_sourceDir)) {
+    } else if (is_subpath(sourceDir, configuration.m_sourceDir)) {
       ++editCount;
-      configuration.m_sourceDir = dir;
+      configuration.m_sourceDir = sourceDir;
     }
   }
 
   if (editCount == 1) return;
 
   if (editCount == 0) {
-    m_configurations.emplace_back(Configuration{dir, ""});
+    m_configurations.emplace_back(Configuration{sourceDir, ""});
   }
 
   std::stable_sort(m_configurations.begin(), m_configurations.end(),
@@ -702,30 +728,26 @@ PathId FileSystem::getPpCacheFile(bool isUnitCompilation, PathId sourceFileId,
                                   SymbolTable *symbolTable) {
   if (!sourceFileId || libraryName.empty()) return BadPathId;
 
-  PathId ppFileId;
+  std::filesystem::path ppCacheFile;
   if (isPrecompiled) {
-    const std::filesystem::path sourceFile = toPath(sourceFileId);
-    std::filesystem::path ppCacheFilepath = getProgramPath().parent_path();
-    ppCacheFilepath /= kPrecompiledDirName;
-    ppCacheFilepath /= libraryName;
-    ppCacheFilepath /= sourceFile.filename();
-    ppCacheFilepath += ".slpp";
-    ppFileId = toPathId(ppCacheFilepath.string(), symbolTable);
+    ppCacheFile = getProgramPath().parent_path();
+    ppCacheFile /= kPrecompiledDirName;
+    ppCacheFile /= libraryName;
+    ppCacheFile /= toPath(sourceFileId).filename();
   } else {
-    std::filesystem::path ppCacheFilepath = m_outputDir;
-    ppCacheFilepath /=
-        isUnitCompilation ? kUnitCompileDirName : kAllCompileDirName;
-    ppCacheFilepath /= kPreprocessCacheDirName;
-    ppCacheFilepath /= libraryName;
-    ppCacheFilepath /= toRelPath(sourceFileId);
-    ppCacheFilepath += ".slpp";
-    ppFileId = toPathId(ppCacheFilepath.string(), symbolTable);
+    ppCacheFile = m_outputDir;
+    ppCacheFile /= isUnitCompilation ? kUnitCompileDirName : kAllCompileDirName;
+    ppCacheFile /= kPreprocessCacheDirName;
+    ppCacheFile /= libraryName;
+    ppCacheFile /= toRelPath(sourceFileId);
   }
+  ppCacheFile += ".slpp";
+  const PathId ppCacheFileId = toPathId(ppCacheFile.string(), symbolTable);
   if (kEnableLogs) {
     std::cerr << "getPpCacheFile: " << PathIdPP(sourceFileId) << " => "
-              << PathIdPP(ppFileId) << std::endl;
+              << PathIdPP(ppCacheFileId) << std::endl;
   }
-  return ppFileId;
+  return ppCacheFileId;
 }
 
 PathId FileSystem::getPpCacheFile(bool isUnitCompilation, PathId sourceFileId,
@@ -748,32 +770,31 @@ PathId FileSystem::getParseCacheFile(bool isUnitCompilation, PathId ppFileId,
 
   const std::filesystem::path ppFile = toPath(ppFileId);
 
-  PathId parseFileId;
+  std::filesystem::path parseCacheFile;
   if (isPrecompiled) {
-    std::filesystem::path parseCacheFilepath = getProgramPath().parent_path();
-    parseCacheFilepath /= kPrecompiledDirName;
-    parseCacheFilepath /= libraryName;
-    parseCacheFilepath /= ppFile.filename();
-    parseCacheFilepath += ".slpa";
-    parseFileId = toPathId(parseCacheFilepath.string(), symbolTable);
+    parseCacheFile = getProgramPath().parent_path();
+    parseCacheFile /= kPrecompiledDirName;
+    parseCacheFile /= libraryName;
+    parseCacheFile /= ppFile.filename();
   } else {
     std::filesystem::path ppOutputDir = m_outputDir;
     ppOutputDir /= isUnitCompilation ? kUnitCompileDirName : kAllCompileDirName;
     ppOutputDir /= kPreprocessLibraryDirName;
 
-    std::filesystem::path parseCacheFilepath = m_outputDir;
-    parseCacheFilepath /=
+    parseCacheFile = m_outputDir;
+    parseCacheFile /=
         isUnitCompilation ? kUnitCompileDirName : kAllCompileDirName;
-    parseCacheFilepath /= kParserCacheDirName;
-    parseCacheFilepath /= ppFile.lexically_relative(ppOutputDir);
-    parseCacheFilepath += ".slpa";
-    parseFileId = toPathId(parseCacheFilepath.string(), symbolTable);
+    parseCacheFile /= kParserCacheDirName;
+    parseCacheFile /= ppFile.lexically_relative(ppOutputDir);
   }
+  parseCacheFile += ".slpa";
+  const PathId parseCacheFileId =
+      toPathId(parseCacheFile.string(), symbolTable);
   if (kEnableLogs) {
     std::cerr << "getParseCacheFile: " << PathIdPP(ppFileId) << " => "
-              << PathIdPP(parseFileId) << std::endl;
+              << PathIdPP(parseCacheFileId) << std::endl;
   }
-  return parseFileId;
+  return parseCacheFileId;
 }
 
 PathId FileSystem::getParseCacheFile(bool isUnitCompilation, PathId ppFileId,

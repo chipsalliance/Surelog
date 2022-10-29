@@ -106,6 +106,7 @@ TEST(CommandLineParserTest, WorkingDirectories1) {
 
   const std::vector<std::string> args{
       programPath.string(),
+      "-nostdout",
       "-wd",
       "dira",
       "-cd",
@@ -220,6 +221,7 @@ TEST(CommandLineParserTest, WorkingDirectories2) {
 
   const std::vector<std::string> args{
       programPath.string(),
+      "-nostdout",
       "-wd",
       "dira",
       "-cd",
@@ -334,6 +336,7 @@ TEST(CommandLineParserTest, WorkingDirectories3) {
 
   const std::vector<std::string> args{
       programPath.string(),
+      "-nostdout",
       "../subfolder_3/test_a.sv",
       "../../subfolder_4/test_b.sv",
       "../../test_c.sv",
@@ -439,6 +442,7 @@ TEST(CommandLineParserTest, WorkingDirectories4) {
 
   const std::vector<std::string> args{
       programPath.string(),
+      "-nostdout",
       "-wd",
       "../..",
       "subfolder_1/subfolder_3/test_a.sv",

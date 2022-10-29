@@ -88,11 +88,17 @@ class FileSystem {
   static constexpr std::string_view kPythonCacheDirName = kCacheDirName;
 
  public:
-  struct Configuration {
+  struct Configuration final {
     std::filesystem::path m_sourceDir;
     std::filesystem::path m_cacheDir;
   };
   typedef std::vector<Configuration> Configurations;
+
+  struct Mapping final {
+    std::string m_what;
+    std::string m_with;
+  };
+  typedef std::vector<Mapping> Mappings;
 
  public:
   static FileSystem *getInstance();
@@ -167,6 +173,13 @@ class FileSystem {
   bool saveContent(PathId fileId, const std::vector<char> &data, bool useTemp);
   bool saveContent(PathId fileId, const std::vector<char> &data);
 
+  // Register a path remapping entry and call to remap a path
+  // These can be used to make caches portable and to reconnect sources
+  // after relocation.
+  virtual bool addMapping(std::string_view what, std::string_view with);
+  virtual std::string remap(std::string_view what);
+
+  // Path computation APIs for different contexts
   virtual PathId getProgramFile(std::string_view hint,
                                 SymbolTable *symbolTable);
 
@@ -320,7 +333,7 @@ class FileSystem {
  protected:
   // Internal helpers
   std::filesystem::path toRelPath(PathId id);
-  void addConfiguration(const std::filesystem::path &dir);
+  void addConfiguration(const std::filesystem::path &sourceDir);
 
   virtual std::istream &openInput(const std::filesystem::path &filepath,
                                   std::ios_base::openmode mode);
@@ -372,6 +385,7 @@ class FileSystem {
   OutputStreams m_outputStreams;
 
   Configurations m_configurations;
+  Mappings m_mappings;
   std::filesystem::path m_outputDir;
 
   std::istringstream m_nullInputStream;

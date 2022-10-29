@@ -99,7 +99,8 @@ bool PythonAPICache::checkCacheIsValid_(
   auto header = ppcache->m_header();
 
   const PathId scriptFileId = fileSystem->toPathId(
-      ppcache->m_python_script_file()->string_view(), symbolTable);
+      fileSystem->remap(ppcache->m_python_script_file()->string_view()),
+      symbolTable);
 
   std::filesystem::file_time_type ct = fileSystem->modtime(cacheFileId);
   std::filesystem::file_time_type ft = fileSystem->modtime(scriptFileId);

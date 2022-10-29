@@ -24,8 +24,11 @@
 #include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/Design.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/PreprocessFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <gtest/gtest.h>
@@ -364,6 +367,7 @@ TEST(FileSystemTest, WorkingDirs_NonIdeal) {
 
   const std::vector<std::string> args{
       programPath.string(),
+      "-nostdout",
       "../subfolder_3/test_a.sv",
       "../../subfolder_4/test_b.sv",
       "../../test_c.sv",
@@ -471,6 +475,7 @@ TEST(FileSystemTest, WorkingDirs_Ideal) {
   }
 
   const std::vector<std::string> args{programPath.string(),
+                                      "-nostdout",
                                       "-wd",
                                       "../..",
                                       "subfolder_1/subfolder_3/test_a.sv",
@@ -1000,8 +1005,8 @@ TEST(FileSystemTest, InMemoryTest) {
           << "endmodule // top" << std::endl;
   fileSystem->close(srcstrm);
 
-  std::vector<std::string> args{programPath.string(), "-o", outputdir.string(),
-                                srcfile.string()};
+  std::vector<std::string> args{programPath.string(), "-nostdout", "-o",
+                                outputdir.string(), srcfile.string()};
   std::vector<const char *> cargs;
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string &arg) { return arg.data(); });
@@ -1080,6 +1085,206 @@ TEST(FileSystemTest, InMemoryTest) {
   delete symbolTable;
   delete errors;
   delete fileSystem;
+}
+
+TEST(FileSystemTest, PortableCacheTest) {
+  // Intent: Cache should be usuable if either the
+  // source or the cache is moved to a new location.
+  const fs::path testdir = testing::TempDir();
+  const fs::path kBaseDir = testdir / "PortableCacheTest";
+  const fs::path kInputDir_run1 = kBaseDir / "input1";
+  const fs::path kInputDir_run2 = kBaseDir / "input2";
+  const fs::path kOutputDir_run1 = kBaseDir / "output1";
+  const fs::path kOutputDir_run2 = kBaseDir / "output2";
+  const fs::path kProgramPath = FileSystem::getProgramPath();
+  const std::string_view kHeadersDirName = "headers";
+  const std::string_view kHeaderFileName = "header.sv";
+  const std::string_view kSourceFileName = "source.sv";
+
+  // Remove any remanants from past runs and ignore any related errors!
+  std::error_code ec;
+  fs::remove_all(kBaseDir, ec);
+
+  // Run 1: Create cache in kOutputDir_run1 using source at kInputDir_run1
+  {
+    std::unique_ptr<FileSystem> fileSystem(new TestFileSystem(kInputDir_run1));
+    std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
+    std::unique_ptr<ErrorContainer> errors(
+        new ErrorContainer(symbolTable.get()));
+    std::unique_ptr<CommandLineParser> clp(
+        new CommandLineParser(errors.get(), symbolTable.get(), false, false));
+
+    const PathId inputDirId =
+        fileSystem->toPathId(kInputDir_run1.string(), symbolTable.get());
+    EXPECT_TRUE(fileSystem->mkdirs(inputDirId));
+
+    const PathId headerDirId = fileSystem->toPathId(
+        (kInputDir_run1 / kHeadersDirName).string(), symbolTable.get());
+    EXPECT_TRUE(fileSystem->mkdirs(headerDirId));
+
+    const PathId headerFileId =
+        fileSystem->getChild(headerDirId, kHeaderFileName, symbolTable.get());
+    EXPECT_TRUE(headerFileId);
+
+    std::ostream &strm1 = fileSystem->openForWrite(headerFileId);
+    EXPECT_TRUE(strm1.good());
+    strm1 << "function automatic int get_1();" << std::endl
+          << "  return 1;" << std::endl
+          << "endfunction" << std::endl;
+    fileSystem->close(strm1);
+
+    const PathId sourceFileId = fileSystem->toPathId(
+        (kInputDir_run1 / kSourceFileName).string(), symbolTable.get());
+    EXPECT_TRUE(sourceFileId);
+
+    std::ostream &strm2 = fileSystem->openForWrite(sourceFileId);
+    EXPECT_TRUE(strm2.good());
+    strm2 << "`include \"header.sv\"" << std::endl
+          << std::endl
+          << "module top(output int o);" << std::endl
+          << "  assign o = get_1();" << std::endl
+          << "endmodule" << std::endl;
+    fileSystem->close(strm2);
+
+    const std::vector<std::string> args{
+        kProgramPath.string(),
+        "-nostdout",
+        "-parse",
+        "-nobuiltin",
+        std::string("-I") + fileSystem->toPath(headerDirId).string(),
+        fileSystem->toPath(sourceFileId).string(),
+        fileSystem->toPath(headerFileId).string(),
+        "-o",
+        kOutputDir_run1.string()};
+    std::vector<const char *> cargs;
+    std::transform(args.begin(), args.end(), std::back_inserter(cargs),
+                   [](const std::string &arg) { return arg.data(); });
+    clp->parseCommandLine(cargs.size(), cargs.data());
+
+    std::unique_ptr<Compiler> compiler(
+        new Compiler(clp.get(), errors.get(), symbolTable.get()));
+    compiler->compile();
+
+    PathId cacheDirId =
+        fileSystem->getCacheDir(clp->fileunit(), symbolTable.get());
+    EXPECT_TRUE(cacheDirId);
+    EXPECT_TRUE(fileSystem->isDirectory(cacheDirId));
+
+    for (CompileSourceFile *csf : compiler->getCompileSourceFiles()) {
+      PreprocessFile *const ppFile = csf->getPreprocessor();
+      ParseFile *const parseFile = csf->getParser();
+
+      SymbolId libraryNameId =
+          csf->getPreprocessor()->getLibrary()->getNameId();
+      EXPECT_TRUE(libraryNameId);
+
+      PathId ppCacheFileId =
+          fileSystem->getPpCacheFile(clp->fileunit(), csf->getFileId(),
+                                     libraryNameId, false, symbolTable.get());
+      EXPECT_TRUE(ppCacheFileId);
+      EXPECT_TRUE(fileSystem->isRegularFile(ppCacheFileId));
+
+      PathId parseCacheFileId = fileSystem->getParseCacheFile(
+          clp->fileunit(), csf->getPpOutputFileId(), libraryNameId, false,
+          symbolTable.get());
+      EXPECT_TRUE(parseCacheFileId);
+      EXPECT_TRUE(fileSystem->isRegularFile(parseCacheFileId));
+
+      EXPECT_FALSE(ppFile->usingCachedVersion()) << PathIdPP(ppCacheFileId);
+      EXPECT_FALSE(parseFile->usingCachedVersion())
+          << PathIdPP(parseCacheFileId);
+    }
+  }
+
+  // Move both the source and cache to new location
+
+  fs::rename(kInputDir_run1, kInputDir_run2, ec);
+  EXPECT_FALSE(ec);
+
+  fs::rename(kOutputDir_run1, kOutputDir_run2, ec);
+  EXPECT_FALSE(ec);
+
+  // Run 2: Setup a remap from original location to new location and with that
+  // setup, the cache should be loaded successfully.
+  {
+    std::unique_ptr<FileSystem> fileSystem(new TestFileSystem(kInputDir_run2));
+    std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
+    std::unique_ptr<ErrorContainer> errors(
+        new ErrorContainer(symbolTable.get()));
+    std::unique_ptr<CommandLineParser> clp(
+        new CommandLineParser(errors.get(), symbolTable.get(), false, false));
+
+    const PathId headerDirId = fileSystem->toPathId(
+        (kInputDir_run2 / kHeadersDirName).string(), symbolTable.get());
+    EXPECT_TRUE(fileSystem->isDirectory(headerDirId));
+
+    const PathId headerFileId =
+        fileSystem->getChild(headerDirId, kHeaderFileName, symbolTable.get());
+    EXPECT_TRUE(headerFileId);
+    EXPECT_TRUE(fileSystem->isRegularFile(headerFileId));
+
+    const PathId sourceFileId = fileSystem->toPathId(
+        (kInputDir_run2 / kSourceFileName).string(), symbolTable.get());
+    EXPECT_TRUE(sourceFileId);
+    EXPECT_TRUE(fileSystem->isRegularFile(sourceFileId));
+
+    EXPECT_TRUE(fileSystem->addMapping(kInputDir_run1.string(),
+                                       kInputDir_run2.string()));
+
+    const std::vector<std::string> args{
+        FileSystem::getProgramPath().string(),
+        "-nostdout",
+        "-parse",
+        "-nobuiltin",
+        std::string("-I") + fileSystem->toPath(headerDirId).string(),
+        fileSystem->toPath(headerFileId).string(),
+        fileSystem->toPath(sourceFileId).string(),
+        "-o",
+        kOutputDir_run2.string()};
+    std::vector<const char *> cargs;
+    std::transform(args.begin(), args.end(), std::back_inserter(cargs),
+                   [](const std::string &arg) { return arg.data(); });
+    clp->parseCommandLine(cargs.size(), cargs.data());
+
+    std::unique_ptr<Compiler> compiler(
+        new Compiler(clp.get(), errors.get(), symbolTable.get()));
+    compiler->compile();
+
+    PathId cacheDirId =
+        fileSystem->getCacheDir(clp->fileunit(), symbolTable.get());
+    EXPECT_TRUE(cacheDirId);
+    EXPECT_TRUE(fileSystem->isDirectory(cacheDirId));
+
+    for (CompileSourceFile *csf : compiler->getCompileSourceFiles()) {
+      PreprocessFile *const ppFile = csf->getPreprocessor();
+      ParseFile *const parseFile = csf->getParser();
+
+      SymbolId libraryNameId =
+          csf->getPreprocessor()->getLibrary()->getNameId();
+      EXPECT_TRUE(libraryNameId);
+
+      PathId ppCacheFileId =
+          fileSystem->getPpCacheFile(clp->fileunit(), csf->getFileId(),
+                                     libraryNameId, false, symbolTable.get());
+      EXPECT_TRUE(ppCacheFileId);
+      EXPECT_TRUE(fileSystem->isRegularFile(ppCacheFileId));
+
+      PathId parseCacheFileId = fileSystem->getParseCacheFile(
+          clp->fileunit(), csf->getPpOutputFileId(), libraryNameId, false,
+          symbolTable.get());
+      EXPECT_TRUE(parseCacheFileId);
+      EXPECT_TRUE(fileSystem->isRegularFile(parseCacheFileId));
+
+      EXPECT_TRUE(ppFile->usingCachedVersion())
+          << PathIdPP(csf->getFileId()) << ", " << PathIdPP(ppCacheFileId);
+      EXPECT_TRUE(parseFile->usingCachedVersion())
+          << PathIdPP(csf->getPpOutputFileId()) << ", "
+          << PathIdPP(parseCacheFileId);
+    }
+  }
+
+  fs::remove_all(kBaseDir, ec);
+  EXPECT_FALSE(ec);
 }
 }  // namespace
 }  // namespace SURELOG

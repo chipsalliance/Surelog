@@ -36,12 +36,11 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 
 namespace SURELOG {
-namespace fs = std::filesystem;
+static constexpr char FlbSchemaVersion[] = "1.3";
+static constexpr std::string_view UnknownRawPath = "<unknown>";
 
 ParseCache::ParseCache(ParseFile* parser)
     : m_parse(parser), m_isPrecompiled(false) {}
-
-static constexpr char FlbSchemaVersion[] = "1.3";
 
 PathId ParseCache::getCacheFileId_(PathId ppFileId) {
   if (!ppFileId) ppFileId = m_parse->getPpFileId();
@@ -90,20 +89,22 @@ bool ParseCache::restore_(PathId cacheFileId,
   }
   for (const auto* elemc : *ppcache->elements()) {
     const std::string& elemName =
-        cacheSymbols.getSymbol(SymbolId(elemc->name(), "<unknown>"));
+        cacheSymbols.getSymbol(SymbolId(elemc->name(), UnknownRawPath));
     DesignElement* elem = new DesignElement(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
             elemName),
-        fileSystem->copy(PathId(&cacheSymbols, elemc->file_id(), BadRawPath),
-                         m_parse->getCompileSourceFile()->getSymbolTable()),
+        fileSystem->toPathId(fileSystem->remap(cacheSymbols.getSymbol(
+                                 SymbolId(elemc->file_id(), UnknownRawPath))),
+                             m_parse->getCompileSourceFile()->getSymbolTable()),
         (DesignElement::ElemType)elemc->type(), NodeId(elemc->unique_id()),
         elemc->line(), elemc->column(), elemc->end_line(), elemc->end_column(),
         NodeId(elemc->parent()));
     elem->m_node = NodeId(elemc->node());
     elem->m_defaultNetType = (VObjectType)elemc->default_net_type();
     elem->m_timeInfo.m_type = (TimeInfo::Type)elemc->time_info()->type();
-    elem->m_timeInfo.m_fileId = fileSystem->copy(
-        PathId(&cacheSymbols, elemc->time_info()->file_id(), BadRawPath),
+    elem->m_timeInfo.m_fileId = fileSystem->toPathId(
+        fileSystem->remap(cacheSymbols.getSymbol(
+            SymbolId(elemc->time_info()->file_id(), UnknownRawPath))),
         m_parse->getCompileSourceFile()->getSymbolTable());
     elem->m_timeInfo.m_line = elemc->time_info()->line();
     elem->m_timeInfo.m_timeUnit =
