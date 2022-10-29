@@ -539,11 +539,6 @@ def _run_roundtrip(
 
     roundtrip_log_strm.flush()
 
-  # Go ahead and delete the file if it's too large. CI build tends to run out of disk space.
-  if os.path.isfile(roundtrip_log_filepath) and \
-      os.path.getsize(roundtrip_log_filepath) > (128 * 1024 * 1024):
-    os.remove(roundtrip_log_filepath)
-
   end_dt = datetime.now()
   delta = end_dt - start_dt
   print(f'end-time: {str(end_dt)} {str(delta)}')
