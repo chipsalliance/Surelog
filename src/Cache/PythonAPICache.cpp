@@ -114,13 +114,8 @@ bool PythonAPICache::checkCacheIsValid_(
     return false;
   }
 
-  if (!checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
-                           m_listener->getParseFile()->getFileId(LINE1),
-                           symbolTable)) {
-    return false;
-  }
-
-  return true;
+  return checkIfCacheIsValid(header, FlbSchemaVersion, cacheFileId,
+                             m_listener->getParseFile()->getFileId(LINE1));
 }
 
 bool PythonAPICache::checkCacheIsValid_(PathId cacheFileId) const {

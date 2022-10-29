@@ -52,7 +52,7 @@ void SV3_1aTreeShapeListener::enterTop_level_rule(
   }
   CommandLineParser *clp = m_pf->getCompileSourceFile()->getCommandLineParser();
   if ((!clp->parseOnly()) && (!clp->lowMem())) {
-    m_includeFileInfo.emplace(IncludeFileInfo::Context::NONE, 1,
+    m_includeFileInfo.emplace(IncludeFileInfo::Context::NONE, 1, BadSymbolId,
                               m_pf->getFileId(0), 0, 0, 0, 0,
                               IncludeFileInfo::Action::PUSH);
   }
@@ -179,7 +179,11 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
   unsigned int startLine = std::stoi(ctx->Integral_number()[0]->getText());
   IncludeFileInfo::Action action = static_cast<IncludeFileInfo::Action>(
       std::stoi(ctx->Integral_number()[1]->getText()));
-  std::string file = StringUtils::unquoted(ctx->String()->getText());
+  std::string text = StringUtils::unquoted(ctx->String()->getText());
+  std::vector<std::string> parts;
+  StringUtils::tokenize(text, "^", parts);
+  std::string symbol = StringUtils::unquoted(parts[0]);
+  std::string file = StringUtils::unquoted(parts[1]);
 
   std::pair<int, int> startLineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
@@ -187,6 +191,7 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
     // Push
     m_includeFileInfo.emplace(
         IncludeFileInfo::Context::INCLUDE, startLine,
+        m_pf->getSymbolTable()->registerSymbol(symbol),
         fileSystem->toPathId(file, m_pf->getSymbolTable()), startLineCol.first,
         startLineCol.second, endLineCol.first, endLineCol.second,
         IncludeFileInfo::Action::PUSH);
@@ -195,7 +200,8 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
     if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
     if (!m_includeFileInfo.empty()) {
       IncludeFileInfo &info = m_includeFileInfo.top();
-      info.m_sectionFile = fileSystem->toPathId(file, m_pf->getSymbolTable());
+      info.m_sectionSymbolId = m_pf->getSymbolTable()->registerSymbol(symbol);
+      info.m_sectionFileId = fileSystem->toPathId(file, m_pf->getSymbolTable());
       info.m_originalStartLine = startLineCol.first /*+ m_lineOffset */;
       info.m_originalStartColumn = startLineCol.second /*+ m_lineOffset */;
       info.m_sectionStartLine = startLine;
