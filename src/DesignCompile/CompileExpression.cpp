@@ -411,6 +411,44 @@ bool getStringVal(std::string &result, expr *val) {
   return false;
 }
 
+static bool largeInt(std::string value) {
+  unsigned int i = 0;
+  bool isSigned = false;
+  if (value.find('\'') != std::string::npos) {
+    for (i = 0; i < value.size(); i++) {
+      if (value[i] == '\'') {
+        break;
+      }
+    }
+    if (value.find_first_of("sS") != std::string::npos) {
+      isSigned = true;
+      value = value.substr(i + 3);
+    } else {
+      value = value.substr(i + 2);
+    }
+  }
+  value = StringUtils::replaceAll(value, "_", "");
+  bool largeInt = false;
+  if (value.size() > 20) {
+    largeInt = true;
+  } else if (value.size() == 20) {
+    if (isSigned) {
+      int64_t test = std::strtoll(value.c_str(), 0, 10);
+      std::string testv = std::to_string(test);
+      if (testv != value) {
+        largeInt = true;
+      }
+    } else {
+      uint64_t test = std::strtoull(value.c_str(), 0, 10);
+      std::string testv = std::to_string(test);
+      if (testv != value) {
+        largeInt = true;
+      }
+    }
+  }
+  return largeInt;
+}
+
 constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
   VObjectType objtype = fC->Type(child);
   constant *result = nullptr;
@@ -421,25 +459,31 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
       const std::string &value = fC->SymName(child);
       std::string v;
       c->VpiDecompile(value);
-      if (value.find('\'') != std::string::npos) {
-        char base = 'b';
+      bool tickNumber = (value.find('\'') != std::string::npos);
+      if (tickNumber || largeInt(value)) {
+        char base = 'd';
         unsigned int i = 0;
-        for (i = 0; i < value.size(); i++) {
-          if (value[i] == '\'') {
-            base = value[i + 1];
-            if (base == 's' || base == 'S') base = value[i + 2];
-            break;
-          }
-        }
         bool isSigned = false;
-        if (value.find_first_of("sS") != std::string::npos) {
-          isSigned = true;
-          v = value.substr(i + 3);
+        std::string size = value;
+        if (tickNumber) {
+          for (i = 0; i < value.size(); i++) {
+            if (value[i] == '\'') {
+              base = value[i + 1];
+              if (base == 's' || base == 'S') base = value[i + 2];
+              break;
+            }
+          }
+          if (value.find_first_of("sS") != std::string::npos) {
+            isSigned = true;
+            v = value.substr(i + 3);
+          } else {
+            v = value.substr(i + 2);
+          }
         } else {
-          v = value.substr(i + 2);
+          v = value;
+          size = "";
         }
         v = StringUtils::replaceAll(v, "_", "");
-        std::string size = value;
         StringUtils::rtrim(size, '\'');
         if (size.empty()) {
           c->VpiSize(-1);
