@@ -24,7 +24,7 @@
  * Created on February 10, 2022, 12:00 PM
  */
 
-#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/surelog.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/UhdmListener.h>
@@ -3571,6 +3571,9 @@ int main(int argc, const char **argv) {
     cerr_rdbuf = std::cerr.rdbuf(file.rdbuf());
   }
 #endif
+
+  SURELOG::FileSystem::setInstance(
+      new SURELOG::PlatformFileSystem(std::filesystem::current_path()));
 
   // Read command line, compile a design, use -parse argument
   int code = 0;

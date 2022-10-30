@@ -22,7 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
@@ -43,9 +43,9 @@ namespace SURELOG {
 namespace fs = std::filesystem;
 
 namespace {
-class TestFileSystem : public FileSystem {
+class TestFileSystem : public PlatformFileSystem {
  public:
-  explicit TestFileSystem(const fs::path &wd) : FileSystem(wd) {
+  explicit TestFileSystem(const fs::path &wd) : PlatformFileSystem(wd) {
     FileSystem::setInstance(this);
   }
   TestFileSystem() : TestFileSystem(fs::current_path()) {}
@@ -167,11 +167,11 @@ TEST(PPCacheTest, IncludeChangeTolerance) {
         "-nostdout",
         "-nobuiltin",
         "-parse",
-        std::string("-I") + fileSystem->toPath(include1DirId).string(),
-        std::string("-I") + fileSystem->toPath(include2DirId).string(),
-        fileSystem->toPath(sourceFileId).string(),
-        fileSystem->toPath(header1FileId).string(),
-        fileSystem->toPath(header2FileId).string(),
+        std::string("-I").append(fileSystem->toPath(include1DirId)),
+        std::string("-I").append(fileSystem->toPath(include2DirId)),
+        std::string(fileSystem->toPath(sourceFileId)),
+        std::string(fileSystem->toPath(header1FileId)),
+        std::string(fileSystem->toPath(header2FileId)),
         "-o",
         kOutputDir.string()};
     std::vector<const char *> cargs;
@@ -226,13 +226,13 @@ TEST(PPCacheTest, IncludeChangeTolerance) {
         "-nostdout",
         "-nobuiltin",
         "-parse",
-        std::string("-I") + fileSystem->toPath(include1DirId).string(),
-        std::string("-I") + fileSystem->toPath(include2DirId).string(),
-        std::string("-I") + fileSystem->toPath(include3DirId).string(),
-        fileSystem->toPath(sourceFileId).string(),
-        fileSystem->toPath(header1FileId).string(),
-        fileSystem->toPath(header2FileId).string(),
-        fileSystem->toPath(header3FileId).string(),
+        std::string("-I").append(fileSystem->toPath(include1DirId)),
+        std::string("-I").append(fileSystem->toPath(include2DirId)),
+        std::string("-I").append(fileSystem->toPath(include3DirId)),
+        std::string(fileSystem->toPath(sourceFileId)),
+        std::string(fileSystem->toPath(header1FileId)),
+        std::string(fileSystem->toPath(header2FileId)),
+        std::string(fileSystem->toPath(header3FileId)),
         "-o",
         kOutputDir.string()};
     std::vector<const char *> cargs;

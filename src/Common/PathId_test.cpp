@@ -14,8 +14,8 @@
  limitations under the License.
 */
 
-#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Common/PathId.h>
+#include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -29,9 +29,12 @@ using ::testing::ElementsAre;
 namespace fs = std::filesystem;
 
 namespace {
-class TestFileSystem : public FileSystem {
+class TestFileSystem : public PlatformFileSystem {
  public:
-  TestFileSystem() : FileSystem(std::filesystem::current_path()) {}
+  explicit TestFileSystem(const fs::path &wd) : PlatformFileSystem(wd) {
+    FileSystem::setInstance(this);
+  }
+  TestFileSystem() : TestFileSystem(fs::current_path()) {}
 };
 
 TEST(PathId, constructors) {

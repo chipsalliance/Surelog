@@ -257,7 +257,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                                       fileName, getSymbolTable());
     }
 
-    const std::string_view filePath = fileSystem->toSymbol(fileId);
+    const std::string_view filePath = fileSystem->toPath(fileId);
     const SymbolId symbolId = getSymbolTable()->registerSymbol(fileName);
 
     if (m_pp->getCompileSourceFile()->getCommandLineParser()->verbose()) {
@@ -313,29 +313,24 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
         if (m_pp->getCompileSourceFile()
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
-          post = "\n/* SLline " +
-                 std::to_string(info->m_startLine + startLineCol.first) +
-                 " \"\"^\"" + fileSystem->toPath(info->m_fileId).string() +
-                 "\" 0 */\n";
+          post = StrCat("\n/* SLline ", info->m_startLine + startLineCol.first,
+                        " \"\"^\"", fileSystem->toPath(info->m_fileId),
+                        "\" 0 */\n");
         } else {
-          post = "\n`line " +
-                 std::to_string(info->m_startLine + startLineCol.first) +
-                 " \"" + fileSystem->toPath(info->m_fileId).string() + "\" 0\n";
+          post = StrCat("\n`line ", info->m_startLine + startLineCol.first,
+                        " \"", fileSystem->toPath(info->m_fileId), "\" 0\n");
         }
       } else {
         if (m_pp->getCompileSourceFile()
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
-          post =
-              "\n/* SLline " + std::to_string(startLineCol.first + 1) +
-              " \"\"^\"" +
-              fileSystem->toPath(m_pp->getFileId(startLineCol.first)).string() +
-              "\" 2 */\n";
+          post = StrCat("\n/* SLline ", startLineCol.first + 1, " \"\"^\"",
+                        fileSystem->toPath(m_pp->getFileId(startLineCol.first)),
+                        "\" 2 */\n");
         } else {
-          post =
-              "\n`line " + std::to_string(startLineCol.first + 1) + " \"" +
-              fileSystem->toPath(m_pp->getFileId(startLineCol.first)).string() +
-              "\" 2\n";
+          post = StrCat("\n`line ", startLineCol.first + 1, " \"",
+                        fileSystem->toPath(m_pp->getFileId(startLineCol.first)),
+                        "\" 2\n");
         }
       }
     }
@@ -500,12 +495,11 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     if (macroInf) {
       if (!m_pp->m_instructions.m_filterFileLine) {
         if (startLineCol.second == 0) {
-          pre = "`line " + std::to_string(macroInf->m_startLine) + " \"" +
-                fileSystem->toPath(macroInf->m_fileId).string() + "\" 0";
-          post =
-              "`line " + std::to_string(startLineCol.first + 1) + " \"" +
-              fileSystem->toPath(m_pp->getFileId(startLineCol.first)).string() +
-              "\" 0";
+          pre = StrCat("`line ", macroInf->m_startLine, " \"",
+                       fileSystem->toPath(macroInf->m_fileId), "\" 0");
+          post = StrCat("`line ", startLineCol.first + 1, " \"",
+                        fileSystem->toPath(m_pp->getFileId(startLineCol.first)),
+                        "\" 0");
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()
                   ->lineOffsetsAsComments()) {
@@ -657,12 +651,11 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
       if (!m_pp->m_instructions.m_filterFileLine) {
         if (startLineCol.second == 0) {
           if (macroInf->m_fileId)
-            pre = "`line " + std::to_string(macroInf->m_startLine) + " \"" +
-                  fileSystem->toPath(macroInf->m_fileId).string() + "\" 0";
-          post =
-              "`line " + std::to_string(startLineCol.first + 1) + " \"" +
-              fileSystem->toPath(m_pp->getFileId(startLineCol.first)).string() +
-              "\" 0";
+            pre = StrCat("`line ", macroInf->m_startLine, " \"",
+                         fileSystem->toPath(macroInf->m_fileId), "\" 0");
+          post = StrCat("`line ", startLineCol.first + 1, " \"",
+                        fileSystem->toPath(m_pp->getFileId(startLineCol.first)),
+                        "\" 0");
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()
                   ->lineOffsetsAsComments()) {
@@ -759,9 +752,8 @@ void SV3_1aPpTreeShapeListener::enterSv_file_directive(
     } else {
       std::pair<int, int> lineCol =
           ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-      m_pp->append("\"" +
-                   fileSystem->toPath(m_pp->getFileId(lineCol.first)).string() +
-                   "\"");
+      m_pp->append(StrCat(
+          "\"", fileSystem->toPath(m_pp->getFileId(lineCol.first)), "\""));
     }
   }
   m_pp->pauseAppend();

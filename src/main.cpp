@@ -30,7 +30,7 @@
 #endif
 
 #include <Surelog/API/PythonAPI.h>
-#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/ErrorReporting/Report.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/surelog.h>
@@ -231,10 +231,13 @@ int main(int argc, const char** argv) {
     cerr_rdbuf = std::cerr.rdbuf(file.rdbuf());
   }
 #endif
+  SURELOG::FileSystem::setInstance(
+      new SURELOG::PlatformFileSystem(fs::current_path()));
+
   SURELOG::Waiver::initWaivers();
 
   SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
-  const std::filesystem::path& workingDir = fileSystem->getWorkingDir();
+  const fs::path workingDir = fileSystem->getWorkingDir();
 
   unsigned int codedReturn = 0;
   COMP_MODE mode = NORMAL;

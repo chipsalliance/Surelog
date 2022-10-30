@@ -46,7 +46,7 @@ FileContent::FileContent(PathId fileId, Library* library,
 }
 
 std::string FileContent::getName() const {
-  return FileSystem::getInstance()->toPath(m_fileId).string();
+  return std::string(FileSystem::getInstance()->toPath(m_fileId));
 }
 
 const std::string& FileContent::SymName(NodeId index) const {
@@ -77,9 +77,9 @@ std::string FileContent::printObjects() const {
   NodeId index(0);
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
-  const std::filesystem::path fileName =
-      FileSystem::getInstance()->toPath(m_fileId);
-  text += "FILE: " + fileName.string() + "\n";
+  text.append("FILE: ")
+      .append(FileSystem::getInstance()->toPath(m_fileId))
+      .append("\n");
   for (auto& object : m_objects) {
     text +=
         object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId);
@@ -708,7 +708,7 @@ void FileContent::populateCoreMembers(NodeId startIndex, NodeId endIndex,
   }
 
   if (fileId) {
-    instance->VpiFile(FileSystem::getInstance()->toPath(fileId).string());
+    instance->VpiFile(FileSystem::getInstance()->toPath(fileId));
   }
 }
 }  // namespace SURELOG
