@@ -242,7 +242,7 @@ n<> u<211> t<Top_level_rule> c<1> l<1:1> el<17:1>
 assign_stmt                                            2
 assignment                                             2
 begin                                                  2
-constant                                              49
+constant                                              55
 cont_assign                                            1
 design                                                 1
 func_call                                              3
@@ -250,12 +250,14 @@ function                                               4
 indexed_part_select                                    4
 io_decl                                                4
 logic_net                                              2
-logic_typespec                                        13
+logic_typespec                                        15
 logic_var                                              6
-module                                                 3
+module                                                 7
 package                                                3
+param_assign                                           6
+parameter                                              6
 port                                                   2
-range                                                 20
+range                                                 22
 ref_obj                                               11
 return_stmt                                            4
 === UHDM Object Stats End ===
@@ -265,7 +267,7 @@ return_stmt                                            4
 assign_stmt                                            2
 assignment                                             4
 begin                                                  4
-constant                                              49
+constant                                              55
 cont_assign                                            2
 design                                                 1
 func_call                                              6
@@ -273,12 +275,14 @@ function                                               8
 indexed_part_select                                    8
 io_decl                                                8
 logic_net                                              2
-logic_typespec                                        13
+logic_typespec                                        15
 logic_var                                             10
-module                                                 3
+module                                                 7
 package                                                3
+param_assign                                           6
+parameter                                              6
 port                                                   3
-range                                                 20
+range                                                 22
 ref_obj                                               21
 return_stmt                                            8
 === UHDM Object Stats End ===
@@ -769,6 +773,8 @@ design: (work@top)
               |vpiDefName:state_in
               |vpiActual:
               \_io_decl: (state_in), line:6:61, endln:6:69
+            |vpiTypespec:
+            \_logic_typespec: , line:2:46, endln:2:57
             |vpiConstantSelect:1
             |vpiIndexedPartSelectType:1
             |vpiBaseExpr:
@@ -883,6 +889,8 @@ design: (work@top)
         |vpiDecompile:16'hABCD
         |vpiSize:16
         |HEX:ABCD
+        |vpiTypespec:
+        \_logic_typespec: , line:6:48, endln:6:60
         |vpiConstType:5
       |vpiName:my_pkg::sbox4_16bit
       |vpiFunction:

@@ -94,25 +94,25 @@ n<> u<62> t<Top_level_rule> c<1> l<2:1> el<12:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               4
-cont_assign                                            2
+constant                                               9
+cont_assign                                            4
 design                                                 1
 logic_net                                              2
-module                                                 4
-operation                                              1
-ref_obj                                                2
-sys_func_call                                          1
+module                                                 5
+operation                                              2
+ref_obj                                                4
+sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               4
-cont_assign                                            4
+constant                                               9
+cont_assign                                            6
 design                                                 1
 logic_net                                              2
-module                                                 4
+module                                                 5
 operation                                              2
-ref_obj                                                4
+ref_obj                                                6
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PPMacro/slpp_all/surelog.uhdm ...
@@ -212,12 +212,11 @@ design: (work@top1)
     |vpiParent:
     \_module: work@top1 (work@top1), file:${SURELOG_DIR}/tests/PPMacro/dut.sv, line:2:1, endln:4:10
     |vpiRhs:
-    \_sys_func_call: ($clog2), line:3:14, endln:3:25
-      |vpiParent:
-      \_cont_assign: , line:3:10, endln:3:25
-      |vpiArgument:
-      \_constant: , line:3:21, endln:3:24
-      |vpiName:$clog2
+    \_constant: 
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top1.a), line:3:10, endln:3:11
       |vpiParent:
@@ -241,14 +240,11 @@ design: (work@top1)
     |vpiParent:
     \_module: work@top2 (work@top2), file:${SURELOG_DIR}/tests/PPMacro/dut.sv, line:7:1, endln:9:10
     |vpiRhs:
-    \_operation: , line:8:14, endln:8:24
-      |vpiParent:
-      \_cont_assign: , line:8:10, endln:8:24
-      |vpiOpType:24
-      |vpiOperand:
-      \_constant: , line:8:14, endln:8:16
-      |vpiOperand:
-      \_constant: , line:8:20, endln:8:23
+    \_constant: 
+      |vpiDecompile:165
+      |vpiSize:64
+      |UINT:165
+      |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top2.a), line:8:10, endln:8:11
       |vpiParent:

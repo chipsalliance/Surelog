@@ -321,9 +321,9 @@ n<> u<288> t<Top_level_rule> c<1> l<1:1> el<41:1>
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                              15
-cont_assign                                            2
+cont_assign                                            4
 design                                                 1
-func_call                                              2
+func_call                                              4
 function                                               4
 gen_scope                                              4
 gen_scope_array                                        4
@@ -331,20 +331,20 @@ int_typespec                                           9
 int_var                                                5
 interface                                              3
 logic_net                                              2
-module                                                 7
+module                                                10
 operation                                              2
-param_assign                                           4
-parameter                                              4
-ref_obj                                                2
+param_assign                                           6
+parameter                                              6
+ref_obj                                                6
 return_stmt                                            3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                              15
-cont_assign                                            3
+cont_assign                                            5
 design                                                 1
-func_call                                              3
+func_call                                              4
 function                                               6
 gen_scope                                              5
 gen_scope_array                                        5
@@ -352,11 +352,11 @@ int_typespec                                           9
 int_var                                                5
 interface                                              3
 logic_net                                              2
-module                                                 7
+module                                                10
 operation                                              2
-param_assign                                           4
-parameter                                              4
-ref_obj                                                3
+param_assign                                           6
+parameter                                              6
+ref_obj                                                7
 return_stmt                                            5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
@@ -610,12 +610,13 @@ design: (work@top)
           |vpiParent:
           \_gen_scope: (work@top.interf.gen_block)
           |vpiRhs:
-          \_func_call: (get3), line:14:18, endln:14:24
+          \_constant: , line:11:17, endln:11:18
             |vpiParent:
-            \_cont_assign: , line:14:14, endln:14:24
-            |vpiName:get3
-            |vpiFunction:
-            \_function: (work@top.interf.gen_block.get3), line:10:7, endln:12:18
+            \_return_stmt: , line:11:10, endln:11:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@top.interf.gen_block.o), line:14:14, endln:14:15
             |vpiParent:
@@ -646,12 +647,6 @@ design: (work@top)
             \_function: (work@top.interf.gen_block.get3), line:10:7, endln:12:18
             |vpiCondition:
             \_constant: , line:11:17, endln:11:18
-              |vpiParent:
-              \_return_stmt: , line:11:10, endln:11:16
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.gen_block), line:29:4, endln:37:19
     |vpiParent:
@@ -668,12 +663,13 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.gen_block)
         |vpiRhs:
-        \_func_call: (get1), line:34:18, endln:34:24
+        \_constant: , line:31:17, endln:31:18
           |vpiParent:
-          \_cont_assign: , line:34:14, endln:34:24
-          |vpiName:get1
-          |vpiFunction:
-          \_function: (work@top.gen_block.get1), line:30:7, endln:32:18
+          \_return_stmt: , line:31:10, endln:31:16
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.gen_block.o), line:34:14, endln:34:15
           |vpiParent:
@@ -704,12 +700,6 @@ design: (work@top)
           \_function: (work@top.gen_block.get1), line:30:7, endln:32:18
           |vpiCondition:
           \_constant: , line:31:17, endln:31:18
-            |vpiParent:
-            \_return_stmt: , line:31:10, endln:31:16
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

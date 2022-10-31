@@ -1869,9 +1869,15 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns undef_eqx_nex.v -l undef_eqx_nex.v.log
+[ERR:UH0722] ${SURELOG_DIR}/third_party/tests/Yosys/simple/undef_eqx_nex.v:3:17: Division by zero in instance "".
+
+[ERR:UH0722] ${SURELOG_DIR}/third_party/tests/Yosys/simple/undef_eqx_nex.v:5:17: Division by zero in instance "".
+
+[ERR:UH0722] ${SURELOG_DIR}/third_party/tests/Yosys/simple/undef_eqx_nex.v:6:17: Division by zero in instance "".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns paramods.v -l paramods.v.log
@@ -2044,6 +2050,6 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 Processed 253 tests.
 [  FATAL] : 0
 [ SYNTAX] : 10
-[  ERROR] : 11
+[  ERROR] : 14
 [WARNING] : 227
 [   NOTE] : 0

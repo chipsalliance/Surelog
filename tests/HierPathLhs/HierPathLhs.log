@@ -176,22 +176,22 @@ n<> u<142> t<Top_level_rule> c<1> l<1:1> el<17:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_select                                             4
-constant                                              20
-cont_assign                                            2
+bit_select                                             8
+constant                                              25
+cont_assign                                            4
 design                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
-hier_path                                              3
+hier_path                                              5
 int_typespec                                           2
 logic_net                                              1
-module                                                 6
+module                                                 7
 operation                                              2
 packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                                8
+ref_obj                                               15
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -199,22 +199,22 @@ typespec_member                                        1
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_select                                             8
-constant                                              20
-cont_assign                                            4
+bit_select                                            12
+constant                                              25
+cont_assign                                            6
 design                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
-hier_path                                              5
+hier_path                                              7
 int_typespec                                           2
 logic_net                                              1
-module                                                 6
+module                                                 7
 operation                                              2
 packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                               15
+ref_obj                                               22
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -314,56 +314,6 @@ design: (work@alert_handler_reg_wrap)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
-        |vpiActual:
-        \_packed_array_var: (work@top.a), line:13:23, endln:13:24
-          |vpiParent:
-          \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
-          |vpiName:a
-          |vpiFullName:work@top.a
-          |vpiVisibility:1
-          |vpiRange:
-          \_range: , line:13:12, endln:13:17
-            |vpiLeftRange:
-            \_constant: , line:13:13, endln:13:14
-              |vpiParent:
-              \_range: , line:13:12, endln:13:17
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:13:15, endln:13:16
-              |vpiParent:
-              \_range: , line:13:12, endln:13:17
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiRange:
-          \_range: , line:13:17, endln:13:22
-            |vpiLeftRange:
-            \_constant: , line:13:18, endln:13:19
-              |vpiParent:
-              \_range: , line:13:17, endln:13:22
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:13:20, endln:13:21
-              |vpiParent:
-              \_range: , line:13:17, endln:13:22
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiElement:
-          \_struct_var: (work@top.a)
-            |vpiParent:
-            \_packed_array_var: (work@top.a), line:13:23, endln:13:24
-            |vpiTypespec:
-            \_struct_typespec: (struct_t), line:9:11, endln:9:17
-            |vpiFullName:work@top.a
       |vpiActual:
       \_ref_obj: (x)
         |vpiParent:
@@ -457,6 +407,54 @@ design: (work@alert_handler_reg_wrap)
   |vpiName:work@top
   |vpiVariables:
   \_packed_array_var: (work@top.a), line:13:23, endln:13:24
+    |vpiParent:
+    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:13:12, endln:13:17
+      |vpiLeftRange:
+      \_constant: , line:13:13, endln:13:14
+        |vpiParent:
+        \_range: , line:13:12, endln:13:17
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:13:15, endln:13:16
+        |vpiParent:
+        \_range: , line:13:12, endln:13:17
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_range: , line:13:17, endln:13:22
+      |vpiLeftRange:
+      \_constant: , line:13:18, endln:13:19
+        |vpiParent:
+        \_range: , line:13:17, endln:13:22
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:13:20, endln:13:21
+        |vpiParent:
+        \_range: , line:13:17, endln:13:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElement:
+    \_struct_var: (work@top.a)
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:13:23, endln:13:24
+      |vpiTypespec:
+      \_struct_typespec: (struct_t), line:9:11, endln:9:17
+      |vpiFullName:work@top.a
   |vpiTypedef:
   \_struct_typespec: (struct_t), line:9:11, endln:9:17
   |vpiDefName:work@top
@@ -484,12 +482,24 @@ design: (work@alert_handler_reg_wrap)
         |vpiName:a
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
+          |vpiParent:
+          \_bit_select: (a), line:15:10, endln:15:11
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
         |vpiActual:
         \_packed_array_var: (work@top.a), line:13:23, endln:13:24
       |vpiActual:
       \_bit_select: , line:15:12, endln:15:13
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
+          |vpiParent:
+          \_bit_select: , line:15:12, endln:15:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
       |vpiActual:
       \_ref_obj: (x)
         |vpiParent:
@@ -507,6 +517,12 @@ design: (work@alert_handler_reg_wrap)
         |vpiFullName:work@top
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
+          |vpiParent:
+          \_bit_select: 
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

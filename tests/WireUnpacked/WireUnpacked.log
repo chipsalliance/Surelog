@@ -99,31 +99,31 @@ n<> u<74> t<Top_level_rule> c<1> l<1:1> el<5:1>
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              1
-constant                                              10
-cont_assign                                            1
-design                                                 1
-indexed_part_select                                    1
-logic_net                                              2
-logic_typespec                                         1
-module                                                 3
-range                                                  3
-ref_obj                                                1
-var_select                                             1
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
-array_net                                              1
-constant                                              10
+constant                                              14
 cont_assign                                            2
 design                                                 1
 indexed_part_select                                    2
 logic_net                                              2
 logic_typespec                                         1
-module                                                 3
+module                                                 4
 range                                                  3
 ref_obj                                                2
 var_select                                             2
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+array_net                                              1
+constant                                              14
+cont_assign                                            3
+design                                                 1
+indexed_part_select                                    3
+logic_net                                              2
+logic_typespec                                         1
+module                                                 4
+range                                                  3
+ref_obj                                                3
+var_select                                             3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/WireUnpacked/slpp_all/surelog.uhdm ...
 
@@ -265,6 +265,12 @@ design: (work@dut)
       |vpiFullName:work@dut.read_buf
       |vpiIndex:
       \_constant: , line:3:17, endln:3:18
+        |vpiParent:
+        \_var_select: (read_buf), line:3:8, endln:3:25
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
       |vpiIndex:
       \_indexed_part_select: , line:3:20, endln:3:24
         |vpiParent:
@@ -279,8 +285,20 @@ design: (work@dut)
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:
         \_constant: , line:3:20, endln:3:21
+          |vpiParent:
+          \_indexed_part_select: , line:3:20, endln:3:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
         |vpiWidthExpr:
         \_constant: , line:3:23, endln:3:24
+          |vpiParent:
+          \_indexed_part_select: , line:3:20, endln:3:24
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

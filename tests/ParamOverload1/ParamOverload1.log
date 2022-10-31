@@ -201,39 +201,39 @@ n<> u<172> t<Top_level_rule> c<1> l<1:1> el<12:1>
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         7
-bit_select                                             1
-constant                                              74
-cont_assign                                            1
+bit_select                                             3
+constant                                              77
+cont_assign                                            3
 design                                                 1
 int_typespec                                          17
 int_var                                                4
 logic_net                                              2
-module                                                10
+module                                                11
 operation                                             19
 param_assign                                           4
 parameter                                              6
 port                                                   6
 range                                                 12
-ref_obj                                               11
+ref_obj                                               15
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         7
 bit_select                                             4
-constant                                              74
-cont_assign                                            4
+constant                                              77
+cont_assign                                            6
 design                                                 1
 int_typespec                                          17
 int_var                                                4
 logic_net                                              2
-module                                                10
+module                                                11
 operation                                             19
 param_assign                                           4
 parameter                                              6
 port                                                  10
 range                                                 12
-ref_obj                                               24
+ref_obj                                               26
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverload1/slpp_all/surelog.uhdm ...
 
@@ -860,21 +860,11 @@ design: (work@top)
       |vpiParent:
       \_module: work@dut (work@top.u_dut2), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:8:4, endln:8:22
       |vpiRhs:
-      \_bit_select: (work@top.u_dut2.P), line:3:15, endln:3:19
-        |vpiParent:
-        \_ref_obj: (work@top.u_dut2.P)
-          |vpiParent:
-          \_cont_assign: , line:3:11, endln:3:19
-          |vpiName:P
-          |vpiFullName:work@top.u_dut2.P
-          |vpiActual:
-          \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19
-        |vpiName:P
-        |vpiFullName:work@top.u_dut2.P
-        |vpiIndex:
-        \_constant: , line:3:17, endln:3:18
-        |vpiActual:
-        \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19
+      \_constant: , line:2:34, endln:2:35
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiConstType:9
       |vpiLhs:
       \_ref_obj: (work@top.u_dut2.x), line:3:11, endln:3:12
         |vpiParent:
@@ -1033,21 +1023,11 @@ design: (work@top)
       |vpiParent:
       \_module: work@dut (work@top.u_dut3), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:9:4, endln:9:34
       |vpiRhs:
-      \_bit_select: (work@top.u_dut3.P), line:3:15, endln:3:19
-        |vpiParent:
-        \_ref_obj: (work@top.u_dut3.P)
-          |vpiParent:
-          \_cont_assign: , line:3:11, endln:3:19
-          |vpiName:P
-          |vpiFullName:work@top.u_dut3.P
-          |vpiActual:
-          \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19
-        |vpiName:P
-        |vpiFullName:work@top.u_dut3.P
-        |vpiIndex:
-        \_constant: , line:3:17, endln:3:18
-        |vpiActual:
-        \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19
+      \_constant: , line:2:26, endln:2:27
+        |vpiDecompile:1'b0
+        |vpiSize:1
+        |BIN:0
+        |vpiConstType:3
       |vpiLhs:
       \_ref_obj: (work@top.u_dut3.x), line:3:11, endln:3:12
         |vpiParent:

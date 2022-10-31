@@ -240,17 +240,17 @@ n<> u<206> t<Top_level_rule> c<1> l<1:1> el<26:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              13
-cont_assign                                            3
+constant                                              16
+cont_assign                                            6
 design                                                 1
-hier_path                                              3
+hier_path                                              6
 logic_net                                              3
 logic_typespec                                         5
-module                                                 4
+module                                                 5
 package                                                6
 port                                                   6
 range                                                  5
-ref_obj                                               12
+ref_obj                                               18
 struct_net                                             3
 struct_typespec                                        5
 typespec_member                                        5
@@ -729,10 +729,61 @@ design: (work@dut)
     \_struct_typespec: (struct2), line:14:13, endln:14:19
   |vpiContAssign:
   \_cont_assign: , line:22:12, endln:22:28
+    |vpiRhs:
+    \_constant: , line:22:25, endln:22:28
+    |vpiLhs:
+    \_hier_path: (var1.first), line:22:12, endln:22:22
+      |vpiParent:
+      \_cont_assign: , line:22:12, endln:22:28
+      |vpiName:var1.first
+      |vpiActual:
+      \_ref_obj: (var1)
+        |vpiParent:
+        \_hier_path: (var1.first), line:22:12, endln:22:22
+        |vpiName:var1
+      |vpiActual:
+      \_ref_obj: (first)
+        |vpiParent:
+        \_hier_path: (var1.first), line:22:12, endln:22:22
+        |vpiName:first
   |vpiContAssign:
   \_cont_assign: , line:23:12, endln:23:29
+    |vpiRhs:
+    \_constant: , line:23:26, endln:23:29
+    |vpiLhs:
+    \_hier_path: (var2.second), line:23:12, endln:23:23
+      |vpiParent:
+      \_cont_assign: , line:23:12, endln:23:29
+      |vpiName:var2.second
+      |vpiActual:
+      \_ref_obj: (var2)
+        |vpiParent:
+        \_hier_path: (var2.second), line:23:12, endln:23:23
+        |vpiName:var2
+      |vpiActual:
+      \_ref_obj: (second)
+        |vpiParent:
+        \_hier_path: (var2.second), line:23:12, endln:23:23
+        |vpiName:second
   |vpiContAssign:
   \_cont_assign: , line:24:12, endln:24:27
+    |vpiRhs:
+    \_constant: , line:24:25, endln:24:27
+    |vpiLhs:
+    \_hier_path: (var3.third), line:24:12, endln:24:22
+      |vpiParent:
+      \_cont_assign: , line:24:12, endln:24:27
+      |vpiName:var3.third
+      |vpiActual:
+      \_ref_obj: (var3)
+        |vpiParent:
+        \_hier_path: (var3.third), line:24:12, endln:24:22
+        |vpiName:var3
+      |vpiActual:
+      \_ref_obj: (third)
+        |vpiParent:
+        \_hier_path: (var3.third), line:24:12, endln:24:22
+        |vpiName:third
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

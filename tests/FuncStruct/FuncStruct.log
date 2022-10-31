@@ -256,9 +256,9 @@ n<> u<225> t<Top_level_rule> c<1> l<1:1> el<20:1>
 assign_stmt                                            2
 assignment                                             4
 begin                                                  2
-bit_select                                             4
-constant                                              62
-cont_assign                                            2
+bit_select                                             5
+constant                                              64
+cont_assign                                            3
 design                                                 1
 func_call                                              1
 function                                               2
@@ -267,11 +267,13 @@ io_decl                                                4
 logic_net                                              2
 logic_typespec                                        20
 logic_var                                              6
-module                                                 4
+module                                                 6
 package                                                3
 packed_array_typespec                                  2
+param_assign                                           2
+parameter                                              2
 range                                                 26
-ref_obj                                               10
+ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -279,9 +281,9 @@ ref_obj                                               10
 assign_stmt                                            2
 assignment                                            10
 begin                                                  5
-bit_select                                             9
-constant                                              62
-cont_assign                                            4
+bit_select                                            10
+constant                                              64
+cont_assign                                            5
 design                                                 1
 func_call                                              2
 function                                               5
@@ -290,11 +292,13 @@ io_decl                                               10
 logic_net                                              2
 logic_typespec                                        20
 logic_var                                             12
-module                                                 4
+module                                                 6
 package                                                3
 packed_array_typespec                                  2
+param_assign                                           2
+parameter                                              2
 range                                                 26
-ref_obj                                               23
+ref_obj                                               24
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/surelog.uhdm ...
 
@@ -1055,6 +1059,8 @@ design: (work@dut)
           \_func_call: (compress), line:17:15, endln:17:35
           |vpiName:w
           |vpiFullName:work@dut.w
+        |vpiTypespec:
+        \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
         |vpiName:w
         |vpiFullName:work@dut.w
         |vpiIndex:
@@ -1069,6 +1075,8 @@ design: (work@dut)
       \_ref_obj: (work@dut.hash), line:17:30, endln:17:34
         |vpiParent:
         \_func_call: (compress), line:17:15, endln:17:35
+        |vpiTypespec:
+        \_logic_typespec: , line:3:73, endln:3:83
         |vpiName:hash
         |vpiFullName:work@dut.hash
         |vpiActual:
@@ -1279,6 +1287,12 @@ design: (work@dut)
       |vpiFullName:work@dut.w
       |vpiIndex:
       \_constant: , line:16:10, endln:16:11
+        |vpiParent:
+        \_bit_select: (w), line:16:8, endln:16:12
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
       |vpiActual:
       \_logic_var: (work@dut.w), line:14:19, endln:14:20
   |vpiContAssign:
@@ -1299,6 +1313,8 @@ design: (work@dut)
           |vpiFullName:work@dut.w
           |vpiActual:
           \_logic_var: (work@dut.w), line:14:19, endln:14:20
+        |vpiTypespec:
+        \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
         |vpiName:w
         |vpiFullName:work@dut.w
         |vpiIndex:
@@ -1309,6 +1325,8 @@ design: (work@dut)
       \_ref_obj: (work@dut.hash), line:17:30, endln:17:34
         |vpiParent:
         \_func_call: (compress), line:17:15, endln:17:35
+        |vpiTypespec:
+        \_logic_typespec: , line:3:73, endln:3:83
         |vpiName:hash
         |vpiFullName:work@dut.hash
         |vpiActual:

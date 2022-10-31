@@ -452,8 +452,8 @@ bit_select                                             1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              20
-cont_assign                                            1
+constant                                              23
+cont_assign                                            2
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -467,13 +467,13 @@ io_decl                                               11
 logic_net                                              1
 logic_typespec                                         1
 logic_var                                              2
-module                                                 3
+module                                                 4
 operation                                              2
 package                                                2
 range                                                  4
 ref_obj                                                6
 task                                                   9
-var_select                                             2
+var_select                                             3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -485,8 +485,8 @@ bit_select                                             2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              20
-cont_assign                                            2
+constant                                              23
+cont_assign                                            3
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
@@ -500,13 +500,13 @@ io_decl                                               22
 logic_net                                              1
 logic_typespec                                         1
 logic_var                                              2
-module                                                 3
+module                                                 4
 operation                                              4
 package                                                2
 range                                                  4
 ref_obj                                               12
 task                                                  18
-var_select                                             4
+var_select                                             5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VarSelect/slpp_all/surelog.uhdm ...
 
@@ -1408,8 +1408,20 @@ design: (work@top)
       |vpiFullName:work@top.a
       |vpiIndex:
       \_constant: , line:4:11, endln:4:12
+        |vpiParent:
+        \_var_select: (a), line:4:9, endln:4:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
       |vpiIndex:
       \_constant: , line:4:14, endln:4:15
+        |vpiParent:
+        \_var_select: (a), line:4:9, endln:4:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
