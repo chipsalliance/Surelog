@@ -42,21 +42,32 @@ namespace SURELOG {
 static constexpr std::string_view FlbSchemaVersion = "1.5";
 static constexpr std::string_view UnknownRawPath = "<unknown>";
 
-PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
+PPCache::PPCache(PreprocessFile* pp) : m_pp(pp) {}
 
-PathId PPCache::getCacheFileId_(PathId sourceFileId) {
+PathId PPCache::getCacheFileId_(PathId sourceFileId) const {
   if (!sourceFileId) sourceFileId = m_pp->getFileId(LINE1);
   if (!sourceFileId) return BadPathId;
 
   FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* symbolTable = m_pp->getCompileSourceFile()->getSymbolTable();
-  Precompiled* prec = Precompiled::getSingleton();
 
-  m_isPrecompiled = prec->isFilePrecompiled(sourceFileId, symbolTable);
   const std::string& libName = m_pp->getLibrary()->getName();
+
+  if (clp->parseOnly()) {
+    // If parseOnly flag is set, the Preprocessor doesn't actually generate
+    // an output file. Instead it uses the source itself i.e. from the original
+    // source location. Compute the "potential" Preprocessor output file so the
+    // cache file location would be correct.
+    sourceFileId = fileSystem->getPpOutputFile(clp->fileunit(), sourceFileId,
+                                               libName, symbolTable);
+  }
+
+  Precompiled* prec = Precompiled::getSingleton();
+  const bool isPrecompiled = prec->isFilePrecompiled(sourceFileId, symbolTable);
+
   return fileSystem->getPpCacheFile(clp->fileunit(), sourceFileId, libName,
-                                    m_isPrecompiled, symbolTable);
+                                    isPrecompiled, symbolTable);
 }
 
 template <class T>
@@ -184,33 +195,25 @@ bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
   return true;
 }
 
-bool PPCache::restore_(PathId cacheFileId, bool errorsOnly,
-                       int recursionDepth) {
-  std::vector<char> content;
-  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
-         restore_(cacheFileId, content, errorsOnly, recursionDepth);
-}
-
 bool PPCache::checkCacheIsValid_(PathId cacheFileId,
-                                 const std::vector<char>& content) {
+                                 const std::vector<char>& content) const {
   if (!cacheFileId || content.empty()) return false;
 
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  if (clp->parseOnly() || clp->lowMem()) {
-    return true;
-  }
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return false;
+
   if (!MACROCACHE::PPCacheBufferHasIdentifier(content.data())) {
     return false;
   }
-  if (clp->noCacheHash()) {
-    return true;
-  }
 
   FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable* symbolTable = m_pp->getCompileSourceFile()->getSymbolTable();
+
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(content.data());
   const auto header = ppcache->header();
 
-  if (m_isPrecompiled) {
+  Precompiled* prec = Precompiled::getSingleton();
+  if (prec->isFilePrecompiled(m_pp->getFileId(LINE1), symbolTable)) {
     // For precompiled, check only the signature & version (so using
     // BadPathId instead of the actual arguments)
     return checkIfCacheIsValid(header, FlbSchemaVersion, BadPathId, BadPathId);
@@ -220,6 +223,8 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
                            m_pp->getFileId(LINE1))) {
     return false;
   }
+
+  if (clp->parseOnly() || clp->lowMem()) return true;
 
   const auto cacheSymbols = ppcache->symbols();
 
@@ -280,29 +285,25 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
   return true;
 }
 
-bool PPCache::checkCacheIsValid_(PathId cacheFileId) {
+bool PPCache::checkCacheIsValid_(PathId cacheFileId) const {
+  if (!cacheFileId) return false;
+
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  if (clp->parseOnly() || clp->lowMem()) {
-    return true;
-  }
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return false;
+  if (clp->parseOnly() || clp->lowMem()) return true;
 
   std::vector<char> content;
-  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+  return openFlatBuffers(cacheFileId, content) &&
          checkCacheIsValid_(cacheFileId, content);
 }
 
 bool PPCache::isValid() {
-  PathId cacheFileId = getCacheFileId_(BadPathId);
-
-  std::vector<char> content;
-  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
-         checkCacheIsValid_(cacheFileId, content);
+  return checkCacheIsValid_(getCacheFileId_(BadPathId));
 }
 
 bool PPCache::restore(bool errorsOnly) {
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->cacheAllowed()) return false;
-  if (m_pp->isMacroBody()) return false;
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return false;
 
   PathId cacheFileId = getCacheFileId_(BadPathId);
   std::vector<char> content;
@@ -314,8 +315,7 @@ bool PPCache::restore(bool errorsOnly) {
 
 bool PPCache::save() {
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->cacheAllowed()) return false;
-  if (m_pp->isMacroBody()) return false;
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return true;
 
   FileSystem* const fileSystem = FileSystem::getInstance();
   FileContent* fcontent = m_pp->getFileContent();
@@ -328,7 +328,10 @@ bool PPCache::save() {
   }
 
   PathId cacheFileId = getCacheFileId_(BadPathId);
-  if (!cacheFileId) return true;
+  if (!cacheFileId) {
+    // Any fake(virtual) file like builtin.sv
+    return true;
+  }
 
   // std::cout << "SAVING FILE: " << PathIdPP(cacheFileId) << std::endl;
 
