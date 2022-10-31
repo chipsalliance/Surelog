@@ -235,6 +235,10 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -cd <dir>             Internally change directory to <dir>. This should",
     "                        only be relative and is w.r.t.to last - wd",
     "                        option.",
+    "  -remap <what> <with>  When loading cache, source paths can be remapped",
+    "                        from<what> to<with>.Use it to relocate sources",
+    "                        and still use pregenerated cache. Both <what> and",
+    "                        <with> are expected to be absolute paths.",
     "  -exe <command>        Post execute a system call <command>, passes it",
     "                        the preprocessor file list.",
     "  --help                This help",
@@ -427,18 +431,22 @@ std::pair<PathId, fs::path> CommandLineParser::addWorkingDirectory_(
   const fs::path cwd =
       FileSystem::normalize(rcd.is_relative() ? wd / rcd : rcd);
 
-  fs::path bwd = wd;
-  for (const fs::path& p : cwd.lexically_relative(wd)) {
-    if (p == "..") {
-      bwd = bwd.parent_path();
-    } else {
-      break;
-    }
-  }
-
   FileSystem* const fileSystem = FileSystem::getInstance();
-  if (wd != bwd) {
-    fileSystem->getWorkingDir(bwd.string(), m_symbolTable);
+  if (rcd.is_absolute()) {
+    fileSystem->getWorkingDir(rcd.string(), m_symbolTable);
+  } else {
+    fs::path bwd = wd;
+    for (const fs::path& p : cwd.lexically_relative(wd)) {
+      if (p == "..") {
+        bwd = bwd.parent_path();
+      } else {
+        break;
+      }
+    }
+
+    if (wd != bwd) {
+      fileSystem->getWorkingDir(bwd.string(), m_symbolTable);
+    }
   }
 
   const PathId cwdId = fileSystem->toPathId(cwd.string(), m_symbolTable);
@@ -809,7 +817,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   wd = cd = fileSystem->getWorkingDir();
   m_workingDirs.emplace_back(fileSystem->getWorkingDir(m_symbolTable));
 
-  for (unsigned int i = 0; i < all_arguments.size(); i++) {
+  for (size_t i = 0; i < all_arguments.size(); i++) {
     if (all_arguments[i].empty() || plus_arguments_(all_arguments[i], cd)) {
       // handled by plus_arguments
     } else if (all_arguments[i] == "-wd") {
@@ -832,6 +840,23 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         break;
       }
       cd = std::get<1>(addWorkingDirectory_(wd, all_arguments[++i]));
+    } else if (all_arguments[i] == "-remap") {
+      Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
+      if ((i + 2) >= all_arguments.size()) {
+        Error err(ErrorDefinition::CMD_REMAP_MISSING_DIRS, loc);
+        m_errors->addError(err);
+        break;
+      }
+      const std::filesystem::path what =
+          FileSystem::normalize(all_arguments[++i]);
+      const std::filesystem::path with =
+          FileSystem::normalize(all_arguments[++i]);
+      if (!what.is_absolute() || !with.is_absolute()) {
+        Error err(ErrorDefinition::CMD_REMAP_MISSING_DIRS, loc);
+        m_errors->addError(err);
+        break;
+      }
+      fileSystem->addMapping(what.string(), with.string());
     } else if (all_arguments[i] == "-d") {
       if (i == all_arguments.size() - 1) {
         Location loc(m_symbolTable->registerSymbol(all_arguments[i]));

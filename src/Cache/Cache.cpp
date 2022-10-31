@@ -31,12 +31,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <ctime>
 #include <filesystem>
 #include <iostream>
 
 namespace SURELOG {
-namespace fs = std::filesystem;
+static constexpr std::string_view UnknownRawPath = "<unknown>";
 
 std::string_view Cache::getExecutableTimeStamp() const {
   static constexpr std::string_view sExecTstamp(__DATE__ "-" __TIME__);
@@ -166,10 +165,12 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
     std::vector<Location> locs;
     for (unsigned int j = 0; j < errorFlb->locations()->size(); j++) {
       auto locFlb = errorFlb->locations()->Get(j);
-      PathId translFileId = fileSystem->copy(
-          PathId(cacheSymbols, locFlb->file_id(), "<unknown>"), localSymbols);
+      PathId translFileId = fileSystem->toPathId(
+          fileSystem->remap(cacheSymbols->getSymbol(
+              SymbolId(locFlb->file_id(), UnknownRawPath))),
+          localSymbols);
       SymbolId translObjectId = localSymbols->copyFrom(
-          SymbolId(locFlb->object(), "<unknown>"), cacheSymbols);
+          SymbolId(locFlb->object(), UnknownRawPath), cacheSymbols);
       locs.emplace_back(translFileId, locFlb->line(), locFlb->column(),
                         translObjectId);
     }
@@ -287,9 +288,10 @@ void Cache::restoreVObjects(
     // clang-format on
 
     result->emplace_back(
-        localSymbols->copyFrom(SymbolId(name, "<unknown>"), &cacheSymbols),
-        fileSystem->copy(PathId(&cacheSymbols, fileId, "<unknown>"),
-                         localSymbols),
+        localSymbols->copyFrom(SymbolId(name, UnknownRawPath), &cacheSymbols),
+        fileSystem->toPathId(fileSystem->remap(cacheSymbols.getSymbol(
+                                 SymbolId(fileId, UnknownRawPath))),
+                             localSymbols),
         (VObjectType)type, line, column, endLine, endColumn, NodeId(parent),
         NodeId(definition), NodeId(child), NodeId(sibling));
   }

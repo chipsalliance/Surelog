@@ -164,8 +164,9 @@ TEST(PPCacheTest, IncludeChangeTolerance) {
 
     const std::vector<std::string> args{
         kProgramFile.string(),
-        "-parse",
+        "-nostdout",
         "-nobuiltin",
+        "-parse",
         std::string("-I") + fileSystem->toPath(include1DirId).string(),
         std::string("-I") + fileSystem->toPath(include2DirId).string(),
         fileSystem->toPath(sourceFileId).string(),
@@ -222,8 +223,9 @@ TEST(PPCacheTest, IncludeChangeTolerance) {
 
     const std::vector<std::string> args{
         kProgramFile.string(),
-        "-parse",
+        "-nostdout",
         "-nobuiltin",
+        "-parse",
         std::string("-I") + fileSystem->toPath(include1DirId).string(),
         std::string("-I") + fileSystem->toPath(include2DirId).string(),
         std::string("-I") + fileSystem->toPath(include3DirId).string(),
