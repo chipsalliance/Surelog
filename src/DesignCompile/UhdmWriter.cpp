@@ -1643,7 +1643,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             ref_obj* ref = (ref_obj*)lhs;
             ref->Actual_group(var);
             cloned = true;
-          } 
+          }
 
           if (expr* exp = any_cast<expr*>(var)) {
             if (const typespec* temp = exp->Typespec()) {
@@ -1706,7 +1706,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
               tps = lhs->Typespec();
               cloned = true;
             }
-            assign->Rhs((constant*) res);
+            assign->Rhs((constant*)res);
           }
         }
       }
