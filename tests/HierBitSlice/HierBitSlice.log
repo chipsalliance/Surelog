@@ -4613,8 +4613,8 @@ begin                                                 25
 bit_select                                            24
 case_item                                            193
 case_stmt                                              8
-constant                                             549
-cont_assign                                           28
+constant                                             567
+cont_assign                                           30
 design                                                 1
 event_control                                          2
 gen_scope                                              4
@@ -4625,16 +4625,16 @@ if_stmt                                                1
 int_typespec                                           2
 integer_typespec                                       2
 logic_net                                             55
-logic_typespec                                       118
+logic_typespec                                       122
 logic_var                                             43
-module                                                12
-operation                                            222
+module                                                13
+operation                                            232
 packed_array_typespec                                  2
 parameter                                              2
-part_select                                           12
+part_select                                           14
 port                                                  54
-range                                                 66
-ref_obj                                              608
+range                                                 70
+ref_obj                                              616
 struct_net                                             2
 struct_typespec                                        2
 struct_var                                             2
@@ -4653,8 +4653,8 @@ begin                                                 50
 bit_select                                            47
 case_item                                            386
 case_stmt                                             16
-constant                                             549
-cont_assign                                           53
+constant                                             567
+cont_assign                                           55
 design                                                 1
 event_control                                          4
 gen_scope                                              6
@@ -4665,16 +4665,16 @@ if_stmt                                                2
 int_typespec                                           2
 integer_typespec                                       2
 logic_net                                             55
-logic_typespec                                       118
+logic_typespec                                       122
 logic_var                                             73
-module                                                14
-operation                                            420
+module                                                15
+operation                                            430
 packed_array_typespec                                  2
 parameter                                              2
-part_select                                           24
+part_select                                           26
 port                                                  83
-range                                                 72
-ref_obj                                             1168
+range                                                 76
+ref_obj                                             1176
 struct_net                                             2
 struct_typespec                                        2
 struct_var                                             2
@@ -14406,9 +14406,36 @@ design: (work@int_execute_stage)
           \_cont_assign: , line:210:20, endln:210:98
           |vpiTypespec:
           \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+            |vpiParent:
+            \_operation: , line:210:29, endln:210:98
             |vpiName:scalar_t
             |vpiTypedefAlias:
             \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+              |vpiParent:
+              \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+              |vpiName:scalar_t
+              |vpiInstance:
+              \_design: (work@int_execute_stage)
+              |vpiRange:
+              \_range: , line:50:14, endln:50:20
+                |vpiParent:
+                \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+                |vpiLeftRange:
+                \_constant: , line:50:15, endln:50:17
+                  |vpiParent:
+                  \_range: , line:50:14, endln:50:20
+                  |vpiDecompile:31
+                  |vpiSize:64
+                  |UINT:31
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:50:18, endln:50:19
+                  |vpiParent:
+                  \_range: , line:50:14, endln:50:20
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
             |vpiRange:
             \_range: , line:50:14, endln:50:20
               |vpiParent:
@@ -19812,9 +19839,36 @@ design: (work@int_execute_stage)
           \_cont_assign: , line:210:20, endln:210:98
           |vpiTypespec:
           \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+            |vpiParent:
+            \_operation: , line:210:29, endln:210:98
             |vpiName:scalar_t
             |vpiTypedefAlias:
             \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+              |vpiParent:
+              \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+              |vpiName:scalar_t
+              |vpiInstance:
+              \_design: (work@int_execute_stage)
+              |vpiRange:
+              \_range: , line:50:14, endln:50:20
+                |vpiParent:
+                \_logic_typespec: (scalar_t), line:50:9, endln:50:20
+                |vpiLeftRange:
+                \_constant: , line:50:15, endln:50:17
+                  |vpiParent:
+                  \_range: , line:50:14, endln:50:20
+                  |vpiDecompile:31
+                  |vpiSize:64
+                  |UINT:31
+                  |vpiConstType:9
+                |vpiRightRange:
+                \_constant: , line:50:18, endln:50:19
+                  |vpiParent:
+                  \_range: , line:50:14, endln:50:20
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
             |vpiRange:
             \_range: , line:50:14, endln:50:20
               |vpiParent:

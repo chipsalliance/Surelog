@@ -525,25 +525,25 @@ bit_select                                             3
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              15
-cont_assign                                            2
+constant                                              17
+cont_assign                                            4
 design                                                 1
 enum_const                                             6
 enum_typespec                                          2
 enum_var                                               3
 function                                               9
-hier_path                                              4
+hier_path                                              5
 int_typespec                                           9
 int_var                                                4
 io_decl                                               11
 logic_net                                              7
 logic_typespec                                         5
 logic_var                                              4
-module                                                 4
+module                                                 5
 operation                                              1
 package                                                2
 range                                                  2
-ref_obj                                               13
+ref_obj                                               18
 struct_typespec                                        2
 struct_var                                             2
 task                                                   9
@@ -558,25 +558,25 @@ bit_select                                             3
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              15
-cont_assign                                            4
+constant                                              17
+cont_assign                                            6
 design                                                 1
 enum_const                                            11
 enum_typespec                                          3
 enum_var                                               3
 function                                              18
-hier_path                                              5
+hier_path                                              6
 int_typespec                                           9
 int_var                                                4
 io_decl                                               22
 logic_net                                              7
 logic_typespec                                         5
 logic_var                                              4
-module                                                 4
+module                                                 5
 operation                                              1
 package                                                2
 range                                                  2
-ref_obj                                               18
+ref_obj                                               21
 struct_typespec                                        2
 struct_var                                             2
 task                                                  18
@@ -1444,13 +1444,11 @@ design: (work@top)
     |vpiParent:
     \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiRhs:
-    \_ref_obj: (work@top.PMP_MODE_OFF), line:20:21, endln:20:33
-      |vpiParent:
-      \_cont_assign: , line:20:9, endln:20:33
-      |vpiName:PMP_MODE_OFF
-      |vpiFullName:work@top.PMP_MODE_OFF
-      |vpiActual:
-      \_enum_const: (PMP_MODE_OFF), line:4:4, endln:4:26
+    \_constant: 
+      |vpiDecompile:2'b00
+      |vpiSize:2
+      |BIN:00
+      |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.enum_test), line:20:9, endln:20:18
       |vpiParent:
@@ -1464,13 +1462,11 @@ design: (work@top)
     |vpiParent:
     \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiRhs:
-    \_ref_obj: (work@top.PMP_MODE_OFF), line:28:31, endln:28:43
-      |vpiParent:
-      \_cont_assign: , line:28:9, endln:28:43
-      |vpiName:PMP_MODE_OFF
-      |vpiFullName:work@top.PMP_MODE_OFF
-      |vpiActual:
-      \_enum_const: (PMP_MODE_OFF), line:4:4, endln:4:26
+    \_constant: 
+      |vpiDecompile:2'b00
+      |vpiSize:2
+      |BIN:00
+      |vpiConstType:3
     |vpiLhs:
     \_hier_path: (csr_pmp_cfg_ie.mode), line:28:9, endln:28:28
       |vpiParent:

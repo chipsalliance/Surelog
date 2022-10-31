@@ -40,18 +40,18 @@ Instance tree:
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         3
 array_var                                              1
-bit_select                                             2
-constant                                               7
-cont_assign                                            2
+bit_select                                             3
+constant                                               9
+cont_assign                                            3
 design                                                 1
-hier_path                                              2
+hier_path                                              3
 logic_net                                              3
 logic_typespec                                         6
-module                                                 3
+module                                                 4
 package                                                3
 port                                                   2
 range                                                  2
-ref_obj                                                7
+ref_obj                                                9
 struct_typespec                                        3
 typespec_member                                        3
 === UHDM Object Stats End ===
@@ -321,6 +321,34 @@ design: (work@dut)
     \_logic_typespec: , line:8:19, endln:8:19
   |vpiContAssign:
   \_cont_assign: , line:10:11, endln:10:21
+    |vpiRhs:
+    \_constant: , line:10:20, endln:10:21
+    |vpiLhs:
+    \_hier_path: (c[1].x), line:10:11, endln:10:12
+      |vpiParent:
+      \_cont_assign: , line:10:11, endln:10:21
+      |vpiName:c[1].x
+      |vpiActual:
+      \_bit_select: (c), line:10:11, endln:10:12
+        |vpiParent:
+        \_ref_obj: (c[1])
+          |vpiParent:
+          \_hier_path: (c[1].x), line:10:11, endln:10:12
+          |vpiName:c[1]
+        |vpiName:c
+        |vpiIndex:
+        \_constant: , line:10:13, endln:10:14
+          |vpiParent:
+          \_bit_select: (c), line:10:11, endln:10:12
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiActual:
+      \_ref_obj: (x)
+        |vpiParent:
+        \_hier_path: (c[1].x), line:10:11, endln:10:12
+        |vpiName:x
   |vpiContAssign:
   \_cont_assign: , line:11:11, endln:11:21
 ===================

@@ -1628,6 +1628,8 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
       const expr* lhs = assign->Lhs();
       const expr* rhs = assign->Rhs();
       const typespec* tps = lhs->Typespec();
+      bool simplified = false;
+      bool cloned = false;
       if (lhs->UhdmType() == uhdmref_obj) {
         UHDM::any* var =
             m_helper.bindVariable(mod, m, lhs->VpiName(), m_compileDesign);
@@ -1640,6 +1642,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             tps = lhs->Typespec();
             ref_obj* ref = (ref_obj*)lhs;
             ref->Actual_group(var);
+            cloned = true;
           }
 
           if (expr* exp = any_cast<expr*>(var)) {
@@ -1649,12 +1652,20 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
           }
         }
       }
-
       if (tps) {
         UHDM::ExprEval eval(true);
         expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
         if (tmp->UhdmType() == uhdmoperation) {
+          if (cloned == false) {
+            ElaboratorListener listener(&s, false, true);
+            assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+            lhs = assign->Lhs();
+            rhs = assign->Rhs();
+            tps = lhs->Typespec();
+            cloned = true;
+          }
           ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+          simplified = true;
         }
       } else if (rhs->UhdmType() == uhdmoperation) {
         operation* op = (operation*)rhs;
@@ -1662,7 +1673,40 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
           UHDM::ExprEval eval(true);
           expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
           if (tmp->UhdmType() == uhdmoperation) {
+            if (cloned == false) {
+              ElaboratorListener listener(&s, false, true);
+              assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              lhs = assign->Lhs();
+              rhs = assign->Rhs();
+              tps = lhs->Typespec();
+              cloned = true;
+            }
             ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+            simplified = true;
+          }
+        }
+      }
+      if (simplified == false) {
+        bool invalidValue = false;
+        FileSystem* const fileSystem = FileSystem::getInstance();
+        any* res = m_helper.reduceExpr(
+            (expr*)rhs, invalidValue, mod, m_compileDesign,
+            netlist->getParent(),
+            fileSystem->toPathId(
+                rhs->VpiFile(),
+                m_compileDesign->getCompiler()->getSymbolTable()),
+            rhs->VpiLineNo(), assign);
+        if (invalidValue == false) {
+          if (res && (res->UhdmType() == uhdmconstant)) {
+            if (cloned == false) {
+              ElaboratorListener listener(&s, false, true);
+              assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              lhs = assign->Lhs();
+              rhs = assign->Rhs();
+              tps = lhs->Typespec();
+              cloned = true;
+            }
+            assign->Rhs((constant*)res);
           }
         }
       }
