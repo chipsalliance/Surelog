@@ -45,6 +45,7 @@
 #include <Surelog/Utils/Timer.h>
 #include <antlr4-runtime.h>
 
+#include <filesystem>
 #include <thread>
 
 #if defined(_MSC_VER)
@@ -349,9 +350,9 @@ bool Compiler::createMultiProcessParser_() {
   // Create CMakeLists.txt
   const bool muted = m_commandLineParser->muteStdout();
   const fs::path outputDir =
-      fileSystem->toPath(m_commandLineParser->getOutputDirId());
+      fileSystem->toPlatformPath(m_commandLineParser->getOutputDirId());
   const fs::path programPath =
-      fileSystem->toPath(m_commandLineParser->getProgramId());
+      fileSystem->toPlatformPath(m_commandLineParser->getProgramId());
   const std::string_view profile =
       m_commandLineParser->profile() ? " -profile " : " ";
   const std::string_view sverilog =
@@ -420,7 +421,7 @@ bool Compiler::createMultiProcessParser_() {
                " -parseonly -nostdout -nobuiltin -mt 0 -mp 0 -l ",
                targetname + ".log ", svFile,
                fileSystem->toPath(compiler->getPpOutputFileId()));
-    for (const std::filesystem::path& wd : fileSystem->getWorkingDirs()) {
+    for (const std::string& wd : fileSystem->getWorkingDirs()) {
       StrAppend(&batchCmd, " -wd ", wd);
     }
 
@@ -437,7 +438,8 @@ bool Compiler::createMultiProcessParser_() {
     std::string fileList;
     absoluteIndex++;
     for (const auto compiler : jobArray[i]) {
-      fs::path fileName = fileSystem->toPath(compiler->getPpOutputFileId());
+      fs::path fileName =
+          fileSystem->toPlatformPath(compiler->getPpOutputFileId());
       std::string_view svFile =
           m_commandLineParser->isSVFile(compiler->getFileId()) ? " -sv " : " ";
       StrAppend(&fileList, svFile, fileName);
@@ -453,7 +455,7 @@ bool Compiler::createMultiProcessParser_() {
           StrCat(profile, fileUnit, sverilog, synth, noHash,
                  " -parseonly -nostdout -nobuiltin -mt 0 -mp 0 -l ",
                  targetname + ".log ", fileList);
-      for (const std::filesystem::path& wd : fileSystem->getWorkingDirs()) {
+      for (const std::string& wd : fileSystem->getWorkingDirs()) {
         StrAppend(&batchCmd, " -wd ", wd);
       }
 
@@ -545,9 +547,9 @@ bool Compiler::createMultiProcessPreProcessor_() {
   const bool muted = m_commandLineParser->muteStdout();
   const fs::path workingDir = fileSystem->getWorkingDir();
   const fs::path outputDir =
-      fileSystem->toPath(m_commandLineParser->getOutputDirId());
+      fileSystem->toPlatformPath(m_commandLineParser->getOutputDirId());
   const fs::path programPath =
-      fileSystem->toPath(m_commandLineParser->getProgramId());
+      fileSystem->toPlatformPath(m_commandLineParser->getProgramId());
   const std::string_view profile =
       m_commandLineParser->profile() ? " -profile " : " ";
   const std::string_view sverilog =
@@ -596,7 +598,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
                                 " -writepp -mt 0 -mp 0 -nobuiltin -noparse "
                                 "-nostdout -l preprocessing.log -cd ",
                                 workingDir, fileList);
-  for (const std::filesystem::path& wd : fileSystem->getWorkingDirs()) {
+  for (const std::string& wd : fileSystem->getWorkingDirs()) {
     StrAppend(&batchCmd, " -wd ", wd);
   }
 

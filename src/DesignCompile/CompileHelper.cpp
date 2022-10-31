@@ -3292,7 +3292,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
           arguments->push_back((*itr).second);
         } else {
           constant* c = s.MakeConstant();
-          c->VpiFile(fileSystem->toPath(fC->getFileId()).string());
+          c->VpiFile(fileSystem->toPath(fC->getFileId()));
           c->VpiValue("INT:0");
           c->VpiDecompile("0");
           c->VpiSize(64);

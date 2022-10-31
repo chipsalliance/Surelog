@@ -57,7 +57,7 @@
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
-
+namespace fs = std::filesystem;
 using namespace UHDM;  // NOLINT (we're using a whole bunch of these)
 
 std::string UhdmWriter::builtinGateName(VObjectType type) {
@@ -1795,7 +1795,7 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
           parameter* p = s.MakeParameter();
           p->VpiName(name);
           if (val && val->isValid()) p->VpiValue(val->uhdmValue());
-          p->VpiFile(fileSystem->toPath(instance->getFileId()).string());
+          p->VpiFile(fileSystem->toPath(instance->getFileId()));
           p->VpiLineNo(param.second.second);
           p->VpiParent(m);
           p->VpiLocalParam(true);
@@ -3425,7 +3425,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         sm->VpiDefName(child->getModuleName());
         sm->VpiFullName(child->getFullPathName());
         const FileContent* defFile = mm->getFileContents()[0];
-        sm->VpiDefFile(fileSystem->toPath(defFile->getFileId()).string());
+        sm->VpiDefFile(fileSystem->toPath(defFile->getFileId()));
         sm->VpiDefLineNo(defFile->Line(mm->getNodeIds()[0]));
         child->getFileContent()->populateCoreMembers(child->getNodeId(),
                                                      child->getNodeId(), sm);
@@ -3497,7 +3497,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         child->getFileContent()->populateCoreMembers(child->getNodeId(),
                                                      child->getNodeId(), sm);
         const FileContent* defFile = mm->getFileContents()[0];
-        sm->VpiDefFile(fileSystem->toPath(defFile->getFileId()).string());
+        sm->VpiDefFile(fileSystem->toPath(defFile->getFileId()));
         sm->VpiDefLineNo(defFile->Line(mm->getNodeIds()[0]));
         subInterfaces->push_back(sm);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
@@ -3628,7 +3628,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       child->getFileContent()->populateCoreMembers(child->getNodeId(),
                                                    child->getNodeId(), sm);
       const FileContent* defFile = prog->getFileContents()[0];
-      sm->VpiDefFile(fileSystem->toPath(defFile->getFileId()).string());
+      sm->VpiDefFile(fileSystem->toPath(defFile->getFileId()));
       sm->VpiDefLineNo(defFile->Line(prog->getNodeIds()[0]));
       subPrograms->push_back(sm);
       UHDM_OBJECT_TYPE utype = m->UhdmType();
@@ -3732,9 +3732,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         if ((ifi.m_context == IncludeFileInfo::Context::INCLUDE) &&
             (ifi.m_action == IncludeFileInfo::Action::PUSH)) {
           include_file_info* const pifi = s.MakeInclude_file_info();
-          pifi->VpiFile(fileSystem->toPath(pf->getRawFileId()).string());
-          pifi->VpiIncludedFile(
-              fileSystem->toPath(ifi.m_sectionFileId).string());
+          pifi->VpiFile(fileSystem->toPath(pf->getRawFileId()));
+          pifi->VpiIncludedFile(fileSystem->toPath(ifi.m_sectionFileId));
           pifi->VpiLineNo(ifi.m_originalStartLine);
           pifi->VpiColumnNo(ifi.m_originalStartColumn);
           pifi->VpiEndLineNo(ifi.m_originalEndLine);
@@ -4024,7 +4023,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     }
   }
 
-  const std::filesystem::path uhdmFile = fileSystem->toPath(uhdmFileId);
+  const fs::path uhdmFile = fileSystem->toPlatformPath(uhdmFileId);
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);

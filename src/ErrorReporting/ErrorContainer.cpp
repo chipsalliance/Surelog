@@ -191,7 +191,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       /* Location */
       std::string location;
       if (loc.m_fileId) {
-        location = fileSystem->toPath(loc.m_fileId).string();
+        location = fileSystem->toPath(loc.m_fileId);
         if (loc.m_line > 0) {
           location += ":" + std::to_string(loc.m_line) + ":";
           if (loc.m_column > 0) location += std::to_string(loc.m_column) + ":";
@@ -205,8 +205,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       for (unsigned int i = 1; i < nbExtraLoc; i++) {
         const Location& extraLoc = msg.m_locations[i];
         if (extraLoc.m_fileId) {
-          std::string extraLocation =
-              fileSystem->toPath(extraLoc.m_fileId).string();
+          std::string extraLocation(fileSystem->toPath(extraLoc.m_fileId));
           if (extraLoc.m_line > 0) {
             extraLocation += ":" + std::to_string(extraLoc.m_line) + ":";
             if (extraLoc.m_column > 0)

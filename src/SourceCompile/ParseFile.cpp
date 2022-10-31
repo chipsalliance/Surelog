@@ -367,9 +367,9 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
         m_antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-      m_profileInfo +=
-          "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileSystem->toPath(fileId).string() + "\n";
+      StrAppend(&m_profileInfo,
+                "SLL Parsing: ", StringUtils::to_string(tmr.elapsed_rounded()),
+                "s ", fileSystem->toPath(fileId), "\n");
       tmr.reset();
       profileParser();
     }
@@ -391,9 +391,9 @@ bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
         m_antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-      m_profileInfo +=
-          "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileSystem->toPath(fileId).string() + "\n";
+      StrAppend(&m_profileInfo,
+                "LL  Parsing: ", StringUtils::to_string(tmr.elapsed_rounded()),
+                "s ", fileSystem->toPath(fileId), "\n");
       tmr.reset();
       profileParser();
     }

@@ -22,7 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
@@ -54,9 +54,9 @@ namespace SURELOG {
 namespace fs = std::filesystem;
 
 namespace {
-class TestFileSystem : public FileSystem {
+class TestFileSystem : public PlatformFileSystem {
  public:
-  explicit TestFileSystem(const fs::path &wd) : FileSystem(wd) {
+  explicit TestFileSystem(const fs::path &wd) : PlatformFileSystem(wd) {
     FileSystem::setInstance(this);
   }
   TestFileSystem() : TestFileSystem(fs::current_path()) {}
@@ -67,7 +67,7 @@ std::string getUniqueTempFileName() {
       std::chrono::steady_clock::now().time_since_epoch().count());
 }
 
-TEST(FileSystemTest, ReadWriteOperations) {
+TEST(PlatformFileSystemTest, ReadWriteOperations) {
   // GTEST_SKIP() << "Temporarily skipped";
   const fs::path testdir = testing::TempDir();
   const fs::path filename = getUniqueTempFileName();
@@ -122,7 +122,7 @@ TEST(FileSystemTest, ReadWriteOperations) {
   EXPECT_FALSE(fileSystem->readLine(fileId, expectedLines.size() + 1, content));
 }
 
-TEST(FileSystemTest, LoadSaveOperations) {
+TEST(PlatformFileSystemTest, LoadSaveOperations) {
   // GTEST_SKIP() << "Temporarily skipped";
   const fs::path testdir = testing::TempDir();
   const fs::path filename = getUniqueTempFileName();
@@ -159,7 +159,7 @@ TEST(FileSystemTest, LoadSaveOperations) {
   EXPECT_EQ(actualContent, expectedContent);
 }
 
-TEST(FileSystemTest, BasicFileOperations) {
+TEST(PlatformFileSystemTest, BasicFileOperations) {
   // GTEST_SKIP() << "Temporarily skipped";
   const fs::path testdir = testing::TempDir();
   const fs::path dirtest = testdir / "file-exist-dir";
@@ -201,7 +201,7 @@ TEST(FileSystemTest, BasicFileOperations) {
   EXPECT_FALSE(fileSystem->exists(dirId));
 }
 
-TEST(FileSystemTest, LocateFile) {
+TEST(PlatformFileSystemTest, LocateFile) {
   // GTEST_SKIP() << "Temporarily skipped";
   const std::string search_file = "search-file.txt";
 
@@ -247,7 +247,7 @@ TEST(FileSystemTest, LocateFile) {
   PathId now_exists =
       fileSystem->locate(search_file, directories, symbolTable.get());
   EXPECT_NE(now_exists, BadPathId);
-  EXPECT_EQ(fileSystem->toSymbol(now_exists), actual_loc_1);
+  EXPECT_EQ(fileSystem->toPlatformPath(now_exists), actual_loc_1);
 
   PathId already_found =
       fileSystem->locate(search_file, directories, symbolTable.get());
@@ -259,7 +259,7 @@ TEST(FileSystemTest, LocateFile) {
   PathId now_exists_1 =
       fileSystem->locate(search_file, directories, symbolTable.get());
   EXPECT_NE(now_exists_1, BadPathId);
-  EXPECT_EQ(fileSystem->toSymbol(now_exists_1), actual_loc_1);
+  EXPECT_EQ(fileSystem->toPlatformPath(now_exists_1), actual_loc_1);
 
   EXPECT_TRUE(fileSystem->remove(now_exists_1));
   EXPECT_FALSE(fileSystem->exists(now_exists_1));
@@ -267,13 +267,13 @@ TEST(FileSystemTest, LocateFile) {
   PathId now_exists_2 =
       fileSystem->locate(search_file, directories, symbolTable.get());
   EXPECT_NE(now_exists_2, BadPathId);
-  EXPECT_EQ(fileSystem->toSymbol(now_exists_2), actual_loc_2);
+  EXPECT_EQ(fileSystem->toPlatformPath(now_exists_2), actual_loc_2);
 
   EXPECT_TRUE(fileSystem->rmtree(
       fileSystem->toPathId(basedir.string(), symbolTable.get())));
 }
 
-TEST(FileSystemTest, PathRelations) {
+TEST(PlatformFileSystemTest, PathRelations) {
   // GTEST_SKIP() << "Temporarily skipped";
   const fs::path testdir = FileSystem::normalize(testing::TempDir());
 
@@ -284,7 +284,7 @@ TEST(FileSystemTest, PathRelations) {
   PathId fileId =
       fileSystem->toPathId((base / "abc.txt").string(), symbolTable.get());
   PathId fileDirId = fileSystem->getParent(fileId, symbolTable.get());
-  EXPECT_EQ(base, fileSystem->toSymbol(fileDirId));
+  EXPECT_EQ(base, fileSystem->toPlatformPath(fileDirId));
 
   PathId siblingId =
       fileSystem->getSibling(fileId, "def.txt", symbolTable.get());
@@ -306,7 +306,7 @@ TEST(FileSystemTest, PathRelations) {
   EXPECT_EQ(no_ext, BadRawSymbol);
 }
 
-TEST(FileSystemTest, WorkingDirs_NonIdeal) {
+TEST(PlatformFileSystemTest, WorkingDirs_NonIdeal) {
   // GTEST_SKIP() << "Temporarily skipped";
   // A mock of uvm inclusion.
   // Test under third_party/tests/testname/subfolder1/subfolder2/testname.sl
@@ -330,7 +330,7 @@ TEST(FileSystemTest, WorkingDirs_NonIdeal) {
   //        uvm_b.sv
 
   std::error_code ec;
-  const fs::path programPath = FileSystem::getProgramPath().string();
+  const fs::path programPath = FileSystem::getProgramPath();
   const fs::path wsdir =
       FileSystem::normalize(fs::path(testing::TempDir()) / "ws");
   const fs::path testdir =
@@ -389,11 +389,12 @@ TEST(FileSystemTest, WorkingDirs_NonIdeal) {
   fs::remove_all(wsdir, ec);
   EXPECT_FALSE(ec);
 
-  const std::set<fs::path> expectedFsWorkingDirs = {
-      FileSystem::normalize(programPath.parent_path()),
-      FileSystem::normalize(wsdir),
+  const std::set<std::string> expectedFsWorkingDirs = {
+      FileSystem::normalize(programPath.parent_path()).string(),
+      FileSystem::normalize(wsdir).string(),
   };
-  const std::set<fs::path> actualFsWorkingDirs = fileSystem->getWorkingDirs();
+  const std::set<std::string> actualFsWorkingDirs =
+      fileSystem->getWorkingDirs();
   EXPECT_EQ(expectedFsWorkingDirs, actualFsWorkingDirs);
 
   const std::set<fs::path> expectedClpWorkingDirs{
@@ -410,11 +411,11 @@ TEST(FileSystemTest, WorkingDirs_NonIdeal) {
   std::transform(
       workingDirIds.begin(), workingDirIds.end(),
       std::inserter(actualClpWorkingDirs, actualClpWorkingDirs.end()),
-      [&](const PathId &id) { return fileSystem->toSymbol(id); });
+      [&](const PathId &id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedClpWorkingDirs, actualClpWorkingDirs);
 }
 
-TEST(FileSystemTest, WorkingDirs_Ideal) {
+TEST(PlatformFileSystemTest, WorkingDirs_Ideal) {
   // GTEST_SKIP() << "Temporarily skipped";
   // A mock of uvm inclusion.
   // Test under third_party/tests/testname/subfolder1/subfolder2/testname.sl
@@ -503,10 +504,12 @@ TEST(FileSystemTest, WorkingDirs_Ideal) {
   fs::remove_all(wsdir, ec);
   EXPECT_FALSE(ec);
 
-  const std::set<fs::path> expectedFsWorkingDirs = {
-      programPath.parent_path(), wsdir / "tests" / "testname",
-      wsdir / "third_party"};
-  const std::set<fs::path> actualFsWorkingDirs = fileSystem->getWorkingDirs();
+  const std::set<std::string> expectedFsWorkingDirs = {
+      programPath.parent_path().string(),
+      (wsdir / "tests" / "testname").string(),
+      (wsdir / "third_party").string()};
+  const std::set<std::string> actualFsWorkingDirs =
+      fileSystem->getWorkingDirs();
   EXPECT_EQ(expectedFsWorkingDirs, actualFsWorkingDirs);
 
   const std::set<fs::path> expectedClpWorkingDirs{
@@ -524,19 +527,19 @@ TEST(FileSystemTest, WorkingDirs_Ideal) {
   std::transform(
       workingDirIds.begin(), workingDirIds.end(),
       std::inserter(actualClpWorkingDirs, actualClpWorkingDirs.end()),
-      [&](const PathId &id) { return fileSystem->toSymbol(id); });
+      [&](const PathId &id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedClpWorkingDirs, actualClpWorkingDirs);
 }
 
 // This implementation is in no-way a complete or full-featured,
 // but is a prototype to showcase the potential of FileSystem abstraction.
-class InMemoryFileSystem : public FileSystem {
+class InMemoryFileSystem : public TestFileSystem {
  public:
   typedef std::map<fs::path, std::string> Files;
   typedef std::set<fs::path> Directories;
   typedef std::map<const std::ostream *, fs::path> OpenOutputFiles;
 
-  explicit InMemoryFileSystem(const fs::path &cwd) : FileSystem(cwd) {
+  explicit InMemoryFileSystem(const fs::path &cwd) : TestFileSystem(cwd) {
     FileSystem::setInstance(this);
 
     fs::path d1 = cwd;
@@ -632,14 +635,14 @@ class InMemoryFileSystem : public FileSystem {
       m_lastModifiedTime = fs::last_write_time(hint, ec);
     }
 
-    return FileSystem::getProgramFile(hint, symbolTable);
+    return TestFileSystem::getProgramFile(hint, symbolTable);
   }
 
   bool rename(PathId whatId, PathId toId) override {
     if (!whatId || !toId) return false;
 
-    const fs::path what = toSymbol(whatId);
-    const fs::path to = toSymbol(toId);
+    const fs::path what = toPath(whatId);
+    const fs::path to = toPath(toId);
     if (what.empty() || to.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -668,7 +671,7 @@ class InMemoryFileSystem : public FileSystem {
   bool remove(PathId fileId) override {
     if (!fileId) return false;
 
-    const fs::path file = toSymbol(fileId);
+    const fs::path file = toPath(fileId);
     if (file.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -685,7 +688,7 @@ class InMemoryFileSystem : public FileSystem {
   bool mkdir(PathId dirId) override {
     if (!dirId) return false;
 
-    const fs::path dir = toSymbol(dirId);
+    const fs::path dir = toPath(dirId);
     if (dir.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -696,7 +699,7 @@ class InMemoryFileSystem : public FileSystem {
   bool rmdir(PathId dirId) override {
     if (!dirId) return false;
 
-    const fs::path dir = toSymbol(dirId);
+    const fs::path dir = toPath(dirId);
     if (dir.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -713,7 +716,7 @@ class InMemoryFileSystem : public FileSystem {
   bool mkdirs(PathId dirId) override {
     if (!dirId) return false;
 
-    const fs::path dir = toSymbol(dirId);
+    const fs::path dir = toPath(dirId);
     if (dir.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -731,7 +734,7 @@ class InMemoryFileSystem : public FileSystem {
   bool rmtree(PathId dirId) override {
     if (!dirId) return false;
 
-    const fs::path dir = toSymbol(dirId);
+    const fs::path dir = toPath(dirId);
     if (dir.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -756,7 +759,7 @@ class InMemoryFileSystem : public FileSystem {
   bool exists(PathId id) override {
     if (!id) return false;
 
-    const fs::path path = toSymbol(id);
+    const fs::path path = toPath(id);
     if (path.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -767,7 +770,7 @@ class InMemoryFileSystem : public FileSystem {
   bool exists(PathId parentId, std::string_view descendant) override {
     if (!parentId || descendant.empty()) return false;
 
-    const fs::path parentPath = toSymbol(parentId);
+    const fs::path parentPath = toPath(parentId);
     if (parentPath.empty()) return false;
 
     const fs::path path = parentPath / descendant;
@@ -780,7 +783,7 @@ class InMemoryFileSystem : public FileSystem {
   bool isDirectory(PathId id) override {
     if (!id) return false;
 
-    const fs::path dirpath = toSymbol(id);
+    const fs::path dirpath = toPath(id);
     if (dirpath.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -790,7 +793,7 @@ class InMemoryFileSystem : public FileSystem {
   bool isRegularFile(PathId id) override {
     if (!id) return false;
 
-    const fs::path filepath = toSymbol(id);
+    const fs::path filepath = toPath(id);
     if (filepath.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -804,7 +807,7 @@ class InMemoryFileSystem : public FileSystem {
     std::scoped_lock<std::mutex> lock(m_mutex);
 
     for (const PathId &dirId : directories) {
-      const fs::path dir = toSymbol(dirId);
+      const fs::path dir = toPath(dirId);
       if (!dir.empty()) {
         const fs::path file = dir / suffix;
 
@@ -820,7 +823,7 @@ class InMemoryFileSystem : public FileSystem {
   bool filesize(PathId fileId, std::streamsize *result) override {
     if (!fileId) return false;
 
-    const fs::path file = toSymbol(fileId);
+    const fs::path file = toPath(fileId);
     if (file.empty()) return false;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -840,7 +843,7 @@ class InMemoryFileSystem : public FileSystem {
                         PathIdVector &container) override {
     if (!dirId) return container;
 
-    const fs::path dir = toSymbol(dirId);
+    const fs::path dir = toPath(dirId);
     if (dir.empty()) return container;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -861,7 +864,7 @@ class InMemoryFileSystem : public FileSystem {
                         PathIdVector &container) override {
     if (!dirId || extension.empty()) return container;
 
-    const fs::path dirpath = toSymbol(dirId);
+    const fs::path dirpath = toPath(dirId);
     if (dirpath.empty()) return container;
 
     std::scoped_lock<std::mutex> lock(m_mutex);
@@ -896,7 +899,7 @@ class InMemoryFileSystem : public FileSystem {
     // directory in which the current lib.map file is located.
 
     std::error_code ec;
-    fs::path prefix = toSymbol(dirId);
+    fs::path prefix = toPath(dirId);
     if (prefix.empty()) return container;
 
     fs::path suffix;
@@ -966,7 +969,7 @@ class InMemoryFileSystem : public FileSystem {
   fs::file_time_type m_lastModifiedTime;
 };
 
-TEST(FileSystemTest, InMemoryTest) {
+TEST(PlatformFileSystemTest, InMemoryTest) {
   // GTEST_SKIP() << "Temporarily skipped";
 #if defined(_WIN32)
   const fs::path inputdir = "C:\\a\\b\\c\\input";
@@ -1087,7 +1090,7 @@ TEST(FileSystemTest, InMemoryTest) {
   delete fileSystem;
 }
 
-TEST(FileSystemTest, PortableCacheTest) {
+TEST(PlatformFileSystemTest, PortableCacheTest) {
   // Intent: Cache should be usuable if either the
   // source or the cache is moved to a new location.
   const fs::path testdir = testing::TempDir();
@@ -1151,9 +1154,9 @@ TEST(FileSystemTest, PortableCacheTest) {
         "-nostdout",
         "-parse",
         "-nobuiltin",
-        std::string("-I") + fileSystem->toPath(headerDirId).string(),
-        fileSystem->toPath(sourceFileId).string(),
-        fileSystem->toPath(headerFileId).string(),
+        std::string("-I").append(fileSystem->toPath(headerDirId)),
+        std::string(fileSystem->toPath(sourceFileId)),
+        std::string(fileSystem->toPath(headerFileId)),
         "-o",
         kOutputDir_run1.string()};
     std::vector<const char *> cargs;
@@ -1236,9 +1239,9 @@ TEST(FileSystemTest, PortableCacheTest) {
         "-nostdout",
         "-parse",
         "-nobuiltin",
-        std::string("-I") + fileSystem->toPath(headerDirId).string(),
-        fileSystem->toPath(headerFileId).string(),
-        fileSystem->toPath(sourceFileId).string(),
+        std::string("-I").append(fileSystem->toPath(headerDirId)),
+        std::string(fileSystem->toPath(headerFileId)),
+        std::string(fileSystem->toPath(sourceFileId)),
         "-o",
         kOutputDir_run2.string()};
     std::vector<const char *> cargs;

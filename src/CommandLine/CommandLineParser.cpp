@@ -23,7 +23,7 @@
 
 #include <Surelog/API/PythonAPI.h>
 #include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
@@ -392,7 +392,10 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_noCacheHash(false),
       m_sepComp(false),
       m_link(false) {
-  FileSystem::getInstance();  // Ensures that instance gets created early!
+  if (FileSystem::getInstance() == nullptr) {
+    // Ensures that instance gets created early!
+    FileSystem::setInstance(new PlatformFileSystem(fs::current_path()));
+  }
   m_errors->registerCmdLine(this);
 
   if (m_diffCompMode) {
@@ -776,8 +779,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 
   // Setup a few dependent input & output directories
   if (!m_outputDirId) {
-    m_outputDirId = fileSystem->getOutputDir(
-        fileSystem->getWorkingDir().string(), m_symbolTable);
+    m_outputDirId =
+        fileSystem->getOutputDir(fileSystem->getWorkingDir(), m_symbolTable);
   }
   m_precompiledDirId =
       fileSystem->getPrecompiledDir(m_programId, m_symbolTable);
@@ -847,10 +850,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
         break;
       }
-      const std::filesystem::path what =
-          FileSystem::normalize(all_arguments[++i]);
-      const std::filesystem::path with =
-          FileSystem::normalize(all_arguments[++i]);
+      const fs::path what = FileSystem::normalize(all_arguments[++i]);
+      const fs::path with = FileSystem::normalize(all_arguments[++i]);
       if (!what.is_absolute() || !with.is_absolute()) {
         Error err(ErrorDefinition::CMD_REMAP_MISSING_DIRS, loc);
         m_errors->addError(err);

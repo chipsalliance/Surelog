@@ -22,7 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <gtest/gtest.h>
@@ -39,9 +39,9 @@ namespace SURELOG {
 namespace fs = std::filesystem;
 
 namespace {
-class TestFileSystem final : public FileSystem {
+class TestFileSystem final : public PlatformFileSystem {
  public:
-  explicit TestFileSystem(const fs::path& wd) : FileSystem(wd) {
+  explicit TestFileSystem(const fs::path& wd) : PlatformFileSystem(wd) {
     FileSystem::setInstance(this);
   }
   TestFileSystem() : TestFileSystem(fs::current_path()) {}
@@ -150,14 +150,14 @@ TEST(CommandLineParserTest, WorkingDirectories1) {
   std::set<fs::path> actualWorkingDirs;
   std::transform(workingDirIds.begin(), workingDirIds.end(),
                  std::inserter(actualWorkingDirs, actualWorkingDirs.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedWorkingDirs, actualWorkingDirs);
 
   const PathIdVector& sourceFileIds = clp->getSourceFiles();
   std::set<fs::path> actualSourceFiles;
   std::transform(sourceFileIds.begin(), sourceFileIds.end(),
                  std::inserter(actualSourceFiles, actualSourceFiles.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedSourceFiles, actualSourceFiles);
 }
 
@@ -265,14 +265,14 @@ TEST(CommandLineParserTest, WorkingDirectories2) {
   std::set<fs::path> actualWorkingDirs;
   std::transform(workingDirIds.begin(), workingDirIds.end(),
                  std::inserter(actualWorkingDirs, actualWorkingDirs.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedWorkingDirs, actualWorkingDirs);
 
   const PathIdVector& sourceFileIds = clp->getSourceFiles();
   std::set<fs::path> actualSourceFiles;
   std::transform(sourceFileIds.begin(), sourceFileIds.end(),
                  std::inserter(actualSourceFiles, actualSourceFiles.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedSourceFiles, actualSourceFiles);
 }
 
@@ -370,14 +370,14 @@ TEST(CommandLineParserTest, WorkingDirectories3) {
   std::set<fs::path> actualWorkingDirs;
   std::transform(workingDirIds.begin(), workingDirIds.end(),
                  std::inserter(actualWorkingDirs, actualWorkingDirs.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedWorkingDirs, actualWorkingDirs);
 
   const PathIdVector& sourceFileIds = clp->getSourceFiles();
   std::set<fs::path> actualSourceFiles;
   std::transform(sourceFileIds.begin(), sourceFileIds.end(),
                  std::inserter(actualSourceFiles, actualSourceFiles.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedSourceFiles, actualSourceFiles);
 }
 
@@ -481,14 +481,14 @@ TEST(CommandLineParserTest, WorkingDirectories4) {
   std::set<fs::path> actualWorkingDirs;
   std::transform(workingDirIds.begin(), workingDirIds.end(),
                  std::inserter(actualWorkingDirs, actualWorkingDirs.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedWorkingDirs, actualWorkingDirs);
 
   const PathIdVector& sourceFileIds = clp->getSourceFiles();
   std::set<fs::path> actualSourceFiles;
   std::transform(sourceFileIds.begin(), sourceFileIds.end(),
                  std::inserter(actualSourceFiles, actualSourceFiles.end()),
-                 [&](const PathId& id) { return fileSystem->toSymbol(id); });
+                 [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedSourceFiles, actualSourceFiles);
 }
 }  // namespace

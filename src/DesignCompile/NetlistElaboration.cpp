@@ -155,7 +155,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         constant* c = s.MakeConstant();
         c->VpiValue(value->uhdmValue());
         c->VpiDecompile(value->decompiledValue());
-        c->VpiFile(fileSystem->toPath(instfC->getFileId()).string());
+        c->VpiFile(fileSystem->toPath(instfC->getFileId()));
         c->VpiSize(value->getSize());
         c->VpiConstType(value->vpiValType());
         c->VpiLineNo(line);
@@ -1308,7 +1308,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             if (!found) {
               port* p = s.MakePort();
               p->VpiName(sigName);
-              p->VpiFile(fileSystem->toPath(fC->getFileId()).string());
+              p->VpiFile(fileSystem->toPath(fC->getFileId()));
               p->VpiLineNo(wildcardLineNumber);
               p->VpiColumnNo(wildcardColumnNumber);
               p->VpiEndLineNo(wildcardLineNumber);
@@ -1318,7 +1318,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             }
             if (pp->High_conn() == nullptr) {
               ref_obj* ref = s.MakeRef_obj();
-              ref->VpiFile(fileSystem->toPath(fC->getFileId()).string());
+              ref->VpiFile(fileSystem->toPath(fC->getFileId()));
               ref->VpiLineNo(wildcardLineNumber);
               ref->VpiColumnNo(wildcardColumnNumber);
               ref->VpiEndLineNo(wildcardLineNumber);
@@ -1402,7 +1402,7 @@ interface* NetlistElaboration::elab_interface_(
   sm->VpiName(instName);
   sm->VpiDefName(defName);
   // sm->VpiFullName(??);
-  sm->VpiFile(fileSystem->toPath(fileId).string());
+  sm->VpiFile(fileSystem->toPath(fileId));
   sm->VpiLineNo(lineNb);
   subInterfaces->push_back(sm);
   if (interf_array) {

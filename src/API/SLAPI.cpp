@@ -204,8 +204,7 @@ std::string SLgetFile(SV3_1aPythonListener* prog,
   FileSystem* const fileSystem = FileSystem::getInstance();
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   ParseFile* parseFile = listener->getPythonListen()->getParseFile();
-  std::string file = fileSystem->toPath(parseFile->getFileId(0)).string();
-  return file;
+  return std::string(fileSystem->toPath(parseFile->getFileId(0)));
 #else
   std::cerr << "SLgetFile(): Python support not compiled in\n";
   return "";
@@ -294,7 +293,8 @@ RawNodeId SLgetRootNode(FileContent* fC) {
 
 std::string SLgetFile(FileContent* fC, RawNodeId id) {
   if (!fC) return "";
-  return FileSystem::getInstance()->toPath(fC->getFileId(NodeId(id))).string();
+  return std::string(
+      FileSystem::getInstance()->toPath(fC->getFileId(NodeId(id))));
 }
 
 unsigned int SLgetType(FileContent* fC, RawNodeId id) {
@@ -474,9 +474,8 @@ static bool ModuleHasFirstFileContent(const ClassOrPackageOrProgram* module) {
 
 std::string SLgetModuleFile(ModuleDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return FileSystem::getInstance()
-      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
-      .string();
+  return std::string(FileSystem::getInstance()->toPath(
+      module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
 unsigned int SLgetModuleLine(ModuleDefinition* module) {
@@ -507,9 +506,8 @@ std::string SLgetClassName(ClassDefinition* module) {
 
 std::string SLgetClassFile(ClassDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return FileSystem::getInstance()
-      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
-      .string();
+  return std::string(FileSystem::getInstance()->toPath(
+      module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
 unsigned int SLgetClassLine(ClassDefinition* module) {
@@ -540,9 +538,8 @@ std::string SLgetPackageName(Package* module) {
 
 std::string SLgetPackageFile(Package* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return FileSystem::getInstance()
-      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
-      .string();
+  return std::string(FileSystem::getInstance()->toPath(
+      module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
 unsigned int SLgetPackageLine(Package* module) {
@@ -572,9 +569,8 @@ std::string SLgetProgramName(Program* module) {
 
 std::string SLgetProgramFile(Program* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return FileSystem::getInstance()
-      ->toPath(module->getFileContents()[0]->getFileId(module->getNodeIds()[0]))
-      .string();
+  return std::string(FileSystem::getInstance()->toPath(
+      module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
 unsigned int SLgetProgramLine(Program* module) {
@@ -629,9 +625,8 @@ DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance) {
 
 std::string SLgetInstanceFileName(ModuleInstance* instance) {
   if (!instance) return "";
-  return FileSystem::getInstance()
-      ->toPath(instance->getFileContent()->getFileId(instance->getNodeId()))
-      .string();
+  return std::string(FileSystem::getInstance()->toPath(
+      instance->getFileContent()->getFileId(instance->getNodeId())));
 }
 
 FileContent* SLgetInstanceFileContent(ModuleInstance* instance) {

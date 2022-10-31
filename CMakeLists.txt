@@ -297,6 +297,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/FileSystem.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/PathId.cpp
+  ${PROJECT_SOURCE_DIR}/src/Common/PlatformFileSystem.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/SymbolId.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.cpp
@@ -562,8 +563,8 @@ endfunction()
 register_gtests(
   src/Cache/PPCache_test.cpp
   src/CommandLine/CommandLineParser_test.cpp
-  src/Common/FileSystem_test.cpp
   src/Common/PathId_test.cpp
+  src/Common/PlatformFileSystem_test.cpp
   src/DesignCompile/CompileExpression_test.cpp
   src/DesignCompile/CompileHelper_test.cpp
   src/DesignCompile/Elaboration_test.cpp
@@ -732,6 +733,7 @@ install(
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/FileSystem.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/NodeId.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PathId.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PlatformFileSystem.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PortNetHolder.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/RTTI.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/SymbolId.h

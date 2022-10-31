@@ -279,13 +279,14 @@ std::string PreprocessFile::getSymbol(SymbolId id) const {
 
 SymbolId PreprocessFile::getMacroSignature() {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  std::string macroSignature = getSymbol(m_macroId);
+  std::ostringstream strm;
+  strm << getSymbol(m_macroId);
   if (m_macroInfo) {
-    macroSignature += "|" + fileSystem->toPath(m_macroInfo->m_fileId).string();
-    macroSignature += "|" + std::to_string(m_macroInfo->m_startLine);
+    strm << "|" << fileSystem->toPath(m_macroInfo->m_fileId) << "|"
+         << std::to_string(m_macroInfo->m_startLine);
   }
-  macroSignature += "|" + m_macroBody;
-  SymbolId sigId = registerSymbol(macroSignature);
+  strm << "|" << m_macroBody;
+  SymbolId sigId = registerSymbol(strm.str());
   return sigId;
 }
 
@@ -636,7 +637,7 @@ std::string PreprocessFile::reportIncludeInfo() const {
     strm << context << " " << info.m_originalStartLine << ","
          << info.m_originalStartColumn << ":" << info.m_originalEndLine << ","
          << info.m_originalEndColumn << " " << getSymbol(info.m_sectionSymbolId)
-         << "^" << fileSystem->toPath(info.m_sectionFileId).string() << " "
+         << "^" << fileSystem->toPath(info.m_sectionFileId) << " "
          << info.m_sectionStartLine << " " << action << std::endl;
   }
   return strm.str();
@@ -1009,10 +1010,9 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       if (callingLine && callingFile && !callingFile->isMacroBody()) {
         pp_result = std::regex_replace(
             pp_result, std::regex(PP__File__Marking),
-            "\"" +
-                fileSystem->toPath(callingFile->getFileId(callingLine))
-                    .string() +
-                "\"");
+            StrCat("\"",
+                   fileSystem->toPath(callingFile->getFileId(callingLine)),
+                   "\""));
         pp_result = std::regex_replace(pp_result, std::regex(PP__Line__Marking),
                                        std::to_string(callingLine));
       }
@@ -1221,9 +1221,10 @@ std::string PreprocessFile::getPreProcessedFileContent() {
   }
   if (!nonEmpty) m_result.clear();
   if (m_debugPPResult) {
-    std::string objName = m_macroBody.empty()
-                              ? "file " + fileSystem->toPath(m_fileId).string()
-                              : "macro " + m_macroBody;
+    std::string objName =
+        m_macroBody.empty()
+            ? std::string("file ").append(fileSystem->toPath(m_fileId))
+            : std::string("macro ").append(m_macroBody);
     std::cout << "PP RESULT for " << objName
               << " : \nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n"
               << m_result << "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"

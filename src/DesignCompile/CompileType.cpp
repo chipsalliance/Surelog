@@ -883,7 +883,7 @@ UHDM::typespec_member* CompileHelper::buildTypespecMember(
   Serializer& s = compileDesign->getSerializer();
   var = s.MakeTypespec_member();
   var->VpiName(name);
-  var->VpiFile(fileSystem->toPath(fileId).string());
+  var->VpiFile(fileSystem->toPath(fileId));
   var->VpiLineNo(line);
   var->VpiColumnNo(column);
   var->VpiEndLineNo(eline);
@@ -913,7 +913,7 @@ int_typespec* CompileHelper::buildIntTypespec(
   var = s.MakeInt_typespec();
   var->VpiValue(value);
   var->VpiName(name);
-  var->VpiFile(fileSystem->toPath(fileId).string());
+  var->VpiFile(fileSystem->toPath(fileId));
   var->VpiLineNo(line);
   var->VpiColumnNo(column);
   var->VpiEndLineNo(eline);
@@ -1419,7 +1419,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                   fC->Column(Variable_decl_assignment),
                                   fC->EndLine(Variable_decl_assignment),
                                   fC->EndColumn(Variable_decl_assignment));
-          m->VpiRefFile(fileSystem->toPath(fC->getFileId()).string());
+          m->VpiRefFile(fileSystem->toPath(fC->getFileId()));
           m->VpiRefLineNo(fC->Line(Data_type));
           m->VpiRefColumnNo(fC->Column(Data_type));
           m->VpiRefEndLineNo(fC->EndLine(Data_type));
