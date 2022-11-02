@@ -242,23 +242,23 @@ n<> u<211> t<Top_level_rule> c<1> l<1:1> el<17:1>
 assign_stmt                                            2
 assignment                                             2
 begin                                                  2
-constant                                              55
-cont_assign                                            1
+constant                                              57
+cont_assign                                            2
 design                                                 1
-func_call                                              3
+func_call                                              4
 function                                               4
 indexed_part_select                                    4
 io_decl                                                4
 logic_net                                              2
 logic_typespec                                        15
 logic_var                                              6
-module                                                 7
+module                                                 6
 package                                                3
 param_assign                                           6
 parameter                                              6
 port                                                   2
 range                                                 22
-ref_obj                                               11
+ref_obj                                               14
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -267,8 +267,8 @@ return_stmt                                            4
 assign_stmt                                            2
 assignment                                             4
 begin                                                  4
-constant                                              55
-cont_assign                                            2
+constant                                              57
+cont_assign                                            3
 design                                                 1
 func_call                                              6
 function                                               8
@@ -277,13 +277,13 @@ io_decl                                                8
 logic_net                                              2
 logic_typespec                                        15
 logic_var                                             10
-module                                                 7
+module                                                 6
 package                                                3
 param_assign                                           6
 parameter                                              6
 port                                                   3
 range                                                 22
-ref_obj                                               21
+ref_obj                                               24
 return_stmt                                            8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackFuncParent/slpp_all/surelog.uhdm ...
@@ -773,8 +773,6 @@ design: (work@top)
               |vpiDefName:state_in
               |vpiActual:
               \_io_decl: (state_in), line:6:61, endln:6:69
-            |vpiTypespec:
-            \_logic_typespec: , line:2:46, endln:2:57
             |vpiConstantSelect:1
             |vpiIndexedPartSelectType:1
             |vpiBaseExpr:
@@ -979,14 +977,13 @@ design: (work@top)
     |vpiParent:
     \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiRhs:
-    \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:21
-      |vpiParent:
-      \_cont_assign: , line:14:11, endln:14:44
-      |vpiArgument:
-      \_constant: , line:14:35, endln:14:43
-      |vpiName:my_pkg::sbox4_16bit
-      |vpiFunction:
-      \_function: (my_pkg::sbox4_16bit), line:6:4, endln:10:29
+    \_constant: 
+      |vpiDecompile:11001101
+      |vpiSize:8
+      |BIN:11001101
+      |vpiTypespec:
+      \_logic_typespec: , line:2:46, endln:2:57
+      |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.o), line:14:11, endln:14:12
       |vpiParent:
