@@ -39,10 +39,9 @@ namespace SURELOG {
 static constexpr char FlbSchemaVersion[] = "1.3";
 static constexpr std::string_view UnknownRawPath = "<unknown>";
 
-ParseCache::ParseCache(ParseFile* parser)
-    : m_parse(parser), m_isPrecompiled(false) {}
+ParseCache::ParseCache(ParseFile* parser) : m_parse(parser) {}
 
-PathId ParseCache::getCacheFileId_(PathId ppFileId) {
+PathId ParseCache::getCacheFileId_(PathId ppFileId) const {
   if (!ppFileId) ppFileId = m_parse->getPpFileId();
   if (!ppFileId) return BadPathId;
 
@@ -51,12 +50,23 @@ PathId ParseCache::getCacheFileId_(PathId ppFileId) {
       m_parse->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* const symbolTable =
       m_parse->getCompileSourceFile()->getSymbolTable();
-  Precompiled* prec = Precompiled::getSingleton();
 
-  m_isPrecompiled = prec->isFilePrecompiled(ppFileId, symbolTable);
   const std::string& libName = m_parse->getLibrary()->getName();
+
+  if (clp->parseOnly()) {
+    // If parseOnly flag is set, the Preprocessor doesn't actually generate
+    // an output file. Instead it uses the source itself i.e. from the original
+    // source location. Compute the "potential" Preprocessor output file so the
+    // cache file location would be correct.
+    ppFileId = fileSystem->getPpOutputFile(clp->fileunit(), ppFileId, libName,
+                                           symbolTable);
+  }
+
+  Precompiled* const prec = Precompiled::getSingleton();
+  const bool isPrecompiled = prec->isFilePrecompiled(ppFileId, symbolTable);
+
   return fileSystem->getParseCacheFile(clp->fileunit(), ppFileId, libName,
-                                       m_isPrecompiled, symbolTable);
+                                       isPrecompiled, symbolTable);
 }
 
 bool ParseCache::restore_(PathId cacheFileId,
@@ -132,21 +142,22 @@ bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
                                     const std::vector<char>& content) const {
   if (!cacheFileId || content.empty()) return false;
 
-  if (!PARSECACHE::ParseCacheBufferHasIdentifier(content.data())) {
-    return false;
-  }
-
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
-  if (clp->noCacheHash()) {
-    return true;
+  if (!clp->cacheAllowed()) return false;
+
+  if (!PARSECACHE::ParseCacheBufferHasIdentifier(content.data())) {
+    return false;
   }
 
   const PARSECACHE::ParseCache* ppcache =
       PARSECACHE::GetParseCache(content.data());
   auto header = ppcache->header();
 
-  if (m_isPrecompiled) {
+  SymbolTable* const symbolTable =
+      m_parse->getCompileSourceFile()->getSymbolTable();
+  Precompiled* const prec = Precompiled::getSingleton();
+  if (prec->isFilePrecompiled(m_parse->getPpFileId(), symbolTable)) {
     // For precompiled, check only the signature & version (so using
     // BadPathId instead of the actual arguments)
     return checkIfCacheIsValid(header, FlbSchemaVersion, BadPathId, BadPathId);
@@ -156,12 +167,20 @@ bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
   }
 }
 
-bool ParseCache::isValid() {
-  PathId cacheFileId = getCacheFileId_(BadPathId);
+bool ParseCache::checkCacheIsValid_(PathId cacheFileId) const {
+  if (!cacheFileId) return false;
+
+  CommandLineParser* clp =
+      m_parse->getCompileSourceFile()->getCommandLineParser();
+  if (!clp->cacheAllowed()) return false;
 
   std::vector<char> content;
-  return cacheFileId && openFlatBuffers(cacheFileId, content) &&
+  return openFlatBuffers(cacheFileId, content) &&
          checkCacheIsValid_(cacheFileId, content);
+}
+
+bool ParseCache::isValid() {
+  return checkCacheIsValid_(getCacheFileId_(BadPathId));
 }
 
 bool ParseCache::restore() {
@@ -170,8 +189,8 @@ bool ParseCache::restore() {
   if (!clp->cacheAllowed()) return false;
 
   PathId cacheFileId = getCacheFileId_(BadPathId);
-
   std::vector<char> content;
+
   return cacheFileId && openFlatBuffers(cacheFileId, content) &&
          checkCacheIsValid_(cacheFileId, content) &&
          restore_(cacheFileId, content);

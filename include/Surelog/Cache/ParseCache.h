@@ -42,13 +42,13 @@ class ParseCache : Cache {
  private:
   ParseCache(const ParseCache& orig) = delete;
 
-  PathId getCacheFileId_(PathId ppFileId);
+  PathId getCacheFileId_(PathId ppFileId) const;
   bool restore_(PathId cacheFileId, const std::vector<char>& content);
+  bool checkCacheIsValid_(PathId cacheFileId) const;
   bool checkCacheIsValid_(PathId cacheFileId,
                           const std::vector<char>& content) const;
 
-  ParseFile* m_parse;
-  bool m_isPrecompiled;
+  ParseFile* const m_parse = nullptr;
 };
 
 }  // namespace SURELOG

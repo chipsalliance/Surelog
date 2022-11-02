@@ -42,15 +42,14 @@ class PPCache : Cache {
  private:
   PPCache(const PPCache& orig) = delete;
 
-  PathId getCacheFileId_(PathId sourceFileId);
-  bool restore_(PathId cacheFileId, bool errorsOnly, int recursionDepth);
+  PathId getCacheFileId_(PathId sourceFileId) const;
   bool restore_(PathId cacheFileId, const std::vector<char>& content,
                 bool errorsOnly, int recursionDepth);
-  bool checkCacheIsValid_(PathId cacheFileId);
-  bool checkCacheIsValid_(PathId cacheFileId, const std::vector<char>& content);
+  bool checkCacheIsValid_(PathId cacheFileId) const;
+  bool checkCacheIsValid_(PathId cacheFileId,
+                          const std::vector<char>& content) const;
 
-  PreprocessFile* m_pp;
-  bool m_isPrecompiled;
+  PreprocessFile* const m_pp = nullptr;
 };
 
 }  // namespace SURELOG
