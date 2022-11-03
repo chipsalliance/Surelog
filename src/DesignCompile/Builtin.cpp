@@ -354,7 +354,7 @@ void Builtin::addBuiltinClasses() {
       m_compiler->getCompiler(), fileId);
 
   std::vector<NodeId> classes =
-      fC1->sl_collect_all(fC1->getRootNode(), slClass_declaration);
+      fC1->sl_collect_all(fC1->getRootNode(), VObjectType::slClass_declaration);
   m_compiler->getCompiler()->getDesign()->addFileContent(fC1->getFileId(), fC1);
   for (const auto& classId : classes) {
     NodeId stId = fC1->sl_collect(classId, VObjectType::slStringConst,

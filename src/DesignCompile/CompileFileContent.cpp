@@ -97,8 +97,9 @@ bool CompileFileContent::collectObjects_() {
       }
       case VObjectType::slParameter_declaration: {
         NodeId list_of_type_assignments = fC->Child(id);
-        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == slType) {
+        if (fC->Type(list_of_type_assignments) ==
+                VObjectType::slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == VObjectType::slType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_fileContent, fC, list_of_type_assignments, m_compileDesign,
@@ -117,8 +118,9 @@ bool CompileFileContent::collectObjects_() {
       }
       case VObjectType::slLocal_parameter_declaration: {
         NodeId list_of_type_assignments = fC->Child(id);
-        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == slType) {
+        if (fC->Type(list_of_type_assignments) ==
+                VObjectType::slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == VObjectType::slType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_fileContent, fC, list_of_type_assignments, m_compileDesign,

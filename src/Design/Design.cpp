@@ -122,7 +122,7 @@ std::string Design::reportInstanceTree() const {
     std::string type_s;
     Location loc(tmp->getFileId(), tmp->getLineNb(), tmp->getColumnNb(),
                  tmp->getFullPathId(symbols));
-    if (type == slUdp_instantiation) {
+    if (type == VObjectType::slUdp_instantiation) {
       type_s = "[UDP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);
@@ -141,15 +141,15 @@ std::string Design::reportInstanceTree() const {
       type_s = "[GAT]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == slInterface_instantiation) {
+    } else if (type == VObjectType::slInterface_instantiation) {
       type_s = "[I/F]";
       Error err(ErrorDefinition::ELAB_INTERFACE_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == slProgram_instantiation) {
+    } else if (type == VObjectType::slProgram_instantiation) {
       type_s = "[PRG]";
       Error err(ErrorDefinition::ELAB_PROGRAM_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == slModule_declaration) {
+    } else if (type == VObjectType::slModule_declaration) {
       type_s = "[TOP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);

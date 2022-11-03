@@ -2031,39 +2031,39 @@ void SV3_1aTreeShapeListener::exitTf_port_direction(
 void SV3_1aTreeShapeListener::exitDefault_nettype_directive(
     SV3_1aParser::Default_nettype_directiveContext *ctx) {
   NetTypeInfo info;
-  info.m_type = slNetType_Wire;
+  info.m_type = VObjectType::slNetType_Wire;
   info.m_fileId = m_pf->getFileId(0);
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   info.m_line = lineCol.first;
   if (ctx->Simple_identifier()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(),
                ctx->Simple_identifier()->getText(), VObjectType::slStringConst);
-    info.m_type = slNoType;
+    info.m_type = VObjectType::slNoType;
   } else if (ctx->net_type()) {
     if (ctx->net_type()->SUPPLY0())
-      info.m_type = slSupply0;
+      info.m_type = VObjectType::slSupply0;
     else if (ctx->net_type()->SUPPLY1())
-      info.m_type = slSupply1;
+      info.m_type = VObjectType::slSupply1;
     else if (ctx->net_type()->WIRE())
-      info.m_type = slNetType_Wire;
+      info.m_type = VObjectType::slNetType_Wire;
     else if (ctx->net_type()->UWIRE())
-      info.m_type = slNetType_Uwire;
+      info.m_type = VObjectType::slNetType_Uwire;
     else if (ctx->net_type()->WAND())
-      info.m_type = slNetType_Wand;
+      info.m_type = VObjectType::slNetType_Wand;
     else if (ctx->net_type()->WOR())
-      info.m_type = slNetType_Wor;
+      info.m_type = VObjectType::slNetType_Wor;
     else if (ctx->net_type()->TRI())
-      info.m_type = slNetType_Tri;
+      info.m_type = VObjectType::slNetType_Tri;
     else if (ctx->net_type()->TRIREG())
-      info.m_type = slNetType_TriReg;
+      info.m_type = VObjectType::slNetType_TriReg;
     else if (ctx->net_type()->TRIOR())
-      info.m_type = slNetType_TriOr;
+      info.m_type = VObjectType::slNetType_TriOr;
     else if (ctx->net_type()->TRIAND())
-      info.m_type = slNetType_TriAnd;
+      info.m_type = VObjectType::slNetType_TriAnd;
     else if (ctx->net_type()->TRI0())
-      info.m_type = slNetType_Tri0;
+      info.m_type = VObjectType::slNetType_Tri0;
     else if (ctx->net_type()->TRI1())
-      info.m_type = slNetType_Tri1;
+      info.m_type = VObjectType::slNetType_Tri1;
   }
   addVObject(ctx, VObjectType::slDefault_nettype_directive);
   m_pf->getCompilationUnit()->recordDefaultNetType(info);

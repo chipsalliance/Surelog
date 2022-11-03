@@ -204,9 +204,9 @@ UHDM::any* CompileHelper::compileVariable(
       the_type == VObjectType::slPs_or_hierarchical_identifier) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
-  } else if (the_type == slImplicit_class_handle) {
+  } else if (the_type == VObjectType::slImplicit_class_handle) {
     NodeId Handle = fC->Child(variable);
-    if (fC->Type(Handle) == slThis_keyword) {
+    if (fC->Type(Handle) == VObjectType::slThis_keyword) {
       variable = fC->Sibling(variable);
       the_type = fC->Type(variable);
     }
@@ -221,13 +221,13 @@ UHDM::any* CompileHelper::compileVariable(
   if (!Packed_dimension) {
     // Implicit return value:
     // function [1:0] fct();
-    if (fC->Type(variable) == slConstant_range) {
+    if (fC->Type(variable) == VObjectType::slConstant_range) {
       Packed_dimension = variable;
     }
   }
 
-  if (fC->Type(variable) == slStringConst &&
-      fC->Type(Packed_dimension) == slStringConst) {
+  if (fC->Type(variable) == VObjectType::slStringConst &&
+      fC->Type(Packed_dimension) == VObjectType::slStringConst) {
     UHDM::hier_path* path = s.MakeHier_path();
     VectorOfany* elems = s.MakeAnyVec();
     path->Path_elems(elems);
@@ -235,7 +235,7 @@ UHDM::any* CompileHelper::compileVariable(
     ref_obj* obj = s.MakeRef_obj();
     obj->VpiName(fullName);
     elems->push_back(obj);
-    while (fC->Type(Packed_dimension) == slStringConst) {
+    while (fC->Type(Packed_dimension) == VObjectType::slStringConst) {
       ref_obj* obj = s.MakeRef_obj();
       const std::string& name = fC->SymName(Packed_dimension);
       fullName += "." + name;
@@ -253,14 +253,14 @@ UHDM::any* CompileHelper::compileVariable(
                     instance, reduce, size, muteErrors);
   typespec* ts = nullptr;
   VObjectType decl_type = fC->Type(declarationId);
-  if (decl_type != slPs_or_hierarchical_identifier &&
-      decl_type != slImplicit_class_handle) {
+  if (decl_type != VObjectType::slPs_or_hierarchical_identifier &&
+      decl_type != VObjectType::slImplicit_class_handle) {
     ts = compileTypespec(component, fC, declarationId, compileDesign, pstmt,
                          instance, reduce, true);
   }
   bool isSigned = true;
   const NodeId signId = fC->Sibling(variable);
-  if (signId && (fC->Type(signId) == slSigning_Unsigned)) {
+  if (signId && (fC->Type(signId) == VObjectType::slSigning_Unsigned)) {
     isSigned = false;
   }
   switch (the_type) {
@@ -303,7 +303,7 @@ UHDM::any* CompileHelper::compileVariable(
         }
       }
       if (result == nullptr) {
-        if (the_type == slStringConst) {
+        if (the_type == VObjectType::slStringConst) {
           if (ts) {
             if (ts->UhdmType() == uhdmclass_typespec) {
               class_var* var = s.MakeClass_var();
@@ -315,7 +315,7 @@ UHDM::any* CompileHelper::compileVariable(
         }
       }
       if (result == nullptr) {
-        if (the_type == slChandle_type) {
+        if (the_type == VObjectType::slChandle_type) {
           chandle_var* var = s.MakeChandle_var();
           var->Typespec(ts);
           result = var;
@@ -608,16 +608,18 @@ typespec* CompileHelper::compileDatastructureTypespec(
           if ((sig->getName() == typeName) && sig->getInterfaceTypeNameId()) {
             std::string suffixname;
             std::string typeName2 = typeName;
-            if (fC->Type(sig->getInterfaceTypeNameId()) == slStringConst) {
+            if (fC->Type(sig->getInterfaceTypeNameId()) ==
+                VObjectType::slStringConst) {
               typeName2 = fC->SymName(sig->getInterfaceTypeNameId());
             }
             NodeId suffixNode;
             if ((suffixNode = fC->Sibling(type))) {
-              if (fC->Type(suffixNode) == slStringConst) {
+              if (fC->Type(suffixNode) == VObjectType::slStringConst) {
                 suffixname = fC->SymName(suffixNode);
-              } else if (fC->Type(suffixNode) == slConstant_bit_select) {
+              } else if (fC->Type(suffixNode) ==
+                         VObjectType::slConstant_bit_select) {
                 suffixNode = fC->Sibling(suffixNode);
-                if (fC->Type(suffixNode) == slStringConst) {
+                if (fC->Type(suffixNode) == VObjectType::slStringConst) {
                   suffixname = fC->SymName(suffixNode);
                 }
               }
@@ -726,8 +728,8 @@ typespec* CompileHelper::compileDatastructureTypespec(
           NodeId n = parent_tpd->getDefinitionNode();
           param = actualFC->Sibling(n);
         }
-        if (param &&
-            (actualFC->Type(param) != slList_of_net_decl_assignments)) {
+        if (param && (actualFC->Type(param) !=
+                      VObjectType::slList_of_net_decl_assignments)) {
           VectorOfany* params = s.MakeAnyVec();
           ref->Parameters(params);
           VectorOfparam_assign* assigns = s.MakeParam_assignVec();
@@ -740,7 +742,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
               actualFC->Child(List_of_parameter_assignments);
           if (Ordered_parameter_assignment &&
               (actualFC->Type(Ordered_parameter_assignment) ==
-               slOrdered_parameter_assignment)) {
+               VObjectType::slOrdered_parameter_assignment)) {
             while (Ordered_parameter_assignment) {
               NodeId Param_expression =
                   actualFC->Child(Ordered_parameter_assignment);
@@ -754,7 +756,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
                 fName = p->getName();
                 fparam = p->getUhdmParam();
 
-                if (actualFC->Type(Data_type) == slData_type) {
+                if (actualFC->Type(Data_type) == VObjectType::slData_type) {
                   typespec* tps =
                       compileTypespec(component, actualFC, Data_type,
                                       compileDesign, result, instance, reduce);
@@ -814,7 +816,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
       ModuleDefinition* def =
           design->getModuleDefinition(libName + "@" + typeName);
       if (def) {
-        if (def->getType() == slInterface_declaration) {
+        if (def->getType() == VObjectType::slInterface_declaration) {
           interface_typespec* tps = s.MakeInterface_typespec();
           tps->VpiName(typeName);
           fC->populateCoreMembers(type, type, tps);
@@ -932,7 +934,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
   typespec* result = nullptr;
   NodeId sign = fC->Sibling(type);
   bool isSigned = true;
-  if (sign && (fC->Type(sign) == slSigning_Unsigned)) {
+  if (sign && (fC->Type(sign) == VObjectType::slSigning_Unsigned)) {
     isSigned = false;
   }
   switch (the_type) {
@@ -1043,25 +1045,25 @@ UHDM::typespec* CompileHelper::compileTypespec(
   } else if (the_type == VObjectType::slStringConst) {
     // Class parameter or struct reference
     Packed_dimension = fC->Sibling(type);
-    if (fC->Type(Packed_dimension) != slPacked_dimension)
+    if (fC->Type(Packed_dimension) != VObjectType::slPacked_dimension)
       Packed_dimension = InvalidNodeId;
   } else {
     Packed_dimension = fC->Sibling(type);
-    if (fC->Type(Packed_dimension) == slData_type_or_implicit) {
+    if (fC->Type(Packed_dimension) == VObjectType::slData_type_or_implicit) {
       Packed_dimension = fC->Child(Packed_dimension);
     }
   }
   bool isPacked = false;
-  if (fC->Type(Packed_dimension) == slPacked_keyword) {
+  if (fC->Type(Packed_dimension) == VObjectType::slPacked_keyword) {
     Packed_dimension = fC->Sibling(Packed_dimension);
     isPacked = true;
   }
-  if (fC->Type(Packed_dimension) == slStruct_union_member) {
+  if (fC->Type(Packed_dimension) == VObjectType::slStruct_union_member) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
 
-  if (fC->Type(Packed_dimension) == slSigning_Signed ||
-      fC->Type(Packed_dimension) == slSigning_Unsigned) {
+  if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed ||
+      fC->Type(Packed_dimension) == VObjectType::slSigning_Unsigned) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
   int size;
@@ -1097,7 +1099,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slEnum_name_declaration: {
       typespec* baseType = nullptr;
       uint64_t baseSize = 64;
-      if (the_type == slEnum_base_type) {
+      if (the_type == VObjectType::slEnum_base_type) {
         baseType =
             compileTypespec(component, fC, fC->Child(type), compileDesign,
                             pstmt, instance, reduce, isVariable);
@@ -1222,7 +1224,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);
-      if (fC->Type(literal) == slStringConst) {
+      if (fC->Type(literal) == VObjectType::slStringConst) {
         const std::string& typeName = fC->SymName(literal);
         result = compileDatastructureTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
@@ -1277,7 +1279,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       std::string typeName;
       NodeId class_type = fC->Child(type);
       NodeId class_name;
-      if (the_type == slClass_scope)
+      if (the_type == VObjectType::slClass_scope)
         class_name = fC->Child(class_type);
       else
         class_name = class_type;
@@ -1429,7 +1431,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
             m->Typespec(member_ts);
             member_ts->VpiParent(m);
           }
-          if (Expression && (fC->Type(Expression) != slVariable_dimension)) {
+          if (Expression &&
+              (fC->Type(Expression) != VObjectType::slVariable_dimension)) {
             any* ex =
                 compileExpression(component, fC, Expression, compileDesign,
                                   nullptr, instance, reduce, false);
@@ -1694,7 +1697,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slType_reference: {
       NodeId child = fC->Child(type);
-      if (fC->Type(child) == slExpression) {
+      if (fC->Type(child) == VObjectType::slExpression) {
         expr* exp =
             (expr*)compileExpression(component, fC, child, compileDesign,
                                      nullptr, instance, reduce, reduce);
@@ -1744,7 +1747,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case slData_type_or_implicit: {
+    case VObjectType::slData_type_or_implicit: {
       logic_typespec* tps = s.MakeLogic_typespec();
       fC->populateCoreMembers(type, type, tps);
       VectorOfrange* ranges =

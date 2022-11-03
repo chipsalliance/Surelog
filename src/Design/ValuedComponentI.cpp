@@ -39,7 +39,7 @@ Value* ValuedComponentI::getValue(std::string_view name) const {
     if (m_parentScope) {
       if (const ModuleInstance* inst =
               valuedcomponenti_cast<ModuleInstance*>(this)) {
-        if (inst->getType() != slModule_instantiation) {
+        if (inst->getType() != VObjectType::slModule_instantiation) {
           return m_parentScope->getValue(name);
         }
       } else {

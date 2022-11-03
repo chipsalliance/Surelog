@@ -609,9 +609,9 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     signalBaseMap.insert(std::make_pair(orig_port, dest_port));
     signalMap.insert(std::make_pair(orig_port->getName(), orig_port));
     const FileContent* fC = orig_port->getFileContent();
-    if (fC->Type(orig_port->getNodeId()) == slStringConst)
+    if (fC->Type(orig_port->getNodeId()) == VObjectType::slStringConst)
       dest_port->VpiName(orig_port->getName());
-    if (orig_port->getDirection() != slNoType)
+    if (orig_port->getDirection() != VObjectType::slNoType)
       lastPortDirection =
           UhdmWriter::getVpiDirection(orig_port->getDirection());
     dest_port->VpiDirection(lastPortDirection);
@@ -737,7 +737,7 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
     }
     if (dest_net) {
       const FileContent* fC = orig_net->getFileContent();
-      if (fC->Type(orig_net->getNodeId()) == slStringConst) {
+      if (fC->Type(orig_net->getNodeId()) == VObjectType::slStringConst) {
         UhdmWriter::SignalMap::iterator portItr =
             portMap.find(orig_net->getName());
         if (portItr != portMap.end()) {
@@ -1237,7 +1237,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
           const std::string typeName = sig->getInterfaceTypeName();
           interface_array* smarray = s.MakeInterface_array();
           smarray->Ranges(unpackedDimensions);
-          if (fC->Type(id) == slStringConst) {
+          if (fC->Type(id) == VObjectType::slStringConst) {
             smarray->VpiName(sig->getName());
           }
           smarray->VpiFullName(typeName);
@@ -2950,7 +2950,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
     if (!ref->Actual_group()) {
       if (mod) {
         if (auto elem = mod->getDesignElement()) {
-          if (elem->m_defaultNetType == slNoType) {
+          if (elem->m_defaultNetType == VObjectType::slNoType) {
             Location loc(fileSystem->toPathId(
                              ref->VpiFile(),
                              m_compileDesign->getCompiler()->getSymbolTable()),

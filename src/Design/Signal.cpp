@@ -95,7 +95,8 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
 
 std::string Signal::getInterfaceTypeName() const {
   std::string type_name;
-  if (m_fileContent->Type(m_interfaceTypeNameId) == slClass_scope) {
+  if (m_fileContent->Type(m_interfaceTypeNameId) ==
+      VObjectType::slClass_scope) {
     NodeId Class_type = m_fileContent->Child(m_interfaceTypeNameId);
     NodeId Pack_name = m_fileContent->Child(Class_type);
     type_name = m_fileContent->SymName(Pack_name) + "::";
@@ -105,11 +106,11 @@ std::string Signal::getInterfaceTypeName() const {
     type_name = m_fileContent->SymName(m_interfaceTypeNameId);
     NodeId constant_select = m_fileContent->Sibling(m_interfaceTypeNameId);
     if (constant_select) {
-      if (m_fileContent->Type(constant_select) == slStringConst) {
+      if (m_fileContent->Type(constant_select) == VObjectType::slStringConst) {
         type_name += "." + m_fileContent->SymName(constant_select);
       } else {
         NodeId selector = m_fileContent->Child(constant_select);
-        if (m_fileContent->Type(selector) == slStringConst)
+        if (m_fileContent->Type(selector) == VObjectType::slStringConst)
           type_name += "." + m_fileContent->SymName(selector);
       }
     }

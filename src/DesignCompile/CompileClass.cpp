@@ -222,7 +222,8 @@ bool CompileClass::compile() {
       case VObjectType::slStringConst: {
         NodeId sibling = fC->Sibling(id);
         if (!sibling) {
-          if (fC->Type(fC->Parent(id)) != slClass_declaration) break;
+          if (fC->Type(fC->Parent(id)) != VObjectType::slClass_declaration)
+            break;
           const std::string& endLabel = fC->SymName(id);
           std::string moduleName = m_class->getName();
           moduleName = StringUtils::ltrim(moduleName, '@');
@@ -477,7 +478,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId task_decl =
         m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
     NodeId Task_body_declaration;
-    if (fC->Type(task_decl) == slTask_body_declaration)
+    if (fC->Type(task_decl) == VObjectType::slTask_body_declaration)
       Task_body_declaration = task_decl;
     else
       Task_body_declaration = fC->Child(task_decl);
@@ -510,7 +511,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       NodeId task_decl =
           m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
       NodeId Task_body_declaration;
-      if (fC->Type(task_decl) == slTask_body_declaration)
+      if (fC->Type(task_decl) == VObjectType::slTask_body_declaration)
         Task_body_declaration = task_decl;
       else
         Task_body_declaration = fC->Child(task_decl);
@@ -723,8 +724,9 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
    n<> u<20> t<Local_parameter_declaration> p<21> c<10> l<3>
   */
   NodeId list_of_type_assignments = fC->Child(id);
-  if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-      fC->Type(list_of_type_assignments) == slType) {
+  if (fC->Type(list_of_type_assignments) ==
+          VObjectType::slList_of_type_assignments ||
+      fC->Type(list_of_type_assignments) == VObjectType::slType) {
     // Type param
     m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
                                          m_compileDesign, true, nullptr, false,
@@ -766,8 +768,9 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
 bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
                                                   NodeId id) {
   NodeId list_of_type_assignments = fC->Child(id);
-  if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-      fC->Type(list_of_type_assignments) == slType) {
+  if (fC->Type(list_of_type_assignments) ==
+          VObjectType::slList_of_type_assignments ||
+      fC->Type(list_of_type_assignments) == VObjectType::slType) {
     // Type param
     m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
                                          m_compileDesign, false, nullptr, false,
@@ -869,13 +872,14 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
     while (parameter_port_declaration) {
       NodeId list_of_type_assignments = fC->Child(parameter_port_declaration);
       NodeId type = fC->Child(list_of_type_assignments);
-      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-          fC->Type(list_of_type_assignments) == slType) {
+      if (fC->Type(list_of_type_assignments) ==
+              VObjectType::slList_of_type_assignments ||
+          fC->Type(list_of_type_assignments) == VObjectType::slType) {
         // Type param
         m_helper.compileParameterDeclaration(
             m_class, fC, list_of_type_assignments, m_compileDesign, false,
             nullptr, false, false, false);
-      } else if (fC->Type(type) == slType) {
+      } else if (fC->Type(type) == VObjectType::slType) {
         // Handled in compile_parameter_declaration_
       } else {
         // Regular param

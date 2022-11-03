@@ -105,7 +105,8 @@ TEST(ExprBuilderTest, ExprFromParseTree1) {
       "parameter p3 = -2 * -5;"
       "endmodule");
   NodeId root = fC->getRootNode();
-  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(root, VObjectType::slParam_assignment);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
@@ -127,7 +128,8 @@ TEST(ExprBuilderTest, ExprFromParseTree2) {
       "parameter p4 = 32 - 16;"
       "endmodule");
   NodeId root = fC->getRootNode();
-  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(root, VObjectType::slParam_assignment);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);

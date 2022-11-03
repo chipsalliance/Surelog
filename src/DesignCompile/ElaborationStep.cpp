@@ -163,7 +163,7 @@ bool ElaborationStep::bindTypedefs_() {
           NodeId Packed_dimension = fC->Sibling(id);
           typespec* tpclone = nullptr;
           if (Packed_dimension &&
-              fC->Type(Packed_dimension) == slPacked_dimension) {
+              fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) {
             tpclone = m_helper.compileTypespec(
                 defTuple.second, typd->getFileContent(),
                 typd->getDefinitionNode(), m_compileDesign, nullptr, nullptr,
@@ -201,7 +201,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (ts) {
           ts->VpiName(typd->getName());
           std::string name;
-          if (typeF->Type(typeId) == slStringConst) {
+          if (typeF->Type(typeId) == VObjectType::slStringConst) {
             name = typeF->SymName(typeId);
           } else {
             name = typd->getName();
@@ -964,7 +964,7 @@ bool bindStructInPackage(Design* design, Signal* signal,
       if (actual->getCategory() == DataType::Category::STRUCT) {
         Struct* st = (Struct*)actual;
         if (st->isNet()) {
-          signal->setType(slNetType_Wire);
+          signal->setType(VObjectType::slNetType_Wire);
         }
       }
       return true;
@@ -1090,13 +1090,13 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       }
       break;
     }
-    case slStringConst: {
+    case VObjectType::slStringConst: {
       std::string interfName;
       if (signal->getInterfaceTypeNameId()) {
         interfName = signal->getInterfaceTypeName();
       } else {
         if (NodeId typespecId = signal->getTypeSpecId()) {
-          if (fC->Type(typespecId) == slClass_scope) {
+          if (fC->Type(typespecId) == VObjectType::slClass_scope) {
             NodeId Class_type = fC->Child(typespecId);
             NodeId Class_type_name = fC->Child(Class_type);
             NodeId Class_scope_name = fC->Sibling(typespecId);
@@ -1104,7 +1104,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
                                     fC->SymName(Class_type_name),
                                     fC->SymName(Class_scope_name)))
               return true;
-          } else if (fC->Type(typespecId) == slStringConst) {
+          } else if (fC->Type(typespecId) == VObjectType::slStringConst) {
             interfName = fC->SymName(typespecId);
           }
         }
@@ -1204,13 +1204,13 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           DataType::Category cat = def->getCategory();
           if (cat == DataType::Category::SIMPLE_TYPEDEF) {
             VObjectType t = def->getType();
-            if (t == slIntVec_TypeLogic) {  // Make "net types" explicit (vs
-                                            // variable types) for elab.
-              signal->setType(slIntVec_TypeLogic);
-            } else if (t == slIntVec_TypeReg) {
-              signal->setType(slIntVec_TypeReg);
-            } else if (t == slNetType_Wire) {
-              signal->setType(slNetType_Wire);
+            if (t == VObjectType::slIntVec_TypeLogic) {
+              // Make "net types" explicit (vs variable types) for elab.
+              signal->setType(VObjectType::slIntVec_TypeLogic);
+            } else if (t == VObjectType::slIntVec_TypeReg) {
+              signal->setType(VObjectType::slIntVec_TypeReg);
+            } else if (t == VObjectType::slNetType_Wire) {
+              signal->setType(VObjectType::slNetType_Wire);
             }
           } else if (cat == DataType::Category::REF) {
             // Should not arrive here, there should always be an actual
@@ -1233,7 +1233,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           }
         }
       }
-      if (signal->getType() != slNoType) {
+      if (signal->getType() != VObjectType::slNoType) {
         return true;
       }
       if (def == nullptr) {
@@ -1281,28 +1281,28 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component,
   // Assignment section
   NodeId assignment;
   NodeId Assign = fC->Sibling(id);
-  if (Assign && (fC->Type(Assign) == slExpression)) {
+  if (Assign && (fC->Type(Assign) == VObjectType::slExpression)) {
     assignment = Assign;
   }
   if (unpackedDimension) {
     NodeId tmp = unpackedDimension;
-    while ((fC->Type(tmp) == slUnpacked_dimension) ||
-           (fC->Type(tmp) == slVariable_dimension)) {
+    while ((fC->Type(tmp) == VObjectType::slUnpacked_dimension) ||
+           (fC->Type(tmp) == VObjectType::slVariable_dimension)) {
       tmp = fC->Sibling(tmp);
     }
-    if (tmp && (fC->Type(tmp) != slUnpacked_dimension) &&
-        (fC->Type(tmp) != slVariable_dimension)) {
+    if (tmp && (fC->Type(tmp) != VObjectType::slUnpacked_dimension) &&
+        (fC->Type(tmp) != VObjectType::slVariable_dimension)) {
       assignment = tmp;
     }
   }
 
   NodeId expression;
   if (assignment) {
-    if (fC->Type(assignment) == slClass_new) {
+    if (fC->Type(assignment) == VObjectType::slClass_new) {
       expression = assignment;
     } else {
       NodeId Primary = fC->Child(assignment);
-      if (fC->Type(assignment) == slExpression) {
+      if (fC->Type(assignment) == VObjectType::slExpression) {
         Primary = assignment;
       }
       expression = Primary;
@@ -1608,30 +1608,30 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
 
   if (obj == nullptr) {
     variables* var = nullptr;
-    if (subnettype == slIntegerAtomType_Shortint) {
+    if (subnettype == VObjectType::slIntegerAtomType_Shortint) {
       UHDM::short_int_var* int_var = s.MakeShort_int_var();
       var = int_var;
       tps = s.MakeShort_int_typespec();
       int_var->Typespec(tps);
-    } else if (subnettype == slIntegerAtomType_Int) {
+    } else if (subnettype == VObjectType::slIntegerAtomType_Int) {
       UHDM::int_var* int_var = s.MakeInt_var();
       var = int_var;
       tps = s.MakeInt_typespec();
       int_var->Typespec(tps);
-    } else if (subnettype == slIntegerAtomType_Integer) {
+    } else if (subnettype == VObjectType::slIntegerAtomType_Integer) {
       UHDM::integer_var* int_var = s.MakeInteger_var();
       var = int_var;
       tps = s.MakeInteger_typespec();
       int_var->Typespec(tps);
-    } else if (subnettype == slIntegerAtomType_LongInt) {
+    } else if (subnettype == VObjectType::slIntegerAtomType_LongInt) {
       UHDM::long_int_var* int_var = s.MakeLong_int_var();
       var = int_var;
       tps = s.MakeLong_int_typespec();
       int_var->Typespec(tps);
-    } else if (subnettype == slIntegerAtomType_Time) {
+    } else if (subnettype == VObjectType::slIntegerAtomType_Time) {
       UHDM::time_var* int_var = s.MakeTime_var();
       var = int_var;
-    } else if (subnettype == slIntVec_TypeBit) {
+    } else if (subnettype == VObjectType::slIntVec_TypeBit) {
       UHDM::bit_var* int_var = s.MakeBit_var();
       bit_typespec* btps = s.MakeBit_typespec();
       btps->Ranges(packedDimensions);
@@ -1639,28 +1639,28 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       int_var->Typespec(tps);
       int_var->Ranges(packedDimensions);
       var = int_var;
-    } else if (subnettype == slIntegerAtomType_Byte) {
+    } else if (subnettype == VObjectType::slIntegerAtomType_Byte) {
       UHDM::byte_var* int_var = s.MakeByte_var();
       byte_typespec* btps = s.MakeByte_typespec();
       tps = btps;
       int_var->Typespec(tps);
       var = int_var;
-    } else if (subnettype == slNonIntType_ShortReal) {
+    } else if (subnettype == VObjectType::slNonIntType_ShortReal) {
       UHDM::short_real_var* int_var = s.MakeShort_real_var();
       var = int_var;
-    } else if (subnettype == slNonIntType_Real) {
+    } else if (subnettype == VObjectType::slNonIntType_Real) {
       UHDM::real_var* int_var = s.MakeReal_var();
       var = int_var;
-    } else if (subnettype == slNonIntType_RealTime) {
+    } else if (subnettype == VObjectType::slNonIntType_RealTime) {
       UHDM::time_var* int_var = s.MakeTime_var();
       var = int_var;
-    } else if (subnettype == slString_type) {
+    } else if (subnettype == VObjectType::slString_type) {
       UHDM::string_var* int_var = s.MakeString_var();
       var = int_var;
-    } else if (subnettype == slChandle_type) {
+    } else if (subnettype == VObjectType::slChandle_type) {
       UHDM::chandle_var* chandle_var = s.MakeChandle_var();
       var = chandle_var;
-    } else if (subnettype == slIntVec_TypeLogic) {
+    } else if (subnettype == VObjectType::slIntVec_TypeLogic) {
       logic_var* logicv = s.MakeLogic_var();
       logicv->Ranges(packedDimensions);
       logic_typespec* ltps = s.MakeLogic_typespec();
@@ -1674,7 +1674,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       tps = ltps;
       logicv->Typespec(tps);
       var = logicv;
-    } else if (subnettype == slEvent_type) {
+    } else if (subnettype == VObjectType::slEvent_type) {
       named_event* event = s.MakeNamed_event();
       event->VpiName(signame);
       if (instance) {

@@ -643,7 +643,8 @@ ModuleInstance* DesignElaboration::createBindInstance_(
     std::vector<ModuleInstance*> parentSubInstances;
     instance->setInstanceBinding(parent);
     NodeId parameterOverloading = fC->Sibling(bindNodeId);
-    if (fC->Type(parameterOverloading) == slHierarchical_instance) {
+    if (fC->Type(parameterOverloading) ==
+        VObjectType::slHierarchical_instance) {
       parameterOverloading = InvalidNodeId;
     }
     elaborateInstance_(targetDef->getFileContents()[0],
@@ -812,9 +813,9 @@ void DesignElaboration::elaborateInstance_(
     VObjectType type = fC->Type(subInstanceId);
     std::vector<NodeId> subSubInstances;
     std::string instName;
-    if (type == slGenerate_region) {
+    if (type == VObjectType::slGenerate_region) {
       NodeId Generate_block = fC->Child(subInstanceId);
-      if (fC->Type(Generate_block) != slGenerate_block) {
+      if (fC->Type(Generate_block) != VObjectType::slGenerate_block) {
         continue;
       }
       NodeId nameId = fC->Child(Generate_block);
@@ -841,7 +842,8 @@ void DesignElaboration::elaborateInstance_(
             }
           }
           Generate_block = fC->Sibling(Generate_block);
-          if (Generate_block && (fC->Type(Generate_block) == slEndgenerate)) {
+          if (Generate_block &&
+              (fC->Type(Generate_block) == VObjectType::slEndgenerate)) {
             break;
           }
         }
@@ -863,13 +865,14 @@ void DesignElaboration::elaborateInstance_(
       Config* subConfig = config;
       VObjectType type = fC->Type(subInstanceId);
 
-      if (type == slSeq_block || type == slPar_block) {
+      if (type == VObjectType::slSeq_block ||
+          type == VObjectType::slPar_block) {
         NodeId identifierId = fC->Child(subInstanceId);
         if (fC->Name(identifierId))
           instName = fC->SymName(identifierId);
         else
           instName = "UNNAMED";
-      } else if (type == slConditional_generate_construct) {
+      } else if (type == VObjectType::slConditional_generate_construct) {
         NodeId constructId = fC->Child(subInstanceId);
         NodeId condId = fC->Child(constructId);
         NodeId blockId = fC->Sibling(condId);
@@ -879,7 +882,8 @@ void DesignElaboration::elaborateInstance_(
         else
           instName = "UNNAMED";
       } else {
-        NodeId instId = fC->sl_collect(subInstanceId, slName_of_instance);
+        NodeId instId =
+            fC->sl_collect(subInstanceId, VObjectType::slName_of_instance);
         NodeId identifierId;
         if (instId) {
           identifierId = fC->Child(instId);
@@ -894,7 +898,8 @@ void DesignElaboration::elaborateInstance_(
         def = design->getComponentDefinition(modName);
         NodeId instanceId = fC->Sibling(fC->Child(subInstanceId));
         while (instanceId) {
-          NodeId instId = fC->sl_collect(instanceId, slName_of_instance);
+          NodeId instId =
+              fC->sl_collect(instanceId, VObjectType::slName_of_instance);
           NodeId identifierId;
           if (instId) {
             identifierId = fC->Child(instId);
@@ -952,7 +957,7 @@ void DesignElaboration::elaborateInstance_(
         }
 
         NodeId conditionId = fC->Child(subInstanceId);
-        if (fC->Type(conditionId) == slIf_generate_construct) {
+        if (fC->Type(conditionId) == VObjectType::slIf_generate_construct) {
           NodeId IF = fC->Child(conditionId);
           conditionId = fC->Sibling(IF);
         }
@@ -988,7 +993,7 @@ void DesignElaboration::elaborateInstance_(
           if (!expr) {  // Unary operator like i++
             expr = var;
           } else if (fC->Type(assignOp) !=
-                     slAssignOp_Assign) {  // Operators like +=
+                     VObjectType::slAssignOp_Assign) {  // Operators like +=
             expr = var;
           }
           // Generate block
@@ -1122,7 +1127,7 @@ void DesignElaboration::elaborateInstance_(
                   NodeId Generate_block = tmp;
                   NodeId Generate_item = fC->Child(Generate_block);
                   NodeId Cond;
-                  if (fC->Type(Generate_item) == slGenerate_item) {
+                  if (fC->Type(Generate_item) == VObjectType::slGenerate_item) {
                     NodeId Module_or_generate_item = fC->Child(Generate_item);
                     NodeId Module_common_item =
                         fC->Child(Module_or_generate_item);
@@ -1146,7 +1151,8 @@ void DesignElaboration::elaborateInstance_(
                       condVal = true;
                     }
                   } else if (fC->Type(Generate_item) ==
-                             slGenerate_module_conditional_statement) {
+                             VObjectType::
+                                 slGenerate_module_conditional_statement) {
                     Cond = fC->Child(Generate_item);
                     if (fC->Type(Cond) == VObjectType::slIF) {
                       Cond = fC->Sibling(Cond);
@@ -1199,8 +1205,8 @@ void DesignElaboration::elaborateInstance_(
                   NodeId If_generate_construct =
                       fC->Child(Conditional_generate_construct);
                   if (fC->Type(If_generate_construct) ==
-                      slIf_generate_construct) {
-                    if (fC->Type(childId) == slGenerate_block)
+                      VObjectType::slIf_generate_construct) {
+                    if (fC->Type(childId) == VObjectType::slGenerate_block)
                       childId = fC->Child(childId);
                     blockIds = fC->sl_collect_all(childId, btypes, true);
                     if (!blockIds.empty()) {
@@ -1277,28 +1283,30 @@ void DesignElaboration::elaborateInstance_(
           elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
                              factory, child, config, allSubInstances);
           childId = fC->Sibling(childId);
-          if (fC->Type(childId) == slGenerate_block) {
+          if (fC->Type(childId) == VObjectType::slGenerate_block) {
             NodeId subChild = fC->Child(childId);
-            if (fC->Type(subChild) == slGenerate_block) {
+            if (fC->Type(subChild) == VObjectType::slGenerate_block) {
               break;
             }
           }
-          if (fC->Type(childId) == slGenerate_module_item) {
+          if (fC->Type(childId) == VObjectType::slGenerate_module_item) {
             NodeId node = fC->Child(childId);
-            if (fC->Type(node) == slGenerate_module_conditional_statement) {
+            if (fC->Type(node) ==
+                VObjectType::slGenerate_module_conditional_statement) {
               break;
             }
-            if (fC->Type(node) == slGenerate_module_block) {
+            if (fC->Type(node) == VObjectType::slGenerate_module_block) {
               break;
             }
           }
-          if (fC->Type(childId) == slElse) break;
-          if (fC->Type(childId) == slEnd) break;
+          if (fC->Type(childId) == VObjectType::slElse) break;
+          if (fC->Type(childId) == VObjectType::slEnd) break;
         }
         parent->addSubInstance(child);
       }
       // Named blocks
-      else if (type == slSeq_block || type == slPar_block) {
+      else if (type == VObjectType::slSeq_block ||
+               type == VObjectType::slPar_block) {
         std::string fullName = parent->getModuleName() + "." + instName;
 
         def = design->getComponentDefinition(fullName);
@@ -1315,9 +1323,9 @@ void DesignElaboration::elaborateInstance_(
                            allSubInstances);
         parent->addSubInstance(child);
 
-      } else if (type == slGenerate_region) {
+      } else if (type == VObjectType::slGenerate_region) {
         NodeId Generate_block = fC->Child(subInstanceId);
-        if (fC->Type(Generate_block) != slGenerate_block) {
+        if (fC->Type(Generate_block) != VObjectType::slGenerate_block) {
           continue;
         }
         NodeId nameId = fC->Child(Generate_block);
@@ -1421,7 +1429,7 @@ void DesignElaboration::elaborateInstance_(
         NodeId tmpId = fC->Sibling(moduleName);
         VObjectType tmpType = fC->Type(tmpId);
         if (tmpType == VObjectType::slParameter_value_assignment ||
-            tmpType == slDelay2) {
+            tmpType == VObjectType::slDelay2) {
           paramOverride = tmpId;
         }
 
@@ -1440,7 +1448,8 @@ void DesignElaboration::elaborateInstance_(
         if (!hierInstId) continue;
 
         while (hierInstId) {
-          NodeId instId = fC->sl_collect(hierInstId, slName_of_instance);
+          NodeId instId =
+              fC->sl_collect(hierInstId, VObjectType::slName_of_instance);
           NodeId identifierId;
           if (instId) {
             identifierId = fC->Child(instId);
@@ -1513,7 +1522,8 @@ void DesignElaboration::elaborateInstance_(
 
             // Vector instances
             while (unpackedDimId) {
-              if (fC->Type(unpackedDimId) == slUnpacked_dimension) {
+              if (fC->Type(unpackedDimId) ==
+                  VObjectType::slUnpacked_dimension) {
                 NodeId constantRangeId = fC->Child(unpackedDimId);
                 NodeId leftNode = fC->Child(constantRangeId);
                 NodeId rightNode = fC->Sibling(leftNode);
@@ -1524,8 +1534,8 @@ void DesignElaboration::elaborateInstance_(
                                                  nullptr, parent, true, false);
                 m_helper.checkForLoops(false);
                 int64_t right = 0;
-                if (rightNode &&
-                    (fC->Type(rightNode) == slConstant_expression)) {
+                if (rightNode && (fC->Type(rightNode) ==
+                                  VObjectType::slConstant_expression)) {
                   m_helper.checkForLoops(true);
                   right = m_helper.getValue(validValue, parentDef, fC,
                                             rightNode, m_compileDesign, nullptr,
@@ -1754,9 +1764,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         VObjectType::slNamed_parameter_assignment};
     std::vector<NodeId> overrideParams =
         parentFile->sl_collect_all(parentParamOverride, types);
-    if (parentFile->Type(parentParamOverride) == slDelay2) {
+    if (parentFile->Type(parentParamOverride) == VObjectType::slDelay2) {
       NodeId tmp = parentFile->Child(parentParamOverride);
-      if (parentFile->Type(tmp) == slMintypmax_expression) {
+      if (parentFile->Type(tmp) == VObjectType::slMintypmax_expression) {
         while (tmp) {
           overrideParams.push_back(tmp);
           tmp = parentFile->Sibling(tmp);
@@ -1768,7 +1778,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     unsigned int index = 0;
     for (auto paramAssign : overrideParams) {
       NodeId child = parentFile->Child(paramAssign);
-      if (parentFile->Type(paramAssign) == slDelay2) {
+      if (parentFile->Type(paramAssign) == VObjectType::slDelay2) {
         child = paramAssign;
       }
       if (parentFile->Type(child) == VObjectType::slStringConst) {
@@ -1960,7 +1970,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           name = moduleParams[index];
           overridenParams.insert(name);
         } else {
-          if (parentFile->Type(expr) != slDelay2) {
+          if (parentFile->Type(expr) != VObjectType::slDelay2) {
             Location loc(parentFile->getFileId(paramAssign),
                          parentFile->Line(paramAssign),
                          parentFile->Column(paramAssign),
@@ -2044,7 +2054,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     NodeId hIdent = fC->Child(defParam);
     NodeId var;
     fC->Child(hIdent);
-    if (fC->Type(hIdent) == slHierarchical_identifier)
+    if (fC->Type(hIdent) == VObjectType::slHierarchical_identifier)
       var = fC->Child(hIdent);
     else
       var = hIdent;
@@ -2052,9 +2062,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::string fullPath;
     std::string path;
     while (var) {
-      if (fC->Type(var) == slStringConst) {
+      if (fC->Type(var) == VObjectType::slStringConst) {
         fullPath += fC->SymName(var);
-      } else if (fC->Type(var) == slConstant_expression) {
+      } else if (fC->Type(var) == VObjectType::slConstant_expression) {
         NodeId Constant_primary = fC->Child(var);
         NodeId Primary_literal = fC->Child(Constant_primary);
         NodeId IntConst = fC->Child(Primary_literal);
@@ -2063,7 +2073,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       }
       var = fC->Sibling(var);
       bool isString = false;
-      if (fC->Type(var) == slStringConst) {
+      if (fC->Type(var) == VObjectType::slStringConst) {
         isString = true;
       }
       if (var && isString) {
@@ -2103,11 +2113,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       const std::string& name = param.fC->SymName(ident);
       if (overridenParams.find(name) == overridenParams.end()) {
         NodeId exprId = param.fC->Sibling(ident);
-        while (param.fC->Type(exprId) == slUnpacked_dimension) {
+        while (param.fC->Type(exprId) == VObjectType::slUnpacked_dimension) {
           exprId = param.fC->Sibling(exprId);
         }
         NodeId Data_type = param.fC->Child(exprId);
-        if (param.fC->Type(Data_type) != slData_type) {
+        if (param.fC->Type(Data_type) != VObjectType::slData_type) {
           // Regular params
           Parameter* p = module->getParameter(name);
           bool isMultidimension = false;

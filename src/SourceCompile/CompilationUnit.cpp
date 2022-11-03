@@ -77,7 +77,7 @@ void CompilationUnit::recordDefaultNetType(NetTypeInfo& info) {
 VObjectType CompilationUnit::getDefaultNetType(PathId fileId,
                                                unsigned int line) {
   if (m_defaultNetTypes.empty()) {
-    return slNetType_Wire;
+    return VObjectType::slNetType_Wire;
   }
   for (int i = (int)m_defaultNetTypes.size() - 1; i >= 0; i--) {
     NetTypeInfo& info = m_defaultNetTypes[i];
@@ -87,7 +87,7 @@ VObjectType CompilationUnit::getDefaultNetType(PathId fileId,
       }
     }
   }
-  return slNetType_Wire;
+  return VObjectType::slNetType_Wire;
 }
 
 void CompilationUnit::setCurrentTimeInfo(PathId fileId) {

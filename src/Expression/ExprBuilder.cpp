@@ -669,7 +669,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           NodeId Primary_literal = fC->Child(Constant_primary);
           NodeId ConstVal = fC->Child(Primary_literal);
           std::string token;
-          if (fC->Type(ConstVal) == slIntConst) {
+          if (fC->Type(ConstVal) == VObjectType::slIntConst) {
             token = fC->SymName(ConstVal);
           } else {
             Value* constVal =
@@ -860,7 +860,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         break;
       }
-      case slIncDec_PlusPlus: {
+      case VObjectType::slIncDec_PlusPlus: {
         const std::string& name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {
@@ -877,7 +877,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         break;
       }
-      case slIncDec_MinusMinus: {
+      case VObjectType::slIncDec_MinusMinus: {
         const std::string& name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {
