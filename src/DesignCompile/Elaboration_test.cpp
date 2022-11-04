@@ -912,6 +912,49 @@ endmodule // top
   }
 }
 
+TEST(Elaboration, PartSelect) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+package my_pkg;
+   function automatic logic [7:0] sbox4_8bit(logic [7:0] state_in);
+      return state_in;
+   endfunction : sbox4_8bit
+
+   function automatic logic [15:0] sbox4_16bit(logic [15:0] state_in);
+      logic [15:0] state_out;
+      state_out[0 : 7] = sbox4_8bit(state_in[0 +: 8]);
+      state_out[8 : 15] = 8'hAB;
+      return state_out;
+   endfunction : sbox4_16bit
+endpackage // my_pkg
+
+module top(output logic [15:0] o);
+   assign o = my_pkg::sbox4_16bit(16'hAB0F);
+endmodule // top
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto cassign : *topMod->Cont_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+      bool invalidValue = false;
+      const std::string& name = cassign->Lhs()->VpiName();
+      if (name == "o") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 0b1010101100001111);
+      }
+    }
+  }
+}
+
 TEST(Elaboration, IndexedPartSelect) {
   CompileHelper helper;
   ElaboratorHarness eharness;
