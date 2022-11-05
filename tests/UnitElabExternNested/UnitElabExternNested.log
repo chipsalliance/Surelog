@@ -1,70 +1,62 @@
-[INF:CM0023] Creating log file ../../build/tests/UnitElabExternNested/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/UnitElabExternNested/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[INF:PP0122] Preprocessing source file "builtin.sv".
+[INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/UnitElabExternNested/top.v".
 
-[INF:PP0122] Preprocessing source file "top.v".
+[INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/UnitElabExternNested/middle.v".
 
-[INF:PP0122] Preprocessing source file "middle.v".
+[INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/UnitElabExternNested/top.v".
 
-[INF:PA0201] Parsing source file "builtin.sv".
+[INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/UnitElabExternNested/middle.v".
 
-[INF:PA0201] Parsing source file "top.v".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:1:1: No timescale set for "dff_nested".
 
-[INF:PA0201] Parsing source file "middle.v".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:9:1: No timescale set for "ff1".
 
-[WRN:PA0205] top.v:1: No timescale set for "dff_nested".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:18:1: No timescale set for "ff2".
 
-[WRN:PA0205] top.v:9: No timescale set for "ff1".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:28:1: No timescale set for "ff3".
 
-[WRN:PA0205] top.v:18: No timescale set for "ff2".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:2:1: No timescale set for "m".
 
-[WRN:PA0205] top.v:28: No timescale set for "ff3".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:3:1: No timescale set for "a".
 
-[WRN:PA0205] middle.v:2: No timescale set for "m".
-
-[WRN:PA0205] middle.v:3: No timescale set for "a".
-
-[WRN:PA0205] middle.v:18: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:18:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] middle.v:3: Compile module "work@a".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:3:1: Compile module "work@a".
 
-[INF:CP0303] top.v:1: Compile module "work@dff_nested".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:1:1: Compile module "work@dff_nested".
 
-[INF:CP0303] top.v:9: Compile module "work@dff_nested::ff1".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:9:1: Compile module "work@dff_nested::ff1".
 
-[INF:CP0303] top.v:18: Compile module "work@dff_nested::ff2".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:18:1: Compile module "work@dff_nested::ff2".
 
-[INF:CP0303] top.v:28: Compile module "work@dff_nested::ff3".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:28:1: Compile module "work@dff_nested::ff3".
 
-[INF:CP0303] middle.v:2: Compile module "work@m".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:2:1: Compile module "work@m".
 
-[INF:CP0303] middle.v:18: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:18:1: Compile module "work@top".
 
-[INF:CP0302] builtin.sv:4: Compile class "work@mailbox".
+[INF:CP0302] Compile class "work@mailbox".
 
-[INF:CP0302] builtin.sv:33: Compile class "work@process".
+[INF:CP0302] Compile class "work@process".
 
-[INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
+[INF:CP0302] Compile class "work@semaphore".
 
-[NTE:CP0309] top.v:6: Implicit port type (wire) for "q",
+[NTE:CP0309] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:6:2: Implicit port type (wire) for "q",
 there are 1 more instances of this message.
 
-[WRN:CP0310] middle.v:2: Port "a" definition missing its direction (input, output, inout),
+[WRN:CP0310] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:2:18: Port "a" definition missing its direction (input, output, inout),
 there are 3 more instances of this message.
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] top.v:1: Top level module "work@dff_nested".
+[NTE:EL0503] ${SURELOG_DIR}/tests/UnitElabExternNested/top.v:1:1: Top level module "work@dff_nested".
 
-[NTE:EL0503] top.v:18: Top level module "work@ff2".
-
-[NTE:EL0503] top.v:28: Top level module "work@ff3".
-
-[NTE:EL0503] middle.v:18: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v:18:1: Top level module "work@top".
 
 [NTE:EL0504] Multiple top level modules in design.
 
@@ -76,9 +68,46 @@ there are 3 more instances of this message.
 
 [NTE:EL0511] Nb leaf instances: 8.
 
+[INF:UH0706] Creating UHDM Model...
+
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                              29
+design                                                 1
+enum_const                                             5
+enum_typespec                                          1
+enum_var                                               1
+function                                               9
+gate                                                   6
+int_typespec                                          11
+int_var                                                4
+io_decl                                               11
+logic_net                                             55
+logic_typespec                                        18
+logic_var                                              3
+module                                                18
+package                                                2
+param_assign                                           4
+parameter                                              4
+part_select                                            3
+port                                                  48
+prim_term                                             24
+range                                                  8
+ref_obj                                               58
+task                                                   9
+unsupported_typespec                                   2
+void_typespec                                          2
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitElabExternNested/slpp_unit/surelog.uhdm ...
+
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 8
-[   NOTE] : 10
+[   NOTE] : 8
 
+
+[roundtrip]: ${SURELOG_DIR}/tests/UnitElabExternNested/middle.v | ${SURELOG_DIR}/build/regression/UnitElabExternNested/roundtrip/middle_000.v | 20 | 28 |
+[roundtrip]: ${SURELOG_DIR}/tests/UnitElabExternNested/top.v    | ${SURELOG_DIR}/build/regression/UnitElabExternNested/roundtrip/top_000.v    | 30 | 36 |
