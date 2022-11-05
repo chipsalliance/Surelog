@@ -208,7 +208,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
     for (auto inst : instances) {
       VObjectType type = fC->Type(inst);
       NodeId instName = fC->Child(inst);
-      if (type == slInst_clause) instName = fC->Child(instName);
+      if (type == VObjectType::slInst_clause) instName = fC->Child(instName);
       std::string instNameS;
       while (instName) {
         if (instNameS.empty())
@@ -227,7 +227,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         }
 
         UseClause usec(UseClause::UseLib, libs, fC, instClause);
-        if (type == slInst_clause)
+        if (type == VObjectType::slInst_clause)
           conf.addInstanceUseClause(instNameS, usec);
         else
           conf.addCellUseClause(instNameS, usec);
@@ -235,7 +235,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         NodeId use = fC->Child(instClause);
         std::string useName;
         VObjectType useType = fC->Type(use);
-        if (useType == slParameter_value_assignment) {
+        if (useType == VObjectType::slParameter_value_assignment) {
           UseClause usec(UseClause::UseParam, fC, use);
           conf.addInstanceUseClause(instNameS, usec);
         } else {
@@ -249,7 +249,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
           }
           useName = StringUtils::replaceAll(useName, ".", "@");
           UseClause usec(UseClause::UseModule, useName, fC, mem);
-          if (type == slInst_clause)
+          if (type == VObjectType::slInst_clause)
             conf.addInstanceUseClause(instNameS, usec);
           else
             conf.addCellUseClause(instNameS, usec);
@@ -266,7 +266,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
           use = fC->Sibling(use);
         }
         UseClause usec(UseClause::UseConfig, useName, fC, mem);
-        if (type == slInst_clause)
+        if (type == VObjectType::slInst_clause)
           conf.addInstanceUseClause(instNameS, usec);
         else
           conf.addCellUseClause(instNameS, usec);

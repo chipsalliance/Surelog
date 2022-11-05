@@ -111,7 +111,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   UHDM::VectorOfattribute* attributes = nullptr;
   if (type == VObjectType::slAttribute_instance) {
     attributes = compileAttributes(component, fC, the_stmt, compileDesign);
-    while (fC->Type(the_stmt) == slAttribute_instance)
+    while (fC->Type(the_stmt) == VObjectType::slAttribute_instance)
       the_stmt = fC->Sibling(the_stmt);
   }
   type = fC->Type(the_stmt);
@@ -219,7 +219,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         NodeId Statement = fC->Parent(Statement_item);
         NodeId Label = fC->Child(Statement);
         if (fC->Sibling(Label) == Statement_item) {
-          if (fC->Type(Label) == slStringConst) labelId = Label;
+          if (fC->Type(Label) == VObjectType::slStringConst) labelId = Label;
         }
       }
 
@@ -303,7 +303,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         NodeId Statement = fC->Parent(Statement_item);
         NodeId Label = fC->Child(Statement);
         if (fC->Sibling(Label) == Statement_item) {
-          if (fC->Type(Label) == slStringConst) labelId = Label;
+          if (fC->Type(Label) == VObjectType::slStringConst) labelId = Label;
         }
       }
       if (labelId) {
@@ -425,12 +425,12 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId loopVarId = fC->Child(Loop_variables);
       NodeId Statement = Loop_variables;
       VectorOfany* loop_vars = s.MakeAnyVec();
-      while (fC->Type(Statement) == slStringConst ||
-             fC->Type(Statement) == slLoop_variables ||
-             fC->Type(Statement) == slComma) {
-        if (fC->Type(Statement) == slStringConst)
+      while (fC->Type(Statement) == VObjectType::slStringConst ||
+             fC->Type(Statement) == VObjectType::slLoop_variables ||
+             fC->Type(Statement) == VObjectType::slComma) {
+        if (fC->Type(Statement) == VObjectType::slStringConst)
           loopVarId = Statement;
-        else if (fC->Type(Statement) == slComma) {
+        else if (fC->Type(Statement) == VObjectType::slComma) {
           operation* op = s.MakeOperation();
           fC->populateCoreMembers(Statement, Statement, op);
           op->VpiOpType(vpiNullOp);
@@ -450,9 +450,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           loop_vars->push_back(ref);
           ref->VpiParent(for_each);
           loopVarId = fC->Sibling(loopVarId);
-          while (fC->Type(loopVarId) == slComma) {
+          while (fC->Type(loopVarId) == VObjectType::slComma) {
             NodeId lookahead = fC->Sibling(loopVarId);
-            if (fC->Type(lookahead) == slComma) {
+            if (fC->Type(lookahead) == VObjectType::slComma) {
               operation* op = s.MakeOperation();
               fC->populateCoreMembers(loopVarId, loopVarId, op);
               op->VpiOpType(vpiNullOp);
@@ -463,11 +463,11 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
               break;
             }
           }
-          if ((fC->Type(loopVarId) != slStringConst) &&
-              ((fC->Type(loopVarId) != slComma))) {
+          if ((fC->Type(loopVarId) != VObjectType::slStringConst) &&
+              ((fC->Type(loopVarId) != VObjectType::slComma))) {
             break;
           }
-          if (fC->Type(loopVarId) == slComma) {
+          if (fC->Type(loopVarId) == VObjectType::slComma) {
             loopVarId = fC->Sibling(loopVarId);
           }
         }
@@ -601,7 +601,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         // wait fork
         UHDM::wait_fork* waitst = s.MakeWait_fork();
         stmt = waitst;
-      } else if (fC->Type(Expression) == slExpression) {
+      } else if (fC->Type(Expression) == VObjectType::slExpression) {
         // wait
         NodeId Statement_or_null = fC->Sibling(Expression);
         UHDM::wait_stmt* waitst = s.MakeWait_stmt();
@@ -627,8 +627,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         VectorOfany* conditions = s.MakeAnyVec();
         waitst->VpiConditions(conditions);
         NodeId Hierarchical_identifier = Expression;
-        while (Hierarchical_identifier && (fC->Type(Hierarchical_identifier) ==
-                                           slHierarchical_identifier)) {
+        while (Hierarchical_identifier &&
+               (fC->Type(Hierarchical_identifier) ==
+                VObjectType::slHierarchical_identifier)) {
           UHDM::any* cond_exp = compileExpression(
               component, fC, Hierarchical_identifier, compileDesign);
           conditions->push_back(cond_exp);
@@ -636,7 +637,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         }
         NodeId Action_block = Hierarchical_identifier;
         NodeId Stmt = fC->Child(Action_block);
-        if (fC->Type(Stmt) == slStatement_or_null) {
+        if (fC->Type(Stmt) == VObjectType::slStatement_or_null) {
           // If only
           VectorOfany* if_stmts =
               compileStmt(component, fC, Stmt, compileDesign, waitst, instance);
@@ -645,7 +646,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
             waitst->VpiStmt(stmt);
             stmt->VpiParent(waitst);
           }
-        } else if (fC->Type(Stmt) == slElse) {
+        } else if (fC->Type(Stmt) == VObjectType::slElse) {
           // Else Only
           Stmt = fC->Sibling(Stmt);
           VectorOfany* if_stmts =
@@ -680,7 +681,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slEvent_trigger: {
       UHDM::event_stmt* estmt = s.MakeEvent_stmt();
       NodeId Trigger_type = fC->Child(the_stmt);
-      if (fC->Type(Trigger_type) != slNonBlockingTriggerEvent) {
+      if (fC->Type(Trigger_type) != VObjectType::slNonBlockingTriggerEvent) {
         estmt->VpiBlocking(true);
       }
       stmt = estmt;
@@ -798,16 +799,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       results = stmts;
       break;
     }
-    case slExpect_property_statement: {
+    case VObjectType::slExpect_property_statement: {
       expect_stmt* expect = s.MakeExpect_stmt();
       NodeId Property_expr = fC->Child(the_stmt);
       NodeId If_block = fC->Sibling(Property_expr);
       UHDM::any* if_stmt = nullptr;
       UHDM::any* else_stmt = nullptr;
-      if (fC->Type(If_block) == slAction_block) {
+      if (fC->Type(If_block) == VObjectType::slAction_block) {
         NodeId if_stmt_id = fC->Child(If_block);
         NodeId else_stmt_id;
-        if (fC->Type(if_stmt_id) == slElse) {
+        if (fC->Type(if_stmt_id) == VObjectType::slElse) {
           else_stmt_id = fC->Sibling(if_stmt_id);
           if_stmt_id = InvalidNodeId;
         } else {
@@ -829,7 +830,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId Clocking_event = fC->Child(Property_expr);
 
       UHDM::expr* clocking_event = nullptr;
-      if (fC->Type(Clocking_event) == slClocking_event) {
+      if (fC->Type(Clocking_event) == VObjectType::slClocking_event) {
         clocking_event = (UHDM::expr*)compileExpression(
             component, fC, Clocking_event, compileDesign, pstmt, instance,
             false);
@@ -909,17 +910,17 @@ VectorOfany* CompileHelper::compileDataDeclaration(
   VObjectType type = fC->Type(nodeId);
   bool automatic_status = false;
   bool const_status = false;
-  if (type == slLifetime_Automatic) {
+  if (type == VObjectType::slLifetime_Automatic) {
     nodeId = fC->Sibling(nodeId);
     automatic_status = true;
     type = fC->Type(nodeId);
   }
-  if (type == slLifetime_Static) {
+  if (type == VObjectType::slLifetime_Static) {
     nodeId = fC->Sibling(nodeId);
     automatic_status = false;
     type = fC->Type(nodeId);
   }
-  if (type == slConst_type) {
+  if (type == VObjectType::slConst_type) {
     nodeId = fC->Sibling(nodeId);
     const_status = true;
     type = fC->Type(nodeId);
@@ -941,13 +942,13 @@ VectorOfany* CompileHelper::compileDataDeclaration(
         NodeId Var = fC->Child(Variable_decl_assignment);
         NodeId tmp = fC->Sibling(Var);
         std::vector<UHDM::range*>* unpackedDimensions = nullptr;
-        if (fC->Type(tmp) != slExpression) {
+        if (fC->Type(tmp) != VObjectType::slExpression) {
           int unpackedSize;
           unpackedDimensions =
               compileRanges(component, fC, tmp, compileDesign, nullptr,
                             instance, reduce, unpackedSize, false);
         }
-        while (tmp && (fC->Type(tmp) != slExpression)) {
+        while (tmp && (fC->Type(tmp) != VObjectType::slExpression)) {
           tmp = fC->Sibling(tmp);
         }
         NodeId Expression = tmp;
@@ -1057,13 +1058,13 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
     ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   int qualifier = 0;
-  if (fC->Type(Cond_predicate) == slUnique_priority) {
+  if (fC->Type(Cond_predicate) == VObjectType::slUnique_priority) {
     NodeId Qualifier = fC->Child(Cond_predicate);
-    if (fC->Type(Qualifier) == slUnique) {
+    if (fC->Type(Qualifier) == VObjectType::slUnique) {
       qualifier = vpiUniqueQualifier;
-    } else if (fC->Type(Qualifier) == slPriority) {
+    } else if (fC->Type(Qualifier) == VObjectType::slPriority) {
       qualifier = vpiPriorityQualifier;
-    } else if (fC->Type(Qualifier) == slUnique0) {
+    } else if (fC->Type(Qualifier) == VObjectType::slUnique0) {
       qualifier = vpiUniqueQualifier;
     }
     Cond_predicate = fC->Sibling(Cond_predicate);
@@ -1173,7 +1174,7 @@ UHDM::atomic_stmt* CompileHelper::compileRandcaseStmt(
       case_item->Stmt(stmt);
     }
     RandCase = fC->Sibling(RandCase);
-    if (fC->Type(RandCase) == slEndcase) {
+    if (fC->Type(RandCase) == VObjectType::slEndcase) {
       break;
     }
   }
@@ -1360,16 +1361,16 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
   while (tf_item_decl) {
     if (fC->Type(tf_item_decl) == VObjectType::slTf_item_declaration) {
       NodeId Tf_port_declaration = fC->Child(tf_item_decl);
-      if (fC->Type(Tf_port_declaration) == slTf_port_declaration) {
+      if (fC->Type(Tf_port_declaration) == VObjectType::slTf_port_declaration) {
         NodeId TfPortDir = fC->Child(Tf_port_declaration);
         VObjectType tf_port_direction_type = fC->Type(TfPortDir);
         NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
         NodeId Data_type = fC->Child(Data_type_or_implicit);
         typespec* ts = nullptr;
-        if (fC->Type(Data_type) == slData_type) {
+        if (fC->Type(Data_type) == VObjectType::slData_type) {
           ts = compileTypespec(component, fC, Data_type, compileDesign, parent,
                                nullptr, true);
-        } else if (fC->Type(Data_type) == slPacked_dimension) {
+        } else if (fC->Type(Data_type) == VObjectType::slPacked_dimension) {
           // Implicit type
           int size;
           VectorOfrange* ranges =
@@ -1387,7 +1388,8 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
         while (nameId) {
           VectorOfrange* ranges = nullptr;
           NodeId Variable_dimension = fC->Sibling(nameId);
-          if (fC->Type(Variable_dimension) == slVariable_dimension) {
+          if (fC->Type(Variable_dimension) ==
+              VObjectType::slVariable_dimension) {
             int size;
             ranges =
                 compileRanges(component, fC, Variable_dimension, compileDesign,
@@ -1404,19 +1406,23 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           fC->populateCoreMembers(nameId, nameId, decl);
           decl->Typespec(ts);
           decl->Ranges(ranges);
-          if (fC->Type(Variable_dimension) == slVariable_dimension) {
+          if (fC->Type(Variable_dimension) ==
+              VObjectType::slVariable_dimension) {
             nameId = fC->Sibling(nameId);
           }
           nameId = fC->Sibling(nameId);
         }
-      } else if (fC->Type(Tf_port_declaration) == slBlock_item_declaration) {
+      } else if (fC->Type(Tf_port_declaration) ==
+                 VObjectType::slBlock_item_declaration) {
         NodeId Data_declaration = fC->Child(Tf_port_declaration);
-        if (fC->Type(Data_declaration) == slData_declaration) {
+        if (fC->Type(Data_declaration) == VObjectType::slData_declaration) {
           NodeId Variable_declaration = fC->Child(Data_declaration);
           bool is_static = false;
-          if (fC->Type(Variable_declaration) == slLifetime_Automatic) {
+          if (fC->Type(Variable_declaration) ==
+              VObjectType::slLifetime_Automatic) {
             Variable_declaration = fC->Sibling(Variable_declaration);
-          } else if (fC->Type(Variable_declaration) == slLifetime_Static) {
+          } else if (fC->Type(Variable_declaration) ==
+                     VObjectType::slLifetime_Static) {
             is_static = true;
             Variable_declaration = fC->Sibling(Variable_declaration);
           }
@@ -1507,7 +1513,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
     NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
     NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
     VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
-    if (tf_port_direction_type != slData_type_or_implicit)
+    if (tf_port_direction_type != VObjectType::slData_type_or_implicit)
       previousDirection = UhdmWriter::getVpiDirection(tf_port_direction_type);
     decl->VpiDirection(previousDirection);
     NodeId tf_param_name = fC->Sibling(tf_data_type_or_implicit);
@@ -1525,7 +1531,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
     NodeId unpackedDimension =
         fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
     if (unpackedDimension &&
-        (fC->Type(unpackedDimension) != slVariable_dimension))
+        (fC->Type(unpackedDimension) != VObjectType::slVariable_dimension))
       unpackedDimension = fC->Sibling(unpackedDimension);
     int size;
     std::vector<UHDM::range*>* unpackedDimensions =
@@ -1564,11 +1570,11 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
   NodeId func_decl = nodeId;
   VObjectType func_type = fC->Type(nodeId);
 
-  if (func_type == slFunction_declaration) {
+  if (func_type == VObjectType::slFunction_declaration) {
     func_decl = fC->Child(nodeId);
     func_type = fC->Type(func_decl);
   }
-  if (func_type == slTask_declaration) {
+  if (func_type == VObjectType::slTask_declaration) {
     func_decl = fC->Child(nodeId);
     func_type = fC->Type(func_decl);
   }
@@ -1691,7 +1697,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
   std::string name;
   NodeId task_decl = setFuncTaskQualifiers(fC, nodeId, nullptr);
   NodeId Task_body_declaration;
-  if (fC->Type(task_decl) == slTask_body_declaration)
+  if (fC->Type(task_decl) == VObjectType::slTask_body_declaration)
     Task_body_declaration = task_decl;
   else
     Task_body_declaration = fC->Child(task_decl);
@@ -1726,20 +1732,23 @@ bool CompileHelper::compileTask(DesignComponent* component,
   fC->populateCoreMembers(nodeId, task_decl, task);
   NodeId Tf_port_list = fC->Sibling(task_name);
   NodeId Statement_or_null;
-  if (fC->Type(Tf_port_list) == slTf_port_list) {
+  if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
     Statement_or_null = fC->Sibling(Tf_port_list);
     task->Io_decls(
         compileTfPortList(component, task, fC, Tf_port_list, compileDesign));
   } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
     NodeId Block_item_declaration = fC->Child(Tf_port_list);
-    if (fC->Type(Block_item_declaration) != slBlock_item_declaration) {
+    if (fC->Type(Block_item_declaration) !=
+        VObjectType::slBlock_item_declaration) {
       compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign);
       while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
         NodeId Tf_port_declaration = fC->Child(Tf_port_list);
-        if (fC->Type(Tf_port_declaration) == slTf_port_declaration) {
-        } else if (fC->Type(Tf_port_declaration) == slBlock_item_declaration) {
+        if (fC->Type(Tf_port_declaration) ==
+            VObjectType::slTf_port_declaration) {
+        } else if (fC->Type(Tf_port_declaration) ==
+                   VObjectType::slBlock_item_declaration) {
           NodeId ItemNode = fC->Child(Tf_port_declaration);
-          if (fC->Type(ItemNode) != slData_declaration) break;
+          if (fC->Type(ItemNode) != VObjectType::slData_declaration) break;
         } else {
           break;
         }
@@ -1750,7 +1759,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
   } else if (fC->Type(Tf_port_list) == VObjectType::slBlock_item_declaration) {
     Statement_or_null = Tf_port_list;
   } else {
-    if (fC->Type(Tf_port_list) == slStatement_or_null)
+    if (fC->Type(Tf_port_list) == VObjectType::slStatement_or_null)
       Statement_or_null = Tf_port_list;
   }
 
@@ -1767,19 +1776,22 @@ bool CompileHelper::compileTask(DesignComponent* component,
     VectorOfany* stmts = s.MakeAnyVec();
     begin->Stmts(stmts);
     while (Statement_or_null) {
-      if (Statement_or_null && (fC->Type(Statement_or_null) == slEndtask))
+      if (Statement_or_null &&
+          (fC->Type(Statement_or_null) == VObjectType::slEndtask))
         break;
-      if (fC->Type(fC->Child(Statement_or_null)) == slTf_port_declaration) {
+      if (fC->Type(fC->Child(Statement_or_null)) ==
+          VObjectType::slTf_port_declaration) {
         compileTfPortDecl(component, task, fC, Statement_or_null,
                           compileDesign);
         while (fC->Type(Statement_or_null) ==
                VObjectType::slTf_item_declaration) {
           NodeId Tf_port_declaration = fC->Child(Statement_or_null);
-          if (fC->Type(Tf_port_declaration) == slTf_port_declaration) {
+          if (fC->Type(Tf_port_declaration) ==
+              VObjectType::slTf_port_declaration) {
           } else if (fC->Type(Tf_port_declaration) ==
-                     slBlock_item_declaration) {
+                     VObjectType::slBlock_item_declaration) {
             NodeId ItemNode = fC->Child(Tf_port_declaration);
-            if (fC->Type(ItemNode) != slData_declaration) break;
+            if (fC->Type(ItemNode) != VObjectType::slData_declaration) break;
           } else {
             break;
           }
@@ -1827,7 +1839,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
     }
   } else {
     // Page 983, 2017 Standard: 0 or 1 Stmt
-    if (Statement_or_null && (fC->Type(Statement_or_null) != slEndtask)) {
+    if (Statement_or_null &&
+        (fC->Type(Statement_or_null) != VObjectType::slEndtask)) {
       VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
                                        compileDesign, task, instance, reduce);
       if (stmts) {
@@ -1886,7 +1899,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
   std::string className;
   NodeId Tf_port_list;
   Tf_port_list = fC->Child(nodeId);
-  if (fC->Type(Tf_port_list) == slClass_scope) {
+  if (fC->Type(Tf_port_list) == VObjectType::slClass_scope) {
     NodeId Class_scope = Tf_port_list;
     NodeId Class_type = fC->Child(Class_scope);
     NodeId Class_name = fC->Child(Class_type);
@@ -1921,7 +1934,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
       compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
 
   NodeId Stmt;
-  if (fC->Type(Tf_port_list) == slFunction_statement_or_null) {
+  if (fC->Type(Tf_port_list) == VObjectType::slFunction_statement_or_null) {
     Stmt = Tf_port_list;
   } else {
     Stmt = fC->Sibling(Tf_port_list);
@@ -1929,27 +1942,27 @@ bool CompileHelper::compileClassConstructorDeclaration(
   int nbStmts = 0;
   NodeId StmtTmp = Stmt;
   while (StmtTmp) {
-    if (fC->Type(StmtTmp) == slBlock_item_declaration) {
+    if (fC->Type(StmtTmp) == VObjectType::slBlock_item_declaration) {
       nbStmts++;
-    } else if (fC->Type(StmtTmp) == slSuper_dot_new) {
+    } else if (fC->Type(StmtTmp) == VObjectType::slSuper_dot_new) {
       nbStmts++;
       NodeId lookAhead = fC->Sibling(StmtTmp);
-      if (fC->Type(lookAhead) == slList_of_arguments) {
+      if (fC->Type(lookAhead) == VObjectType::slList_of_arguments) {
         StmtTmp = fC->Sibling(StmtTmp);
       }
-    } else if (fC->Type(StmtTmp) == slFunction_statement_or_null) {
+    } else if (fC->Type(StmtTmp) == VObjectType::slFunction_statement_or_null) {
       nbStmts++;
     }
     StmtTmp = fC->Sibling(StmtTmp);
   }
 
   if (nbStmts == 1) {
-    if (fC->Type(Stmt) == slSuper_dot_new) {
+    if (fC->Type(Stmt) == VObjectType::slSuper_dot_new) {
       UHDM::method_func_call* mcall = s.MakeMethod_func_call();
       mcall->VpiParent(func);
       mcall->VpiName("super.new");
       NodeId Args = fC->Sibling(Stmt);
-      if (fC->Type(Args) == slList_of_arguments) {
+      if (fC->Type(Args) == VObjectType::slList_of_arguments) {
         VectorOfany* arguments = compileTfCallArguments(
             component, fC, Args, compileDesign, mcall, nullptr, false, false);
         mcall->Tf_call_args(arguments);
@@ -1976,12 +1989,12 @@ bool CompileHelper::compileClassConstructorDeclaration(
     begin->Stmts(stmts);
     Stmt = fC->Sibling(Tf_port_list);
     while (Stmt) {
-      if (fC->Type(Stmt) == slSuper_dot_new) {
+      if (fC->Type(Stmt) == VObjectType::slSuper_dot_new) {
         UHDM::method_func_call* mcall = s.MakeMethod_func_call();
         mcall->VpiParent(func);
         mcall->VpiName("super.new");
         NodeId Args = fC->Sibling(Stmt);
-        if (fC->Type(Args) == slList_of_arguments) {
+        if (fC->Type(Args) == VObjectType::slList_of_arguments) {
           VectorOfany* arguments = compileTfCallArguments(
               component, fC, Args, compileDesign, mcall, nullptr, false, false);
           mcall->Tf_call_args(arguments);
@@ -2023,8 +2036,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
   NodeId func_decl = setFuncTaskQualifiers(fC, nodeId, nullptr);
   VObjectType func_decl_type = fC->Type(func_decl);
   bool constructor = false;
-  if (func_decl_type == slClass_constructor_declaration ||
-      func_decl_type == slClass_constructor_prototype) {
+  if (func_decl_type == VObjectType::slClass_constructor_declaration ||
+      func_decl_type == VObjectType::slClass_constructor_prototype) {
     constructor = true;
   }
   NodeId Tf_port_list;
@@ -2033,7 +2046,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     name = "new";
   } else {
     NodeId Function_body_declaration;
-    if (fC->Type(func_decl) == slFunction_body_declaration)
+    if (fC->Type(func_decl) == VObjectType::slFunction_body_declaration)
       Function_body_declaration = func_decl;
     else
       Function_body_declaration = fC->Child(func_decl);
@@ -2079,7 +2092,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     tps->VpiName(cdef->getUhdmDefinition()->VpiFullName());
   } else {
     NodeId Function_body_declaration;
-    if (fC->Type(func_decl) == slFunction_body_declaration)
+    if (fC->Type(func_decl) == VObjectType::slFunction_body_declaration)
       Function_body_declaration = func_decl;
     else
       Function_body_declaration = fC->Child(func_decl);
@@ -2087,11 +2100,11 @@ bool CompileHelper::compileFunction(DesignComponent* component,
         fC->Child(Function_body_declaration);
     NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
     NodeId Return_data_type = fC->Child(Function_data_type);
-    if (fC->Type(Function_data_type) == slPacked_dimension) {
+    if (fC->Type(Function_data_type) == VObjectType::slPacked_dimension) {
       Return_data_type = Function_data_type;
     }
     if ((!Return_data_type) &&
-        (fC->Type(Function_data_type) == slSigning_Unsigned)) {
+        (fC->Type(Function_data_type) == VObjectType::slSigning_Unsigned)) {
       Return_data_type = Function_data_type;
     }
     variables* var = nullptr;
@@ -2125,13 +2138,16 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
       NodeId Block_item_declaration = fC->Child(Tf_port_list);
       NodeId Parameter_declaration = fC->Child(Block_item_declaration);
-      if ((fC->Type(Parameter_declaration) == slParameter_declaration) ||
-          (fC->Type(Parameter_declaration) == slLocal_parameter_declaration)) {
+      if ((fC->Type(Parameter_declaration) ==
+           VObjectType::slParameter_declaration) ||
+          (fC->Type(Parameter_declaration) ==
+           VObjectType::slLocal_parameter_declaration)) {
         DesignComponent* tmp =
             new ModuleDefinition(nullptr, InvalidNodeId, "fake");
         compileParameterDeclaration(
             tmp, fC, Parameter_declaration, compileDesign,
-            (fC->Type(Parameter_declaration) == slLocal_parameter_declaration),
+            (fC->Type(Parameter_declaration) ==
+             VObjectType::slLocal_parameter_declaration),
             nullptr, false, false, false);
         if (tmp->getParameters()) {
           VectorOfany* params = func->Parameters();
@@ -2410,10 +2426,10 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
       NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
       if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-          slHierarchical_identifier) {
+          VObjectType::slHierarchical_identifier) {
         Hierarchical_identifier = fC->Child(fC->Child(Hierarchical_identifier));
       } else if (fC->Type(Hierarchical_identifier) !=
-                 slPs_or_hierarchical_identifier) {
+                 VObjectType::slPs_or_hierarchical_identifier) {
         Hierarchical_identifier = Variable_lvalue;
       }
       NodeId Expression = fC->Sibling(Variable_lvalue);
@@ -2434,10 +2450,10 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
       NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
       if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-          slHierarchical_identifier) {
+          VObjectType::slHierarchical_identifier) {
         Hierarchical_identifier = fC->Child(fC->Child(Hierarchical_identifier));
       } else if (fC->Type(Hierarchical_identifier) !=
-                 slPs_or_hierarchical_identifier) {
+                 VObjectType::slPs_or_hierarchical_identifier) {
         Hierarchical_identifier = Variable_lvalue;
       }
       NodeId Expression = fC->Sibling(Variable_lvalue);
@@ -2458,10 +2474,10 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
       NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
       if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-          slHierarchical_identifier) {
+          VObjectType::slHierarchical_identifier) {
         Hierarchical_identifier = fC->Child(fC->Child(Hierarchical_identifier));
       } else if (fC->Type(Hierarchical_identifier) !=
-                 slPs_or_hierarchical_identifier) {
+                 VObjectType::slPs_or_hierarchical_identifier) {
         Hierarchical_identifier = Variable_lvalue;
       }
       expr* lhs = (expr*)compileExpression(
@@ -2477,10 +2493,10 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
       NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
       if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-          slHierarchical_identifier) {
+          VObjectType::slHierarchical_identifier) {
         Hierarchical_identifier = fC->Child(fC->Child(Hierarchical_identifier));
       } else if (fC->Type(Hierarchical_identifier) !=
-                 slPs_or_hierarchical_identifier) {
+                 VObjectType::slPs_or_hierarchical_identifier) {
         Hierarchical_identifier = Variable_lvalue;
       }
       expr* lhs = (expr*)compileExpression(
@@ -2507,13 +2523,13 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
   NodeId Statement_or_null;
   NodeId tmp = fC->Sibling(nodeId);
   while (tmp) {
-    if (fC->Type(tmp) == slFor_initialization) {
+    if (fC->Type(tmp) == VObjectType::slFor_initialization) {
       For_initialization = tmp;
-    } else if (fC->Type(tmp) == slExpression) {
+    } else if (fC->Type(tmp) == VObjectType::slExpression) {
       Condition = tmp;
-    } else if (fC->Type(tmp) == slFor_step) {
+    } else if (fC->Type(tmp) == VObjectType::slFor_step) {
       For_step = tmp;
-    } else if (fC->Type(tmp) == slStatement_or_null) {
+    } else if (fC->Type(tmp) == VObjectType::slStatement_or_null) {
       Statement_or_null = tmp;
     }
     tmp = fC->Sibling(tmp);
@@ -2522,7 +2538,8 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
   // Init
   if (For_initialization) {
     NodeId For_variable_declaration = fC->Child(For_initialization);
-    if (fC->Type(For_variable_declaration) == slFor_variable_declaration) {
+    if (fC->Type(For_variable_declaration) ==
+        VObjectType::slFor_variable_declaration) {
       while (For_variable_declaration) {
         VectorOfany* stmts = for_stmt->VpiForInitStmts();
         if (stmts == nullptr) {
@@ -2559,18 +2576,18 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
         For_variable_declaration = fC->Sibling(For_variable_declaration);
       }
     } else if (fC->Type(For_variable_declaration) ==
-               slList_of_variable_assignments) {
+               VObjectType::slList_of_variable_assignments) {
       NodeId List_of_variable_assignments = For_variable_declaration;
       NodeId Variable_assignment = fC->Child(List_of_variable_assignments);
       while (Variable_assignment) {
         NodeId Variable_lvalue = fC->Child(Variable_assignment);
         NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
         if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-            slHierarchical_identifier) {
+            VObjectType::slHierarchical_identifier) {
           Hierarchical_identifier =
               fC->Child(fC->Child(Hierarchical_identifier));
         } else if (fC->Type(Hierarchical_identifier) !=
-                   slPs_or_hierarchical_identifier) {
+                   VObjectType::slPs_or_hierarchical_identifier) {
           Hierarchical_identifier = Variable_lvalue;
         }
         NodeId Expression = fC->Sibling(Variable_lvalue);
@@ -2625,7 +2642,7 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
       }
 
       NodeId Expression = fC->Child(For_step_assignment);
-      if (fC->Type(Expression) == slOperator_assignment) {
+      if (fC->Type(Expression) == VObjectType::slOperator_assignment) {
         std::vector<UHDM::any*>* incstmts =
             compileStmt(component, fC, Expression, compileDesign, for_stmt);
         if (incstmts) {
@@ -2834,13 +2851,13 @@ UHDM::method_func_call* CompileHelper::compileRandomizeCall(
   method_func_call* result = func_call;
   func_call->VpiName("randomize");
   NodeId With;
-  if (fC->Type(Identifier_list) == slIdentifier_list) {
+  if (fC->Type(Identifier_list) == VObjectType::slIdentifier_list) {
     With = fC->Sibling(Identifier_list);
-  } else if (fC->Type(Identifier_list) == slWith) {
+  } else if (fC->Type(Identifier_list) == VObjectType::slWith) {
     With = Identifier_list;
   }
   NodeId Constraint_block = fC->Sibling(With);
-  if (fC->Type(Identifier_list) == slIdentifier_list) {
+  if (fC->Type(Identifier_list) == VObjectType::slIdentifier_list) {
     VectorOfany* arguments =
         compileTfCallArguments(component, fC, Identifier_list, compileDesign,
                                func_call, nullptr, false, false);
@@ -2902,7 +2919,7 @@ void CompileHelper::compileBindStmt(DesignComponent* component,
   const std::string& targetName = fC->SymName(Target_scope);
   NodeId Bind_instantiation = fC->Sibling(Target_scope);
   NodeId Instance_target;
-  if (fC->Type(Bind_instantiation) == slStringConst) {
+  if (fC->Type(Bind_instantiation) == VObjectType::slStringConst) {
     Instance_target = Bind_instantiation;
     NodeId Constant_bit_select = fC->Sibling(Bind_instantiation);
     Bind_instantiation = fC->Sibling(Constant_bit_select);
@@ -2910,7 +2927,7 @@ void CompileHelper::compileBindStmt(DesignComponent* component,
   NodeId Module_instantiation = fC->Child(Bind_instantiation);
   NodeId Source_scope = fC->Child(Module_instantiation);
   NodeId tmp = fC->Sibling(Source_scope);
-  if (fC->Type(tmp) == slParameter_value_assignment) {
+  if (fC->Type(tmp) == VObjectType::slParameter_value_assignment) {
     tmp = fC->Sibling(tmp);
   }
   NodeId Instance_name = tmp;

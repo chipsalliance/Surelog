@@ -137,24 +137,25 @@ bool UhdmChecker::registerFile(const FileContent* fC,
 
     if (((type == VObjectType::slStringConst) &&
          (fC->Type(current.m_parent) ==
-          slModule_declaration)) ||  // endmodule : name
+          VObjectType::slModule_declaration)) ||  // endmodule : name
         ((type == VObjectType::slStringConst) &&
          (fC->Type(current.m_parent) ==
-          slPackage_declaration)) ||  // endpackage : name
+          VObjectType::slPackage_declaration)) ||  // endpackage : name
         ((type == VObjectType::slStringConst) &&
          (fC->Type(current.m_parent) ==
-          slFunction_body_declaration)) ||  // endfunction  : name
+          VObjectType::slFunction_body_declaration)) ||  // endfunction  : name
         ((type == VObjectType::slStringConst) &&
          (fC->Type(current.m_parent) ==
-          slTask_declaration)) ||  // endtask : name
+          VObjectType::slTask_declaration)) ||  // endtask : name
         ((type == VObjectType::slStringConst) &&
          (fC->Type(current.m_parent) ==
-          slClass_declaration)) ||  // endclass : name
+          VObjectType::slClass_declaration)) ||  // endclass : name
         ((type == VObjectType::slStringConst) &&
          (fC->Type(current.m_parent) ==
-          slName_of_instance)) ||  // instance name
+          VObjectType::slName_of_instance)) ||  // instance name
         ((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) == slType_declaration))  // struct name
+         (fC->Type(current.m_parent) ==
+          VObjectType::slType_declaration))  // struct name
     ) {
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (skipModule == false) {

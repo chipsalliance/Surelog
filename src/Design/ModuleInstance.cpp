@@ -81,7 +81,7 @@ UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
       }
     }
 
-    if (instance->getType() != slModule_instantiation)
+    if (instance->getType() != VObjectType::slModule_instantiation)
       instance = instance->getParent();
     else
       instance = nullptr;
@@ -120,7 +120,7 @@ Value* ModuleInstance::getValue(std::string_view name,
       }
     }
 
-    if (instance->getType() != slModule_instantiation)
+    if (instance->getType() != VObjectType::slModule_instantiation)
       instance = instance->getParent();
     else
       instance = nullptr;

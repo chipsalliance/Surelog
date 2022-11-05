@@ -290,7 +290,7 @@ bool ResolveSymbols::bindDefinition_(NodeId objIndex,
                                      const VObjectTypeUnorderedSet& bindTypes) {
   std::string modName =
       SymName(sl_collect(objIndex, VObjectType::slStringConst));
-  NodeId nameId = Child(sl_collect(objIndex, slName_of_instance));
+  NodeId nameId = Child(sl_collect(objIndex, VObjectType::slName_of_instance));
   std::string instName(BadRawSymbol);
   if (nameId) instName = SymName(nameId);
   Design::FileIdDesignContentMap& all_files =
@@ -358,9 +358,10 @@ bool ResolveSymbols::resolve() {
     }
     if (bind) {
       /*bool found = */
-      bindDefinition_(objIndex,
-                      {slUdp_declaration, slModule_declaration,
-                       slInterface_declaration, slProgram_declaration});
+      bindDefinition_(objIndex, {VObjectType::slUdp_declaration,
+                                 VObjectType::slModule_declaration,
+                                 VObjectType::slInterface_declaration,
+                                 VObjectType::slProgram_declaration});
       /*
        * This warning is now treated in the elaboration to give the library
       information if (!found)

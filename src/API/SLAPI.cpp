@@ -299,7 +299,7 @@ std::string SLgetFile(FileContent* fC, RawNodeId id) {
 
 unsigned int SLgetType(FileContent* fC, RawNodeId id) {
   if (!fC) return 0;
-  return fC->Type(NodeId(id));
+  return static_cast<unsigned int>(fC->Type(NodeId(id)));
 }
 
 RawNodeId SLgetChild(FileContent* fC, RawNodeId index) {

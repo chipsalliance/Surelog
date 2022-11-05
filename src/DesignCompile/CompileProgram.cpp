@@ -199,8 +199,9 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::slParameter_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
-        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == slType) {
+        if (fC->Type(list_of_type_assignments) ==
+                VObjectType::slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == VObjectType::slType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, false,
@@ -216,8 +217,9 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::slLocal_parameter_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
-        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == slType) {
+        if (fC->Type(list_of_type_assignments) ==
+                VObjectType::slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == VObjectType::slType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, true,
@@ -233,7 +235,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::slClass_declaration: {
         if (collectType != CollectType::OTHER) break;
         NodeId nameId = fC->Child(id);
-        if (fC->Type(nameId) == slVirtual) {
+        if (fC->Type(nameId) == VObjectType::slVirtual) {
           nameId = fC->Sibling(nameId);
         }
         const std::string& name = fC->SymName(nameId);
@@ -288,11 +290,11 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         NodeId StringLiteral = fC->Sibling(Import);
         NodeId Context_keyword = fC->Sibling(StringLiteral);
         NodeId Task_prototype;
-        if (fC->Type(Context_keyword) == slContext_keyword)
+        if (fC->Type(Context_keyword) == VObjectType::slContext_keyword)
           Task_prototype = fC->Sibling(Context_keyword);
         else
           Task_prototype = Context_keyword;
-        if (fC->Type(Task_prototype) == slTask_prototype) {
+        if (fC->Type(Task_prototype) == VObjectType::slTask_prototype) {
           Task* task =
               m_helper.compileTaskPrototype(m_program, fC, id, m_compileDesign);
           m_program->insertTask(task);
@@ -307,7 +309,8 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         if (collectType != CollectType::DEFINITION) break;
         NodeId sibling = fC->Sibling(id);
         if (!sibling) {
-          if (fC->Type(fC->Parent(id)) != slProgram_declaration) break;
+          if (fC->Type(fC->Parent(id)) != VObjectType::slProgram_declaration)
+            break;
           const std::string& endLabel = fC->SymName(id);
           std::string moduleName = m_program->getName();
           moduleName = StringUtils::ltrim(moduleName, '@');

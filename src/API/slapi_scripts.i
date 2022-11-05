@@ -7,6 +7,9 @@
 %{
 #include <Surelog/Common/SymbolId.h>
 using SURELOG::RawNodeId;
+
+#include <Surelog/SourceCompile/VObjectTypes.h>
+using SURELOG::VObjectType;
 %}
 
 %template (UIntVector) std::vector<unsigned int>;

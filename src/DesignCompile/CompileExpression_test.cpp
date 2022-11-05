@@ -50,7 +50,8 @@ TEST(CompileExpression, ExprFromParseTree1) {
       "parameter p7 = (1'b0) ? 15 : 16;"
       "endmodule");
   NodeId root = fC->getRootNode();
-  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(root, VObjectType::slParam_assignment);
   EXPECT_EQ(assigns.size(), 7);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
@@ -79,7 +80,8 @@ TEST(CompileExpression, ExprFromParseTree2) {
       "parameter p4 = ~1'b0;"
       "endmodule");
   NodeId root = fC->getRootNode();
-  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(root, VObjectType::slParam_assignment);
   EXPECT_EQ(assigns.size(), 4);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
@@ -106,7 +108,8 @@ TEST(CompileExpression, ExprFromParseTree3) {
       "parameter p2 = '{1'b1, 2'b10}"
       "endmodule");
   NodeId root = fC->getRootNode();
-  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(root, VObjectType::slParam_assignment);
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
@@ -146,7 +149,8 @@ TEST(CompileExpression, ExprFromPpTree) {
   // elaboration performed here!
   auto fC = pharness.parse(text);
   NodeId root = fC->getRootNode();
-  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(root, VObjectType::slParam_assignment);
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);

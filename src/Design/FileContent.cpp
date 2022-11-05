@@ -41,8 +41,8 @@ FileContent::FileContent(PathId fileId, Library* library,
       m_library(library),
       m_symbolTable(symbolTable),
       m_parentFile(parent) {
-  addObject(BadSymbolId, BadPathId, sl_INVALID_, 0, 0, 0, 0, InvalidNodeId,
-            InvalidNodeId, InvalidNodeId, InvalidNodeId);
+  addObject(BadSymbolId, BadPathId, VObjectType::sl_INVALID_, 0, 0, 0, 0,
+            InvalidNodeId, InvalidNodeId, InvalidNodeId, InvalidNodeId);
 }
 
 std::string FileContent::getName() const {
@@ -317,7 +317,7 @@ VObjectType FileContent::Type(NodeId index) const {
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
-    return sl_INVALID_;
+    return VObjectType::sl_INVALID_;
   }
   return (VObjectType)m_objects[index].m_type;
 }

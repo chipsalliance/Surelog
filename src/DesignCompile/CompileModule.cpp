@@ -221,9 +221,9 @@ bool CompileModule::collectUdpObjects_() {
     current = fC->Object(id);
     VObjectType type = fC->Type(id);
     switch (type) {
-      case slUdp_declaration:
-      case slUdp_nonansi_declaration:
-      case slUdp_ansi_declaration: {
+      case VObjectType::slUdp_declaration:
+      case VObjectType::slUdp_nonansi_declaration:
+      case VObjectType::slUdp_ansi_declaration: {
         UHDM::VectorOfattribute* attributes = nullptr;
         NodeId Attributes = fC->Child(id);
         if (fC->Type(Attributes) == VObjectType::slAttribute_instance) {
@@ -233,7 +233,7 @@ bool CompileModule::collectUdpObjects_() {
         }
         break;
       }
-      case slUdp_port_list: {
+      case VObjectType::slUdp_port_list: {
         std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
         if (ios == nullptr) {
           defn->Io_decls(s.MakeIo_declVec());
@@ -251,8 +251,8 @@ bool CompileModule::collectUdpObjects_() {
         }
         break;
       }
-      case slUdp_output_declaration:
-      case slUdp_reg_declaration: {
+      case VObjectType::slUdp_output_declaration:
+      case VObjectType::slUdp_reg_declaration: {
         NodeId Output = fC->Child(id);
         UHDM::VectorOfattribute* attributes = nullptr;
         if (fC->Type(Output) == VObjectType::slAttribute_instance) {
@@ -281,7 +281,7 @@ bool CompileModule::collectUdpObjects_() {
         }
         break;
       }
-      case slUdp_input_declaration: {
+      case VObjectType::slUdp_input_declaration: {
         NodeId Indentifier_list = fC->Child(id);
         UHDM::VectorOfattribute* attributes = nullptr;
         if (fC->Type(Indentifier_list) == VObjectType::slAttribute_instance) {
@@ -313,7 +313,7 @@ bool CompileModule::collectUdpObjects_() {
         }
         break;
       }
-      case slCombinational_entry: {
+      case VObjectType::slCombinational_entry: {
         NodeId Level_input_list = fC->Child(id);
         NodeId Output_symbol = fC->Sibling(Level_input_list);
         NodeId Level_symbol = fC->Child(Level_input_list);
@@ -322,10 +322,10 @@ bool CompileModule::collectUdpObjects_() {
         while (Level_symbol) {
           NodeId Symbol = fC->Child(Level_symbol);
           unsigned int nbSymb = 0;
-          if (fC->Type(Symbol) == slQmark) {
+          if (fC->Type(Symbol) == VObjectType::slQmark) {
             ventry += "? ";
             nbSymb = 1;
-          } else if (fC->Type(Symbol) == slBinOp_Mult) {
+          } else if (fC->Type(Symbol) == VObjectType::slBinOp_Mult) {
             ventry += "* ";
             nbSymb = 1;
           } else {
@@ -357,7 +357,7 @@ bool CompileModule::collectUdpObjects_() {
         entries->push_back(entry);
         break;
       }
-      case slSequential_entry: {
+      case VObjectType::slSequential_entry: {
         NodeId Seq_input_list = fC->Child(id);
         NodeId Level_input_list = fC->Child(Seq_input_list);
         NodeId Current_state = fC->Sibling(Seq_input_list);
@@ -366,13 +366,13 @@ bool CompileModule::collectUdpObjects_() {
         unsigned int nb = 0;
         NodeId Level_symbol = fC->Child(Level_input_list);
         while (Level_symbol) {
-          if (fC->Type(Level_symbol) == slEdge_indicator) {
+          if (fC->Type(Level_symbol) == VObjectType::slEdge_indicator) {
             NodeId Level_Symbol = fC->Child(Level_symbol);
             while (Level_Symbol) {
               NodeId Symbol = fC->Child(Level_Symbol);
-              if (fC->Type(Symbol) == slQmark) {
+              if (fC->Type(Symbol) == VObjectType::slQmark) {
                 ventry += "?";
-              } else if (fC->Type(Symbol) == slBinOp_Mult) {
+              } else if (fC->Type(Symbol) == VObjectType::slBinOp_Mult) {
                 ventry += "* ";
               } else {
                 const std::string& symb = fC->SymName(Symbol);
@@ -386,10 +386,10 @@ bool CompileModule::collectUdpObjects_() {
             NodeId Symbol = fC->Child(Level_symbol);
 
             unsigned int nbSymb = 0;
-            if (fC->Type(Symbol) == slQmark) {
+            if (fC->Type(Symbol) == VObjectType::slQmark) {
               ventry += "? ";
               nbSymb = 1;
-            } else if (fC->Type(Symbol) == slBinOp_Mult) {
+            } else if (fC->Type(Symbol) == VObjectType::slBinOp_Mult) {
               ventry += "* ";
               nbSymb = 1;
             } else {
@@ -409,9 +409,9 @@ bool CompileModule::collectUdpObjects_() {
         ventry += ": ";
         NodeId Symbol = fC->Child(Current_state);
 
-        if (fC->Type(Symbol) == slQmark) {
+        if (fC->Type(Symbol) == VObjectType::slQmark) {
           ventry += "? ";
-        } else if (fC->Type(Symbol) == slBinOp_Mult) {
+        } else if (fC->Type(Symbol) == VObjectType::slBinOp_Mult) {
           ventry += "* ";
         } else {
           const std::string& symb = fC->SymName(Symbol);
@@ -427,7 +427,7 @@ bool CompileModule::collectUdpObjects_() {
         ventry += ": ";
         Symbol = fC->Child(Next_state);
 
-        if (fC->Type(Symbol) == slOutput_symbol) {
+        if (fC->Type(Symbol) == VObjectType::slOutput_symbol) {
           Symbol = fC->Child(Symbol);
           const std::string& symb = fC->SymName(Symbol);
           unsigned int nbSymb = symb.size();
@@ -454,7 +454,7 @@ bool CompileModule::collectUdpObjects_() {
         entries->push_back(entry);
         break;
       }
-      case slUdp_initial_statement: {
+      case VObjectType::slUdp_initial_statement: {
         NodeId Identifier = fC->Child(id);
         NodeId Value = fC->Sibling(Identifier);
         UHDM::initial* init = s.MakeInitial();
@@ -655,8 +655,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-                  slList_of_type_assignments ||
-              fC->Type(list_of_type_assignments) == slType) {
+                  VObjectType::slList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, false,
@@ -673,8 +673,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-                  slList_of_type_assignments ||
-              fC->Type(list_of_type_assignments) == slType) {
+                  VObjectType::slList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
@@ -706,11 +706,11 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           NodeId StringLiteral = fC->Sibling(Import);
           NodeId Context_keyword = fC->Sibling(StringLiteral);
           NodeId Task_prototype;
-          if (fC->Type(Context_keyword) == slContext_keyword)
+          if (fC->Type(Context_keyword) == VObjectType::slContext_keyword)
             Task_prototype = fC->Sibling(Context_keyword);
           else
             Task_prototype = Context_keyword;
-          if (fC->Type(Task_prototype) == slTask_prototype) {
+          if (fC->Type(Task_prototype) == VObjectType::slTask_prototype) {
             Task* task = m_helper.compileTaskPrototype(m_module, fC, id,
                                                        m_compileDesign);
             m_module->insertTask(task);
@@ -729,7 +729,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slClass_declaration: {
           if (collectType != CollectType::OTHER) break;
           NodeId nameId = fC->Child(id);
-          if (fC->Type(nameId) == slVirtual) {
+          if (fC->Type(nameId) == VObjectType::slVirtual) {
             nameId = fC->Sibling(nameId);
           }
           std::string name = fC->SymName(nameId);
@@ -801,7 +801,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           NodeId sibling = fC->Sibling(id);
           if (!sibling) {
-            if (fC->Type(fC->Parent(id)) != slModule_declaration) break;
+            if (fC->Type(fC->Parent(id)) != VObjectType::slModule_declaration)
+              break;
             const std::string& endLabel = fC->SymName(id);
             std::string moduleName = m_module->getName();
             moduleName = StringUtils::ltrim(moduleName, '@');
@@ -1116,8 +1117,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-                  slList_of_type_assignments ||
-              fC->Type(list_of_type_assignments) == slType) {
+                  VObjectType::slList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, false,
@@ -1134,8 +1135,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-                  slList_of_type_assignments ||
-              fC->Type(list_of_type_assignments) == slType) {
+                  VObjectType::slList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
@@ -1248,9 +1249,9 @@ bool CompileModule::checkModule_() {
     if (port->isInterface()) continue;
     const FileContent* fC = port->getFileContent();
     NodeId portId = port->getNodeId();
-    if (fC->Type(portId) == slPort) {
+    if (fC->Type(portId) == VObjectType::slPort) {
       NodeId expName = fC->Child(portId);
-      if (fC->Type(expName) == slStringConst) {
+      if (fC->Type(expName) == VObjectType::slStringConst) {
         // Port expression
         continue;
       }
@@ -1369,14 +1370,14 @@ void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
   NodeId clocking_block_name;
   SymbolId clocking_block_symbol;
   ClockingBlock::Type type = ClockingBlock::Regular;
-  if (fC->Type(clocking_block_type) == slDefault)
+  if (fC->Type(clocking_block_type) == VObjectType::slDefault)
     type = ClockingBlock::Default;
-  else if (fC->Type(clocking_block_type) == slGlobal)
+  else if (fC->Type(clocking_block_type) == VObjectType::slGlobal)
     type = ClockingBlock::Global;
-  else if (fC->Type(clocking_block_type) == slStringConst)
+  else if (fC->Type(clocking_block_type) == VObjectType::slStringConst)
     clocking_block_name = clocking_block_type;
   NodeId clocking_event = fC->Sibling(clocking_block_type);
-  if (fC->Type(clocking_event) == slStringConst) {
+  if (fC->Type(clocking_event) == VObjectType::slStringConst) {
     clocking_block_name = clocking_event;
     clocking_event = fC->Sibling(clocking_block_name);
   }

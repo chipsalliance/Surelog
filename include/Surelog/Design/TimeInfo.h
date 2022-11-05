@@ -58,7 +58,7 @@ class TimeInfo final {
 
 class NetTypeInfo final {
  public:
-  VObjectType m_type = slNoType;
+  VObjectType m_type = VObjectType::slNoType;
   PathId m_fileId;
   unsigned int m_line = 0;
 };

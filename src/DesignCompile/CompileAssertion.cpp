@@ -39,7 +39,7 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component,
                                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId item = fC->Child(nodeId);
-  if (fC->Type(item) == slConcurrent_assertion_item) {
+  if (fC->Type(item) == VObjectType::slConcurrent_assertion_item) {
     NodeId Concurrent_assertion_statement = fC->Child(item);
     UHDM::VectorOfany* stmts = compileStmt(
         component, fC, Concurrent_assertion_statement, compileDesign, nullptr);
@@ -96,10 +96,10 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
   NodeId Action_block = fC->Sibling(Property_spec);
   UHDM::any* if_stmt = nullptr;
   UHDM::any* else_stmt = nullptr;
-  if (fC->Type(Action_block) == slAction_block) {
+  if (fC->Type(Action_block) == VObjectType::slAction_block) {
     NodeId if_stmt_id = fC->Child(Action_block);
     NodeId else_stmt_id;
-    if (fC->Type(if_stmt_id) == slElse) {
+    if (fC->Type(if_stmt_id) == VObjectType::slElse) {
       else_stmt_id = fC->Sibling(if_stmt_id);
       if_stmt_id = InvalidNodeId;
     } else {
@@ -137,7 +137,7 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     case VObjectType::slAssume_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::expr* clocking_event = nullptr;
-      if (fC->Type(Property_expr) == slClocking_event) {
+      if (fC->Type(Property_expr) == VObjectType::slClocking_event) {
         clocking_event = (UHDM::expr*)compileExpression(
             component, fC, Property_expr, compileDesign, pstmt, instance,
             false);
@@ -218,7 +218,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id;
-  if (fC->Type(if_stmt_id) == slElse) {
+  if (fC->Type(if_stmt_id) == VObjectType::slElse) {
     else_stmt_id = fC->Sibling(if_stmt_id);
     if_stmt_id = InvalidNodeId;
   } else {
@@ -301,12 +301,12 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
     SURELOG::ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId the_stmt_child = fC->Child(the_stmt);
-  int isFinal = fC->Type(the_stmt_child) == slPound_delay ? 0 : 1;
+  int isFinal = fC->Type(the_stmt_child) == VObjectType::slPound_delay ? 0 : 1;
   NodeId Expression = isFinal ? the_stmt_child : fC->Sibling(the_stmt_child);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id;
-  if (fC->Type(if_stmt_id) == slElse) {
+  if (fC->Type(if_stmt_id) == VObjectType::slElse) {
     else_stmt_id = fC->Sibling(if_stmt_id);
     if_stmt_id = InvalidNodeId;
   } else {
