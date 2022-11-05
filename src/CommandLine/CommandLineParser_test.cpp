@@ -66,7 +66,7 @@ TEST(CommandLineParserTest, WorkingDirectories1) {
 
   std::error_code ec;
   const fs::path programPath = FileSystem::getProgramPath().string();
-  const fs::path testdir = FileSystem::normalize(testing::TempDir());
+  const fs::path testdir = FileSystem::normalize(testing::TempDir()) / "wd1";
 
   const std::vector<fs::path> dirs{
       testdir / "dira" / "dirb1" / "dirc",
@@ -181,7 +181,7 @@ TEST(CommandLineParserTest, WorkingDirectories2) {
 
   std::error_code ec;
   const fs::path programPath = FileSystem::getProgramPath().string();
-  const fs::path testdir = FileSystem::normalize(testing::TempDir());
+  const fs::path testdir = FileSystem::normalize(testing::TempDir()) / "wd2";
 
   const std::vector<fs::path> dirs{
       testdir / "dira" / "dirb1" / "dirc",
@@ -301,7 +301,7 @@ TEST(CommandLineParserTest, WorkingDirectories3) {
   std::error_code ec;
   const fs::path programPath = FileSystem::getProgramPath().string();
   const fs::path wsdir =
-      FileSystem::normalize(fs::path(testing::TempDir()) / "ws");
+      FileSystem::normalize(fs::path(testing::TempDir()) / "ws3");
   const fs::path testdir =
       wsdir / "tests" / "testname" / "subfolder_1" / "subfolder_2";
 
@@ -407,7 +407,7 @@ TEST(CommandLineParserTest, WorkingDirectories4) {
   std::error_code ec;
   const fs::path programPath = FileSystem::getProgramPath().string();
   const fs::path wsdir =
-      FileSystem::normalize(fs::path(testing::TempDir()) / "ws");
+      FileSystem::normalize(fs::path(testing::TempDir()) / "ws4");
   const fs::path testdir =
       wsdir / "tests" / "testname" / "subfolder_1" / "subfolder_2";
 
