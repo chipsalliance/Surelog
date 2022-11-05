@@ -79,7 +79,7 @@ TEST(CommandLineParserTest, WorkingDirectories1) {
   std::set<fs::path> expectedSourceFiles;
   for (const fs::path& dir : dirs) {
     fs::create_directories(dir, ec);
-    EXPECT_FALSE(ec);
+    EXPECT_FALSE(ec) << ec;
 
     if (toggle) {
       fs::path filepath_a = dir / "file_a.sv";
@@ -144,7 +144,7 @@ TEST(CommandLineParserTest, WorkingDirectories1) {
   clp->parseCommandLine(cargs.size(), cargs.data());
 
   fs::remove_all(testdir / "dira", ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   const PathIdVector& workingDirIds = clp->getWorkingDirs();
   std::set<fs::path> actualWorkingDirs;
@@ -194,7 +194,7 @@ TEST(CommandLineParserTest, WorkingDirectories2) {
   std::set<fs::path> expectedSourceFiles;
   for (const fs::path& dir : dirs) {
     fs::create_directories(dir, ec);
-    EXPECT_FALSE(ec);
+    EXPECT_FALSE(ec) << ec;
 
     if (toggle) {
       fs::path filepath_a = dir / "file_a.sv";
@@ -259,7 +259,7 @@ TEST(CommandLineParserTest, WorkingDirectories2) {
   clp->parseCommandLine(cargs.size(), cargs.data());
 
   fs::remove_all(testdir / "dira", ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   const PathIdVector& workingDirIds = clp->getWorkingDirs();
   std::set<fs::path> actualWorkingDirs;
@@ -323,7 +323,7 @@ TEST(CommandLineParserTest, WorkingDirectories3) {
 
   for (const fs::path& dir : dirs) {
     fs::create_directories(dir, ec);
-    EXPECT_FALSE(ec);
+    EXPECT_FALSE(ec) << ec;
   }
 
   std::set<fs::path> expectedSourceFiles;
@@ -364,7 +364,7 @@ TEST(CommandLineParserTest, WorkingDirectories3) {
   clp->parseCommandLine(cargs.size(), cargs.data());
 
   fs::remove_all(wsdir, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   const PathIdVector& workingDirIds = clp->getWorkingDirs();
   std::set<fs::path> actualWorkingDirs;
@@ -429,7 +429,7 @@ TEST(CommandLineParserTest, WorkingDirectories4) {
 
   for (const fs::path& dir : dirs) {
     fs::create_directories(dir, ec);
-    EXPECT_FALSE(ec);
+    EXPECT_FALSE(ec) << ec;
   }
 
   std::set<fs::path> expectedSourceFiles;
@@ -475,7 +475,7 @@ TEST(CommandLineParserTest, WorkingDirectories4) {
   clp->parseCommandLine(cargs.size(), cargs.data());
 
   fs::remove_all(wsdir, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   const PathIdVector& workingDirIds = clp->getWorkingDirs();
   std::set<fs::path> actualWorkingDirs;

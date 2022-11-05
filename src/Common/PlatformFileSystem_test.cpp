@@ -354,7 +354,7 @@ TEST(PlatformFileSystemTest, WorkingDirs_NonIdeal) {
 
   for (const fs::path &dir : dirs) {
     fs::create_directories(dir, ec);
-    EXPECT_FALSE(ec);
+    EXPECT_FALSE(ec) << ec;
   }
 
   std::set<fs::path> expectedSourceFiles;
@@ -387,7 +387,7 @@ TEST(PlatformFileSystemTest, WorkingDirs_NonIdeal) {
   clp->parseCommandLine(cargs.size(), cargs.data());
 
   fs::remove_all(wsdir, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   const std::set<std::string> expectedFsWorkingDirs = {
       FileSystem::normalize(programPath.parent_path()).string(),
@@ -464,7 +464,7 @@ TEST(PlatformFileSystemTest, WorkingDirs_Ideal) {
 
   for (const fs::path &dir : dirs) {
     fs::create_directories(dir, ec);
-    EXPECT_FALSE(ec);
+    EXPECT_FALSE(ec) << ec;
   }
 
   std::set<fs::path> expectedSourceFiles;
@@ -502,7 +502,7 @@ TEST(PlatformFileSystemTest, WorkingDirs_Ideal) {
   clp->parseCommandLine(cargs.size(), cargs.data());
 
   fs::remove_all(wsdir, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   const std::set<std::string> expectedFsWorkingDirs = {
       programPath.parent_path().string(),
@@ -1202,10 +1202,10 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
   // Move both the source and cache to new location
 
   fs::rename(kInputDir_run1, kInputDir_run2, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   fs::rename(kOutputDir_run1, kOutputDir_run2, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 
   // Run 2: Setup a remap from original location to new location and with that
   // setup, the cache should be loaded successfully.
@@ -1287,7 +1287,7 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
   }
 
   fs::remove_all(kBaseDir, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 }
 }  // namespace
 }  // namespace SURELOG

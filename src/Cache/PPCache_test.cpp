@@ -258,7 +258,7 @@ TEST(PPCacheTest, IncludeChangeTolerance) {
   }
 
   fs::remove_all(kBaseDir, ec);
-  EXPECT_FALSE(ec);
+  EXPECT_FALSE(ec) << ec;
 }
 }  // namespace
 }  // namespace SURELOG
