@@ -301,7 +301,7 @@ class PreprocessFile final {
   /* Shorthands for symbol manipulations */
   SymbolId registerSymbol(std::string_view symbol) const;
   SymbolId getId(std::string_view symbol) const;
-  std::string getSymbol(SymbolId id) const;
+  std::string_view getSymbol(SymbolId id) const;
 
   // For recursive macro definition detection
   PreprocessFile* getSourceFile();

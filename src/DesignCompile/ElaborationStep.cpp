@@ -84,7 +84,7 @@ bool ElaborationStep::bindTypedefs_() {
   Design* design = compiler->getDesign();
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<std::pair<TypeDef*, DesignComponent*>> defs;
-  std::map<std::string, typespec*> specs;
+  std::map<std::string, typespec*, std::less<>> specs;
   for (const auto& file : design->getAllFileContents()) {
     FileContent* fC = file.second;
     for (const auto& typed : fC->getTypeDefMap()) {
@@ -282,7 +282,7 @@ bool ElaborationStep::bindTypedefs_() {
           orig = ex->Typespec();
         }
         if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
-          const std::string& need = orig->VpiName();
+          const std::string_view need = orig->VpiName();
           if (need == tps->VpiName()) {
             s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
             if (expr* ex = any_cast<expr*>(var)) {
@@ -304,8 +304,8 @@ bool ElaborationStep::bindTypedefs_() {
   for (const auto& module : design->getPackageDefinitions()) {
     Package* pack = module.second;
     std::vector<Package*> packages;
-    packages.push_back(pack);
-    packages.push_back(pack->getUnElabPackage());
+    packages.emplace_back(pack);
+    packages.emplace_back(pack->getUnElabPackage());
     for (auto comp : packages) {
       for (any* var : comp->getLateTypedefBinding()) {
         const typespec* orig = nullptr;
@@ -321,7 +321,7 @@ bool ElaborationStep::bindTypedefs_() {
           orig = ex->Typespec();
         }
         if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
-          const std::string& need = orig->VpiName();
+          const std::string_view need = orig->VpiName();
           std::map<std::string, typespec*>::iterator itr = specs.find(need);
           if (itr != specs.end()) {
             typespec* tps = (*itr).second;
@@ -358,7 +358,7 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       }
       if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
-        const std::string& need = orig->VpiName();
+        const std::string_view need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
 
         if (itr != specs.end()) {
@@ -395,7 +395,7 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       }
       if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
-        const std::string& need = orig->VpiName();
+        const std::string_view need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
@@ -448,7 +448,7 @@ bool ElaborationStep::bindTypedefsPostElab_() {
           orig = ex->Typespec();
         }
         if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
-          const std::string& need = orig->VpiName();
+          const std::string_view need = orig->VpiName();
           if (Netlist* netlist = current->getNetlist()) {
             typespec* tps = nullptr;
             bool found = false;
@@ -876,7 +876,7 @@ Variable* ElaborationStep::locateStaticVariable_(
           }
           if (var_chain.size() == 3) {
             std::vector<std::string_view> tmp;
-            tmp.push_back(var_chain[2]);
+            tmp.emplace_back(var_chain[2]);
             result =
                 locateVariable_(tmp, fC, id, scope, classDefinition, errtype);
           }
@@ -903,7 +903,7 @@ Variable* ElaborationStep::locateStaticVariable_(
                            classDefinition->getName());
         if (var_chain.size() == 2) {
           std::vector<std::string_view> tmp;
-          tmp.push_back(var_chain[1]);
+          tmp.emplace_back(var_chain[1]);
 
           const DataType* dtype =
               bindDataType_(var_chain[1], fC, id, classDefinition,
@@ -1726,7 +1726,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       range* r = *itr;
       const expr* rhs = r->Right_expr();
       if (rhs->UhdmType() == uhdmconstant) {
-        const std::string& value = rhs->VpiValue();
+        const std::string_view value = rhs->VpiValue();
         if (value == "STRING:$") {
           queue = true;
           unpackedDimensions->erase(itr);

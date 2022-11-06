@@ -150,7 +150,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
           }
           if ((result == nullptr) && netlist->param_assigns()) {
             for (auto o : *netlist->param_assigns()) {
-              const std::string &pname = o->Lhs()->VpiName();
+              const std::string_view pname = o->Lhs()->VpiName();
               if (pname == name) {
                 result = o;
                 break;
@@ -197,7 +197,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
   if ((result == nullptr) && component) {
     for (ParamAssign *pass : component->getParamAssignVec()) {
       if (param_assign *p = pass->getUhdmParamAssign()) {
-        const std::string &pname = p->Lhs()->VpiName();
+        const std::string_view pname = p->Lhs()->VpiName();
         if (pname == name) {
           if (substituteAssignedValue(p->Rhs(), compileDesign)) {
             result = (any *)p->Rhs();
@@ -243,7 +243,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
       if (DesignComponent *comp = inst->getDefinition()) {
         for (ParamAssign *pass : comp->getParamAssignVec()) {
           if (param_assign *p = pass->getUhdmParamAssign()) {
-            const std::string &pname = p->Lhs()->VpiName();
+            const std::string_view pname = p->Lhs()->VpiName();
             if (pname == name) {
               if (substituteAssignedValue(p->Rhs(), compileDesign)) {
                 result = (any *)p->Rhs();
@@ -264,7 +264,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
 
   if (result && (result->UhdmType() == uhdmref_obj)) {
     ref_obj *ref = (ref_obj *)result;
-    const std::string &refname = ref->VpiName();
+    const std::string_view refname = ref->VpiName();
     if (refname != name)
       result = getObject(refname, component, compileDesign, instance, pexpr);
     if (result) {
@@ -726,18 +726,18 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
                                    int lineNumber, any *pexpr, bool reduce,
                                    bool muteErrors, bool returnTypespec) {
   UHDM::GetObjectFunctor getObjectFunctor =
-      [&](const std::string &name, const any *inst,
+      [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
     return getObject(name, component, compileDesign, instance, pexpr);
   };
   UHDM::GetObjectFunctor getValueFunctor =
-      [&](const std::string &name, const any *inst,
+      [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
     return (expr *)getValue(name, component, compileDesign, instance, fileId,
                             lineNumber, (any *)pexpr, true, false);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
-      [&](const std::string &name, const any *inst) -> UHDM::task_func * {
+      [&](std::string_view name, const any *inst) -> UHDM::task_func * {
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };
@@ -765,7 +765,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
       // std::string fileContent = FileUtils::getFileContent(fileName);
       // std::string_view lineText =
       //     StringUtils::getLineInString(fileContent, lineNumber);
-      const std::string &lineText = path->VpiFullName();
+      const std::string_view lineText = path->VpiFullName();
       Location loc(fileId, lineNumber, 0, symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
       errors->addError(err);
@@ -780,18 +780,18 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                                 ValuedComponentI *instance, PathId fileId,
                                 int lineNumber, any *pexpr, bool muteErrors) {
   UHDM::GetObjectFunctor getObjectFunctor =
-      [&](const std::string &name, const any *inst,
+      [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
     return getObject(name, component, compileDesign, instance, pexpr);
   };
   UHDM::GetObjectFunctor getValueFunctor =
-      [&](const std::string &name, const any *inst,
+      [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
     return (expr *)getValue(name, component, compileDesign, instance, fileId,
                             lineNumber, (any *)pexpr, true, muteErrors);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
-      [&](const std::string &name, const any *inst) -> UHDM::task_func * {
+      [&](std::string_view name, const any *inst) -> UHDM::task_func * {
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };
@@ -899,7 +899,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
         if (param_assigns) {
           for (param_assign *param : *param_assigns) {
             if (param && param->Lhs()) {
-              const std::string &param_name = param->Lhs()->VpiName();
+              const std::string_view param_name = param->Lhs()->VpiName();
               if (param_name == name) {
                 if (substituteAssignedValue(param->Rhs(), compileDesign)) {
                   if (param->Rhs()->UhdmType() == uhdmoperation) {
@@ -998,7 +998,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
     if (param_assigns) {
       for (param_assign *param : *param_assigns) {
         if (param && param->Lhs()) {
-          const std::string &param_name = param->Lhs()->VpiName();
+          const std::string_view param_name = param->Lhs()->VpiName();
           if (param_name == name) {
             if (substituteAssignedValue(param->Rhs(), compileDesign)) {
               if (param->Rhs()->UhdmType() == uhdmoperation) {
@@ -1219,13 +1219,13 @@ UHDM::any *CompileHelper::compileSelectExpression(
                 hier_path *p = (hier_path *)sel;
                 for (auto el : *p->Path_elems()) {
                   elems->push_back(el);
-                  std::string n = el->VpiName();
+                  std::string n(el->VpiName());
                   if (el->UhdmType() == uhdmbit_select) {
                     bit_select *bs = (bit_select *)el;
                     const expr *index = bs->VpiIndex();
-                    std::string ind = index->VpiDecompile();
+                    std::string_view ind = index->VpiDecompile();
                     if (ind.empty()) ind = index->VpiName();
-                    n += "[" + ind + "]";
+                    n.append("[").append(ind).append("]");
                     hname += "." + n;
                     ref_obj *r = nullptr;
                     if ((bs->VpiParent() != nullptr) &&
@@ -1244,7 +1244,7 @@ UHDM::any *CompileHelper::compileSelectExpression(
                 }
                 break;
               } else {
-                hname += "." + sel->VpiName();
+                hname.append(".").append(sel->VpiName());
                 if (sel->UhdmType() == uhdmbit_select) {
                   ref_obj *r = nullptr;
                   if ((sel->VpiParent() != nullptr) &&
@@ -2312,7 +2312,8 @@ UHDM::any *CompileHelper::compileExpression(
                 if (param_assigns) {
                   for (param_assign *param : *param_assigns) {
                     if (param && param->Lhs()) {
-                      const std::string &param_name = param->Lhs()->VpiName();
+                      const std::string_view param_name =
+                          param->Lhs()->VpiName();
                       if (param_name == n) {
                         if (substituteAssignedValue(param->Rhs(),
                                                     compileDesign)) {
@@ -2358,7 +2359,8 @@ UHDM::any *CompileHelper::compileExpression(
                 if (param_assigns) {
                   for (param_assign *param : *param_assigns) {
                     if (param && param->Lhs()) {
-                      const std::string &param_name = param->Lhs()->VpiName();
+                      const std::string_view param_name =
+                          param->Lhs()->VpiName();
                       if (param_name == n) {
                         if (substituteAssignedValue(param->Rhs(),
                                                     compileDesign)) {
@@ -2430,7 +2432,7 @@ UHDM::any *CompileHelper::compileExpression(
                   if (param_assigns) {
                     for (param_assign *param_ass : *param_assigns) {
                       if (param_ass && param_ass->Lhs()) {
-                        const std::string &param_name =
+                        const std::string_view param_name =
                             param_ass->Lhs()->VpiName();
                         if (param_name == name) {
                           if (reduce ||
@@ -2472,7 +2474,8 @@ UHDM::any *CompileHelper::compileExpression(
               if (param_assigns) {
                 for (param_assign *param_ass : *param_assigns) {
                   if (param_ass && param_ass->Lhs()) {
-                    const std::string &param_name = param_ass->Lhs()->VpiName();
+                    const std::string_view param_name =
+                        param_ass->Lhs()->VpiName();
                     bool paramFromPackage = false;
                     if ((valuedcomponenti_cast<Package *>(component)) &&
                         (reduce)) {
@@ -3203,7 +3206,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
           }
           if (exp->UhdmType() == uhdmref_obj) {
             ref_obj *ref = (ref_obj *)exp;
-            const std::string &name = ref->VpiName();
+            const std::string_view name = ref->VpiName();
             any *tmp = getValue(name, component, compileDesign, instance,
                                 fC->getFileId(), fC->Line(Expression), pexpr,
                                 true, true);
@@ -3266,7 +3269,7 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
   FileSystem *const fileSystem = FileSystem::getInstance();
   if (exp == nullptr) return false;
   if (exp->UhdmType() != uhdmconstant) return false;
-  const std::string &val = exp->VpiValue();
+  const std::string_view val = exp->VpiValue();
   return errorOnNegativeConstant(
       component, val, compileDesign, instance,
       fileSystem->toPathId(exp->VpiFile(),
@@ -3462,7 +3465,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         bool associativeArray = false;
         if (rexp && rexp->UhdmType() == uhdmconstant) {
           constant *c = (constant *)rexp;
-          const std::string &val = c->VpiValue();
+          const std::string_view val = c->VpiValue();
           if (reduce &&
               ((val == "UINT:0") || (val == "INT:0") || (val[4] == '-'))) {
             ErrorContainer *errors =
@@ -3782,7 +3785,7 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
     m_stackLevel++;
   }
   if (typespec) {
-    const std::string &name = typespec->VpiName();
+    const std::string_view name = typespec->VpiName();
     if (name.find("::") != std::string::npos) {
       std::vector<std::string_view> res;
       StringUtils::tokenizeMulti(name, "::", res);
@@ -3797,18 +3800,18 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   }
 
   UHDM::GetObjectFunctor getObjectFunctor =
-      [&](const std::string &name, const any *inst,
+      [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
     return getObject(name, component, compileDesign, instance, pexpr);
   };
   UHDM::GetObjectFunctor getValueFunctor =
-      [&](const std::string &name, const any *inst,
+      [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
     return (expr *)getValue(name, component, compileDesign, instance, fileId,
                             lineNumber, (any *)pexpr, true, false);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
-      [&](const std::string &name, const any *inst) -> UHDM::task_func * {
+      [&](std::string_view name, const any *inst) -> UHDM::task_func * {
     auto ret = getTaskFunc(name, component, compileDesign, instance, nullptr);
     return ret.first;
   };

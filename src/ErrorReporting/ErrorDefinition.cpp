@@ -24,6 +24,8 @@
 #include <Surelog/Utils/NumUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
+#include <charconv>
+
 namespace SURELOG {
 
 ErrorDefinition::ErrorMap* ErrorDefinition::mutableGlobalErrorInfoMap() {

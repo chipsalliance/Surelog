@@ -23,6 +23,7 @@
 
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/Signal.h>
+#include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
 

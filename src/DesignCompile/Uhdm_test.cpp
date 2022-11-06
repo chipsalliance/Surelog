@@ -54,7 +54,7 @@ TEST(Uhdm, PortType) {
   vpiHandle hdesign = compiler->getUhdmDesign();
   UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
-    const std::string& instName = topMod->VpiName();
+    std::string_view instName = topMod->VpiName();
     EXPECT_EQ(topMod->Ports()->size(), 2);
     for (auto port : *topMod->Ports()) {
       if (instName == "UnitTest@dut1") {

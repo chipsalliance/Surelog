@@ -779,7 +779,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
                                                nullptr, instance, reduce);
                   if (exp) {
                     if (exp->UhdmType() == uhdmref_obj) {
-                      const std::string& name = ((ref_obj*)exp)->VpiName();
+                      const std::string_view name = ((ref_obj*)exp)->VpiName();
                       typespec* tps = compileDatastructureTypespec(
                           component, actualFC, param, compileDesign, instance,
                           reduce, "", name);
@@ -1247,8 +1247,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
       } else {
         integer_typespec* var = s.MakeInteger_typespec();
-        std::string value = StrCat("INT:", fC->SymName(literal));
-        var->VpiValue(value);
+        var->VpiValue(StrCat("INT:", fC->SymName(literal)));
         fC->populateCoreMembers(type, type, var);
         result = var;
       }
@@ -1349,7 +1348,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
           UHDM::VectorOfparam_assign* param_assigns = pack->getParam_assigns();
           if (param_assigns) {
             for (param_assign* param : *param_assigns) {
-              const std::string& param_name = param->Lhs()->VpiName();
+              const std::string_view param_name = param->Lhs()->VpiName();
               if (param_name == name) {
                 const any* rhs = param->Rhs();
                 if (const expr* exp = any_cast<const expr*>(rhs)) {
@@ -1514,7 +1513,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                   inst->getNetlist()->param_assigns();
               if (param_assigns) {
                 for (param_assign* param : *param_assigns) {
-                  const std::string& param_name = param->Lhs()->VpiName();
+                  const std::string_view param_name = param->Lhs()->VpiName();
                   if (param_name == typeName) {
                     const any* rhs = param->Rhs();
                     if (const constant* exp = any_cast<const constant*>(rhs)) {
@@ -1566,7 +1565,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
               component->getParam_assigns();
           if (param_assigns) {
             for (param_assign* param : *param_assigns) {
-              const std::string& param_name = param->Lhs()->VpiName();
+              const std::string_view param_name = param->Lhs()->VpiName();
               if (param_name == typeName) {
                 const any* rhs = param->Rhs();
                 if (const constant* exp = any_cast<const constant*>(rhs)) {

@@ -25,6 +25,7 @@
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
 
+#include <Surelog/Utils/StringUtils.h>
 #include <Surelog/surelog.h>
 
 #include <functional>
@@ -87,7 +88,8 @@ int main(int argc, const char** argv) {
       // C++ top handle from which the entire design can be traversed using the
       // C++ API
       udesign = UhdmDesignFromVpiHandle(the_design);
-      result += "Design name (C++): " + udesign->VpiName() + "\n";
+      SURELOG::StrAppend(&result, "Design name (C++): ", udesign->VpiName(),
+                         "\n");
     }
     // Example demonstrating the classic VPI API traversal of the folded model
     // of the design Flat non-elaborated module/interface/packages/classes list

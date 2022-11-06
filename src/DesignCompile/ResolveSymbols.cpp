@@ -54,7 +54,7 @@ int FunctorResolve::operator()() const {
   return true;
 }
 
-std::string ResolveSymbols::SymName(NodeId index) const {
+std::string_view ResolveSymbols::SymName(NodeId index) const {
   return m_fileData->getSymbolTable()->getSymbol(Name(index));
 }
 
@@ -84,14 +84,14 @@ void ResolveSymbols::createFastLookup() {
     NodeId stId = m_fileData->sl_collect(object, VObjectType::slStringConst,
                                          VObjectType::slAttr_spec);
     if (stId) {
-      const std::string& name = SymName(stId);
+      const std::string_view name = SymName(stId);
       m_fileData->insertObjectLookup(name, object, m_errorContainer);
-      std::string fullName = StrCat(libName, "@", name);
+      const std::string fullName = StrCat(libName, "@", name);
 
       switch (type) {
         case VObjectType::slPackage_declaration: {
           // Package names are not prefixed by Library names!
-          const std::string& pkgname = name;
+          const std::string_view pkgname = name;
           Package* pdef = new Package(pkgname, lib, m_fileData, object);
           UHDM::package* pack = s.MakePackage();
           pack->VpiName(pdef->getName());
@@ -107,8 +107,8 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId) {
-              const std::string& name = SymName(stId);
-              std::string fullSubName = pkgname + "::" + name;
+              const std::string_view name = SymName(stId);
+              const std::string fullSubName = StrCat(pkgname, "::", name);
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
 
@@ -133,8 +133,8 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId) {
-              const std::string& name = SymName(stId);
-              std::string fullSubName = fullName + "::" + name;
+              const std::string_view name = SymName(stId);
+              const std::string fullSubName = StrCat(fullName, "::", name);
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
               ClassDefinition* def =
@@ -168,8 +168,8 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId) {
-              const std::string& name = SymName(stId);
-              std::string fullSubName = fullName + "::" + name;
+              const std::string_view name = SymName(stId);
+              const std::string fullSubName = StrCat(fullName, "::", name);
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
 
@@ -255,7 +255,7 @@ unsigned int ResolveSymbols::Line(NodeId index) const {
   return m_fileData->Line(index);
 }
 
-std::string ResolveSymbols::Symbol(SymbolId id) const {
+std::string_view ResolveSymbols::Symbol(SymbolId id) const {
   return m_fileData->getSymbolTable()->getSymbol(id);
 }
 
@@ -289,7 +289,7 @@ std::vector<NodeId> ResolveSymbols::sl_collect_all(NodeId parent,
 
 bool ResolveSymbols::bindDefinition_(NodeId objIndex,
                                      const VObjectTypeUnorderedSet& bindTypes) {
-  const std::string& modName =
+  const std::string_view modName =
       SymName(sl_collect(objIndex, VObjectType::slStringConst));
   Design::FileIdDesignContentMap& all_files =
       this->m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
@@ -307,7 +307,7 @@ bool ResolveSymbols::bindDefinition_(NodeId objIndex,
       if (mod) {
         SetDefinition(objIndex, mod);
         if (!m_fileData->isLibraryCellFile())
-          fcontent->getReferencedObjects().insert(modName);
+          fcontent->getReferencedObjects().emplace(modName);
         m_fileData->SetDefinitionFile(objIndex, fileId);
         switch (actualType) {
           case VObjectType::slUdp_declaration:

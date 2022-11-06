@@ -71,7 +71,7 @@ UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
       if (param_assigns) {
         for (param_assign* param : *param_assigns) {
           if (param && param->Lhs()) {
-            const std::string& param_name = param->Lhs()->VpiName();
+            const std::string_view param_name = param->Lhs()->VpiName();
             if (param_name == name) {
               const any* exp = param->Rhs();
               if (exp) return (UHDM::expr*)exp;
@@ -106,7 +106,7 @@ Value* ModuleInstance::getValue(std::string_view name,
       if (param_assigns) {
         for (param_assign* param : *param_assigns) {
           if (param && param->Lhs()) {
-            const std::string& param_name = param->Lhs()->VpiName();
+            const std::string_view param_name = param->Lhs()->VpiName();
             if (param_name == name) {
               const any* exp = param->Rhs();
               if (exp && exp->UhdmType() == uhdmconstant) {
@@ -135,7 +135,7 @@ Value* ModuleInstance::getValue(std::string_view name,
         m_definition->getParam_assigns();
     if (param_assigns) {
       for (param_assign* param : *param_assigns) {
-        const std::string& param_name = param->Lhs()->VpiName();
+        const std::string_view param_name = param->Lhs()->VpiName();
         if (param_name == name) {
           const any* exp = param->Rhs();
           if (exp && (exp->UhdmType() == uhdmconstant)) {

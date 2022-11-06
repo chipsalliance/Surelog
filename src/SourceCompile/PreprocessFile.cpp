@@ -273,7 +273,7 @@ void PreprocessFile::addError(Error& error) {
     getCompileSourceFile()->getErrorContainer()->addError(error);
 }
 
-std::string PreprocessFile::getSymbol(SymbolId id) const {
+std::string_view PreprocessFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 
@@ -812,7 +812,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
                          macroInfo->m_startColumn, getId(name));
           Error err(ErrorDefinition::PP_RECURSIVE_MACRO_DEFINITION, loc, exloc);
           addError(err);
-          return std::make_pair(false, SymbolTable::getBadSymbol());
+          return std::make_pair(false,
+                                std::string(SymbolTable::getBadSymbol()));
         }
       }
     }

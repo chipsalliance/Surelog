@@ -101,7 +101,7 @@ class ParseFile final {
   void addError(Error& error);
   SymbolId registerSymbol(std::string_view symbol);
   SymbolId getId(std::string_view symbol) const;
-  std::string getSymbol(SymbolId id) const;
+  std::string_view getSymbol(SymbolId id) const;
   bool usingCachedVersion() { return m_usingCachedVersion; }
   FileContent* getFileContent() { return m_fileContent; }
   void setFileContent(FileContent* content) { m_fileContent = content; }

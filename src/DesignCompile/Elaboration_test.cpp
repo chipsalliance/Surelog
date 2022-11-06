@@ -229,7 +229,7 @@ TEST(Elaboration, DollarBits) {
       EXPECT_EQ(eval.get_value(invalidValue, rhs), 17);
     }
     for (auto sub : *topMod->Modules()) {
-      const std::string& instName = sub->VpiName();
+      const std::string_view instName = sub->VpiName();
       for (auto passign : *sub->Param_assigns()) {
         UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
         bool invalidValue = false;
@@ -435,7 +435,7 @@ endmodule
       EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
       UHDM::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
-      const std::string& name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->Lhs()->VpiName();
       if (name == "p1") {
         EXPECT_EQ(val, 3);
       } else if (name == "p2") {
@@ -475,7 +475,7 @@ endmodule
       EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
       UHDM::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
-      const std::string& name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->Lhs()->VpiName();
       if (name == "p1") {
         // Val is 1, but it has a signed typespec (Meaning negative bin number)
         EXPECT_EQ(val, 3);
@@ -494,7 +494,7 @@ endmodule
       EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
       UHDM::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
-      const std::string& name = var->VpiName();
+      const std::string_view name = var->VpiName();
       if (name == "p3") {
         EXPECT_EQ(val, -2);
       }
@@ -561,7 +561,7 @@ endmodule
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      const std::string& name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->Lhs()->VpiName();
       if (name == "p") {
         EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
         UHDM::ExprEval eval;
@@ -602,7 +602,7 @@ endmodule : top
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      const std::string& name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->Lhs()->VpiName();
       if (name == "p") {
         EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
         UHDM::ExprEval eval;
@@ -651,7 +651,7 @@ endmodule
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      const std::string& name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->Lhs()->VpiName();
       if (name == "RESVAL") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -681,7 +681,7 @@ endmodule
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      const std::string& name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->Lhs()->VpiName();
       if (name == "P") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -724,7 +724,7 @@ endmodule
       for (auto passign : *inst->Param_assigns()) {
         UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
         bool invalidValue = false;
-        const std::string& name = passign->Lhs()->VpiName();
+        const std::string_view name = passign->Lhs()->VpiName();
         if (name == "A") {
           UHDM::ExprEval eval;
           int64_t val = eval.get_value(invalidValue, rhs);
@@ -797,7 +797,7 @@ endmodule // top
         for (auto passign : *inst2->Param_assigns()) {
           UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
           bool invalidValue = false;
-          const std::string& name = passign->Lhs()->VpiName();
+          const std::string_view name = passign->Lhs()->VpiName();
           if (name == "RESVAL") {
             UHDM::ExprEval eval;
             int64_t val = eval.get_value(invalidValue, rhs);
@@ -840,7 +840,7 @@ endmodule
       for (auto passign : *inst->Param_assigns()) {
         UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
         bool invalidValue = false;
-        const std::string& name = passign->Lhs()->VpiName();
+        const std::string_view name = passign->Lhs()->VpiName();
         if (name == "A") {
           UHDM::ExprEval eval;
           int64_t val = eval.get_value(invalidValue, rhs);
@@ -910,7 +910,7 @@ endmodule // top
         for (auto passign : *inst2->Param_assigns()) {
           UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
           bool invalidValue = false;
-          const std::string& name = passign->Lhs()->VpiName();
+          const std::string_view name = passign->Lhs()->VpiName();
           if (name == "RESVAL") {
             UHDM::ExprEval eval;
             int64_t val = eval.get_value(invalidValue, rhs);
@@ -957,7 +957,7 @@ endmodule // top
     for (auto cassign : *topMod->Cont_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
       bool invalidValue = false;
-      const std::string& name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->Lhs()->VpiName();
       if (name == "o") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -1000,7 +1000,7 @@ endmodule // top
     for (auto cassign : *topMod->Cont_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
       bool invalidValue = false;
-      const std::string& name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->Lhs()->VpiName();
       if (name == "o") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -1043,7 +1043,7 @@ endmodule // top
     for (auto cassign : *topMod->Cont_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
       bool invalidValue = false;
-      const std::string& name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->Lhs()->VpiName();
       if (name == "o") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -1088,7 +1088,7 @@ endmodule // top
     for (auto cassign : *topMod->Cont_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
       bool invalidValue = false;
-      const std::string& name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->Lhs()->VpiName();
       if (name == "o") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -1123,7 +1123,7 @@ endmodule
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      const std::string& name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->Lhs()->VpiName();
       if (name == "DEBUG") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -1153,7 +1153,7 @@ endmodule
     for (auto passign : *topMod->Param_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
       bool invalidValue = false;
-      const std::string& name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->Lhs()->VpiName();
       if (name == "P") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
@@ -1237,7 +1237,7 @@ endmodule
     for (auto cassign : *topMod->Cont_assigns()) {
       UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
       bool invalidValue = false;
-      const std::string& name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->Lhs()->VpiName();
       if (name == "o") {
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);

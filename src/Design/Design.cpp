@@ -170,12 +170,11 @@ std::string Design::reportInstanceTree() const {
           for (const auto& ps : inst->getMappedValues()) {
             const std::string& name = ps.first;
             Value* val = ps.second.first;
-            tree +=
-                std::string("    " + name + " = " + val->uhdmValue() + "\n");
+            tree += "    " + name + " = " + val->uhdmValue() + "\n";
           }
           for (const auto& ps : inst->getComplexValues()) {
             const std::string& name = ps.first;
-            tree += std::string("    " + name + " = " + "complex" + "\n");
+            tree += "    " + name + " = " + "complex" + "\n";
           }
         }
       }
@@ -232,7 +231,7 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
     if (tmp->getDefinition()) {
     } else {
       nbUndefinedInstances++;
-      undefModules.insert(tmp->getModuleName());
+      undefModules.emplace(tmp->getModuleName());
     }
   }
 
@@ -437,7 +436,7 @@ Program* Design::getProgram(std::string_view name) const {
   }
 }
 
-ClassDefinition* Design::getClassDefinition(const std::string_view name) const {
+ClassDefinition* Design::getClassDefinition(std::string_view name) const {
   ClassNameClassDefinitionMap::const_iterator itr =
       m_uniqueClassDefinitions.find(name);
   if (itr == m_uniqueClassDefinitions.end()) {

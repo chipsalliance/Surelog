@@ -92,9 +92,9 @@ bool DesignElaboration::setupConfigurations_() {
       m_compileDesign->getCompiler()->getCommandLineParser()->getUseConfigs();
   std::set<std::string, std::less<>> selectedConfigs;
   for (const auto& confId : selectedConfigIds) {
-    std::string name = st->getSymbol(confId);
+    std::string name(st->getSymbol(confId));
     if (name.find('.') == std::string::npos) {
-      name = "work@" + name;
+      name = StrCat("work@", name);
     } else {
       name = StringUtils::replaceAll(name, ".", "@");
     }
@@ -113,7 +113,7 @@ bool DesignElaboration::setupConfigurations_() {
     }
   }
 
-  std::queue<std::string> configq;
+  std::queue<std::string_view> configq;
   for (auto& config : allConfigs) {
     if (selectedConfigs.find(config.getName()) != selectedConfigs.end()) {
       config.setIsUsed();
@@ -123,7 +123,7 @@ bool DesignElaboration::setupConfigurations_() {
   }
   std::unordered_set<const Config*> configS;
   while (!configq.empty()) {
-    const std::string& configName = configq.front();
+    std::string_view configName = configq.front();
     Config* conf = configSet->getMutableConfigByName(configName);
     configq.pop();
     if (conf) {
@@ -259,13 +259,13 @@ bool DesignElaboration::identifyTopModules_() {
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
     for (const DesignElement* element : file.second->getDesignElements()) {
-      std::string_view elemName = st->getSymbol(element->m_name);
+      const std::string_view elemName = st->getSymbol(element->m_name);
       if (element->m_type == DesignElement::Module) {
         if (element->m_parent) {
           // This is a nested element
           continue;
         }
-        std::string_view libName = file.second->getLibrary()->getName();
+        const std::string_view libName = file.second->getLibrary()->getName();
         std::string topname = StrCat(libName, "@", elemName);
 
         if (!file.second->getParent()) {
@@ -416,7 +416,8 @@ bool DesignElaboration::identifyTopModules_() {
             m_compileDesign->getCompiler()->getErrorContainer()->addError(
                 errUser);
 
-            std::string_view libName = file.second->getLibrary()->getName();
+            const std::string_view libName =
+                file.second->getLibrary()->getName();
             std::string topname = StrCat(libName, "@", elemName);
             m_uniqueTopLevelModules.insert(topname);
             m_topLevelModules.emplace_back(topname, file.second);
@@ -675,7 +676,7 @@ const UHDM::any* resize(UHDM::Serializer& serializer, const UHDM::any* object,
         }
       }
       if (constType == vpiBinaryConst) {
-        std::string value = c->VpiValue();
+        std::string value(c->VpiValue());
         if (is_signed && (!is_overall_unsigned)) {
           value.insert(4, (maxsize - c->VpiSize()), '1');
         } else {
@@ -698,8 +699,7 @@ void DesignElaboration::elaborateInstance_(
 
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();
-  std::set<std::string, std::less<>>& blackboxModules =
-      clp->getBlackBoxModules();
+  auto& blackboxModules = clp->getBlackBoxModules();
   std::string modName;
   if (DesignComponent* def = parent->getDefinition()) {
     modName = def->getName();
@@ -714,8 +714,7 @@ void DesignElaboration::elaborateInstance_(
                                                                   false);
     return;
   }
-  std::set<std::string, std::less<>>& blackboxInstances =
-      clp->getBlackBoxInstances();
+  auto& blackboxInstances = clp->getBlackBoxInstances();
   std::string instanceName;
   if (parent) {
     instanceName = parent->getFullPathName();
@@ -748,7 +747,7 @@ void DesignElaboration::elaborateInstance_(
   std::string mname;
 
   // Scan for parameters, including DefParams
-  std::vector<std::string> params =
+  std::vector<std::string_view> params =
       collectParams_(fC, nodeId, parent, parentParamOverride);
 
   // Loop checking
@@ -805,7 +804,7 @@ void DesignElaboration::elaborateInstance_(
   Design* design = m_compileDesign->getCompiler()->getDesign();
   for (const auto& name : params) {
     DefParam* defparam =
-        design->getDefParam(parent->getFullPathName() + "." + name);
+        design->getDefParam(StrCat(parent->getFullPathName(), ".", name));
     if (defparam) {
       Value* value = defparam->getValue();
       if (value) {
@@ -1719,7 +1718,7 @@ void DesignElaboration::elaborateInstance_(
                                  allSubInstances);
             } else {
               // Build black box model
-              std::vector<std::string> params =
+              std::vector<std::string_view> params =
                   collectParams_(fC, subInstanceId, child, paramOverride);
               NetlistElaboration* nelab =
                   new NetlistElaboration(m_compileDesign);
@@ -1796,10 +1795,10 @@ void DesignElaboration::reportElaboration_() {
   }
 }
 
-std::vector<std::string> DesignElaboration::collectParams_(
+std::vector<std::string_view> DesignElaboration::collectParams_(
     const FileContent* fC, NodeId nodeId, ModuleInstance* instance,
     NodeId parentParamOverride) {
-  std::vector<std::string> params;
+  std::vector<std::string_view> params;
   if (!nodeId) return params;
   if (!instance) return params;
   bool en_replay =
@@ -1853,7 +1852,7 @@ std::vector<std::string> DesignElaboration::collectParams_(
     }
   }
 
-  std::vector<std::string> moduleParams;
+  std::vector<std::string_view> moduleParams;
   if (module) {
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
@@ -1863,7 +1862,7 @@ std::vector<std::string> DesignElaboration::collectParams_(
       moduleParams.emplace_back(name);
     }
   }
-  std::set<std::string, std::less<>> overridenParams;
+  std::set<std::string_view> overridenParams;
   // Param overrides
   if (parentParamOverride) {
     ModuleInstance* parentInstance = instance->getParent();
@@ -1901,7 +1900,7 @@ std::vector<std::string> DesignElaboration::collectParams_(
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
         const std::string_view name = parentFile->SymName(child);
-        overridenParams.emplace(name);
+        overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
         if (!expr) {
           Location loc(
@@ -1935,7 +1934,7 @@ std::vector<std::string> DesignElaboration::collectParams_(
                 m_exprBuilder.evalExpr(parentFile, expr, parentInstance, true);
               }
             }
-            const std::string& v = c->VpiValue();
+            const std::string_view v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if ((exprtype == UHDM::uhdmoperation) ||
                      (exprtype == UHDM::uhdmfunc_call) ||
@@ -1984,7 +1983,7 @@ std::vector<std::string> DesignElaboration::collectParams_(
             }
           } else if (exprtype == UHDM::uhdmparameter) {
             UHDM::parameter* param = (UHDM::parameter*)complexV;
-            const std::string& pname = param->VpiName();
+            const std::string_view pname = param->VpiName();
             const UHDM::typespec* tps = param->Typespec();
             const UHDM::instance* pinst = tps->Instance();
             if (pinst->UhdmType() == UHDM::uhdmpackage) {
@@ -2082,7 +2081,9 @@ std::vector<std::string> DesignElaboration::collectParams_(
         Value* value = nullptr;
         bool complex = false;
 
-        std::string name = "OUT_OF_RANGE_PARAM_INDEX";
+        static constexpr std::string_view kOutOfRangeParamIndex =
+            "OUT_OF_RANGE_PARAM_INDEX";
+        std::string_view name = kOutOfRangeParamIndex;
         if (index < moduleParams.size()) {
           name = moduleParams[index];
           overridenParams.insert(name);
@@ -2100,7 +2101,7 @@ std::vector<std::string> DesignElaboration::collectParams_(
         if (complexV) {
           if (complexV->UhdmType() == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)complexV;
-            const std::string& v = c->VpiValue();
+            const std::string_view v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if (complexV->UhdmType() == UHDM::uhdmoperation) {
             if (instance) {
@@ -2263,7 +2264,7 @@ std::vector<std::string> DesignElaboration::collectParams_(
                   }
                 }
 
-                const std::string& v = c->VpiValue();
+                const std::string_view v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
                 if (ts)
                   m_helper.valueRange(value, ts, instance->getDefinition(),

@@ -38,7 +38,7 @@
 class DesignListener final : public UHDM::VpiListener {
   void enterModule_inst(const UHDM::module_inst *const object,
                         vpiHandle handle) final {
-    const std::string &instName = object->VpiName();
+    std::string_view instName = object->VpiName();
     m_flatTraversal = (instName.empty()) &&
                       ((object->VpiParent() == 0) ||
                        ((object->VpiParent() != 0) &&

@@ -142,7 +142,7 @@ SymbolId ParseFile::getId(std::string_view symbol) const {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
-std::string ParseFile::getSymbol(SymbolId id) const {
+std::string_view ParseFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 

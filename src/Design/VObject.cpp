@@ -30,7 +30,7 @@ namespace SURELOG {
 std::string VObject::print(SymbolTable* symbols, NodeId uniqueId,
                            PathId definitionFile, PathId printedFile) const {
   std::string text;
-  const std::string& symbol = symbols->getSymbol(m_name);
+  const std::string_view symbol = symbols->getSymbol(m_name);
   if (symbol == SymbolTable::getBadSymbol()) {
     StrAppend(&text, "n<>");
   } else {

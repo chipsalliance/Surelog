@@ -353,8 +353,7 @@ class CompileHelper final {
   UHDM::any* compileBound(DesignComponent* component, const FileContent* fC,
                           NodeId Expression, CompileDesign* compileDesign,
                           UHDM::any* pexpr, ValuedComponentI* instance,
-                          bool reduce, bool muteErrors,
-                          std::string_view name);
+                          bool reduce, bool muteErrors, std::string_view name);
 
   UHDM::any* compileTypename(DesignComponent* component, const FileContent* fC,
                              NodeId Expression, CompileDesign* compileDesign,
@@ -382,8 +381,7 @@ class CompileHelper final {
                                 CompileDesign* compileDesign);
 
   UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope,
-                          std::string_view name,
-                          CompileDesign* compileDesign);
+                          std::string_view name, CompileDesign* compileDesign);
 
   UHDM::any* bindVariable(DesignComponent* component,
                           ValuedComponentI* instance, std::string_view name,
@@ -451,9 +449,9 @@ class CompileHelper final {
                          int lineNumber, UHDM::any* pexpr,
                          bool muteErrors = false);
 
-  int adjustOpSize(const UHDM::typespec* tps, UHDM::expr* cop, int opIndex, UHDM::expr* rhs,
-                   DesignComponent* component, CompileDesign* compileDesign,
-                   ValuedComponentI* instance);
+  int adjustOpSize(const UHDM::typespec* tps, UHDM::expr* cop, int opIndex,
+                   UHDM::expr* rhs, DesignComponent* component,
+                   CompileDesign* compileDesign, ValuedComponentI* instance);
 
   UHDM::expr* expandPatternAssignment(const UHDM::typespec* tps,
                                       UHDM::expr* rhs,
@@ -546,8 +544,7 @@ class CompileHelper final {
                   UHDM::constant* c, bool uniquify = false);
 
   /** task/func/scope */
-  UHDM::any* searchObjectName(std::string_view name,
-                              DesignComponent* component,
+  UHDM::any* searchObjectName(std::string_view name, DesignComponent* component,
                               CompileDesign* compileDesign, UHDM::any* stmt);
 
   bool isOverloaded(const UHDM::any* expr, CompileDesign* compileDesign,

@@ -59,9 +59,10 @@ class DesignElaboration : public TestbenchElaboration {
   bool elaborateModule_(std::string_view moduleName,
                         const FileContent* fileContent, bool onlyTopLevel);
   void checkElaboration_();
-  std::vector<std::string> collectParams_(const FileContent* fC, NodeId nodeId,
-                                          ModuleInstance* instance,
-                                          NodeId parentParamOverride);
+  std::vector<std::string_view> collectParams_(const FileContent* fC,
+                                               NodeId nodeId,
+                                               ModuleInstance* instance,
+                                               NodeId parentParamOverride);
   void elaborateInstance_(const FileContent* fC, NodeId nodeId,
                           NodeId parentParamOverride,
                           ModuleInstanceFactory* factory,

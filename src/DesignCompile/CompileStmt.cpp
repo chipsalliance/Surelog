@@ -729,7 +729,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         expr* expc =
             (expr*)compileExpression(component, fC, exp, compileDesign);
         if (expc->UhdmType() == uhdmref_obj) {
-          const std::string& name = expc->VpiName();
+          const std::string_view name = expc->VpiName();
           any* object = searchObjectName(name, component, compileDesign, pstmt);
           disable->VpiExpr(object);
         }
@@ -1916,14 +1916,14 @@ bool CompileHelper::compileClassConstructorDeclaration(
   ClassDefinition* cdef = valuedcomponenti_cast<ClassDefinition*>(component);
   if (cdef) {
     tps->Class_defn(cdef->getUhdmDefinition());
-    const std::string& name = cdef->getUhdmDefinition()->VpiName();
+    const std::string_view name = cdef->getUhdmDefinition()->VpiName();
     tps->VpiName(name);
   } else {
     Package* p = valuedcomponenti_cast<Package*>(component);
     if (p) {
       ClassDefinition* cdef = p->getClassDefinition(className);
       if (cdef) {
-        const std::string& name = cdef->getUhdmDefinition()->VpiName();
+        const std::string_view name = cdef->getUhdmDefinition()->VpiName();
         tps->Class_defn(cdef->getUhdmDefinition());
         tps->VpiName(name);
       }

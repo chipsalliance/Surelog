@@ -155,7 +155,7 @@ class Design final {
 
   ErrorContainer* getErrorContainer() { return m_errors; }
 
-  typedef std::multimap<const std::string, BindStmt*, std::less<>> BindMap;
+  typedef std::multimap<std::string, BindStmt*, std::less<>> BindMap;
 
   BindMap& getBindMap() { return m_bindMap; }
 
@@ -179,7 +179,7 @@ class Design final {
   }
 
   void addTopLevelModuleInstance(ModuleInstance* instance) {
-    m_topLevelModuleInstances.push_back(instance);
+    m_topLevelModuleInstances.emplace_back(instance);
   }
 
   void addDefParam(std::string_view name, const FileContent* fC, NodeId nodeId,
