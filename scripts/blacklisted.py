@@ -8,15 +8,17 @@ _unix_black_list = set([name.lower() for name in [
   'blackparrot',
   'blackucode',
   'blackunicore',
-  'earlgrey_nexysvideo',   # ram size in ci machines
+  'earlgrey_nexysvideo',    # ram size in ci machines
   'lpddr',
-  'simpleparsertestcache', # race condition
+  'rsd',                    # Out of memory on CI machines
+  'simpleparsertestcache',  # race condition
 ]])
 
 _windows_black_list = _unix_black_list.union(set([name.lower() for name in [
   'ariane',                       # Uses shell script with make command
   'earlgrey_verilator_01_05_21',  # lowmem is unsupported
   'unitpython',                   # Python is unsupported
+  'verilator',                    # Stack overflow with clang due to expression evaluation
 ]]))
 
 _msys2_black_list = _unix_black_list.union(set([name.lower() for name in [
