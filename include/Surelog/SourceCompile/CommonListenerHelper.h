@@ -43,7 +43,6 @@ class ParseTree;
 namespace SURELOG {
 
 class FileContent;
-class SymbolId;
 class VObject;
 
 static constexpr char EscapeSequence[] = "#~@";

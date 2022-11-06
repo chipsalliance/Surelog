@@ -67,7 +67,7 @@ class PathId final {
   PathId(const PathId &rhs)
       : PathId(rhs.m_symbolTable, rhs.m_id, rhs.m_value) {}
   PathId(const SymbolTable *const symbolTable, SymbolId id)
-      : PathId(symbolTable, id.id, id.value) {}
+      : PathId(symbolTable, (RawSymbolId)id, (std::string_view)id) {}
 #else
   PathId() : m_symbolTable(nullptr), m_id(BadRawPathId) {}
   PathId(const SymbolTable *const symbolTable, RawPathId id,
@@ -76,7 +76,7 @@ class PathId final {
   PathId(const PathId &rhs)
       : PathId(rhs.m_symbolTable, rhs.m_id, BadRawPath) {}
   PathId(const SymbolTable *const symbolTable, SymbolId id)
-      : PathId(symbolTable, id.id, BadRawPath) {}
+      : PathId(symbolTable, (RawSymbolId)id, BadRawPath) {}
 #endif
 
   PathId &operator=(const PathId &rhs) {
@@ -110,19 +110,11 @@ class PathId final {
   std::string_view m_value;
 #endif
 
-  friend class SymbolId;
   friend std::istream &operator>>(std::istream &strm, PathId &pathId);
   friend std::ostream &operator<<(std::ostream &strm, const PathId &pathId);
 };
 
 inline static const PathId BadPathId(nullptr, BadRawPathId, BadRawPath);
-
-inline SymbolId::SymbolId(const PathId &rhs)
-#if SYMBOLID_DEBUG_ENABLED
-    : id(rhs.m_id), value(rhs.m_value) {}
-#else
-    : id(rhs.m_id) {}
-#endif
 
 inline std::istream &operator>>(std::istream &strm, PathId &pathId) {
   return strm >> pathId.m_id;

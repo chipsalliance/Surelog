@@ -36,8 +36,6 @@
 #include <string_view>
 
 namespace SURELOG {
-class PathId;
-class SymbolId;
 class SymbolTable;
 
 /**

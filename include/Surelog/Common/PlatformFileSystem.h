@@ -32,8 +32,6 @@
 #include <set>
 
 namespace SURELOG {
-class PathId;
-class SymbolId;
 class SymbolTable;
 
 /**
