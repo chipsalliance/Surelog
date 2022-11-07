@@ -1695,7 +1695,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             fileSystem->toPathId(
                 rhs->VpiFile(),
                 m_compileDesign->getCompiler()->getSymbolTable()),
-            rhs->VpiLineNo(), assign);
+            rhs->VpiLineNo(), assign, true);
         if (invalidValue == false) {
           if (res && (res->UhdmType() == uhdmconstant)) {
             if (cloned == false) {

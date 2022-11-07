@@ -747,7 +747,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };
-  UHDM::ExprEval eval;
+  UHDM::ExprEval eval(muteErrors);
   eval.setGetObjectFunctor(getObjectFunctor);
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
@@ -761,7 +761,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
         m_exprEvalPlaceHolder->Param_assigns()->end());
   }
   any *res = eval.decodeHierPath(path, invalidValue, m_exprEvalPlaceHolder,
-                                 pexpr, returnTypespec);
+                                 pexpr, returnTypespec, muteErrors);
 
   if (res == nullptr) {
     if (reduce && (!muteErrors)) {
@@ -801,7 +801,7 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };
-  UHDM::ExprEval eval;
+  UHDM::ExprEval eval(muteErrors);
   eval.setGetObjectFunctor(getObjectFunctor);
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
@@ -814,8 +814,8 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
         m_exprEvalPlaceHolder->Param_assigns()->begin(),
         m_exprEvalPlaceHolder->Param_assigns()->end());
   }
-  expr *res =
-      eval.reduceExpr(result, invalidValue, m_exprEvalPlaceHolder, pexpr);
+  expr *res = eval.reduceExpr(result, invalidValue, m_exprEvalPlaceHolder,
+                              pexpr, muteErrors);
   // If loop was detected, drop the partially constructed new value!
   return m_unwind ? nullptr : res;
 }
