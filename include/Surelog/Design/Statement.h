@@ -94,7 +94,7 @@ class SubRoutineCallStmt : public Statement {
   SubRoutineCallStmt(Scope* scope, Statement* parentStmt,
                      const FileContent* fileContent, NodeId node,
                      VObjectType type, std::vector<NodeId>& var_chain,
-                     std::string funcName, std::vector<SubRoutineArg*>& args,
+                     std::string_view funcName, std::vector<SubRoutineArg*>& args,
                      bool static_call, bool system_call)
       : Statement(scope, parentStmt, fileContent, node, type),
         m_var_chain(var_chain),

@@ -82,8 +82,7 @@ bool CompileHelper::substituteAssignedValue(const UHDM::any *oper,
   return substitute;
 }
 
-any *CompileHelper::getObject(const std::string &name,
-                              DesignComponent *component,
+any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
                               CompileDesign *compileDesign,
                               ValuedComponentI *instance, const any *pexpr) {
   any *result = nullptr;
@@ -285,7 +284,7 @@ any *CompileHelper::getObject(const std::string &name,
   return result;
 }
 
-UHDM::task_func *getFuncFromPackage(const std::string &name,
+UHDM::task_func *getFuncFromPackage(std::string_view name,
                                     DesignComponent *component,
                                     std::set<DesignComponent *> &visited) {
   for (Package *pack : component->getAccessPackages()) {
@@ -308,7 +307,7 @@ UHDM::task_func *getFuncFromPackage(const std::string &name,
 }
 
 std::pair<UHDM::task_func *, DesignComponent *> CompileHelper::getTaskFunc(
-    const std::string &name, DesignComponent *component,
+    std::string_view name, DesignComponent *component,
     CompileDesign *compileDesign, ValuedComponentI *instance, any *pexpr) {
   std::pair<UHDM::task_func *, DesignComponent *> result = {nullptr, nullptr};
   DesignComponent *comp = component;
@@ -411,22 +410,18 @@ bool getStringVal(std::string &result, expr *val) {
   return false;
 }
 
-static bool largeInt(std::string value) {
+static bool largeInt(std::string_view str) {
   bool isSigned = false;
-  if (value.find('\'') != std::string::npos) {
-    unsigned int i = 0;
-    for (i = 0; i < value.size(); i++) {
-      if (value[i] == '\'') {
-        break;
-      }
-    }
-    if (value.find_first_of("sS") != std::string::npos) {
+  size_t pos = str.find('\'');
+  if (pos != std::string::npos) {
+    if (str.find_first_of("sS") != std::string::npos) {
       isSigned = true;
-      value = value.substr(i + 3);
+      str = str.substr(pos + 3);
     } else {
-      value = value.substr(i + 2);
+      str = str.substr(pos + 2);
     }
   }
+  std::string value(str);
   value = StringUtils::replaceAll(value, "_", "");
   bool isLarge = false;
   if (value.size() > 20) {
@@ -450,7 +445,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
     case VObjectType::slIntConst: {
       // Do not evaluate the constant, keep it as in the source text:
       UHDM::constant *c = s.MakeConstant();
-      const std::string &value = fC->SymName(child);
+      const std::string_view value = fC->SymName(child);
       std::string v;
       c->VpiDecompile(value);
       bool tickNumber = (value.find('\'') != std::string::npos);
@@ -458,7 +453,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
         char base = 'd';
         unsigned int i = 0;
         bool isSigned = false;
-        std::string size = value;
+        std::string size(value);
         if (tickNumber) {
           for (i = 0; i < value.size(); i++) {
             if (value[i] == '\'') {
@@ -526,10 +521,10 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
         }
       } else {
         if (!value.empty() && value[0] == '-') {
-          v = "INT:" + value;
+          v.assign("INT:").append(value);
           c->VpiConstType(vpiIntConst);
         } else {
-          v = "UINT:" + value;
+          v.assign("UINT:").append(value);
           c->VpiConstType(vpiUIntConst);
         }
         c->VpiSize(64);
@@ -541,10 +536,9 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
     }
     case VObjectType::slRealConst: {
       UHDM::constant *c = s.MakeConstant();
-      std::string value = fC->SymName(child);
+      const std::string_view value = fC->SymName(child);
       c->VpiDecompile(value);
-      value = "REAL:" + value;
-      c->VpiValue(value);
+      c->VpiValue(StrCat("REAL:", value));
       c->VpiConstType(vpiRealConst);
       c->VpiSize(64);
       result = c;
@@ -667,7 +661,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
     }
     case VObjectType::slTime_literal: {
       NodeId intC = fC->Child(child);
-      const std::string &value = fC->SymName(intC);
+      const std::string_view value = fC->SymName(intC);
       NodeId unitId = fC->Sibling(intC);
       TimeInfo::Unit unit = TimeInfo::unitFromString(fC->SymName(unitId));
       uint64_t val = 0;
@@ -820,8 +814,7 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   return m_unwind ? nullptr : res;
 }
 
-any *CompileHelper::getValue(const std::string &name,
-                             DesignComponent *component,
+any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                              CompileDesign *compileDesign,
                              ValuedComponentI *instance, PathId fileId,
                              int lineNumber, any *pexpr, bool reduce,
@@ -1087,7 +1080,7 @@ any *CompileHelper::getValue(const std::string &name,
 
 UHDM::any *CompileHelper::compileSelectExpression(
     DesignComponent *component, const FileContent *fC, NodeId Bit_select,
-    const std::string &name, CompileDesign *compileDesign, UHDM::any *pexpr,
+    std::string_view name, CompileDesign *compileDesign, UHDM::any *pexpr,
     ValuedComponentI *instance, bool reduce, bool muteErrors) {
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
@@ -1188,7 +1181,7 @@ UHDM::any *CompileHelper::compileSelectExpression(
     } else if ((fC->Type(Bit_select) == VObjectType::slStringConst) ||
                (fC->Type(Bit_select) ==
                 VObjectType::slPs_or_hierarchical_identifier)) {
-      std::string hname = name;
+      std::string hname(name);
       hier_path *path = s.MakeHier_path();
       UHDM::VectorOfany *elems = s.MakeAnyVec();
       ref_obj *r1 = s.MakeRef_obj();
@@ -1204,14 +1197,14 @@ UHDM::any *CompileHelper::compileSelectExpression(
           NodeId nameId = fC->Child(Bit_select);
           r->VpiName(fC->SymName(nameId));
           elems->push_back(r);
-          hname += "." + fC->SymName(nameId);
+          hname.append(".").append(fC->SymName(nameId));
         } else if ((fC->Type(Bit_select) == VObjectType::slSelect)) {
           ref_obj *r = s.MakeRef_obj();
           NodeId nameId = fC->Child(Bit_select);
           if (nameId && (fC->Type(nameId) == VObjectType::slStringConst)) {
             r->VpiName(fC->SymName(nameId));
             elems->push_back(r);
-            hname += "." + fC->SymName(nameId);
+            hname.append(".").append(fC->SymName(nameId));
           }
         } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
           NodeId tmp = fC->Sibling(Bit_select);
@@ -1274,7 +1267,7 @@ UHDM::any *CompileHelper::compileSelectExpression(
             r2->VpiName(fC->SymName(Bit_select));
             r2->VpiFullName(fC->SymName(Bit_select));
             elems->push_back(r2);
-            hname += "." + fC->SymName(Bit_select);
+            hname.append(".").append(fC->SymName(Bit_select));
           }
         }
         Bit_select = fC->Sibling(Bit_select);
@@ -1528,7 +1521,7 @@ UHDM::any *CompileHelper::compileExpression(
         } else {
           ref_obj *ref = s.MakeRef_obj();
           ops->push_back(ref);
-          const std::string &name = fC->SymName(Name);
+          const std::string_view name = fC->SymName(Name);
           ref->VpiName(name);
           ref->VpiParent(op);
           fC->populateCoreMembers(Port_reference, Port_reference, ref);
@@ -2048,7 +2041,7 @@ UHDM::any *CompileHelper::compileExpression(
           //                 n<a> u<24> t<StringConst> p<25> l<2>
 
           NodeId n = fC->Child(child);
-          const std::string &name = fC->SymName(n);
+          const std::string_view name = fC->SymName(n);
           if (name == "$bits") {
             NodeId List_of_arguments = fC->Sibling(child);
             result =
@@ -2159,7 +2152,7 @@ UHDM::any *CompileHelper::compileExpression(
           NodeId Ps_or_hierarchical_array_identifier =
               fC->Child(Ps_or_hierarchical_sequence_identifier);
           NodeId NameId = fC->Child(Ps_or_hierarchical_array_identifier);
-          const std::string &name = fC->SymName(NameId);
+          const std::string_view name = fC->SymName(NameId);
           sequence_inst *seqinst = s.MakeSequence_inst();
           seqinst->VpiName(name);
           NodeId Sequence_list_of_arguments =
@@ -2227,10 +2220,10 @@ UHDM::any *CompileHelper::compileExpression(
                     operands->push_back(r);
                   }
                 } else {
-                  std::string val = fC->SymName(subOp1);
-                  val = val.erase(0, 2);
+                  std::string_view val = fC->SymName(subOp1);
+                  val.remove_prefix(2);
                   UHDM::constant *c = s.MakeConstant();
-                  c->VpiValue("UINT:" + val);
+                  c->VpiValue(StrCat("UINT:", val));
                   c->VpiDecompile(val);
                   c->VpiSize(64);
                   c->VpiConstType(vpiUIntConst);
@@ -2302,11 +2295,11 @@ UHDM::any *CompileHelper::compileExpression(
           std::string name;
           Value *sval = nullptr;
           if (childType == VObjectType::slPackage_scope) {
-            const std::string &packageName = fC->SymName(fC->Child(child));
+            const std::string_view packageName = fC->SymName(fC->Child(child));
             NodeId paramId = fC->Sibling(child);
             NodeId selectId = fC->Sibling(paramId);
-            const std::string &n = fC->SymName(paramId);
-            name = packageName + "::" + n;
+            const std::string_view n = fC->SymName(paramId);
+            name.assign(packageName).append("::").append(n);
             if (m_unElabMode) {
               // create ref_obj down below
             } else {
@@ -2346,7 +2339,7 @@ UHDM::any *CompileHelper::compileExpression(
               }
             }
           } else if (childType == VObjectType::slClass_type) {
-            const std::string &packageName = fC->SymName(fC->Child(child));
+            const std::string_view packageName = fC->SymName(fC->Child(child));
             name = packageName;
             std::string n;
             if (fC->Sibling(parent)) {
@@ -2403,9 +2396,9 @@ UHDM::any *CompileHelper::compileExpression(
             while ((rhs = fC->Sibling(rhs))) {
               if (fC->Type(rhs) == VObjectType::slStringConst) {
                 if (fC->Type(rhsbackup) == VObjectType::slPackage_scope) {
-                  name += "::" + fC->SymName(rhs);
+                  name.append("::").append(fC->SymName(rhs));
                 } else {
-                  name += "." + fC->SymName(rhs);
+                  name.append(".").append(fC->SymName(rhs));
                 }
               } else if (fC->Type(rhs) == VObjectType::slSelect ||
                          fC->Type(rhs) == VObjectType::slConstant_select) {
@@ -2724,7 +2717,7 @@ UHDM::any *CompileHelper::compileExpression(
             nameId = fC->Sibling(Dollar_keyword);
           }
           NodeId List_of_arguments = fC->Sibling(nameId);
-          std::string name = fC->SymName(nameId);
+          std::string name(fC->SymName(nameId));
           if (name == "bits") {
             NodeId Expression = fC->Child(List_of_arguments);
             result = compileBits(component, fC, Expression, compileDesign,
@@ -2751,8 +2744,9 @@ UHDM::any *CompileHelper::compileExpression(
               NodeId Class_type = fC->Child(Dollar_keyword);
               NodeId Class_type_name = fC->Child(Class_type);
               NodeId Class_scope_name = fC->Sibling(Dollar_keyword);
-              name = fC->SymName(Class_type_name) +
-                     "::" + fC->SymName(Class_scope_name);
+              name.assign(fC->SymName(Class_type_name))
+                  .append("::")
+                  .append(fC->SymName(Class_scope_name));
             }
             NodeId Select = fC->Sibling(Dollar_keyword);
             if (fC->Type(Select) == VObjectType::slConstant_bit_select ||
@@ -2840,10 +2834,10 @@ UHDM::any *CompileHelper::compileExpression(
                   operands->push_back(r);
                 }
               } else {
-                std::string val = fC->SymName(subOp1);
-                val = val.erase(0, 2);
+                std::string_view val = fC->SymName(subOp1);
+                val.remove_prefix(2);
                 UHDM::constant *c = s.MakeConstant();
-                c->VpiValue("UINT:" + val);
+                c->VpiValue(StrCat("UINT:", val));
                 c->VpiDecompile(val);
                 c->VpiSize(64);
                 c->VpiConstType(vpiUIntConst);
@@ -2899,8 +2893,8 @@ UHDM::any *CompileHelper::compileExpression(
           NodeId Class_type = fC->Child(child);
           NodeId Class_type_name = fC->Child(Class_type);
           NodeId Class_scope_name = fC->Sibling(child);
-          std::string name = fC->SymName(Class_type_name) +
-                             "::" + fC->SymName(Class_scope_name);
+          std::string name = StrCat(fC->SymName(Class_type_name),
+                                    "::", fC->SymName(Class_scope_name));
           ref_obj *ref = s.MakeRef_obj();
           ref->VpiName(name);
           fC->populateCoreMembers(child, child, ref);
@@ -3281,7 +3275,7 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
 }
 
 bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
-                                            const std::string &val,
+                                            std::string_view val,
                                             CompileDesign *compileDesign,
                                             ValuedComponentI *instance,
                                             PathId fileId, unsigned int lineNo,
@@ -3634,7 +3628,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
 
 UHDM::any *CompileHelper::compilePartSelectRange(
     DesignComponent *component, const FileContent *fC, NodeId Constant_range,
-    const std::string &name, CompileDesign *compileDesign, UHDM::any *pexpr,
+    std::string_view name, CompileDesign *compileDesign, UHDM::any *pexpr,
     ValuedComponentI *instance, bool reduce, bool muteErrors) {
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
@@ -3903,7 +3897,7 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
       basename = fC->SymName(id);
       NodeId suffix = fC->Sibling(id);
       while (suffix && (fC->Type(suffix) == VObjectType::slStringConst)) {
-        suffixnames.push_back(fC->SymName(suffix));
+        suffixnames.emplace_back(fC->SymName(suffix));
         suffix = fC->Sibling(suffix);
       }
       break;
@@ -3963,8 +3957,9 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
       NodeId Class_type = fC->Child(id);
       NodeId Class_type_name = fC->Child(Class_type);
       NodeId Class_scope_name = fC->Sibling(id);
-      basename =
-          fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
+      basename.assign(fC->SymName(Class_type_name))
+          .append("::")
+          .append(fC->SymName(Class_scope_name));
       Package *p = compileDesign->getCompiler()->getDesign()->getPackage(
           fC->SymName(Class_type_name));
       if (p) {
@@ -3974,9 +3969,9 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
       break;
     }
     case VObjectType::slPackage_scope: {
-      const std::string &packageName = fC->SymName(fC->Child(id));
-      const std::string &n = fC->SymName(fC->Sibling(id));
-      basename = packageName + "::" + n;
+      const std::string_view packageName = fC->SymName(fC->Child(id));
+      const std::string_view n = fC->SymName(fC->Sibling(id));
+      basename.assign(packageName).append("::").append(n);
       Package *p =
           compileDesign->getCompiler()->getDesign()->getPackage(packageName);
       if (p) {
@@ -4331,8 +4326,8 @@ UHDM::any *CompileHelper::compileTypename(
       UHDM::sys_func_call *sys = s.MakeSys_func_call();
       sys->VpiName("$typename");
       result = sys;
-      const std::string &arg = fC->SymName(Expression);
-      c->VpiValue("STRING:" + arg);
+      const std::string_view arg = fC->SymName(Expression);
+      c->VpiValue(StrCat("STRING:", arg));
       c->VpiDecompile(arg);
       c->VpiConstType(vpiStringConst);
       c->VpiParent(sys);
@@ -4344,7 +4339,7 @@ UHDM::any *CompileHelper::compileTypename(
 UHDM::any *CompileHelper::compileBound(
     DesignComponent *component, const FileContent *fC, NodeId List_of_arguments,
     CompileDesign *compileDesign, UHDM::any *pexpr, ValuedComponentI *instance,
-    bool reduce, bool muteErrors, const std::string &name) {
+    bool reduce, bool muteErrors, std::string_view name) {
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
   NodeId Expression = List_of_arguments;
@@ -4420,7 +4415,7 @@ UHDM::any *CompileHelper::compileBound(
     }
   }
   UHDM::sys_func_call *sys = s.MakeSys_func_call();
-  sys->VpiName("$" + name);
+  sys->VpiName(StrCat("$", name));
   VectorOfany *arguments =
       compileTfCallArguments(component, fC, List_of_arguments, compileDesign,
                              sys, instance, reduce, muteErrors);
@@ -4511,7 +4506,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     elems->push_back(ref);
     ref->VpiName("$root");
     ref->VpiFullName("$root");
-    std::string name = "$root." + fC->SymName(nameId);
+    std::string name = StrCat("$root.", fC->SymName(nameId));
     ref = s.MakeRef_obj();
     elems->push_back(ref);
     ref->VpiName(fC->SymName(nameId));
@@ -4519,7 +4514,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     nameId = fC->Sibling(nameId);
     while (nameId) {
       if (fC->Type(nameId) == VObjectType::slStringConst) {
-        name += "." + fC->SymName(nameId);
+        name.append(".").append(fC->SymName(nameId));
         ref = s.MakeRef_obj();
         elems->push_back(ref);
         ref->VpiName(fC->SymName(nameId));
@@ -4547,7 +4542,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
   } else if (fC->Type(name) == VObjectType::slDollar_keyword) {
     NodeId Dollar_keyword = name;
     NodeId nameId = fC->Sibling(Dollar_keyword);
-    const std::string &name = fC->SymName(nameId);
+    const std::string_view name = fC->SymName(nameId);
     if (name == "bits") {
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileBits(component, fC, List_of_arguments, compileDesign,
@@ -4568,7 +4563,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     if (result == nullptr) {
       NodeId List_of_arguments = fC->Sibling(nameId);
       UHDM::sys_func_call *sys = s.MakeSys_func_call();
-      sys->VpiName("$" + name);
+      sys->VpiName(StrCat("$", name));
       VectorOfany *arguments = compileTfCallArguments(
           component, fC, List_of_arguments, compileDesign, sys, instance,
           reduce, muteErrors);
@@ -4582,7 +4577,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       return compileExpression(component, fC, Handle, compileDesign, pexpr,
                                instance, reduce, muteErrors);
     }
-    std::string rootName = fC->SymName(Method);
+    std::string_view rootName = fC->SymName(Method);
     if (fC->Type(Handle) == VObjectType::slThis_keyword) {
       rootName = "this";
     } else if (fC->Type(Handle) == VObjectType::slSuper_keyword) {
@@ -4597,7 +4592,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
           (expr *)compileExpression(component, fC, Handle, compileDesign, pexpr,
                                     instance, reduce, muteErrors);
       fcall->Prefix(object);
-      const std::string &methodName = fC->SymName(Method);
+      const std::string_view methodName = fC->SymName(Method);
       fcall->VpiName(methodName);
       fC->populateCoreMembers(Method, Method, fcall);
       VectorOfany *arguments = compileTfCallArguments(
@@ -4634,7 +4629,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             nameId = fC->Child(Method);
           }
           r->VpiName(fC->SymName(nameId));
-          fullName += "." + fC->SymName(nameId);
+          fullName.append(".").append(fC->SymName(nameId));
           elems->push_back(r);
           Method = fC->Sibling(Method);
           if (fC->Type(Method) != VObjectType::slStringConst) {
@@ -4681,9 +4676,9 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       }
     }
 
-    const std::string &packagename = fC->SymName(Class_type_name);
-    const std::string &functionname = fC->SymName(Class_scope_name);
-    std::string basename = packagename + "::" + functionname;
+    const std::string_view packagename = fC->SymName(Class_type_name);
+    const std::string_view functionname = fC->SymName(Class_scope_name);
+    std::string basename = StrCat(packagename, "::", functionname);
     tf_call *call = nullptr;
     std::pair<task_func *, DesignComponent *> ret =
         getTaskFunc(basename, component, compileDesign, instance, pexpr);
@@ -4740,8 +4735,8 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                 result = param;
             } else {
               ref_obj *ref = s.MakeRef_obj();
-              ref->VpiName(packagename + "::" + functionname);
-              ref->VpiFullName(packagename + "::" + functionname);
+              ref->VpiName(StrCat(packagename, "::", functionname));
+              ref->VpiFullName(StrCat(packagename, "::", functionname));
               ref->Actual_group(param);
               ref->VpiParent(pexpr);
               fC->populateCoreMembers(name, name, ref);
@@ -4771,7 +4766,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
              fC->Type(dotedName) == VObjectType::slConstant_bit_select ||
              fC->Type(dotedName) == VObjectType::slBit_select) {
     NodeId Bit_select = fC->Child(dotedName);
-    const std::string &sval = fC->SymName(name);
+    const std::string_view sval = fC->SymName(name);
     NodeId selectName = fC->Sibling(dotedName);
     if (!selectName) {
       if (NodeId c = fC->Child(dotedName)) {
@@ -4782,7 +4777,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     }
 
     if (dotedName) {
-      std::string the_name = fC->SymName(name);
+      std::string the_name(fC->SymName(name));
       if (!hierPath) {
         VObjectType dtype = fC->Type(dotedName);
         if (Bit_select && (fC->Child(Bit_select) || fC->Sibling(Bit_select))) {
@@ -4863,7 +4858,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         VObjectType dtype = fC->Type(dotedName);
         NodeId BitSelect = fC->Child(dotedName);
         if (dtype == VObjectType::slStringConst) {
-          the_name += "." + fC->SymName(dotedName);
+          the_name.append(".").append(fC->SymName(dotedName));
           if (!tmpName.empty()) {
             ref_obj *ref = s.MakeRef_obj();
             elems->push_back(ref);
@@ -5023,7 +5018,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             dotedName = fC->Sibling(dotedName);
           } else {
             fcall = s.MakeMethod_func_call();
-            const std::string &methodName = fC->SymName(dotedName);
+            const std::string_view methodName = fC->SymName(dotedName);
             fcall->VpiName(methodName);
             fC->populateCoreMembers(dotedName, dotedName, fcall);
             VectorOfany *arguments = compileTfCallArguments(
@@ -5110,7 +5105,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                                        muteErrors);
     }
     if (result == nullptr) {
-      const std::string &n = fC->SymName(name);
+      const std::string_view n = fC->SymName(name);
       ref_obj *ref = s.MakeRef_obj();
       ref->VpiName(n);
       ref->VpiParent(pexpr);
@@ -5134,7 +5129,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
   } else if (fC->Type(dotedName) == VObjectType::slList_of_arguments) {
     result = compileTfCall(component, fC, fC->Parent(name), compileDesign);
   } else if (fC->Type(name) == VObjectType::slStringConst) {
-    const std::string &n = fC->SymName(name);
+    const std::string_view n = fC->SymName(name);
     ref_obj *ref = s.MakeRef_obj();
     ref->VpiName(n);
     ref->VpiParent(pexpr);
@@ -5158,7 +5153,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     result = compileExpression(component, fC, fC->Parent(name), compileDesign,
                                pexpr, instance, reduce, muteErrors);
   } else if (!dotedName) {
-    const std::string &the_name = fC->SymName(name);
+    const std::string_view the_name = fC->SymName(name);
     ref_obj *ref = s.MakeRef_obj();
     ref->VpiName(the_name);
     ref->VpiFullName(the_name);

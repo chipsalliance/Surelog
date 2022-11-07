@@ -509,7 +509,9 @@ const DataType* ElaborationStep::bindTypeDef_(
   } else if (defType == VObjectType::slClass_scope) {
     NodeId class_type = fC->Child(defNode);
     NodeId nameId = fC->Child(class_type);
-    objName = fC->SymName(nameId) + "::" + fC->SymName(fC->Sibling(defNode));
+    objName.assign(fC->SymName(nameId))
+        .append("::")
+        .append(fC->SymName(fC->Sibling(defNode)));
   } else {
     objName = "NOT_A_VALID_TYPE_NAME";
     symbols->registerSymbol(objName);
@@ -523,7 +525,7 @@ const DataType* ElaborationStep::bindTypeDef_(
 }
 
 const DataType* ElaborationStep::bindDataType_(
-    const std::string& type_name, const FileContent* fC, NodeId id,
+    std::string_view type_name, const FileContent* fC, NodeId id,
     const DesignComponent* parent, ErrorDefinition::ErrorType errtype) {
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
@@ -536,7 +538,7 @@ const DataType* ElaborationStep::bindDataType_(
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
   bool found = false;
   bool classFound = false;
-  std::string class_in_lib = libName + "@" + type_name;
+  std::string class_in_lib = StrCat(libName, "@", type_name);
   ClassNameClassDefinitionMultiMap::iterator itr1 = classes.end();
 
   if (type_name == "signed") {
@@ -659,7 +661,7 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
-    auto res = parent->getNamedObject(libName + "@" + type_name);
+    auto res = parent->getNamedObject(StrCat(libName, "@", type_name));
     if (res) {
       DesignComponent* comp = res->second;
       result = valuedcomponenti_cast<ClassDefinition*>(comp);
@@ -936,7 +938,7 @@ Variable* ElaborationStep::locateStaticVariable_(
 
 void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC,
                                   NodeId id, const DataType* type,
-                                  const std::string& interfName,
+                                  std::string_view interfName,
                                   ErrorContainer* errors,
                                   SymbolTable* symbols) {
   if (def == nullptr && type == nullptr && (interfName != "logic") &&
@@ -954,8 +956,8 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC,
 }
 
 bool bindStructInPackage(Design* design, Signal* signal,
-                         const std::string_view packageName,
-                         const std::string_view structName) {
+                         std::string_view packageName,
+                         std::string_view structName) {
   Package* p = design->getPackage(packageName);
   if (p) {
     const DataType* dtype = p->getDataType(structName);
@@ -1018,7 +1020,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
             NodeId if_name = fC->Sibling(if_type);
             if (if_name) {
               std::string interfaceName =
-                  libName + "@" + fC->SymName(if_type_name_s);
+                  StrCat(libName, "@", fC->SymName(if_type_name_s));
               ModuleDefinition* interface =
                   design->getModuleDefinition(interfaceName);
               if (interface) {
@@ -1057,7 +1059,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
         case VObjectType::slInterface_port_declaration: {
           NodeId interface_identifier = fC->Child(subNode);
           NodeId interfIdName = fC->Child(interface_identifier);
-          const std::string& interfName = fC->SymName(interfIdName);
+          const std::string_view interfName = fC->SymName(interfIdName);
 
           DesignComponent* def = nullptr;
           const DataType* type = nullptr;
@@ -1072,7 +1074,8 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
             def = datatype->second;
           }
           if (def == nullptr) {
-            def = design->getComponentDefinition(libName + "@" + interfName);
+            def = design->getComponentDefinition(
+                StrCat(libName, "@", interfName));
           }
           if (def == nullptr) {
             type = parentComponent->getDataType(interfName);
@@ -1394,7 +1397,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
   const DataType* dtype = sig->getDataType();
   VObjectType subnettype = sig->getType();
 
-  const std::string& signame = sig->getName();
+  const std::string_view signame = sig->getName();
   const FileContent* const fC = sig->getFileContent();
 
   variables* obj = nullptr;

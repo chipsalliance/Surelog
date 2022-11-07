@@ -162,7 +162,8 @@ bool ParseLibraryDef::parseConfigDefinition() {
   std::vector<NodeId> configs = fC->sl_collect_all(fC->getRootNode(), types);
   for (auto config : configs) {
     NodeId ident = fC->Child(config);
-    std::string name = fC->getLibrary()->getName() + "@" + fC->SymName(ident);
+    std::string name =
+        StrCat(fC->getLibrary()->getName(), "@", fC->SymName(ident));
     m_symbolTable->registerSymbol(name);
     Config conf(name, fC, config);
 
@@ -214,7 +215,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         if (instNameS.empty())
           instNameS = fC->SymName(instName);
         else
-          instNameS += "." + fC->SymName(instName);
+          instNameS.append(".").append(fC->SymName(instName));
         instName = fC->Sibling(instName);
       }
       NodeId instClause = fC->Sibling(inst);
@@ -244,7 +245,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
             if (useName.empty())
               useName = fC->SymName(use);
             else
-              useName += "." + fC->SymName(use);
+              useName.append(".").append(fC->SymName(use));
             use = fC->Sibling(use);
           }
           useName = StringUtils::replaceAll(useName, ".", "@");
@@ -262,7 +263,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
           if (useName.empty())
             useName = fC->SymName(use);
           else
-            useName += "@" + fC->SymName(use);
+            useName.append("@").append(fC->SymName(use));
           use = fC->Sibling(use);
         }
         UseClause usec(UseClause::UseConfig, useName, fC, mem);

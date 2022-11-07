@@ -58,19 +58,19 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   unsigned int getSize() const override;
 
   typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
-  typedef std::map<std::string, ModPort> ModPortSignalMap;
-  typedef std::map<std::string, std::vector<ClockingBlock>>
+  typedef std::map<std::string, ModPort, std::less<>> ModPortSignalMap;
+  typedef std::map<std::string, std::vector<ClockingBlock>, std::less<>>
       ModPortClockingBlockMap;
 
   ModPortSignalMap& getModPortSignalMap() { return m_modportSignalMap; }
   ModPortClockingBlockMap& getModPortClockingBlockMap() {
     return m_modportClockingBlockMap;
   }
-  void insertModPort(const std::string& modport, const Signal& signal,
+  void insertModPort(std::string_view modport, const Signal& signal,
                      NodeId nodeId);
-  void insertModPort(const std::string& modport, ClockingBlock& block);
+  void insertModPort(std::string_view modport, ClockingBlock& block);
   const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
-  ModPort* getModPort(const std::string& modport);
+  ModPort* getModPort(std::string_view modport);
 
   const ClockingBlock* getModPortClockingBlock(const std::string& modport,
                                                NodeId port) const;

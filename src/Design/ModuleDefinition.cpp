@@ -62,7 +62,7 @@ unsigned int ModuleDefinition::getSize() const {
   return size;
 }
 
-void ModuleDefinition::insertModPort(const std::string& modport,
+void ModuleDefinition::insertModPort(std::string_view modport,
                                      const Signal& signal, NodeId nodeId) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
@@ -89,7 +89,7 @@ const Signal* ModuleDefinition::getModPortSignal(const std::string& modport,
   return nullptr;
 }
 
-ModPort* ModuleDefinition::getModPort(const std::string& modport) {
+ModPort* ModuleDefinition::getModPort(std::string_view modport) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     return nullptr;
@@ -98,7 +98,7 @@ ModPort* ModuleDefinition::getModPort(const std::string& modport) {
   }
 }
 
-void ModuleDefinition::insertModPort(const std::string& modport,
+void ModuleDefinition::insertModPort(std::string_view modport,
                                      ClockingBlock& cb) {
   ModPortClockingBlockMap::iterator itr =
       m_modportClockingBlockMap.find(modport);

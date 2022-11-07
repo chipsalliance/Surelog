@@ -33,7 +33,8 @@ typedef std::map<std::string, Program*, StringViewCompare>
 
 typedef std::multimap<std::string, ClassDefinition*, StringViewCompare>
     ClassNameClassDefinitionMultiMap;
-typedef std::map<std::string, ClassDefinition*> ClassNameClassDefinitionMap;
+typedef std::map<std::string, ClassDefinition*, std::less<>>
+    ClassNameClassDefinitionMap;
 
 typedef std::map<std::string, std::vector<MacroInfo*>, StringViewCompare>
     MacroStorage;

@@ -39,7 +39,7 @@ class TypeDef : public DataType {
   SURELOG_IMPLEMENT_RTTI(TypeDef, DataType)
  public:
   TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
-          const std::string& name, bool forwardDeclaration = false);
+          std::string_view name, bool forwardDeclaration = false);
   ~TypeDef() override = default;
 
   void setDataType(DataType* the_type) { m_datatype = the_type; }

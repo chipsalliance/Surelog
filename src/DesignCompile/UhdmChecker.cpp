@@ -91,7 +91,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
                                    VObjectType::slAttr_spec);
       if (stId) {
         std::string name =
-            fC->getLibrary()->getName() + "@" + fC->SymName(stId);
+            StrCat(fC->getLibrary()->getName(), "@", fC->SymName(stId));
         if (moduleNames.find(name) == moduleNames.end()) {
           skipModule = true;
         }

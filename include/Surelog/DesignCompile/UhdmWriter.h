@@ -49,7 +49,7 @@ class UhdmWriter final {
   typedef std::map<ModPort*, UHDM::modport*> ModPortMap;
   typedef std::map<const DesignComponent*, UHDM::BaseClass*> ComponentMap;
   typedef std::map<Signal*, UHDM::BaseClass*> SignalBaseClassMap;
-  typedef std::map<std::string, Signal*> SignalMap;
+  typedef std::map<std::string, Signal*, std::less<>> SignalMap;
   typedef std::map<ModuleInstance*, UHDM::BaseClass*> InstanceMap;
   typedef std::map<std::string, UHDM::BaseClass*> VpiSignalMap;
 

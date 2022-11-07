@@ -251,8 +251,8 @@ class CompileHelper final {
   UHDM::typespec* compileDatastructureTypespec(
       DesignComponent* component, const FileContent* fC, NodeId type,
       CompileDesign* compileDesign, SURELOG::ValuedComponentI* instance,
-      bool reduce, const std::string& suffixname = "",
-      const std::string& typeName = "");
+      bool reduce, std::string_view suffixname = "",
+      std::string_view typeName = "");
 
   UHDM::any* compileCheckerInstantiation(DesignComponent* component,
                                          const FileContent* fC, NodeId nodeId,
@@ -301,7 +301,7 @@ class CompileHelper final {
 
   UHDM::any* compilePartSelectRange(
       DesignComponent* component, const FileContent* fC, NodeId Constant_range,
-      const std::string& name, CompileDesign* compileDesign, UHDM::any* pexpr,
+      std::string_view name, CompileDesign* compileDesign, UHDM::any* pexpr,
       ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   std::vector<UHDM::range*>* compileRanges(
@@ -337,7 +337,7 @@ class CompileHelper final {
 
   UHDM::any* compileSelectExpression(
       DesignComponent* component, const FileContent* fC, NodeId Bit_select,
-      const std::string& name, CompileDesign* compileDesign, UHDM::any* pexpr,
+      std::string_view name, CompileDesign* compileDesign, UHDM::any* pexpr,
       ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   UHDM::any* compileBits(DesignComponent* component, const FileContent* fC,
@@ -354,7 +354,7 @@ class CompileHelper final {
                           NodeId Expression, CompileDesign* compileDesign,
                           UHDM::any* pexpr, ValuedComponentI* instance,
                           bool reduce, bool muteErrors,
-                          const std::string& name);
+                          std::string_view name);
 
   UHDM::any* compileTypename(DesignComponent* component, const FileContent* fC,
                              NodeId Expression, CompileDesign* compileDesign,
@@ -382,15 +382,15 @@ class CompileHelper final {
                                 CompileDesign* compileDesign);
 
   UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope,
-                          const std::string& name,
+                          std::string_view name,
                           CompileDesign* compileDesign);
 
   UHDM::any* bindVariable(DesignComponent* component,
-                          ValuedComponentI* instance, const std::string& name,
+                          ValuedComponentI* instance, std::string_view name,
                           CompileDesign* compileDesign);
 
   UHDM::any* bindParameter(DesignComponent* component,
-                           ValuedComponentI* instance, const std::string& name,
+                           ValuedComponentI* instance, std::string_view name,
                            CompileDesign* compileDesign, bool crossHierarchy);
 
   UHDM::event_control* compileClocking_event(DesignComponent* component,
@@ -471,7 +471,7 @@ class CompileHelper final {
       CompileDesign* compileDesign);
 
   std::pair<UHDM::task_func*, DesignComponent*> getTaskFunc(
-      const std::string& name, DesignComponent* component,
+      std::string_view name, DesignComponent* component,
       CompileDesign* compileDesign, ValuedComponentI* instance,
       UHDM::any* pexpr);
 
@@ -487,7 +487,7 @@ class CompileHelper final {
   bool loopDetected(PathId fileId, int lineNumber, CompileDesign* compileDesign,
                     ValuedComponentI* instance);
 
-  UHDM::any* getValue(const std::string& name, DesignComponent* component,
+  UHDM::any* getValue(std::string_view name, DesignComponent* component,
                       CompileDesign* compileDesign, ValuedComponentI* instance,
                       PathId fileId, int lineNumber, UHDM::any* pexpr,
                       bool reduce, bool muteErrors = false);
@@ -509,7 +509,7 @@ class CompileHelper final {
   bool substituteAssignedValue(const UHDM::any* op,
                                CompileDesign* compileDesign);
 
-  UHDM::any* getObject(const std::string& name, DesignComponent* component,
+  UHDM::any* getObject(std::string_view name, DesignComponent* component,
                        CompileDesign* compileDesign, ValuedComponentI* instance,
                        const UHDM::any* pexpr);
 
@@ -524,7 +524,7 @@ class CompileHelper final {
                                CompileDesign* compileDesign,
                                ValuedComponentI* instance);
   bool errorOnNegativeConstant(DesignComponent* component,
-                               const std::string& value,
+                               std::string_view value,
                                CompileDesign* compileDesign,
                                ValuedComponentI* instance, PathId fileId,
                                unsigned int lineNo, unsigned short columnNo);
@@ -546,7 +546,7 @@ class CompileHelper final {
                   UHDM::constant* c, bool uniquify = false);
 
   /** task/func/scope */
-  UHDM::any* searchObjectName(const std::string& name,
+  UHDM::any* searchObjectName(std::string_view name,
                               DesignComponent* component,
                               CompileDesign* compileDesign, UHDM::any* stmt);
 
@@ -566,14 +566,14 @@ class CompileHelper final {
   UHDM::module* m_exprEvalPlaceHolder = nullptr;
   // Caches
   UHDM::int_typespec* buildIntTypespec(CompileDesign* compileDesign,
-                                       PathId fileId, const std::string& name,
-                                       const std::string& value,
+                                       PathId fileId, std::string_view name,
+                                       std::string_view value,
                                        unsigned int line, unsigned short column,
                                        unsigned int eline,
                                        unsigned short ecolumn);
   UHDM::typespec_member* buildTypespecMember(
-      CompileDesign* compileDesign, PathId fileId, const std::string& name,
-      const std::string& value, unsigned int line, unsigned short column,
+      CompileDesign* compileDesign, PathId fileId, std::string_view name,
+      std::string_view value, unsigned int line, unsigned short column,
       unsigned int eline, unsigned short ecolumn);
   std::unordered_map<std::string, UHDM::int_typespec*> m_cache_int_typespec;
   std::unordered_map<std::string, UHDM::typespec_member*>

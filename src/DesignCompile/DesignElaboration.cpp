@@ -606,18 +606,18 @@ ModuleInstance* DesignElaboration::createBindInstance_(
   Library* lib = fC->getLibrary();
   NodeId bindNodeId = bind->getBindId();
   const std::string bindModName =
-      lib->getName() + "@" + fC->SymName(bindNodeId);
+      StrCat(lib->getName(), "@", fC->SymName(bindNodeId));
   NodeId instNameId = bind->getInstanceId();
-  const std::string& instName = fC->SymName(instNameId);
+  const std::string_view instName = fC->SymName(instNameId);
   NodeId targetModId = bind->getTargetModId();
   NodeId targetInstId = bind->getTargetInstId();
   const std::string targetName =
-      lib->getName() + "@" + fC->SymName(targetModId);
+      StrCat(lib->getName(), "@", fC->SymName(targetModId));
   DesignComponent* def = parent->getDefinition();
   Design* design = m_compileDesign->getCompiler()->getDesign();
   bool instanceMatch = true;
   if (targetInstId) {
-    const std::string& targetInstName = fC->SymName(targetInstId);
+    const std::string_view targetInstName = fC->SymName(targetInstId);
     instanceMatch = (targetInstName == parent->getInstanceName());
   }
   DesignComponent* targetDef = nullptr;
@@ -1022,7 +1022,7 @@ void DesignElaboration::elaborateInstance_(
           Value* initValue = m_exprBuilder.getValueFactory().newLValue();
           initValue->set(initVal);
 
-          const std::string& name = fC->SymName(varId);
+          const std::string_view name = fC->SymName(varId);
           parent->setValue(name, initValue, m_exprBuilder, fC->Line(varId));
 
           // End-loop test
@@ -1826,7 +1826,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   }
   for (const auto& pack_import : pack_imports) {
     NodeId pack_id = pack_import.fC->Child(pack_import.nodeId);
-    const std::string& pack_name = pack_import.fC->SymName(pack_id);
+    const std::string_view pack_name = pack_import.fC->SymName(pack_id);
     Package* def = design->getPackage(pack_name);
     if (def) {
       auto& paramSet = def->getObjects(VObjectType::slParam_assignment);
@@ -1835,7 +1835,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId param = element.nodeId;
 
         NodeId ident = packageFile->Child(param);
-        const std::string& name = packageFile->SymName(ident);
+        const std::string_view name = packageFile->SymName(ident);
         if (UHDM::expr* exp = def->getComplexValue(name)) {
           UHDM::Serializer& s = m_compileDesign->getSerializer();
           UHDM::ElaboratorListener listener(&s, false, true);
@@ -1847,7 +1847,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             instance->setValue(name, value, m_exprBuilder,
                                packageFile->Line(param));
         }
-        params.push_back(name);
+        params.emplace_back(name);
       }
     } else {
       Location loc(
@@ -1863,12 +1863,12 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
       NodeId ident = param.fC->Child(param.nodeId);
-      const std::string& name = param.fC->SymName(ident);
-      params.push_back(name);
-      moduleParams.push_back(name);
+      const std::string_view name = param.fC->SymName(ident);
+      params.emplace_back(name);
+      moduleParams.emplace_back(name);
     }
   }
-  std::set<std::string> overridenParams;
+  std::set<std::string, std::less<>> overridenParams;
   // Param overrides
   if (parentParamOverride) {
     ModuleInstance* parentInstance = instance->getParent();
@@ -1905,8 +1905,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       }
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
-        const std::string& name = parentFile->SymName(child);
-        overridenParams.insert(name);
+        const std::string_view name = parentFile->SymName(child);
+        overridenParams.emplace(name);
         NodeId expr = parentFile->Sibling(child);
         if (!expr) {
           Location loc(
@@ -2051,7 +2051,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                                          parentInstance, true, false);
             }
 
-            const std::string& pname = parentFile->SymName(child);
+            const std::string_view pname = parentFile->SymName(child);
             NodeId param_expression = parentFile->Sibling(child);
             NodeId data_type = parentFile->Child(param_expression);
             NodeId type = parentFile->Child(data_type);
@@ -2190,8 +2190,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId Constant_primary = fC->Child(var);
         NodeId Primary_literal = fC->Child(Constant_primary);
         NodeId IntConst = fC->Child(Primary_literal);
-        const std::string& name = fC->SymName(IntConst);
-        fullPath += "[" + name + "]";
+        const std::string_view name = fC->SymName(IntConst);
+        fullPath.append("[").append(name).append("]");
       }
       var = fC->Sibling(var);
       bool isString = false;
@@ -2232,7 +2232,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
       NodeId ident = param.fC->Child(param.nodeId);
-      const std::string& name = param.fC->SymName(ident);
+      const std::string_view name = param.fC->SymName(ident);
       if (overridenParams.find(name) == overridenParams.end()) {
         NodeId exprId = param.fC->Sibling(ident);
         while (param.fC->Type(exprId) == VObjectType::slUnpacked_dimension) {

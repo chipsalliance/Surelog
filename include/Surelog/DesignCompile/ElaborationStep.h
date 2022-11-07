@@ -63,7 +63,7 @@ class ElaborationStep {
   const DataType* bindTypeDef_(TypeDef* typd, const DesignComponent* parent,
                                ErrorDefinition::ErrorType errtype);
 
-  const DataType* bindDataType_(const std::string& type_name,
+  const DataType* bindDataType_(std::string_view type_name,
                                 const FileContent* fC, NodeId id,
                                 const DesignComponent* parent,
                                 ErrorDefinition::ErrorType errtype);

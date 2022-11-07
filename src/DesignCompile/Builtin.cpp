@@ -376,10 +376,10 @@ void Builtin::addBuiltinClasses() {
                                   VObjectType::slAttr_spec);
     const std::string& libName = fC1->getLibrary()->getName();
     if (stId) {
-      const std::string& name = fC1->SymName(stId);
+      const std::string_view name = fC1->SymName(stId);
       fC1->insertObjectLookup(name, classId,
                               m_compiler->getCompiler()->getErrorContainer());
-      std::string fullName = libName + "@" + name;
+      std::string fullName = StrCat(libName, "@", name);
       ClassDefinition* def =
           new ClassDefinition(fullName, fC1->getLibrary(), nullptr, fC1,
                               classId, nullptr, s.MakeClass_defn());
