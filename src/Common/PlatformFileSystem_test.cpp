@@ -332,7 +332,7 @@ TEST(PlatformFileSystemTest, WorkingDirs_NonIdeal) {
   std::error_code ec;
   const fs::path programPath = FileSystem::getProgramPath();
   const fs::path wsdir =
-      FileSystem::normalize(fs::path(testing::TempDir()) / "ws");
+      FileSystem::normalize(fs::path(testing::TempDir()) / "ws_nonideal");
   const fs::path testdir =
       wsdir / "tests" / "testname" / "subfolder_1" / "subfolder_2";
 
@@ -442,7 +442,7 @@ TEST(PlatformFileSystemTest, WorkingDirs_Ideal) {
   std::error_code ec;
   const fs::path programPath = FileSystem::getProgramPath().string();
   const fs::path wsdir =
-      FileSystem::normalize(fs::path(testing::TempDir()) / "ws");
+      FileSystem::normalize(fs::path(testing::TempDir()) / "ws_ideal");
   const fs::path testdir =
       wsdir / "tests" / "testname" / "subfolder_1" / "subfolder_2";
 
