@@ -4478,6 +4478,10 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
 
   bool hierPath = false;
   NodeId tmp = dotedName;
+  while (fC->Type(tmp) == VObjectType::slAttribute_instance) {
+    tmp = fC->Sibling(tmp);
+    dotedName = tmp;
+  }
   NodeId List_of_arguments;
   while (tmp) {
     if (fC->Type(tmp) == VObjectType::slStringConst ||

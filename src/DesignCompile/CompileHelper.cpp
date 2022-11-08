@@ -3102,6 +3102,9 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     tfNameNode = dollar_or_string;
     name = fC->SymName(tfNameNode);
     NodeId Constant_bit_select = fC->Sibling(tfNameNode);
+    while (fC->Type(Constant_bit_select) == VObjectType::slAttribute_instance) {
+      Constant_bit_select = fC->Sibling(Constant_bit_select);
+    }
     if (fC->Type(Constant_bit_select) == VObjectType::slConstant_bit_select) {
       tfNameNode = fC->Sibling(Constant_bit_select);
       method_func_call* fcall = s.MakeMethod_func_call();
@@ -3196,14 +3199,14 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     fC->populateCoreMembers(Tf_call_stmt, Tf_call_stmt, call);
   }
   NodeId argListNode = fC->Sibling(tfNameNode);
-  if (fC->Type(argListNode) == VObjectType::slAttribute_instance) {
-    /* UHDM::VectorOfattribute* attributes = */ compileAttributes(
-        component, fC, argListNode, compileDesign);
-  } else {
-    VectorOfany* arguments = compileTfCallArguments(
-        component, fC, argListNode, compileDesign, call, nullptr, false, false);
-    call->Tf_call_args(arguments);
+  while (fC->Type(argListNode) == VObjectType::slAttribute_instance) {
+    argListNode = fC->Sibling(argListNode);
   }
+
+  VectorOfany* arguments = compileTfCallArguments(
+      component, fC, argListNode, compileDesign, call, nullptr, false, false);
+  call->Tf_call_args(arguments);
+
   return call;
 }
 
