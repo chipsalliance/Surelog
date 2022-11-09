@@ -156,7 +156,7 @@ def _rmtree(dirpath, patterns):
         _rmdir(path)
 
 
-def _scan(dirpaths, filters):
+def _scan(dirpaths, filters, shard, num_shards):
   def _is_filtered(name):
     for filter in filters:
       if isinstance(filter, str):
@@ -165,8 +165,7 @@ def _scan(dirpaths, filters):
       else:
         if filter.search(name):  # Note: match() reports success only if the match is at index 0
           return True
-
-    return False
+    return hash(name) % num_shards == shard
 
   all_tests = {}
   filtered_tests = set()
@@ -181,7 +180,7 @@ def _scan(dirpaths, filters):
           all_tests[name] = filepath
           if blacklisted.is_blacklisted(name):
             blacklisted_tests.add(name)
-          elif not filters or _is_filtered(name):
+          elif _is_filtered(name):
             filtered_tests.add(name)
 
   return [
@@ -1146,8 +1145,16 @@ def _main():
   parser.add_argument(
       '--zipfile-path', dest='zipfile_path', required=False, type=str,
       help='Path to zipfile to extract logs from.')
+  parser.add_argument('--num_shards', dest='num_shards', required=False,
+                      type=int, default=1, help='Number of shards')
+  parser.add_argument('--shard', dest='shard', required=False,
+                      type=int, default=0, help='This shard')
 
   args = parser.parse_args()
+
+  if (args.shard >= args.num_shards):
+    print("Shard %d out of range 0..%d" % (args.shard, args.num_shards - 1))
+    return 1
 
   if (args.jobs == None) or (args.jobs > multiprocessing.cpu_count()):
     args.jobs = multiprocessing.cpu_count()
@@ -1181,7 +1188,7 @@ def _main():
   ]
 
   args.filters = [text if text.isalnum() else re.compile(text, re.IGNORECASE) for text in args.filters]
-  all_tests, filtered_tests, blacklisted_tests = _scan(args.test_dirpaths, args.filters)
+  all_tests, filtered_tests, blacklisted_tests = _scan(args.test_dirpaths, args.filters, args.shard, args.num_shards)
 
   if args.jobs > len(filtered_tests):
     args.jobs = len(filtered_tests)
