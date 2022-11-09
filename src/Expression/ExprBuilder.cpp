@@ -413,7 +413,9 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         const std::string& val = fC->SymName(child);
         std::string size(StringUtils::rtrim_until(val, '\''));
         int64_t intsize = 0;
-        if (!size.empty()) intsize = std::strtoull(size.c_str(), nullptr, 10);
+        if (NumUtils::parseInt64(size, &intsize) == nullptr) {
+          intsize = 0;
+        }
         if (val.find('\'') != std::string::npos) {
           uint64_t hex_value = 0;
           char base = 'h';
@@ -442,8 +444,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                 stval->set(v, Value::Type::Hexadecimal, intsize);
                 value = stval;
               } else {
-                hex_value = std::strtoull(v.c_str(), nullptr, 16);
-                intformat = true;
+                intformat = NumUtils::parseHex(v, &hex_value) != nullptr;
               }
               break;
             }
@@ -455,24 +456,20 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                            (intsize ? intsize : v.size()));
                 value = stval;
               } else {
-                hex_value = std::strtoull(v.c_str(), nullptr, 2);
-                intformat = true;
+                intformat = NumUtils::parseBinary(v, &hex_value) != nullptr;
               }
               break;
             case 'o':
             case 'O':
-              hex_value = std::strtoull(v.c_str(), nullptr, 8);
-              intformat = true;
+              intformat = NumUtils::parseOctal(v, &hex_value) != nullptr;
               break;
             case 'd':
             case 'D':
-              hex_value = std::strtoull(v.c_str(), nullptr, 10);
-              intformat = true;
+              intformat = NumUtils::parseUint64(v, &hex_value) != nullptr;
               break;
             default:
               // '1
-              hex_value = std::strtoull(v.c_str(), nullptr, 2);
-              intformat = true;
+              intformat = NumUtils::parseBinary(v, &hex_value) != nullptr;
               break;
           }
           if (intformat) {
@@ -483,11 +480,17 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           }
         } else if (!val.empty()) {
           if (val[0] == '-') {
-            int64_t i = std::strtoll(val.c_str(), nullptr, 10);
+            int64_t i = 0;
+            if (NumUtils::parseInt64(val, &i) == nullptr) {
+              i = 0;
+            }
             value->set(i);
           } else {
-            uint64_t i = std::strtoull(val.c_str(), nullptr, 10);
-            value->set(i);
+            uint64_t u = 0;
+            if (NumUtils::parseUint64(val, &u) == nullptr) {
+              u = 0;
+            }
+            value->set(u);
           }
         }
         break;
@@ -693,15 +696,27 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
             v = StringUtils::replaceAll(v, "_", "");
             std::string size = token.substr(0, i);
-            uint64_t isize = std::strtoull(size.c_str(), nullptr, 10);
+            uint64_t isize = 0;
+            if (NumUtils::parseUint64(size, &isize) == nullptr) {
+              isize = 0;
+            }
             if (base == 'd') {
-              long long iv = std::strtoll(v.c_str(), nullptr, 10);
+              uint64_t iv = 0;
+              if (NumUtils::parseUint64(v, &iv) == nullptr) {
+                iv = 0;
+              }
               v = NumUtils::toBinary(isize, iv);
             } else if (base == 'h') {
-              long long iv = std::strtoll(v.c_str(), nullptr, 16);
+              uint64_t iv = 0;
+              if (NumUtils::parseHex(v, &iv) == nullptr) {
+                iv = 0;
+              }
               v = NumUtils::toBinary(isize, iv);
             } else if (base == 'o') {
-              long long iv = std::strtoll(v.c_str(), nullptr, 8);
+              uint64_t iv = 0;
+              if (NumUtils::parseOctal(v, &iv) == nullptr) {
+                iv = 0;
+              }
               v = NumUtils::toBinary(isize, iv);
             }
             svalue += v;
@@ -905,87 +920,99 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 
 Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
   Value* val = nullptr;
-  size_t pos;
-  if ((pos = s.find("UINT:")) == 0) {
+  std::string_view sv = s;
+  if (s.find("UINT:") == 0) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(
-        s.c_str() + pos + std::string_view("UINT:").length(), nullptr, 10);
+    uint64_t v = 0;
+    sv.remove_prefix(std::string_view("UINT:").length());
+    if (NumUtils::parseUint64(sv, &v) == nullptr) {
+      v = 0;
+    }
     if (size)
       val->set(v, Value::Type::Unsigned, size);
     else
       val->set(v);
-  } else if ((pos = s.find("INT:")) == 0) {
+  } else if (s.find("INT:") == 0) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(
-        s.c_str() + pos + std::string_view("INT:").length(), nullptr, 10);
+    int64_t v = 0;
+    sv.remove_prefix(std::string_view("INT:").length());
+    if (NumUtils::parseInt64(sv, &v) == nullptr) {
+      v = 0;
+    }
     if (size)
       val->set(v, Value::Type::Integer, size);
     else
       val->set(v);
-  } else if ((pos = s.find("DEC:")) == 0) {
+  } else if (s.find("DEC:") == 0) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(
-        s.c_str() + pos + std::string_view("DEC:").length(), nullptr, 10);
+    int64_t v = 0;
+    sv.remove_prefix(std::string_view("DEC:").length());
+    if (NumUtils::parseInt64(sv, &v) == nullptr) {
+      v = 0;
+    }
     if (size)
       val->set(v, Value::Type::Integer, size);
     else
       val->set(v);
-  } else if ((pos = s.find("SCAL:")) == 0) {
-    const char* const parse_pos =
-        s.c_str() + pos + std::string_view("SCAL:").length();
-    switch (parse_pos[0]) {
+  } else if (s.find("SCAL:") == 0) {
+    sv.remove_prefix(std::string_view("SCAL:").length());
+    switch (sv.front()) {
       case 'Z':
-
         break;
       case 'X':
-
         break;
       case 'H':
-
         break;
       case 'L':
-
         break;
         // Not really clear what the difference between X and DontCare is.
         // Let's parse 'W'eak don't care as this one.
       case 'W':
-
         break;
       default:
-        if (strcasecmp(parse_pos, "DontCare") == 0) {
-        } else if (strcasecmp(parse_pos, "NoChange") == 0) {
+        if (strcasecmp(sv.data(), "DontCare") == 0) {
+        } else if (strcasecmp(sv.data(), "NoChange") == 0) {
         } else {
-          int64_t v = std::strtoull(parse_pos, nullptr, 10);
           val = m_valueFactory.newLValue();
+          int64_t v = 0;
+          if (NumUtils::parseInt64(sv, &v) == nullptr) {
+            v = 0;
+          }
           val->set(v);
         }
         break;
     }
-  } else if ((pos = s.find("BIN:")) == 0) {
+  } else if (s.find("BIN:") == 0) {
     StValue* sval = (StValue*)m_valueFactory.newStValue();
-    sval->set(s.c_str() + pos + std::string_view("BIN:").length(),
-              Value::Type::Binary, (size ? size : s.size()));
+    sval->set(s.data() + std::string_view("BIN:").length(), Value::Type::Binary,
+              (size ? size : s.size()));
     val = sval;
-  } else if ((pos = s.find("HEX:")) == 0) {
+  } else if (s.find("HEX:") == 0) {
     StValue* sval = (StValue*)m_valueFactory.newStValue();
-    sval->set(s.c_str() + pos + std::string_view("HEX:").length(),
+    sval->set(s.c_str() + std::string_view("HEX:").length(),
               Value::Type::Hexadecimal, (size ? size : (s.size() - 4) * 4));
     val = sval;
-  } else if ((pos = s.find("OCT:")) == 0) {
+  } else if (s.find("OCT:") == 0) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(
-        s.c_str() + pos + std::string_view("OCT:").length(), nullptr, 8);
+    uint64_t v = 0;
+    sv.remove_prefix(std::string_view("OCT:").length());
+    if (NumUtils::parseOctal(sv, &v) == nullptr) {
+      v = 0;
+    }
     if (size)
       val->set(v, Value::Type::Unsigned, size);
     else
       val->set(v, Value::Type::Unsigned, (size ? size : (s.size() - 4) * 4));
-  } else if ((pos = s.find("STRING:")) == 0) {
+  } else if (s.find("STRING:") == 0) {
     val = m_valueFactory.newStValue();
-    val->set(s.c_str() + pos + std::string_view("STRING:").length());
-  } else if ((pos = s.find("REAL:")) == 0) {
+    val->set(s.data() + std::string_view("STRING:").length());
+  } else if (s.find("REAL:") == 0) {
     val = m_valueFactory.newLValue();
-    double v = std::strtod(s.c_str() + pos + std::string_view("REAL:").length(),
-                           nullptr);
+    sv.remove_prefix(std::string_view("REAL:").length());
+    double v = 0;
+    if (NumUtils::parseDouble(sv, &v) == nullptr) {
+      v = 0;
+    }
     val->set(v);
   }
   return val;
@@ -993,10 +1020,8 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
 
 Value* ExprBuilder::fromString(const std::string& value) {
   Value* val = nullptr;
-  std::string sval;
-  const char* value_ptr = value.c_str();
-  char* end_parse_ptr;
   if (value.find('\'') != std::string::npos) {
+    std::string sval;
     char base = 'b';
     unsigned int i = 0;
     for (i = 0; i < value.size(); i++) {
@@ -1012,61 +1037,81 @@ Value* ExprBuilder::fromString(const std::string& value) {
       sval = value.substr(i + 2);
     }
     sval = StringUtils::replaceAll(sval, "_", "");
+    // No check for validity of sval being a legal parse-able value.
     switch (base) {
       case 'h': {
-        std::string size(StringUtils::rtrim_until(value, '\''));
-        int s = std::atoi(size.c_str());
+        std::string_view size = StringUtils::rtrim_until(value, '\'');
+        int s = 0;
+        if (NumUtils::parseInt32(size, &s) == nullptr) {
+          s = 0;
+        }
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Hexadecimal, s);
         val = stval;
         break;
       }
       case 'b': {
-        std::string size(StringUtils::rtrim_until(value, '\''));
-        int s = std::atoi(size.c_str());
+        std::string_view size = StringUtils::rtrim_until(value, '\'');
+        int s = 0;
+        if (NumUtils::parseInt32(size, &s) == nullptr) {
+          s = 0;
+        }
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
         val = stval;
         break;
       }
       case 'o': {
-        std::string size(StringUtils::rtrim_until(value, '\''));
-        int s = std::atoi(size.c_str());
+        std::string_view size = StringUtils::rtrim_until(value, '\'');
+        int s = 0;
+        if (NumUtils::parseInt32(size, &s) == nullptr) {
+          s = 0;
+        }
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Octal, s);
         val = stval;
         break;
       }
       case 'd': {
-        std::string size(StringUtils::rtrim_until(value, '\''));
-        int s = std::atoi(size.c_str());
-        const char* value_ptr = sval.c_str();
-        long double v = std::strtold(value_ptr, &end_parse_ptr);
-        if (value_ptr != end_parse_ptr &&
-            (sval.find('.') != std::string::npos)) {
+        long double v = 0;
+        if ((sval.find('.') != std::string::npos) &&
+            (NumUtils::parseLongDouble(sval, &v) != nullptr)) {
           val = m_valueFactory.newLValue();
           val->set((double)v);
         } else {
-          int64_t v = std::strtoll(value_ptr, &end_parse_ptr, 10);
-          if (value_ptr != end_parse_ptr && !value.empty() && value[0] == '-') {
-            val = m_valueFactory.newLValue();
-            val->set(v, Value::Type::Integer, s);
-          } else {
-            uint64_t v = std::strtoull(value_ptr, &end_parse_ptr, 10);
-            if (value_ptr != end_parse_ptr) {
-              val = m_valueFactory.newLValue();
-              val->set(v, Value::Type::Unsigned, s);
+          std::string size(StringUtils::rtrim_until(value, '\''));
+          int s = 0;
+          if (NumUtils::parseInt32(size, &s) == nullptr) {
+            s = 0;
+          }
+          if (!value.empty()) {
+            if (value[0] == '-') {
+              int64_t v = 0;
+              if (NumUtils::parseInt64(sval, &v) != nullptr) {
+                val = m_valueFactory.newLValue();
+                val->set(v, Value::Type::Integer, s);
+              }
             } else {
-              val = m_valueFactory.newStValue();
-              val->set(value);
+              uint64_t v = 0;
+              if (NumUtils::parseUint64(sval, &v) != nullptr) {
+                val = m_valueFactory.newLValue();
+                val->set(v, Value::Type::Unsigned, s);
+              }
             }
+          }
+          if (val == nullptr) {
+            val = m_valueFactory.newStValue();
+            val->set(value);
           }
         }
         break;
       }
       default: {
-        std::string size(StringUtils::rtrim_until(value, '\''));
-        int s = std::atoi(size.c_str());
+        std::string_view size = StringUtils::rtrim_until(value, '\'');
+        int s = 0;
+        if (NumUtils::parseInt32(size, &s) == nullptr) {
+          s = 0;
+        }
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
         val = stval;
@@ -1074,24 +1119,28 @@ Value* ExprBuilder::fromString(const std::string& value) {
       }
     }
   } else {
-    long double v = std::strtold(value_ptr, &end_parse_ptr);
-    if (value_ptr != end_parse_ptr && (value.find('.') != std::string::npos)) {
+    long double v = 0;
+    if ((value.find('.') != std::string::npos) &&
+        (NumUtils::parseLongDouble(value, &v) != nullptr)) {
       val = m_valueFactory.newLValue();
       val->set((double)v);
-    } else {
-      int64_t v = std::strtoll(value_ptr, &end_parse_ptr, 10);
-      if (value_ptr != end_parse_ptr && !value.empty() && value[0] == '-') {
-        val = m_valueFactory.newLValue();
-        val->set(v);
-      } else {
-        uint64_t v = std::strtoull(value_ptr, &end_parse_ptr, 10);
-        if (value_ptr != end_parse_ptr) {
+    } else if (!value.empty()) {
+      if (value.front() == '-') {
+        int64_t v = 0;
+        if (NumUtils::parseInt64(value, &v) != nullptr) {
           val = m_valueFactory.newLValue();
           val->set(v);
-        } else {
-          val = m_valueFactory.newStValue();
-          val->set(value);
         }
+      } else {
+        uint64_t v = 0;
+        if (NumUtils::parseUint64(value, &v) != nullptr) {
+          val = m_valueFactory.newLValue();
+          val->set(v);
+        }
+      }
+      if (val == nullptr) {
+        val = m_valueFactory.newStValue();
+        val->set(value);
       }
     }
   }
