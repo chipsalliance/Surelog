@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  linux-build-test:
-    name: "${{ matrix.mode }}-${{ matrix.compiler }} Linux"
+  linux-build:
+    name: "Build/Test ${{ matrix.compiler }} (Linux)"
 
     runs-on: ubuntu-latest
     defaults:
@@ -15,10 +15,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        mode:
-        - test
-        - regression
-
         compiler:
         - gcc
         - clang
@@ -57,7 +53,7 @@ jobs:
     - name: Use ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: linux-${{ matrix.mode }}-${{ matrix.compiler }}
+        key: linux-${{ matrix.compiler }}
 
     - name: Configure compiler
       run: |
@@ -95,34 +91,94 @@ jobs:
         fi
 
     - name: Test
-      if: matrix.mode == 'test'
       run: |
         make test/unittest-d
 
-    - name: Regression
-      timeout-minutes: 180
-      if: matrix.mode == 'regression'
+    - name: Package up binary for regression
       run: |
-        make test/regression
-        git status
+        tar cvzf surelog-binary.tar.gz build/bin/surelog build/bin/roundtrip \
+               build/bin/pkg \
+               build/third_party/UHDM/bin
 
-    - name: Prepare regression artifacts
-      if: matrix.mode == 'regression' && always()
-      run: |
-        cd build
-        mv regression surelog-linux-${{matrix.compiler}}-regression
-        find surelog-linux-${{matrix.compiler}}-regression -name "*.tar.gz" | tar czfp surelog-linux-${{matrix.compiler}}-regression.tar.gz -T -
-
-    - name: Archive regression artifacts
-      if: matrix.mode == 'regression' && always()
+    - name: Upload Binary for regression
       uses: actions/upload-artifact@v3
       with:
-        name: surelog-linux-${{matrix.compiler}}-regression
-        path: ${{ github.workspace }}/build/surelog-linux-${{matrix.compiler}}-regression.tar.gz
+        name: build-result-linux-${{matrix.compiler}}
+        path: surelog-binary.tar.gz
+
+
+  # Regression running as toplevel job depending on linux-build. Thus we
+  # re-use the generated surelog binary. Not sure yet if we can access
+  # the compiler variable of the linux-build matrix.
+  linux-regression:
+    name: "Regression ${{ matrix.compiler }} ${{matrix.shard}}/${{matrix.num_shards}} (Linux)"
+    needs: linux-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        num_shards: [8]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+        compiler:
+        - gcc
+        - clang
+
+    steps:
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-9 clang \
+          default-jre \
+          cmake ninja-build \
+          build-essential \
+          google-perftools \
+          libgoogle-perftools-dev \
+          python3 python3-orderedmultidict python3-psutil python3-dev \
+          uuid-dev \
+          lcov
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Download Surelog build
+      uses: actions/download-artifact@v3
+      with:
+        name: build-result-linux-${{matrix.compiler}}
+
+    - name: Prepare binary
+      run: |
+        tar xvzf surelog-binary.tar.gz
+
+    - name: Run regression ${{matrix.shard}}/${{matrix.num_shards}}
+      run: |
+        python3 scripts/regression.py run --jobs $(nproc) --show-diffs \
+                                          --num_shards=${{matrix.num_shards}} \
+                                          --shard=${{matrix.shard}}
+
+    - name: Prepare regression artifacts
+      run: |
+        cd build
+        mv regression surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression
+        find surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression -name "*.tar.gz" | tar czfp surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression.tar.gz -T -
+
+    - name: Archive regression artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression
+        path: ${{ github.workspace }}/build/surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression.tar.gz
 
   # Various other builds where just one compiler is sufficient to test with.
   linux-various:
-    name: "${{ matrix.mode }} Linux"
+    name: "${{ matrix.mode }} (Linux)"
 
     runs-on: ubuntu-latest
     defaults:
@@ -133,7 +189,6 @@ jobs:
       matrix:
         mode:
         - coverage
-        - valgrind
         - install
         - pythonapi
     env:
@@ -158,8 +213,7 @@ jobs:
           libgoogle-perftools-dev \
           python3 python3-orderedmultidict python3-psutil python3-dev \
           uuid-dev \
-          lcov \
-          valgrind
+          lcov
         sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
         sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
         sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
@@ -204,12 +258,6 @@ jobs:
       run: |
         make coverage-build/surelog.coverage
 
-    - name: Valgrind
-      timeout-minutes: 180
-      if: matrix.mode == 'valgrind'
-      run: |
-        make test/valgrind
-
     - name: Upload coverage
       # will show up under https://app.codecov.io/gh/chipsalliance/Surelog
       if: matrix.mode == 'coverage'
@@ -240,7 +288,88 @@ jobs:
         name: surelog-linux-gcc
         path: ${{ github.workspace }}/build/surelog-linux-gcc.tar.gz
 
-  msys2-gcc:
+  linux-valgrind:
+    name: "Valgrind ${{ matrix.project}} (Linux)"
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+        - TypeParamElab
+        - ArianeElab
+        - ArianeElab2
+        - BlackParrotMuteErrors
+
+    steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-9 \
+          default-jre \
+          cmake ninja-build \
+          build-essential \
+          google-perftools \
+          libgoogle-perftools-dev \
+          python3 python3-orderedmultidict python3-psutil python3-dev \
+          uuid-dev \
+          lcov \
+          valgrind
+        sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
+        sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
+        sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: linux-valgrind
+
+    - name: Configure shell
+      run: |
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+
+    - name: Show shell configuration
+      run: |
+        env
+        which cmake && cmake --version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        make debug
+
+    - name: Valgrind ${{matrix.project}}
+      timeout-minutes: 180
+      run: |
+        python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
+
+  windows-msys2-gcc-build:
+    name: "Build/Test msys2-gcc (Windows)"
     runs-on: windows-2022
     defaults:
       run:
@@ -307,6 +436,11 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: msys2-build
+
     - name: Configure shell environment variables
       run: |
         export JAVA_HOME=`cygpath -u $JAVA_HOME_11_X64`
@@ -321,6 +455,7 @@ jobs:
         echo "PREFIX=${CWD}/install" >> $GITHUB_ENV
         echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
         echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
+        echo "CMAKE_CXX_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
 
         echo "$JAVA_HOME/bin" >> $GITHUB_PATH
         echo "$Py3_ROOT_DIR" >> $GITHUB_PATH
@@ -328,7 +463,6 @@ jobs:
     - name: Show shell configuration
       run: |
         export PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
-        env
         where git && git --version
         where cmake && cmake --version
         where make && make --version
@@ -337,49 +471,39 @@ jobs:
         where ninja && ninja --version
         where $CC && $CC --version
         where $CXX && $CXX --version
+        where ccache && ccache -p
+        echo "----- environment -----"
+        env
 
     - name: Build
+      shell: bash
       run: |
         export PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
         make release
         make install
 
     - name: Test
-      timeout-minutes: 180
+      shell: bash
       run: |
         export PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:$PATH
-        make test_install
+        #make test_install
         make test/unittest
-        make test/regression
-        git status
 
-    - name: Prepare build artifacts
+    - name: Package up binary for regression
+      shell: bash
       run: |
-        mv install surelog-msys2-gcc
-        tar czfp build/surelog-msys2-gcc.tar.gz surelog-msys2-gcc
+        tar cvzf build/surelog-binary.tar.gz \
+                build/bin/surelog* build/bin/roundtrip* build/bin/pkg \
+                build/third_party/UHDM/bin
 
-    - name: Prepare regression artifacts
-      if: always()
-      run: |
-        cd build
-        mv regression surelog-msys2-gcc-regression
-        find surelog-msys2-gcc-regression -name "*.tar.gz" | tar czfp surelog-msys2-gcc-regression.tar.gz -T -
-
-    - name: Archive build artifacts
+    - name: Upload Binary for regression
       uses: actions/upload-artifact@v3
       with:
-        name: surelog-msys2-gcc
-        path: ${{ github.workspace }}/build/surelog-msys2-gcc.tar.gz
+        name: build-result-windows-msys2-gcc
+        path: build/surelog-binary.tar.gz
 
-    - name: Archive regression artifacts
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: surelog-msys2-gcc-regression
-        path: ${{ github.workspace }}/build/surelog-msys2-gcc-regression.tar.gz
-
-  windows:
-    name: "windows-${{ matrix.compiler }}"
+  windows-build:
+    name: "Build/Test ${{ matrix.compiler }} (Windows)"
     runs-on: windows-2022
 
     defaults:
@@ -486,8 +610,6 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         make test/unittest
         if %errorlevel% neq 0 exit /b %errorlevel%
-        make test/regression
-        if %errorlevel% neq 0 exit /b %errorlevel%
         git status
 
     - name: Build & Test (clang compiler)
@@ -522,8 +644,6 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         make test/unittest
         if %errorlevel% neq 0 exit /b %errorlevel%
-        make test/regression
-        if %errorlevel% neq 0 exit /b %errorlevel%
         git status
 
     - name: Prepare build artifacts
@@ -538,23 +658,86 @@ jobs:
         name: surelog-windows-${{ matrix.compiler }}
         path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}.tar.gz
 
-    - name: Prepare regression artifacts
+    - name: Package up binary for regression
       shell: bash
-      if: always()
       run: |
-        cd build
-        mv regression surelog-windows-${{ matrix.compiler }}-regression
-        find surelog-windows-${{ matrix.compiler }}-regression -name "*.tar.gz" | tar czfp surelog-windows-${{ matrix.compiler }}-regression.tar.gz -T -
+        tar cvzf build/surelog-binary.tar.gz \
+                build/bin/surelog* build/bin/roundtrip* build/bin/pkg \
+                build/third_party/UHDM/bin
 
-    - name: Archive regression artifacts
-      if: always()
+    - name: Upload Binary for regression
       uses: actions/upload-artifact@v3
       with:
-        name: surelog-windows-${{ matrix.compiler }}-regression
-        path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}-regression.tar.gz
+        name: build-result-windows-${{matrix.compiler}}
+        path: build/surelog-binary.tar.gz
 
-  macos:
-    name: macos-${{ matrix.compiler }}
+  windows-regression:
+    name: "Regression ${{ matrix.compiler }} ${{matrix.shard}}/${{matrix.num_shards}} (Windows)"
+    needs: windows-build
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        num_shards: [8]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+        compiler:
+        - cl
+        - clang
+        # at some point also msys2
+
+    steps:
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+        architecture: x64
+
+    - name: Setup Python Packages
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Download Surelog build
+      uses: actions/download-artifact@v3
+      with:
+        name: build-result-windows-${{matrix.compiler}}
+
+    - name: Prepare binary
+      run: |
+        tar xvzf surelog-binary.tar.gz
+
+    - name: Run regression ${{matrix.shard}}/${{matrix.num_shards}}
+      run: |
+        python3 scripts/regression.py run --jobs 2 --show-diffs \
+                                          --num_shards=${{matrix.num_shards}} \
+                                          --shard=${{matrix.shard}}
+
+    - name: Prepare regression artifacts
+      shell: bash
+      run: |
+        cd build
+        mv regression surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression
+        find surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression -name "*.tar.gz" | tar czfp surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression.tar.gz -T -
+
+    - name: Archive regression artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression
+        path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression.tar.gz
+
+  macos-build:
+    name: "Build/Test ${{ matrix.compiler }} (MacOS)"
     runs-on: macos-12
     strategy:
       fail-fast: false
