@@ -2,6 +2,7 @@
 
 import argparse
 import difflib
+import hashlib
 import multiprocessing
 import os
 import platform
@@ -158,6 +159,10 @@ def _rmtree(dirpath, patterns):
 
 def _scan(dirpaths, filters, shard, num_shards):
   def _is_filtered(name):
+    if int.from_bytes(hashlib.sha256(name.encode()).digest()[:4], 'little') % num_shards != shard:
+      return False
+    if not filters:
+      return True
     for filter in filters:
       if isinstance(filter, str):
         if filter.lower() == name.lower():
@@ -165,7 +170,7 @@ def _scan(dirpaths, filters, shard, num_shards):
       else:
         if filter.search(name):  # Note: match() reports success only if the match is at index 0
           return True
-    return hash(name) % num_shards == shard
+    return False
 
   all_tests = {}
   filtered_tests = set()
