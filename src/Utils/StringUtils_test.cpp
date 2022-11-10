@@ -17,6 +17,7 @@
 #include <Surelog/Utils/StringUtils.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <stdlib.h>
 
 namespace SURELOG {
 using ::testing::ElementsAre;
@@ -249,7 +250,7 @@ TEST(StringUtilsTest, EvaluateEnvironmentVariables) {
             StringUtils::evaluateEnvVars("hello $TESTING_UNKNOWN_VAR/ bar"));
 
   // Variables set via the environment
-#if defined(_MSC_VER)
+#if defined(_WIN32)
   _putenv_s("TESTING_EVAL_FOO", "foo-value");
   _putenv_s("TESTING_EVAL_BAR", "bar-value");
 #else

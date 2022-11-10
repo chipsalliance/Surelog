@@ -24,7 +24,7 @@
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 
-#if defined(_MSC_VER)
+#if defined(_WIN32)
 #define NOMINMAX
 #include <Windows.h>
 #elif defined(__APPLE__)
@@ -32,6 +32,7 @@
 #include <sys/param.h>
 #include <unistd.h>
 #else
+#include <limits.h>
 #include <sys/param.h>
 #include <unistd.h>
 #endif

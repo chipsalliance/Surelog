@@ -70,7 +70,7 @@ TEST(PPCacheTest, IncludeChangeTolerance) {
   // Expect header1.sv & header2.sv cache to be loaded successfully
   // in the second run.
 
-  const fs::path kTestDir = testing::TempDir();
+  const fs::path kTestDir = fs::path(testing::TempDir()) / "change_tolerance";
   const fs::path kBaseDir = kTestDir / "PrecompileLoadsSuccessfully";
   const fs::path kProgramFile = FileSystem::getProgramPath();
 
@@ -249,10 +249,10 @@ TEST(PPCacheTest, IncludeChangeTolerance) {
       const PathId fileId = csf->getFileId();
       if ((fileId == header3FileId) || (fileId == sourceFileId)) {
         EXPECT_FALSE(csf->getPreprocessor()->usingCachedVersion())
-            << PathIdPP(fileId);
+            << "fileid:" << fileId << " is " << PathIdPP(fileId);
       } else {
         EXPECT_TRUE(csf->getPreprocessor()->usingCachedVersion())
-            << PathIdPP(fileId);
+            << "fileid:" << fileId << " is " << PathIdPP(fileId);
       }
     }
   }
