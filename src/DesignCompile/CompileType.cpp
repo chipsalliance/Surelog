@@ -1216,6 +1216,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
       NodeId Primary = fC->Child(type);
       NodeId Primary_literal = fC->Child(Primary);
       NodeId Name = fC->Child(Primary_literal);
+      if (fC->Type(Name) == VObjectType::slClass_scope) {
+        return compileTypespec(component, fC, Name, compileDesign, pstmt,
+                               instance, reduce, isVariable);
+      }
       const std::string& name = fC->SymName(Name);
       if (instance) {
         result = (typespec*)bindTypespec(name, instance, s);
