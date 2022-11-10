@@ -313,11 +313,11 @@ std::pair<UHDM::task_func *, DesignComponent *> CompileHelper::getTaskFunc(
   std::pair<UHDM::task_func *, DesignComponent *> result = {nullptr, nullptr};
   DesignComponent *comp = component;
   if (name.find("::") != std::string::npos) {
-    std::vector<std::string> res;
+    std::vector<std::string_view> res;
     StringUtils::tokenizeMulti(name, "::", res);
     if (res.size() > 1) {
-      const std::string &packName = res[0];
-      const std::string &funcName = res[1];
+      const std::string_view packName = res[0];
+      const std::string_view funcName = res[1];
       Design *design = compileDesign->getCompiler()->getDesign();
       if (Package *pack = design->getPackage(packName)) {
         if (pack->getTask_funcs()) {
@@ -484,7 +484,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
           size = "";
         }
         v = StringUtils::replaceAll(v, "_", "");
-        StringUtils::rtrim(size, '\'');
+        size = StringUtils::rtrim_until(size, '\'');
         if (size.empty()) {
           c->VpiSize(-1);
         } else {
@@ -710,11 +710,10 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
     }
     case VObjectType::slStringLiteral: {
       UHDM::constant *c = s.MakeConstant();
-      std::string value = StringUtils::unquoted(fC->SymName(child));
+      std::string_view value = StringUtils::unquoted(fC->SymName(child));
       c->VpiDecompile(value);
       c->VpiSize(value.length());
-      value = "STRING:" + value;
-      c->VpiValue(value);
+      c->VpiValue(StrCat("STRING:", value));
       c->VpiConstType(vpiStringConst);
       result = c;
       break;
@@ -836,11 +835,11 @@ any *CompileHelper::getValue(const std::string &name,
     m_stackLevel++;
   }
   if (name.find("::") != std::string::npos) {
-    std::vector<std::string> res;
+    std::vector<std::string_view> res;
     StringUtils::tokenizeMulti(name, "::", res);
     if (res.size() > 1) {
-      const std::string &packName = res[0];
-      const std::string &varName = res[1];
+      const std::string_view packName = res[0];
+      const std::string_view varName = res[1];
       Design *design = compileDesign->getCompiler()->getDesign();
       if (Package *pack = design->getPackage(packName)) {
         if (expr *val = pack->getComplexValue(varName)) {
@@ -3783,10 +3782,10 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   if (typespec) {
     const std::string &name = typespec->VpiName();
     if (name.find("::") != std::string::npos) {
-      std::vector<std::string> res;
+      std::vector<std::string_view> res;
       StringUtils::tokenizeMulti(name, "::", res);
       if (res.size() > 1) {
-        const std::string &packName = res[0];
+        const std::string_view packName = res[0];
         Design *design = compileDesign->getCompiler()->getDesign();
         if (Package *pack = design->getPackage(packName)) {
           component = pack;
@@ -3918,11 +3917,11 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
         } else if (exp->UhdmType() == uhdmref_obj) {
           basename = exp->VpiName();
           if (basename.find("::") != std::string::npos) {
-            std::vector<std::string> res;
+            std::vector<std::string_view> res;
             StringUtils::tokenizeMulti(basename, "::", res);
             if (res.size() > 1) {
-              const std::string &packName = res[0];
-              const std::string &typeName = res[1];
+              const std::string_view packName = res[0];
+              const std::string_view typeName = res[1];
               Package *p =
                   compileDesign->getCompiler()->getDesign()->getPackage(
                       packName);

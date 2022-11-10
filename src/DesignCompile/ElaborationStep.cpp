@@ -667,16 +667,16 @@ const DataType* ElaborationStep::bindDataType_(
   }
   if (found == false) {
     if (type_name.find("::") != std::string::npos) {
-      std::vector<std::string> args;
+      std::vector<std::string_view> args;
       StringUtils::tokenizeMulti(type_name, "::", args);
-      std::string classOrPackageName = args[0];
-      std::string the_type_name = args[1];
-      itr1 = classes.find(libName + "@" + classOrPackageName);
+      std::string_view classOrPackageName = args[0];
+      std::string_view the_type_name = args[1];
+      itr1 = classes.find(StrCat(libName, "@", classOrPackageName));
       if (itr1 == classes.end()) {
         if (parent->getParentScope()) {
           std::string class_in_own_package =
-              ((DesignComponent*)parent->getParentScope())->getName() +
-              "::" + classOrPackageName;
+              StrCat(((DesignComponent*)parent->getParentScope())->getName(),
+                     "::", classOrPackageName);
           itr1 = classes.find(class_in_own_package);
         }
       }
@@ -953,8 +953,8 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC,
 }
 
 bool bindStructInPackage(Design* design, Signal* signal,
-                         const std::string& packageName,
-                         const std::string& structName) {
+                         const std::string_view packageName,
+                         const std::string_view structName) {
   Package* p = design->getPackage(packageName);
   if (p) {
     const DataType* dtype = p->getDataType(structName);
@@ -1113,14 +1113,14 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       std::string modPort;
       if (interfName.find('.') != std::string::npos) {
         modPort = interfName;
-        StringUtils::ltrim(modPort, '.');
-        StringUtils::rtrim(baseName, '.');
+        modPort = StringUtils::ltrim_until(modPort, '.');
+        baseName = StringUtils::rtrim_until(baseName, '.');
       } else if (interfName.find("::") != std::string::npos) {
-        std::vector<std::string> result;
+        std::vector<std::string_view> result;
         StringUtils::tokenizeMulti(interfName, "::", result);
         if (result.size() > 1) {
-          const std::string& packName = result[0];
-          const std::string& structName = result[1];
+          const std::string_view packName = result[0];
+          const std::string_view structName = result[1];
           if (bindStructInPackage(design, signal, packName, structName))
             return true;
         }

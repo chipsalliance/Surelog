@@ -241,7 +241,7 @@ void PythonAPI::initInterp_() {
 void PythonAPI::init(int argc, const char** argv) {
   std::string programPath = argv[0];
   programPath = StringUtils::replaceAll(programPath, "\\", "/");
-  m_programPath = StringUtils::rtrim(programPath, '/');
+  m_programPath = StringUtils::rtrim_until(programPath, '/');
   for (int i = 1; i < argc; i++) {
     if (!strcmp(argv[i], "-builtin")) {
       if (i < argc - 1) {

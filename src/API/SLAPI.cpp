@@ -64,8 +64,8 @@ void SLregisterNewErrorType(const char* messageId, const char* text,
                             const char* secondLine) {
   //[WARNI:PP0103]
   std::string errorId = messageId;
-  errorId = StringUtils::rtrim(errorId, ']');
-  errorId = StringUtils::ltrim(errorId, '[');
+  errorId = StringUtils::rtrim_until(errorId, ']');
+  errorId = StringUtils::ltrim_until(errorId, '[');
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
   ErrorDefinition::ErrorSeverity severity =
       ErrorDefinition::getErrorSeverity(errorId.substr(0, 5));

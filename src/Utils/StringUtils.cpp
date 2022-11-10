@@ -24,6 +24,7 @@
 #include <Surelog/Utils/StringUtils.h>
 
 #include <algorithm>
+#include <array>
 #include <iostream>
 #include <locale>
 #include <regex>
@@ -40,72 +41,94 @@ std::string StringUtils::to_string(double a_value, const int n) {
   return out.str();
 }
 
-void StringUtils::tokenizeMulti(std::string_view str,
-                                std::string_view separator,
-                                std::vector<std::string>& result) {
-  std::string tmp;
-  const unsigned int sepSize = separator.size();
-  const unsigned int stringSize = str.size();
-  for (unsigned int i = 0; i < stringSize; i++) {
+std::vector<std::string_view>& StringUtils::tokenizeMulti(
+    std::string_view str, std::string_view multichar_separator,
+    std::vector<std::string_view>& result) {
+  if (str.empty()) return result;
+
+  size_t start = 0;
+  size_t end = 0;
+  const size_t sepSize = multichar_separator.size();
+  const size_t stringSize = str.size();
+  for (size_t i = 0; i < stringSize; i++) {
     bool isSeparator = true;
-    for (unsigned int j = 0; j < sepSize; j++) {
+    for (size_t j = 0; j < sepSize; j++) {
       if (i + j >= stringSize) break;
-      if (str[i + j] != separator[j]) {
+      if (str[i + j] != multichar_separator[j]) {
         isSeparator = false;
         break;
       }
     }
     if (isSeparator) {
+      result.emplace_back(str.data() + start, end - start);
+      start = end = end + sepSize;
       i = i + sepSize - 1;
-      result.push_back(tmp);
-      tmp = "";
-      if (i == (str.size() - 1)) result.push_back(tmp);
-    } else if (i == (str.size() - 1)) {
-      tmp += str[i];
-      result.push_back(tmp);
-      tmp = "";
     } else {
-      tmp += str[i];
+      ++end;
     }
   }
+  result.emplace_back(str.data() + start, end - start);
+  return result;
 }
 
-void StringUtils::tokenize(std::string_view str, std::string_view separator,
-                           std::vector<std::string>& result) {
-  std::string tmp;
-  const unsigned int sepSize = separator.size();
-  const unsigned int stringSize = str.size();
-  for (unsigned int i = 0; i < stringSize; i++) {
-    bool isSeparator = false;
-    for (unsigned int j = 0; j < sepSize; j++) {
-      if (str[i] == separator[j]) {
-        isSeparator = true;
-        break;
-      }
-    }
-    if (isSeparator) {
-      result.push_back(tmp);
-      tmp = "";
-      if (i == (str.size() - 1)) result.push_back(tmp);
-    } else if (i == (str.size() - 1)) {
-      tmp += str[i];
-      result.push_back(tmp);
-      tmp = "";
+std::vector<std::string>& StringUtils::tokenizeMulti(
+    std::string_view str, std::string_view multichar_separator,
+    std::vector<std::string>& result) {
+  std::vector<std::string_view> view_result;
+  tokenizeMulti(str, multichar_separator, view_result);
+  result.insert(result.end(), view_result.begin(), view_result.end());
+  return result;
+}
+
+std::vector<std::string_view>& StringUtils::tokenize(
+    std::string_view str, std::string_view any_of_separators,
+    std::vector<std::string_view>& result) {
+  if (str.empty()) return result;
+
+  std::array<bool, 256> separators = {false};
+  for (char ch : any_of_separators) {
+    separators[(int32_t)ch] = true;
+  }
+
+  size_t start = 0;
+  size_t end = 0;
+  for (char ch : str) {
+    if (separators[(int32_t)ch]) {
+      result.emplace_back(str.data() + start, end - start);
+      end = start = end + 1;
     } else {
-      tmp += str[i];
+      ++end;
     }
   }
+  result.emplace_back(str.data() + start, end - start);
+  return result;
 }
 
-void StringUtils::tokenizeBalanced(std::string_view str,
-                                   std::string_view separator,
-                                   std::vector<std::string>& result) {
-  std::string tmp;
-  const unsigned int sepSize = separator.size();
+std::vector<std::string>& StringUtils::tokenize(
+    std::string_view str, std::string_view any_of_separators,
+    std::vector<std::string>& result) {
+  std::vector<std::string_view> view_result;
+  tokenize(str, any_of_separators, view_result);
+  result.insert(result.end(), view_result.begin(), view_result.end());
+  return result;
+}
+
+std::vector<std::string_view>& StringUtils::tokenizeBalanced(
+    std::string_view str, std::string_view any_of_separators,
+    std::vector<std::string_view>& result) {
+  if (str.empty()) return result;
+
+  std::array<bool, 256> separators = {false};
+  for (char ch : any_of_separators) {
+    separators[(int32_t)ch] = true;
+  }
+
   const unsigned int stringSize = str.size();
+  size_t start = 0;
+  size_t end = 0;
   int level = 0;
   bool inDoubleQuote = false;
-  for (unsigned int i = 0; i < stringSize; i++) {
+  for (size_t i = 0; i < stringSize; i++) {
     if (str[i] == '"') {
       if (!inDoubleQuote) {
         level++;
@@ -114,36 +137,24 @@ void StringUtils::tokenizeBalanced(std::string_view str,
         level--;
         inDoubleQuote = false;
       }
-    }
-    if (str[i] == '(' || str[i] == '[' || str[i] == '{') {
+    } else if (str[i] == '(' || str[i] == '[' || str[i] == '{') {
       level++;
-    }
-    if (str[i] == ')' || str[i] == ']' || str[i] == '}') {
+    } else if (str[i] == ')' || str[i] == ']' || str[i] == '}') {
       level--;
     }
-    bool isSeparator = false;
-    for (unsigned int j = 0; j < sepSize; j++) {
-      if (str[i] == separator[j]) {
-        if (level == 0) isSeparator = true;
-        break;
-      }
-    }
-    if (isSeparator) {
-      result.push_back(tmp);
-      tmp = "";
-      if (i == (str.size() - 1)) result.push_back(tmp);
-    } else if (i == (str.size() - 1)) {
-      tmp += str[i];
-      result.push_back(tmp);
-      tmp = "";
+    if ((level == 0) && separators[(int32_t)str[i]]) {
+      result.emplace_back(str.data() + start, end - start);
+      start = end = i + 1;
     } else {
-      tmp += str[i];
+      ++end;
     }
   }
+  result.emplace_back(str.data() + start, end - start);
+  return result;
 }
 
-// Remove carriage return unless it is escaped with backslash.
-static std::string removeCR(std::string_view st) {
+// Remove line feed unless it is escaped with backslash.
+static std::string removeLF(std::string_view st) {
   if (st.find('\n') == std::string::npos) return std::string(st);
 
   std::string result;
@@ -189,61 +200,45 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
       const bool surrounded_by_quotes =
           (i > 0 && (tokens[i - 1] == "\"")) &&
           ((i < tokensSize - 1) && (tokens[i + 1] == "\""));
-      tokens[i] = surrounded_by_quotes ? removeCR(news) : news_s;
+      tokens[i] = surrounded_by_quotes ? removeLF(news) : news_s;
     }
   }
 }
 
-std::string StringUtils::getFirstNonEmptyToken(
-    const std::vector<std::string>& tokens) {
-  unsigned int tokensSize = tokens.size();
-  for (unsigned int i = 0; i < tokensSize; i++) {
-    if (tokens[i] != " ") return tokens[i];
+std::string_view StringUtils::ltrim(std::string_view str) {
+  while (!str.empty() &&
+         std::isspace<char>(str.front(), std::locale::classic())) {
+    str.remove_prefix(1);
   }
-  return "";
-}
-
-std::string& StringUtils::trim(std::string& str) { return ltrim(rtrim(str)); }
-
-std::string& StringUtils::ltrim(std::string& str) {
-  auto it2 = std::find_if(str.begin(), str.end(), [](char ch) {
-    return !std::isspace<char>(ch, std::locale::classic());
-  });
-  str.erase(str.begin(), it2);
   return str;
 }
 
-std::string& StringUtils::rtrim(std::string& str) {
-  auto it1 = std::find_if(str.rbegin(), str.rend(), [](char ch) {
-    return !std::isspace<char>(ch, std::locale::classic());
-  });
-  str.erase(it1.base(), str.end());
+std::string_view StringUtils::rtrim(std::string_view str) {
+  while (!str.empty() &&
+         std::isspace<char>(str.back(), std::locale::classic())) {
+    str.remove_suffix(1);
+  }
   return str;
 }
 
-std::string& StringUtils::rtrimEqual(std::string& str) {
-  auto it1 = std::find_if(str.rbegin(), str.rend(),
-                          [](char ch) { return (ch == '='); });
-  if (it1 != str.rend()) str.erase(it1.base() - 1, str.end());
+std::string_view StringUtils::trim(std::string_view str) {
+  return ltrim(rtrim(str));
+}
+
+std::string_view StringUtils::rtrim_until(std::string_view str, char c) {
+  auto pos = str.rfind(c);
+  if (pos != std::string_view::npos) str = str.substr(0, pos);
   return str;
 }
 
-std::string& StringUtils::rtrim(std::string& str, char c) {
-  auto it1 = std::find_if(str.rbegin(), str.rend(),
-                          [c](char ch) { return (ch == c); });
-  if (it1 != str.rend()) str.erase(it1.base() - 1, str.end());
-  return str;
-}
-
-std::string& StringUtils::ltrim(std::string& str, char c) {
-  auto it1 =
-      std::find_if(str.begin(), str.end(), [c](char ch) { return (ch == c); });
-  if (it1 != str.end()) str.erase(str.begin(), it1 + 1);
+std::string_view StringUtils::ltrim_until(std::string_view str, char c) {
+  auto pos = str.find(c);
+  if (pos != std::string_view::npos) str = str.substr(pos + 1);
   return str;
 }
 
 std::string_view StringUtils::leaf(std::string_view str) {
-  const auto found_dot = str.find_last_of('.');
+  const auto found_dot = str.rfind('.');
   return found_dot == std::string_view::npos ? str : str.substr(found_dot + 1);
 }
 
@@ -264,7 +259,7 @@ std::string StringUtils::replaceAll(std::string_view str, std::string_view from,
 static std::string_view SplitNext(std::string_view* src, char separator) {
   if (src->empty()) return {nullptr, 0};  // Done.
 
-  const auto pos = src->find_first_of(separator);
+  const auto pos = src->find(separator);
   const auto part_len = (pos != std::string_view::npos) ? pos + 1 : src->size();
   std::string_view result = src->substr(0, part_len);
   src->remove_prefix(part_len);
@@ -285,7 +280,7 @@ std::vector<std::string_view> StringUtils::splitLines(std::string_view text) {
   std::vector<std::string_view> result;
   std::string_view s;
   while ((s = SplitNext(&text, '\n'), s.data()) != nullptr) {
-    result.push_back(s);
+    result.emplace_back(s);
   }
   return result;
 }
@@ -359,9 +354,12 @@ std::string StringUtils::evaluateEnvVars(std::string_view text) {
   return input;
 }
 
-std::string StringUtils::unquoted(const std::string& text) {
-  if ((text.size() >= 2) && (text.front() == '\"') && (text.back() == '\"')) {
-    return text.substr(1, text.length() - 2);
+std::string_view StringUtils::unquoted(std::string_view text) {
+  if ((text.size() >= 2) &&
+      (((text.front() == '\"') && (text.back() == '\"')) ||
+       ((text.front() == '\'') && (text.back() == '\'')))) {
+    text.remove_prefix(1);
+    text.remove_suffix(1);
   }
   return text;
 }

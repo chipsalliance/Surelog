@@ -391,7 +391,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     else if (ctx->Escaped_identifier()) {
       macroName = ctx->Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
@@ -447,7 +447,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     } else if (ctx->Macro_Escaped_identifier()) {
       macroName = ctx->Macro_Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
       startLineCol = ParseUtils::getLineColumn(ctx->Macro_Escaped_identifier());
       endLineCol =
           ParseUtils::getEndLineColumn(ctx->Macro_Escaped_identifier());
@@ -594,7 +594,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     } else if (ctx->Macro_Escaped_identifier()) {
       macroName = ctx->Macro_Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
       startLineCol = ParseUtils::getLineColumn(ctx->Macro_Escaped_identifier());
       endLineCol =
           ParseUtils::getEndLineColumn(ctx->Macro_Escaped_identifier());
@@ -784,7 +784,7 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   PathId newFileId;
   if (ctx->String()) {
-    std::string fileName = StringUtils::unquoted(ctx->String()->getText());
+    std::string fileName(StringUtils::unquoted(ctx->String()->getText()));
     newFileId = fileSystem->locate(
         fileName,
         m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths(),
@@ -825,7 +825,7 @@ void SV3_1aPpTreeShapeListener::enterDefine_directive(
     else if (ctx->Escaped_identifier()) {
       macroName = ctx->Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
@@ -843,7 +843,7 @@ void SV3_1aPpTreeShapeListener::exitDefine_directive(
     else if (ctx->Escaped_identifier()) {
       macroName = ctx->Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
     }
     MacroInfo *macroInf = m_pp->getMacro(macroName);
     if (macroInf == nullptr) {
@@ -1018,7 +1018,7 @@ void SV3_1aPpTreeShapeListener::enterUndef_directive(
     lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
     macroName = ctx->Escaped_identifier()->getText();
     macroName.erase(0, 1);
-    StringUtils::rtrim(macroName);
+    macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
     lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(),
                                         ctx->macro_instance());
@@ -1055,7 +1055,7 @@ void SV3_1aPpTreeShapeListener::enterIfdef_directive(
     lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
     macroName = ctx->Escaped_identifier()->getText();
     macroName.erase(0, 1);
-    StringUtils::rtrim(macroName);
+    macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
     lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(),
                                         ctx->macro_instance());
@@ -1094,7 +1094,7 @@ void SV3_1aPpTreeShapeListener::enterIfndef_directive(
     lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
     macroName = ctx->Escaped_identifier()->getText();
     macroName.erase(0, 1);
-    StringUtils::rtrim(macroName);
+    macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
     lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(),
                                         ctx->macro_instance());
@@ -1133,7 +1133,7 @@ void SV3_1aPpTreeShapeListener::enterElsif_directive(
     lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
     macroName = ctx->Escaped_identifier()->getText();
     macroName.erase(0, 1);
-    StringUtils::rtrim(macroName);
+    macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
     lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(),
                                         ctx->macro_instance());
@@ -1426,7 +1426,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(
     else if (ctx->Escaped_identifier()) {
       macroName = ctx->Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
@@ -1478,7 +1478,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(
     else if (ctx->Escaped_identifier()) {
       macroName = ctx->Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
@@ -1529,7 +1529,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(
     else if (ctx->Escaped_identifier()) {
       macroName = ctx->Escaped_identifier()->getText();
       macroName.erase(0, 1);
-      StringUtils::rtrim(macroName);
+      macroName = StringUtils::rtrim(macroName);
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {

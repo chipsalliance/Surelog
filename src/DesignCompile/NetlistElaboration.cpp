@@ -2527,8 +2527,8 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
       std::string subname;
       if (basename.find('.') != std::string::npos) {
         subname = basename;
-        StringUtils::ltrim(subname, '.');
-        StringUtils::rtrim(basename, '.');
+        subname = StringUtils::ltrim_until(subname, '.');
+        basename = StringUtils::rtrim_until(basename, '.');
       }
       itr = symbols.find(basename);
       if (itr != symbols.end()) {

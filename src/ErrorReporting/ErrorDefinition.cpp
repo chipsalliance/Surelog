@@ -47,8 +47,8 @@ void ErrorDefinition::setSeverity(ErrorDefinition::ErrorType type,
 
 ErrorDefinition::ErrorType ErrorDefinition::getErrorType(std::string errorId) {
   // TODO: this needs to take std::string_view
-  errorId = StringUtils::rtrim(errorId, ']');
-  errorId = StringUtils::ltrim(errorId, '[');
+  errorId = StringUtils::rtrim_until(errorId, ']');
+  errorId = StringUtils::ltrim_until(errorId, '[');
   errorId = errorId.erase(0, 8);
   unsigned int id = atoi(errorId.c_str());
   return (ErrorDefinition::ErrorType)id;

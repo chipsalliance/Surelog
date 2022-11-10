@@ -411,8 +411,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       } break;
       case VObjectType::slIntConst: {
         const std::string& val = fC->SymName(child);
-        std::string size = val;
-        StringUtils::rtrim(size, '\'');
+        std::string size(StringUtils::rtrim_until(val, '\''));
         int64_t intsize = 0;
         if (!size.empty()) intsize = std::strtoull(size.c_str(), nullptr, 10);
         if (val.find('\'') != std::string::npos) {
@@ -1015,8 +1014,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
     sval = StringUtils::replaceAll(sval, "_", "");
     switch (base) {
       case 'h': {
-        std::string size = value;
-        StringUtils::rtrim(size, '\'');
+        std::string size(StringUtils::rtrim_until(value, '\''));
         int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Hexadecimal, s);
@@ -1024,8 +1022,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         break;
       }
       case 'b': {
-        std::string size = value;
-        StringUtils::rtrim(size, '\'');
+        std::string size(StringUtils::rtrim_until(value, '\''));
         int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
@@ -1033,8 +1030,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         break;
       }
       case 'o': {
-        std::string size = value;
-        StringUtils::rtrim(size, '\'');
+        std::string size(StringUtils::rtrim_until(value, '\''));
         int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Octal, s);
@@ -1042,8 +1038,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         break;
       }
       case 'd': {
-        std::string size = value;
-        StringUtils::rtrim(size, '\'');
+        std::string size(StringUtils::rtrim_until(value, '\''));
         int s = std::atoi(size.c_str());
         const char* value_ptr = sval.c_str();
         long double v = std::strtold(value_ptr, &end_parse_ptr);
@@ -1070,8 +1065,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         break;
       }
       default: {
-        std::string size = value;
-        StringUtils::rtrim(size, '\'');
+        std::string size(StringUtils::rtrim_until(value, '\''));
         int s = std::atoi(size.c_str());
         StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
