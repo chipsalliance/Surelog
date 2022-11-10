@@ -133,7 +133,6 @@ jobs:
       matrix:
         mode:
         - coverage
-        - valgrind
         - install
         - pythonapi
     env:
@@ -158,8 +157,7 @@ jobs:
           libgoogle-perftools-dev \
           python3 python3-orderedmultidict python3-psutil python3-dev \
           uuid-dev \
-          lcov \
-          valgrind
+          lcov
         sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
         sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
         sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
@@ -204,12 +202,6 @@ jobs:
       run: |
         make coverage-build/surelog.coverage
 
-    - name: Valgrind
-      timeout-minutes: 180
-      if: matrix.mode == 'valgrind'
-      run: |
-        make test/valgrind
-
     - name: Upload coverage
       # will show up under https://app.codecov.io/gh/chipsalliance/Surelog
       if: matrix.mode == 'coverage'
@@ -239,6 +231,86 @@ jobs:
       with:
         name: surelog-linux-gcc
         path: ${{ github.workspace }}/build/surelog-linux-gcc.tar.gz
+
+  linux-valgrind:
+    name: "Valgrind ${{ matrix.project}} (Linux)"
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+        - TypeParamElab
+        - ArianeElab
+        - ArianeElab2
+        - BlackParrotMuteErrors
+
+    steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-9 \
+          default-jre \
+          cmake ninja-build \
+          build-essential \
+          google-perftools \
+          libgoogle-perftools-dev \
+          python3 python3-orderedmultidict python3-psutil python3-dev \
+          uuid-dev \
+          lcov \
+          valgrind
+        sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
+        sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
+        sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: linux-valgrind
+
+    - name: Configure shell
+      run: |
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+
+    - name: Show shell configuration
+      run: |
+        env
+        which cmake && cmake --version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        make debug
+
+    - name: Valgrind ${{matrix.project}}
+      timeout-minutes: 180
+      run: |
+        python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
 
   msys2-gcc:
     runs-on: windows-2022
