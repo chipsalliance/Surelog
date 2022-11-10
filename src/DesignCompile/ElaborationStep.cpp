@@ -1699,7 +1699,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     var->Expr(assignExp);
     obj = var;
   } else if (packedDimensions && (obj->UhdmType() != uhdmlogic_var) &&
-             (obj->UhdmType() != uhdmbit_var)) {
+             (obj->UhdmType() != uhdmbit_var) &&
+             (obj->UhdmType() != uhdmpacked_array_var)) {
     // packed struct array ...
     UHDM::packed_array_var* parray = s.MakePacked_array_var();
     parray->Ranges(packedDimensions);
