@@ -574,6 +574,7 @@ register_gtests(
   src/SourceCompile/PreprocessFile_test.cpp
   src/SourceCompile/SymbolTable_test.cpp
   src/Utils/StringUtils_test.cpp
+  src/Utils/NumUtils_test.cpp
 )
 
 if (NOT QUICK_COMP)
