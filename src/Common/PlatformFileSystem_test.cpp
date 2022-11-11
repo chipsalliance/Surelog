@@ -63,8 +63,9 @@ class TestFileSystem : public PlatformFileSystem {
 };
 
 std::string getUniqueTempFileName() {
-  return std::to_string(
-      std::chrono::steady_clock::now().time_since_epoch().count());
+  return StrCat(::testing::UnitTest::GetInstance()->current_test_info()->name(),
+                "-",
+                std::chrono::steady_clock::now().time_since_epoch().count());
 }
 
 TEST(PlatformFileSystemTest, ReadWriteOperations) {
@@ -161,7 +162,8 @@ TEST(PlatformFileSystemTest, LoadSaveOperations) {
 
 TEST(PlatformFileSystemTest, BasicFileOperations) {
   // GTEST_SKIP() << "Temporarily skipped";
-  const fs::path testdir = testing::TempDir();
+  const fs::path testdir =
+      fs::path(testing::TempDir()) / getUniqueTempFileName();
   const fs::path dirtest = testdir / "file-exist-dir";
   const std::string_view filename = "file-exists-test.txt";
   const fs::path filepath = dirtest / filename;
