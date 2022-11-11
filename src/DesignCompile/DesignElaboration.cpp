@@ -870,8 +870,10 @@ void DesignElaboration::elaborateInstance_(
         NodeId identifierId = fC->Child(subInstanceId);
         if (fC->Name(identifierId))
           instName = fC->SymName(identifierId);
-        else
-          instName = "UNNAMED";
+        else {
+          instName = genBlkBaseName + std::to_string(genBlkIndex);
+          genBlkIndex++;
+        }
       } else if (type == VObjectType::slConditional_generate_construct) {
         NodeId constructId = fC->Child(subInstanceId);
         NodeId condId = fC->Child(constructId);
@@ -879,8 +881,9 @@ void DesignElaboration::elaborateInstance_(
         NodeId nameId = fC->Child(blockId);
         if (fC->Name(nameId))
           instName = fC->SymName(nameId);
-        else
-          instName = "UNNAMED";
+        else {
+          instName = genBlkBaseName + std::to_string(genBlkIndex);
+        }
       } else {
         NodeId instId =
             fC->sl_collect(subInstanceId, VObjectType::slName_of_instance);
