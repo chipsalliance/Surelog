@@ -283,6 +283,14 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
                                          ModuleInstance* interm,
                                          ModuleInstance* child) {
   if (parent != this) return;
+  Netlist* netlist = interm->getNetlist();
+  if (netlist) {
+    if (netlist->cont_assigns() || netlist->process_stmts() ||
+        netlist->array_nets() || netlist->array_vars() ||
+        netlist->param_assigns() || netlist->nets() || netlist->variables() ||
+        netlist->interface_arrays() || netlist->interfaces())
+      return;
+  }
   child->m_parent = this;
   std::vector<ModuleInstance*> children;
 
