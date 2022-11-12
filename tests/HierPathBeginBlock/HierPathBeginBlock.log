@@ -319,8 +319,8 @@ begin                                                  1
 constant                                              29
 cont_assign                                            6
 design                                                 1
-gen_scope                                              5
-gen_scope_array                                        5
+gen_scope                                              6
+gen_scope_array                                        6
 hier_path                                              4
 initial                                                1
 logic_net                                             10
@@ -339,11 +339,11 @@ assign_stmt                                            2
 assignment                                             8
 begin                                                  2
 constant                                              29
-cont_assign                                            8
+cont_assign                                           10
 design                                                 1
-gen_scope                                              7
-gen_scope_array                                        7
-hier_path                                              6
+gen_scope                                              9
+gen_scope_array                                        9
+hier_path                                              8
 initial                                                2
 logic_net                                             10
 logic_typespec                                        10
@@ -352,7 +352,7 @@ module                                                 5
 named_begin                                            4
 port                                                  12
 range                                                 10
-ref_obj                                               40
+ref_obj                                               46
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathBeginBlock/slpp_all/surelog.uhdm ...
 
@@ -947,85 +947,158 @@ design: (work@matching_end_labels_top)
           |vpiActual:
           \_logic_net: (work@matching_end_labels_top.out2), line:3:11, endln:3:15
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@matching_end_labels_top.blk3), line:21:9, endln:24:12
+  \_gen_scope_array: (work@matching_end_labels_top.genblk2), line:20:5, endln:31:8
     |vpiParent:
     \_module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
-    |vpiName:blk3
-    |vpiFullName:work@matching_end_labels_top.blk3
+    |vpiName:genblk2
+    |vpiFullName:work@matching_end_labels_top.genblk2
     |vpiGenScope:
-    \_gen_scope: (work@matching_end_labels_top.blk3)
+    \_gen_scope: (work@matching_end_labels_top.genblk2)
       |vpiParent:
-      \_gen_scope_array: (work@matching_end_labels_top.blk3), line:21:9, endln:24:12
-      |vpiFullName:work@matching_end_labels_top.blk3
-      |vpiNet:
-      \_logic_net: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
-        |vpiParent:
-        \_gen_scope: (work@matching_end_labels_top.blk3)
-        |vpiTypespec:
-        \_logic_typespec: , line:22:13, endln:22:16
-        |vpiName:x
-        |vpiFullName:work@matching_end_labels_top.blk3.x
-        |vpiNetType:48
+      \_gen_scope_array: (work@matching_end_labels_top.genblk2), line:20:5, endln:31:8
+      |vpiFullName:work@matching_end_labels_top.genblk2
       |vpiContAssign:
-      \_cont_assign: , line:23:20, endln:23:25
+      \_cont_assign: , line:25:16, endln:25:29
         |vpiParent:
-        \_gen_scope: (work@matching_end_labels_top.blk3)
+        \_gen_scope: (work@matching_end_labels_top.genblk2)
         |vpiRhs:
-        \_constant: , line:23:24, endln:23:25
+        \_hier_path: (blk3.x), line:25:23, endln:25:29
           |vpiParent:
-          \_cont_assign: , line:23:20, endln:23:25
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiLhs:
-        \_ref_obj: (work@matching_end_labels_top.blk3.x), line:23:20, endln:23:21
-          |vpiParent:
-          \_cont_assign: , line:23:20, endln:23:25
-          |vpiName:x
-          |vpiFullName:work@matching_end_labels_top.blk3.x
+          \_cont_assign: , line:25:16, endln:25:29
+          |vpiName:blk3.x
           |vpiActual:
-          \_logic_net: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@matching_end_labels_top.blk4), line:26:9, endln:29:19
-    |vpiParent:
-    \_module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
-    |vpiName:blk4
-    |vpiFullName:work@matching_end_labels_top.blk4
-    |vpiGenScope:
-    \_gen_scope: (work@matching_end_labels_top.blk4)
-      |vpiParent:
-      \_gen_scope_array: (work@matching_end_labels_top.blk4), line:26:9, endln:29:19
-      |vpiFullName:work@matching_end_labels_top.blk4
-      |vpiNet:
-      \_logic_net: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
-        |vpiParent:
-        \_gen_scope: (work@matching_end_labels_top.blk4)
-        |vpiTypespec:
-        \_logic_typespec: , line:27:13, endln:27:16
-        |vpiName:x
-        |vpiFullName:work@matching_end_labels_top.blk4.x
-        |vpiNetType:48
+          \_ref_obj: (blk3), line:25:23, endln:25:27
+            |vpiParent:
+            \_hier_path: (blk3.x), line:25:23, endln:25:29
+            |vpiName:blk3
+            |vpiActual:
+            \_gen_scope: (work@matching_end_labels_top.genblk2.blk3)
+          |vpiActual:
+          \_ref_obj: (x), line:25:28, endln:25:29
+            |vpiParent:
+            \_hier_path: (blk3.x), line:25:23, endln:25:29
+            |vpiName:x
+            |vpiActual:
+            \_logic_net: (work@matching_end_labels_top.genblk2.blk3.x), line:22:17, endln:22:18
+        |vpiLhs:
+        \_ref_obj: (work@matching_end_labels_top.genblk2.out3), line:25:16, endln:25:20
+          |vpiParent:
+          \_cont_assign: , line:25:16, endln:25:29
+          |vpiName:out3
+          |vpiFullName:work@matching_end_labels_top.genblk2.out3
+          |vpiActual:
+          \_logic_net: (work@matching_end_labels_top.out3), line:3:17, endln:3:21
       |vpiContAssign:
-      \_cont_assign: , line:28:20, endln:28:25
+      \_cont_assign: , line:30:16, endln:30:29
         |vpiParent:
-        \_gen_scope: (work@matching_end_labels_top.blk4)
+        \_gen_scope: (work@matching_end_labels_top.genblk2)
         |vpiRhs:
-        \_constant: , line:28:24, endln:28:25
+        \_hier_path: (blk4.x), line:30:23, endln:30:29
           |vpiParent:
-          \_cont_assign: , line:28:20, endln:28:25
-          |vpiDecompile:4
-          |vpiSize:64
-          |UINT:4
-          |vpiConstType:9
-        |vpiLhs:
-        \_ref_obj: (work@matching_end_labels_top.blk4.x), line:28:20, endln:28:21
-          |vpiParent:
-          \_cont_assign: , line:28:20, endln:28:25
-          |vpiName:x
-          |vpiFullName:work@matching_end_labels_top.blk4.x
+          \_cont_assign: , line:30:16, endln:30:29
+          |vpiName:blk4.x
           |vpiActual:
-          \_logic_net: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+          \_ref_obj: (blk4), line:30:23, endln:30:27
+            |vpiParent:
+            \_hier_path: (blk4.x), line:30:23, endln:30:29
+            |vpiName:blk4
+            |vpiActual:
+            \_gen_scope: (work@matching_end_labels_top.genblk2.blk4)
+          |vpiActual:
+          \_ref_obj: (x), line:30:28, endln:30:29
+            |vpiParent:
+            \_hier_path: (blk4.x), line:30:23, endln:30:29
+            |vpiName:x
+            |vpiActual:
+            \_logic_net: (work@matching_end_labels_top.genblk2.blk4.x), line:27:17, endln:27:18
+        |vpiLhs:
+        \_ref_obj: (work@matching_end_labels_top.genblk2.out4), line:30:16, endln:30:20
+          |vpiParent:
+          \_cont_assign: , line:30:16, endln:30:29
+          |vpiName:out4
+          |vpiFullName:work@matching_end_labels_top.genblk2.out4
+          |vpiActual:
+          \_logic_net: (work@matching_end_labels_top.out4), line:3:23, endln:3:27
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@matching_end_labels_top.genblk2.blk3), line:21:9, endln:24:12
+        |vpiParent:
+        \_gen_scope: (work@matching_end_labels_top.genblk2)
+        |vpiName:blk3
+        |vpiFullName:work@matching_end_labels_top.genblk2.blk3
+        |vpiGenScope:
+        \_gen_scope: (work@matching_end_labels_top.genblk2.blk3)
+          |vpiParent:
+          \_gen_scope_array: (work@matching_end_labels_top.genblk2.blk3), line:21:9, endln:24:12
+          |vpiFullName:work@matching_end_labels_top.genblk2.blk3
+          |vpiNet:
+          \_logic_net: (work@matching_end_labels_top.genblk2.blk3.x), line:22:17, endln:22:18
+            |vpiParent:
+            \_gen_scope: (work@matching_end_labels_top.genblk2.blk3)
+            |vpiTypespec:
+            \_logic_typespec: , line:22:13, endln:22:16
+            |vpiName:x
+            |vpiFullName:work@matching_end_labels_top.genblk2.blk3.x
+            |vpiNetType:48
+          |vpiContAssign:
+          \_cont_assign: , line:23:20, endln:23:25
+            |vpiParent:
+            \_gen_scope: (work@matching_end_labels_top.genblk2.blk3)
+            |vpiRhs:
+            \_constant: , line:23:24, endln:23:25
+              |vpiParent:
+              \_cont_assign: , line:23:20, endln:23:25
+              |vpiDecompile:3
+              |vpiSize:64
+              |UINT:3
+              |vpiConstType:9
+            |vpiLhs:
+            \_ref_obj: (work@matching_end_labels_top.genblk2.blk3.x), line:23:20, endln:23:21
+              |vpiParent:
+              \_cont_assign: , line:23:20, endln:23:25
+              |vpiName:x
+              |vpiFullName:work@matching_end_labels_top.genblk2.blk3.x
+              |vpiActual:
+              \_logic_net: (work@matching_end_labels_top.genblk2.blk3.x), line:22:17, endln:22:18
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@matching_end_labels_top.genblk2.blk4), line:26:9, endln:29:19
+        |vpiParent:
+        \_gen_scope: (work@matching_end_labels_top.genblk2)
+        |vpiName:blk4
+        |vpiFullName:work@matching_end_labels_top.genblk2.blk4
+        |vpiGenScope:
+        \_gen_scope: (work@matching_end_labels_top.genblk2.blk4)
+          |vpiParent:
+          \_gen_scope_array: (work@matching_end_labels_top.genblk2.blk4), line:26:9, endln:29:19
+          |vpiFullName:work@matching_end_labels_top.genblk2.blk4
+          |vpiNet:
+          \_logic_net: (work@matching_end_labels_top.genblk2.blk4.x), line:27:17, endln:27:18
+            |vpiParent:
+            \_gen_scope: (work@matching_end_labels_top.genblk2.blk4)
+            |vpiTypespec:
+            \_logic_typespec: , line:27:13, endln:27:16
+            |vpiName:x
+            |vpiFullName:work@matching_end_labels_top.genblk2.blk4.x
+            |vpiNetType:48
+          |vpiContAssign:
+          \_cont_assign: , line:28:20, endln:28:25
+            |vpiParent:
+            \_gen_scope: (work@matching_end_labels_top.genblk2.blk4)
+            |vpiRhs:
+            \_constant: , line:28:24, endln:28:25
+              |vpiParent:
+              \_cont_assign: , line:28:20, endln:28:25
+              |vpiDecompile:4
+              |vpiSize:64
+              |UINT:4
+              |vpiConstType:9
+            |vpiLhs:
+            \_ref_obj: (work@matching_end_labels_top.genblk2.blk4.x), line:28:20, endln:28:21
+              |vpiParent:
+              \_cont_assign: , line:28:20, endln:28:25
+              |vpiName:x
+              |vpiFullName:work@matching_end_labels_top.genblk2.blk4.x
+              |vpiActual:
+              \_logic_net: (work@matching_end_labels_top.genblk2.blk4.x), line:27:17, endln:27:18
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
