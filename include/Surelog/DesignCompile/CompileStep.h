@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
@@ -34,7 +35,6 @@
 
 namespace SURELOG {
 
-class SymbolId;
 class VObject;
 
 class CompileStep {

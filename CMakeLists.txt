@@ -298,7 +298,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Common/FileSystem.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/PathId.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/PlatformFileSystem.cpp
-  ${PROJECT_SOURCE_DIR}/src/Common/SymbolId.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DataType.cpp
@@ -388,7 +387,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeHelper.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/ClassObject.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/FunctionMethod.cpp

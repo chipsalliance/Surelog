@@ -32,7 +32,6 @@
 namespace SURELOG {
 
 class MacroInfo;
-class SymbolId;
 
 class CompilationUnit {
  public:
