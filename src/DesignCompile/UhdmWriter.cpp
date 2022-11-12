@@ -1028,10 +1028,10 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
     for (auto tf : *pack->getTask_funcs()) {
       const std::string funcName = tf->VpiName();
       if (funcName.find("::") != std::string::npos) {
-        std::vector<std::string> res;
+        std::vector<std::string_view> res;
         StringUtils::tokenizeMulti(funcName, "::", res);
-        const std::string& className = res[0];
-        const std::string& funcName = res[1];
+        const std::string_view className = res[0];
+        const std::string_view funcName = res[1];
         bool foundParentClass = false;
         for (auto cl : *dest_classes) {
           if (cl->VpiName() == className) {
@@ -1048,8 +1048,8 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
         if (foundParentClass) {
           tf->VpiName(funcName);
           ((task_func*)tf)
-              ->VpiFullName(pack->getName() + "::" + className +
-                            "::" + tf->VpiName());
+              ->VpiFullName(StrCat(pack->getName(), "::", className,
+                                   "::", tf->VpiName()));
         } else {
           tf->VpiParent(p);
           tf->Instance(p);
@@ -1902,11 +1902,11 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
       name = StringUtils::trim(name);
 
       if (name.find("::") != std::string::npos) {
-        std::vector<std::string> res;
+        std::vector<std::string_view> res;
         StringUtils::tokenizeMulti(name, "::", res);
         if (res.size() > 1) {
-          const std::string& packName = res[0];
-          const std::string& typeName = res[1];
+          const std::string_view packName = res[0];
+          const std::string_view typeName = res[1];
           Package* pack =
               m_compileDesign->getCompiler()->getDesign()->getPackage(packName);
           if (pack) {
@@ -1921,7 +1921,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     break;
                   }
                   const std::string pname =
-                      std::string(m->VpiName() + "::" + typeName);
+                      StrCat(m->VpiName(), "::", typeName);
                   if (n->VpiName() == pname) {
                     found = true;
                     tps = n;
@@ -2461,11 +2461,11 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
     std::string name = ref->VpiName();
     name = StringUtils::trim(name);
     if (name.find("::") != std::string::npos) {
-      std::vector<std::string> res;
+      std::vector<std::string_view> res;
       StringUtils::tokenizeMulti(name, "::", res);
       if (res.size() > 1) {
-        const std::string& packName = res[0];
-        const std::string& typeName = res[1];
+        const std::string_view packName = res[0];
+        const std::string_view typeName = res[1];
         Package* pack =
             m_compileDesign->getCompiler()->getDesign()->getPackage(packName);
         if (pack) {
@@ -2480,8 +2480,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname =
-                    std::string(m->VpiName() + "::" + typeName);
+                const std::string pname = StrCat(m->VpiName(), "::", typeName);
                 if (n->VpiName() == pname) {
                   if (n->UhdmType() == uhdmref_var) continue;
                   if (n->UhdmType() == uhdmref_obj) continue;
@@ -2498,8 +2497,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname =
-                    std::string(m->VpiName() + "::" + typeName);
+                const std::string pname = StrCat(m->VpiName(), "::", typeName);
                 if (n->VpiName() == pname) {
                   if (n->UhdmType() == uhdmref_var) continue;
                   if (n->UhdmType() == uhdmref_obj) continue;

@@ -24,21 +24,47 @@ using ::testing::ElementsAre;
 
 namespace {
 TEST(StringUtilsTest, Tokenize) {
-  std::vector<std::string> tok_result;
+  std::vector<std::string_view> tok_result;
   StringUtils::tokenize("A;tokenized. string,List", ",.;", tok_result);
   EXPECT_EQ(tok_result.size(), size_t(4));
   EXPECT_THAT(tok_result, ElementsAre("A", "tokenized", " string", "List"));
+
+  // Terminating separator should include an emty string
+  tok_result.clear();
+  StringUtils::tokenize("A;tokenized. string,List;", ",.;", tok_result);
+  EXPECT_EQ(tok_result.size(), size_t(5));
+  EXPECT_THAT(tok_result, ElementsAre("A", "tokenized", " string", "List", ""));
+
+  // Consecutive separators should include empty strings
+  tok_result.clear();
+  StringUtils::tokenize("A;tokenized. string,,List", ",.;", tok_result);
+  EXPECT_EQ(tok_result.size(), size_t(5));
+  EXPECT_THAT(tok_result, ElementsAre("A", "tokenized", " string", "", "List"));
 }
 
 TEST(StringUtilsTest, TokenizeMulti) {
-  std::vector<std::string> tok_result;
+  std::vector<std::string_view> tok_result;
   StringUtils::tokenizeMulti("Mary_¯Had_¯a_¯little_¯lamb", "_¯", tok_result);
   EXPECT_EQ(tok_result.size(), size_t(5));
   EXPECT_THAT(tok_result, ElementsAre("Mary", "Had", "a", "little", "lamb"));
+
+  // Terminating separator should include an emty string
+  tok_result.clear();
+  StringUtils::tokenizeMulti("Mary_¯Had_¯a_¯little_¯lamb_¯", "_¯", tok_result);
+  EXPECT_EQ(tok_result.size(), size_t(6));
+  EXPECT_THAT(tok_result,
+              ElementsAre("Mary", "Had", "a", "little", "lamb", ""));
+
+  // Consecutive separators should include empty strings
+  tok_result.clear();
+  StringUtils::tokenizeMulti("Mary_¯Had_¯a_¯little_¯_¯lamb", "_¯", tok_result);
+  EXPECT_EQ(tok_result.size(), size_t(6));
+  EXPECT_THAT(tok_result,
+              ElementsAre("Mary", "Had", "a", "little", "", "lamb"));
 }
 
 TEST(StringUtilsTest, TokenizeBalanced) {
-  std::vector<std::string> tok_result;
+  std::vector<std::string_view> tok_result;
   StringUtils::tokenizeBalanced(
       "\"some text\" (that has) {multiple clusters} "
       "[that shall not break]",
@@ -47,6 +73,28 @@ TEST(StringUtilsTest, TokenizeBalanced) {
   EXPECT_THAT(tok_result,
               ElementsAre("\"some text\"", "(that has)", "{multiple clusters}",
                           "[that shall not break]"));
+
+  // Terminating separator should include an emty string
+  tok_result.clear();
+  StringUtils::tokenizeBalanced(
+      "\"some text\" (that has) {multiple clusters} "
+      "[that shall not break] ",
+      " ", tok_result);
+  EXPECT_EQ(tok_result.size(), size_t(5));
+  EXPECT_THAT(tok_result,
+              ElementsAre("\"some text\"", "(that has)", "{multiple clusters}",
+                          "[that shall not break]", ""));
+
+  // Consecutive separators should include empty strings
+  tok_result.clear();
+  StringUtils::tokenizeBalanced(
+      "\"some text\" (that has) {multiple clusters}  "
+      "[that shall not break]",
+      " ", tok_result);
+  EXPECT_EQ(tok_result.size(), size_t(5));
+  EXPECT_THAT(tok_result,
+              ElementsAre("\"some text\"", "(that has)", "{multiple clusters}",
+                          "", "[that shall not break]"));
 }
 
 TEST(StringUtilsTest, ReplaceInTokenVectorWithVectorPattern) {
@@ -103,59 +151,48 @@ TEST(StringUtilsTest, ReplaceInTokenVectorWithVectorString) {
   EXPECT_THAT(tokens, ElementsAre("\"", "bar\\\nbaz", "\""));
 }
 
-TEST(StringUtilsTest, GetFirstNonEmptyToken) {
-  EXPECT_EQ("hello", StringUtils::getFirstNonEmptyToken({" ", " ", "hello"}));
-
-  // If all tokens are 'empty' (i.e. single space), returns actual empty string.
-  EXPECT_EQ("", StringUtils::getFirstNonEmptyToken({" ", " ", " "}));
-
-  // Unlike the name implies, 'empty' actually doesn't mean empty, but
-  // one space. The function needs to be renamed, here just documenting.
-  EXPECT_NE("hello", StringUtils::getFirstNonEmptyToken({"", " ", "hello"}));
-}
-
 TEST(StringUtilsTest, InPlaceSpaceTrimming) {
-  std::string str;
+  std::string_view str;
 
   str = " \thello world\t ";
-  StringUtils::ltrim(str);
+  str = StringUtils::ltrim(str);
   EXPECT_EQ("hello world\t ", str);
 
   str = " \thello world\t ";
-  StringUtils::rtrim(str);
+  str = StringUtils::rtrim(str);
   EXPECT_EQ(" \thello world", str);
 
   str = " \thello world\t ";
-  StringUtils::trim(str);
+  str = StringUtils::trim(str);
   EXPECT_EQ("hello world", str);
 }
 
 TEST(StringUtilsTest, InPlaceEraseUntilChar) {
-  std::string str;
+  std::string_view str;
 
   // Erase up to the character
   str = "abcdefg";
-  StringUtils::ltrim(str, 'd');
+  str = StringUtils::ltrim_until(str, 'd');
   EXPECT_EQ("efg", str);
 
   str = "abcdefg";
-  StringUtils::rtrim(str, 'd');
+  str = StringUtils::rtrim_until(str, 'd');
   EXPECT_EQ("abc", str);
 
   // No change if string not found
   str = "abcdefg";
-  StringUtils::ltrim(str, 'x');
+  str = StringUtils::ltrim_until(str, 'x');
   EXPECT_EQ("abcdefg", str);
 
   str = "abcdefg";
-  StringUtils::rtrim(str, 'x');
+  str = StringUtils::rtrim_until(str, 'x');
   EXPECT_EQ("abcdefg", str);
 }
 
 TEST(StringUtilsTest, InPlaceRtrimEqual) {
-  std::string str = " this is some  =  assignment ";
+  std::string_view str = " this is some  =  assignment ";
 
-  StringUtils::rtrimEqual(str);
+  str = StringUtils::rtrim_until(str, '=');
   EXPECT_EQ(" this is some  ", str);
 }
 

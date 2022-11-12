@@ -299,8 +299,8 @@ class PreprocessFile final {
   void addError(Error& error);
 
   /* Shorthands for symbol manipulations */
-  SymbolId registerSymbol(const std::string& symbol) const;
-  SymbolId getId(const std::string& symbol) const;
+  SymbolId registerSymbol(std::string_view symbol) const;
+  SymbolId getId(std::string_view symbol) const;
   std::string getSymbol(SymbolId id) const;
 
   // For recursive macro definition detection

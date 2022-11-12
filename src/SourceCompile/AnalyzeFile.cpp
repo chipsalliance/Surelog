@@ -45,10 +45,10 @@ void AnalyzeFile::checkSLlineDirective_(const std::string& line,
     std::string text;
     ss >> text;
     text = StringUtils::unquoted(text);
-    std::vector<std::string> parts;
+    std::vector<std::string_view> parts;
     StringUtils::tokenize(text, "^", parts);
-    std::string symbol = StringUtils::unquoted(parts[0]);
-    std::string file = StringUtils::unquoted(parts[1]);
+    std::string_view symbol = StringUtils::unquoted(parts[0]);
+    std::string_view file = StringUtils::unquoted(parts[1]);
     info.m_sectionSymbolId = m_clp->getSymbolTable()->registerSymbol(symbol);
     info.m_sectionFileId =
         FileSystem::getInstance()->toPathId(file, m_clp->getSymbolTable());

@@ -313,7 +313,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
             break;
           const std::string& endLabel = fC->SymName(id);
           std::string moduleName = m_program->getName();
-          moduleName = StringUtils::ltrim(moduleName, '@');
+          moduleName = StringUtils::ltrim_until(moduleName, '@');
           if (endLabel != moduleName) {
             Location loc(fC->getFileId(m_program->getNodeIds()[0]),
                          fC->Line(m_program->getNodeIds()[0]),

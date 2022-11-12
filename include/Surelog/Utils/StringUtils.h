@@ -26,10 +26,10 @@
 #pragma once
 
 #include <map>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <vector>
-#include <sstream>
 
 namespace SURELOG {
 
@@ -50,7 +50,7 @@ std::string StrCat(Ts&&... args) {
 // Similar to StrCat(), append arguments, converted to strings to "dest"
 // string.
 template <typename... Ts>
-void StrAppend(std::string *dest, Ts&&... args) {
+void StrAppend(std::string* dest, Ts&&... args) {
   std::ostringstream out;
   out << *dest;
   (out << ... << std::forward<Ts>(args));
@@ -60,18 +60,26 @@ void StrAppend(std::string *dest, Ts&&... args) {
 class StringUtils final {
  public:
   // Tokenize "str" at "any_of_separator", store in "result" array.
-  static void tokenize(std::string_view str, std::string_view any_of_separator,
-                       std::vector<std::string>& result);
+  static std::vector<std::string_view>& tokenize(
+      std::string_view str, std::string_view any_of_separators,
+      std::vector<std::string_view>& result);
+  static std::vector<std::string>& tokenize(std::string_view str,
+                                            std::string_view any_of_separators,
+                                            std::vector<std::string>& result);
 
   // Tokenize "str" at "multichar_separator"; store in "result" array.
-  static void tokenizeMulti(std::string_view str,
-                            std::string_view multichar_separator,
-                            std::vector<std::string>& result);
+  static std::vector<std::string_view>& tokenizeMulti(
+      std::string_view str, std::string_view multichar_separator,
+      std::vector<std::string_view>& result);
+  static std::vector<std::string>& tokenizeMulti(
+      std::string_view str, std::string_view multichar_separator,
+      std::vector<std::string>& result);
 
   // Tokenizes "str" at "separator", but leaves 'bracketed' areas
   // intact: "double quoted" (parenthesized) [foo] {bar}
-  static void tokenizeBalanced(std::string_view str, std::string_view separator,
-                               std::vector<std::string>& result);
+  static std::vector<std::string_view>& tokenizeBalanced(
+      std::string_view str, std::string_view any_of_separators,
+      std::vector<std::string_view>& result);
 
   // In "token" array, replace sequence of tokens that match "pattern" with
   // a single element "news"
@@ -88,52 +96,41 @@ class StringUtils final {
                                    std::string_view pattern,
                                    std::string_view news);
 
-  // Given a list of tokens, return the first that is not a single space.
-  // (unlike the name implies, it does not look for empty but space. TODO
-  //  rename)
-  static std::string getFirstNonEmptyToken(
-      const std::vector<std::string>& tokens);
+  // Remove whitespace at the beginning of the string.
+  [[nodiscard]] static std::string_view ltrim(std::string_view str);
 
-  // TODO: these should not modify strings, but rather return trimmed
-  // std::string_views.
+  // Remove whitespace at the end of the string.
+  [[nodiscard]] static std::string_view rtrim(std::string_view str);
 
-  // Modify string string, remove whitespace at the beginning of the string.
-  static std::string& ltrim(std::string& str);
+  // Removing spaces on both ends.
+  [[nodiscard]] static std::string_view trim(std::string_view str);
 
-  // Modify string string, remove whitespace at the end of the string.
-  static std::string& rtrim(std::string& str);
+  // Erase left of the string until given character is reached.
+  // Erases the input character as well.
+  [[nodiscard]] static std::string_view ltrim_until(std::string_view str,
+                                                    char c);
 
-  // Modify string, removing spaces on both ends.
-  static std::string& trim(std::string& str);
-
-  // Erase left of the string until given character is reached. If this
-  // is not reached, the string is unchanged. Modifies string.
-  // TODO: this name is confusing, as it does not do the same as the other
-  // trim functions (which trim characters until there is none)
-  static std::string& ltrim(std::string& str, char c);
-
-  // Erase right of the string until given character is reached. If this
-  // is not reached, the string is unchanged. Modifies string.
-  // TODO: this name is confusing, as it does not do the same as the other
-  // trim functions (which trim characters until there is none)
-  static std::string& rtrim(std::string& str, char c);
-
-  // Trim and modify string at assignment character.
-  static std::string& rtrimEqual(std::string& str);
+  // Erase right of the string until given character is reached.
+  // Erases the input character as well.
+  [[nodiscard]] static std::string_view rtrim_until(std::string_view str,
+                                                    char c);
 
   // Return the last element of a dot-separated path foo.bar.baz -> baz
-  static std::string_view leaf(std::string_view str);
+  [[nodiscard]] static std::string_view leaf(std::string_view str);
 
   // In given string "str", replace all occurences of "from" with "to"
   static std::string replaceAll(std::string_view str, std::string_view from,
                                 std::string_view to);
 
   // Given a large input, return the content of line number "line".
-  // Lines are 1 indexed.
-  static std::string_view getLineInString(std::string_view text, int line);
+  // Lines are 1 indexed. The newline separator is included in the
+  // returned lines; the last line in text might not have a newline
+  // so will not be included.
+  [[nodiscard]] static std::string_view getLineInString(std::string_view text,
+                                                        int line);
 
   // Split input text into lines at '\n'. This separator is included in the
-  // returned lines; the last line in text might not have a newline so might
+  // returned lines; the last line in text might not have a newline so will
   // not be included.
   static std::vector<std::string_view> splitLines(std::string_view text);
 
@@ -141,7 +138,7 @@ class StringUtils final {
   static std::string to_string(double a_value, const int n = 3);
 
   // Remove '//' and '#'-style end-of-line comments
-  static std::string removeComments(std::string_view text);
+  [[nodiscard]] static std::string removeComments(std::string_view text);
 
   // Expand environment variables in the form of ${FOO} or $FOO/
   // (variable followed by slash) in string. Modifies the string.
@@ -154,7 +151,8 @@ class StringUtils final {
     envVars.insert(std::make_pair(var, value));
   }
 
-  static std::string unquoted(const std::string& text);
+  // Strip quotes, if any. "abc" => abc
+  [[nodiscard]] static std::string_view unquoted(std::string_view text);
 
  private:
   StringUtils() = delete;
@@ -162,8 +160,6 @@ class StringUtils final {
   ~StringUtils() = delete;
 
   static std::map<std::string, std::string> envVars;
-
- private:
 };
 
 };  // namespace SURELOG

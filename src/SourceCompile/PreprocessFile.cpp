@@ -665,14 +665,14 @@ void PreprocessFile::checkMacroArguments_(
     const std::string& name, unsigned int line, unsigned short column,
     const std::vector<std::string>& arguments,
     const std::vector<std::string>& tokens) {
-  std::set<std::string> argSet;
-  std::set<std::string> tokenSet;
-  for (auto s : arguments) {
-    argSet.insert(
-        StringUtils::trim(StringUtils::rtrimEqual(StringUtils::trim(s))));
+  std::set<std::string_view, std::less<>> argSet;
+  std::set<std::string, std::less<>> tokenSet;
+  for (const auto& s : arguments) {
+    argSet.emplace(
+        StringUtils::trim(StringUtils::rtrim_until(StringUtils::trim(s), '=')));
   }
-  for (auto s : tokens) {
-    std::string tok = StringUtils::trim(s);
+  for (const auto& s : tokens) {
+    std::string tok(StringUtils::trim(s));
     tok = StringUtils::replaceAll(tok, "``", "");
     tok = StringUtils::replaceAll(tok, "`", "");
     tokenSet.insert(tok);
@@ -745,11 +745,11 @@ void PreprocessFile::forgetPreprocessor_(PreprocessFile* inc,
   }
 }
 
-SymbolId PreprocessFile::registerSymbol(const std::string& symbol) const {
+SymbolId PreprocessFile::registerSymbol(std::string_view symbol) const {
   return getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-SymbolId PreprocessFile::getId(const std::string& symbol) const {
+SymbolId PreprocessFile::getId(std::string_view symbol) const {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
@@ -777,6 +777,15 @@ std::string PreprocessFile::evaluateMacroInstance(
   forgetPreprocessor_(m_includer ? m_includer : callingFile, pp);
   delete pp;
   return result;
+}
+
+static std::string_view getFirstNonEmptyToken(
+    const std::vector<std::string>& tokens) {
+  for (const auto& token : tokens) {
+    if (token != " ") return token;
+  }
+  static constexpr std::string_view kEmpty;
+  return kEmpty;
 }
 
 std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
@@ -835,8 +844,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   }
 
   if ((actual_args.size() > formal_args.size() && (!m_instructions.m_mute))) {
-    if (formal_args.empty() &&
-        (StringUtils::getFirstNonEmptyToken(body_tokens) == "(")) {
+    if (formal_args.empty() && (getFirstNonEmptyToken(body_tokens) == "(")) {
       Location loc(macroInfo->m_fileId, macroInfo->m_startLine,
                    macroInfo->m_startColumn + name.size() + 1, getId(name));
       Error err(ErrorDefinition::PP_MACRO_HAS_SPACE_BEFORE_ARGS, loc);

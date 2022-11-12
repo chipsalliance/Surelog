@@ -1614,7 +1614,7 @@ NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
       if (func) func->VpiAccessType(vpiDPIImportAcc);
     }
     if (func_type == VObjectType::slStringLiteral) {
-      std::string ctype = StringUtils::unquoted(fC->SymName(func_decl));
+      std::string_view ctype = StringUtils::unquoted(fC->SymName(func_decl));
       if (ctype == "DPI-C") {
         if (func) func->VpiDPICStr(vpiDPIC);
       } else if (ctype == "DPI") {

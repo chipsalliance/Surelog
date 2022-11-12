@@ -67,7 +67,7 @@ class Package : public DesignComponent {
   void addClassDefinition(std::string className, ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(std::string_view name);
   ExprBuilder* getExprBuilder() { return &m_exprBuilder; }
 
   UHDM::VectorOfattribute* Attributes() const { return attributes_; }

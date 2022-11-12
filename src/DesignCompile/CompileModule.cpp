@@ -805,9 +805,9 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
               break;
             const std::string& endLabel = fC->SymName(id);
             std::string moduleName = m_module->getName();
-            moduleName = StringUtils::ltrim(moduleName, '@');
-            moduleName = StringUtils::ltrim(moduleName, ':');
-            moduleName = StringUtils::ltrim(moduleName, ':');
+            moduleName = StringUtils::ltrim_until(moduleName, '@');
+            moduleName = StringUtils::ltrim_until(moduleName, ':');
+            moduleName = StringUtils::ltrim_until(moduleName, ':');
             if (endLabel != moduleName) {
               Location loc(fC->getFileId(m_module->getNodeIds()[0]),
                            fC->Line(m_module->getNodeIds()[0]),
@@ -1178,9 +1178,9 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             NodeId label = fC->Child(InterfaceIdentifier);
             const std::string& endLabel = fC->SymName(label);
             std::string moduleName = m_module->getName();
-            moduleName = StringUtils::ltrim(moduleName, '@');
-            moduleName = StringUtils::ltrim(moduleName, ':');
-            moduleName = StringUtils::ltrim(moduleName, ':');
+            moduleName = StringUtils::ltrim_until(moduleName, '@');
+            moduleName = StringUtils::ltrim_until(moduleName, ':');
+            moduleName = StringUtils::ltrim_until(moduleName, ':');
             if (endLabel != moduleName) {
               Location loc(fC->getFileId(m_module->getNodeIds()[0]),
                            fC->Line(m_module->getNodeIds()[0]),

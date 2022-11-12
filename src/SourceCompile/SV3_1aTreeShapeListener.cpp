@@ -179,11 +179,11 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
   unsigned int startLine = std::stoi(ctx->Integral_number()[0]->getText());
   IncludeFileInfo::Action action = static_cast<IncludeFileInfo::Action>(
       std::stoi(ctx->Integral_number()[1]->getText()));
-  std::string text = StringUtils::unquoted(ctx->String()->getText());
-  std::vector<std::string> parts;
+  std::string text(StringUtils::unquoted(ctx->String()->getText()));
+  std::vector<std::string_view> parts;
   StringUtils::tokenize(text, "^", parts);
-  std::string symbol = StringUtils::unquoted(parts[0]);
-  std::string file = StringUtils::unquoted(parts[1]);
+  std::string_view symbol = StringUtils::unquoted(parts[0]);
+  std::string_view file = StringUtils::unquoted(parts[1]);
 
   std::pair<int, int> startLineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);

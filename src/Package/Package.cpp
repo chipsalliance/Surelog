@@ -44,7 +44,7 @@ unsigned int Package::getSize() const {
   return size;
 }
 
-ClassDefinition* Package::getClassDefinition(const std::string& name) {
+ClassDefinition* Package::getClassDefinition(std::string_view name) {
   ClassNameClassDefinitionMultiMap::iterator itr =
       m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
