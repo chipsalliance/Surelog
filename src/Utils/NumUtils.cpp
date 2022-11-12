@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/Utils/NumUtils.h>
+#include <string.h>
 
 #include <algorithm>
 #include <bitset>
@@ -100,6 +101,87 @@ uint64_t NumUtils::getMask(uint64_t wide) {
              : ((uint64_t)((uint64_t)(((uint64_t)1) << ((uint64_t)wide))) -
                 (uint64_t)1);
   return mask;
+}
+
+/*
+ * So, unfortunately not all c++17 implemenetations actually provide
+ * a std::from_chars() for floating point numbers; available only >= g++-11
+ * for instance.
+ *
+ * So here we use the c++ detection pattern to determine if that function
+ * is available, otherwise fall back to slower best-effort implementation that
+ * copies it to a nul-terminated buffer, then calls the old strtof(), strotd()
+ * functions.
+ */
+template <typename T, typename = void>
+struct from_chars_available : std::false_type {};
+template <typename T>
+struct from_chars_available<
+    T, std::void_t<decltype(std::from_chars(
+           std::declval<const char *>(), std::declval<const char *>(),
+           std::declval<T &>()))>> : std::true_type {};
+
+template <typename T>
+inline constexpr bool from_chars_available_v = from_chars_available<T>::value;
+
+// Copy everything that looks like a number into output iterator.
+static void CopyNumberTo(const char *in_begin, const char *in_end,
+                         char *out_begin, const char *out_end) {
+  const char *src = in_begin;
+  char *dst = out_begin;
+  const char *extra_allowed = "+-.e";
+  bool have_point = false;
+  out_end -= 1;  // Allow space for 0 termination.
+  while (src < in_end && (isdigit(*src) || strchr(extra_allowed, *src)) &&
+         dst < out_end) {
+    // The sign is only allowed in the first character of the buffer
+    if ((*src == '+' || *src == '-') && dst != out_begin) break;
+    // only allow one decimal point
+    if (*src == '.') {
+      if (have_point)
+        break;
+      else
+        have_point = true;
+    }
+    *dst++ = *src++;
+  }
+  *dst = '\0';
+}
+
+template <typename T, T (*strto_fallback_fun)(const char *, char **)>
+static const char *convert_strto_ieee(std::string_view s, T *result) {
+  if constexpr (from_chars_available_v<T>) {
+    return internal::convert_strto_num<T>(s, result);
+  }
+
+  // Fallback in case std::from_chars() does not exist for this type. Here,
+  // we just call the corresponding C-function, but first have to copy
+  // the number to a local buffer, as that one requires \0-termination.
+  char buffer[64];
+
+  // Need to skip whitespace first to not use up our buffer for that.
+  std::string_view n = s;
+  while (!n.empty() && isspace(n.front())) n.remove_prefix(1);
+
+  CopyNumberTo(n.data(), n.data() + n.size(), buffer, buffer + sizeof(buffer));
+  char *endptr = nullptr;
+  *result = strto_fallback_fun(buffer, &endptr);
+  if (endptr == buffer) return nullptr;  // Error.
+
+  // Now, convert our offset back relative to the original string.
+  return n.data() + (endptr - buffer);
+}
+
+const char *parse_float(std::string_view s, float *result) {
+  return convert_strto_ieee<float, strtof>(s, result);
+}
+
+const char *parse_double(std::string_view s, double *result) {
+  return convert_strto_ieee<double, strtod>(s, result);
+}
+
+const char *parse_longdouble(std::string_view s, long double *result) {
+  return convert_strto_ieee<long double, strtold>(s, result);
 }
 
 }  // namespace SURELOG
