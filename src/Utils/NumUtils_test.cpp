@@ -67,10 +67,6 @@ TEST(NumUtilsTest, ValidateRangeUnsigned32) {
   uint32_t value;
   EXPECT_FALSE(parse_uint32("-1", &value));
 
-  // However, parsing it as int32 is allowed.
-  EXPECT_TRUE(parse_int32("-1", &value));
-  EXPECT_EQ(value, 4294967295);
-
   EXPECT_TRUE(parse_uint32("4294967295", &value));
   EXPECT_EQ(value, 4294967295);
 
@@ -96,14 +92,92 @@ TEST(NumUtilsTest, ValidateRangeUnsigned64) {
   uint64_t value;
   EXPECT_FALSE(parse_uint64("-1", &value));
 
-  // However, parsing it as int64 is allowed.
-  EXPECT_TRUE(parse_int64("-1", &value));
-  EXPECT_EQ(value, 18446744073709551615UL);
-
   EXPECT_TRUE(parse_uint64("18446744073709551615", &value));
   EXPECT_EQ(value, 18446744073709551615UL);
 
   EXPECT_FALSE(parse_uint64("18446744073709551616", &value));  // out of range.
+}
+
+TEST(NumUtilsTest, ParseLenientSigned32) {
+  int32_t value;
+
+  // Full signed range allowed
+  EXPECT_TRUE(parse_lenient("2147483647", &value));
+  EXPECT_EQ(value, 2147483647);
+
+  EXPECT_TRUE(parse_lenient("-2147483648", &value));
+  EXPECT_EQ(value, -2147483648);
+
+  // Also full unsigned range allowed
+  EXPECT_TRUE(parse_lenient("4294967295", &value));
+  EXPECT_EQ(value, -1);  // ... that aliases into negative signed
+
+  EXPECT_FALSE(parse_lenient("-2147483649", &value));  // out of 32 bit range.
+  EXPECT_FALSE(parse_lenient("4294967296", &value));   // out of 32 bit range.
+}
+
+TEST(NumUtilsTest, ParseLenientUnsigned32) {
+  uint32_t value;
+
+  EXPECT_TRUE(parse_lenient("4294967295", &value));
+  EXPECT_EQ(value, 4294967295);
+
+  EXPECT_TRUE(parse_lenient("-1", &value));  // Signed value
+  EXPECT_EQ(value, 4294967295);              // .. interpreted as all bits set
+
+  EXPECT_TRUE(parse_lenient(" -1 ", &value));  // also recognize with space
+  EXPECT_EQ(value, 4294967295);
+
+  // Full signed range allowed
+  EXPECT_TRUE(parse_lenient("2147483647", &value));
+  EXPECT_EQ(value, 2147483647);
+
+  EXPECT_TRUE(parse_lenient("-2147483648", &value));
+  EXPECT_EQ(value, 2147483648);
+
+  EXPECT_FALSE(parse_lenient("-2147483649", &value));  // out of 32 bit range.
+  EXPECT_FALSE(parse_lenient("4294967296", &value));   // out of 32 bit range.
+}
+
+TEST(NumUtilsTest, ParseLenientSigned64) {
+  int64_t value;
+
+  // Full signed range allowed
+  EXPECT_TRUE(parse_lenient("9223372036854775807", &value));
+  EXPECT_EQ(value, 9223372036854775807L);
+
+  EXPECT_TRUE(parse_lenient("-9223372036854775808", &value));
+  EXPECT_EQ(value, -9223372036854775807L - 1);
+
+  // Also full unsigned range allowed
+  EXPECT_TRUE(parse_lenient("18446744073709551615", &value));
+  EXPECT_EQ(value, -1);  // ... that aliases into negative signed
+
+  EXPECT_FALSE(parse_lenient("-9223372036854775809", &value));  // out-of-range
+  EXPECT_FALSE(parse_lenient("18446744073709551616", &value));  // out-of-range
+}
+
+TEST(NumUtilsTest, ParseLenientUnsigned64) {
+  uint64_t value;
+
+  EXPECT_TRUE(parse_lenient("18446744073709551615", &value));
+  EXPECT_EQ(value, 18446744073709551615UL);
+
+  EXPECT_TRUE(parse_lenient("-1", &value));  // Signed value
+  EXPECT_EQ(value, 18446744073709551615UL);  // .. interpreted as all bits set
+
+  EXPECT_TRUE(parse_lenient(" -1 ", &value));  // also recognize with space
+  EXPECT_EQ(value, 18446744073709551615UL);
+
+  // Full signed range allowed
+  EXPECT_TRUE(parse_lenient("9223372036854775807", &value));
+  EXPECT_EQ(value, 9223372036854775807UL);
+
+  EXPECT_TRUE(parse_lenient("-9223372036854775808", &value));
+  EXPECT_EQ(value, 9223372036854775808UL);
+
+  EXPECT_FALSE(parse_lenient("-9223372036854775809", &value));  // out-of-range
+  EXPECT_FALSE(parse_lenient("18446744073709551616", &value));  // out-of-range
 }
 
 TEST(NumUtilsTest, ParseFloat) {
