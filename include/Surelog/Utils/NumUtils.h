@@ -50,32 +50,60 @@ const char *convert_strto_num(std::string_view s, number_type *result) {
   auto success = std::from_chars(s.data(), s.data() + s.size(), *result);
   return (success.ec == std::errc()) ? success.ptr : nullptr;
 }
+
+template <typename sint_type, typename uint_type, typename result_type>
+const char *strto_int(std::string_view s, result_type *result) {
+  while (!s.empty() && isspace(s.front())) s.remove_prefix(1);
+  if (!s.empty() && s.front() == '+') s.remove_prefix(1);
+  std::from_chars_result parse_result;
+  if (s.front() == '-') {
+    sint_type n;
+    parse_result = std::from_chars(s.data(), s.data() + s.size(), n);
+    *result = static_cast<result_type>(n);
+  } else {
+    uint_type n;
+    parse_result = std::from_chars(s.data(), s.data() + s.size(), n);
+    *result = static_cast<result_type>(n);
+  }
+  return (parse_result.ec == std::errc()) ? parse_result.ptr : nullptr;
+}
 }  // namespace internal
 
 // Parse int values.
 // Returns the pointer to one char after the parsed value or nullptr on failure.
+
+// Parse integer of the given size, but but be lenient in the interpretation.
+// The full signed negative range and positive unsigned range is allowed. The
+// final value is cast to the signed or unsigned potentially flipping the
+// sign.
+template <typename result_type>
+[[nodiscard]] inline const char* parse_lenient(std::string_view s,
+                                               result_type* result) {
+ if (sizeof(result_type) == 4) {
+    return internal::strto_int<int32_t, uint32_t, result_type>(s, result);
+  } else  {
+    return internal::strto_int<int64_t, uint64_t, result_type>(s, result);
+  }
+}
+
+  // Parse signed int32, stricly matching its range
 [[nodiscard]] inline const char* parse_int32(std::string_view s,
                                              int32_t* result) {
   return internal::convert_strto_num(s, result);
 }
-[[nodiscard]] inline const char* parse_int32(std::string_view s,
-                                             uint32_t* result) {
-  int32_t* value_alias = reinterpret_cast<int32_t*>(result);
-  return internal::convert_strto_num(s, value_alias);
-}
+    // Parse uint32, stricly matching its range; no negative numbers
 [[nodiscard]] inline const char* parse_uint32(std::string_view s,
                                               uint32_t* result) {
   return internal::convert_strto_num(s, result);
 }
+
+  // Parse signed int64, stricly matching its range; no negative numbers
 [[nodiscard]] inline const char* parse_int64(std::string_view s,
                                              int64_t* result) {
   return internal::convert_strto_num(s, result);
 }
-[[nodiscard]] inline const char* parse_int64(std::string_view s,
-                                             uint64_t* result) {
-  int64_t* value_alias = reinterpret_cast<int64_t*>(result);
-  return internal::convert_strto_num(s, value_alias);
-}
+
+    // Parse uint64, stricly matching its range; no negative numbers
 [[nodiscard]] inline const char* parse_uint64(std::string_view s,
                                               uint64_t* result) {
   return internal::convert_strto_num(s, result);
