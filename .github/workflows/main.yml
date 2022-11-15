@@ -4,6 +4,9 @@ on:
   push:
   pull_request:
 
+  env:
+    ENV_FILE = /root/gh_env
+
 jobs:
   linux-build-test:
     name: "test-${{ matrix.compiler }} Linux"
@@ -64,22 +67,23 @@ jobs:
     - name: Configure compiler
       run: |
         if [ "${{matrix.compiler}}" == "clang" ]; then
-          echo 'CC=clang' >> $GITHUB_ENV
-          echo 'CXX=clang++' >> $GITHUB_ENV
+          echo 'CC=clang' >> $ENV_FILE
+          echo 'CXX=clang++' >> $ENV_FILE
         else
-          echo 'CC=gcc-9' >> $GITHUB_ENV
-          echo 'CXX=g++-9' >> $GITHUB_ENV
+          echo 'CC=gcc-9' >> $ENV_FILE
+          echo 'CXX=g++-9' >> $ENV_FILE
         fi
 
     - name: Configure shell
       run: |
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $ENV_FILE
+        echo 'PREFIX=${WORKSPACE}/install' >> $ENV_FILE
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $ENV_FILE
+        echo "CMAKE_GENERATOR=Ninja" >> $ENV_FILE
 
     - name: Show shell configuration
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         env
         which cmake && cmake --version
         which java && java -version
@@ -90,10 +94,12 @@ jobs:
 
     - name: Build
       run: |
+           for e in $(cat $ENV_FILE); do export $e; done
            make debug
 
     - name: Test
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         make test/unittest-d
 
   linux-regression:
@@ -157,22 +163,23 @@ jobs:
     - name: Configure compiler
       run: |
         if [ "${{matrix.compiler}}" == "clang" ]; then
-          echo 'CC=clang' >> $GITHUB_ENV
-          echo 'CXX=clang++' >> $GITHUB_ENV
+          echo 'CC=clang' >> $ENV_FILE
+          echo 'CXX=clang++' >> $ENV_FILE
         else
-          echo 'CC=gcc-9' >> $GITHUB_ENV
-          echo 'CXX=g++-9' >> $GITHUB_ENV
+          echo 'CC=gcc-9' >> $ENV_FILE
+          echo 'CXX=g++-9' >> $ENV_FILE
         fi
 
     - name: Configure shell
       run: |
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $ENV_FILE
+        echo 'PREFIX=${WORKSPACE}/install' >> $ENV_FILE
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $ENV_FILE
+        echo "CMAKE_GENERATOR=Ninja" >> $ENV_FILE
 
     - name: Show shell configuration
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         env
         which cmake && cmake --version
         which java && java -version
@@ -183,10 +190,12 @@ jobs:
 
     - name: Build
       run: |
+           for e in $(cat $ENV_FILE); do export $e; done
            make release
 
     - name: Run regression ${{matrix.shard}}/${{matrix.num_shards}}
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         python3 scripts/regression.py run --jobs $(nproc) --show-diffs \
                                           --num_shards=${{matrix.num_shards}} \
                                           --shard=${{matrix.shard}}
@@ -194,6 +203,7 @@ jobs:
     - name: Prepare regression artifacts
       if: always()
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         cd build
         mv regression surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression
         find surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression -name "*.tar.gz" | tar czfp surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression.tar.gz -T -
@@ -267,15 +277,16 @@ jobs:
 
     - name: Configure shell
       run: |
-        echo 'CC=gcc-9' >> $GITHUB_ENV
-        echo 'CXX=g++-9' >> $GITHUB_ENV
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+        echo 'CC=gcc-9' >> $ENV_FILE
+        echo 'CXX=g++-9' >> $ENV_FILE
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $ENV_FILE
+        echo 'PREFIX=${WORKSPACE}/install' >> $ENV_FILE
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $ENV_FILE
+        echo "CMAKE_GENERATOR=Ninja" >> $ENV_FILE
 
     - name: Show shell configuration
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         env
         which cmake && cmake --version
         which java && java -version
@@ -287,11 +298,13 @@ jobs:
     - name: PythonAPI
       if: matrix.mode == 'pythonapi'
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         make ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
 
     - name: Coverage
       if: matrix.mode == 'coverage'
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         make coverage-build/surelog.coverage
 
     - name: Upload coverage
@@ -305,6 +318,7 @@ jobs:
     - name: Install Test
       if: matrix.mode == 'install'
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         make release
         make install
         make clean   # make sure we only see installation artifacts
@@ -313,6 +327,7 @@ jobs:
     - name: Prepare build artifacts
       if: matrix.mode == 'install'
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         mv install surelog-linux-gcc
         mkdir build
         tar czfp build/surelog-linux-gcc.tar.gz surelog-linux-gcc
@@ -386,15 +401,16 @@ jobs:
 
     - name: Configure shell
       run: |
-        echo 'CC=gcc-9' >> $GITHUB_ENV
-        echo 'CXX=g++-9' >> $GITHUB_ENV
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+        echo 'CC=gcc-9' >> $ENV_FILE
+        echo 'CXX=g++-9' >> $ENV_FILE
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $ENV_FILE
+        echo 'PREFIX=${WORKSPACE}/install' >> $ENV_FILE
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $ENV_FILE
+        echo "CMAKE_GENERATOR=Ninja" >> $ENV_FILE
 
     - name: Show shell configuration
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         env
         which cmake && cmake --version
         which java && java -version
@@ -405,11 +421,13 @@ jobs:
 
     - name: Build
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         make debug
 
     - name: Valgrind ${{matrix.project}}
       timeout-minutes: 180
       run: |
+        for e in $(cat $ENV_FILE); do export $e; done
         python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
 
   msys2-gcc:
