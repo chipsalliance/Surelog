@@ -1409,6 +1409,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         if (port->getName() == fC->SymName(signal)) {
           found = true;
           port->setStatic();
+          if (is_signed) port->setSigned();
           NodeId unpacked_dimension = fC->Sibling(signal);
           if (fC->Type(unpacked_dimension) ==
               VObjectType::slUnpacked_dimension) {
