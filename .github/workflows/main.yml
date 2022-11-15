@@ -83,7 +83,7 @@ jobs:
 
     - name: Show shell configuration
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         env
         which cmake && cmake --version
         which java && java -version
@@ -94,12 +94,12 @@ jobs:
 
     - name: Build
       run: |
-           for e in $(cat $ENV_FILE); do export $e; done
+           while read e; do export "$e"; done < $ENV_FILE
            make debug
 
     - name: Test
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         make test/unittest-d
 
   linux-regression:
@@ -179,7 +179,7 @@ jobs:
 
     - name: Show shell configuration
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         env
         which cmake && cmake --version
         which java && java -version
@@ -190,12 +190,12 @@ jobs:
 
     - name: Build
       run: |
-           for e in $(cat $ENV_FILE); do export $e; done
+           while read e; do export "$e"; done < $ENV_FILE
            make release
 
     - name: Run regression ${{matrix.shard}}/${{matrix.num_shards}}
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         python3 scripts/regression.py run --jobs $(nproc) --show-diffs \
                                           --num_shards=${{matrix.num_shards}} \
                                           --shard=${{matrix.shard}}
@@ -203,7 +203,7 @@ jobs:
     - name: Prepare regression artifacts
       if: always()
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         cd build
         mv regression surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression
         find surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression -name "*.tar.gz" | tar czfp surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression.tar.gz -T -
@@ -286,7 +286,7 @@ jobs:
 
     - name: Show shell configuration
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         env
         which cmake && cmake --version
         which java && java -version
@@ -298,13 +298,13 @@ jobs:
     - name: PythonAPI
       if: matrix.mode == 'pythonapi'
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         make ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
 
     - name: Coverage
       if: matrix.mode == 'coverage'
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         make coverage-build/surelog.coverage
 
     - name: Upload coverage
@@ -318,7 +318,7 @@ jobs:
     - name: Install Test
       if: matrix.mode == 'install'
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         make release
         make install
         make clean   # make sure we only see installation artifacts
@@ -327,7 +327,7 @@ jobs:
     - name: Prepare build artifacts
       if: matrix.mode == 'install'
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         mv install surelog-linux-gcc
         mkdir build
         tar czfp build/surelog-linux-gcc.tar.gz surelog-linux-gcc
@@ -410,7 +410,7 @@ jobs:
 
     - name: Show shell configuration
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         env
         which cmake && cmake --version
         which java && java -version
@@ -421,13 +421,13 @@ jobs:
 
     - name: Build
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         make debug
 
     - name: Valgrind ${{matrix.project}}
       timeout-minutes: 180
       run: |
-        for e in $(cat $ENV_FILE); do export $e; done
+        while read e; do export "$e"; done < $ENV_FILE
         python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
 
   msys2-gcc:
