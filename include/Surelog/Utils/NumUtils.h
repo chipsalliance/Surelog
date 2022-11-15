@@ -44,7 +44,7 @@ namespace SURELOG {
 // Parse any number type with std::from_chars
 namespace internal {
 template <typename number_type>
-const char *convert_strto_num(std::string_view s, number_type *result) {
+const char *strto_num(std::string_view s, number_type *result) {
   while (!s.empty() && isspace(s.front())) s.remove_prefix(1);
   if (!s.empty() && s.front() == '+') s.remove_prefix(1);
   auto success = std::from_chars(s.data(), s.data() + s.size(), *result);
@@ -53,6 +53,7 @@ const char *convert_strto_num(std::string_view s, number_type *result) {
 
 template <typename sint_type, typename uint_type, typename result_type>
 const char *strto_int(std::string_view s, result_type *result) {
+  // std::from_chars can't deal with leading spaces or plus, so remove them.
   while (!s.empty() && isspace(s.front())) s.remove_prefix(1);
   if (!s.empty() && s.front() == '+') s.remove_prefix(1);
   std::from_chars_result parse_result;
@@ -72,14 +73,15 @@ const char *strto_int(std::string_view s, result_type *result) {
 // Parse int values.
 // Returns the pointer to one char after the parsed value or nullptr on failure.
 
-// Parse integer of the given size, but but be lenient in the interpretation.
-// The full signed negative range and positive unsigned range is allowed. The
-// final value is cast to the signed or unsigned potentially flipping the
-// sign.
+// Parse integer of the given size (int32_t, uint32_t, int64_t, uint64_t),
+// but be lenient in the sign interpretation.
+// The full signed negative range and positive unsigned range for the integer
+// of that size is allowed. The final value is cast to the signed or unsigned
+// potentially flipping the sign (but we're leniently allowing that).
 template <typename result_type>
-[[nodiscard]] inline const char* parse_lenient(std::string_view s,
-                                               result_type* result) {
- if (sizeof(result_type) == 4) {
+[[nodiscard]] inline const char* parse_int_lenient(std::string_view s,
+                                                   result_type* result) {
+ if constexpr (sizeof(result_type) == 4) {
     return internal::strto_int<int32_t, uint32_t, result_type>(s, result);
   } else  {
     return internal::strto_int<int64_t, uint64_t, result_type>(s, result);
@@ -89,24 +91,24 @@ template <typename result_type>
   // Parse signed int32, stricly matching its range
 [[nodiscard]] inline const char* parse_int32(std::string_view s,
                                              int32_t* result) {
-  return internal::convert_strto_num(s, result);
+  return internal::strto_num(s, result);
 }
     // Parse uint32, stricly matching its range; no negative numbers
 [[nodiscard]] inline const char* parse_uint32(std::string_view s,
                                               uint32_t* result) {
-  return internal::convert_strto_num(s, result);
+  return internal::strto_num(s, result);
 }
 
   // Parse signed int64, stricly matching its range; no negative numbers
 [[nodiscard]] inline const char* parse_int64(std::string_view s,
                                              int64_t* result) {
-  return internal::convert_strto_num(s, result);
+  return internal::strto_num(s, result);
 }
 
     // Parse uint64, stricly matching its range; no negative numbers
 [[nodiscard]] inline const char* parse_uint64(std::string_view s,
                                               uint64_t* result) {
-  return internal::convert_strto_num(s, result);
+  return internal::strto_num(s, result);
 }
 
 // Parse float value.

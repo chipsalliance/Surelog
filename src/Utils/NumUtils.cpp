@@ -149,9 +149,9 @@ static void CopyNumberTo(const char *in_begin, const char *in_end,
 }
 
 template <typename T, T (*strto_fallback_fun)(const char *, char **)>
-static const char *convert_strto_ieee(std::string_view s, T *result) {
+static const char *strto_ieee(std::string_view s, T *result) {
   if constexpr (from_chars_available_v<T>) {
-    return internal::convert_strto_num<T>(s, result);
+    return internal::strto_num<T>(s, result);
   }
 
   // Fallback in case std::from_chars() does not exist for this type. Here,
@@ -173,15 +173,15 @@ static const char *convert_strto_ieee(std::string_view s, T *result) {
 }
 
 const char *parse_float(std::string_view s, float *result) {
-  return convert_strto_ieee<float, strtof>(s, result);
+  return strto_ieee<float, strtof>(s, result);
 }
 
 const char *parse_double(std::string_view s, double *result) {
-  return convert_strto_ieee<double, strtod>(s, result);
+  return strto_ieee<double, strtod>(s, result);
 }
 
 const char *parse_longdouble(std::string_view s, long double *result) {
-  return convert_strto_ieee<long double, strtold>(s, result);
+  return strto_ieee<long double, strtold>(s, result);
 }
 
 }  // namespace SURELOG
