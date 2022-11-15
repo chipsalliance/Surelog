@@ -23,6 +23,7 @@ jobs:
     env:
       COMPILER: ${{ matrix.compiler }}
       GHA_MACHINE_TYPE: "n2-standard-32"
+      CCACHE_DIR: "/root/Surelog/Surelog/.cache/"
 
     steps:
 
@@ -53,10 +54,12 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - name: Setup cache
+      uses: actions/cache@v2
       with:
+        path: ${{ env.CCACHE_DIR }}
         key: linux-test-${{ matrix.compiler }}
+        restore-keys: linux-test-
 
     - name: Configure compiler
       run: |
@@ -113,6 +116,7 @@ jobs:
     env:
       COMPILER: ${{ matrix.compiler }}
       GHA_MACHINE_TYPE: "n2-standard-32"
+      CCACHE_DIR: "/root/Surelog/Surelog/.cache/"
 
     steps:
 
@@ -143,10 +147,12 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - name: Setup cache
+      uses: actions/cache@v2
       with:
+        path: ${{ env.CCACHE_DIR }}
         key: linux-regression-${{ matrix.compiler }}
+        restore-keys: linux-regression-
 
     - name: Configure compiler
       run: |
@@ -218,6 +224,7 @@ jobs:
     env:
       MODE: ${{ matrix.mode }}
       GHA_MACHINE_TYPE: "n2-standard-32"
+      CCACHE_DIR: "/root/Surelog/Surelog/.cache/"
 
     steps:
 
@@ -251,10 +258,12 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - name: Setup cache
+      uses: actions/cache@v2
       with:
-        key: linux-${{ matrix.mode }}
+        path: ${{ env.CCACHE_DIR }}
+        key: linux-various-${{ matrix.compiler }}
+        restore-keys: linux-various-
 
     - name: Configure shell
       run: |
@@ -333,6 +342,7 @@ jobs:
         - BlackParrotMuteErrors
     env:
       GHA_MACHINE_TYPE: "n2-standard-32"
+      CCACHE_DIR: "/root/Surelog/Surelog/.cache/"
 
     steps:
 
@@ -367,10 +377,12 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - name: Setup cache
+      uses: actions/cache@v2
       with:
-        key: linux-valgrind
+        path: ${{ env.CCACHE_DIR }}
+        key: linux-valgrind-${{ matrix.compiler }}
+        restore-keys: linux-valgrind-
 
     - name: Configure shell
       run: |
