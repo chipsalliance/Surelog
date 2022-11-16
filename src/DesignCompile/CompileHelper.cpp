@@ -52,6 +52,7 @@
 #include <Surelog/Testbench/TypeDef.h>
 #include <Surelog/Testbench/Variable.h>
 #include <Surelog/Utils/NumUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <string.h>
@@ -129,7 +130,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       if (!object_name.empty()) {
         if (name != object_name) continue;
       }
-      std::string fullName = def->getName() + "::" + name;
+      std::string fullName = StrCat(def->getName(), "::", name);
       DesignComponent* comp = packageFile->getComponentDefinition(fullName);
       FileCNodeId fnid(packageFile, classDef);
       scope->addNamedObject(name, fnid, comp);
@@ -573,7 +574,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   std::string name = fC->SymName(type_name);
   std::string fullName = name;
   if (Package* pack = valuedcomponenti_cast<Package*>(scope)) {
-    fullName = pack->getName() + "::" + name;
+    fullName.assign(pack->getName()).append("::").append(name);
   }
   if (scope) {
     const TypeDef* prevDef = scope->getTypeDef(name);

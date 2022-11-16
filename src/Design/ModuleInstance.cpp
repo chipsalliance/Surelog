@@ -270,10 +270,9 @@ std::string ModuleInstance::getInstanceName() const {
   }
 }
 
-std::string ModuleInstance::getModuleName() const {
+std::string_view ModuleInstance::getModuleName() const {
   if (m_definition == nullptr) {
-    std::string name = m_instName.substr(0, m_instName.find("&", 0, 1));
-    return name;
+    return std::string_view(m_instName).substr(0, m_instName.find("&", 0, 1));
   } else {
     return m_definition->getName();
   }

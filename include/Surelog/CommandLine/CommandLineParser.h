@@ -208,8 +208,12 @@ class CommandLineParser final {
   PathId getProgramId() const { return m_programId; }
   std::string getExeCommand() const { return m_exeCommand; }
   std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
-  std::set<std::string>& getBlackBoxModules() { return m_blackboxModules; }
-  std::set<std::string>& getBlackBoxInstances() { return m_blackboxInstances; }
+  std::set<std::string, std::less<>>& getBlackBoxModules() {
+    return m_blackboxModules;
+  }
+  std::set<std::string, std::less<>>& getBlackBoxInstances() {
+    return m_blackboxInstances;
+  }
   void setTopLevelModule(const std::string& module) {
     m_topLevelModules.insert(module);
   }
@@ -326,8 +330,8 @@ class CommandLineParser final {
   PathId m_programId;
   std::string m_exeCommand;
   std::set<std::string> m_topLevelModules;
-  std::set<std::string> m_blackboxModules;
-  std::set<std::string> m_blackboxInstances;
+  std::set<std::string, std::less<>> m_blackboxModules;
+  std::set<std::string, std::less<>> m_blackboxInstances;
   bool m_sverilog;
   bool m_dumpUhdm;
   bool m_elabUhdm;

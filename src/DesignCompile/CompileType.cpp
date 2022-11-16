@@ -283,14 +283,15 @@ UHDM::any* CompileHelper::compileVariable(
       if (result == nullptr) {
         ClassDefinition* cl = design->getClassDefinition(typeName);
         if (cl == nullptr) {
-          cl = design->getClassDefinition(component->getName() +
-                                          "::" + typeName);
+          cl = design->getClassDefinition(
+              StrCat(component->getName(), "::", typeName));
         }
         if (cl == nullptr) {
           if (const DesignComponent* p =
                   valuedcomponenti_cast<const DesignComponent*>(
                       component->getParentScope())) {
-            cl = design->getClassDefinition(p->getName() + "::" + typeName);
+            cl = design->getClassDefinition(
+                StrCat(p->getName(), "::", typeName));
           }
         }
         if (cl) {
@@ -429,14 +430,15 @@ UHDM::any* CompileHelper::compileVariable(
       if (var == nullptr) {
         ClassDefinition* cl = design->getClassDefinition(packageName);
         if (cl == nullptr) {
-          cl = design->getClassDefinition(component->getName() +
-                                          "::" + packageName);
+          cl = design->getClassDefinition(
+              StrCat(component->getName(), "::", packageName));
         }
         if (cl == nullptr) {
           if (const DesignComponent* p =
                   valuedcomponenti_cast<const DesignComponent*>(
                       component->getParentScope())) {
-            cl = design->getClassDefinition(p->getName() + "::" + packageName);
+            cl = design->getClassDefinition(
+                StrCat(p->getName(), "::", packageName));
           }
         }
         if (cl) {
@@ -560,13 +562,13 @@ typespec* CompileHelper::compileDatastructureTypespec(
           libName + "@" + typeName);
       if (dt == nullptr) {
         dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
-            component->getName() + "::" + typeName);
+            StrCat(component->getName(), "::", typeName));
       }
       if (dt == nullptr) {
         if (component->getParentScope())
           dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
-              ((DesignComponent*)component->getParentScope())->getName() +
-              "::" + typeName);
+              StrCat(((DesignComponent*)component->getParentScope())->getName(),
+                     "::", typeName));
       }
       if (dt == nullptr) {
         dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
@@ -1581,14 +1583,15 @@ UHDM::typespec* CompileHelper::compileTypespec(
           Design* design = compileDesign->getCompiler()->getDesign();
           ClassDefinition* cl = design->getClassDefinition(typeName);
           if (cl == nullptr) {
-            cl = design->getClassDefinition(component->getName() +
-                                            "::" + typeName);
+            cl = design->getClassDefinition(
+                StrCat(component->getName(), "::", typeName));
           }
           if (cl == nullptr) {
             if (const DesignComponent* p =
                     valuedcomponenti_cast<const DesignComponent*>(
                         component->getParentScope())) {
-              cl = design->getClassDefinition(p->getName() + "::" + typeName);
+              cl = design->getClassDefinition(
+                  StrCat(p->getName(), "::", typeName));
             }
           }
           if (cl) {

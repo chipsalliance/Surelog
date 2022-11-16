@@ -858,7 +858,7 @@ void UhdmWriter::writeClass(ClassDefinition* classDef,
     componentMap.insert(std::make_pair(classDef, c));
     c->VpiParent(parent);
     dest_classes->push_back(c);
-    const std::string& name = classDef->getName();
+    const std::string_view name = classDef->getName();
     if (c->VpiName().empty()) c->VpiName(name);
     if (c->VpiFullName().empty()) c->VpiFullName(name);
     c->Attributes(classDef->Attributes());
@@ -981,7 +981,7 @@ void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
 void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
                               UhdmWriter::ComponentMap& componentMap,
                               bool elaborated) {
-  p->VpiFullName(pack->getName() + "::");
+  p->VpiFullName(StrCat(pack->getName(), "::"));
   VectorOfclass_defn* dest_classes = nullptr;
 
   // Typepecs
@@ -1005,10 +1005,11 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
     for (auto ps : *p->Parameters()) {
       ps->VpiParent(p);
       if (ps->UhdmType() == uhdmparameter) {
-        ((parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
+        ((parameter*)ps)
+            ->VpiFullName(StrCat(pack->getName(), "::", ps->VpiName()));
       } else {
         ((type_parameter*)ps)
-            ->VpiFullName(pack->getName() + "::" + ps->VpiName());
+            ->VpiFullName(StrCat(pack->getName(), "::", ps->VpiName()));
       }
     }
   }
@@ -1054,13 +1055,15 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
           tf->VpiParent(p);
           tf->Instance(p);
           p->Task_funcs()->push_back(tf);
-          ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
+          ((task_func*)tf)
+              ->VpiFullName(StrCat(pack->getName(), "::", tf->VpiName()));
         }
       } else {
         tf->VpiParent(p);
         tf->Instance(p);
         p->Task_funcs()->push_back(tf);
-        ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
+        ((task_func*)tf)
+            ->VpiFullName(StrCat(pack->getName(), "::", tf->VpiName()));
       }
     }
   }
@@ -1071,7 +1074,8 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
     if (netlist->variables()) {
       for (auto obj : *netlist->variables()) {
         obj->VpiParent(p);
-        ((variables*)obj)->VpiFullName(pack->getName() + "::" + obj->VpiName());
+        ((variables*)obj)
+            ->VpiFullName(StrCat(pack->getName(), "::", obj->VpiName()));
       }
     }
   }

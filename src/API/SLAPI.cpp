@@ -462,7 +462,7 @@ ModuleInstance* SLgetTopModuleInstance(Design* design, unsigned int index) {
 
 std::string SLgetModuleName(ModuleDefinition* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 template <typename ClassOrPackageOrProgram>
@@ -501,7 +501,7 @@ RawNodeId SLgetModuleRootNode(ModuleDefinition* module) {
 
 std::string SLgetClassName(ClassDefinition* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 std::string SLgetClassFile(ClassDefinition* module) {
@@ -533,7 +533,7 @@ RawNodeId SLgetClassRootNode(ClassDefinition* module) {
 
 std::string SLgetPackageName(Package* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 std::string SLgetPackageFile(Package* module) {
@@ -564,7 +564,7 @@ RawNodeId SLgetPackageRootNode(Package* module) {
 
 std::string SLgetProgramName(Program* module) {
   if (!module) return "";
-  return module->getName();
+  return std::string(module->getName());
 }
 
 std::string SLgetProgramFile(Program* module) {
@@ -615,7 +615,7 @@ std::string SLgetInstanceFullPathName(ModuleInstance* instance) {
 
 std::string SLgetInstanceModuleName(ModuleInstance* instance) {
   if (!instance) return "";
-  return instance->getModuleName();
+  return std::string(instance->getModuleName());
 }
 
 DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance) {

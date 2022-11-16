@@ -98,17 +98,19 @@ bool CompileModule::compile() {
 
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();
-  std::set<std::string>& blackboxModules = clp->getBlackBoxModules();
+  std::set<std::string, std::less<>>& blackboxModules =
+      clp->getBlackBoxModules();
   bool skipModule = false;
   std::string libName;
   if (!m_module->getFileContents().empty())
     libName = m_module->getFileContents()[0]->getLibrary()->getName();
-  const std::string& modName = m_module->getName();
+  const std::string_view modName = m_module->getName();
   if (blackboxModules.find(modName) != blackboxModules.end()) {
     errType = ErrorDefinition::COMP_SKIPPING_BLACKBOX_MODULE;
     skipModule = true;
   }
-  std::set<std::string>& blackboxInstances = clp->getBlackBoxInstances();
+  std::set<std::string, std::less<>>& blackboxInstances =
+      clp->getBlackBoxInstances();
   std::string instanceName;
   if (m_instance) {
     if (ModuleInstance* inst =
@@ -736,7 +738,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           FileCNodeId fnid(fC, nameId);
           m_module->addObject(type, fnid);
 
-          std::string completeName = m_module->getName() + "::" + name;
+          std::string completeName = StrCat(m_module->getName(), "::", name);
 
           DesignComponent* comp = fC->getComponentDefinition(completeName);
 
@@ -804,7 +806,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
             if (fC->Type(fC->Parent(id)) != VObjectType::slModule_declaration)
               break;
             const std::string& endLabel = fC->SymName(id);
-            std::string moduleName = m_module->getName();
+            std::string_view moduleName = m_module->getName();
             moduleName = StringUtils::ltrim_until(moduleName, '@');
             moduleName = StringUtils::ltrim_until(moduleName, ':');
             moduleName = StringUtils::ltrim_until(moduleName, ':');
@@ -1177,7 +1179,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           if (InterfaceIdentifier) {
             NodeId label = fC->Child(InterfaceIdentifier);
             const std::string& endLabel = fC->SymName(label);
-            std::string moduleName = m_module->getName();
+            std::string_view moduleName = m_module->getName();
             moduleName = StringUtils::ltrim_until(moduleName, '@');
             moduleName = StringUtils::ltrim_until(moduleName, ':');
             moduleName = StringUtils::ltrim_until(moduleName, ':');

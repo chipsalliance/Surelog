@@ -97,7 +97,7 @@ class FileContent : public DesignComponent {
   unsigned int getSize() const override { return m_objects.size(); }
   VObjectType getType() const override { return VObjectType::slNoType; }
   bool isInstance() const override { return false; }
-  std::string getName() const override;
+  std::string_view getName() const override;
   NodeId getRootNode() const;
   std::string printObjects() const;  // The whole file content
   std::string printSubTree(

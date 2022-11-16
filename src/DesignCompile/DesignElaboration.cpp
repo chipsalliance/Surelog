@@ -662,7 +662,8 @@ void DesignElaboration::elaborateInstance_(
 
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();
-  std::set<std::string>& blackboxModules = clp->getBlackBoxModules();
+  std::set<std::string, std::less<>>& blackboxModules =
+      clp->getBlackBoxModules();
   std::string modName;
   if (DesignComponent* def = parent->getDefinition()) {
     modName = def->getName();
@@ -677,7 +678,8 @@ void DesignElaboration::elaborateInstance_(
                                                                   false);
     return;
   }
-  std::set<std::string>& blackboxInstances = clp->getBlackBoxInstances();
+  std::set<std::string, std::less<>>& blackboxInstances =
+      clp->getBlackBoxInstances();
   std::string instanceName;
   if (parent) {
     instanceName = parent->getFullPathName();
@@ -956,7 +958,7 @@ void DesignElaboration::elaborateInstance_(
           fullName += parent->getFullPathName();
           reuseInstance = true;
         } else {
-          fullName += parent->getModuleName() + "." + instName;
+          StrAppend(&fullName, parent->getModuleName(), ".", instName);
         }
 
         NodeId conditionId = fC->Child(subInstanceId);
@@ -1310,7 +1312,7 @@ void DesignElaboration::elaborateInstance_(
       // Named blocks
       else if (type == VObjectType::slSeq_block ||
                type == VObjectType::slPar_block) {
-        std::string fullName = parent->getModuleName() + "." + instName;
+        std::string fullName = StrCat(parent->getModuleName(), ".", instName);
 
         def = design->getComponentDefinition(fullName);
         if (def == nullptr) {
@@ -1338,10 +1340,10 @@ void DesignElaboration::elaborateInstance_(
 
         std::string fullName;
         if (instName.empty())
-          fullName = parent->getModuleName() + "." + genBlkBaseName +
-                     std::to_string(genBlkIndex);
+          fullName = StrCat(parent->getModuleName(), ".", genBlkBaseName,
+                            std::to_string(genBlkIndex));
         else
-          fullName = parent->getModuleName() + "." + instName;
+          fullName = StrCat(parent->getModuleName(), ".", instName);
 
         def = design->getComponentDefinition(fullName);
         NodeId childId = fC->Child(subInstanceId);
@@ -1393,7 +1395,9 @@ void DesignElaboration::elaborateInstance_(
           if (def) {
             break;
           } else {
-            modName = parent->getDefinition()->getName() + "::" + mname;
+            modName.assign(parent->getDefinition()->getName())
+                .append("::")
+                .append(mname);
             def = design->getComponentDefinition(modName);
             if (def) {
               break;
@@ -2291,10 +2295,10 @@ void DesignElaboration::reduceUnnamedBlocks_() {
            typeP == VObjectType::slGenerate_module_loop_statement ||
            typeP == VObjectType::slGenerate_interface_loop_statement ||
            typeP == VObjectType::slGenerate_region)) {
-        std::string fullModName = current->getModuleName();
-        fullModName = StringUtils::leaf(fullModName);
-        std::string fullModNameP = parent->getModuleName();
-        fullModNameP = StringUtils::leaf(fullModNameP);
+        std::string_view fullModName =
+            StringUtils::leaf(current->getModuleName());
+        std::string_view fullModNameP =
+            StringUtils::leaf(parent->getModuleName());
         if (typeP == VObjectType::slGenerate_region) {
           parent->getParent()->overrideParentChild(parent->getParent(), parent,
                                                    current);
