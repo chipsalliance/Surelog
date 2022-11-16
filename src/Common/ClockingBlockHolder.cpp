@@ -26,7 +26,7 @@
 namespace SURELOG {
 void ClockingBlockHolder::addClockingBlock(SymbolId blockId,
                                            ClockingBlock& block) {
-  m_clockingBlockMap.insert(std::make_pair(blockId, block));
+  m_clockingBlockMap.emplace(blockId, block);
 }
 
 ClockingBlock* ClockingBlockHolder::getClockingBlock(SymbolId blockId) {

@@ -80,7 +80,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   }
   void addClassDefinition(const std::string& className,
                           ClassDefinition* classDef) {
-    m_classDefinitions.insert(std::make_pair(className, classDef));
+    m_classDefinitions.emplace(className, classDef);
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 

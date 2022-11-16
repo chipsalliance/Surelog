@@ -65,7 +65,7 @@ class Package : public DesignComponent {
     return m_classDefinitions;
   }
   void addClassDefinition(std::string className, ClassDefinition* classDef) {
-    m_classDefinitions.insert(std::make_pair(className, classDef));
+    m_classDefinitions.emplace(className, classDef);
   }
   ClassDefinition* getClassDefinition(std::string_view name);
   ExprBuilder* getExprBuilder() { return &m_exprBuilder; }

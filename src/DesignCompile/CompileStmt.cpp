@@ -1402,7 +1402,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           decl->VpiDirection(
               UhdmWriter::getVpiDirection(tf_port_direction_type));
           decl->VpiName(name);
-          ioMap.insert(std::make_pair(name, decl));
+          ioMap.emplace(name, decl);
           fC->populateCoreMembers(nameId, nameId, decl);
           decl->Typespec(ts);
           decl->Ranges(ranges);

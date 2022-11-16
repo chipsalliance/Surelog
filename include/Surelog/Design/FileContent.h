@@ -174,17 +174,17 @@ class FileContent : public DesignComponent {
   }
   void addModuleDefinition(const std::string& moduleName,
                            ModuleDefinition* def) {
-    m_moduleDefinitions.insert(std::make_pair(moduleName, def));
+    m_moduleDefinitions.emplace(moduleName, def);
   }
   void addPackageDefinition(const std::string& packageName, Package* package) {
-    m_packageDefinitions.insert(std::make_pair(packageName, package));
+    m_packageDefinitions.emplace(packageName, package);
   }
   void addProgramDefinition(const std::string& programName, Program* program) {
-    m_programDefinitions.insert(std::make_pair(programName, program));
+    m_programDefinitions.emplace(programName, program);
   }
   void addClassDefinition(const std::string& className,
                           ClassDefinition* classDef) {
-    m_classDefinitions.insert(std::make_pair(className, classDef));
+    m_classDefinitions.emplace(className, classDef);
   }
 
   const ModuleDefinition* getModuleDefinition(

@@ -50,7 +50,7 @@ class DefParam final {
   void setValue(Value* value) { m_value = value; }
 
   void setChild(std::string name, DefParam* child) {
-    m_children.insert(std::make_pair(name, child));
+    m_children.emplace(name, child);
   }
   std::map<std::string, DefParam*>& getChildren() { return m_children; }
   bool isUsed() const { return m_used; }

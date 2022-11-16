@@ -177,7 +177,7 @@ class Design final {
 
   void addModuleDefinition(const std::string& moduleName,
                            ModuleDefinition* def) {
-    m_moduleDefinitions.insert(std::make_pair(moduleName, def));
+    m_moduleDefinitions.emplace(moduleName, def);
   }
 
   void addTopLevelModuleInstance(ModuleInstance* instance) {
@@ -191,7 +191,7 @@ class Design final {
                           ClassDefinition* classDef);
 
   void addProgramDefinition(const std::string programName, Program* program) {
-    m_programDefinitions.insert(std::make_pair(programName, program));
+    m_programDefinitions.emplace(programName, program);
   }
 
   Package* addPackageDefinition(const std::string& packageName,

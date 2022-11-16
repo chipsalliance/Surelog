@@ -41,13 +41,13 @@ void Config::addInstanceUseClause(std::string_view instance,
     m_instanceUseClauses.erase(previous);
   }
 
-  m_instanceUseClauses.insert(std::make_pair(instance, use));
+  m_instanceUseClauses.emplace(instance, use);
 }
 void Config::addCellUseClause(std::string_view cell, const UseClause& use) {
   auto previous = m_cellUseClauses.find(cell);
   if (previous != m_cellUseClauses.end()) {
     m_instanceUseClauses.erase(previous);
   }
-  m_cellUseClauses.insert(std::make_pair(cell, use));
+  m_cellUseClauses.emplace(cell, use);
 }
 }  // namespace SURELOG

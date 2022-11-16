@@ -65,7 +65,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
   FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
   if (fileItr == fileNodeCoverMap.end()) {
     RangesMap uhdmCover;
-    fileNodeCoverMap.insert(std::make_pair(fC, uhdmCover));
+    fileNodeCoverMap.emplace(fC, uhdmCover);
     fileItr = fileNodeCoverMap.find(fC);
   }
   RangesMap& uhdmCover = (*fileItr).second;
@@ -186,7 +186,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
           crange.to = to;
           crange.covered = Status::COVERED;
           ranges.push_back(crange);
-          uhdmCover.insert(std::make_pair(current.m_line, ranges));
+          uhdmCover.emplace(current.m_line, ranges);
         }
       }
       skip = true;  // Only skip the item itself
@@ -223,7 +223,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
         crange.to = to;
         crange.covered = Status::EXIST;
         ranges.push_back(crange);
-        uhdmCover.insert(std::make_pair(current.m_line, ranges));
+        uhdmCover.emplace(current.m_line, ranges);
       }
     }
     if (id == endModuleNode) {
@@ -394,17 +394,14 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
       }
     }
     if (!redCoverage.empty()) {
-      orderedCoverageMap.insert(
-          std::make_pair(static_cast<int>(cov), redCoverage));
+      orderedCoverageMap.emplace(static_cast<int>(cov), redCoverage);
     } else {
       if (!pinkCoverage.empty()) {
-        orderedCoverageMap.insert(
-            std::make_pair(static_cast<int>(cov), pinkCoverage));
+        orderedCoverageMap.emplace(static_cast<int>(cov), pinkCoverage);
       }
     }
     if (uncovered == false) {
-      orderedCoverageMap.insert(
-          std::make_pair(static_cast<int>(cov), fileStatGreen));
+      orderedCoverageMap.emplace(static_cast<int>(cov), fileStatGreen);
     }
     reportF << "</body>\n</html>\n";
     fileSystem->close(reportF);

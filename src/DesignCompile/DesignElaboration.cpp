@@ -186,12 +186,12 @@ bool DesignElaboration::setupConfigurations_() {
       std::string top = config.getDesignTop();
       std::string name = lib + "@" + top;
       m_toplevelConfigModules.insert(name);
-      m_instConfig.insert(std::make_pair(name, config));
-      m_cellConfig.insert(std::make_pair(name, config));
+      m_instConfig.emplace(name, config);
+      m_cellConfig.emplace(name, config);
 
       for (auto& instClause : config.getInstanceUseClauses()) {
-        m_instUseClause.insert(
-            std::make_pair(lib + "@" + instClause.first, instClause.second));
+        m_instUseClause.emplace(lib + "@" + instClause.first,
+                                instClause.second);
         if (instClause.second.getType() == UseClause::UseConfig) {
           Config* config =
               configSet->getMutableConfigByName(instClause.second.getName());
@@ -203,8 +203,7 @@ bool DesignElaboration::setupConfigurations_() {
         }
       }
       for (auto& cellClause : config.getCellUseClauses()) {
-        m_cellUseClause.insert(
-            std::make_pair(cellClause.first, cellClause.second));
+        m_cellUseClause.emplace(cellClause.first, cellClause.second);
       }
     }
   }
@@ -224,7 +223,7 @@ void DesignElaboration::recurseBuildInstanceClause_(
   for (auto& useClause : config->getInstanceUseClauses()) {
     std::string inst = useClause.first;
     std::string fullPath = parentPath + "." + inst;
-    m_instUseClause.insert(std::make_pair(fullPath, useClause.second));
+    m_instUseClause.emplace(fullPath, useClause.second);
     if (useClause.second.getType() == UseClause::UseConfig) {
       Config* config =
           configSet->getMutableConfigByName(useClause.second.getName());
@@ -237,7 +236,7 @@ void DesignElaboration::recurseBuildInstanceClause_(
   for (auto& useClause : config->getCellUseClauses()) {
     std::string inst = useClause.first;
     std::string fullPath = inst;
-    m_cellUseClause.insert(std::make_pair(fullPath, useClause.second));
+    m_cellUseClause.emplace(fullPath, useClause.second);
   }
 }
 
@@ -272,8 +271,7 @@ bool DesignElaboration::identifyTopModules_() {
         if (!file.second->getParent()) {
           // Files that have parent are splited files (When a module is too
           // large it is splited)
-          all_modules.insert(
-              std::make_pair(topname, std::make_pair(element, file.second)));
+          all_modules.emplace(topname, std::make_pair(element, file.second));
         }
 
         modulePresent = true;

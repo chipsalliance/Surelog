@@ -33,7 +33,7 @@ bool ClassObject::setValue(const std::string& property, Value* value) {
     if (prop == nullptr) {
       return false;
     }
-    m_properties.insert(std::make_pair(property, std::make_pair(prop, value)));
+    m_properties.emplace(property, std::make_pair(prop, value));
   } else {
     (*itr).second.second = value;
   }

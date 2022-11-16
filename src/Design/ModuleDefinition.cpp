@@ -68,7 +68,7 @@ void ModuleDefinition::insertModPort(const std::string& modport,
   if (itr == m_modportSignalMap.end()) {
     ModPort modp(this, modport, m_fileContents[0], nodeId);
     modp.addSignal(signal);
-    m_modportSignalMap.insert(std::make_pair(modport, modp));
+    m_modportSignalMap.emplace(modport, modp);
   } else {
     (*itr).second.addSignal(signal);
   }
@@ -105,7 +105,7 @@ void ModuleDefinition::insertModPort(const std::string& modport,
   if (itr == m_modportClockingBlockMap.end()) {
     std::vector<ClockingBlock> cbs;
     cbs.push_back(cb);
-    m_modportClockingBlockMap.insert(std::make_pair(modport, cbs));
+    m_modportClockingBlockMap.emplace(modport, cbs);
   } else {
     (*itr).second.push_back(cb);
   }

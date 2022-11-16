@@ -42,7 +42,7 @@ void Waiver::setWaiver(const std::string& messageId,
                        const std::string& objectName) {
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
   Waiver::WaiverData data(type, fileName, line, objectName);
-  m_waivers.insert(std::make_pair(type, data));
+  m_waivers.emplace(type, data);
 }
 
 void Waiver::initWaivers() { m_macroArgCheck.insert("vmm_sformatf"); }

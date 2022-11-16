@@ -1094,10 +1094,10 @@ void Compiler::registerAntlrPpHandlerForId(
   if (itr != m_antlrPpMap.end()) {
     delete (*itr).second;
     m_antlrPpMap.erase(itr);
-    m_antlrPpMap.insert(std::make_pair(id, pp));
+    m_antlrPpMap.emplace(id, pp);
     return;
   }
-  m_antlrPpMap.insert(std::make_pair(id, pp));
+  m_antlrPpMap.emplace(id, pp);
 }
 
 PreprocessFile::AntlrParserHandler* Compiler::getAntlrPpHandlerForId(

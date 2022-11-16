@@ -56,7 +56,7 @@ void DesignComponent::addObject(VObjectType type, FileCNodeId object) {
   if (itr == m_objects.end()) {
     std::vector<FileCNodeId> tmp;
     tmp.push_back(object);
-    m_objects.insert(std::make_pair(type, tmp));
+    m_objects.emplace(type, tmp);
   } else {
     (*itr).second.push_back(object);
   }
@@ -64,7 +64,7 @@ void DesignComponent::addObject(VObjectType type, FileCNodeId object) {
 
 void DesignComponent::addNamedObject(std::string_view name, FileCNodeId object,
                                      DesignComponent* def) {
-  m_namedObjects.insert(std::make_pair(name, std::make_pair(object, def)));
+  m_namedObjects.emplace(name, std::make_pair(object, def));
 }
 
 const std::pair<FileCNodeId, DesignComponent*>* DesignComponent::getNamedObject(
@@ -92,7 +92,7 @@ void DesignComponent::append(DesignComponent* comp) {
 
 void DesignComponent::insertDataType(std::string_view dataTypeName,
                                      DataType* dataType) {
-  m_dataTypes.insert(std::make_pair(dataTypeName, dataType));
+  m_dataTypes.emplace(dataTypeName, dataType);
 }
 
 const DataType* DesignComponent::getDataType(std::string_view name) const {
@@ -110,7 +110,7 @@ const DataType* DesignComponent::getDataType(std::string_view name) const {
 
 void DesignComponent::insertUsedDataType(std::string_view dataTypeName,
                                          DataType* dataType) {
-  m_usedDataTypes.insert(std::make_pair(dataTypeName, dataType));
+  m_usedDataTypes.emplace(dataTypeName, dataType);
 }
 
 DataType* DesignComponent::getUsedDataType(std::string_view name) {
@@ -137,7 +137,7 @@ const TypeDef* DesignComponent::getTypeDef(std::string_view name) const {
 }
 
 void DesignComponent::insertTypeDef(TypeDef* p) {
-  m_typedefs.insert(std::make_pair(p->getName(), p));
+  m_typedefs.emplace(p->getName(), p);
 }
 
 Function* DesignComponent::getFunction(std::string_view name) const {
@@ -155,7 +155,7 @@ Function* DesignComponent::getFunction(std::string_view name) const {
 }
 
 void DesignComponent::insertFunction(Function* p) {
-  m_functions.insert(std::make_pair(p->getName(), p));
+  m_functions.emplace(p->getName(), p);
 }
 
 Task* DesignComponent::getTask(std::string_view name) const {
@@ -172,12 +172,10 @@ Task* DesignComponent::getTask(std::string_view name) const {
   }
 }
 
-void DesignComponent::insertTask(Task* p) {
-  m_tasks.insert(std::make_pair(p->getName(), p));
-}
+void DesignComponent::insertTask(Task* p) { m_tasks.emplace(p->getName(), p); }
 
 void DesignComponent::addVariable(Variable* var) {
-  m_variables.insert(std::make_pair(var->getName(), var));
+  m_variables.emplace(var->getName(), var);
 }
 
 Variable* DesignComponent::getVariable(std::string_view name) {
@@ -199,7 +197,7 @@ Parameter* DesignComponent::getParameter(std::string_view name) const {
 }
 
 void DesignComponent::insertParameter(Parameter* p) {
-  m_parameterMap.insert(std::make_pair(p->getName(), p));
+  m_parameterMap.emplace(p->getName(), p);
   m_orderedParameters.push_back(p);
 }
 

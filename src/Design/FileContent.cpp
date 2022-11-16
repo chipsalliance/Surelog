@@ -108,7 +108,7 @@ void FileContent::insertObjectLookup(const std::string& name, NodeId id,
                                      ErrorContainer* errors) {
   NameIdMap::iterator itr = m_objectLookup.find(name);
   if (itr == m_objectLookup.end()) {
-    m_objectLookup.insert(std::make_pair(name, id));
+    m_objectLookup.emplace(name, id);
   } else {
     Location loc(getFileId(id), Line(id), Column(id),
                  errors->getSymbolTable()->registerSymbol(name));
@@ -193,7 +193,7 @@ std::vector<std::string> FileContent::collectSubTree(NodeId index) const {
 }
 
 void FileContent::SetDefinitionFile(NodeId index, PathId def) {
-  m_definitionFiles.insert(std::make_pair(index, def));
+  m_definitionFiles.emplace(index, def);
 }
 
 PathId FileContent::GetDefinitionFile(NodeId index) const {
@@ -635,7 +635,7 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
 void FileContent::addDesignElement(const std::string& name,
                                    DesignElement* elem) {
   m_elements.push_back(elem);
-  m_elementMap.insert(std::make_pair(name, elem));
+  m_elementMap.emplace(name, elem);
 }
 
 const DesignElement* FileContent::getDesignElement(

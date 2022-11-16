@@ -78,15 +78,14 @@ void ValuedComponentI::forgetValue(std::string_view name) {
 void ValuedComponentI::setValue(std::string_view name, Value* val,  // NOLINT
                                 ExprBuilder& exprBuilder, int lineNb) {
   deleteValue(name, exprBuilder);
-  m_paramMap.insert(
-      std::make_pair(name, std::make_pair(exprBuilder.clone(val), lineNb)));
+  m_paramMap.emplace(name, std::make_pair(exprBuilder.clone(val), lineNb));
   forgetComplexValue(name);
 }
 
 void ValuedComponentI::setComplexValue(std::string_view name, UHDM::expr* val) {
   auto itr = m_complexValues.find(name);
   if (itr != m_complexValues.end()) m_complexValues.erase(itr);
-  m_complexValues.insert(std::make_pair(name, val));
+  m_complexValues.emplace(name, val);
   forgetValue(name);
 }
 

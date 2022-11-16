@@ -3251,7 +3251,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
                             instance, reduce, muteErrors);
       if (exp) {
         if (exp->VpiParent() == nullptr) exp->VpiParent(call);
-        args.insert(std::make_pair(fC->SymName(argument), exp));
+        args.emplace(fC->SymName(argument), exp);
         argOrder.push_back(exp);
       }
       argumentNode = fC->Sibling(argumentNode);

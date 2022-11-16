@@ -132,7 +132,7 @@ class ForLoopStmt : public Scope, public Statement {
         m_iteratorType(VObjectType::slNoType) {}
 
   void addIteratorId(NodeId itrId, NodeId init_expression) {
-    m_iteratorIds.push_back(std::make_pair(itrId, init_expression));
+    m_iteratorIds.emplace_back(itrId, init_expression);
   }
   std::vector<std::pair<NodeId, NodeId>>& getIteratorIds() {
     return m_iteratorIds;

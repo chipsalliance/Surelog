@@ -48,7 +48,7 @@ class Enum : public DataType {
   typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
 
   void addValue(const std::string& name, unsigned int lineNb, Value* value) {
-    m_values.insert(std::make_pair(name, std::make_pair(lineNb, value)));
+    m_values.emplace(name, std::make_pair(lineNb, value));
   }
   Value* getValue(const std::string& name) const;
   NodeId getDefinitionId() const { return m_nameId; }
