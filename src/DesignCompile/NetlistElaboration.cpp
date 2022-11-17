@@ -1412,13 +1412,13 @@ interface* NetlistElaboration::elab_interface_(
   subInterfaces->push_back(sm);
   if (interf_array) {
     interf_array->Instances()->push_back(sm);
-    netlist->getInstanceMap().insert(std::make_pair(
-        instName, std::make_pair(interf_instance, interf_array)));
-    netlist->getSymbolTable().insert(std::make_pair(instName, interf_array));
+    netlist->getInstanceMap().emplace(
+        instName, std::make_pair(interf_instance, interf_array));
+    netlist->getSymbolTable().emplace(instName, interf_array);
   } else {
-    netlist->getInstanceMap().insert(
-        std::make_pair(instName, std::make_pair(interf_instance, sm)));
-    netlist->getSymbolTable().insert(std::make_pair(instName, sm));
+    netlist->getInstanceMap().emplace(instName,
+                                      std::make_pair(interf_instance, sm));
+    netlist->getSymbolTable().emplace(instName, sm);
   }
   const std::string prefix = StrCat(instName, ".");
   elab_ports_nets_(instance, interf_instance, instance->getNetlist(),
@@ -1439,10 +1439,9 @@ interface* NetlistElaboration::elab_interface_(
     const FileContent* orig_fC = orig_modport.second.getFileContent();
     const NodeId orig_nodeId = orig_modport.second.getNodeId();
     orig_fC->populateCoreMembers(orig_nodeId, orig_nodeId, dest_modport);
-    netlist->getModPortMap().insert(std::make_pair(
-        modportfullname, std::make_pair(&orig_modport.second, dest_modport)));
-    netlist->getSymbolTable().insert(
-        std::make_pair(modportfullname, dest_modport));
+    netlist->getModPortMap().emplace(
+        modportfullname, std::make_pair(&orig_modport.second, dest_modport));
+    netlist->getSymbolTable().emplace(modportfullname, dest_modport);
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
@@ -1646,7 +1645,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
                                      nullptr, child, true, true);
       m_helper.checkForLoops(false);
-      tscache.insert(std::make_pair(typeSpecId, tps));
+      tscache.emplace(typeSpecId, tps);
     } else {
       tps = (*itr).second;
     }
@@ -1660,7 +1659,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                        m_compileDesign, nullptr, child, true,
                                        true);
         m_helper.checkForLoops(false);
-        tscache.insert(std::make_pair(sig->getInterfaceTypeNameId(), tps));
+        tscache.emplace(sig->getInterfaceTypeNameId(), tps);
       } else {
         tps = (*itr).second;
       }
@@ -2058,8 +2057,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       }
     }
     if (parentNetlist)
-      parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
-    if (netlist) netlist->getSymbolTable().insert(std::make_pair(signame, obj));
+      parentNetlist->getSymbolTable().emplace(parentSymbol, obj);
+    if (netlist) netlist->getSymbolTable().emplace(signame, obj);
 
     if (exp && (!signalIsPort)) {
       cont_assign* assign = s.MakeCont_assign();
@@ -2098,8 +2097,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       }
     }
     if (parentNetlist)
-      parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
-    netlist->getSymbolTable().insert(std::make_pair(signame, obj));
+      parentNetlist->getSymbolTable().emplace(parentSymbol, obj);
+    netlist->getSymbolTable().emplace(signame, obj);
   } else {
     // Unsupported type
     ErrorContainer* errors =
@@ -2203,7 +2202,7 @@ bool NetlistElaboration::elab_ports_nets_(
                 m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
                                          dest_port, instance, true, true);
             m_helper.checkForLoops(false);
-            tscache.insert(std::make_pair(typeSpecId, tps));
+            tscache.emplace(typeSpecId, tps);
           } else {
             tps = (*itr).second;
           }
@@ -2507,7 +2506,7 @@ UHDM::any* NetlistElaboration::bind_net_(const FileContent* origfC, NodeId id,
           netlist->nets(nets);
         }
         nets->push_back(net);
-        symbols.insert(std::make_pair(name, result));
+        symbols.emplace(name, result);
       }
     }
   }

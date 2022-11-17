@@ -170,7 +170,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
   UHDM::instance* getUhdmInstance() { return m_instance; }
   void scheduleParamExprEval(std::string_view name, ExprEval& expr_eval) {
-    m_scheduledParamExprEval.emplace_back(std::make_pair(name, expr_eval));
+    m_scheduledParamExprEval.emplace_back(name, expr_eval);
   }
   std::vector<std::pair<std::string, ExprEval>>& getScheduledParamExprEval() {
     return m_scheduledParamExprEval;

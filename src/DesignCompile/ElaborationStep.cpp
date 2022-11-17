@@ -135,18 +135,18 @@ bool ElaborationStep::bindTypedefs_() {
       if (prevDef->getTypespec() == nullptr)
         noTypespec = true;
       else {
-        specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(),
-                                    prevDef->getTypespec()));
+        specs.emplace(prevDef->getTypespec()->VpiName(),
+                      prevDef->getTypespec());
         if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
           std::string name =
               StrCat(pack->getName(), "::", prevDef->getTypespec()->VpiName());
-          specs.insert(std::make_pair(name, prevDef->getTypespec()));
+          specs.emplace(name, prevDef->getTypespec());
         }
         if (ClassDefinition* pack =
                 valuedcomponenti_cast<ClassDefinition*>(comp)) {
           std::string name =
               StrCat(pack->getName(), "::", prevDef->getTypespec()->VpiName());
-          specs.insert(std::make_pair(name, prevDef->getTypespec()));
+          specs.emplace(name, prevDef->getTypespec());
         }
       }
     }
@@ -184,10 +184,10 @@ bool ElaborationStep::bindTypedefs_() {
           if (tpclone) {
             typd->setTypespec(tpclone);
             tpclone->VpiName(typd->getName());
-            specs.insert(std::make_pair(typd->getName(), tpclone));
+            specs.emplace(typd->getName(), tpclone);
             if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
               std::string name = StrCat(pack->getName(), "::", typd->getName());
-              specs.insert(std::make_pair(name, tpclone));
+              specs.emplace(name, tpclone);
             }
           }
         }
@@ -206,15 +206,15 @@ bool ElaborationStep::bindTypedefs_() {
           } else {
             name = typd->getName();
           }
-          specs.insert(std::make_pair(typd->getName(), ts));
+          specs.emplace(typd->getName(), ts);
           if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
             std::string name = StrCat(pack->getName(), "::", typd->getName());
-            specs.insert(std::make_pair(name, ts));
+            specs.emplace(name, ts);
           }
           if (ClassDefinition* pack =
                   valuedcomponenti_cast<ClassDefinition*>(comp)) {
             std::string name = StrCat(pack->getName(), "::", typd->getName());
-            specs.insert(std::make_pair(name, ts));
+            specs.emplace(name, ts);
           }
           if (ts->UhdmType() == uhdmunsupported_typespec) {
             Location loc1(fileSystem->toPathId(ts->VpiFile(), symbols),
@@ -242,11 +242,11 @@ bool ElaborationStep::bindTypedefs_() {
             defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
             m_compileDesign, nullptr, nullptr, true);
         if (ts) {
-          specs.insert(std::make_pair(typd->getName(), ts));
+          specs.emplace(typd->getName(), ts);
           ts->VpiName(typd->getName());
           if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
             std::string name = StrCat(pack->getName(), "::", typd->getName());
-            specs.insert(std::make_pair(name, ts));
+            specs.emplace(name, ts);
           }
         }
         typd->setTypespec(ts);
@@ -930,7 +930,7 @@ Variable* ElaborationStep::locateStaticVariable_(
       }
     }
   }
-  m_staticVariables.insert(std::make_pair(name, result));
+  m_staticVariables.emplace(name, result);
   return result;
 }
 

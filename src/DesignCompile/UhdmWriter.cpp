@@ -489,7 +489,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
           ElaboratorListener listener(&s, false, true);
           any* pclone = UHDM::clone_tree(orig, s, &listener);
           pclone->VpiParent(m);
-          paramSet.insert(std::make_pair(name, pclone));
+          paramSet.emplace(name, pclone);
           /*
 
             Keep the value of the parameter used during definition. The
@@ -606,8 +606,8 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
   int lastPortDirection = vpiInout;
   for (Signal* orig_port : orig_ports) {
     port* dest_port = s.MakePort();
-    signalBaseMap.insert(std::make_pair(orig_port, dest_port));
-    signalMap.insert(std::make_pair(orig_port->getName(), orig_port));
+    signalBaseMap.emplace(orig_port, dest_port);
+    signalMap.emplace(orig_port->getName(), orig_port);
     const FileContent* fC = orig_port->getFileContent();
     if (fC->Type(orig_port->getNodeId()) == VObjectType::slStringConst)
       dest_port->VpiName(orig_port->getName());
@@ -760,8 +760,8 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
             }
           }
         }
-        signalBaseMap.insert(std::make_pair(orig_net, dest_net));
-        signalMap.insert(std::make_pair(orig_net->getName(), orig_net));
+        signalBaseMap.emplace(orig_net, dest_net);
+        signalMap.emplace(orig_net->getName(), orig_net);
         dest_net->VpiName(orig_net->getName());
         orig_net->getFileContent()->populateCoreMembers(
             orig_net->getNodeId(), orig_net->getNodeId(), dest_net);
@@ -855,7 +855,7 @@ void UhdmWriter::writeClass(ClassDefinition* classDef,
         ps->VpiParent(c);
       }
     }
-    componentMap.insert(std::make_pair(classDef, c));
+    componentMap.emplace(classDef, c);
     c->VpiParent(parent);
     dest_classes->push_back(c);
     const std::string_view name = classDef->getName();
@@ -1311,7 +1311,7 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
     const FileContent* orig_fC = orig_modport.second.getFileContent();
     const NodeId orig_nodeId = orig_modport.second.getNodeId();
     orig_fC->populateCoreMembers(orig_nodeId, orig_nodeId, dest_modport);
-    modPortMap.insert(std::make_pair(&orig_modport.second, dest_modport));
+    modPortMap.emplace(&orig_modport.second, dest_modport);
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
@@ -3813,7 +3813,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           pack->getType() == VObjectType::slPackage_declaration) {
         const FileContent* fC = pack->getFileContents()[0];
         package* p = (package*)pack->getUhdmInstance();
-        componentMap.insert(std::make_pair(pack, p));
+        componentMap.emplace(pack, p);
         p->VpiParent(d);
         p->VpiTop(true);
         p->VpiDefName(pack->getName());
@@ -3862,7 +3862,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           prog->getType() == VObjectType::slProgram_declaration) {
         const FileContent* fC = prog->getFileContents()[0];
         program* p = s.MakeProgram();
-        componentMap.insert(std::make_pair(prog, p));
+        componentMap.emplace(prog, p);
         p->VpiParent(d);
         p->VpiDefName(prog->getName());
         const NodeId modId = prog->getNodeIds()[0];
@@ -3885,7 +3885,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       } else if (mod->getType() == VObjectType::slInterface_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
         interface* m = s.MakeInterface();
-        componentMap.insert(std::make_pair(mod, m));
+        componentMap.emplace(mod, m);
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
         const NodeId modId = mod->getNodeIds()[0];
@@ -3913,7 +3913,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
                 mod->getFileContents()[0]->getFileId())) {
           m->VpiCellInstance(true);
         }
-        componentMap.insert(std::make_pair(mod, m));
+        componentMap.emplace(mod, m);
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
         m->Attributes(mod->Attributes());

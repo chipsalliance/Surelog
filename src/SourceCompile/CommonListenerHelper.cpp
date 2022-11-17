@@ -97,7 +97,7 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
   NodeId objectIndex = m_fileContent->addObject(sym, fileId, objtype, line,
                                                 column, endLine, endColumn);
   VObject* inserted = m_fileContent->MutableObject(objectIndex);
-  m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
+  m_contextToObjectMap.emplace(ctx, objectIndex);
   addParentChildRelations(objectIndex, ctx);
   std::vector<SURELOG::DesignElement*>& delements =
       m_fileContent->getDesignElements();

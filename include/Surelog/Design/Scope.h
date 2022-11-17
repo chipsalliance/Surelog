@@ -60,7 +60,7 @@ class Scope : public RTTI {
   DataTypeMap& getUsedDataTypeMap() { return m_usedDataTypes; }
   DataType* getUsedDataType(const std::string& name);
   void insertUsedDataType(const std::string& dataTypeName, DataType* dataType) {
-    m_usedDataTypes.insert(std::make_pair(dataTypeName, dataType));
+    m_usedDataTypes.emplace(dataTypeName, dataType);
   }
 
   void addStmt(Statement* stmt) { m_statements.push_back(stmt); }

@@ -27,7 +27,7 @@
 namespace SURELOG {
 
 void Scope::addVariable(Variable* var) {
-  m_variables.insert(std::make_pair(var->getName(), var));
+  m_variables.emplace(var->getName(), var);
 }
 
 Variable* Scope::getVariable(const std::string& name) {

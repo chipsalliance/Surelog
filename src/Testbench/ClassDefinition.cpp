@@ -75,7 +75,7 @@ Property* ClassDefinition::getProperty(std::string_view name) const {
 }
 
 void ClassDefinition::insertProperty(Property* p) {
-  m_properties.emplace(std::make_pair(p->getName(), p));
+  m_properties.emplace(p->getName(), p);
 }
 
 Function* ClassDefinition::getFunction(std::string_view name) const {
@@ -122,7 +122,7 @@ TaskMethod* ClassDefinition::getTask(std::string_view name) const {
 }
 
 void ClassDefinition::insertTask(TaskMethod* p) {
-  m_tasks.emplace(std::make_pair(p->getName(), p));
+  m_tasks.emplace(p->getName(), p);
 }
 
 Constraint* ClassDefinition::getConstraint(std::string_view name) {
@@ -135,7 +135,7 @@ Constraint* ClassDefinition::getConstraint(std::string_view name) {
 }
 
 void ClassDefinition::insertConstraint(Constraint* p) {
-  m_constraints.emplace(std::make_pair(p->getName(), p));
+  m_constraints.emplace(p->getName(), p);
 }
 
 ClassDefinition* ClassDefinition::getClass(std::string_view name) {
@@ -148,7 +148,7 @@ ClassDefinition* ClassDefinition::getClass(std::string_view name) {
 }
 
 void ClassDefinition::insertClass(ClassDefinition* p) {
-  m_classes.emplace(std::make_pair(p->getName(), p));
+  m_classes.emplace(p->getName(), p);
 }
 
 CoverGroupDefinition* ClassDefinition::getCoverGroup(std::string_view name) {
@@ -161,7 +161,7 @@ CoverGroupDefinition* ClassDefinition::getCoverGroup(std::string_view name) {
 }
 
 void ClassDefinition::insertCoverGroup(CoverGroupDefinition* p) {
-  m_covergroups.emplace(std::make_pair(p->getName(), p));
+  m_covergroups.emplace(p->getName(), p);
 }
 
 const DataType* ClassDefinition::getBaseClass(std::string_view name) const {
@@ -174,7 +174,7 @@ const DataType* ClassDefinition::getBaseClass(std::string_view name) const {
 }
 
 void ClassDefinition::insertBaseClass(DataType* p) {
-  m_baseclasses.emplace(std::make_pair(p->getName(), p));
+  m_baseclasses.emplace(p->getName(), p);
 }
 
 const DataType* ClassDefinition::getBaseDataType(std::string_view name) const {

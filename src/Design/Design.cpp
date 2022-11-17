@@ -65,13 +65,13 @@ Design::~Design() {
 
 void Design::addFileContent(PathId fileId, FileContent* content) {
   m_mutex.lock();
-  m_fileContents.push_back(std::make_pair(fileId, content));
+  m_fileContents.emplace_back(fileId, content);
   m_mutex.unlock();
 }
 
 void Design::addPPFileContent(PathId fileId, FileContent* content) {
   m_mutex.lock();
-  m_ppFileContents.push_back(std::make_pair(fileId, content));
+  m_ppFileContents.emplace_back(fileId, content);
   m_mutex.unlock();
 }
 
@@ -341,7 +341,7 @@ void Design::addDefParam(const std::string& name, const FileContent* fC,
     addDefParam_(vpath, fC, nodeId, value, (*itr).second);
   } else {
     DefParam* def = new DefParam(vpath[0]);
-    m_defParams.insert(std::make_pair(vpath[0], def));
+    m_defParams.emplace(vpath[0], def);
     vpath.erase(vpath.begin());
     addDefParam_(vpath, fC, nodeId, value, def);
   }
@@ -464,7 +464,7 @@ void Design::orderPackages() {
       if (packageName == name_pack->first) {
         MultiDefCount::iterator itr = multiDefCount.find(packageName);
         if (itr == multiDefCount.end()) {
-          multiDefCount.insert(std::make_pair(packageName, 1));
+          multiDefCount.emplace(packageName, 1);
         } else {
           int level = (*itr).second;
           (*itr).second++;
@@ -485,7 +485,7 @@ Package* Design::addPackageDefinition(const std::string& packageName,
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(packageName);
   if (itr == m_packageDefinitions.end()) {
-    m_packageDefinitions.insert(std::make_pair(packageName, package));
+    m_packageDefinitions.emplace(packageName, package);
     return package;
   } else {
     Package* old = (*itr).second;
@@ -495,7 +495,7 @@ Package* Design::addPackageDefinition(const std::string& packageName,
       old->append(package);
       return old;
     } else {
-      m_packageDefinitions.insert(std::make_pair(packageName, package));
+      m_packageDefinitions.emplace(packageName, package);
       return package;
     }
   }
@@ -503,8 +503,8 @@ Package* Design::addPackageDefinition(const std::string& packageName,
 
 void Design::addClassDefinition(const std::string& className,
                                 ClassDefinition* classDef) {
-  m_classDefinitions.insert(std::make_pair(className, classDef));
-  m_uniqueClassDefinitions.insert(std::make_pair(className, classDef));
+  m_classDefinitions.emplace(className, classDef);
+  m_uniqueClassDefinitions.emplace(className, classDef);
 }
 
 void Design::clearContainers() {
@@ -542,6 +542,6 @@ std::vector<BindStmt*> Design::getBindStmts(std::string_view targetName) {
 }
 
 void Design::addBindStmt(const std::string& targetName, BindStmt* stmt) {
-  m_bindMap.insert(std::make_pair(targetName, stmt));
+  m_bindMap.emplace(targetName, stmt);
 }
 }  // namespace SURELOG

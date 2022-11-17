@@ -48,13 +48,13 @@ bool LoopCheck::addEdge(SymbolId from, SymbolId to) {
   Node* nodeTo = nullptr;
   if (fromIt == m_nodes.end()) {
     nodeFrom = new Node(from);
-    m_nodes.insert(std::make_pair(from, nodeFrom));
+    m_nodes.emplace(from, nodeFrom);
   } else {
     nodeFrom = (*fromIt).second;
   }
   if (toIt == m_nodes.end()) {
     nodeTo = new Node(to);
-    m_nodes.insert(std::make_pair(to, nodeTo));
+    m_nodes.emplace(to, nodeTo);
   } else {
     nodeTo = (*toIt).second;
   }
