@@ -59,7 +59,7 @@ class Package : public DesignComponent {
     return VObjectType::slPackage_declaration;
   }
   bool isInstance() const override { return false; }
-  std::string getName() const override { return m_name; }
+  std::string_view getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

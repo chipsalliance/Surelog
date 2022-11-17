@@ -156,11 +156,11 @@ class Design final {
 
   ErrorContainer* getErrorContainer() { return m_errors; }
 
-  typedef std::multimap<const std::string, BindStmt*> BindMap;
+  typedef std::multimap<const std::string, BindStmt*, std::less<>> BindMap;
 
   BindMap& getBindMap() { return m_bindMap; }
 
-  std::vector<BindStmt*> getBindStmts(const std::string& targetName);
+  std::vector<BindStmt*> getBindStmts(std::string_view targetName);
 
   void addBindStmt(const std::string& targetName, BindStmt* stmt);
 

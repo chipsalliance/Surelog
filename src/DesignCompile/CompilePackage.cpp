@@ -217,7 +217,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
           FileCNodeId fnid(fC, nameId);
           m_package->addObject(type, fnid);
 
-          std::string completeName = m_package->getName() + "::" + name;
+          std::string completeName = StrCat(m_package->getName(), "::", name);
 
           DesignComponent* comp = fC->getComponentDefinition(completeName);
 
@@ -278,8 +278,8 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
             if (fC->Type(fC->Parent(id)) != VObjectType::slPackage_declaration)
               break;
             const std::string& endLabel = fC->SymName(id);
-            std::string moduleName = m_package->getName();
-            moduleName = StringUtils::ltrim_until(moduleName, '@');
+            std::string_view moduleName =
+                StringUtils::ltrim_until(m_package->getName(), '@');
             if (endLabel != moduleName) {
               Location loc(fC->getFileId(m_package->getNodeIds()[0]),
                            fC->Line(m_package->getNodeIds()[0]),

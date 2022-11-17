@@ -63,7 +63,7 @@ class ClassDefinition : public DesignComponent, public DataType {
     return VObjectType::slClass_declaration;
   }
   bool isInstance() const override { return false; }
-  std::string getName() const override { return m_name; }
+  std::string_view getName() const override { return m_name; }
   Library* getLibrary() { return m_library; }
   DesignComponent* getContainer() const { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }

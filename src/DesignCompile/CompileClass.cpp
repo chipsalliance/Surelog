@@ -57,7 +57,7 @@ bool CompileClass::compile() {
   if (fC == nullptr) return true;
   NodeId nodeId = m_class->m_nodeIds[0];
 
-  std::vector<std::string> names;
+  std::vector<std::string_view> names;
   ClassDefinition* parent = m_class;
   DesignComponent* tmp_container = nullptr;
   while (parent) {
@@ -68,7 +68,7 @@ bool CompileClass::compile() {
 
   std::string fullName;
   if (tmp_container) {
-    fullName = tmp_container->getName() + "::";
+    fullName.append(tmp_container->getName()).append("::");
   }
   if (!names.empty()) {
     unsigned int index = names.size() - 1;
@@ -225,8 +225,8 @@ bool CompileClass::compile() {
           if (fC->Type(fC->Parent(id)) != VObjectType::slClass_declaration)
             break;
           const std::string& endLabel = fC->SymName(id);
-          std::string moduleName = m_class->getName();
-          moduleName = StringUtils::ltrim_until(moduleName, '@');
+          std::string_view moduleName =
+              StringUtils::ltrim_until(m_class->getName(), '@');
           if (endLabel != moduleName) {
             Location loc(fC->getFileId(m_class->getNodeIds()[0]),
                          fC->Line(m_class->getNodeIds()[0]),

@@ -88,7 +88,7 @@ class ModuleInstance : public ValuedComponentI {
   SymbolId getModuleNameId(SymbolTable* symbols) const;
   std::string getInstanceName() const;
   std::string getFullPathName() const;
-  std::string getModuleName() const;
+  std::string_view getModuleName() const;
   unsigned int getDepth() const;
 
   void setNodeId(NodeId id) { m_nodeId = id; }  // Used for generate stmt

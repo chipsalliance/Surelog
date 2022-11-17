@@ -242,7 +242,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         FileCNodeId fnid(fC, nameId);
         m_program->addObject(type, fnid);
 
-        std::string completeName = m_program->getName() + "::" + name;
+        std::string completeName = StrCat(m_program->getName(), "::", name);
 
         DesignComponent* comp = fC->getComponentDefinition(completeName);
 
@@ -312,8 +312,8 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
           if (fC->Type(fC->Parent(id)) != VObjectType::slProgram_declaration)
             break;
           const std::string& endLabel = fC->SymName(id);
-          std::string moduleName = m_program->getName();
-          moduleName = StringUtils::ltrim_until(moduleName, '@');
+          std::string_view moduleName =
+              StringUtils::ltrim_until(m_program->getName(), '@');
           if (endLabel != moduleName) {
             Location loc(fC->getFileId(m_program->getNodeIds()[0]),
                          fC->Line(m_program->getNodeIds()[0]),

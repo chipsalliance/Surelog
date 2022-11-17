@@ -53,7 +53,7 @@ using UHDM::uhdmunsupported_stmt;
 using UHDM::uhdmunsupported_typespec;
 
 bool UhdmChecker::registerFile(const FileContent* fC,
-                               std::set<std::string>& moduleNames) {
+                               std::set<std::string_view>& moduleNames) {
   const VObject& current = fC->Object(NodeId(fC->getSize() - 2));
   NodeId id = current.m_child;
   PathId fileId = fC->getFileId();
@@ -611,7 +611,7 @@ void UhdmChecker::annotate() {
 }
 
 void collectUsedFileContents(std::set<const FileContent*>& files,
-                             std::set<std::string>& moduleNames,
+                             std::set<std::string_view>& moduleNames,
                              ModuleInstance* instance) {
   if (instance) {
     DesignComponent* def = instance->getDefinition();
@@ -634,7 +634,7 @@ bool UhdmChecker::check(PathId uhdmFileId) {
       m_compileDesign->getCompiler()->getCommandLineParser();
   SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
   std::set<const FileContent*> files;
-  std::set<std::string> moduleNames;
+  std::set<std::string_view> moduleNames;
   for (ModuleInstance* top : m_design->getTopLevelModuleInstances()) {
     collectUsedFileContents(files, moduleNames, top);
   }

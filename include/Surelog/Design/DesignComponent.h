@@ -76,7 +76,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   virtual unsigned int getSize() const = 0;
   virtual VObjectType getType() const = 0;
   virtual bool isInstance() const = 0;
-  virtual std::string getName() const = 0;
+  virtual std::string_view getName() const = 0;
   void append(DesignComponent*);
 
   typedef std::map<std::string, DataType*, StringViewCompare> DataTypeMap;

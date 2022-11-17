@@ -51,7 +51,7 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   unsigned int getSize() const override;
   VObjectType getType() const override;
   bool isInstance() const override { return true; }
-  std::string getName() const override { return m_name; }
+  std::string_view getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

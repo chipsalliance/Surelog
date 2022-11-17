@@ -1388,9 +1388,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 
 interface* NetlistElaboration::elab_interface_(
     ModuleInstance* instance, ModuleInstance* interf_instance,
-    const std::string& instName, const std::string& defName,
-    ModuleDefinition* mod, PathId fileId, int lineNb,
-    interface_array* interf_array, const std::string& modPortName) {
+    std::string_view instName, std::string_view defName, ModuleDefinition* mod,
+    PathId fileId, int lineNb, interface_array* interf_array,
+    const std::string& modPortName) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) {
@@ -1420,7 +1420,7 @@ interface* NetlistElaboration::elab_interface_(
         std::make_pair(instName, std::make_pair(interf_instance, sm)));
     netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   }
-  const std::string prefix = instName + ".";
+  const std::string prefix = StrCat(instName, ".");
   elab_ports_nets_(instance, interf_instance, instance->getNetlist(),
                    interf_instance->getNetlist(), mod, prefix, true);
   elab_ports_nets_(instance, interf_instance, instance->getNetlist(),
@@ -1430,7 +1430,8 @@ interface* NetlistElaboration::elab_interface_(
       mod->getModPortSignalMap();
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports) {
-    const std::string modportfullname = instName + "." + orig_modport.first;
+    const std::string modportfullname =
+        StrCat(instName, ".", orig_modport.first);
     if (!modPortName.empty() && (modportfullname != modPortName)) continue;
     modport* dest_modport = s.MakeModport();
     dest_modport->Interface(sm);
@@ -1481,11 +1482,11 @@ interface* NetlistElaboration::elab_interface_(
 
 modport* NetlistElaboration::elab_modport_(
     ModuleInstance* instance, ModuleInstance* interfaceInstance,
-    const std::string& instName, const std::string& defName,
-    ModuleDefinition* mod, PathId fileId, int lineNb,
-    const std::string& modPortName, UHDM::interface_array* interf_array) {
+    std::string_view instName, std::string_view defName, ModuleDefinition* mod,
+    PathId fileId, int lineNb, const std::string& modPortName,
+    UHDM::interface_array* interf_array) {
   Netlist* netlist = instance->getNetlist();
-  std::string fullname = instName + "." + modPortName;
+  std::string fullname = StrCat(instName, ".", modPortName);
   Netlist::ModPortMap::iterator itr = netlist->getModPortMap().find(fullname);
   if (itr == netlist->getModPortMap().end()) {
     elab_interface_(instance, interfaceInstance, instName, defName, mod, fileId,

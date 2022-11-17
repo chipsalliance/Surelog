@@ -45,8 +45,8 @@ FileContent::FileContent(PathId fileId, Library* library,
             InvalidNodeId, InvalidNodeId, InvalidNodeId, InvalidNodeId);
 }
 
-std::string FileContent::getName() const {
-  return std::string(FileSystem::getInstance()->toPath(m_fileId));
+std::string_view FileContent::getName() const {
+  return FileSystem::getInstance()->toPath(m_fileId);
 }
 
 const std::string& FileContent::SymName(NodeId index) const {

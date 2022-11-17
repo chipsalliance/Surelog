@@ -139,13 +139,13 @@ bool ElaborationStep::bindTypedefs_() {
                                     prevDef->getTypespec()));
         if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
           std::string name =
-              pack->getName() + "::" + prevDef->getTypespec()->VpiName();
+              StrCat(pack->getName(), "::", prevDef->getTypespec()->VpiName());
           specs.insert(std::make_pair(name, prevDef->getTypespec()));
         }
         if (ClassDefinition* pack =
                 valuedcomponenti_cast<ClassDefinition*>(comp)) {
           std::string name =
-              pack->getName() + "::" + prevDef->getTypespec()->VpiName();
+              StrCat(pack->getName(), "::", prevDef->getTypespec()->VpiName());
           specs.insert(std::make_pair(name, prevDef->getTypespec()));
         }
       }
@@ -186,7 +186,7 @@ bool ElaborationStep::bindTypedefs_() {
             tpclone->VpiName(typd->getName());
             specs.insert(std::make_pair(typd->getName(), tpclone));
             if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
-              std::string name = pack->getName() + "::" + typd->getName();
+              std::string name = StrCat(pack->getName(), "::", typd->getName());
               specs.insert(std::make_pair(name, tpclone));
             }
           }
@@ -208,12 +208,12 @@ bool ElaborationStep::bindTypedefs_() {
           }
           specs.insert(std::make_pair(typd->getName(), ts));
           if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
-            std::string name = pack->getName() + "::" + typd->getName();
+            std::string name = StrCat(pack->getName(), "::", typd->getName());
             specs.insert(std::make_pair(name, ts));
           }
           if (ClassDefinition* pack =
                   valuedcomponenti_cast<ClassDefinition*>(comp)) {
-            std::string name = pack->getName() + "::" + typd->getName();
+            std::string name = StrCat(pack->getName(), "::", typd->getName());
             specs.insert(std::make_pair(name, ts));
           }
           if (ts->UhdmType() == uhdmunsupported_typespec) {
@@ -245,7 +245,7 @@ bool ElaborationStep::bindTypedefs_() {
           specs.insert(std::make_pair(typd->getName(), ts));
           ts->VpiName(typd->getName());
           if (Package* pack = valuedcomponenti_cast<Package*>(comp)) {
-            std::string name = pack->getName() + "::" + typd->getName();
+            std::string name = StrCat(pack->getName(), "::", typd->getName());
             specs.insert(std::make_pair(name, ts));
           }
         }
@@ -572,7 +572,7 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
-    std::string class_in_class = parent->getName() + "::" + type_name;
+    std::string class_in_class = StrCat(parent->getName(), "::", type_name);
     itr1 = classes.find(class_in_class);
 
     if (itr1 != classes.end()) {
@@ -583,8 +583,8 @@ const DataType* ElaborationStep::bindDataType_(
   if (found == false) {
     if (parent->getParentScope()) {
       std::string class_in_own_package =
-          ((DesignComponent*)parent->getParentScope())->getName() +
-          "::" + type_name;
+          StrCat(((DesignComponent*)parent->getParentScope())->getName(),
+                 "::", type_name);
       itr1 = classes.find(class_in_own_package);
       if (itr1 != classes.end()) {
         found = true;
@@ -594,7 +594,8 @@ const DataType* ElaborationStep::bindDataType_(
   }
   if (found == false) {
     for (const auto& package : parent->getAccessPackages()) {
-      std::string class_in_package = package->getName() + "::" + type_name;
+      std::string class_in_package =
+          StrCat(package->getName(), "::", type_name);
       itr1 = classes.find(class_in_package);
       if (itr1 != classes.end()) {
         found = true;
@@ -1064,8 +1065,8 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           const std::pair<FileCNodeId, DesignComponent*>* datatype =
               parentComponent->getNamedObject(interfName);
           if (!datatype) {
-            def = design->getClassDefinition(parentComponent->getName() +
-                                             "::" + interfName);
+            def = design->getClassDefinition(
+                StrCat(parentComponent->getName(), "::", interfName));
           }
           if (datatype) {
             def = datatype->second;
@@ -1138,7 +1139,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
           signal->setDataType(dt);
         }
       } else {
-        std::string name = parentComponent->getName() + "::" + interfName;
+        std::string name = StrCat(parentComponent->getName(), "::", interfName);
         def = design->getClassDefinition(name);
         DataType* dt = valuedcomponenti_cast<ClassDefinition*>(def);
         if (dt) {

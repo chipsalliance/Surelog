@@ -197,7 +197,7 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
   numberOfLeafInstances = 0;
   nbUndefinedModules = 0;
   nbUndefinedInstances = 0;
-  std::set<std::string> undefModules;
+  std::set<std::string_view> undefModules;
   ModuleInstance* tmp;
   std::queue<ModuleInstance*> queue;
   for (auto instance : m_topLevelModuleInstances) {
@@ -528,7 +528,7 @@ void Design::clearContainers() {
   m_orderedPackageNames.clear();
 }
 
-std::vector<BindStmt*> Design::getBindStmts(const std::string& targetName) {
+std::vector<BindStmt*> Design::getBindStmts(std::string_view targetName) {
   std::vector<BindStmt*> results;
   BindMap::iterator itr = m_bindMap.find(targetName);
   while (itr != m_bindMap.end()) {
