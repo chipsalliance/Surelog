@@ -1090,5 +1090,70 @@ endmodule // top
   }
 }
 
+TEST(Elaboration, StringMath1) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module Example();
+  parameter OUTPUT = "FOO";
+  function automatic [23:0] flip;
+    input [23:0] inp;
+    flip = ~inp;
+  endfunction
+  parameter DEBUG = flip(flip(OUTPUT[15:8]));
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      const std::string& name = passign->Lhs()->VpiName();
+      if (name == "DEBUG") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 79);
+      }
+    }
+  }
+}
+
+TEST(Elaboration, StringMath2) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module dut2 #(parameter num_out_p="inv") ();
+  parameter int P = num_out_p + 0;
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      const std::string& name = passign->Lhs()->VpiName();
+      if (name == "P") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 6909558);
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG

@@ -11,25 +11,21 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="BLAH"
 
 [INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:3:4: Compile generate block "work@top.genblk1".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
-
 [NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
 [WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:4:7: Cannot find a module definition for "work@top.genblk1::GOOD_BLAH".
-
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
 [NTE:EL0509] Max instance depth: 3.
 
-[NTE:EL0510] Nb instances: 3.
+[NTE:EL0510] Nb instances: 2.
 
-[NTE:EL0511] Nb leaf instances: 2.
+[NTE:EL0511] Nb leaf instances: 1.
 
-[WRN:EL0512] Nb undefined modules: 2.
+[WRN:EL0512] Nb undefined modules: 1.
 
-[WRN:EL0513] Nb undefined instances: 2.
+[WRN:EL0513] Nb undefined instances: 1.
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -99,7 +95,7 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:BLAH
-      |vpiSize:6
+      |vpiSize:48
       |STRING:BLAH
       |vpiConstType:6
     |vpiLhs:
@@ -125,29 +121,11 @@ design: (work@top)
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
         |vpiDefName:work@top.genblk1::GOOD_BLAH
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
-    |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk8
-    |vpiFullName:work@top.genblk8
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk8)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
-      |vpiFullName:work@top.genblk8
-      |vpiModule:
-      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
-        |vpiParent:
-        \_gen_scope: (work@top.genblk8)
-        |vpiName:good
-        |vpiFullName:work@top.genblk8.good
-        |vpiDefName:work@top.genblk8::GOOD_0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 5
+[WARNING] : 4
 [   NOTE] : 5
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=4'b1001
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
@@ -906,35 +884,23 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=0
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:3:4: Compile generate block "work@top.genblk1".
-
 [INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
-
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:27:4: Compile generate block "work@top.genblk9".
-
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:30:4: Compile generate block "work@top.genblk10".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
 
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:4:7: Cannot find a module definition for "work@top.genblk1::GOOD_BLAH".
-
 [WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
-
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:28:7: Cannot find a module definition for "work@top.genblk9::GOOD_STR_WITH_DOT".
-
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:31:7: Cannot find a module definition for "work@top.genblk10::GOOD_MINUS_STR".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
 [NTE:EL0509] Max instance depth: 3.
 
-[NTE:EL0510] Nb instances: 5.
+[NTE:EL0510] Nb instances: 2.
 
-[NTE:EL0511] Nb leaf instances: 4.
+[NTE:EL0511] Nb leaf instances: 1.
 
-[WRN:EL0512] Nb undefined modules: 4.
+[WRN:EL0512] Nb undefined modules: 1.
 
-[WRN:EL0513] Nb undefined instances: 4.
+[WRN:EL0513] Nb undefined instances: 1.
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -1013,24 +979,6 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7
-    |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk1
-    |vpiFullName:work@top.genblk1
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk1)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk1), line:3:4, endln:5:7
-      |vpiFullName:work@top.genblk1
-      |vpiModule:
-      \_module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:4:7, endln:4:24
-        |vpiParent:
-        \_gen_scope: (work@top.genblk1)
-        |vpiName:good
-        |vpiFullName:work@top.genblk1.good
-        |vpiDefName:work@top.genblk1::GOOD_BLAH
-  |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
     |vpiParent:
     \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
@@ -1048,47 +996,11 @@ design: (work@top)
         |vpiName:good
         |vpiFullName:work@top.genblk8.good
         |vpiDefName:work@top.genblk8::GOOD_0
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7
-    |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk9
-    |vpiFullName:work@top.genblk9
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk9)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7
-      |vpiFullName:work@top.genblk9
-      |vpiModule:
-      \_module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:28:7, endln:28:32
-        |vpiParent:
-        \_gen_scope: (work@top.genblk9)
-        |vpiName:good
-        |vpiFullName:work@top.genblk9.good
-        |vpiDefName:work@top.genblk9::GOOD_STR_WITH_DOT
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7
-    |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk10
-    |vpiFullName:work@top.genblk10
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk10)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7
-      |vpiFullName:work@top.genblk10
-      |vpiModule:
-      \_module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:31:7, endln:31:29
-        |vpiParent:
-        \_gen_scope: (work@top.genblk10)
-        |vpiName:good
-        |vpiFullName:work@top.genblk10.good
-        |vpiDefName:work@top.genblk10::GOOD_MINUS_STR
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 7
+[WARNING] : 4
 [   NOTE] : 5
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="STR.WITH.DOT"
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
@@ -1101,13 +1013,9 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="STR.WITH.DOT"
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
-
 [INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:27:4: Compile generate block "work@top.genblk9".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
 
 [WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:28:7: Cannot find a module definition for "work@top.genblk9::GOOD_STR_WITH_DOT".
 
@@ -1115,13 +1023,13 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="STR.WITH.DOT"
 
 [NTE:EL0509] Max instance depth: 3.
 
-[NTE:EL0510] Nb instances: 3.
+[NTE:EL0510] Nb instances: 2.
 
-[NTE:EL0511] Nb leaf instances: 2.
+[NTE:EL0511] Nb leaf instances: 1.
 
-[WRN:EL0512] Nb undefined modules: 2.
+[WRN:EL0512] Nb undefined modules: 1.
 
-[WRN:EL0513] Nb undefined instances: 2.
+[WRN:EL0513] Nb undefined instances: 1.
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -1191,7 +1099,7 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:STR.WITH.DOT
-      |vpiSize:14
+      |vpiSize:112
       |STRING:STR.WITH.DOT
       |vpiConstType:6
     |vpiLhs:
@@ -1199,24 +1107,6 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
-    |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk8
-    |vpiFullName:work@top.genblk8
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk8)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
-      |vpiFullName:work@top.genblk8
-      |vpiModule:
-      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
-        |vpiParent:
-        \_gen_scope: (work@top.genblk8)
-        |vpiName:good
-        |vpiFullName:work@top.genblk8.good
-        |vpiDefName:work@top.genblk8::GOOD_0
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk9), line:27:4, endln:29:7
     |vpiParent:
@@ -1239,7 +1129,7 @@ design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 5
+[WARNING] : 4
 [   NOTE] : 5
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="-STR"
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log.
@@ -1252,13 +1142,9 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="-STR"
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:24:4: Compile generate block "work@top.genblk8".
-
 [INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:30:4: Compile generate block "work@top.genblk10".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
 
 [WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:31:7: Cannot find a module definition for "work@top.genblk10::GOOD_MINUS_STR".
 
@@ -1266,13 +1152,13 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="-STR"
 
 [NTE:EL0509] Max instance depth: 3.
 
-[NTE:EL0510] Nb instances: 3.
+[NTE:EL0510] Nb instances: 2.
 
-[NTE:EL0511] Nb leaf instances: 2.
+[NTE:EL0511] Nb leaf instances: 1.
 
-[WRN:EL0512] Nb undefined modules: 2.
+[WRN:EL0512] Nb undefined modules: 1.
 
-[WRN:EL0513] Nb undefined instances: 2.
+[WRN:EL0513] Nb undefined instances: 1.
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -1342,7 +1228,7 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
       |vpiDecompile:-STR
-      |vpiSize:6
+      |vpiSize:48
       |STRING:-STR
       |vpiConstType:6
     |vpiLhs:
@@ -1350,24 +1236,6 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
-    |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk8
-    |vpiFullName:work@top.genblk8
-    |vpiGenScope:
-    \_gen_scope: (work@top.genblk8)
-      |vpiParent:
-      \_gen_scope_array: (work@top.genblk8), line:24:4, endln:26:7
-      |vpiFullName:work@top.genblk8
-      |vpiModule:
-      \_module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
-        |vpiParent:
-        \_gen_scope: (work@top.genblk8)
-        |vpiName:good
-        |vpiFullName:work@top.genblk8.good
-        |vpiDefName:work@top.genblk8::GOOD_0
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk10), line:30:4, endln:32:7
     |vpiParent:
@@ -1390,11 +1258,11 @@ design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 5
+[WARNING] : 4
 [   NOTE] : 5
 Processed 10 tests.
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 43
+[WARNING] : 37
 [   NOTE] : 50
