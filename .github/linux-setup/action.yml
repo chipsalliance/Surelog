@@ -1,0 +1,85 @@
+name: Surelog CI | Linux Setup
+description: 'Internal Action'
+
+inputs:
+  ccache-key:
+    description: 'Key to be passed to hendrikmuhs/ccache-action.'
+    required: true
+  compiler:
+    description: 'Compiler to install and configure.'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+
+    # Install common dependencies
+    - shell: bash
+      run: >
+        sudo apt-get update -qq &&
+        sudo apt install -y
+        default-jre
+        cmake
+        ninja-build
+        build-essential
+        google-perftools
+        libgoogle-perftools-dev
+        python3
+        python3-orderedmultidict
+        python3-psutil
+        python3-dev
+        uuid-dev
+        lcov
+
+    - shell: bash
+      if: inputs.compiler == 'clang'
+      run: |
+        # Install clang
+        sudo apt install -y clang
+
+    - shell: bash
+      if: inputs.compiler == 'gcc'
+      run: |
+        # Install gcc (gcc)
+        sudo apt install -y g++-9
+        sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
+        sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
+        sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
+
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ inputs.ccache-key }}
+
+    - shell: bash
+      if: inputs.compiler == 'clang'
+      run: |
+        # Configure compiler (clang)
+        echo 'CC=clang' >> $GITHUB_ENV
+        echo 'CXX=clang++' >> $GITHUB_ENV
+
+    - shell: bash
+      if: inputs.compiler == 'gcc'
+      run: |
+        # Configure compiler (gcc)
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
+
+    - shell: bash
+      run: |
+        # Configure shell
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
+        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
+
+    - shell: bash
+      run: |
+        # Show shell configuration
+        env
+        which cmake && cmake --version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which $CC && $CC --version
+        which $CXX && $CXX --version

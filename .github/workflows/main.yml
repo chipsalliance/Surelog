@@ -10,9 +10,10 @@ on:
 
 jobs:
 
+# Build and test
 
   linux-build-test:
-    name: "test-${{ matrix.compiler }} Linux"
+    name: "Linux | Test | ${{ matrix.compiler }}"
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
@@ -24,69 +25,28 @@ jobs:
       COMPILER: ${{ matrix.compiler }}
     steps:
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update -qq
-        sudo apt install -y \
-          g++-9 clang \
-          default-jre \
-          cmake ninja-build \
-          build-essential \
-          google-perftools \
-          libgoogle-perftools-dev \
-          python3 python3-orderedmultidict python3-psutil python3-dev \
-          uuid-dev \
-          lcov
-
     - name: Checkout code
       uses: actions/checkout@v3
       with:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - uses: ./.github/linux-setup
       with:
-        key: linux-test-${{ matrix.compiler }}
-
-    - name: Configure compiler
-      run: |
-        if [ "${{matrix.compiler}}" == "clang" ]; then
-          echo 'CC=clang' >> $GITHUB_ENV
-          echo 'CXX=clang++' >> $GITHUB_ENV
-        else
-          echo 'CC=gcc-9' >> $GITHUB_ENV
-          echo 'CXX=g++-9' >> $GITHUB_ENV
-        fi
-
-    - name: Configure shell
-      run: |
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
-
-    - name: Show shell configuration
-      run: |
-        env
-        which cmake && cmake --version
-        which java && java -version
-        which python && python --version
-        which ninja && ninja --version
-        which $CC && $CC --version
-        which $CXX && $CXX --version
+        compiler: clang
+        ccache-key: linux-test-${{ matrix.compiler }}
 
     - name: Build
-      run: |
-           make debug
+      run: make debug
 
     - name: Test
-      run: |
-        make test/unittest-d
+      run: make test/unittest-d
+
+# Regression
 
 
   linux-regression:
-    name: "Regression ${{ matrix.compiler }} ${{matrix.shard}} (Linux)"
+    name: "Linux | Regression | ${{ matrix.compiler }} [${{matrix.shard}}]"
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
@@ -100,67 +60,29 @@ jobs:
       COMPILER: ${{ matrix.compiler }}
     steps:
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update -qq
-        sudo apt install -y \
-          g++-9 clang \
-          default-jre \
-          cmake ninja-build \
-          build-essential \
-          google-perftools \
-          libgoogle-perftools-dev \
-          python3 python3-orderedmultidict python3-psutil python3-dev \
-          uuid-dev \
-          lcov
-
     - name: Checkout code
       uses: actions/checkout@v3
       with:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - uses: ./.github/linux-setup
       with:
-        key: linux-regression-${{ matrix.compiler }}
-
-    - name: Configure compiler
-      run: |
-        if [ "${{matrix.compiler}}" == "clang" ]; then
-          echo 'CC=clang' >> $GITHUB_ENV
-          echo 'CXX=clang++' >> $GITHUB_ENV
-        else
-          echo 'CC=gcc-9' >> $GITHUB_ENV
-          echo 'CXX=g++-9' >> $GITHUB_ENV
-        fi
-
-    - name: Configure shell
-      run: |
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
-
-    - name: Show shell configuration
-      run: |
-        env
-        which cmake && cmake --version
-        which java && java -version
-        which python && python --version
-        which ninja && ninja --version
-        which $CC && $CC --version
-        which $CXX && $CXX --version
+        compiler: ${{matrix.compiler}}
+        ccache-key: linux-regression-${{ matrix.compiler }}
 
     - name: Build
-      run: |
-           make release
+      run: make release
 
     - name: Run regression ${{matrix.shard}}/${{matrix.num_shards}}
-      run: |
-        python3 scripts/regression.py run --jobs $(nproc) --show-diffs \
-                                          --num_shards=${{matrix.num_shards}} \
-                                          --shard=${{matrix.shard}}
+      run: >
+        python3
+        scripts/regression.py
+        run
+        --jobs $(nproc)
+        --show-diffs
+        --num_shards=${{matrix.num_shards}}
+        --shard=${{matrix.shard}}
 
     - name: Prepare regression artifacts
       if: always()
@@ -176,38 +98,14 @@ jobs:
         name: surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression
         path: ${{ github.workspace }}/build/surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression.tar.gz
 
+# Various other builds where just one compiler is sufficient to test with.
 
-  # Various other builds where just one compiler is sufficient to test with.
-  linux-various:
-    name: "${{ matrix.mode }} Linux"
+  linux-pythonapi:
+    name: "Linux | Python API"
     runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-        mode:
-        - coverage
-        - install
-        - pythonapi
     env:
-      MODE: ${{ matrix.mode }}
+      MODE: pythonapi
     steps:
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update -qq
-        sudo apt install -y \
-          g++-9 \
-          default-jre \
-          cmake ninja-build \
-          build-essential \
-          google-perftools \
-          libgoogle-perftools-dev \
-          python3 python3-orderedmultidict python3-psutil python3-dev \
-          uuid-dev \
-          lcov
-        sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
-        sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
-        sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
 
     - name: Checkout code
       uses: actions/checkout@v3
@@ -215,50 +113,65 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - uses: ./.github/linux-setup
       with:
-        key: linux-${{ matrix.mode }}
-
-    - name: Configure shell
-      run: |
-        echo 'CC=gcc-9' >> $GITHUB_ENV
-        echo 'CXX=g++-9' >> $GITHUB_ENV
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
-
-    - name: Show shell configuration
-      run: |
-        env
-        which cmake && cmake --version
-        which java && java -version
-        which python && python --version
-        which ninja && ninja --version
-        which $CC && $CC --version
-        which $CXX && $CXX --version
+        compiler: gcc
+        ccache-key: linux-pythonapi
 
     - name: PythonAPI
-      if: matrix.mode == 'pythonapi'
-      run: |
-        make ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
+      run: make ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
+
+
+  linux-coverage:
+    name: "Linux | Coverage"
+    runs-on: ubuntu-20.04
+    env:
+      MODE: coverage
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - uses: ./.github/linux-setup
+      with:
+        compiler: gcc
+        ccache-key: linux-coverage
 
     - name: Coverage
-      if: matrix.mode == 'coverage'
-      run: |
-        make coverage-build/surelog.coverage
+      run: make coverage-build/surelog.coverage
 
     - name: Upload coverage
       # will show up under https://app.codecov.io/gh/chipsalliance/Surelog
-      if: matrix.mode == 'coverage'
       uses: codecov/codecov-action@v3
       with:
         files: coverage-build/surelog.coverage
         fail_ci_if_error: false
 
+
+  linux-install:
+    name: "Linux | Install"
+    runs-on: ubuntu-20.04
+    env:
+      MODE: install
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - uses: ./.github/linux-setup
+      with:
+        compiler: gcc
+        ccache-key: linux-install
+
     - name: Install Test
-      if: matrix.mode == 'install'
       run: |
         make release
         make install
@@ -266,22 +179,21 @@ jobs:
         make test_install
 
     - name: Prepare build artifacts
-      if: matrix.mode == 'install'
       run: |
         mv install surelog-linux-gcc
         mkdir build
         tar czfp build/surelog-linux-gcc.tar.gz surelog-linux-gcc
 
     - name: Archive build artifacts
-      if: matrix.mode == 'install'
       uses: actions/upload-artifact@v3
       with:
         name: surelog-linux-gcc
         path: ${{ github.workspace }}/build/surelog-linux-gcc.tar.gz
 
+# Valgrind
 
   linux-valgrind:
-    name: "Valgrind ${{ matrix.project}} (Linux)"
+    name: "Linux | Valgrind | ${{ matrix.project}}"
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
@@ -293,65 +205,32 @@ jobs:
         - BlackParrotMuteErrors
     steps:
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update -qq
-        sudo apt install -y \
-          g++-9 \
-          default-jre \
-          cmake ninja-build \
-          build-essential \
-          google-perftools \
-          libgoogle-perftools-dev \
-          python3 python3-orderedmultidict python3-psutil python3-dev \
-          uuid-dev \
-          lcov \
-          valgrind
-        sudo ln -sf /usr/bin/g++-9 /usr/bin/g++
-        sudo ln -sf /usr/bin/gcc-9 /usr/bin/gcc
-        sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
-
     - name: Checkout code
       uses: actions/checkout@v3
       with:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - uses: ./.github/linux-setup
       with:
-        key: linux-valgrind
+        compiler: gcc
+        ccache-key: linux-valgrind
 
-    - name: Configure shell
-      run: |
-        echo 'CC=gcc-9' >> $GITHUB_ENV
-        echo 'CXX=g++-9' >> $GITHUB_ENV
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DMY_CXX_WARNING_FLAGS='-W -Wall -Wextra -Wno-unused-parameter -Werror -UNDEBUG'" >> $GITHUB_ENV
-        echo "CMAKE_GENERATOR=Ninja" >> $GITHUB_ENV
-
-    - name: Show shell configuration
-      run: |
-        env
-        which cmake && cmake --version
-        which java && java -version
-        which python && python --version
-        which ninja && ninja --version
-        which $CC && $CC --version
-        which $CXX && $CXX --version
+    - name: Install Valgrind
+      run: sudo apt install -y valgrind
 
     - name: Build
-      run: |
-        make debug
+      run: make debug
 
     - name: Valgrind ${{matrix.project}}
       timeout-minutes: 180
-      run: |
-        python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
+      run: python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
+
+# MSYS2
 
 
   msys2-gcc:
+    name: "Windows | MSYS2 (MSYS) | GCC"
     runs-on: windows-2022
     defaults:
       run:
@@ -483,9 +362,10 @@ jobs:
         name: surelog-msys2-gcc-regression
         path: ${{ github.workspace }}/build/surelog-msys2-gcc-regression.tar.gz
 
+# Windows
 
   windows:
-    name: "windows-${{ matrix.compiler }}"
+    name: "Windows | ${{ matrix.compiler }}"
     runs-on: windows-2022
     defaults:
       run:
@@ -630,7 +510,7 @@ jobs:
 
 
   windows-regression:
-    name: "Regression ${{matrix.shard}} ${{ matrix.compiler }} (Windows)"
+    name: "Windows | Regression | ${{ matrix.compiler }} [${{matrix.shard}}]"
     runs-on: windows-2022
     defaults:
       run:
@@ -752,9 +632,10 @@ jobs:
         name: surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression
         path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression.tar.gz
 
+# Mac OS
 
   macos:
-    name: macos-${{ matrix.compiler }}
+    name: "Mac OS | ${{ matrix.compiler }}"
     runs-on: macos-12
     strategy:
       fail-fast: false
@@ -869,6 +750,7 @@ jobs:
         name: surelog-macos-${{ matrix.compiler }}-regression
         path: ${{ github.workspace }}/build/surelog-macos-${{ matrix.compiler }}-regression.tar.gz
 
+# Code formatting
 
   CodeFormatting:
     runs-on: ubuntu-20.04
