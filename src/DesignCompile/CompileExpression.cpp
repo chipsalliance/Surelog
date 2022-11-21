@@ -712,7 +712,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
       UHDM::constant *c = s.MakeConstant();
       std::string_view value = StringUtils::unquoted(fC->SymName(child));
       c->VpiDecompile(value);
-      c->VpiSize(value.length());
+      c->VpiSize(value.length() * 8);
       c->VpiValue(StrCat("STRING:", value));
       c->VpiConstType(vpiStringConst);
       result = c;

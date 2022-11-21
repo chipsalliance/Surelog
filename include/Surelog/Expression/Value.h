@@ -476,6 +476,9 @@ class StValue final : public Value {
     m_type = type;
     m_value = val;
     m_size = val.size();
+    if (type == Type::String) {
+      m_size = m_size * 8;
+    }
     m_valid = true;
   }
   void set(const std::string& val, Type type, short size) {
@@ -487,7 +490,7 @@ class StValue final : public Value {
   void set(const std::string& val) final {
     m_type = Type::String;
     m_value = val;
-    m_size = val.size();
+    m_size = val.size() * 8;
     m_valid = true;
   }
   bool operator<(const Value& rhs) const final {

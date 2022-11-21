@@ -1326,14 +1326,6 @@ n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
 
 [NTE:EL0504] Multiple top level modules in design.
 
-[NTE:EL0531] ${SURELOG_DIR}/tests/Bindings/dut.sv:37:13: Negative value in instance "work@dut2"
-             text:      input [$clog2(num_out_p)-1:0] i
-             value: INT:-1.
-
-[NTE:EL0531] ${SURELOG_DIR}/tests/Bindings/dut.sv:38:21: Negative value in instance "work@dut2"
-             text:      ,output logic [num_out_p-1:0] o
-             value: INT:-1.
-
 [NTE:EL0531] ${SURELOG_DIR}/tests/Bindings/dut.sv:96:10: Negative value in instance "work@dut5"
              text:    wire [width_p-1:0] shifted = width_p ' ({fill, t[j]} >> (1 << j));
              value: INT:-2.
@@ -2511,7 +2503,7 @@ design: (work@dut1)
     |vpiRhs:
     \_constant: , line:35:35, endln:35:40
       |vpiDecompile:inv
-      |vpiSize:3
+      |vpiSize:24
       |STRING:inv
       |vpiTypespec:
       \_string_typespec: 
@@ -3196,7 +3188,7 @@ design: (work@dut1)
     |vpiRhs:
     \_constant: , line:35:35, endln:35:40
       |vpiDecompile:inv
-      |vpiSize:3
+      |vpiSize:24
       |STRING:inv
       |vpiTypespec:
       \_string_typespec: 
@@ -3217,9 +3209,9 @@ design: (work@dut1)
         \_constant: , line:37:13, endln:37:30
           |vpiParent:
           \_range: , line:37:12, endln:37:35
-          |vpiDecompile:-1
+          |vpiDecompile:22
           |vpiSize:64
-          |INT:-1
+          |INT:22
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:37:33, endln:37:34
@@ -3243,9 +3235,9 @@ design: (work@dut1)
         \_constant: , line:38:21, endln:38:30
           |vpiParent:
           \_range: , line:38:20, endln:38:35
-          |vpiDecompile:-1
+          |vpiDecompile:6909557
           |vpiSize:64
-          |INT:-1
+          |INT:6909557
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:38:33, endln:38:34
@@ -3283,9 +3275,9 @@ design: (work@dut1)
         \_constant: , line:37:13, endln:37:30
           |vpiParent:
           \_range: , line:37:12, endln:37:35
-          |vpiDecompile:-1
+          |vpiDecompile:22
           |vpiSize:64
-          |INT:-1
+          |INT:22
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:37:33, endln:37:34
@@ -3321,9 +3313,9 @@ design: (work@dut1)
         \_constant: , line:38:21, endln:38:30
           |vpiParent:
           \_range: , line:38:20, endln:38:35
-          |vpiDecompile:-1
+          |vpiDecompile:6909557
           |vpiSize:64
-          |INT:-1
+          |INT:6909557
           |vpiConstType:7
         |vpiRightRange:
         \_constant: , line:38:33, endln:38:34
@@ -4287,7 +4279,7 @@ design: (work@dut1)
 [ SYNTAX] : 0
 [  ERROR] : 2
 [WARNING] : 6
-[   NOTE] : 12
+[   NOTE] : 10
 
 
 [roundtrip]: ${SURELOG_DIR}/tests/Bindings/dut.sv | ${SURELOG_DIR}/build/regression/Bindings/roundtrip/dut_000.sv | 39 | 108 |
