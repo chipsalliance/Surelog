@@ -4000,7 +4000,11 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           ->getCommandLineParser()
           ->reportNonSynthesizable()) {
     std::set<const any*> nonSynthesizableObjects;
-    SynthSubset* annotate = new SynthSubset(&s, nonSynthesizableObjects, true);
+    SynthSubset* annotate =
+        new SynthSubset(&s, nonSynthesizableObjects, true,
+                        m_compileDesign->getCompiler()
+                            ->getCommandLineParser()
+                            ->reportNonSynthesizableWithFormal());
     annotate->listenDesigns(designs);
     delete annotate;
   }

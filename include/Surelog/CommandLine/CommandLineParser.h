@@ -107,6 +107,8 @@ class CommandLineParser final {
   void setFilterWarning() { m_warning = false; }
   void setReportNonSynthesizable(bool report) { m_nonSynthesizable = report; }
   bool reportNonSynthesizable() { return m_nonSynthesizable; }
+  void setReportNonSynthesizableWithFormal(bool report) { m_nonSynthesizableWithFormal = report; }
+  bool reportNonSynthesizableWithFormal() { return m_nonSynthesizableWithFormal; }
   /* Debug/traces options */
   bool muteStdout() const { return m_muteStdout; }
   void setMuteStdout() { m_muteStdout = true; }
@@ -342,6 +344,7 @@ class CommandLineParser final {
   bool m_lowMem;
   bool m_writeUhdm;
   bool m_nonSynthesizable;
+  bool m_nonSynthesizableWithFormal;
   bool m_noCacheHash;
   bool m_sepComp;
   bool m_link;
