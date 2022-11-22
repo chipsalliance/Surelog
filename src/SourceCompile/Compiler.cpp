@@ -359,8 +359,10 @@ bool Compiler::createMultiProcessParser_() {
       m_commandLineParser->fullSVMode() ? " -sverilog " : " ";
   const std::string_view fileUnit =
       m_commandLineParser->fileunit() ? " -fileunit " : " ";
-  const std::string_view synth =
+  std::string synth =
       m_commandLineParser->reportNonSynthesizable() ? " -synth " : " ";
+  synth += m_commandLineParser->reportNonSynthesizableWithFormal() ? " -formal "
+                                                                   : " ";
   const std::string_view noHash =
       m_commandLineParser->noCacheHash() ? " -nohash " : " ";
 
@@ -556,8 +558,10 @@ bool Compiler::createMultiProcessPreProcessor_() {
       m_commandLineParser->fullSVMode() ? " -sverilog " : " ";
   const std::string_view fileUnit =
       m_commandLineParser->fileunit() ? " -fileunit " : " ";
-  const std::string_view synth =
+  std::string synth =
       m_commandLineParser->reportNonSynthesizable() ? " -synth " : " ";
+  synth += m_commandLineParser->reportNonSynthesizableWithFormal() ? " -formal "
+                                                                   : " ";
   const std::string_view noHash =
       m_commandLineParser->noCacheHash() ? " -nohash " : " ";
 
