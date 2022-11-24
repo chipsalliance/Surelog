@@ -8,7 +8,7 @@ jobs:
   linux-build-test:
     name: "test-${{ matrix.compiler }} Linux"
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     defaults:
       run:
         shell: bash
@@ -92,7 +92,7 @@ jobs:
   linux-regression:
     name: "Regression ${{ matrix.compiler }} ${{matrix.shard}} (Linux)"
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     defaults:
       run:
         shell: bash
@@ -195,7 +195,7 @@ jobs:
   linux-various:
     name: "${{ matrix.mode }} Linux"
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     defaults:
       run:
         shell: bash
@@ -306,7 +306,7 @@ jobs:
   linux-valgrind:
     name: "Valgrind ${{ matrix.project}} (Linux)"
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     defaults:
       run:
         shell: bash
