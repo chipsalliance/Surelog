@@ -16,7 +16,7 @@ pkgs.mkShell {
       gperftools
       jdk11
       lcov
-      #libunwind
+      libunwind
       libuuid
       pkg-config
       python310
