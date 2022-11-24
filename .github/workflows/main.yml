@@ -9,12 +9,13 @@ on:
   pull_request:
 
 jobs:
-
-
   linux-build-test:
     name: "test-${{ matrix.compiler }} Linux"
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -87,11 +88,13 @@ jobs:
       run: |
         make test/unittest-d
 
-
   linux-regression:
     name: "Regression ${{ matrix.compiler }} ${{matrix.shard}} (Linux)"
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -182,12 +185,14 @@ jobs:
         name: surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression
         path: ${{ github.workspace }}/build/surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression.tar.gz
 
-
   # Various other builds where just one compiler is sufficient to test with.
   linux-various:
     name: "${{ matrix.mode }} Linux"
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -287,11 +292,13 @@ jobs:
         name: surelog-linux-gcc
         path: ${{ github.workspace }}/build/surelog-linux-gcc.tar.gz
 
-
   linux-valgrind:
     name: "Valgrind ${{ matrix.project}} (Linux)"
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -359,7 +366,6 @@ jobs:
       timeout-minutes: 180
       run: |
         python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
-
 
   msys2-gcc:
     runs-on: windows-2022
@@ -493,7 +499,6 @@ jobs:
       with:
         name: surelog-msys2-gcc-regression
         path: ${{ github.workspace }}/build/surelog-msys2-gcc-regression.tar.gz
-
 
   windows:
     name: "windows-${{ matrix.compiler }}"
@@ -642,7 +647,6 @@ jobs:
         name: surelog-windows-${{ matrix.compiler }}
         path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}.tar.gz
 
-
   windows-regression:
     name: "Regression ${{matrix.shard}} ${{ matrix.compiler }} (Windows)"
     runs-on: windows-2022
@@ -769,7 +773,6 @@ jobs:
         name: surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression
         path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression.tar.gz
 
-
   macos:
     name: macos-${{ matrix.compiler }}
     runs-on: macos-12
@@ -887,7 +890,6 @@ jobs:
         name: surelog-macos-${{ matrix.compiler }}-regression
         path: ${{ github.workspace }}/build/surelog-macos-${{ matrix.compiler }}-regression.tar.gz
 
-
   CodeFormatting:
     runs-on: ubuntu-20.04
 
@@ -905,7 +907,6 @@ jobs:
     - name: Run formatting style check
       run: ./.github/bin/run-clang-format.sh
 
-
   ClangTidy:
     runs-on: ubuntu-20.04
 
@@ -914,12 +915,9 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update -qq
-        sudo apt -qq -y install \
-        clang-tidy-12 \
-        g++-9 \
-        default-jre \
-        cmake \
-        uuid-dev build-essential
+        sudo apt -qq -y install clang-tidy-12 \
+                                g++-9 default-jre cmake \
+                                uuid-dev build-essential
 
     - name: Setup Python
       uses: actions/setup-python@v4
