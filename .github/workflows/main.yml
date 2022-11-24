@@ -1,9 +1,5 @@
 name: 'main'
 
-concurrency:
-  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 on:
   push:
   pull_request:
@@ -26,6 +22,11 @@ jobs:
       COMPILER: ${{ matrix.compiler }}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
 
     - name: Install dependencies
       run: |
@@ -105,6 +106,11 @@ jobs:
       COMPILER: ${{ matrix.compiler }}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
 
     - name: Install dependencies
       run: |
@@ -199,6 +205,11 @@ jobs:
       MODE: ${{ matrix.mode }}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
 
     - name: Install dependencies
       run: |
@@ -303,6 +314,11 @@ jobs:
 
     steps:
 
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install dependencies
       run: |
         sudo apt-get update -qq
@@ -368,6 +384,11 @@ jobs:
         shell: msys2 {0}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
 
     - name: Setup Java
       uses: actions/setup-java@v3
@@ -511,6 +532,11 @@ jobs:
         - clang
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
 
     - name: Install Core Dependencies
       run: |
@@ -662,6 +688,11 @@ jobs:
 
     steps:
 
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install Core Dependencies
       run: |
         choco install -y make
@@ -781,6 +812,10 @@ jobs:
         - clang
 
     steps:
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
 
     - name: Setup Java
       uses: actions/setup-java@v3
@@ -910,6 +945,10 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.11.0
+      with:
+        access_token: ${{ github.token }}
 
     - name: Install Dependencies
       run: |
