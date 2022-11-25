@@ -9,23 +9,19 @@ on:
   pull_request:
 
 jobs:
+
+
   linux-build-test:
     name: "test-${{ matrix.compiler }} Linux"
-
     runs-on: ubuntu-20.04
-    defaults:
-      run:
-        shell: bash
     strategy:
       fail-fast: false
       matrix:
         compiler:
         - gcc
         - clang
-
     env:
       COMPILER: ${{ matrix.compiler }}
-
     steps:
 
     - name: Install dependencies
@@ -88,13 +84,10 @@ jobs:
       run: |
         make test/unittest-d
 
+
   linux-regression:
     name: "Regression ${{ matrix.compiler }} ${{matrix.shard}} (Linux)"
-
     runs-on: ubuntu-20.04
-    defaults:
-      run:
-        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -103,10 +96,8 @@ jobs:
         compiler:
         - gcc
         - clang
-
     env:
       COMPILER: ${{ matrix.compiler }}
-
     steps:
 
     - name: Install dependencies
@@ -185,14 +176,11 @@ jobs:
         name: surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression
         path: ${{ github.workspace }}/build/surelog-linux-${{matrix.compiler}}-${{matrix.shard}}-regression.tar.gz
 
+
   # Various other builds where just one compiler is sufficient to test with.
   linux-various:
     name: "${{ matrix.mode }} Linux"
-
     runs-on: ubuntu-20.04
-    defaults:
-      run:
-        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -202,7 +190,6 @@ jobs:
         - pythonapi
     env:
       MODE: ${{ matrix.mode }}
-
     steps:
 
     - name: Install dependencies
@@ -292,13 +279,10 @@ jobs:
         name: surelog-linux-gcc
         path: ${{ github.workspace }}/build/surelog-linux-gcc.tar.gz
 
+
   linux-valgrind:
     name: "Valgrind ${{ matrix.project}} (Linux)"
-
     runs-on: ubuntu-20.04
-    defaults:
-      run:
-        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -307,7 +291,6 @@ jobs:
         - ArianeElab
         - ArianeElab2
         - BlackParrotMuteErrors
-
     steps:
 
     - name: Install dependencies
@@ -367,12 +350,12 @@ jobs:
       run: |
         python3 scripts/regression.py run --tool valgrind --filters ${{matrix.project}} --build-dirpath dbuild
 
+
   msys2-gcc:
     runs-on: windows-2022
     defaults:
       run:
         shell: msys2 {0}
-
     steps:
 
     - name: Setup Java
@@ -500,21 +483,19 @@ jobs:
         name: surelog-msys2-gcc-regression
         path: ${{ github.workspace }}/build/surelog-msys2-gcc-regression.tar.gz
 
+
   windows:
     name: "windows-${{ matrix.compiler }}"
     runs-on: windows-2022
-
     defaults:
       run:
         shell: cmd
-
     strategy:
       fail-fast: false
       matrix:
         compiler:
         - cl
         - clang
-
     steps:
 
     - name: Install Core Dependencies
@@ -647,14 +628,13 @@ jobs:
         name: surelog-windows-${{ matrix.compiler }}
         path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}.tar.gz
 
+
   windows-regression:
     name: "Regression ${{matrix.shard}} ${{ matrix.compiler }} (Windows)"
     runs-on: windows-2022
-
     defaults:
       run:
         shell: cmd
-
     strategy:
       fail-fast: false
       matrix:
@@ -663,7 +643,6 @@ jobs:
         compiler:
         - cl
         - clang
-
     steps:
 
     - name: Install Core Dependencies
@@ -773,6 +752,7 @@ jobs:
         name: surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression
         path: ${{ github.workspace }}/build/surelog-windows-${{ matrix.compiler }}-${{matrix.shard}}-regression.tar.gz
 
+
   macos:
     name: macos-${{ matrix.compiler }}
     runs-on: macos-12
@@ -782,7 +762,6 @@ jobs:
         compiler:
         - gcc
         - clang
-
     steps:
 
     - name: Setup Java
@@ -890,10 +869,11 @@ jobs:
         name: surelog-macos-${{ matrix.compiler }}-regression
         path: ${{ github.workspace }}/build/surelog-macos-${{ matrix.compiler }}-regression.tar.gz
 
+
   CodeFormatting:
     runs-on: ubuntu-20.04
-
     steps:
+
     - name: Checkout code
       uses: actions/checkout@v3
       with:
@@ -907,9 +887,9 @@ jobs:
     - name: Run formatting style check
       run: ./.github/bin/run-clang-format.sh
 
+
   ClangTidy:
     runs-on: ubuntu-20.04
-
     steps:
 
     - name: Install Dependencies
