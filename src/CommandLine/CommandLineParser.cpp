@@ -224,8 +224,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -synth                Reports non-synthesizable constructs. Honors",
     "                        // pragma translate_off",
     "                        // pragma translate_on",
-    "  -formal               Reports non-synthesizable constructs line "
-    "-synth, ",
+    "  -formal               Reports non-synthesizable constructs like -synth,",
     "                        but still allows model checking constructs",
     "  -o <path>             Turns on all compilation stages, produces all",
     "  -builtin <path>       Alternative path to python/ and pkg/ dirs",
