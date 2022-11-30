@@ -157,7 +157,7 @@ add_custom_command(
 find_package(Java 11 REQUIRED COMPONENTS Runtime)
 message(STATUS "Java_JAVA_EXECUTABLE = ${Java_JAVA_EXECUTABLE}")
 set(ANTLR_JAR_LOCATION
-    ${PROJECT_SOURCE_DIR}/third_party/antlr4_bin/antlr-4.10-complete.jar)
+    ${PROJECT_SOURCE_DIR}/third_party/antlr4_bin/antlr-4.11.1-complete.jar)
 
 add_custom_target(GenerateParser DEPENDS
   ${GENDIR}/src/parser/generated-parsers.tstamp
