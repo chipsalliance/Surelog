@@ -50,8 +50,8 @@
 #include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/SynthSubset.h>
-#include <uhdm/UhdmLint.h>
 #include <uhdm/UhdmAdjuster.h>
+#include <uhdm/UhdmLint.h>
 #include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
