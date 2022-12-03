@@ -50,6 +50,7 @@
 #include <uhdm/ExprEval.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/SynthSubset.h>
+#include <uhdm/UhdmAdjuster.h>
 #include <uhdm/UhdmLint.h>
 #include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
@@ -3989,6 +3990,10 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats()) {
     s.PrintStats(std::cerr, "Non-Elaborated Model");
   }
+
+  UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d);
+  adjuster->listenDesigns(designs);
+  delete adjuster;
 
   // ----------------------------------
   // Lint only the elaborated model
