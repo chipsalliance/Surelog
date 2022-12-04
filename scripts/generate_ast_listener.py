@@ -376,7 +376,7 @@ def _generate_source(input_filepath: str, output_filepath: str):
     private_listen_implementations.extend([
      f'void AstListener::listen{type_name}(const AstNode& node) {{',
      f'  enter{type_name}(node);',
-      '  listenChildren(node);',
+      '  listenChildren(node, true);',
      f'  leave{type_name}(node);',
       '}',
       ''
