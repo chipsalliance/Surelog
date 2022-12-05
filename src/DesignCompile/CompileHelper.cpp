@@ -4074,7 +4074,7 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
                                ValuedComponentI* instance) {
   if (!ts) return false;
   range* r = nullptr;
-
+  bool isSigned = false;
   UHDM_OBJECT_TYPE type = ts->UhdmType();
   switch (type) {
     case uhdmlogic_typespec: {
@@ -4082,6 +4082,7 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
+      isSigned = lts->VpiSigned();
       break;
     }
     case uhdmarray_typespec: {
@@ -4103,6 +4104,7 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
+      isSigned = lts->VpiSigned();
       break;
     }
     default:
@@ -4121,6 +4123,7 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
       val->setRange(lvv, rvv);
     }
   }
+  val->setSigned(isSigned);
   return false;
 }
 
