@@ -199,8 +199,8 @@ class SValue final : public Value {
     m_lrange = lrange;
     m_rrange = rrange;
   }
-  bool isSigned() const { return m_signed;}
-  void setSigned(bool isSigned) { m_signed = isSigned; }
+  bool isSigned() const final { return m_signed;}
+  void setSigned(bool isSigned) final { m_signed = isSigned; }
   unsigned short getLRange() const final { return m_lrange; };
   unsigned short getRRange() const final { return m_rrange; };
   unsigned short getNbWords() const final { return 1; }
@@ -350,8 +350,8 @@ class LValue final : public Value {
     } else
       return 0;
   }
-  bool isSigned() const { return m_signed;}
-  void setSigned(bool isSigned) { m_signed = isSigned; }
+  bool isSigned() const final { return m_signed;}
+  void setSigned(bool isSigned) final { m_signed = isSigned; }
   void setRange(unsigned short lrange, unsigned short rrange) final {
     m_lrange = lrange;
     m_rrange = rrange;
@@ -451,8 +451,8 @@ class StValue final : public Value {
     m_lrange = lrange;
     m_rrange = rrange;
   }
-  bool isSigned() const { return m_signed;}
-  void setSigned(bool isSigned) { m_signed = isSigned; }
+  bool isSigned() const final { return m_signed;}
+  void setSigned(bool isSigned) final { m_signed = isSigned; }
   unsigned short getLRange() const final { return m_lrange; };
   unsigned short getRRange() const final { return m_rrange; };
   unsigned short getNbWords() const final { return 1; }
