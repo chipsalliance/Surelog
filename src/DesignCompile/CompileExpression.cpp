@@ -2552,6 +2552,11 @@ UHDM::any *CompileHelper::compileExpression(
             c->VpiDecompile(sval->decompiledValue());
             c->VpiConstType(sval->vpiValType());
             c->VpiSize(sval->getSize());
+            if (sval->isSigned()) {
+              int_typespec *ts = s.MakeInt_typespec();
+              ts->VpiSigned(true);
+              c->Typespec(ts);
+            }
             result = c;
           }
           break;

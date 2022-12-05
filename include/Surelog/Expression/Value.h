@@ -70,7 +70,8 @@ class Value : public RTTI {
   virtual bool isValid() const = 0;
   virtual void setValid() = 0;
   virtual void setInvalid() = 0;
-
+  virtual bool isSigned() const = 0;
+  virtual void setSigned(bool isSigned) = 0;
   virtual bool isNegative() const = 0;
   virtual void setNegative() = 0;
   virtual void setRange(unsigned short lrange, unsigned short rrange) = 0;
@@ -166,7 +167,8 @@ class SValue final : public Value {
       : m_type(Value::Type::Integer),
         m_size(size),
         m_valid(1),
-        m_negative(val < 0) {
+        m_negative(val < 0),
+        m_signed(true) {
     m_value.s_int = val;
   }
   SValue(uint64_t val)
@@ -177,14 +179,16 @@ class SValue final : public Value {
       : m_type(Value::Type::Integer),
         m_size(64),
         m_valid(1),
-        m_negative(val < 0) {
+        m_negative(val < 0),
+        m_signed(true) {
     m_value.s_int = val;
   }
   SValue(double val)
       : m_type(Value::Type::Double),
         m_size(64),
         m_valid(1),
-        m_negative(val < 0) {
+        m_negative(val < 0),
+        m_signed(true) {
     m_value.d_int = val;
   }
   ~SValue() final;
@@ -195,6 +199,8 @@ class SValue final : public Value {
     m_lrange = lrange;
     m_rrange = rrange;
   }
+  bool isSigned() const { return m_signed;}
+  void setSigned(bool isSigned) { m_signed = isSigned; }
   unsigned short getLRange() const final { return m_lrange; };
   unsigned short getRRange() const final { return m_rrange; };
   unsigned short getNbWords() const final { return 1; }
@@ -295,10 +301,11 @@ class SValue final : public Value {
  private:
   Type m_type;
   short m_size;
-  unsigned short m_valid;
-  unsigned short m_negative;
+  unsigned short m_valid = 0;
+  unsigned short m_negative = 0;
   unsigned short m_lrange = 0;
   unsigned short m_rrange = 0;
+  bool m_signed = false; 
 };
 
 class ValueFactory {
@@ -343,6 +350,8 @@ class LValue final : public Value {
     } else
       return 0;
   }
+  bool isSigned() const { return m_signed;}
+  void setSigned(bool isSigned) { m_signed = isSigned; }
   void setRange(unsigned short lrange, unsigned short rrange) final {
     m_lrange = lrange;
     m_rrange = rrange;
@@ -423,6 +432,7 @@ class LValue final : public Value {
   unsigned short m_negative = 0;
   unsigned short m_lrange = 0;
   unsigned short m_rrange = 0;
+  bool m_signed = false;
 };
 
 class StValue final : public Value {
@@ -441,6 +451,8 @@ class StValue final : public Value {
     m_lrange = lrange;
     m_rrange = rrange;
   }
+  bool isSigned() const { return m_signed;}
+  void setSigned(bool isSigned) { m_signed = isSigned; }
   unsigned short getLRange() const final { return m_lrange; };
   unsigned short getRRange() const final { return m_rrange; };
   unsigned short getNbWords() const final { return 1; }
@@ -455,22 +467,26 @@ class StValue final : public Value {
     m_type = Type::Unsigned;
     m_value = std::to_string(val);
     m_valid = true;
+    m_signed = false;
   }
   void set(int64_t val) final {
     m_type = Type::Integer;
     m_value = std::to_string(val);
     m_valid = true;
+    m_signed = true;
   }
   void set(double val) final {
     m_type = Type::Double;
     m_value = std::to_string(val);
     m_valid = true;
+    m_signed = true;
   }
   void set(uint64_t val, Type type, short size) final {
     m_type = type;
     m_value = std::to_string(val);
     m_size = size;
     m_valid = true;
+    m_signed = false;
   }
   void set(const std::string& val, Type type) final {
     m_type = type;
@@ -480,18 +496,21 @@ class StValue final : public Value {
       m_size = m_size * 8;
     }
     m_valid = true;
+    m_signed = false;
   }
   void set(const std::string& val, Type type, short size) {
     m_type = type;
     m_value = val;
     m_size = size;
     m_valid = true;
+    m_signed = false;
   }
   void set(const std::string& val) final {
     m_type = Type::String;
     m_value = val;
     m_size = val.size() * 8;
     m_valid = true;
+    m_signed = false;
   }
   bool operator<(const Value& rhs) const final {
     return m_value < (value_cast<const StValue*>(&rhs))->m_value;
@@ -518,17 +537,17 @@ class StValue final : public Value {
   int64_t getValueL(unsigned short index = 0) const final {
     switch (m_type) {
       case Value::Type::Integer:
-        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 10);
+        return (int64_t)std::strtoll(m_value.c_str(), nullptr, 10);
       case Value::Type::Unsigned:
-        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 10);
+        return (int64_t)std::strtoll(m_value.c_str(), nullptr, 10);
       case Value::Type::Hexadecimal:
-        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 16);
+        return (int64_t)std::strtoll(m_value.c_str(), nullptr, 16);
       case Value::Type::Octal:
-        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 8);
+        return (int64_t)std::strtoll(m_value.c_str(), nullptr, 8);
       case Value::Type::Binary:
-        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 2);
+        return (int64_t)std::strtoll(m_value.c_str(), nullptr, 2);
       default:
-        return (uint64_t)std::strtoll(m_value.c_str(), nullptr, 10);
+        return (int64_t)std::strtoll(m_value.c_str(), nullptr, 10);
     }
   }
   double getValueD(unsigned short index = 0) const final {
@@ -575,10 +594,11 @@ class StValue final : public Value {
  private:
   Type m_type;
   std::string m_value;
-  short m_size;
-  unsigned short m_valid;
+  short m_size = 0;
+  unsigned short m_valid = 0;
   unsigned short m_lrange = 0;
   unsigned short m_rrange = 0;
+  bool m_signed = false;
 };
 
 };  // namespace SURELOG

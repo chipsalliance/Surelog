@@ -935,6 +935,9 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
   UHDM::Serializer& s = compileDesign->getSerializer();
   typespec* result = nullptr;
   NodeId sign = fC->Sibling(type);
+  // 6.8 Variable declarations
+  // The byte, shortint, int, integer, and longint types are signed types by
+  // default.
   bool isSigned = true;
   if (sign && (fC->Type(sign) == VObjectType::slSigning_Unsigned)) {
     isSigned = false;
@@ -942,8 +945,15 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
   switch (the_type) {
     case VObjectType::slIntVec_TypeLogic:
     case VObjectType::slIntVec_TypeReg: {
+      // 6.8 Variable declarations
+      // Other net and variable types can be explicitly declared as signed.
+      isSigned = false;
+      if (sign && (fC->Type(sign) == VObjectType::slSigning_Signed)) {
+        isSigned = true;
+      }
       logic_typespec* var = s.MakeLogic_typespec();
       var->Ranges(ranges);
+      var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, type, var);
       result = var;
       break;
@@ -992,6 +1002,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     case VObjectType::slIntVec_TypeBit: {
       bit_typespec* var = s.MakeBit_typespec();
       var->Ranges(ranges);
+      var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, type, var);
       result = var;
       break;

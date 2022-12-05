@@ -171,6 +171,7 @@ void SValue::set(uint64_t val) {
   m_negative = 0;
   m_lrange = 0;
   m_rrange = 0;
+  m_signed = false;
 }
 void SValue::set(int64_t val) {
   m_type = Value::Type::Integer;
@@ -180,6 +181,7 @@ void SValue::set(int64_t val) {
   m_negative = val < 0;
   m_lrange = 0;
   m_rrange = 0;
+  m_signed = true;
 }
 void SValue::set(double val) {
   m_type = Value::Type::Double;
@@ -189,6 +191,7 @@ void SValue::set(double val) {
   m_negative = val < 0;
   m_lrange = 0;
   m_rrange = 0;
+  m_signed = true;
 }
 void SValue::set(uint64_t val, Type type, short size) {
   m_type = type;
@@ -198,6 +201,7 @@ void SValue::set(uint64_t val, Type type, short size) {
   m_negative = 0;
   m_lrange = 0;
   m_rrange = 0;
+  m_signed = false;
 }
 
 void SValue::u_plus(const Value* a) {
@@ -968,7 +972,8 @@ LValue::LValue(const LValue& val)  // NOLINT(bugprone-copy-constructor-init)
       m_valid(val.isValid()),
       m_negative(val.isNegative()),
       m_lrange(val.getLRange()),
-      m_rrange(val.getRRange()) {
+      m_rrange(val.getRRange()),
+      m_signed(val.isSigned()) {
   m_valueArray[0].m_size = 0;
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.u_int = 0;
