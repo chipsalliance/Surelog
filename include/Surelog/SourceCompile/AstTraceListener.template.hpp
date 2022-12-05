@@ -35,22 +35,19 @@
 // clang-format off
 #define TRACE_INIT_CONTEXT                \
   int32_t sl = 0, sc = 0, el = 0, ec = 0; \
-  getNodeStartLine(node, sl);             \
-  getNodeStartColumn(node, sc);           \
-  getNodeEndLine(node, el);               \
-  getNodeEndColumn(node, ec);             \
+  std::string name;                       \
+  getNodeLocation(node, sl, sc, el, ec);  \
+  getNodeName(node, name)
 
 #define TRACE_PRINT_CONTEXT \
-  "[" << sl << "," << sc <<  ":" << el << "," << ec <<  "]"
+  "[" << sl << "," << sc <<  ":" << el << "," << ec <<  "], " << name
 
-#define TRACE_ENTER                           \
-  TRACE_INIT_CONTEXT m_strm                   \
-  << std::string(m_indent++ * 2, ' ')         \
+#define TRACE_ENTER TRACE_INIT_CONTEXT;       \
+  m_strm << std::string(m_indent++ * 2, ' ')  \
   << __func__ << ": " << TRACE_PRINT_CONTEXT  \
   << std::endl
-#define TRACE_LEAVE                           \
-  TRACE_INIT_CONTEXT m_strm                   \
-  << std::string(2 * --m_indent, ' ')         \
+#define TRACE_LEAVE TRACE_INIT_CONTEXT;       \
+  m_strm << std::string(2 * --m_indent, ' ')  \
   << __func__ << ": " << TRACE_PRINT_CONTEXT  \
   << std::endl
 // clang-format on
@@ -61,13 +58,13 @@ class AstTraceListener final : public AstListener {
   AstTraceListener(std::ostream& strm) : m_strm(strm), m_indent(0) {}
   ~AstTraceListener() final = default;
 
-  virtual void enterSourceFile(const std::filesystem::path& filepath) {
-    m_strm << std::string(m_indent++ * 2, ' ') << __func__ << ": " << filepath
-           << std::endl;
+  void enterSourceFile(SURELOG::PathId fileId) final {
+    m_strm << std::string(m_indent++ * 2, ' ') << __func__ << ": "
+           << SURELOG::PathIdPP(fileId) << std::endl;
   }
-  virtual void leaveSourceFile(const std::filesystem::path& filepath) {
-    m_strm << std::string(2 * --m_indent, ' ') << __func__ << ": " << filepath
-           << std::endl;
+  void leaveSourceFile(SURELOG::PathId fileId) final {
+    m_strm << std::string(2 * --m_indent, ' ') << __func__ << ": "
+           << SURELOG::PathIdPP(fileId) << std::endl;
   }
 
   // clang-format off

@@ -28,6 +28,8 @@
 #pragma once
 
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/PathId.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>
 #include <type_traits>
@@ -95,31 +97,37 @@ class AstListener {
   AstListener() = default;
   virtual ~AstListener() = default;
 
-  virtual void enterSourceFile(const std::filesystem::path& filepath) {}
-  virtual void leaveSourceFile(const std::filesystem::path& filepath) {}
+  virtual void enterSourceFile(PathId fileId) {}
+  virtual void leaveSourceFile(PathId fileId) {}
 
   // clang-format off
 <PUBLIC_ENTER_LEAVE_DECLARATIONS>
   // clang-format on
 
   void listen(const AstNode& node);
-  void listenChildren(const AstNode& node);
+  void listenChildren(const AstNode& node, bool ordered);
+  void listenSiblings(const AstNode& node, bool ordered);
 
-  void listen(const std::filesystem::path& filepath, const VObject* objects,
-              uint32_t count, const SymbolTable* symbolTable);
+  void listen(PathId fileId, const VObject* objects, uint32_t count,
+              const SymbolTable* symbolTable);
 
+  VObjectType getNodeType(const AstNode& node) const;
   bool getNodeName(const AstNode& node, std::string& name) const;
-  bool getNodeFilePath(const AstNode& node,
-                       std::filesystem::path& filepath) const;
-  bool getNodeStartLine(const AstNode& node, int32_t& line) const;
-  bool getNodeStartColumn(const AstNode& node, int32_t& column) const;
-  bool getNodeEndLine(const AstNode& node, int32_t& line) const;
-  bool getNodeEndColumn(const AstNode& node, int32_t& column) const;
+  bool getNodeFileId(const AstNode& node, PathId& fileId) const;
+  bool getNodeStartLocation(const AstNode& node, int32_t& line,
+                            int32_t& column) const;
+  bool getNodeEndLocation(const AstNode& node, int32_t& line,
+                          int32_t& column) const;
+  bool getNodeLocation(const AstNode& node, int32_t& startLine,
+                       int32_t& startColumn, int32_t& endLine,
+                       int32_t& endColumn) const;
   AstNode getNodeParent(const AstNode& node) const;
-  void getChildren(const AstNode& node, bool ordered,
-                   astnode_vector_t& children) const;
-  void getSiblings(const AstNode& node, bool ordered,
-                   astnode_vector_t& siblings) const;
+  AstNode getNodePrevSibling(const AstNode& node) const;
+  AstNode getNodeNextSibling(const AstNode& node) const;
+  bool getNodeChildren(const AstNode& node, bool ordered,
+                       astnode_vector_t& children) const;
+  bool getNodeSiblings(const AstNode& node, bool ordered,
+                       astnode_vector_t& siblings) const;
 
  private:
   // clang-format off

@@ -60,14 +60,13 @@ vpiHandle get_uhdm_design(scompiler* compiler) {
 
 void walk_ast(scompiler* compiler, AstListener* listener) {
   if (!compiler || !listener) return;
-  FileSystem* const fileSystem = FileSystem::getInstance();
   Compiler* the_compiler = (Compiler*)compiler;
   for (const CompileSourceFile* csf : the_compiler->getCompileSourceFiles()) {
     const FileContent* const fC = csf->getParser()->getFileContent();
-    const std::filesystem::path filepath = fileSystem->toPath(fC->getFileId());
     const std::vector<VObject>& objects = fC->getVObjects();
     const SymbolTable* const symbolTable = fC->getSymbolTable();
-    listener->listen(filepath, objects.data(), objects.size(), symbolTable);
+    listener->listen(fC->getFileId(), objects.data(), objects.size(),
+                     symbolTable);
   }
 }
 

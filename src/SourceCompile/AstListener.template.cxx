@@ -63,6 +63,10 @@ struct VObjectComparer final {
   explicit VObjectComparer(const VObject* const objects) : m_objects(objects) {}
 };
 
+VObjectType AstListener::getNodeType(const AstNode& node) const {
+  return node ? node.m_object->m_type : VObjectType::sl_INVALID_;
+}
+
 bool AstListener::getNodeName(const AstNode& node, std::string& name) const {
   if (node && node.m_object->m_name) {
     name = m_symbolTable->getSymbol(node.m_object->m_name);
@@ -71,46 +75,37 @@ bool AstListener::getNodeName(const AstNode& node, std::string& name) const {
   return false;
 }
 
-bool AstListener::getNodeFilePath(const AstNode& node,
-                                  std::filesystem::path& filepath) const {
-  if (node && node.m_object->m_fileId) {
-    filepath = FileSystem::getInstance()->toPath(node.m_object->m_fileId);
-    return true;
-  }
-  return false;
-}
-
-bool AstListener::getNodeStartLine(const AstNode& node, int32_t& line) const {
+bool AstListener::getNodeFileId(const AstNode& node, PathId& fileId) const {
   if (node) {
-    line = node.m_object->m_line;
+    fileId = node.m_object->m_fileId;
     return true;
   }
   return false;
 }
 
-bool AstListener::getNodeStartColumn(const AstNode& node,
+bool AstListener::getNodeLocation(const AstNode& node, int32_t& startLine,
+                                  int32_t& startColumn, int32_t& endLine,
+                                  int32_t& endColumn) const {
+  if (node) {
+    startLine = node.m_object->m_line;
+    startColumn = node.m_object->m_column;
+    endLine = node.m_object->m_endLine;
+    endColumn = node.m_object->m_endColumn;
+    return true;
+  }
+  return false;
+}
+
+bool AstListener::getNodeStartLocation(const AstNode& node, int32_t& line,
+                                       int32_t& column) const {
+  int32_t endLine = 0, endColumn = 0;
+  return getNodeLocation(node, line, column, endLine, endColumn);
+}
+
+bool AstListener::getNodeEndLocation(const AstNode& node, int32_t& line,
                                      int32_t& column) const {
-  if (node) {
-    column = node.m_object->m_column;
-    return true;
-  }
-  return false;
-}
-
-bool AstListener::getNodeEndLine(const AstNode& node, int32_t& line) const {
-  if (node) {
-    line = node.m_object->m_endLine;
-    return true;
-  }
-  return false;
-}
-
-bool AstListener::getNodeEndColumn(const AstNode& node, int32_t& column) const {
-  if (node) {
-    column = node.m_object->m_endColumn;
-    return true;
-  }
-  return false;
+  int32_t startLine = 0, startColumn = 0;
+  return getNodeLocation(node, startLine, startColumn, line, column);
 }
 
 AstNode AstListener::getNodeParent(const AstNode& node) const {
@@ -121,11 +116,13 @@ AstNode AstListener::getNodeParent(const AstNode& node) const {
   return AstNode();
 }
 
-void AstListener::getChildren(const AstNode& node, bool ordered,
-                              astnode_vector_t& children) const {
-  if (!node || !node.m_object->m_child) return;
+bool AstListener::getNodeChildren(const AstNode& node, bool ordered,
+                                  astnode_vector_t& children) const {
+  if (!node) return false;
+  if (!node.m_object->m_child) return true;
 
   std::vector<NodeId> indexes;
+  indexes.reserve(16);
   for (NodeId id = node.m_object->m_child; id;
        id = m_objects[(RawNodeId)id].m_sibling) {
     indexes.emplace_back(id);
@@ -139,15 +136,47 @@ void AstListener::getChildren(const AstNode& node, bool ordered,
   for (const NodeId& index : indexes) {
     children.emplace_back(index, &m_objects[(RawNodeId)index]);
   }
+
+  return true;
 }
 
-void AstListener::getSiblings(const AstNode& node, bool ordered,
-                              astnode_vector_t& siblings) const {
-  if (!node || !node.m_object->m_parent) return;
+AstNode AstListener::getNodePrevSibling(const AstNode& node) const {
+  if (const AstNode parent = getNodeParent(node)) {
+    astnode_vector_t children;
+    if (getNodeChildren(parent, true, children)) {
+      for (size_t i = 1, ni = children.size(); i < ni; ++i) {
+        if (children[i].m_index == node.m_index) {
+          return children[i - 1];
+        }
+      }
+    }
+  }
+  return AstNode();
+}
+
+AstNode AstListener::getNodeNextSibling(const AstNode& node) const {
+  if (const AstNode parent = getNodeParent(node)) {
+    astnode_vector_t children;
+    if (getNodeChildren(parent, true, children)) {
+      for (size_t i = 0, ni = children.size() - 1; i < ni; ++i) {
+        if (children[i].m_index == node.m_index) {
+          return children[i + 1];
+        }
+      }
+    }
+  }
+  return AstNode();
+}
+
+bool AstListener::getNodeSiblings(const AstNode& node, bool ordered,
+                                  astnode_vector_t& siblings) const {
+  if (!node) return false;
+  if (!node.m_object->m_parent) return true;
 
   const VObject& parent = m_objects[(RawNodeId)node.m_object->m_parent];
 
   std::vector<NodeId> indexes;
+  indexes.reserve(16);
   for (NodeId id = parent.m_child; id;
        id = m_objects[(RawNodeId)id].m_sibling) {
     if (id != node.m_index) indexes.emplace_back(id);
@@ -161,9 +190,11 @@ void AstListener::getSiblings(const AstNode& node, bool ordered,
   for (const NodeId& index : indexes) {
     siblings.emplace_back(index, &m_objects[(RawNodeId)index]);
   }
+
+  return true;
 }
 
-void AstListener::listen(const std::filesystem::path& filepath,
+void AstListener::listen(PathId fileId,
                          const VObject* objects, uint32_t count,
                          const SymbolTable* symbolTable) {
   m_objects = objects;
@@ -172,18 +203,47 @@ void AstListener::listen(const std::filesystem::path& filepath,
 
   const AstNode root(NodeId(count - 1), &objects[count - 1]);
 
-  enterSourceFile(filepath);
-  listenChildren(root);
-  leaveSourceFile(filepath);
+  enterSourceFile(fileId);
+  listenChildren(root, true);
+  leaveSourceFile(fileId);
 }
 
-void AstListener::listenChildren(const AstNode& node) {
+void AstListener::listenChildren(const AstNode& node, bool ordered) {
+  if (!node || !node.m_object->m_child) return;
+
   std::vector<NodeId> indexes;
+  indexes.reserve(16);
   for (NodeId id = node.m_object->m_child; id;
        id = m_objects[(RawNodeId)id].m_sibling) {
     indexes.emplace_back(id);
   }
-  std::sort(indexes.begin(), indexes.end(), VObjectComparer(m_objects));
+
+  if (ordered) {
+    std::sort(indexes.begin(), indexes.end(), VObjectComparer(m_objects));
+  }
+
+  for (const NodeId& index : indexes) {
+    const AstNode node(index, &m_objects[(RawNodeId)index]);
+    listen(node);
+  }
+}
+
+void AstListener::listenSiblings(const AstNode& node, bool ordered) {
+  if (!node || !node.m_object->m_parent) return;
+
+  const VObject& parent = m_objects[(RawNodeId)node.m_object->m_parent];
+
+  std::vector<NodeId> indexes;
+  indexes.reserve(16);
+  for (NodeId id = parent.m_child; id;
+       id = m_objects[(RawNodeId)id].m_sibling) {
+    if (id != node.m_index) indexes.emplace_back(id);
+  }
+
+  if (ordered) {
+    std::sort(indexes.begin(), indexes.end(), VObjectComparer(m_objects));
+  }
+
   for (const NodeId& index : indexes) {
     const AstNode node(index, &m_objects[(RawNodeId)index]);
     listen(node);
