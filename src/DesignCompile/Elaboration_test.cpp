@@ -34,6 +34,8 @@
 #include <uhdm/cont_assign.h>
 #include <uhdm/design.h>
 #include <uhdm/expr.h>
+#include <uhdm/gen_scope.h>
+#include <uhdm/gen_scope_array.h>
 #include <uhdm/int_typespec.h>
 #include <uhdm/module.h>
 #include <uhdm/param_assign.h>
@@ -1150,6 +1152,58 @@ endmodule
         UHDM::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 6909558);
+      }
+    }
+  }
+}
+
+TEST(Elaboration, CaseStatement) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module GOOD();
+endmodule
+
+module top();
+  parameter bit unsigned x_1b0 = 1'b0;
+  parameter bit signed x_1sb0 = 1'sb0;
+  parameter bit signed x_1sb1 = 1'sb1;
+  parameter logic signed [1:0] x_2sb11 = 2'sb11;
+
+  case (x_2sb11)
+    x_1sb1: GOOD u2();
+    default: BAD u3();
+  endcase
+
+  // Mix signed and unsigned
+  case (x_2sb11)
+    x_1b0:  BAD u1();
+    x_1sb1: BAD u2();
+    default: GOOD u3();
+  endcase
+
+  case (x_2sb11)
+    x_1sb0:  BAD u1();
+    x_1sb1: GOOD u2();
+    default: BAD u3();
+  endcase
+
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto gen_array : *topMod->Gen_scope_arrays()) {
+      for (auto gen_scope : *gen_array->Gen_scopes()) {
+        for (auto mod : *gen_scope->Modules()) {
+          EXPECT_EQ(mod->VpiDefName(), "UnitTest@GOOD");
+        }
       }
     }
   }
