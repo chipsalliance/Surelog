@@ -47,6 +47,7 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
@@ -652,6 +653,45 @@ ModuleInstance* DesignElaboration::createBindInstance_(
   return instance;
 }
 
+const UHDM::any* resize(UHDM::Serializer& serializer, const UHDM::any* object,
+                        int maxsize, bool is_overall_unsigned) {
+  if (object == nullptr) {
+    return nullptr;
+  }
+  UHDM::any* result = (UHDM::any*)object;
+  UHDM::UHDM_OBJECT_TYPE type = result->UhdmType();
+  if (type == UHDM::uhdmconstant) {
+    UHDM::constant* c = (UHDM::constant*)result;
+    if (c->VpiSize() < maxsize) {
+      UHDM::ElaboratorListener listener(&serializer);
+      c = (UHDM::constant*)UHDM::clone_tree(c, serializer, &listener);
+      int constType = c->VpiConstType();
+      const UHDM::typespec* tps = c->Typespec();
+      bool is_signed = false;
+      if (tps) {
+        if (tps->UhdmType() == UHDM::uhdmint_typespec) {
+          UHDM::int_typespec* itps = (UHDM::int_typespec*)tps;
+          if (itps->VpiSigned()) {
+            is_signed = true;
+          }
+        }
+      }
+      if (constType == vpiBinaryConst) {
+        std::string value = c->VpiValue();
+        if (is_signed && (!is_overall_unsigned)) {
+          value.insert(4, (maxsize - c->VpiSize()), '1');
+        } else {
+          value.insert(4, (maxsize - c->VpiSize()), '0');
+        }
+        c->VpiValue(value);
+      }
+      c->VpiSize(maxsize);
+      result = c;
+    }
+  }
+  return result;
+}
+
 void DesignElaboration::elaborateInstance_(
     const FileContent* fC, NodeId nodeId, NodeId parentParamOverride,
     ModuleInstanceFactory* factory, ModuleInstance* parent, Config* config,
@@ -1073,6 +1113,62 @@ void DesignElaboration::elaborateInstance_(
 
           if (fC->Type(tmp) ==
               VObjectType::slCase_generate_item) {  // Case stmt
+            // Make all expressions match the largest expression size per LRM
+            int maxsize = 0;
+            bool is_overall_unsigned = false;
+            {
+              std::vector<NodeId> checkIds;
+              checkIds.push_back(conditionId);
+              NodeId caseItem = tmp;
+              while (caseItem) {
+                NodeId exprItem = fC->Child(caseItem);
+                while (exprItem) {
+                  if (fC->Type(exprItem) ==
+                      VObjectType::slConstant_expression) {
+                    checkIds.push_back(exprItem);
+                  }
+                  exprItem = fC->Sibling(exprItem);
+                }
+                caseItem = fC->Sibling(caseItem);
+              }
+
+              for (NodeId id : checkIds) {
+                m_helper.checkForLoops(true);
+                UHDM::any* tmpExp = m_helper.compileExpression(
+                    parentDef, fC, id, m_compileDesign, nullptr, parent, true,
+                    false);
+                m_helper.checkForLoops(false);
+                if (tmpExp && (tmpExp->UhdmType() == UHDM::uhdmconstant)) {
+                  UHDM::constant* c = (UHDM::constant*)tmpExp;
+                  maxsize = std::max(maxsize, c->VpiSize());
+                  const UHDM::typespec* tps = c->Typespec();
+                  bool is_signed = false;
+                  if (tps) {
+                    if (tps->UhdmType() == UHDM::uhdmint_typespec) {
+                      UHDM::int_typespec* itps = (UHDM::int_typespec*)tps;
+                      if (itps->VpiSigned()) {
+                        is_signed = true;
+                      }
+                    }
+                  }
+                  if (is_signed == false) {
+                    is_overall_unsigned = true;
+                  }
+                }
+              }
+            }
+            m_helper.checkForLoops(true);
+            const UHDM::any* condExpr = m_helper.compileExpression(
+                parentDef, fC, conditionId, m_compileDesign, nullptr, parent,
+                true, false);
+            m_helper.checkForLoops(false);
+            condExpr = resize(m_compileDesign->getSerializer(), condExpr,
+                              maxsize, is_overall_unsigned);
+            UHDM::ExprEval eval;
+            bool invalidValue = false;
+            condVal = eval.get_value(invalidValue,
+                                     any_cast<const UHDM::expr*>(condExpr));
+
             NodeId caseItem = tmp;
             bool nomatch = true;
             while (nomatch) {
@@ -1083,12 +1179,18 @@ void DesignElaboration::elaborateInstance_(
               while (nomatch) {
                 // Find if one of the case expr matches the case expr
                 if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
-                  bool validValue;
                   m_helper.checkForLoops(true);
-                  int64_t caseVal = m_helper.getValue(
-                      validValue, parentDef, fC, exprItem, m_compileDesign,
-                      nullptr, parent, true, false);
+                  const UHDM::any* caseExpr = m_helper.compileExpression(
+                      parentDef, fC, exprItem, m_compileDesign, nullptr, parent,
+                      true, false);
                   m_helper.checkForLoops(false);
+                  caseExpr = resize(m_compileDesign->getSerializer(), caseExpr,
+                                    maxsize, is_overall_unsigned);
+                  UHDM::ExprEval eval;
+                  bool invalidValue = false;
+                  int64_t caseVal = eval.get_value(
+                      invalidValue, any_cast<const UHDM::expr*>(caseExpr));
+
                   if (condVal == caseVal) {
                     nomatch = false;
                     break;
