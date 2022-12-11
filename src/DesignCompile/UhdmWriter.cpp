@@ -1694,6 +1694,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
       if (simplified == false) {
         bool invalidValue = false;
         FileSystem* const fileSystem = FileSystem::getInstance();
+        m_helper.checkForLoops(true);
         any* res = m_helper.reduceExpr(
             (expr*)rhs, invalidValue, mod, m_compileDesign,
             netlist->getParent(),
@@ -1701,6 +1702,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
                 rhs->VpiFile(),
                 m_compileDesign->getCompiler()->getSymbolTable()),
             rhs->VpiLineNo(), assign, true);
+        m_helper.checkForLoops(false);
         if (invalidValue == false) {
           if (res && (res->UhdmType() == uhdmconstant)) {
             if (cloned == false) {

@@ -1166,9 +1166,15 @@ void DesignElaboration::elaborateInstance_(
                               maxsize, is_overall_unsigned);
             UHDM::ExprEval eval;
             bool invalidValue = false;
-            condVal = eval.get_value(invalidValue,
-                                     any_cast<const UHDM::expr*>(condExpr));
-
+            condVal = eval.get_value(
+                invalidValue, any_cast<const UHDM::expr*>(condExpr), true);
+            if (invalidValue) {
+              Location loc(fC->getFileId(conditionId), fC->Line(conditionId),
+                           fC->Column(conditionId));
+              Error err(ErrorDefinition::ELAB_INVALID_CASE_STMT_VALUE, loc);
+              m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                  err, false, false);
+            }
             NodeId caseItem = tmp;
             bool nomatch = true;
             while (nomatch) {
@@ -1189,8 +1195,17 @@ void DesignElaboration::elaborateInstance_(
                   UHDM::ExprEval eval;
                   bool invalidValue = false;
                   int64_t caseVal = eval.get_value(
-                      invalidValue, any_cast<const UHDM::expr*>(caseExpr));
-
+                      invalidValue, any_cast<const UHDM::expr*>(caseExpr),
+                      true);
+                  if (invalidValue) {
+                    Location loc(fC->getFileId(exprItem), fC->Line(exprItem),
+                                 fC->Column(exprItem));
+                    Error err(ErrorDefinition::ELAB_INVALID_CASE_STMT_VALUE,
+                              loc);
+                    m_compileDesign->getCompiler()
+                        ->getErrorContainer()
+                        ->addError(err, false, false);
+                  }
                   if (condVal == caseVal) {
                     nomatch = false;
                     break;
