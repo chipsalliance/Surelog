@@ -130,7 +130,7 @@ target_link_libraries(<your project name> surelog)
  ```
    -fileunit             Compiles each Verilog file as an independent compilation unit (under slpp_unit/ if -writepp used)
    -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
-   -parse                Parse/Compile/Elaborate the files after pre-processing step
+   -parse                Parse/Compile/Elaborate/Produces UHDM.
    -top/--top-module <module> Top level module for elaboration (multiple cmds ok)
    -bb_mod <module>      Blackbox module (multiple cmds ok, ex: -bb_mod work@top)
    -bb_inst <instance>   Blackbox instance (multiple cmds ok, ex: -bb_inst work@top.u1)
@@ -154,6 +154,10 @@ target_link_libraries(<your project name> surelog)
    -split <line number>  Split files or modules larger than specified line number for multi thread compilation
    -timescale=<timescale> Specifies the overall timescale
    -nobuiltin            Do not parse SV builtin classes (array...)
+
+ Example:
+  surelog top.sv -parse -d uhdm
+
 ```
  * SEPARATE COMPILATION FLOW OPTIONS:
  ```

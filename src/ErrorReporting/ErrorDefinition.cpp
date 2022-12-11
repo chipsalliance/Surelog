@@ -420,6 +420,8 @@ bool ErrorDefinition::init() {
       "Skipping blackboxed module \"%s\"");
   rec(ELAB_SKIPPING_BLACKBOX_INSTANCE, INFO, ELAB,
       "Skipping blackboxed instance \"%s\"");
+  rec(ELAB_INVALID_CASE_STMT_VALUE, ERROR, ELAB,
+      "Invalid generate case stmt value");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       R"(File "%exobj" maps to multiple libraries: "%s")");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
@@ -462,6 +464,7 @@ bool ErrorDefinition::init() {
   rec(UHDM_UNRESOLVED_HIER_PATH, ERROR, UHDM,
       "Unresolved hierarchical reference \"%s\"");
   rec(UHDM_UNDEFINED_VARIABLE, ERROR, UHDM, "Undefined variable \"%s\"");
+  rec(UHDM_INVALID_CASE_STMT_VALUE, ERROR, UHDM, "Invalid case stmt value");
   return true;
 }
 
