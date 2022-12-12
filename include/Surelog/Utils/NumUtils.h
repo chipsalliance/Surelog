@@ -58,11 +58,11 @@ const char *strto_int(std::string_view s, result_type *result) {
   if (!s.empty() && s.front() == '+') s.remove_prefix(1);
   std::from_chars_result parse_result;
   if (s.front() == '-') {
-    sint_type n;
+    sint_type n = 0;
     parse_result = std::from_chars(s.data(), s.data() + s.size(), n);
     *result = static_cast<result_type>(n);
   } else {
-    uint_type n;
+    uint_type n = 0;
     parse_result = std::from_chars(s.data(), s.data() + s.size(), n);
     *result = static_cast<result_type>(n);
   }
