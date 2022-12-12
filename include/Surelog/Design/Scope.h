@@ -45,7 +45,7 @@ class Scope : public RTTI {
   typedef std::vector<Statement*> StmtVector;
   typedef std::vector<Scope*> ScopeVector;
 
-  Scope(const std::string& name, Scope* parent)
+  Scope(std::string_view name, Scope* parent)
       : m_name(name), m_parentScope(parent) {}
   ~Scope() override {}
 
