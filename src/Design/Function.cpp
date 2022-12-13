@@ -27,7 +27,7 @@
 
 namespace SURELOG {
 Procedure::Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
-                     const std::string& name)
+                     std::string_view name)
     : Scope(name, nullptr),
       Statement(this, nullptr, fC, id,
                 fC ? fC->Type(id) : VObjectType::slFunction_prototype),

@@ -37,6 +37,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/FunctionMethod.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <uhdm/Serializer.h>
@@ -57,7 +58,25 @@ static VObjectType convert(std::string_view type) {
 }
 
 void Builtin::addBuiltinTypes() {
-  static const std::vector<std::vector<std::string>> functionDef = {
+  struct FunctionDefinition {
+    constexpr FunctionDefinition(std::string_view packageName,
+                                 std::string_view className,
+                                 std::string_view returnTypeName,
+                                 std::string_view functionName,
+                                 std::string_view unused1 = "",
+                                 std::string_view unused2 = "")
+        : packageName(packageName),
+          className(className),
+          returnTypeName(returnTypeName),
+          functionName(functionName) {}
+
+    std::string_view packageName;
+    std::string_view className;
+    std::string_view returnTypeName;
+    std::string_view functionName;
+  };
+
+  static constexpr FunctionDefinition functionDef[] = {
       {"builtin", "array", "generic", "find"},
       {"builtin", "array", "int", "find_index"},
       {"builtin", "array", "int", "find_first"},
@@ -214,33 +233,29 @@ void Builtin::addBuiltinTypes() {
       {"builtin", "any_sverilog_class", "void", "rand_mode"}};
 
   UHDM::Serializer& s = m_compiler->getSerializer();
-  for (const auto& function : functionDef) {
-    const std::string& packageName = function[0];
-    const std::string& className = function[1];
-    const std::string& returnTypeName = function[2];
-    const std::string& functionName = function[3];
-    Package* package = m_design->getPackage(packageName);
+  for (const auto& f : functionDef) {
+    Package* package = m_design->getPackage(f.packageName);
     if (package == nullptr) {
-      package = new Package(packageName, nullptr, nullptr, InvalidNodeId);
+      package = new Package(f.packageName, nullptr, nullptr, InvalidNodeId);
       UHDM::package* pack = s.MakePackage();
       pack->VpiName(package->getName());
       package->setUhdmInstance(pack);
-      m_design->addPackageDefinition(packageName, package);
+      m_design->addPackageDefinition(f.packageName, package);
     }
-    const std::string fullClassName = packageName + "::" + className;
+    const std::string fullClassName = StrCat(f.packageName, "::", f.className);
     ClassDefinition* classDef = m_design->getClassDefinition(fullClassName);
     if (classDef == nullptr) {
       classDef =
-          new ClassDefinition(className, nullptr, package, nullptr,
+          new ClassDefinition(f.className, nullptr, package, nullptr,
                               InvalidNodeId, nullptr, s.MakeClass_defn());
       m_design->addClassDefinition(fullClassName, classDef);
-      package->addClassDefinition(className, classDef);
+      package->addClassDefinition(f.className, classDef);
     }
 
-    DataType* dtype = new DataType(nullptr, InvalidNodeId, returnTypeName,
-                                   convert(returnTypeName));
+    DataType* dtype = new DataType(nullptr, InvalidNodeId, f.returnTypeName,
+                                   convert(f.returnTypeName));
     FunctionMethod* method =
-        new FunctionMethod(classDef, nullptr, InvalidNodeId, functionName,
+        new FunctionMethod(classDef, nullptr, InvalidNodeId, f.functionName,
                            dtype, false, false, false, false, false, false);
     classDef->insertFunction(method);
   }

@@ -480,7 +480,7 @@ void Design::orderPackages() {
   }
 }
 
-Package* Design::addPackageDefinition(const std::string& packageName,
+Package* Design::addPackageDefinition(std::string_view packageName,
                                       Package* package) {
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(packageName);

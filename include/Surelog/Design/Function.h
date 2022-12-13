@@ -44,7 +44,7 @@ class Procedure : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(Procedure, Scope, Statement)
  public:
   Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
-            const std::string& name);
+            std::string_view name);
   ~Procedure() override = default;
 
   DesignComponent* getParent() const { return m_parent; }
@@ -76,7 +76,7 @@ class Function : public Procedure {
   SURELOG_IMPLEMENT_RTTI(Function, Procedure)
  public:
   Function(DesignComponent* parent, const FileContent* fC, NodeId id,
-           std::string name, DataType* returnType)
+           std::string_view name, DataType* returnType)
       : Procedure(parent, fC, id, name), m_returnType(returnType) {}
   bool compile(CompileHelper& compile_helper);
   ~Function() override = default;

@@ -194,7 +194,7 @@ class Design final {
     m_programDefinitions.emplace(programName, program);
   }
 
-  Package* addPackageDefinition(const std::string& packageName,
+  Package* addPackageDefinition(std::string_view packageName,
                                 Package* package);
 
   void clearContainers();
