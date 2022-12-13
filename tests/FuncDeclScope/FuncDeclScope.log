@@ -320,7 +320,7 @@ n<> u<288> t<Top_level_rule> c<1> l<1:1> el<41:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              15
+constant                                              17
 cont_assign                                            4
 design                                                 1
 func_call                                              4
@@ -341,7 +341,7 @@ return_stmt                                            3
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              15
+constant                                              17
 cont_assign                                            5
 design                                                 1
 func_call                                              4
@@ -612,9 +612,9 @@ design: (work@top)
           |vpiRhs:
           \_constant: , line:11:17, endln:11:18
             |vpiParent:
-            \_return_stmt: , line:11:10, endln:11:16
+            \_cont_assign: , line:14:14, endln:14:24
             |vpiDecompile:1
-            |vpiSize:64
+            |vpiSize:32
             |UINT:1
             |vpiConstType:9
           |vpiLhs:
@@ -647,6 +647,12 @@ design: (work@top)
             \_function: (work@top.interf.gen_block.get3), line:10:7, endln:12:18
             |vpiCondition:
             \_constant: , line:11:17, endln:11:18
+              |vpiParent:
+              \_return_stmt: , line:11:10, endln:11:16
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.gen_block), line:29:4, endln:37:19
     |vpiParent:
@@ -665,9 +671,9 @@ design: (work@top)
         |vpiRhs:
         \_constant: , line:31:17, endln:31:18
           |vpiParent:
-          \_return_stmt: , line:31:10, endln:31:16
+          \_cont_assign: , line:34:14, endln:34:24
           |vpiDecompile:1
-          |vpiSize:64
+          |vpiSize:32
           |UINT:1
           |vpiConstType:9
         |vpiLhs:
@@ -700,6 +706,12 @@ design: (work@top)
           \_function: (work@top.gen_block.get1), line:30:7, endln:32:18
           |vpiCondition:
           \_constant: , line:31:17, endln:31:18
+            |vpiParent:
+            \_return_stmt: , line:31:10, endln:31:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

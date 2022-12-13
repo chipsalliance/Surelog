@@ -2948,14 +2948,16 @@ bool CompileHelper::compileParameterDeclaration(
   return true;
 }
 
-void CompileHelper::adjustSize(const UHDM::typespec* ts,
-                               DesignComponent* component,
-                               CompileDesign* compileDesign,
-                               ValuedComponentI* instance, UHDM::constant* c) {
+UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
+                                          DesignComponent* component,
+                                          CompileDesign* compileDesign,
+                                          ValuedComponentI* instance,
+                                          UHDM::constant* c, bool uniquify) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::constant* result = c;
   if (ts == nullptr) {
-    return;
+    return result;
   }
-
   FileSystem* const fileSystem = FileSystem::getInstance();
   int orig_size = c->VpiSize();
 
@@ -2977,9 +2979,15 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
         uint64_t mask = NumUtils::getMask(size);
         uint64_t uval = (uint64_t)val;
         uval = uval & mask;
+        if (uniquify) {
+          UHDM::ElaboratorListener listener(&s, false, true);
+          c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+          result = c;
+        }
         c->VpiValue("UINT:" + std::to_string(uval));
         c->VpiDecompile(std::to_string(uval));
         c->VpiConstType(vpiUIntConst);
+        c->VpiSize(size);
       } else if (c->VpiConstType() == vpiBinaryConst) {
         const typespec* ts = c->Typespec();
         if (ts) {
@@ -2989,15 +2997,27 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
             if (itps->VpiSigned()) {
               if (size == 32) {
                 val = -val;
+                if (uniquify) {
+                  UHDM::ElaboratorListener listener(&s, false, true);
+                  c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                  result = c;
+                }
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
                 c->VpiConstType(vpiIntConst);
+                c->VpiSize(size);
               } else {
                 if ((orig_size == 1) && (val == 1)) {
                   uint64_t mask = NumUtils::getMask(size);
+                  if (uniquify) {
+                    UHDM::ElaboratorListener listener(&s, false, true);
+                    c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                    result = c;
+                  }
                   c->VpiValue("UINT:" + std::to_string(mask));
                   c->VpiDecompile(std::to_string(mask));
                   c->VpiConstType(vpiUIntConst);
+                  c->VpiSize(size);
                 }
               }
             }
@@ -3009,15 +3029,23 @@ void CompileHelper::adjustSize(const UHDM::typespec* ts,
           if (uval == 1) {
             uint64_t mask = NumUtils::getMask(size);
             uval = mask;
+            if (uniquify) {
+              UHDM::ElaboratorListener listener(&s, false, true);
+              c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+              result = c;
+            }
             c->VpiValue("UINT:" + std::to_string(uval));
             c->VpiDecompile(std::to_string(uval));
             c->VpiConstType(vpiUIntConst);
+            c->VpiSize(size);
           }
         }
+      } else {
+        c->VpiSize(size);
       }
     }
-    c->VpiSize(size);
   }
+  return result;
 }
 
 UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
