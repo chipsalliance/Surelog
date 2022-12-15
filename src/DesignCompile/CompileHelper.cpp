@@ -2950,7 +2950,7 @@ bool CompileHelper::compileParameterDeclaration(
 
 char flip(char c) { return (c == '0') ? '1' : '0'; }
 
-std::string twosComplement(std::string bin) {
+std::string twosComplement(std::string_view bin) {
   int n = bin.length();
   int i;
   std::string ones, twos;
@@ -3031,7 +3031,6 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
                 c->VpiConstType(vpiIntConst);
-                c->VpiSize(size);
               } else if ((orig_size == 1) && (val == 1)) {
                 uint64_t mask = NumUtils::getMask(size);
                 if (uniquify) {
@@ -3042,7 +3041,6 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                 c->VpiValue("UINT:" + std::to_string(mask));
                 c->VpiDecompile(std::to_string(mask));
                 c->VpiConstType(vpiUIntConst);
-                c->VpiSize(size);
               }
             } else {
               if ((orig_size == -1) && (val == 1)) {
@@ -3055,9 +3053,9 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                 c->VpiValue("UINT:" + std::to_string(mask));
                 c->VpiDecompile(std::to_string(mask));
                 c->VpiConstType(vpiUIntConst);
-                c->VpiSize(size);
               }
             }
+            c->VpiSize(size);
           }
         }
         if (orig_size == -1) {
