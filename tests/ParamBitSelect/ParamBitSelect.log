@@ -195,32 +195,34 @@ n<> u<142> t<Top_level_rule> c<1> l<1:1> el<22:1>
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             4
-constant                                              45
+constant                                              53
 design                                                 1
 gen_scope                                             14
 gen_scope_array                                       14
 int_typespec                                           6
+logic_typespec                                         4
 module                                                10
 operation                                             11
 param_assign                                           2
 parameter                                              6
-range                                                  2
+range                                                  6
 ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             4
-constant                                              45
+constant                                              53
 design                                                 1
 gen_scope                                             20
 gen_scope_array                                       20
 int_typespec                                           6
+logic_typespec                                         4
 module                                                14
 operation                                             11
 param_assign                                           2
 parameter                                              6
-range                                                  2
+range                                                  6
 ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamBitSelect/slpp_all/surelog.uhdm ...
@@ -316,7 +318,15 @@ design: (work@dut)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_int_typespec: 
+      \_logic_typespec: 
+        |vpiRange:
+        \_range: 
+          |vpiLeftRange:
+          \_constant: 
+            |UINT:3
+          |vpiRightRange:
+          \_constant: 
+            |UINT:0
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15

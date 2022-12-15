@@ -2948,6 +2948,26 @@ bool CompileHelper::compileParameterDeclaration(
   return true;
 }
 
+char flip(char c) { return (c == '0') ? '1' : '0'; }
+
+std::string twosComplement(std::string bin) {
+  int n = bin.length();
+  int i;
+  std::string ones, twos;
+  for (i = 0; i < n; i++) ones += flip(bin[i]);
+  twos = ones;
+  for (i = n - 1; i >= 0; i--) {
+    if (ones[i] == '1')
+      twos[i] = '0';
+    else {
+      twos[i] = '1';
+      break;
+    }
+  }
+  if (i == -1) twos = '1' + twos;
+  return twos;
+}
+
 UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                                           DesignComponent* component,
                                           CompileDesign* compileDesign,
@@ -2995,7 +3015,13 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
           if (ttype == uhdmint_typespec) {
             int_typespec* itps = (int_typespec*)ts;
             if (itps->VpiSigned()) {
-              if (size == 32) {
+              uint64_t msb = val & 1 << (orig_size - 1);
+              if (msb && (orig_size > 1)) {
+                // 2's complement
+                const std::string& v = c->VpiValue().c_str() + 4;
+                const std::string& res = twosComplement(v);
+                // Convert to int
+                val = std::strtoll(res.c_str(), 0, 2);
                 val = -val;
                 if (uniquify) {
                   UHDM::ElaboratorListener listener(&s, false, true);
@@ -3006,19 +3032,30 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                 c->VpiDecompile(std::to_string(val));
                 c->VpiConstType(vpiIntConst);
                 c->VpiSize(size);
-              } else {
-                if ((orig_size == 1) && (val == 1)) {
-                  uint64_t mask = NumUtils::getMask(size);
-                  if (uniquify) {
-                    UHDM::ElaboratorListener listener(&s, false, true);
-                    c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
-                    result = c;
-                  }
-                  c->VpiValue("UINT:" + std::to_string(mask));
-                  c->VpiDecompile(std::to_string(mask));
-                  c->VpiConstType(vpiUIntConst);
-                  c->VpiSize(size);
+              } else if ((orig_size == 1) && (val == 1)) {
+                uint64_t mask = NumUtils::getMask(size);
+                if (uniquify) {
+                  UHDM::ElaboratorListener listener(&s, false, true);
+                  c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                  result = c;
                 }
+                c->VpiValue("UINT:" + std::to_string(mask));
+                c->VpiDecompile(std::to_string(mask));
+                c->VpiConstType(vpiUIntConst);
+                c->VpiSize(size);
+              }
+            } else {
+              if ((orig_size == -1) && (val == 1)) {
+                uint64_t mask = NumUtils::getMask(size);
+                if (uniquify) {
+                  UHDM::ElaboratorListener listener(&s, false, true);
+                  c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                  result = c;
+                }
+                c->VpiValue("UINT:" + std::to_string(mask));
+                c->VpiDecompile(std::to_string(mask));
+                c->VpiConstType(vpiUIntConst);
+                c->VpiSize(size);
               }
             }
           }
@@ -4129,6 +4166,14 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
     }
     case uhdmbit_typespec: {
       bit_typespec* lts = (bit_typespec*)ts;
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
+        r = (*lts->Ranges())[0];
+      }
+      isSigned = lts->VpiSigned();
+      break;
+    }
+    case uhdmint_typespec: {
+      int_typespec* lts = (int_typespec*)ts;
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }

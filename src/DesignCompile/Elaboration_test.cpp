@@ -422,6 +422,7 @@ module top();
   parameter [1:0] p1 =  1'sb1;
   parameter [1:0] p2 =  2'sb10;
   parameter int p3 =  2'sb10;
+  parameter int p4 =  3'sb101;
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
@@ -441,6 +442,8 @@ endmodule
         EXPECT_EQ(val, 2);
       } else if (name == "p3") {
         EXPECT_EQ(val, -2);
+      } else if (name == "p4") {
+        EXPECT_EQ(val, -3);
       }
     }
   }
