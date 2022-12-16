@@ -1248,7 +1248,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->Actual_group(mp);
             p->Low_conn(ref);
           }
-        } else if (net && (net->UhdmType() == uhdminterface) &&
+        } else if (net && (net->UhdmType() == uhdminterface_inst) &&
                    (lowconn_is_nettype)) {
           BaseClass* sm = nullptr;
           if (orderedConnection) {
@@ -1386,7 +1386,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   return true;
 }
 
-interface* NetlistElaboration::elab_interface_(
+interface_inst* NetlistElaboration::elab_interface_(
     ModuleInstance* instance, ModuleInstance* interf_instance,
     std::string_view instName, std::string_view defName, ModuleDefinition* mod,
     PathId fileId, int lineNb, interface_array* interf_array,
@@ -1398,12 +1398,12 @@ interface* NetlistElaboration::elab_interface_(
     instance->setNetlist(netlist);
   }
   Serializer& s = m_compileDesign->getSerializer();
-  VectorOfinterface* subInterfaces = netlist->interfaces();
+  VectorOfinterface_inst* subInterfaces = netlist->interfaces();
   if (subInterfaces == nullptr) {
-    subInterfaces = s.MakeInterfaceVec();
+    subInterfaces = s.MakeInterface_instVec();
     netlist->interfaces(subInterfaces);
   }
-  interface* sm = s.MakeInterface();
+  interface_inst* sm = s.MakeInterface_inst();
   sm->VpiName(instName);
   sm->VpiDefName(defName);
   // sm->VpiFullName(??);
@@ -1434,7 +1434,7 @@ interface* NetlistElaboration::elab_interface_(
         StrCat(instName, ".", orig_modport.first);
     if (!modPortName.empty() && (modportfullname != modPortName)) continue;
     modport* dest_modport = s.MakeModport();
-    dest_modport->Interface(sm);
+    dest_modport->Interface_inst(sm);
     dest_modport->VpiParent(sm);
     const FileContent* orig_fC = orig_modport.second.getFileContent();
     const NodeId orig_nodeId = orig_modport.second.getNodeId();
@@ -1457,7 +1457,7 @@ interface* NetlistElaboration::elab_interface_(
       if (net == nullptr) {
         net = bind_net_(instance, sigName);
       }
-      if (net && (net->UhdmType() == uhdminterface)) {
+      if (net && (net->UhdmType() == uhdminterface_inst)) {
         ref_obj* n = s.MakeRef_obj();
         n->VpiName(sigName);
         n->VpiFullName(StrCat(instance->getFullPathName(), ".", sigName));
@@ -2328,7 +2328,7 @@ bool NetlistElaboration::elab_ports_nets_(
               ref->Actual_group(array_int);
             }
 
-            interface* sm = elab_interface_(
+            interface_inst* sm = elab_interface_(
                 instance, interfaceInstance, signame, orig_interf->getName(),
                 orig_interf, instance->getFileId(), instance->getLineNb(),
                 array_int, "");
@@ -2339,7 +2339,7 @@ bool NetlistElaboration::elab_ports_nets_(
 
               auto interfs = netlist->interfaces();
               if (interfs == nullptr) {
-                netlist->interfaces(s.MakeInterfaceVec());
+                netlist->interfaces(s.MakeInterface_instVec());
                 interfs = netlist->interfaces();
               }
               interfs->push_back(sm);
@@ -2537,20 +2537,20 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
         BaseClass* baseclass = (*itr).second;
         port* conn = any_cast<port*>(baseclass);
         ref_obj* ref1 = nullptr;
-        const interface* interf = nullptr;
+        const interface_inst* interf = nullptr;
         if (conn) {
           ref1 = any_cast<ref_obj*>((BaseClass*)conn->Low_conn());
         }
         if (ref1) {
-          interf = any_cast<interface*>((BaseClass*)ref1->Actual_group());
+          interf = any_cast<interface_inst*>((BaseClass*)ref1->Actual_group());
         }
         if (interf == nullptr) {
-          interf = any_cast<interface*>(baseclass);
+          interf = any_cast<interface_inst*>(baseclass);
         }
         if ((interf == nullptr) && ref1) {
           modport* mport = any_cast<modport*>((BaseClass*)ref1->Actual_group());
           if (mport) {
-            interf = mport->Interface();
+            interf = mport->Interface_inst();
           }
         }
         if (interf) {

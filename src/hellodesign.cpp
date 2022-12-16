@@ -36,12 +36,13 @@
 #include <uhdm/uhdm.h>
 
 class DesignListener final : public UHDM::VpiListener {
-  void enterModule(const UHDM::module *const object, vpiHandle handle) final {
+  void enterModule_inst(const UHDM::module_inst *const object,
+                        vpiHandle handle) final {
     const std::string &instName = object->VpiName();
-    m_flatTraversal =
-        (instName.empty()) && ((object->VpiParent() == 0) ||
-                               ((object->VpiParent() != 0) &&
-                                (object->VpiParent()->VpiType() != vpiModule)));
+    m_flatTraversal = (instName.empty()) &&
+                      ((object->VpiParent() == 0) ||
+                       ((object->VpiParent() != 0) &&
+                        (object->VpiParent()->VpiType() != vpiModuleInst)));
     if (m_flatTraversal)
       std::cout << "Entering Module Definition: " << object->VpiDefName() << " "
                 << intptr_t(object) << " " << object->UhdmId() << std::endl;

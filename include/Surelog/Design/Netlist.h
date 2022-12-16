@@ -47,7 +47,7 @@ class Netlist {
       InstanceMap;
   typedef std::map<std::string, UHDM::BaseClass*, std::less<>> SymbolTable;
 
-  std::vector<UHDM::interface*>* interfaces() { return m_interfaces; }
+  std::vector<UHDM::interface_inst*>* interfaces() { return m_interfaces; }
   std::vector<UHDM::interface_array*>* interface_arrays() {
     return m_interface_arrays;
   }
@@ -66,7 +66,7 @@ class Netlist {
   std::vector<UHDM::process_stmt*>* process_stmts() { return m_process_stmts; }
   std::vector<UHDM::param_assign*>* param_assigns() { return m_param_assigns; }
 
-  void interfaces(std::vector<UHDM::interface*>* interfaces) {
+  void interfaces(std::vector<UHDM::interface_inst*>* interfaces) {
     m_interfaces = interfaces;
   }
   void interface_arrays(std::vector<UHDM::interface_array*>* interfaces) {
@@ -111,7 +111,7 @@ class Netlist {
   ModuleInstance* const m_parent;
 
   // members of the netlist
-  std::vector<UHDM::interface*>* m_interfaces = nullptr;
+  std::vector<UHDM::interface_inst*>* m_interfaces = nullptr;
   std::vector<UHDM::interface_array*>* m_interface_arrays = nullptr;
   std::vector<UHDM::net*>* m_nets = nullptr;
   std::vector<UHDM::port*>* m_ports = nullptr;

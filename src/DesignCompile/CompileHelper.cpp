@@ -3208,7 +3208,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           VectorOfany* arguments =
               compileTfCallArguments(component, fC, argListNode, compileDesign,
                                      call, nullptr, false, false);
-          module* modTmp = s.MakeModule();
+          module_inst* modTmp = s.MakeModule_inst();
           modTmp->VpiName("tmp");
           const VectorOfseq_formal_decl* decls = stmt->Ios();
           VectorOfparam_assign* passigns = s.MakeParam_assignVec();
@@ -3237,7 +3237,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
 
           ElaboratorListener* listener = new ElaboratorListener(&s, false);
           vpiHandle defModule = NewVpiHandle(modTmp);
-          listener->listenModule(defModule);
+          listener->listenModule_inst(defModule);
           vpi_free_object(defModule);
           delete listener;
           return (any*)cts->Rhs();

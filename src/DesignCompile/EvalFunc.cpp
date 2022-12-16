@@ -68,7 +68,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
-    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule();
+    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
     m_exprEvalPlaceHolder->Param_assigns(
         compileDesign->getSerializer().MakeParam_assignVec());
   } else {

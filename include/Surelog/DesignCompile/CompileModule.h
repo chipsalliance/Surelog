@@ -37,12 +37,12 @@ class SymbolTable;
 class ValuedComponentI;
 
 struct FunctorCompileModule {
-  FunctorCompileModule(CompileDesign* compiler, ModuleDefinition* module,
+  FunctorCompileModule(CompileDesign* compiler, ModuleDefinition* mdl,
                        Design* design, SymbolTable* symbols,
                        ErrorContainer* errors,
                        ValuedComponentI* instance = nullptr)
       : m_compileDesign(compiler),
-        m_module(module),
+        m_module(mdl),
         m_design(design),
         m_symbols(symbols),
         m_errors(errors),
@@ -60,11 +60,11 @@ struct FunctorCompileModule {
 
 class CompileModule final {
  public:
-  CompileModule(CompileDesign* compiler, ModuleDefinition* module,
+  CompileModule(CompileDesign* compiler, ModuleDefinition* mdl,
                 Design* design, SymbolTable* symbols, ErrorContainer* errors,
                 ValuedComponentI* instance = nullptr)
       : m_compileDesign(compiler),
-        m_module(module),
+        m_module(mdl),
         m_design(design),
         m_symbols(symbols),
         m_errors(errors),

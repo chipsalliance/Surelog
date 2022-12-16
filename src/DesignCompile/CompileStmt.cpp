@@ -2824,8 +2824,8 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
       }
       break;
     }
-    case uhdmmodule: {
-      module* mod = (module*)scope;
+    case uhdmmodule_inst: {
+      module_inst* mod = (module_inst*)scope;
       if (mod->Variables()) {
         for (auto var : *mod->Variables()) {
           if (var->VpiName() == name) return var;

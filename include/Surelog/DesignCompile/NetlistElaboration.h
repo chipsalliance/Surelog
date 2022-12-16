@@ -59,7 +59,7 @@ class NetlistElaboration : public TestbenchElaboration {
   bool elab_parameters_(ModuleInstance* instance, bool port_params);
   bool elab_interfaces_(ModuleInstance* instance);
   bool elab_generates_(ModuleInstance* instance);
-  UHDM::interface* elab_interface_(
+  UHDM::interface_inst* elab_interface_(
       ModuleInstance* instance, ModuleInstance* interf_instance,
       std::string_view instName, std::string_view defName,
       ModuleDefinition* mod, PathId fileId, int lineNb,
