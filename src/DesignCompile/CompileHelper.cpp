@@ -3072,8 +3072,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
             c->VpiValue("UINT:" + std::to_string(uval));
             c->VpiDecompile(std::to_string(uval));
             c->VpiConstType(vpiUIntConst);
-            c->VpiSize(size);
           }
+          c->VpiSize(size);
         }
       } else {
         c->VpiSize(size);
