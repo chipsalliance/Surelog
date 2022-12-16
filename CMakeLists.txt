@@ -129,6 +129,10 @@ else()
   )
 endif()
 
+if (WIN32)
+  add_compile_definitions(WIN32_LEAN_AND_MEAN)
+endif()
+
 # Flatbuffer
 set(flatbuffer-GENERATED_SRC
     ${GENDIR}/include/Surelog/Cache/header_generated.h
@@ -851,4 +855,4 @@ install(
 ADD_CUSTOM_TARGET(
   link_target ALL
   COMMAND ${CMAKE_COMMAND} -E create_symlink
-  build/compile_commands.json ${PROJECT_SOURCE_DIR}/compile_commands.json)
+  ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json ${PROJECT_SOURCE_DIR}/compile_commands.json)

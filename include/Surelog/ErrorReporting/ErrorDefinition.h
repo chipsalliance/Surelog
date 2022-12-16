@@ -25,6 +25,27 @@
 #define SURELOG_ERRORDEFINITION_H
 #pragma once
 
+#if defined(_WIN32)
+  #if defined(FATAL)
+    #undef FATAL
+  #endif
+  #if defined(SYNTAX)
+    #undef SYNTAX
+  #endif
+  #if defined(ERROR)
+    #undef ERROR
+  #endif
+  #if defined(WARNING)
+    #undef WARNING
+  #endif
+  #if defined(INFO)
+    #undef INFO
+  #endif
+  #if defined(NOTE)
+    #undef NOTE
+  #endif
+#endif
+
 #include <map>
 #include <string>
 #include <string_view>
