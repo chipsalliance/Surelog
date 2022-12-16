@@ -310,36 +310,38 @@ n<> u<274> t<Top_level_rule> c<1> l<1:1> el<27:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              36
+constant                                              38
 cont_assign                                            2
 design                                                 1
 gen_scope                                              8
 gen_scope_array                                        8
 int_typespec                                           6
 logic_net                                              1
+logic_typespec                                         1
 module                                                11
 operation                                              4
 param_assign                                          10
 parameter                                             10
-range                                                  6
+range                                                  7
 ref_obj                                               17
 sys_func_call                                         10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              36
+constant                                              38
 cont_assign                                            3
 design                                                 1
 gen_scope                                             12
 gen_scope_array                                       12
 int_typespec                                           6
 logic_net                                              1
+logic_typespec                                         1
 module                                                15
 operation                                              4
 param_assign                                          10
 parameter                                             10
-range                                                  6
+range                                                  7
 ref_obj                                               18
 sys_func_call                                         10
 === UHDM Object Stats End ===
@@ -581,7 +583,15 @@ design: (work@top)
       |vpiSize:2
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:6:13, endln:6:18
+      \_logic_typespec: 
+        |vpiRange:
+        \_range: 
+          |vpiLeftRange:
+          \_constant: 
+            |UINT:2
+          |vpiRightRange:
+          \_constant: 
+            |UINT:1
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.a), line:6:19, endln:6:20
@@ -734,6 +744,8 @@ design: (work@top)
     \_module: work@top (work@top), file:${SURELOG_DIR}/tests/HighLow/dut.sv, line:4:1, endln:26:10
     |vpiRhs:
     \_constant: 
+      |vpiParent:
+      \_cont_assign: , line:12:10, endln:12:24
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2

@@ -422,6 +422,7 @@ module top();
   parameter [1:0] p1 =  1'sb1;
   parameter [1:0] p2 =  2'sb10;
   parameter int p3 =  2'sb10;
+  parameter int p4 =  3'sb101;
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
@@ -441,6 +442,8 @@ endmodule
         EXPECT_EQ(val, 2);
       } else if (name == "p3") {
         EXPECT_EQ(val, -2);
+      } else if (name == "p4") {
+        EXPECT_EQ(val, -3);
       }
     }
   }
@@ -455,10 +458,11 @@ TEST(Elaboration, SignedBinConstAssign) {
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
-module top();
+module top(output [3:0] x);
   reg [1:0] p1 =  1'sb1;
   reg [1:0] p2 =  2'sb10;
   int p3 =  2'sb10;
+  assign x = '1;
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
@@ -474,12 +478,14 @@ endmodule
       const std::string& name = cassign->Lhs()->VpiName();
       if (name == "p1") {
         // Val is 1, but it has a signed typespec (Meaning negative bin number)
-        EXPECT_EQ(val, 1);
+        EXPECT_EQ(val, 3);
         const UHDM::typespec* tps = rhs->Typespec();
         UHDM::int_typespec* itps = (UHDM::int_typespec*)tps;
         EXPECT_EQ(itps->VpiSigned(), true);
       } else if (name == "p2") {
         EXPECT_EQ(val, 2);
+      } else if (name == "x") {
+        EXPECT_EQ(val, 15);
       }
     }
     for (auto var : *topMod->Variables()) {

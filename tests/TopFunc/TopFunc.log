@@ -78,7 +78,7 @@ n<> u<54> t<Top_level_rule> c<1> l<1:1> el<8:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               1
+constant                                               2
 cont_assign                                            2
 design                                                 1
 func_call                                              2
@@ -96,7 +96,7 @@ return_stmt                                            1
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               1
+constant                                               2
 cont_assign                                            3
 design                                                 1
 func_call                                              2
@@ -237,6 +237,12 @@ design: (work@top)
     \_module: work@top (work@top), file:${SURELOG_DIR}/tests/TopFunc/dut.sv, line:5:1, endln:7:10
     |vpiRhs:
     \_constant: , line:2:11, endln:2:12
+      |vpiParent:
+      \_cont_assign: , line:6:11, endln:6:22
+      |vpiDecompile:1
+      |vpiSize:32
+      |UINT:1
+      |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
       |vpiParent:

@@ -258,33 +258,35 @@ n<> u<218> t<Top_level_rule> c<1> l<1:1> el<20:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              59
+constant                                              65
 design                                                 1
 gen_scope                                              8
 gen_scope_array                                        8
 int_typespec                                           6
+logic_typespec                                         3
 module                                                 7
 operation                                             15
 param_assign                                           4
 parameter                                              6
 part_select                                            3
-range                                                  2
+range                                                  5
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              59
+constant                                              65
 design                                                 1
 gen_scope                                             12
 gen_scope_array                                       12
 int_typespec                                           6
+logic_typespec                                         3
 module                                                 9
 operation                                             15
 param_assign                                           4
 parameter                                              6
 part_select                                            3
-range                                                  2
+range                                                  5
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectRange/slpp_all/surelog.uhdm ...
@@ -426,7 +428,15 @@ design: (work@test)
       |vpiSize:4
       |BIN:0100
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:18
+      \_logic_typespec: 
+        |vpiRange:
+        \_range: 
+          |vpiLeftRange:
+          \_constant: 
+            |UINT:3
+          |vpiRightRange:
+          \_constant: 
+            |UINT:0
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@test.MAP), line:3:19, endln:3:22

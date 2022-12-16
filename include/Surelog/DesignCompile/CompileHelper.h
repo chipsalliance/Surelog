@@ -541,9 +541,9 @@ class CompileHelper final {
 
   void setRange(UHDM::constant* c, Value* val, CompileDesign* compileDesign);
 
-  void adjustSize(const UHDM::typespec* ts, DesignComponent* component,
+  UHDM::constant* adjustSize(const UHDM::typespec* ts, DesignComponent* component,
                   CompileDesign* compileDesign, ValuedComponentI* instance,
-                  UHDM::constant* c);
+                  UHDM::constant* c, bool uniquify = false);
 
   /** task/func/scope */
   UHDM::any* searchObjectName(const std::string& name,

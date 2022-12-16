@@ -1709,9 +1709,11 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
               ElaboratorListener listener(&s, false, true);
               assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
               lhs = assign->Lhs();
-              rhs = assign->Rhs();
-              tps = lhs->Typespec();
               cloned = true;
+              res = m_helper.adjustSize(tps, mod, m_compileDesign,
+                                        netlist->getParent(), (constant*)res,
+                                        true);
+              res->VpiParent(assign);
             }
             assign->Rhs((constant*)res);
           }

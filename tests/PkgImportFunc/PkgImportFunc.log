@@ -122,7 +122,7 @@ n<> u<88> t<Top_level_rule> c<1> l<1:1> el<15:1>
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            4
 begin                                                  4
-constant                                               6
+constant                                               7
 cont_assign                                            2
 design                                                 1
 func_call                                              2
@@ -144,7 +144,7 @@ return_stmt                                            4
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            8
 begin                                                  8
-constant                                               6
+constant                                               7
 cont_assign                                            3
 design                                                 1
 func_call                                              2
@@ -621,6 +621,12 @@ design: (work@top)
     \_module: work@top (work@top), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:12:1, endln:14:10
     |vpiRhs:
     \_constant: , line:3:20, endln:3:21
+      |vpiParent:
+      \_cont_assign: , line:13:11, endln:13:41
+      |vpiDecompile:5
+      |vpiSize:32
+      |UINT:5
+      |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
       |vpiParent:
