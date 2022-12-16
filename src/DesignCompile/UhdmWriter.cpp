@@ -1095,7 +1095,8 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
   lateBinding(s, pack, p, componentMap);
 }
 
-void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
+void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
+                             Serializer& s,
                              UhdmWriter::ComponentMap& componentMap,
                              UhdmWriter::ModPortMap& modPortMap,
                              ModuleInstance* instance) {
@@ -1266,7 +1267,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   }
 }
 
-void UhdmWriter::writeInterface(ModuleDefinition* mod, interface* m,
+void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
                                 Serializer& s, ComponentMap& componentMap,
                                 ModPortMap& modPortMap,
                                 ModuleInstance* instance) {
@@ -2122,8 +2123,8 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
               }
             }
           }
-        } else if (parent->UhdmType() == uhdmmodule) {
-          module* m = (module*)parent;
+        } else if (parent->UhdmType() == uhdmmodule_inst) {
+          module_inst* m = (module_inst*)parent;
           if (auto vars = m->Variables()) {
             for (auto decl : *vars) {
               if (decl->VpiName() == name) {
@@ -2842,8 +2843,8 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
     }
     if (ref->Actual_group()) continue;
 
-    if (m->UhdmType() == uhdmmodule || m->UhdmType() == uhdminterface ||
-        m->UhdmType() == uhdmprogram) {
+    if (m->UhdmType() == uhdmmodule_inst ||
+        m->UhdmType() == uhdminterface_inst || m->UhdmType() == uhdmprogram) {
       instance* inst = (instance*)m;
       if (inst->Nets()) {
         for (auto n : *inst->Nets()) {
@@ -2996,7 +2997,8 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
                     ->getCommandLineParser()
                     ->muteStdout());
           } else {
-            if (m->UhdmType() == uhdmmodule || m->UhdmType() == uhdminterface ||
+            if (m->UhdmType() == uhdmmodule_inst ||
+                m->UhdmType() == uhdminterface_inst ||
                 m->UhdmType() == uhdmprogram) {
               instance* inst = (instance*)m;
               logic_net* net = s.MakeLogic_net();
@@ -3019,7 +3021,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
 }
 
 bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
-                                 module* m, ExprBuilder& exprBuilder) {
+                                 module_inst* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) return true;
   m->Ports(netlist->ports());
@@ -3152,7 +3154,8 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
 }
 
 bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
-                                    interface* m, ExprBuilder& exprBuilder) {
+                                    interface_inst* m,
+                                    ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
   ComponentMap componentMap;
   DesignComponent* mod = instance->getDefinition();
@@ -3241,7 +3244,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports) {
     modport* dest_modport = s.MakeModport();
-    dest_modport->Interface(m);
+    dest_modport->Interface_inst(m);
     dest_modport->VpiName(orig_modport.first);
     dest_modport->VpiParent(m);
     const FileContent* orig_fC = orig_modport.second.getFileContent();
@@ -3380,27 +3383,27 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                                ExprBuilder& exprBuilder) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   Serializer& s = compileDesign->getSerializer();
-  VectorOfmodule* subModules = nullptr;
+  VectorOfmodule_inst* subModules = nullptr;
   VectorOfprogram* subPrograms = nullptr;
-  VectorOfinterface* subInterfaces = nullptr;
+  VectorOfinterface_inst* subInterfaces = nullptr;
   VectorOfprimitive* subPrimitives = nullptr;
   VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
 
-  if (m->UhdmType() == uhdmmodule) {
-    writeElabModule(s, instance, (module*)m, exprBuilder);
+  if (m->UhdmType() == uhdmmodule_inst) {
+    writeElabModule(s, instance, (module_inst*)m, exprBuilder);
   } else if (m->UhdmType() == uhdmgen_scope) {
     writeElabGenScope(s, instance, (gen_scope*)m, exprBuilder);
-  } else if (m->UhdmType() == uhdminterface) {
-    writeElabInterface(s, instance, (interface*)m, exprBuilder);
+  } else if (m->UhdmType() == uhdminterface_inst) {
+    writeElabInterface(s, instance, (interface_inst*)m, exprBuilder);
   }
   Netlist* netlist = instance->getNetlist();
   if (netlist) {
     if (VectorOfinterface_array* subInterfaceArrays =
             netlist->interface_arrays()) {
       UHDM_OBJECT_TYPE utype = m->UhdmType();
-      if (utype == uhdmmodule) {
-        ((module*)m)->Interface_arrays(subInterfaceArrays);
+      if (utype == uhdmmodule_inst) {
+        ((module_inst*)m)->Interface_arrays(subInterfaceArrays);
         for (interface_array* array : *subInterfaceArrays) {
           array->VpiParent(m);
         }
@@ -3409,34 +3412,34 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         for (interface_array* array : *subInterfaceArrays) {
           array->VpiParent(m);
         }
-      } else if (utype == uhdminterface) {
-        ((interface*)m)->Interface_arrays(subInterfaceArrays);
+      } else if (utype == uhdminterface_inst) {
+        ((interface_inst*)m)->Interface_arrays(subInterfaceArrays);
         for (interface_array* array : *subInterfaceArrays) {
           array->VpiParent(m);
         }
       }
     }
-    if (VectorOfinterface* subInterfaces = netlist->interfaces()) {
+    if (VectorOfinterface_inst* subInterfaces = netlist->interfaces()) {
       UHDM_OBJECT_TYPE utype = m->UhdmType();
-      if (utype == uhdmmodule) {
-        ((module*)m)->Interfaces(subInterfaces);
-        for (interface* interf : *subInterfaces) {
+      if (utype == uhdmmodule_inst) {
+        ((module_inst*)m)->Interfaces(subInterfaces);
+        for (interface_inst* interf : *subInterfaces) {
           interf->VpiParent(m);
         }
       } else if (utype == uhdmgen_scope) {
         ((gen_scope*)m)->Interfaces(subInterfaces);
-        for (interface* interf : *subInterfaces) {
+        for (interface_inst* interf : *subInterfaces) {
           interf->VpiParent(m);
         }
-      } else if (utype == uhdminterface) {
-        ((interface*)m)->Interfaces(subInterfaces);
-        for (interface* interf : *subInterfaces) {
+      } else if (utype == uhdminterface_inst) {
+        ((interface_inst*)m)->Interfaces(subInterfaces);
+        for (interface_inst* interf : *subInterfaces) {
           interf->VpiParent(m);
         }
       }
     }
   }
-  std::map<ModuleInstance*, module*> tempInstanceMap;
+  std::map<ModuleInstance*, module_inst*> tempInstanceMap;
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
@@ -3444,8 +3447,8 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
             valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
       VObjectType insttype = child->getType();
       if (insttype == VObjectType::slModule_instantiation) {
-        if (subModules == nullptr) subModules = s.MakeModuleVec();
-        module* sm = s.MakeModule();
+        if (subModules == nullptr) subModules = s.MakeModule_instVec();
+        module_inst* sm = s.MakeModule_inst();
         tempInstanceMap.emplace(child, sm);
         if (childDef && !childDef->getFileContents().empty() &&
             compileDesign->getCompiler()->isLibraryFile(
@@ -3461,10 +3464,10 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         child->getFileContent()->populateCoreMembers(child->getNodeId(),
                                                      child->getNodeId(), sm);
         subModules->push_back(sm);
-        if (m->UhdmType() == uhdmmodule) {
-          ((module*)m)->Modules(subModules);
-          sm->Instance((module*)m);
-          sm->Module((module*)m);
+        if (m->UhdmType() == uhdmmodule_inst) {
+          ((module_inst*)m)->Modules(subModules);
+          sm->Instance((module_inst*)m);
+          sm->Module_inst((module_inst*)m);
           sm->VpiParent(m);
         } else if (m->UhdmType() == uhdmgen_scope) {
           ((gen_scope*)m)->Modules(subModules);
@@ -3506,22 +3509,22 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         sm->Gen_scopes()->push_back(a_gen_scope);
         a_gen_scope->VpiParent(sm);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
-        if (utype == uhdmmodule) {
-          ((module*)m)->Gen_scope_arrays(subGenScopeArrays);
+        if (utype == uhdmmodule_inst) {
+          ((module_inst*)m)->Gen_scope_arrays(subGenScopeArrays);
           sm->VpiParent(m);
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*)m)->Gen_scope_arrays(subGenScopeArrays);
           sm->VpiParent(m);
-        } else if (utype == uhdminterface) {
-          ((interface*)m)->Gen_scope_arrays(subGenScopeArrays);
+        } else if (utype == uhdminterface_inst) {
+          ((interface_inst*)m)->Gen_scope_arrays(subGenScopeArrays);
           sm->VpiParent(m);
         }
         writeInstance(mm, child, a_gen_scope, compileDesign, componentMap,
                       modPortMap, instanceMap, exprBuilder);
 
       } else if (insttype == VObjectType::slInterface_instantiation) {
-        if (subInterfaces == nullptr) subInterfaces = s.MakeInterfaceVec();
-        interface* sm = s.MakeInterface();
+        if (subInterfaces == nullptr) subInterfaces = s.MakeInterface_instVec();
+        interface_inst* sm = s.MakeInterface_inst();
         sm->VpiName(child->getInstanceName());
         sm->VpiDefName(child->getModuleName());
         sm->VpiFullName(child->getFullPathName());
@@ -3532,15 +3535,15 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         sm->VpiDefLineNo(defFile->Line(mm->getNodeIds()[0]));
         subInterfaces->push_back(sm);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
-        if (utype == uhdmmodule) {
-          ((module*)m)->Interfaces(subInterfaces);
-          sm->Instance((module*)m);
+        if (utype == uhdmmodule_inst) {
+          ((module_inst*)m)->Interfaces(subInterfaces);
+          sm->Instance((module_inst*)m);
           sm->VpiParent(m);
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*)m)->Interfaces(subInterfaces);
           sm->VpiParent(m);
-        } else if (utype == uhdminterface) {
-          ((interface*)m)->Interfaces(subInterfaces);
+        } else if (utype == uhdminterface_inst) {
+          ((interface_inst*)m)->Interfaces(subInterfaces);
           sm->VpiParent(m);
         }
         writeInstance(mm, child, sm, compileDesign, componentMap, modPortMap,
@@ -3637,9 +3640,9 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         child->getFileContent()->populateCoreMembers(child->getNodeId(),
                                                      child->getNodeId(), gate);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
-        if (utype == uhdmmodule) {
-          ((module*)m)->Primitives(subPrimitives);
-          ((module*)m)->Primitive_arrays(subPrimitiveArrays);
+        if (utype == uhdmmodule_inst) {
+          ((module_inst*)m)->Primitives(subPrimitives);
+          ((module_inst*)m)->Primitive_arrays(subPrimitiveArrays);
           gate->VpiParent(m);
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*)m)->Primitives(subPrimitives);
@@ -3663,9 +3666,9 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       sm->VpiDefLineNo(defFile->Line(prog->getNodeIds()[0]));
       subPrograms->push_back(sm);
       UHDM_OBJECT_TYPE utype = m->UhdmType();
-      if (utype == uhdmmodule) {
-        ((module*)m)->Programs(subPrograms);
-        sm->Instance((module*)m);
+      if (utype == uhdmmodule_inst) {
+        ((module_inst*)m)->Programs(subPrograms);
+        sm->Instance((module_inst*)m);
         sm->VpiParent(m);
       } else if (utype == uhdmgen_scope) {
         ((gen_scope*)m)->Programs(subPrograms);
@@ -3674,8 +3677,8 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
       writeElabProgram(s, child, sm);
     } else {
       // Undefined module
-      if (subModules == nullptr) subModules = s.MakeModuleVec();
-      module* sm = s.MakeModule();
+      if (subModules == nullptr) subModules = s.MakeModule_instVec();
+      module_inst* sm = s.MakeModule_inst();
       sm->VpiName(child->getInstanceName());
       sm->VpiDefName(child->getModuleName());
       sm->VpiFullName(child->getFullPathName());
@@ -3683,10 +3686,10 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                                                    child->getNodeId(), sm);
       subModules->push_back(sm);
       UHDM_OBJECT_TYPE utype = m->UhdmType();
-      if (utype == uhdmmodule) {
-        ((module*)m)->Modules(subModules);
-        sm->Instance((module*)m);
-        sm->Module((module*)m);
+      if (utype == uhdmmodule_inst) {
+        ((module_inst*)m)->Modules(subModules);
+        sm->Instance((module_inst*)m);
+        sm->Module_inst((module_inst*)m);
         sm->VpiParent(m);
       } else if (utype == uhdmgen_scope) {
         ((gen_scope*)m)->Modules(subModules);
@@ -3697,16 +3700,16 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
     }
   }
 
-  if (m->UhdmType() == uhdmmodule) {
+  if (m->UhdmType() == uhdmmodule_inst) {
     const auto& moduleArrayModuleInstancesMap =
         instance->getModuleArrayModuleInstancesMap();
     if (!moduleArrayModuleInstancesMap.empty()) {
-      ((module*)m)->Module_arrays(s.MakeModule_arrayVec());
+      ((module_inst*)m)->Module_arrays(s.MakeModule_arrayVec());
       for (auto [modArray, modInstances] : moduleArrayModuleInstancesMap) {
         if (!modInstances.empty()) {
-          modArray->Modules(s.MakeModuleVec());
+          modArray->Modules(s.MakeModule_instVec());
           modArray->VpiParent(m);
-          ((module*)m)->Module_arrays()->push_back(modArray);
+          ((module_inst*)m)->Module_arrays()->push_back(modArray);
           for (ModuleInstance* modInst : modInstances) {
             auto it = tempInstanceMap.find(modInst);
             if (it != tempInstanceMap.end()) {
@@ -3906,14 +3909,14 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
 
     // Interfaces
     auto modules = m_design->getModuleDefinitions();
-    VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
+    VectorOfinterface_inst* uhdm_interfaces = s.MakeInterface_instVec();
     for (const auto& modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().empty()) {
         // Built-in primitive
       } else if (mod->getType() == VObjectType::slInterface_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
-        interface* m = s.MakeInterface();
+        interface_inst* m = s.MakeInterface_inst();
         componentMap.emplace(mod, m);
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
@@ -3928,7 +3931,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     d->AllInterfaces(uhdm_interfaces);
 
     // Modules
-    VectorOfmodule* uhdm_modules = s.MakeModuleVec();
+    VectorOfmodule_inst* uhdm_modules = s.MakeModule_instVec();
     // Udps
     VectorOfudp_defn* uhdm_udps = s.MakeUdp_defnVec();
     for (const auto& modNamePair : modules) {
@@ -3937,7 +3940,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         // Built-in primitive
       } else if (mod->getType() == VObjectType::slModule_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
-        module* m = s.MakeModule();
+        module_inst* m = s.MakeModule_inst();
         if (m_compileDesign->getCompiler()->isLibraryFile(
                 mod->getFileContents()[0]->getFileId())) {
           m->VpiCellInstance(true);
@@ -3989,16 +3992,16 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     // Elaborated Model (Folded)
 
     // Top-level modules
-    VectorOfmodule* uhdm_top_modules = s.MakeModuleVec();
+    VectorOfmodule_inst* uhdm_top_modules = s.MakeModule_instVec();
     for (ModuleInstance* inst : topLevelModules) {
       DesignComponent* component = inst->getDefinition();
       ModuleDefinition* mod =
           valuedcomponenti_cast<ModuleDefinition*>(component);
       const auto& itr = componentMap.find(mod);
-      module* m = s.MakeModule();
+      module_inst* m = s.MakeModule_inst();
       m->VpiTopModule(true);
       m->VpiTop(true);
-      module* def = (module*)itr->second;
+      module_inst* def = (module_inst*)itr->second;
       m->VpiDefName(def->VpiDefName());
       m->VpiName(def->VpiDefName());  // Top's instance name is module name
       m->VpiFullName(

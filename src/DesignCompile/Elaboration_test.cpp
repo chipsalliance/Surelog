@@ -37,7 +37,7 @@
 #include <uhdm/gen_scope.h>
 #include <uhdm/gen_scope_array.h>
 #include <uhdm/int_typespec.h>
-#include <uhdm/module.h>
+#include <uhdm/module_inst.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/variables.h>
 #include <uhdm/vpi_user.h>

@@ -36,7 +36,7 @@
 // UHDM
 #include <uhdm/ExprEval.h>
 #include <uhdm/design.h>
-#include <uhdm/module.h>
+#include <uhdm/module_inst.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/vpi_uhdm.h>
 #include <uhdm/vpi_user.h>

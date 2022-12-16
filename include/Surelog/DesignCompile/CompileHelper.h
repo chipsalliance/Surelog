@@ -563,7 +563,7 @@ class CompileHelper final {
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbols = nullptr;
   ExprBuilder m_exprBuilder;
-  UHDM::module* m_exprEvalPlaceHolder = nullptr;
+  UHDM::module_inst* m_exprEvalPlaceHolder = nullptr;
   // Caches
   UHDM::int_typespec* buildIntTypespec(CompileDesign* compileDesign,
                                        PathId fileId, std::string_view name,
