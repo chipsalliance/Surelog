@@ -965,7 +965,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
       if (!def.empty()) {
         SymbolId id = m_symbolTable->registerSymbol(def);
-        m_paramList.emplace(id, value);
+        m_paramList.emplace(id, StringUtils::unquoted(value));
       }
     } else if (all_arguments[i].find("-pvalue+") == 0) {
       std::string def;
@@ -979,7 +979,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
       if (!def.empty()) {
         SymbolId id = m_symbolTable->registerSymbol(def);
-        m_paramList.emplace(id, value);
+        m_paramList.emplace(id, StringUtils::unquoted(value));
       }
     } else if (all_arguments[i].find("-I") == 0) {
       fs::path include = undecorateArg(all_arguments[i].substr(2));

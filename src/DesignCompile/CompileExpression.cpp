@@ -412,9 +412,9 @@ bool getStringVal(std::string &result, expr *val) {
 }
 
 static bool largeInt(std::string value) {
-  unsigned int i = 0;
   bool isSigned = false;
   if (value.find('\'') != std::string::npos) {
+    unsigned int i = 0;
     for (i = 0; i < value.size(); i++) {
       if (value[i] == '\'') {
         break;
@@ -428,25 +428,19 @@ static bool largeInt(std::string value) {
     }
   }
   value = StringUtils::replaceAll(value, "_", "");
-  bool largeInt = false;
+  bool isLarge = false;
   if (value.size() > 20) {
-    largeInt = true;
+    isLarge = true;
   } else if (value.size() == 20) {
     if (isSigned) {
-      int64_t test = std::strtoll(value.c_str(), 0, 10);
-      std::string testv = std::to_string(test);
-      if (testv != value) {
-        largeInt = true;
-      }
+      int64_t test = 0;
+      isLarge = NumUtils::parseInt64(value, &test) == nullptr;
     } else {
-      uint64_t test = std::strtoull(value.c_str(), 0, 10);
-      std::string testv = std::to_string(test);
-      if (testv != value) {
-        largeInt = true;
-      }
+      uint64_t test = 0;
+      isLarge = NumUtils::parseUint64(value, &test) == nullptr;
     }
   }
-  return largeInt;
+  return isLarge;
 }
 
 constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
@@ -488,7 +482,11 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
         if (size.empty()) {
           c->VpiSize(-1);
         } else {
-          c->VpiSize(atoi(size.c_str()));
+          int32_t s = 0;
+          if (NumUtils::parseInt32(size, &s) == nullptr) {
+            s = 0;
+          }
+          c->VpiSize(s);
         }
         if (isSigned) {
           int_typespec *tps = s.MakeInt_typespec();
@@ -672,7 +670,10 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
       const std::string &value = fC->SymName(intC);
       NodeId unitId = fC->Sibling(intC);
       TimeInfo::Unit unit = TimeInfo::unitFromString(fC->SymName(unitId));
-      uint64_t val = std::strtoull(value.c_str(), nullptr, 10);
+      uint64_t val = 0;
+      if (NumUtils::parseUint64(value, &val) == nullptr) {
+        val = 0;
+      }
       switch (unit) {
         case TimeInfo::Unit::Second: {
           val = 1e12 * val;
@@ -3711,7 +3712,9 @@ UHDM::any *CompileHelper::compilePartSelectRange(
                   part += '0';
               }
             }
-            res = std::strtoull(part.c_str(), nullptr, 16);
+            if (NumUtils::parseHex(part, &res) == nullptr) {
+              res = 0;
+            }
           } else {
             uint64_t iv = cvv->getValueUL();
             uint64_t mask = 0;
@@ -5166,53 +5169,46 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
 
 bool CompileHelper::parseConstant(const UHDM::constant &constant,
                                   int64_t *value) {
-  char *endptr = nullptr;
-  const std::string &v = constant.VpiValue();
+  std::string_view v = constant.VpiValue();
   if (v.length() <= 4) return false;  // All prefices are at least this long.
-  errno = 0;
+
   switch (constant.VpiConstType()) {
     case vpiBinaryConst: {
-      *value = std::strtoull(v.c_str() + std::string_view("BIN:").length(),
-                             &endptr, 2);
-      break;
+      v.remove_prefix(std::string_view("BIN:").length());
+      return NumUtils::parseBinary(v, value) != nullptr;
     }
     case vpiDecConst: {
-      *value = std::strtoll(v.c_str() + std::string_view("DEC:").length(),
-                            &endptr, 10);
-      break;
+      v.remove_prefix(std::string_view("DEC:").length());
+      return NumUtils::parseInt64(v, value) != nullptr;
     }
     case vpiHexConst: {
-      *value = std::strtoull(v.c_str() + std::string_view("HEX:").length(),
-                             &endptr, 16);
-      break;
+      v.remove_prefix(std::string_view("HEX:").length());
+      return NumUtils::parseHex(v, value) != nullptr;
     }
     case vpiOctConst: {
-      *value = std::strtoull(v.c_str() + std::string_view("OCT:").length(),
-                             &endptr, 8);
-      break;
+      v.remove_prefix(std::string_view("OCT:").length());
+      return NumUtils::parseOctal(v, value) != nullptr;
     }
     case vpiIntConst: {
-      *value = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                            &endptr, 10);
-      break;
+      v.remove_prefix(std::string_view("INT:").length());
+      return NumUtils::parseInt64(v, value) != nullptr;
     }
     case vpiUIntConst: {
-      *value = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
-                             &endptr, 10);
-      break;
+      v.remove_prefix(std::string_view("UINT:").length());
+      return NumUtils::parseIntLenient(v, value) != nullptr;
     }
     default: {
       if (v.find("UINT:") == 0) {
-        *value = std::strtoull(v.c_str() + std::string_view("UINT:").length(),
-                               &endptr, 10);
-      } else {
-        *value = std::strtoll(v.c_str() + std::string_view("INT:").length(),
-                              &endptr, 10);
+        v.remove_prefix(std::string_view("UINT:").length());
+        return NumUtils::parseIntLenient(v, value) != nullptr;
+      } else if (v.find("INT:") == 0) {
+        v.remove_prefix(std::string_view("INT:").length());
+        return NumUtils::parseInt64(v, value) != nullptr;
       }
       break;
     }
   }
-  return endptr && *endptr == '\0' && errno != ERANGE;
+  return false;
 }
 
 int64_t CompileHelper::getValue(bool &validValue, DesignComponent *component,

@@ -22,10 +22,10 @@
  */
 
 #include <Surelog/Utils/NumUtils.h>
-#include <string.h>
 
 #include <algorithm>
 #include <bitset>
+#include <cstring>
 #include <iostream>
 #include <locale>
 #include <regex>
@@ -33,8 +33,9 @@
 
 namespace SURELOG {
 
-std::string NumUtils::hexToBin(const std::string &s) {
+std::string NumUtils::hexToBin(std::string_view s) {
   std::string out;
+  out.reserve(s.length() * 4);
   for (auto i : s) {
     uint8_t n;
     if ((i <= '9') && (i >= '0'))
@@ -43,12 +44,17 @@ std::string NumUtils::hexToBin(const std::string &s) {
       n = 10 + i - 'A';
     for (int8_t j = 3; j >= 0; --j) out.push_back((n & (1 << j)) ? '1' : '0');
   }
-  out = trimLeadingZeros(out);
+  size_t pos = out.find('1');
+  if (pos == std::string::npos)
+    out.clear();
+  else
+    out = out.substr(pos);
   return out;
 }
 
-std::string NumUtils::binToHex(const std::string &s) {
+std::string NumUtils::binToHex(std::string_view s) {
   std::string out;
+  out.reserve((s.length() + 3) / 4);
   for (unsigned int i = 0; i < s.size(); i += 4) {
     int8_t n = 0;
     for (unsigned int j = i; j < i + 4; ++j) {
@@ -76,21 +82,10 @@ std::string NumUtils::toBinary(int size, uint64_t val) {
     }
   }
   std::string result;
+  result.reserve(bitFieldSize - size + 1);
   for (unsigned int i = bitFieldSize - size; i < bitFieldSize; i++)
     result += tmp[i];
   return result;
-}
-
-std::string NumUtils::trimLeadingZeros(const std::string &s) {
-  const uint64_t sSize = s.size();
-  std::string res;
-  bool nonZero = false;
-  for (unsigned int i = 0; i < sSize; i++) {
-    const char c = s[i];
-    if (c != '0') nonZero = true;
-    if (nonZero) res += c;
-  }
-  return res;
 }
 
 uint64_t NumUtils::getMask(uint64_t wide) {
@@ -132,10 +127,10 @@ static void CopyNumberTo(const char *in_begin, const char *in_end,
   const char *extra_allowed = "+-.e";
   bool have_point = false;
   out_end -= 1;  // Allow space for 0 termination.
-  while (src < in_end && (isdigit(*src) || strchr(extra_allowed, *src)) &&
-         dst < out_end) {
+  while ((src < in_end) && (isdigit(*src) || strchr(extra_allowed, *src)) &&
+         (dst < out_end)) {
     // The sign is only allowed in the first character of the buffer
-    if ((*src == '+' || *src == '-') && dst != out_begin) break;
+    if (((*src == '+') || (*src == '-')) && (dst != out_begin)) break;
     // only allow one decimal point
     if (*src == '.') {
       if (have_point)
@@ -149,39 +144,42 @@ static void CopyNumberTo(const char *in_begin, const char *in_end,
 }
 
 template <typename T, T (*strto_fallback_fun)(const char *, char **)>
-static const char *strto_ieee(std::string_view s, T *result) {
+static const char *strToIeee(std::string_view s, T *result) {
+  // Need to skip whitespace first to not use up our buffer for that.
+  while (!s.empty() && isspace(s.front())) s.remove_prefix(1);
   if constexpr (from_chars_available_v<T>) {
-    return internal::strto_num<T>(s, result);
+    if (!s.empty() && (s.front() == '+')) s.remove_prefix(1);
+    if (s.empty()) return nullptr;
+    auto success = std::from_chars(s.data(), s.data() + s.size(), *result);
+    return (success.ec == std::errc()) ? success.ptr : nullptr;
   }
+
+  if (s.empty()) return nullptr;
 
   // Fallback in case std::from_chars() does not exist for this type. Here,
   // we just call the corresponding C-function, but first have to copy
   // the number to a local buffer, as that one requires \0-termination.
-  char buffer[64];
+  char buffer[64] = {'\0'};
 
-  // Need to skip whitespace first to not use up our buffer for that.
-  std::string_view n = s;
-  while (!n.empty() && isspace(n.front())) n.remove_prefix(1);
-
-  CopyNumberTo(n.data(), n.data() + n.size(), buffer, buffer + sizeof(buffer));
+  CopyNumberTo(s.data(), s.data() + s.size(), buffer, buffer + sizeof(buffer));
   char *endptr = nullptr;
   *result = strto_fallback_fun(buffer, &endptr);
   if (endptr == buffer) return nullptr;  // Error.
 
   // Now, convert our offset back relative to the original string.
-  return n.data() + (endptr - buffer);
+  return s.data() + (endptr - buffer);
 }
 
-const char *parse_float(std::string_view s, float *result) {
-  return strto_ieee<float, strtof>(s, result);
+const char *NumUtils::parseFloat(std::string_view s, float *result) {
+  return strToIeee<float, strtof>(s, result);
 }
 
-const char *parse_double(std::string_view s, double *result) {
-  return strto_ieee<double, strtod>(s, result);
+const char *NumUtils::parseDouble(std::string_view s, double *result) {
+  return strToIeee<double, strtod>(s, result);
 }
 
-const char *parse_longdouble(std::string_view s, long double *result) {
-  return strto_ieee<long double, strtold>(s, result);
+const char *NumUtils::parseLongDouble(std::string_view s, long double *result) {
+  return strToIeee<long double, strtold>(s, result);
 }
 
 }  // namespace SURELOG
