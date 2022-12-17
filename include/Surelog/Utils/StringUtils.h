@@ -57,111 +57,96 @@ void StrAppend(std::string* dest, Ts&&... args) {
   *dest = out.str();
 }
 
-class StringUtils final {
- public:
-  // Tokenize "str" at "any_of_separator", store in "result" array.
-  static std::vector<std::string_view>& tokenize(
-      std::string_view str, std::string_view any_of_separators,
-      std::vector<std::string_view>& result);
-  static std::vector<std::string>& tokenize(std::string_view str,
-                                            std::string_view any_of_separators,
-                                            std::vector<std::string>& result);
+namespace StringUtils {
+// Tokenize "str" at "any_of_separator", store in "result" array.
+std::vector<std::string_view>& tokenize(std::string_view str,
+                                        std::string_view any_of_separators,
+                                        std::vector<std::string_view>& result);
+std::vector<std::string>& tokenize(std::string_view str,
+                                   std::string_view any_of_separators,
+                                   std::vector<std::string>& result);
 
-  // Tokenize "str" at "multichar_separator"; store in "result" array.
-  static std::vector<std::string_view>& tokenizeMulti(
-      std::string_view str, std::string_view multichar_separator,
-      std::vector<std::string_view>& result);
-  static std::vector<std::string>& tokenizeMulti(
-      std::string_view str, std::string_view multichar_separator,
-      std::vector<std::string>& result);
+// Tokenize "str" at "multichar_separator"; store in "result" array.
+std::vector<std::string_view>& tokenizeMulti(
+    std::string_view str, std::string_view multichar_separator,
+    std::vector<std::string_view>& result);
+std::vector<std::string>& tokenizeMulti(std::string_view str,
+                                        std::string_view multichar_separator,
+                                        std::vector<std::string>& result);
 
-  // Tokenizes "str" at "separator", but leaves 'bracketed' areas
-  // intact: "double quoted" (parenthesized) [foo] {bar}
-  static std::vector<std::string_view>& tokenizeBalanced(
-      std::string_view str, std::string_view any_of_separators,
-      std::vector<std::string_view>& result);
+// Tokenizes "str" at "separator", but leaves 'bracketed' areas
+// intact: "double quoted" (parenthesized) [foo] {bar}
+std::vector<std::string_view>& tokenizeBalanced(
+    std::string_view str, std::string_view any_of_separators,
+    std::vector<std::string_view>& result);
 
-  // In "token" array, replace sequence of tokens that match "pattern" with
-  // a single element "news"
-  static void replaceInTokenVector(std::vector<std::string>& tokens,
-                                   const std::vector<std::string_view>& pattern,
-                                   std::string_view news);
+// In "token" array, replace sequence of tokens that match "pattern" with
+// a single element "news"
+void replaceInTokenVector(std::vector<std::string>& tokens,
+                          const std::vector<std::string_view>& pattern,
+                          std::string_view news);
 
-  // Replace every item in "tokens" that matches "pattern" with "news".
-  //
-  // Including surprising feature: if the pattern is just between
-  // double-quotes right and left in the tokens-array, carriage return is
-  // removed in "news". TODO: less surprises.
-  static void replaceInTokenVector(std::vector<std::string>& tokens,
-                                   std::string_view pattern,
-                                   std::string_view news);
+// Replace every item in "tokens" that matches "pattern" with "news".
+//
+// Including surprising feature: if the pattern is just between
+// double-quotes right and left in the tokens-array, carriage return is
+// removed in "news". TODO: less surprises.
+void replaceInTokenVector(std::vector<std::string>& tokens,
+                          std::string_view pattern, std::string_view news);
 
-  // Remove whitespace at the beginning of the string.
-  [[nodiscard]] static std::string_view ltrim(std::string_view str);
+// Remove whitespace at the beginning of the string.
+[[nodiscard]] std::string_view ltrim(std::string_view str);
 
-  // Remove whitespace at the end of the string.
-  [[nodiscard]] static std::string_view rtrim(std::string_view str);
+// Remove whitespace at the end of the string.
+[[nodiscard]] std::string_view rtrim(std::string_view str);
 
-  // Removing spaces on both ends.
-  [[nodiscard]] static std::string_view trim(std::string_view str);
+// Removing spaces on both ends.
+[[nodiscard]] std::string_view trim(std::string_view str);
 
-  // Erase left of the string until given character is reached.
-  // Erases the input character as well.
-  [[nodiscard]] static std::string_view ltrim_until(std::string_view str,
-                                                    char c);
+// Erase left of the string until given character is reached.
+// Erases the input character as well.
+[[nodiscard]] std::string_view ltrim_until(std::string_view str, char c);
 
-  // Erase right of the string until given character is reached.
-  // Erases the input character as well.
-  [[nodiscard]] static std::string_view rtrim_until(std::string_view str,
-                                                    char c);
+// Erase right of the string until given character is reached.
+// Erases the input character as well.
+[[nodiscard]] std::string_view rtrim_until(std::string_view str, char c);
 
-  // Return the last element of a dot-separated path foo.bar.baz -> baz
-  [[nodiscard]] static std::string_view leaf(std::string_view str);
+// Return the last element of a dot-separated path foo.bar.baz -> baz
+[[nodiscard]] std::string_view leaf(std::string_view str);
 
-  // In given string "str", replace all occurences of "from" with "to"
-  static std::string replaceAll(std::string_view str, std::string_view from,
-                                std::string_view to);
+// In given string "str", replace all occurences of "from" with "to"
+std::string replaceAll(std::string_view str, std::string_view from,
+                       std::string_view to);
 
-  // Given a large input, return the content of line number "line".
-  // Lines are 1 indexed. The newline separator is included in the
-  // returned lines; the last line in text might not have a newline
-  // so will not be included.
-  [[nodiscard]] static std::string_view getLineInString(std::string_view text,
-                                                        int line);
+// Given a large input, return the content of line number "line".
+// Lines are 1 indexed. The newline separator is included in the
+// returned lines; the last line in text might not have a newline
+// so will not be included.
+[[nodiscard]] std::string_view getLineInString(std::string_view text, int line);
 
-  // Split input text into lines at '\n'. This separator is included in the
-  // returned lines; the last line in text might not have a newline so will
-  // not be included.
-  static std::vector<std::string_view> splitLines(std::string_view text);
+// Split input text into lines at '\n'. This separator is included in the
+// returned lines; the last line in text might not have a newline so will
+// not be included.
+std::vector<std::string_view> splitLines(std::string_view text);
 
-  // Convert double number with given amount of precision.
-  static std::string to_string(double a_value, const int n = 3);
+// Convert double number with given amount of precision.
+std::string to_string(double a_value, const int n = 3);
 
-  // Remove '//' and '#'-style end-of-line comments
-  [[nodiscard]] static std::string removeComments(std::string_view text);
+// Remove '//' and '#'-style end-of-line comments
+[[nodiscard]] std::string removeComments(std::string_view text);
 
-  // Expand environment variables in the form of ${FOO} or $FOO/
-  // (variable followed by slash) in string. Modifies the string.
-  static void autoExpandEnvironmentVariables(std::string* text);
+// Expand environment variables in the form of ${FOO} or $FOO/
+// (variable followed by slash) in string. Modifies the string.
+void autoExpandEnvironmentVariables(std::string* text);
 
-  // Like autoExpandEnvironmentVariables(), but returns modified string.
-  static std::string evaluateEnvVars(std::string_view text);
+// Like autoExpandEnvironmentVariables(), but returns modified string.
+std::string evaluateEnvVars(std::string_view text);
 
-  static void registerEnvVar(std::string_view var, std::string_view value) {
-    envVars.emplace(var, value);
-  }
+void registerEnvVar(std::string_view var, std::string_view value);
 
-  // Strip quotes, if any. "abc" => abc
-  [[nodiscard]] static std::string_view unquoted(std::string_view text);
-
- private:
-  StringUtils() = delete;
-  StringUtils(const StringUtils& orig) = delete;
-  ~StringUtils() = delete;
-
-  static std::map<std::string, std::string> envVars;
-};
-
-};  // namespace SURELOG
+// Strip quotes, if any. "abc" => abc
+[[nodiscard]] std::string_view unquoted(std::string_view text);
+}  // namespace StringUtils
+}  // namespace SURELOG
 
 #endif /* SURELOG_STRINGUTILS_H */
