@@ -32,7 +32,7 @@
 
 namespace SURELOG {
 
-std::map<std::string, std::string> StringUtils::envVars;
+static std::map<std::string, std::string> envVars;
 
 std::string StringUtils::to_string(double a_value, const int n) {
   std::ostringstream out;
@@ -352,6 +352,10 @@ std::string StringUtils::evaluateEnvVars(std::string_view text) {
   std::string input(text.begin(), text.end());
   autoExpandEnvironmentVariables(&input);
   return input;
+}
+
+void StringUtils::registerEnvVar(std::string_view var, std::string_view value) {
+  envVars.emplace(var, value);
 }
 
 std::string_view StringUtils::unquoted(std::string_view text) {

@@ -81,7 +81,7 @@ TEST(Elaboration, ExprFromPpTree) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param);
+    const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     // Not reduced
     UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(

@@ -28,35 +28,28 @@
 #include <ParserRuleContext.h>
 
 namespace SURELOG {
+namespace ParseUtils {
+using ParseTree = antlr4::tree::ParseTree;
+using LineColumn = std::pair<int, int>;  // TODO: make <size_t, size_t> ?
 
-class ParseUtils final {
- public:
-  using ParseTree = antlr4::tree::ParseTree;
-  using LineColumn = std::pair<int, int>;  // TODO: make <size_t, size_t> ?
+LineColumn getLineColumn(antlr4::CommonTokenStream* stream,
+                         antlr4::ParserRuleContext* context);
 
-  static LineColumn getLineColumn(antlr4::CommonTokenStream* stream,
-                                  antlr4::ParserRuleContext* context);
+LineColumn getEndLineColumn(antlr4::CommonTokenStream* stream,
+                            antlr4::ParserRuleContext* context);
 
-  static LineColumn getEndLineColumn(antlr4::CommonTokenStream* stream,
-                                     antlr4::ParserRuleContext* context);
+LineColumn getLineColumn(antlr4::tree::TerminalNode* node);
 
-  static LineColumn getLineColumn(antlr4::tree::TerminalNode* node);
+LineColumn getEndLineColumn(antlr4::tree::TerminalNode* node);
 
-  static LineColumn getEndLineColumn(antlr4::tree::TerminalNode* node);
+std::vector<ParseTree*> getTopTokenList(ParseTree* tree);
+void tokenizeAtComma(std::vector<std::string>& actualArgs,
+                     const std::vector<ParseTree*>& tokens);
 
-  static std::vector<ParseTree*> getTopTokenList(ParseTree* tree);
-  static void tokenizeAtComma(std::vector<std::string>& actualArgs,
-                              const std::vector<ParseTree*>& tokens);
+std::vector<antlr4::Token*> getFlatTokenList(ParseTree* tree);
 
-  static std::vector<antlr4::Token*> getFlatTokenList(ParseTree* tree);
-
-  static void inOrderTraversal(std::vector<antlr4::Token*>& tokens,
-                               ParseTree* parent);
-
- private:
-  ParseUtils() = delete;
-  ParseUtils(const ParseUtils& orig) = delete;
-};
+void inOrderTraversal(std::vector<antlr4::Token*>& tokens, ParseTree* parent);
+}  // namespace ParseUtils
 
 }  // namespace SURELOG
 

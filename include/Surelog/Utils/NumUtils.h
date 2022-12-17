@@ -32,162 +32,151 @@
 #include <string_view>
 
 namespace SURELOG {
-class NumUtils final {
- private:
-  // These functions parse a number from a std::string_view into "result".
-  // Returns the end of the number on success, nullptr otherwise.
-  // So this can be used in a simple boolean context for success testing, but
-  // as well in parsing context where advancing to the next position after the
-  // number is needed.
-  // All these functions require to check the return value to verify that
-  // parsing worked.
+namespace NumUtils {
+namespace internal {
+// These functions parse a number from a std::string_view into "result".
+// Returns the end of the number on success, nullptr otherwise.
+// So this can be used in a simple boolean context for success testing, but
+// as well in parsing context where advancing to the next position after the
+// number is needed.
+// All these functions require to check the return value to verify that
+// parsing worked.
 
-  // Parse any number type with std::from_chars
-  template <typename number_type>
-  static const char* strToNum(std::string_view s, int32_t base,
-                              number_type* result) {
-    while (!s.empty() && std::isspace(s.front())) s.remove_prefix(1);
-    if (!s.empty() && (s.front() == '+')) s.remove_prefix(1);
-    if (s.empty()) return nullptr;
-    auto success =
-        std::from_chars(s.data(), s.data() + s.size(), *result, base);
-    return (success.ec == std::errc()) ? success.ptr : nullptr;
+// Parse any number type with std::from_chars
+template <typename number_type>
+const char* strToNum(std::string_view s, int32_t base, number_type* result) {
+  while (!s.empty() && std::isspace((int32_t)s.front())) s.remove_prefix(1);
+  if (!s.empty() && (s.front() == '+')) s.remove_prefix(1);
+  if (s.empty()) return nullptr;
+  auto success = std::from_chars(s.data(), s.data() + s.size(), *result, base);
+  return (success.ec == std::errc()) ? success.ptr : nullptr;
+}
+
+template <typename sint_type, typename uint_type, typename result_type>
+const char* strToInt(std::string_view s, int32_t base, result_type* result) {
+  // std::from_chars can't deal with leading spaces or plus, so remove them.
+  while (!s.empty() && std::isspace((int32_t)s.front())) s.remove_prefix(1);
+  if (!s.empty() && (s.front() == '+')) s.remove_prefix(1);
+  if (s.empty()) return nullptr;
+  std::from_chars_result parse_result;
+  // Try parsing as signed first
+  sint_type sn = 0;
+  parse_result = std::from_chars(s.data(), s.data() + s.size(), sn, base);
+  if (parse_result.ec == std::errc()) {
+    *result = static_cast<result_type>(sn);
+    return parse_result.ptr;
   }
 
-  template <typename sint_type, typename uint_type, typename result_type>
-  static const char* strToInt(std::string_view s, int32_t base,
-                              result_type* result) {
-    // std::from_chars can't deal with leading spaces or plus, so remove them.
-    while (!s.empty() && std::isspace(s.front())) s.remove_prefix(1);
-    if (!s.empty() && (s.front() == '+')) s.remove_prefix(1);
-    if (s.empty()) return nullptr;
-    std::from_chars_result parse_result;
-    // Try parsing as signed first
-    sint_type sn = 0;
-    parse_result = std::from_chars(s.data(), s.data() + s.size(), sn, base);
+  // If the number surely isn't -ve, try parsing as unsigned
+  if ((s.front() != '-') &&
+      (parse_result.ec == std::errc::result_out_of_range)) {
+    uint_type un = 0;
+    parse_result = std::from_chars(s.data(), s.data() + s.size(), un, base);
     if (parse_result.ec == std::errc()) {
-      *result = static_cast<result_type>(sn);
+      *result = static_cast<result_type>(un);
       return parse_result.ptr;
     }
-
-    // If the number surely isn't -ve, try parsing as unsigned
-    if ((s.front() != '-') &&
-        (parse_result.ec == std::errc::result_out_of_range)) {
-      uint_type un = 0;
-      parse_result = std::from_chars(s.data(), s.data() + s.size(), un, base);
-      if (parse_result.ec == std::errc()) {
-        *result = static_cast<result_type>(un);
-        return parse_result.ptr;
-      }
-    }
-
-    return nullptr;
   }
 
- public:
-  static std::string hexToBin(std::string_view s);
+  return nullptr;
+}
+}  // namespace internal
 
-  static std::string binToHex(std::string_view s);
+std::string hexToBin(std::string_view s);
 
-  static std::string toBinary(int size, uint64_t val);
+std::string binToHex(std::string_view s);
 
-  static uint64_t getMask(uint64_t wide);
+std::string toBinary(int size, uint64_t val);
 
-  // Parse int values.
-  // Returns the pointer to one char after the parsed value or nullptr on
-  // failure.
+uint64_t getMask(uint64_t wide);
 
-  // Parse integer of the given size (int32_t, uint32_t, int64_t, uint64_t),
-  // but be lenient in the sign interpretation.
-  // The full signed negative range and positive unsigned range for the integer
-  // of that size is allowed. The final value is cast to the signed or unsigned
-  // potentially flipping the sign (but we're leniently allowing that).
-  template <typename result_type>
-  [[nodiscard]] inline static const char* parseIntLenient(std::string_view s,
-                                                          result_type* result) {
-    if constexpr (sizeof(result_type) == 4) {
-      return strToInt<int32_t, uint32_t, result_type>(s, 10, result);
-    } else {
-      return strToInt<int64_t, uint64_t, result_type>(s, 10, result);
-    }
+// Parse int values.
+// Returns the pointer to one char after the parsed value or nullptr on
+// failure.
+
+// Parse integer of the given size (int32_t, uint32_t, int64_t, uint64_t),
+// but be lenient in the sign interpretation.
+// The full signed negative range and positive unsigned range for the integer
+// of that size is allowed. The final value is cast to the signed or unsigned
+// potentially flipping the sign (but we're leniently allowing that).
+template <typename result_type>
+[[nodiscard]] inline const char* parseIntLenient(std::string_view s,
+                                                 result_type* result) {
+  if constexpr (sizeof(result_type) == 4) {
+    return internal::strToInt<int32_t, uint32_t, result_type>(s, 10, result);
+  } else {
+    return internal::strToInt<int64_t, uint64_t, result_type>(s, 10, result);
   }
+}
 
-  // Parse signed int32, stricly matching its range
-  [[nodiscard]] inline static const char* parseInt32(std::string_view s,
-                                                     int32_t* result) {
-    return strToNum(s, 10, result);
+// Parse signed int32, stricly matching its range
+[[nodiscard]] inline const char* parseInt32(std::string_view s,
+                                            int32_t* result) {
+  return internal::strToNum(s, 10, result);
+}
+// Parse uint32, stricly matching its range; no negative numbers
+[[nodiscard]] inline const char* parseUint32(std::string_view s,
+                                             uint32_t* result) {
+  return internal::strToNum(s, 10, result);
+}
+
+// Parse signed int64, stricly matching its range; no negative numbers
+[[nodiscard]] inline const char* parseInt64(std::string_view s,
+                                            int64_t* result) {
+  return internal::strToNum(s, 10, result);
+}
+// Parse uint64, stricly matching its range; no negative numbers
+[[nodiscard]] inline const char* parseUint64(std::string_view s,
+                                             uint64_t* result) {
+  return internal::strToNum(s, 10, result);
+}
+
+template <typename result_type>
+[[nodiscard]] inline const char* parseBinary(std::string_view s,
+                                             result_type* result) {
+  if constexpr (sizeof(result_type) == 4) {
+    return internal::strToInt<int32_t, uint32_t, result_type>(s, 2, result);
+  } else {
+    return internal::strToInt<int64_t, uint64_t, result_type>(s, 2, result);
   }
-  // Parse uint32, stricly matching its range; no negative numbers
-  [[nodiscard]] inline static const char* parseUint32(std::string_view s,
-                                                      uint32_t* result) {
-    return strToNum(s, 10, result);
+}
+
+template <typename result_type>
+[[nodiscard]] inline const char* parseOctal(std::string_view s,
+                                            result_type* result) {
+  if constexpr (sizeof(result_type) == 4) {
+    return internal::strToInt<int32_t, uint32_t, result_type>(s, 8, result);
+  } else {
+    return internal::strToInt<int64_t, uint64_t, result_type>(s, 8, result);
   }
+}
 
-  // Parse signed int64, stricly matching its range; no negative numbers
-  [[nodiscard]] inline static const char* parseInt64(std::string_view s,
-                                                     int64_t* result) {
-    return strToNum(s, 10, result);
+template <typename result_type>
+[[nodiscard]] inline const char* parseHex(std::string_view s,
+                                          result_type* result) {
+  if constexpr (sizeof(result_type) == 4) {
+    return internal::strToInt<int32_t, uint32_t, result_type>(s, 16, result);
+  } else {
+    return internal::strToInt<int64_t, uint64_t, result_type>(s, 16, result);
   }
-  // Parse uint64, stricly matching its range; no negative numbers
-  [[nodiscard]] inline static const char* parseUint64(std::string_view s,
-                                                      uint64_t* result) {
-    return strToNum(s, 10, result);
-  }
+}
 
-  template <typename result_type>
-  [[nodiscard]] inline static const char* parseBinary(std::string_view s,
-                                                      result_type* result) {
-    if constexpr (sizeof(result_type) == 4) {
-      return strToInt<int32_t, uint32_t, result_type>(s, 2, result);
-    } else {
-      return strToInt<int64_t, uint64_t, result_type>(s, 2, result);
-    }
-  }
+// Parse float value.
+// Returns the pointer to one char after the parsed value or nullptr on
+// failure.
+[[nodiscard]] const char* parseFloat(std::string_view s, float* result);
 
-  template <typename result_type>
-  [[nodiscard]] inline static const char* parseOctal(std::string_view s,
-                                                     result_type* result) {
-    if constexpr (sizeof(result_type) == 4) {
-      return strToInt<int32_t, uint32_t, result_type>(s, 8, result);
-    } else {
-      return strToInt<int64_t, uint64_t, result_type>(s, 8, result);
-    }
-  }
+// Parse double value.
+// Returns the pointer to one char after the parsed value or nullptr on
+// failure.
+[[nodiscard]] const char* parseDouble(std::string_view s, double* result);
 
-  template <typename result_type>
-  [[nodiscard]] inline static const char* parseHex(std::string_view s,
-                                                   result_type* result) {
-    if constexpr (sizeof(result_type) == 4) {
-      return strToInt<int32_t, uint32_t, result_type>(s, 16, result);
-    } else {
-      return strToInt<int64_t, uint64_t, result_type>(s, 16, result);
-    }
-  }
-
-  // Parse float value.
-  // Returns the pointer to one char after the parsed value or nullptr on
-  // failure.
-  [[nodiscard]] static const char* parseFloat(std::string_view s,
-                                              float* result);
-
-  // Parse double value.
-  // Returns the pointer to one char after the parsed value or nullptr on
-  // failure.
-  [[nodiscard]] static const char* parseDouble(std::string_view s,
-                                               double* result);
-
-  // Parse long double value.
-  // Returns the pointer to one char after the parsed value or nullptr on
-  // failure.
-  [[nodiscard]] static const char* parseLongDouble(std::string_view s,
-                                                   long double* result);
-
- private:
-  NumUtils() = delete;
-  NumUtils(const NumUtils& orig) = delete;
-  ~NumUtils() = delete;
-};
-
-};  // namespace SURELOG
+// Parse long double value.
+// Returns the pointer to one char after the parsed value or nullptr on
+// failure.
+[[nodiscard]] const char* parseLongDouble(std::string_view s,
+                                          long double* result);
+}  // namespace NumUtils
+}  // namespace SURELOG
 
 #endif /* SURELOG_NUMUTILS_H */

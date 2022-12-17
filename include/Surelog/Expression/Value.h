@@ -89,8 +89,8 @@ class Value : public RTTI {
   virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
   virtual void set(uint64_t val, Type type, short size) = 0;
-  virtual void set(const std::string& val) = 0;
-  virtual void set(const std::string& val, Type type) = 0;
+  virtual void set(std::string_view val) = 0;
+  virtual void set(std::string_view val, Type type) = 0;
   virtual bool operator<(const Value& rhs) const = 0;
   virtual bool operator==(const Value& rhs) const = 0;
 
@@ -215,7 +215,8 @@ class SValue final : public Value {
   void set(int64_t val) final;
   void set(double val) final;
   void set(uint64_t val, Type type, short size) final;
-  void set(const std::string& val) final {
+
+  void set(std::string_view val) final {
     m_type = Value::Type::None;
     m_value.u_int = 0;
     m_size = 0;
@@ -223,7 +224,7 @@ class SValue final : public Value {
     m_negative = 0;
   }
 
-  void set(const std::string& val, Type type) final {
+  void set(std::string_view val, Type type) final {
     m_type = Value::Type::None;
     m_value.u_int = 0;
     m_size = 0;
@@ -370,8 +371,8 @@ class LValue final : public Value {
   void set(int64_t val) final;
   void set(double val) final;
   void set(uint64_t val, Type type, short size) final;
-  void set(const std::string& val) final {}
-  void set(const std::string& val, Type type) final {}
+  void set(std::string_view val) final {}
+  void set(std::string_view val, Type type) final {}
   bool operator<(const Value& rhs) const final;
   bool operator==(const Value& rhs) const final;
 
@@ -488,7 +489,7 @@ class StValue final : public Value {
     m_valid = true;
     m_signed = false;
   }
-  void set(const std::string& val, Type type) final {
+  void set(std::string_view val, Type type) final {
     m_type = type;
     m_value = val;
     m_size = val.size();
@@ -498,14 +499,14 @@ class StValue final : public Value {
     m_valid = true;
     m_signed = false;
   }
-  void set(const std::string& val, Type type, short size) {
+  void set(std::string_view val, Type type, short size) {
     m_type = type;
     m_value = val;
     m_size = size;
     m_valid = true;
     m_signed = false;
   }
-  void set(const std::string& val) final {
+  void set(std::string_view val) final {
     m_type = Type::String;
     m_value = val;
     m_size = val.size() * 8;

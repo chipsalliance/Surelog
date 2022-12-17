@@ -70,8 +70,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   switch (type) {
     case VObjectType::slPackage_scope: {
       Value* sval = nullptr;
-      const std::string& packageName = fC->SymName(child);
-      const std::string& name = fC->SymName(fC->Sibling(parent));
+      const std::string_view packageName = fC->SymName(child);
+      const std::string_view name = fC->SymName(fC->Sibling(parent));
       if (m_design) {
         Package* pack = m_design->getPackage(packageName);
         if (pack) {
@@ -85,7 +85,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
       }
       std::string fullName;
-      if (sval == nullptr) fullName = packageName + "::" + name;
+      if (sval == nullptr) fullName = StrCat(packageName, "::", name);
       if (sval == nullptr) {
         if (muteErrors == false) {
           Location loc(fC->getFileId(parent), fC->Line(parent),
@@ -410,8 +410,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
       } break;
       case VObjectType::slIntConst: {
-        const std::string& val = fC->SymName(child);
-        std::string size(StringUtils::rtrim_until(val, '\''));
+        const std::string_view val = fC->SymName(child);
+        const std::string_view size = StringUtils::rtrim_until(val, '\'');
         int64_t intsize = 0;
         if (NumUtils::parseInt64(size, &intsize) == nullptr) {
           intsize = 0;
@@ -496,8 +496,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slRealConst: {
-        const std::string& real = fC->SymName(child);
-        std::istringstream os(real);
+        const std::string_view real = fC->SymName(child);
+        std::istringstream os(real.data());
         double d;
         os >> d;
         value->set(d);
@@ -512,8 +512,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         Value* sval = nullptr;
         std::string fullName;
         if (childType == VObjectType::slPackage_scope) {
-          const std::string& packageName = fC->SymName(fC->Child(child));
-          const std::string& name = fC->SymName(fC->Sibling(child));
+          const std::string_view packageName = fC->SymName(fC->Child(child));
+          const std::string_view name = fC->SymName(fC->Sibling(child));
           if (m_design) {
             Package* pack = m_design->getPackage(packageName);
             if (pack) {
@@ -526,9 +526,9 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               }
             }
           }
-          if (sval == nullptr) fullName = packageName + "::" + name;
+          if (sval == nullptr) fullName = StrCat(packageName, "::", name);
         } else {
-          const std::string& name = fC->SymName(child);
+          const std::string_view name = fC->SymName(child);
           if (instance) {
             if (instance->getComplexValue(name)) {
               muteErrors = true;
@@ -562,10 +562,9 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slStringLiteral: {
-        std::string name = fC->SymName(child);
         m_valueFactory.deleteValue(value);
         value = m_valueFactory.newStValue();
-        name = StringUtils::unquoted(name);
+        const std::string_view name = StringUtils::unquoted(fC->SymName(child));
         value->set(name);
         break;
       }
@@ -629,7 +628,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           args.push_back(evalExpr(fC, Expression, instance, muteErrors));
           Expression = fC->Sibling(Expression);
         }
-        const std::string& funcName = fC->SymName(function);
+        const std::string_view funcName = fC->SymName(function);
         if (funcName == "clog2") {
           int val = args[0]->getValueL();
           val = val - 1;
@@ -751,7 +750,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case VObjectType::slStringConst: {
         Value* sval = nullptr;
         std::string fullName;
-        const std::string& name = fC->SymName(parent);
+        const std::string_view name = fC->SymName(parent);
         if (instance) {
           if (instance->getComplexValue(name)) {
             muteErrors = true;
@@ -875,7 +874,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slIncDec_PlusPlus: {
-        const std::string& name = fC->SymName(fC->Sibling(parent));
+        const std::string_view name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {
           if (instance->getComplexValue(name)) {
@@ -892,7 +891,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slIncDec_MinusMinus: {
-        const std::string& name = fC->SymName(fC->Sibling(parent));
+        const std::string_view name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {
           if (instance->getComplexValue(name)) {

@@ -224,7 +224,7 @@ bool CompileClass::compile() {
         if (!sibling) {
           if (fC->Type(fC->Parent(id)) != VObjectType::slClass_declaration)
             break;
-          const std::string& endLabel = fC->SymName(id);
+          const std::string_view endLabel = fC->SymName(id);
           std::string_view moduleName =
               StringUtils::ltrim_until(m_class->getName(), '@');
           if (endLabel != moduleName) {
@@ -341,7 +341,7 @@ bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
       while (variable_decl_assignment) {
         NodeId var = fC->Child(variable_decl_assignment);
         NodeId range = fC->Sibling(var);
-        const std::string& varName = fC->SymName(var);
+        const std::string_view varName = fC->SymName(var);
 
         Property* previous = m_class->getProperty(varName);
         if (previous) {
@@ -487,8 +487,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       taskName = fC->SymName(task_name);
     else if (fC->Type(task_name) == VObjectType::slClass_scope) {
       NodeId Class_type = fC->Child(task_name);
-      taskName = fC->SymName(fC->Child(Class_type));
-      taskName += "::" + fC->SymName(fC->Sibling(task_name));
+      taskName.assign(fC->SymName(fC->Child(Class_type)))
+          .append("::")
+          .append(fC->SymName(fC->Sibling(task_name)));
     }
 
     m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
@@ -520,8 +521,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
         taskName = fC->SymName(task_name);
       else if (fC->Type(task_name) == VObjectType::slClass_scope) {
         NodeId Class_type = fC->Child(task_name);
-        taskName = fC->SymName(fC->Child(Class_type));
-        taskName += "::" + fC->SymName(fC->Sibling(task_name));
+        taskName.assign(fC->SymName(fC->Child(Class_type)))
+            .append("::")
+            .append(fC->SymName(fC->Sibling(task_name)));
       }
 
       m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
@@ -615,7 +617,7 @@ bool CompileClass::compile_class_constraint_(const FileContent* fC,
                                              NodeId class_constraint) {
   NodeId constraint_prototype = fC->Child(class_constraint);
   NodeId constraint_name = fC->Child(constraint_prototype);
-  const std::string& constName = fC->SymName(constraint_name);
+  const std::string_view constName = fC->SymName(constraint_name);
   Constraint* prevDef = m_class->getConstraint(constName);
   if (prevDef) {
     Location loc1(fC->getFileId(class_constraint), fC->Line(class_constraint),
@@ -640,9 +642,9 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   const bool virtualClass = fC->sl_collect(id, VObjectType::slVirtual);
   const NodeId class_name_id = fC->sl_collect(id, VObjectType::slStringConst);
-  const std::string& class_name = fC->SymName(class_name_id);
+  const std::string_view class_name = fC->SymName(class_name_id);
   std::string full_class_name =
-      m_class->m_uhdm_definition->VpiFullName() + "::" + class_name;
+      StrCat(m_class->m_uhdm_definition->VpiFullName(), "::", class_name);
   ClassDefinition* prevDef = m_class->getClass(class_name);
   if (prevDef) {
     Location loc1(fC->getFileId(class_name_id), fC->Line(class_name_id),
@@ -685,7 +687,7 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
 bool CompileClass::compile_covergroup_declaration_(const FileContent* fC,
                                                    NodeId id) {
   NodeId covergroup_name = fC->Child(id);
-  const std::string& covergroupName = fC->SymName(covergroup_name);
+  const std::string_view covergroupName = fC->SymName(covergroup_name);
   CoverGroupDefinition* prevDef = m_class->getCoverGroup(covergroupName);
   if (prevDef) {
     Location loc1(fC->getFileId(covergroup_name), fC->Line(covergroup_name),
@@ -741,7 +743,7 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
   NodeId param_assignment = fC->Child(list_of_param_assignments);
   while (param_assignment) {
     NodeId var = fC->Child(param_assignment);
-    const std::string& name = fC->SymName(var);
+    const std::string_view name = fC->SymName(var);
     const std::pair<FileCNodeId, DesignComponent*>* prevDef =
         m_class->getNamedObject(name);
     if (prevDef) {
@@ -786,7 +788,7 @@ bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
   NodeId param_assignment = fC->Child(list_of_param_assignments);
   while (param_assignment) {
     NodeId var = fC->Child(param_assignment);
-    const std::string& name = fC->SymName(var);
+    const std::string_view name = fC->SymName(var);
     const std::pair<FileCNodeId, DesignComponent*>* prevDef =
         m_class->getNamedObject(name);
     if (prevDef) {
@@ -816,11 +818,11 @@ bool CompileClass::compile_class_type_(const FileContent* fC, NodeId id) {
   VObjectType ptype = fC->Type(parent);
   if (ptype != VObjectType::slClass_declaration) return true;
   NodeId base_class_id = fC->Child(id);
-  std::string base_class_name = fC->SymName(base_class_id);
+  std::string base_class_name(fC->SymName(base_class_id));
   while (fC->Sibling(base_class_id) &&
          (fC->Type(fC->Sibling(base_class_id)) == VObjectType::slStringConst)) {
     base_class_id = fC->Sibling(base_class_id);
-    base_class_name += "::" + fC->SymName(base_class_id);
+    base_class_name.append("::").append(fC->SymName(base_class_id));
   }
   // Insert base class placeholder
   // Will be bound in UVMElaboration step

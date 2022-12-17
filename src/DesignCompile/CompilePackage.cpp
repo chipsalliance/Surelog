@@ -213,7 +213,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
           if (fC->Type(nameId) == VObjectType::slVirtual) {
             nameId = fC->Sibling(nameId);
           }
-          const std::string& name = fC->SymName(nameId);
+          const std::string_view name = fC->SymName(nameId);
           FileCNodeId fnid(fC, nameId);
           m_package->addObject(type, fnid);
 
@@ -277,7 +277,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
           if (!sibling) {
             if (fC->Type(fC->Parent(id)) != VObjectType::slPackage_declaration)
               break;
-            const std::string& endLabel = fC->SymName(id);
+            const std::string_view endLabel = fC->SymName(id);
             std::string_view moduleName =
                 StringUtils::ltrim_until(m_package->getName(), '@');
             if (endLabel != moduleName) {

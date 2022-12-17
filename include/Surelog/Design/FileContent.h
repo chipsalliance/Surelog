@@ -53,7 +53,7 @@ class FileContent : public DesignComponent {
 
   void setLibrary(Library* lib) { m_library = lib; }
 
-  typedef std::unordered_map<std::string, NodeId> NameIdMap;
+  typedef std::map<std::string, NodeId, std::less<>> NameIdMap;
 
   NodeId sl_get(NodeId parent,
                 VObjectType type) const;  // Get first child item of type
@@ -124,7 +124,7 @@ class FileContent : public DesignComponent {
   const std::vector<VObject>& getVObjects() const { return m_objects; }
   std::vector<VObject>* mutableVObjects() { return &m_objects; }
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
-  void insertObjectLookup(const std::string& name, NodeId id,
+  void insertObjectLookup(std::string_view name, NodeId id,
                           ErrorContainer* errors);
   std::unordered_set<std::string>& getReferencedObjects() {
     return m_referencedObjects;
@@ -158,7 +158,7 @@ class FileContent : public DesignComponent {
 
   unsigned short EndColumn(NodeId index) const;
 
-  const std::string& SymName(NodeId index) const;
+  std::string_view SymName(NodeId index) const;
 
   const ModuleNameModuleDefinitionMap& getModuleDefinitions() const {
     return m_moduleDefinitions;

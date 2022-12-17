@@ -49,7 +49,7 @@ std::string_view FileContent::getName() const {
   return FileSystem::getInstance()->toPath(m_fileId);
 }
 
-const std::string& FileContent::SymName(NodeId index) const {
+std::string_view FileContent::SymName(NodeId index) const {
   if (index >= m_objects.size()) {
     Location loc(m_fileId);
     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
@@ -104,7 +104,7 @@ std::string FileContent::printSubTree(NodeId nodeId) const {
   return text;
 }
 
-void FileContent::insertObjectLookup(const std::string& name, NodeId id,
+void FileContent::insertObjectLookup(std::string_view name, NodeId id,
                                      ErrorContainer* errors) {
   NameIdMap::iterator itr = m_objectLookup.find(name);
   if (itr == m_objectLookup.end()) {

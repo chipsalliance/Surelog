@@ -110,7 +110,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
   scope->addObject(VObjectType::slPackage_import_item, fnid);
 
   NodeId nameId = fC->Child(id);
-  const std::string& pack_name = fC->SymName(nameId);
+  const std::string_view pack_name = fC->SymName(nameId);
   std::string object_name;
   if (NodeId objId = fC->Sibling(nameId)) {
     if (fC->Type(objId) == VObjectType::slStringConst) {
@@ -126,7 +126,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
     for (const auto& cls : classSet) {
       const FileContent* packageFile = cls.fC;
       NodeId classDef = packageFile->Sibling(cls.nodeId);
-      const std::string& name = packageFile->SymName(classDef);
+      const std::string_view name = packageFile->SymName(classDef);
       if (!object_name.empty()) {
         if (name != object_name) continue;
       }
@@ -448,14 +448,14 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
       } else if (the_type == VObjectType::slClass_scope) {
         NodeId class_type = fC->Child(type);
         NodeId class_name = fC->Child(class_type);
-        typeName = fC->SymName(class_name);
-        typeName += "::";
         NodeId symb_id = fC->Sibling(type);
-        typeName += fC->SymName(symb_id);
+        typeName.assign(fC->SymName(class_name))
+            .append("::")
+            .append(fC->SymName(symb_id));
       } else {
         typeName = VObject::getTypeName(the_type);
       }
-      const std::string& name = fC->SymName(tf_param_name);
+      const std::string_view name = fC->SymName(tf_param_name);
       NodeId expression = fC->Sibling(tf_param_name);
       DataType* dtype = new DataType(fC, type, typeName, fC->Type(type));
 
@@ -530,7 +530,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       dtype == VObjectType::slInterface_class_keyword ||
       dtype == VObjectType::slEnum_keyword) {
     type_name = fC->Sibling(data_type);
-    const std::string& name = fC->SymName(type_name);
+    const std::string_view name = fC->SymName(type_name);
     const TypeDef* prevDef = scope->getTypeDef(name);
     if (prevDef) return prevDef;
     if (fC->Type(type_name) == VObjectType::slStringConst) {
@@ -571,8 +571,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                       nullptr, reduce, size, false);
     array_tps->Ranges(ranges);
   }
-  std::string name = fC->SymName(type_name);
-  std::string fullName = name;
+  std::string_view name = fC->SymName(type_name);
+  std::string fullName(name);
   if (Package* pack = valuedcomponenti_cast<Package*>(scope)) {
     fullName.assign(pack->getName()).append("::").append(name);
   }
@@ -734,7 +734,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     }
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
-      const std::string& enumName = fC->SymName(enumNameId);
+      const std::string_view enumName = fC->SymName(enumNameId);
       NodeId enumValueId = fC->Sibling(enumNameId);
       Value* value = nullptr;
       if (enumValueId) {
@@ -1040,7 +1040,8 @@ bool CompileHelper::compileSubroutine_call(Scope* parent, Statement* parentStmt,
 
     next_name = fC->Sibling(next_name);
   }
-  const std::string& funcName = fC->SymName(var_chain[var_chain.size() - 1]);
+  const std::string_view funcName =
+      fC->SymName(var_chain[var_chain.size() - 1]);
   var_chain.pop_back();
 
   NodeId list_of_arguments = next_name;
@@ -1257,7 +1258,7 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
         if (varType == VObjectType::slList_of_arguments) {
           // new ()
         } else {
-          const std::string& varName = fC->SymName(var);
+          const std::string_view varName = fC->SymName(var);
 
           Variable* previous = parent->getVariable(varName);
           if (previous) {
@@ -1348,7 +1349,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
           }
 
           if (the_type == VObjectType::slStringConst) {
-            const std::string& tname = fC->SymName(integer_vector_type);
+            const std::string_view tname = fC->SymName(integer_vector_type);
             if (tname == "logic") {
               the_type = VObjectType::slIntVec_TypeLogic;
             } else if (tname == "bit") {
@@ -1967,7 +1968,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
     m_exprBuilder.deleteValue(item_name);
     import_stmt->Item(imported_item);
 
-    const std::string& package_name = fC->SymName(package_name_id);
+    const std::string_view package_name = fC->SymName(package_name_id);
     import_stmt->VpiName(package_name);
 
     package_import_item_id = fC->Sibling(package_import_item_id);
@@ -2283,9 +2284,9 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
   auto subModuleArray = mod->getModuleArrays();
 
   NodeId moduleName = fC->sl_collect(id, VObjectType::slStringConst);
-  const std::string& libName = fC->getLibrary()->getName();
-  const std::string& mname = fC->SymName(moduleName);
-  std::string modName = libName + "@" + mname;
+  const std::string_view libName = fC->getLibrary()->getName();
+  const std::string_view mname = fC->SymName(moduleName);
+  std::string modName = StrCat(libName, "@", mname);
 
   Design* design = compileDesign->getCompiler()->getDesign();
   DesignComponent* def = design->getComponentDefinition(modName);
@@ -2402,7 +2403,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
                                    compileDesign, pstmt, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
-  const std::string& value = fC->SymName(IntConst);
+  const std::string_view value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   fC->populateCoreMembers(Delay_control, Delay_control, dc);
@@ -2418,7 +2419,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
       // Malformed AST due to grammar for: #1 t
       NodeId unit = fC->Child(IntConst);
       if (unit) {
-        const std::string& name = fC->SymName(unit);
+        const std::string_view name = fC->SymName(unit);
         std::pair<task_func*, DesignComponent*> ret =
             getTaskFunc(name, component, compileDesign, nullptr, nullptr);
         task_func* tf = ret.first;
@@ -2457,7 +2458,7 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(
                                    compileDesign, pexpr, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
-  const std::string& value = fC->SymName(IntConst);
+  const std::string_view value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   fC->populateCoreMembers(fC->Child(Delay_control), fC->Child(Delay_control),
@@ -2729,7 +2730,7 @@ bool CompileHelper::compileParameterDeclaration(
         isMultiDimension = true;
       }
 
-      const std::string& the_name = fC->SymName(name);
+      const std::string_view the_name = fC->SymName(name);
       NodeId actual_value = value;
 
       if ((valuedcomponenti_cast<Package*>(component) ||
@@ -3103,7 +3104,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
 
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call();
-    name = "$" + fC->SymName(tfNameNode);
+    name.assign("$").append(fC->SymName(tfNameNode));
   } else if (leaf_type == VObjectType::slImplicit_class_handle) {
     return compileComplexFuncCall(component, fC, fC->Child(Tf_call_stmt),
                                   compileDesign, nullptr, nullptr, false,
@@ -3111,12 +3112,12 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
   } else if (leaf_type == VObjectType::slDollar_root_keyword) {
     NodeId Dollar_root_keyword = dollar_or_string;
     NodeId nameId = fC->Sibling(Dollar_root_keyword);
-    name = "$root." + fC->SymName(nameId);
+    name.assign("$root.").append(fC->SymName(nameId));
     nameId = fC->Sibling(nameId);
     tfNameNode = nameId;
     while (nameId) {
       if (fC->Type(nameId) == VObjectType::slStringConst) {
-        name += "." + fC->SymName(nameId);
+        name.append(".").append(fC->SymName(nameId));
         tfNameNode = nameId;
       } else if (fC->Type(nameId) == VObjectType::slConstant_bit_select) {
         NodeId Constant_expresion = fC->Child(nameId);
@@ -3173,7 +3174,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     if (fC->Type(Constant_bit_select) == VObjectType::slConstant_bit_select) {
       tfNameNode = fC->Sibling(Constant_bit_select);
       method_func_call* fcall = s.MakeMethod_func_call();
-      const std::string& mname = fC->SymName(tfNameNode);
+      const std::string_view mname = fC->SymName(tfNameNode);
       fC->populateCoreMembers(tfNameNode, tfNameNode, fcall);
       fcall->VpiName(mname);
       ref_obj* prefix = s.MakeRef_obj();
@@ -3496,7 +3497,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     delay_control->VpiParent(assign);
     NodeId Delay_control = fC->Child(Delay_or_event_control);
     NodeId IntConst = fC->Child(Delay_control);
-    const std::string& value = fC->SymName(IntConst);
+    const std::string_view value = fC->SymName(IntConst);
     delay_control->VpiDelay(value);
     fC->populateCoreMembers(fC->Child(Delay_control), fC->Child(Delay_control),
                             delay_control);
@@ -3550,7 +3551,7 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
       NodeId Attr_spec = fC->Child(nodeId);
       NodeId Attr_name = fC->Child(Attr_spec);
       NodeId Constant_expression = fC->Sibling(Attr_name);
-      const std::string& name = fC->SymName(fC->Child(Attr_name));
+      const std::string_view name = fC->SymName(fC->Child(Attr_name));
       attribute->VpiName(name);
       fC->populateCoreMembers(Attr_spec, Attr_spec, attribute);
       results->push_back(attribute);
@@ -3797,7 +3798,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
             if (exp) exp->VpiParent(ctrl);
           }
           ios->push_back(io);
-          const std::string& sigName = fC->SymName(Identifier);
+          const std::string_view sigName = fC->SymName(Identifier);
           io->VpiName(sigName);
           if (direction == VObjectType::slClockingDir_Input) {
             io->Input_skew(dcInp);
@@ -4104,7 +4105,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
               if (valIndex > (int)(size - 1)) {
                 break;
               }
-              values[valIndex] = (v & (1 << (csize - 1 - i))) ? 1 : 0;
+              values[valIndex] = (v & (1ULL << (csize - 1 - i))) ? 1 : 0;
               valIndex++;
             }
             opIndex++;
@@ -4226,7 +4227,7 @@ void CompileHelper::compileLetDeclaration(DesignComponent* component,
                                           CompileDesign* compileDesign) {
   Serializer& s = compileDesign->getSerializer();
   NodeId nameId = fC->Child(Let_declaration);
-  const std::string& name = fC->SymName(nameId);
+  const std::string_view name = fC->SymName(nameId);
   NodeId Let_port_list = fC->Sibling(nameId);
   NodeId Expression;
   if (fC->Type(Let_port_list) == VObjectType::slLet_port_list) {

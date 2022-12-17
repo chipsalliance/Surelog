@@ -437,7 +437,7 @@ Program* Design::getProgram(std::string_view name) const {
   }
 }
 
-ClassDefinition* Design::getClassDefinition(const std::string& name) const {
+ClassDefinition* Design::getClassDefinition(const std::string_view name) const {
   ClassNameClassDefinitionMap::const_iterator itr =
       m_uniqueClassDefinitions.find(name);
   if (itr == m_uniqueClassDefinitions.end()) {
@@ -501,7 +501,7 @@ Package* Design::addPackageDefinition(std::string_view packageName,
   }
 }
 
-void Design::addClassDefinition(const std::string& className,
+void Design::addClassDefinition(std::string_view className,
                                 ClassDefinition* classDef) {
   m_classDefinitions.emplace(className, classDef);
   m_uniqueClassDefinitions.emplace(className, classDef);

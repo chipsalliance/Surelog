@@ -79,10 +79,10 @@ class NetlistElaboration : public TestbenchElaboration {
 
   UHDM::any* bind_net_(const FileContent* idfC, NodeId id,
                        ModuleInstance* instance, ModuleInstance* boundInstance,
-                       const std::string& name);
-  UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
+                       std::string_view name);
+  UHDM::any* bind_net_(ModuleInstance* instance, std::string_view name);
   ModuleInstance* getInterfaceInstance_(ModuleInstance* instance,
-                                        const std::string& sigName);
+                                        std::string_view sigName);
 };
 
 };  // namespace SURELOG

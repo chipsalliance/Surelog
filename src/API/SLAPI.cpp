@@ -324,7 +324,7 @@ unsigned int SLgetLine(FileContent* fC, RawNodeId index) {
 
 std::string SLgetName(FileContent* fC, RawNodeId index) {
   if (!fC) return "";
-  return fC->SymName(NodeId(index));
+  return std::string(fC->SymName(NodeId(index)));
 }
 
 RawNodeId SLgetChild(FileContent* fC, RawNodeId parent, unsigned int type) {

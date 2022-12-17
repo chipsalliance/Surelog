@@ -152,7 +152,7 @@ class Design final {
 
   Program* getProgram(std::string_view name) const;
 
-  ClassDefinition* getClassDefinition(const std::string& name) const;
+  ClassDefinition* getClassDefinition(std::string_view name) const;
 
   ErrorContainer* getErrorContainer() { return m_errors; }
 
@@ -187,7 +187,7 @@ class Design final {
   void addDefParam(const std::string& name, const FileContent* fC,
                    NodeId nodeId, Value* value);
 
-  void addClassDefinition(const std::string& className,
+  void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef);
 
   void addProgramDefinition(const std::string programName, Program* program) {

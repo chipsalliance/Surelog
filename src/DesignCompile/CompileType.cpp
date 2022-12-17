@@ -231,14 +231,14 @@ UHDM::any* CompileHelper::compileVariable(
     UHDM::hier_path* path = s.MakeHier_path();
     VectorOfany* elems = s.MakeAnyVec();
     path->Path_elems(elems);
-    std::string fullName = fC->SymName(variable);
+    std::string fullName(fC->SymName(variable));
     ref_obj* obj = s.MakeRef_obj();
     obj->VpiName(fullName);
     elems->push_back(obj);
     while (fC->Type(Packed_dimension) == VObjectType::slStringConst) {
       ref_obj* obj = s.MakeRef_obj();
-      const std::string& name = fC->SymName(Packed_dimension);
-      fullName += "." + name;
+      const std::string_view name = fC->SymName(Packed_dimension);
+      fullName.append(".").append(name);
       obj->VpiName(name);
       elems->push_back(obj);
       Packed_dimension = fC->Sibling(Packed_dimension);
@@ -266,7 +266,7 @@ UHDM::any* CompileHelper::compileVariable(
   switch (the_type) {
     case VObjectType::slStringConst:
     case VObjectType::slChandle_type: {
-      const std::string& typeName = fC->SymName(variable);
+      const std::string_view typeName = fC->SymName(variable);
 
       if (const DataType* dt = component->getDataType(typeName)) {
         dt = dt->getActual();
@@ -409,10 +409,10 @@ UHDM::any* CompileHelper::compileVariable(
     case VObjectType::slClass_scope: {
       NodeId class_type = fC->Child(variable);
       NodeId class_name = fC->Child(class_type);
-      const std::string& packageName = fC->SymName(class_name);
+      const std::string_view packageName = fC->SymName(class_name);
       Design* design = compileDesign->getCompiler()->getDesign();
       NodeId symb_id = fC->Sibling(variable);
-      const std::string& typeName = fC->SymName(symb_id);
+      const std::string_view typeName = fC->SymName(symb_id);
       Package* pack = design->getPackage(packageName);
       variables* var = nullptr;
       if (pack) {
@@ -455,7 +455,7 @@ UHDM::any* CompileHelper::compileVariable(
         }
       }
 
-      const std::string completeName = packageName + "::" + typeName;
+      const std::string completeName = StrCat(packageName, "::", typeName);
       if (var == nullptr) var = s.MakeClass_var();
       unsupported_typespec* tp = s.MakeUnsupported_typespec();
       tp->VpiName(completeName);
@@ -495,7 +495,7 @@ UHDM::any* CompileHelper::compileVariable(
   return result;
 }
 
-const UHDM::typespec* bindTypespec(const std::string& name,
+const UHDM::typespec* bindTypespec(std::string_view name,
                                    SURELOG::ValuedComponentI* instance,
                                    Serializer& s) {
   const typespec* result = nullptr;
@@ -551,7 +551,7 @@ const UHDM::typespec* bindTypespec(const std::string& name,
 typespec* CompileHelper::compileDatastructureTypespec(
     DesignComponent* component, const FileContent* fC, NodeId type,
     CompileDesign* compileDesign, SURELOG::ValuedComponentI* instance,
-    bool reduce, const std::string& suffixname, const std::string& typeName) {
+    bool reduce, std::string_view suffixname, std::string_view typeName) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   typespec* result = nullptr;
   if (component) {
@@ -559,7 +559,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
     if (dt == nullptr) {
       const std::string& libName = fC->getLibrary()->getName();
       dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
-          libName + "@" + typeName);
+          StrCat(libName, "@", typeName));
       if (dt == nullptr) {
         dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
             StrCat(component->getName(), "::", typeName));
@@ -609,7 +609,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
           // Interface port type
           if ((sig->getName() == typeName) && sig->getInterfaceTypeNameId()) {
             std::string suffixname;
-            std::string typeName2 = typeName;
+            std::string_view typeName2 = typeName;
             if (fC->Type(sig->getInterfaceTypeNameId()) ==
                 VObjectType::slStringConst) {
               typeName2 = fC->SymName(sig->getInterfaceTypeNameId());
@@ -641,8 +641,8 @@ typespec* CompileHelper::compileDatastructureTypespec(
                                 symbols->registerSymbol(suffixname));
                   const std::string& libName = fC->getLibrary()->getName();
                   Design* design = compileDesign->getCompiler()->getDesign();
-                  ModuleDefinition* def =
-                      design->getModuleDefinition(libName + "@" + typeName2);
+                  ModuleDefinition* def = design->getModuleDefinition(
+                      StrCat(libName, "@", typeName2));
                   const FileContent* interF = def->getFileContents()[0];
                   Location loc2(interF->getFileId(),
                                 interF->Line(def->getNodeIds()[0]),
@@ -816,7 +816,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
       const std::string& libName = fC->getLibrary()->getName();
       Design* design = compileDesign->getCompiler()->getDesign();
       ModuleDefinition* def =
-          design->getModuleDefinition(libName + "@" + typeName);
+          design->getModuleDefinition(StrCat(libName, "@", typeName));
       if (def) {
         if (def->getType() == VObjectType::slInterface_declaration) {
           interface_typespec* tps = s.MakeInterface_typespec();
@@ -841,7 +841,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
             }
           }
           if (NodeId sub = fC->Sibling(type)) {
-            const std::string& name = fC->SymName(sub);
+            const std::string_view name = fC->SymName(sub);
             if (def->getModPort(name)) {
               interface_typespec* mptps = s.MakeInterface_typespec();
               mptps->VpiName(name);
@@ -871,8 +871,8 @@ typespec* CompileHelper::compileDatastructureTypespec(
 }
 
 UHDM::typespec_member* CompileHelper::buildTypespecMember(
-    CompileDesign* compileDesign, PathId fileId, const std::string& name,
-    const std::string& value, unsigned int line, unsigned short column,
+    CompileDesign* compileDesign, PathId fileId, std::string_view name,
+    std::string_view value, unsigned int line, unsigned short column,
     unsigned int eline, unsigned short ecolumn) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   /*
@@ -900,8 +900,8 @@ UHDM::typespec_member* CompileHelper::buildTypespecMember(
 }
 
 int_typespec* CompileHelper::buildIntTypespec(
-    CompileDesign* compileDesign, PathId fileId, const std::string& name,
-    const std::string& value, unsigned int line, unsigned short column,
+    CompileDesign* compileDesign, PathId fileId, std::string_view name,
+    std::string_view value, unsigned int line, unsigned short column,
     unsigned int eline, unsigned short ecolumn) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   /*
@@ -1130,7 +1130,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       int val = 0;
       while (enum_name_declaration) {
         NodeId enumNameId = fC->Child(enum_name_declaration);
-        const std::string& enumName = fC->SymName(enumNameId);
+        const std::string_view enumName = fC->SymName(enumNameId);
         NodeId enumValueId = fC->Sibling(enumNameId);
         Value* value = nullptr;
         if (enumValueId) {
@@ -1171,7 +1171,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slInterface_identifier: {
       interface_typespec* tps = s.MakeInterface_typespec();
       NodeId Name = fC->Child(type);
-      const std::string& name = fC->SymName(Name);
+      const std::string_view name = fC->SymName(Name);
       tps->VpiName(name);
       fC->populateCoreMembers(type, type, tps);
       result = tps;
@@ -1233,8 +1233,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         return compileTypespec(component, fC, Name, compileDesign, pstmt,
                                instance, reduce, isVariable);
       }
-      const std::string& name = fC->SymName(Name);
       if (instance) {
+        const std::string_view name = fC->SymName(Name);
         result = (typespec*)bindTypespec(name, instance, s);
       }
       break;
@@ -1242,12 +1242,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);
       if (fC->Type(literal) == VObjectType::slStringConst) {
-        const std::string& typeName = fC->SymName(literal);
+        const std::string_view typeName = fC->SymName(literal);
         result = compileDatastructureTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
       } else {
         integer_typespec* var = s.MakeInteger_typespec();
-        std::string value = "INT:" + fC->SymName(literal);
+        std::string value = StrCat("INT:", fC->SymName(literal));
         var->VpiValue(value);
         fC->populateCoreMembers(type, type, var);
         result = var;
@@ -1304,7 +1304,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       std::string packageName = typeName;
       typeName += "::";
       NodeId symb_id = fC->Sibling(type);
-      const std::string& name = fC->SymName(symb_id);
+      const std::string_view name = fC->SymName(symb_id);
       typeName += name;
       Package* pack =
           compileDesign->getCompiler()->getDesign()->getPackage(packageName);
@@ -1431,7 +1431,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
           }
           NodeId member_name = fC->Child(Variable_decl_assignment);
           NodeId Expression = fC->Sibling(member_name);
-          const std::string& mem_name = fC->SymName(member_name);
+          const std::string_view mem_name = fC->SymName(member_name);
           typespec_member* m =
               buildTypespecMember(compileDesign, fC->getFileId(), mem_name, "",
                                   fC->Line(Variable_decl_assignment),
@@ -1473,7 +1473,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                              pstmt, instance, reduce);
     }
     case VObjectType::slStringConst: {
-      const std::string& typeName = fC->SymName(type);
+      const std::string_view typeName = fC->SymName(type);
       if (typeName == "logic") {
         logic_typespec* var = s.MakeLogic_typespec();
         var->Ranges(ranges);

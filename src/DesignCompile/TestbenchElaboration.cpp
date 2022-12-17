@@ -114,7 +114,7 @@ void computeVarChain(const FileContent* fC, NodeId nodeId,
     VObjectType type = fC->Type(nodeId);
     switch (type) {
       case VObjectType::slStringConst: {
-        var_chain.push_back(fC->SymName(nodeId));
+        var_chain.emplace_back(fC->SymName(nodeId));
         break;
       }
       case VObjectType::slImplicit_class_handle: {
@@ -584,7 +584,7 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
     }
     VObjectType rangeType = sfC->Type(rangeTypeId);
     if (rangeType == VObjectType::slStringConst) {
-      const std::string& dataTypeName = sfC->SymName(rangeTypeId);
+      const std::string_view dataTypeName = sfC->SymName(rangeTypeId);
       itrDataType =
           bindDataType_(dataTypeName, sfC, rangeTypeId, classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_TYPE);
@@ -703,7 +703,7 @@ bool TestbenchElaboration::bindProperties_() {
         defn->Variables(vars);
       }
 
-      const std::string& signame = sig->getName();
+      const std::string_view signame = sig->getName();
 
       // Packed and unpacked ranges
       int packedSize = 0;
