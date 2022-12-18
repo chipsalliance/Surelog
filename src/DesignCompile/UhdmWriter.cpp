@@ -3995,10 +3995,6 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     s.PrintStats(std::cerr, "Non-Elaborated Model");
   }
 
-  UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d);
-  adjuster->listenDesigns(designs);
-  delete adjuster;
-
   // ----------------------------------
   // Lint only the elaborated model
   UhdmLint* linter = new UhdmLint(&s, d);
@@ -4037,6 +4033,10 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       s.PrintStats(std::cerr, "Elaborated Model");
     }
   }
+
+  UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d);
+  adjuster->listenDesigns(designs);
+  delete adjuster;
 
   const fs::path uhdmFile = fileSystem->toPlatformPath(uhdmFileId);
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {

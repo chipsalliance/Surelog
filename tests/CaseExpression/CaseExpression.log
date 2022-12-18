@@ -850,17 +850,17 @@ assignment                                            48
 begin                                                  2
 case_item                                             48
 case_stmt                                             16
-constant                                              89
+constant                                              72
 cont_assign                                           27
 design                                                 1
 initial                                                2
-int_typespec                                          22
+int_typespec                                           8
 logic_net                                             43
 logic_typespec                                        28
 module                                                 4
 port                                                  24
 range                                                 15
-ref_obj                                               98
+ref_obj                                              124
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CaseExpression/slpp_all/surelog.uhdm ...
 
@@ -2417,6 +2417,10 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:18:9, endln:21:16
           |vpiExpr:
           \_constant: , line:7:17, endln:7:21
+            |vpiDecompile:1'b0
+            |vpiSize:2
+            |BIN:00
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:19:22, endln:19:27
             |vpiParent:
@@ -2488,6 +2492,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:22:9, endln:25:16
           |vpiExpr:
           \_constant: , line:10:25, endln:10:30
+            |vpiDecompile:1'sb1
+            |vpiSize:2
+            |BIN:11
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:10:25, endln:10:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:24:22, endln:24:27
             |vpiParent:
@@ -2517,6 +2530,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:26:9, endln:29:16
           |vpiExpr:
           \_constant: , line:9:25, endln:9:30
+            |vpiDecompile:1'sb0
+            |vpiSize:2
+            |BIN:10
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:9:25, endln:9:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:27:22, endln:27:27
             |vpiParent:
@@ -2539,6 +2561,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:26:9, endln:29:16
           |vpiExpr:
           \_constant: , line:10:25, endln:10:30
+            |vpiDecompile:1'sb1
+            |vpiSize:2
+            |BIN:11
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:10:25, endln:10:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:28:22, endln:28:27
             |vpiParent:
@@ -2568,6 +2599,10 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:30:9, endln:34:16
           |vpiExpr:
           \_constant: , line:7:17, endln:7:21
+            |vpiDecompile:1'b0
+            |vpiSize:2
+            |BIN:00
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:31:22, endln:31:27
             |vpiParent:
@@ -2590,6 +2625,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:30:9, endln:34:16
           |vpiExpr:
           \_constant: , line:10:25, endln:10:30
+            |vpiDecompile:1'sb1
+            |vpiSize:2
+            |BIN:01
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:10:25, endln:10:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:32:22, endln:32:27
             |vpiParent:
@@ -2639,6 +2683,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:35:9, endln:39:16
           |vpiExpr:
           \_constant: , line:9:25, endln:9:30
+            |vpiDecompile:1'sb0
+            |vpiSize:2
+            |BIN:00
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:9:25, endln:9:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:36:22, endln:36:27
             |vpiParent:
@@ -2661,6 +2714,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:35:9, endln:39:16
           |vpiExpr:
           \_constant: , line:10:25, endln:10:30
+            |vpiDecompile:1'sb1
+            |vpiSize:2
+            |BIN:01
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:10:25, endln:10:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:37:22, endln:37:27
             |vpiParent:
@@ -2704,12 +2766,30 @@ design: (work@case_expr_non_const_top)
         |vpiCaseType:1
         |vpiCondition:
         \_constant: , line:10:25, endln:10:30
+          |vpiDecompile:1'sb1
+          |vpiSize:2
+          |BIN:11
+          |vpiTypespec:
+          \_int_typespec: 
+            |vpiParent:
+            \_constant: , line:10:25, endln:10:30
+            |vpiSigned:1
+          |vpiConstType:3
         |vpiCaseItem:
         \_case_item: , line:41:13, endln:41:28
           |vpiParent:
           \_case_stmt: , line:40:9, endln:44:16
           |vpiExpr:
           \_constant: , line:9:25, endln:9:30
+            |vpiDecompile:1'sb0
+            |vpiSize:2
+            |BIN:10
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:9:25, endln:9:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:41:22, endln:41:27
             |vpiParent:
@@ -2775,12 +2855,30 @@ design: (work@case_expr_non_const_top)
         |vpiCaseType:1
         |vpiCondition:
         \_constant: , line:10:25, endln:10:30
+          |vpiDecompile:1'sb1
+          |vpiSize:3
+          |BIN:001
+          |vpiTypespec:
+          \_int_typespec: 
+            |vpiParent:
+            \_constant: , line:10:25, endln:10:30
+            |vpiSigned:1
+          |vpiConstType:3
         |vpiCaseItem:
         \_case_item: , line:46:13, endln:46:28
           |vpiParent:
           \_case_stmt: , line:45:9, endln:50:16
           |vpiExpr:
           \_constant: , line:9:25, endln:9:30
+            |vpiDecompile:1'sb0
+            |vpiSize:3
+            |BIN:000
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:9:25, endln:9:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:46:22, endln:46:27
             |vpiParent:
@@ -2825,6 +2923,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:45:9, endln:50:16
           |vpiExpr:
           \_constant: , line:14:32, endln:14:38
+            |vpiDecompile:2'sb11
+            |vpiSize:3
+            |BIN:011
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:14:32, endln:14:38
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:48:22, endln:48:27
             |vpiParent:
@@ -2868,12 +2975,30 @@ design: (work@case_expr_non_const_top)
         |vpiCaseType:1
         |vpiCondition:
         \_constant: , line:10:25, endln:10:30
+          |vpiDecompile:1'sb1
+          |vpiSize:3
+          |BIN:001
+          |vpiTypespec:
+          \_int_typespec: 
+            |vpiParent:
+            \_constant: , line:10:25, endln:10:30
+            |vpiSigned:1
+          |vpiConstType:3
         |vpiCaseItem:
         \_case_item: , line:52:13, endln:52:28
           |vpiParent:
           \_case_stmt: , line:51:9, endln:57:16
           |vpiExpr:
           \_constant: , line:9:25, endln:9:30
+            |vpiDecompile:1'sb0
+            |vpiSize:3
+            |BIN:000
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:9:25, endln:9:30
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:52:22, endln:52:27
             |vpiParent:
@@ -2896,6 +3021,10 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:51:9, endln:57:16
           |vpiExpr:
           \_constant: , line:8:17, endln:8:21
+            |vpiDecompile:1'b1
+            |vpiSize:3
+            |BIN:001
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:53:22, endln:53:27
             |vpiParent:
@@ -2940,6 +3069,15 @@ design: (work@case_expr_non_const_top)
           \_case_stmt: , line:51:9, endln:57:16
           |vpiExpr:
           \_constant: , line:14:32, endln:14:38
+            |vpiDecompile:2'sb11
+            |vpiSize:3
+            |BIN:011
+            |vpiTypespec:
+            \_int_typespec: 
+              |vpiParent:
+              \_constant: , line:14:32, endln:14:38
+              |vpiSigned:1
+            |vpiConstType:3
           |vpiStmt:
           \_assignment: , line:55:22, endln:55:27
             |vpiParent:
