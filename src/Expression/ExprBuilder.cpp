@@ -496,11 +496,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slRealConst: {
-        const std::string_view real = fC->SymName(child);
-        std::istringstream os(real.data());
         double d;
-        os >> d;
-        value->set(d);
+        value->set(NumUtils::parseDouble(fC->SymName(child), &d) ? d : 0);
         break;
       }
       case VObjectType::slNull_keyword: {
