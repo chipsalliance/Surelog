@@ -1625,6 +1625,18 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
   return true;
 }
 
+class DetectUnsizedConstant final : public VpiListener {
+ public:
+  DetectUnsizedConstant() {}
+  bool unsizedDetected() { return unsized_; }
+
+ private:
+  void leaveConstant(const constant* object, vpiHandle handle) {
+    if (object->VpiSize() == -1) unsized_ = true;
+  }
+  bool unsized_ = false;
+};
+
 void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
                                   DesignComponent* mod, any* m,
                                   std::vector<cont_assign*>* assigns) {
@@ -1635,6 +1647,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
       const typespec* tps = lhs->Typespec();
       bool simplified = false;
       bool cloned = false;
+
       if (lhs->UhdmType() == uhdmref_obj) {
         UHDM::any* var =
             m_helper.bindVariable(mod, m, lhs->VpiName(), m_compileDesign);
@@ -1717,6 +1730,17 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             }
             assign->Rhs((constant*)res);
           }
+        }
+      }
+      if (simplified == false && cloned == false) {
+        DetectUnsizedConstant detector;
+        vpiHandle h_rhs = NewVpiHandle(rhs);
+        detector.listenAny(h_rhs);
+        vpi_free_object(h_rhs);
+        if (detector.unsizedDetected()) {
+          ElaboratorListener listener(&s, false, true);
+          assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+          cloned = true;
         }
       }
       assigns->push_back(assign);

@@ -91,22 +91,7 @@ n<> u<67> t<Top_level_rule> c<1> l<1:1> el<9:1>
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               7
-cont_assign                                            1
-design                                                 1
-logic_net                                              2
-logic_typespec                                         1
-logic_var                                              1
-module                                                 4
-operation                                              1
-part_select                                            1
-range                                                  2
-ref_obj                                                2
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               8
+constant                                              10
 cont_assign                                            2
 design                                                 1
 logic_net                                              2
@@ -117,6 +102,21 @@ operation                                              2
 part_select                                            2
 range                                                  2
 ref_obj                                                4
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              11
+cont_assign                                            3
+design                                                 1
+logic_net                                              2
+logic_typespec                                         1
+logic_var                                              1
+module                                                 4
+operation                                              3
+part_select                                            3
+range                                                  2
+ref_obj                                                6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizeConstExpr/slpp_all/surelog.uhdm ...
 
@@ -268,8 +268,20 @@ design: (work@top)
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:5:29, endln:5:30
+          |vpiParent:
+          \_part_select: , line:5:12, endln:5:33
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
         |vpiRightRange:
         \_constant: , line:5:31, endln:5:32
+          |vpiParent:
+          \_part_select: , line:5:12, endln:5:33
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
       |vpiOperand:
       \_constant: , line:5:37, endln:5:39
         |vpiDecompile:255
