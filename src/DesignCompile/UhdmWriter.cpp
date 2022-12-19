@@ -1631,7 +1631,7 @@ class DetectUnsizedConstant final : public VpiListener {
   bool unsizedDetected() { return unsized_; }
 
  private:
-  void leaveConstant(const constant* object, vpiHandle handle) {
+  void leaveConstant(const constant* object, vpiHandle handle) final {
     if (object->VpiSize() == -1) unsized_ = true;
   }
   bool unsized_ = false;
