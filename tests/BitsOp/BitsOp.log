@@ -52,7 +52,7 @@ assignment                                             1
 begin                                                  2
 bit_typespec                                           4
 bit_var                                                1
-constant                                             306
+constant                                             308
 cont_assign                                            2
 design                                                 1
 enum_const                                             4
@@ -74,10 +74,10 @@ parameter                                             96
 part_select                                            1
 port                                                   2
 range                                                 43
-ref_obj                                               91
+ref_obj                                               90
 struct_net                                             2
 struct_typespec                                        9
-sys_func_call                                         27
+sys_func_call                                         26
 typespec_member                                       32
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -88,7 +88,7 @@ assignment                                             2
 begin                                                  4
 bit_typespec                                           4
 bit_var                                                1
-constant                                             306
+constant                                             308
 cont_assign                                            3
 design                                                 1
 enum_const                                             4
@@ -110,10 +110,10 @@ parameter                                             96
 part_select                                            2
 port                                                   3
 range                                                 43
-ref_obj                                              100
+ref_obj                                               98
 struct_net                                             2
 struct_typespec                                        9
-sys_func_call                                         28
+sys_func_call                                         26
 typespec_member                                       32
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitsOp/slpp_unit/surelog.uhdm ...
@@ -2451,18 +2451,13 @@ design: (work@dut)
                       \_begin: (work@dmi_jtag.p_shift), line:120:23, endln:122:10
                       |vpiOpType:11
                       |vpiOperand:
-                      \_sys_func_call: ($bits), line:121:31, endln:121:42
+                      \_constant: , line:121:31, endln:121:42
                         |vpiParent:
                         \_operation: , line:121:31, endln:121:44
-                        |vpiArgument:
-                        \_ref_obj: (work@dmi_jtag.p_shift.dr_q), line:121:37, endln:121:41
-                          |vpiParent:
-                          \_sys_func_call: ($bits), line:121:31, endln:121:42
-                          |vpiName:dr_q
-                          |vpiFullName:work@dmi_jtag.p_shift.dr_q
-                          |vpiActual:
-                          \_logic_var: (work@dmi_jtag.dr_q), line:112:34, endln:112:38
-                        |vpiName:$bits
+                        |vpiDecompile:41
+                        |vpiSize:64
+                        |UINT:41
+                        |vpiConstType:9
                       |vpiOperand:
                       \_constant: , line:121:43, endln:121:44
                         |vpiParent:
@@ -3347,18 +3342,7 @@ design: (work@dut)
                       \_part_select: , line:121:26, endln:121:47
                       |vpiOpType:11
                       |vpiOperand:
-                      \_sys_func_call: ($bits), line:121:31, endln:121:42
-                        |vpiParent:
-                        \_operation: , line:121:31, endln:121:44
-                        |vpiArgument:
-                        \_ref_obj: (work@dmi_jtag.p_shift.dr_q.dr_q), line:121:37, endln:121:41
-                          |vpiParent:
-                          \_sys_func_call: ($bits), line:121:31, endln:121:42
-                          |vpiName:dr_q
-                          |vpiFullName:work@dmi_jtag.p_shift.dr_q.dr_q
-                          |vpiActual:
-                          \_logic_var: (work@dmi_jtag.dr_q), line:112:34, endln:112:38
-                        |vpiName:$bits
+                      \_constant: , line:121:31, endln:121:42
                       |vpiOperand:
                       \_constant: , line:121:43, endln:121:44
                     |vpiRightRange:
@@ -3515,4 +3499,4 @@ design: (work@dut)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BitsOp/dut.sv | ${SURELOG_DIR}/build/regression/BitsOp/roundtrip/dut_000.sv | 23 | 127 |
+[roundtrip]: ${SURELOG_DIR}/tests/BitsOp/dut.sv | ${SURELOG_DIR}/build/regression/BitsOp/roundtrip/dut_000.sv | 24 | 127 |
