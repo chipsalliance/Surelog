@@ -1215,5 +1215,37 @@ endmodule
   }
 }
 
+TEST(Elaboration, DollarBitsArrayVar) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top(output int o);
+   parameter P = 1;
+   logic [7:P] key [2];
+   assign o = $bits(key);
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto cassign : *topMod->Cont_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+      bool invalidValue = false;
+      const std::string& name = cassign->Lhs()->VpiName();
+      if (name == "o") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 14);
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG
