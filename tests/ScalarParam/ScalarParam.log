@@ -140,7 +140,7 @@ constant                                              10
 design                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
-module                                                 9
+module_inst                                            9
 operation                                              1
 param_assign                                           2
 parameter                                              2
@@ -154,7 +154,7 @@ constant                                              10
 design                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
-module                                                10
+module_inst                                           10
 operation                                              1
 param_assign                                           2
 parameter                                              2
@@ -173,26 +173,26 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:1:1, endln:2:10
+\_module_inst: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:1:1, endln:2:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@param_test (work@param_test), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:4:1, endln:10:10
+\_module_inst: work@param_test (work@param_test), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:4:1, endln:10:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@param_test
   |vpiParameter:
   \_parameter: (work@param_test.DRspDepth), line:5:25, endln:5:34
     |vpiParent:
-    \_module: work@param_test (work@param_test), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:4:1, endln:10:10
+    \_module_inst: work@param_test (work@param_test), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:4:1, endln:10:10
     |HEX:2
     |vpiTypespec:
     \_bit_typespec: , line:5:11, endln:5:20
@@ -222,7 +222,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:5:25, endln:5:41
     |vpiParent:
-    \_module: work@param_test (work@param_test), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:4:1, endln:10:10
+    \_module_inst: work@param_test (work@param_test), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:4:1, endln:10:10
     |vpiRhs:
     \_constant: , line:5:37, endln:5:41
       |vpiDecompile:4'h2
@@ -235,21 +235,21 @@ design: (work@dut)
     \_parameter: (work@param_test.DRspDepth), line:5:25, endln:5:34
   |vpiDefName:work@param_test
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
+  |vpiModuleInst:
+  \_module_inst: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
     |vpiName:t1
     |vpiFullName:work@dut.t1
     |vpiParameter:
     \_parameter: (work@dut.t1.DRspDepth), line:5:25, endln:5:34
       |vpiParent:
-      \_module: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
+      \_module_inst: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
       |HEX:2
       |vpiTypespec:
       \_bit_typespec: , line:5:11, endln:5:20
@@ -281,7 +281,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:5:25, endln:5:41
       |vpiParent:
-      \_module: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
+      \_module_inst: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:5:37, endln:5:41
@@ -297,11 +297,11 @@ design: (work@dut)
     |vpiDefFile:${SURELOG_DIR}/tests/ScalarParam/dut.sv
     |vpiDefLineNo:4
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:12:1, endln:18:10
     |vpiGenScopeArray:
     \_gen_scope_array: (work@dut.t1.genblk1), line:7:4, endln:9:7
       |vpiParent:
-      \_module: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
+      \_module_inst: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
       |vpiName:genblk1
       |vpiFullName:work@dut.t1.genblk1
       |vpiGenScope:
@@ -309,8 +309,8 @@ design: (work@dut)
         |vpiParent:
         \_gen_scope_array: (work@dut.t1.genblk1), line:7:4, endln:9:7
         |vpiFullName:work@dut.t1.genblk1
-        |vpiModule:
-        \_module: work@GOOD (work@dut.t1.genblk1.good), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:8:6, endln:8:18
+        |vpiModuleInst:
+        \_module_inst: work@GOOD (work@dut.t1.genblk1.good), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:8:6, endln:8:18
           |vpiParent:
           \_gen_scope: (work@dut.t1.genblk1)
           |vpiName:good

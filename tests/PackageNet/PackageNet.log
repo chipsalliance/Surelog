@@ -144,7 +144,7 @@ int_typespec                                          14
 logic_net                                              5
 logic_typespec                                         6
 logic_var                                              1
-module                                                 5
+module_inst                                            5
 operation                                              1
 package                                                3
 packed_array_typespec                                  2
@@ -166,7 +166,7 @@ int_typespec                                          14
 logic_net                                              5
 logic_typespec                                         6
 logic_var                                              1
-module                                                 5
+module_inst                                            5
 operation                                              2
 package                                                3
 packed_array_typespec                                  2
@@ -328,7 +328,7 @@ design: (work@test)
   |vpiTypedef:
   \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiName:my_package1::word
     |vpiInstance:
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
@@ -360,14 +360,14 @@ design: (work@test)
     |vpiFullName:my_package1::v
     |vpiNetType:36
 |uhdmallModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.p1), line:3:12, endln:3:14
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -379,7 +379,7 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (work@test.p2), line:4:12, endln:4:14
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -392,7 +392,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:12, endln:3:18
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
       |vpiParent:
@@ -420,7 +420,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:4:12, endln:4:18
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiParent:
@@ -454,14 +454,14 @@ design: (work@test)
   |vpiNet:
   \_logic_net: (work@test.v), line:8:6, endln:8:7
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiName:v
     |vpiFullName:work@test.v
     |vpiNetType:36
   |vpiProcess:
   \_initial: , line:17:1, endln:19:4
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiStmt:
     \_begin: (work@test), line:17:9, endln:19:4
       |vpiParent:
@@ -511,12 +511,12 @@ design: (work@test)
           |vpiActual:
           \_logic_var: (work@test.v), line:8:6, endln:8:7
 |uhdmtopModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
   |vpiName:work@test
   |vpiVariables:
   \_logic_var: (work@test.v), line:8:6, endln:8:7
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiTypespec:
     \_logic_typespec: (word), line:6:9, endln:6:20
       |vpiName:word
@@ -548,7 +548,7 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (work@test.p1), line:3:12, endln:3:14
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: 
@@ -560,7 +560,7 @@ design: (work@test)
   |vpiParameter:
   \_parameter: (work@test.p2), line:4:12, endln:4:14
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: 
@@ -573,7 +573,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:12, endln:3:18
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
       |vpiDecompile:1
@@ -587,7 +587,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:4:12, endln:4:18
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
       |vpiDecompile:2
@@ -608,7 +608,7 @@ design: (work@test)
   |vpiProcess:
   \_initial: , line:17:1, endln:19:4
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiStmt:
     \_begin: (work@test), line:17:9, endln:19:4
       |vpiParent:

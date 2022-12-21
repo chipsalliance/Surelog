@@ -29,7 +29,7 @@
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                               6
 design                                                 1
-module                                                 7
+module_inst                                            7
 param_assign                                           4
 parameter                                              4
 string_typespec                                        4
@@ -39,7 +39,7 @@ string_typespec                                        4
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                               6
 design                                                 1
-module                                                 7
+module_inst                                            7
 param_assign                                           4
 parameter                                              4
 string_typespec                                        4
@@ -57,14 +57,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
+\_module_inst: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@parameter_module
   |vpiParameter:
   \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9:11, endln:9:25
     |vpiParent:
-    \_module: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
+    \_module_inst: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
     |STRING:FIRSTVALUE
     |vpiTypespec:
     \_string_typespec: 
@@ -73,7 +73,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@parameter_module.SECONDPARAMETER), line:10:11, endln:10:26
     |vpiParent:
-    \_module: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
+    \_module_inst: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
     |STRING:SECONDVALUE
     |vpiTypespec:
     \_string_typespec: 
@@ -82,7 +82,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:9:11, endln:9:40
     |vpiParent:
-    \_module: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
+    \_module_inst: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
     |vpiRhs:
     \_constant: , line:9:28, endln:9:40
       |vpiDecompile:FIRSTVALUE
@@ -96,7 +96,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:10:11, endln:10:42
     |vpiParent:
-    \_module: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
+    \_module_inst: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
     |vpiRhs:
     \_constant: , line:10:29, endln:10:42
       |vpiDecompile:SECONDVALUE
@@ -109,27 +109,27 @@ design: (work@top)
     \_parameter: (work@parameter_module.SECONDPARAMETER), line:10:11, endln:10:26
   |vpiDefName:work@parameter_module
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
+  |vpiModuleInst:
+  \_module_inst: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
     |vpiName:test_module
     |vpiFullName:work@top.test_module
     |vpiParameter:
     \_parameter: (work@top.test_module.FIRSTPARAMETER), line:9:11, endln:9:25
       |vpiParent:
-      \_module: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
+      \_module_inst: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
       |STRING:FIRSTVALUE
       |vpiTypespec:
       \_string_typespec: 
@@ -140,7 +140,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.test_module.SECONDPARAMETER), line:10:11, endln:10:26
       |vpiParent:
-      \_module: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
+      \_module_inst: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
       |STRING:SECONDVALUE
       |vpiTypespec:
       \_string_typespec: 
@@ -151,7 +151,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:9:11, endln:9:40
       |vpiParent:
-      \_module: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
+      \_module_inst: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:28, endln:9:40
@@ -166,7 +166,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:10:11, endln:10:42
       |vpiParent:
-      \_module: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
+      \_module_inst: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:10:29, endln:10:42
@@ -182,7 +182,7 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/StringParameter/dut.sv
     |vpiDefLineNo:8
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

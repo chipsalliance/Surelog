@@ -460,7 +460,7 @@ int_typespec                                          24
 int_var                                                4
 io_decl                                               11
 logic_var                                              1
-module                                                11
+module_inst                                           11
 operation                                              7
 package                                                2
 param_assign                                           6
@@ -486,7 +486,7 @@ int_typespec                                          24
 int_var                                                4
 io_decl                                               22
 logic_var                                              1
-module                                                15
+module_inst                                           15
 operation                                              7
 package                                                2
 param_assign                                           6
@@ -982,20 +982,20 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.Width), line:9:16, endln:9:21
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
     |UINT:32
     |vpiTypespec:
     \_int_typespec: , line:9:12, endln:9:15
@@ -1008,7 +1008,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@test.DataBitsPerMask), line:10:16, endln:10:31
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
     |UINT:2
     |vpiTypespec:
     \_int_typespec: , line:10:12, endln:10:15
@@ -1021,7 +1021,7 @@ design: (work@dut)
   |vpiParameter:
   \_parameter: (work@test.MaskWidth), line:12:24, endln:12:33
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
     |vpiTypespec:
     \_int_typespec: , line:12:20, endln:12:23
       |vpiParent:
@@ -1034,7 +1034,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:9:16, endln:9:36
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
     |vpiRhs:
     \_constant: , line:9:34, endln:9:36
       |vpiDecompile:32
@@ -1048,7 +1048,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:10:16, endln:10:35
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
     |vpiRhs:
     \_constant: , line:10:34, endln:10:35
       |vpiDecompile:2
@@ -1062,7 +1062,7 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:12:24, endln:12:59
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
     |vpiRhs:
     \_operation: , line:12:36, endln:12:59
       |vpiOpType:12
@@ -1080,21 +1080,21 @@ design: (work@dut)
     \_parameter: (work@test.MaskWidth), line:12:24, endln:12:33
   |vpiDefName:work@test
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+  |vpiModuleInst:
+  \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
     |vpiName:t
     |vpiFullName:work@dut.t
     |vpiParameter:
     \_parameter: (work@dut.t.Width), line:9:16, endln:9:21
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |UINT:32
       |vpiTypespec:
       \_int_typespec: , line:9:12, endln:9:15
@@ -1107,7 +1107,7 @@ design: (work@dut)
     |vpiParameter:
     \_parameter: (work@dut.t.DataBitsPerMask), line:10:16, endln:10:31
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |UINT:2
       |vpiTypespec:
       \_int_typespec: , line:10:12, endln:10:15
@@ -1120,7 +1120,7 @@ design: (work@dut)
     |vpiParameter:
     \_parameter: (work@dut.t.MaskWidth), line:12:24, endln:12:33
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiTypespec:
       \_int_typespec: , line:12:20, endln:12:23
         |vpiParent:
@@ -1133,7 +1133,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:9:16, endln:9:36
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:34, endln:9:36
@@ -1148,7 +1148,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:10:16, endln:10:35
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:10:34, endln:10:35
@@ -1163,7 +1163,7 @@ design: (work@dut)
     |vpiParamAssign:
     \_param_assign: , line:12:24, endln:12:59
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiRhs:
       \_constant: , line:12:36, endln:12:59
         |vpiDecompile:4
@@ -1178,11 +1178,11 @@ design: (work@dut)
     |vpiDefFile:${SURELOG_DIR}/tests/ParamElab/dut.sv
     |vpiDefLineNo:8
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
     |vpiGenScopeArray:
     \_gen_scope_array: (work@dut.t.genblk1[0]), line:15:36, endln:17:7
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiName:genblk1[0]
       |vpiFullName:work@dut.t.genblk1[0]
       |vpiGenScope:
@@ -1200,8 +1200,8 @@ design: (work@dut)
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[0].i
-        |vpiModule:
-        \_module: work@dut.t.genblk1[0]::G1 (work@dut.t.genblk1[0].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
+        |vpiModuleInst:
+        \_module_inst: work@dut.t.genblk1[0]::G1 (work@dut.t.genblk1[0].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
           |vpiParent:
           \_gen_scope: (work@dut.t.genblk1[0])
           |vpiName:u
@@ -1210,7 +1210,7 @@ design: (work@dut)
     |vpiGenScopeArray:
     \_gen_scope_array: (work@dut.t.genblk1[1]), line:15:36, endln:17:7
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiName:genblk1[1]
       |vpiFullName:work@dut.t.genblk1[1]
       |vpiGenScope:
@@ -1228,8 +1228,8 @@ design: (work@dut)
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[1].i
-        |vpiModule:
-        \_module: work@dut.t.genblk1[1]::G1 (work@dut.t.genblk1[1].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
+        |vpiModuleInst:
+        \_module_inst: work@dut.t.genblk1[1]::G1 (work@dut.t.genblk1[1].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
           |vpiParent:
           \_gen_scope: (work@dut.t.genblk1[1])
           |vpiName:u
@@ -1238,7 +1238,7 @@ design: (work@dut)
     |vpiGenScopeArray:
     \_gen_scope_array: (work@dut.t.genblk1[2]), line:15:36, endln:17:7
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiName:genblk1[2]
       |vpiFullName:work@dut.t.genblk1[2]
       |vpiGenScope:
@@ -1256,8 +1256,8 @@ design: (work@dut)
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[2].i
-        |vpiModule:
-        \_module: work@dut.t.genblk1[2]::G1 (work@dut.t.genblk1[2].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
+        |vpiModuleInst:
+        \_module_inst: work@dut.t.genblk1[2]::G1 (work@dut.t.genblk1[2].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
           |vpiParent:
           \_gen_scope: (work@dut.t.genblk1[2])
           |vpiName:u
@@ -1266,7 +1266,7 @@ design: (work@dut)
     |vpiGenScopeArray:
     \_gen_scope_array: (work@dut.t.genblk1[3]), line:15:36, endln:17:7
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:2:9, endln:5:16
       |vpiName:genblk1[3]
       |vpiFullName:work@dut.t.genblk1[3]
       |vpiGenScope:
@@ -1284,8 +1284,8 @@ design: (work@dut)
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[3].i
-        |vpiModule:
-        \_module: work@dut.t.genblk1[3]::G1 (work@dut.t.genblk1[3].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
+        |vpiModuleInst:
+        \_module_inst: work@dut.t.genblk1[3]::G1 (work@dut.t.genblk1[3].u), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:16:7, endln:16:14
           |vpiParent:
           \_gen_scope: (work@dut.t.genblk1[3])
           |vpiName:u

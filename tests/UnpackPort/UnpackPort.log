@@ -433,7 +433,7 @@ io_decl                                               11
 logic_net                                              1
 logic_typespec                                         8
 logic_var                                              1
-module                                                 4
+module_inst                                            4
 operation                                             25
 package                                                2
 parameter                                              7
@@ -469,7 +469,7 @@ io_decl                                               22
 logic_net                                              1
 logic_typespec                                         8
 logic_var                                              1
-module                                                 4
+module_inst                                            4
 operation                                             32
 package                                                2
 parameter                                              7
@@ -969,17 +969,17 @@ design: (work@dut)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiTypedef:
   \_struct_typespec: (struct2), line:2:11, endln:2:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:struct2
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (third), line:3:19, endln:3:24
@@ -1019,13 +1019,13 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.var3), line:1:12, endln:1:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:var3
     |vpiFullName:work@dut.var3
   |vpiPort:
   \_port: (var3), line:1:12, endln:1:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:var3
     |vpiDirection:2
     |vpiLowConn:
@@ -1066,7 +1066,7 @@ design: (work@dut)
       |vpiElemTypespec:
       \_struct_typespec: (struct2), line:2:11, endln:2:17
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
   |vpiName:work@dut
   |vpiTypedef:
   \_struct_typespec: (struct2), line:2:11, endln:2:17
@@ -1075,7 +1075,7 @@ design: (work@dut)
   |vpiArrayNet:
   \_array_net: (work@dut.var3), line:1:12, endln:1:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiSize:7
     |vpiName:var3
     |vpiFullName:work@dut.var3
@@ -1117,7 +1117,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (var3), line:1:12, endln:1:16
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:var3
     |vpiDirection:2
     |vpiLowConn:
@@ -1131,11 +1131,11 @@ design: (work@dut)
     |vpiTypedef:
     \_struct_typespec: (struct2), line:2:11, endln:2:17
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[0]), line:8:30, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:g_fill[0]
     |vpiFullName:work@dut.g_fill[0]
     |vpiGenScope:
@@ -1167,7 +1167,7 @@ design: (work@dut)
             \_operation: , line:9:24, endln:9:37
             |vpiName:struct2
             |vpiInstance:
-            \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (third), line:3:19, endln:3:24
@@ -1237,7 +1237,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[1]), line:8:30, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:g_fill[1]
     |vpiFullName:work@dut.g_fill[1]
     |vpiGenScope:
@@ -1269,7 +1269,7 @@ design: (work@dut)
             \_operation: , line:9:24, endln:9:37
             |vpiName:struct2
             |vpiInstance:
-            \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (third), line:3:19, endln:3:24
@@ -1339,7 +1339,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[2]), line:8:30, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:g_fill[2]
     |vpiFullName:work@dut.g_fill[2]
     |vpiGenScope:
@@ -1371,7 +1371,7 @@ design: (work@dut)
             \_operation: , line:9:24, endln:9:37
             |vpiName:struct2
             |vpiInstance:
-            \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (third), line:3:19, endln:3:24
@@ -1441,7 +1441,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[3]), line:8:30, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:g_fill[3]
     |vpiFullName:work@dut.g_fill[3]
     |vpiGenScope:
@@ -1473,7 +1473,7 @@ design: (work@dut)
             \_operation: , line:9:24, endln:9:37
             |vpiName:struct2
             |vpiInstance:
-            \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (third), line:3:19, endln:3:24
@@ -1543,7 +1543,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[4]), line:8:30, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:g_fill[4]
     |vpiFullName:work@dut.g_fill[4]
     |vpiGenScope:
@@ -1575,7 +1575,7 @@ design: (work@dut)
             \_operation: , line:9:24, endln:9:37
             |vpiName:struct2
             |vpiInstance:
-            \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (third), line:3:19, endln:3:24
@@ -1645,7 +1645,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[5]), line:8:30, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:g_fill[5]
     |vpiFullName:work@dut.g_fill[5]
     |vpiGenScope:
@@ -1677,7 +1677,7 @@ design: (work@dut)
             \_operation: , line:9:24, endln:9:37
             |vpiName:struct2
             |vpiInstance:
-            \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (third), line:3:19, endln:3:24
@@ -1747,7 +1747,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[6]), line:8:30, endln:10:6
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
     |vpiName:g_fill[6]
     |vpiFullName:work@dut.g_fill[6]
     |vpiGenScope:
@@ -1779,7 +1779,7 @@ design: (work@dut)
             \_operation: , line:9:24, endln:9:37
             |vpiName:struct2
             |vpiInstance:
-            \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
+            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
             |vpiPacked:1
             |vpiTypespecMember:
             \_typespec_member: (third), line:3:19, endln:3:24

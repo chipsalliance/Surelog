@@ -117,7 +117,7 @@ hier_path                                              2
 int_typespec                                           4
 int_var                                                1
 logic_net                                              2
-module                                                 4
+module_inst                                            4
 operation                                              2
 packed_array_typespec                                  1
 packed_array_var                                       1
@@ -139,7 +139,7 @@ hier_path                                              3
 int_typespec                                           4
 int_var                                                1
 logic_net                                              2
-module                                                 4
+module_inst                                            4
 operation                                              3
 packed_array_typespec                                  1
 packed_array_var                                       1
@@ -163,17 +163,17 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
   \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:3:18
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiName:sram_otp_key_rsp_t
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (nonce), line:4:14, endln:4:19
@@ -194,19 +194,19 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
   \_logic_net: (work@top.sram_otp_key_o), line:7:29, endln:7:43
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiName:sram_otp_key_o
     |vpiFullName:work@top.sram_otp_key_o
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -219,7 +219,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:40
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiRhs:
     \_constant: , line:9:39, endln:9:40
       |vpiParent:
@@ -267,12 +267,12 @@ design: (work@top)
         \_hier_path: (sram_otp_key_o[...].nonce), line:9:11, endln:9:25
         |vpiName:nonce
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
   |vpiName:work@top
   |vpiVariables:
   \_int_var: (work@top.o), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_int_typespec: , line:1:19, endln:1:22
       |vpiSigned:1
@@ -283,7 +283,7 @@ design: (work@top)
   |vpiVariables:
   \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiName:sram_otp_key_o
     |vpiFullName:work@top.sram_otp_key_o
     |vpiVisibility:1
@@ -320,7 +320,7 @@ design: (work@top)
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -335,11 +335,11 @@ design: (work@top)
     \_int_typespec: , line:1:19, endln:1:22
       |vpiSigned:1
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:40
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiRhs:
     \_constant: , line:9:39, endln:9:40
     |vpiLhs:
