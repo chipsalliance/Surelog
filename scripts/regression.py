@@ -1027,6 +1027,8 @@ def _extract_worker(params):
   with zipfile.ZipFile(zipfile_path, 'r') as zipfile_strm:
     with zipfile_strm.open(f'{archive_name}.tar.gz') as tarfile_strm:
       with tarfile.open(fileobj=tarfile_strm) as archive_strm:
+        archive_names = set(archive_strm.getnames())
+
         while not queue.empty():
           try:
             params = queue.get(block=False)
@@ -1037,8 +1039,11 @@ def _extract_worker(params):
             break
 
           name, filepath = params
-
           test_filepath = f'{archive_name}/{name}.tar.gz'
+
+          if test_filepath not in archive_names:
+            continue
+
           with tarfile.open(fileobj=archive_strm.extractfile(test_filepath)) as test_strm:
             src_log_filepath = f'{name}/{name}.log'
 
