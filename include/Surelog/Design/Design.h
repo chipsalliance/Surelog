@@ -116,10 +116,9 @@ class Design final {
     return m_uniqueClassDefinitions;
   }
 
-  ModuleDefinition* getModuleDefinition(const std::string& moduleName) const;
+  ModuleDefinition* getModuleDefinition(std::string_view moduleName) const;
 
-  DesignComponent* getComponentDefinition(
-      const std::string& componentName) const;
+  DesignComponent* getComponentDefinition(std::string_view componentName) const;
 
   const std::vector<ModuleInstance*>& getTopLevelModuleInstances() const {
     return m_topLevelModuleInstances;
@@ -134,9 +133,9 @@ class Design final {
                                unsigned int& nbUndefinedModules,
                                unsigned int& nbUndefinedInstances) const;
 
-  DefParam* getDefParam(const std::string& name) const;
+  DefParam* getDefParam(std::string_view name) const;
 
-  Value* getDefParamValue(const std::string& name);
+  Value* getDefParamValue(std::string_view name);
 
   std::map<std::string, DefParam*>& getDefParams() { return m_defParams; }
 
@@ -145,7 +144,7 @@ class Design final {
   ModuleInstance* findInstance(const std::vector<std::string>& path,
                                ModuleInstance* scope = nullptr) const;
 
-  ModuleInstance* findInstance(const std::string& path,
+  ModuleInstance* findInstance(std::string_view path,
                                ModuleInstance* scope = nullptr) const;
 
   Package* getPackage(std::string_view name) const;
@@ -162,7 +161,7 @@ class Design final {
 
   std::vector<BindStmt*> getBindStmts(std::string_view targetName);
 
-  void addBindStmt(const std::string& targetName, BindStmt* stmt);
+  void addBindStmt(std::string_view targetName, BindStmt* stmt);
 
  protected:
   // Thread-safe
@@ -171,12 +170,11 @@ class Design final {
   // Thread-safe
   void addPPFileContent(PathId fileId, FileContent* content);
 
-  void addOrderedPackage(const std::string& packageName) {
-    m_orderedPackageNames.push_back(packageName);
+  void addOrderedPackage(std::string_view packageName) {
+    m_orderedPackageNames.emplace_back(packageName);
   }
 
-  void addModuleDefinition(const std::string& moduleName,
-                           ModuleDefinition* def) {
+  void addModuleDefinition(std::string_view moduleName, ModuleDefinition* def) {
     m_moduleDefinitions.emplace(moduleName, def);
   }
 
@@ -184,8 +182,8 @@ class Design final {
     m_topLevelModuleInstances.push_back(instance);
   }
 
-  void addDefParam(const std::string& name, const FileContent* fC,
-                   NodeId nodeId, Value* value);
+  void addDefParam(std::string_view name, const FileContent* fC, NodeId nodeId,
+                   Value* value);
 
   void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef);
@@ -194,8 +192,7 @@ class Design final {
     m_programDefinitions.emplace(programName, program);
   }
 
-  Package* addPackageDefinition(std::string_view packageName,
-                                Package* package);
+  Package* addPackageDefinition(std::string_view packageName, Package* package);
 
   void clearContainers();
 

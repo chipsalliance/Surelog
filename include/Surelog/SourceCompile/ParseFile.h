@@ -59,7 +59,7 @@ class ParseFile final {
             PathId chunkFileId, unsigned int offsetLine);
 
   // Unit test constructor
-  ParseFile(const std::string& text, CompileSourceFile* csf,
+  ParseFile(std::string_view text, CompileSourceFile* csf,
             CompilationUnit* compilationUnit, Library* library);
 
   bool parse();

@@ -25,6 +25,7 @@
 #include <Surelog/Library/Library.h>
 #include <Surelog/Library/LibrarySet.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 #include <sstream>
 
@@ -77,8 +78,8 @@ void LibrarySet::checkErrors(SymbolTable* symbols,
       if (itr == fileSet.end()) {
         fileSet.emplace(file, library.getName());
       } else {
-        Location loc1(
-            symbols->registerSymbol(itr->second + ", " + library.getName()));
+        Location loc1(symbols->registerSymbol(
+            StrCat(itr->second, ", ", library.getName())));
         Location loc2(file);
         Error err(ErrorDefinition::LIB_FILE_MAPS_TO_MULTIPLE_LIBS, loc1, loc2);
         errors->addError(err);

@@ -49,7 +49,7 @@ class Procedure : public Scope, public Statement {
 
   DesignComponent* getParent() const { return m_parent; }
 
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
 
   const FileContent* getFileContent() const { return m_fileContent; }
 
@@ -68,7 +68,7 @@ class Procedure : public Scope, public Statement {
 class SeqBlock : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(SeqBlock, Scope, Statement)
  public:
-  SeqBlock(const std::string& name, Scope* parent, Statement* parentStmt,
+  SeqBlock(std::string_view name, Scope* parent, Statement* parentStmt,
            const FileContent* fC, NodeId id);
 };
 

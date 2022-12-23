@@ -460,12 +460,12 @@ std::pair<PathId, fs::path> CommandLineParser::addWorkingDirectory_(
   return {cwdId, fileSystem->toPath(cwdId)};
 }
 
-void CommandLineParser::splitPlusArg_(const std::string& s,
-                                      const std::string& prefix,
+void CommandLineParser::splitPlusArg_(std::string_view s,
+                                      std::string_view prefix,
                                       SymbolIdVector& container) {
-  std::istringstream f(s);
+  std::istringstream f((std::string(s)));
   std::string tmp;
-  while (getline(f, tmp, '+')) {
+  while (std::getline(f, tmp, '+')) {
     if (!tmp.empty() && (tmp != prefix)) {
       SymbolId id = m_symbolTable->registerSymbol(tmp);
       container.push_back(id);
@@ -474,7 +474,7 @@ void CommandLineParser::splitPlusArg_(const std::string& s,
 }
 
 void CommandLineParser::splitEqArg_(
-    const std::string& s,
+    std::string_view s,
     std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container) {
   std::string def;
   std::string value;
@@ -491,13 +491,13 @@ void CommandLineParser::splitEqArg_(
   }
 }
 
-void CommandLineParser::splitPlusArg_(const std::string& s,
-                                      const std::string& prefix,
+void CommandLineParser::splitPlusArg_(std::string_view s,
+                                      std::string_view prefix,
                                       const fs::path& cd,
                                       PathIdVector& container) {
-  std::istringstream f(s);
+  std::istringstream f((std::string(s)));
   std::string tmp;
-  while (getline(f, tmp, '+')) {
+  while (std::getline(f, tmp, '+')) {
     if (!tmp.empty() && (tmp != prefix)) {
       container.emplace_back(std::get<0>(addWorkingDirectory_(cd, tmp)));
     }
@@ -505,11 +505,11 @@ void CommandLineParser::splitPlusArg_(const std::string& s,
 }
 
 void CommandLineParser::splitPlusArg_(
-    const std::string& s, const std::string& prefix,
+    std::string_view s, std::string_view prefix,
     std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container) {
-  std::istringstream f(s);
+  std::istringstream f((std::string(s)));
   std::string tmp;
-  while (getline(f, tmp, '+')) {
+  while (std::getline(f, tmp, '+')) {
     if (!tmp.empty() && (tmp != prefix)) {
       splitEqArg_(tmp, container);
     }
@@ -517,7 +517,7 @@ void CommandLineParser::splitPlusArg_(
 }
 
 /* Custom parser for +arguments */
-bool CommandLineParser::plus_arguments_(const std::string& s,
+bool CommandLineParser::plus_arguments_(std::string_view s,
                                         const fs::path& cd) {
   constexpr std::string_view incdir("+incdir+");
   constexpr std::string_view libext("+libext+");

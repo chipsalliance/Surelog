@@ -26,6 +26,7 @@
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 #include <iostream>
 #include <stack>
@@ -76,7 +77,7 @@ std::string FileContent::printObjects() const {
   std::string text;
   NodeId index(0);
 
-  if (m_library) text += "LIB:  " + m_library->getName() + "\n";
+  if (m_library) StrAppend(&text, "LIB:  ", m_library->getName(), "\n");
   text.append("FILE: ")
       .append(FileSystem::getInstance()->toPath(m_fileId))
       .append("\n");
@@ -120,7 +121,7 @@ void FileContent::insertObjectLookup(std::string_view name, NodeId id,
 }
 
 const ModuleDefinition* FileContent::getModuleDefinition(
-    const std::string& moduleName) const {
+    std::string_view moduleName) const {
   ModuleNameModuleDefinitionMap::const_iterator itr =
       m_moduleDefinitions.find(moduleName);
   if (itr != m_moduleDefinitions.end()) {
@@ -130,7 +131,7 @@ const ModuleDefinition* FileContent::getModuleDefinition(
 }
 
 DesignComponent* FileContent::getComponentDefinition(
-    const std::string& componentName) const {
+    std::string_view componentName) const {
   DesignComponent* comp = (DesignComponent*)getModuleDefinition(componentName);
   if (comp) return comp;
   comp = (DesignComponent*)getProgram(componentName);
@@ -140,7 +141,7 @@ DesignComponent* FileContent::getComponentDefinition(
   return nullptr;
 }
 
-Package* FileContent::getPackage(const std::string& name) const {
+Package* FileContent::getPackage(std::string_view name) const {
   PackageNamePackageDefinitionMultiMap::const_iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
@@ -150,7 +151,7 @@ Package* FileContent::getPackage(const std::string& name) const {
   }
 }
 
-const Program* FileContent::getProgram(const std::string& name) const {
+const Program* FileContent::getProgram(std::string_view name) const {
   ProgramNameProgramDefinitionMap::const_iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
@@ -161,7 +162,7 @@ const Program* FileContent::getProgram(const std::string& name) const {
 }
 
 const ClassDefinition* FileContent::getClassDefinition(
-    const std::string& name) const {
+    std::string_view name) const {
   ClassNameClassDefinitionMultiMap::const_iterator itr =
       m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
@@ -427,12 +428,12 @@ std::vector<NodeId> FileContent::sl_get_all(NodeId parent,
   if (m_objects.empty()) return objects;
   if (parent >= m_objects.size()) return objects;
   const VObject& current = Object(parent);
-  if (current.m_type == type) objects.push_back(parent);
+  if (current.m_type == type) objects.emplace_back(parent);
   NodeId id = current.m_child;
   while (id) {
     const VObject& current = Object(id);
     if (current.m_type == type) {
-      objects.push_back(id);
+      objects.emplace_back(id);
     }
     id = current.m_sibling;
   }
@@ -447,14 +448,14 @@ std::vector<NodeId> FileContent::sl_get_all(
   if (parent >= m_objects.size()) return objects;
   const VObject& current = Object(parent);
   if (types.find(current.m_type) != types.end()) {
-    objects.push_back(parent);
+    objects.emplace_back(parent);
   }
 
   NodeId id = current.m_child;
   while (id) {
     const VObject& current = Object(id);
     if (types.find(current.m_type) != types.end()) {
-      objects.push_back(id);
+      objects.emplace_back(id);
     }
     id = current.m_sibling;
   }
@@ -492,17 +493,17 @@ std::vector<NodeId> FileContent::sl_collect_all(NodeId parent, VObjectType type,
   if (!id) id = current.m_sibling;
   if (!id) return objects;
   std::stack<NodeId> stack;
-  stack.push(id);
+  stack.emplace(id);
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     const VObject& current = Object(id);
     if (current.m_type == type) {
-      objects.push_back(id);
+      objects.emplace_back(id);
       if (first) return objects;
     }
-    if (current.m_sibling) stack.push(current.m_sibling);
-    if (current.m_child) stack.push(current.m_child);
+    if (current.m_sibling) stack.emplace(current.m_sibling);
+    if (current.m_child) stack.emplace(current.m_child);
   }
   return objects;
 }
@@ -518,7 +519,7 @@ std::vector<NodeId> FileContent::sl_collect_all(
   if (!id) id = current.m_sibling;
   if (!id) return objects;
   std::stack<NodeId> stack;
-  stack.push(id);
+  stack.emplace(id);
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
@@ -526,11 +527,11 @@ std::vector<NodeId> FileContent::sl_collect_all(
     // std::cout << "COLLECT:" << current.print (m_symbolTable, id,
     // GetDefinitionFile(id)) << std::endl;
     if (types.find(current.m_type) != types.end()) {
-      objects.push_back(id);
+      objects.emplace_back(id);
       if (first) return objects;
     }
-    if (current.m_sibling) stack.push(current.m_sibling);
-    if (current.m_child) stack.push(current.m_child);
+    if (current.m_sibling) stack.emplace(current.m_sibling);
+    if (current.m_child) stack.emplace(current.m_child);
   }
   return objects;
 }
@@ -545,15 +546,15 @@ NodeId FileContent::sl_collect(NodeId parent, VObjectType type,
   if (!id) id = current.m_sibling;
   if (!id) return InvalidNodeId;
   std::stack<NodeId> stack;
-  stack.push(id);
+  stack.emplace(id);
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
     const VObject& current = Object(id);
     if (current.m_type == type) return id;
-    if (current.m_sibling) stack.push(current.m_sibling);
+    if (current.m_sibling) stack.emplace(current.m_sibling);
     if (current.m_child && (stopPoint != current.m_type)) {
-      stack.push(current.m_child);
+      stack.emplace(current.m_child);
     }
   }
   return InvalidNodeId;
@@ -571,7 +572,7 @@ std::vector<NodeId> FileContent::sl_collect_all(
   if (!id) id = current.m_sibling;
   if (!id) return objects;
   std::stack<NodeId> stack;
-  stack.push(id);
+  stack.emplace(id);
   while (!stack.empty()) {
     id = stack.top();
     stack.pop();
@@ -579,13 +580,13 @@ std::vector<NodeId> FileContent::sl_collect_all(
     // std::cout << "COLLECT:" << current.print (m_symbolTable, id,
     // GetDefinitionFile(id)) << std::endl;
     if (types.find(current.m_type) != types.end()) {
-      objects.push_back(id);
+      objects.emplace_back(id);
       if (first) return objects;
     }
-    if (current.m_sibling) stack.push(current.m_sibling);
+    if (current.m_sibling) stack.emplace(current.m_sibling);
     if (current.m_child &&
         (stopPoints.find(current.m_type) == stopPoints.end())) {
-      stack.push(current.m_child);
+      stack.emplace(current.m_child);
     }
   }
   return objects;
@@ -607,8 +608,8 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
 
   std::stack<NodeId> stack1;
   std::stack<NodeId> stack2;
-  stack1.push(id1);
-  stack2.push(id2);
+  stack1.emplace(id1);
+  stack2.emplace(id2);
   while (!stack1.empty()) {
     if (stack2.empty()) return true;
     id1 = stack1.top();
@@ -624,17 +625,16 @@ bool FileContent::diffTree(NodeId root, const FileContent* oFc, NodeId oroot,
       return true;
     }
 
-    if (current1.m_sibling) stack1.push(current1.m_sibling);
-    if (current1.m_child) stack1.push(current1.m_child);
-    if (current2.m_sibling) stack2.push(current2.m_sibling);
-    if (current2.m_child) stack2.push(current2.m_child);
+    if (current1.m_sibling) stack1.emplace(current1.m_sibling);
+    if (current1.m_child) stack1.emplace(current1.m_child);
+    if (current2.m_sibling) stack2.emplace(current2.m_sibling);
+    if (current2.m_child) stack2.emplace(current2.m_child);
   }
   return !stack2.empty();
 }
 
-void FileContent::addDesignElement(const std::string& name,
-                                   DesignElement* elem) {
-  m_elements.push_back(elem);
+void FileContent::addDesignElement(std::string_view name, DesignElement* elem) {
+  m_elements.emplace_back(elem);
   m_elementMap.emplace(name, elem);
 }
 

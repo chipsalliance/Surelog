@@ -31,6 +31,7 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/Program.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <uhdm/package.h>
@@ -60,7 +61,7 @@ std::string ResolveSymbols::SymName(NodeId index) const {
 void ResolveSymbols::createFastLookup() {
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   Library* lib = m_fileData->getLibrary();
-  const std::string& libName = lib->getName();
+  const std::string_view libName = lib->getName();
 
   // std::string fileName =  "FILE: " + m_fileData->getFileName() + " " +
   // m_fileData->getChunkFileName () + "\n"; std::cout << fileName;
@@ -83,9 +84,9 @@ void ResolveSymbols::createFastLookup() {
     NodeId stId = m_fileData->sl_collect(object, VObjectType::slStringConst,
                                          VObjectType::slAttr_spec);
     if (stId) {
-      std::string name = SymName(stId);
+      const std::string& name = SymName(stId);
       m_fileData->insertObjectLookup(name, object, m_errorContainer);
-      std::string fullName = libName + "@" + name;
+      std::string fullName = StrCat(libName, "@", name);
 
       switch (type) {
         case VObjectType::slPackage_declaration: {
@@ -106,7 +107,7 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId) {
-              std::string name = SymName(stId);
+              const std::string& name = SymName(stId);
               std::string fullSubName = pkgname + "::" + name;
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
@@ -132,7 +133,7 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId) {
-              std::string name = SymName(stId);
+              const std::string& name = SymName(stId);
               std::string fullSubName = fullName + "::" + name;
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
@@ -167,7 +168,7 @@ void ResolveSymbols::createFastLookup() {
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
                                        VObjectType::slAttr_spec);
             if (stId) {
-              std::string name = SymName(stId);
+              const std::string& name = SymName(stId);
               std::string fullSubName = fullName + "::" + name;
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
@@ -288,11 +289,8 @@ std::vector<NodeId> ResolveSymbols::sl_collect_all(NodeId parent,
 
 bool ResolveSymbols::bindDefinition_(NodeId objIndex,
                                      const VObjectTypeUnorderedSet& bindTypes) {
-  std::string modName =
+  const std::string& modName =
       SymName(sl_collect(objIndex, VObjectType::slStringConst));
-  NodeId nameId = Child(sl_collect(objIndex, VObjectType::slName_of_instance));
-  std::string instName(BadRawSymbol);
-  if (nameId) instName = SymName(nameId);
   Design::FileIdDesignContentMap& all_files =
       this->m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
 

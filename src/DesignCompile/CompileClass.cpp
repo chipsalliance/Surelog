@@ -68,7 +68,7 @@ bool CompileClass::compile() {
 
   std::string fullName;
   if (tmp_container) {
-    fullName.append(tmp_container->getName()).append("::");
+    fullName.assign(tmp_container->getName()).append("::");
   }
   if (!names.empty()) {
     unsigned int index = names.size() - 1;

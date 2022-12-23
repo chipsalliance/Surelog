@@ -24,7 +24,8 @@ class Package;
 class Program;
 class MacroInfo;
 
-typedef std::map<std::string, ModuleDefinition*> ModuleNameModuleDefinitionMap;
+typedef std::map<std::string, ModuleDefinition*, StringViewCompare>
+    ModuleNameModuleDefinitionMap;
 typedef std::multimap<std::string, Package*, StringViewCompare>
     PackageNamePackageDefinitionMultiMap;
 typedef std::vector<Package*> PackageDefinitionVec;

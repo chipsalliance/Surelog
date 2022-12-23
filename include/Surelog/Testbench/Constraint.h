@@ -39,7 +39,7 @@ class Constraint final {
   Constraint(const FileContent* fC, NodeId id, std::string_view name)
       : m_fileContent(fC), m_nodeId(id), m_name(name) {}
 
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
 

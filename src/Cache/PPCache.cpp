@@ -52,7 +52,7 @@ PathId PPCache::getCacheFileId_(PathId sourceFileId) const {
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* symbolTable = m_pp->getCompileSourceFile()->getSymbolTable();
 
-  const std::string& libName = m_pp->getLibrary()->getName();
+  const std::string_view libName = m_pp->getLibrary()->getName();
 
   if (clp->parseOnly()) {
     // If parseOnly flag is set, the Preprocessor doesn't actually generate

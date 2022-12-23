@@ -47,7 +47,7 @@ class Variable {
   virtual ~Variable() = default;
 
   const DataType* getDataType() const { return m_dataType; }
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
   const FileContent* getFileContent() const { return m_fc; }
   NodeId getNodeId() const { return m_nodeId; }
   NodeId getRange() const { return m_range; }

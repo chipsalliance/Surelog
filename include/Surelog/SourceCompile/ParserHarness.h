@@ -38,10 +38,10 @@ class ParserHarness {
   // Parse content and return FileContent or nullptr if it couldn't
   // be parsed.
   // Unit test
-  std::unique_ptr<FileContent> parse(const std::string& content);
+  std::unique_ptr<FileContent> parse(std::string_view content);
 
   // Builtin
-  FileContent* parse(const std::string& content, Compiler* compiler,
+  FileContent* parse(std::string_view content, Compiler* compiler,
                      PathId fileId);
   ~ParserHarness();
 

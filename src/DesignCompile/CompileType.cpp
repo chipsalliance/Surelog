@@ -502,7 +502,7 @@ const UHDM::typespec* bindTypespec(std::string_view name,
   ModuleInstance* modInst = valuedcomponenti_cast<ModuleInstance*>(instance);
   while (modInst) {
     for (Parameter* param : modInst->getTypeParams()) {
-      const std::string& pname = param->getName();
+      const std::string_view pname = param->getName();
       if (pname == name) {
         any* uparam = param->getUhdmParam();
         if (uparam) {
@@ -557,7 +557,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
   if (component) {
     const DataType* dt = component->getDataType(typeName);
     if (dt == nullptr) {
-      const std::string& libName = fC->getLibrary()->getName();
+      const std::string_view libName = fC->getLibrary()->getName();
       dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
           StrCat(libName, "@", typeName));
       if (dt == nullptr) {
@@ -639,7 +639,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
                   Location loc1(fC->getFileId(), fC->Line(suffixNode),
                                 fC->Column(suffixNode),
                                 symbols->registerSymbol(suffixname));
-                  const std::string& libName = fC->getLibrary()->getName();
+                  const std::string_view libName = fC->getLibrary()->getName();
                   Design* design = compileDesign->getCompiler()->getDesign();
                   ModuleDefinition* def = design->getModuleDefinition(
                       StrCat(libName, "@", typeName2));
@@ -813,7 +813,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
     }
 
     if (result == nullptr) {
-      const std::string& libName = fC->getLibrary()->getName();
+      const std::string_view libName = fC->getLibrary()->getName();
       Design* design = compileDesign->getCompiler()->getDesign();
       ModuleDefinition* def =
           design->getModuleDefinition(StrCat(libName, "@", typeName));

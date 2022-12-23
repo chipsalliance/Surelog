@@ -32,7 +32,7 @@ Enum::Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId)
   m_category = DataType::Category::ENUM;
 }
 
-Value* Enum::getValue(const std::string& name) const {
+Value* Enum::getValue(std::string_view name) const {
   NameValueMap::const_iterator itr = m_values.find(name);
   if (itr == m_values.end()) {
     return nullptr;

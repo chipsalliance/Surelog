@@ -27,7 +27,7 @@ namespace SURELOG {
 CompilationUnit::CompilationUnit(bool fileunit)
     : m_fileunit(fileunit), m_inDesignElement(false) {}
 
-MacroInfo* CompilationUnit::getMacroInfo(const std::string& macroName) {
+MacroInfo* CompilationUnit::getMacroInfo(std::string_view macroName) {
   MacroStorageRef::iterator itr = m_macros.find(macroName);
   if (itr != m_macros.end()) {
     return itr->second.back();
@@ -35,7 +35,7 @@ MacroInfo* CompilationUnit::getMacroInfo(const std::string& macroName) {
   return nullptr;
 }
 
-void CompilationUnit::registerMacroInfo(const std::string& macroName,
+void CompilationUnit::registerMacroInfo(std::string_view macroName,
                                         MacroInfo* macro) {
   MacroStorageRef::iterator itr = m_macros.find(macroName);
   if (itr == m_macros.end()) {
@@ -44,7 +44,7 @@ void CompilationUnit::registerMacroInfo(const std::string& macroName,
   itr->second.push_back(macro);
 }
 
-void CompilationUnit::deleteMacro(const std::string& macroName) {
+void CompilationUnit::deleteMacro(std::string_view macroName) {
   MacroStorageRef::iterator itr = m_macros.find(macroName);
   if (itr != m_macros.end()) {
     m_macros.erase(itr);

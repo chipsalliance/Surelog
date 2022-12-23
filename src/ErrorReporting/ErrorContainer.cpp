@@ -180,7 +180,8 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       const Location& loc = msg.m_locations[0];
       /* Object */
       std::string text = info.m_errorText;
-      const std::string& objectName = m_symbolTable->getSymbol(loc.m_object);
+      const std::string_view objectName =
+          m_symbolTable->getSymbol(loc.m_object);
       if (objectName != SymbolTable::getBadSymbol()) {
         size_t objectOffset = text.find("%s");
         if (objectOffset != std::string::npos) {
@@ -239,7 +240,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           }
         }
         if (extraLoc.m_object) {
-          const std::string& objString =
+          const std::string_view objString =
               m_symbolTable->getSymbol(extraLoc.m_object);
           size_t objectOffset = text.find("%exobj");
           if (objectOffset != std::string::npos) {
@@ -376,7 +377,7 @@ ErrorContainer::Stats ErrorContainer::getErrorStats() const {
   return stats;
 }
 
-bool ErrorContainer::printToLogFile(const std::string& report) {
+bool ErrorContainer::printToLogFile(std::string_view report) {
   LogListener::LogResult result;
   if (LogListener::failed(result = m_logListener->log(report))) {
     if (!m_reportedFatalErrorLogFile &&

@@ -74,7 +74,7 @@ void ModuleDefinition::insertModPort(std::string_view modport,
   }
 }
 
-const Signal* ModuleDefinition::getModPortSignal(const std::string& modport,
+const Signal* ModuleDefinition::getModPortSignal(std::string_view modport,
                                                  NodeId port) const {
   ModPortSignalMap::const_iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
@@ -112,7 +112,7 @@ void ModuleDefinition::insertModPort(std::string_view modport,
 }
 
 const ClockingBlock* ModuleDefinition::getModPortClockingBlock(
-    const std::string& modport, NodeId port) const {
+    std::string_view modport, NodeId port) const {
   auto itr = m_modportClockingBlockMap.find(modport);
   if (itr == m_modportClockingBlockMap.end()) {
     return nullptr;
@@ -126,7 +126,7 @@ const ClockingBlock* ModuleDefinition::getModPortClockingBlock(
   return nullptr;
 }
 
-ClassDefinition* ModuleDefinition::getClassDefinition(const std::string& name) {
+ClassDefinition* ModuleDefinition::getClassDefinition(std::string_view name) {
   auto itr = m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
     return nullptr;

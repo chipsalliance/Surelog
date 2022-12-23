@@ -47,7 +47,7 @@ CompileSourceFile::CompileSourceFile(PathId fileId, CommandLineParser* clp,
                                      ErrorContainer* errors, Compiler* compiler,
                                      SymbolTable* symbols,
                                      CompilationUnit* compilationUnit,
-                                     Library* library, const std::string& text)
+                                     Library* library, std::string_view text)
     : m_fileId(fileId),
       m_commandLineParser(clp),
       m_errors(errors),
@@ -261,7 +261,7 @@ bool CompileSourceFile::postPreprocess_() {
 
   m_ppResultFileId = m_commandLineParser->writePpOutputFileId();
   if (!m_ppResultFileId) {
-    const std::string& libraryName = m_library->getName();
+    const std::string_view libraryName = m_library->getName();
     m_ppResultFileId = fileSystem->getPpOutputFile(
         m_commandLineParser->fileunit(), m_fileId, libraryName, m_symbolTable);
   }

@@ -1390,7 +1390,7 @@ interface_inst* NetlistElaboration::elab_interface_(
     ModuleInstance* instance, ModuleInstance* interf_instance,
     std::string_view instName, std::string_view defName, ModuleDefinition* mod,
     PathId fileId, int lineNb, interface_array* interf_array,
-    const std::string& modPortName) {
+    std::string_view modPortName) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) {
@@ -1482,7 +1482,7 @@ interface_inst* NetlistElaboration::elab_interface_(
 modport* NetlistElaboration::elab_modport_(
     ModuleInstance* instance, ModuleInstance* interfaceInstance,
     std::string_view instName, std::string_view defName, ModuleDefinition* mod,
-    PathId fileId, int lineNb, const std::string& modPortName,
+    PathId fileId, int lineNb, std::string_view modPortName,
     UHDM::interface_array* interf_array) {
   Netlist* netlist = instance->getNetlist();
   std::string fullname = StrCat(instName, ".", modPortName);
@@ -1593,8 +1593,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                     ModuleInstance* child,
                                     Netlist* parentNetlist, Netlist* netlist,
                                     DesignComponent* comp,
-                                    const std::string& prefix,
-                                    bool signalIsPort, TypespecCache& tscache) {
+                                    std::string_view prefix, bool signalIsPort,
+                                    TypespecCache& tscache) {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<net*>* nets = netlist->nets();
   std::vector<variables*>* vars = netlist->variables();
@@ -2114,7 +2114,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
 
 bool NetlistElaboration::elab_ports_nets_(
     ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist,
-    Netlist* netlist, DesignComponent* comp, const std::string& prefix,
+    Netlist* netlist, DesignComponent* comp, std::string_view prefix,
     bool do_ports) {
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();

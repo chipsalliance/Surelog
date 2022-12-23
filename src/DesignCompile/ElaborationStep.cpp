@@ -737,7 +737,7 @@ const DataType* ElaborationStep::bindDataType_(
   return result;
 }
 
-Variable* ElaborationStep::bindVariable_(const std::string& var_name,
+Variable* ElaborationStep::bindVariable_(std::string_view var_name,
                                          Scope* scope, const FileContent* fC,
                                          NodeId id,
                                          const DesignComponent* parent,
@@ -806,11 +806,10 @@ Variable* ElaborationStep::bindVariable_(const std::string& var_name,
   return result;
 }
 
-Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
-                                           const FileContent* fC, NodeId id,
-                                           Scope* scope,
-                                           DesignComponent* parentComponent,
-                                           ErrorDefinition::ErrorType errtype) {
+Variable* ElaborationStep::locateVariable_(
+    const std::vector<std::string_view>& var_chain, const FileContent* fC,
+    NodeId id, Scope* scope, DesignComponent* parentComponent,
+    ErrorDefinition::ErrorType errtype) {
   Variable* the_obj = nullptr;
   const DesignComponent* currentComponent = parentComponent;
   for (auto var : var_chain) {
@@ -850,8 +849,8 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
 }
 
 Variable* ElaborationStep::locateStaticVariable_(
-    std::vector<std::string>& var_chain, const FileContent* fC, NodeId id,
-    Scope* scope, DesignComponent* parentComponent,
+    const std::vector<std::string_view>& var_chain, const FileContent* fC,
+    NodeId id, Scope* scope, DesignComponent* parentComponent,
     ErrorDefinition::ErrorType errtype) {
   std::string name;
   for (unsigned int i = 0; i < var_chain.size(); i++) {
@@ -876,7 +875,7 @@ Variable* ElaborationStep::locateStaticVariable_(
                              classDefinition->getName());
           }
           if (var_chain.size() == 3) {
-            std::vector<std::string> tmp;
+            std::vector<std::string_view> tmp;
             tmp.push_back(var_chain[2]);
             result =
                 locateVariable_(tmp, fC, id, scope, classDefinition, errtype);
@@ -889,11 +888,10 @@ Variable* ElaborationStep::locateStaticVariable_(
       ClassDefinition* classDefinition =
           design->getClassDefinition(var_chain[0]);
       if (classDefinition == nullptr) {
-        std::string name;
         if (parentComponent && parentComponent->getParentScope()) {
-          name =
-              ((DesignComponent*)parentComponent->getParentScope())->getName();
-          name += "::" + var_chain[0];
+          const std::string name = StrCat(
+              ((DesignComponent*)parentComponent->getParentScope())->getName(),
+              "::", var_chain[0]);
           classDefinition = design->getClassDefinition(name);
         }
       }
@@ -904,7 +902,7 @@ Variable* ElaborationStep::locateStaticVariable_(
                            classDefinition->getNodeId(), InvalidNodeId,
                            classDefinition->getName());
         if (var_chain.size() == 2) {
-          std::vector<std::string> tmp;
+          std::vector<std::string_view> tmp;
           tmp.push_back(var_chain[1]);
 
           const DataType* dtype =
@@ -994,7 +992,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
   Design* design = compiler->getDesign();
-  const std::string& libName = fC->getLibrary()->getName();
+  const std::string_view libName = fC->getLibrary()->getName();
   VObjectType type = fC->Type(id);
   switch (type) {
     case VObjectType::slPort:
@@ -1150,7 +1148,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
         }
       }
       if (def == nullptr) {
-        def = design->getComponentDefinition(libName + "@" + baseName);
+        def = design->getComponentDefinition(StrCat(libName, "@", baseName));
         if (def) {
           ModuleDefinition* module =
               valuedcomponenti_cast<ModuleDefinition*>(def);
@@ -1175,7 +1173,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
         }
       }
       if (def == nullptr) {
-        def = design->getComponentDefinition(libName + "@" + baseName);
+        def = design->getComponentDefinition(StrCat(libName, "@", baseName));
         ClassDefinition* c = valuedcomponenti_cast<ClassDefinition*>(def);
         if (c) {
           Variable* var = new Variable(c, fC, signal->getNodeId(),
@@ -1340,7 +1338,7 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component,
     spec = (typespec*)((parameter*)uparam)->Typespec();
   }
 
-  const std::string& pname = sit->getName();
+  const std::string_view pname = sit->getName();
   for (Parameter* param : instance->getTypeParams()) {
     // Param override
     if (param->getName() == pname) {

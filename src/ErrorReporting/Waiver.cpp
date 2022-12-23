@@ -30,16 +30,15 @@
 
 namespace SURELOG {
 
-std::set<std::string> Waiver::m_macroArgCheck;
+std::set<std::string, std::less<>> Waiver::m_macroArgCheck;
 std::multimap<ErrorDefinition::ErrorType, Waiver::WaiverData> Waiver::m_waivers;
 
 // Example of message to waive:
 // [WARNI:PP0113] ../../../UVM/uvm-1.2/src/macros/uvm_callback_defines.svh, line
 // 294, col 8: Unused macro argument "CB".
 
-void Waiver::setWaiver(const std::string& messageId,
-                       const std::string& fileName, unsigned int line,
-                       const std::string& objectName) {
+void Waiver::setWaiver(std::string_view messageId, std::string_view fileName,
+                       unsigned int line, std::string_view objectName) {
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
   Waiver::WaiverData data(type, fileName, line, objectName);
   m_waivers.emplace(type, data);
@@ -47,7 +46,7 @@ void Waiver::setWaiver(const std::string& messageId,
 
 void Waiver::initWaivers() { m_macroArgCheck.insert("vmm_sformatf"); }
 
-bool Waiver::macroArgCheck(const std::string& name) {
+bool Waiver::macroArgCheck(std::string_view name) {
   return (m_macroArgCheck.find(name) != m_macroArgCheck.end());
 }
 

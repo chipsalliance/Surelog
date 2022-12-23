@@ -65,7 +65,7 @@ class Statement : public RTTI {
   virtual Function* getFunction() { return nullptr; }
   virtual void setFunction(Function* function) {}
 
-  void addStatement(Statement* statement) { m_statements.push_back(statement); }
+  void addStatement(Statement* statement) { m_statements.emplace_back(statement); }
   const StatementVector& getStatements() const { return m_statements; }
 
  private:
@@ -106,8 +106,8 @@ class SubRoutineCallStmt : public Statement {
   }
   std::vector<NodeId>& getVarChain() { return m_var_chain; }
   std::string_view getVarName(NodeId base_name) const;
-  std::vector<std::string> getVarChainNames() const;
-  const std::string& getFunc() const { return m_func; }
+  std::vector<std::string_view> getVarChainNames() const;
+  std::string_view getFunc() const { return m_func; }
   bool isStatic() const { return m_static; }
   bool isSystemCall() const { return m_system; }
   Function* getFunction() override { return m_function; }
@@ -139,7 +139,7 @@ class ForLoopStmt : public Scope, public Statement {
   }
   void setIteratorType(VObjectType type) { m_iteratorType = type; }
   VObjectType getIteratorType() const { return m_iteratorType; }
-  void addIteratorStepId(NodeId itrId) { m_stepIds.push_back(itrId); }
+  void addIteratorStepId(NodeId itrId) { m_stepIds.emplace_back(itrId); }
   std::vector<NodeId>& getIteratorStepIds() { return m_stepIds; }
   void setConditionId(NodeId id) { m_conditionId = id; }
   NodeId getConditionId() const { return m_conditionId; }
@@ -163,7 +163,7 @@ class ForeachLoopStmt : public Scope, public Statement {
 
   NodeId getArrayId() const { return m_arrayId; }
 
-  void addIteratorId(NodeId itrId) { m_iteratorIds.push_back(itrId); }
+  void addIteratorId(NodeId itrId) { m_iteratorIds.emplace_back(itrId); }
   std::vector<NodeId>& getIteratorIds() { return m_iteratorIds; }
 
  private:

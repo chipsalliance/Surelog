@@ -158,7 +158,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
   SymbolId msgId = m_pp->registerSymbol(msg);
 
   if (m_pp->m_macroInfo) {
-    std::string lineText = m_pp->getMacroBody();
+    std::string lineText(m_pp->getMacroBody());
     for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
     lineText += "^-- " + m_macroContext + ":" + std::to_string(line) + ":" +
                 std::to_string(charPositionInLine) + ":";
@@ -571,22 +571,21 @@ void PreprocessFile::resetIncludeFileInfo() {
 
 void PreprocessFile::clearIncludeFileInfo() { m_includeFileInfo.clear(); }
 
-void PreprocessFile::append(const std::string& s) {
+void PreprocessFile::append(std::string_view s) {
   if (!m_pauseAppend) {
     m_lineCount += LinesCount(s);
     m_result.append(s);
   }
 }
 
-void PreprocessFile::recordMacro(const std::string& name,
-                                 unsigned int startLine,
+void PreprocessFile::recordMacro(std::string_view name, unsigned int startLine,
                                  unsigned short int startColumn,
                                  unsigned int endLine,
                                  unsigned short int endColumn,
-                                 const std::string& arguments,
+                                 std::string_view arguments,
                                  const std::vector<std::string>& tokens) {
   // *** Argument processing
-  std::string arguments_short = arguments;
+  std::string arguments_short(arguments);
   // Remove (
   size_t p = arguments_short.find('(');
   if (p != std::string::npos) {
@@ -643,7 +642,7 @@ std::string PreprocessFile::reportIncludeInfo() const {
   return strm.str();
 }
 
-void PreprocessFile::recordMacro(const std::string& name, PathId fileId,
+void PreprocessFile::recordMacro(std::string_view name, PathId fileId,
                                  unsigned int startLine,
                                  unsigned short int startColumn,
                                  unsigned int endLine,
@@ -662,7 +661,7 @@ void PreprocessFile::recordMacro(const std::string& name, PathId fileId,
 }
 
 void PreprocessFile::checkMacroArguments_(
-    const std::string& name, unsigned int line, unsigned short column,
+    std::string_view name, unsigned int line, unsigned short column,
     const std::vector<std::string>& arguments,
     const std::vector<std::string>& tokens) {
   std::set<std::string_view, std::less<>> argSet;
@@ -754,7 +753,7 @@ SymbolId PreprocessFile::getId(std::string_view symbol) const {
 }
 
 std::string PreprocessFile::evaluateMacroInstance(
-    const std::string& macro_instance, PreprocessFile* callingFile,
+    std::string_view macro_instance, PreprocessFile* callingFile,
     unsigned int callingLine,
     SpecialInstructions::CheckLoopInstr checkMacroLoop,
     SpecialInstructions::AsIsUndefinedMacroInstr asisUndefMacro) {
@@ -789,7 +788,7 @@ static std::string_view getFirstNonEmptyToken(
 }
 
 std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
-    const std::string& name, std::vector<std::string>& actual_args,
+    std::string_view name, std::vector<std::string>& actual_args,
     PreprocessFile* callingFile, unsigned int callingLine,
     LoopCheck& loopChecker, MacroInfo* macroInfo,
     SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
@@ -942,7 +941,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     }
   }
   if (incorrectArgNb) {
-    return std::make_pair(true, "`" + name);
+    return std::make_pair(true, StrCat("`", name));
   }
   std::string body;
   for (const auto& token : body_tokens) {
@@ -1034,12 +1033,12 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   return std::make_pair(found, result);
 }
 
-MacroInfo* PreprocessFile::getMacro(const std::string& name) {
+MacroInfo* PreprocessFile::getMacro(std::string_view name) {
   registerSymbol(name);
   return m_compilationUnit->getMacroInfo(name);
 }
 
-bool PreprocessFile::deleteMacro(const std::string& name,
+bool PreprocessFile::deleteMacro(std::string_view name,
                                  std::set<PreprocessFile*>& visited) {
   /*SymbolId macroId = */ registerSymbol(name);
   if (m_debugMacro)
@@ -1118,7 +1117,7 @@ void PreprocessFile::undefineAllMacros(std::set<PreprocessFile*>& visited) {
 }
 
 std::string PreprocessFile::getMacro(
-    const std::string& name, std::vector<std::string>& arguments,
+    std::string_view name, std::vector<std::string>& arguments,
     PreprocessFile* callingFile, unsigned int callingLine,
     LoopCheck& loopChecker, SpecialInstructions& instructions,
     unsigned int embeddedMacroCallLine, PathId embeddedMacroCallFile) {
@@ -1163,7 +1162,7 @@ std::string PreprocessFile::getMacro(
   if (found == false) {
     if (instructions.m_as_is_undefined_macro ==
         SpecialInstructions::AsIsUndefinedMacro) {
-      return "`" + name;
+      return StrCat("`", name);
     } else {
       return MacroNotDefined;
     }

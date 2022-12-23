@@ -56,11 +56,11 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(const std::string& className,
+  void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef) {
     m_classDefinitions.emplace(className, classDef);
   }
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(std::string_view name);
 
   UHDM::VectorOfattribute* Attributes() { return attributes_; }
 

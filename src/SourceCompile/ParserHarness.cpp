@@ -45,7 +45,7 @@ struct ParserHarness::Holder {
   std::unique_ptr<ParseFile> pf;
 };
 
-std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
+std::unique_ptr<FileContent> ParserHarness::parse(std::string_view content) {
   delete m_h;
   m_h = new Holder();
 
@@ -71,8 +71,8 @@ std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
   return file_content_result;
 }
 
-FileContent* ParserHarness::parse(const std::string& content,
-                                  Compiler* compiler, PathId fileId) {
+FileContent* ParserHarness::parse(std::string_view content, Compiler* compiler,
+                                  PathId fileId) {
   CompilationUnit* unit = new CompilationUnit(false);
   SymbolTable* symbols = compiler->getSymbolTable();
   ErrorContainer* errors = compiler->getErrorContainer();

@@ -60,7 +60,7 @@ int LogListener::getQueuedMessageCount() const {
   return static_cast<int>(queued.size());
 }
 
-void LogListener::enqueue(const std::string &message) {
+void LogListener::enqueue(std::string_view message) {
   // NOTE: This isn't guarded since this is expected to be used only via
   // public API (which in turn are reponsible for ensuring thread-safety)
 
@@ -68,7 +68,7 @@ void LogListener::enqueue(const std::string &message) {
     queued.pop_front();
     ++droppedCount;
   }
-  queued.push_back(message);
+  queued.emplace_back(message);
 }
 
 void LogListener::flush(std::ostream &strm) {
@@ -107,7 +107,7 @@ LogListener::LogResult LogListener::flush() {
   return LogResult::Ok;
 }
 
-LogListener::LogResult LogListener::log(const std::string &message) {
+LogListener::LogResult LogListener::log(std::string_view message) {
   std::scoped_lock<std::mutex> lock(mutex);
 
   if (!fileId) {

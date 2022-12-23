@@ -36,14 +36,15 @@ class Value;
 
 class ClassObject final {
  public:
-  typedef std::map<std::string, std::pair<Property*, Value*>> PropertyValueMap;
+  typedef std::map<std::string, std::pair<Property*, Value*>, std::less<>>
+      PropertyValueMap;
 
   ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
   ClassDefinition* getClass() { return m_class; }
 
   const PropertyValueMap& getProperties() const { return m_properties; }
-  bool setValue(const std::string& property, Value* value);
-  Value* getValue(const std::string& property) const;
+  bool setValue(std::string_view property, Value* value);
+  Value* getValue(std::string_view property) const;
 
  private:
   ClassObject(const ClassObject& orig) = delete;

@@ -42,10 +42,10 @@ class ModPort final {
           const FileContent* const fC, NodeId nodeId)
       : m_parent(parent), m_name(name), m_fileContent(fC), m_nodeId(nodeId) {}
 
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
   void addSignal(const Signal& sig) { m_ports.push_back(sig); }
   const std::vector<Signal>& getPorts() const { return m_ports; }
-  const Signal* getPort(const std::string& name) const;
+  const Signal* getPort(std::string_view name) const;
   ModuleDefinition* getParent() const { return m_parent; }
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }

@@ -37,7 +37,7 @@ class Value;
 
 class DefParam final {
  public:
-  DefParam(const std::string& name, DefParam* parent = nullptr)
+  DefParam(std::string_view name, DefParam* parent = nullptr)
       : m_name(name),
         m_value(nullptr),
         m_used(false),

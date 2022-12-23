@@ -58,7 +58,7 @@ class CompileSourceFile final {
   CompileSourceFile(PathId fileId, CommandLineParser* clp,
                     ErrorContainer* errors, Compiler* compiler,
                     SymbolTable* symbols, CompilationUnit* comp_unit,
-                    Library* library, const std::string& = "");
+                    Library* library, std::string_view = "");
 
   // Chunk File:
   CompileSourceFile(CompileSourceFile* parent, PathId ppResultFileId,

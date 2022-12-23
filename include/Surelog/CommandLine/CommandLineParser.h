@@ -107,8 +107,12 @@ class CommandLineParser final {
   void setFilterWarning() { m_warning = false; }
   void setReportNonSynthesizable(bool report) { m_nonSynthesizable = report; }
   bool reportNonSynthesizable() { return m_nonSynthesizable; }
-  void setReportNonSynthesizableWithFormal(bool report) { m_nonSynthesizableWithFormal = report; }
-  bool reportNonSynthesizableWithFormal() { return m_nonSynthesizableWithFormal; }
+  void setReportNonSynthesizableWithFormal(bool report) {
+    m_nonSynthesizableWithFormal = report;
+  }
+  bool reportNonSynthesizableWithFormal() {
+    return m_nonSynthesizableWithFormal;
+  }
   /* Debug/traces options */
   bool muteStdout() const { return m_muteStdout; }
   void setMuteStdout() { m_muteStdout = true; }
@@ -209,21 +213,23 @@ class CommandLineParser final {
   bool parseBuiltIn() const { return m_parseBuiltIn; }
   PathId getProgramId() const { return m_programId; }
   std::string getExeCommand() const { return m_exeCommand; }
-  std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
+  std::set<std::string, std::less<>>& getTopLevelModules() {
+    return m_topLevelModules;
+  }
   std::set<std::string, std::less<>>& getBlackBoxModules() {
     return m_blackboxModules;
   }
   std::set<std::string, std::less<>>& getBlackBoxInstances() {
     return m_blackboxInstances;
   }
-  void setTopLevelModule(const std::string& module) {
-    m_topLevelModules.insert(module);
+  void setTopLevelModule(std::string_view module) {
+    m_topLevelModules.emplace(module);
   }
-  void setBlackBoxModule(const std::string& module) {
-    m_blackboxModules.insert(module);
+  void setBlackBoxModule(std::string_view module) {
+    m_blackboxModules.emplace(module);
   }
-  void setBlackBoxInstance(const std::string& instance) {
-    m_blackboxInstances.insert(instance);
+  void setBlackBoxInstance(std::string_view instance) {
+    m_blackboxInstances.emplace(instance);
   }
 
   bool fullSVMode() const { return m_sverilog; }
@@ -236,20 +242,20 @@ class CommandLineParser final {
 
   std::pair<PathId, std::filesystem::path> addWorkingDirectory_(
       const std::filesystem::path& wd, const std::filesystem::path& rwd);
-  bool plus_arguments_(const std::string& s, const std::filesystem::path& cd);
+  bool plus_arguments_(std::string_view s, const std::filesystem::path& cd);
   void processOutputDirectory_(const std::vector<std::string>& args);
   void processArgs_(const std::vector<std::string>& args,
                     std::filesystem::path& wd, std::filesystem::path& cd,
                     std::vector<std::string>& container);
-  void splitPlusArg_(const std::string& s, const std::string& prefix,
+  void splitPlusArg_(std::string_view s, std::string_view prefix,
                      SymbolIdVector& container);
-  void splitPlusArg_(const std::string& s, const std::string& prefix,
+  void splitPlusArg_(std::string_view s, std::string_view prefix,
                      const std::filesystem::path& cd, PathIdVector& container);
   void splitPlusArg_(
-      const std::string& s, const std::string& prefix,
+      std::string_view s, std::string_view prefix,
       std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
   void splitEqArg_(
-      const std::string& s,
+      std::string_view s,
       std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
   bool checkCommandLine_();
   bool prepareCompilation_(int argc, const char** argv);
@@ -331,7 +337,7 @@ class CommandLineParser final {
   bool m_ppOutputFileLocation;
   PathId m_programId;
   std::string m_exeCommand;
-  std::set<std::string> m_topLevelModules;
+  std::set<std::string, std::less<>> m_topLevelModules;
   std::set<std::string, std::less<>> m_blackboxModules;
   std::set<std::string, std::less<>> m_blackboxInstances;
   bool m_sverilog;

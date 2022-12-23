@@ -34,6 +34,7 @@
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
 static constexpr char FlbSchemaVersion[] = "1.3";
@@ -51,7 +52,7 @@ PathId ParseCache::getCacheFileId_(PathId ppFileId) const {
   SymbolTable* const symbolTable =
       m_parse->getCompileSourceFile()->getSymbolTable();
 
-  const std::string& libName = m_parse->getLibrary()->getName();
+  const std::string_view libName = m_parse->getLibrary()->getName();
 
   if (clp->parseOnly()) {
     // If parseOnly flag is set, the Preprocessor doesn't actually generate
@@ -124,8 +125,8 @@ bool ParseCache::restore_(PathId cacheFileId,
         (TimeInfo::Unit)elemc->time_info()->time_precision();
     elem->m_timeInfo.m_timePrecisionValue =
         elemc->time_info()->time_precision_value();
-    const std::string& fullName =
-        fileContent->getLibrary()->getName() + "@" + elemName;
+    const std::string fullName =
+        StrCat(fileContent->getLibrary()->getName(), "@", elemName);
     fileContent->addDesignElement(fullName, elem);
   }
 

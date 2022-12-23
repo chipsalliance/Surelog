@@ -72,7 +72,7 @@ class ErrorContainer final {
   bool printMessages(bool muteStdout = false);
   bool printMessage(Error& error, bool muteStdout = false);
   bool printStats(Stats stats, bool muteStdout = false);
-  bool printToLogFile(const std::string& report);
+  bool printToLogFile(std::string_view report);
   bool hasFatalErrors() const;
   Stats getErrorStats() const;
   void appendErrors(ErrorContainer&);

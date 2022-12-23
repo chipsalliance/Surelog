@@ -76,7 +76,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
                 bool showDuplicates = false);
   void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc,
                 bool showDuplicates = false);
-  void checkMultiplyDefinedMacro(const std::string& macroName,
+  void checkMultiplyDefinedMacro(std::string_view macroName,
                                  antlr4::ParserRuleContext* ctx);
   void forwardToParser(antlr4::ParserRuleContext* ctx);
   void init();

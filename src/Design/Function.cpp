@@ -72,8 +72,8 @@ bool Function::compile(CompileHelper& compile_helper) {
   return result;
 }
 
-SeqBlock::SeqBlock(const std::string& name, Scope* parent,
-                   Statement* parentStmt, const FileContent* fC, NodeId id)
+SeqBlock::SeqBlock(std::string_view name, Scope* parent, Statement* parentStmt,
+                   const FileContent* fC, NodeId id)
     : Scope(name, parent),
       Statement(this, parentStmt, fC, id,
                 fC ? fC->Type(id) : VObjectType::slSeq_block) {}

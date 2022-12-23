@@ -31,7 +31,7 @@ namespace SURELOG {
 Library::Library(std::string_view name, SymbolTable* symbols)
     : m_nameId(symbols->registerSymbol(name)), m_symbols(symbols) {}
 
-const std::string& Library::getName() const {
+std::string_view Library::getName() const {
   return m_symbols->getSymbol(m_nameId);
 }
 
@@ -39,7 +39,7 @@ void Library::addModuleDefinition(ModuleDefinition* def) {
   m_modules.emplace(m_symbols->registerSymbol(def->getName()), def);
 }
 
-ModuleDefinition* Library::getModule(const std::string& name) const {
+ModuleDefinition* Library::getModule(std::string_view name) const {
   auto itr = m_modules.find(m_symbols->registerSymbol(name));
   return (itr == m_modules.end()) ? nullptr : itr->second;
 }

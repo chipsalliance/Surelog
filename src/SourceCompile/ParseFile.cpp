@@ -101,7 +101,7 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
   parent->m_children.push_back(this);
 }
 
-ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
+ParseFile::ParseFile(std::string_view text, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library)
     : m_compileSourceFile(csf),
       m_compilationUnit(compilationUnit),

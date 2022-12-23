@@ -47,7 +47,7 @@ VObjectType Program::getType() const {
   return (m_fileContents[0]->Type(m_nodeIds[0]));
 }
 
-ClassDefinition* Program::getClassDefinition(const std::string& name) {
+ClassDefinition* Program::getClassDefinition(std::string_view name) {
   auto itr = m_classDefinitions.find(name);
   if (itr == m_classDefinitions.end()) {
     return nullptr;

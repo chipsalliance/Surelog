@@ -76,7 +76,7 @@ void Design::addPPFileContent(PathId fileId, FileContent* content) {
 }
 
 DesignComponent* Design::getComponentDefinition(
-    const std::string& componentName) const {
+    std::string_view componentName) const {
   DesignComponent* comp = (DesignComponent*)getModuleDefinition(componentName);
   if (comp) return comp;
   comp = (DesignComponent*)getProgram(componentName);
@@ -87,7 +87,7 @@ DesignComponent* Design::getComponentDefinition(
 }
 
 ModuleDefinition* Design::getModuleDefinition(
-    const std::string& moduleName) const {
+    std::string_view moduleName) const {
   ModuleNameModuleDefinitionMap::const_iterator itr =
       m_moduleDefinitions.find(moduleName);
   if (itr != m_moduleDefinitions.end()) {
@@ -239,7 +239,7 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
   nbUndefinedModules = undefModules.size();
 }
 
-ModuleInstance* Design::findInstance(const std::string& path,
+ModuleInstance* Design::findInstance(std::string_view path,
                                      ModuleInstance* scope) const {
   std::vector<std::string> vpath;
   StringUtils::tokenize(path, ".", vpath);
@@ -299,7 +299,7 @@ ModuleInstance* Design::findInstance_(const std::vector<std::string>& path,
   return nullptr;
 }
 
-DefParam* Design::getDefParam(const std::string& name) const {
+DefParam* Design::getDefParam(std::string_view name) const {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
   std::map<std::string, DefParam*>::const_iterator itr =
@@ -311,7 +311,7 @@ DefParam* Design::getDefParam(const std::string& name) const {
   return nullptr;
 }
 
-Value* Design::getDefParamValue(const std::string& name) {
+Value* Design::getDefParamValue(std::string_view name) {
   DefParam* def = getDefParam(name);
   if (def) return def->getValue();
   return nullptr;
@@ -331,7 +331,7 @@ DefParam* Design::getDefParam_(std::vector<std::string>& path,
   return nullptr;
 }
 
-void Design::addDefParam(const std::string& name, const FileContent* fC,
+void Design::addDefParam(std::string_view name, const FileContent* fC,
                          NodeId nodeId, Value* value) {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
@@ -541,7 +541,7 @@ std::vector<BindStmt*> Design::getBindStmts(std::string_view targetName) {
   return results;
 }
 
-void Design::addBindStmt(const std::string& targetName, BindStmt* stmt) {
+void Design::addBindStmt(std::string_view targetName, BindStmt* stmt) {
   m_bindMap.emplace(targetName, stmt);
 }
 }  // namespace SURELOG

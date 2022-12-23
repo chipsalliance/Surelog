@@ -56,12 +56,12 @@ class DesignElaboration : public TestbenchElaboration {
   bool identifyTopModules_();
   bool elaborateAllModules_(bool onlyTopLevel);
   void reportElaboration_();
-  bool elaborateModule_(const std::string& moduleName,
+  bool elaborateModule_(std::string_view moduleName,
                         const FileContent* fileContent, bool onlyTopLevel);
   void checkElaboration_();
-  void collectParams_(std::vector<std::string>& params, const FileContent* fC,
-                      NodeId nodeId, ModuleInstance* instance,
-                      NodeId parentParamOverride);
+  std::vector<std::string> collectParams_(const FileContent* fC, NodeId nodeId,
+                                          ModuleInstance* instance,
+                                          NodeId parentParamOverride);
   void elaborateInstance_(const FileContent* fC, NodeId nodeId,
                           NodeId parentParamOverride,
                           ModuleInstanceFactory* factory,
@@ -73,11 +73,10 @@ class DesignElaboration : public TestbenchElaboration {
                             NodeId subInstanceId, NodeId paramOverride,
                             ModuleInstanceFactory* factory,
                             ModuleInstance* parent, Config* config,
-                            std::string instanceName,
-                            const std::string& modName,
+                            std::string instanceName, std::string_view modName,
                             std::vector<ModuleInstance*>& allSubInstances);
-  void recurseBuildInstanceClause_(const std::string& parentPath,
-                                   Config* config, std::set<Config*>& stack);
+  void recurseBuildInstanceClause_(std::string_view parentPath, Config* config,
+                                   std::set<Config*>& stack);
   ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent,
                                       ModuleInstanceFactory* factory,
                                       Config* config);
@@ -86,15 +85,15 @@ class DesignElaboration : public TestbenchElaboration {
   bool bindAllInstances_(ModuleInstance*, ModuleInstanceFactory* factory,
                          Config* config);
   void createFileList_();
-  Config* getInstConfig(const std::string& name);
-  Config* getCellConfig(const std::string& name);
+  Config* getInstConfig(std::string_view name);
+  Config* getCellConfig(std::string_view name);
   std::vector<std::pair<std::string, const FileContent*>> m_topLevelModules;
   std::set<std::string> m_uniqueTopLevelModules;
   ModuleDefinitionFactory* m_moduleDefFactory;
   ModuleInstanceFactory* m_moduleInstFactory;
   std::set<std::string> m_toplevelConfigModules;
-  std::map<std::string, Config> m_instConfig;
-  std::map<std::string, Config> m_cellConfig;
+  std::map<std::string, Config, std::less<>> m_instConfig;
+  std::map<std::string, Config, std::less<>> m_cellConfig;
   std::map<std::string, UseClause> m_instUseClause;
   std::map<std::string, UseClause> m_cellUseClause;
 };

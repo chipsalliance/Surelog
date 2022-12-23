@@ -31,6 +31,7 @@
 #include <Surelog/SourceCompile/SV3_1aTreeShapeHelper.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/ParseUtils.h>
+#include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {
 
@@ -110,8 +111,8 @@ void SV3_1aTreeShapeHelper::addNestedDesignElement(
     DesignElement::ElemType elemtype, VObjectType objtype) {
   PathId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
-  std::string design_element = m_pf->getLibrary()->getName() + "@";
-  design_element.append(name);
+  const std::string design_element =
+      StrCat(m_pf->getLibrary()->getName(), "@", name);
   DesignElement* elem = new DesignElement(
       registerSymbol(name), fileId, elemtype, generateDesignElemId(), line,
       column, endLine, endColumn, InvalidNodeId);
@@ -134,8 +135,8 @@ void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
                                              VObjectType objtype) {
   PathId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
-  std::string design_element = m_pf->getLibrary()->getName() + "@";
-  design_element.append(name);
+  const std::string design_element =
+      StrCat(m_pf->getLibrary()->getName(), "@", name);
   DesignElement* elem = new DesignElement(
       registerSymbol(name), fileId, elemtype, generateDesignElemId(), line,
       column, endLine, endColumn, InvalidNodeId);
