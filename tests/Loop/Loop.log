@@ -160,7 +160,7 @@ design                                                 1
 gen_scope                                             10
 gen_scope_array                                       10
 int_typespec                                           7
-module                                                20
+module_inst                                           20
 operation                                              5
 param_assign                                           7
 parameter                                              7
@@ -173,7 +173,7 @@ design                                                 1
 gen_scope                                             67
 gen_scope_array                                       67
 int_typespec                                           7
-module                                                77
+module_inst                                           77
 operation                                              5
 param_assign                                          64
 parameter                                              7
@@ -191,20 +191,20 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@loop (work@loop), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:6:1, endln:8:10
+\_module_inst: work@loop (work@loop), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:6:1, endln:8:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@loop
   |vpiDefName:work@loop
 |uhdmallModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.bht_row_width_p), line:12:14, endln:12:29
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
     |UINT:10
     |vpiTypespec:
     \_int_typespec: 
@@ -213,7 +213,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:12:14, endln:12:34
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
     |vpiRhs:
     \_constant: , line:12:32, endln:12:34
       |vpiDecompile:10
@@ -226,27 +226,27 @@ design: (work@top)
     \_parameter: (work@test.bht_row_width_p), line:12:14, endln:12:29
   |vpiDefName:work@test
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
+  |vpiModuleInst:
+  \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
     |vpiName:u1
     |vpiFullName:work@top.u1
     |vpiParameter:
     \_parameter: (work@top.u1.bht_row_width_p), line:12:14, endln:12:29
       |vpiParent:
-      \_module: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
+      \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
       |UINT:10
       |vpiTypespec:
       \_int_typespec: 
@@ -257,7 +257,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:12:14, endln:12:34
       |vpiParent:
-      \_module: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
+      \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
       |vpiRhs:
       \_constant: , line:12:32, endln:12:34
         |vpiDecompile:10
@@ -272,11 +272,11 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
     |vpiDefLineNo:10
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.u1.genblk1), line:13:4, endln:15:7
       |vpiParent:
-      \_module: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
+      \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
       |vpiName:genblk1
       |vpiFullName:work@top.u1.genblk1
       |vpiGenScope:
@@ -284,8 +284,8 @@ design: (work@top)
         |vpiParent:
         \_gen_scope_array: (work@top.u1.genblk1), line:13:4, endln:15:7
         |vpiFullName:work@top.u1.genblk1
-        |vpiModule:
-        \_module: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+        |vpiModuleInst:
+        \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
           |vpiParent:
           \_gen_scope: (work@top.u1.genblk1)
           |vpiName:u
@@ -304,7 +304,7 @@ design: (work@top)
           |vpiParamAssign:
           \_param_assign: , line:12:14, endln:12:34
             |vpiParent:
-            \_module: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+            \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:12:32, endln:12:34
@@ -322,7 +322,7 @@ design: (work@top)
           |vpiGenScopeArray:
           \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:13:4, endln:15:7
             |vpiParent:
-            \_module: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+            \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
             |vpiName:genblk1
             |vpiFullName:work@top.u1.genblk1.u.genblk1
             |vpiGenScope:
@@ -330,8 +330,8 @@ design: (work@top)
               |vpiParent:
               \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:13:4, endln:15:7
               |vpiFullName:work@top.u1.genblk1.u.genblk1
-              |vpiModule:
-              \_module: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+              |vpiModuleInst:
+              \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                 |vpiParent:
                 \_gen_scope: (work@top.u1.genblk1.u.genblk1)
                 |vpiName:u
@@ -350,7 +350,7 @@ design: (work@top)
                 |vpiParamAssign:
                 \_param_assign: , line:12:14, endln:12:34
                   |vpiParent:
-                  \_module: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                  \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                   |vpiOverriden:1
                   |vpiRhs:
                   \_constant: , line:12:32, endln:12:34
@@ -368,7 +368,7 @@ design: (work@top)
                 |vpiGenScopeArray:
                 \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
                   |vpiParent:
-                  \_module: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                  \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                   |vpiName:genblk1
                   |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1
                   |vpiGenScope:
@@ -376,8 +376,8 @@ design: (work@top)
                     |vpiParent:
                     \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
                     |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1
-                    |vpiModule:
-                    \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                    |vpiModuleInst:
+                    \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                       |vpiParent:
                       \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1)
                       |vpiName:u
@@ -396,7 +396,7 @@ design: (work@top)
                       |vpiParamAssign:
                       \_param_assign: , line:12:14, endln:12:34
                         |vpiParent:
-                        \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                        \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                         |vpiOverriden:1
                         |vpiRhs:
                         \_constant: , line:12:32, endln:12:34
@@ -414,7 +414,7 @@ design: (work@top)
                       |vpiGenScopeArray:
                       \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
                         |vpiParent:
-                        \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                        \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                         |vpiName:genblk1
                         |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1
                         |vpiGenScope:
@@ -422,8 +422,8 @@ design: (work@top)
                           |vpiParent:
                           \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
                           |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1
-                          |vpiModule:
-                          \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                          |vpiModuleInst:
+                          \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                             |vpiParent:
                             \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1)
                             |vpiName:u
@@ -442,7 +442,7 @@ design: (work@top)
                             |vpiParamAssign:
                             \_param_assign: , line:12:14, endln:12:34
                               |vpiParent:
-                              \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                              \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                               |vpiOverriden:1
                               |vpiRhs:
                               \_constant: , line:12:32, endln:12:34
@@ -460,7 +460,7 @@ design: (work@top)
                             |vpiGenScopeArray:
                             \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
                               |vpiParent:
-                              \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                              \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                               |vpiName:genblk1
                               |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1
                               |vpiGenScope:
@@ -468,8 +468,8 @@ design: (work@top)
                                 |vpiParent:
                                 \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
                                 |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1
-                                |vpiModule:
-                                \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                                |vpiModuleInst:
+                                \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                                   |vpiParent:
                                   \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1)
                                   |vpiName:u
@@ -488,7 +488,7 @@ design: (work@top)
                                   |vpiParamAssign:
                                   \_param_assign: , line:12:14, endln:12:34
                                     |vpiParent:
-                                    \_module: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                                    \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                                     |vpiOverriden:1
                                     |vpiRhs:
                                     \_constant: , line:12:32, endln:12:34
@@ -503,28 +503,28 @@ design: (work@top)
                                   |vpiDefName:work@test
                                   |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
                                   |vpiDefLineNo:10
-  |vpiModule:
-  \_module: work@loop (work@top.u2), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:3:4, endln:3:14
+  |vpiModuleInst:
+  \_module_inst: work@loop (work@top.u2), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:3:4, endln:3:14
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
     |vpiName:u2
     |vpiFullName:work@top.u2
     |vpiDefName:work@loop
     |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
     |vpiDefLineNo:6
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
-    |vpiModule:
-    \_module: work@loop (work@top.u2.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:7:4, endln:7:14
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
+    |vpiModuleInst:
+    \_module_inst: work@loop (work@top.u2.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:7:4, endln:7:14
       |vpiParent:
-      \_module: work@loop (work@top.u2), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:3:4, endln:3:14
+      \_module_inst: work@loop (work@top.u2), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:3:4, endln:3:14
       |vpiName:u1
       |vpiFullName:work@top.u2.u1
       |vpiDefName:work@loop
       |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
       |vpiDefLineNo:6
       |vpiInstance:
-      \_module: work@loop (work@top.u2), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:3:4, endln:3:14
+      \_module_inst: work@loop (work@top.u2), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:3:4, endln:3:14
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

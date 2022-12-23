@@ -68,7 +68,7 @@ n<> u<31> t<Top_level_rule> c<1> l<1:1> el<8:1>
 constant                                               2
 design                                                 1
 int_typespec                                           1
-module                                                 5
+module_inst                                            5
 param_assign                                           2
 parameter                                              2
 === UHDM Object Stats End ===
@@ -78,7 +78,7 @@ parameter                                              2
 constant                                               2
 design                                                 1
 int_typespec                                           1
-module                                                 5
+module_inst                                            5
 param_assign                                           2
 parameter                                              2
 === UHDM Object Stats End ===
@@ -95,20 +95,20 @@ design: (work@foo)
 |vpiElaborated:1
 |vpiName:work@foo
 |uhdmallModules:
-\_module: work@baz (work@baz), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:5:1, endln:6:10
+\_module_inst: work@baz (work@baz), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:5:1, endln:6:10
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@baz
   |vpiDefName:work@baz
 |uhdmallModules:
-\_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
+\_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@foo
   |vpiParameter:
   \_parameter: (work@foo.bar), line:2:17, endln:2:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |UINT:0
     |vpiSigned:1
     |vpiName:bar
@@ -116,7 +116,7 @@ design: (work@foo)
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:24
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:2:23, endln:2:24
       |vpiDecompile:0
@@ -132,12 +132,12 @@ design: (work@foo)
     \_parameter: (work@foo.bar), line:2:17, endln:2:20
   |vpiDefName:work@foo
 |uhdmtopModules:
-\_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
+\_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
   |vpiName:work@foo
   |vpiParameter:
   \_parameter: (work@foo.bar), line:2:17, endln:2:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |UINT:0
     |vpiSigned:1
     |vpiName:bar
@@ -145,7 +145,7 @@ design: (work@foo)
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:24
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:2:23, endln:2:24
       |vpiDecompile:1
@@ -158,7 +158,7 @@ design: (work@foo)
   |vpiTop:1
   |vpiTopModule:1
 |uhdmtopModules:
-\_module: work@baz (work@baz), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:5:1, endln:6:10
+\_module_inst: work@baz (work@baz), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:5:1, endln:6:10
   |vpiName:work@baz
   |vpiDefName:work@baz
   |vpiTop:1

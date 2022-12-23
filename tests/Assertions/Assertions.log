@@ -468,7 +468,7 @@ immediate_assert                                       1
 logic_net                                              6
 logic_typespec                                         5
 logic_var                                              4
-module                                                 3
+module_inst                                            3
 operation                                              4
 packed_array_typespec                                  1
 port                                                   2
@@ -488,7 +488,7 @@ immediate_assert                                       2
 logic_net                                              6
 logic_typespec                                         5
 logic_var                                              4
-module                                                 3
+module_inst                                            3
 operation                                              8
 packed_array_typespec                                  1
 port                                                   3
@@ -509,17 +509,17 @@ design: (work@m)
 |vpiElaborated:1
 |vpiName:work@m
 |uhdmallModules:
-\_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+\_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
   |vpiParent:
   \_design: (work@m)
   |vpiFullName:work@m
   |vpiTypedef:
   \_bit_typespec: (bits), line:4:9, endln:4:19
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:bits
     |vpiInstance:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiRange:
     \_range: , line:4:13, endln:4:19
       |vpiLeftRange:
@@ -543,41 +543,41 @@ design: (work@m)
   |vpiNet:
   \_logic_net: (work@m.clock), line:1:16, endln:1:21
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:clock
     |vpiFullName:work@m.clock
   |vpiNet:
   \_logic_net: (work@m.a), line:2:14, endln:2:15
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:a
     |vpiFullName:work@m.a
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@m.b), line:2:17, endln:2:18
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:b
     |vpiFullName:work@m.b
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@m.c), line:3:7, endln:3:8
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:c
     |vpiFullName:work@m.c
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@m.d), line:3:10, endln:3:11
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:d
     |vpiFullName:work@m.d
     |vpiNetType:36
   |vpiAssertion:
   \_assert_stmt: (work@m.a2), line:12:1, endln:12:54
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:a2
     |vpiFullName:work@m.a2
     |vpiProperty:
@@ -595,7 +595,7 @@ design: (work@m)
   |vpiPort:
   \_port: (clock), line:1:16, endln:1:21
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
@@ -607,7 +607,7 @@ design: (work@m)
   |vpiProcess:
   \_always: , line:7:1, endln:8:35
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiStmt:
     \_immediate_assert: (a1), line:8:1, endln:8:35
       |vpiParent:
@@ -698,12 +698,12 @@ design: (work@m)
             \_logic_var: (work@m.b), line:2:17, endln:2:18
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+\_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
   |vpiName:work@m
   |vpiVariables:
   \_logic_var: (work@m.a), line:2:14, endln:2:15
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:2:1, endln:2:13
       |vpiRange:
@@ -748,7 +748,7 @@ design: (work@m)
   |vpiVariables:
   \_logic_var: (work@m.b), line:2:17, endln:2:18
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:2:1, endln:2:13
     |vpiName:b
@@ -775,7 +775,7 @@ design: (work@m)
   |vpiVariables:
   \_logic_var: (work@m.c), line:3:7, endln:3:8
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:c
@@ -784,7 +784,7 @@ design: (work@m)
   |vpiVariables:
   \_logic_var: (work@m.d), line:3:10, endln:3:11
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:d
@@ -797,7 +797,7 @@ design: (work@m)
   |vpiNet:
   \_logic_net: (work@m.clock), line:1:16, endln:1:21
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:1:16, endln:1:16
     |vpiName:clock
@@ -805,7 +805,7 @@ design: (work@m)
   |vpiAssertion:
   \_assert_stmt: (work@m.a2), line:12:1, endln:12:54
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:a2
     |vpiFullName:work@m.a2
     |vpiProperty:
@@ -829,7 +829,7 @@ design: (work@m)
   |vpiPort:
   \_port: (clock), line:1:16, endln:1:21
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
@@ -843,11 +843,11 @@ design: (work@m)
     |vpiTypedef:
     \_logic_typespec: , line:1:16, endln:1:16
     |vpiInstance:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
   |vpiProcess:
   \_always: , line:7:1, endln:8:35
     |vpiParent:
-    \_module: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiStmt:
     \_immediate_assert: (a1), line:8:1, endln:8:35
       |vpiParent:

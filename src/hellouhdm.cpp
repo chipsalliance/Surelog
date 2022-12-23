@@ -100,7 +100,7 @@ int main(int argc, const char** argv) {
     result += "Module List:\n";
     vpiHandle modItr = vpi_iterate(UHDM::uhdmallModules, the_design);
     while (vpiHandle obj_h = vpi_scan(modItr)) {
-      if (vpi_get(vpiType, obj_h) != vpiModule) {
+      if (vpi_get(vpiType, obj_h) != vpiModuleInst) {
         result += "ERROR: this is not a module\n";
       }
       std::string defName;
@@ -171,16 +171,16 @@ int main(int argc, const char** argv) {
 
             // Recursive tree traversal
             margin = "  " + margin;
-            if (vpi_get(vpiType, obj_h) == vpiModule ||
+            if (vpi_get(vpiType, obj_h) == vpiModuleInst ||
                 vpi_get(vpiType, obj_h) == vpiGenScope) {
-              vpiHandle subItr = vpi_iterate(vpiModule, obj_h);
+              vpiHandle subItr = vpi_iterate(vpiModuleInst, obj_h);
               while (vpiHandle sub_h = vpi_scan(subItr)) {
                 res += inst_visit(sub_h, margin);
                 vpi_release_handle(sub_h);
               }
               vpi_release_handle(subItr);
             }
-            if (vpi_get(vpiType, obj_h) == vpiModule ||
+            if (vpi_get(vpiType, obj_h) == vpiModuleInst ||
                 vpi_get(vpiType, obj_h) == vpiGenScope) {
               vpiHandle subItr = vpi_iterate(vpiGenScopeArray, obj_h);
               while (vpiHandle sub_h = vpi_scan(subItr)) {

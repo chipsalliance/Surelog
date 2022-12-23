@@ -168,7 +168,7 @@ int_typespec                                           8
 int_var                                                1
 logic_net                                              3
 logic_typespec                                         2
-module                                                 8
+module_inst                                            8
 operation                                              1
 package                                                3
 packed_array_net                                       1
@@ -191,7 +191,7 @@ int_typespec                                           8
 int_var                                                1
 logic_net                                              3
 logic_typespec                                         2
-module                                                 8
+module_inst                                            8
 operation                                              1
 package                                                3
 packed_array_net                                       1
@@ -338,7 +338,7 @@ design: (work@dut)
   |vpiDefName:pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -346,20 +346,20 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.sel), line:9:22, endln:9:25
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiName:sel
     |vpiFullName:work@dut.sel
   |vpiNet:
   \_logic_net: (work@dut.struct_array), line:10:32, endln:10:44
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiName:struct_array
     |vpiFullName:work@dut.struct_array
     |vpiNetType:1
   |vpiPort:
   \_port: (sel), line:9:22, endln:9:25
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiName:sel
     |vpiDirection:1
     |vpiLowConn:
@@ -370,7 +370,7 @@ design: (work@dut)
     \_int_typespec: , line:9:18, endln:9:21
       |vpiSigned:1
 |uhdmallModules:
-\_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
+\_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@mod
@@ -378,14 +378,14 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@mod.struct_i), line:6:30, endln:6:38
     |vpiParent:
-    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
+    \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
     |vpiName:struct_i
     |vpiFullName:work@mod.struct_i
     |vpiNetType:1
   |vpiPort:
   \_port: (struct_i), line:6:30, endln:6:38
     |vpiParent:
-    \_module: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
+    \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
     |vpiName:struct_i
     |vpiDirection:1
     |vpiLowConn:
@@ -395,12 +395,12 @@ design: (work@dut)
     |vpiTypedef:
     \_struct_typespec: (pkg::Struct), line:3:12, endln:3:18
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
   |vpiName:work@dut
   |vpiVariables:
   \_int_var: (work@dut.sel), line:9:22, endln:9:25
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiTypespec:
     \_int_typespec: , line:9:18, endln:9:21
       |vpiSigned:1
@@ -413,7 +413,7 @@ design: (work@dut)
   |vpiNet:
   \_packed_array_net: (work@dut.struct_array), line:10:32, endln:10:44
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiName:struct_array
     |vpiFullName:work@dut.struct_array
     |vpiNetType:1
@@ -444,7 +444,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (sel), line:9:22, endln:9:25
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiName:sel
     |vpiDirection:1
     |vpiLowConn:
@@ -459,11 +459,11 @@ design: (work@dut)
     \_int_typespec: , line:9:18, endln:9:21
       |vpiSigned:1
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
-  |vpiModule:
-  \_module: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+  |vpiModuleInst:
+  \_module_inst: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiName:m
     |vpiFullName:work@dut.m
     |vpiDefName:work@mod
@@ -472,18 +472,18 @@ design: (work@dut)
     |vpiNet:
     \_struct_net: (work@dut.m.struct_i), line:6:30, endln:6:38
       |vpiParent:
-      \_module: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
+      \_module_inst: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
       |vpiTypespec:
       \_struct_typespec: (pkg::Struct), line:3:12, endln:3:18
       |vpiName:struct_i
       |vpiFullName:work@dut.m.struct_i
       |vpiNetType:1
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiPort:
     \_port: (struct_i), line:6:30, endln:6:38
       |vpiParent:
-      \_module: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
+      \_module_inst: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
       |vpiName:struct_i
       |vpiDirection:1
       |vpiHighConn:
@@ -519,7 +519,7 @@ design: (work@dut)
       |vpiTypedef:
       \_struct_typespec: (pkg::Struct), line:3:12, endln:3:18
       |vpiInstance:
-      \_module: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
+      \_module_inst: work@mod (work@dut.m), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:12:4, endln:12:40
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

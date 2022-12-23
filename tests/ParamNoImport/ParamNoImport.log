@@ -144,7 +144,7 @@ constant                                              25
 design                                                 1
 int_typespec                                           1
 logic_typespec                                         7
-module                                                 7
+module_inst                                            7
 operation                                              9
 package                                                3
 param_assign                                           6
@@ -163,7 +163,7 @@ constant                                              25
 design                                                 1
 int_typespec                                           1
 logic_typespec                                         7
-module                                                 7
+module_inst                                            7
 operation                                              9
 package                                                3
 param_assign                                           6
@@ -347,27 +347,27 @@ design: (work@dut)
   |vpiDefName:pkg
   |vpiTop:1
 |uhdmallModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:1:1, endln:3:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.PWR_AST_RSP), line:1:26, endln:1:37
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:1:1, endln:3:10
     |BIN:0
     |vpiName:PWR_AST_RSP
     |vpiFullName:work@test.PWR_AST_RSP
   |vpiParamAssign:
   \_param_assign: , line:1:26, endln:1:42
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:1:40, endln:1:42
       |vpiDecompile:'0
@@ -378,28 +378,28 @@ design: (work@dut)
     \_parameter: (work@test.PWR_AST_RSP), line:1:26, endln:1:37
   |vpiDefName:work@test
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:16:1, endln:16:52
+  |vpiModuleInst:
+  \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:16:1, endln:16:52
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
     |vpiName:t
     |vpiFullName:work@dut.t
     |vpiParameter:
     \_parameter: (work@dut.t.PWR_AST_RSP), line:1:26, endln:1:37
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:16:1, endln:16:52
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:16:1, endln:16:52
       |BIN:0
       |vpiName:PWR_AST_RSP
       |vpiFullName:work@dut.t.PWR_AST_RSP
     |vpiParamAssign:
     \_param_assign: , line:1:26, endln:1:42
       |vpiParent:
-      \_module: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:16:1, endln:16:52
+      \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:16:1, endln:16:52
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:9:47, endln:11:2
@@ -464,7 +464,7 @@ design: (work@dut)
     |vpiDefFile:${SURELOG_DIR}/tests/ParamNoImport/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:14:1, endln:18:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

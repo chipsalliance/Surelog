@@ -116,7 +116,7 @@ constant                                              16
 design                                                 1
 int_typespec                                           2
 logic_typespec                                         2
-module                                                 7
+module_inst                                            7
 operation                                              2
 param_assign                                           4
 parameter                                              4
@@ -130,7 +130,7 @@ constant                                              16
 design                                                 1
 int_typespec                                           2
 logic_typespec                                         2
-module                                                 7
+module_inst                                            7
 operation                                              2
 param_assign                                           4
 parameter                                              4
@@ -150,14 +150,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
+\_module_inst: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@prim_flop
   |vpiParameter:
   \_parameter: (work@prim_flop.Width), line:8:18, endln:8:23
     |vpiParent:
-    \_module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
+    \_module_inst: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |UINT:1
     |vpiTypespec:
     \_int_typespec: , line:8:14, endln:8:17
@@ -170,7 +170,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
     |vpiParent:
-    \_module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
+    \_module_inst: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:9:14, endln:9:31
       |vpiParent:
@@ -210,7 +210,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:18, endln:8:27
     |vpiParent:
-    \_module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
+    \_module_inst: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |vpiRhs:
     \_constant: , line:8:26, endln:8:27
       |vpiDecompile:1
@@ -224,7 +224,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:9:32, endln:9:50
     |vpiParent:
-    \_module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
+    \_module_inst: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |vpiRhs:
     \_ref_obj: (Width), line:9:45, endln:9:50
       |vpiName:Width
@@ -232,27 +232,27 @@ design: (work@top)
     \_parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
   |vpiDefName:work@prim_flop
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
+  |vpiModuleInst:
+  \_module_inst: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
     |vpiName:u_prim_flop
     |vpiFullName:work@top.u_prim_flop
     |vpiParameter:
     \_parameter: (work@top.u_prim_flop.Width), line:8:18, endln:8:23
       |vpiParent:
-      \_module: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
+      \_module_inst: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
       |UINT:1
       |vpiTypespec:
       \_int_typespec: , line:8:14, endln:8:17
@@ -265,7 +265,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.u_prim_flop.ResetValue), line:9:32, endln:9:42
       |vpiParent:
-      \_module: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
+      \_module_inst: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
       |vpiTypespec:
       \_logic_typespec: , line:9:14, endln:9:31
         |vpiParent:
@@ -308,7 +308,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:8:18, endln:8:27
       |vpiParent:
-      \_module: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
+      \_module_inst: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:26, endln:8:27
@@ -323,7 +323,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:9:32, endln:9:50
       |vpiParent:
-      \_module: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
+      \_module_inst: work@prim_flop (work@top.u_prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:2:4, endln:4:20
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:45, endln:9:50
@@ -339,7 +339,7 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv
     |vpiDefLineNo:7
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

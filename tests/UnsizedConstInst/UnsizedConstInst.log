@@ -169,7 +169,7 @@ int_typespec                                           3
 logic_net                                              2
 logic_typespec                                         2
 logic_var                                              2
-module                                                10
+module_inst                                           10
 operation                                              3
 param_assign                                           3
 parameter                                              3
@@ -189,7 +189,7 @@ int_typespec                                           3
 logic_net                                              2
 logic_typespec                                         2
 logic_var                                              2
-module                                                10
+module_inst                                           10
 operation                                              5
 param_assign                                           3
 parameter                                              3
@@ -210,14 +210,14 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
+\_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@bottom
   |vpiParameter:
   \_parameter: (work@bottom.P), line:2:13, endln:2:14
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
+    \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -226,7 +226,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:2:13, endln:2:18
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
+    \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
     |vpiRhs:
     \_constant: , line:2:17, endln:2:18
       |vpiDecompile:0
@@ -241,14 +241,14 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@bottom.product_exponent), line:3:9, endln:3:25
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
+    \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
     |vpiName:product_exponent
     |vpiFullName:work@bottom.product_exponent
     |vpiNetType:36
   |vpiContAssign:
   \_cont_assign: , line:5:10, endln:5:41
     |vpiParent:
-    \_module: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
+    \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
     |vpiRhs:
     \_operation: , line:5:14, endln:5:41
       |vpiParent:
@@ -290,27 +290,27 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (p)
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
+  |vpiModuleInst:
+  \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
     |vpiName:u1
     |vpiFullName:work@top.u1
     |vpiVariables:
     \_array_var: (work@top.u1.product_exponent), line:3:9, endln:3:31
       |vpiParent:
-      \_module: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
+      \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
       |vpiSize:11
       |vpiTypespec:
       \_array_typespec: 
@@ -347,7 +347,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.u1.P), line:2:13, endln:2:14
       |vpiParent:
-      \_module: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
+      \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
       |UINT:0
       |vpiTypespec:
       \_int_typespec: 
@@ -358,7 +358,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:13, endln:2:18
       |vpiParent:
-      \_module: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
+      \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:17, endln:2:18
@@ -378,11 +378,11 @@ design: (work@top)
       |vpiName:p
       |vpiNetType:1
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
     |vpiContAssign:
     \_cont_assign: , line:5:10, endln:5:41
       |vpiParent:
-      \_module: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
+      \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
       |vpiRhs:
       \_operation: , line:5:14, endln:5:41
         |vpiParent:
@@ -430,16 +430,16 @@ design: (work@top)
         |vpiFullName:work@top.u1.p
         |vpiActual:
         \_logic_net: (p)
-  |vpiModule:
-  \_module: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
+  |vpiModuleInst:
+  \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
     |vpiName:u2
     |vpiFullName:work@top.u2
     |vpiVariables:
     \_array_var: (work@top.u2.product_exponent), line:3:9, endln:3:31
       |vpiParent:
-      \_module: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
+      \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
       |vpiSize:11
       |vpiTypespec:
       \_array_typespec: 
@@ -476,7 +476,7 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.u2.P), line:2:13, endln:2:14
       |vpiParent:
-      \_module: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
+      \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
       |UINT:0
       |vpiTypespec:
       \_int_typespec: 
@@ -487,7 +487,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:2:13, endln:2:18
       |vpiParent:
-      \_module: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
+      \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:17, endln:2:18
@@ -503,11 +503,11 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
     |vpiContAssign:
     \_cont_assign: , line:5:10, endln:5:41
       |vpiParent:
-      \_module: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
+      \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
       |vpiRhs:
       \_operation: , line:5:14, endln:5:41
         |vpiParent:

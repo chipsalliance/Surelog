@@ -141,7 +141,7 @@ gen_scope                                              4
 gen_scope_array                                        4
 int_typespec                                           7
 logic_net                                              2
-module                                                 7
+module_inst                                            7
 operation                                              2
 param_assign                                           4
 parameter                                              4
@@ -156,7 +156,7 @@ gen_scope                                              6
 gen_scope_array                                        6
 int_typespec                                           7
 logic_net                                              2
-module                                                 9
+module_inst                                            9
 operation                                              2
 param_assign                                           4
 parameter                                              4
@@ -175,13 +175,13 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:4:1, endln:5:10
+\_module_inst: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:4:1, endln:5:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@test
@@ -239,7 +239,7 @@ design: (work@test)
   |vpiLhs:
   \_parameter: (foo2), line:2:15, endln:2:19
 |uhdmtopModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
@@ -255,7 +255,7 @@ design: (work@test)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
     |vpiName:genblk1
     |vpiFullName:work@test.genblk1
     |vpiGenScope:
@@ -263,8 +263,8 @@ design: (work@test)
       |vpiParent:
       \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4
       |vpiFullName:work@test.genblk1
-      |vpiModule:
-      \_module: work@GOOD (work@test.genblk1.good1), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:11:9, endln:11:22
+      |vpiModuleInst:
+      \_module_inst: work@GOOD (work@test.genblk1.good1), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:11:9, endln:11:22
         |vpiParent:
         \_gen_scope: (work@test.genblk1)
         |vpiName:good1
@@ -275,7 +275,7 @@ design: (work@test)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.genblk2), line:15:1, endln:17:4
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
     |vpiName:genblk2
     |vpiFullName:work@test.genblk2
     |vpiGenScope:
@@ -283,8 +283,8 @@ design: (work@test)
       |vpiParent:
       \_gen_scope_array: (work@test.genblk2), line:15:1, endln:17:4
       |vpiFullName:work@test.genblk2
-      |vpiModule:
-      \_module: work@GOOD (work@test.genblk2.good2), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:16:9, endln:16:22
+      |vpiModuleInst:
+      \_module_inst: work@GOOD (work@test.genblk2.good2), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:16:9, endln:16:22
         |vpiParent:
         \_gen_scope: (work@test.genblk2)
         |vpiName:good2

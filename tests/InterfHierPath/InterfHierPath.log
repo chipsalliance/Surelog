@@ -113,11 +113,11 @@ constant                                              12
 cont_assign                                            1
 design                                                 1
 hier_path                                              1
-interface                                              3
+interface_inst                                         3
 logic_net                                              3
 logic_typespec                                         4
 logic_var                                              1
-module                                                 5
+module_inst                                            5
 port                                                   2
 range                                                  6
 ref_obj                                                5
@@ -129,11 +129,11 @@ constant                                              12
 cont_assign                                            2
 design                                                 1
 hier_path                                              2
-interface                                              3
+interface_inst                                         3
 logic_net                                              3
 logic_typespec                                         4
 logic_var                                              1
-module                                                 5
+module_inst                                            5
 port                                                   3
 range                                                  6
 ref_obj                                                9
@@ -151,7 +151,7 @@ design: (work@or_ex)
 |vpiElaborated:1
 |vpiName:work@or_ex
 |uhdmallInterfaces:
-\_interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
+\_interface_inst: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
   |vpiParent:
   \_design: (work@or_ex)
   |vpiFullName:work@logic_gate_if
@@ -159,12 +159,12 @@ design: (work@or_ex)
   |vpiNet:
   \_logic_net: (work@logic_gate_if.a), line:3:12, endln:3:13
     |vpiParent:
-    \_interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
+    \_interface_inst: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
     |vpiName:a
     |vpiFullName:work@logic_gate_if.a
     |vpiNetType:36
 |uhdmallModules:
-\_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+\_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
   |vpiParent:
   \_design: (work@or_ex)
   |vpiFullName:work@or_ex
@@ -172,14 +172,14 @@ design: (work@or_ex)
   |vpiNet:
   \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
     |vpiParent:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiName:a
     |vpiFullName:work@or_ex.a
     |vpiNetType:36
   |vpiPort:
   \_port: (a), line:9:22, endln:9:23
     |vpiParent:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -209,7 +209,7 @@ design: (work@or_ex)
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:18
     |vpiParent:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiRhs:
     \_ref_obj: (work@or_ex.a), line:14:17, endln:14:18
       |vpiParent:
@@ -232,14 +232,14 @@ design: (work@or_ex)
       \_ref_obj: (a)
         |vpiName:a
 |uhdmtopModules:
-\_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+\_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
   |vpiName:work@or_ex
   |vpiDefName:work@or_ex
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
     |vpiParent:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiTypespec:
     \_logic_typespec: , line:9:11, endln:9:21
       |vpiRange:
@@ -267,7 +267,7 @@ design: (work@or_ex)
   |vpiPort:
   \_port: (a), line:9:22, endln:9:23
     |vpiParent:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -301,17 +301,17 @@ design: (work@or_ex)
           |UINT:0
           |vpiConstType:9
     |vpiInstance:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
-  |vpiInterface:
-  \_interface: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+  |vpiInterfaceInst:
+  \_interface_inst: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
     |vpiParent:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiName:lg
     |vpiFullName:work@or_ex.lg
     |vpiVariables:
     \_logic_var: (work@or_ex.lg.a), line:3:12, endln:3:13
       |vpiParent:
-      \_interface: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
+      \_interface_inst: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
       |vpiTypespec:
       \_logic_typespec: , line:3:1, endln:3:11
         |vpiRange:
@@ -357,11 +357,11 @@ design: (work@or_ex)
     |vpiDefFile:${SURELOG_DIR}/tests/InterfHierPath/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:18
     |vpiParent:
-    \_module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiRhs:
     \_ref_obj: (work@or_ex.a), line:14:17, endln:14:18
       |vpiParent:
@@ -381,7 +381,7 @@ design: (work@or_ex)
         \_hier_path: (lg.a), line:14:10, endln:14:14
         |vpiName:lg
         |vpiActual:
-        \_interface: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
+        \_interface_inst: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
       |vpiActual:
       \_ref_obj: (a)
         |vpiParent:

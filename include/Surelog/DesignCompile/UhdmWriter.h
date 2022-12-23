@@ -75,21 +75,21 @@ class UhdmWriter final {
                   ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap,
                   SignalMap& signalMap, ModuleInstance* instance = nullptr,
                   ModuleDefinition* mod = nullptr);
-  void writeModule(ModuleDefinition* mod, UHDM::module* m, UHDM::Serializer& s,
+  void writeModule(ModuleDefinition* mod, UHDM::module_inst* m, UHDM::Serializer& s,
                    ComponentMap& componentMap, ModPortMap& modPortMap,
                    ModuleInstance* instance = nullptr);
-  void writeInterface(ModuleDefinition* mod, UHDM::interface* m,
+  void writeInterface(ModuleDefinition* mod, UHDM::interface_inst* m,
                       UHDM::Serializer& s, ComponentMap& componentMap,
                       ModPortMap& modPortMap,
                       ModuleInstance* instance = nullptr);
   bool writeElabInterface(UHDM::Serializer& s, ModuleInstance* instance,
-                          UHDM::interface* m, ExprBuilder& exprBuilder);
+                          UHDM::interface_inst* m, ExprBuilder& exprBuilder);
   void writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                      UHDM::any* m, CompileDesign* compileDesign,
                      ComponentMap& componentMap, ModPortMap& modPortMap,
                      InstanceMap& instanceMap, ExprBuilder& exprBuilder);
   bool writeElabModule(UHDM::Serializer& s, ModuleInstance* instance,
-                       UHDM::module* m, ExprBuilder& exprBuilder);
+                       UHDM::module_inst* m, ExprBuilder& exprBuilder);
   bool writeElabProgram(UHDM::Serializer& s, ModuleInstance* instance,
                         UHDM::program* m);
   bool writeElabGenScope(UHDM::Serializer& s, ModuleInstance* instance,

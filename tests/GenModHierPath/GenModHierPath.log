@@ -134,7 +134,7 @@ hier_path                                              1
 int_typespec                                           1
 int_var                                                1
 logic_net                                              1
-module                                                 6
+module_inst                                            6
 operation                                              1
 range                                                  1
 ref_obj                                                3
@@ -154,7 +154,7 @@ hier_path                                              2
 int_typespec                                           1
 int_var                                                2
 logic_net                                              1
-module                                                 7
+module_inst                                            7
 operation                                              2
 range                                                  2
 ref_obj                                                6
@@ -173,7 +173,7 @@ design: (work@InitializedBlockRAM)
 |vpiElaborated:1
 |vpiName:work@InitializedBlockRAM
 |uhdmallModules:
-\_module: work@ForNarrowRequest (work@ForNarrowRequest), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:1:1, endln:5:10
+\_module_inst: work@ForNarrowRequest (work@ForNarrowRequest), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@InitializedBlockRAM)
   |vpiFullName:work@ForNarrowRequest
@@ -181,11 +181,11 @@ design: (work@InitializedBlockRAM)
   |vpiNet:
   \_logic_net: (work@ForNarrowRequest.array), line:3:7, endln:3:12
     |vpiParent:
-    \_module: work@ForNarrowRequest (work@ForNarrowRequest), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@ForNarrowRequest (work@ForNarrowRequest), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:1:1, endln:5:10
     |vpiName:array
     |vpiFullName:work@ForNarrowRequest.array
 |uhdmallModules:
-\_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+\_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
   |vpiParent:
   \_design: (work@InitializedBlockRAM)
   |vpiFullName:work@InitializedBlockRAM
@@ -193,13 +193,13 @@ design: (work@InitializedBlockRAM)
   |vpiTaskFunc:
   \_function: (work@InitializedBlockRAM.InitializeMemory), line:16:3, endln:18:14
     |vpiParent:
-    \_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
     |vpiName:InitializeMemory
     |vpiFullName:work@InitializedBlockRAM.InitializeMemory
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiParent:
-    \_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
     |vpiStmt:
     \_sys_func_call: ($readmemh), line:17:5, endln:17:30
       |vpiParent:
@@ -224,22 +224,22 @@ design: (work@InitializedBlockRAM)
           |vpiName:array
       |vpiName:$readmemh
     |vpiInstance:
-    \_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
 |uhdmtopModules:
-\_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+\_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
   |vpiName:work@InitializedBlockRAM
   |vpiDefName:work@InitializedBlockRAM
   |vpiTop:1
   |vpiTaskFunc:
   \_function: (work@InitializedBlockRAM.InitializeMemory), line:16:3, endln:18:14
     |vpiParent:
-    \_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
     |vpiName:InitializeMemory
     |vpiFullName:work@InitializedBlockRAM.InitializeMemory
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiParent:
-    \_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
     |vpiStmt:
     \_sys_func_call: ($readmemh), line:17:5, endln:17:30
       |vpiParent:
@@ -262,7 +262,7 @@ design: (work@InitializedBlockRAM)
           \_hier_path: (body.ram.array), line:17:15, endln:17:29
           |vpiName:ram
           |vpiActual:
-          \_module: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
+          \_module_inst: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
         |vpiActual:
         \_ref_obj: (array), line:17:24, endln:17:29
           |vpiParent:
@@ -272,12 +272,12 @@ design: (work@InitializedBlockRAM)
           \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:16
       |vpiName:$readmemh
     |vpiInstance:
-    \_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@InitializedBlockRAM.body), line:11:5, endln:13:8
     |vpiParent:
-    \_module: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
     |vpiName:body
     |vpiFullName:work@InitializedBlockRAM.body
     |vpiGenScope:
@@ -285,8 +285,8 @@ design: (work@InitializedBlockRAM)
       |vpiParent:
       \_gen_scope_array: (work@InitializedBlockRAM.body), line:11:5, endln:13:8
       |vpiFullName:work@InitializedBlockRAM.body
-      |vpiModule:
-      \_module: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
+      |vpiModuleInst:
+      \_module_inst: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
         |vpiParent:
         \_gen_scope: (work@InitializedBlockRAM.body)
         |vpiName:ram
@@ -294,7 +294,7 @@ design: (work@InitializedBlockRAM)
         |vpiVariables:
         \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:16
           |vpiParent:
-          \_module: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
+          \_module_inst: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
           |vpiSize:10
           |vpiTypespec:
           \_array_typespec: 
@@ -303,7 +303,7 @@ design: (work@InitializedBlockRAM)
           |vpiRandType:1
           |vpiVisibility:1
           |vpiInstance:
-          \_module: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
+          \_module_inst: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
           |vpiArrayType:1
           |vpiRange:
           \_range: , line:3:13, endln:3:15

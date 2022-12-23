@@ -746,7 +746,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
-    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule();
+    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
     m_exprEvalPlaceHolder->Param_assigns(
         compileDesign->getSerializer().MakeParam_assignVec());
   } else {
@@ -800,7 +800,7 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
-    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule();
+    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
     m_exprEvalPlaceHolder->Param_assigns(
         compileDesign->getSerializer().MakeParam_assignVec());
   } else {
@@ -3817,7 +3817,7 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
-    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule();
+    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
     m_exprEvalPlaceHolder->Param_assigns(
         compileDesign->getSerializer().MakeParam_assignVec());
   } else {

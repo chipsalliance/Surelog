@@ -123,11 +123,11 @@ constant                                               3
 cont_assign                                            2
 design                                                 1
 initial                                                1
-interface                                              3
+interface_inst                                         3
 logic_net                                              2
 logic_typespec                                         1
 logic_var                                              1
-module                                                 3
+module_inst                                            3
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -141,11 +141,11 @@ constant                                               3
 cont_assign                                            2
 design                                                 1
 initial                                                1
-interface                                              3
+interface_inst                                         3
 logic_net                                              2
 logic_typespec                                         1
 logic_var                                              1
-module                                                 3
+module_inst                                            3
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceProcess/slpp_all/surelog.uhdm ...
@@ -161,7 +161,7 @@ design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallInterfaces:
-\_interface: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
+\_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@sw_test_status_if
@@ -169,20 +169,20 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@sw_test_status_if.data_valid), line:2:9, endln:2:19
     |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
+    \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
     |vpiName:data_valid
     |vpiFullName:work@sw_test_status_if.data_valid
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@sw_test_status_if.sw_test_done), line:5:7, endln:5:19
     |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
+    \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
     |vpiName:sw_test_done
     |vpiFullName:work@sw_test_status_if.sw_test_done
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:27
     |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
+    \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
     |vpiRhs:
     \_constant: , line:3:23, endln:3:27
       |vpiParent:
@@ -202,7 +202,7 @@ design: (work@top)
   |vpiProcess:
   \_initial: , line:6:3, endln:8:6
     |vpiParent:
-    \_interface: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
+    \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
     |vpiStmt:
     \_begin: (work@sw_test_status_if), line:6:11, endln:8:6
       |vpiParent:
@@ -231,27 +231,27 @@ design: (work@top)
           |vpiActual:
           \_bit_var: (work@top.u_sw.sw_test_done), line:5:7, endln:5:19
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiInterface:
-  \_interface: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
+  |vpiInterfaceInst:
+  \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
     |vpiName:u_sw
     |vpiFullName:work@top.u_sw
     |vpiVariables:
     \_logic_var: (work@top.u_sw.data_valid), line:2:9, endln:2:19
       |vpiParent:
-      \_interface: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
+      \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
       |vpiTypespec:
       \_logic_typespec: , line:2:3, endln:2:8
       |vpiName:data_valid
@@ -260,7 +260,7 @@ design: (work@top)
     |vpiVariables:
     \_bit_var: (work@top.u_sw.sw_test_done), line:5:7, endln:5:19
       |vpiParent:
-      \_interface: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
+      \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
       |vpiTypespec:
       \_bit_typespec: , line:5:3, endln:5:6
         |vpiSigned:1
@@ -271,7 +271,7 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
     |vpiContAssign:
     \_cont_assign: , line:3:10, endln:3:27
       |vpiRhs:

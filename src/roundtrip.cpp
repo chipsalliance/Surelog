@@ -343,17 +343,17 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     }
   }
 
-  inline static bool isModuleDefinition(const UHDM::module *const module) {
-    return ((module->VpiParent() == nullptr) ||
-            (module->VpiParent()->UhdmType() != UHDM::uhdmmodule)) &&
-           module->VpiName().empty();
+  inline static bool isModuleDefinition(const UHDM::module_inst *const mdl) {
+    return ((mdl->VpiParent() == nullptr) ||
+            (mdl->VpiParent()->UhdmType() != UHDM::uhdmmodule_inst)) &&
+           mdl->VpiName().empty();
   }
 
   inline static bool isInterfaceDefinition(
-      const UHDM::interface *const module) {
-    return ((module->VpiParent() == nullptr) ||
-            (module->VpiParent()->UhdmType() != UHDM::uhdminterface)) &&
-           module->VpiName().empty();
+      const UHDM::interface_inst *const mdl) {
+    return ((mdl->VpiParent() == nullptr) ||
+            (mdl->VpiParent()->UhdmType() != UHDM::uhdminterface_inst)) &&
+           mdl->VpiName().empty();
   }
 
   inline bool isWalkingModuleDefinition() const {
@@ -361,8 +361,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
                                              rend = callstack.rend();
          it != rend; ++it) {
       const UHDM::any *const any = *it;
-      if (any->UhdmType() == UHDM::uhdmmodule) {
-        return isModuleDefinition(static_cast<const UHDM::module *>(any));
+      if (any->UhdmType() == UHDM::uhdmmodule_inst) {
+        return isModuleDefinition(static_cast<const UHDM::module_inst *>(any));
       }
     }
     return false;
@@ -671,8 +671,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         return;
       }
 
-      if ((parent->UhdmType() == UHDM::uhdmmodule) &&
-          static_cast<const UHDM::module *>(parent)->VpiTop()) {
+      if ((parent->UhdmType() == UHDM::uhdmmodule_inst) &&
+          static_cast<const UHDM::module_inst *>(parent)->VpiTop()) {
         visited.insert(object);
         return;
       }
@@ -2283,7 +2283,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     if (visited.find(object) != visited.end()) return;
 
     const UHDM::any *const parent = object->VpiParent();
-    if ((parent == nullptr) || (parent->UhdmType() != UHDM::uhdmmodule)) return;
+    if ((parent == nullptr) || (parent->UhdmType() != UHDM::uhdmmodule_inst))
+      return;
 
     constexpr std::string_view keyword1 = "unnamed_clocking_block";
     constexpr std::string_view keyword2 = "default";
@@ -2296,12 +2297,12 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::filesystem::path &filepath = object->VpiFile();
     const std::string name = formatName(object->VpiName());
 
-    const UHDM::module *const module =
-        static_cast<const UHDM::module *>(parent);
+    const UHDM::module_inst *const mdl =
+        static_cast<const UHDM::module_inst *>(parent);
     std::string text;
-    if (module->Global_clocking() == object) {
+    if (mdl->Global_clocking() == object) {
       text.append(keyword3).append(1, kOverwriteMarker);
-    } else if (module->Default_clocking() == object) {
+    } else if (mdl->Default_clocking() == object) {
       text.append(keyword2).append(1, kOverwriteMarker);
     }
     text.append(keyword4);
@@ -2687,7 +2688,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     enterVariables_(object);
   }
 
-  void enterInterface(const UHDM::interface *const object) final {
+  void enterInterface_inst(const UHDM::interface_inst *const object) final {
     if (visited.find(object) != visited.end()) return;
 
     const std::filesystem::path &filepath = object->VpiFile();
@@ -2757,7 +2758,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
            object->VpiEndColumnNo() - keyword2.length(), keyword2);
   }
 
-  void enterModule(const UHDM::module *const object) final {
+  void enterModule_inst(const UHDM::module_inst *const object) final {
     if (visited.find(object) != visited.end()) return;
 
     const std::filesystem::path &filepath = object->VpiFile();
@@ -3396,7 +3397,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
                        const UHDM::VectorOfclass_defn &objects) final {}
 
   void enterAllInterfaces(const UHDM::any *const object,
-                          const UHDM::VectorOfinterface &objects) final {}
+                          const UHDM::VectorOfinterface_inst &objects) final {}
 
   void enterAllUdps(const UHDM::any *const object,
                     const UHDM::VectorOfudp_defn &objects) final {}
@@ -3405,8 +3406,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
                         const UHDM::VectorOfprogram &objects) final {}
 
   void enterAllModules(const UHDM::any *const object,
-                       const UHDM::VectorOfmodule &objects) final {
-    for (UHDM::VectorOfmodule::const_reference module : objects) {
+                       const UHDM::VectorOfmodule_inst &objects) final {
+    for (UHDM::VectorOfmodule_inst::const_reference module : objects) {
       module->VpiTop(false);
     }
   }
@@ -3427,8 +3428,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
                           const UHDM::VectorOfparam_assign &objects) final {}
 
   void enterTopModules(const UHDM::any *const object,
-                       const UHDM::VectorOfmodule &objects) final {
-    for (UHDM::VectorOfmodule::const_reference module : objects) {
+                       const UHDM::VectorOfmodule_inst &objects) final {
+    for (UHDM::VectorOfmodule_inst::const_reference module : objects) {
       module->VpiTop(true);
       visited.insert(module);
     }

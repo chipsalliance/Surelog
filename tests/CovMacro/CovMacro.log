@@ -726,7 +726,7 @@ int_var                                                5
 io_decl                                               11
 logic_net                                              2
 logic_var                                              1
-module                                                 5
+module_inst                                            5
 package                                                2
 real_typespec                                          1
 real_var                                               1
@@ -755,7 +755,7 @@ int_var                                                5
 io_decl                                               22
 logic_net                                              2
 logic_var                                              1
-module                                                 5
+module_inst                                            5
 package                                                2
 real_typespec                                          1
 real_var                                               1
@@ -1251,13 +1251,13 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@DUT (work@DUT), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:2:1, endln:3:10
+\_module_inst: work@DUT (work@DUT), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:2:1, endln:3:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@DUT
   |vpiDefName:work@DUT
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -1265,19 +1265,19 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.i), line:6:18, endln:6:19
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:i
     |vpiFullName:work@top.i
   |vpiNet:
   \_logic_net: (work@top.r), line:7:10, endln:7:11
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:r
     |vpiFullName:work@top.r
   |vpiProcess:
   \_initial: , line:11:5, endln:24:8
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiStmt:
     \_begin: (work@top), line:11:13, endln:24:8
       |vpiParent:
@@ -1765,12 +1765,12 @@ design: (work@top)
           |vpiActual:
           \_real_var: (work@top.r), line:7:10, endln:7:11
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
   |vpiName:work@top
   |vpiVariables:
   \_int_var: (work@top.i), line:6:18, endln:6:19
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiTypespec:
     \_int_typespec: , line:6:5, endln:6:17
     |vpiName:i
@@ -1779,7 +1779,7 @@ design: (work@top)
   |vpiVariables:
   \_real_var: (work@top.r), line:7:10, endln:7:11
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiTypespec:
     \_real_typespec: , line:7:5, endln:7:9
     |vpiName:r
@@ -1791,7 +1791,7 @@ design: (work@top)
   |vpiProcess:
   \_initial: , line:11:5, endln:24:8
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiStmt:
     \_begin: (work@top), line:11:13, endln:24:8
       |vpiParent:
@@ -1830,7 +1830,7 @@ design: (work@top)
               \_hier_path: (work@top.$root.top), line:12:42, endln:12:51
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+              \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
           |vpiName:$coverage_control
         |vpiLhs:
         \_ref_obj: (work@top.i), line:12:9, endln:12:10
@@ -1900,14 +1900,14 @@ design: (work@top)
               \_hier_path: (work@top.$root.top.unit1), line:14:42, endln:14:57
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+              \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit1)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit1), line:14:42, endln:14:57
               |vpiName:unit1
               |vpiActual:
-              \_module: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
+              \_module_inst: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
           |vpiName:$coverage_control
         |vpiLhs:
         \_ref_obj: (work@top.i), line:14:9, endln:14:10
@@ -1950,14 +1950,14 @@ design: (work@top)
               \_hier_path: (work@top.$root.top.unit2), line:15:43, endln:15:58
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+              \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit2)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit2), line:15:43, endln:15:58
               |vpiName:unit2
               |vpiActual:
-              \_module: work@DUT (work@top.unit2), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:9:5, endln:9:17
+              \_module_inst: work@DUT (work@top.unit2), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:9:5, endln:9:17
           |vpiName:$coverage_control
         |vpiLhs:
         \_ref_obj: (work@top.i), line:15:9, endln:15:10
@@ -2050,14 +2050,14 @@ design: (work@top)
               \_hier_path: (work@top.$root.top.unit1), line:18:35, endln:18:50
               |vpiName:top
               |vpiActual:
-              \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+              \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
             |vpiActual:
             \_ref_obj: (unit1)
               |vpiParent:
               \_hier_path: (work@top.$root.top.unit1), line:18:35, endln:18:50
               |vpiName:unit1
               |vpiActual:
-              \_module: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
+              \_module_inst: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
           |vpiName:$coverage_get
         |vpiLhs:
         \_ref_obj: (work@top.r), line:18:9, endln:18:10
@@ -2146,28 +2146,28 @@ design: (work@top)
           |vpiFullName:work@top.r
           |vpiActual:
           \_real_var: (work@top.r), line:7:10, endln:7:11
-  |vpiModule:
-  \_module: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
+  |vpiModuleInst:
+  \_module_inst: work@DUT (work@top.unit1), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:8:5, endln:8:17
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:unit1
     |vpiFullName:work@top.unit1
     |vpiDefName:work@DUT
     |vpiDefFile:${SURELOG_DIR}/tests/CovMacro/dut.sv
     |vpiDefLineNo:2
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
-  |vpiModule:
-  \_module: work@DUT (work@top.unit2), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:9:5, endln:9:17
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+  |vpiModuleInst:
+  \_module_inst: work@DUT (work@top.unit2), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:9:5, endln:9:17
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
     |vpiName:unit2
     |vpiFullName:work@top.unit2
     |vpiDefName:work@DUT
     |vpiDefFile:${SURELOG_DIR}/tests/CovMacro/dut.sv
     |vpiDefLineNo:2
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CovMacro/dut.sv, line:5:1, endln:25:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

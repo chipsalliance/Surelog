@@ -136,7 +136,7 @@ int_typespec                                           1
 logic_net                                              3
 logic_typespec                                         4
 logic_var                                              1
-module                                                 7
+module_inst                                            7
 operation                                              2
 parameter                                              1
 port                                                   2
@@ -155,7 +155,7 @@ int_typespec                                           1
 logic_net                                              3
 logic_typespec                                         4
 logic_var                                              1
-module                                                 8
+module_inst                                            8
 operation                                              2
 parameter                                              1
 port                                                   5
@@ -175,7 +175,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -183,12 +183,12 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.a), line:2:16, endln:2:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:36
 |uhdmallModules:
-\_module: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
+\_module_inst: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@ibex_counter
@@ -196,14 +196,14 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@ibex_counter.b), line:12:33, endln:12:34
     |vpiParent:
-    \_module: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
+    \_module_inst: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
     |vpiName:b
     |vpiFullName:work@ibex_counter.b
     |vpiNetType:36
   |vpiPort:
   \_port: (b), line:12:33, endln:12:34
     |vpiParent:
-    \_module: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
+    \_module_inst: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -213,12 +213,12 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:12:27, endln:12:32
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
   |vpiName:work@dut
   |vpiVariables:
   \_logic_var: (work@dut.a), line:2:16, endln:2:17
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:2:4, endln:2:15
       |vpiRange:
@@ -266,7 +266,7 @@ design: (work@dut)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.gen_modules[0]), line:4:34, endln:8:7
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
     |vpiName:gen_modules[0]
     |vpiFullName:work@dut.gen_modules[0]
     |vpiGenScope:
@@ -284,8 +284,8 @@ design: (work@dut)
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.gen_modules[0].i
-      |vpiModule:
-      \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
+      |vpiModuleInst:
+      \_module_inst: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
         |vpiParent:
         \_gen_scope: (work@dut.gen_modules[0])
         |vpiName:module_in_genscope
@@ -296,7 +296,7 @@ design: (work@dut)
         |vpiNet:
         \_logic_net: (work@dut.gen_modules[0].module_in_genscope.b), line:12:33, endln:12:34
           |vpiParent:
-          \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
+          \_module_inst: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
           |vpiTypespec:
           \_logic_typespec: , line:12:27, endln:12:32
           |vpiName:b
@@ -305,7 +305,7 @@ design: (work@dut)
         |vpiPort:
         \_port: (b), line:12:33, endln:12:34
           |vpiParent:
-          \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
+          \_module_inst: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
           |vpiName:b
           |vpiDirection:1
           |vpiHighConn:
@@ -341,7 +341,7 @@ design: (work@dut)
           |vpiTypedef:
           \_logic_typespec: , line:12:27, endln:12:32
           |vpiInstance:
-          \_module: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
+          \_module_inst: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -82,7 +82,7 @@ design                                                 1
 int_typespec                                           2
 logic_net                                              2
 logic_typespec                                         3
-module                                                 5
+module_inst                                            5
 operation                                              2
 port                                                   2
 ref_obj                                                2
@@ -95,7 +95,7 @@ design                                                 1
 int_typespec                                           2
 logic_net                                              2
 logic_typespec                                         3
-module                                                 5
+module_inst                                            5
 operation                                              2
 port                                                   3
 ref_obj                                                3
@@ -113,13 +113,13 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
 |uhdmallModules:
-\_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
+\_module_inst: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@prim_subreg
@@ -127,14 +127,14 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
     |vpiName:test
     |vpiFullName:work@prim_subreg.test
     |vpiNetType:36
   |vpiPort:
   \_port: (test), line:2:13, endln:2:17
     |vpiParent:
-    \_module: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
     |vpiName:test
     |vpiDirection:1
     |vpiLowConn:
@@ -144,15 +144,15 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:2:7, endln:2:12
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
+  |vpiModuleInst:
+  \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
     |vpiParent:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
     |vpiName:s
     |vpiFullName:work@dut.s
     |vpiDefName:work@prim_subreg
@@ -161,18 +161,18 @@ design: (work@dut)
     |vpiNet:
     \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
       |vpiParent:
-      \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
+      \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
       |vpiTypespec:
       \_logic_typespec: , line:2:7, endln:2:12
       |vpiName:test
       |vpiFullName:work@dut.s.test
       |vpiNetType:36
     |vpiInstance:
-    \_module: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
     |vpiPort:
     \_port: (test), line:2:13, endln:2:17
       |vpiParent:
-      \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
+      \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
       |vpiName:test
       |vpiDirection:1
       |vpiHighConn:
@@ -195,7 +195,7 @@ design: (work@dut)
       |vpiTypedef:
       \_logic_typespec: , line:2:7, endln:2:12
       |vpiInstance:
-      \_module: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
+      \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

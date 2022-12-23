@@ -65,7 +65,7 @@ int_typespec                                          15
 int_var                                                4
 io_decl                                               11
 logic_var                                              1
-module                                                16
+module_inst                                           16
 operation                                              3
 package                                                2
 param_assign                                           6
@@ -92,7 +92,7 @@ int_typespec                                          15
 int_var                                                4
 io_decl                                               22
 logic_var                                              1
-module                                                16
+module_inst                                           16
 operation                                              4
 package                                                2
 param_assign                                           6
@@ -588,14 +588,14 @@ design: (work@top)
       \_int_typespec: 
         |vpiSigned:1
 |uhdmallModules:
-\_module: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
+\_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@assigner
   |vpiParameter:
   \_parameter: (work@assigner.invert), line:1:29, endln:1:35
     |vpiParent:
-    \_module: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
+    \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -604,7 +604,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:1:29, endln:1:39
     |vpiParent:
-    \_module: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
+    \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:1:38, endln:1:39
       |vpiDecompile:0
@@ -618,14 +618,14 @@ design: (work@top)
   |vpiDefName:work@assigner
   |vpiCellInstance:1
 |uhdmallModules:
-\_module: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/Cell/cell.v, line:8:1, endln:10:10
+\_module_inst: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/Cell/cell.v, line:8:1, endln:10:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@middleman
   |vpiParameter:
   \_parameter: (work@middleman.invert), line:8:30, endln:8:36
     |vpiParent:
-    \_module: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/Cell/cell.v, line:8:1, endln:10:10
+    \_module_inst: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/Cell/cell.v, line:8:1, endln:10:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: 
@@ -634,7 +634,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:8:30, endln:8:40
     |vpiParent:
-    \_module: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/Cell/cell.v, line:8:1, endln:10:10
+    \_module_inst: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/Cell/cell.v, line:8:1, endln:10:10
     |vpiRhs:
     \_constant: , line:8:39, endln:8:40
       |vpiDecompile:0
@@ -648,27 +648,27 @@ design: (work@top)
   |vpiDefName:work@middleman
   |vpiCellInstance:1
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
-  |vpiModule:
-  \_module: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
+  |vpiModuleInst:
+  \_module_inst: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
     |vpiName:mdl1
     |vpiFullName:work@top.mdl1
     |vpiParameter:
     \_parameter: (work@top.mdl1.invert), line:8:30, endln:8:36
       |vpiParent:
-      \_module: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
+      \_module_inst: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
       |UINT:0
       |vpiTypespec:
       \_int_typespec: 
@@ -679,7 +679,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:8:30, endln:8:40
       |vpiParent:
-      \_module: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
+      \_module_inst: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:39, endln:8:40
@@ -696,17 +696,17 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/Cell/cell.v
     |vpiDefLineNo:8
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
-    |vpiModule:
-    \_module: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
+    |vpiModuleInst:
+    \_module_inst: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
       |vpiParent:
-      \_module: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
+      \_module_inst: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
       |vpiName:asgn
       |vpiFullName:work@top.mdl1.asgn
       |vpiParameter:
       \_parameter: (work@top.mdl1.asgn.invert), line:1:29, endln:1:35
         |vpiParent:
-        \_module: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+        \_module_inst: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -717,7 +717,7 @@ design: (work@top)
       |vpiParamAssign:
       \_param_assign: , line:1:29, endln:1:39
         |vpiParent:
-        \_module: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+        \_module_inst: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:1:38, endln:1:39
@@ -734,11 +734,11 @@ design: (work@top)
       |vpiDefFile:${SURELOG_DIR}/tests/Cell/cell.v
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
+      \_module_inst: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
       |vpiGenScopeArray:
       \_gen_scope_array: (work@top.mdl1.asgn.genblk2), line:4:3, endln:5:23
         |vpiParent:
-        \_module: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+        \_module_inst: work@assigner (work@top.mdl1.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
         |vpiName:genblk2
         |vpiFullName:work@top.mdl1.asgn.genblk2
         |vpiGenScope:
@@ -767,16 +767,16 @@ design: (work@top)
               \_cont_assign: , line:5:12, endln:5:22
               |vpiName:out
               |vpiFullName:work@top.mdl1.asgn.genblk2.out
-  |vpiModule:
-  \_module: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
+  |vpiModuleInst:
+  \_module_inst: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
     |vpiName:mdl0
     |vpiFullName:work@top.mdl0
     |vpiParameter:
     \_parameter: (work@top.mdl0.invert), line:8:30, endln:8:36
       |vpiParent:
-      \_module: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
+      \_module_inst: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
       |UINT:0
       |vpiTypespec:
       \_int_typespec: 
@@ -787,7 +787,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:8:30, endln:8:40
       |vpiParent:
-      \_module: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
+      \_module_inst: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:39, endln:8:40
@@ -804,17 +804,17 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/Cell/cell.v
     |vpiDefLineNo:8
     |vpiInstance:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
-    |vpiModule:
-    \_module: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
+    |vpiModuleInst:
+    \_module_inst: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
       |vpiParent:
-      \_module: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
+      \_module_inst: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
       |vpiName:asgn
       |vpiFullName:work@top.mdl0.asgn
       |vpiParameter:
       \_parameter: (work@top.mdl0.asgn.invert), line:1:29, endln:1:35
         |vpiParent:
-        \_module: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+        \_module_inst: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -825,7 +825,7 @@ design: (work@top)
       |vpiParamAssign:
       \_param_assign: , line:1:29, endln:1:39
         |vpiParent:
-        \_module: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+        \_module_inst: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:1:38, endln:1:39
@@ -842,11 +842,11 @@ design: (work@top)
       |vpiDefFile:${SURELOG_DIR}/tests/Cell/cell.v
       |vpiDefLineNo:1
       |vpiInstance:
-      \_module: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
+      \_module_inst: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
       |vpiGenScopeArray:
       \_gen_scope_array: (work@top.mdl0.asgn.genblk1), line:2:3, endln:3:22
         |vpiParent:
-        \_module: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
+        \_module_inst: work@assigner (work@top.mdl0.asgn), file:${SURELOG_DIR}/tests/Cell/cell.v, line:9:4, endln:9:39
         |vpiName:genblk1
         |vpiFullName:work@top.mdl0.asgn.genblk1
         |vpiGenScope:

@@ -935,12 +935,12 @@ if_else                                                1
 initial                                                1
 int_typespec                                           9
 int_var                                                4
-interface                                              2
+interface_inst                                         2
 io_decl                                               15
 logic_net                                             26
 logic_typespec                                        24
 logic_var                                              1
-module                                                 9
+module_inst                                            9
 operation                                              4
 package                                                5
 port                                                  16
@@ -979,12 +979,12 @@ if_else                                                2
 initial                                                2
 int_typespec                                           9
 int_var                                                4
-interface                                              2
+interface_inst                                         2
 io_decl                                               26
 logic_net                                             26
 logic_typespec                                        24
 logic_var                                              1
-module                                                 9
+module_inst                                            9
 operation                                              8
 package                                                5
 port                                                  24
@@ -1522,7 +1522,7 @@ design: (work@foo)
     \_class_defn: (work@toto), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:42:23, endln:49:9
     |vpiName:class_attribute
 |uhdmallInterfaces:
-\_interface: work@itf (work@itf), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:52:22, endln:57:13
+\_interface_inst: work@itf (work@itf), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:52:22, endln:57:13
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@itf
@@ -1531,7 +1531,7 @@ design: (work@foo)
     |vpiName:test_interface
   |vpiDefName:work@itf
 |uhdmallInterfaces:
-\_interface: work@itf2 (work@itf2), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:54:25, endln:55:15
+\_interface_inst: work@itf2 (work@itf2), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:54:25, endln:55:15
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@itf2
@@ -1680,7 +1680,7 @@ design: (work@foo)
     |vpiSize:3
     |STRING:x 1 1 : 1
 |uhdmallModules:
-\_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+\_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@bar
@@ -1688,35 +1688,35 @@ design: (work@foo)
   |vpiNet:
   \_logic_net: (work@bar.clk), line:1:12, endln:1:15
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:clk
     |vpiFullName:work@bar.clk
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@bar.rst), line:1:17, endln:1:20
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:rst
     |vpiFullName:work@bar.rst
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@bar.inp), line:1:22, endln:1:25
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:inp
     |vpiFullName:work@bar.inp
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@bar.out), line:1:27, endln:1:30
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:out
     |vpiFullName:work@bar.out
     |vpiNetType:48
   |vpiPort:
   \_port: (clk), line:1:12, endln:1:15
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1728,7 +1728,7 @@ design: (work@foo)
   |vpiPort:
   \_port: (rst), line:1:17, endln:1:20
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:rst
     |vpiDirection:1
     |vpiLowConn:
@@ -1740,7 +1740,7 @@ design: (work@foo)
   |vpiPort:
   \_port: (inp), line:1:22, endln:1:25
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
@@ -1752,7 +1752,7 @@ design: (work@foo)
   |vpiPort:
   \_port: (out), line:1:27, endln:1:30
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -1764,7 +1764,7 @@ design: (work@foo)
   |vpiProcess:
   \_always: , line:7:3, endln:9:26
     |vpiParent:
-    \_module: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:1:1, endln:11:10
     |vpiStmt:
     \_event_control: , line:7:10, endln:7:24
       |vpiParent:
@@ -1843,7 +1843,7 @@ design: (work@foo)
             \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30
     |vpiAlwaysType:1
 |uhdmallModules:
-\_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+\_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@foo
@@ -1851,35 +1851,35 @@ design: (work@foo)
   |vpiNet:
   \_logic_net: (work@foo.clk), line:13:12, endln:13:15
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:clk
     |vpiFullName:work@foo.clk
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@foo.rst), line:13:17, endln:13:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:rst
     |vpiFullName:work@foo.rst
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@foo.inp), line:13:22, endln:13:25
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:inp
     |vpiFullName:work@foo.inp
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@foo.out), line:13:27, endln:13:30
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:out
     |vpiFullName:work@foo.out
     |vpiNetType:1
   |vpiPort:
   \_port: (clk), line:13:12, endln:13:15
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1891,7 +1891,7 @@ design: (work@foo)
   |vpiPort:
   \_port: (rst), line:13:17, endln:13:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:rst
     |vpiDirection:1
     |vpiLowConn:
@@ -1903,7 +1903,7 @@ design: (work@foo)
   |vpiPort:
   \_port: (inp), line:13:22, endln:13:25
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
@@ -1915,7 +1915,7 @@ design: (work@foo)
   |vpiPort:
   \_port: (out), line:13:27, endln:13:30
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -1927,7 +1927,7 @@ design: (work@foo)
   |vpiProcess:
   \_initial: , line:26:3, endln:37:6
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiStmt:
     \_begin: (work@foo), line:26:11, endln:37:6
       |vpiParent:
@@ -2059,7 +2059,7 @@ design: (work@foo)
   |vpiContAssign:
   \_cont_assign: , line:22:10, endln:22:62
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiRhs:
     \_operation: , line:22:18, endln:22:62
       |vpiParent:
@@ -2096,7 +2096,7 @@ design: (work@foo)
   |vpiContAssign:
   \_cont_assign: , line:24:10, endln:24:69
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiRhs:
     \_operation: , line:24:22, endln:24:69
       |vpiParent:
@@ -2131,7 +2131,7 @@ design: (work@foo)
       |vpiActual:
       \_logic_net: ($37)
 |uhdmallModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:32:1, endln:39:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:32:1, endln:39:10
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@top
@@ -2140,7 +2140,7 @@ design: (work@foo)
     |vpiName:mymoduleTop
   |vpiDefName:work@top
 |uhdmallModules:
-\_module: work@top::top2 (work@top::top2), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:35:3, endln:36:12
+\_module_inst: work@top::top2 (work@top::top2), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:35:3, endln:36:12
   |vpiParent:
   \_design: (work@foo)
   |vpiFullName:work@top::top2
@@ -2149,14 +2149,14 @@ design: (work@foo)
     |vpiName:mymoduleTop2
   |vpiDefName:work@top::top2
 |uhdmtopModules:
-\_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+\_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
   |vpiName:work@foo
   |vpiDefName:work@foo
   |vpiTop:1
   |vpiNet:
   \_logic_net: (work@foo.clk), line:13:12, endln:13:15
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiTypespec:
     \_logic_typespec: , line:14:10, endln:14:14
     |vpiName:clk
@@ -2165,7 +2165,7 @@ design: (work@foo)
   |vpiNet:
   \_logic_net: (work@foo.rst), line:13:17, endln:13:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiTypespec:
     \_logic_typespec: , line:15:10, endln:15:14
     |vpiName:rst
@@ -2174,7 +2174,7 @@ design: (work@foo)
   |vpiNet:
   \_logic_net: (work@foo.inp), line:13:22, endln:13:25
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiTypespec:
     \_logic_typespec: , line:16:10, endln:16:14
     |vpiName:inp
@@ -2183,7 +2183,7 @@ design: (work@foo)
   |vpiNet:
   \_logic_net: (work@foo.out), line:13:27, endln:13:30
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiTypespec:
     \_logic_typespec: , line:17:10, endln:17:14
     |vpiName:out
@@ -2217,7 +2217,7 @@ design: (work@foo)
   |vpiPort:
   \_port: (clk), line:13:12, endln:13:15
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -2231,11 +2231,11 @@ design: (work@foo)
     |vpiTypedef:
     \_logic_typespec: , line:14:10, endln:14:14
     |vpiInstance:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
   |vpiPort:
   \_port: (rst), line:13:17, endln:13:20
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:rst
     |vpiDirection:1
     |vpiLowConn:
@@ -2249,11 +2249,11 @@ design: (work@foo)
     |vpiTypedef:
     \_logic_typespec: , line:15:10, endln:15:14
     |vpiInstance:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
   |vpiPort:
   \_port: (inp), line:13:22, endln:13:25
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
@@ -2267,11 +2267,11 @@ design: (work@foo)
     |vpiTypedef:
     \_logic_typespec: , line:16:10, endln:16:14
     |vpiInstance:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
   |vpiPort:
   \_port: (out), line:13:27, endln:13:30
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -2285,11 +2285,11 @@ design: (work@foo)
     |vpiTypedef:
     \_logic_typespec: , line:17:10, endln:17:14
     |vpiInstance:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
   |vpiProcess:
   \_initial: , line:26:3, endln:37:6
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiStmt:
     \_begin: (work@foo), line:26:11, endln:37:6
       |vpiParent:
@@ -2386,10 +2386,10 @@ design: (work@foo)
               |vpiFullName:work@foo.b
               |vpiActual:
               \_logic_net: (b)
-  |vpiModule:
-  \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+  |vpiModuleInst:
+  \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiName:bar_instance
     |vpiFullName:work@foo.bar_instance
     |vpiDefName:work@bar
@@ -2398,7 +2398,7 @@ design: (work@foo)
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.clk), line:1:12, endln:1:15
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiTypespec:
       \_logic_typespec: , line:2:10, endln:2:14
       |vpiName:clk
@@ -2407,7 +2407,7 @@ design: (work@foo)
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.rst), line:1:17, endln:1:20
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiTypespec:
       \_logic_typespec: , line:3:10, endln:3:14
       |vpiName:rst
@@ -2416,7 +2416,7 @@ design: (work@foo)
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.inp), line:1:22, endln:1:25
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiTypespec:
       \_logic_typespec: , line:4:10, endln:4:14
       |vpiName:inp
@@ -2425,18 +2425,18 @@ design: (work@foo)
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiTypespec:
       \_logic_typespec: , line:5:10, endln:5:13
       |vpiName:out
       |vpiFullName:work@foo.bar_instance.out
       |vpiNetType:48
     |vpiInstance:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiPort:
     \_port: (clk), line:1:12, endln:1:15
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
@@ -2458,7 +2458,7 @@ design: (work@foo)
       |vpiTypedef:
       \_logic_typespec: , line:2:10, endln:2:14
       |vpiInstance:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiAttribute:
       \_attribute: (clock_connected), line:19:25, endln:19:48
         |vpiParent:
@@ -2468,7 +2468,7 @@ design: (work@foo)
     |vpiPort:
     \_port: (rst), line:1:17, endln:1:20
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiName:rst
       |vpiDirection:1
       |vpiHighConn:
@@ -2490,11 +2490,11 @@ design: (work@foo)
       |vpiTypedef:
       \_logic_typespec: , line:3:10, endln:3:14
       |vpiInstance:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
     |vpiPort:
     \_port: (inp), line:1:22, endln:1:25
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiName:inp
       |vpiDirection:1
       |vpiHighConn:
@@ -2516,7 +2516,7 @@ design: (work@foo)
       |vpiTypedef:
       \_logic_typespec: , line:4:10, endln:4:14
       |vpiInstance:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiAttribute:
       \_attribute: (this_is_the_input), line:19:65, endln:19:91
         |vpiParent:
@@ -2526,7 +2526,7 @@ design: (work@foo)
     |vpiPort:
     \_port: (out), line:1:27, endln:1:30
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiName:out
       |vpiDirection:2
       |vpiHighConn:
@@ -2548,11 +2548,11 @@ design: (work@foo)
       |vpiTypedef:
       \_logic_typespec: , line:5:10, endln:5:13
       |vpiInstance:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
     |vpiProcess:
     \_always: , line:7:3, endln:9:26
       |vpiParent:
-      \_module: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
+      \_module_inst: work@bar (work@foo.bar_instance), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:19:3, endln:19:105
       |vpiStmt:
       \_event_control: , line:7:10, endln:7:24
         |vpiParent:
@@ -2627,7 +2627,7 @@ design: (work@foo)
   |vpiContAssign:
   \_cont_assign: , line:22:10, endln:22:62
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiRhs:
     \_operation: , line:22:18, endln:22:62
       |vpiParent:
@@ -2666,7 +2666,7 @@ design: (work@foo)
   |vpiContAssign:
   \_cont_assign: , line:24:10, endln:24:69
     |vpiParent:
-    \_module: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
+    \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes/dut.sv, line:13:1, endln:41:10
     |vpiRhs:
     \_operation: , line:24:22, endln:24:69
       |vpiParent:
@@ -2697,12 +2697,12 @@ design: (work@foo)
       |vpiActual:
       \_logic_net: ($37)
 |uhdmtopModules:
-\_module: work@top (work@top), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:32:1, endln:39:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:32:1, endln:39:10
   |vpiName:work@top
   |vpiAttribute:
   \_attribute: (mymoduleTop), line:31:4, endln:31:15
     |vpiParent:
-    \_module: work@top (work@top), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:32:1, endln:39:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Attributes/test_attributes.sv, line:32:1, endln:39:10
     |vpiName:mymoduleTop
   |vpiDefName:work@top
   |vpiTop:1

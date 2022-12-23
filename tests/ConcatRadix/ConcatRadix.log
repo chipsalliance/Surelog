@@ -121,7 +121,7 @@ design                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           2
-module                                                 5
+module_inst                                            5
 operation                                              3
 param_assign                                           2
 parameter                                              2
@@ -135,7 +135,7 @@ design                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           2
-module                                                 6
+module_inst                                            6
 operation                                              3
 param_assign                                           2
 parameter                                              2
@@ -154,14 +154,14 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.foo), line:3:17, endln:3:20
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:16
       |vpiParent:
@@ -189,7 +189,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:35
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_operation: , line:3:23, endln:3:35
       |vpiOpType:33
@@ -213,12 +213,12 @@ design: (work@test)
     \_parameter: (work@test.foo), line:3:17, endln:3:20
   |vpiDefName:work@test
 |uhdmtopModules:
-\_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
   |vpiName:work@test
   |vpiParameter:
   \_parameter: (work@test.foo), line:3:17, endln:3:20
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:16
       |vpiParent:
@@ -248,7 +248,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:35
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_constant: , line:3:23, endln:3:35
       |vpiDecompile:2'b01
@@ -265,7 +265,7 @@ design: (work@test)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.genblk1), line:5:1, endln:7:4
     |vpiParent:
-    \_module: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiName:genblk1
     |vpiFullName:work@test.genblk1
     |vpiGenScope:
@@ -273,8 +273,8 @@ design: (work@test)
       |vpiParent:
       \_gen_scope_array: (work@test.genblk1), line:5:1, endln:7:4
       |vpiFullName:work@test.genblk1
-      |vpiModule:
-      \_module: work@test.genblk1::bar (work@test.genblk1.mybar), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:6:5, endln:6:17
+      |vpiModuleInst:
+      \_module_inst: work@test.genblk1::bar (work@test.genblk1.mybar), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:6:5, endln:6:17
         |vpiParent:
         \_gen_scope: (work@test.genblk1)
         |vpiName:mybar
