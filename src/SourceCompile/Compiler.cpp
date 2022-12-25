@@ -78,7 +78,7 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
 }
 
 Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
-                   SymbolTable* symbolTable, const std::string& text)
+                   SymbolTable* symbolTable, std::string_view text)
     : m_commandLineParser(commandLineParser),
       m_errors(errors),
       m_symbolTable(symbolTable),
@@ -568,7 +568,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
   std::string fileList;
   // +define+
   for (const auto& [id, value] : m_commandLineParser->getDefineList()) {
-    const std::string& defName =
+    const std::string_view defName =
         m_commandLineParser->getSymbolTable()->getSymbol(id);
     std::string val = StringUtils::replaceAll(value, "#", "\\#");
     StrAppend(&fileList, " -D", defName, "=", val);
@@ -589,7 +589,7 @@ bool Compiler::createMultiProcessPreProcessor_() {
   }
   // +libext+
   for (const SymbolId& id : m_commandLineParser->getLibraryExtensions()) {
-    const std::string& extName =
+    const std::string_view extName =
         m_commandLineParser->getSymbolTable()->getSymbol(id);
     StrAppend(&fileList, " +libext+", extName);
   }

@@ -41,7 +41,7 @@ class Scope : public RTTI {
   SURELOG_IMPLEMENT_RTTI(Scope, RTTI)
  public:
   typedef std::map<std::string, Variable*, std::less<>> VariableMap;
-  typedef std::map<std::string, DataType*> DataTypeMap;
+  typedef std::map<std::string, DataType*, std::less<>> DataTypeMap;
   typedef std::vector<Statement*> StmtVector;
   typedef std::vector<Scope*> ScopeVector;
 
@@ -49,7 +49,7 @@ class Scope : public RTTI {
       : m_name(name), m_parentScope(parent) {}
   ~Scope() override {}
 
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
   Scope* getParentScope() { return m_parentScope; }
 
   void addVariable(Variable* var);
@@ -58,8 +58,8 @@ class Scope : public RTTI {
   Variable* getVariable(std::string_view name);
 
   DataTypeMap& getUsedDataTypeMap() { return m_usedDataTypes; }
-  DataType* getUsedDataType(const std::string& name);
-  void insertUsedDataType(const std::string& dataTypeName, DataType* dataType) {
+  DataType* getUsedDataType(std::string_view name);
+  void insertUsedDataType(std::string_view dataTypeName, DataType* dataType) {
     m_usedDataTypes.emplace(dataTypeName, dataType);
   }
 

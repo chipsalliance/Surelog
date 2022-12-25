@@ -30,7 +30,6 @@
 #include <map>
 #include <ostream>
 #include <set>
-#include <string>
 #include <string_view>
 #include <vector>
 
@@ -52,7 +51,7 @@ class Library final {
     m_fileIdsSet.insert(fid);
   }
 
-  const std::string& getName() const;
+  std::string_view getName() const;
   SymbolId getNameId() const { return m_nameId; }
   const PathIdVector& getFiles() const { return m_fileIds; }
   bool isMember(PathId fid) const {
@@ -61,7 +60,7 @@ class Library final {
   std::ostream& report(std::ostream& out) const;
   void addModuleDefinition(ModuleDefinition* def);
   ModuleDefinitionByNameMap& getModules() { return m_modules; }
-  ModuleDefinition* getModule(const std::string& name) const;
+  ModuleDefinition* getModule(std::string_view name) const;
   SymbolTable* getSymbols() { return m_symbols; }
 
  private:

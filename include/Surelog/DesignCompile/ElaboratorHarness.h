@@ -37,7 +37,7 @@ class ElaboratorHarness {
  public:
   // Preprocess, Parse, Compile, Elaborate (All in one)
   std::tuple<Design*, FileContent*, CompileDesign*> elaborate(
-      const std::string& text);
+      std::string_view text);
 
  public:
  private:

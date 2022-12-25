@@ -35,6 +35,7 @@
 #include <Surelog/SourceCompile/MacroInfo.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 #include <iostream>
 
@@ -52,7 +53,7 @@ PathId PPCache::getCacheFileId_(PathId sourceFileId) const {
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   SymbolTable* symbolTable = m_pp->getCompileSourceFile()->getSymbolTable();
 
-  const std::string& libName = m_pp->getLibrary()->getName();
+  const std::string_view libName = m_pp->getLibrary()->getName();
 
   if (clp->parseOnly()) {
     // If parseOnly flag is set, the Preprocessor doesn't actually generate
@@ -234,7 +235,7 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
   define_vec.reserve(defineList.size());
   for (const auto& definePair : defineList) {
     std::string spath =
-        m_pp->getSymbol(definePair.first) + "=" + definePair.second;
+        StrCat(m_pp->getSymbol(definePair.first), "=", definePair.second);
     define_vec.emplace_back(std::move(spath));
   }
 
@@ -387,7 +388,7 @@ bool PPCache::save() {
   std::vector<std::string> define_vec;
   for (auto& definePair : defineList) {
     std::string spath =
-        m_pp->getSymbol(definePair.first) + "=" + definePair.second;
+        StrCat(m_pp->getSymbol(definePair.first), "=", definePair.second);
     define_vec.emplace_back(std::move(spath));
   }
   auto defines = builder.CreateVectorOfStrings(define_vec);

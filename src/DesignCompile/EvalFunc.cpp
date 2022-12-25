@@ -48,18 +48,18 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                               ValuedComponentI* instance, PathId fileId,
                               int lineNumber, any* pexpr) {
   UHDM::GetObjectFunctor getObjectFunctor =
-      [&](const std::string& name, const any* inst,
+      [&](std::string_view name, const any* inst,
           const any* pexpr) -> UHDM::any* {
     return getObject(name, component, compileDesign, instance, pexpr);
   };
-  UHDM::GetObjectFunctor getValueFunctor = [&](const std::string& name,
+  UHDM::GetObjectFunctor getValueFunctor = [&](std::string_view name,
                                                const any* inst,
                                                const any* pexpr) -> UHDM::any* {
     return (expr*)getValue(name, component, compileDesign, instance, fileId,
                            lineNumber, (any*)pexpr, true, false);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
-      [&](const std::string& name, const any* inst) -> UHDM::task_func* {
+      [&](std::string_view name, const any* inst) -> UHDM::task_func* {
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };

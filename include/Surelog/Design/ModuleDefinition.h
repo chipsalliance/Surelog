@@ -69,20 +69,20 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   void insertModPort(std::string_view modport, const Signal& signal,
                      NodeId nodeId);
   void insertModPort(std::string_view modport, ClockingBlock& block);
-  const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
+  const Signal* getModPortSignal(std::string_view modport, NodeId port) const;
   ModPort* getModPort(std::string_view modport);
 
-  const ClockingBlock* getModPortClockingBlock(const std::string& modport,
+  const ClockingBlock* getModPortClockingBlock(std::string_view modport,
                                                NodeId port) const;
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(const std::string& className,
+  void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef) {
     m_classDefinitions.emplace(className, classDef);
   }
-  ClassDefinition* getClassDefinition(const std::string& name);
+  ClassDefinition* getClassDefinition(std::string_view name);
 
   void setGenBlockId(NodeId id) { m_gen_block_id = id; }
   NodeId getGenBlockId() const { return m_gen_block_id; }

@@ -43,7 +43,7 @@ Variable* Scope::getVariable(std::string_view name) {
   }
 }
 
-DataType* Scope::getUsedDataType(const std::string& name) {
+DataType* Scope::getUsedDataType(std::string_view name) {
   DataTypeMap::iterator itr = m_usedDataTypes.find(name);
   if (itr == m_usedDataTypes.end()) {
     return nullptr;

@@ -613,7 +613,7 @@ void collectUsedFileContents(std::set<const FileContent*>& files,
   if (instance) {
     DesignComponent* def = instance->getDefinition();
     if (def) {
-      moduleNames.insert(def->getName());
+      moduleNames.emplace(def->getName());
       for (auto file : def->getFileContents()) {
         if (file) files.insert(file);
       }

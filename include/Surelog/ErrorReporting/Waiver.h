@@ -38,11 +38,10 @@ class Waiver final {
  public:
   static void initWaivers();
 
-  static bool macroArgCheck(const std::string& name);
+  static bool macroArgCheck(std::string_view name);
 
-  static void setWaiver(const std::string& messageId,
-                        const std::string& fileName, unsigned int line,
-                        const std::string& objectName);
+  static void setWaiver(std::string_view messageId, std::string_view fileName,
+                        unsigned int line, std::string_view objectName);
 
   class WaiverData {
    public:
@@ -66,7 +65,7 @@ class Waiver final {
   Waiver() = delete;
   Waiver(const Waiver& orig) = delete;
 
-  static std::set<std::string> m_macroArgCheck;
+  static std::set<std::string, std::less<>> m_macroArgCheck;
   static std::multimap<ErrorDefinition::ErrorType, WaiverData> m_waivers;
 };
 

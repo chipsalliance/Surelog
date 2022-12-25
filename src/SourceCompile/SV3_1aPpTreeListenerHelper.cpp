@@ -172,7 +172,7 @@ void SV3_1aPpTreeListenerHelper::addLineFiller(antlr4::ParserRuleContext* ctx) {
 }
 
 void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
-    const std::string& macroName, antlr4::ParserRuleContext* ctx) {
+    std::string_view macroName, antlr4::ParserRuleContext* ctx) {
   MacroInfo* macroInf = m_pp->getMacro(macroName);
   if (macroInf) {
     std::pair<int, int> lineCol =

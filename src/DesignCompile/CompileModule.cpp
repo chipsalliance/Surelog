@@ -98,8 +98,7 @@ bool CompileModule::compile() {
 
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();
-  std::set<std::string, std::less<>>& blackboxModules =
-      clp->getBlackBoxModules();
+  auto& blackboxModules = clp->getBlackBoxModules();
   bool skipModule = false;
   std::string libName;
   if (!m_module->getFileContents().empty())
@@ -109,8 +108,7 @@ bool CompileModule::compile() {
     errType = ErrorDefinition::COMP_SKIPPING_BLACKBOX_MODULE;
     skipModule = true;
   }
-  std::set<std::string, std::less<>>& blackboxInstances =
-      clp->getBlackBoxInstances();
+  auto& blackboxInstances = clp->getBlackBoxInstances();
   std::string instanceName;
   if (m_instance) {
     if (ModuleInstance* inst =

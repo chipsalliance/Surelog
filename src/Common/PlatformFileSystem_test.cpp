@@ -1066,7 +1066,7 @@ TEST(PlatformFileSystemTest, InMemoryTest) {
       EXPECT_EQ(eval.get_value(invalidValue, rhs), 17);
     }
     for (auto sub : *topMod->Modules()) {
-      const std::string &instName = sub->VpiName();
+      const std::string_view instName = sub->VpiName();
       for (auto passign : *sub->Param_assigns()) {
         UHDM::expr *rhs = (UHDM::expr *)passign->Rhs();
         bool invalidValue = false;

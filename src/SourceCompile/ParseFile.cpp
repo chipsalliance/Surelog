@@ -101,7 +101,7 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
   parent->m_children.push_back(this);
 }
 
-ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
+ParseFile::ParseFile(std::string_view text, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library)
     : m_compileSourceFile(csf),
       m_compilationUnit(compilationUnit),
@@ -142,7 +142,7 @@ SymbolId ParseFile::getId(std::string_view symbol) const {
   return getCompileSourceFile()->getSymbolTable()->getId(symbol);
 }
 
-std::string ParseFile::getSymbol(SymbolId id) const {
+std::string_view ParseFile::getSymbol(SymbolId id) const {
   return getCompileSourceFile()->getSymbolTable()->getSymbol(id);
 }
 

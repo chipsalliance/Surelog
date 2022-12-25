@@ -33,9 +33,10 @@
 #include <sstream>
 
 namespace SURELOG {
-void AnalyzeFile::checkSLlineDirective_(const std::string& line,
+void AnalyzeFile::checkSLlineDirective_(std::string_view line,
                                         unsigned int lineNb) {
-  std::stringstream ss(line); /* Storing the whole string into string stream */
+  std::stringstream ss(
+      (std::string(line))); /* Storing the whole string into string stream */
   std::string keyword;
   ss >> keyword;
   if (keyword == "SLline") {

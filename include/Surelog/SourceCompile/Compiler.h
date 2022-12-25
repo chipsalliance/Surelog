@@ -62,7 +62,7 @@ class Compiler {
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
            SymbolTable* symbolTable);
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
-           SymbolTable* symbolTable, const std::string& text);
+           SymbolTable* symbolTable, std::string_view text);
   virtual ~Compiler();
 
   bool compile();

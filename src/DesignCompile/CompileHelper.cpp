@@ -2181,7 +2181,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
         if ((lhs_exp->UhdmType() == uhdmhier_path) && sel) {
           hier_path* path = (hier_path*)lhs_exp;
           path->Path_elems()->push_back(sel);
-          std::string path_name = path->VpiName();
+          std::string path_name(path->VpiName());
           path_name += decompileHelper(sel);
           path->VpiName(path_name);
           path->VpiFullName(path_name);
@@ -2238,38 +2238,36 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
 std::string CompileHelper::decompileHelper(const any* sel) {
   std::string path_name;
   if (sel->UhdmType() == uhdmconstant) {
-    std::string ind = ((expr*)sel)->VpiDecompile();
-    path_name += "[" + ind + "]";
+    const std::string_view ind = ((expr*)sel)->VpiDecompile();
+    path_name.append("[").append(ind).append("]");
   } else if (sel->UhdmType() == uhdmref_obj) {
-    std::string ind = ((expr*)sel)->VpiName();
-    path_name += "[" + ind + "]";
+    const std::string_view ind = ((expr*)sel)->VpiName();
+    path_name.append("[").append(ind).append("]");
   } else if (sel->UhdmType() == uhdmoperation) {
-    std::string ind = "...";
-    path_name += "[" + ind + "]";
+    path_name.append("[...]");
   } else if (sel->UhdmType() == uhdmbit_select) {
     bit_select* bsel = (bit_select*)sel;
     const expr* index = bsel->VpiIndex();
     if (index->UhdmType() == uhdmconstant) {
-      std::string ind = ((expr*)index)->VpiDecompile();
-      path_name += "[" + ind + "]";
+      const std::string_view ind = ((expr*)index)->VpiDecompile();
+      path_name.append("[").append(ind).append("]");
     } else if (index->UhdmType() == uhdmref_obj) {
-      std::string ind = ((expr*)index)->VpiName();
-      path_name += "[" + ind + "]";
+      const std::string_view ind = ((expr*)index)->VpiName();
+      path_name.append("[").append(ind).append("]");
     } else if (index->UhdmType() == uhdmoperation) {
-      std::string ind = "...";
-      path_name += "[" + ind + "]";
+      path_name.append("[...]");
     }
   } else if (const part_select* pselect = any_cast<const part_select*>(sel)) {
-    std::string selectRange = "[" + pselect->Left_range()->VpiDecompile() +
-                              ":" + pselect->Right_range()->VpiDecompile() +
-                              "]";
+    std::string selectRange =
+        StrCat("[", pselect->Left_range()->VpiDecompile(), ":",
+               pselect->Right_range()->VpiDecompile(), "]");
     path_name += selectRange;
   } else if (const indexed_part_select* pselect =
                  any_cast<const indexed_part_select*>(sel)) {
-    std::string selectRange =
-        "[" + pselect->Base_expr()->VpiDecompile() +
-        ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed) ? "+" : "-") +
-        std::string(":") + pselect->Width_expr()->VpiDecompile() + "]";
+    std::string selectRange = StrCat(
+        "[", pselect->Base_expr()->VpiDecompile(),
+        ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed) ? "+" : "-"),
+        ":", pselect->Width_expr()->VpiDecompile(), "]");
     path_name += selectRange;
   }
   return path_name;
@@ -2871,8 +2869,8 @@ bool CompileHelper::compileParameterDeclaration(
               case vpiIntConst: {
                 int_typespec* its = s.MakeInt_typespec();
                 its->VpiSigned(false);
-                const std::string& v = c->VpiValue();
-                if (strstr(v.c_str(), "-")) {
+                const std::string_view v = c->VpiValue();
+                if (v.front() == '-') {
                   its->VpiSigned(true);
                 }
                 ts = its;
@@ -3019,8 +3017,9 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
               uint64_t msb = val & 1 << (orig_size - 1);
               if (msb && (orig_size > 1)) {
                 // 2's complement
-                const std::string& v = c->VpiValue().c_str() + 4;
-                const std::string& res = twosComplement(v);
+                std::string_view v = c->VpiValue();
+                v.remove_prefix(4);
+                const std::string res = twosComplement(v);
                 // Convert to int
                 val = std::strtoll(res.c_str(), 0, 2);
                 val = -val;
@@ -3297,7 +3296,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
     if (task) io_decls = task->Io_decls();
   }
   VectorOfany* arguments = s.MakeAnyVec();
-  std::map<std::string, any*> args;
+  std::map<std::string, any*, std::less<>> args;
   std::vector<any*> argOrder;
   while (argumentNode) {
     NodeId argument = argumentNode;
@@ -3368,7 +3367,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
   if (!args.empty()) {
     if (io_decls) {
       for (io_decl* decl : *io_decls) {
-        const std::string& name = decl->VpiName();
+        const std::string_view name = decl->VpiName();
         std::map<std::string, any*>::iterator itr = args.find(name);
         if (itr != args.end()) {
           arguments->push_back((*itr).second);

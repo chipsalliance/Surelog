@@ -72,7 +72,7 @@ CompileDesign::~CompileDesign() {
 bool CompileDesign::compile() {
   // Register UHDM Error callbacks
   UHDM::ErrorHandler errHandler =
-      [=](UHDM::ErrorType errType, const std::string& msg,
+      [=](UHDM::ErrorType errType, std::string_view msg,
           const UHDM::any* object1, const UHDM::any* object2) {
         FileSystem* const fileSystem = FileSystem::getInstance();
         ErrorContainer* errors = m_compiler->getErrorContainer();

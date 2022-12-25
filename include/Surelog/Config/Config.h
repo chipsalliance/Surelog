@@ -47,10 +47,7 @@ class UseClause {
         m_node(id),
         m_used(false) {}
   UseClause(Type type, const FileContent* fC, NodeId id)
-      : m_type(type),
-        m_fileContent(fC),
-        m_node(id),
-        m_used(false) {}
+      : m_type(type), m_fileContent(fC), m_node(id), m_used(false) {}
   UseClause(Type type, const std::vector<std::string>& libs,
             const FileContent* fC, NodeId id)
       : m_type(type),
@@ -60,7 +57,7 @@ class UseClause {
         m_used(false) {}
 
   Type getType() const { return m_type; }
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
   const std::vector<std::string>& getLibs() const { return m_libs; }
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_node; }
@@ -88,7 +85,7 @@ class Config final {
         m_used(false),
         m_isTopLevel(false) {}
 
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
   const FileContent* getFileContent() const { return m_fileContent; }
 
   NodeId getNodeId() const { return m_nodeId; }
@@ -97,10 +94,10 @@ class Config final {
   bool isUsed() const { return m_used; }
 
   void setDesignTop(std::string_view top) { m_designTop = top; }
-  const std::string& getDesignTop() const { return m_designTop; }
+  std::string_view getDesignTop() const { return m_designTop; }
 
   void setDesignLib(std::string_view lib) { m_designLib = lib; }
-  const std::string& getDesignLib() const { return m_designLib; }
+  std::string_view getDesignLib() const { return m_designLib; }
 
   void addDefaultLib(std::string_view lib) { m_defaultLibs.emplace_back(lib); }
   const std::vector<std::string>& getDefaultLibs() const {
@@ -114,9 +111,7 @@ class Config final {
   UseClause* getInstanceUseClause(std::string_view instance);
 
   void addCellUseClause(std::string_view cell, const UseClause& use);
-  const UseClauseMap& getCellUseClauses() const {
-    return m_cellUseClauses;
-  }
+  const UseClauseMap& getCellUseClauses() const { return m_cellUseClauses; }
   UseClause* getCellUseClause(std::string_view cell);
 
   bool isTopLevel() const { return m_isTopLevel; }

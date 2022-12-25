@@ -42,8 +42,8 @@ std::string_view SubRoutineCallStmt::getVarName(NodeId base_name) const {
   }
 }
 
-std::vector<std::string> SubRoutineCallStmt::getVarChainNames() const {
-  std::vector<std::string> result;
+std::vector<std::string_view> SubRoutineCallStmt::getVarChainNames() const {
+  std::vector<std::string_view> result;
   for (auto node : m_var_chain) {
     result.emplace_back(getVarName(node));
   }

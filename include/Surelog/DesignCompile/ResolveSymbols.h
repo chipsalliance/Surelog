@@ -107,9 +107,9 @@ class ResolveSymbols : public CompileStep {
 
   unsigned int Line(NodeId index) const override;
 
-  std::string Symbol(SymbolId id) const override;
+  std::string_view Symbol(SymbolId id) const override;
 
-  std::string SymName(NodeId index) const override;
+  std::string_view SymName(NodeId index) const override;
 
   NodeId sl_get(NodeId parent,
                 VObjectType type) const override;  // Get first item of type

@@ -81,7 +81,7 @@ class AnalyzeFile final {
   ~AnalyzeFile() = default;
 
  private:
-  void checkSLlineDirective_(const std::string& line, unsigned int lineNb);
+  void checkSLlineDirective_(std::string_view line, unsigned int lineNb);
   std::string setSLlineDirective_(unsigned int lineNb);
   CommandLineParser* const m_clp = nullptr;
   Design* const m_design = nullptr;

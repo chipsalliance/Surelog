@@ -319,7 +319,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
               }
 
               constant* ccrhs = (constant*)crhs;
-              const std::string& s = ccrhs->VpiValue();
+              const std::string_view s = ccrhs->VpiValue();
               Value* v1 = m_exprBuilder.fromVpiValue(s, ccrhs->VpiSize());
               Value* v2 = m_exprBuilder.fromVpiValue("INT:0", 64);
               if (*v1 > *v2) {
@@ -634,7 +634,7 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
           continue;
         }
 
-        std::string formalName(fC->SymName(formalId));
+        std::string_view formalName = fC->SymName(formalId);
         NodeId Expression = fC->Sibling(formalId);
         if (orderedConnection) {
           Expression = formalId;
@@ -735,7 +735,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   if (comp) {
     signals = &comp->getPorts();
   }
-  std::map<std::string, Signal*, std::less<>> allSignals;
+  std::map<std::string_view, Signal*> allSignals;
   if (signals) {
     for (Signal* s : *signals) {
       allSignals.emplace(s->getName(), s);
@@ -978,7 +978,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             p->High_conn(exp);
             if (exp->UhdmType() == uhdmref_obj) {
               ref_obj* ref = (ref_obj*)exp;
-              const std::string& n = ref->VpiName();
+              const std::string_view n = ref->VpiName();
               any* net = bind_net_(fC, Hierarchical_identifier, parent,
                                    instance->getInstanceBinding(), n);
               ref->Actual_group(net);
@@ -1058,7 +1058,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
 
         NodeId sigId = formalId;
-        std::string formalName(fC->SymName(formalId));
+        std::string_view formalName = fC->SymName(formalId);
         NodeId Expression = fC->Sibling(formalId);
         if (orderedConnection) {
           Expression = formalId;
@@ -1188,8 +1188,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ((ref_obj*)hexpr)->Actual_group(net);
             if (parent) {
               ((ref_obj*)hexpr)
-                  ->VpiFullName(parent->getFullPathName() + "." +
-                                ((ref_obj*)hexpr)->VpiName());
+                  ->VpiFullName(StrCat(parent->getFullPathName(), ".",
+                                       ((ref_obj*)hexpr)->VpiName()));
             }
           }
         }
@@ -1282,8 +1282,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             p->Low_conn(ref);
           }
         }
-        std::map<std::string, Signal*>::iterator itr =
-            allSignals.find(formalName);
+        auto itr = allSignals.find(formalName);
         if (itr != allSignals.end()) {
           allSignals.erase(itr);
         }
@@ -1390,7 +1389,7 @@ interface_inst* NetlistElaboration::elab_interface_(
     ModuleInstance* instance, ModuleInstance* interf_instance,
     std::string_view instName, std::string_view defName, ModuleDefinition* mod,
     PathId fileId, int lineNb, interface_array* interf_array,
-    const std::string& modPortName) {
+    std::string_view modPortName) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) {
@@ -1482,7 +1481,7 @@ interface_inst* NetlistElaboration::elab_interface_(
 modport* NetlistElaboration::elab_modport_(
     ModuleInstance* instance, ModuleInstance* interfaceInstance,
     std::string_view instName, std::string_view defName, ModuleDefinition* mod,
-    PathId fileId, int lineNb, const std::string& modPortName,
+    PathId fileId, int lineNb, std::string_view modPortName,
     UHDM::interface_array* interf_array) {
   Netlist* netlist = instance->getNetlist();
   std::string fullname = StrCat(instName, ".", modPortName);
@@ -1593,8 +1592,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                     ModuleInstance* child,
                                     Netlist* parentNetlist, Netlist* netlist,
                                     DesignComponent* comp,
-                                    const std::string& prefix,
-                                    bool signalIsPort, TypespecCache& tscache) {
+                                    std::string_view prefix, bool signalIsPort,
+                                    TypespecCache& tscache) {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<net*>* nets = netlist->nets();
   std::vector<variables*>* vars = netlist->variables();
@@ -2114,13 +2113,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
 
 bool NetlistElaboration::elab_ports_nets_(
     ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist,
-    Netlist* netlist, DesignComponent* comp, const std::string& prefix,
+    Netlist* netlist, DesignComponent* comp, std::string_view prefix,
     bool do_ports) {
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
   std::vector<port*>* ports = netlist->ports();
   TypespecCache tscache;
-  std::set<std::string, std::less<>> portInterf;
+  std::set<std::string_view> portInterf;
   for (int pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
@@ -2247,7 +2246,7 @@ bool NetlistElaboration::elab_ports_nets_(
 
                 ModuleInstance* interfaceRefInstance =
                     getInterfaceInstance_(instance, sigName);
-                sigName += "[" + std::to_string(index) + "]";
+                StrAppend(&sigName, "[", index, "]");
                 ModuleInstance* interfaceInstance = new ModuleInstance(
                     orig_interf, sig->getFileContent(), sig->getNodeId(),
                     instance, sigName, orig_interf->getName());
@@ -2525,8 +2524,8 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
     if (itr != symbols.end()) {
       return (*itr).second;
     } else {
-      std::string basename(name);
-      std::string subname;
+      std::string_view basename = name;
+      std::string_view subname;
       if (basename.find('.') != std::string::npos) {
         subname = basename;
         subname = StringUtils::ltrim_until(subname, '.');

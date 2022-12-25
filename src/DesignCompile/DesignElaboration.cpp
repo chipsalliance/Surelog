@@ -90,11 +90,11 @@ bool DesignElaboration::setupConfigurations_() {
   std::vector<Config>& allConfigs = configSet->getAllMutableConfigs();
   std::vector<SymbolId> selectedConfigIds =
       m_compileDesign->getCompiler()->getCommandLineParser()->getUseConfigs();
-  std::set<std::string> selectedConfigs;
+  std::set<std::string, std::less<>> selectedConfigs;
   for (const auto& confId : selectedConfigIds) {
-    std::string name = st->getSymbol(confId);
+    std::string name(st->getSymbol(confId));
     if (name.find('.') == std::string::npos) {
-      name = "work@" + name;
+      name = StrCat("work@", name);
     } else {
       name = StringUtils::replaceAll(name, ".", "@");
     }
@@ -113,19 +113,19 @@ bool DesignElaboration::setupConfigurations_() {
     }
   }
 
-  std::queue<std::string> configq;
+  std::queue<std::string_view> configq;
   for (auto& config : allConfigs) {
     if (selectedConfigs.find(config.getName()) != selectedConfigs.end()) {
       config.setIsUsed();
       config.setTopLevel(true);
-      configq.push(config.getName());
+      configq.emplace(config.getName());
     }
   }
   std::unordered_set<const Config*> configS;
   while (!configq.empty()) {
-    std::string configName = configq.front();
-    configq.pop();
+    std::string_view configName = configq.front();
     Config* conf = configSet->getMutableConfigByName(configName);
+    configq.pop();
     if (conf) {
       if (configS.find(conf) != configS.end()) {
         continue;
@@ -135,8 +135,8 @@ bool DesignElaboration::setupConfigurations_() {
       conf->setIsUsed();
       for (const auto& usec : conf->getInstanceUseClauses()) {
         if (usec.second.getType() == UseClause::UseConfig) {
-          std::string confName = usec.second.getName();
-          configq.push(confName);
+          const std::string_view confName = usec.second.getName();
+          configq.emplace(confName);
           Config* conf = configSet->getMutableConfigByName(confName);
           if (!conf) {
             const FileContent* fC = usec.second.getFileContent();
@@ -152,9 +152,9 @@ bool DesignElaboration::setupConfigurations_() {
     }
   }
 
-  std::vector<std::string> unused;
+  std::vector<std::string_view> unused;
   for (const auto& config : allConfigs) {
-    const std::string& name = config.getName();
+    const std::string_view name = config.getName();
     const FileContent* fC = config.getFileContent();
     Location loc(fC->getFileId(config.getNodeId()),
                  fC->Line(config.getNodeId()), fC->Column(config.getNodeId()),
@@ -162,7 +162,7 @@ bool DesignElaboration::setupConfigurations_() {
     if (!config.isUsed()) {
       Error err(ErrorDefinition::ELAB_CONFIGURATION_IGNORED, loc);
       m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
-      unused.push_back(name);
+      unused.emplace_back(name);
     } else {
       Error err(ErrorDefinition::ELAB_CONFIGURATION_USED, loc);
       m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
@@ -183,23 +183,23 @@ bool DesignElaboration::setupConfigurations_() {
   // Create top level module list and recurse configs
   for (auto& config : allConfigs) {
     if (config.isTopLevel()) {
-      std::string lib = config.getDesignLib();
-      std::string top = config.getDesignTop();
-      std::string name = lib + "@" + top;
+      const std::string_view lib = config.getDesignLib();
+      const std::string_view top = config.getDesignTop();
+      std::string name = StrCat(lib, "@", top);
       m_toplevelConfigModules.insert(name);
       m_instConfig.emplace(name, config);
       m_cellConfig.emplace(name, config);
 
       for (auto& instClause : config.getInstanceUseClauses()) {
-        m_instUseClause.emplace(lib + "@" + instClause.first,
+        m_instUseClause.emplace(StrCat(lib, "@", instClause.first),
                                 instClause.second);
         if (instClause.second.getType() == UseClause::UseConfig) {
           Config* config =
               configSet->getMutableConfigByName(instClause.second.getName());
           if (config) {
             std::set<Config*> configStack;
-            recurseBuildInstanceClause_(lib + "@" + instClause.first, config,
-                                        configStack);
+            recurseBuildInstanceClause_(StrCat(lib, "@", instClause.first),
+                                        config, configStack);
           }
         }
       }
@@ -212,7 +212,7 @@ bool DesignElaboration::setupConfigurations_() {
 }
 
 void DesignElaboration::recurseBuildInstanceClause_(
-    const std::string& parentPath, Config* config,
+    std::string_view parentPath, Config* config,
     std::set<Config*>& configStack) {
   if (configStack.find(config) != configStack.end()) {
     return;
@@ -223,14 +223,14 @@ void DesignElaboration::recurseBuildInstanceClause_(
       m_compileDesign->getCompiler()->getDesign()->getConfigSet();
   for (auto& useClause : config->getInstanceUseClauses()) {
     std::string inst = useClause.first;
-    std::string fullPath = parentPath + "." + inst;
+    std::string fullPath = StrCat(parentPath, ".", inst);
     m_instUseClause.emplace(fullPath, useClause.second);
     if (useClause.second.getType() == UseClause::UseConfig) {
       Config* config =
           configSet->getMutableConfigByName(useClause.second.getName());
       if (config) {
-        recurseBuildInstanceClause_(parentPath + "." + useClause.first, config,
-                                    configStack);
+        recurseBuildInstanceClause_(StrCat(parentPath, ".", useClause.first),
+                                    config, configStack);
       }
     }
   }
@@ -247,9 +247,9 @@ bool DesignElaboration::identifyTopModules_() {
   bool modulePresent = false;
   bool toplevelModuleFound = false;
   SymbolTable* st = m_compileDesign->getCompiler()->getSymbolTable();
-  std::set<std::string>& userTopList = m_compileDesign->getCompiler()
-                                           ->getCommandLineParser()
-                                           ->getTopLevelModules();
+  auto& userTopList = m_compileDesign->getCompiler()
+                          ->getCommandLineParser()
+                          ->getTopLevelModules();
   auto all_files =
       m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
   typedef std::multimap<std::string,
@@ -259,15 +259,14 @@ bool DesignElaboration::identifyTopModules_() {
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
     for (const DesignElement* element : file.second->getDesignElements()) {
-      const std::string& elemName = st->getSymbol(element->m_name);
+      const std::string_view elemName = st->getSymbol(element->m_name);
       if (element->m_type == DesignElement::Module) {
         if (element->m_parent) {
           // This is a nested element
           continue;
         }
-        const std::string& libName = file.second->getLibrary()->getName();
-        std::string topname = libName;
-        topname += "@" + elemName;
+        const std::string_view libName = file.second->getLibrary()->getName();
+        std::string topname = StrCat(libName, "@", elemName);
 
         if (!file.second->getParent()) {
           // Files that have parent are splited files (When a module is too
@@ -401,7 +400,7 @@ bool DesignElaboration::identifyTopModules_() {
       for (auto file : all_files) {
         if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
         for (const DesignElement* element : file.second->getDesignElements()) {
-          const std::string& elemName = st->getSymbol(element->m_name);
+          const std::string_view elemName = st->getSymbol(element->m_name);
           if (element->m_type == DesignElement::Module) {
             if (element->m_parent) {
               // This is a nested element
@@ -417,9 +416,9 @@ bool DesignElaboration::identifyTopModules_() {
             m_compileDesign->getCompiler()->getErrorContainer()->addError(
                 errUser);
 
-            const std::string& libName = file.second->getLibrary()->getName();
-            std::string topname = libName;
-            topname += "@" + elemName;
+            const std::string_view libName =
+                file.second->getLibrary()->getName();
+            std::string topname = StrCat(libName, "@", elemName);
             m_uniqueTopLevelModules.insert(topname);
             m_topLevelModules.emplace_back(topname, file.second);
             toplevelModuleFound = true;
@@ -481,7 +480,7 @@ bool DesignElaboration::elaborateAllModules_(bool onlyTopLevel) {
   return status;
 }
 
-Config* DesignElaboration::getInstConfig(const std::string& name) {
+Config* DesignElaboration::getInstConfig(std::string_view name) {
   Config* config = nullptr;
   auto itr = m_instConfig.find(name);
   if (itr != m_instConfig.end()) {
@@ -490,7 +489,7 @@ Config* DesignElaboration::getInstConfig(const std::string& name) {
   return config;
 }
 
-Config* DesignElaboration::getCellConfig(const std::string& name) {
+Config* DesignElaboration::getCellConfig(std::string_view name) {
   Config* config = nullptr;
   auto itr = m_cellConfig.find(name);
   if (itr != m_cellConfig.end()) {
@@ -524,18 +523,18 @@ bool DesignElaboration::bindAllInstances_(ModuleInstance* parent,
   return true;
 }
 
-bool DesignElaboration::elaborateModule_(const std::string& moduleName,
+bool DesignElaboration::elaborateModule_(std::string_view moduleName,
                                          const FileContent* fC,
                                          bool onlyTopLevel) {
   const FileContent::NameIdMap& nameIds = fC->getObjectLookup();
-  const std::string& libName = fC->getLibrary()->getName();
+  const std::string_view libName = fC->getLibrary()->getName();
   Config* config = getInstConfig(moduleName);
   if (config == nullptr) config = getCellConfig(moduleName);
   Design* design = m_compileDesign->getCompiler()->getDesign();
   if (!m_moduleInstFactory) m_moduleInstFactory = new ModuleInstanceFactory();
   for (const auto& nameId : nameIds) {
     if ((fC->Type(nameId.second) == VObjectType::slModule_declaration) &&
-        (moduleName == (libName + "@" + nameId.first))) {
+        (moduleName == StrCat(libName, "@", nameId.first))) {
       DesignComponent* def = design->getComponentDefinition(moduleName);
       if (onlyTopLevel) {
         ModuleInstance* instance = m_moduleInstFactory->newModuleInstance(
@@ -564,7 +563,7 @@ void DesignElaboration::recurseInstanceLoop_(
     unsigned int pos, DesignComponent* def, const FileContent* fC,
     NodeId subInstanceId, NodeId paramOverride, ModuleInstanceFactory* factory,
     ModuleInstance* parent, Config* config, std::string instanceName,
-    const std::string& modName, std::vector<ModuleInstance*>& allSubInstances) {
+    std::string_view modName, std::vector<ModuleInstance*>& allSubInstances) {
   if (pos == indexes.size()) {
     // This is where the real logic goes.
     // indexes[i] contain the value of the i-th index.
@@ -677,7 +676,7 @@ const UHDM::any* resize(UHDM::Serializer& serializer, const UHDM::any* object,
         }
       }
       if (constType == vpiBinaryConst) {
-        std::string value = c->VpiValue();
+        std::string value(c->VpiValue());
         if (is_signed && (!is_overall_unsigned)) {
           value.insert(4, (maxsize - c->VpiSize()), '1');
         } else {
@@ -700,8 +699,7 @@ void DesignElaboration::elaborateInstance_(
 
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();
-  std::set<std::string, std::less<>>& blackboxModules =
-      clp->getBlackBoxModules();
+  auto& blackboxModules = clp->getBlackBoxModules();
   std::string modName;
   if (DesignComponent* def = parent->getDefinition()) {
     modName = def->getName();
@@ -716,8 +714,7 @@ void DesignElaboration::elaborateInstance_(
                                                                   false);
     return;
   }
-  std::set<std::string, std::less<>>& blackboxInstances =
-      clp->getBlackBoxInstances();
+  auto& blackboxInstances = clp->getBlackBoxInstances();
   std::string instanceName;
   if (parent) {
     instanceName = parent->getFullPathName();
@@ -748,10 +745,10 @@ void DesignElaboration::elaborateInstance_(
   unsigned int genBlkIndex = 1;
   bool reuseInstance = false;
   std::string mname;
-  std::vector<std::string> params;
 
   // Scan for parameters, including DefParams
-  collectParams_(params, fC, nodeId, parent, parentParamOverride);
+  std::vector<std::string_view> params =
+      collectParams_(fC, nodeId, parent, parentParamOverride);
 
   // Loop checking
   bool loopDetected = false;
@@ -807,7 +804,7 @@ void DesignElaboration::elaborateInstance_(
   Design* design = m_compileDesign->getCompiler()->getDesign();
   for (const auto& name : params) {
     DefParam* defparam =
-        design->getDefParam(parent->getFullPathName() + "." + name);
+        design->getDefParam(StrCat(parent->getFullPathName(), ".", name));
     if (defparam) {
       Value* value = defparam->getValue();
       if (value) {
@@ -991,7 +988,7 @@ void DesignElaboration::elaborateInstance_(
         genBlkIndex++;
         instName = modName;
         std::string fullName;
-        std::string libName = fC->getLibrary()->getName();
+        std::string_view libName = fC->getLibrary()->getName();
         if (instName == parent->getInstanceName()) {
           fullName += parent->getFullPathName();
           reuseInstance = true;
@@ -1491,18 +1488,15 @@ void DesignElaboration::elaborateInstance_(
         // Regular module binding
         NodeId moduleName =
             fC->sl_collect(subInstanceId, VObjectType::slStringConst);
-        const std::string& libName = fC->getLibrary()->getName();
+        const std::string_view libName = fC->getLibrary()->getName();
         mname = fC->SymName(moduleName);
 
         std::vector<std::string> libs;
         if (config) {
-          for (const auto& lib : config->getDefaultLibs()) {
-            libs.push_back(lib);
-          }
-          libs.push_back(libName);
-        } else {
-          libs.push_back(libName);
+          const auto& defaultLibs = config->getDefaultLibs();
+          libs.insert(libs.end(), defaultLibs.begin(), defaultLibs.end());
         }
+        libs.emplace_back(libName);
 
         for (const auto& lib : libs) {
           modName = lib + "@" + mname;
@@ -1525,7 +1519,7 @@ void DesignElaboration::elaborateInstance_(
           UseClause& use = (*itr).second;
           switch (use.getType()) {
             case UseClause::UseModule: {
-              std::string name = use.getName();
+              const std::string_view name = use.getName();
               def = design->getComponentDefinition(name);
               if (def) use.setUsed();
               break;
@@ -1584,7 +1578,7 @@ void DesignElaboration::elaborateInstance_(
             UseClause& use = (*itr).second;
             switch (use.getType()) {
               case UseClause::UseModule: {
-                std::string name = use.getName();
+                const std::string_view name = use.getName();
                 def = design->getComponentDefinition(name);
                 if (def) use.setUsed();
                 break;
@@ -1602,14 +1596,14 @@ void DesignElaboration::elaborateInstance_(
                 break;
               }
               case UseClause::UseConfig: {
-                std::string useConfig = use.getName();
+                const std::string_view useConfig = use.getName();
                 Config* config =
                     design->getConfigSet()->getMutableConfigByName(useConfig);
                 if (config) {
                   subConfig = config;
-                  std::string lib = config->getDesignLib();
-                  std::string top = config->getDesignTop();
-                  modName = lib + "@" + top;
+                  const std::string_view lib = config->getDesignLib();
+                  const std::string_view top = config->getDesignTop();
+                  modName = StrCat(lib, "@", top);
                   def = design->getComponentDefinition(modName);
                   if (def) use.setUsed();
                 }
@@ -1724,8 +1718,8 @@ void DesignElaboration::elaborateInstance_(
                                  allSubInstances);
             } else {
               // Build black box model
-              std::vector<std::string> params;
-              collectParams_(params, fC, subInstanceId, child, paramOverride);
+              std::vector<std::string_view> params =
+                  collectParams_(fC, subInstanceId, child, paramOverride);
               NetlistElaboration* nelab =
                   new NetlistElaboration(m_compileDesign);
               nelab->elaborateInstance(child);
@@ -1801,12 +1795,12 @@ void DesignElaboration::reportElaboration_() {
   }
 }
 
-void DesignElaboration::collectParams_(std::vector<std::string>& params,
-                                       const FileContent* fC, NodeId nodeId,
-                                       ModuleInstance* instance,
-                                       NodeId parentParamOverride) {
-  if (!nodeId) return;
-  if (!instance) return;
+std::vector<std::string_view> DesignElaboration::collectParams_(
+    const FileContent* fC, NodeId nodeId, ModuleInstance* instance,
+    NodeId parentParamOverride) {
+  std::vector<std::string_view> params;
+  if (!nodeId) return params;
+  if (!instance) return params;
   bool en_replay =
       m_compileDesign->getCompiler()->getCommandLineParser()->replay();
   Design* design = m_compileDesign->getCompiler()->getDesign();
@@ -1858,7 +1852,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
 
-  std::vector<std::string> moduleParams;
+  std::vector<std::string_view> moduleParams;
   if (module) {
     for (FileCNodeId param :
          module->getObjects(VObjectType::slParam_assignment)) {
@@ -1868,7 +1862,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       moduleParams.emplace_back(name);
     }
   }
-  std::set<std::string, std::less<>> overridenParams;
+  std::set<std::string_view> overridenParams;
   // Param overrides
   if (parentParamOverride) {
     ModuleInstance* parentInstance = instance->getParent();
@@ -1906,7 +1900,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
         const std::string_view name = parentFile->SymName(child);
-        overridenParams.emplace(name);
+        overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
         if (!expr) {
           Location loc(
@@ -1940,7 +1934,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 m_exprBuilder.evalExpr(parentFile, expr, parentInstance, true);
               }
             }
-            const std::string& v = c->VpiValue();
+            const std::string_view v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if ((exprtype == UHDM::uhdmoperation) ||
                      (exprtype == UHDM::uhdmfunc_call) ||
@@ -1989,7 +1983,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             }
           } else if (exprtype == UHDM::uhdmparameter) {
             UHDM::parameter* param = (UHDM::parameter*)complexV;
-            const std::string& pname = param->VpiName();
+            const std::string_view pname = param->VpiName();
             const UHDM::typespec* tps = param->Typespec();
             const UHDM::instance* pinst = tps->Instance();
             if (pinst->UhdmType() == UHDM::uhdmpackage) {
@@ -2087,7 +2081,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         Value* value = nullptr;
         bool complex = false;
 
-        std::string name = "OUT_OF_RANGE_PARAM_INDEX";
+        static constexpr std::string_view kOutOfRangeParamIndex =
+            "OUT_OF_RANGE_PARAM_INDEX";
+        std::string_view name = kOutOfRangeParamIndex;
         if (index < moduleParams.size()) {
           name = moduleParams[index];
           overridenParams.insert(name);
@@ -2105,7 +2101,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         if (complexV) {
           if (complexV->UhdmType() == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)complexV;
-            const std::string& v = c->VpiValue();
+            const std::string_view v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if (complexV->UhdmType() == UHDM::uhdmoperation) {
             if (instance) {
@@ -2141,11 +2137,12 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         m_compileDesign->getCompiler()->getCommandLineParser();
     const auto& useroverrides = cmdLine->getParamList();
     for (const auto& [nameId, value] : useroverrides) {
-      const std::string& name = cmdLine->getSymbolTable()->getSymbol(nameId);
+      const std::string_view name =
+          cmdLine->getSymbolTable()->getSymbol(nameId);
       Value* val = m_exprBuilder.fromString(value);
       if (val) {
         instance->setValue(name, val, m_exprBuilder, 0);
-        overridenParams.insert(name);
+        overridenParams.emplace(name);
       }
       Parameter* p = module->getParameter(name);
       if (p) {
@@ -2206,9 +2203,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       if (c == '.') break;
       path += c;
     }
-    std::string pathRoot;
-    pathRoot = fC->getLibrary()->getName() + "@";
-    pathRoot += path;
+    std::string pathRoot = StrCat(fC->getLibrary()->getName(), "@", path);
     path = fullPath;
 
     // path refers to a sub instance
@@ -2216,9 +2211,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     if (design->findInstance(pathRoot)) {
       std::string p = design->findInstance(pathRoot)->getFullPathName();
       if (p.find('.') != std::string::npos) {
-        prefix = instance->getFullPathName() + ".";
+        prefix.assign(instance->getFullPathName()).append(".");
       } else {
-        prefix = fC->getLibrary()->getName() + "@";
+        prefix.assign(fC->getLibrary()->getName()).append("@");
       }
     } else {
       prefix = instance->getFullPathName() + ".";
@@ -2269,7 +2264,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                   }
                 }
 
-                const std::string& v = c->VpiValue();
+                const std::string_view v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
                 if (ts)
                   m_helper.valueRange(value, ts, instance->getDefinition(),
@@ -2315,6 +2310,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       }
     }
   }
+  return params;
 }
 
 void DesignElaboration::checkElaboration_() {
@@ -2328,7 +2324,7 @@ void DesignElaboration::checkElaboration_() {
   const auto& useroverrides = cmdLine->getParamList();
   for (const auto& [nameId, value] : useroverrides) {
     bool found = false;
-    const std::string& name = cmdLine->getSymbolTable()->getSymbol(nameId);
+    const std::string_view name = cmdLine->getSymbolTable()->getSymbol(nameId);
     for (ModuleInstance* inst : design->getTopLevelModuleInstances()) {
       DesignComponent* module = inst->getDefinition();
       Parameter* p = module->getParameter(name);

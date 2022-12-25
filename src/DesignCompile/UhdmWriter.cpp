@@ -437,7 +437,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
   Netlist* netlist = instance->getNetlist();
   DesignComponent* mod = instance->getDefinition();
 
-  std::map<std::string, any*> paramSet;
+  std::map<std::string_view, any*> paramSet;
   if (netlist->param_assigns()) {
     VectorOfany* params = m->Parameters();
     if (params == nullptr) params = s.MakeAnyVec();
@@ -452,7 +452,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
     VectorOfany* orig_params = mod->getParameters();
     if (orig_params) {
       for (auto orig : *orig_params) {
-        const std::string& name = orig->VpiName();
+        const std::string_view name = orig->VpiName();
         bool pushed = false;
         // Specifc handling of type parameters
         if (orig->UhdmType() == uhdmtype_parameter) {
@@ -518,8 +518,8 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
   if (netlist->param_assigns()) {
     for (auto ps : *m->Param_assigns()) {
       ps->VpiParent(m);
-      const std::string& name = ps->Lhs()->VpiName();
-      std::map<std::string, any*>::iterator itr = paramSet.find(name);
+      const std::string_view name = ps->Lhs()->VpiName();
+      auto itr = paramSet.find(name);
       if (itr != paramSet.end()) {
         ps->Lhs((*itr).second);
       }
@@ -697,7 +697,8 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
     typespec* tps = dtype->getTypespec();
     if (parent->UhdmType() == uhdmpackage) {
       if (tps && (tps->VpiName().find("::") == std::string::npos)) {
-        const std::string newName = parent->VpiName() + "::" + tps->VpiName();
+        const std::string newName =
+            StrCat(parent->VpiName(), "::", tps->VpiName());
         tps->VpiName(newName);
       }
     }
@@ -739,8 +740,7 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
     if (dest_net) {
       const FileContent* fC = orig_net->getFileContent();
       if (fC->Type(orig_net->getNodeId()) == VObjectType::slStringConst) {
-        UhdmWriter::SignalMap::iterator portItr =
-            portMap.find(orig_net->getName());
+        auto portItr = portMap.find(orig_net->getName());
         if (portItr != portMap.end()) {
           Signal* sig = (*portItr).second;
           if (sig) {
@@ -828,7 +828,7 @@ void UhdmWriter::writeClass(ClassDefinition* classDef,
     if (const extends* ext = c->Extends()) {
       if (const class_typespec* tps = ext->Class_typespec()) {
         if (tps->Class_defn() == nullptr) {
-          const std::string& tpsName = tps->VpiName();
+          const std::string_view tpsName = tps->VpiName();
           if (c->Parameters()) {
             for (auto ps : *c->Parameters()) {
               if (ps->VpiName() == tpsName) {
@@ -948,7 +948,7 @@ class ReInstanceTypespec : public VpiListener {
       inst = (instance*)tps->Instance();
     }
     if (inst) {
-      const std::string& name = inst->VpiName();
+      const std::string_view name = inst->VpiName();
       design* d = (design*)m_package->VpiParent();
       for (auto pack : *d->AllPackages()) {
         if (pack->VpiName() == name) {
@@ -1028,7 +1028,7 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
   if (pack->getTask_funcs()) {
     p->Task_funcs(s.MakeTask_funcVec());
     for (auto tf : *pack->getTask_funcs()) {
-      const std::string funcName = tf->VpiName();
+      const std::string_view funcName = tf->VpiName();
       if (funcName.find("::") != std::string::npos) {
         std::vector<std::string_view> res;
         StringUtils::tokenizeMulti(funcName, "::", res);
@@ -1810,7 +1810,7 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
 
       // Loop indexes
       for (auto& param : instance->getMappedValues()) {
-        const std::string& name = param.first;
+        const std::string_view name = param.first;
         Value* val = param.second.first;
         VectorOfany* params = nullptr;
         params = m->Parameters();
@@ -1930,10 +1930,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
       orig = ex->Typespec();
     }
     if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
-      std::string name = orig->VpiName();
+      std::string_view name = StringUtils::trim(orig->VpiName());
       const typespec* tps = nullptr;
       bool found = false;
-      name = StringUtils::trim(name);
 
       if (name.find("::") != std::string::npos) {
         std::vector<std::string_view> res;
@@ -2027,8 +2026,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     tps = n->Typespec();
                     break;
                   }
-                  const std::string pname =
-                      std::string(m->VpiName() + "::" + name);
+                  const std::string pname = StrCat(m->VpiName(), "::", name);
                   if (n->VpiName() == pname) {
                     if (n->UhdmType() == uhdmref_var) continue;
                     if (n->UhdmType() == uhdmref_obj) continue;
@@ -2077,8 +2075,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     tps = n->Typespec();
                     break;
                   }
-                  const std::string pname =
-                      std::string(m->VpiName() + "::" + name);
+                  const std::string pname = StrCat(m->VpiName(), "::", name);
                   if (n->VpiName() == pname) {
                     if (n->UhdmType() == uhdmref_var) continue;
                     if (n->UhdmType() == uhdmref_obj) continue;
@@ -2492,7 +2489,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
   FileSystem* const fileSystem = FileSystem::getInstance();
   for (UHDM::ref_obj* ref : mod->getLateBinding()) {
     if (ref->Actual_group()) continue;
-    std::string name = ref->VpiName();
+    std::string_view name = ref->VpiName();
     name = StringUtils::trim(name);
     if (name.find("::") != std::string::npos) {
       std::vector<std::string_view> res;
@@ -2600,8 +2597,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname =
-                    std::string(m->VpiName() + "::" + name);
+                const std::string pname = StrCat(m->VpiName(), "::", name);
                 if (n->VpiName() == pname) {
                   if (n->UhdmType() == uhdmref_var) continue;
                   if (n->UhdmType() == uhdmref_obj) continue;
@@ -2646,8 +2642,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname =
-                    std::string(m->VpiName() + "::" + name);
+                const std::string pname = StrCat(m->VpiName(), "::", name);
                 if (n->VpiName() == pname) {
                   if (n->UhdmType() == uhdmref_var) continue;
                   if (n->UhdmType() == uhdmref_obj) continue;
@@ -2871,7 +2866,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
           ref->Actual_group(n);
           break;
         }
-        const std::string pname = std::string(m->VpiName() + "::" + name);
+        const std::string pname = StrCat(m->VpiName(), "::", name);
         if (n->VpiName() == pname) {
           ref->Actual_group(n);
           break;
@@ -2909,7 +2904,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
       std::vector<std::string> importedPackages;
       for (auto n : *m->Typespecs()) {
         if (n->UhdmType() == uhdmimport_typespec) {
-          importedPackages.push_back(n->VpiName());
+          importedPackages.emplace_back(n->VpiName());
         }
       }
 
@@ -2926,7 +2921,7 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
           }
         }
         for (const auto& imp : importedPackages) {
-          if (n->VpiName() == std::string(imp + "::" + name)) {
+          if (n->VpiName() == StrCat(imp, "::", name)) {
             isTypespec = true;
             break;
           }

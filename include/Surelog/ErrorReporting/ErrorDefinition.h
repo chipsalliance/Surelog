@@ -292,7 +292,7 @@ class ErrorDefinition {
     return *mutableGlobalErrorInfoMap();
   }
 
-  static ErrorType getErrorType(std::string errorId);
+  static ErrorType getErrorType(std::string_view errorId);
   static ErrorSeverity getErrorSeverity(std::string_view errorSeverity);
   static std::string getCategoryName(ErrorCategory caterory);
   static ErrorCategory getCategory(std::string_view category);

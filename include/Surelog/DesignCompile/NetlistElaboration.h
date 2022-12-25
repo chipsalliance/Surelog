@@ -50,7 +50,7 @@ class NetlistElaboration : public TestbenchElaboration {
   typedef std::map<NodeId, UHDM::typespec*> TypespecCache;
   bool elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
                   Netlist* parentNetlist, Netlist* netlist,
-                  DesignComponent* comp, const std::string& prefix,
+                  DesignComponent* comp, std::string_view prefix,
                   bool signalIsPort, TypespecCache& cache);
 
  private:
@@ -63,18 +63,18 @@ class NetlistElaboration : public TestbenchElaboration {
       ModuleInstance* instance, ModuleInstance* interf_instance,
       std::string_view instName, std::string_view defName,
       ModuleDefinition* mod, PathId fileId, int lineNb,
-      UHDM::interface_array* interf_array, const std::string& modPortName);
+      UHDM::interface_array* interf_array, std::string_view modPortName);
   UHDM::modport* elab_modport_(ModuleInstance* instance,
                                ModuleInstance* interfInstance,
                                std::string_view instName,
                                std::string_view defName, ModuleDefinition* mod,
                                PathId fileId, int lineNb,
-                               const std::string& modPortName,
+                               std::string_view modPortName,
                                UHDM::interface_array* interf_array);
   bool elab_ports_nets_(ModuleInstance* instance, bool ports);
   bool elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child,
                         Netlist* parentNetlist, Netlist* netlist,
-                        DesignComponent* comp, const std::string& prefix,
+                        DesignComponent* comp, std::string_view prefix,
                         bool ports);
 
   UHDM::any* bind_net_(const FileContent* idfC, NodeId id,

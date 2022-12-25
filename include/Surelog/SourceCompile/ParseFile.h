@@ -59,7 +59,7 @@ class ParseFile final {
             PathId chunkFileId, unsigned int offsetLine);
 
   // Unit test constructor
-  ParseFile(const std::string& text, CompileSourceFile* csf,
+  ParseFile(std::string_view text, CompileSourceFile* csf,
             CompilationUnit* compilationUnit, Library* library);
 
   bool parse();
@@ -101,7 +101,7 @@ class ParseFile final {
   void addError(Error& error);
   SymbolId registerSymbol(std::string_view symbol);
   SymbolId getId(std::string_view symbol) const;
-  std::string getSymbol(SymbolId id) const;
+  std::string_view getSymbol(SymbolId id) const;
   bool usingCachedVersion() { return m_usingCachedVersion; }
   FileContent* getFileContent() { return m_fileContent; }
   void setFileContent(FileContent* content) { m_fileContent = content; }

@@ -914,14 +914,13 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 }
 // NOLINTEND(*.DeadStores)
 
-Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
+Value* ExprBuilder::fromVpiValue(std::string_view s, int size) {
   Value* val = nullptr;
-  std::string_view sv = s;
   if (s.find("UINT:") == 0) {
     val = m_valueFactory.newLValue();
     uint64_t v = 0;
-    sv.remove_prefix(std::string_view("UINT:").length());
-    if (NumUtils::parseUint64(sv, &v) == nullptr) {
+    s.remove_prefix(std::string_view("UINT:").length());
+    if (NumUtils::parseUint64(s, &v) == nullptr) {
       v = 0;
     }
     if (size)
@@ -931,8 +930,8 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
   } else if (s.find("INT:") == 0) {
     val = m_valueFactory.newLValue();
     int64_t v = 0;
-    sv.remove_prefix(std::string_view("INT:").length());
-    if (NumUtils::parseInt64(sv, &v) == nullptr) {
+    s.remove_prefix(std::string_view("INT:").length());
+    if (NumUtils::parseInt64(s, &v) == nullptr) {
       v = 0;
     }
     if (size)
@@ -942,8 +941,8 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
   } else if (s.find("DEC:") == 0) {
     val = m_valueFactory.newLValue();
     int64_t v = 0;
-    sv.remove_prefix(std::string_view("DEC:").length());
-    if (NumUtils::parseInt64(sv, &v) == nullptr) {
+    s.remove_prefix(std::string_view("DEC:").length());
+    if (NumUtils::parseInt64(s, &v) == nullptr) {
       v = 0;
     }
     if (size)
@@ -951,8 +950,8 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
     else
       val->set(v);
   } else if (s.find("SCAL:") == 0) {
-    sv.remove_prefix(std::string_view("SCAL:").length());
-    switch (sv.front()) {
+    s.remove_prefix(std::string_view("SCAL:").length());
+    switch (s.front()) {
       case 'Z':
         break;
       case 'X':
@@ -966,12 +965,12 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
       case 'W':
         break;
       default:
-        if (strcasecmp(sv.data(), "DontCare") == 0) {
-        } else if (strcasecmp(sv.data(), "NoChange") == 0) {
+        if (strcasecmp(s.data(), "DontCare") == 0) {
+        } else if (strcasecmp(s.data(), "NoChange") == 0) {
         } else {
           val = m_valueFactory.newLValue();
           int64_t v = 0;
-          if (NumUtils::parseInt64(sv, &v) == nullptr) {
+          if (NumUtils::parseInt64(s, &v) == nullptr) {
             v = 0;
           }
           val->set(v);
@@ -979,20 +978,20 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
         break;
     }
   } else if (s.find("BIN:") == 0) {
+    s.remove_prefix(std::string_view("BIN:").length());
     StValue* sval = (StValue*)m_valueFactory.newStValue();
-    sval->set(s.data() + std::string_view("BIN:").length(), Value::Type::Binary,
-              (size ? size : s.size()));
+    sval->set(s, Value::Type::Binary, (size ? size : s.size()));
     val = sval;
   } else if (s.find("HEX:") == 0) {
+    s.remove_prefix(std::string_view("HEX:").length());
     StValue* sval = (StValue*)m_valueFactory.newStValue();
-    sval->set(s.c_str() + std::string_view("HEX:").length(),
-              Value::Type::Hexadecimal, (size ? size : (s.size() - 4) * 4));
+    sval->set(s, Value::Type::Hexadecimal, (size ? size : (s.size() - 4) * 4));
     val = sval;
   } else if (s.find("OCT:") == 0) {
     val = m_valueFactory.newLValue();
     uint64_t v = 0;
-    sv.remove_prefix(std::string_view("OCT:").length());
-    if (NumUtils::parseOctal(sv, &v) == nullptr) {
+    s.remove_prefix(std::string_view("OCT:").length());
+    if (NumUtils::parseOctal(s, &v) == nullptr) {
       v = 0;
     }
     if (size)
@@ -1004,9 +1003,9 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
     val->set(s.data() + std::string_view("STRING:").length());
   } else if (s.find("REAL:") == 0) {
     val = m_valueFactory.newLValue();
-    sv.remove_prefix(std::string_view("REAL:").length());
+    s.remove_prefix(std::string_view("REAL:").length());
     double v = 0;
-    if (NumUtils::parseDouble(sv, &v) == nullptr) {
+    if (NumUtils::parseDouble(s, &v) == nullptr) {
       v = 0;
     }
     val->set(v);
@@ -1014,7 +1013,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, int size) {
   return val;
 }
 
-Value* ExprBuilder::fromString(const std::string& value) {
+Value* ExprBuilder::fromString(std::string_view value) {
   Value* val = nullptr;
   if (value.find('\'') != std::string::npos) {
     std::string sval;

@@ -62,7 +62,7 @@ PathId PythonAPICache::getCacheFileId_(PathId sourceFileId) const {
   SymbolTable* symbolTable =
       m_listener->getCompileSourceFile()->getSymbolTable();
 
-  const std::string& libName =
+  const std::string_view libName =
       m_listener->getCompileSourceFile()->getLibrary()->getName();
   return fileSystem->getPythonCacheFile(clp->fileunit(), sourceFileId, libName,
                                         symbolTable);

@@ -24,7 +24,7 @@
 
 namespace SURELOG {
 
-const Signal* ModPort::getPort(const std::string& name) const {
+const Signal* ModPort::getPort(std::string_view name) const {
   for (const Signal& sig : m_ports) {
     if (sig.getName() == name) {
       return &sig;

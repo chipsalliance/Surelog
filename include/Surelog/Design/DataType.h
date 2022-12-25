@@ -82,7 +82,7 @@ class DataType : public RTTI {
 
   NodeId getNodeId() const { return m_id; }
 
-  const std::string& getName() const { return m_name; }
+  std::string_view getName() const { return m_name; }
 
   // TODO(const correctness): these are apparently set in later stages.
   // Figure out how this can be formulated better. For now:

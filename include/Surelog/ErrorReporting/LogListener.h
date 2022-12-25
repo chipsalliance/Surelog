@@ -64,12 +64,12 @@ class LogListener {
   PathId getLogFileId() const;
   int getQueuedMessageCount() const;
 
-  virtual LogResult log(const std::string& message);
+  virtual LogResult log(std::string_view message);
   virtual LogResult flush();
 
  protected:
   // NOTE: Internal protected/private methods aren't thread-safe.
-  void enqueue(const std::string& message);
+  void enqueue(std::string_view message);
   void flush(std::ostream& strm);
 
  protected:

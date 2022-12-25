@@ -111,7 +111,7 @@ class FileContent : public DesignComponent {
   PathId* getMutableFileId(NodeId id);
   Library* getLibrary() const { return m_library; }
   std::vector<DesignElement*>& getDesignElements() { return m_elements; }
-  void addDesignElement(const std::string& name, DesignElement* elem);
+  void addDesignElement(std::string_view name, DesignElement* elem);
   const DesignElement* getDesignElement(std::string_view name) const;
   using DesignComponent::addObject;
   NodeId addObject(SymbolId name, PathId fileId, VObjectType type,
@@ -126,7 +126,7 @@ class FileContent : public DesignComponent {
   const NameIdMap& getObjectLookup() const { return m_objectLookup; }
   void insertObjectLookup(std::string_view name, NodeId id,
                           ErrorContainer* errors);
-  std::unordered_set<std::string>& getReferencedObjects() {
+  std::set<std::string, std::less<>>& getReferencedObjects() {
     return m_referencedObjects;
   }
 
@@ -172,32 +172,30 @@ class FileContent : public DesignComponent {
   const ClassNameClassDefinitionMultiMap& getClassDefinitions() const {
     return m_classDefinitions;
   }
-  void addModuleDefinition(const std::string& moduleName,
-                           ModuleDefinition* def) {
+  void addModuleDefinition(std::string_view moduleName, ModuleDefinition* def) {
     m_moduleDefinitions.emplace(moduleName, def);
   }
-  void addPackageDefinition(const std::string& packageName, Package* package) {
+  void addPackageDefinition(std::string_view packageName, Package* package) {
     m_packageDefinitions.emplace(packageName, package);
   }
-  void addProgramDefinition(const std::string& programName, Program* program) {
+  void addProgramDefinition(std::string_view programName, Program* program) {
     m_programDefinitions.emplace(programName, program);
   }
-  void addClassDefinition(const std::string& className,
+  void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef) {
     m_classDefinitions.emplace(className, classDef);
   }
 
   const ModuleDefinition* getModuleDefinition(
-      const std::string& moduleName) const;
+      std::string_view moduleName) const;
 
-  DesignComponent* getComponentDefinition(
-      const std::string& componentName) const;
+  DesignComponent* getComponentDefinition(std::string_view componentName) const;
 
-  Package* getPackage(const std::string& name) const;
+  Package* getPackage(std::string_view name) const;
 
-  const Program* getProgram(const std::string& name) const;
+  const Program* getProgram(std::string_view name) const;
 
-  const ClassDefinition* getClassDefinition(const std::string& name) const;
+  const ClassDefinition* getClassDefinition(std::string_view name) const;
 
   const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
@@ -222,7 +220,7 @@ class FileContent : public DesignComponent {
       m_definitionFiles;
 
   NameIdMap m_objectLookup;  // Populated at ResolveSymbol stage
-  std::unordered_set<std::string> m_referencedObjects;
+  std::set<std::string, std::less<>> m_referencedObjects;
 
   ModuleNameModuleDefinitionMap m_moduleDefinitions;
 

@@ -34,6 +34,7 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 #include <Surelog/Testbench/Property.h>
+#include <Surelog/Utils/StringUtils.h>
 
 // UHDM
 #include <uhdm/class_defn.h>
@@ -44,7 +45,7 @@
 
 namespace SURELOG {
 
-bool checkValidFunction(const DataType* dtype, const std::string& function,
+bool checkValidFunction(const DataType* dtype, std::string_view function,
                         Statement* stmt, Design* design,
                         std::string& datatypeName) {
   bool validFunction = true;
@@ -92,11 +93,12 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
   return validFunction;
 }
 
-bool checkValidBuiltinClass_(const std::string& classname,
-                             const std::string& function, Statement* stmt,
+bool checkValidBuiltinClass_(std::string_view classname,
+                             std::string_view function, Statement* stmt,
                              Design* design, std::string& datatypeName) {
   bool validFunction = true;
-  ClassDefinition* array = design->getClassDefinition("builtin::" + classname);
+  ClassDefinition* array =
+      design->getClassDefinition(StrCat("builtin::", classname));
   if (array == nullptr) return false;
   Function* func = array->getFunction(function);
   if (func)
@@ -108,8 +110,9 @@ bool checkValidBuiltinClass_(const std::string& classname,
   return validFunction;
 }
 
-void computeVarChain(const FileContent* fC, NodeId nodeId,
-                     std::vector<std::string>& var_chain) {
+std::vector<std::string_view> computeVarChain(const FileContent* fC,
+                                              NodeId nodeId) {
+  std::vector<std::string_view> var_chain;
   while (nodeId) {
     VObjectType type = fC->Type(nodeId);
     switch (type) {
@@ -134,6 +137,7 @@ void computeVarChain(const FileContent* fC, NodeId nodeId,
     }
     nodeId = fC->Sibling(nodeId);
   }
+  return var_chain;
 }
 
 bool TestbenchElaboration::bindClasses_() {
@@ -351,7 +355,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
   for (const auto& [className, classDefinition] : classes) {
     for (auto& func : classDefinition->getFunctionMap()) {
       DataType* dtype = func.second->getReturnType();
-      const std::string& dataTypeName = dtype->getName();
+      const std::string_view dataTypeName = dtype->getName();
       if (dtype->getDefinition()) continue;
       if (dtype->getFileContent() == nullptr) continue;
       if (dtype->getType() == VObjectType::slStringConst) {
@@ -362,7 +366,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
       }
       for (auto& param : func.second->getParams()) {
         const DataType* dtype = param->getDataType();
-        const std::string& dataTypeName = dtype->getName();
+        const std::string_view dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == nullptr) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
@@ -374,13 +378,13 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
           Value* value = param->getDefault();
           if (value) {
             if (!dtype->isCompatible(value)) {
-              const std::string& name = param->getName();
-              const std::string& typeName = dtype->getName();
+              const std::string_view name = param->getName();
+              const std::string_view typeName = dtype->getName();
               NodeId p = param->getNodeId();
               const FileContent* fC = dtype->getFileContent();
               Location loc1(
                   fC->getFileId(p), fC->Line(p), fC->Column(p),
-                  symbols->registerSymbol(name + " of type " + typeName));
+                  symbols->registerSymbol(StrCat(name, " of type ", typeName)));
               std::string exp;
               if (value->getType() == Value::Type::String)
                 exp = value->getValueS();
@@ -406,8 +410,8 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
                                                ErrorContainer* errors) {
   std::string datatypeName;
   SubRoutineCallStmt* st = statement_cast<SubRoutineCallStmt*>(stmt);
-  std::vector<std::string> var_chain = st->getVarChainNames();
-  std::string function = st->getFunc();
+  std::vector<std::string_view> var_chain = st->getVarChainNames();
+  const std::string_view function = st->getFunc();
   bool validFunction = true;
   const DataType* dtype = nullptr;
   Variable* the_obj = nullptr;
@@ -525,7 +529,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       return true;
     }
     std::string name;
-    for (const auto& v : var_chain) name += v + ".";
+    for (const auto& v : var_chain) name.append(v).append(".");
     if (!name.empty()) name = name.substr(0, name.size() - 1);
     while (dtype && dtype->getDefinition()) {
       dtype = dtype->getDefinition();
@@ -533,13 +537,13 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     if (name.empty()) {
       name = "this";
     }
-    std::string typeName = dtype->getName();
+    std::string_view typeName = dtype->getName();
     if (!datatypeName.empty()) typeName = datatypeName;
     NodeId p = st->getNodeId();
     const FileContent* fC = st->getFileContent();
     Location loc1(
         fC->getFileId(p), fC->Line(p), fC->Column(p),
-        symbols->registerSymbol("\"" + name + "\"" + " of type " + typeName));
+        symbols->registerSymbol(StrCat("\"", name, "\" of type ", typeName)));
     const FileContent* fC2 = dtype->getFileContent();
     Location loc2(
         fC2->getFileId(dtype->getNodeId()), fC2->Line(dtype->getNodeId()),
@@ -569,8 +573,7 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
                                             ForeachLoopStmt* st) {
   NodeId arrayId = st->getArrayId();
   const FileContent* sfC = st->getFileContent();
-  std::vector<std::string> var_chain;
-  computeVarChain(sfC, arrayId, var_chain);
+  std::vector<std::string_view> var_chain = computeVarChain(sfC, arrayId);
   Variable* arrayVar =
       locateVariable_(var_chain, sfC, arrayId, stmt->getScope(),
                       classDefinition, ErrorDefinition::ELAB_UNDEF_VARIABLE);
@@ -667,7 +670,7 @@ bool TestbenchElaboration::bindTasks_() {
     for (auto& func : classDefinition->getTaskMap()) {
       for (auto param : func.second->getParams()) {
         const DataType* dtype = param->getDataType();
-        const std::string& dataTypeName = dtype->getName();
+        const std::string_view dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == nullptr) continue;
         if (dtype->getType() == VObjectType::slStringConst) {

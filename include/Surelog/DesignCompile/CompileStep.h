@@ -61,7 +61,7 @@ class CompileStep {
 
   virtual unsigned int Line(NodeId index) const = 0;
 
-  virtual std::string Symbol(SymbolId id) const = 0;
+  virtual std::string_view Symbol(SymbolId id) const = 0;
 
   virtual NodeId sl_get(NodeId parent,
                         VObjectType type) const = 0;  // Get first item of type
@@ -84,7 +84,7 @@ class CompileStep {
       NodeId parent,
       VObjectType type) const = 0;  // Recursively search for all items of type
 
-  virtual std::string SymName(NodeId index) const = 0;
+  virtual std::string_view SymName(NodeId index) const = 0;
 
  private:
 };

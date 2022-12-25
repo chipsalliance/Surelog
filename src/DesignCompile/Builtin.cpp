@@ -374,7 +374,7 @@ void Builtin::addBuiltinClasses() {
   for (const auto& classId : classes) {
     NodeId stId = fC1->sl_collect(classId, VObjectType::slStringConst,
                                   VObjectType::slAttr_spec);
-    const std::string& libName = fC1->getLibrary()->getName();
+    const std::string_view libName = fC1->getLibrary()->getName();
     if (stId) {
       const std::string_view name = fC1->SymName(stId);
       fC1->insertObjectLookup(name, classId,

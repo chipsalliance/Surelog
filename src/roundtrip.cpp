@@ -368,36 +368,38 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return false;
   }
 
-  inline std::string formatName(std::string arg) const {
-    size_t pos1 = arg.find("::");
+  inline std::string formatName(std::string_view varg) const {
+    std::string sarg(varg);
+    size_t pos1 = sarg.find("::");
     if (pos1 != std::string::npos) {
-      arg = arg.substr(pos1 + 2);
+      sarg = sarg.substr(pos1 + 2);
     }
 
-    size_t pos2 = arg.find("work@");
+    size_t pos2 = sarg.find("work@");
     if (pos2 != std::string::npos) {
-      arg = arg.substr(pos2 + 5);
+      sarg = sarg.substr(pos2 + 5);
     }
-    return arg;
+    return sarg;
   }
 
-  std::string formatValue(std::string arg, bool decorate = true) const {
+  std::string formatValue(std::string_view arg, bool decorate = true) const {
     constexpr std::string_view prefixes[] = {"\"", "", "", ""};
     constexpr std::string_view keywords[] = {
         "STRING:", "UINT:", "BIN:", "INT:"};
     constexpr std::string_view suffixes[] = {"\"", "", "'b1", ""};
     constexpr int32_t count = sizeof(keywords) / sizeof(keywords[0]);
 
+    std::string sarg(arg);
     for (int32_t i = 0; i < count; ++i) {
       if (arg.find(keywords[i]) == 0) {
-        const std::string value = arg.substr(keywords[i].length());
+        const std::string value = sarg.substr(keywords[i].length());
         return decorate
-                   ? arg.assign(prefixes[i]).append(value).append(suffixes[i])
+                   ? sarg.assign(prefixes[i]).append(value).append(suffixes[i])
                    : value;
       }
     }
 
-    return arg;
+    return sarg;
   }
 
   inline std::string getTypespecName(const UHDM::typespec *const object) {
@@ -407,7 +409,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       return getTypespecName(alias);
     }
 
-    const std::string &name = object->VpiName();
+    const std::string_view name = object->VpiName();
     if (!name.empty()) return formatName(name);
 
     std::string text;
@@ -579,7 +581,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       }
     }
 
-    std::string text = typespec->VpiName();
+    std::string text(typespec->VpiName());
     if (text.empty()) {
       typespec_names_t::const_iterator it =
           kTypespecNames.find(typespec->UhdmType());
@@ -2174,7 +2176,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
           static_cast<const UHDM::operation *>(rexpr)->Operands();
       if ((operands != nullptr) &&
           (operands->at(0)->UhdmType() == UHDM::uhdmconstant)) {
-        std::string loperand =
+        std::string_view loperand =
             static_cast<const UHDM::constant *>(operands->at(0))
                 ->VpiDecompile();
         insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), loperand);
@@ -3314,7 +3316,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::filesystem::path &filepath = object->VpiFile();
     const UHDM::constant *const constant = object->Item();
 
-    std::string value = constant->VpiValue();
+    std::string value(constant->VpiValue());
     size_t pos = value.find(keyword2);
     if (pos == 0) {
       value = value.substr(keyword2.length());

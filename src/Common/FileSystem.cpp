@@ -307,7 +307,7 @@ PathId FileSystem::getPpOutputFile(bool isUnitCompilation, PathId sourceFileId,
                                    SymbolTable *symbolTable) {
   if (!sourceFileId || !libraryNameId) return BadPathId;
 
-  const std::string &libraryName = symbolTable->getSymbol(libraryNameId);
+  const std::string_view libraryName = symbolTable->getSymbol(libraryNameId);
   if (libraryName == BadRawSymbol) return BadPathId;
 
   return getPpOutputFile(isUnitCompilation, sourceFileId, libraryName,
@@ -319,7 +319,7 @@ PathId FileSystem::getPpCacheFile(bool isUnitCompilation, PathId sourceFileId,
                                   SymbolTable *symbolTable) {
   if (!sourceFileId || !libraryNameId) return BadPathId;
 
-  const std::string &libraryName = symbolTable->getSymbol(libraryNameId);
+  const std::string_view libraryName = symbolTable->getSymbol(libraryNameId);
   if (libraryName == BadRawSymbol) return BadPathId;
 
   return getPpCacheFile(isUnitCompilation, sourceFileId, libraryName,
@@ -331,7 +331,7 @@ PathId FileSystem::getParseCacheFile(bool isUnitCompilation, PathId ppFileId,
                                      SymbolTable *symbolTable) {
   if (!ppFileId || !libraryNameId) return BadPathId;
 
-  const std::string &libraryName = symbolTable->getSymbol(libraryNameId);
+  const std::string_view libraryName = symbolTable->getSymbol(libraryNameId);
   if (libraryName == BadRawSymbol) return BadPathId;
 
   return getParseCacheFile(isUnitCompilation, ppFileId, libraryName,
@@ -344,7 +344,7 @@ PathId FileSystem::getPythonCacheFile(bool isUnitCompilation,
                                       SymbolTable *symbolTable) {
   if (!sourceFileId || !libraryNameId) return BadPathId;
 
-  const std::string &libraryName = symbolTable->getSymbol(libraryNameId);
+  const std::string_view libraryName = symbolTable->getSymbol(libraryNameId);
   if (libraryName == BadRawSymbol) return BadPathId;
 
   return getPythonCacheFile(isUnitCompilation, sourceFileId, libraryName,

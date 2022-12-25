@@ -32,7 +32,7 @@
 namespace SURELOG {
 
 std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
-    const std::string& content) {
+    std::string_view content) {
   std::tuple<Design*, FileContent*, CompileDesign*> result;
   SymbolTable* symbols = new SymbolTable();
   ErrorContainer* errors = new ErrorContainer(symbols);

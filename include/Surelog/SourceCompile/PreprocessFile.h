@@ -92,31 +92,31 @@ class PreprocessFile final {
   std::string getPreProcessedFileContent();
 
   /* Macro manipulations */
-  void recordMacro(const std::string& name, unsigned int startLine,
+  void recordMacro(std::string_view name, unsigned int startLine,
                    unsigned short int startColumn, unsigned int endLine,
                    unsigned short int endColumn,
-                   const std::string& formal_arguments,
+                   std::string_view formal_arguments,
                    const std::vector<std::string>& body);
-  void recordMacro(const std::string& name, PathId fileId,
+  void recordMacro(std::string_view name, PathId fileId,
                    unsigned int startLine, unsigned short int startColumn,
                    unsigned int endLine, unsigned short int endColumn,
                    const std::vector<std::string>& formal_arguments,
                    const std::vector<std::string>& body);
-  std::string getMacro(const std::string& name,
+  std::string getMacro(std::string_view name,
                        std::vector<std::string>& actual_arguments,
                        PreprocessFile* callingFile, unsigned int callingLine,
                        LoopCheck& loopChecker,
                        SpecialInstructions& instructions,
                        unsigned int embeddedMacroCallLine = 0,
                        PathId embeddedMacroCallFile = BadPathId);
-  bool deleteMacro(const std::string& name, std::set<PreprocessFile*>& visited);
+  bool deleteMacro(std::string_view name, std::set<PreprocessFile*>& visited);
   void undefineAllMacros(std::set<PreprocessFile*>& visited);
   bool isMacroBody() const { return !m_macroBody.empty(); }
-  const std::string& getMacroBody() const { return m_macroBody; }
+  std::string_view getMacroBody() const { return m_macroBody; }
   MacroInfo* getMacroInfo() { return m_macroInfo; }
   SymbolId getMacroSignature();
   const MacroStorage& getMacros() const { return m_macros; }
-  MacroInfo* getMacro(const std::string& name);
+  MacroInfo* getMacro(std::string_view name);
 
   std::string reportIncludeInfo() const;
 
@@ -232,7 +232,7 @@ class PreprocessFile final {
   };
 
   std::string evaluateMacroInstance(
-      const std::string& macro_instance, PreprocessFile* callingFile,
+      std::string_view macro_instance, PreprocessFile* callingFile,
       unsigned int callingLine,
       SpecialInstructions::CheckLoopInstr checkMacroLoop,
       SpecialInstructions::AsIsUndefinedMacroInstr);
@@ -287,7 +287,7 @@ class PreprocessFile final {
   SpecialInstructions m_instructions;
 
   /* To create the preprocessed content */
-  void append(const std::string& s);
+  void append(std::string_view s);
   void pauseAppend() { m_pauseAppend = true; }
   void resumeAppend() { m_pauseAppend = false; }
 
@@ -301,7 +301,7 @@ class PreprocessFile final {
   /* Shorthands for symbol manipulations */
   SymbolId registerSymbol(std::string_view symbol) const;
   SymbolId getId(std::string_view symbol) const;
-  std::string getSymbol(SymbolId id) const;
+  std::string_view getSymbol(SymbolId id) const;
 
   // For recursive macro definition detection
   PreprocessFile* getSourceFile();
@@ -324,13 +324,13 @@ class PreprocessFile final {
 
  private:
   std::pair<bool, std::string> evaluateMacro_(
-      const std::string& name, std::vector<std::string>& arguments,
+      std::string_view name, std::vector<std::string>& arguments,
       PreprocessFile* callingFile, unsigned int callingLine,
       LoopCheck& loopChecker, MacroInfo* macroInfo,
       SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
       PathId embeddedMacroCallFile);
 
-  void checkMacroArguments_(const std::string& name, unsigned int line,
+  void checkMacroArguments_(std::string_view name, unsigned int line,
                             unsigned short column,
                             const std::vector<std::string>& arguments,
                             const std::vector<std::string>& tokens);
