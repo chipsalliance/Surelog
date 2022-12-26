@@ -29,8 +29,10 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 
 // UHDM
+#include <uhdm/ExprEval.h>
 #include <uhdm/constant.h>
 #include <uhdm/param_assign.h>
+#include <uhdm/ref_obj.h>
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
@@ -89,6 +91,32 @@ UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
   return nullptr;
 }
 
+const UHDM::constant* resolveFromParamAssign(
+    const UHDM::VectorOfparam_assign* param_assigns,
+    std::set<std::string>& visited, const std::string_view& name) {
+  std::string s(name);
+  if (visited.find(s) != visited.end()) {
+    return nullptr;
+  }
+  visited.insert(std::string(name));
+  for (param_assign* param : *param_assigns) {
+    const std::string_view param_name = param->Lhs()->VpiName();
+    if (param_name == name) {
+      const any* exp = param->Rhs();
+      if (exp) {
+        if (exp->UhdmType() == uhdmconstant) {
+          return (constant*)exp;
+        } else if (exp->UhdmType() == UHDM::uhdmref_obj) {
+          UHDM::ref_obj* ref = (UHDM::ref_obj*)exp;
+          const std::string_view ref_name = ref->VpiName();
+          return resolveFromParamAssign(param_assigns, visited, ref_name);
+        }
+      }
+    }
+  }
+  return nullptr;
+}
+
 Value* ModuleInstance::getValue(std::string_view name,
                                 ExprBuilder& exprBuilder) const {
   Value* sval = nullptr;
@@ -104,18 +132,12 @@ Value* ModuleInstance::getValue(std::string_view name,
       UHDM::VectorOfparam_assign* param_assigns =
           instance->m_netlist->param_assigns();
       if (param_assigns) {
-        for (param_assign* param : *param_assigns) {
-          if (param && param->Lhs()) {
-            const std::string_view param_name = param->Lhs()->VpiName();
-            if (param_name == name) {
-              const any* exp = param->Rhs();
-              if (exp && exp->UhdmType() == uhdmconstant) {
-                constant* c = (constant*)exp;
-                sval = exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
-              }
-              break;
-            }
-          }
+        std::set<std::string> visited;
+        const UHDM::constant* res =
+            resolveFromParamAssign(param_assigns, visited, name);
+        if (res) {
+          sval = exprBuilder.fromVpiValue(res->VpiValue(), res->VpiSize());
+          break;
         }
       }
     }
@@ -134,16 +156,11 @@ Value* ModuleInstance::getValue(std::string_view name,
     UHDM::VectorOfparam_assign* param_assigns =
         m_definition->getParam_assigns();
     if (param_assigns) {
-      for (param_assign* param : *param_assigns) {
-        const std::string_view param_name = param->Lhs()->VpiName();
-        if (param_name == name) {
-          const any* exp = param->Rhs();
-          if (exp && (exp->UhdmType() == uhdmconstant)) {
-            constant* c = (constant*)exp;
-            sval = exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
-          }
-          break;
-        }
+      std::set<std::string> visited;
+      const UHDM::constant* res =
+          resolveFromParamAssign(param_assigns, visited, name);
+      if (res) {
+        sval = exprBuilder.fromVpiValue(res->VpiValue(), res->VpiSize());
       }
     }
   }
