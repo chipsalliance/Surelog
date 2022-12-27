@@ -206,7 +206,7 @@ add_custom_command(
   # Unfortunately, cmake does not provide simple equivalents to
   # gmake's $(nodir $(surelog_grammars)).
   # So, we list them here all manually passing to the command.
-  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -package SURELOG
+  COMMAND ${Java_JAVA_EXECUTABLE} -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -package SURELOG
              -o ${GENDIR}/src/parser/
              SV3_1aLexer.g4    SV3_1aParser.g4
              SV3_1aPpLexer.g4  SV3_1aPpParser.g4
@@ -655,7 +655,7 @@ endif()
 
 # Installation target
 install(
-  TARGETS surelog-bin
+  TARGETS surelog-bin roundtrip
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # Libraries
@@ -706,7 +706,7 @@ if (SURELOG_WITH_PYTHON)
 endif()
 
 install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
+  DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/CommandLine/CommandLineParser.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/CommandLine)

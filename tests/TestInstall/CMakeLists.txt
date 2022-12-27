@@ -65,7 +65,7 @@ target_link_directories(test_hellosureworld
 if (SURELOG_WITH_PYTHON)
   target_link_libraries(test_hellosureworld
     surelog
-    antlr4-runtime$<$<CXX_COMPILER_ID:MSVC,Clang>:-static>
+    antlr4-runtime$<$<BOOL:${WIN32}>:-static>
     flatbuffers
     uhdm
     capnp
@@ -76,7 +76,7 @@ if (SURELOG_WITH_PYTHON)
 else()
   target_link_libraries(test_hellosureworld
     surelog
-    antlr4-runtime$<$<CXX_COMPILER_ID:MSVC,Clang>:-static>
+    antlr4-runtime$<$<BOOL:${WIN32}>:-static>
     flatbuffers
     uhdm
     capnp
