@@ -363,13 +363,12 @@ PathId PlatformFileSystem::getPrecompiledDir(PathId programId,
   if (programFile.empty() || !programFile.has_parent_path()) return BadPathId;
 
   const std::filesystem::path programPath = programFile.parent_path();
-  const std::vector<std::filesystem::path> search_path = {
-      programPath,                     // Build path
-      programPath / "lib" / "surelog"  // Installation path
+  const std::vector<std::filesystem::path> search_paths = {
+      programPath,  // Build path
   };
 
   std::error_code ec;
-  for (const std::filesystem::path &dir : search_path) {
+  for (const std::filesystem::path &dir : search_paths) {
     const std::filesystem::path pkgDir = dir / kPrecompiledDirName;
     if ((std::filesystem::exists(dir, ec) && !ec) &&
         (std::filesystem::is_directory(pkgDir, ec) && !ec)) {
