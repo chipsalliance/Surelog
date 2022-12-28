@@ -249,7 +249,7 @@ TEST(PlatformFileSystemTest, LocateFile) {
   PathId now_exists =
       fileSystem->locate(search_file, directories, symbolTable.get());
   EXPECT_NE(now_exists, BadPathId);
-  EXPECT_EQ(fileSystem->toPlatformPath(now_exists), actual_loc_1);
+  EXPECT_EQ(fileSystem->toPlatformAbsPath(now_exists), actual_loc_1);
 
   PathId already_found =
       fileSystem->locate(search_file, directories, symbolTable.get());
@@ -261,7 +261,7 @@ TEST(PlatformFileSystemTest, LocateFile) {
   PathId now_exists_1 =
       fileSystem->locate(search_file, directories, symbolTable.get());
   EXPECT_NE(now_exists_1, BadPathId);
-  EXPECT_EQ(fileSystem->toPlatformPath(now_exists_1), actual_loc_1);
+  EXPECT_EQ(fileSystem->toPlatformAbsPath(now_exists_1), actual_loc_1);
 
   EXPECT_TRUE(fileSystem->remove(now_exists_1));
   EXPECT_FALSE(fileSystem->exists(now_exists_1));
@@ -269,7 +269,7 @@ TEST(PlatformFileSystemTest, LocateFile) {
   PathId now_exists_2 =
       fileSystem->locate(search_file, directories, symbolTable.get());
   EXPECT_NE(now_exists_2, BadPathId);
-  EXPECT_EQ(fileSystem->toPlatformPath(now_exists_2), actual_loc_2);
+  EXPECT_EQ(fileSystem->toPlatformAbsPath(now_exists_2), actual_loc_2);
 
   EXPECT_TRUE(fileSystem->rmtree(
       fileSystem->toPathId(basedir.string(), symbolTable.get())));
@@ -286,7 +286,7 @@ TEST(PlatformFileSystemTest, PathRelations) {
   PathId fileId =
       fileSystem->toPathId((base / "abc.txt").string(), symbolTable.get());
   PathId fileDirId = fileSystem->getParent(fileId, symbolTable.get());
-  EXPECT_EQ(base, fileSystem->toPlatformPath(fileDirId));
+  EXPECT_EQ(base, fileSystem->toPlatformAbsPath(fileDirId));
 
   PathId siblingId =
       fileSystem->getSibling(fileId, "def.txt", symbolTable.get());

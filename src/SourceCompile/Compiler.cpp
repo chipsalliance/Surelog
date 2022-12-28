@@ -350,9 +350,9 @@ bool Compiler::createMultiProcessParser_() {
   // Create CMakeLists.txt
   const bool muted = m_commandLineParser->muteStdout();
   const fs::path outputDir =
-      fileSystem->toPlatformPath(m_commandLineParser->getOutputDirId());
+      fileSystem->toPlatformAbsPath(m_commandLineParser->getOutputDirId());
   const fs::path programPath =
-      fileSystem->toPlatformPath(m_commandLineParser->getProgramId());
+      fileSystem->toPlatformAbsPath(m_commandLineParser->getProgramId());
   const std::string_view profile =
       m_commandLineParser->profile() ? " -profile " : " ";
   const std::string_view sverilog =
@@ -441,7 +441,7 @@ bool Compiler::createMultiProcessParser_() {
     absoluteIndex++;
     for (const auto compiler : jobArray[i]) {
       fs::path fileName =
-          fileSystem->toPlatformPath(compiler->getPpOutputFileId());
+          fileSystem->toPlatformAbsPath(compiler->getPpOutputFileId());
       std::string_view svFile =
           m_commandLineParser->isSVFile(compiler->getFileId()) ? " -sv " : " ";
       StrAppend(&fileList, svFile, fileName);
@@ -549,9 +549,9 @@ bool Compiler::createMultiProcessPreProcessor_() {
   const bool muted = m_commandLineParser->muteStdout();
   const fs::path workingDir = fileSystem->getWorkingDir();
   const fs::path outputDir =
-      fileSystem->toPlatformPath(m_commandLineParser->getOutputDirId());
+      fileSystem->toPlatformAbsPath(m_commandLineParser->getOutputDirId());
   const fs::path programPath =
-      fileSystem->toPlatformPath(m_commandLineParser->getProgramId());
+      fileSystem->toPlatformAbsPath(m_commandLineParser->getProgramId());
   const std::string_view profile =
       m_commandLineParser->profile() ? " -profile " : " ";
   const std::string_view sverilog =

@@ -142,9 +142,10 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
 
   const PathId allCompileDirId = fileSystem->getCompileDir(false, st);
   const PathId unitCompileDirId = fileSystem->getCompileDir(true, st);
-  const fs::path allCompileDir = fileSystem->toPlatformPath(allCompileDirId);
-  const fs::path unitCompileDir = fileSystem->toPlatformPath(unitCompileDirId);
-  const fs::path diffFile = fileSystem->toPlatformPath(diffFileId);
+  const fs::path allCompileDir = fileSystem->toPlatformAbsPath(allCompileDirId);
+  const fs::path unitCompileDir =
+      fileSystem->toPlatformAbsPath(unitCompileDirId);
+  const fs::path diffFile = fileSystem->toPlatformAbsPath(diffFileId);
 
   std::string diffCmd = StrCat("diff -r ", unitCompileDir, " ", allCompileDir,
                                " --exclude cache --brief > ", diffFile);

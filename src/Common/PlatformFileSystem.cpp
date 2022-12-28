@@ -68,11 +68,11 @@ PathId PlatformFileSystem::toPathId(std::string_view path,
   return PathId(symbolTable, (RawSymbolId)symbolId, symbol);
 }
 
-std::filesystem::path PlatformFileSystem::toPlatformPath(PathId id) {
+std::filesystem::path PlatformFileSystem::toPlatformAbsPath(PathId id) {
   return toPath(id);
 }
 
-std::filesystem::path PlatformFileSystem::toRelPath(PathId id) {
+std::filesystem::path PlatformFileSystem::toPlatformRelPath(PathId id) {
   int32_t minUpDirs = std::numeric_limits<int32_t>::max();
   std::filesystem::path bestPrefix;
   std::filesystem::path bestSuffix;
@@ -438,7 +438,7 @@ PathId PlatformFileSystem::getPpOutputFile(bool isUnitCompilation,
       isUnitCompilation ? kUnitCompileDirName : kAllCompileDirName;
   ppOutputFilepath /= kPreprocessLibraryDirName;
   ppOutputFilepath /= libraryName;
-  ppOutputFilepath /= toRelPath(sourceFileId);
+  ppOutputFilepath /= toPlatformRelPath(sourceFileId);
   PathId ppFileId = toPathId(ppOutputFilepath.string(), symbolTable);
   if (kEnableLogs) {
     std::cerr << "getPpOutputFile: " << PathIdPP(sourceFileId) << " => "
@@ -459,13 +459,13 @@ PathId PlatformFileSystem::getPpCacheFile(bool isUnitCompilation,
     ppCacheFile = getProgramPath().parent_path();
     ppCacheFile /= kPrecompiledDirName;
     ppCacheFile /= libraryName;
-    ppCacheFile /= toPlatformPath(sourceFileId).filename();
+    ppCacheFile /= toPlatformAbsPath(sourceFileId).filename();
   } else {
     ppCacheFile = m_outputDir;
     ppCacheFile /= isUnitCompilation ? kUnitCompileDirName : kAllCompileDirName;
     ppCacheFile /= kPreprocessCacheDirName;
     ppCacheFile /= libraryName;
-    ppCacheFile /= toRelPath(sourceFileId);
+    ppCacheFile /= toPlatformRelPath(sourceFileId);
   }
   ppCacheFile += ".slpp";
   const PathId ppCacheFileId = toPathId(ppCacheFile.string(), symbolTable);
@@ -523,7 +523,7 @@ PathId PlatformFileSystem::getPythonCacheFile(bool isUnitCompilation,
       isUnitCompilation ? kUnitCompileDirName : kAllCompileDirName;
   pythonCacheFile /= kPythonCacheDirName;
   pythonCacheFile /= libraryName;
-  pythonCacheFile /= toRelPath(sourceFileId);
+  pythonCacheFile /= toPlatformRelPath(sourceFileId);
   pythonCacheFile += ".slpy";
   PathId pyCacheFileId = toPathId(pythonCacheFile.string(), symbolTable);
   if (kEnableLogs) {

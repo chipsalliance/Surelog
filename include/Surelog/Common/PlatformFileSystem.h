@@ -56,7 +56,8 @@ class PlatformFileSystem : public FileSystem {
 
  public:
   PathId toPathId(std::string_view path, SymbolTable *symbolTable) override;
-  std::filesystem::path toPlatformPath(PathId id) override;
+  std::filesystem::path toPlatformAbsPath(PathId id) override;
+  std::filesystem::path toPlatformRelPath(PathId id) override;
 
   std::string getWorkingDir() override;
   std::set<std::string> getWorkingDirs() override;
@@ -173,7 +174,6 @@ class PlatformFileSystem : public FileSystem {
 
  protected:
   // Internal helpers
-  std::filesystem::path toRelPath(PathId id);
   void addConfiguration(const std::filesystem::path &sourceDir);
 
   virtual std::istream &openInput(const std::filesystem::path &filepath,

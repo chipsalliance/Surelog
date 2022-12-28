@@ -4060,7 +4060,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   adjuster->listenDesigns(designs);
   delete adjuster;
 
-  const fs::path uhdmFile = fileSystem->toPlatformPath(uhdmFileId);
+  const fs::path uhdmFile = fileSystem->toPlatformAbsPath(uhdmFileId);
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
