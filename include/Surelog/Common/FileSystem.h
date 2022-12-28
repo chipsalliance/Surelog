@@ -59,12 +59,12 @@ class SymbolTable;
  *   Read/Write is used in context to text streams
  *   and Load/Save in context to binary streams.
  *
- * toPath vs. toPlatformPath:
+ * toPath vs. toPlatformAbsPath:
  *   toPath returns a printable representation of the PathId. This doesn't
  *     necessarily have to be a resolve-able path. What the string represent
  *     is up to the interpretation of the FileSystem implementation itself.
  * 
- *   toPlatformPath returns a std::filesystem::path representation of PathId.
+ *   toPlatformAbsPath returns a std::filesystem::path representation of PathId.
  *     The path itself can be non-existant, in certain cases, however
  *     it does have to exist because it is to be used by external processes
  *     like CMake or a system call to batch script. In short, the return path
@@ -72,11 +72,11 @@ class SymbolTable;
  *
  *   NOTE:
  *     toPath(id) == toPath(toPathId(toPath(id))) but
- *     toPlatformPath(id) <> toPlatformPath(toPathId(toPlatformPath(id)))
+ *     toPlatformAbsPath(id) <> toPlatformAbsPath(toPathId(toPlatformAbsPath(id)))
  * 
  *     i.e. string representation can be converted to id (and vice-versa)
  *     using toPathId & toPath but the same is not necessarily guaranteed
- *     between toPathId & toPlatformPath (primarily because of potential
+ *     between toPathId & toPlatformAbsPath (primarily because of potential
  *     normalization).
  *
  * Mappings:
@@ -122,7 +122,8 @@ class FileSystem {
   virtual std::string_view toPath(PathId id);
   // Returns platform specific path i.e. a path that can be mapped on disk
   // and can be used for, say, system commands.
-  virtual std::filesystem::path toPlatformPath(PathId id) = 0;
+  virtual std::filesystem::path toPlatformAbsPath(PathId id) = 0;
+  virtual std::filesystem::path toPlatformRelPath(PathId id) = 0;
 
   // Returns the current working directory as either the native filesystem
   // path or as a PathId registered in the input SymbolTable.
