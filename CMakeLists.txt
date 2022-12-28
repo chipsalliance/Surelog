@@ -284,10 +284,6 @@ if (SURELOG_WITH_PYTHON)
   )
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/include
-                    ${GENDIR}/include
-                    ${GENDIR}/src)
-
 # Put source code here, files that are generated at build time in
 # surelog_generated_SRC
 set(surelog_SRC
@@ -430,8 +426,13 @@ endforeach()
 
 add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
+target_include_directories(surelog PUBLIC
+  $<BUILD_INTERFACE:${GENDIR}/include>
+  $<BUILD_INTERFACE:${GENDIR}/src>)
+target_include_directories(surelog PUBLIC
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
 
-target_include_directories(surelog PUBLIC $<INSTALL_INTERFACE:include>)
 if (SURELOG_WITH_PYTHON)
   target_include_directories(surelog PUBLIC ${Python3_INCLUDE_DIRS}) # Keep this at the end
   target_compile_definitions(surelog PUBLIC SURELOG_WITH_PYTHON)
@@ -805,7 +806,7 @@ install(
         ${PROJECT_SOURCE_DIR}/include/Surelog/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Expression)
 
-if (WIN32 AND (CMAKE_CXX_COMPILER_ID MATCHES "MSVC"))
+if (WIN32)
   if (SURELOG_WITH_PYTHON)
     install(
       FILES ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
@@ -853,6 +854,6 @@ install(
   DESTINATION cmake)
 
 ADD_CUSTOM_TARGET(
-  link_target ALL
+  surelog_link_target ALL
   COMMAND ${CMAKE_COMMAND} -E create_symlink
   ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json ${PROJECT_SOURCE_DIR}/compile_commands.json)
