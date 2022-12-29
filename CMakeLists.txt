@@ -824,18 +824,20 @@ if (WIN32)
           ${UHDM_BINARY_DIR}/bin/uhdm-hier.pdb
     CONFIGURATIONS Debug RelWithDebInfo
     DESTINATION ${CMAKE_INSTALL_BINDIR})
-  install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
-          ${FlatBuffers_BINARY_DIR}/CMakeFiles/flatbuffers.dir/flatbuffers.pdb
-          ${LIBANTLR4_BINARY_DIR}/runtime/$<TARGET_FILE_BASE_NAME:antlr4_static>.pdb
-    CONFIGURATIONS Debug RelWithDebInfo
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
-  install(
-    FILES ${UHDM_BINARY_DIR}/CMakeFiles/uhdm.dir/uhdm.pdb
-          ${Cap\'n\ Proto_BINARY_DIR}/src/capnp/CMakeFiles/capnp.dir/capnp.pdb
-          ${Cap\'n\ Proto_BINARY_DIR}/src/kj/CMakeFiles/kj.dir/kj.pdb
-    CONFIGURATIONS Debug RelWithDebInfo
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm)
+  if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    install(
+      FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
+            ${FlatBuffers_BINARY_DIR}/CMakeFiles/flatbuffers.dir/flatbuffers.pdb
+            ${LIBANTLR4_BINARY_DIR}/runtime/$<TARGET_FILE_BASE_NAME:antlr4_static>.pdb
+      CONFIGURATIONS Debug RelWithDebInfo
+      DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
+    install(
+      FILES ${UHDM_BINARY_DIR}/CMakeFiles/uhdm.dir/uhdm.pdb
+            ${Cap\'n\ Proto_BINARY_DIR}/src/capnp/CMakeFiles/capnp.dir/capnp.pdb
+            ${Cap\'n\ Proto_BINARY_DIR}/src/kj/CMakeFiles/kj.dir/kj.pdb
+      CONFIGURATIONS Debug RelWithDebInfo
+      DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm)
+  endif()
 endif()
 
 install(
