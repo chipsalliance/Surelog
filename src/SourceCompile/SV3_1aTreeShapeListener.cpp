@@ -2069,4 +2069,12 @@ void SV3_1aTreeShapeListener::exitDefault_nettype_directive(
   m_pf->getCompilationUnit()->recordDefaultNetType(info);
 }
 
+void SV3_1aTreeShapeListener::exitParameter_value_assignment(
+    SV3_1aParser::Parameter_value_assignmentContext *ctx) {
+  if (ctx->Pound_delay()) {
+    addVObject(ctx, ctx->Pound_delay()->getText(), VObjectType::slIntConst);
+  }
+  addVObject(ctx, VObjectType::slParameter_value_assignment);
+}
+
 }  // namespace SURELOG

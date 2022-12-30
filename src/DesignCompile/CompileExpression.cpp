@@ -472,6 +472,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
           v = value;
           size = "";
         }
+        v = StringUtils::replaceAll(v, "#", "");
         v = StringUtils::replaceAll(v, "_", "");
         size = StringUtils::rtrim_until(size, '\'');
         if (size.empty()) {
@@ -526,6 +527,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
         } else {
           v.assign("UINT:").append(value);
           c->VpiConstType(vpiUIntConst);
+          v = StringUtils::replaceAll(v, "#", "");
         }
         c->VpiSize(64);
       }
