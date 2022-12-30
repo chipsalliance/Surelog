@@ -1545,7 +1545,8 @@ void DesignElaboration::elaborateInstance_(
         NodeId tmpId = fC->Sibling(moduleName);
         VObjectType tmpType = fC->Type(tmpId);
         if (tmpType == VObjectType::slParameter_value_assignment ||
-            tmpType == VObjectType::slDelay2) {
+            tmpType == VObjectType::slDelay2 ||
+            tmpType == VObjectType::slIntConst) {
           paramOverride = tmpId;
         }
 
@@ -1890,11 +1891,16 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
       } else {
         overrideParams.push_back(parentParamOverride);
       }
+    } else if (parentFile->Type(parentParamOverride) ==
+               VObjectType::slIntConst) {
+      // dffr #4 u1 ( )
+      overrideParams.push_back(parentParamOverride);
     }
     unsigned int index = 0;
     for (auto paramAssign : overrideParams) {
       NodeId child = parentFile->Child(paramAssign);
-      if (parentFile->Type(paramAssign) == VObjectType::slDelay2) {
+      if (parentFile->Type(paramAssign) == VObjectType::slDelay2 ||
+          parentFile->Type(paramAssign) == VObjectType::slIntConst) {
         child = paramAssign;
       }
       if (parentFile->Type(child) == VObjectType::slStringConst) {
