@@ -403,7 +403,7 @@ begin                                                  1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              22
+constant                                              23
 cont_assign                                            2
 design                                                 1
 enum_const                                             5
@@ -435,7 +435,7 @@ begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              22
+constant                                              23
 cont_assign                                            3
 design                                                 1
 enum_const                                            10
@@ -1026,7 +1026,7 @@ design: (work@top)
         |vpiRhs:
         \_constant: , line:4:32, endln:4:36
           |vpiParent:
-          \_cont_assign: , line:7:10, endln:7:34
+          \_assign_stmt: , line:4:5, endln:4:36
           |vpiDecompile:3'b1
           |vpiSize:3
           |BIN:1
@@ -1289,6 +1289,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarInFunc/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_constant: , line:4:32, endln:4:36
+      |vpiParent:
+      \_cont_assign: , line:7:10, endln:7:34
+      |vpiDecompile:3'b1
+      |vpiSize:3
+      |BIN:1
+      |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.b), line:7:10, endln:7:11
       |vpiParent:
