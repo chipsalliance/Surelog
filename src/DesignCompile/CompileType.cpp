@@ -361,6 +361,13 @@ UHDM::any* CompileHelper::compileVariable(
       result = var;
       break;
     }
+    case VObjectType::slSigning_Signed: {
+      int_var* var = s.MakeInt_var();
+      var->Typespec(ts);
+      var->VpiSigned(isSigned);
+      result = var;
+      break;
+    }
     case VObjectType::slIntegerAtomType_Byte: {
       byte_var* var = s.MakeByte_var();
       var->Typespec(ts);

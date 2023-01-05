@@ -2106,7 +2106,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
       Return_data_type = Function_data_type;
     }
     if ((!Return_data_type) &&
-        (fC->Type(Function_data_type) == VObjectType::slSigning_Unsigned)) {
+        ((fC->Type(Function_data_type) == VObjectType::slSigning_Unsigned) ||
+         (fC->Type(Function_data_type) == VObjectType::slSigning_Signed))) {
       Return_data_type = Function_data_type;
     }
     variables* var = nullptr;
