@@ -202,8 +202,12 @@ static const std::initializer_list<std::string_view> helpText = {
     "                        slpp_unit/)",
     "  -lineoffsetascomments Writes the preprocessor line offsets as comments",
     "                        as opposed as parser directives",
-    "  -nocache              Default allows to create a cache for include",
-    "                        files, this option prevents it",
+    "  -nocache              Default allows to read cache for include files,",
+    "                        this option prevents it",
+    "  -noprecompiledcache   Default allows to read precompiled cache, this",
+    "                        option prevents it",
+    "  -nowritecache         Default allows writing cache, this option",
+    "                        prevents it",
     "  -cache <dir>          Specifies the cache directory, default is",
     "                        slpp_all/cache or slpp_unit/cache",
     "  -nohash               Treat cache as always valid (no",
@@ -356,6 +360,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_diffCompMode(diffCompMode),
       m_help(false),
       m_cacheAllowed(true),
+      m_writeCache(true),
+      m_precompiledCacheAllowed(true),
       m_debugCache(false),
       m_debugFSConfig(false),
       m_nbMaxTreads(0),
@@ -1103,6 +1109,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_blackboxInstances.insert(all_arguments[i]);
     } else if (all_arguments[i] == "-createcache") {
       m_createCache = true;
+      m_writeCache = true;
+      m_precompiledCacheAllowed = false;
+    } else if (all_arguments[i] == "-nowritecache") {
+      m_writeCache = false;
     } else if (all_arguments[i] == "-lineoffsetascomments") {
       m_lineOffsetsAsComments = true;
     } else if (all_arguments[i] == "-v") {
@@ -1252,6 +1262,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_parseOnly = true;
     } else if (all_arguments[i] == "-init") {
       m_cacheAllowed = false;
+      m_writeCache = false;
       cleanCache();
     } else if (all_arguments[i] == "-sepcomp") {
       m_sepComp = true;
@@ -1348,6 +1359,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         std::cerr << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-nocache") {
       m_cacheAllowed = false;
+    } else if (all_arguments[i] == "-nowritecache") {
+      m_writeCache = false;
+    } else if (all_arguments[i] == "-noprecompiledcache") {
+      m_precompiledCacheAllowed = false;
     } else if (all_arguments[i] == "-sv") {
       if (((i + 1) < all_arguments.size()) &&
           (all_arguments[i + 1][0] != '-')) {

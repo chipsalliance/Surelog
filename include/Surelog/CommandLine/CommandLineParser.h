@@ -83,11 +83,15 @@ class CommandLineParser final {
   bool writePpOutput() const { return m_writePpOutput; }
   void setwritePpOutput(bool value) { m_writePpOutput = value; }
   bool cacheAllowed() const { return m_cacheAllowed; }
+  bool writeCache() const { return m_writeCache; }
+  bool precompiledCacheAllowed() const { return m_precompiledCacheAllowed; }
   bool debugCache() const { return m_debugCache; }
   void debugCache(bool on) { m_debugCache = on; }
   void noCacheHash(bool noCachePath) { m_noCacheHash = noCachePath; }
   bool noCacheHash() const { return m_noCacheHash; }
   void setCacheAllowed(bool val) { m_cacheAllowed = val; }
+  void setWriteCache(bool val) { m_writeCache = val; }
+  void setPrecompiledCacheAllowed(bool val) { m_precompiledCacheAllowed = val; }
   bool lineOffsetsAsComments() const { return m_lineOffsetsAsComments; }
   PathId getCacheDirId() const { return m_cacheDirId; }
   PathId getPrecompiledDirId() const { return m_precompiledDirId; }
@@ -305,6 +309,8 @@ class CommandLineParser final {
   bool m_diffCompMode;
   bool m_help;
   bool m_cacheAllowed;
+  bool m_writeCache;
+  bool m_precompiledCacheAllowed;
   bool m_debugCache;
   bool m_debugFSConfig;
   unsigned short int m_nbMaxTreads;

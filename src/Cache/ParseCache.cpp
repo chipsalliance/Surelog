@@ -143,10 +143,6 @@ bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
                                     const std::vector<char>& content) const {
   if (!cacheFileId || content.empty()) return false;
 
-  CommandLineParser* clp =
-      m_parse->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->cacheAllowed()) return false;
-
   if (!PARSECACHE::ParseCacheBufferHasIdentifier(content.data())) {
     return false;
   }
@@ -171,10 +167,6 @@ bool ParseCache::checkCacheIsValid_(PathId cacheFileId,
 bool ParseCache::checkCacheIsValid_(PathId cacheFileId) const {
   if (!cacheFileId) return false;
 
-  CommandLineParser* clp =
-      m_parse->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->cacheAllowed()) return false;
-
   std::vector<char> content;
   return openFlatBuffers(cacheFileId, content) &&
          checkCacheIsValid_(cacheFileId, content);
@@ -187,7 +179,13 @@ bool ParseCache::isValid() {
 bool ParseCache::restore() {
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->cacheAllowed()) return false;
+
+  Precompiled* const prec = Precompiled::getSingleton();
+  if (prec->isFilePrecompiled(m_parse->getPpFileId(), clp->getSymbolTable())) {
+    if (!clp->precompiledCacheAllowed()) return false;
+  } else {
+    if (!clp->cacheAllowed()) return false;
+  }
 
   PathId cacheFileId = getCacheFileId_(BadPathId);
   std::vector<char> content;
@@ -200,7 +198,7 @@ bool ParseCache::restore() {
 bool ParseCache::save() {
   CommandLineParser* clp =
       m_parse->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->cacheAllowed()) return true;
+  if (!clp->writeCache()) return true;
 
   FileContent* fcontent = m_parse->getFileContent();
   if (fcontent && (fcontent->getVObjects().size() > Cache::Capacity)) {
