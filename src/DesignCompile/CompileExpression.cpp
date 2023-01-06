@@ -4439,12 +4439,13 @@ UHDM::any *CompileHelper::compileClog2(
   if (fC->Type(Expression) == VObjectType::slList_of_arguments) {
     Expression = fC->Child(Expression);
   }
-  expr *operand =
-      (expr *)compileExpression(component, fC, Expression, compileDesign, pexpr,
-                                instance, reduce, muteErrors);
+
   bool invalidValue = false;
   int64_t val = 0;
   if (reduce) {
+    expr *operand =
+        (expr *)compileExpression(component, fC, Expression, compileDesign,
+                                  pexpr, instance, reduce, muteErrors);
     UHDM::ExprEval eval;
     val = eval.get_value(
         invalidValue,
