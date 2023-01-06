@@ -2539,11 +2539,11 @@ void DesignElaboration::createFileList_() {
 
   Design* design = m_compileDesign->getCompiler()->getDesign();
   std::queue<ModuleInstance*> queue;
-  std::set<const FileContent*> files;
+  PathIdSet filePathIds;
   for (const auto& pack : design->getPackageDefinitions()) {
     if (!pack.second->getFileContents().empty()) {
       if (pack.second->getFileContents()[0] != nullptr)
-        files.insert(pack.second->getFileContents()[0]);
+        filePathIds.emplace(pack.second->getFileContents()[0]->getFileId());
     }
   }
 
@@ -2561,12 +2561,12 @@ void DesignElaboration::createFileList_() {
     }
     const FileContent* fC = current->getFileContent();
     if (fC) {
-      files.insert(fC);
+      filePathIds.emplace(fC->getFileId());
     }
     if (def) {
       for (auto f : def->getFileContents()) {
         if (f) {
-          files.insert(f);
+          filePathIds.emplace(f->getFileId());
         }
       }
     }
@@ -2578,8 +2578,8 @@ void DesignElaboration::createFileList_() {
   if (ofs.good()) {
     const Compiler::PPFileMap& ppFileName =
         m_compileDesign->getCompiler()->getPPFileMap();
-    for (const auto& fC : files) {
-      auto itr = ppFileName.find(fC->getFileId());
+    for (const auto& fileId : filePathIds) {
+      auto itr = ppFileName.find(fileId);
       if (itr != ppFileName.end()) {
         for (const auto& fId : itr->second) {
           ofs << fileSystem->toPath(fId) << std::flush << std::endl;
