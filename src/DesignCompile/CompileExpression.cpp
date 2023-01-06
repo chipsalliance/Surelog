@@ -1936,6 +1936,33 @@ UHDM::any *CompileHelper::compileExpression(
             result = opL;
             break;
           }
+          VObjectType opType = fC->Type(op);
+          unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+          if (opType == VObjectType::slQmark ||
+              opType == VObjectType::slConditional_operator) {  // Ternary op
+            if (reduce) {
+              if (opL->UhdmType() == uhdmconstant) {
+                UHDM::ExprEval eval;
+                bool invalidValue = false;
+                int64_t cond = eval.get_value(invalidValue, (expr *)opL);
+                if (cond) {
+                  NodeId rval = fC->Sibling(op);
+                  result =
+                      compileExpression(component, fC, rval, compileDesign,
+                                        pexpr, instance, reduce, muteErrors);
+                  break;
+                } else {
+                  NodeId rval = fC->Sibling(op);
+                  rval = fC->Sibling(rval);
+                  result =
+                      compileExpression(component, fC, rval, compileDesign,
+                                        pexpr, instance, reduce, muteErrors);
+                  break;
+                }
+              }
+            }
+          }
+
           UHDM::operation *operation = s.MakeOperation();
           UHDM::VectorOfany *operands = s.MakeAnyVec();
           result = operation;
@@ -1945,8 +1972,6 @@ UHDM::any *CompileHelper::compileExpression(
             setParentNoOverride(opL, operation);
             operands->push_back(opL);
           }
-          VObjectType opType = fC->Type(op);
-          unsigned int vopType = UhdmWriter::getVpiOpType(opType);
           if (vopType == 0) {
             result = nullptr;
           }
@@ -1962,7 +1987,6 @@ UHDM::any *CompileHelper::compileExpression(
               rval = fC->Sibling(rval);
             operation->Attributes(attributes);
           }
-
           if (opType == VObjectType::slInsideOp) {
             // Because open_range_list is stored in { }, it is being interpreted
             // as a concatenation operation. Code below constructs it manually.
