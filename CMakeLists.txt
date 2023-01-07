@@ -21,6 +21,8 @@ option(
 option(
   SURELOG_USE_HOST_FLATBUFFERS
   "Use flatbuffers library from host instead of third_party" OFF)
+  
+option(SURELOG_BUILD_TESTS "Enable testing." ON)
 
 # TODO SURELOG_USE_HOST_CAPNP
 # TODO SURELOG_USE_HOST_ANTLR
@@ -518,73 +520,75 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
   target_link_libraries(surelog PRIVATE rt)
 endif()
 
-# Unit tests
-enable_testing()
-include(GoogleTest)
-
-if(MSVC)
-  # Microsoft reports the value of __cplusplus wrong and gmock/gtest pulls in the
-  # string_view implementation based on it's value. Microsoft's solution is to
-  # provide additional flags to make the value correct. More info can be found here -
-  #
-  #   https://docs.microsoft.com/en-us/cpp/build/reference/zc-cplusplus?view=msvc-160
-  #   https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
-  target_compile_options(gmock PRIVATE /Zc:__cplusplus)
-  target_compile_options(gmock_main PRIVATE /Zc:__cplusplus)
-  target_compile_options(gtest PRIVATE /Zc:__cplusplus)
-  target_compile_options(gtest_main PRIVATE /Zc:__cplusplus)
+if (SURELOG_BUILD_TESTS)
+  # Unit tests
+  enable_testing()
+  include(GoogleTest)
+  
+  if(MSVC)
+    # Microsoft reports the value of __cplusplus wrong and gmock/gtest pulls in the
+    # string_view implementation based on it's value. Microsoft's solution is to
+    # provide additional flags to make the value correct. More info can be found here -
+    #
+    #   https://docs.microsoft.com/en-us/cpp/build/reference/zc-cplusplus?view=msvc-160
+    #   https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
+    target_compile_options(gmock PRIVATE /Zc:__cplusplus)
+    target_compile_options(gmock_main PRIVATE /Zc:__cplusplus)
+    target_compile_options(gtest PRIVATE /Zc:__cplusplus)
+    target_compile_options(gtest_main PRIVATE /Zc:__cplusplus)
+  endif()
+  
+  # All unit-tests are registered with this custom target as dependency, so
+  # just `make UnitTests` will build them all.
+  add_custom_target(UnitTests)
+  
+  # Concise way to register a new google test
+  # call with register_gtest(path/to/UnitTestFile.cpp)
+  function(register_gtests)
+    foreach(gtest_cc_file IN LISTS ARGN)
+      # We create the binary name and test prefix from the cpp-filepath
+      get_filename_component(test_bin ${gtest_cc_file} NAME_WE)
+      get_filename_component(test_prefix ${gtest_cc_file} DIRECTORY)
+  
+      # Build binary, link all relevant libs and extract tests
+      add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
+  
+      # For simplicity, we link the test with libsurelog, but there is of
+      # course a lot unnecessary churn if headers are modified.
+      # Often it is sufficient to just have a few depeendencies.
+      target_link_libraries(${test_bin} surelog gtest gmock gtest_main)
+      gtest_discover_tests(${test_bin}
+        TEST_PREFIX "${test_prefix}/"
+        DISCOVERY_TIMEOUT 60)
+  
+      # Now, add this binary to our UnitTests target that it builds this
+      add_dependencies(UnitTests ${test_bin})
+    endforeach()
+  endfunction()
+  
+  register_gtests(
+    src/Cache/PPCache_test.cpp
+    src/CommandLine/CommandLineParser_test.cpp
+    src/Common/PathId_test.cpp
+    src/Common/PlatformFileSystem_test.cpp
+    src/DesignCompile/CompileExpression_test.cpp
+    src/DesignCompile/CompileHelper_test.cpp
+    src/DesignCompile/Elaboration_test.cpp
+    src/DesignCompile/Uhdm_test.cpp
+    src/Expression/ExprBuilder_test.cpp
+    src/SourceCompile/ParseFile_test.cpp
+    src/SourceCompile/PreprocessFile_test.cpp
+    src/SourceCompile/SymbolTable_test.cpp
+    src/Utils/StringUtils_test.cpp
+    src/Utils/NumUtils_test.cpp
+  )
 endif()
 
-# All unit-tests are registered with this custom target as dependency, so
-# just `make UnitTests` will build them all.
-add_custom_target(UnitTests)
-
-# Concise way to register a new google test
-# call with register_gtest(path/to/UnitTestFile.cpp)
-function(register_gtests)
-  foreach(gtest_cc_file IN LISTS ARGN)
-    # We create the binary name and test prefix from the cpp-filepath
-    get_filename_component(test_bin ${gtest_cc_file} NAME_WE)
-    get_filename_component(test_prefix ${gtest_cc_file} DIRECTORY)
-
-    # Build binary, link all relevant libs and extract tests
-    add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
-
-    # For simplicity, we link the test with libsurelog, but there is of
-    # course a lot unnecessary churn if headers are modified.
-    # Often it is sufficient to just have a few depeendencies.
-    target_link_libraries(${test_bin} surelog gtest gmock gtest_main)
-    gtest_discover_tests(${test_bin}
-      TEST_PREFIX "${test_prefix}/"
-      DISCOVERY_TIMEOUT 60)
-
-    # Now, add this binary to our UnitTests target that it builds this
-    add_dependencies(UnitTests ${test_bin})
-  endforeach()
-endfunction()
-
-register_gtests(
-  src/Cache/PPCache_test.cpp
-  src/CommandLine/CommandLineParser_test.cpp
-  src/Common/PathId_test.cpp
-  src/Common/PlatformFileSystem_test.cpp
-  src/DesignCompile/CompileExpression_test.cpp
-  src/DesignCompile/CompileHelper_test.cpp
-  src/DesignCompile/Elaboration_test.cpp
-  src/DesignCompile/Uhdm_test.cpp
-  src/Expression/ExprBuilder_test.cpp
-  src/SourceCompile/ParseFile_test.cpp
-  src/SourceCompile/PreprocessFile_test.cpp
-  src/SourceCompile/SymbolTable_test.cpp
-  src/Utils/StringUtils_test.cpp
-  src/Utils/NumUtils_test.cpp
-)
-
 if (NOT QUICK_COMP)
-target_link_libraries(hellosureworld surelog)
-target_link_libraries(hellouhdm surelog)
-target_link_libraries(hellodesign surelog)
-target_link_libraries(roundtrip surelog)
+  target_link_libraries(hellosureworld surelog)
+  target_link_libraries(hellouhdm surelog)
+  target_link_libraries(hellodesign surelog)
+  target_link_libraries(roundtrip surelog)
 endif()
 
 # Creation of the distribution directory, Precompiled package creation
