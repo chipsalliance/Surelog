@@ -24,7 +24,7 @@ jobs:
         - debug
         - release
     env:
-      artifact-name: surelog-linux-${{ matrix.compiler }}-${{ matrix.config }}
+      artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
 
     steps:
     - name: Checkout code
@@ -90,8 +90,8 @@ jobs:
         config:
         - release
     env:
-      build-artifact-name: surelog-linux-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: surelog-linux-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
+      build-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
+      regression-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
 
     steps:
     - name: Install dependencies
@@ -231,8 +231,8 @@ jobs:
         - ArianeElab2
         - BlackParrotMuteErrors
     env:
-      build-artifact-name: surelog-linux-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: surelog-linux-${{ matrix.compiler }}-${{ matrix.config }}-valgrind-${{ matrix.project }}
+      build-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
+      regression-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}-valgrind-${{ matrix.project }}
 
     steps:
     - name: Install dependencies
@@ -304,7 +304,7 @@ jobs:
         config:
         - release
     env:
-      artifact-name: surelog-msys2-${{ matrix.compiler }}-${{ matrix.config }}
+      artifact-name: sl-${{ github.run_number }}-msys2-${{ matrix.compiler }}-${{ matrix.config }}
 
     steps:
     - name: Setup Python
@@ -439,8 +439,8 @@ jobs:
         config:
         - release
     env:
-      build-artifact-name: surelog-msys2-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: surelog-msys2-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
+      build-artifact-name: sl-${{ github.run_number }}-msys2-${{ matrix.compiler }}-${{ matrix.config }}
+      regression-artifact-name: sl-${{ github.run_number }}-msys2-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
 
     steps:
     - name: Setup Python
@@ -560,7 +560,7 @@ jobs:
         config:
         - release
     env:
-      artifact-name: surelog-windows-${{ matrix.compiler }}-${{ matrix.config }}
+      artifact-name: sl-${{ github.run_number }}-windows-${{ matrix.compiler }}-${{ matrix.config }}
 
     steps:
     - name: Install Core Dependencies
@@ -714,8 +714,8 @@ jobs:
         config:
         - release
     env:
-      build-artifact-name: surelog-windows-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: surelog-windows-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
+      build-artifact-name: sl-${{ github.run_number }}-windows-${{ matrix.compiler }}-${{ matrix.config }}
+      regression-artifact-name: sl-${{ github.run_number }}-windows-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
 
     steps:
     - name: Install Core Dependencies
@@ -759,7 +759,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v3
       with:
-        name: surelog-windows-${{ matrix.compiler }}-release
+        name: ${{ env.build-artifact-name }}
 
     - name: Extract artifact
       shell: bash
@@ -811,7 +811,7 @@ jobs:
         config:
         - release
     env:
-      artifact-name: surelog-macos-${{ matrix.compiler }}-${{ matrix.config }}
+      artifact-name: sl-${{ github.run_number }}-macos-${{ matrix.compiler }}-${{ matrix.config }}
 
     steps:
     - name: Setup Java
@@ -912,8 +912,8 @@ jobs:
         config:
         - release
     env:
-      build-artifact-name: surelog-macos-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: surelog-macos-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
+      build-artifact-name: sl-${{ github.run_number }}-macos-${{ matrix.compiler }}-${{ matrix.config }}
+      regression-artifact-name: sl-${{ github.run_number }}-macos-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
 
     steps:
     - name: Setup Python
@@ -932,14 +932,8 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
-      with:
-        key: ${{ env.build-artifact-name }}
-
     - name: Configure shell
       run: |
-        echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
         echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
 
     - name: Show shell configuration
@@ -947,7 +941,6 @@ jobs:
         env
         which cmake && cmake --version
         which make && make --version
-        which java && java -version
         which python && python --version
 
     - name: Download artifact
