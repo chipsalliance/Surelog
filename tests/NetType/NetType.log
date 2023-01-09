@@ -1,0 +1,122 @@
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/NetType/slpp_all/surelog.log.
+
+LIB:  work
+FILE: ${SURELOG_DIR}/tests/NetType/dut.sv
+n<> u<0> t<_INVALID_> f<0> l<0:0>
+n<> u<1> t<Null_rule> p<26> s<25> l<1:1> el<1:0>
+n<> u<2> t<NonIntType_Real> p<3> l<1:9> el<1:13>
+n<> u<3> t<Data_type> p<5> c<2> s<4> l<1:9> el<1:13>
+n<my_real> u<4> t<StringConst> p<5> l<1:14> el<1:21>
+n<> u<5> t<Net_type_declaration> p<6> c<3> l<1:1> el<1:22>
+n<> u<6> t<Data_declaration> p<7> c<5> l<1:1> el<1:22>
+n<> u<7> t<Package_or_generate_item_declaration> p<8> c<6> l<1:1> el<1:22>
+n<> u<8> t<Package_item> p<9> c<7> l<1:1> el<1:22>
+n<> u<9> t<Description> p<25> c<8> s<24> l<1:1> el<1:22>
+n<> u<10> t<Module_keyword> p<14> s<11> l<3:1> el<3:7>
+n<dut> u<11> t<StringConst> p<14> s<13> l<3:8> el<3:11>
+n<> u<12> t<Port> p<13> l<3:13> el<3:13>
+n<> u<13> t<List_of_ports> p<14> c<12> l<3:12> el<3:14>
+n<> u<14> t<Module_nonansi_header> p<23> c<10> s<22> l<3:1> el<3:15>
+n<my_real> u<15> t<StringConst> p<16> l<5:5> el<5:12>
+n<> u<16> t<Interface_identifier> p<20> c<15> s<19> l<5:5> el<5:12>
+n<my_real_net> u<17> t<StringConst> p<18> l<5:13> el<5:24>
+n<> u<18> t<Interface_identifier> p<19> c<17> l<5:13> el<5:24>
+n<> u<19> t<List_of_interface_identifiers> p<20> c<18> l<5:13> el<5:24>
+n<> u<20> t<Interface_port_declaration> p<21> c<16> l<5:5> el<5:24>
+n<> u<21> t<Port_declaration> p<22> c<20> l<5:5> el<5:24>
+n<> u<22> t<Module_item> p<23> c<21> l<5:5> el<5:25>
+n<> u<23> t<Module_declaration> p<24> c<14> l<3:1> el<7:10>
+n<> u<24> t<Description> p<25> c<23> l<3:1> el<7:10>
+n<> u<25> t<Source_text> p<26> c<9> l<1:1> el<7:10>
+n<> u<26> t<Top_level_rule> c<1> l<1:1> el<8:1>
+[WRN:PA0205] ${SURELOG_DIR}/tests/NetType/dut.sv:3:1: No timescale set for "dut".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] ${SURELOG_DIR}/tests/NetType/dut.sv:3:1: Compile module "work@dut".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] ${SURELOG_DIR}/tests/NetType/dut.sv:3:1: Top level module "work@dut".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 1.
+
+[NTE:EL0510] Nb instances: 1.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+[INF:UH0706] Creating UHDM Model...
+
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+design                                                 1
+logic_net                                              1
+module_inst                                            2
+real_typespec                                          2
+real_var                                               1
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+design                                                 1
+logic_net                                              1
+module_inst                                            2
+real_typespec                                          2
+real_var                                               1
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NetType/slpp_all/surelog.uhdm ...
+
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/NetType/slpp_all/checker/surelog.chk.html ...
+
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/NetType/slpp_all/surelog.uhdm ...
+
+[INF:UH0711] Decompiling UHDM...
+
+====== UHDM =======
+design: (work@dut)
+|vpiElaborated:1
+|vpiName:work@dut
+|uhdmallModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NetType/dut.sv, line:3:1, endln:7:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@dut
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.my_real_net), line:5:13, endln:5:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NetType/dut.sv, line:3:1, endln:7:10
+    |vpiName:my_real_net
+    |vpiFullName:work@dut.my_real_net
+|vpiTypedef:
+\_real_typespec: (my_real), line:1:9, endln:1:13
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiName:my_real
+  |vpiInstance:
+  \_design: (work@dut)
+|uhdmtopModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NetType/dut.sv, line:3:1, endln:7:10
+  |vpiName:work@dut
+  |vpiVariables:
+  \_real_var: (work@dut.my_real_net), line:5:13, endln:5:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NetType/dut.sv, line:3:1, endln:7:10
+    |vpiTypespec:
+    \_real_typespec: (my_real), line:1:9, endln:1:13
+    |vpiName:my_real_net
+    |vpiFullName:work@dut.my_real_net
+    |vpiVisibility:1
+  |vpiDefName:work@dut
+  |vpiTop:1
+  |vpiTopModule:1
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/NetType/dut.sv | ${SURELOG_DIR}/build/regression/NetType/roundtrip/dut_000.sv | 2 | 7 |

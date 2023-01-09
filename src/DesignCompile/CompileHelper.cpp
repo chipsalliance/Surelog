@@ -1985,7 +1985,8 @@ bool CompileHelper::compileDataDeclaration(
   switch (subType) {
     case VObjectType::slPackage_import_declaration:
       break;
-    case VObjectType::slType_declaration: {
+    case VObjectType::slType_declaration:
+    case VObjectType::slNet_type_declaration: {
       /*
         n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
         n<fsm_t> u<16> t<StringConst> p<17> l<13>
