@@ -76,23 +76,8 @@ bool CompileFileContent::collectObjects_() {
         break;
       }
       case VObjectType::slData_declaration: {
-        NodeId subNode = fC->Child(id);
-        VObjectType subType = fC->Type(subNode);
-        switch (subType) {
-          case VObjectType::slType_declaration: {
-            /*
-              n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
-              n<fsm_t> u<16> t<StringConst> p<17> l<13>
-              n<> u<17> t<Type_declaration> p<18> c<15> l<13>
-              n<> u<18> t<Data_declaration> p<19> c<17> l<13>
-            */
-            m_helper.compileTypeDef(m_fileContent, m_fileContent, id,
-                                    m_compileDesign, nullptr, true);
-            break;
-          }
-          default:
-            break;
-        }
+        m_helper.compileDataDeclaration(m_fileContent, fC, id, false,
+                                        m_compileDesign, false, nullptr);
         break;
       }
       case VObjectType::slParameter_declaration: {
