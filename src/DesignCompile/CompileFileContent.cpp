@@ -77,7 +77,7 @@ bool CompileFileContent::collectObjects_() {
       }
       case VObjectType::slData_declaration: {
         m_helper.compileDataDeclaration(m_fileContent, fC, id, false,
-                                        m_compileDesign, false, nullptr);
+                                        m_compileDesign, true, nullptr);
         break;
       }
       case VObjectType::slParameter_declaration: {

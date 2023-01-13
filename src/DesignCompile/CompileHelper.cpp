@@ -563,13 +563,22 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   const NodeId Variable_dimension = fC->Sibling(type_name);
   array_typespec* array_tps = nullptr;
   packed_array_typespec* packed_array_tps = nullptr;
+  function* resolution_func = nullptr;
   if (Variable_dimension) {
-    array_tps = s.MakeArray_typespec();
-    int size;
-    VectorOfrange* ranges =
-        compileRanges(scope, fC, Variable_dimension, compileDesign, nullptr,
-                      nullptr, reduce, size, false);
-    array_tps->Ranges(ranges);
+    if (fC->Type(Variable_dimension) == VObjectType::slStringConst) {
+      std::string_view name = fC->SymName(Variable_dimension);
+      std::pair<task_func*, DesignComponent*> ret =
+          getTaskFunc(name, scope, compileDesign, nullptr, nullptr);
+      task_func* tf = ret.first;
+      resolution_func = any_cast<function*>(tf);
+    } else {
+      array_tps = s.MakeArray_typespec();
+      int size;
+      VectorOfrange* ranges =
+          compileRanges(scope, fC, Variable_dimension, compileDesign, nullptr,
+                        nullptr, reduce, size, false);
+      array_tps->Ranges(ranges);
+    }
   }
   std::string_view name = fC->SymName(type_name);
   std::string fullName(name);
@@ -802,11 +811,13 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDataType(dummy);
       newTypeDef->setDefinition(dummy);
       // Don't create the typespec here, as it is most likely going to be
-      // incomplete at compilation time, except for packages
-      if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
+      // incomplete at compilation time, except for packages and FileContent
+      if (reduce && ((valuedcomponenti_cast<Package*>(scope) ||
+                      valuedcomponenti_cast<FileContent*>(scope)))) {
         UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
                                              nullptr, nullptr, reduce);
-        if (ts && (ts->UhdmType() != uhdmclass_typespec)) {
+        if (ts && (ts->UhdmType() != uhdmclass_typespec) &&
+            (ts->UhdmType() != uhdmunsupported_typespec)) {
           ElaboratorListener listener(&s, false, true);
           typespec* tpclone =
               (typespec*)UHDM::clone_tree((any*)ts, s, &listener);
@@ -819,6 +830,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
             if (typespecs) typespecs->push_back(array_tps);
             newTypeDef->setTypespec(array_tps);
             dummy->setTypespec(array_tps);
+            if (resolution_func) {
+              array_tps->Resolution_func(resolution_func);
+            }
           } else if (packed_array_tps) {
             if (tpclone->UhdmType() == uhdmlogic_typespec) {
               logic_typespec* logic_array_tps = s.MakeLogic_typespec();
@@ -826,6 +840,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               logic_array_tps->Instance(scope->getUhdmInstance());
               logic_array_tps->VpiName(name);
               logic_array_tps->Logic_typespec((logic_typespec*)tpclone);
+              if (resolution_func) {
+                logic_array_tps->Resolution_func(resolution_func);
+              }
               tpclone->Typedef_alias(ts);
               if (typespecs) typespecs->push_back(logic_array_tps);
               newTypeDef->setTypespec(logic_array_tps);
@@ -835,6 +852,18 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                 tpclone->Instance(scope->getUhdmInstance());
                 tpclone->VpiName(name);
                 tpclone->Typedef_alias(ts);
+                if (resolution_func) {
+                  if (tpclone->UhdmType() == uhdmbit_typespec) {
+                    bit_typespec* btps = (bit_typespec*)tpclone;
+                    btps->Resolution_func(resolution_func);
+                  } else if (tpclone->UhdmType() == uhdmlogic_typespec) {
+                    logic_typespec* btps = (logic_typespec*)tpclone;
+                    btps->Resolution_func(resolution_func);
+                  } else if (tpclone->UhdmType() == uhdmstruct_typespec) {
+                    struct_typespec* btps = (struct_typespec*)tpclone;
+                    btps->Resolution_func(resolution_func);
+                  }
+                }
                 if (typespecs) typespecs->push_back(tpclone);
                 newTypeDef->setTypespec(tpclone);
                 dummy->setTypespec(tpclone);
@@ -843,6 +872,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                 packed_array_tps->VpiName(name);
                 packed_array_tps->Elem_typespec(tpclone);
                 tpclone->Typedef_alias(ts);
+                if (resolution_func) {
+                  packed_array_tps->Resolution_func(resolution_func);
+                }
                 if (typespecs) typespecs->push_back(packed_array_tps);
                 newTypeDef->setTypespec(packed_array_tps);
                 dummy->setTypespec(packed_array_tps);
@@ -852,6 +884,18 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
             tpclone->Instance(scope->getUhdmInstance());
             tpclone->VpiName(name);
             tpclone->Typedef_alias(ts);
+            if (resolution_func) {
+              if (tpclone->UhdmType() == uhdmbit_typespec) {
+                bit_typespec* btps = (bit_typespec*)tpclone;
+                btps->Resolution_func(resolution_func);
+              } else if (tpclone->UhdmType() == uhdmlogic_typespec) {
+                logic_typespec* btps = (logic_typespec*)tpclone;
+                btps->Resolution_func(resolution_func);
+              } else if (tpclone->UhdmType() == uhdmstruct_typespec) {
+                struct_typespec* btps = (struct_typespec*)tpclone;
+                btps->Resolution_func(resolution_func);
+              }
+            }
             if (typespecs) typespecs->push_back(tpclone);
             newTypeDef->setTypespec(tpclone);
             dummy->setTypespec(tpclone);
@@ -876,6 +920,18 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         if (array_tps) {
           array_tps->Elem_typespec(ts);
           ts = array_tps;
+        }
+        if (resolution_func) {
+          if (ts->UhdmType() == uhdmbit_typespec) {
+            bit_typespec* btps = (bit_typespec*)ts;
+            btps->Resolution_func(resolution_func);
+          } else if (ts->UhdmType() == uhdmlogic_typespec) {
+            logic_typespec* btps = (logic_typespec*)ts;
+            btps->Resolution_func(resolution_func);
+          } else if (ts->UhdmType() == uhdmstruct_typespec) {
+            struct_typespec* btps = (struct_typespec*)ts;
+            btps->Resolution_func(resolution_func);
+          }
         }
 
         if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
