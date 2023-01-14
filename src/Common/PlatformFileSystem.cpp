@@ -842,12 +842,7 @@ PathId PlatformFileSystem::locate(std::string_view name,
       const std::filesystem::path filepath =
           normalize(std::filesystem::path(toPath(dirId)) / name);
       if (!filepath.empty() && std::filesystem::exists(filepath, ec) && !ec) {
-        PathId resultId = toPathId(filepath.string(), symbolTable);
-        if (kEnableLogs) {
-          std::cerr << "locate: " << name << " => " << PathIdPP(resultId)
-                    << std::endl;
-        }
-        return resultId;
+        return toPathId(filepath.string(), symbolTable);
       }
     }
   }
@@ -874,14 +869,6 @@ PathIdVector &PlatformFileSystem::collect(PathId dirId,
           container.emplace_back(toPathId(filepath.string(), symbolTable));
         }
       }
-    }
-  }
-
-  if (kEnableLogs) {
-    std::cerr << "collect: " << PathIdPP(dirId) << ", " << extension << " => "
-              << std::endl;
-    for (const PathId &fileId : container) {
-      std::cerr << "    " << PathIdPP(fileId) << std::endl;
     }
   }
 
@@ -971,14 +958,6 @@ PathIdVector &PlatformFileSystem::matching(PathId dirId,
           container.emplace_back(toPathId(absolute.string(), symbolTable));
         }
       }
-    }
-  }
-
-  if (kEnableLogs) {
-    std::cerr << "matching: " << PathIdPP(dirId) << ", " << pattern << " => "
-              << std::endl;
-    for (PathId fileId : container) {
-      std::cerr << "    " << PathIdPP(fileId) << std::endl;
     }
   }
 
