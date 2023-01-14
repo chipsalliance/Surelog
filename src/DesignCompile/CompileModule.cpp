@@ -997,6 +997,11 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           m_module->insertFunction(func);
           break;
         }
+        case VObjectType::slAssertion_item: {
+          if (collectType != CollectType::OTHER) break;
+          m_helper.compileAssertionItem(m_module, fC, id, m_compileDesign);
+          break;
+        }
         case VObjectType::slClocking_declaration:
           if (collectType != CollectType::OTHER) break;
           compileClockingBlock_(fC, id);

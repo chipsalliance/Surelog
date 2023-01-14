@@ -1347,6 +1347,14 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
     }
   }
 
+  // Assertions
+  if (mod->getAssertions()) {
+    m->Assertions(mod->getAssertions());
+    for (auto ps : *m->Assertions()) {
+      ps->VpiParent(m);
+    }
+  }
+
   // Processes
   m->Process(mod->getProcesses());
   if (m->Process()) {
@@ -1438,6 +1446,15 @@ void UhdmWriter::writeProgram(Program* mod, program* m, Serializer& s,
       ps->VpiParent(m);
     }
   }
+
+  // Assertions
+  if (mod->getAssertions()) {
+    m->Assertions(mod->getAssertions());
+    for (auto ps : *m->Assertions()) {
+      ps->VpiParent(m);
+    }
+  }
+
   // Param_assigns
   if (mod->getParam_assigns()) {
     m->Param_assigns(mod->getParam_assigns());
@@ -1520,6 +1537,10 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
+    }
+    // Assertions
+    if (mod->getAssertions()) {
+      m->Assertions(mod->getAssertions());
     }
   }
   if (netlist) {
@@ -1772,6 +1793,11 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
+
+    // Assertions
+    if (mod->getAssertions()) {
+      m->Assertions(mod->getAssertions());
+    }
   }
   if (netlist) {
     m->Nets(netlist->nets());
@@ -1803,9 +1829,6 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
 
     std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
     if (gen_scope_arrays) {
-      // for (gen_scope_array* scope_arr : *gen_scope_arrays) {
-      // for (gen_scope* scope : *scope_arr->Gen_scopes()) {
-
       writeElabParameters(s, instance, m, exprBuilder);
 
       // Loop indexes
@@ -1838,8 +1861,6 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
           params->push_back(p);
         }
       }
-      //}
-      //}
     }
 
     m->Variables(netlist->variables());
@@ -3038,6 +3059,11 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
+
+    // Assertions
+    if (mod->getAssertions()) {
+      m->Assertions(mod->getAssertions());
+    }
   }
 
   writeElabParameters(s, instance, m, exprBuilder);
@@ -3169,6 +3195,11 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
+    }
+
+    // Assertions
+    if (mod->getAssertions()) {
+      m->Assertions(mod->getAssertions());
     }
   }
 
