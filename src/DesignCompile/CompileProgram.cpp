@@ -190,6 +190,11 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
                                         port_direction, m_hasNonNullPort);
         break;
       }
+      case VObjectType::slAssertion_item: {
+        if (collectType != CollectType::OTHER) break;
+        m_helper.compileAssertionItem(m_program, fC, id, m_compileDesign);
+        break;
+      }
       case VObjectType::slContinuous_assign: {
         if (collectType != CollectType::OTHER) break;
         m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id),
