@@ -607,12 +607,6 @@ class InMemoryFileSystem : public TestFileSystem {
     return *it.first->get();
   }
 
-  bool saveContent(PathId fileId, const char *content, std::streamsize length,
-                   bool useTemp) override {
-    // Can't use temporary with virtual file system
-    return TestFileSystem::saveContent(fileId, content, length, false);
-  }
-
   bool close(std::ostream &strm) override {
     std::scoped_lock<std::mutex> lock(m_outputStreamsMutex);
 

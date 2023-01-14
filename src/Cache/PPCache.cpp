@@ -199,7 +199,9 @@ bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
 bool PPCache::checkCacheIsValid_(PathId cacheFileId,
                                  const std::vector<char>& content) const {
   if (!cacheFileId || content.empty()) return false;
-  if (m_pp->isMacroBody()) return false;
+
+  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return false;
 
   if (!MACROCACHE::PPCacheBufferHasIdentifier(content.data())) {
     return false;
@@ -223,7 +225,6 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
     return false;
   }
 
-  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   if (clp->parseOnly() || clp->lowMem()) return true;
 
   const auto cacheSymbols = ppcache->symbols();
@@ -287,9 +288,9 @@ bool PPCache::checkCacheIsValid_(PathId cacheFileId,
 
 bool PPCache::checkCacheIsValid_(PathId cacheFileId) const {
   if (!cacheFileId) return false;
-  if (m_pp->isMacroBody()) return false;
 
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return false;
   if (clp->parseOnly() || clp->lowMem()) return true;
 
   std::vector<char> content;
@@ -302,15 +303,8 @@ bool PPCache::isValid() {
 }
 
 bool PPCache::restore(bool errorsOnly) {
-  if (m_pp->isMacroBody()) return false;
-
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  Precompiled* prec = Precompiled::getSingleton();
-  if (prec->isFilePrecompiled(m_pp->getFileId(LINE1), clp->getSymbolTable())) {
-    if (!clp->precompiledCacheAllowed()) return false;
-  } else {
-    if (!clp->cacheAllowed()) return false;
-  }
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return false;
 
   PathId cacheFileId = getCacheFileId_(BadPathId);
   std::vector<char> content;
@@ -321,14 +315,11 @@ bool PPCache::restore(bool errorsOnly) {
 }
 
 bool PPCache::save() {
-  if (m_pp->isMacroBody()) return true;
-
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->writeCache()) return true;
+  if (!clp->cacheAllowed() || m_pp->isMacroBody()) return true;
 
   FileSystem* const fileSystem = FileSystem::getInstance();
   FileContent* fcontent = m_pp->getFileContent();
-
   if (fcontent && (fcontent->getVObjects().size() > Cache::Capacity)) {
     clp->setCacheAllowed(false);
     Location loc(BadSymbolId);
