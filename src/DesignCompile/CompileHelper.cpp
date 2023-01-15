@@ -1365,10 +1365,19 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
         the_type == VObjectType::slNetType_Tri0 ||
         the_type == VObjectType::slNetType_TriReg ||
         the_type == VObjectType::slNetType_Supply0 ||
-        the_type == VObjectType::slNetType_Supply1) {
+        the_type == VObjectType::slNetType_Supply1 ||
+        the_type == VObjectType::slImplicit_data_type) {
       signal_type = the_type;
+      if (the_type == VObjectType::slImplicit_data_type) {
+        Packed_dimension = fC->Child(data_type_or_implicit);
+        if (fC->Type(Packed_dimension) != VObjectType::slPacked_dimension) {
+          Packed_dimension = InvalidNodeId;
+        }
+      }
       data_type_or_implicit = fC->Sibling(data_type_or_implicit);
-      Packed_dimension = fC->Child(data_type_or_implicit);
+      if (data_type_or_implicit) {
+        Packed_dimension = fC->Child(data_type_or_implicit);
+      }
     }
     NodeId data_type = fC->Child(data_type_or_implicit);
     if (data_type) {
@@ -1741,6 +1750,12 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         VObjectType::slStringConst) {  // net type is class_scope
       packedDimension = fC->Sibling(packedDimension);
     }
+    if (fC->Type(NetType) == VObjectType::slImplicit_data_type) {
+      packedDimension = fC->Child(NetType);
+      if (fC->Type(packedDimension) != VObjectType::slPacked_dimension) {
+        packedDimension = InvalidNodeId;
+      }
+    }
     NodeId specParamId;
     bool is_signed = false;
     bool is_var = false;
@@ -1941,8 +1956,14 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
     List_of_net_decl_assignments = fC->Sibling(List_of_net_decl_assignments);
   }
   NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
+  if (!net_decl_assignment) {
+    net_decl_assignment = List_of_net_decl_assignments;
+  }
   while (net_decl_assignment) {
     NodeId signal = fC->Child(net_decl_assignment);
+    if (!signal) {
+      signal = net_decl_assignment;
+    }
     Signal* portRef = nullptr;
     for (auto& port : component->getPorts()) {
       if (port->getName() == fC->SymName(signal)) {

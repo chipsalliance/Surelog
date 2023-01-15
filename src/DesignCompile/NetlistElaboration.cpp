@@ -2385,6 +2385,14 @@ bool NetlistElaboration::elab_ports_nets_(
           // No rebind
         } else {
           if (any* n = bind_net_(netlist->getParent(), signame)) {
+            NodeId typeSpecId = sig->getTypeSpecId();
+            if (fC->Type(typeSpecId) == VObjectType::slImplicit_data_type) {
+              // interconnect
+              if (n->UhdmType() == uhdmlogic_net) {
+                logic_net* net = (logic_net*)n;
+                net->VpiNetType(vpiNone);
+              }
+            }
             ref_obj* ref = s.MakeRef_obj();
             ref->VpiName(signame);
             ref->VpiFullName(netlist->getParent()->getFullPathName() + "." +

@@ -1781,6 +1781,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
+    case VObjectType::slImplicit_data_type: {
+      // Interconnect
+      logic_typespec* tps = s.MakeLogic_typespec();
+      fC->populateCoreMembers(type, type, tps);
+      VectorOfrange* ranges =
+          compileRanges(component, fC, fC->Child(type), compileDesign, pstmt,
+                        instance, reduce, size, false);
+      tps->Ranges(ranges);
+      result = tps;
+      break;
+    }
     default:
       if (type) {
         ErrorContainer* errors =
