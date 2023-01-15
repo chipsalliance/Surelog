@@ -1369,7 +1369,11 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
         the_type == VObjectType::slImplicit_data_type) {
       signal_type = the_type;
       if (the_type == VObjectType::slImplicit_data_type) {
+        // Interconnect
         Packed_dimension = fC->Child(data_type_or_implicit);
+        if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed) {
+          is_signed = true;
+        }
         if (fC->Type(Packed_dimension) != VObjectType::slPacked_dimension) {
           Packed_dimension = InvalidNodeId;
         }
