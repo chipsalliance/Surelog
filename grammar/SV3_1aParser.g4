@@ -130,16 +130,16 @@ library_text : ( library_descriptions )* ;
 library_descriptions : library_declaration
                      | include_statement
                      | config_declaration
-                     | SEMICOLUMN
+                     | SEMICOLON
                      ;
 
 library_declaration :
 LIBRARY identifier file_path_spec  ( COMMA file_path_spec )*
- ( INCDIR file_path_spec ( COMMA file_path_spec )* )? SEMICOLUMN ;
+ ( INCDIR file_path_spec ( COMMA file_path_spec )* )? SEMICOLON ;
 
 file_path_spec : (Simple_identifier | DIV | DOT | STAR | DOTSTAR | QMARK)+;
 
-include_statement : INCLUDE file_path_spec SEMICOLUMN ;
+include_statement : INCLUDE file_path_spec SEMICOLON ;
 
 source_text : ( timeunits_declaration )? ( description )* ;
 
@@ -160,21 +160,21 @@ description
 
 module_nonansi_header : ( attribute_instance )* module_keyword ( lifetime )?
                         identifier ( package_import_declaration )* ( parameter_port_list )?
-                        list_of_ports SEMICOLUMN ;
+                        list_of_ports SEMICOLON ;
 
 module_ansi_header : ( attribute_instance )* module_keyword ( lifetime )?
                      identifier ( package_import_declaration )* ( parameter_port_list )?
-                    (list_of_port_declarations )? SEMICOLUMN ;
+                    (list_of_port_declarations )? SEMICOLON ;
 
 module_declaration
     : module_nonansi_header ( timeunits_declaration )? ( module_item )*
-      ENDMODULE ( COLUMN identifier )?
+      ENDMODULE ( COLON identifier )?
     | module_ansi_header ( timeunits_declaration )? ( non_port_module_item )*
-      ENDMODULE ( COLUMN identifier )?
+      ENDMODULE ( COLON identifier )?
     | ( attribute_instance )* module_keyword ( lifetime )? identifier
-      OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLUMN
+      OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLON
       ( timeunits_declaration )? ( module_item )* ENDMODULE
-      ( COLUMN identifier )?
+      ( COLON identifier )?
     | EXTERN module_nonansi_header
     | EXTERN module_ansi_header
     ;
@@ -188,48 +188,48 @@ module_keyword
 
 interface_nonansi_header :
   ( attribute_instance )* INTERFACE ( lifetime )? interface_identifier
-  ( package_import_declaration )*( parameter_port_list )? list_of_ports SEMICOLUMN ;
+  ( package_import_declaration )*( parameter_port_list )? list_of_ports SEMICOLON ;
 
 
 interface_ansi_header :
   ( attribute_instance )* INTERFACE ( lifetime )? interface_identifier
-  ( package_import_declaration )*  ( parameter_port_list )? ( list_of_port_declarations )? SEMICOLUMN ;
+  ( package_import_declaration )*  ( parameter_port_list )? ( list_of_port_declarations )? SEMICOLON ;
 
 interface_declaration
 : interface_nonansi_header ( timeunits_declaration )? ( interface_item )*
-  ENDINTERFACE ( COLUMN interface_identifier )?
+  ENDINTERFACE ( COLON interface_identifier )?
 | interface_ansi_header ( timeunits_declaration )? ( non_port_interface_item )*
-  ENDINTERFACE ( COLUMN interface_identifier )?
+  ENDINTERFACE ( COLON interface_identifier )?
 | ( attribute_instance )? INTERFACE interface_identifier
-  OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLUMN
+  OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLON
   ( timeunits_declaration )? ( interface_item )*
-  ENDINTERFACE ( COLUMN interface_identifier )?
+  ENDINTERFACE ( COLON interface_identifier )?
 | EXTERN interface_nonansi_header
 | EXTERN interface_ansi_header
 ;
 
 program_nonansi_header :
 ( attribute_instance ) PROGRAM ( lifetime )? identifier
-( package_import_declaration )* ( parameter_port_list )? list_of_ports SEMICOLUMN ;
+( package_import_declaration )* ( parameter_port_list )? list_of_ports SEMICOLON ;
 
 program_ansi_header :
 ( attribute_instance )* PROGRAM ( lifetime )? identifier
-( package_import_declaration )* ( parameter_port_list )? ( list_of_port_declarations )? SEMICOLUMN ;
+( package_import_declaration )* ( parameter_port_list )? ( list_of_port_declarations )? SEMICOLON ;
 
 checker_declaration :
-      CHECKER identifier ( OPEN_PARENS checker_port_list? CLOSE_PARENS )? SEMICOLUMN
-      ( ( attribute_instance )* checker_or_generate_item )* ENDCHECKER ( COLUMN identifier )?
+      CHECKER identifier ( OPEN_PARENS checker_port_list? CLOSE_PARENS )? SEMICOLON
+      ( ( attribute_instance )* checker_or_generate_item )* ENDCHECKER ( COLON identifier )?
       ;
 
 program_declaration
 : program_nonansi_header ( timeunits_declaration )? ( program_item )*
-  ENDPROGRAM ( COLUMN identifier )?
+  ENDPROGRAM ( COLON identifier )?
 | program_ansi_header ( timeunits_declaration )? ( non_port_program_item )*
-  ENDPROGRAM ( COLUMN identifier )?
+  ENDPROGRAM ( COLON identifier )?
 | ( attribute_instance )* PROGRAM identifier
-  OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLUMN
+  OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLON
   ( timeunits_declaration )? ( program_item )*
-  ENDPROGRAM ( COLUMN identifier )?
+  ENDPROGRAM ( COLON identifier )?
 | EXTERN program_nonansi_header
 | EXTERN program_ansi_header
 ;
@@ -238,9 +238,9 @@ class_declaration
     : ( VIRTUAL )? CLASS ( lifetime )? identifier ( parameter_port_list )?
     ( EXTENDS class_type ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? )?
     ( IMPLEMENTS interface_class_type ( COMMA interface_class_type )* )?
-        SEMICOLUMN
+        SEMICOLON
     ( class_item )*
-    ENDCLASS ( COLUMN identifier )?
+    ENDCLASS ( COLON identifier )?
     ;
 
 interface_class_type :
@@ -248,34 +248,34 @@ interface_class_type :
 
 interface_class_declaration :
       INTERFACE CLASS identifier ( parameter_port_list )?
-      ( EXTENDS interface_class_type ( COMMA interface_class_type )* )? SEMICOLUMN  ( interface_class_item )*
-      ENDCLASS ( COLUMN identifier )?
+      ( EXTENDS interface_class_type ( COMMA interface_class_type )* )? SEMICOLON  ( interface_class_item )*
+      ENDCLASS ( COLON identifier )?
       ;
 
 interface_class_item : type_declaration
-    | ( attribute_instance )* interface_class_method SEMICOLUMN
-    | local_parameter_declaration SEMICOLUMN
-    | parameter_declaration SEMICOLUMN
-    | SEMICOLUMN
+    | ( attribute_instance )* interface_class_method SEMICOLON
+    | local_parameter_declaration SEMICOLON
+    | parameter_declaration SEMICOLON
+    | SEMICOLON
     ;
 
 interface_class_method :
       PURE VIRTUAL method_prototype ;
 
 package_declaration
-    : ( attribute_instance )* PACKAGE identifier SEMICOLUMN
+    : ( attribute_instance )* PACKAGE identifier SEMICOLON
     ( timeunits_declaration )? ( ( attribute_instance )* package_item )*
-    ENDPACKAGE ( COLUMN identifier )?
+    ENDPACKAGE ( COLON identifier )?
     ;
 
 timeunits_declaration
-    : TIMEUNIT time_literal DIV time_literal SEMICOLUMN  # TimeUnitsDecl_TimeUnitDiv
-    | TIMEUNIT time_literal SEMICOLUMN  # TimeUnitsDecl_TimeUnit
-    | TIMEPRECISION time_literal SEMICOLUMN          # TimeUnitsDecl_TimePrecision
-    | TIMEUNIT time_literal SEMICOLUMN TIMEPRECISION
-      time_literal SEMICOLUMN                        # TimeUnitsDecl_TimeUnitTimePrecision
-    | TIMEPRECISION time_literal SEMICOLUMN TIMEUNIT
-      time_literal SEMICOLUMN                        # TimeUnitsDecl_TimePrecisionTimeUnit
+    : TIMEUNIT time_literal DIV time_literal SEMICOLON  # TimeUnitsDecl_TimeUnitDiv
+    | TIMEUNIT time_literal SEMICOLON  # TimeUnitsDecl_TimeUnit
+    | TIMEPRECISION time_literal SEMICOLON          # TimeUnitsDecl_TimePrecision
+    | TIMEUNIT time_literal SEMICOLON TIMEPRECISION
+      time_literal SEMICOLON                        # TimeUnitsDecl_TimeUnitTimePrecision
+    | TIMEPRECISION time_literal SEMICOLON TIMEUNIT
+      time_literal SEMICOLON                        # TimeUnitsDecl_TimePrecisionTimeUnit
     ;
 
 parameter_port_list
@@ -344,8 +344,8 @@ ansi_port_declaration
     ;
 
 elaboration_system_task
-    : DOLLAR Simple_identifier ( ( OPEN_PARENS number ( COMMA list_of_arguments )? CLOSE_PARENS )? SEMICOLUMN
-                               | ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN )
+    : DOLLAR Simple_identifier ( ( OPEN_PARENS number ( COMMA list_of_arguments )? CLOSE_PARENS )? SEMICOLON
+                               | ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLON )
     ;
 
 module_common_item
@@ -366,7 +366,7 @@ module_common_item
 
 
 module_item
-    : port_declaration SEMICOLUMN
+    : port_declaration SEMICOLON
     | non_port_module_item
     ;
 
@@ -383,8 +383,8 @@ module_or_generate_item_declaration
     : package_or_generate_item_declaration
     | genvar_declaration
     | clocking_declaration
-    | DEFAULT CLOCKING identifier SEMICOLUMN
-    | DEFAULT DISABLE IFF expression_or_dist SEMICOLUMN
+    | DEFAULT CLOCKING identifier SEMICOLON
+    | DEFAULT DISABLE IFF expression_or_dist SEMICOLON
     ;
 
 non_port_module_item
@@ -395,14 +395,14 @@ non_port_module_item
     | program_declaration
     | module_declaration
     | timeunits_declaration
-    | system_task SEMICOLUMN
+    | system_task SEMICOLON
     | surelog_macro_not_defined
     | pragma_directive
     ;
 
-parameter_override : DEFPARAM list_of_defparam_assignments SEMICOLUMN ;
+parameter_override : DEFPARAM list_of_defparam_assignments SEMICOLON ;
 
-bind_directive : BIND identifier (COLUMN? identifier constant_bit_select (COMMA identifier constant_bit_select)*)? bind_instantiation ;
+bind_directive : BIND identifier (COLON? identifier constant_bit_select (COMMA identifier constant_bit_select)*)? bind_instantiation ;
 
 bind_instantiation
     : module_instantiation
@@ -413,18 +413,18 @@ bind_instantiation
 
 interface_or_generate_item
     : ( attribute_instance )* ( module_common_item
-                              | MODPORT modport_item ( COMMA modport_item )* SEMICOLUMN
+                              | MODPORT modport_item ( COMMA modport_item )* SEMICOLON
                               | extern_tf_declaration )
     ;
 
 
 extern_tf_declaration
-    : EXTERN method_prototype SEMICOLUMN
-    | EXTERN FORKJOIN task_prototype SEMICOLUMN
+    : EXTERN method_prototype SEMICOLON
+    | EXTERN FORKJOIN task_prototype SEMICOLON
 ;
 
 interface_item
-    : port_declaration SEMICOLUMN
+    : port_declaration SEMICOLON
     | non_port_interface_item
     ;
 
@@ -439,7 +439,7 @@ non_port_interface_item
     ;
 
 program_item
-    : port_declaration SEMICOLUMN
+    : port_declaration SEMICOLON
     | non_port_program_item
     ;
 
@@ -488,9 +488,9 @@ checker_or_generate_item_declaration
     | overload_declaration
     | genvar_declaration
     | clocking_declaration
-    | DEFAULT CLOCKING identifier SEMICOLUMN
-    | DEFAULT DISABLE IFF expression_or_dist SEMICOLUMN
-    | SEMICOLUMN
+    | DEFAULT CLOCKING identifier SEMICOLON
+    | DEFAULT DISABLE IFF expression_or_dist SEMICOLON
+    | SEMICOLON
     | surelog_macro_not_defined
     ;
 
@@ -508,16 +508,16 @@ class_item
                               | type_declaration
                               | class_declaration
                               | covergroup_declaration )
-    | local_parameter_declaration SEMICOLUMN
-    | parameter_declaration SEMICOLUMN
+    | local_parameter_declaration SEMICOLON
+    | parameter_declaration SEMICOLON
     | surelog_macro_not_defined
-    | SEMICOLUMN
+    | SEMICOLON
     ;
 
 class_property
     : ( const_type )? ( property_qualifier )* data_declaration
     | const_type ( class_item_qualifier )* data_type identifier
-      ( ASSIGN_OP constant_expression )? SEMICOLUMN
+      ( ASSIGN_OP constant_expression )? SEMICOLON
     ;
 
 pure_virtual_qualifier : PURE VIRTUAL ;
@@ -526,8 +526,8 @@ extern_qualifier : EXTERN ;
 
 class_method
     : ( method_qualifier )* (task_declaration | function_declaration | class_constructor_declaration)
-    | pure_virtual_qualifier ( class_item_qualifier )* method_prototype SEMICOLUMN
-    | extern_qualifier ( method_qualifier )* ( method_prototype SEMICOLUMN | class_constructor_prototype )
+    | pure_virtual_qualifier ( class_item_qualifier )* method_prototype SEMICOLON
+    | extern_qualifier ( method_qualifier )* ( method_prototype SEMICOLON | class_constructor_prototype )
     ;
 
 class_constructor_prototype : FUNCTION NEW ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )?;
@@ -562,18 +562,18 @@ method_prototype
 super_dot_new : SUPER DOT NEW ;
 
 class_constructor_declaration
-    : FUNCTION ( class_scope )? NEW ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )? SEMICOLUMN
+    : FUNCTION ( class_scope )? NEW ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )? SEMICOLON
     ( block_item_declaration )*
-    ( super_dot_new ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN )?
+    ( super_dot_new ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLON )?
     ( function_statement_or_null )*
-    ENDFUNCTION ( COLUMN NEW )? ;
+    ENDFUNCTION ( COLON NEW )? ;
 
 constraint_declaration : ( STATIC )? CONSTRAINT identifier constraint_block ;
 
 constraint_block : OPEN_CURLY ( constraint_block_item )* CLOSE_CURLY ;
 
 constraint_block_item
-    : SOLVE solve_before_list BEFORE solve_before_list SEMICOLUMN
+    : SOLVE solve_before_list BEFORE solve_before_list SEMICOLON
     | constraint_expression
     ;
 
@@ -585,14 +585,14 @@ constraint_primary :
 
 
 constraint_expression
-    : SOFT? expression_or_dist SEMICOLUMN
-    | uniqueness_constraint SEMICOLUMN
+    : SOFT? expression_or_dist SEMICOLON
+    | uniqueness_constraint SEMICOLON
     | expression IMPLY constraint_set
     | IF OPEN_PARENS expression CLOSE_PARENS constraint_set
       ( ELSE constraint_set )?
     | FOREACH OPEN_PARENS ps_or_hierarchical_array_identifier OPEN_BRACKET loop_variables
       CLOSE_BRACKET CLOSE_PARENS constraint_set
-    | DISABLE SOFT constraint_primary SEMICOLUMN
+    | DISABLE SOFT constraint_primary SEMICOLON
     ;
 
 uniqueness_constraint :
@@ -610,13 +610,13 @@ dist_list : dist_item ( COMMA dist_item )* ;
 
 dist_item : value_range ( dist_weight )? ;
 
-/* Replaced by COLUMN DIV :  ASSIGN_RANGE : ':/' ; */
+/* Replaced by COLON DIV :  ASSIGN_RANGE : ':/' ; */
 dist_weight
     : ASSIGN_VALUE expression # DistWeight_AssignValue
-    | COLUMN DIV expression   # DistWeight_AssignRange
+    | COLON DIV expression   # DistWeight_AssignRange
     ;
 
-constraint_prototype : (extern_qualifier | pure_keyword )? ( STATIC )? CONSTRAINT identifier SEMICOLUMN ;
+constraint_prototype : (extern_qualifier | pure_keyword )? ( STATIC )? CONSTRAINT identifier SEMICOLON ;
 
 
 extern_constraint_declaration :
@@ -644,15 +644,15 @@ package_or_generate_item_declaration
     | class_declaration
     | interface_class_declaration
     | class_constructor_declaration
-    | parameter_declaration SEMICOLUMN
-    | local_parameter_declaration SEMICOLUMN
+    | parameter_declaration SEMICOLON
+    | local_parameter_declaration SEMICOLON
     | covergroup_declaration
     | overload_declaration
     | assertion_item_declaration
-    | SEMICOLUMN
+    | SEMICOLON
     ;
 
-anonymous_program : PROGRAM SEMICOLUMN ( anonymous_program_item )* ENDPROGRAM ;
+anonymous_program : PROGRAM SEMICOLON ( anonymous_program_item )* ENDPROGRAM ;
 
 anonymous_program_item
     : task_declaration
@@ -660,7 +660,7 @@ anonymous_program_item
     | class_declaration
     | covergroup_declaration
     | class_constructor_declaration
-    | SEMICOLUMN
+    | SEMICOLON
     | surelog_macro_not_defined
     ;
 
@@ -675,7 +675,7 @@ parameter_declaration
 
 
 specparam_declaration :
-    SPECPARAM ( packed_dimension )? list_of_specparam_assignments SEMICOLUMN ;
+    SPECPARAM ( packed_dimension )? list_of_specparam_assignments SEMICOLON ;
 
 
 
@@ -716,36 +716,36 @@ variable_impl_declaration : (  data_type_or_implicit
                         | signing ( packed_dimension )*
                         | ( packed_dimension )+
                        )
-                        list_of_variable_decl_assignments SEMICOLUMN ;
+                        list_of_variable_decl_assignments SEMICOLON ;
 
 
 variable_declaration : (  data_type
                         | signing ( packed_dimension )*
                         | ( packed_dimension )+
                        )
-                        list_of_variable_decl_assignments SEMICOLUMN ;
+                        list_of_variable_decl_assignments SEMICOLON ;
 
 package_import_declaration :
-    IMPORT package_import_item ( COMMA package_import_item )*  SEMICOLUMN ;
+    IMPORT package_import_item ( COMMA package_import_item )*  SEMICOLON ;
 
 
 package_import_item
-    : identifier COLUMNCOLUMN ( identifier | STAR )
+    : identifier COLONCOLON ( identifier | STAR )
     ;
 
 package_export_declaration
-      : EXPORT STARCOLUMNCOLUMNSTAR SEMICOLUMN
-      | EXPORT package_import_item ( COMMA package_import_item )? SEMICOLUMN
+      : EXPORT STARCOLONCOLONSTAR SEMICOLON
+      | EXPORT package_import_item ( COMMA package_import_item )? SEMICOLON
       ;
 
-genvar_declaration : GENVAR identifier_list SEMICOLUMN ;
+genvar_declaration : GENVAR identifier_list SEMICOLON ;
 
 net_declaration
     : net_type ( drive_strength | charge_strength )? ( VECTORED | SCALARED )?
-      data_type_or_implicit ( delay3 )? list_of_net_decl_assignments SEMICOLUMN
-    | identifier delay_control? list_of_net_decl_assignments SEMICOLUMN
+      data_type_or_implicit ( delay3 )? list_of_net_decl_assignments SEMICOLON
+    | identifier delay_control? list_of_net_decl_assignments SEMICOLON
     | INTERCONNECT implicit_data_type ( pound_delay_value )? identifier unpacked_dimension*
-      ( COMMA identifier unpacked_dimension* )? SEMICOLUMN
+      ( COMMA identifier unpacked_dimension* )? SEMICOLON
    ;
 
 
@@ -756,7 +756,7 @@ type_declaration
          | ( identifier constant_bit_select DOT identifier identifier )
          | ( ( enum_keyword | struct_keyword | union_keyword | class_keyword | interface_class_keyword )? identifier )
        )
-      SEMICOLUMN
+      SEMICOLON
     ;
 
 enum_keyword : ENUM;
@@ -775,7 +775,7 @@ net_type_declaration
             ( data_type identifier ( WITH ( package_scope | class_scope )? identifier )? )
           | ( ( package_scope | class_scope )? identifier identifier )
         )
-      SEMICOLUMN
+      SEMICOLON
     ;
 
 lifetime
@@ -810,7 +810,7 @@ data_type
     | string_type
     | chandle_type
     | VIRTUAL ( INTERFACE )? interface_identifier ( parameter_value_assignment )? ( DOT identifier )?
-    | ( class_scope | package_scope )? identifier ( ( packed_dimension )+ | (( parameter_value_assignment )?  ( COLUMNCOLUMN identifier ( parameter_value_assignment )? )*) )
+    | ( class_scope | package_scope )? identifier ( ( packed_dimension )+ | (( parameter_value_assignment )?  ( COLONCOLON identifier ( parameter_value_assignment )? )*) )
     | event_type
     | type_reference
     ;
@@ -845,11 +845,11 @@ enum_base_type
 
 enum_name_declaration
     : identifier
-      ( OPEN_BRACKET Integral_number ( COLUMN Integral_number )? CLOSE_BRACKET )?
+      ( OPEN_BRACKET Integral_number ( COLON Integral_number )? CLOSE_BRACKET )?
       ( ASSIGN_OP constant_expression )?
     ;
 
-class_scope : class_type COLUMNCOLUMN ;
+class_scope : class_type COLONCOLON ;
 
 // identifier was inlined to lexer tokens for parsing speed
 class_type :
@@ -858,7 +858,7 @@ class_type :
     | THIS
     | RANDOMIZE
     | SAMPLE
-    | DOLLAR_UNIT ) ( parameter_value_assignment )? ( COLUMNCOLUMN identifier ( parameter_value_assignment )? )*
+    | DOLLAR_UNIT ) ( parameter_value_assignment )? ( COLONCOLON identifier ( parameter_value_assignment )? )*
     ;
 
 integer_type
@@ -934,7 +934,7 @@ random_qualifier :
      ;
 
 struct_union_member :
-( attribute_instance )* ( random_qualifier )? data_type_or_void list_of_variable_decl_assignments SEMICOLUMN ;
+    ( attribute_instance )* ( random_qualifier )? data_type_or_void list_of_variable_decl_assignments SEMICOLON ;
 
 
 data_type_or_void
@@ -1051,10 +1051,10 @@ specparam_assignment
 
 pulse_control_specparam
     : PATHPULSE DOLLAR ASSIGN_OP OPEN_PARENS  constant_mintypmax_expression
-      ( COMMA constant_mintypmax_expression )? CLOSE_PARENS SEMICOLUMN
+      ( COMMA constant_mintypmax_expression )? CLOSE_PARENS SEMICOLON
     | PATHPULSE DOLLAR specify_input_terminal_descriptor
       DOLLAR specify_output_terminal_descriptor ASSIGN_OP OPEN_PARENS
-      constant_mintypmax_expression ( COMMA constant_mintypmax_expression )? CLOSE_PARENS SEMICOLUMN
+      constant_mintypmax_expression ( COMMA constant_mintypmax_expression )? CLOSE_PARENS SEMICOLON
 
     ;
 
@@ -1095,7 +1095,7 @@ variable_dimension
     | queue_dimension
     ;
 
-queue_dimension : OPEN_BRACKET DOLLAR ( COLUMN constant_expression )? CLOSE_BRACKET ;
+queue_dimension : OPEN_BRACKET DOLLAR ( COLON constant_expression )? CLOSE_BRACKET ;
 
 unsized_dimension : OPEN_BRACKET CLOSE_BRACKET ;
 
@@ -1114,24 +1114,24 @@ function_declaration : FUNCTION ( lifetime )? function_body_declaration ;
 
 function_body_declaration
     : function_data_type_or_implicit
-        ( interface_identifier DOT | class_scope )? identifier SEMICOLUMN
+        ( interface_identifier DOT | class_scope )? identifier SEMICOLON
         ( tf_item_declaration )*
         ( function_statement_or_null )*
-        ENDFUNCTION ( COLUMN identifier )?
+        ENDFUNCTION ( COLON identifier )?
     | function_data_type_or_implicit
         ( interface_identifier DOT | class_scope )? identifier OPEN_PARENS
-        ( tf_port_list )? CLOSE_PARENS SEMICOLUMN
+        ( tf_port_list )? CLOSE_PARENS SEMICOLON
         ( block_item_declaration )*
         ( function_statement_or_null )*
-        ENDFUNCTION ( COLUMN identifier )?
+        ENDFUNCTION ( COLON identifier )?
     ;
 
 function_prototype : FUNCTION function_data_type_or_implicit identifier ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )?;
 
 dpi_import_export
-    : IMPORT string_value ( context_keyword | pure_keyword )? ( Simple_identifier ASSIGN_OP )?  function_prototype SEMICOLUMN
-    | IMPORT string_value ( context_keyword )? ( Simple_identifier ASSIGN_OP )?  task_prototype  SEMICOLUMN
-    | EXPORT string_value ( Simple_identifier ASSIGN_OP )? (function_name_decl | task_name_decl)  SEMICOLUMN
+    : IMPORT string_value ( context_keyword | pure_keyword )? ( Simple_identifier ASSIGN_OP )?  function_prototype SEMICOLON
+    | IMPORT string_value ( context_keyword )? ( Simple_identifier ASSIGN_OP )?  task_prototype  SEMICOLON
+    | EXPORT string_value ( Simple_identifier ASSIGN_OP )? (function_name_decl | task_name_decl)  SEMICOLON
     ;
 
 context_keyword : CONTEXT ;
@@ -1145,14 +1145,14 @@ pure_keyword : PURE;
 task_declaration : TASK ( lifetime )? task_body_declaration ;
 
 task_body_declaration
-    : ( interface_identifier DOT | class_scope )? identifier SEMICOLUMN
+    : ( interface_identifier DOT | class_scope )? identifier SEMICOLON
     ( tf_item_declaration )*
     ( statement_or_null )*
-    ENDTASK ( COLUMN identifier )?
-    | ( interface_identifier DOT | class_scope )? identifier OPEN_PARENS (tf_port_list )? CLOSE_PARENS SEMICOLUMN
+    ENDTASK ( COLON identifier )?
+    | ( interface_identifier DOT | class_scope )? identifier OPEN_PARENS (tf_port_list )? CLOSE_PARENS SEMICOLON
     ( block_item_declaration )*
     ( statement_or_null )*
-    ENDTASK ( COLUMN identifier )?
+    ENDTASK ( COLON identifier )?
     ;
 
 
@@ -1176,21 +1176,21 @@ tf_port_direction
     ;
 
 tf_port_declaration : ( attribute_instance )* tf_port_direction ( var_type )?
-                      data_type_or_implicit list_of_tf_variable_identifiers SEMICOLUMN ;
+                      data_type_or_implicit list_of_tf_variable_identifiers SEMICOLON ;
 
 
 task_prototype : TASK identifier ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )?;
 
 block_item_declaration
     : ( attribute_instance )* ( data_declaration
-                              | local_parameter_declaration SEMICOLUMN
-                              | parameter_declaration SEMICOLUMN
+                              | local_parameter_declaration SEMICOLON
+                              | parameter_declaration SEMICOLON
                               | overload_declaration
                               | let_declaration )
                               ;
 
 overload_declaration : BIND overload_operator FUNCTION data_type identifier
-                       OPEN_PARENS overload_proto_formals CLOSE_PARENS SEMICOLUMN ;
+                       OPEN_PARENS overload_proto_formals CLOSE_PARENS SEMICOLON ;
 
 overload_operator
     : PLUS          # OverloadOp_Plus
@@ -1213,7 +1213,7 @@ overload_operator
 overload_proto_formals : data_type ( COMMA data_type)* ;
 
 virtual_interface_declaration : VIRTUAL ( INTERFACE )? interface_identifier
-                                list_of_virtual_interface_decl SEMICOLUMN ;
+                                list_of_virtual_interface_decl SEMICOLON ;
 
 modport_item : identifier OPEN_PARENS modport_ports_declaration ( COMMA modport_ports_declaration )* CLOSE_PARENS ;
 
@@ -1246,7 +1246,7 @@ modport_tf_port
     ;
 
 concurrent_assertion_item
-      : ( identifier COLUMN )? concurrent_assertion_statement
+      : ( identifier COLON )? concurrent_assertion_statement
       | checker_instantiation
       ;
 
@@ -1275,7 +1275,7 @@ cover_sequence_statement :
   sequence_expr CLOSE_PARENS statement_or_null ;
 
 restrict_property_statement :
-    RESTRICT PROPERTY OPEN_PARENS property_spec CLOSE_PARENS SEMICOLUMN ;
+    RESTRICT PROPERTY OPEN_PARENS property_spec CLOSE_PARENS SEMICOLON ;
 
 property_instance :
    ps_or_hierarchical_sequence_identifier ( OPEN_PARENS ( actual_arg_list )? CLOSE_PARENS )? ;
@@ -1297,10 +1297,10 @@ assertion_item_declaration
       ;
 
 property_declaration :
-    PROPERTY identifier ( OPEN_PARENS ( property_port_list )? CLOSE_PARENS )? SEMICOLUMN
+    PROPERTY identifier ( OPEN_PARENS ( property_port_list )? CLOSE_PARENS )? SEMICOLON
     ( assertion_variable_declaration )*
-    property_spec (SEMICOLUMN)?
-    ENDPROPERTY ( COLUMN identifier )? ;
+    property_spec (SEMICOLON)?
+    ENDPROPERTY ( COLON identifier )? ;
 
 property_port_list : property_port_item ( COMMA property_port_item )* ;
 
@@ -1365,15 +1365,15 @@ property_expr
     ;
 
 property_case_item
-     : expression_or_dist ( COMMA expression_or_dist )* COLUMN property_expr SEMICOLUMN?
-     | DEFAULT COLUMN? property_expr SEMICOLUMN?
+     : expression_or_dist ( COMMA expression_or_dist )* COLON property_expr SEMICOLON?
+     | DEFAULT COLON? property_expr SEMICOLON?
      ;
 
 sequence_declaration :
-    SEQUENCE identifier ( OPEN_PARENS ( sequence_port_list )? CLOSE_PARENS )? SEMICOLUMN
+    SEQUENCE identifier ( OPEN_PARENS ( sequence_port_list )? CLOSE_PARENS )? SEMICOLON
     ( assertion_variable_declaration )*
-    sequence_expr (SEMICOLUMN)?
-    ENDSEQUENCE ( COLUMN identifier )?
+    sequence_expr (SEMICOLON)?
+    ENDSEQUENCE ( COLON identifier )?
     ;
 
 
@@ -1486,17 +1486,17 @@ const_or_range_expression
 
 
 cycle_delay_const_range_expression
-    : constant_expression COLUMN constant_expression
-    | constant_expression COLUMN DOLLAR
+    : constant_expression COLON constant_expression
+    | constant_expression COLON DOLLAR
     ;
 
 expression_or_dist : expression ( DIST OPEN_CURLY dist_list CLOSE_CURLY )? ;
 
 assertion_variable_declaration :
-    data_type list_of_variable_identifiers SEMICOLUMN ;
+    data_type list_of_variable_identifiers SEMICOLON ;
 
 let_declaration :
-   LET identifier ( OPEN_PARENS ( let_port_list )? CLOSE_PARENS )? ASSIGN_OP expression SEMICOLUMN ;
+   LET identifier ( OPEN_PARENS ( let_port_list )? CLOSE_PARENS )? ASSIGN_OP expression SEMICOLON ;
 
 let_port_list :
    let_port_item ( COMMA let_port_item)* ;
@@ -1514,13 +1514,13 @@ let_expression :
 */
 
 covergroup_declaration :
-    COVERGROUP identifier ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )? ( coverage_event )? SEMICOLUMN
+    COVERGROUP identifier ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )? ( coverage_event )? SEMICOLON
     ( coverage_spec_or_option )*
-    ENDGROUP ( COLUMN identifier )? ;
+    ENDGROUP ( COLON identifier )? ;
 
 coverage_spec_or_option
     : ( attribute_instance )* ( coverage_spec
-                              | coverage_option SEMICOLUMN )
+                              | coverage_option SEMICOLON )
     ;
 
 coverage_option
@@ -1550,12 +1550,11 @@ hierarchical_btf_identifier
     | ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ( class_scope )? identifier
     ;
 
-cover_point : ( data_type_or_implicit identifier COLUMN )? COVERPOINT expression ( IFF OPEN_PARENS expression CLOSE_PARENS )? bins_or_empty ;
+cover_point : ( data_type_or_implicit identifier COLON )? COVERPOINT expression ( IFF OPEN_PARENS expression CLOSE_PARENS )? bins_or_empty ;
 
 bins_or_empty
-    : OPEN_CURLY ( attribute_instance )*
-      ( bins_or_options SEMICOLUMN )* CLOSE_CURLY
-    | SEMICOLUMN
+    : OPEN_CURLY ( attribute_instance )* ( bins_or_options SEMICOLON )* CLOSE_CURLY
+    | SEMICOLON
     ;
 
 bins_or_options
@@ -1600,10 +1599,10 @@ trans_range_list
 
 repeat_range
     : expression
-    | expression COLUMN expression
+    | expression COLON expression
     ;
 
-cover_cross : ( identifier COLUMN )? CROSS list_of_cross_items ( IFF OPEN_PARENS expression CLOSE_PARENS )? cross_body ;
+cover_cross : ( identifier COLON )? CROSS list_of_cross_items ( IFF OPEN_PARENS expression CLOSE_PARENS )? cross_body ;
 
 list_of_cross_items : cross_item COMMA cross_item ( COMMA cross_item )* ;
 
@@ -1614,17 +1613,16 @@ cross_item
 cross_body
     : OPEN_CURLY ( cross_body_item )* CLOSE_CURLY
 
-    | SEMICOLUMN
+    | SEMICOLON
     ;
 
 cross_body_item
       : function_declaration
-      | bins_selection_or_option SEMICOLUMN
+      | bins_selection_or_option SEMICOLON
       ;
 
 bins_selection_or_option
-    : ( attribute_instance )* ( coverage_option
-                              | bins_selection )
+    : ( attribute_instance )* ( coverage_option | bins_selection )
     ;
 
 bins_selection : bins_keyword identifier ASSIGN_OP select_expression ( IFF OPEN_PARENS expression CLOSE_PARENS )? ;
@@ -1651,24 +1649,24 @@ bins_expression
 open_range_list : value_range ( COMMA value_range )* ;
 
 gate_instantiation
-    : cmos_switchtype ( delay3 )? cmos_switch_instance ( COMMA cmos_switch_instance )* SEMICOLUMN
+    : cmos_switchtype ( delay3 )? cmos_switch_instance ( COMMA cmos_switch_instance )* SEMICOLON
 
-    | enable_gatetype ( drive_strength )? ( delay3 )? enable_gate_instance ( COMMA enable_gate_instance )* SEMICOLUMN
+    | enable_gatetype ( drive_strength )? ( delay3 )? enable_gate_instance ( COMMA enable_gate_instance )* SEMICOLON
 
-    | mos_switchtype ( delay3 )? mos_switch_instance ( COMMA mos_switch_instance )* SEMICOLUMN
+    | mos_switchtype ( delay3 )? mos_switch_instance ( COMMA mos_switch_instance )* SEMICOLON
 
-    | n_input_gatetype ( drive_strength )? ( delay2 )? n_input_gate_instance ( COMMA n_input_gate_instance )* SEMICOLUMN
+    | n_input_gatetype ( drive_strength )? ( delay2 )? n_input_gate_instance ( COMMA n_input_gate_instance )* SEMICOLON
 
     | n_output_gatetype ( drive_strength )? ( delay2 )? n_output_gate_instance
-    ( COMMA n_output_gate_instance )* SEMICOLUMN
+    ( COMMA n_output_gate_instance )* SEMICOLON
 
-    | pass_en_switchtype ( delay2 )? pass_enable_switch_instance ( COMMA pass_enable_switch_instance )* SEMICOLUMN
+    | pass_en_switchtype ( delay2 )? pass_enable_switch_instance ( COMMA pass_enable_switch_instance )* SEMICOLON
 
-    | pass_switchtype pass_switch_instance ( COMMA pass_switch_instance )* SEMICOLUMN
+    | pass_switchtype pass_switch_instance ( COMMA pass_switch_instance )* SEMICOLON
 
-    | PULLDOWN ( pulldown_strength )? pull_gate_instance ( COMMA pull_gate_instance )* SEMICOLUMN
+    | PULLDOWN ( pulldown_strength )? pull_gate_instance ( COMMA pull_gate_instance )* SEMICOLON
 
-    | PULLUP ( pullup_strength )? pull_gate_instance ( COMMA pull_gate_instance )* SEMICOLUMN
+    | PULLUP ( pullup_strength )? pull_gate_instance ( COMMA pull_gate_instance )* SEMICOLON
 
     ;
 
@@ -1758,7 +1756,7 @@ pass_switchtype
     ;
 
 module_instantiation : identifier ( parameter_value_assignment )?
-                       hierarchical_instance ( COMMA hierarchical_instance )* SEMICOLUMN ;
+                       hierarchical_instance ( COMMA hierarchical_instance )* SEMICOLON ;
 
 parameter_value_assignment : POUND (OPEN_PARENS list_of_parameter_assignments? CLOSE_PARENS)
                            | Pound_delay
@@ -1818,7 +1816,7 @@ generate_module_item
     : generate_module_conditional_statement
     | generate_module_case_statement
     | generate_module_loop_statement
-    | ( identifier COLUMN )?
+    | ( identifier COLON )?
        generate_module_block
     | module_or_generate_item
     ;
@@ -1835,16 +1833,16 @@ CASE OPEN_PARENS constant_expression CLOSE_PARENS genvar_module_case_item
 
 
 genvar_module_case_item
-    : constant_expression ( COMMA constant_expression )* COLUMN generate_module_item
+    : constant_expression ( COMMA constant_expression )* COLON generate_module_item
 
-    | DEFAULT ( COLUMN )? generate_module_item
+    | DEFAULT ( COLON )? generate_module_item
 
     ;
 
 
 generate_module_loop_statement :
-    FOR OPEN_PARENS genvar_decl_assignment SEMICOLUMN constant_expression
-    SEMICOLUMN genvar_assignment CLOSE_PARENS
+    FOR OPEN_PARENS genvar_decl_assignment SEMICOLON constant_expression
+    SEMICOLON genvar_assignment CLOSE_PARENS
     generate_module_named_block ;
 
 genvar_assignment
@@ -1857,13 +1855,13 @@ genvar_decl_assignment :
     ( GENVAR )? identifier ASSIGN_OP constant_expression ;
 
 generate_module_named_block
-    : BEGIN COLUMN identifier ( generate_module_item )*
-      END ( COLUMN identifier )?
-    | identifier COLUMN generate_module_block
+    : BEGIN COLON identifier ( generate_module_item )*
+      END ( COLON identifier )?
+    | identifier COLON generate_module_block
     ;
 
 generate_module_block :
-    BEGIN ( COLUMN identifier )? ( generate_module_item )* END ( COLUMN identifier )? ;
+    BEGIN ( COLON identifier )? ( generate_module_item )* END ( COLON identifier )? ;
 
 generated_interface_instantiation : GENERATE ( generate_interface_item )* ENDGENERATE ;
 
@@ -1871,7 +1869,7 @@ generate_interface_item
     : generate_interface_conditional_statement
     | generate_interface_case_statement
     | generate_interface_loop_statement
-    | ( identifier COLUMN ) generate_interface_block
+    | ( identifier COLON ) generate_interface_block
 
     | interface_or_generate_item
     ;
@@ -1885,27 +1883,27 @@ generate_interface_case_statement :
     genvar_interface_case_item ( genvar_interface_case_item )* ENDCASE ;
 
 genvar_interface_case_item
-    : constant_expression ( COMMA constant_expression )* COLUMN generate_interface_item
+    : constant_expression ( COMMA constant_expression )* COLON generate_interface_item
 
-    | DEFAULT ( COLUMN )? generate_interface_item
+    | DEFAULT ( COLON )? generate_interface_item
     ;
 
 generate_interface_loop_statement :
-    FOR OPEN_PARENS genvar_decl_assignment SEMICOLUMN constant_expression
-    SEMICOLUMN genvar_assignment CLOSE_PARENS
+    FOR OPEN_PARENS genvar_decl_assignment SEMICOLON constant_expression
+    SEMICOLON genvar_assignment CLOSE_PARENS
     generate_interface_named_block ;
 
 
 generate_interface_named_block
-    : BEGIN COLUMN identifier ( generate_interface_item )*
-      END ( COLUMN identifier )?
-    | identifier COLUMN generate_interface_block
+    : BEGIN COLON identifier ( generate_interface_item )*
+      END ( COLON identifier )?
+    | identifier COLON generate_interface_block
     ;
 
 generate_interface_block :
-    BEGIN ( COLUMN identifier )?
+    BEGIN ( COLON identifier )?
     ( generate_interface_item )*
-    END ( COLUMN identifier )? ;
+    END ( COLON identifier )? ;
 
 // This grammar differs from the spec. The spec states that a generate_region
 // is simply a repeated generate_item. This is probably wrong though. The spec
@@ -1917,7 +1915,7 @@ generate_region :
       GENERATE generate_block* ENDGENERATE;
 
 loop_generate_construct :
-      FOR OPEN_PARENS genvar_initialization SEMICOLUMN constant_expression SEMICOLUMN genvar_iteration CLOSE_PARENS generate_block ;
+      FOR OPEN_PARENS genvar_initialization SEMICOLON constant_expression SEMICOLON genvar_iteration CLOSE_PARENS generate_block ;
 
 genvar_initialization :
       GENVAR? identifier ASSIGN_OP constant_expression ;
@@ -1940,14 +1938,14 @@ case_generate_construct :
       CASE OPEN_PARENS constant_expression CLOSE_PARENS case_generate_item  case_generate_item* ENDCASE ;
 
 case_generate_item
-      : constant_expression ( COMMA constant_expression )* COLUMN generate_block
-      | DEFAULT ( COLUMN )? generate_block
+      : constant_expression ( COMMA constant_expression )* COLON generate_block
+      | DEFAULT ( COLON )? generate_block
       ;
 
 generate_block
     :  generate_item
-    | ( identifier COLUMN )? BEGIN ( COLUMN identifier )? (generate_block)* END
-      ( COLUMN identifier )?
+    | ( identifier COLON )? BEGIN ( COLON identifier )? (generate_block)* END
+      ( COLON identifier )?
     ;
 
 //generate_item
@@ -1958,31 +1956,31 @@ generate_block
 
 generate_item
      : module_or_generate_item
-     | ( attribute_instance )* ( MODPORT modport_item ( COMMA modport_item )* SEMICOLUMN | extern_tf_declaration )
+     | ( attribute_instance )* ( MODPORT modport_item ( COMMA modport_item )* SEMICOLON | extern_tf_declaration )
      | checker_or_generate_item_declaration
      | generate_region
      ;
 
 udp_nonansi_declaration : ( attribute_instance )* PRIMITIVE identifier
-                          OPEN_PARENS udp_port_list CLOSE_PARENS SEMICOLUMN ;
+                          OPEN_PARENS udp_port_list CLOSE_PARENS SEMICOLON ;
 
 udp_ansi_declaration : ( attribute_instance )* PRIMITIVE identifier
-                       OPEN_PARENS udp_declaration_port_list CLOSE_PARENS SEMICOLUMN ;
+                       OPEN_PARENS udp_declaration_port_list CLOSE_PARENS SEMICOLON ;
 
 udp_declaration
     : udp_nonansi_declaration udp_port_declaration ( udp_port_declaration )*
         udp_body
-        ENDPRIMITIVE ( COLUMN identifier )?
+        ENDPRIMITIVE ( COLON identifier )?
     | udp_ansi_declaration
         udp_body
-        ENDPRIMITIVE ( COLUMN identifier )?
+        ENDPRIMITIVE ( COLON identifier )?
     | EXTERN udp_nonansi_declaration
     | EXTERN udp_ansi_declaration
     | ( attribute_instance )* PRIMITIVE identifier OPEN_PARENS DOTSTAR
-        CLOSE_PARENS SEMICOLUMN
+        CLOSE_PARENS SEMICOLON
         ( udp_port_declaration )*
         udp_body
-        ENDPRIMITIVE ( COLUMN identifier )?
+        ENDPRIMITIVE ( COLON identifier )?
     ;
 
 udp_port_list : identifier COMMA identifier ( COMMA identifier )* ;
@@ -1991,9 +1989,9 @@ udp_declaration_port_list : udp_output_declaration COMMA
                             udp_input_declaration ( COMMA udp_input_declaration )* ;
 
 udp_port_declaration
-    : udp_output_declaration SEMICOLUMN
-    | udp_input_declaration SEMICOLUMN
-    | udp_reg_declaration SEMICOLUMN
+    : udp_output_declaration SEMICOLON
+    | udp_input_declaration SEMICOLON
+    | udp_reg_declaration SEMICOLON
     ;
 
 udp_output_declaration
@@ -2012,12 +2010,12 @@ udp_body
 
 combinational_body : TABLE combinational_entry ( combinational_entry )* ENDTABLE ;
 
-combinational_entry : level_input_list COLUMN output_symbol SEMICOLUMN ;
+combinational_entry : level_input_list COLON output_symbol SEMICOLON ;
 
 sequential_body : ( udp_initial_statement )? TABLE sequential_entry
                                                ( sequential_entry )* ENDTABLE ;
 
-udp_initial_statement : INITIAL identifier ASSIGN_OP init_val SEMICOLUMN ;
+udp_initial_statement : INITIAL identifier ASSIGN_OP init_val SEMICOLON ;
 
 
 init_val
@@ -2033,7 +2031,7 @@ init_val
    ;
 
 
-sequential_entry : seq_input_list COLUMN level_symbol COLUMN next_state SEMICOLUMN ;
+sequential_entry : seq_input_list COLON level_symbol COLON next_state SEMICOLON ;
 
 
 seq_input_list
@@ -2066,15 +2064,15 @@ level_symbol : Integral_number | Simple_identifier | QMARK ;
 edge_symbol : Simple_identifier | STAR ;
 
 udp_instantiation : identifier ( drive_strength )? ( delay2 )?
-                    udp_instance ( COMMA udp_instance )* SEMICOLUMN ;
+                    udp_instance ( COMMA udp_instance )* SEMICOLON ;
 
 udp_instance : ( name_of_instance )? OPEN_PARENS net_lvalue COMMA
                expression ( COMMA expression )* CLOSE_PARENS ;
 
 continuous_assign
-    : ASSIGN ( drive_strength )? ( delay3 )? list_of_net_assignments SEMICOLUMN
+    : ASSIGN ( drive_strength )? ( delay3 )? list_of_net_assignments SEMICOLON
 
-    | ASSIGN_OP ( delay_control )? list_of_variable_assignments SEMICOLUMN
+    | ASSIGN_OP ( delay_control )? list_of_variable_assignments SEMICOLON
 
     ;
 
@@ -2082,7 +2080,7 @@ list_of_net_assignments : net_assignment ( COMMA net_assignment )* ;
 
 list_of_variable_assignments : variable_assignment ( COMMA variable_assignment )* ;
 
-net_alias : ALIAS net_lvalue (ASSIGN_OP net_lvalue)+ SEMICOLUMN ;
+net_alias : ALIAS net_lvalue (ASSIGN_OP net_lvalue)+ SEMICOLON ;
 
 net_assignment : net_lvalue ASSIGN_OP expression ;
 
@@ -2142,13 +2140,13 @@ action_block
 
 
 seq_block :
-    BEGIN ( COLUMN identifier )? ( block_item_declaration )* ( statement_or_null )*
-    END ( COLUMN identifier )? ;
+    BEGIN ( COLON identifier )? ( block_item_declaration )* ( statement_or_null )*
+    END ( COLON identifier )? ;
 
 
 par_block :
-    FORK ( COLUMN identifier )? ( block_item_declaration )* ( statement_or_null )*
-    (join_keyword | join_any_keyword | join_none_keyword ) ( COLUMN identifier )? ;
+    FORK ( COLON identifier )? ( block_item_declaration )* ( statement_or_null )*
+    (join_keyword | join_any_keyword | join_none_keyword ) ( COLON identifier )? ;
 
 
 join_keyword : JOIN ;
@@ -2159,18 +2157,18 @@ join_none_keyword : JOIN_NONE ;
 
 statement_or_null
     : statement
-    | ( attribute_instance )* SEMICOLUMN
+    | ( attribute_instance )* SEMICOLON
     ;
 
-statement : ( identifier COLUMN )? ( attribute_instance )* statement_item ;
+statement : ( identifier COLON )? ( attribute_instance )* statement_item ;
 
 statement_item
-    : blocking_assignment SEMICOLUMN
-    | nonblocking_assignment SEMICOLUMN
-    | procedural_continuous_assignment SEMICOLUMN
+    : blocking_assignment SEMICOLON
+    | nonblocking_assignment SEMICOLON
+    | procedural_continuous_assignment SEMICOLON
     | case_statement
     | conditional_statement
-    | inc_or_dec_expression SEMICOLUMN
+    | inc_or_dec_expression SEMICOLON
     | subroutine_call_statement
     | disable_statement
     | event_trigger
@@ -2182,17 +2180,17 @@ statement_item
     | wait_statement
     | procedural_assertion_statement
 // This is covered by assignments (and created ambiguities) 
-//  | clocking_drive SEMICOLUMN
+//  | clocking_drive SEMICOLON
     | randsequence_statement
     | randcase_statement
     | expect_property_statement
-    | system_task SEMICOLUMN
+    | system_task SEMICOLON
     | surelog_macro_not_defined
     ;
 
 function_statement_or_null
     : statement
-    | ( attribute_instance )* SEMICOLUMN
+    | ( attribute_instance )* SEMICOLON
     ;
 
 procedural_timing_control_statement :
@@ -2240,9 +2238,9 @@ procedural_timing_control
 
 
 jump_statement
-    : RETURN ( expression )? SEMICOLUMN
-    | BREAK SEMICOLUMN
-    | CONTINUE SEMICOLUMN
+    : RETURN ( expression )? SEMICOLON
+    | BREAK SEMICOLON
+    | CONTINUE SEMICOLON
     ;
 
 
@@ -2250,18 +2248,18 @@ jump_statement
 
 
 wait_statement
-    : WAIT (( OPEN_PARENS expression CLOSE_PARENS statement_or_null ) | ( FORK SEMICOLUMN ))
+    : WAIT (( OPEN_PARENS expression CLOSE_PARENS statement_or_null ) | ( FORK SEMICOLON ))
     | WAIT_ORDER OPEN_PARENS (identifier | hierarchical_identifier) (COMMA (identifier | hierarchical_identifier) )* CLOSE_PARENS action_block
     ;
 
 event_trigger
-    : IMPLY (identifier | hierarchical_identifier) SEMICOLUMN
+    : IMPLY (identifier | hierarchical_identifier) SEMICOLON
     | NON_BLOCKING_TRIGGER_EVENT_OP ( delay_or_event_control )?
-      (identifier | hierarchical_identifier) SEMICOLUMN
+      (identifier | hierarchical_identifier) SEMICOLON
     ;
 
 disable_statement
-    : DISABLE ( identifier | hierarchical_identifier | FORK ) SEMICOLUMN
+    : DISABLE ( identifier | hierarchical_identifier | FORK ) SEMICOLON
     ;
 
 
@@ -2305,24 +2303,24 @@ case_keyword
     ;
 
 case_item
-    : expression ( COMMA expression )* COLUMN statement_or_null
-    | DEFAULT ( COLUMN )? statement_or_null
+    : expression ( COMMA expression )* COLON statement_or_null
+    | DEFAULT ( COLON )? statement_or_null
     ;
 
 case_pattern_item
-    : pattern ( COND_PRED_OP expression )? COLUMN statement_or_null
-    | DEFAULT ( COLUMN )? statement_or_null
+    : pattern ( COND_PRED_OP expression )? COLON statement_or_null
+    | DEFAULT ( COLON )? statement_or_null
     ;
 
 case_inside_item
-     : open_range_list COLUMN statement_or_null
-     | DEFAULT ( COLUMN )? statement_or_null
+     : open_range_list COLON statement_or_null
+     | DEFAULT ( COLON )? statement_or_null
      ;
 
 randcase_statement :
     RANDCASE randcase_item ( randcase_item )* ENDCASE ;
 
-randcase_item : expression COLUMN statement_or_null ;
+randcase_item : expression COLON statement_or_null ;
 
 
 pattern
@@ -2331,13 +2329,13 @@ pattern
     | constant_expression
     | TAGGED identifier ( pattern )?
     | TICK OPEN_CURLY pattern ( COMMA pattern )* CLOSE_CURLY
-    | TICK OPEN_CURLY identifier COLUMN pattern ( COMMA identifier COLUMN pattern )* CLOSE_CURLY
+    | TICK OPEN_CURLY identifier COLON pattern ( COMMA identifier COLON pattern )* CLOSE_CURLY
     ;
 
 assignment_pattern :
       TICK OPEN_CURLY expression ( COMMA expression )* CLOSE_CURLY
-    | TICK OPEN_CURLY structure_pattern_key COLUMN expression ( COMMA structure_pattern_key COLUMN expression )* CLOSE_CURLY
-    | TICK OPEN_CURLY array_pattern_key COLUMN expression ( COMMA array_pattern_key COLUMN expression )* CLOSE_CURLY
+    | TICK OPEN_CURLY structure_pattern_key COLON expression ( COMMA structure_pattern_key COLON expression )* CLOSE_CURLY
+    | TICK OPEN_CURLY array_pattern_key COLON expression ( COMMA array_pattern_key COLON expression )* CLOSE_CURLY
    // | TICK OPEN_CURLY constant_expression OPEN_CURLY expression ( COMMA expression )* CLOSE_CURLY CLOSE_CURLY
     | TICK OPEN_CURLY constant_expression OPEN_CURLY expression ( (CLOSE_CURLY ( COMMA expression )*) | (( COMMA expression )* CLOSE_CURLY))  CLOSE_CURLY
     | TICK OPEN_CURLY CLOSE_CURLY
@@ -2380,9 +2378,9 @@ assignment_pattern_variable_lvalue :
 loop_statement
     : FOREVER statement_or_null
     | (REPEAT | WHILE) OPEN_PARENS expression CLOSE_PARENS statement_or_null
-    | FOR OPEN_PARENS for_initialization? SEMICOLUMN expression? SEMICOLUMN
+    | FOR OPEN_PARENS for_initialization? SEMICOLON expression? SEMICOLON
       for_step? CLOSE_PARENS statement_or_null
-    | DO statement_or_null WHILE OPEN_PARENS expression CLOSE_PARENS  SEMICOLUMN
+    | DO statement_or_null WHILE OPEN_PARENS expression CLOSE_PARENS  SEMICOLON
     | FOREACH OPEN_PARENS ps_or_hierarchical_array_identifier OPEN_BRACKET loop_variables
       CLOSE_BRACKET (OPEN_BRACKET identifier
       CLOSE_BRACKET)? CLOSE_PARENS statement
@@ -2409,8 +2407,8 @@ comma : COMMA ;
 loop_variables : ( identifier )? ( comma ( identifier )? )* ;
 
 subroutine_call_statement
-    : subroutine_call SEMICOLUMN
-    | VOID TICK OPEN_PARENS subroutine_call CLOSE_PARENS SEMICOLUMN
+    : subroutine_call SEMICOLON
+    | VOID TICK OPEN_PARENS subroutine_call CLOSE_PARENS SEMICOLON
     ;
 
 
@@ -2420,7 +2418,7 @@ assertion_item
     ;
 
 deferred_immediate_assertion_item :
-      ( identifier COLUMN )? deferred_immediate_assertion_statement ;
+      ( identifier COLON )? deferred_immediate_assertion_statement ;
 
 procedural_assertion_statement
       : concurrent_assertion_statement
@@ -2469,9 +2467,9 @@ deferred_immediate_cover_statement
       | COVER FINAL OPEN_PARENS expression CLOSE_PARENS  statement_or_null
       ;
 
-clocking_declaration : ( DEFAULT )? CLOCKING ( identifier )? clocking_event SEMICOLUMN
-    ( clocking_item )* ENDCLOCKING ( COLUMN identifier )?
-    | GLOBAL CLOCKING  identifier? clocking_event SEMICOLUMN ENDCLOCKING ( COLUMN identifier )?
+clocking_declaration : ( DEFAULT )? CLOCKING ( identifier )? clocking_event SEMICOLON
+    ( clocking_item )* ENDCLOCKING ( COLON identifier )?
+    | GLOBAL CLOCKING  identifier? clocking_event SEMICOLON ENDCLOCKING ( COLON identifier )?
    ;
 
 clocking_event
@@ -2480,8 +2478,8 @@ clocking_event
     ;
 
 clocking_item
-    : DEFAULT default_skew SEMICOLUMN
-    | clocking_direction list_of_clocking_decl_assign SEMICOLUMN
+    : DEFAULT default_skew SEMICOLON
+    | clocking_direction list_of_clocking_decl_assign SEMICOLON
     | ( attribute_instance )* concurrent_assertion_item_declaration
     ;
 
@@ -2534,7 +2532,7 @@ randsequence_statement : RANDSEQUENCE OPEN_PARENS ( identifier )? CLOSE_PARENS
     ENDSEQUENCE ;
 
 production : ( function_data_type )? identifier ( OPEN_PARENS tf_port_list
-                   CLOSE_PARENS )? COLUMN rs_rule ( BITW_OR rs_rule )* SEMICOLUMN ;
+                   CLOSE_PARENS )? COLON rs_rule ( BITW_OR rs_rule )* SEMICOLON ;
 
 rs_rule : rs_production_list ( ASSIGN_VALUE expression ( rs_code_block )? )? ;
 
@@ -2564,8 +2562,8 @@ rs_repeat : REPEAT OPEN_PARENS expression CLOSE_PARENS production_item ;
 rs_case : CASE OPEN_PARENS expression CLOSE_PARENS rs_case_item ( rs_case_item )* ENDCASE ;
 
 rs_case_item
-    : expression ( COMMA expression )* COLUMN production_item
-    | DEFAULT ( COLUMN )? production_item
+    : expression ( COMMA expression )* COLON production_item
+    | DEFAULT ( COLON )? production_item
     ;
 
 specify_block : SPECIFY ( specify_item )* ENDSPECIFY ;
@@ -2579,22 +2577,22 @@ specify_item
     ;
 
 pulsestyle_declaration
-    : PULSESTYLE_ONEVENT list_of_path_outputs SEMICOLUMN
-    | PULSESTYLE_ONDETECT list_of_path_outputs SEMICOLUMN
+    : PULSESTYLE_ONEVENT list_of_path_outputs SEMICOLON
+    | PULSESTYLE_ONDETECT list_of_path_outputs SEMICOLON
     ;
 
 
 showcancelled_declaration
-    : SHOWCANCELLED list_of_path_outputs SEMICOLUMN
-    | NOSHOWCANCELLED list_of_path_outputs SEMICOLUMN
+    : SHOWCANCELLED list_of_path_outputs SEMICOLON
+    | NOSHOWCANCELLED list_of_path_outputs SEMICOLON
     ;
 
 
 
 path_declaration
-    : simple_path_declaration SEMICOLUMN
-    | edge_sensitive_path_declaration SEMICOLUMN
-    | state_dependent_path_declaration SEMICOLUMN
+    : simple_path_declaration SEMICOLON
+    | edge_sensitive_path_declaration SEMICOLON
+    | state_dependent_path_declaration SEMICOLON
     ;
 
 
@@ -2673,13 +2671,13 @@ edge_sensitive_path_declaration
 
 parallel_edge_sensitive_path_description :
      OPEN_PARENS ( edge_identifier )? specify_input_terminal_descriptor TRANSITION_OP
-     OPEN_PARENS specify_output_terminal_descriptor part_select_op_column
+     OPEN_PARENS specify_output_terminal_descriptor part_select_op_colon
      expression CLOSE_PARENS CLOSE_PARENS ;
 
 
 full_edge_sensitive_path_description :
      OPEN_PARENS ( edge_identifier )? list_of_path_inputs FULL_CONN_OP
-     OPEN_PARENS list_of_path_outputs part_select_op_column
+     OPEN_PARENS list_of_path_outputs part_select_op_colon
      expression CLOSE_PARENS CLOSE_PARENS ;
 
 state_dependent_path_declaration
@@ -2706,67 +2704,67 @@ system_timing_check
 
 dollar_setup_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS timing_check_event COMMA reference_event COMMA
-    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_hold_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS  reference_event COMMA  timing_check_event COMMA
-    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_setuphold_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA  timing_check_event COMMA timing_check_limit COMMA timing_check_limit
     ( COMMA ( notifier )? ( COMMA ( stamptime_condition )? ( COMMA ( mintypmax_expression )?
-    ( COMMA ( delayed_reference )? ( COMMA ( delayed_data )? )? )? )? )? )? CLOSE_PARENS SEMICOLUMN ;
+    ( COMMA ( delayed_reference )? ( COMMA ( delayed_data )? )? )? )? )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_recovery_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA timing_check_event COMMA
-    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_removal_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA timing_check_event  COMMA
-    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_recrem_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA timing_check_event COMMA timing_check_limit COMMA timing_check_limit
     ( COMMA ( notifier )? ( COMMA ( stamptime_condition )? ( COMMA ( mintypmax_expression )?
-    ( COMMA ( delayed_reference )? ( COMMA ( delayed_data )? )? )? )? )? )? CLOSE_PARENS SEMICOLUMN ;
+    ( COMMA ( delayed_reference )? ( COMMA ( delayed_data )? )? )? )? )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_skew_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA timing_check_event COMMA
-    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    timing_check_limit ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_timeskew_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA timing_check_event  COMMA timing_check_limit
     ( COMMA ( notifier )? ( COMMA ( event_based_flag )?
-    ( COMMA ( remain_active_flag )? )? )? )? CLOSE_PARENS SEMICOLUMN ;
+    ( COMMA ( remain_active_flag )? )? )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_fullskew_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA timing_check_event
     COMMA timing_check_limit COMMA timing_check_limit
     ( COMMA ( notifier )? ( COMMA ( event_based_flag )?
-    ( COMMA ( remain_active_flag )? )? )? )? CLOSE_PARENS SEMICOLUMN ;
+    ( COMMA ( remain_active_flag )? )? )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_period_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS controlled_timing_check_event COMMA timing_check_limit
-    ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_width_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS controlled_timing_check_event COMMA timing_check_limit
-    COMMA threshold ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    COMMA threshold ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 
 dollar_nochange_timing_check :
     DOLLAR Simple_identifier OPEN_PARENS reference_event COMMA timing_check_event COMMA start_edge_offset COMMA
-    end_edge_offset ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;
+    end_edge_offset ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLON ;
 
 delayed_data
     : identifier (OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET )?
@@ -2860,16 +2858,16 @@ scalar_constant
 
  concatenation
     : OPEN_CURLY expression ( COMMA expression )* CLOSE_CURLY
-    | OPEN_CURLY array_member_label COLUMN expression
-      ( COMMA array_member_label COLUMN expression )* CLOSE_CURLY
+    | OPEN_CURLY array_member_label COLON expression
+      ( COMMA array_member_label COLON expression )* CLOSE_CURLY
     ;
 
 
 constant_concatenation
     : OPEN_CURLY constant_expression ( COMMA constant_expression )* CLOSE_CURLY
 
-    | OPEN_CURLY array_member_label COLUMN constant_expression
-      ( COMMA array_member_label COLUMN constant_expression )* CLOSE_CURLY
+    | OPEN_CURLY array_member_label COLON constant_expression
+      ( COMMA array_member_label COLON constant_expression )* CLOSE_CURLY
 
     ;
 
@@ -2910,7 +2908,7 @@ stream_expression : expression ( WITH OPEN_BRACKET array_range_expression CLOSE_
 
 array_range_expression
     : expression
-    | expression part_select_op_column expression
+    | expression part_select_op_colon expression
     ;
 
 empty_queue : OPEN_CURLY CLOSE_CURLY ;
@@ -2937,7 +2935,7 @@ list_of_arguments
     ;
 
 method_call : method_call_root DOT method_call_body
-            | class_type COLUMNCOLUMN method_call_body
+            | class_type COLONCOLON method_call_body
          ;
 
 
@@ -3006,7 +3004,7 @@ constant_expression
     | constant_expression BITW_OR ( attribute_instance )* constant_expression
     | constant_expression LOGICAL_AND ( attribute_instance )* constant_expression
     | constant_expression LOGICAL_OR ( attribute_instance )* constant_expression
-    | <assoc=right> constant_expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLUMN constant_expression
+    | <assoc=right> constant_expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLON constant_expression
     | <assoc=right> constant_expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* constant_expression
     | system_task
     ;
@@ -3014,7 +3012,7 @@ constant_expression
 conditional_operator : QMARK ;
 
 constant_mintypmax_expression
-    : constant_expression ( COLUMN constant_expression COLUMN constant_expression ) ?
+    : constant_expression ( COLON constant_expression COLON constant_expression ) ?
     ;
 
 constant_param_expression
@@ -3043,7 +3041,7 @@ constant_part_select_range
     ;
 
 
-constant_range : constant_expression COLUMN constant_expression ;
+constant_range : constant_expression COLON constant_expression ;
 
 
 constant_indexed_range
@@ -3060,7 +3058,7 @@ expression : primary expression_prime
              | ( PLUSPLUS | MINUSMINUS ) ( attribute_instance )* variable_lvalue expression_prime
              | variable_lvalue ( attribute_instance )* ( PLUSPLUS | MINUSMINUS )  expression_prime
              | OPEN_PARENS variable_lvalue (ASSIGN_OP | ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN| DIV_ASSIGN | MODULO_ASSIGN | BITW_AND_ASSIGN | BITW_OR_ASSIGN | BITW_XOR_ASSIGN | BITW_LEFT_SHIFT_ASSIGN | BITW_RIGHT_SHIFT_ASSIGN  | ARITH_SHIFT_LEFT_ASSIGN | ARITH_SHIFT_RIGHT_ASSIGN ) expression CLOSE_PARENS expression_prime
-             | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK  ( attribute_instance )* expression COLUMN expression expression_prime
+             | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK  ( attribute_instance )* expression COLON expression expression_prime
              | TAGGED identifier ( expression )?  expression_prime ;
 
 expression_prime : STARSTAR  ( attribute_instance )* expression expression_prime
@@ -3074,7 +3072,7 @@ expression_prime : STARSTAR  ( attribute_instance )* expression expression_prime
              | BITW_OR ( attribute_instance )* expression expression_prime
              | LOGICAL_AND ( attribute_instance )* expression expression_prime
              | LOGICAL_OR ( attribute_instance )* expression expression_prime
-             | ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression expression_prime
+             | ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLON expression expression_prime
              | ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression expression_prime
              | MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression expression_prime
              | INSIDE OPEN_CURLY open_range_list CLOSE_CURLY expression_prime
@@ -3088,7 +3086,7 @@ expression
     | ( PLUSPLUS | MINUSMINUS ) ( attribute_instance )* variable_lvalue
     | variable_lvalue ( attribute_instance )* ( PLUSPLUS | MINUSMINUS )
     | OPEN_PARENS variable_lvalue (ASSIGN_OP | ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN| DIV_ASSIGN | MODULO_ASSIGN | BITW_AND_ASSIGN | BITW_OR_ASSIGN | BITW_XOR_ASSIGN | BITW_LEFT_SHIFT_ASSIGN | BITW_RIGHT_SHIFT_ASSIGN  | ARITH_SHIFT_LEFT_ASSIGN | ARITH_SHIFT_RIGHT_ASSIGN ) expression  CLOSE_PARENS
-    | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* expression COLUMN expression
+    | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* expression COLON expression
     | TAGGED identifier ( expression )?
     | expression STARSTAR ( attribute_instance )* expression
     | expression ( STAR | DIV | PERCENT ) ( attribute_instance )* expression
@@ -3101,21 +3099,21 @@ expression
     | expression BITW_OR ( attribute_instance )* expression
     | expression LOGICAL_AND ( attribute_instance )* expression
     | expression LOGICAL_OR ( attribute_instance )* expression
-    | <assoc=right> expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression
+    | <assoc=right> expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLON expression
     | <assoc=right> expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression
-    | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLUMN expression
+    | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLON expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
     ;
 
 
 value_range
     : expression
-    | OPEN_BRACKET expression COLUMN expression CLOSE_BRACKET
+    | OPEN_BRACKET expression COLON expression CLOSE_BRACKET
     ;
 
 
 mintypmax_expression
-    : expression ( COLUMN expression COLUMN expression )? ;
+    : expression ( COLON expression COLON expression )? ;
 
 module_path_expression
     : module_path_primary
@@ -3124,11 +3122,11 @@ module_path_expression
     | module_path_expression binary_module_path_operator ( attribute_instance )*
         module_path_expression
     | module_path_expression conditional_operator ( attribute_instance )*
-    module_path_expression COLUMN module_path_expression
+    module_path_expression COLON module_path_expression
 ;
 
 module_path_mintypmax_expression
-    : module_path_expression ( COLUMN module_path_expression COLUMN module_path_expression ) ?
+    : module_path_expression ( COLON module_path_expression COLON module_path_expression ) ?
     ;
 
 range_expression
@@ -3146,10 +3144,10 @@ part_select_op
     | DEC_PART_SELECT_OP
     ;
 
-part_select_op_column
+part_select_op_colon
     : INC_PART_SELECT_OP
     | DEC_PART_SELECT_OP
-    | COLUMN
+    | COLON
     ;
 
 indexed_range
@@ -3166,7 +3164,7 @@ constant_primary
     | constant_assignment_pattern_expression
     | type_reference
     | dollar_keyword
-    | OPEN_PARENS constant_expression ( COLUMN constant_expression COLUMN constant_expression )? CLOSE_PARENS
+    | OPEN_PARENS constant_expression ( COLON constant_expression COLON constant_expression )? CLOSE_PARENS
     ;
 
 module_path_primary
@@ -3181,7 +3179,7 @@ module_path_primary
 /*
   Replaces let_expression, tf_call, method_call
 */
-complex_func_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword | LOCAL COLUMNCOLUMN )?
+complex_func_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword | LOCAL COLONCOLON )?
        ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)* ( attribute_instance )* ( ( OPEN_PARENS (list_of_arguments) CLOSE_PARENS ) | select ) (DOT method_call_body)? ;
 
 primary
@@ -3193,14 +3191,14 @@ primary
     | assignment_pattern_expression
     | streaming_concatenation
     | system_task
-    | class_type COLUMNCOLUMN method_call_body
+    | class_type COLONCOLON method_call_body
     | this_keyword
     | dollar_keyword
     | null_keyword
     | empty_queue
     | randomize_call
  // mintypmax_expression moved here:
-    | OPEN_PARENS expression COLUMN expression COLUMN expression CLOSE_PARENS
+    | OPEN_PARENS expression COLON expression COLON expression CLOSE_PARENS
     ;
 
 this_keyword : THIS;
@@ -3361,7 +3359,7 @@ package_scope
     | THIS
     | RANDOMIZE
     | SAMPLE
-    | DOLLAR_UNIT ) COLUMNCOLUMN
+    | DOLLAR_UNIT ) COLONCOLON
     ;
 
 ps_identifier : ( Simple_identifier
@@ -3369,7 +3367,7 @@ ps_identifier : ( Simple_identifier
     | THIS
     | RANDOMIZE
     | SAMPLE
-    | DOLLAR_UNIT ) (COLUMNCOLUMN (Simple_identifier
+    | DOLLAR_UNIT ) (COLONCOLON (Simple_identifier
     | Escaped_identifier
     | THIS
     | RANDOMIZE
@@ -3383,7 +3381,7 @@ ps_or_hierarchical_array_identifier : ( implicit_class_handle DOT | class_scope 
 
 ps_or_hierarchical_sequence_identifier : ps_or_hierarchical_array_identifier ;
 
-ps_type_identifier : ( LOCAL COLUMNCOLUMN | package_scope )?  identifier  ;
+ps_type_identifier : ( LOCAL COLONCOLON | package_scope )?  identifier  ;
 
 system_task : system_task_names (OPEN_PARENS (list_of_arguments ( COMMA clocking_event )? | data_type) CLOSE_PARENS)? ;
 
@@ -3496,23 +3494,23 @@ surelog_macro_not_defined : SURELOG_MACRO_NOT_DEFINED ;
 
 slline : TICK_LINE Integral_number String Integral_number ;
 
-config_declaration : CONFIG identifier SEMICOLUMN
-                     ( local_parameter_declaration SEMICOLUMN )*
+config_declaration : CONFIG identifier SEMICOLON
+                     ( local_parameter_declaration SEMICOLON )*
                      design_statement
                      ( config_rule_statement )*
-                     ENDCONFIG ( COLUMN identifier )? ;
+                     ENDCONFIG ( COLON identifier )? ;
 
 design_statement : DESIGN ( ( identifier DOT )? identifier )*
-                   SEMICOLUMN ;
+                   SEMICOLON ;
 
 config_rule_statement
-        : default_clause liblist_clause SEMICOLUMN
-        | inst_clause liblist_clause    SEMICOLUMN
-        | inst_clause use_clause_config SEMICOLUMN
-        | inst_clause use_clause        SEMICOLUMN
-        | cell_clause liblist_clause    SEMICOLUMN
-        | cell_clause use_clause_config SEMICOLUMN
-        | cell_clause use_clause        SEMICOLUMN
+        : default_clause liblist_clause SEMICOLON
+        | inst_clause liblist_clause    SEMICOLON
+        | inst_clause use_clause_config SEMICOLON
+        | inst_clause use_clause        SEMICOLON
+        | cell_clause liblist_clause    SEMICOLON
+        | cell_clause use_clause_config SEMICOLON
+        | cell_clause use_clause        SEMICOLON
      ;
 
 default_clause : DEFAULT ;
@@ -3525,10 +3523,10 @@ cell_clause : CELL ( identifier DOT )? identifier ;
 
 liblist_clause : LIBLIST ( identifier )* ;
 
-use_clause_config : USE ( identifier DOT )? identifier COLUMN CONFIG
-           | USE named_parameter_assignment ( COMMA named_parameter_assignment )* COLUMN CONFIG
+use_clause_config : USE ( identifier DOT )? identifier COLON CONFIG
+           | USE named_parameter_assignment ( COMMA named_parameter_assignment )* COLON CONFIG
            | USE ( identifier DOT )? identifier named_parameter_assignment
-             ( COMMA named_parameter_assignment )* COLUMN CONFIG
+             ( COMMA named_parameter_assignment )* COLON CONFIG
            ;
 
 use_clause : USE ( identifier DOT )? identifier
