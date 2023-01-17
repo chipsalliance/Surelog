@@ -935,14 +935,14 @@ void SV3_1aTreeShapeListener::exitCase_keyword(
   addVObject(ctx, VObjectType::slCase_keyword);
 }
 
-void SV3_1aTreeShapeListener::exitPart_select_op_column(
-    SV3_1aParser::Part_select_op_columnContext *ctx) {
+void SV3_1aTreeShapeListener::exitPart_select_op_colon(
+    SV3_1aParser::Part_select_op_colonContext *ctx) {
   if (ctx->INC_PART_SELECT_OP()) {
     addVObject(ctx, VObjectType::slIncPartSelectOp);
   } else if (ctx->DEC_PART_SELECT_OP()) {
     addVObject(ctx, VObjectType::slDecPartSelectOp);
-  } else if (ctx->COLUMN()) {
-    addVObject(ctx, VObjectType::slColumnPartSelectOp);
+  } else if (ctx->COLON()) {
+    addVObject(ctx, VObjectType::slColonPartSelectOp);
   }
 }
 

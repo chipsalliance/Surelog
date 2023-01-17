@@ -232,11 +232,11 @@ INCDIR : '-incdir' ;
 
 COMMA : ',' ;
 
-SEMICOLUMN : ';' ;
+SEMICOLON : ';' ;
 
-COLUMNCOLUMN : '::' ;
+COLONCOLON : '::' ;
 
-COLUMN : ':' ;
+COLON : ':' ;
 
 DESIGN : 'design' ;
 
@@ -358,7 +358,7 @@ FOREACH : 'foreach' ;
 
 ASSIGN_VALUE : ':=' ;
 
-/* Replaced by COLUMN DIV :  ASSIGN_RANGE : ':/' ; */
+/* Replaced by COLON DIV :  ASSIGN_RANGE : ':/' ; */
 
 AUTOMATIC : 'automatic' ;
 
@@ -524,7 +524,7 @@ MINUSMINUS : '--' ;
 
 MINUS : '-' ;
 
-STARCOLUMNCOLUMNSTAR : '*::*' ;
+STARCOLONCOLONSTAR : '*::*' ;
 
 STARSTAR : '**' ;
 

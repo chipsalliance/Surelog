@@ -71,7 +71,7 @@ _type_names = set([
   'slCaseZ',
   'slIncPartSelectOp',
   'slDecPartSelectOp',
-  'slColumnPartSelectOp',
+  'slColonPartSelectOp',
   'slReturnStmt',
   'slBreakStmt',
   'slContinueStmt',
