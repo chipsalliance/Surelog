@@ -3145,16 +3145,26 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
           // '1, '0
           uint64_t uval = (uint64_t)val;
           if (uval == 1) {
-            uint64_t mask = NumUtils::getMask(size);
-            uval = mask;
             if (uniquify) {
               UHDM::ElaboratorListener listener(&s, false, true);
               c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
               result = c;
             }
-            c->VpiValue("UINT:" + std::to_string(uval));
-            c->VpiDecompile(std::to_string(uval));
-            c->VpiConstType(vpiUIntConst);
+            if (size <= 64) {
+              uint64_t mask = NumUtils::getMask(size);
+              uval = mask;
+              c->VpiValue("UINT:" + std::to_string(uval));
+              c->VpiDecompile(std::to_string(uval));
+              c->VpiConstType(vpiUIntConst);
+            } else {
+              std::string mask;
+              for (int i = 0; i < size; i++) {
+                mask += "1";
+              }
+              c->VpiValue("BIN:" + mask);
+              c->VpiDecompile(mask);
+              c->VpiConstType(vpiBinaryConst);
+            }
           }
           c->VpiSize(size);
         }
