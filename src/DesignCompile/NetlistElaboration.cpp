@@ -451,14 +451,12 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         if (m_helper.isOverloaded(tps, m_compileDesign, instance)) {
           inst_assign->VpiOverriden(true);
         }
-        /*
         const any* rhs = inst_assign->Rhs();
         if (rhs->UhdmType() == uhdmconstant) {
           constant* c = (constant*)rhs;
           m_helper.adjustSize(tps, instance->getDefinition(), m_compileDesign,
                               instance, c);
         }
-        */
       }
     }
     if (inst_assign) assigns->push_back(inst_assign);
@@ -898,8 +896,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 constant* c = s.MakeConstant();
                 c->VpiValue("UINT:" + std::to_string(instanceArrayIndex));
                 c->VpiDecompile(std::to_string(instanceArrayIndex));
-                //c->VpiSize(64);
-                c->VpiSize(32);
+                c->VpiSize(64);
                 fC->populateCoreMembers(sigId, sigId, c);
                 sel->VpiIndex(c);
                 p->High_conn(sel);

@@ -3053,7 +3053,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                                           DesignComponent* component,
                                           CompileDesign* compileDesign,
                                           ValuedComponentI* instance,
-                                          UHDM::constant* c, bool uniquify) {
+                                          UHDM::constant* c, bool uniquify,
+                                          bool sizeMode) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::constant* result = c;
   if (ts == nullptr) {
@@ -3067,7 +3068,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
       Bits(ts, invalidValue, component, compileDesign, instance,
            fileSystem->toPathId(c->VpiFile(),
                                 compileDesign->getCompiler()->getSymbolTable()),
-           c->VpiLineNo(), true, true);
+           c->VpiLineNo(), true, sizeMode);
 
   int size = orig_size;
   if (!invalidValue) size = sizetmp;

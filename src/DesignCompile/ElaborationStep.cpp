@@ -1881,7 +1881,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       for (auto oper : *op->Operands()) {
         if (oper->UhdmType() == uhdmconstant)
           m_helper.adjustSize(tp, component, m_compileDesign, instance,
-                              (constant*)oper);
+                              (constant*)oper, false, true);
       }
     }
   }
