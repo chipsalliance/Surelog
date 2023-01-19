@@ -541,7 +541,7 @@ class CompileHelper final {
 
   UHDM::constant* adjustSize(const UHDM::typespec* ts, DesignComponent* component,
                   CompileDesign* compileDesign, ValuedComponentI* instance,
-                  UHDM::constant* c, bool uniquify = false);
+                  UHDM::constant* c, bool uniquify = false, bool sizeMode = false);
 
   /** task/func/scope */
   UHDM::any* searchObjectName(std::string_view name, DesignComponent* component,
