@@ -585,6 +585,10 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           m_attributes = nullptr;
           break;
         }
+        case VObjectType::slElaboration_system_task: {
+          m_helper.elaborationSystemTask(m_module, fC, id, m_compileDesign);
+          break;
+        }
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
         case VObjectType::slInout_declaration: {
