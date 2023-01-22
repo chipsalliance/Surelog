@@ -301,7 +301,6 @@ std::string StringUtils::removeComments(std::string_view text) {
     if (!inComment) result += c2;
     c1 = c2;
   }
-  std::cout << result;
   return result;
 }
 
