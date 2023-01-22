@@ -129,6 +129,9 @@ class CompileHelper final {
                                   const FileContent* fC, NodeId id,
                                   VObjectType& port_direction);
 
+  bool elaborationSystemTask(DesignComponent* component, const FileContent* fC,
+                             NodeId id, CompileDesign* compileDesign);
+
   bool compileNetDeclaration(DesignComponent* component, const FileContent* fC,
                              NodeId id, bool interface,
                              CompileDesign* compileDesign);

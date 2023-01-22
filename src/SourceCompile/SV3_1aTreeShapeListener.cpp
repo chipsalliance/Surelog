@@ -2077,4 +2077,15 @@ void SV3_1aTreeShapeListener::exitParameter_value_assignment(
   addVObject(ctx, VObjectType::slParameter_value_assignment);
 }
 
+void SV3_1aTreeShapeListener::exitElaboration_system_task(
+    SV3_1aParser::Elaboration_system_taskContext *ctx) {
+  if (ctx->number()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->number(),
+               ctx->number()->getText(), VObjectType::slIntConst);
+  }
+  addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(),
+             ctx->Simple_identifier()->getText(), VObjectType::slStringConst);
+  addVObject(ctx, VObjectType::slElaboration_system_task);
+}
+
 }  // namespace SURELOG

@@ -4349,4 +4349,39 @@ void CompileHelper::compileLetDeclaration(DesignComponent* component,
   component->insertLetStmt(name, stmt);
 }
 
+bool CompileHelper::elaborationSystemTask(DesignComponent* component,
+                                          const FileContent* fC, NodeId id,
+                                          CompileDesign* compileDesign) {
+  NodeId taskNameId = fC->Child(id);
+  NodeId NumberOrArgList = fC->Sibling(taskNameId);
+  NodeId ArgList = NumberOrArgList;
+  if (fC->Type(ArgList) != VObjectType::slList_of_arguments) {
+    ArgList = fC->Sibling(ArgList);
+  }
+  NodeId Expression = fC->Child(ArgList);
+  NodeId Primary = fC->Child(Expression);
+  NodeId Primary_literal = fC->Child(Primary);
+  NodeId StringId = fC->Child(Primary_literal);
+  std::string_view text = fC->SymName(StringId);
+  std::string_view name = fC->SymName(taskNameId);
+  Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
+               m_symbols->registerSymbol(text));
+  if (name == "fatal") {
+    Error err(ErrorDefinition::ELAB_SYSTEM_FATAL, loc);
+    m_errors->addError(err);
+  } else if (name == "error") {
+    Error err(ErrorDefinition::ELAB_SYSTEM_ERROR, loc);
+    m_errors->addError(err);
+  }
+  if (name == "warning") {
+    Error err(ErrorDefinition::ELAB_SYSTEM_WARNING, loc);
+    m_errors->addError(err);
+  }
+  if (name == "info") {
+    Error err(ErrorDefinition::ELAB_SYSTEM_INFO, loc);
+    m_errors->addError(err);
+  }
+  return true;
+}
+
 }  // namespace SURELOG

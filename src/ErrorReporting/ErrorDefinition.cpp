@@ -427,6 +427,10 @@ bool ErrorDefinition::init() {
       "Skipping blackboxed instance \"%s\"");
   rec(ELAB_INVALID_CASE_STMT_VALUE, ERROR, ELAB,
       "Invalid generate case stmt value");
+  rec(ELAB_SYSTEM_FATAL, FATAL, ELAB, "Fatal elaboration %s");
+  rec(ELAB_SYSTEM_ERROR, ERROR, ELAB, "Elaboration error %s");
+  rec(ELAB_SYSTEM_WARNING, WARNING, ELAB, "Elaboration warning %s");
+  rec(ELAB_SYSTEM_INFO, INFO, ELAB, "Elaboration info %s");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       R"(File "%exobj" maps to multiple libraries: "%s")");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
