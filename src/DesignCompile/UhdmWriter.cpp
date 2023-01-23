@@ -1793,7 +1793,8 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
-
+    // System elab tasks
+    m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
@@ -3059,7 +3060,8 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
-
+    // System elab tasks
+    m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
@@ -3196,7 +3198,8 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     for (auto item : mod->getImportedSymbols()) {
       typespecs->push_back(item);
     }
-
+    // System elab tasks
+    m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());

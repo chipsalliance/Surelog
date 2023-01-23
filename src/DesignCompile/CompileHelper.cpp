@@ -4364,6 +4364,18 @@ bool CompileHelper::elaborationSystemTask(DesignComponent* component,
   NodeId StringId = fC->Child(Primary_literal);
   std::string_view text = fC->SymName(StringId);
   std::string_view name = fC->SymName(taskNameId);
+  Serializer& s = compileDesign->getSerializer();
+  UHDM::sys_task_call* scall = s.MakeSys_task_call();
+  fC->populateCoreMembers(id, id, scall);
+  scall->VpiName(name);
+  VectorOfany* args = s.MakeAnyVec();
+  scall->Tf_call_args(args);
+  constant* c = s.MakeConstant();
+  args->push_back(c);
+  c->VpiValue(std::string("STRING:") + std::string(text));
+  c->VpiDecompile(text);
+  c->VpiConstType(vpiStringConst);
+  component->addElabSysCall(scall);
   Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
                m_symbols->registerSymbol(text));
   if (name == "fatal") {
