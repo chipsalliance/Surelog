@@ -154,6 +154,13 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
     return m_imported_symbols;
   }
 
+  void addElabSysCall(UHDM::tf_call* elab_sys_call) {
+    m_elab_sys_calls.push_back(elab_sys_call);
+  }
+  const std::vector<UHDM::tf_call*>& getElabSysCalls() const {
+    return m_elab_sys_calls;
+  }
+
   void needLateBinding(UHDM::ref_obj* obj) { m_needLateBinding.push_back(obj); }
   const std::vector<UHDM::ref_obj*>& getLateBinding() const {
     return m_needLateBinding;
@@ -203,6 +210,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::vector<Package*> m_packages;
   VariableMap m_variables;
   std::vector<UHDM::import_typespec*> m_imported_symbols;
+  std::vector<UHDM::tf_call*> m_elab_sys_calls;
   std::vector<UHDM::ref_obj*> m_needLateBinding;
   std::vector<UHDM::any*> m_needLateTypedefBinding;
   ParameterMap m_parameterMap;

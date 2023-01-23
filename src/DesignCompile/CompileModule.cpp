@@ -586,6 +586,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slElaboration_system_task: {
+          if (collectType != CollectType::FUNCTION) break;
           m_helper.elaborationSystemTask(m_module, fC, id, m_compileDesign);
           break;
         }
@@ -1004,6 +1005,11 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slAssertion_item: {
           if (collectType != CollectType::OTHER) break;
           m_helper.compileAssertionItem(m_module, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slElaboration_system_task: {
+          if (collectType != CollectType::FUNCTION) break;
+          m_helper.elaborationSystemTask(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slClocking_declaration:
