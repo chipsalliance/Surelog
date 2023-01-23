@@ -18,59 +18,62 @@ lexer grammar SV3_1aSplitterLexer;
 
 // A.9.2 Comments
 
-One_line_comment : '//' Comment_text '\r'? '\n' ;
+One_line_comment: '//' Comment_text '\r'? '\n';
 
-Block_comment : '/*' Comment_text '*/' ;
+Block_comment: '/*' Comment_text '*/';
 
-fragment Comment_text : (WS | CR | TAB)* | .*? ;
+fragment Comment_text: (WS | CR | TAB)* | .*?;
 
-MODULE : 'module';
+MODULE: 'module';
 
-ENDMODULE : 'endmodule' ;
+ENDMODULE: 'endmodule';
 
-INTERFACE : 'interface' ;
+INTERFACE: 'interface';
 
-ENDINTERFACE : 'endinterface' ;
+ENDINTERFACE: 'endinterface';
 
-PROGRAM : 'program' ;
+PROGRAM: 'program';
 
-ENDPROGRAM : 'endprogram' ;
+ENDPROGRAM: 'endprogram';
 
-PRIMITIVE : 'primivite' ;
+PRIMITIVE: 'primivite';
 
-ENDPRIMITIVE : 'endprimitive' ;
+ENDPRIMITIVE: 'endprimitive';
 
-PACKAGE : 'package' ;
+PACKAGE: 'package';
 
-ENDPACKAGE : 'endpackage' ;
+ENDPACKAGE: 'endpackage';
 
-CHECKER : 'checker' ;
+CHECKER: 'checker';
 
-ENDCHECKER : 'endchecker' ;
+ENDCHECKER: 'endchecker';
 
-CONFIG : 'config' ;
+CONFIG: 'config';
 
-ENDCONFIG : 'endconfig' ;
+ENDCONFIG: 'endconfig';
 
 String
- : '"'                          // a opening quote
-   (                            // start group
-     '\\' ~('\r')        // an escaped char other than a line break char
-     |                          // OR
-     ~('\\' | '"'| '\r' | '\n') // any char other than '"', '\' and line breaks
-   )*                           // end group and repeat zero or more times
-   '"'                          // the closing quote
- ;
+  : '"' // a opening quote
+  (
+    // start group
+    '\\' ~'\r' // an escaped char other than a line break char
+    | // OR
+    ~(
+      '\\'
+      | '"'
+      | '\r'
+      | '\n'
+    ) // any char other than '"', '\' and line breaks
+  )* // end group and repeat zero or more times
+  '"'
+  ; // the closing quote
 
-Spaces : (WS | TAB)+;
+Spaces: (WS | TAB)+;
 
+fragment WS: [ ]+;
 
+fragment TAB: [\t]+;
 
-fragment WS : [ ]+ ;
+CR: [\r\n];
 
-fragment TAB : [\t]+ ;
-
-CR : [\r\n] ;
-
-
-ANY : .;
+ANY: .;

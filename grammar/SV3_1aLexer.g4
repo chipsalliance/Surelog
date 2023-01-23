@@ -26,161 +26,161 @@ lexer grammar SV3_1aLexer;
 }
 
 channels {
-   WHITESPACES,
-   COMMENTS
+  WHITESPACES,
+  COMMENTS
 }
 
-QMARK : '?' ;
+QMARK: '?';
 
-TICK_b0 : '\'b0' ;
+TICK_b0: '\'b0';
 
-TICK_b1 : '\'b1' ;
+TICK_b1: '\'b1';
 
-TICK_B0 : '\'B0' ;
+TICK_B0: '\'B0';
 
-TICK_B1 : '\'B1' ;
+TICK_B1: '\'B1';
 
-TICK_0 : '\'0' ;
+TICK_0: '\'0';
 
-TICK_1 : '\'1' ;
+TICK_1: '\'1';
 
-ONE_TICK_b0 : '1\'b0' ;
+ONE_TICK_b0: '1\'b0';
 
-ONE_TICK_b1 : '1\'b1' ;
+ONE_TICK_b1: '1\'b1';
 
-ONE_TICK_bx : '1\'bx' ;
+ONE_TICK_bx: '1\'bx';
 
-ONE_TICK_bX : '1\'bX' ;
+ONE_TICK_bX: '1\'bX';
 
-ONE_TICK_B0 : '1\'B0' ;
+ONE_TICK_B0: '1\'B0';
 
-ONE_TICK_B1 : '1\'B1' ;
+ONE_TICK_B1: '1\'B1';
 
-ONE_TICK_Bx : '1\'Bx' ;
+ONE_TICK_Bx: '1\'Bx';
 
-ONE_TICK_BX : '1\'BX' ;
+ONE_TICK_BX: '1\'BX';
 
-Pound_Pound_delay : '##' (' ')* [0-9] [0-9_.]* ;
+Pound_Pound_delay: '##' ' '* [0-9] [0-9_.]*;
 
-Pound_delay : '#' (' ')* [0-9] [0-9_.]* ;
+Pound_delay: '#' ' '* [0-9] [0-9_.]*;
 
-fragment
-Non_zero_unsigned_number : '1'..'9' ( '_' | Decimal_digit )* ;
+fragment Non_zero_unsigned_number
+  : '1' ..'9' ('_' | Decimal_digit)*
+  ;
 
-fragment
-Decimal_number
-    : Unsigned_number
-    | ( Non_zero_unsigned_number ' '* )? Decimal_base ' '* Unsigned_number
-    | ( Non_zero_unsigned_number ' '* )? Decimal_base ' '* X_digit ( '_' )*
-    | ( Non_zero_unsigned_number ' '* )? Decimal_base ' '* Z_digit ( '_' )*
-    ;
+fragment Decimal_number
+  : Unsigned_number
+  | (Non_zero_unsigned_number ' '*)? Decimal_base ' '* Unsigned_number
+  | (Non_zero_unsigned_number ' '*)? Decimal_base ' '* X_digit '_'*
+  | (Non_zero_unsigned_number ' '*)? Decimal_base ' '* Z_digit '_'*
+  ;
 
 /* binary_number ::= [ size ] binary_base binary_value */
 
-fragment
-Binary_number : ( Non_zero_unsigned_number ' '* )? Binary_base ' '* Binary_value ;
+fragment Binary_number
+  : (Non_zero_unsigned_number ' '*)? Binary_base ' '* Binary_value
+  ;
 
 /* octal_number ::= [ size ] octal_base octal_value */
 
-fragment
-Octal_number : ( Non_zero_unsigned_number ' '* )? Octal_base ' '* Octal_value ;
+fragment Octal_number
+  : (Non_zero_unsigned_number ' '*)? Octal_base ' '* Octal_value
+  ;
 
 /* hex_number ::= [ size ] hex_base hex_value */
 
-fragment
-Hex_number : ( Non_zero_unsigned_number ' '* )? Hex_base ' '* Hex_value ;
+fragment Hex_number
+  : (Non_zero_unsigned_number ' '*)? Hex_base ' '* Hex_value
+  ;
 
 Integral_number
-    :   Decimal_number
-    |   Octal_number
-    |   Binary_number
-    |   Hex_number
-    ;
+  : Decimal_number
+  | Octal_number
+  | Binary_number
+  | Hex_number
+  ;
 
 /* real_number ::=
-fixed_point_number
-| unsigned_number [ . unsigned_number ] exp [ sign ] unsigned_number */
+ fixed_point_number
+ | unsigned_number [ . unsigned_number ] exp [ sign ]
+ unsigned_number
+ */
 
 Real_number
-    :   Fixed_point_number
-    |   Unsigned_number ( '.' Unsigned_number )? ('e'|'E') ( PLUS | MINUS )? Unsigned_number
-    ;
+  : Fixed_point_number
+  | Unsigned_number ('.' Unsigned_number)? ('e' | 'E') (
+    PLUS
+    | MINUS
+  )? Unsigned_number
+  ;
 
 /* fixed_point_number <<1>> ::= unsigned_number . unsigned_number */
 
-fragment
-Fixed_point_number : Unsigned_number DOT Unsigned_number ;
+fragment Fixed_point_number
+  : Unsigned_number DOT Unsigned_number
+  ;
 
 /* unsigned_number <<1>> ::= decimal_digit { _ | decimal_digit } */
 
-fragment
-Unsigned_number : Decimal_digit ( '_' | Decimal_digit )* ;
+fragment Unsigned_number: Decimal_digit ('_' | Decimal_digit)*;
 
-/* binary_value <<1>> ::= binary_digit { _ | binary_digit } */
+/* binary_value <<1>> ::= binary_digit {_ | binary_digit} */
 
-fragment
-Binary_value : ('_')* Binary_digit ( '_' | Binary_digit )* ;
+fragment Binary_value
+  : '_'* Binary_digit ('_' | Binary_digit)*
+  ;
 
 /* octal_value <<1>> ::= octal_digit { _ | octal_digit } */
 
-fragment
-Octal_value : ('_')* Octal_digit ( '_' | Octal_digit )* ;
+fragment Octal_value: '_'* Octal_digit ('_' | Octal_digit)*;
 
 /* hex_value <<1>> ::= hex_digit { _ | hex_digit } */
 
-fragment
-Hex_value : ('_')* Hex_digit ( '_' | Hex_digit )* ;
+fragment Hex_value: '_'* Hex_digit ('_' | Hex_digit)*;
 
 /* decimal_base <<1>> ::= [s|S]d | [s|S]D */
 
-fragment
-Decimal_base : '\'' ('s' | 'S')? ('d' | 'D') ;
+fragment Decimal_base: '\'' ('s' | 'S')? ('d' | 'D');
 
 /* binary_base <<1>> ::= [s|S]b | [s|S]B */
 
-fragment
-Binary_base : '\'' ('s' | 'S')? ('b' | 'B') ;
+fragment Binary_base: '\'' ('s' | 'S')? ('b' | 'B');
 
 /* octal_base <<1>> ::= [s|S]o | [s|S]O */
 
-fragment
-Octal_base : '\'' ('s' | 'S')? ( 'o' | 'O') ;
+fragment Octal_base: '\'' ('s' | 'S')? ('o' | 'O');
 
 /* hex_base <<1>> ::ps [s|S]h | [s|S]H */
 
-fragment
-Hex_base : '\'' ('s' | 'S')?  ('h' | 'H') ;
-
+fragment Hex_base: '\'' ('s' | 'S')? ('h' | 'H');
 
 /* decimal_digit ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 */
 
-fragment
-Decimal_digit : '0'..'9' ;
+fragment Decimal_digit: '0' ..'9';
 
 /* binary_digit ::= x_digit | z_digit | 0 | 1 */
 
-fragment
-Binary_digit : X_digit | Z_digit | ('0' | '1') ;
+fragment Binary_digit: X_digit | Z_digit | ('0' | '1');
 
 /* octal_digit ::= x_digit | z_digit | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 */
 
-fragment
-Octal_digit : X_digit | Z_digit | '0'..'7' ;
+fragment Octal_digit: X_digit | Z_digit | '0' ..'7';
 
 /* hex_digit ::= x_digit | z_digit | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | a | b | c | d | e | f | A | B | C | D | E | F */
 
-fragment
-Hex_digit : X_digit | Z_digit | ('0'..'9' | 'a'..'f' | 'A'..'F') ;
+fragment Hex_digit
+  : X_digit
+  | Z_digit
+  | ('0' .. '9' | 'a' .. 'f' | 'A' .. 'F')
+  ;
 
 /* x_digit ::= x | X */
 
-fragment
-X_digit : ('x'| 'X') ;
+fragment X_digit: ('x' | 'X');
 
 /* z_digit ::= z | Z | ? */
 
-fragment
-Z_digit : ('z'| 'Z' | QMARK)  ;
+fragment Z_digit: ('z' | 'Z' | QMARK);
 
 /* edge_descriptor */
 
@@ -189,716 +189,724 @@ Z_digit : ('z'| 'Z' | QMARK)  ;
 // A.8.8 Strings
 
 String
- : '"'                          // a opening quote
-   (                            // start group
-     '\\' ~('\r')        // an escaped char other than a line break char
-     |                          // OR
-     ~('\\' | '"'| '\r' | '\n') // any char other than '"', '\' and line breaks
-   )*                           // end group and repeat zero or more times
-   '"'                          // the closing quote
- ;
+  : '"' // a opening quote
+  (
+    // start group
+    '\\' ~'\r' // an escaped char other than a line break char
+    | // OR
+    ~(
+      '\\'
+      | '"'
+      | '\r'
+      | '\n'
+    ) // any char other than '"', '\' and line breaks
+  )* // end group and repeat zero or more times
+  '"'
+  ; // the closing quote
 
 // A.9.2 Comments
 
 /* one_line_comment ::= // comment_text \n */
 
-One_line_comment : '//' Comment_text '\r'? ('\n' | EOF) -> channel(COMMENTS);
+One_line_comment
+  : '//' Comment_text '\r'? ('\n' | EOF) -> channel(COMMENTS)
+  ;
 
 // block_comment ::= /* comment_text */
 
-Block_comment : '/*' Comment_text '*/' -> channel(COMMENTS);
+Block_comment: '/*' Comment_text '*/' -> channel(COMMENTS);
 
 /* comment_text ::= { Any_ASCII_character } */
 
-fragment Comment_text : .*? ;
+fragment Comment_text: .*?;
 
-ASSOCIATIVE_UNSPECIFIED : '[' [ ]* '*' [ ]* ']' ;
+ASSOCIATIVE_UNSPECIFIED: '[' [ ]* '*' [ ]* ']';
 
-ATSTAR : '@' ' '? '*' ;
+ATSTAR: '@' ' '? '*';
 
-AT_PARENS_STAR : '@' ' '? '(' ' '? '*' ' '? ')' ;
+AT_PARENS_STAR: '@' ' '? '(' ' '? '*' ' '? ')';
 
 // 9.4 White space
 
-White_space : [ \t\n\r]+ -> channel(WHITESPACES) ;
+White_space: [ \t\n\r]+ -> channel(WHITESPACES);
 
 // ######################### LEXER RULES ################################
 
-INCLUDE : 'include';
+INCLUDE: 'include';
 
-LIBRARY : 'library' ;
+LIBRARY: 'library';
 
-INCDIR : '-incdir' ;
+INCDIR: '-incdir';
 
-COMMA : ',' ;
+COMMA: ',';
 
-SEMICOLON : ';' ;
+SEMICOLON: ';';
 
-COLONCOLON : '::' ;
+COLONCOLON: '::';
 
-COLON : ':' ;
+COLON: ':';
 
-DESIGN : 'design' ;
+DESIGN: 'design';
 
-DOT : '.' ;
+DOT: '.';
 
-DEFAULT : 'default' ;
+DEFAULT: 'default';
 
-INSTANCE : 'instance' ;
+INSTANCE: 'instance';
 
-CELL : 'cell' ;
+CELL: 'cell';
 
-LIBLIST : 'liblist' ;
+LIBLIST: 'liblist';
 
-USE : 'use' ;
+USE: 'use';
 
-MODULE : 'module';
+MODULE: 'module';
 
-ENDMODULE : 'endmodule' ;
+ENDMODULE: 'endmodule';
 
-OPEN_PARENS : '(' ;
+OPEN_PARENS: '(';
 
-CLOSE_PARENS : ')' ;
+CLOSE_PARENS: ')';
 
-STAR : '*' ;
+STAR: '*';
 
-EXTERN : 'extern' ;
+EXTERN: 'extern';
 
-MACROMODULE : 'macromodule' ;
+MACROMODULE: 'macromodule';
 
-INTERFACE : 'interface' ;
+INTERFACE: 'interface';
 
-ENDINTERFACE : 'endinterface' ;
+ENDINTERFACE: 'endinterface';
 
-PROGRAM : 'program' ;
+PROGRAM: 'program';
 
-ENDPROGRAM : 'endprogram' ;
+ENDPROGRAM: 'endprogram';
 
-VIRTUAL : 'virtual' ;
+VIRTUAL: 'virtual';
 
-CLASS : 'class' ;
+CLASS: 'class';
 
-ENDCLASS : 'endclass' ;
+ENDCLASS: 'endclass';
 
-EXTENDS : 'extends' ;
+EXTENDS: 'extends';
 
-PACKAGE : 'package' ;
+PACKAGE: 'package';
 
-ENDPACKAGE : 'endpackage' ;
+ENDPACKAGE: 'endpackage';
 
-TIMEUNIT : 'timeunit' ;
+TIMEUNIT: 'timeunit';
 
-TIMEPRECISION : 'timeprecision' ;
+TIMEPRECISION: 'timeprecision';
 
-CHECKER : 'checker' ;
+CHECKER: 'checker';
 
-ENDCHECKER : 'endchecker' ;
+ENDCHECKER: 'endchecker';
 
-CONFIG : 'config' ;
+CONFIG: 'config';
 
-ENDCONFIG : 'endconfig' ;
+ENDCONFIG: 'endconfig';
 
-TYPE : 'type' { sverilog }?;
+TYPE: 'type' { sverilog }?;
 
-UNTYPED : 'untyped' ;
+UNTYPED: 'untyped';
 
-INPUT : 'input' ;
+INPUT: 'input';
 
-OUTPUT : 'output' ;
+OUTPUT: 'output';
 
-INOUT : 'inout' ;
+INOUT: 'inout';
 
-REF : 'ref' { sverilog }?;
+REF: 'ref' { sverilog }?;
 
-CLOCKING : 'clocking' ;
+CLOCKING: 'clocking';
 
-DEFPARAM : 'defparam' ;
+DEFPARAM: 'defparam';
 
-BIND : 'bind' ;
+BIND: 'bind';
 
-FORKJOIN : 'forkjoin' ;
+FORKJOIN: 'forkjoin';
 
-CONST : 'const' ;
+CONST: 'const';
 
-FUNCTION : 'function' ;
+FUNCTION: 'function';
 
-NEW : 'new' { sverilog }?;
+NEW: 'new' { sverilog }?;
 
-STATIC : 'static' ;
+STATIC: 'static';
 
-PROTECTED : 'protected' ;
+PROTECTED: 'protected';
 
-LOCAL : 'local' ;
+LOCAL: 'local';
 
-RAND : 'rand' ;
+RAND: 'rand';
 
-RANDC : 'randc' ;
+RANDC: 'randc';
 
-SUPER : 'super' ;
+SUPER: 'super';
 
-ENDFUNCTION : 'endfunction' ;
+ENDFUNCTION: 'endfunction';
 
-CONSTRAINT : 'constraint' ;
+CONSTRAINT: 'constraint';
 
-OPEN_CURLY : '{' ;
+OPEN_CURLY: '{';
 
-CLOSE_CURLY : '}' ;
+CLOSE_CURLY: '}';
 
-SOLVE : 'solve' ;
+SOLVE: 'solve';
 
-BEFORE : 'before' ;
+BEFORE: 'before';
 
-IMPLY : '->' ;
+IMPLY: '->';
 
-IF : 'if' ;
+IF: 'if';
 
-ELSE : 'else';
+ELSE: 'else';
 
-FOREACH : 'foreach' ;
+FOREACH: 'foreach';
 
-ASSIGN_VALUE : ':=' ;
+ASSIGN_VALUE: ':=';
 
 /* Replaced by COLON DIV :  ASSIGN_RANGE : ':/' ; */
 
-AUTOMATIC : 'automatic' ;
+AUTOMATIC: 'automatic';
 
-LOCALPARAM : 'localparam' ;
+LOCALPARAM: 'localparam';
 
-PARAMETER : 'parameter' ;
+PARAMETER: 'parameter';
 
-SPECPARAM : 'specparam' ;
+SPECPARAM: 'specparam';
 
-IMPORT : 'import' ;
+IMPORT: 'import';
 
-GENVAR : 'genvar' ;
+GENVAR: 'genvar';
 
-VECTORED : 'vectored' ;
+VECTORED: 'vectored';
 
-SCALARED : 'scalared' ;
+SCALARED: 'scalared';
 
-TYPEDEF : 'typedef' ;
+TYPEDEF: 'typedef';
 
-ENUM : 'enum';
+ENUM: 'enum';
 
-STRUCT : 'struct' ;
+STRUCT: 'struct';
 
-UNION : 'union' ;
+UNION: 'union';
 
-PACKED : 'packed' ;
+PACKED: 'packed';
 
-STRING : 'string' ;
+STRING: 'string';
 
-CHANDLE : 'chandle' ;
+CHANDLE: 'chandle';
 
-EVENT : 'event' ;
+EVENT: 'event';
 
-OPEN_BRACKET : '[' ;
+OPEN_BRACKET: '[';
 
-CLOSE_BRACKET : ']' ;
+CLOSE_BRACKET: ']';
 
-BYTE : 'byte' { sverilog }?;
+BYTE: 'byte' { sverilog }?;
 
-SHORTINT : 'shortint';
+SHORTINT: 'shortint';
 
-INT : 'int' ;
+INT: 'int';
 
-LONGINT : 'longint' ;
+LONGINT: 'longint';
 
-INTEGER : 'integer' ;
+INTEGER: 'integer';
 
-TIME : 'time' ;
+TIME: 'time';
 
-BIT : 'bit' { sverilog }?;
+BIT: 'bit' { sverilog }?;
 
-LOGIC : 'logic' { sverilog }?;
+LOGIC: 'logic' { sverilog }?;
 
-REG : 'reg' ;
+REG: 'reg';
 
-SHORTREAL : 'shortreal' ;
+SHORTREAL: 'shortreal';
 
-REAL : 'real' ;
+REAL: 'real';
 
-REALTIME : 'realtime' ;
+REALTIME: 'realtime';
 
-NEXTTIME : 'nexttime' ;
+NEXTTIME: 'nexttime';
 
-S_NEXTTIME : 's_nexttime' ;
+S_NEXTTIME: 's_nexttime';
 
-S_ALWAYS : 's_always' ;
+S_ALWAYS: 's_always';
 
-UNTIL_WITH : 'until_with' ;
+UNTIL_WITH: 'until_with';
 
-S_UNTIL_WITH : 's_until_with';
+S_UNTIL_WITH: 's_until_with';
 
-ACCEPT_ON      : 'accept_on' ;
+ACCEPT_ON: 'accept_on';
 
-REJECT_ON      : 'reject_on' ;
+REJECT_ON: 'reject_on';
 
-SYNC_ACCEPT_ON : 'sync_accept_on' ;
+SYNC_ACCEPT_ON: 'sync_accept_on';
 
-SYNC_REJECT_ON : 'sync_reject_on' ;
+SYNC_REJECT_ON: 'sync_reject_on';
 
-EVENTUALLY : 'eventually' ;
+EVENTUALLY: 'eventually';
 
-S_EVENTUALLY : 's_eventually' ;
+S_EVENTUALLY: 's_eventually';
 
-SUPPLY0 : 'supply0' ;
+SUPPLY0: 'supply0';
 
-SUPPLY1 : 'supply1' ;
+SUPPLY1: 'supply1';
 
-TRI : 'tri' ;
+TRI: 'tri';
 
-TRIAND : 'triand' ;
+TRIAND: 'triand';
 
-TRIOR : 'trior' ;
+TRIOR: 'trior';
 
-TRI0 : 'tri0' ;
+TRI0: 'tri0';
 
-TRI1 : 'tri1' ;
+TRI1: 'tri1';
 
-WIRE : 'wire' ;
+WIRE: 'wire';
 
-UWIRE : 'uwire' ;
+UWIRE: 'uwire';
 
-WAND : 'wand' ;
+WAND: 'wand';
 
-WOR : 'wor' ;
+WOR: 'wor';
 
-TRIREG : 'trireg' ;
+TRIREG: 'trireg';
 
-SIGNED : 'signed';
+SIGNED: 'signed';
 
-UNSIGNED : 'unsigned';
+UNSIGNED: 'unsigned';
 
-INTERCONNECT : 'interconnect' ;
+INTERCONNECT: 'interconnect';
 
-VAR : 'var' { sverilog }?;
+VAR: 'var' { sverilog }?;
 
-VOID : 'void' ;
+VOID: 'void';
 
-HIGHZ0 : 'highz0' ;
+HIGHZ0: 'highz0';
 
-HIGHZ1 : 'highz1' ;
+HIGHZ1: 'highz1';
 
-STRONG : 'strong' ;
+STRONG: 'strong';
 
-WEAK : 'weak' ;
+WEAK: 'weak';
 
-STRONG0 : 'strong0' ;
+STRONG0: 'strong0';
 
-PULL0 : 'pull0' ;
+PULL0: 'pull0';
 
-WEAK0 : 'weak0' ;
+WEAK0: 'weak0';
 
-STRONG1 : 'strong1' ;
+STRONG1: 'strong1';
 
-PULL1 : 'pull1' ;
+PULL1: 'pull1';
 
-WEAK1 : 'weak1' ;
+WEAK1: 'weak1';
 
-SMALL : '(small)';
+SMALL: '(small)';
 
-MEDIUM : '(medium)' ;
+MEDIUM: '(medium)';
 
-LARGE : '(large)' ;
+LARGE: '(large)';
 
-PATHPULSE : 'PATHPULSE' ;
+PATHPULSE: 'PATHPULSE';
 
-DOLLAR : '$' ;
+DOLLAR: '$';
 
-EXPORT : 'export' ;
+EXPORT: 'export';
 
-CONTEXT : 'context' { sverilog }?;
+CONTEXT: 'context' { sverilog }?;
 
-PURE : 'pure' ;
+PURE: 'pure';
 
-IMPLEMENTS : 'implements' ;
+IMPLEMENTS: 'implements';
 
-ENDTASK : 'endtask' ;
+ENDTASK: 'endtask';
 
-PLUSPLUS : '++' ;
+PLUSPLUS: '++';
 
-PLUS : '+' ;
+PLUS: '+';
 
-MINUSMINUS : '--' ;
+MINUSMINUS: '--';
 
-MINUS : '-' ;
+MINUS: '-';
 
-STARCOLONCOLONSTAR : '*::*' ;
+STARCOLONCOLONSTAR: '*::*';
 
-STARSTAR : '**' ;
+STARSTAR: '**';
 
-DIV : '/' ;
+DIV: '/';
 
-PERCENT : '%' ;
+PERCENT: '%';
 
-EQUIV : '==' ;
+EQUIV: '==';
 
-NOTEQUAL : '!=' ;
+NOTEQUAL: '!=';
 
-LESS : '<' ;
+LESS: '<';
 
-LESS_EQUAL : '<=' ;
+LESS_EQUAL: '<=';
 
-GREATER : '>' ;
+GREATER: '>';
 
-EQUIVALENCE : '<->' ;
+EQUIVALENCE: '<->';
 
-GREATER_EQUAL : '>=' ;
+GREATER_EQUAL: '>=';
 
-MODPORT : 'modport' ;
+MODPORT: 'modport';
 
-DOLLAR_UNIT : DOLLAR 'unit' ;
+DOLLAR_UNIT: DOLLAR 'unit';
 
-OPEN_PARENS_STAR : '(*' ;
+OPEN_PARENS_STAR: '(*';
 
-STAR_CLOSE_PARENS : '*)' ;
+STAR_CLOSE_PARENS: '*)';
 
-ASSERT : 'assert' ;
+ASSERT: 'assert';
 
-PROPERTY : 'property' ;
+PROPERTY: 'property';
 
-ASSUME : 'assume' ;
+ASSUME: 'assume';
 
-COVER : 'cover' ;
+COVER: 'cover';
 
-EXPECT : 'expect' { sverilog }?;
+EXPECT: 'expect' { sverilog }?;
 
-ENDPROPERTY : 'endproperty' ;
+ENDPROPERTY: 'endproperty';
 
-DISABLE : 'disable' ;
+DISABLE: 'disable';
 
-IFF : 'iff' ;
+IFF: 'iff';
 
-OVERLAP_IMPLY : '|->' ;
+OVERLAP_IMPLY: '|->';
 
-NON_OVERLAP_IMPLY : '|=>' ;
+NON_OVERLAP_IMPLY: '|=>';
 
-NOT : 'not' ;
+NOT: 'not';
 
-OR : 'or' ;
+OR: 'or';
 
-AND : 'and' ;
+AND: 'and';
 
-SEQUENCE : 'sequence' ;
+SEQUENCE: 'sequence';
 
-ENDSEQUENCE : 'endsequence' ;
+ENDSEQUENCE: 'endsequence';
 
-INTERSECT : 'intersect' ;
+INTERSECT: 'intersect';
 
-FIRST_MATCH : 'first_match' ;
+FIRST_MATCH: 'first_match';
 
-THROUGHOUT : 'throughout' ;
+THROUGHOUT: 'throughout';
 
-WITHIN : 'within' ;
+WITHIN: 'within';
 
-POUNDPOUND : '##' ;
+POUNDPOUND: '##';
 
-OVERLAPPED : '#-#' ;
+OVERLAPPED: '#-#';
 
-NONOVERLAPPED : '#=#' ;
+NONOVERLAPPED: '#=#';
 
-POUND : '#' ;
+POUND: '#';
 
-CONSECUTIVE_REP : '[*' ;
+CONSECUTIVE_REP: '[*';
 
-NON_CONSECUTIVE_REP : '[=' ;
+NON_CONSECUTIVE_REP: '[=';
 
-GOTO_REP : '[->' ;
+GOTO_REP: '[->';
 
-DIST : 'dist' ;
+DIST: 'dist';
 
-COVERGROUP : 'covergroup' ;
+COVERGROUP: 'covergroup';
 
-ENDGROUP : 'endgroup' ;
+ENDGROUP: 'endgroup';
 
-OPTION_DOT : 'option' DOT;
+OPTION_DOT: 'option' DOT;
 
-TYPE_OPTION_DOT : 'type_option' DOT;
+TYPE_OPTION_DOT: 'type_option' DOT;
 
-ATAT : '@@' ;
+ATAT: '@@';
 
-BEGIN : 'begin' ;
+BEGIN: 'begin';
 
-END : 'end' ;
+END: 'end';
 
-WILDCARD : 'wildcard' ;
+WILDCARD: 'wildcard';
 
-BINS : 'bins';
+BINS: 'bins';
 
-ILLEGAL_BINS : 'illegal_bins' ;
+ILLEGAL_BINS: 'illegal_bins';
 
-IGNORE_BINS : 'ignore_bins' ;
+IGNORE_BINS: 'ignore_bins';
 
-TRANSITION_OP : '=>' ;
+TRANSITION_OP: '=>';
 
-BANG : '!' ;
+BANG: '!';
 
-SOFT : 'soft' { sverilog }?;
+SOFT: 'soft' { sverilog }?;
 
-UNTIL : 'until' ;
+UNTIL: 'until';
 
-S_UNTIL : 's_until' ;
+S_UNTIL: 's_until';
 
-IMPLIES : 'implies' ;
+IMPLIES: 'implies';
 
-LOGICAL_AND : '&&' ;
+LOGICAL_AND: '&&';
 
-LOGICAL_OR : '||' ;
+LOGICAL_OR: '||';
 
-BINSOF : 'binsof' ;
+BINSOF: 'binsof';
 
-PULLDOWN : 'pulldown' ;
+PULLDOWN: 'pulldown';
 
-PULLUP : 'pullup' ;
+PULLUP: 'pullup';
 
-CMOS : 'cmos' ;
+CMOS: 'cmos';
 
-RCMOS : 'rcmos' ;
+RCMOS: 'rcmos';
 
-BUFIF0 : 'bufif0' ;
+BUFIF0: 'bufif0';
 
-BUFIF1 : 'bufif1' ;
+BUFIF1: 'bufif1';
 
-NOTIF0 : 'notif0' ;
+NOTIF0: 'notif0';
 
-NOTIF1 : 'notif1' ;
+NOTIF1: 'notif1';
 
-NMOS : 'nmos' ;
+NMOS: 'nmos';
 
-PMOS : 'pmos' ;
+PMOS: 'pmos';
 
-RNMOS : 'rnmos' ;
+RNMOS: 'rnmos';
 
-RPMOS  : 'rpmos' ;
+RPMOS: 'rpmos';
 
-NAND : 'nand' ;
+NAND: 'nand';
 
-NOR  : 'nor' ;
+NOR: 'nor';
 
-XOR  : 'xor' ;
+XOR: 'xor';
 
-XNOR : 'xnor' ;
+XNOR: 'xnor';
 
-BUF  : 'buf' ;
+BUF: 'buf';
 
-TRANIF0  : 'tranif0' ;
+TRANIF0: 'tranif0';
 
-TRANIF1  : 'tranif1' ;
+TRANIF1: 'tranif1';
 
-RTRANIF1  : 'rtranif1' ;
+RTRANIF1: 'rtranif1';
 
-RTRANIF0  : 'rtranif0' ;
+RTRANIF0: 'rtranif0';
 
-TRAN  : 'tran' ;
+TRAN: 'tran';
 
-RTRAN : 'rtran' ;
+RTRAN: 'rtran';
 
-DOTSTAR : '.*' ;
+DOTSTAR: '.*';
 
-GENERATE : 'generate' ;
+GENERATE: 'generate';
 
-ENDGENERATE : 'endgenerate' ;
+ENDGENERATE: 'endgenerate';
 
-CASE : 'case' ;
+CASE: 'case';
 
-ENDCASE : 'endcase' ;
+ENDCASE: 'endcase';
 
-FOR : 'for' ;
+FOR: 'for';
 
-GLOBAL : 'global' { sverilog }?;
+GLOBAL: 'global' { sverilog }?;
 
-PRIMITIVE : 'primitive' ;
+PRIMITIVE: 'primitive';
 
-ENDPRIMITIVE : 'endprimitive' ;
+ENDPRIMITIVE: 'endprimitive';
 
-TABLE : 'table' ;
+TABLE: 'table';
 
-ENDTABLE : 'endtable' ;
+ENDTABLE: 'endtable';
 
-INITIAL : 'initial' ;
+INITIAL: 'initial';
 
-ASSIGN : 'assign' ;
+ASSIGN: 'assign';
 
-ALIAS : 'alias' ;
+ALIAS: 'alias';
 
-ALWAYS : 'always' ;
+ALWAYS: 'always';
 
-ALWAYS_COMB : 'always_comb' ;
+ALWAYS_COMB: 'always_comb';
 
-ALWAYS_LATCH : 'always_latch' ;
+ALWAYS_LATCH: 'always_latch';
 
-ALWAYS_FF : 'always_ff' ;
+ALWAYS_FF: 'always_ff';
 
-ADD_ASSIGN : '+=' ;
+ADD_ASSIGN: '+=';
 
-SUB_ASSIGN : '-=' ;
+SUB_ASSIGN: '-=';
 
-MULT_ASSIGN : '*=' ;
+MULT_ASSIGN: '*=';
 
-DIV_ASSIGN : '/=' ;
+DIV_ASSIGN: '/=';
 
-MODULO_ASSIGN : '%=' ;
+MODULO_ASSIGN: '%=';
 
-BITW_AND_ASSIGN : '&=' ;
+BITW_AND_ASSIGN: '&=';
 
-BITW_OR_ASSIGN : '|=' ;
+BITW_OR_ASSIGN: '|=';
 
-BITW_XOR_ASSIGN : '^=' ;
+BITW_XOR_ASSIGN: '^=';
 
-BITW_LEFT_SHIFT_ASSIGN : '<<=' ;
+BITW_LEFT_SHIFT_ASSIGN: '<<=';
 
-BITW_RIGHT_SHIFT_ASSIGN : '>>=' ;
+BITW_RIGHT_SHIFT_ASSIGN: '>>=';
 
-DEASSIGN : 'deassign' ;
+DEASSIGN: 'deassign';
 
-FORCE : 'force' ;
+FORCE: 'force';
 
-RELEASE : 'release' ;
+RELEASE: 'release';
 
-FORK : 'fork' ;
+FORK: 'fork';
 
-JOIN : 'join' ;
+JOIN: 'join';
 
-JOIN_ANY : 'join_any' ;
+JOIN_ANY: 'join_any';
 
-JOIN_NONE : 'join_none' ;
+JOIN_NONE: 'join_none';
 
-REPEAT : 'repeat' ;
+REPEAT: 'repeat';
 
-AT : '@' ;
+AT: '@';
 
-RETURN : 'return' ;
+RETURN: 'return';
 
-BREAK : 'break' ;
+BREAK: 'break';
 
-CONTINUE : 'continue' ;
+CONTINUE: 'continue';
 
-WAIT : 'wait' ;
+WAIT: 'wait';
 
-WAIT_ORDER : 'wait_order' ;
+WAIT_ORDER: 'wait_order';
 
-UNIQUE : 'unique' ;
+UNIQUE: 'unique';
 
-UNIQUE0 : 'unique0' ;
+UNIQUE0: 'unique0';
 
-PRIORITY : 'priority' ;
+PRIORITY: 'priority';
 
-MATCHES : 'matches' ;
+MATCHES: 'matches';
 
-CASEZ : 'casez' ;
+CASEZ: 'casez';
 
-CASEX : 'casex' ;
+CASEX: 'casex';
 
-RANDCASE : 'randcase' ;
+RANDCASE: 'randcase';
 
-TAGGED : 'tagged' ;
+TAGGED: 'tagged';
 
-FOREVER : 'forever' ;
+FOREVER: 'forever';
 
-WHILE : 'while' ;
+WHILE: 'while';
 
-DO : 'do' { sverilog }?;
+DO: 'do' { sverilog }?;
 
-RESTRICT : 'restrict' ;
+RESTRICT: 'restrict';
 
-LET : 'let' ;
+LET: 'let';
 
-TICK : '\'';
+TICK: '\'';
 
-ENDCLOCKING : 'endclocking' ;
+ENDCLOCKING: 'endclocking';
 
-RANDSEQUENCE : 'randsequence' ;
+RANDSEQUENCE: 'randsequence';
 
-SHIFT_RIGHT : '>>' ;
+SHIFT_RIGHT: '>>';
 
-SHIFT_LEFT : '<<' ;
+SHIFT_LEFT: '<<';
 
-WITH : 'with' ;
+WITH: 'with';
 
-INC_PART_SELECT_OP : '+:' ;
+INC_PART_SELECT_OP: '+:';
 
-DEC_PART_SELECT_OP : '-:' ;
+DEC_PART_SELECT_OP: '-:';
 
-INSIDE : 'inside' ;
+INSIDE: 'inside';
 
-NULL_KEYWORD : 'null' ;
+NULL_KEYWORD: 'null';
 
-THIS : 'this' { sverilog }?;
+THIS: 'this' { sverilog }?;
 
-DOLLAR_ROOT : DOLLAR 'root' ;
+DOLLAR_ROOT: DOLLAR 'root';
 
-RANDOMIZE : 'randomize' { sverilog }?;
+RANDOMIZE: 'randomize' { sverilog }?;
 
-FINAL : 'final' { sverilog }?;
+FINAL: 'final' { sverilog }?;
 
-TASK : 'task' ;
+TASK: 'task';
 
-COVERPOINT : 'coverpoint' ;
+COVERPOINT: 'coverpoint';
 
-CROSS : 'cross' ;
+CROSS: 'cross';
 
-POSEDGE : 'posedge' ;
+POSEDGE: 'posedge';
 
-NEGEDGE : 'negedge' ;
+NEGEDGE: 'negedge';
 
-SPECIFY : 'specify' ;
+SPECIFY: 'specify';
 
-ENDSPECIFY : 'endspecify' ;
+ENDSPECIFY: 'endspecify';
 
-PULSESTYLE_ONEVENT : 'pulsestyle_onevent' ;
+PULSESTYLE_ONEVENT: 'pulsestyle_onevent';
 
-PULSESTYLE_ONDETECT : 'pulsestyle_ondetect' ;
+PULSESTYLE_ONDETECT: 'pulsestyle_ondetect';
 
-SHOWCANCELLED : 'showcancelled' ;
+SHOWCANCELLED: 'showcancelled';
 
-NOSHOWCANCELLED : 'noshowcancelled' ;
+NOSHOWCANCELLED: 'noshowcancelled';
 
-IFNONE : 'ifnone' ;
+IFNONE: 'ifnone';
 
-SAMPLE : 'sample' { sverilog }?;
+SAMPLE: 'sample' { sverilog }?;
 
-EDGE : 'edge' ;
+EDGE: 'edge';
 
-NON_BLOCKING_TRIGGER_EVENT_OP : '->>' ;
+NON_BLOCKING_TRIGGER_EVENT_OP: '->>';
 
-ARITH_SHIFT_RIGHT : '>>>' ;
+ARITH_SHIFT_RIGHT: '>>>';
 
-ARITH_SHIFT_LEFT : '<<<' ;
+ARITH_SHIFT_LEFT: '<<<';
 
-ARITH_SHIFT_LEFT_ASSIGN : '<<<=' ;
+ARITH_SHIFT_LEFT_ASSIGN: '<<<=';
 
-ARITH_SHIFT_RIGHT_ASSIGN : '>>>=' ;
+ARITH_SHIFT_RIGHT_ASSIGN: '>>>=';
 
-FOUR_STATE_LOGIC_EQUAL : '===' ;
+FOUR_STATE_LOGIC_EQUAL: '===';
 
-FOUR_STATE_LOGIC_NOTEQUAL : '!==' ;
+FOUR_STATE_LOGIC_NOTEQUAL: '!==';
 
-BINARY_WILDCARD_EQUAL : '==?' ;
+BINARY_WILDCARD_EQUAL: '==?';
 
-BINARY_WILDCARD_NOTEQUAL : '!=?' ;
+BINARY_WILDCARD_NOTEQUAL: '!=?';
 
-FULL_CONN_OP : '*>' ;
+FULL_CONN_OP: '*>';
 
-COND_PRED_OP : '&&&' ;
+COND_PRED_OP: '&&&';
 
-BITW_AND : '&' ;
+BITW_AND: '&';
 
-BITW_OR : '|' ;
+BITW_OR: '|';
 
-REDUCTION_NOR : '~|' ;
+REDUCTION_NOR: '~|';
 
-REDUCTION_NAND : '~&' ;
+REDUCTION_NAND: '~&';
 
-REDUCTION_XNOR1 : '^~' ;
+REDUCTION_XNOR1: '^~';
 
-WILD_EQUAL_OP : '=?=' ;
+WILD_EQUAL_OP: '=?=';
 
-WILD_NOTEQUAL_OP : '!?=' ;
+WILD_NOTEQUAL_OP: '!?=';
 
-ASSIGN_OP : '=' ;
+ASSIGN_OP: '=';
 
-NETTYPE : 'nettype' ;
+NETTYPE: 'nettype';
 
 // A.9.3 Identifiers
 
@@ -907,94 +915,96 @@ NETTYPE : 'nettype' ;
 
 //Escaped_identifier : '^^^' [\\|+a-zA-Z0-9_$:,-/*{}()`~!=;'"<>?.]* '^^^' ;
 
-Escaped_identifier : '#~@' .*? '#~@' ;
+Escaped_identifier: '#~@' .*? '#~@';
 
-TILDA : '~' ;
+TILDA: '~';
 
-BITW_XOR : '^';
+BITW_XOR: '^';
 
-REDUCTION_XNOR2 : '~^' ;
+REDUCTION_XNOR2: '~^';
 
 /* simple_identifier <<2>> ::= [ a-zA-Z_ ] { [ a-zA-Z0-9_$ ] } */
 
-Simple_identifier : [a-zA-Z_] [a-zA-Z0-9_$]* ;
+Simple_identifier: [a-zA-Z_] [a-zA-Z0-9_$]*;
 
-TICK_LINE : '`line' ;
+TICK_LINE: '`line';
 
-TICK_TIMESCALE : '`timescale' ;
+TICK_TIMESCALE: '`timescale';
 
-TICK_BEGIN_KEYWORDS : '`begin_keywords' ;
+TICK_BEGIN_KEYWORDS: '`begin_keywords';
 
-TICK_END_KEYWORDS : '`end_keywords' ;
+TICK_END_KEYWORDS: '`end_keywords';
 
-TICK_UNCONNECTED_DRIVE : '`unconnected_drive' ;
+TICK_UNCONNECTED_DRIVE: '`unconnected_drive';
 
-TICK_NOUNCONNECTED_DRIVE : '`nounconnected_drive' ;
+TICK_NOUNCONNECTED_DRIVE: '`nounconnected_drive';
 
-TICK_CELLDEFINE : '`celldefine' ;
+TICK_CELLDEFINE: '`celldefine';
 
-TICK_ENDCELLDEFINE : '`endcelldefine' ;
+TICK_ENDCELLDEFINE: '`endcelldefine';
 
-TICK_DEFAULT_NETTYPE : '`default_nettype' ;
+TICK_DEFAULT_NETTYPE: '`default_nettype';
 
-TICK_DEFAULT_DECAY_TIME : '`default_decay_time' ;
+TICK_DEFAULT_DECAY_TIME: '`default_decay_time';
 
-TICK_DEFAULT_TRIREG_STRENGTH : '`default_trireg_strength' ;
+TICK_DEFAULT_TRIREG_STRENGTH: '`default_trireg_strength';
 
-TICK_DELAY_MODE_DISTRIBUTED : '`delay_mode_distributed' ;
+TICK_DELAY_MODE_DISTRIBUTED: '`delay_mode_distributed';
 
-TICK_DELAY_MODE_PATH : '`delay_mode_path' ;
+TICK_DELAY_MODE_PATH: '`delay_mode_path';
 
-TICK_DELAY_MODE_UNIT : '`delay_mode_unit' ;
+TICK_DELAY_MODE_UNIT: '`delay_mode_unit';
 
-TICK_DELAY_MODE_ZERO : '`delay_mode_zero' ;
+TICK_DELAY_MODE_ZERO: '`delay_mode_zero';
 
-TICK_ACCELERATE : '`accelerate';
+TICK_ACCELERATE: '`accelerate';
 
-TICK_NOACCELERATE : '`noaccelerate';
+TICK_NOACCELERATE: '`noaccelerate';
 
-TICK_PROTECT : '`protect' ;
+TICK_PROTECT: '`protect';
 
-TICK_DISABLE_PORTFAULTS : '`disable_portfaults' ;
+TICK_DISABLE_PORTFAULTS: '`disable_portfaults';
 
-TICK_ENABLE_PORTFAULTS : '`enable_portfaults' ;
+TICK_ENABLE_PORTFAULTS: '`enable_portfaults';
 
-TICK_NOSUPPRESS_FAULTS : '`nosuppress_faults' ;
+TICK_NOSUPPRESS_FAULTS: '`nosuppress_faults';
 
-TICK_SUPPRESS_FAULTS : '`suppress_faults' ;
+TICK_SUPPRESS_FAULTS: '`suppress_faults';
 
-TICK_SIGNED : '`signed' ;
+TICK_SIGNED: '`signed';
 
-TICK_UNSIGNED : '`unsigned' ;
+TICK_UNSIGNED: '`unsigned';
 
-TICK_ENDPROTECT : '`endprotect' ;
+TICK_ENDPROTECT: '`endprotect';
 
-TICK_PROTECTED : '`protected' ;
+TICK_PROTECTED: '`protected';
 
-TICK_ENDPROTECTED : '`endprotected' ;
+TICK_ENDPROTECTED: '`endprotected';
 
-TICK_EXPAND_VECTORNETS : '`expand_vectornets' ;
+TICK_EXPAND_VECTORNETS: '`expand_vectornets';
 
-TICK_NOEXPAND_VECTORNETS : '`noexpand_vectornets' ;
+TICK_NOEXPAND_VECTORNETS: '`noexpand_vectornets';
 
-TICK_AUTOEXPAND_VECTORNETS : '`autoexpand_vectornets' ;
+TICK_AUTOEXPAND_VECTORNETS: '`autoexpand_vectornets';
 
-TICK_REMOVE_GATENAME : '`remove_gatename' ;
+TICK_REMOVE_GATENAME: '`remove_gatename';
 
-TICK_NOREMOVE_GATENAMES : '`noremove_gatenames' ;
+TICK_NOREMOVE_GATENAMES: '`noremove_gatenames';
 
-TICK_REMOVE_NETNAME : '`remove_netname' ;
+TICK_REMOVE_NETNAME: '`remove_netname';
 
-TICK_NOREMOVE_NETNAMES : '`noremove_netnames' ;
+TICK_NOREMOVE_NETNAMES: '`noremove_netnames';
 
-ONESTEP : '1step' ;
+ONESTEP: '1step';
 
-TICK_USELIB : '`uselib' ;
+TICK_USELIB: '`uselib';
 
-TICK_PRAGMA : '`pragma' ;
+TICK_PRAGMA: '`pragma';
 
-BACK_TICK : '`' ;
+BACK_TICK: '`';
 
-SURELOG_MACRO_NOT_DEFINED : 'SURELOG_MACRO_NOT_DEFINED:' Simple_identifier '!!!' ;
+SURELOG_MACRO_NOT_DEFINED
+  : 'SURELOG_MACRO_NOT_DEFINED:' Simple_identifier '!!!'
+  ;
 
-ANY: . ;
+ANY: .;

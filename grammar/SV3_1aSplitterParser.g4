@@ -16,49 +16,49 @@
 
 parser grammar SV3_1aSplitterParser;
 
+options {
+  tokenVocab = SV3_1aSplitterLexer;
+}
 
-options { tokenVocab = SV3_1aSplitterLexer; }
+source_text: description*;
 
-source_text : ( description ) *;
+description
+  : module
+  | endmodule
+  | sv_interface
+  | endinterface
+  | program
+  | endprogram
+  | primitive
+  | endprimitive
+  | sv_package
+  | endpackage
+  | checker
+  | endchecker
+  | config
+  | endconfig
+  | ANY
+  ;
 
-description :
-              module
-            | endmodule
-            | sv_interface
-            | endinterface
-            | program
-            | endprogram
-            | primitive
-            | endprimitive
-            | sv_package
-            | endpackage
-            | checker
-            | endchecker
-            | config
-            | endconfig
-            | ANY
-            ;
+module: MODULE;
+endmodule: ENDMODULE;
 
+sv_interface: INTERFACE;
+endinterface: ENDINTERFACE;
 
-module : MODULE ;
-endmodule : ENDMODULE  ;
+program: PROGRAM;
+endprogram: ENDPROGRAM;
 
-sv_interface : INTERFACE  ;
-endinterface : ENDINTERFACE  ;
+primitive: PRIMITIVE;
+endprimitive: ENDPRIMITIVE;
 
-program : PROGRAM  ;
-endprogram : ENDPROGRAM  ;
+sv_package: PACKAGE;
+endpackage: ENDPACKAGE;
 
-primitive : PRIMITIVE ;
-endprimitive : ENDPRIMITIVE ;
+checker: CHECKER;
+endchecker: ENDCHECKER;
 
-sv_package : PACKAGE  ;
-endpackage : ENDPACKAGE  ;
+config: CONFIG;
+endconfig: ENDCONFIG;
 
-checker : CHECKER ;
-endchecker : ENDCHECKER ;
-
-config : CONFIG ;
-endconfig : ENDCONFIG ;
-
-any : ANY ;
+any: ANY;
