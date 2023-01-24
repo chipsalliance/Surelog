@@ -1,0 +1,1 @@
+-parse  -d coveruhdm -elabuhdm  dut.sv -nobuiltin
