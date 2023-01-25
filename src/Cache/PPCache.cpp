@@ -306,7 +306,8 @@ bool PPCache::restore(bool errorsOnly) {
 
   CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   Precompiled* prec = Precompiled::getSingleton();
-  if (prec->isFilePrecompiled(m_pp->getFileId(LINE1), clp->getSymbolTable())) {
+  if (prec->isFilePrecompiled(m_pp->getFileId(LINE1),
+                              m_pp->getCompileSourceFile()->getSymbolTable())) {
     if (!clp->precompiledCacheAllowed()) return false;
   } else {
     if (!clp->cacheAllowed()) return false;

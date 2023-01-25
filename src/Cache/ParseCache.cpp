@@ -181,7 +181,9 @@ bool ParseCache::restore() {
       m_parse->getCompileSourceFile()->getCommandLineParser();
 
   Precompiled* const prec = Precompiled::getSingleton();
-  if (prec->isFilePrecompiled(m_parse->getPpFileId(), clp->getSymbolTable())) {
+  if (prec->isFilePrecompiled(
+          m_parse->getPpFileId(),
+          m_parse->getCompileSourceFile()->getSymbolTable())) {
     if (!clp->precompiledCacheAllowed()) return false;
   } else {
     if (!clp->cacheAllowed()) return false;
