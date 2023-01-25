@@ -87,8 +87,22 @@ void SV3_1aTreeShapeListener::enterModule_declaration(
 
 void SV3_1aTreeShapeListener::exitModule_declaration(
     SV3_1aParser::Module_declarationContext *ctx) {
+  if (ctx->ENDMODULE() != nullptr) {
+    addVObject((antlr4::ParserRuleContext *)ctx->ENDMODULE(),
+               VObjectType::slEndmodule);
+  }
   addVObject(ctx, VObjectType::slModule_declaration);
   m_nestedElements.pop();
+}
+
+void SV3_1aTreeShapeListener::exitModule_keyword(
+    SV3_1aParser::Module_keywordContext *ctx) {
+  if (ctx->MODULE() != nullptr) {
+    addVObject(ctx, ctx->MODULE()->getText(), VObjectType::slModule_keyword);
+  } else if (ctx->MACROMODULE() != nullptr) {
+    addVObject(ctx, ctx->MACROMODULE()->getText(),
+               VObjectType::slModule_keyword);
+  }
 }
 
 void SV3_1aTreeShapeListener::exitClass_constructor_declaration(
