@@ -1462,7 +1462,7 @@ UHDM::any *CompileHelper::compileExpression(
     }
     case VObjectType::slExpression: {
       NodeId Iff = fC->Sibling(parent);
-      if (fC->Type(Iff) == VObjectType::slIff) {
+      if (fC->Type(Iff) == VObjectType::slIFF) {
         operation *op = s.MakeOperation();
         op->VpiOpType(vpiIffOp);
         op->VpiParent(pexpr);
@@ -2226,7 +2226,7 @@ UHDM::any *CompileHelper::compileExpression(
             int operationType = UhdmWriter::getVpiOpType(type);
             if (NodeId subOp1 = fC->Child(oper)) {
               VObjectType subOp1type = fC->Type(subOp1);
-              if (subOp1type == VObjectType::slPound_Pound_delay) {
+              if (subOp1type == VObjectType::slPound_pound_delay) {
                 if (NodeId subOp2 = fC->Sibling(subOp1)) {
                   VObjectType subOp2type = fC->Type(subOp2);
                   if (subOp2type == VObjectType::slAssociative_dimension) {
@@ -2843,7 +2843,7 @@ UHDM::any *CompileHelper::compileExpression(
           int operationType = UhdmWriter::getVpiOpType(type);
           if (NodeId subOp1 = fC->Child(child)) {
             VObjectType subOp1type = fC->Type(subOp1);
-            if (subOp1type == VObjectType::slPound_Pound_delay) {
+            if (subOp1type == VObjectType::slPound_pound_delay) {
               operationType = vpiUnaryCycleDelayOp;
               if (NodeId subOp2 = fC->Sibling(subOp1)) {
                 VObjectType subOp2type = fC->Type(subOp2);

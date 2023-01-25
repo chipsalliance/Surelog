@@ -369,7 +369,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     case VObjectType::slBinOp_WildcardNotEqual:
     case VObjectType::slBinOp_WildNotEqual:
       return vpiWildNeqOp;
-    case VObjectType::slIff:
+    case VObjectType::slIFF:
       return vpiIffOp;
     case VObjectType::slNON_OVERLAP_IMPLY:
       return vpiNonOverlapImplyOp;
@@ -389,8 +389,6 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
       return vpiUntilWithOp;
     case VObjectType::slIMPLIES:
       return vpiImpliesOp;
-    case VObjectType::slIFF:
-      return vpiIffOp;
     case VObjectType::slCycle_delay_range:
       return vpiCycleDelayOp;
     case VObjectType::slConsecutive_repetition:
