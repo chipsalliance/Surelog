@@ -890,6 +890,15 @@ void SV3_1aTreeShapeListener::exitPound_delay_value(
   }
 }
 
+void SV3_1aTreeShapeListener::exitData_type(
+    SV3_1aParser::Data_typeContext *ctx) {
+  if (ctx->VIRTUAL()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->VIRTUAL(),
+               VObjectType::slVirtual);
+  }
+  addVObject(ctx, VObjectType::slData_type);
+}
+
 void SV3_1aTreeShapeListener::exitString_value(
     SV3_1aParser::String_valueContext *ctx) {
   std::string ident;

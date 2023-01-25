@@ -442,6 +442,10 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId data_type = fC->Child(function_data_type);
     NodeId type = fC->Child(data_type);
     VObjectType the_type = fC->Type(type);
+    if (the_type == VObjectType::slVirtual) {
+      type = fC->Sibling(type);
+      the_type = fC->Type(type);
+    }
     std::string typeName;
     if (the_type == VObjectType::slStringConst) {
       typeName = fC->SymName(type);

@@ -4275,8 +4275,11 @@ UHDM::any *CompileHelper::compileTypename(
   UHDM::Serializer &s = compileDesign->getSerializer();
   UHDM::any *result = nullptr;
   UHDM::constant *c = s.MakeConstant();
-  if (fC->Type(Expression) == VObjectType::slData_type)
+  if (fC->Type(Expression) == VObjectType::slData_type) {
     Expression = fC->Child(Expression);
+    if (fC->Type(Expression) == VObjectType::slVirtual)
+      Expression = fC->Sibling(Expression);
+  }
   VObjectType type = fC->Type(Expression);
   switch (type) {
     case VObjectType::slIntVec_TypeLogic:

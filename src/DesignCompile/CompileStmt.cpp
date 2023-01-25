@@ -1527,6 +1527,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
     }
     fC->populateCoreMembers(tf_param_name, tf_param_name, decl);
     NodeId type = fC->Child(tf_data_type);
+    if (fC->Type(type) == VObjectType::slVirtual) type = fC->Sibling(type);
 
     NodeId unpackedDimension =
         fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
