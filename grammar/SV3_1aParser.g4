@@ -1964,7 +1964,7 @@ named_port_connection
   ;
 
 checker_instantiation
-  : ps_identifier name_of_instance OPEN_PARENS list_of_checker_port_connections CLOSE_PARENS
+  : ps_identifier name_of_instance OPEN_PARENS list_of_checker_port_connections CLOSE_PARENS SEMICOLON
   ;
 
 list_of_checker_port_connections
