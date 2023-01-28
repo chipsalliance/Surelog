@@ -52,6 +52,10 @@ using UHDM::uhdmunsupported_expr;
 using UHDM::uhdmunsupported_stmt;
 using UHDM::uhdmunsupported_typespec;
 
+// TODO: In the code below, some of the column-range based coverage is
+// implemented, the data collection part is. The actual coverage is not and is
+// commented out as it is a work in progress
+
 bool UhdmChecker::registerFile(const FileContent* fC,
                                std::set<std::string_view>& moduleNames) {
   const VObject& current = fC->Object(NodeId(fC->getSize() - 2));
@@ -116,15 +120,14 @@ bool UhdmChecker::registerFile(const FileContent* fC,
         type == VObjectType::slEndspecify ||
         type == VObjectType::slEndsequence ||
         type == VObjectType::slPort_declaration ||
-        type == VObjectType::slList_of_ports ||
-        type == VObjectType::slList_of_port_declarations ||
-        type == VObjectType::slPort ||
+        type == VObjectType::slList_of_ports || type == VObjectType::slPort ||
         type == VObjectType::slConditional_generate_construct ||
         type == VObjectType::slGenerate_module_conditional_statement ||
         type == VObjectType::slGenerate_interface_conditional_statement ||
         type == VObjectType::slLoop_generate_construct ||
         type == VObjectType::slGenerate_module_loop_statement ||
         type == VObjectType::slGenerate_interface_loop_statement ||
+        type == VObjectType::slGenerate_region ||
         ((type == VObjectType::slPackage_or_generate_item_declaration) &&
          !current.m_child) ||  // SEMICOLUMN ALONE ;
         type == VObjectType::slGenerate_block) {
@@ -134,29 +137,39 @@ bool UhdmChecker::registerFile(const FileContent* fC,
       }
       skip = true;  // Only skip the item itself
     }
-
-    if (((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) ==
-          VObjectType::slModule_declaration)) ||  // endmodule : name
-        ((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) ==
-          VObjectType::slPackage_declaration)) ||  // endpackage : name
-        ((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) ==
-          VObjectType::slFunction_body_declaration)) ||  // endfunction  : name
-        ((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) ==
-          VObjectType::slTask_declaration)) ||  // endtask : name
-        ((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) ==
-          VObjectType::slClass_declaration)) ||  // endclass : name
-        ((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) ==
-          VObjectType::slName_of_instance)) ||  // instance name
-        ((type == VObjectType::slStringConst) &&
-         (fC->Type(current.m_parent) ==
-          VObjectType::slType_declaration))  // struct name
-    ) {
+    if (type == VObjectType::slList_of_port_declarations ||
+        type == VObjectType::slBit_select || type == VObjectType::slSelect ||
+        type == VObjectType::slIF || type == VObjectType::slElse ||
+        type == VObjectType::slOpenParens ||
+        type == VObjectType::slCloseParens) {
+      skip = true;  // Only skip the item itself
+    }
+    if (type == VObjectType::slGenvar_declaration) {
+      // Skip the item and its' children
+      RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
+      if (lineItr != uhdmCover.end()) {
+        uhdmCover.erase(lineItr);
+      }
+      continue;
+    }
+    SURELOG::VObjectType parentType = fC->Type(current.m_parent);
+    if ((type == VObjectType::slStringConst) &&
+        ((parentType ==
+          VObjectType::slModule_declaration) ||  // endmodule : name
+         (parentType ==
+          VObjectType::slPackage_declaration) ||  // endpackage : name
+         (parentType ==
+          VObjectType::slFunction_body_declaration) ||  // endfunction  : name
+         (parentType == VObjectType::slTask_declaration) ||   // endtask : name
+         (parentType == VObjectType::slClass_declaration) ||  // endclass : name
+         (parentType ==
+          VObjectType::slName_of_instance) ||  // instance name, slight problem,
+                                               // the isntance name will be
+                                               // "covered" even in generate
+                                               // branches that are not covered.
+         (parentType == VObjectType::slModule_nonansi_header) ||  // module name
+         (parentType == VObjectType::slType_declaration)))        // struct name
+    {
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (skipModule == false) {
         unsigned short from = fC->Column(id);
@@ -541,7 +554,6 @@ void UhdmChecker::annotate() {
       if (fileItr != fileNodeCoverMap.end()) {
         RangesMap& uhdmCover = (*fileItr).second;
         RangesMap::iterator cItr = uhdmCover.find(bc->VpiLineNo());
-
         // unsigned short from = bc->VpiColumnNo();
         // unsigned short to = bc->VpiEndColumnNo();
 
