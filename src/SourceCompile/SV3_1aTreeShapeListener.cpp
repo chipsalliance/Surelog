@@ -859,7 +859,12 @@ void SV3_1aTreeShapeListener::exitPound_delay_value(
     addVObject(ctx, ctx->Pound_Pound_delay()->getText(),
                VObjectType::slPound_Pound_delay);
   } else if (ctx->delay_value()) {
-    addVObject(ctx, ctx->delay_value()->getText(), VObjectType::slIntConst);
+    const std::string_view text = ctx->delay_value()->getText();
+    if (std::isdigit(text[0])) {
+      addVObject(ctx, text, VObjectType::slIntConst);
+    } else {
+      addVObject(ctx, text, VObjectType::slStringConst);
+    }
   }
 }
 
