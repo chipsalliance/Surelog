@@ -2499,6 +2499,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
       // Malformed AST due to grammar for: #1 t
       NodeId unit = fC->Child(IntConst);
       if (unit) {
+        unit = fC->Child(unit);  // StringConst child of Instance_name
         const std::string_view name = fC->SymName(unit);
         std::pair<task_func*, DesignComponent*> ret =
             getTaskFunc(name, component, compileDesign, nullptr, nullptr);

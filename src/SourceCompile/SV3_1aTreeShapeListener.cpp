@@ -725,7 +725,15 @@ void SV3_1aTreeShapeListener::exitTime_literal(
 
 void SV3_1aTreeShapeListener::exitTime_unit(
     SV3_1aParser::Time_unitContext *ctx) {
-  addVObject(ctx, ctx->getText(), VObjectType::slTime_unit);
+  const std::string &s = ctx->getText();
+  if ((s == "s") || (s == "ms") || (s == "us") || (s == "ns") || (s == "ps") ||
+      (s == "fs")) {
+    addVObject(ctx, ctx->getText(), VObjectType::slTime_unit);
+  } else {
+    addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(),
+               ctx->getText(), VObjectType::slStringConst);
+    addVObject(ctx, VObjectType::slName_of_instance);
+  }
 }
 
 void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimeUnitTimePrecision(
@@ -859,7 +867,12 @@ void SV3_1aTreeShapeListener::exitPound_delay_value(
     addVObject(ctx, ctx->Pound_Pound_delay()->getText(),
                VObjectType::slPound_Pound_delay);
   } else if (ctx->delay_value()) {
-    addVObject(ctx, ctx->delay_value()->getText(), VObjectType::slIntConst);
+    const std::string text = ctx->delay_value()->getText();
+    if (std::isdigit(text[0])) {
+      addVObject(ctx, text, VObjectType::slIntConst);
+    } else {
+      addVObject(ctx, text, VObjectType::slStringConst);
+    }
   }
 }
 

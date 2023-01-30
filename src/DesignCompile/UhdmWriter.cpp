@@ -1666,20 +1666,37 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
     for (auto assign : *netlist->cont_assigns()) {
       const expr* lhs = assign->Lhs();
       const expr* rhs = assign->Rhs();
+      const expr* delay = assign->Delay();
       const typespec* tps = lhs->Typespec();
       bool simplified = false;
       bool cloned = false;
+      if (delay && delay->UhdmType() == uhdmref_obj) {
+        UHDM::any* var = m_helper.bindParameter(
+            mod, netlist->getParent(), delay->VpiName(), m_compileDesign, true);
+        ElaboratorListener listener(&s, false, true);
+        assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+        lhs = assign->Lhs();
+        rhs = assign->Rhs();
+        tps = lhs->Typespec();
+        delay = assign->Delay();
+        ref_obj* ref = (ref_obj*)delay;
+        ref->Actual_group(var);
+        cloned = true;
+      }
 
       if (lhs->UhdmType() == uhdmref_obj) {
         UHDM::any* var =
             m_helper.bindVariable(mod, m, lhs->VpiName(), m_compileDesign);
         if (var) {
           if (rhs->UhdmType() == uhdmoperation) {
-            ElaboratorListener listener(&s, false, true);
-            assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
-            lhs = assign->Lhs();
-            rhs = assign->Rhs();
-            tps = lhs->Typespec();
+            if (cloned == false) {
+              ElaboratorListener listener(&s, false, true);
+              assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              lhs = assign->Lhs();
+              rhs = assign->Rhs();
+              delay = assign->Delay();
+              tps = lhs->Typespec();
+            }
             ref_obj* ref = (ref_obj*)lhs;
             ref->Actual_group(var);
             cloned = true;
@@ -1701,6 +1718,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
             lhs = assign->Lhs();
             rhs = assign->Rhs();
+            delay = assign->Delay();
             tps = lhs->Typespec();
             cloned = true;
           }
@@ -1718,6 +1736,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
               assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
               lhs = assign->Lhs();
               rhs = assign->Rhs();
+              delay = assign->Delay();
               tps = lhs->Typespec();
               cloned = true;
             }
