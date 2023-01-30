@@ -80,6 +80,7 @@ initial                                                1
 module_inst                                            2
 sys_func_call                                          1
 task                                                   1
+task_call                                              1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -92,6 +93,7 @@ initial                                                2
 module_inst                                            2
 sys_func_call                                          2
 task                                                   2
+task_call                                              2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PoundDelayTask/slpp_all/surelog.uhdm ...
 
@@ -149,6 +151,12 @@ design: (work@m)
         |vpiParent:
         \_begin: (work@m), line:6:13, endln:8:8
         |#1
+        |vpiStmt:
+        \_task_call: 
+          |vpiParent:
+          \_delay_control: , line:7:9, endln:7:13
+          |vpiTask:
+          \_task: (work@m.t), line:2:5, endln:4:12
 |uhdmtopModules:
 \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/PoundDelayTask/dut.sv, line:1:1, endln:9:10
   |vpiName:work@m
@@ -187,6 +195,12 @@ design: (work@m)
         |vpiParent:
         \_begin: (work@m), line:6:13, endln:8:8
         |#1
+        |vpiStmt:
+        \_task_call: 
+          |vpiParent:
+          \_delay_control: , line:7:9, endln:7:13
+          |vpiTask:
+          \_task: (work@m.t), line:2:5, endln:4:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
