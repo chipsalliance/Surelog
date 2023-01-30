@@ -573,6 +573,9 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
     } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
                fC->Type(Udp_instance) == VObjectType::slDelay3) {
       Udp_instance = fC->Sibling(Udp_instance);
+      if (Udp_instance == InvalidNodeId) {
+        Udp_instance = fC->Child(Udp_instance);
+      }
     }
     NodeId Net_lvalue;
     if (const NodeId Name_of_instance = fC->Child(Udp_instance);
