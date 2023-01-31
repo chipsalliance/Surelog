@@ -10423,7 +10423,7 @@ param_assign                                         226
 parameter                                            226
 part_select                                           31
 range                                                  3
-ref_obj                                              354
+ref_obj                                              364
 sys_func_call                                        109
 type_parameter                                        15
 unsupported_typespec                                  23
@@ -10451,7 +10451,7 @@ param_assign                                         428
 parameter                                            418
 part_select                                           31
 range                                                  3
-ref_obj                                              999
+ref_obj                                             1113
 sys_func_call                                        406
 type_parameter                                        15
 unsupported_typespec                                  23
@@ -10866,6 +10866,9 @@ design: (work@top)
             |vpiFullName:work@I.T
           |vpiName:$bits
         |vpiName:$display
+      |vpiDelay:
+      \_ref_obj: (DELAY)
+        |vpiName:DELAY
 |uhdmallModules:
 \_module_inst: work@M (work@M), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:14:1, endln:23:10
   |vpiParent:
@@ -10990,6 +10993,9 @@ design: (work@top)
             |vpiFullName:work@M.T
           |vpiName:$bits
         |vpiName:$display
+      |vpiDelay:
+      \_ref_obj: (DELAY)
+        |vpiName:DELAY
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
   |vpiParent:
@@ -11221,6 +11227,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk1), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk1)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk1
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:53
             |vpiParent:
@@ -11587,6 +11598,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk1.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk1.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk1.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk1.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:53
         |vpiParent:
@@ -11740,6 +11759,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk1.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk1.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk1.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk1.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:59
         |vpiParent:
@@ -11893,6 +11920,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk1.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk1.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk1.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk1.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:44
         |vpiParent:
@@ -12060,6 +12095,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk1.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk1.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk1.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:53
         |vpiParent:
@@ -12229,6 +12272,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk1.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk1.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk1.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:59
         |vpiParent:
@@ -12398,6 +12449,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk1.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk1.i3.DELAY
+              |vpiActual:
+              \_constant: 
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk2), line:43:9, endln:62:12
     |vpiParent:
@@ -12460,6 +12519,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk2), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk2)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk2
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:59
             |vpiParent:
@@ -12828,6 +12892,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk2.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk2.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk2.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk2.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:62
         |vpiParent:
@@ -12976,6 +13048,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk2.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk2.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk2.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk2.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:68
         |vpiParent:
@@ -13131,6 +13211,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk2.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk2.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk2.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk2.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:53
         |vpiParent:
@@ -13300,6 +13388,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk2.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk2.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk2.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:62
         |vpiParent:
@@ -13470,6 +13566,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk2.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk2.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk2.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:68
         |vpiParent:
@@ -13641,6 +13745,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk2.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk2.i3.DELAY
+              |vpiActual:
+              \_constant: 
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk3), line:43:9, endln:62:12
     |vpiParent:
@@ -13696,6 +13808,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk3), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk3)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk3
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:65
             |vpiParent:
@@ -14049,6 +14166,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk3.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk3.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk3.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk3.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:71
         |vpiParent:
@@ -14197,6 +14322,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk3.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk3.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk3.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk3.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:77
         |vpiParent:
@@ -14345,6 +14478,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk3.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk3.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk3.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk3.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:62
         |vpiParent:
@@ -14513,6 +14654,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk3.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk3.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk3.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:71
         |vpiParent:
@@ -14683,6 +14832,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk3.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk3.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk3.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:77
         |vpiParent:
@@ -14853,6 +15010,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk3.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk3.i3.DELAY
+              |vpiActual:
+              \_constant: 
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk4), line:43:9, endln:62:12
     |vpiParent:
@@ -14908,6 +15073,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk4), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk4)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk4
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:73
             |vpiParent:
@@ -15261,6 +15431,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk4.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk4.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk4.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk4.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:83
         |vpiParent:
@@ -15409,6 +15587,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk4.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk4.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk4.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk4.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:89
         |vpiParent:
@@ -15557,6 +15743,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk4.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk4.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk4.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk4.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:74
         |vpiParent:
@@ -15725,6 +15919,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk4.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk4.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk4.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:83
         |vpiParent:
@@ -15895,6 +16097,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk4.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk4.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk4.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:89
         |vpiParent:
@@ -16065,6 +16275,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk4.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk4.i3.DELAY
+              |vpiActual:
+              \_constant: 
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk5), line:43:9, endln:62:12
     |vpiParent:
@@ -16120,6 +16338,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk5), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk5)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk5
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:85
             |vpiParent:
@@ -16473,6 +16696,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk5.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk5.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk5.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk5.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:101
         |vpiParent:
@@ -16621,6 +16852,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk5.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk5.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk5.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk5.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:107
         |vpiParent:
@@ -16769,6 +17008,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk5.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk5.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk5.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk5.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:92
         |vpiParent:
@@ -16937,6 +17184,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk5.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk5.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk5.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:101
         |vpiParent:
@@ -17107,6 +17362,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk5.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk5.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk5.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:107
         |vpiParent:
@@ -17277,6 +17540,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk5.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk5.i3.DELAY
+              |vpiActual:
+              \_constant: 
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk6), line:43:9, endln:62:12
     |vpiParent:
@@ -17332,6 +17603,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk6), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk6)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk6
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:113
             |vpiParent:
@@ -17685,6 +17961,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk6.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk6.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk6.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk6.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:143
         |vpiParent:
@@ -17833,6 +18117,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk6.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk6.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk6.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk6.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:149
         |vpiParent:
@@ -17981,6 +18273,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk6.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk6.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk6.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk6.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:134
         |vpiParent:
@@ -18149,6 +18449,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk6.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk6.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk6.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:143
         |vpiParent:
@@ -18319,6 +18627,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk6.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk6.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk6.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:149
         |vpiParent:
@@ -18489,6 +18805,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk6.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk6.i3.DELAY
+              |vpiActual:
+              \_constant: 
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk7), line:43:9, endln:62:12
     |vpiParent:
@@ -18544,6 +18868,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk7), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk7)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk7
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:85
             |vpiParent:
@@ -18897,6 +19226,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk7.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk7.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk7.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk7.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:101
         |vpiParent:
@@ -19045,6 +19382,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk7.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk7.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk7.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk7.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:107
         |vpiParent:
@@ -19193,6 +19538,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk7.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk7.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk7.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk7.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:92
         |vpiParent:
@@ -19361,6 +19714,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk7.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk7.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk7.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:101
         |vpiParent:
@@ -19531,6 +19892,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk7.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk7.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk7.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:107
         |vpiParent:
@@ -19701,6 +20070,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk7.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk7.i3.DELAY
+              |vpiActual:
+              \_constant: 
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk8), line:43:9, endln:62:12
     |vpiParent:
@@ -19756,6 +20133,11 @@ design: (work@top)
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
             \_begin: (work@top.genblk8), line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk8)
+              |vpiParent:
+              \_delay_control: , line:47:17, endln:47:26
+              |vpiFullName:work@top.genblk8
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:93
             |vpiParent:
@@ -20109,6 +20491,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk8.m1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk8.m1.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk8.m1.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk8.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:113
         |vpiParent:
@@ -20257,6 +20647,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk8.m2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk8.m2.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk8.m2.DELAY), line:15:15, endln:15:20
       |vpiModule:
       \_module_inst: work@M (work@top.genblk8.m3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:61:13, endln:61:119
         |vpiParent:
@@ -20405,6 +20803,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.m3.T), line:19:20, endln:19:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk8.m3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:21:13, endln:21:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk8.m3.DELAY
+              |vpiActual:
+              \_parameter: (work@top.genblk8.m3.DELAY), line:15:15, endln:15:20
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk8.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:104
         |vpiParent:
@@ -20573,6 +20979,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk8.i1.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk8.i1.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk8.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:113
         |vpiParent:
@@ -20743,6 +21157,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk8.i2.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk8.i2.DELAY
+              |vpiActual:
+              \_constant: 
       |vpiInterface:
       \_interface_inst: work@I (work@top.genblk8.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:119
         |vpiParent:
@@ -20913,6 +21335,14 @@ design: (work@top)
                   \_type_parameter: (work@top.genblk8.i3.T), line:30:20, endln:30:21
                 |vpiName:$bits
               |vpiName:$display
+            |vpiDelay:
+            \_ref_obj: (work@top.genblk8.i3.DELAY)
+              |vpiParent:
+              \_delay_control: , line:32:13, endln:32:19
+              |vpiName:DELAY
+              |vpiFullName:work@top.genblk8.i3.DELAY
+              |vpiActual:
+              \_constant: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

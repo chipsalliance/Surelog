@@ -2485,7 +2485,13 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
   NodeId IntConst = fC->Child(Delay_control);
   const std::string_view value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
-  dc->VpiDelay(value);
+  if (value[0] == '#')
+    dc->VpiDelay(value);
+  else {
+    ref_obj* ref = s.MakeRef_obj();
+    ref->VpiName(value);
+    dc->Delay(ref);
+  }
   fC->populateCoreMembers(Delay_control, Delay_control, dc);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
   if (Statement_or_null) {
