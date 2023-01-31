@@ -2458,6 +2458,7 @@ bool CompileHelper::compileFinalBlock(DesignComponent* component,
     processes = component->getProcesses();
   }
   processes->push_back(final);
+  fC->populateCoreMembers(final_construct, final_construct, final);
   NodeId Statement_or_null = fC->Child(final_construct);
   VectorOfany* stmts =
       compileStmt(component, fC, Statement_or_null, compileDesign, final);
