@@ -87,8 +87,22 @@ void SV3_1aTreeShapeListener::enterModule_declaration(
 
 void SV3_1aTreeShapeListener::exitModule_declaration(
     SV3_1aParser::Module_declarationContext *ctx) {
+  if (ctx->ENDMODULE() != nullptr) {
+    addVObject((antlr4::ParserRuleContext *)ctx->ENDMODULE(),
+               VObjectType::slEndmodule);
+  }
   addVObject(ctx, VObjectType::slModule_declaration);
   m_nestedElements.pop();
+}
+
+void SV3_1aTreeShapeListener::exitModule_keyword(
+    SV3_1aParser::Module_keywordContext *ctx) {
+  if (ctx->MODULE() != nullptr) {
+    addVObject(ctx, ctx->MODULE()->getText(), VObjectType::slModule_keyword);
+  } else if (ctx->MACROMODULE() != nullptr) {
+    addVObject(ctx, ctx->MACROMODULE()->getText(),
+               VObjectType::slModule_keyword);
+  }
 }
 
 void SV3_1aTreeShapeListener::exitClass_constructor_declaration(
@@ -865,7 +879,7 @@ void SV3_1aTreeShapeListener::exitPound_delay_value(
     addVObject(ctx, ctx->Pound_delay()->getText(), VObjectType::slIntConst);
   } else if (ctx->Pound_Pound_delay()) {
     addVObject(ctx, ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_Pound_delay);
+               VObjectType::slPound_pound_delay);
   } else if (ctx->delay_value()) {
     const std::string text = ctx->delay_value()->getText();
     if (std::isdigit(text[0])) {
@@ -874,6 +888,15 @@ void SV3_1aTreeShapeListener::exitPound_delay_value(
       addVObject(ctx, text, VObjectType::slStringConst);
     }
   }
+}
+
+void SV3_1aTreeShapeListener::exitData_type(
+    SV3_1aParser::Data_typeContext *ctx) {
+  if (ctx->VIRTUAL()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->VIRTUAL(),
+               VObjectType::slVirtual);
+  }
+  addVObject(ctx, VObjectType::slData_type);
 }
 
 void SV3_1aTreeShapeListener::exitString_value(
@@ -1485,7 +1508,7 @@ void SV3_1aTreeShapeListener::exitExpression(
 void SV3_1aTreeShapeListener::exitEvent_expression(
     SV3_1aParser::Event_expressionContext *ctx) {
   if (ctx->IFF()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->IFF(), VObjectType::slIff);
+    addVObject((antlr4::ParserRuleContext *)ctx->IFF(), VObjectType::slIFF);
   }
   addVObject(ctx, VObjectType::slEvent_expression);
 }
@@ -1746,7 +1769,7 @@ void SV3_1aTreeShapeListener::exitCycle_delay(
   if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_Pound_delay);
+               VObjectType::slPound_pound_delay);
   }
   addVObject(ctx, VObjectType::slCycle_delay);
 }
@@ -1756,11 +1779,11 @@ void SV3_1aTreeShapeListener::exitCycle_delay_range(
   if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_Pound_delay);
+               VObjectType::slPound_pound_delay);
   }
   if (ctx->POUNDPOUND()) {
     addVObject((antlr4::ParserRuleContext *)ctx->POUNDPOUND(),
-               ctx->POUNDPOUND()->getText(), VObjectType::slPound_Pound_delay);
+               ctx->POUNDPOUND()->getText(), VObjectType::slPound_pound_delay);
   }
   if (ctx->PLUS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PLUS(),
@@ -1865,7 +1888,7 @@ void SV3_1aTreeShapeListener::exitDeferred_immediate_assert_statement(
   } else if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_Pound_delay);
+               VObjectType::slPound_pound_delay);
   }
   addVObject(ctx, VObjectType::slDeferred_immediate_assert_statement);
 }
@@ -1878,7 +1901,7 @@ void SV3_1aTreeShapeListener::exitDeferred_immediate_assume_statement(
   } else if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_Pound_delay);
+               VObjectType::slPound_pound_delay);
   }
   addVObject(ctx, VObjectType::slDeferred_immediate_assume_statement);
 }
@@ -1891,7 +1914,7 @@ void SV3_1aTreeShapeListener::exitDeferred_immediate_cover_statement(
   } else if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_Pound_delay);
+               VObjectType::slPound_pound_delay);
   }
   addVObject(ctx, VObjectType::slDeferred_immediate_cover_statement);
 }

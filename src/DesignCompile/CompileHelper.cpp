@@ -794,6 +794,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   } else {
     bool forwardDeclaration = false;
     NodeId stype = fC->Child(data_type);
+    if (fC->Type(stype) == VObjectType::slVirtual) stype = fC->Sibling(stype);
     if (!stype && (fC->Type(data_type) == VObjectType::slStringConst)) {
       stype = data_type;
       if (!fC->Sibling(stype)) {
@@ -2143,6 +2144,8 @@ bool CompileHelper::compileDataDeclaration(
       }
       NodeId data_type = fC->Child(variable_declaration);
       NodeId intVec_TypeReg = fC->Child(data_type);
+      if (fC->Type(intVec_TypeReg) == VObjectType::slVirtual)
+        intVec_TypeReg = fC->Sibling(intVec_TypeReg);
       NodeId packedDimension = fC->Sibling(intVec_TypeReg);
       if (fC->Type(packedDimension) == VObjectType::slStringConst) {
         // class or package name;
@@ -2700,6 +2703,8 @@ bool CompileHelper::compileParameterDeclaration(
       bool skip = false;
       if (ntype && fC->Type(ntype) == VObjectType::slData_type) {
         ntype = fC->Child(ntype);
+        if (fC->Type(ntype) == VObjectType::slVirtual)
+          ntype = fC->Sibling(ntype);
         skip = true;
       } else {
         ntype = InvalidNodeId;

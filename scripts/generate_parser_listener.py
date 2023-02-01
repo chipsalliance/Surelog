@@ -106,7 +106,6 @@ _type_names = set([
   'slDot',
   'slDotStar',
   'slNonBlockingTriggerEvent',
-  'slPound_Pound_delay',
 
   'slPortDir_Inp',
   'slPortDir_Out',
@@ -212,7 +211,6 @@ _type_names = set([
   'slTagged',
   'slQmark',
   'slMatches',
-  'slIff',
   'slNull',
   'slWith',
   'slImport',

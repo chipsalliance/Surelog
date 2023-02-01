@@ -204,6 +204,10 @@ UHDM::any* CompileHelper::compileVariable(
       the_type == VObjectType::slPs_or_hierarchical_identifier) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
+    if (the_type == VObjectType::slVirtual) {
+      variable = fC->Sibling(variable);
+      the_type = fC->Type(variable);
+    }
   } else if (the_type == VObjectType::slImplicit_class_handle) {
     NodeId Handle = fC->Child(variable);
     if (fC->Type(Handle) == VObjectType::slThis_keyword) {
@@ -1054,6 +1058,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       (the_type == VObjectType::slData_type)) {
     if (fC->Child(type)) {
       type = fC->Child(type);
+      if (fC->Type(type) == VObjectType::slVirtual) type = fC->Sibling(type);
     } else {
       // Implicit type
     }
