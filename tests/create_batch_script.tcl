@@ -133,7 +133,12 @@ proc create_file_list {} {
             puts $fid $cmd
         } else {
             set file_name [file tail $file]
-            set fid [open $dir_name/[file tail $dir_name]_${file_name}.slv "w"]
+            set full_name "$dir_name/[file tail $dir_name]_${file_name}.slv"
+            if {[regexp {_256_} $full_name] || [regexp {_128_} $full_name] || [regexp {_64_} $full_name]} {
+                # Large designs from the bsg small design regression
+                continue
+            }
+            set fid [open $full_name "w"]
             puts $fid $cmd
             close $fid
         }
