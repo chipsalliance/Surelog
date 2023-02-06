@@ -424,6 +424,21 @@ proc count_split { string } {
     return [llength [split $string /]]
 }
 
+proc initialize_reg { file } {
+    if ![file exists $file] {
+        return
+    }
+    set fid [open $file]
+    set content [read $fid]
+    close $fid
+    regsub -all {1'hx} $content "1'h0" content
+    regsub -all {\(\* src = \"[a-zA-Z0-9_/|:\.-]*\" \*\)} $content "" content
+    regsub -all {\(\* keep =  1  \*\)\n} $content "" content
+    set fid [open $file "w"]
+    puts $fid $content
+    close $fid
+}
+
 # Equivalence checking in between Yosys parser and Surelog parser
 proc formal_verification { command testname } {
     global env SHELL SHELL_ARGS YOSYS_EXE SV2V_EXE TIME
@@ -448,12 +463,12 @@ proc formal_verification { command testname } {
     set yid [open "$output_dir/surelog.ys" "w"]
     puts $yid "plugin -i systemverilog"
     puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $yosys_command"
-    puts $yid "synth_xilinx"
-    puts $yid "write_verilog $output_dir/surelog_gate.v"
+    puts $yid "synth_xilinx"    
+    puts $yid "write_verilog  $output_dir/surelog_gate.v"
     close $yid
     set surelog_parse ""
     catch {set out [exec $YOSYS_EXE -s "$output_dir/surelog.ys" -q -q -l $output_dir/surelog.out]} surelog_parse
-    
+    initialize_reg $output_dir/surelog_gate.v
     # Yosys parser
     set yid [open "$output_dir/yosys.ys" "w"]
     puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 -sv $yosys_command"
@@ -462,6 +477,7 @@ proc formal_verification { command testname } {
     close $yid
     set yosys_parse ""
     catch {set out [exec $YOSYS_EXE -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
+    initialize_reg $output_dir/yosys_gate.v
 
     # If Yosys parser fails, try again with SV2V
     if [regexp {ERROR:} $yosys_parse] {
@@ -469,10 +485,13 @@ proc formal_verification { command testname } {
         set yid [open "$output_dir/yosys.ys" "w"]
         puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 $output_dir/sv2v.v"
         puts $yid "synth_xilinx"
+        puts $yid "dffinit"
         puts $yid "write_verilog $output_dir/yosys_gate.v"
         close $yid
         set yosys_parse ""
         catch {set out [exec $YOSYS_EXE -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
+        initialize_reg $output_dir/yosys_gate.v
+
     }
     
     if [file exist "$output_dir/surelog.out"] {
@@ -491,8 +510,14 @@ proc formal_verification { command testname } {
         set cells_sim $yosys_path/share/yosys/xilinx/cells_sim.v
         set cells_xtra $yosys_path/share/yosys/xilinx/cells_xtra.v
     }
+
     # Equivalence checking 
     if {($surelog_parse == "") && ($yosys_parse == "")} {
+        set diff ""
+        catch {set diff [exec $SHELL $SHELL_ARGS "diff $output_dir/surelog_gate.v $output_dir/yosys_gate.v"]} diff
+        if {$diff == ""} {
+            return [list "EQUIVALENT" ""] 
+        }
         set yid [open "$output_dir/equiv.ys" "w"]
         puts $yid "read_verilog $output_dir/surelog_gate.v $cells_sim $cells_xtra"
         puts $yid "prep -flatten -top $topmodule"
