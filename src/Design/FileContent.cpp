@@ -77,16 +77,17 @@ std::string FileContent::printObjects() const {
   std::string text;
   NodeId index(0);
 
+  StrAppend(&text, "AST_DEBUG_BEGIN\n");
   if (m_library) StrAppend(&text, "LIB:  ", m_library->getName(), "\n");
-  text.append("FILE: ")
-      .append(FileSystem::getInstance()->toPath(m_fileId))
-      .append("\n");
-  for (auto& object : m_objects) {
-    text +=
-        object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId);
-    text += "\n";
+  StrAppend(&text, "FILE: ", FileSystem::getInstance()->toPath(m_fileId), "\n");
+  for (const auto& object : m_objects) {
+    StrAppend(
+        &text,
+        object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId),
+        "\n");
     index++;
   }
+  StrAppend(&text, "AST_DEBUG_END\n");
   return text;
 }
 
