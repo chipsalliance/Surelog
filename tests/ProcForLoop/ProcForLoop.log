@@ -1,14 +1,15 @@
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ProcForLoop/slpp_all/surelog.log.
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/ProcForLoop/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<139> s<138> l<1:1> el<1:0>
-n<> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
+n<> u<1> t<Null_rule> p<140> s<139> l<1:1> el<1:0>
+n<module> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
 n<top> u<3> t<StringConst> p<6> s<5> l<1:8> el<1:11>
 n<> u<4> t<Port> p<5> l<1:13> el<1:13>
 n<> u<5> t<List_of_ports> p<6> c<4> l<1:12> el<1:14>
-n<> u<6> t<Module_nonansi_header> p<136> c<2> s<135> l<1:1> el<1:15>
+n<> u<6> t<Module_nonansi_header> p<137> c<2> s<135> l<1:1> el<1:15>
 n<> u<7> t<Function_data_type_or_implicit> p<128> s<8> l<2:14> el<2:14>
 n<foo> u<8> t<StringConst> p<128> s<72> l<2:14> el<2:17>
 n<> u<9> t<IntegerAtomType_Int> p<10> l<3:13> el<3:16>
@@ -137,17 +138,20 @@ n<> u<131> t<Module_or_generate_item_declaration> p<132> c<130> l<2:5> el<9:16>
 n<> u<132> t<Module_common_item> p<133> c<131> l<2:5> el<9:16>
 n<> u<133> t<Module_or_generate_item> p<134> c<132> l<2:5> el<9:16>
 n<> u<134> t<Non_port_module_item> p<135> c<133> l<2:5> el<9:16>
-n<> u<135> t<Module_item> p<136> c<134> l<2:5> el<9:16>
-n<> u<136> t<Module_declaration> p<137> c<6> l<1:1> el<11:10>
-n<> u<137> t<Description> p<138> c<136> l<1:1> el<11:10>
-n<> u<138> t<Source_text> p<139> c<137> l<1:1> el<11:10>
-n<> u<139> t<Top_level_rule> c<1> l<1:1> el<12:1>
+n<> u<135> t<Module_item> p<137> c<134> s<136> l<2:5> el<9:16>
+n<> u<136> t<Endmodule> p<137> l<11:1> el<11:10>
+n<> u<137> t<Module_declaration> p<138> c<6> l<1:1> el<11:10>
+n<> u<138> t<Description> p<139> c<137> l<1:1> el<11:10>
+n<> u<139> t<Source_text> p<140> c<138> l<1:1> el<11:10>
+n<> u<140> t<Top_level_rule> c<1> l<1:1> el<12:1>
+AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/ProcForLoop/dut.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
 [INF:CP0303] ${SURELOG_DIR}/tests/ProcForLoop/dut.sv:1:1: Compile module "work@top".
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/ProcForLoop/builtin.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
@@ -400,6 +404,7 @@ n<> u<246> t<Package_item> p<247> c<245> f<0> l<0:3>
 n<> u<247> t<Description> p<248> c<246> f<0> l<0:3>
 n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:3>
 n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
+AST_DEBUG_END
 [INF:CP0302] Compile class "work@mailbox".
 
 [INF:CP0302] Compile class "work@process".

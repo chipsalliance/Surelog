@@ -2,11 +2,12 @@
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/OneAnd/dut.v
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<54> s<53> l<1:1> el<1:0>
-n<> u<2> t<Module_keyword> p<29> s<3> l<1:1> el<1:7>
+n<> u<1> t<Null_rule> p<55> s<54> l<1:1> el<1:0>
+n<module> u<2> t<Module_keyword> p<29> s<3> l<1:1> el<1:7>
 n<dut> u<3> t<StringConst> p<29> s<28> l<1:8> el<1:11>
 n<> u<4> t<PortDir_Inp> p<9> s<8> l<1:12> el<1:17>
 n<logic> u<5> t<StringConst> p<6> l<1:18> el<1:23>
@@ -33,7 +34,7 @@ n<> u<25> t<Net_port_header> p<27> c<20> s<26> l<1:42> el<1:54>
 n<o> u<26> t<StringConst> p<27> l<1:55> el<1:56>
 n<> u<27> t<Ansi_port_declaration> p<28> c<25> l<1:42> el<1:56>
 n<> u<28> t<List_of_port_declarations> p<29> c<11> l<1:11> el<1:57>
-n<> u<29> t<Module_ansi_header> p<51> c<2> s<50> l<1:1> el<1:58>
+n<> u<29> t<Module_ansi_header> p<52> c<2> s<50> l<1:1> el<1:58>
 n<o> u<30> t<StringConst> p<31> l<3:10> el<3:11>
 n<> u<31> t<Ps_or_hierarchical_identifier> p<34> c<30> s<33> l<3:10> el<3:11>
 n<> u<32> t<Constant_bit_select> p<33> l<3:12> el<3:12>
@@ -54,16 +55,19 @@ n<> u<46> t<List_of_net_assignments> p<47> c<45> l<3:10> el<3:19>
 n<> u<47> t<Continuous_assign> p<48> c<46> l<3:3> el<3:20>
 n<> u<48> t<Module_common_item> p<49> c<47> l<3:3> el<3:20>
 n<> u<49> t<Module_or_generate_item> p<50> c<48> l<3:3> el<3:20>
-n<> u<50> t<Non_port_module_item> p<51> c<49> l<3:3> el<3:20>
-n<> u<51> t<Module_declaration> p<52> c<29> l<1:1> el<5:10>
-n<> u<52> t<Description> p<53> c<51> l<1:1> el<5:10>
-n<> u<53> t<Source_text> p<54> c<52> l<1:1> el<5:10>
-n<> u<54> t<Top_level_rule> c<1> l<1:1> el<7:1>
+n<> u<50> t<Non_port_module_item> p<52> c<49> s<51> l<3:3> el<3:20>
+n<> u<51> t<Endmodule> p<52> l<5:1> el<5:10>
+n<> u<52> t<Module_declaration> p<53> c<29> l<1:1> el<5:10>
+n<> u<53> t<Description> p<54> c<52> l<1:1> el<5:10>
+n<> u<54> t<Source_text> p<55> c<53> l<1:1> el<5:10>
+n<> u<55> t<Top_level_rule> c<1> l<1:1> el<7:1>
+AST_DEBUG_END
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/OneAnd/tb.v
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<500> s<499> l<1:1> el<1:0>
-n<> u<2> t<Module_keyword> p<13> s<3> l<1:1> el<1:7>
+n<> u<1> t<Null_rule> p<501> s<500> l<1:1> el<1:0>
+n<module> u<2> t<Module_keyword> p<13> s<3> l<1:1> el<1:7>
 n<and_tb> u<3> t<StringConst> p<13> s<12> l<1:8> el<1:14>
 n<> u<4> t<PortDir_Out> p<9> s<8> l<1:15> el<1:21>
 n<logic> u<5> t<StringConst> p<6> l<1:22> el<1:27>
@@ -74,7 +78,7 @@ n<> u<9> t<Net_port_header> p<11> c<4> s<10> l<1:15> el<1:27>
 n<o> u<10> t<StringConst> p<11> l<1:28> el<1:29>
 n<> u<11> t<Ansi_port_declaration> p<12> c<9> l<1:15> el<1:29>
 n<> u<12> t<List_of_port_declarations> p<13> c<11> l<1:14> el<1:30>
-n<> u<13> t<Module_ansi_header> p<497> c<2> s<25> l<1:1> el<1:31>
+n<> u<13> t<Module_ansi_header> p<498> c<2> s<25> l<1:1> el<1:31>
 n<logic> u<14> t<StringConst> p<20> s<19> l<2:3> el<2:8>
 n<a> u<15> t<StringConst> p<16> l<2:9> el<2:10>
 n<> u<16> t<Net_decl_assignment> p<19> c<15> s<18> l<2:9> el<2:10>
@@ -86,7 +90,7 @@ n<> u<21> t<Package_or_generate_item_declaration> p<22> c<20> l<2:3> el<2:14>
 n<> u<22> t<Module_or_generate_item_declaration> p<23> c<21> l<2:3> el<2:14>
 n<> u<23> t<Module_common_item> p<24> c<22> l<2:3> el<2:14>
 n<> u<24> t<Module_or_generate_item> p<25> c<23> l<2:3> el<2:14>
-n<> u<25> t<Non_port_module_item> p<497> c<24> s<82> l<2:3> el<2:14>
+n<> u<25> t<Non_port_module_item> p<498> c<24> s<82> l<2:3> el<2:14>
 n<> u<26> t<Dollar_keyword> p<54> s<27> l<5:5> el<5:6>
 n<monitor> u<27> t<StringConst> p<54> s<53> l<5:6> el<5:13>
 n<"@%0dns %0d & %0d = %0d"> u<28> t<StringLiteral> p<29> l<5:14> el<5:38>
@@ -143,7 +147,7 @@ n<> u<78> t<Statement_or_null> p<79> c<77> l<4:11> el<7:6>
 n<> u<79> t<Initial_construct> p<80> c<78> l<4:3> el<7:6>
 n<> u<80> t<Module_common_item> p<81> c<79> l<4:3> el<7:6>
 n<> u<81> t<Module_or_generate_item> p<82> c<80> l<4:3> el<7:6>
-n<> u<82> t<Non_port_module_item> p<497> c<81> s<476> l<4:3> el<7:6>
+n<> u<82> t<Non_port_module_item> p<498> c<81> s<476> l<4:3> el<7:6>
 n<a> u<83> t<StringConst> p<84> l<11:6> el<11:7>
 n<> u<84> t<Ps_or_hierarchical_identifier> p<87> c<83> s<86> l<11:6> el<11:7>
 n<> u<85> t<Bit_select> p<86> l<11:8> el<11:8>
@@ -537,7 +541,7 @@ n<> u<472> t<Statement_or_null> p<473> c<471> l<10:3> el<26:6>
 n<> u<473> t<Initial_construct> p<474> c<472> l<9:3> el<26:6>
 n<> u<474> t<Module_common_item> p<475> c<473> l<9:3> el<26:6>
 n<> u<475> t<Module_or_generate_item> p<476> c<474> l<9:3> el<26:6>
-n<> u<476> t<Non_port_module_item> p<497> c<475> s<496> l<9:3> el<26:6>
+n<> u<476> t<Non_port_module_item> p<498> c<475> s<496> l<9:3> el<26:6>
 n<dut> u<477> t<StringConst> p<494> s<493> l<28:3> el<28:6>
 n<dut1> u<478> t<StringConst> p<479> l<28:7> el<28:11>
 n<> u<479> t<Name_of_instance> p<493> c<478> s<484> l<28:7> el<28:11>
@@ -557,11 +561,13 @@ n<> u<492> t<Expression> p<493> c<491> l<28:16> el<28:17>
 n<> u<493> t<Udp_instance> p<494> c<479> l<28:7> el<28:18>
 n<> u<494> t<Udp_instantiation> p<495> c<477> l<28:3> el<28:19>
 n<> u<495> t<Module_or_generate_item> p<496> c<494> l<28:3> el<28:19>
-n<> u<496> t<Non_port_module_item> p<497> c<495> l<28:3> el<28:19>
-n<> u<497> t<Module_declaration> p<498> c<13> l<1:1> el<30:10>
-n<> u<498> t<Description> p<499> c<497> l<1:1> el<30:10>
-n<> u<499> t<Source_text> p<500> c<498> l<1:1> el<30:10>
-n<> u<500> t<Top_level_rule> c<1> l<1:1> el<31:1>
+n<> u<496> t<Non_port_module_item> p<498> c<495> s<497> l<28:3> el<28:19>
+n<> u<497> t<Endmodule> p<498> l<30:1> el<30:10>
+n<> u<498> t<Module_declaration> p<499> c<13> l<1:1> el<30:10>
+n<> u<499> t<Description> p<500> c<498> l<1:1> el<30:10>
+n<> u<500> t<Source_text> p<501> c<499> l<1:1> el<30:10>
+n<> u<501> t<Top_level_rule> c<1> l<1:1> el<31:1>
+AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/OneAnd/dut.v:1:1: No timescale set for "dut".
 
 [WRN:PA0205] ${SURELOG_DIR}/tests/OneAnd/tb.v:1:1: No timescale set for "and_tb".
