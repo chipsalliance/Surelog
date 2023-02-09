@@ -1,10 +1,11 @@
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/TypeDefScope/slpp_all/surelog.log.
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/TypeDefScope/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<96> s<95> l<1:1> el<1:0>
-n<> u<2> t<Module_keyword> p<17> s<3> l<1:1> el<1:7>
+n<> u<1> t<Null_rule> p<97> s<96> l<1:1> el<1:0>
+n<module> u<2> t<Module_keyword> p<17> s<3> l<1:1> el<1:7>
 n<dut> u<3> t<StringConst> p<17> s<16> l<1:8> el<1:11>
 n<a> u<4> t<StringConst> p<7> s<6> l<1:13> el<1:14>
 n<> u<5> t<Constant_bit_select> p<6> l<1:14> el<1:14>
@@ -19,7 +20,7 @@ n<> u<13> t<Port_reference> p<14> c<10> l<1:16> el<1:17>
 n<> u<14> t<Port_expression> p<15> c<13> l<1:16> el<1:17>
 n<> u<15> t<Port> p<16> c<14> l<1:16> el<1:17>
 n<> u<16> t<List_of_ports> p<17> c<9> l<1:12> el<1:18>
-n<> u<17> t<Module_nonansi_header> p<93> c<2> s<92> l<1:1> el<1:19>
+n<> u<17> t<Module_nonansi_header> p<94> c<2> s<92> l<1:1> el<1:19>
 n<> u<18> t<Function_data_type> p<19> l<3:13> el<3:17>
 n<> u<19> t<Function_data_type_or_implicit> p<85> c<18> s<20> l<3:13> el<3:17>
 n<UVMC_set_config_object> u<20> t<StringConst> p<85> s<46> l<3:18> el<3:40>
@@ -94,17 +95,20 @@ n<> u<88> t<Module_or_generate_item_declaration> p<89> c<87> l<3:4> el<15:15>
 n<> u<89> t<Module_common_item> p<90> c<88> l<3:4> el<15:15>
 n<> u<90> t<Module_or_generate_item> p<91> c<89> l<3:4> el<15:15>
 n<> u<91> t<Non_port_module_item> p<92> c<90> l<3:4> el<15:15>
-n<> u<92> t<Module_item> p<93> c<91> l<3:4> el<15:15>
-n<> u<93> t<Module_declaration> p<94> c<17> l<1:1> el<18:11>
-n<> u<94> t<Description> p<95> c<93> l<1:1> el<18:11>
-n<> u<95> t<Source_text> p<96> c<94> l<1:1> el<18:11>
-n<> u<96> t<Top_level_rule> c<1> l<1:1> el<20:1>
+n<> u<92> t<Module_item> p<94> c<91> s<93> l<3:4> el<15:15>
+n<> u<93> t<Endmodule> p<94> l<18:2> el<18:11>
+n<> u<94> t<Module_declaration> p<95> c<17> l<1:1> el<18:11>
+n<> u<95> t<Description> p<96> c<94> l<1:1> el<18:11>
+n<> u<96> t<Source_text> p<97> c<95> l<1:1> el<18:11>
+n<> u<97> t<Top_level_rule> c<1> l<1:1> el<20:1>
+AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/TypeDefScope/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
 [INF:CP0303] ${SURELOG_DIR}/tests/TypeDefScope/dut.sv:1:1: Compile module "work@dut".
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/TypeDefScope/builtin.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
@@ -357,6 +361,7 @@ n<> u<246> t<Package_item> p<247> c<245> f<0> l<0:3>
 n<> u<247> t<Description> p<248> c<246> f<0> l<0:3>
 n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:3>
 n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
+AST_DEBUG_END
 [INF:CP0302] Compile class "work@mailbox".
 
 [INF:CP0302] Compile class "work@process".

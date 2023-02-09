@@ -1,10 +1,11 @@
 [INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/SignedParam/slpp_all/surelog.log.
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/SignedParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<26> s<25> l<2:1> el<1:2>
-n<> u<2> t<Module_keyword> p<22> s<3> l<2:1> el<2:7>
+n<> u<1> t<Null_rule> p<27> s<26> l<2:1> el<1:2>
+n<module> u<2> t<Module_keyword> p<22> s<3> l<2:1> el<2:7>
 n<prim_pad_wrapper> u<3> t<StringConst> p<22> s<19> l<2:8> el<2:24>
 n<> u<4> t<IntegerAtomType_Int> p<6> s<5> l<6:15> el<6:18>
 n<> u<5> t<Signing_Signed> p<6> l<6:19> el<6:25>
@@ -24,17 +25,20 @@ n<> u<18> t<Parameter_port_declaration> p<19> c<17> l<6:5> el<6:36>
 n<> u<19> t<Parameter_port_list> p<22> c<18> s<21> l<4:3> el<8:4>
 n<> u<20> t<Port> p<21> l<8:6> el<8:6>
 n<> u<21> t<List_of_ports> p<22> c<20> l<8:5> el<8:7>
-n<> u<22> t<Module_nonansi_header> p<23> c<2> l<2:1> el<8:8>
-n<> u<23> t<Module_declaration> p<24> c<22> l<2:1> el<10:10>
-n<> u<24> t<Description> p<25> c<23> l<2:1> el<10:10>
-n<> u<25> t<Source_text> p<26> c<24> l<2:1> el<10:10>
-n<> u<26> t<Top_level_rule> c<1> l<2:1> el<11:1>
+n<> u<22> t<Module_nonansi_header> p<24> c<2> s<23> l<2:1> el<8:8>
+n<> u<23> t<Endmodule> p<24> l<10:1> el<10:10>
+n<> u<24> t<Module_declaration> p<25> c<22> l<2:1> el<10:10>
+n<> u<25> t<Description> p<26> c<24> l<2:1> el<10:10>
+n<> u<26> t<Source_text> p<27> c<25> l<2:1> el<10:10>
+n<> u<27> t<Top_level_rule> c<1> l<2:1> el<11:1>
+AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/SignedParam/dut.sv:2:1: No timescale set for "prim_pad_wrapper".
 
 [INF:CP0300] Compilation...
 
 [INF:CP0303] ${SURELOG_DIR}/tests/SignedParam/dut.sv:2:1: Compile module "work@prim_pad_wrapper".
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/SignedParam/builtin.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
@@ -287,6 +291,7 @@ n<> u<246> t<Package_item> p<247> c<245> f<0> l<0:3>
 n<> u<247> t<Description> p<248> c<246> f<0> l<0:3>
 n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:3>
 n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
+AST_DEBUG_END
 [INF:CP0302] Compile class "work@mailbox".
 
 [INF:CP0302] Compile class "work@process".

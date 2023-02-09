@@ -2,10 +2,11 @@
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/CaseInside/top.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<159> s<158> l<1:1> el<1:0>
+n<> u<1> t<Null_rule> p<160> s<159> l<1:1> el<1:0>
 n<> u<2> t<Package> p<42> s<3> l<1:1> el<1:8>
 n<dm> u<3> t<StringConst> p<42> s<39> l<1:9> el<1:11>
 n<> u<4> t<IntVec_TypeLogic> p<15> s<14> l<4:16> el<4:21>
@@ -47,12 +48,12 @@ n<> u<39> t<Package_item> p<42> c<38> s<41> l<4:3> el<8:14>
 n<dm> u<40> t<StringConst> p<42> l<10:14> el<10:16>
 n<> u<41> t<Endpackage> p<42> s<40> l<10:1> el<10:11>
 n<> u<42> t<Package_declaration> p<43> c<2> l<1:1> el<10:16>
-n<> u<43> t<Description> p<158> c<42> s<157> l<1:1> el<10:16>
-n<> u<44> t<Module_keyword> p<48> s<45> l<12:1> el<12:7>
+n<> u<43> t<Description> p<159> c<42> s<158> l<1:1> el<10:16>
+n<module> u<44> t<Module_keyword> p<48> s<45> l<12:1> el<12:7>
 n<dm_csrs> u<45> t<StringConst> p<48> s<47> l<12:8> el<12:15>
 n<> u<46> t<Port> p<47> l<12:17> el<12:17>
 n<> u<47> t<List_of_ports> p<48> c<46> l<12:16> el<12:18>
-n<> u<48> t<Module_nonansi_header> p<156> c<44> s<154> l<12:1> el<12:19>
+n<> u<48> t<Module_nonansi_header> p<157> c<44> s<154> l<12:1> el<12:19>
 n<> u<49> t<AlwaysKeywd_Comb> p<150> s<149> l<13:3> el<13:14>
 n<csr_read_write> u<50> t<StringConst> p<147> s<145> l<13:23> el<13:37>
 n<> u<51> t<Unique> p<52> l<15:7> el<15:13>
@@ -158,12 +159,14 @@ n<> u<150> t<Always_construct> p<151> c<49> l<13:3> el<28:6>
 n<> u<151> t<Module_common_item> p<152> c<150> l<13:3> el<28:6>
 n<> u<152> t<Module_or_generate_item> p<153> c<151> l<13:3> el<28:6>
 n<> u<153> t<Non_port_module_item> p<154> c<152> l<13:3> el<28:6>
-n<> u<154> t<Module_item> p<156> c<153> s<155> l<13:3> el<28:6>
-n<dm_csrs> u<155> t<StringConst> p<156> l<29:13> el<29:20>
-n<> u<156> t<Module_declaration> p<157> c<48> l<12:1> el<29:20>
-n<> u<157> t<Description> p<158> c<156> l<12:1> el<29:20>
-n<> u<158> t<Source_text> p<159> c<43> l<1:1> el<29:20>
-n<> u<159> t<Top_level_rule> c<1> l<1:1> el<30:1>
+n<> u<154> t<Module_item> p<157> c<153> s<156> l<13:3> el<28:6>
+n<dm_csrs> u<155> t<StringConst> p<157> l<29:13> el<29:20>
+n<> u<156> t<Endmodule> p<157> s<155> l<29:1> el<29:10>
+n<> u<157> t<Module_declaration> p<158> c<48> l<12:1> el<29:20>
+n<> u<158> t<Description> p<159> c<157> l<12:1> el<29:20>
+n<> u<159> t<Source_text> p<160> c<43> l<1:1> el<29:20>
+n<> u<160> t<Top_level_rule> c<1> l<1:1> el<30:1>
+AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/CaseInside/top.sv:1:1: No timescale set for "dm".
 
 [WRN:PA0205] ${SURELOG_DIR}/tests/CaseInside/top.sv:12:1: No timescale set for "dm_csrs".
@@ -174,6 +177,7 @@ n<> u<159> t<Top_level_rule> c<1> l<1:1> el<30:1>
 
 [INF:CP0303] ${SURELOG_DIR}/tests/CaseInside/top.sv:12:1: Compile module "work@dm_csrs".
 
+AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/CaseInside/builtin.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
@@ -426,6 +430,7 @@ n<> u<246> t<Package_item> p<247> c<245> f<0> l<0:3>
 n<> u<247> t<Description> p<248> c<246> f<0> l<0:3>
 n<> u<248> t<Source_text> p<249> c<105> f<0> l<0:3>
 n<> u<249> t<Top_level_rule> c<1> f<0> l<0:3>
+AST_DEBUG_END
 [INF:CP0302] Compile class "work@mailbox".
 
 [INF:CP0302] Compile class "work@process".
