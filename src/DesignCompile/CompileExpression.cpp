@@ -3067,6 +3067,12 @@ UHDM::any *CompileHelper::compileExpression(
                                           pexpr, instance, reduce, muteErrors);
           break;
         }
+        case VObjectType::slArray_member_label: {
+          ref_obj *ref = s.MakeRef_obj();
+          ref->VpiName("default");
+          ref->VpiStructMember(true);
+          result = ref;
+        }
         default:
           break;
       }

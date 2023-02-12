@@ -62,6 +62,7 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
+#include <climits>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -2679,6 +2680,84 @@ bool CompileHelper::isDecreasingRange(UHDM::typespec* ts,
   return false;
 }
 
+UHDM::any* CompileHelper::adjustToLhsTypespec(const UHDM::typespec* tps,
+                                              UHDM::any* exp,
+                                              DesignComponent* component,
+                                              CompileDesign* compileDesign,
+                                              ValuedComponentI* instance) {
+  any* result = exp;
+  if (tps == nullptr) {
+    return result;
+  }
+  if (exp == nullptr) {
+    return result;
+  }
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  if (exp->UhdmType() == uhdmoperation) {
+    operation* op = (operation*)exp;
+    VectorOfany* operands = op->Operands();
+    int opType = op->VpiOpType();
+    switch (opType) {
+      case vpiCastOp: {
+        const typespec* optps = op->Typespec();
+        if (optps) {
+          UHDM_OBJECT_TYPE ottps = optps->UhdmType();
+          any* op0 = (*operands)[0];
+          if (op0->UhdmType() == uhdmoperation) {
+            operation* oper0 = (operation*)op0;
+            int op0Type = oper0->VpiOpType();
+            if (op0Type == vpiConcatOp) {
+              VectorOfany* operandsConcat = oper0->Operands();
+              any* op0Concat = (*operandsConcat)[0];
+              if (op0Concat->VpiName() == "default") {
+                bool invalidValue = false;
+                UHDM::ExprEval eval;
+                uint64_t val0 =
+                    eval.get_value(invalidValue, (expr*)(*operandsConcat)[1]);
+                constant* c = s.MakeConstant();
+                if (ottps == uhdmint_typespec) {
+                  int_typespec* itps = (int_typespec*)optps;
+                  if (itps->VpiSigned()) {
+                    if (val0 == 1) {
+                      c->VpiDecompile(std::to_string(-1));
+                      c->VpiValue("INT:" + std::to_string(-1));
+                      c->VpiSize(32);
+                      c->VpiConstType(vpiIntConst);
+                      result = c;
+                    } else {
+                      c->VpiDecompile(std::to_string(0));
+                      c->VpiValue("INT:" + std::to_string(0));
+                      c->VpiSize(32);
+                      c->VpiConstType(vpiIntConst);
+                      result = c;
+                    }
+                  } else {
+                    if (val0 == 1) {
+                      c->VpiDecompile(std::to_string(UINT_MAX));
+                      c->VpiValue("UINT:" + std::to_string(UINT_MAX));
+                      c->VpiSize(32);
+                      c->VpiConstType(vpiUIntConst);
+                      result = c;
+                    } else {
+                      c->VpiDecompile(std::to_string(0));
+                      c->VpiValue("UINT:" + std::to_string(0));
+                      c->VpiSize(32);
+                      c->VpiConstType(vpiUIntConst);
+                      result = c;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } break;
+    }
+  }
+
+  return result;
+}
+
 bool CompileHelper::compileParameterDeclaration(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
     CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance,
@@ -2833,6 +2912,10 @@ bool CompileHelper::compileParameterDeclaration(
             compileExpression(component, fC, actual_value, compileDesign,
                               nullptr, nullptr, reduce && !isMultiDimension);
         UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
+        if (expr && reduce) {
+          expr =
+              adjustToLhsTypespec(ts, expr, component, compileDesign, instance);
+        }
         if (expr && exprtype == UHDM::uhdmconstant) {
           UHDM::constant* c = (UHDM::constant*)expr;
           if (c->Typespec() == nullptr) c->Typespec(ts);
