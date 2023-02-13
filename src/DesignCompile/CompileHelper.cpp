@@ -2751,7 +2751,91 @@ UHDM::any* CompileHelper::adjustToLhsTypespec(const UHDM::typespec* tps,
             }
           }
         }
-      } break;
+        break;
+      }
+      case vpiAssignmentPatternOp: {
+        any* op0 = (*operands)[0];
+        if (op0->UhdmType() == uhdmtagged_pattern) {
+          tagged_pattern* pattern = (tagged_pattern*)op0;
+          const typespec* ptps = pattern->Typespec();
+          if (ptps->VpiName() == "default") {
+            bool invalidValue = false;
+            UHDM::ExprEval eval;
+            uint64_t val0 =
+                eval.get_value(invalidValue, (expr*)pattern->Pattern());
+            constant* c = s.MakeConstant();
+            c->VpiValue("UINT:" + std::to_string(val0));
+            c->VpiDecompile(std::to_string(val0));
+            c->VpiConstType(vpiUIntConst);
+            range* r = nullptr;
+            UHDM_OBJECT_TYPE ttps = tps->UhdmType();
+            UHDM_OBJECT_TYPE baseType = uhdmint_typespec;
+            if (ttps == uhdmlogic_typespec) {
+              logic_typespec* lts = (logic_typespec*)tps;
+              baseType = uhdmlogic_typespec;
+              if (lts->Ranges() && !lts->Ranges()->empty()) {
+                r = (*lts->Ranges())[0];
+              }
+            } else if (ttps == uhdmarray_typespec) {
+              array_typespec* lts = (array_typespec*)tps;
+              baseType = lts->Elem_typespec()->UhdmType();
+              if (lts->Ranges() && !lts->Ranges()->empty()) {
+                r = (*lts->Ranges())[0];
+              }
+            } else if (ttps == uhdmpacked_array_typespec) {
+              packed_array_typespec* lts = (packed_array_typespec*)tps;
+              baseType = lts->Elem_typespec()->UhdmType();
+              if (lts->Ranges() && !lts->Ranges()->empty()) {
+                r = (*lts->Ranges())[0];
+              }
+            } else if (ttps == uhdmbit_typespec) {
+              bit_typespec* lts = (bit_typespec*)tps;
+              baseType = uhdmbit_typespec;
+              if (lts->Ranges() && !lts->Ranges()->empty()) {
+                r = (*lts->Ranges())[0];
+              }
+            }
+            if (r) {
+              bool invalidValue = false;
+              UHDM::ExprEval eval;
+              FileSystem* const fileSystem = FileSystem::getInstance();
+              expr* lexp = reduceExpr(
+                  (expr*)r->Left_expr(), invalidValue, component, compileDesign,
+                  instance,
+                  fileSystem->toPathId(
+                      r->VpiFile(),
+                      compileDesign->getCompiler()->getSymbolTable()),
+                  r->VpiLineNo(), nullptr);
+              expr* rexp = reduceExpr(
+                  (expr*)r->Right_expr(), invalidValue, component,
+                  compileDesign, instance,
+                  fileSystem->toPathId(
+                      r->VpiFile(),
+                      compileDesign->getCompiler()->getSymbolTable()),
+                  r->VpiLineNo(), nullptr);
+              uint64_t lv = eval.get_uvalue(invalidValue, lexp);
+              uint64_t rv = eval.get_uvalue(invalidValue, rexp);
+              if (invalidValue == false) {
+                uint32_t max = std::max(lv, rv);
+                uint32_t min = std::min(lv, rv);
+                uint32_t size = max - min + 1;
+                if (baseType == uhdmint_typespec) {
+                  array_expr* array = s.MakeArray_expr();
+                  VectorOfexpr* exprs = s.MakeExprVec();
+                  array->Exprs(exprs);
+                  for (uint32_t i = 0; i < size; i++) {
+                    exprs->push_back(c);
+                  }
+                  result = array;
+                }
+              }
+            }
+          }
+        }
+        break;
+      }
+      default:
+        break;
     }
   }
 
@@ -2915,8 +2999,11 @@ bool CompileHelper::compileParameterDeclaration(
         if (expr && reduce) {
           expr =
               adjustToLhsTypespec(ts, expr, component, compileDesign, instance);
+          exprtype = expr->UhdmType();
         }
-        if (expr && exprtype == UHDM::uhdmconstant) {
+        if (expr && exprtype == UHDM::uhdmarray_expr) {
+          component->setComplexValue(the_name, (UHDM::expr*)expr);
+        } else if (expr && exprtype == UHDM::uhdmconstant) {
           UHDM::constant* c = (UHDM::constant*)expr;
           if (c->Typespec() == nullptr) c->Typespec(ts);
           int size = c->VpiSize();
@@ -2999,6 +3086,8 @@ bool CompileHelper::compileParameterDeclaration(
             (instance == nullptr)) {
           expr* rhs = (expr*)compileExpression(
               component, fC, value, compileDesign, nullptr, instance, false);
+          rhs = (expr*)adjustToLhsTypespec(ts, rhs, component, compileDesign,
+                                           instance);
           UHDM::param_assign* param_assign = s.MakeParam_assign();
           fC->populateCoreMembers(Param_assignment, Param_assignment,
                                   param_assign);
@@ -3018,6 +3107,10 @@ bool CompileHelper::compileParameterDeclaration(
         expr* rhs = (expr*)compileExpression(component, fC, value,
                                              compileDesign, nullptr, instance,
                                              reduce && (!isMultiDimension));
+        if (rhs && reduce) {
+          rhs = (expr*)adjustToLhsTypespec(ts, rhs, component, compileDesign,
+                                           instance);
+        }
         if (isDecreasing) {
           if (rhs->UhdmType() == uhdmoperation) {
             operation* op = (operation*)rhs;
