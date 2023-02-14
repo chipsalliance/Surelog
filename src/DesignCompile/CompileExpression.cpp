@@ -3072,6 +3072,7 @@ UHDM::any *CompileHelper::compileExpression(
           ref->VpiName("default");
           ref->VpiStructMember(true);
           result = ref;
+          break;
         }
         default:
           break;
