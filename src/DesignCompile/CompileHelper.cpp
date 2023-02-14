@@ -2680,11 +2680,11 @@ bool CompileHelper::isDecreasingRange(UHDM::typespec* ts,
   return false;
 }
 
-UHDM::any* CompileHelper::adjustToLhsTypespec(const UHDM::typespec* tps,
-                                              UHDM::any* exp,
-                                              DesignComponent* component,
-                                              CompileDesign* compileDesign,
-                                              ValuedComponentI* instance) {
+UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
+                                                   UHDM::any* exp,
+                                                   DesignComponent* component,
+                                                   CompileDesign* compileDesign,
+                                                   ValuedComponentI* instance) {
   any* result = exp;
   if (tps == nullptr) {
     return result;
@@ -2996,9 +2996,9 @@ bool CompileHelper::compileParameterDeclaration(
             compileExpression(component, fC, actual_value, compileDesign,
                               nullptr, nullptr, reduce && !isMultiDimension);
         UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
-        if (expr && reduce) {
-          expr =
-              adjustToLhsTypespec(ts, expr, component, compileDesign, instance);
+        if (expr) {
+          expr = defaultPatternAssignment(ts, expr, component, compileDesign,
+                                          instance);
           exprtype = expr->UhdmType();
         }
         if (expr && exprtype == UHDM::uhdmarray_expr) {
@@ -3086,8 +3086,8 @@ bool CompileHelper::compileParameterDeclaration(
             (instance == nullptr)) {
           expr* rhs = (expr*)compileExpression(
               component, fC, value, compileDesign, nullptr, instance, false);
-          rhs = (expr*)adjustToLhsTypespec(ts, rhs, component, compileDesign,
-                                           instance);
+          rhs = (expr*)defaultPatternAssignment(ts, rhs, component,
+                                                compileDesign, instance);
           UHDM::param_assign* param_assign = s.MakeParam_assign();
           fC->populateCoreMembers(Param_assignment, Param_assignment,
                                   param_assign);
@@ -3107,10 +3107,9 @@ bool CompileHelper::compileParameterDeclaration(
         expr* rhs = (expr*)compileExpression(component, fC, value,
                                              compileDesign, nullptr, instance,
                                              reduce && (!isMultiDimension));
-        if (rhs && reduce) {
-          rhs = (expr*)adjustToLhsTypespec(ts, rhs, component, compileDesign,
-                                           instance);
-        }
+        if (reduce)
+          rhs = (expr*)defaultPatternAssignment(ts, rhs, component,
+                                                compileDesign, instance);
         if (isDecreasing) {
           if (rhs->UhdmType() == uhdmoperation) {
             operation* op = (operation*)rhs;

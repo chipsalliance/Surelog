@@ -456,7 +456,7 @@ class CompileHelper final {
                    UHDM::expr* rhs, DesignComponent* component,
                    CompileDesign* compileDesign, ValuedComponentI* instance);
 
-  UHDM::any* adjustToLhsTypespec(const UHDM::typespec* tps, UHDM::any* exp, DesignComponent* component,
+  UHDM::any* defaultPatternAssignment(const UHDM::typespec* tps, UHDM::any* exp, DesignComponent* component,
                    CompileDesign* compileDesign, ValuedComponentI* instance);
 
   UHDM::expr* expandPatternAssignment(const UHDM::typespec* tps,

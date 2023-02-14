@@ -228,6 +228,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 rhs = m_helper.expandPatternAssignment(
                     ts, (expr*)rhs, mod, m_compileDesign, instance);
               }
+              rhs = (expr*)m_helper.defaultPatternAssignment(
+                  ts, rhs, mod, m_compileDesign, instance);
               pclone->Rhs(rhs);
               m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
                                                 instance, 0);
