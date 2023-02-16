@@ -384,14 +384,14 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              25
+constant                                              27
 cont_assign                                            2
 design                                                 1
 enum_const                                             6
 enum_typespec                                          6
 hier_path                                              1
 import_typespec                                        2
-int_typespec                                          18
+int_typespec                                          19
 int_var                                                2
 logic_net                                              3
 module_inst                                           24
@@ -406,14 +406,14 @@ typespec_member                                        6
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              25
+constant                                              27
 cont_assign                                            3
 design                                                 1
 enum_const                                             6
 enum_typespec                                          6
 hier_path                                              1
 import_typespec                                        2
-int_typespec                                          18
+int_typespec                                          19
 int_var                                                2
 logic_net                                              3
 module_inst                                           24
@@ -1152,8 +1152,6 @@ design: (work@top)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:20:37, endln:20:38
-              |vpiParent:
-              \_cont_assign: , line:21:11, endln:21:31
               |vpiDecompile:1
               |vpiSize:32
               |UINT:1
@@ -1200,6 +1198,17 @@ design: (work@top)
             \_module_inst: work@prim_generic_pad_attr (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:27:4, endln:31:6
             |vpiRhs:
             \_constant: , line:20:37, endln:20:38
+              |vpiParent:
+              \_cont_assign: , line:21:11, endln:21:31
+              |vpiDecompile:1
+              |vpiSize:32
+              |UINT:1
+              |vpiTypespec:
+              \_int_typespec: , line:20:14, endln:20:17
+                |vpiParent:
+                \_constant: , line:20:37, endln:20:38
+                |vpiSigned:1
+              |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o), line:21:11, endln:21:12
               |vpiParent:

@@ -808,12 +808,12 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_typespec                                        10
+array_typespec                                        31
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             292
+constant                                             569
 design                                                 1
 enum_const                                             9
 enum_typespec                                          3
@@ -823,35 +823,35 @@ gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                             12
 import_typespec                                        4
-int_typespec                                          68
+int_typespec                                          93
 int_var                                                4
 integer_typespec                                      12
 io_decl                                               11
 logic_net                                              2
-logic_typespec                                        38
+logic_typespec                                        80
 logic_var                                              3
 module_inst                                           16
-operation                                             89
+operation                                            173
 package                                                8
 param_assign                                          30
 parameter                                             39
-range                                                 56
+range                                                119
 ref_obj                                               25
-string_typespec                                       46
-struct_typespec                                       13
-tagged_pattern                                        46
+string_typespec                                      130
+struct_typespec                                       34
+tagged_pattern                                       130
 task                                                   9
-typespec_member                                       26
+typespec_member                                       68
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-array_typespec                                        10
+array_typespec                                        31
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             292
+constant                                             569
 design                                                 1
 enum_const                                            14
 enum_typespec                                          4
@@ -861,25 +861,25 @@ gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                             12
 import_typespec                                        4
-int_typespec                                          68
+int_typespec                                          93
 int_var                                                4
 integer_typespec                                      12
 io_decl                                               22
 logic_net                                              2
-logic_typespec                                        38
+logic_typespec                                        80
 logic_var                                              3
 module_inst                                           16
-operation                                             89
+operation                                            173
 package                                                8
 param_assign                                          34
 parameter                                             39
-range                                                 56
+range                                                119
 ref_obj                                               25
-string_typespec                                       46
-struct_typespec                                       13
-tagged_pattern                                        46
+string_typespec                                      130
+struct_typespec                                       34
+tagged_pattern                                       130
 task                                                  18
-typespec_member                                       26
+typespec_member                                       68
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamArraySelect/slpp_all/surelog.uhdm ...
 
@@ -2690,6 +2690,12 @@ design: (work@top)
     \_range: , line:59:9, endln:59:40
       |vpiLeftRange:
       \_constant: , line:20:19, endln:20:21
+        |vpiParent:
+        \_range: , line:59:9, endln:59:40
+        |vpiDecompile:56
+        |vpiSize:64
+        |UINT:56
+        |vpiConstType:9
       |vpiRightRange:
       \_constant: , line:59:38, endln:59:39
         |vpiParent:
@@ -3324,6 +3330,7 @@ design: (work@top)
       \_operation: , line:19:5, endln:22:6
         |vpiParent:
         \_param_assign: , line:37:25, endln:37:47
+        |vpiSize:22
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:20:19, endln:20:21

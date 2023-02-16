@@ -155,10 +155,6 @@ AST_DEBUG_END
 
 [ERR:EL0542] ${SURELOG_DIR}/tests/LoopParamOver/dut.sv:11: Expression loop in instance "work@top".
 
-[ERR:EL0542] ${SURELOG_DIR}/tests/LoopParamOver/dut.sv:10: Expression loop in instance "work@top.sub".
-
-[ERR:EL0542] ${SURELOG_DIR}/tests/LoopParamOver/dut.sv:3: Expression loop in instance "work@top.sub".
-
 [NTE:EL0508] Nb Top level modules: 1.
 
 [NTE:EL0509] Max instance depth: 2.
@@ -172,24 +168,24 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                               1
 design                                                 1
-int_typespec                                          29
+int_typespec                                           2
 module_inst                                            8
 operation                                              3
 param_assign                                          10
 parameter                                             10
-ref_obj                                             4528
+ref_obj                                             5053
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                               1
 design                                                 1
-int_typespec                                          29
+int_typespec                                           2
 module_inst                                            8
 operation                                              3
 param_assign                                          10
 parameter                                             10
-ref_obj                                             4528
+ref_obj                                             5053
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LoopParamOver/slpp_all/surelog.uhdm ...
 
@@ -346,8 +342,6 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LoopParamOver/dut.sv, line:8:1, endln:13:10
     |vpiRhs:
     \_ref_obj: (P2), line:10:18, endln:10:20
-      |vpiTypespec:
-      \_int_typespec: 
       |vpiName:P2
       |vpiActual:
       \_parameter: (work@top.P2), line:10:13, endln:10:15
@@ -359,6 +353,9 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LoopParamOver/dut.sv, line:8:1, endln:13:10
     |vpiRhs:
     \_ref_obj: (P2), line:10:18, endln:10:20
+      |vpiName:P2
+      |vpiActual:
+      \_parameter: (work@top.P2), line:10:13, endln:10:15
     |vpiLhs:
     \_parameter: (work@top.P1), line:11:13, endln:11:15
   |vpiDefName:work@top
@@ -394,6 +391,9 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_ref_obj: (P2), line:10:18, endln:10:20
+        |vpiName:P2
+        |vpiActual:
+        \_parameter: (work@top.sub.P2), line:3:12, endln:3:14
       |vpiLhs:
       \_parameter: (work@top.sub.P1), line:2:12, endln:2:14
     |vpiParamAssign:
@@ -408,13 +408,9 @@ design: (work@top)
         \_ref_obj: (P2), line:10:18, endln:10:20
           |vpiParent:
           \_operation: , line:3:17, endln:3:24
-          |vpiTypespec:
-          \_int_typespec: 
-            |vpiParent:
-            \_ref_obj: (P2), line:10:18, endln:10:20
           |vpiName:P2
           |vpiActual:
-          \_parameter: (work@top.P2), line:10:13, endln:10:15
+          \_parameter: (work@top.sub.P2), line:3:12, endln:3:14
         |vpiOperand:
         \_operation: , line:3:22, endln:3:24
           |vpiParent:
@@ -444,7 +440,7 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 5
+[  ERROR] : 3
 [WARNING] : 2
 [   NOTE] : 5
 
