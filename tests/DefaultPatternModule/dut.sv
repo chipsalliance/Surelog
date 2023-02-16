@@ -2,9 +2,8 @@ module top #(
 )(
 );
 localparam int unsigned CNT = 2;
-// localparam int unsigned V[CNT] = '{3,3};
 localparam int unsigned V[CNT] = '{default: 3};
-/*
+
 typedef int unsigned ASSIGN_VADDR_RET_T[CNT];
 function static ASSIGN_VADDR_RET_T ASSIGN_VADDR();
     for (int i = 0; i < CNT; i++) begin
@@ -22,12 +21,11 @@ if (VADDR[1] != 3) begin
 end;
 
 if (VADDR[1] == 3) begin
-	$info("--[1] (%d) should be 5",VADDR[1]);
+	$info("--[1] (%d) is 3",VADDR[1]);
 end;
-*/
+
 endmodule
-/*
+
 module main;
 top #() top1();
 endmodule
-*/
