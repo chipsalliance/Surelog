@@ -427,42 +427,42 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              33
+constant                                              35
 cont_assign                                            2
 design                                                 1
-enum_const                                            10
-enum_typespec                                         10
+enum_const                                            11
+enum_typespec                                         11
 hier_path                                              1
 import_typespec                                        3
-int_typespec                                          16
+int_typespec                                          18
 logic_net                                              1
 module_inst                                           24
 package                                                3
 param_assign                                          12
 parameter                                             12
 ref_obj                                                6
-struct_typespec                                       10
-typespec_member                                       10
+struct_typespec                                       11
+typespec_member                                       11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              33
+constant                                              35
 cont_assign                                            3
 design                                                 1
-enum_const                                            10
-enum_typespec                                         10
+enum_const                                            11
+enum_typespec                                         11
 hier_path                                              1
 import_typespec                                        3
-int_typespec                                          16
+int_typespec                                          18
 logic_net                                              1
 module_inst                                           24
 package                                                3
 param_assign                                          12
 parameter                                             12
 ref_obj                                                7
-struct_typespec                                       10
-typespec_member                                       10
+struct_typespec                                       11
+typespec_member                                       11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexParamOverload/slpp_all/surelog.uhdm ...
 
@@ -1302,8 +1302,6 @@ design: (work@top)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:28:37, endln:28:38
-              |vpiParent:
-              \_cont_assign: , line:29:11, endln:29:31
               |vpiDecompile:20
               |vpiSize:32
               |UINT:20
@@ -1327,6 +1325,17 @@ design: (work@top)
             \_module_inst: work@prim_generic (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:35:4, endln:39:6
             |vpiRhs:
             \_constant: , line:28:37, endln:28:38
+              |vpiParent:
+              \_cont_assign: , line:29:11, endln:29:31
+              |vpiDecompile:20
+              |vpiSize:32
+              |UINT:20
+              |vpiTypespec:
+              \_int_typespec: , line:28:14, endln:28:17
+                |vpiParent:
+                \_constant: , line:28:37, endln:28:38
+                |vpiSigned:1
+              |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o), line:29:11, endln:29:12
               |vpiParent:

@@ -3181,27 +3181,27 @@ AST_DEBUG_END
 array_typespec                                         6
 begin                                                  1
 bit_select                                             4
-bit_typespec                                           6
+bit_typespec                                           9
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            1203
+constant                                            1249
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
 initial                                                1
-int_typespec                                          19
+int_typespec                                          21
 int_var                                                4
 io_decl                                               11
 logic_var                                              1
 module_inst                                           10
-operation                                            420
+operation                                            429
 package                                                2
 param_assign                                          22
 parameter                                             23
-range                                                 27
+range                                                 36
 ref_obj                                               82
 sys_func_call                                          2
 task                                                   9
@@ -3213,27 +3213,27 @@ var_select                                           132
 array_typespec                                         6
 begin                                                  2
 bit_select                                             4
-bit_typespec                                           6
+bit_typespec                                           9
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            1203
+constant                                            1249
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
 initial                                                2
-int_typespec                                          19
+int_typespec                                          21
 int_var                                                4
 io_decl                                               22
 logic_var                                              1
 module_inst                                           10
-operation                                            420
+operation                                            429
 package                                                2
 param_assign                                          22
 parameter                                             23
-range                                                 27
+range                                                 36
 ref_obj                                               83
 sys_func_call                                          3
 task                                                  18
@@ -8172,6 +8172,165 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
     |vpiRhs:
     \_operation: , line:9:31, endln:25:33
+      |vpiTypespec:
+      \_bit_typespec: , line:8:14, endln:8:33
+        |vpiParent:
+        \_operation: , line:9:31, endln:25:33
+        |vpiRange:
+        \_range: , line:8:18, endln:8:23
+          |vpiParent:
+          \_bit_typespec: , line:8:14, endln:8:33
+          |vpiLeftRange:
+          \_constant: , line:8:19, endln:8:20
+            |vpiParent:
+            \_range: , line:8:18, endln:8:23
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:8:21, endln:8:22
+            |vpiParent:
+            \_range: , line:8:18, endln:8:23
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiRange:
+        \_range: , line:8:23, endln:8:28
+          |vpiParent:
+          \_bit_typespec: , line:8:14, endln:8:33
+          |vpiLeftRange:
+          \_constant: , line:8:24, endln:8:25
+            |vpiParent:
+            \_range: , line:8:23, endln:8:28
+            |vpiDecompile:4
+            |vpiSize:64
+            |UINT:4
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:8:26, endln:8:27
+            |vpiParent:
+            \_range: , line:8:23, endln:8:28
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiRange:
+        \_range: , line:8:28, endln:8:33
+          |vpiParent:
+          \_bit_typespec: , line:8:14, endln:8:33
+          |vpiLeftRange:
+          \_constant: , line:8:29, endln:8:30
+            |vpiParent:
+            \_range: , line:8:28, endln:8:33
+            |vpiDecompile:4
+            |vpiSize:64
+            |UINT:4
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:8:31, endln:8:32
+            |vpiParent:
+            \_range: , line:8:28, endln:8:33
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiSigned:1
+      |vpiOpType:33
+      |vpiReordered:1
+      |vpiOperand:
+      \_operation: , line:18:32, endln:24:34
+        |vpiParent:
+        \_operation: , line:9:31, endln:25:33
+        |vpiOpType:33
+        |vpiReordered:1
+        |vpiOperand:
+        \_constant: , line:23:34, endln:23:42
+          |vpiParent:
+          \_operation: , line:18:32, endln:24:34
+          |vpiDecompile:5'b11111
+          |vpiSize:5
+          |BIN:11111
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:22:34, endln:22:42
+          |vpiParent:
+          \_operation: , line:18:32, endln:24:34
+          |vpiDecompile:5'b11101
+          |vpiSize:5
+          |BIN:11101
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:21:34, endln:21:42
+          |vpiParent:
+          \_operation: , line:18:32, endln:24:34
+          |vpiDecompile:5'b11011
+          |vpiSize:5
+          |BIN:11011
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:20:34, endln:20:42
+          |vpiParent:
+          \_operation: , line:18:32, endln:24:34
+          |vpiDecompile:5'b10001
+          |vpiSize:5
+          |BIN:10001
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:19:34, endln:19:42
+          |vpiParent:
+          \_operation: , line:18:32, endln:24:34
+          |vpiDecompile:5'b01001
+          |vpiSize:5
+          |BIN:01001
+          |vpiConstType:3
+      |vpiOperand:
+      \_operation: , line:10:32, endln:16:34
+        |vpiParent:
+        \_operation: , line:9:31, endln:25:33
+        |vpiOpType:33
+        |vpiReordered:1
+        |vpiOperand:
+        \_constant: , line:15:34, endln:15:42
+          |vpiParent:
+          \_operation: , line:10:32, endln:16:34
+          |vpiDecompile:5'b11111
+          |vpiSize:5
+          |BIN:11111
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:14:34, endln:14:42
+          |vpiParent:
+          \_operation: , line:10:32, endln:16:34
+          |vpiDecompile:5'b00101
+          |vpiSize:5
+          |BIN:00101
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:13:34, endln:13:42
+          |vpiParent:
+          \_operation: , line:10:32, endln:16:34
+          |vpiDecompile:5'b00011
+          |vpiSize:5
+          |BIN:00011
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:12:34, endln:12:42
+          |vpiParent:
+          \_operation: , line:10:32, endln:16:34
+          |vpiDecompile:5'b10111
+          |vpiSize:5
+          |BIN:10111
+          |vpiConstType:3
+        |vpiOperand:
+        \_constant: , line:11:34, endln:11:42
+          |vpiParent:
+          \_operation: , line:10:32, endln:16:34
+          |vpiDecompile:5'b01111
+          |vpiSize:5
+          |BIN:01111
+          |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:64
   |vpiParamAssign:

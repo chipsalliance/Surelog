@@ -206,8 +206,8 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              51
-cont_assign                                            1
+constant                                              52
+cont_assign                                            2
 design                                                 1
 logic_net                                              3
 logic_typespec                                        17
@@ -218,7 +218,7 @@ param_assign                                           4
 parameter                                              6
 port                                                   2
 range                                                 19
-ref_obj                                                5
+ref_obj                                                7
 string_typespec                                        7
 struct_typespec                                        9
 tagged_pattern                                         7
@@ -227,8 +227,8 @@ typespec_member                                        9
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              51
-cont_assign                                            2
+constant                                              52
+cont_assign                                            3
 design                                                 1
 logic_net                                              3
 logic_typespec                                        17
@@ -239,7 +239,7 @@ param_assign                                           4
 parameter                                              6
 port                                                   3
 range                                                 19
-ref_obj                                                9
+ref_obj                                               10
 string_typespec                                        7
 struct_typespec                                        9
 tagged_pattern                                         7
@@ -736,13 +736,12 @@ design: (work@Mod2)
       |vpiParent:
       \_module_inst: work@Mod1 (work@Mod2.mod1), file:${SURELOG_DIR}/tests/TypespecExpr/dut.sv, line:9:4, endln:9:39
       |vpiRhs:
-      \_ref_obj: (work@Mod2.mod1.PARAM), line:2:15, endln:2:20
+      \_constant: , line:9:18, endln:9:24
         |vpiParent:
         \_cont_assign: , line:2:11, endln:2:20
-        |vpiName:PARAM
-        |vpiFullName:work@Mod2.mod1.PARAM
-        |vpiActual:
-        \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:43
+        |vpiDecompile:32'd0
+        |vpiSize:32
+        |UINT:0
       |vpiLhs:
       \_ref_obj: (work@Mod2.mod1.x), line:2:11, endln:2:12
         |vpiParent:
