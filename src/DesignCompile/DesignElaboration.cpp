@@ -2278,6 +2278,9 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
               } else if (expr->UhdmType() == UHDM::uhdmoperation) {
                 if (instance) {
                   complex = true;
+                  expr = (UHDM::expr*)m_helper.defaultPatternAssignment(
+                      ts, expr, instance->getDefinition(), m_compileDesign,
+                      instance);
                   instance->setComplexValue(name, expr);
                   UHDM::operation* op = (UHDM::operation*)expr;
                   int opType = op->VpiOpType();
