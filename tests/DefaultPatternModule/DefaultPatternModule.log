@@ -392,28 +392,28 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_expr                                            10
-array_typespec                                        13
+array_expr                                             4
+array_typespec                                         7
 array_var                                              1
 assign_stmt                                            1
 assignment                                             1
 begin                                                  1
 bit_select                                             5
-constant                                              93
+constant                                              51
 design                                                 1
 for_stmt                                               1
-func_call                                              6
+func_call                                              3
 function                                               1
 gen_scope                                              2
 gen_scope_array                                        2
-int_typespec                                          33
+int_typespec                                           9
 int_var                                                1
 module_inst                                           10
-operation                                             21
+operation                                             15
 param_assign                                          18
 parameter                                             18
-range                                                 14
-ref_obj                                               24
+range                                                  8
+ref_obj                                               18
 string_typespec                                        2
 sys_task_call                                          1
 tagged_pattern                                         2
@@ -421,28 +421,28 @@ tagged_pattern                                         2
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-array_expr                                            10
-array_typespec                                        13
+array_expr                                             4
+array_typespec                                         7
 array_var                                              1
 assign_stmt                                            2
 assignment                                             2
 begin                                                  2
 bit_select                                             7
-constant                                              93
+constant                                              51
 design                                                 1
 for_stmt                                               2
-func_call                                              6
+func_call                                              3
 function                                               2
 gen_scope                                              3
 gen_scope_array                                        3
-int_typespec                                          33
+int_typespec                                           9
 int_var                                                2
 module_inst                                           10
-operation                                             23
+operation                                             17
 param_assign                                          18
 parameter                                             18
-range                                                 14
-ref_obj                                               31
+range                                                  8
+ref_obj                                               25
 string_typespec                                        2
 sys_task_call                                          2
 tagged_pattern                                         2
@@ -1019,12 +1019,14 @@ design: (work@main)
         |vpiTypespec:
         \_array_typespec: 
         |vpiExpr:
-        \_constant: 
+        \_constant: , line:16:5, endln:16:10
+          |vpiParent:
+          \_operation: , line:16:5, endln:16:18
           |vpiDecompile:3
           |UINT:3
           |vpiConstType:9
         |vpiExpr:
-        \_constant: 
+        \_constant: , line:16:5, endln:16:10
       |vpiLhs:
       \_parameter: (work@main.top1.V), line:5:25, endln:5:26
     |vpiParamAssign:
