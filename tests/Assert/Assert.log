@@ -1,8 +1,8 @@
-[INF:CM0023] Creating log file /home/alain/Surelog/build/regression/Assert/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/Assert/slpp_all/surelog.log.
 
 AST_DEBUG_BEGIN
 LIB:  work
-FILE: /home/alain/Surelog/tests/Assert/dut.sv
+FILE: ${SURELOG_DIR}/tests/Assert/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<51> s<50> l<1:1> el<1:0>
 n<module> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -56,15 +56,15 @@ n<> u<49> t<Description> p<50> c<48> l<1:1> el<7:10>
 n<> u<50> t<Source_text> p<51> c<49> l<1:1> el<7:10>
 n<> u<51> t<Top_level_rule> c<1> l<1:1> el<8:1>
 AST_DEBUG_END
-[WRN:PA0205] /home/alain/Surelog/tests/Assert/dut.sv:1:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/Assert/dut.sv:1:1: No timescale set for "dut".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] /home/alain/Surelog/tests/Assert/dut.sv:1:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/Assert/dut.sv:1:1: Compile module "work@dut".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] /home/alain/Surelog/tests/Assert/dut.sv:1:1: Top level module "work@dut".
+[NTE:EL0503] ${SURELOG_DIR}/tests/Assert/dut.sv:1:1: Top level module "work@dut".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -96,11 +96,11 @@ operation                                              2
 property_spec                                          2
 ref_obj                                                2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: /home/alain/Surelog/build/regression/Assert/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Assert/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: /home/alain/Surelog/build/regression/Assert/slpp_all/checker/surelog.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Assert/slpp_all/checker/surelog.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: /home/alain/Surelog/build/regression/Assert/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Assert/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -109,7 +109,7 @@ design: (work@dut)
 |vpiElaborated:1
 |vpiName:work@dut
 |uhdmallModules:
-\_module_inst: work@dut (work@dut), file:/home/alain/Surelog/tests/Assert/dut.sv, line:1:1, endln:7:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assert/dut.sv, line:1:1, endln:7:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -117,7 +117,7 @@ design: (work@dut)
   |vpiAssertion:
   \_assert_stmt: (work@dut), line:4:1, endln:4:73
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/alain/Surelog/tests/Assert/dut.sv, line:1:1, endln:7:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assert/dut.sv, line:1:1, endln:7:10
     |vpiFullName:work@dut
     |vpiProperty:
     \_property_spec: , line:4:19, endln:4:71
@@ -132,7 +132,7 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (Clock)
 |uhdmtopModules:
-\_module_inst: work@dut (work@dut), file:/home/alain/Surelog/tests/Assert/dut.sv, line:1:1, endln:7:10
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assert/dut.sv, line:1:1, endln:7:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
@@ -143,7 +143,7 @@ design: (work@dut)
   |vpiAssertion:
   \_assert_stmt: (work@dut), line:4:1, endln:4:73
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/alain/Surelog/tests/Assert/dut.sv, line:1:1, endln:7:10
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assert/dut.sv, line:1:1, endln:7:10
     |vpiFullName:work@dut
     |vpiProperty:
     \_property_spec: , line:4:19, endln:4:71
@@ -169,3 +169,6 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/Assert/dut.sv | ${SURELOG_DIR}/build/regression/Assert/roundtrip/dut_000.sv | 1 | 7 |
