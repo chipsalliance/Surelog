@@ -1,8 +1,8 @@
-[INF:CM0023] Creating log file /home/alain/Surelog/build/regression/ConcatRadix/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/ConcatRadix/slpp_all/surelog.log.
 
 AST_DEBUG_BEGIN
 LIB:  work
-FILE: /home/alain/Surelog/tests/ConcatRadix/dut.sv
+FILE: ${SURELOG_DIR}/tests/ConcatRadix/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<74> s<73> l<1:1> el<1:0>
 n<module> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
@@ -79,24 +79,24 @@ n<> u<72> t<Description> p<73> c<71> l<1:1> el<9:10>
 n<> u<73> t<Source_text> p<74> c<72> l<1:1> el<9:10>
 n<> u<74> t<Top_level_rule> c<1> l<1:1> el<10:1>
 AST_DEBUG_END
-[WRN:PA0205] /home/alain/Surelog/tests/ConcatRadix/dut.sv:1:1: No timescale set for "test".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:1:1: No timescale set for "test".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] /home/alain/Surelog/tests/ConcatRadix/dut.sv:1:1: Compile module "work@test".
+[INF:CP0303] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:1:1: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] /home/alain/Surelog/tests/ConcatRadix/dut.sv:5:1: Compile generate block "work@test.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:5:1: Compile generate block "work@test.genblk1".
 
 Instance tree:
 [TOP] work@test work@test
 [SCO] work@test.genblk1 work@test.genblk1
 [MOD] work@test.genblk1::bar [U] work@test.genblk1.mybar
 
-[NTE:EL0503] /home/alain/Surelog/tests/ConcatRadix/dut.sv:1:1: Top level module "work@test".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:1:1: Top level module "work@test".
 
-[WRN:EL0500] /home/alain/Surelog/tests/ConcatRadix/dut.sv:6:5: Cannot find a module definition for "work@test.genblk1::bar".
+[WRN:EL0500] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:6:5: Cannot find a module definition for "work@test.genblk1::bar".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -110,11 +110,11 @@ Instance tree:
 
 [WRN:EL0513] Nb undefined instances: 1.
 
-[NTE:EL0523] /home/alain/Surelog/tests/ConcatRadix/dut.sv:1:1: Instance "work@test".
+[NTE:EL0523] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:1:1: Instance "work@test".
 
-[NTE:EL0522] /home/alain/Surelog/tests/ConcatRadix/dut.sv:5:1: Scope "work@test.genblk1".
+[NTE:EL0522] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:5:1: Scope "work@test.genblk1".
 
-[NTE:EL0523] /home/alain/Surelog/tests/ConcatRadix/dut.sv:6:5: Instance "work@test.genblk1.mybar".
+[NTE:EL0523] ${SURELOG_DIR}/tests/ConcatRadix/dut.sv:6:5: Instance "work@test.genblk1.mybar".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -144,11 +144,11 @@ param_assign                                           2
 parameter                                              2
 range                                                  2
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: /home/alain/Surelog/build/regression/ConcatRadix/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConcatRadix/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: /home/alain/Surelog/build/regression/ConcatRadix/slpp_all/checker/surelog.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ConcatRadix/slpp_all/checker/surelog.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: /home/alain/Surelog/build/regression/ConcatRadix/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ConcatRadix/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -157,14 +157,14 @@ design: (work@test)
 |vpiElaborated:1
 |vpiName:work@test
 |uhdmallModules:
-\_module_inst: work@test (work@test), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_design: (work@test)
   |vpiFullName:work@test
   |vpiParameter:
   \_parameter: (work@test.foo), line:3:17, endln:3:20
     |vpiParent:
-    \_module_inst: work@test (work@test), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:16
       |vpiParent:
@@ -192,7 +192,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:35
     |vpiParent:
-    \_module_inst: work@test (work@test), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_operation: , line:3:23, endln:3:35
       |vpiOpType:33
@@ -216,12 +216,12 @@ design: (work@test)
     \_parameter: (work@test.foo), line:3:17, endln:3:20
   |vpiDefName:work@test
 |uhdmtopModules:
-\_module_inst: work@test (work@test), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+\_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
   |vpiName:work@test
   |vpiParameter:
   \_parameter: (work@test.foo), line:3:17, endln:3:20
     |vpiParent:
-    \_module_inst: work@test (work@test), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_int_typespec: , line:3:11, endln:3:16
       |vpiParent:
@@ -251,7 +251,7 @@ design: (work@test)
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:35
     |vpiParent:
-    \_module_inst: work@test (work@test), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_constant: , line:3:23, endln:3:35
       |vpiDecompile:2'b01
@@ -268,7 +268,7 @@ design: (work@test)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.genblk1), line:5:1, endln:7:4
     |vpiParent:
-    \_module_inst: work@test (work@test), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiName:genblk1
     |vpiFullName:work@test.genblk1
     |vpiGenScope:
@@ -277,7 +277,7 @@ design: (work@test)
       \_gen_scope_array: (work@test.genblk1), line:5:1, endln:7:4
       |vpiFullName:work@test.genblk1
       |vpiModule:
-      \_module_inst: work@test.genblk1::bar (work@test.genblk1.mybar), file:/home/alain/Surelog/tests/ConcatRadix/dut.sv, line:6:5, endln:6:17
+      \_module_inst: work@test.genblk1::bar (work@test.genblk1.mybar), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:6:5, endln:6:17
         |vpiParent:
         \_gen_scope: (work@test.genblk1)
         |vpiName:mybar
@@ -289,3 +289,6 @@ design: (work@test)
 [  ERROR] : 0
 [WARNING] : 4
 [   NOTE] : 8
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/ConcatRadix/dut.sv | ${SURELOG_DIR}/build/regression/ConcatRadix/roundtrip/dut_000.sv | 4 | 9 |
