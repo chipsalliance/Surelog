@@ -867,6 +867,30 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
     }
   }
 
+  if ((result == nullptr) && instance) {
+    if (expr *val = instance->getComplexValue(name)) {
+      result = val;
+      if (result->UhdmType() == uhdmconstant) {
+        sval = instance->getValue(name);
+        if (sval && sval->isValid()) {
+          setRange((constant *)result, sval, compileDesign);
+        }
+      }
+    }
+    if (result == nullptr) {
+      sval = instance->getValue(name);
+      if (sval && sval->isValid()) {
+        UHDM::constant *c = s.MakeConstant();
+        c->VpiValue(sval->uhdmValue());
+        setRange(c, sval, compileDesign);
+        c->VpiDecompile(sval->decompiledValue());
+        c->VpiConstType(sval->vpiValType());
+        c->VpiSize(sval->getSize());
+        result = c;
+      }
+    }
+  }
+
   ValuedComponentI *tmpInstance = instance;
   while ((result == nullptr) && tmpInstance) {
     if (ModuleInstance *inst =
@@ -930,30 +954,6 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
       tmpInstance = (ValuedComponentI *)inst->getParentScope();
     } else {
       tmpInstance = nullptr;
-    }
-  }
-
-  if ((result == nullptr) && instance) {
-    if (expr *val = instance->getComplexValue(name)) {
-      result = val;
-      if (result->UhdmType() == uhdmconstant) {
-        sval = instance->getValue(name);
-        if (sval && sval->isValid()) {
-          setRange((constant *)result, sval, compileDesign);
-        }
-      }
-    }
-    if (result == nullptr) {
-      sval = instance->getValue(name);
-      if (sval && sval->isValid()) {
-        UHDM::constant *c = s.MakeConstant();
-        c->VpiValue(sval->uhdmValue());
-        setRange(c, sval, compileDesign);
-        c->VpiDecompile(sval->decompiledValue());
-        c->VpiConstType(sval->vpiValType());
-        c->VpiSize(sval->getSize());
-        result = c;
-      }
     }
   }
 

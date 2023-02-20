@@ -199,11 +199,12 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             4
-constant                                              57
+constant                                              53
 design                                                 1
 gen_scope                                             14
 gen_scope_array                                       14
-int_typespec                                          10
+int_typespec                                           6
+logic_typespec                                         4
 module_inst                                           10
 operation                                             11
 param_assign                                           2
@@ -215,11 +216,12 @@ ref_obj                                                4
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             4
-constant                                              57
+constant                                              53
 design                                                 1
 gen_scope                                             20
 gen_scope_array                                       20
-int_typespec                                          10
+int_typespec                                           6
+logic_typespec                                         4
 module_inst                                           14
 operation                                             11
 param_assign                                           2
@@ -320,7 +322,15 @@ design: (work@dut)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_int_typespec: 
+      \_logic_typespec: 
+        |vpiRange:
+        \_range: 
+          |vpiLeftRange:
+          \_constant: 
+            |UINT:3
+          |vpiRightRange:
+          \_constant: 
+            |UINT:0
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15
