@@ -1,0 +1,1 @@
+-parse -d uhdm -fileunit -d coveruhdm -elabuhdm -d ast dut.sv 

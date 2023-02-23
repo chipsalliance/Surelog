@@ -279,6 +279,7 @@ void Builtin::addBuiltinMacros(CompilationUnit* compUnit) {
 `define SV_COV_NOCOV 0
 `define SV_COV_OK 1
 `define SV_COV_PARTIAL 2
+`define SURELOG 1
   )",
                        compUnit);
 }
