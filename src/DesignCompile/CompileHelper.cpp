@@ -3014,6 +3014,7 @@ bool CompileHelper::compileParameterDeclaration(
                      fC->getFileId(), fC->Line(actual_value), true, false);
             if (!invalidValue) size = sizetmp;
           }
+          adjustSize(ts, component, compileDesign, instance, c);
           Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
           component->setValue(the_name, val, m_exprBuilder);
         } else if (reduce && (!isMultiDimension)) {
@@ -3107,9 +3108,10 @@ bool CompileHelper::compileParameterDeclaration(
         expr* rhs = (expr*)compileExpression(component, fC, value,
                                              compileDesign, nullptr, instance,
                                              reduce && (!isMultiDimension));
-        if (reduce)
+        if (reduce) {
           rhs = (expr*)defaultPatternAssignment(ts, rhs, component,
                                                 compileDesign, instance);
+        }
         if (isDecreasing) {
           if (rhs->UhdmType() == uhdmoperation) {
             operation* op = (operation*)rhs;
@@ -3189,7 +3191,7 @@ bool CompileHelper::compileParameterDeclaration(
                 break;
             }
           }
-
+          adjustSize(ts, component, compileDesign, instance, c);
           c->Typespec(ts);
 
           int size = c->VpiSize();
