@@ -659,9 +659,15 @@ add_dependencies(hellosureworld PrecompileUVM)
 endif()
 
 # Installation target
-install(
-  TARGETS surelog-bin roundtrip
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+if (QUICK_COMP)
+  install(
+    TARGETS surelog-bin
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+else()
+  install(
+    TARGETS surelog-bin roundtrip
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+endif()
 
 # Libraries
 install(
