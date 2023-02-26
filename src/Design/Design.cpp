@@ -159,7 +159,8 @@ std::string Design::reportInstanceTree() const {
       m_errors->addError(err);
     }
 
-    tree += type_s + " " + def + undef + " " + tmp->getFullPathName() + "\n";
+    StrAppend(&tree, type_s, " ", def, undef, " ", tmp->getFullPathName(),
+              "\n");
 
     bool extraInfo = false;
     if (extraInfo) {
@@ -170,11 +171,11 @@ std::string Design::reportInstanceTree() const {
           for (const auto& ps : inst->getMappedValues()) {
             const std::string& name = ps.first;
             Value* val = ps.second.first;
-            tree += "    " + name + " = " + val->uhdmValue() + "\n";
+            StrAppend(&tree, "    ", name, " = ", val->uhdmValue(), "\n");
           }
           for (const auto& ps : inst->getComplexValues()) {
             const std::string& name = ps.first;
-            tree += "    " + name + " = " + "complex" + "\n";
+            StrAppend(&tree, "    ", name, " = ", "complex", "\n");
           }
         }
       }

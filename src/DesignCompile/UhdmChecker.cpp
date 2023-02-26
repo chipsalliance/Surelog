@@ -293,28 +293,28 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
     std::stringstream strst;
     strst << std::setprecision(3) << cov;
 
-    const std::string coverage = std::string(" Cov: ") + strst.str() + "% ";
-    const std::string fileStatGreen =
+    const std::string coverage = StrCat(" Cov: ", strst.str(), "% ");
+    const std::string fileStatGreen = StrCat(
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
-        "#82E0AA; margin:0; min-width: 110px; padding:10; float: left; \">" +
-        coverage +
-        "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
-        fname + "> " + filepath + "</a></h3></div>\n";
-    const std::string fileStatPink =
+        "#82E0AA; margin:0; min-width: 110px; padding:10; float: left; \">",
+        coverage,
+        "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=",
+        fname + "> ", filepath, "</a></h3></div>\n");
+    const std::string fileStatPink = StrCat(
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
-        "#FFB6C1; margin:0; min-width: 110px; padding:10; float: left; \">" +
-        coverage +
-        "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
-        fname + "> " + filepath + "</a></h3></div>\n";
-    const std::string fileStatRed =
+        "#FFB6C1; margin:0; min-width: 110px; padding:10; float: left; \">",
+        coverage,
+        "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=",
+        fname + "> ", filepath, "</a></h3></div>\n");
+    const std::string fileStatRed = StrCat(
         "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: "
-        "#FF0000; margin:0; min-width: 110px; padding:10; float: left; \">" +
-        coverage +
-        "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" +
-        fname + "> " + filepath + "</a></h3></div>\n";
+        "#FF0000; margin:0; min-width: 110px; padding:10; float: left; \">",
+        coverage,
+        "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=",
+        fname + "> ", filepath, "</a></h3></div>\n");
     const std::string fileStatWhite =
-        "<h3 style=\"margin:0; padding:0 \"> <a href=" + fname + ">" +
-        filepath + "</a> " + coverage + "</h3>\n";
+        StrCat("<h3 style=\"margin:0; padding:0 \"> <a href=" + fname + ">",
+               filepath, "</a> ", coverage, "</h3>\n");
 
     reportF << "<h3>" << filepath << coverage << "</h3>\n";
     bool uncovered = false;

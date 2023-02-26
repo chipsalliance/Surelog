@@ -459,8 +459,8 @@ void AnalyzeFile::analyze() {
           }
 
           if (splitted) {
-            content += sllineInfo;
-            content += packageDeclaration + "  " + importSection;
+            StrAppend(&content, sllineInfo, packageDeclaration, "  ",
+                      importSection);
             // content += "SLline " + std::to_string(fromLine - baseFromLine +
             // origFromLine + 1) + " \"" + origFile + "\" 1";
           } else {
@@ -479,12 +479,12 @@ void AnalyzeFile::analyze() {
             checkSLlineDirective_(line, l);
 
             bool inLineComment = false;
-            content += allLines[l];
+            StrAppend(&content, allLines[l]);
             if (l == fileChunks[i].m_fromLine) {
-              content += "  " + importSection;
+              StrAppend(&content, "  ", importSection);
             }
             if (l != (toLine - 1)) {
-              content += "\n";
+              StrAppend(&content, "\n");
             }
             linesWriten++;
 
@@ -520,10 +520,10 @@ void AnalyzeFile::analyze() {
             splitted = true;
             if ((chunkType == DesignElement::Package) &&
                 endPackageDetected == false)
-              content += "  endpackage  ";
+              StrAppend(&content, "  endpackage  ");
             if ((chunkType == DesignElement::Module) &&
                 endPackageDetected == false)
-              content += "  endmodule  ";
+              StrAppend(&content, "  endmodule  ");
           } else {
             splitted = false;
           }
@@ -537,9 +537,9 @@ void AnalyzeFile::analyze() {
             errors->printMessages();
             return;
           }
-          content += "  " + fileLevelImportSection;
+          StrAppend(&content, "  ", fileLevelImportSection);
 
-          PathId splitFileId =
+          const PathId splitFileId =
               fileSystem->getChunkFile(m_ppFileId, chunkNb, symbolTable);
           fileSystem->writeContent(splitFileId, content);
           m_splitFiles.emplace_back(splitFileId);
@@ -579,12 +579,12 @@ void AnalyzeFile::analyze() {
         }
         m_lineOffsets.push_back(linesWriten);
 
-        content += setSLlineDirective_(fromLine);
+        StrAppend(&content, setSLlineDirective_(fromLine));
         for (unsigned int l = fromLine; l < toLine; l++) {
           checkSLlineDirective_(allLines[l], l);
-          content += allLines[l];
+          StrAppend(&content, allLines[l]);
           if (l != (toLine - 1)) {
-            content += "\n";
+            StrAppend(&content, "\n");
           }
           linesWriten++;
         }
@@ -644,13 +644,13 @@ void AnalyzeFile::analyze() {
       }
       m_lineOffsets.push_back(linesWriten);
 
-      content += setSLlineDirective_(fromLine);
-      content += "  " + fileLevelImportSection;
+      StrAppend(&content, setSLlineDirective_(fromLine));
+      StrAppend(&content, "  ", fileLevelImportSection);
       for (unsigned int l = fromLine; l < toLine; l++) {
         checkSLlineDirective_(allLines[l], l);
-        content += allLines[l];
+        StrAppend(&content, allLines[l]);
         if (l != (toLine - 1)) {
-          content += "\n";
+          StrAppend(&content, "\n");
         }
         linesWriten++;
       }
