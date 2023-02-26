@@ -1721,6 +1721,23 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             cloned = true;
           }
           ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+          operation* op = (operation*)rhs;
+          int opType = op->VpiOpType();
+          if (opType == vpiAssignmentPatternOp) {
+            if (m_helper.substituteAssignedValue(rhs, m_compileDesign)) {
+              rhs = m_helper.expandPatternAssignment(tps, (UHDM::expr*)rhs, mod,
+                                                     m_compileDesign,
+                                                     netlist->getParent());
+            }
+          }
+          rhs = (UHDM::expr*)m_helper.defaultPatternAssignment(
+              tps, (UHDM::expr*)rhs, mod, m_compileDesign,
+              netlist->getParent());
+
+          assign->Rhs((UHDM::expr*)rhs);
+          m_helper.reorderAssignmentPattern(mod, lhs, (UHDM::expr*)rhs,
+                                            m_compileDesign,
+                                            netlist->getParent(), 0);
           simplified = true;
         }
       } else if (rhs->UhdmType() == uhdmoperation) {

@@ -55,7 +55,7 @@ module top ();
     .Info(PartInfo[LifeCycleIdx])
   ) u_otp_ctrl_lci ();
 
-  parameter int OtpByteAddrWidth = 3;
+  parameter int OtpByteAddrWidth = 7;
   logic [PartInfo[LifeCycleIdx].size:0] aaa;
 
  for (genvar k = 0; k < NumPart; k++) begin : gen_part_sel
