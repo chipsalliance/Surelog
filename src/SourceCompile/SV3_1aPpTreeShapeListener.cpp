@@ -314,7 +314,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
           post = StrCat("\n/* SLline ", info->m_startLine + startLineCol.first,
-                        " \"\"^\"", fileSystem->toPath(info->m_fileId),
+                        R"( ""^")", fileSystem->toPath(info->m_fileId),
                         "\" 0 */\n");
         } else {
           post = StrCat("\n`line ", info->m_startLine + startLineCol.first,
@@ -324,7 +324,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
         if (m_pp->getCompileSourceFile()
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
-          post = StrCat("\n/* SLline ", startLineCol.first + 1, " \"\"^\"",
+          post = StrCat("\n/* SLline ", startLineCol.first + 1, R"( ""^")",
                         fileSystem->toPath(m_pp->getFileId(startLineCol.first)),
                         "\" 2 */\n");
         } else {

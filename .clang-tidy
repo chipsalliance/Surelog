@@ -16,13 +16,13 @@ AnalyzeTemporaryDtors: false
 Checks: >
   clang-diagnostic-*,clang-analyzer-*,
   -clang-analyzer-core.CallAndMessage,
-  -clang-analyzer-core.NullDereference,
   -clang-analyzer-cplusplus.NewDeleteLeaks,
   readability-*,
   -readability-braces-around-statements,
   -readability-convert-member-functions-to-static,
   -readability-else-after-return,
   -readability-function-cognitive-complexity,
+  -readability-identifier-length,
   -readability-implicit-bool-conversion,
   -readability-inconsistent-declaration-parameter-name,
   -readability-isolate-declaration,
@@ -41,19 +41,19 @@ Checks: >
   -google-readability-todo,
   -google-runtime-int,
   performance-*,
-  -performance-inefficient-string-concatenation,
   bugprone-*,
-  -bugprone-narrowing-conversions,
   -bugprone-branch-clone,
+  -bugprone-narrowing-conversions,
+  -bugprone-easily-swappable-parameters,
   modernize-loop-convert,
   modernize-raw-string-literal,
   modernize-use-override,
 
 CheckOptions:
   - key: performance-unnecessary-value-param.AllowedTypes
-    value: 'NodeId;SymbolId'
+    value: 'NodeId;SymbolId;PathId'
   - key: performance-unnecessary-copy-initialization.AllowedTypes
-    value: 'NodeId;SymbolId'
+    value: 'NodeId;SymbolId;PathId'
   - key: performance-for-range-copy.AllowedTypes
-    value: 'NodeId;SymbolId'
+    value: 'NodeId;SymbolId;PathId'
 ...

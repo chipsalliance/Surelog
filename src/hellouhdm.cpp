@@ -119,9 +119,9 @@ int main(int argc, const char** argv) {
       // ...
       // Iterate thru statements
       // ...
-      result += "+ module: " + defName + objectName +
-                ", file:" + std::string(vpi_get_str(vpiFile, obj_h)) +
-                ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h));
+      SURELOG::StrAppend(&result, "+ module: ", defName, objectName,
+                         ", file:", vpi_get_str(vpiFile, obj_h),
+                         ", line:", vpi_get(vpiLineNo, obj_h));
       vpiHandle processItr = vpi_iterate(vpiProcess, obj_h);
       while (vpiHandle sub_h = vpi_scan(processItr)) {
         result += "\n    \\_ process stmt, file:" +
@@ -167,12 +167,12 @@ int main(int argc, const char** argv) {
             if (const char* s = vpi_get_str(vpiFile, obj_h)) {
               f = s;
             }
-            res += margin + "+ module: " + defName + objectName +
-                   ", file:" + f +
-                   ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h)) + "\n";
+            SURELOG::StrAppend(&res, margin, "+ module: ", defName, objectName,
+                               ", file:", f,
+                               ", line:", vpi_get(vpiLineNo, obj_h), "\n");
 
             // Recursive tree traversal
-            margin = "  " + margin;
+            margin = SURELOG::StrCat("  ", margin);
             if (vpi_get(vpiType, obj_h) == vpiModule ||
                 vpi_get(vpiType, obj_h) == vpiGenScope) {
               vpiHandle subItr = vpi_iterate(vpiModule, obj_h);
@@ -201,7 +201,7 @@ int main(int argc, const char** argv) {
             }
             return res;
           };
-      result += inst_visit(obj_h, "");
+      SURELOG::StrAppend(&result, inst_visit(obj_h, ""));
     }
   }
   std::cout << result << std::endl;

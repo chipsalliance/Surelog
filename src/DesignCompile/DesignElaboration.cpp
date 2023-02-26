@@ -573,7 +573,7 @@ void DesignElaboration::recurseInstanceLoop_(
           instanceName.erase(instanceName.end() - 1);
         }
       }
-      instanceName = instanceName + "[" + std::to_string(index) + "]";
+      StrAppend(&instanceName, "[", index, "]");
     }
     ModuleInstance* child = factory->newModuleInstance(
         def, fC, subInstanceId, parent, instanceName, modName);
@@ -1499,7 +1499,7 @@ void DesignElaboration::elaborateInstance_(
         libs.emplace_back(libName);
 
         for (const auto& lib : libs) {
-          modName = lib + "@" + mname;
+          modName = StrCat(lib, "@", mname);
           def = design->getComponentDefinition(modName);
           if (def) {
             break;
@@ -1526,7 +1526,7 @@ void DesignElaboration::elaborateInstance_(
             }
             case UseClause::UseLib: {
               for (const auto& lib : use.getLibs()) {
-                modName = lib + "@" + mname;
+                modName = StrCat(lib, "@", mname);
                 def = design->getComponentDefinition(modName);
                 if (def) {
                   use.setUsed();
@@ -1586,7 +1586,7 @@ void DesignElaboration::elaborateInstance_(
               }
               case UseClause::UseLib: {
                 for (const auto& lib : use.getLibs()) {
-                  modName = lib + "@" + mname;
+                  modName = StrCat(lib, "@", mname);
                   def = design->getComponentDefinition(modName);
                   if (def) {
                     use.setUsed();
@@ -2224,7 +2224,7 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
     } else {
       prefix = instance->getFullPathName() + ".";
     }
-    path = prefix + path;
+    path = StrCat(prefix, path);
     Value* val = m_exprBuilder.evalExpr(fC, value, instance);
     design->addDefParam(path, fC, hIdent, val);
   }

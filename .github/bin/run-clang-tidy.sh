@@ -53,9 +53,11 @@ Checks: >
     google-default-arguments,
     google-explicit-constructor,
     modernize-loop-convert,
+    modernize-raw-string-literal,
     modernize-use-override,
     performance-faster-string-find,
     performance-for-range-copy,
+    performance-inefficient-string-concatenation,
     performance-inefficient-vector-operation,
     performance-unnecessary-copy-initialization,
     performance-unnecessary-value-param,
@@ -97,10 +99,11 @@ find src/ -name "*.cpp" -or -name "*.h" \
 
 cat ${TIDY_OUT}
 
-sed 's|\(.*\)\(\[[a-zA-Z.-]*\]$\)|\2|p;d' < ${TIDY_OUT} | sort | uniq -c | sort -n
+sed 's|\(.*\)\(\[[a-zA-Z.-]*\]$\)|\2|p;d' < ${TIDY_OUT} \
+    | sort | uniq -c | sort -rn
 
 if [ -s ${TIDY_OUT} ]; then
-    echo "There were clang-tidy warnings. Please fix."
+    echo "There were clang-tidy warnings (see ${TIDY_OUT}). Please fix."
     exit 1
 fi
 
