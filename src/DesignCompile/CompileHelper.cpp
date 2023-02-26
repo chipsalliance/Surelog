@@ -4145,7 +4145,7 @@ int CompileHelper::adjustOpSize(const typespec* tps, expr* cop, int opIndex,
         fileSystem->toPathId(cop->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
         cop->VpiLineNo(), nullptr);
-    if (invalidValue == false) csize = vexp->VpiSize();
+    if (invalidValue == false && vexp) csize = vexp->VpiSize();
   }
 
   const typespec* rtps = rhs->Typespec();
@@ -4255,7 +4255,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
     result = c;
   }
 
-  UHDM::ExprEval eval;
+  UHDM::ExprEval eval(true);
   rhs = eval.flattenPatternAssignments(s, tps, (UHDM::expr*)rhs);
 
   std::vector<int> values(size, 0);
