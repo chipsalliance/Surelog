@@ -1194,6 +1194,34 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->Actual_group(net);
           }
         } else if (hexpr != nullptr) {
+          if (hexpr && hexpr->UhdmType() == uhdmoperation) {
+            operation* op = (operation*)hexpr;
+            int opType = op->VpiOpType();
+            const typespec* tps = nullptr;
+            if (p) {
+              tps = p->Typespec();
+            }
+            if (opType == vpiAssignmentPatternOp) {
+              if (m_helper.substituteAssignedValue(hexpr, m_compileDesign)) {
+                hexpr = m_helper.expandPatternAssignment(
+                    tps, (UHDM::expr*)hexpr, parent_comp, m_compileDesign,
+                    netlist->getParent());
+              }
+            }
+            hexpr = (UHDM::expr*)m_helper.defaultPatternAssignment(
+                tps, (UHDM::expr*)hexpr, parent_comp, m_compileDesign,
+                netlist->getParent());
+            if (p) {
+              if (const any* lowc = p->Low_conn()) {
+                if (lowc->UhdmType() == uhdmref_obj) {
+                  ref_obj* ref = (ref_obj*)lowc;
+                  m_helper.reorderAssignmentPattern(
+                      parent_comp, ref->Actual_group(), (UHDM::expr*)hexpr,
+                      m_compileDesign, netlist->getParent(), 0);
+                }
+              }
+            }
+          }
           p->High_conn(hexpr);
           if (hexpr->UhdmType() == uhdmref_obj) {
             ((ref_obj*)hexpr)->Actual_group(net);
