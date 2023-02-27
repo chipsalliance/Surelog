@@ -2778,9 +2778,11 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
               }
             } else if (ttps == uhdmarray_typespec) {
               array_typespec* lts = (array_typespec*)tps;
-              baseType = lts->Elem_typespec()->UhdmType();
-              if (lts->Ranges() && !lts->Ranges()->empty()) {
-                r = (*lts->Ranges())[0];
+              if (lts->Elem_typespec()) {
+                baseType = lts->Elem_typespec()->UhdmType();
+                if (lts->Ranges() && !lts->Ranges()->empty()) {
+                  r = (*lts->Ranges())[0];
+                }
               }
             } else if (ttps == uhdmpacked_array_typespec) {
               packed_array_typespec* lts = (packed_array_typespec*)tps;
