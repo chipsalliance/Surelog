@@ -31,6 +31,7 @@
 #include <filesystem>
 #include <istream>
 #include <ostream>
+#include <regex>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -308,6 +309,9 @@ class FileSystem {
                                 PathIdVector &container) = 0;
   // Returns all files under the input 'dirId' that matches the input 'pattern'
   virtual PathIdVector &matching(PathId dirId, std::string_view pattern,
+                                 SymbolTable *symbolTable,
+                                 PathIdVector &container) = 0;
+  virtual PathIdVector &matching(PathId dirId, const std::regex &pattern,
                                  SymbolTable *symbolTable,
                                  PathIdVector &container) = 0;
 
