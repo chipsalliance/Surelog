@@ -52,7 +52,7 @@ class Library;
 class MacroInfo;
 class SV3_1aPpLexer;
 class SV3_1aPpParser;
-class SV3_1aPpTreeShapeListener;
+class SV3_1aPpParserBaseListener;
 
 #define LINE1 1
 
@@ -272,7 +272,7 @@ class PreprocessFile final {
     antlr4::tree::ParseTree* m_pptree = nullptr;
     DescriptiveErrorListener* m_errorListener = nullptr;
   };
-  SV3_1aPpTreeShapeListener* m_listener = nullptr;
+  SV3_1aPpParserBaseListener* m_listener = nullptr;
 
  public:
   /* Options */

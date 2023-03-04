@@ -38,6 +38,7 @@ class CompilationUnit;
 class ErrorContainer;
 class FileContent;
 class Library;
+class SV3_1aParserBaseListener;
 class SV3_1aPythonListener;
 class SV3_1aTreeShapeListener;
 class SymbolTable;
@@ -116,7 +117,7 @@ class ParseFile final {
   CompilationUnit* const m_compilationUnit;
   Library* m_library = nullptr;
   AntlrParserHandler* m_antlrParserHandler = nullptr;
-  SV3_1aTreeShapeListener* m_listener = nullptr;
+  SV3_1aParserBaseListener* m_listener = nullptr;
   std::vector<LineTranslationInfo> m_lineTranslationVec;
   bool m_usingCachedVersion;
   bool m_keepParserHandler;
