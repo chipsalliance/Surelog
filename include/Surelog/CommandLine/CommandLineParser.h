@@ -92,6 +92,7 @@ class CommandLineParser final {
   void setCacheAllowed(bool val) { m_cacheAllowed = val; }
   void setWriteCache(bool val) { m_writeCache = val; }
   void setPrecompiledCacheAllowed(bool val) { m_precompiledCacheAllowed = val; }
+  void setUsePPOutputFileLocation(bool val) { m_ppOutputFileLocation = val; }
   bool lineOffsetsAsComments() const { return m_lineOffsetsAsComments; }
   PathId getCacheDirId() const { return m_cacheDirId; }
   PathId getPrecompiledDirId() const { return m_precompiledDirId; }
