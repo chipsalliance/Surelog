@@ -3768,7 +3768,20 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         instance->getModuleArrayModuleInstancesMap();
     if (!moduleArrayModuleInstancesMap.empty()) {
       ((module_inst*)m)->Module_arrays(s.MakeModule_arrayVec());
-      for (auto [modArray, modInstances] : moduleArrayModuleInstancesMap) {
+      std::vector<UHDM::module_array*> moduleArrays;
+      std::transform(
+          moduleArrayModuleInstancesMap.begin(),
+          moduleArrayModuleInstancesMap.end(), std::back_inserter(moduleArrays),
+          [](ModuleInstance::ModuleArrayModuleInstancesMap::const_reference
+                 pair) { return pair.first; });
+      std::sort(
+          moduleArrays.begin(), moduleArrays.end(),
+          [](const UHDM::module_array* lhs, const UHDM::module_array* rhs) {
+            return lhs->UhdmId() < rhs->UhdmId();
+          });
+      for (UHDM::module_array* modArray : moduleArrays) {
+        const auto& modInstances =
+            moduleArrayModuleInstancesMap.find(modArray)->second;
         if (!modInstances.empty()) {
           modArray->Modules(s.MakeModule_instVec());
           modArray->VpiParent(m);
