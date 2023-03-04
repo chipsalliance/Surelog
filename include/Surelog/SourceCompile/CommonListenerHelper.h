@@ -35,6 +35,7 @@
 namespace antlr4 {
 class CommonTokenStream;
 class ParserRuleContext;
+class Token;
 namespace tree {
 class ParseTree;
 }
@@ -49,8 +50,12 @@ static constexpr char EscapeSequence[] = "#~@";
 
 class CommonListenerHelper {
  public:
-  virtual ~CommonListenerHelper();
+  virtual ~CommonListenerHelper() = default;
 
+ public:
+  FileContent* getFileContent() { return m_fileContent; }
+
+ protected:
   virtual SymbolId registerSymbol(std::string_view symbol) = 0;
 
   NodeId NodeIdFromContext(const antlr4::tree::ParseTree* ctx) const;
@@ -68,28 +73,25 @@ class CommonListenerHelper {
   unsigned short Column(NodeId index) const;
   unsigned int Line(NodeId index) const;
 
-  int addVObject(antlr4::ParserRuleContext* ctx, std::string_view name,
-                 VObjectType objtype);
+  NodeId addVObject(antlr4::ParserRuleContext* ctx, std::string_view name,
+                    VObjectType objtype);
 
-  int addVObject(antlr4::ParserRuleContext* ctx, VObjectType objtype);
+  NodeId addVObject(antlr4::ParserRuleContext* ctx, VObjectType objtype);
+  NodeId addVObject(antlr4::ParserRuleContext* ctx, SymbolId sym,
+                    VObjectType objtype);
 
   void addParentChildRelations(NodeId indexParent,
                                antlr4::ParserRuleContext* ctx);
 
   NodeId getObjectId(antlr4::ParserRuleContext* ctx) const;
 
-  FileContent* getFileContent() { return m_fileContent; }
+  virtual std::tuple<PathId, unsigned int, unsigned short, unsigned int,
+                     unsigned short>
+  getFileLine(antlr4::ParserRuleContext* ctx, antlr4::Token* token) const = 0;
 
-  virtual std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
-  getFileLine(antlr4::ParserRuleContext* ctx, PathId& fileId) = 0;
-
- private:
   NodeId& MutableChild(NodeId index);
   NodeId& MutableSibling(NodeId index);
   NodeId& MutableParent(NodeId index);
-
-  int addVObject(antlr4::ParserRuleContext* ctx, SymbolId sym,
-                 VObjectType objtype);
 
  protected:
   CommonListenerHelper(FileContent* file_content,

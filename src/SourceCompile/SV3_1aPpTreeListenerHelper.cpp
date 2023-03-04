@@ -39,17 +39,17 @@ SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(std::string_view symbol) {
   return m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
+std::tuple<PathId, unsigned int, unsigned short, unsigned int, unsigned short>
 SV3_1aPpTreeListenerHelper::getFileLine(antlr4::ParserRuleContext* ctx,
-                                        PathId& fileId) {
+                                        antlr4::Token* token) const {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
   unsigned int line = m_pp->getLineNb(lineCol.first);
   unsigned short column = lineCol.second;
   unsigned int endLine = m_pp->getLineNb(endLineCol.first);
   unsigned short endColumn = endLineCol.second;
-  fileId = m_pp->getFileId(lineCol.first);
-  return std::make_tuple(line, column, endLine, endColumn);
+  PathId fileId = m_pp->getFileId(lineCol.first);
+  return std::make_tuple(fileId, line, column, endLine, endColumn);
 }
 
 void SV3_1aPpTreeListenerHelper::init() {
