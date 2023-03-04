@@ -990,8 +990,9 @@ PathIdVector &PlatformFileSystem::matching(PathId dirId,
   regexp = StringUtils::replaceAll(
       regexp, "*", StrCat("[^", escaped, "]*"));  // free for all
 
+  const std::regex patregex(regexp);
   const PathId prefixId = toPathId(prefix.string(), symbolTable);
-  return matching(prefixId, regexp, symbolTable, container);
+  return matching(prefixId, patregex, symbolTable, container);
 }
 
 PathId PlatformFileSystem::getChild(PathId id, std::string_view name,
