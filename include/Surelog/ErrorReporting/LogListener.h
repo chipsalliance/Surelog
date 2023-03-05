@@ -30,6 +30,8 @@
 #include <ostream>
 #include <string>
 
+#include <Surelog/Common/PathId.h>
+
 namespace SURELOG {
 
 // A thread-safe log listener that flushes it contents to a named file on disk.

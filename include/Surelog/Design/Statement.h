@@ -126,7 +126,7 @@ class SubRoutineCallStmt : public Statement {
 class ForLoopStmt : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(ForLoopStmt, Scope, Statement)
  public:
-  ForLoopStmt(std::string name, Scope* scope, Statement* parentStmt,
+  ForLoopStmt(const std::string& name, Scope* scope, Statement* parentStmt,
               const FileContent* fileContent, NodeId node, VObjectType type)
       : Scope(name, scope),
         Statement(scope, parentStmt, fileContent, node, type),
@@ -155,7 +155,7 @@ class ForLoopStmt : public Scope, public Statement {
 class ForeachLoopStmt : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(ForeachLoopStmt, Scope, Statement)
  public:
-  ForeachLoopStmt(std::string name, NodeId arrayId, Scope* scope,
+  ForeachLoopStmt(const std::string& name, NodeId arrayId, Scope* scope,
                   Statement* parentStmt, const FileContent* fileContent,
                   NodeId node, VObjectType type)
       : Scope(name, scope),

@@ -39,7 +39,7 @@ class ClassObject final {
   typedef std::map<std::string, std::pair<Property*, Value*>, std::less<>>
       PropertyValueMap;
 
-  ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
+  explicit ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
   ClassDefinition* getClass() { return m_class; }
 
   const PropertyValueMap& getProperties() const { return m_properties; }

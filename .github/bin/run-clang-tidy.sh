@@ -50,8 +50,6 @@ Checks: >
     clang-diagnostic-inconsistent-missing-override,
     clang-diagnostic-overloaded-virtual
     clang-diagnostic-unused-private-field,
-    google-default-arguments,
-    google-explicit-constructor,
     modernize-loop-convert,
     modernize-raw-string-literal,
     modernize-use-override,
@@ -66,6 +64,7 @@ Checks: >
     readability-delete-null-pointer,
     readability-non-const-parameter,
     readability-redundant-member-init,
+    readability-redundant-smartptr-get,
     readability-redundant-string-cstr,
     readability-redundant-string-init,
     readability-static-accessed-through-instance,
@@ -92,7 +91,7 @@ if [ ! -r compile_commands.json ]; then
     exit 1
 fi
 
-find src/ -name "*.cpp" -or -name "*.h" \
+find src/ include/ -name "*.cpp" -or -name "*.h" \
     | grep -v Python | grep -v Constraint.h \
     | xargs -P$(nproc) -n 5 -- ${CLANG_TIDY} ${CLANG_TIDY_OPTS} 2>/dev/null \
             > ${TIDY_OUT}

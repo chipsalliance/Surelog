@@ -49,7 +49,7 @@ class DefParam final {
   Value* getValue() const { return m_value; }
   void setValue(Value* value) { m_value = value; }
 
-  void setChild(std::string name, DefParam* child) {
+  void setChild(const std::string& name, DefParam* child) {
     m_children.emplace(name, child);
   }
   std::map<std::string, DefParam*>& getChildren() { return m_children; }

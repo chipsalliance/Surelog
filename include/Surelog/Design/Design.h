@@ -188,7 +188,7 @@ class Design final {
   void addClassDefinition(std::string_view className,
                           ClassDefinition* classDef);
 
-  void addProgramDefinition(const std::string programName, Program* program) {
+  void addProgramDefinition(const std::string& programName, Program* program) {
     m_programDefinitions.emplace(programName, program);
   }
 
