@@ -5,11 +5,16 @@ ifdef $(LC_ALL)
 	undefine LC_ALL
 endif
 
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+NPROC = $(shell nproc)
+endif
+ifeq ($(UNAME), Darwin)
+NPROC = $(shell sysctl -n hw.physicalcpu)
+endif
+
 ifeq ($(CPU_CORES),)
-	CPU_CORES := $(shell nproc)
-	ifeq ($(CPU_CORES),)
-		CPU_CORES := $(shell sysctl -n hw.physicalcpu)
-	endif
+	CPU_CORES := $(NPROC)
 	ifeq ($(CPU_CORES),)
 		CPU_CORES := 2  # Good minimum assumption
 	endif
@@ -20,6 +25,9 @@ ADDITIONAL_CMAKE_OPTIONS ?=
 export CTEST_PARALLEL_LEVEL = $(CPU_CORES)
 
 release: run-cmake-release
+	cmake --build build -j $(CPU_CORES)
+
+release-shared: run-cmake-release-shared
 	cmake --build build -j $(CPU_CORES)
 
 release_with_python: run-cmake-release-with-python
@@ -35,7 +43,10 @@ quick: run-cmake-quick
 	cmake --build dbuild -j $(CPU_CORES)
 
 run-cmake-release:
-	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) $(ADDITIONAL_CMAKE_OPTIONS) -S . -B build
+	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DBUILD_SHARED_LIBS=OFF $(ADDITIONAL_CMAKE_OPTIONS) -S . -B build
+
+run-cmake-release-shared:
+	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DBUILD_SHARED_LIBS=ON $(ADDITIONAL_CMAKE_OPTIONS) -S . -B build
 
 run-cmake-release-with-python:
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) $(ADDITIONAL_CMAKE_OPTIONS) -DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive -S . -B build
@@ -117,6 +128,9 @@ clean:
 	$(RM) -r build dbuild coverage-build dist tests/TestInstall/build
 
 install: release
+	cmake --install build
+
+install-shared: release-shared
 	cmake --install build
 
 test_install:

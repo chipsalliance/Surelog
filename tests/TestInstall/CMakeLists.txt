@@ -21,13 +21,42 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../cmake/modules" ${CMAKE_MODULE_PATH})
+
+# Dependencies
+if(SURELOG_USE_HOST_FLATBUFFERS)
+  find_package(Flatbuffers REQUIRED)
+  set(FLATBUFFERS_LIBRARY flatbuffers::flatbuffers)
+else()
+  set(FLATBUFFERS_LIBRARY flatbuffers)
+endif()
+
+if(SURELOG_USE_HOST_ANTLR)
+  find_package(ANTLR REQUIRED)
+else()
+  set(ANTLR_LIBRARY antlr4-runtime$<$<BOOL:${WIN32}>:-static>)
+endif()
+
+if(SURELOG_USE_HOST_UHDM)
+  find_package(UHDM REQUIRED)
+  find_package(CapnProto)
+  set(CAPNPROTO_LIBRARY CapnProto::capnp)
+else()
+  set(UHDM_LIBRARY uhdm)
+  set(CAPNPROTO_LIBRARY capnp kj)
+endif()
+
+if(SURELOG_USE_HOST_GTEST)
+  find_package(GTest REQUIRED)
+endif()
+
 # Python
 if (SURELOG_WITH_PYTHON)
-find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
-message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
-message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
-message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
-message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
+  find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
+  message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
+  message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
+  message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
+  message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
 endif()
 
 if(NOT NO_TCMALLOC)
@@ -53,7 +82,7 @@ endif()
 
 add_executable(test_hellosureworld ${PROJECT_SOURCE_DIR}/../../src/hellosureworld.cpp)
 target_include_directories(test_hellosureworld PRIVATE
-  ${INSTALL_DIR}/include/surelog
+  ${INSTALL_DIR}/include/Surelog
   ${INSTALL_DIR}/include
   ${Python3_INCLUDE_DIRS}
 )
@@ -65,22 +94,20 @@ target_link_directories(test_hellosureworld
 if (SURELOG_WITH_PYTHON)
   target_link_libraries(test_hellosureworld
     surelog
-    antlr4-runtime$<$<BOOL:${WIN32}>:-static>
-    flatbuffers
-    uhdm
-    capnp
-    kj
+    ${ANTLR_LIBRARY}
+    ${FLATBUFFERS_LIBRARY}
+    ${UHDM_LIBRARY}
+    ${CAPNPROTO_LIBRARY}
     ${Python3_LIBRARIES}
     $<$<BOOL:${TCMALLOC_LIBRARY}>:tcmalloc>
 )
 else()
   target_link_libraries(test_hellosureworld
     surelog
-    antlr4-runtime$<$<BOOL:${WIN32}>:-static>
-    flatbuffers
-    uhdm
-    capnp
-    kj
+    ${ANTLR_LIBRARY}
+    ${FLATBUFFERS_LIBRARY}
+    ${UHDM_LIBRARY}
+    ${CAPNPROTO_LIBRARY}
     $<$<BOOL:${TCMALLOC_LIBRARY}>:tcmalloc>
 )
 endif()

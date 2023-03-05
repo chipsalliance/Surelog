@@ -1,5 +1,5 @@
 # -*- mode:cmake -*-
-cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 # Detect build type, fallback to release and throw a warning if use didn't
 # specify any
@@ -13,6 +13,8 @@ if(NOT CMAKE_BUILD_TYPE)
             FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
+
 option(
   WITH_LIBCXX
   "If buildling with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
@@ -21,14 +23,17 @@ option(
 option(
   SURELOG_USE_HOST_FLATBUFFERS
   "Use flatbuffers library from host instead of third_party" OFF)
-  
+option(
+  SURELOG_USE_HOST_ANTLR
+  "Use Antlr library from host instead of third_party" OFF)
+option(
+  SURELOG_USE_HOST_UHDM
+  "Use UHDM library from host instead of third_party" OFF)
+option(
+  SURELOG_USE_HOST_GTEST
+  "Use googletest library from host instead of third_party" OFF)
+
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
-
-# TODO SURELOG_USE_HOST_CAPNP
-# TODO SURELOG_USE_HOST_ANTLR
-# TODO SURELOG_USE_HOST_UHDM
-
-include(FindPkgConfig)
 
 project(SURELOG)
 
@@ -47,19 +52,44 @@ endif()
 
 set(FLATBUFFERS_FLATC_EXECUTABLE "flatc")
 if(SURELOG_USE_HOST_FLATBUFFERS)
-  pkg_check_modules(FLATBUFFERS IMPORTED_TARGET REQUIRED flatbuffers>=2.0.7)
+  find_package(Flatbuffers REQUIRED)
+  set(FLATBUFFERS_LIBRARY flatbuffers::flatbuffers)
 else()
   set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
   add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
+  set(FLATBUFFERS_LIBRARY flatbuffers)
 endif()
 
 set(WITH_STATIC_CRT ON CACHE BOOL "Use Static CRT")
 set(ANTLR_BUILD_CPP_TESTS OFF CACHE BOOL "Skip ANTLR tests")
-add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+
+if(SURELOG_USE_HOST_ANTLR)
+  find_package(ANTLR REQUIRED)
+else()
+  add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+  set(ANTLR_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr4_bin/antlr-4.12.0-complete.jar)
+  set(ANTLR_LIBRARY antlr4_static)
+  set(ANTLR_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src)
+endif()
 
 set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
-add_subdirectory(third_party/UHDM)
-add_subdirectory(third_party/googletest EXCLUDE_FROM_ALL)
+if(SURELOG_USE_HOST_UHDM)
+  find_package(UHDM REQUIRED)
+  find_package(CapnProto)
+  set(CAPNPROTO_LIBRARY CapnProto::capnp)
+else()
+  add_subdirectory(third_party/UHDM)
+  set(UHDM_LIBRARY uhdm)
+  get_target_property(UHDM_INCLUDE_DIRS uhdm INCLUDE_DIRECTORIES)
+  set(CAPNPROTO_LIBRARY capnp)
+endif()
+
+if(SURELOG_USE_HOST_GTEST)
+  find_package(GTest REQUIRED)
+else()
+  add_subdirectory(third_party/googletest EXCLUDE_FROM_ALL)
+  set(GTEST_INCLUDE_DIRS third_party/googletest/googletest/include third_party/googletest/googlemock/include)
+endif()
 
 # NOTE: Set the global output directories after the subprojects have had their go at it
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
@@ -162,8 +192,6 @@ add_custom_command(
 # Java
 find_package(Java 11 REQUIRED COMPONENTS Runtime)
 message(STATUS "Java_JAVA_EXECUTABLE = ${Java_JAVA_EXECUTABLE}")
-set(ANTLR_JAR_LOCATION
-    ${PROJECT_SOURCE_DIR}/third_party/antlr4_bin/antlr-4.12.0-complete.jar)
 
 add_custom_target(GenerateParser DEPENDS
   ${GENDIR}/src/parser/generated-parsers.tstamp
@@ -426,13 +454,24 @@ foreach(gen_src ${surelog_generated_SRC})
   set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
 endforeach()
 
-add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
+add_library(surelog ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
+
+if(BUILD_SHARED_LIBS)
+  set_property(TARGET surelog PROPERTY POSITION_INDEPENDENT_CODE 1)
+endif()
+
 target_include_directories(surelog PUBLIC
   $<BUILD_INTERFACE:${GENDIR}/include>
   $<BUILD_INTERFACE:${GENDIR}/src>)
 target_include_directories(surelog PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_include_directories(surelog PUBLIC
+  $<BUILD_INTERFACE:${ANTLR_INCLUDE_DIR}>
+  $<INSTALL_INTERFACE:include>)
+target_include_directories(surelog PUBLIC
+  $<BUILD_INTERFACE:${UHDM_INCLUDE_DIRS}>
   $<INSTALL_INTERFACE:include>)
 
 if (SURELOG_WITH_PYTHON)
@@ -478,20 +517,28 @@ if(MSVC OR WIN32)
 endif()
 
 target_link_libraries(surelog-bin PUBLIC surelog)
-target_link_libraries(surelog PUBLIC antlr4_static)
+target_link_libraries(surelog PUBLIC ${ANTLR_LIBRARY})
+target_include_directories(surelog PUBLIC ${FLATBUFFERS_INCLUDE_DIRS})
 
-if(SURELOG_USE_HOST_FLATBUFFERS)
-  target_link_libraries(surelog PRIVATE PkgConfig::FLATBUFFERS)
-  target_include_directories(surelog PUBLIC ${FLATBUFFERS_INCLUDE_DIRS})
-else()
-  target_link_libraries(surelog PUBLIC flatbuffers)
+target_link_libraries(surelog PRIVATE ${FLATBUFFERS_LIBRARY})
+if(NOT SURELOG_USE_HOST_FLATBUFFERS)
   add_dependencies(surelog flatc)
 endif()
 
-target_link_libraries(surelog PUBLIC uhdm)
+target_link_libraries(surelog PUBLIC ${UHDM_LIBRARY})
+target_link_libraries(surelog PRIVATE ${CAPNPROTO_LIBRARY})
 
-add_dependencies(GenerateSerializer uhdm)
-add_dependencies(GenerateParser antlr4_static)
+if(NOT SURELOG_USE_HOST_UHDM)
+  add_dependencies(GenerateSerializer ${UHDM_LIBRARY})
+  target_include_directories(surelog PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/third_party/UHDM/generated>
+    $<INSTALL_INTERFACE:include>)
+endif()
+
+if(NOT SURELOG_USE_HOST_ANTLR)
+  add_dependencies(GenerateParser ${ANTLR_LIBRARY})
+endif()
+
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
@@ -515,7 +562,9 @@ if (UNIX)
 endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-  target_link_libraries(uhdm PRIVATE stdc++fs)
+  if(NOT SURELOG_USE_HOST_UHDM)
+    target_link_libraries(uhdm PRIVATE stdc++fs)
+  endif()
   target_link_libraries(surelog PRIVATE stdc++fs)
   target_link_libraries(surelog PRIVATE rt)
 endif()
@@ -556,7 +605,7 @@ if (SURELOG_BUILD_TESTS)
       # For simplicity, we link the test with libsurelog, but there is of
       # course a lot unnecessary churn if headers are modified.
       # Often it is sufficient to just have a few depeendencies.
-      target_link_libraries(${test_bin} surelog gtest gmock gtest_main)
+      target_link_libraries(${test_bin} surelog GTest::gtest GTest::gmock GTest::gtest_main)
       gtest_discover_tests(${test_bin}
         TEST_PREFIX "${test_prefix}/"
         DISCOVERY_TIMEOUT 60)
@@ -658,6 +707,8 @@ add_dependencies(hellosureworld PrecompileOVM)
 add_dependencies(hellosureworld PrecompileUVM)
 endif()
 
+include(GNUInstallDirs)
+
 # Installation target
 if (QUICK_COMP)
   install(
@@ -676,14 +727,13 @@ install(
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
 
-# TODO: SURELOG_USE_HOST_ANTLR
-install(
-  TARGETS antlr4_static
-  EXPORT Surelog
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
-target_include_directories(surelog PRIVATE
-                           third_party/antlr4/runtime/Cpp/runtime/src)
+if(NOT SURELOG_USE_HOST_ANTLR)
+  install(
+    TARGETS antlr4_static
+    EXPORT Surelog
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
+endif()
 
 if(NOT SURELOG_USE_HOST_FLATBUFFERS)
   # TODO: should we even install these from third_party ? If it is
@@ -696,19 +746,19 @@ if(NOT SURELOG_USE_HOST_FLATBUFFERS)
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
 endif()
 
-# TODO SURELOG_USE_HOST_CAPNP
-install(
-  TARGETS capnp kj
-  EXPORT Surelog
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
+if(NOT SURELOG_USE_HOST_UHDM)
+  install(
+    TARGETS capnp kj
+    EXPORT Surelog
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
 
-# TODO: SURELOG_USE_HOST_UHDM
-install(
-  TARGETS uhdm
-  EXPORT Surelog
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
+  install(
+    TARGETS uhdm
+    EXPORT Surelog
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
+endif()
 
 if (SURELOG_WITH_PYTHON)
   install(
@@ -716,8 +766,7 @@ if (SURELOG_WITH_PYTHON)
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
 endif()
 
-install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg
-  DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/CommandLine/CommandLineParser.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/CommandLine)
@@ -850,6 +899,8 @@ install(
   EXPORT Surelog
   FILE Surelog.cmake
   DESTINATION cmake)
+
+# Generate cmake config files for reuse by downstream packages
 include(CMakePackageConfigHelpers)
 
 # generate the config file that is includes the exports
