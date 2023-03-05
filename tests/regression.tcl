@@ -444,6 +444,7 @@ proc formal_verification { command testname } {
     global env SHELL SHELL_ARGS YOSYS_EXE SV2V_EXE TIME
     set yosys_command ""
     set output_dir ""
+    set source_file ""
     for {set i 0} {$i < [llength $command]} {incr i} {
         set token [lindex $command $i]
         if {$token == "-o"} {
@@ -456,18 +457,42 @@ proc formal_verification { command testname } {
             continue
         }
         if [file exist $token] {
+            exec sh -c "sed -i 's/\"inv\"/4/g' $token"
+
             append yosys_command "$token "
+            set source_file $token
         }
     }
+
+    set fid [open $source_file]
+    set content [read $fid]
+    set lines [split $content "\n"]
+    set top_module ""
+    set inv_parameters ""
+    foreach line $lines {
+        regexp {^module[ ]+([a-zA-Z0-9_-]+)} $line tmp top_module
+        if [regexp {([a-zA-Z0-9_]+)=\"inv\"} $line tmp inv_parameter] {
+            lappend inv_parameters $inv_parameter
+        }
+    }
+    close $fid
+    set surelog_param_command ""
+    set yosys_param_command ""
+    if {($top_module != "") && ($inv_parameters != "")} {
+        foreach inv_parameter $inv_parameters {
+            append surelog_param_command "-P$inv_parameter=4 "
+            append yosys_param_command "setparam -set $inv_parameter 4 $top_module\n"
+        }
+    }
+
+    
     # Surelog parser
     set yid [open "$output_dir/surelog.ys" "w"]
     puts $yid "plugin -i systemverilog"
-    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $yosys_command"
-#    puts $yid "synth_xilinx"    
+    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $surelog_param_command $yosys_command"
     puts $yid "hierarchy -auto-top"
     puts $yid "synth"    
     puts $yid "write_verilog  $output_dir/surelog_gate.v"
-    #puts $yid "synth_xilinx"
     close $yid
     set surelog_parse ""
     catch {set out [exec $YOSYS_EXE -s "$output_dir/surelog.ys" -q -q -l $output_dir/surelog.out]} surelog_parse
@@ -475,9 +500,9 @@ proc formal_verification { command testname } {
     # Yosys parser
     set yid [open "$output_dir/yosys.ys" "w"]
     puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 -sv $yosys_command"
+    puts $yid "$yosys_param_command"
     puts $yid "hierarchy -auto-top"
     puts $yid "synth"    
-    #    puts $yid "synth_xilinx"
     puts $yid "write_verilog $output_dir/yosys_gate.v"
     close $yid
     set yosys_parse ""
@@ -488,11 +513,13 @@ proc formal_verification { command testname } {
     if [regexp {ERROR:} $yosys_parse] {
         catch {set out [exec $SV2V_EXE [lindex $yosys_command 0] -w=$output_dir/sv2v.v]} yosys_parse
         set yid [open "$output_dir/yosys.ys" "w"]
+        if [file exist $output_dir/sv2v.v] {
+            exec sh -c "sed -i 's/\"inv\"/4/g' $output_dir/sv2v.v"
+        }
         puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 $output_dir/sv2v.v"
+        puts $yid "$yosys_param_command"
         puts $yid "hierarchy -auto-top"
         puts $yid "synth"    
-        #puts $yid "synth_xilinx"
-        #puts $yid "dffinit"
         puts $yid "write_verilog $output_dir/yosys_gate.v"
         close $yid
         set yosys_parse ""
@@ -736,9 +763,9 @@ proc run_regression { } {
                     puts "\n$FINAL_COMMAND\n"
                 }
 
-                catch {set time_result [exec $SHELL $SHELL_ARGS "$FINAL_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 if {$VERIFICATION == 0} {
-       
+                    catch {set time_result [exec $SHELL $SHELL_ARGS "$FINAL_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+
                     if [file exist $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm] {
                         if [catch {exec $SHELL $SHELL_ARGS "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
                             set passstatus "FAILDUMP"
@@ -751,6 +778,16 @@ proc run_regression { } {
                         }
                     }
                 } else {
+                    set time_result ""
+                    set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "w"]
+                    puts $fid "\[  FATAL\] : 0"
+                    puts $fid "\[ SYNTAX\] : 0"
+                    puts $fid "\[WARNING\] : 0"
+                    puts $fid "\[  ERROR\] : 0"
+                    puts $fid "\[   NOTE\] : 0"
+
+
+                    close $fid
                     set verification_result [formal_verification $command $testname]
                     set time_result [lindex $verification_result 1]
                     set verification_result [lindex $verification_result 0]
