@@ -34,15 +34,16 @@ using LineColumn = std::pair<int, int>;  // TODO: make <size_t, size_t> ?
 
 LineColumn getLineColumn(antlr4::CommonTokenStream* stream,
                          antlr4::ParserRuleContext* context);
-
 LineColumn getEndLineColumn(antlr4::CommonTokenStream* stream,
                             antlr4::ParserRuleContext* context);
 
-LineColumn getLineColumn(antlr4::tree::TerminalNode* node);
+LineColumn getLineColumn(antlr4::Token* token);
+LineColumn getEndLineColumn(antlr4::Token* token);
 
+LineColumn getLineColumn(antlr4::tree::TerminalNode* node);
 LineColumn getEndLineColumn(antlr4::tree::TerminalNode* node);
 
-std::vector<ParseTree*> getTopTokenList(ParseTree* tree);
+const std::vector<ParseTree*>& getTopTokenList(ParseTree* tree);
 void tokenizeAtComma(std::vector<std::string>& actualArgs,
                      const std::vector<ParseTree*>& tokens);
 

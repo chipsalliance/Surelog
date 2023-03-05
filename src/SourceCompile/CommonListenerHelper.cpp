@@ -31,11 +31,6 @@ namespace SURELOG {
 
 using namespace antlr4;
 
-CommonListenerHelper::~CommonListenerHelper() {
-  // TODO: ownership not clear
-  // delete m_fileContent;
-}
-
 NodeId CommonListenerHelper::NodeIdFromContext(
     const antlr4::tree::ParseTree* ctx) const {
   auto found = m_contextToObjectMap.find(ctx);
@@ -89,10 +84,9 @@ unsigned int CommonListenerHelper::Line(NodeId index) const {
   return m_fileContent->Line(index);
 }
 
-int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
-                                     VObjectType objtype) {
-  PathId fileId;
-  auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
+NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
+                                        VObjectType objtype) {
+  auto [fileId, line, column, endLine, endColumn] = getFileLine(ctx, nullptr);
 
   NodeId objectIndex = m_fileContent->addObject(sym, fileId, objtype, line,
                                                 column, endLine, endColumn);
@@ -114,14 +108,14 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
   return objectIndex;
 }
 
-int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
-                                     std::string_view name,
-                                     VObjectType objtype) {
+NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx,
+                                        std::string_view name,
+                                        VObjectType objtype) {
   return addVObject(ctx, registerSymbol(name), objtype);
 }
 
-int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
-                                     VObjectType objtype) {
+NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx,
+                                        VObjectType objtype) {
   return addVObject(ctx, BadSymbolId, objtype);
 }
 

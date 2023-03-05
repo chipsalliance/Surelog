@@ -49,12 +49,9 @@ class ParseLibraryDef;
 
 class SV3_1aTreeShapeHelper : public CommonListenerHelper {
  public:
-  SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,
-                        unsigned int lineOffset);
-  SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
+  ~SV3_1aTreeShapeHelper() override = default;
 
-  ~SV3_1aTreeShapeHelper() override;
-
+ protected:
   void logError(ErrorDefinition::ErrorType error,
                 antlr4::ParserRuleContext* ctx, std::string_view object,
                 bool printColumn = false);
@@ -82,8 +79,14 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   std::pair<double, TimeInfo::Unit> getTimeValue(
       SV3_1aParser::Time_literalContext* ctx);
 
-  std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
-  getFileLine(antlr4::ParserRuleContext* ctx, PathId& fileId) override;
+  std::tuple<PathId, unsigned int, unsigned short, unsigned int, unsigned short>
+  getFileLine(antlr4::ParserRuleContext* ctx,
+              antlr4::Token* token) const override;
+
+ protected:
+  SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,
+                        unsigned int lineOffset);
+  SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
 
  protected:
   ParseFile* m_pf;

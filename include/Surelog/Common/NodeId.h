@@ -50,7 +50,7 @@ class NodeId final {
     return id;
   }
 
-  operator bool() const { return id != InvalidRawNodeId; }
+  explicit operator bool() const { return id != InvalidRawNodeId; }
 
   bool operator<(const NodeId &rhs) const { return id < rhs.id; }
   bool operator<=(const NodeId &rhs) const { return id <= rhs.id; }

@@ -76,6 +76,7 @@ class CompileSourceFile final {
   Library* getLibrary() const { return m_library; }
   void registerPP(PreprocessFile* pp) { m_ppIncludeVec.push_back(pp); }
   bool initParser();
+  void setParser(ParseFile* pf) { m_parser = pf; }
 
   const std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
                  SymbolIdLessThanComparer>&

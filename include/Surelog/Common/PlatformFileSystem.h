@@ -156,6 +156,9 @@ class PlatformFileSystem : public FileSystem {
   PathIdVector &matching(PathId dirId, std::string_view pattern,
                          SymbolTable *symbolTable,
                          PathIdVector &container) override;
+  PathIdVector &matching(PathId dirId, const std::regex &pattern,
+                         SymbolTable *symbolTable,
+                         PathIdVector &container) override;
 
   PathId getChild(PathId id, std::string_view name,
                   SymbolTable *symbolTable) override;

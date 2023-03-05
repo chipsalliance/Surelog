@@ -27,7 +27,6 @@
 
 #include <fstream>
 #include <iostream>
-#include <regex>
 
 namespace SURELOG {
 static constexpr bool kEnableLogs = false;
@@ -895,6 +894,43 @@ PathIdVector &PlatformFileSystem::collect(PathId dirId,
 }
 
 PathIdVector &PlatformFileSystem::matching(PathId dirId,
+                                           const std::regex &pattern,
+                                           SymbolTable *symbolTable,
+                                           PathIdVector &container) {
+  std::filesystem::path prefix = toPath(dirId);
+  if (prefix.empty()) return container;
+
+  std::error_code ec;
+  const std::filesystem::directory_options options =
+      std::filesystem::directory_options::skip_permission_denied |
+      std::filesystem::directory_options::follow_directory_symlink;
+
+  for (const std::filesystem::directory_entry &entry :
+       std::filesystem::recursive_directory_iterator(prefix, options)) {
+    const std::filesystem::path &absolute = entry.path();
+    if (std::filesystem::is_regular_file(absolute, ec) && !ec) {
+      const std::string relative =
+          std::filesystem::relative(absolute, prefix, ec).string();
+      std::smatch match;
+      if (!ec && std::regex_match(relative, match, pattern)) {
+        if (std::filesystem::is_regular_file(absolute, ec) && !ec) {
+          container.emplace_back(toPathId(absolute.string(), symbolTable));
+        }
+      }
+    }
+  }
+
+  if (kEnableLogs) {
+    std::cerr << "matching: " << PathIdPP(dirId) << " => " << std::endl;
+    for (const PathId &fileId : container) {
+      std::cerr << "    " << PathIdPP(fileId) << std::endl;
+    }
+  }
+
+  return container;
+}
+
+PathIdVector &PlatformFileSystem::matching(PathId dirId,
                                            std::string_view pattern,
                                            SymbolTable *symbolTable,
                                            PathIdVector &container) {
@@ -954,35 +990,9 @@ PathIdVector &PlatformFileSystem::matching(PathId dirId,
   regexp = StringUtils::replaceAll(
       regexp, "*", StrCat("[^", escaped, "]*"));  // free for all
 
-  const std::regex regex(regexp);
-  const std::filesystem::directory_options options =
-      std::filesystem::directory_options::skip_permission_denied |
-      std::filesystem::directory_options::follow_directory_symlink;
-
-  for (const std::filesystem::directory_entry &entry :
-       std::filesystem::recursive_directory_iterator(prefix, options)) {
-    const std::filesystem::path &absolute = entry.path();
-    if (std::filesystem::is_regular_file(absolute, ec) && !ec) {
-      const std::string relative =
-          std::filesystem::relative(absolute, prefix, ec).string();
-      std::smatch match;
-      if (!ec && std::regex_match(relative, match, regex)) {
-        if (std::filesystem::is_regular_file(absolute, ec) && !ec) {
-          container.emplace_back(toPathId(absolute.string(), symbolTable));
-        }
-      }
-    }
-  }
-
-  if (kEnableLogs) {
-    std::cerr << "matching: " << PathIdPP(dirId) << ", " << pattern << " => "
-              << std::endl;
-    for (PathId fileId : container) {
-      std::cerr << "    " << PathIdPP(fileId) << std::endl;
-    }
-  }
-
-  return container;
+  const std::regex patregex(regexp);
+  const PathId prefixId = toPathId(prefix.string(), symbolTable);
+  return matching(prefixId, patregex, symbolTable, container);
 }
 
 PathId PlatformFileSystem::getChild(PathId id, std::string_view name,

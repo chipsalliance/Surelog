@@ -39,6 +39,9 @@ namespace SURELOG {
 class SymbolTable;
 
 class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
+ public:
+  ~SV3_1aPpTreeListenerHelper() override = default;
+
  protected:
   PreprocessFile* m_pp;
   bool m_inActiveBranch;
@@ -49,21 +52,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   antlr4::ParserRuleContext* m_append_paused_context;
   PreprocessFile::SpecialInstructions m_instructions;
 
- public:
-  SV3_1aPpTreeListenerHelper(PreprocessFile* pp,
-                             PreprocessFile::SpecialInstructions& instructions,
-                             antlr4::CommonTokenStream* tokens)
-      : CommonListenerHelper(nullptr, tokens),
-        m_pp(pp),
-        m_inActiveBranch(true),
-        m_inMacroDefinitionParsing(false),
-        m_inProtectedRegion(false),
-        m_filterProtectedRegions(false),
-        m_append_paused_context(nullptr),
-        m_instructions(instructions) {
-    init();
-  }
-
+ protected:
   // Helper function if-else
   void setCurrentBranchActivity(unsigned int currentLine);
   // Helper function if-else
@@ -85,10 +74,24 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   SymbolTable* getSymbolTable() const;
   SymbolId registerSymbol(std::string_view symbol) final;
 
-  std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
-  getFileLine(antlr4::ParserRuleContext* ctx, PathId& fileId) override;
+  std::tuple<PathId, unsigned int, unsigned short, unsigned int, unsigned short>
+  getFileLine(antlr4::ParserRuleContext* ctx,
+              antlr4::Token* token) const override;
 
-  ~SV3_1aPpTreeListenerHelper() override = default;
+ protected:
+  SV3_1aPpTreeListenerHelper(PreprocessFile* pp,
+                             PreprocessFile::SpecialInstructions& instructions,
+                             antlr4::CommonTokenStream* tokens)
+      : CommonListenerHelper(nullptr, tokens),
+        m_pp(pp),
+        m_inActiveBranch(true),
+        m_inMacroDefinitionParsing(false),
+        m_inProtectedRegion(false),
+        m_filterProtectedRegions(false),
+        m_append_paused_context(nullptr),
+        m_instructions(instructions) {
+    init();
+  }
 };
 
 }  // namespace SURELOG
