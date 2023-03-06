@@ -42,14 +42,14 @@ PlatformFileSystem::~PlatformFileSystem() {
     std::scoped_lock<std::mutex> lock(m_inputStreamsMutex);
 
     while (!m_inputStreams.empty()) {
-      close(*m_inputStreams.begin()->get());
+      close(**m_inputStreams.begin());
     }
   }
   {
     std::scoped_lock<std::mutex> lock(m_outputStreamsMutex);
 
     while (!m_outputStreams.empty()) {
-      close(*m_outputStreams.begin()->get());
+      close(**m_outputStreams.begin());
     }
   }
 

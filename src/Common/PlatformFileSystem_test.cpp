@@ -568,7 +568,7 @@ class InMemoryFileSystem : public TestFileSystem {
     std::pair<InputStreams::iterator, bool> it2 =
         m_inputStreams.emplace(new std::istringstream(it1->second));
 
-    return *it2.first->get();
+    return **it2.first;
   }
 
   bool close(std::istream &strm) override {
@@ -604,7 +604,7 @@ class InMemoryFileSystem : public TestFileSystem {
         m_outputStreams.emplace(new std::ostringstream(content, mode));
     m_openOutputFiles.emplace(it.first->get(), filepath);
 
-    return *it.first->get();
+    return **it.first;
   }
 
   bool saveContent(PathId fileId, const char *content, std::streamsize length,

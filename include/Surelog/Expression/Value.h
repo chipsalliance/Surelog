@@ -441,7 +441,7 @@ class StValue final : public Value {
   friend LValue;
 
  public:
-  StValue() : m_type(Type::String), m_value(""), m_size(0), m_valid(false) {}
+  StValue() : m_type(Type::String),  m_size(0), m_valid(false) {}
   explicit StValue(std::string_view val)
       : m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true) {}
   ~StValue() final;

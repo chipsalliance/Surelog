@@ -25,6 +25,7 @@
 #define SURELOG_UHDMWRITER_H
 #pragma once
 
+#include <Surelog/Design/Netlist.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 

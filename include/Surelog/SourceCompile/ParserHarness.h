@@ -28,6 +28,8 @@
 #include <memory>
 #include <string>
 
+#include <Surelog/Common/PathId.h>
+
 namespace SURELOG {
 
 class Compiler;

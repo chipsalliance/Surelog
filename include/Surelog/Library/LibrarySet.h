@@ -25,6 +25,7 @@
 #define SURELOG_LIBRARYSET_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 
 #include <ostream>
