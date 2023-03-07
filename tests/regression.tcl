@@ -445,6 +445,7 @@ proc formal_verification { command testname } {
     set yosys_command ""
     set output_dir ""
     set source_file ""
+    set directory ""
     for {set i 0} {$i < [llength $command]} {incr i} {
         set token [lindex $command $i]
         if {$token == "-o"} {
@@ -457,8 +458,8 @@ proc formal_verification { command testname } {
             continue
         }
         if [file exist $token] {
-            exec sh -c "sed -i 's/\"inv\"/4/g' $token"
-
+            exec sh -c "sed -i 's/\"inv\"/16/g' $token"
+            set directory [file dirname $token]
             append yosys_command "$token "
             set source_file $token
         }
@@ -469,6 +470,7 @@ proc formal_verification { command testname } {
     set lines [split $content "\n"]
     set top_module ""
     set inv_parameters ""
+    set packages "[findFiles . *_pkg.v]"
     foreach line $lines {
         regexp {^module[ ]+([a-zA-Z0-9_-]+)} $line tmp top_module
         if [regexp {([a-zA-Z0-9_]+)=\"inv\"} $line tmp inv_parameter] {
@@ -480,8 +482,8 @@ proc formal_verification { command testname } {
     set yosys_param_command ""
     if {($top_module != "") && ($inv_parameters != "")} {
         foreach inv_parameter $inv_parameters {
-            append surelog_param_command "-P$inv_parameter=4 "
-            append yosys_param_command "setparam -set $inv_parameter 4 $top_module\n"
+            append surelog_param_command "-P$inv_parameter=16 "
+            append yosys_param_command "setparam -set $inv_parameter 16 $top_module\n"
         }
     }
 
@@ -489,7 +491,7 @@ proc formal_verification { command testname } {
     # Surelog parser
     set yid [open "$output_dir/surelog.ys" "w"]
     puts $yid "plugin -i systemverilog"
-    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $surelog_param_command $yosys_command"
+    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $packages -y $directory +libext+.v+.sv $surelog_param_command $yosys_command"
     puts $yid "hierarchy -auto-top"
     puts $yid "synth"    
     puts $yid "write_verilog  $output_dir/surelog_gate.v"
@@ -497,26 +499,39 @@ proc formal_verification { command testname } {
     set surelog_parse ""
     catch {set out [exec $YOSYS_EXE -s "$output_dir/surelog.ys" -q -q -l $output_dir/surelog.out]} surelog_parse
     initialize_reg $output_dir/surelog_gate.v
-    # Yosys parser
-    set yid [open "$output_dir/yosys.ys" "w"]
-    puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 -sv $yosys_command"
-    puts $yid "$yosys_param_command"
-    puts $yid "hierarchy -auto-top"
-    puts $yid "synth"    
-    puts $yid "write_verilog $output_dir/yosys_gate.v"
-    close $yid
-    set yosys_parse ""
-    catch {set out [exec $YOSYS_EXE -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
-    initialize_reg $output_dir/yosys_gate.v
-
-    # If Yosys parser fails, try again with SV2V
-    if [regexp {ERROR:} $yosys_parse] {
-        catch {set out [exec $SV2V_EXE [lindex $yosys_command 0] -w=$output_dir/sv2v.v]} yosys_parse
-        set yid [open "$output_dir/yosys.ys" "w"]
-        if [file exist $output_dir/sv2v.v] {
-            exec sh -c "sed -i 's/\"inv\"/4/g' $output_dir/sv2v.v"
+    
+    if [regexp {/src} [pwd]] {
+        set yosys_parse ""
+        set dir [file dirname [pwd]]
+        puts $dir
+        set ref_candidates [findDirs $dir  "$top_module*"]
+        set found 0
+        puts $ref_candidates
+        foreach candidate $ref_candidates {
+            puts $candidate
+            if [regexp {_p_16$} $candidate] {
+                if [file exist $candidate/top.v] {
+                    set found 1
+                    file copy -force $candidate/top.v $output_dir/yosys_gate.v
+                }
+                break
+            }
         }
-        puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 $output_dir/sv2v.v"
+        if {$found == 0} {
+            foreach candidate $ref_candidates {
+                if [file exist $candidate/top.v] {
+                    set found 1
+                    file copy -force $candidate/top.v $output_dir/yosys_gate.v
+                }
+                break
+            }
+        }
+        set f [open $output_dir/yosys.out "w"]
+        close $f
+    } else {
+        # Yosys parser
+        set yid [open "$output_dir/yosys.ys" "w"]
+        puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 -sv $yosys_command"
         puts $yid "$yosys_param_command"
         puts $yid "hierarchy -auto-top"
         puts $yid "synth"    
@@ -525,7 +540,25 @@ proc formal_verification { command testname } {
         set yosys_parse ""
         catch {set out [exec $YOSYS_EXE -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
         initialize_reg $output_dir/yosys_gate.v
-
+        
+        # If Yosys parser fails, try again with SV2V
+        if [regexp {ERROR:} $yosys_parse] {
+            catch {set out [exec $SV2V_EXE [lindex $yosys_command 0] -w=$output_dir/sv2v.v]} yosys_parse
+            set yid [open "$output_dir/yosys.ys" "w"]
+            if [file exist $output_dir/sv2v.v] {
+                exec sh -c "sed -i 's/\"inv\"/4/g' $output_dir/sv2v.v"
+            }
+            puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 $output_dir/sv2v.v"
+            puts $yid "$yosys_param_command"
+            puts $yid "hierarchy -auto-top"
+            puts $yid "synth"    
+            puts $yid "write_verilog $output_dir/yosys_gate.v"
+            close $yid
+            set yosys_parse ""
+            catch {set out [exec $YOSYS_EXE -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
+            initialize_reg $output_dir/yosys_gate.v
+            
+        }
     }
     
     if [file exist "$output_dir/surelog.out"] {
@@ -544,8 +577,7 @@ proc formal_verification { command testname } {
         set cells_sim $yosys_path/share/yosys/xilinx/cells_sim.v
         set cells_xtra $yosys_path/share/yosys/xilinx/cells_xtra.v
     }
-
-    # Equivalence checking 
+    # Equivalence checking
     if {($surelog_parse == "") && ($yosys_parse == "")} {
         set diff ""
         catch {set diff [exec $SHELL $SHELL_ARGS "diff $output_dir/surelog_gate.v $output_dir/yosys_gate.v"]} diff
