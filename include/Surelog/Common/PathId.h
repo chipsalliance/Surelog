@@ -28,14 +28,6 @@
 #include <unordered_set>
 #include <vector>
 
-#if !defined(PATHID_DEBUG_ENABLED)
-#if defined(DEBUG) || defined(_DEBUG)
-#define PATHID_DEBUG_ENABLED 1
-#else
-#define PATHID_DEBUG_ENABLED 0
-#endif
-#endif
-
 namespace SURELOG {
 /**
  * class PathId
