@@ -55,29 +55,29 @@ jobs:
       run: |
         git clone https://github.com/google/flatbuffers.git
         pushd flatbuffers
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 . && cmake --build build && sudo cmake --install build
+        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
         popd
 
         git clone https://github.com/google/googletest.git
         pushd googletest
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 . && cmake --build build && sudo cmake --install build
+        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
         popd
 
         git clone https://github.com/capnproto/capnproto.git
         pushd capnproto
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 . && cmake --build build && sudo cmake --install build
+        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
         popd
 
         git clone https://github.com/chipsalliance/UHDM.git
         pushd UHDM
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DUHDM_USE_HOST_GTEST=ON -DUHDM_USE_HOST_CAPNP=ON . && cmake --build build && sudo cmake --install build
+        cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DUHDM_USE_HOST_GTEST=ON -DUHDM_USE_HOST_CAPNP=ON . && cmake --build build && sudo cmake --install build
         popd
 
         sudo mkdir -p /usr/share/java
         sudo wget https://www.antlr.org/download/antlr-4.12.0-complete.jar -P /usr/share/java
         wget https://www.antlr.org/download/antlr4-cpp-runtime-4.12.0-source.zip && mkdir antlr4
         pushd antlr4
-        unzip ../antlr4-cpp-runtime-4.12.0-source.zip && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 . && cmake --build build && sudo cmake --install build
+        unzip ../antlr4-cpp-runtime-4.12.0-source.zip && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
         popd
       if: ${{ !matrix.vendored_dependencies }}
 
@@ -94,7 +94,7 @@ jobs:
         export INSTALL_DIR=`pwd`/install
 
         if [ "${{ matrix.vendored_dependencies }}" == "false" ]; then
-          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DSURELOG_USE_HOST_FLATBUFFERS=ON -DSURELOG_USE_HOST_ANTLR=ON -DSURELOG_USE_HOST_UHDM=ON -DSURELOG_USE_HOST_GTEST=ON -S . -B build
+          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DBUILD_SHARED_LIBS=ON -DSURELOG_USE_HOST_FLATBUFFERS=ON -DSURELOG_USE_HOST_ANTLR=ON -DSURELOG_USE_HOST_UHDM=ON -DSURELOG_USE_HOST_GTEST=ON -S . -B build
         else
           cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR $CMAKE_ADDITIONAL_ARGS -S . -B build
         fi
@@ -108,7 +108,7 @@ jobs:
         rm -rf build      # make sure we only see installation artifacts
 
         if [ "${{ matrix.vendored_dependencies }}" == "false" ]; then
-          cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$INSTALL_DIR -DCMAKE_INSTALL_PREFIX=/home/timkpaine/Developer/programs/dau/third/Surelog/install -DSURELOG_USE_HOST_FLATBUFFERS=ON -DSURELOG_USE_HOST_ANTLR=ON -DSURELOG_USE_HOST_UHDM=ON -DSURELOG_USE_HOST_GTEST=ON -S tests/TestInstall -B tests/TestInstall/build
+          cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$INSTALL_DIR -DCMAKE_INSTALL_PREFIX=/home/timkpaine/Developer/programs/dau/third/Surelog/install -DBUILD_SHARED_LIBS=ON -DSURELOG_USE_HOST_FLATBUFFERS=ON -DSURELOG_USE_HOST_ANTLR=ON -DSURELOG_USE_HOST_UHDM=ON -DSURELOG_USE_HOST_GTEST=ON -S tests/TestInstall -B tests/TestInstall/build
         else
           cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DINSTALL_DIR=$INSTALL_DIR -S tests/TestInstall -B tests/TestInstall/build
         fi
