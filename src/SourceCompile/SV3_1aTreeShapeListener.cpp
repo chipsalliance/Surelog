@@ -929,6 +929,7 @@ void SV3_1aTreeShapeListener::exitIdentifier(
     ident = ctx->Escaped_identifier()->getText();
     ident.erase(0, 3);
     ident.erase(ident.size() - 3, 3);
+    ident = StringUtils::rtrim(ident);
   } else if (ctx->THIS())
     ident = ctx->THIS()->getText();
   else if (ctx->RANDOMIZE())

@@ -1,6 +1,6 @@
 #!/usr/bin/env tclsh
 
-# Copyright 2017-2021 Alain Dargelas
+# Copyright 2017-2023 Alain Dargelas
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+set script_path [ file dirname [ file normalize [ info script ] ] ]
+source $script_path/json.tcl
+source $script_path/pdict.tcl
 
 variable myLocation [file normalize [info script]]
 set myProjetPathNoNormalize [file dirname [file dirname [info script]]]
@@ -444,7 +446,6 @@ proc formal_verification { command testname } {
     global env SHELL SHELL_ARGS YOSYS_EXE SV2V_EXE TIME
     set yosys_command ""
     set output_dir ""
-    set source_file ""
     set directory ""
     for {set i 0} {$i < [llength $command]} {incr i} {
         set token [lindex $command $i]
@@ -458,40 +459,62 @@ proc formal_verification { command testname } {
             continue
         }
         if [file exist $token] {
-            exec sh -c "sed -i 's/\"inv\"/16/g' $token"
             set directory [file dirname $token]
             append yosys_command "$token "
-            set source_file $token
         }
     }
-
-    set fid [open $source_file]
-    set content [read $fid]
-    set lines [split $content "\n"]
     set top_module ""
-    set inv_parameters ""
-    set packages "[findFiles . *_pkg.v]"
-    foreach line $lines {
-        regexp {^module[ ]+([a-zA-Z0-9_-]+)} $line tmp top_module
-        if [regexp {([a-zA-Z0-9_]+)=\"inv\"} $line tmp inv_parameter] {
-            lappend inv_parameters $inv_parameter
-        }
-    }
-    close $fid
     set surelog_param_command ""
-    set yosys_param_command ""
-    if {($top_module != "") && ($inv_parameters != "")} {
-        foreach inv_parameter $inv_parameters {
-            append surelog_param_command "-P$inv_parameter=16 "
-            append yosys_param_command "setparam -set $inv_parameter 16 $top_module\n"
-        }
-    }
-
     
+    set search_modules ""
+    if [regexp {/src} [pwd]] {
+        set search_modules "-y $directory +libext+.v+.sv"
+        set yosys_command ""
+        set dir [file dirname [pwd]]
+        set json [findFiles $dir "*.json"]
+        set fid [open $json]
+        set content [read $fid]
+        close $fid
+        set di [json::json2dict $content]
+        #pdict $di
+        set design_name ""
+        set filelist ""
+        set parameters ""
+        set gate_design_dir ""
+        dict for {key val} $di {
+            if {$key == "design_name"} {
+                set design_name $val
+                set gate_design_dir $design_name
+            } elseif {$key == "filelist"} {
+                set filelist $val
+                foreach file $filelist {
+                    append yosys_command "[file tail $file] "
+                }
+            } elseif {$key == "run_config"} {
+                set configs $val
+                foreach config $configs {
+                    dict for {key val} $config {
+                        if {$key == "parameters"} {
+                            set parameters $val
+                            foreach param $parameters {
+                                append surelog_param_command "-P$param "
+                                regsub {=} $param "_" param
+                                append gate_design_dir "_$param"
+                            }
+                        }
+                    }
+                    # stop at the first config
+                    break
+                }
+            }
+        }
+        set f [open $output_dir/yosys.out "w"]
+        close $f
+    }
     # Surelog parser
     set yid [open "$output_dir/surelog.ys" "w"]
     puts $yid "plugin -i systemverilog"
-    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $packages -y $directory +libext+.v+.sv $surelog_param_command $yosys_command"
+    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $search_modules $surelog_param_command $yosys_command"
     puts $yid "hierarchy -auto-top"
     puts $yid "synth"    
     puts $yid "write_verilog  $output_dir/surelog_gate.v"
@@ -502,37 +525,15 @@ proc formal_verification { command testname } {
     
     if [regexp {/src} [pwd]] {
         set yosys_parse ""
-        set dir [file dirname [pwd]]
-        puts $dir
-        set ref_candidates [findDirs $dir  "$top_module*"]
-        set found 0
-        puts $ref_candidates
-        foreach candidate $ref_candidates {
-            puts $candidate
-            if [regexp {_p_16$} $candidate] {
-                if [file exist $candidate/top.v] {
-                    set found 1
-                    file copy -force $candidate/top.v $output_dir/yosys_gate.v
-                }
-                break
-            }
+        if [file exists $dir/$gate_design_dir/top.v] {
+            file copy -force $dir/$gate_design_dir/top.v $output_dir/yosys_gate.v
+        } else {
+            set yosys_parse "NO FILE"
         }
-        if {$found == 0} {
-            foreach candidate $ref_candidates {
-                if [file exist $candidate/top.v] {
-                    set found 1
-                    file copy -force $candidate/top.v $output_dir/yosys_gate.v
-                }
-                break
-            }
-        }
-        set f [open $output_dir/yosys.out "w"]
-        close $f
     } else {
         # Yosys parser
         set yid [open "$output_dir/yosys.ys" "w"]
         puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 -sv $yosys_command"
-        puts $yid "$yosys_param_command"
         puts $yid "hierarchy -auto-top"
         puts $yid "synth"    
         puts $yid "write_verilog $output_dir/yosys_gate.v"
@@ -549,7 +550,6 @@ proc formal_verification { command testname } {
                 exec sh -c "sed -i 's/\"inv\"/4/g' $output_dir/sv2v.v"
             }
             puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 $output_dir/sv2v.v"
-            puts $yid "$yosys_param_command"
             puts $yid "hierarchy -auto-top"
             puts $yid "synth"    
             puts $yid "write_verilog $output_dir/yosys_gate.v"
