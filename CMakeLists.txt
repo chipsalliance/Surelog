@@ -33,7 +33,7 @@ option(
   SURELOG_USE_HOST_GTEST
   "Use googletest library from host instead of third_party" OFF)
 option(
-   SURELOG_USE_TCMALLOC
+   SURELOG_WITH_TCMALLOC
    "Use tcmalloc if installed" ON)
 
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
@@ -115,15 +115,15 @@ else()
 endif()
 
 if(NO_TCMALLOC)  # Leave this message in for a while, then remove.
-  message(WARNING "-DNO_TCMALLOC has no effect, this option is now called -DSURELOG_USE_TCMALLOC=Off")
+  message(WARNING "-DNO_TCMALLOC has no effect, this option is now called -DSURELOG_WITH_TCMALLOC=Off")
 endif()
 
 # Use tcmalloc if requested and found on system.
-if(SURELOG_USE_TCMALLOC)
+if(SURELOG_WITH_TCMALLOC)
   find_library(TCMALLOC_LIBRARY NAMES tcmalloc)
   if (TCMALLOC_LIBRARY)
     message(WARNING
-        "Using tcmalloc; if this creates runtime issues, configure with -DSURELOG_USE_TCMALLOC=Off")
+        "Using tcmalloc; if this creates runtime issues, configure with -DSURELOG_WITH_TCMALLOC=Off")
     message("-- Found tcmalloc: ${TCMALLOC_LIBRARY}")
     set(TCMALLOC_COMPILE_OPTIONS
         "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")

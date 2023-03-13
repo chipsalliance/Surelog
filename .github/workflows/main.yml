@@ -85,7 +85,7 @@ jobs:
       run: |
         if [ "${{ matrix.config }}" == "debug" ]; then
           export BUILD_TYPE=Debug
-          export CMAKE_ADDITIONAL_ARGS=-DSURELOG_USE_TCMALLOC=Off
+          export CMAKE_ADDITIONAL_ARGS=-DSURELOG_WITH_TCMALLOC=Off
         else
           export BUILD_TYPE=Release
           export CMAKE_ADDITIONAL_ARGS=
@@ -432,10 +432,9 @@ jobs:
         echo 'CMAKE_GENERATOR=Ninja' >> $GITHUB_ENV
         echo 'CC=gcc' >> $GITHUB_ENV
         echo 'CXX=g++' >> $GITHUB_ENV
-        echo 'SURELOG_USE_TCMALLOC=Off' >> $GITHUB_ENV
         echo "PREFIX=${CWD}/install" >> $GITHUB_ENV
         echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR -DSURELOG_WITH_TCMALLOC=Off" >> $GITHUB_ENV
         echo "PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
 
         echo "$JAVA_HOME/bin" >> $GITHUB_PATH
@@ -681,13 +680,12 @@ jobs:
         set CMAKE_GENERATOR=Ninja
         set CC=cl
         set CXX=cl
-        set SURELOG_USE_TCMALLOC=Off
         set PREFIX=%GITHUB_WORKSPACE%\install
         set CPU_CORES=%NUMBER_OF_PROCESSORS%
 
         set MAKE_DIR=C:\make\bin
         set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%PATH%
-        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation%
+        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off
 
         set
         where cmake && cmake --version
@@ -711,13 +709,12 @@ jobs:
         set CMAKE_GENERATOR=Ninja
         set CC=clang
         set CXX=clang++
-        set SURELOG_USE_TCMALLOC=Off
         set PREFIX=%GITHUB_WORKSPACE%\install
         set CPU_CORES=%NUMBER_OF_PROCESSORS%
 
         set MAKE_DIR=C:\make\bin
         set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%PATH%
-        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation%
+        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off
 
         set
         where cmake && cmake --version
