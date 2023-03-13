@@ -85,12 +85,12 @@ jobs:
       run: |
         if [ "${{ matrix.config }}" == "debug" ]; then
           export BUILD_TYPE=Debug
-          export CMAKE_ADDITIONAL_ARGS=-DNO_TCMALLOC=On
+          export CMAKE_ADDITIONAL_ARGS=-DSURELOG_USE_TCMALLOC=Off
         else
           export BUILD_TYPE=Release
           export CMAKE_ADDITIONAL_ARGS=
         fi
- 
+
         export INSTALL_DIR=`pwd`/install
 
         if [ "${{ matrix.vendored_dependencies }}" == "false" ]; then
@@ -432,7 +432,7 @@ jobs:
         echo 'CMAKE_GENERATOR=Ninja' >> $GITHUB_ENV
         echo 'CC=gcc' >> $GITHUB_ENV
         echo 'CXX=g++' >> $GITHUB_ENV
-        echo 'NO_TCMALLOC=On' >> $GITHUB_ENV
+        echo 'SURELOG_USE_TCMALLOC=Off' >> $GITHUB_ENV
         echo "PREFIX=${CWD}/install" >> $GITHUB_ENV
         echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
         echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
@@ -681,7 +681,7 @@ jobs:
         set CMAKE_GENERATOR=Ninja
         set CC=cl
         set CXX=cl
-        set NO_TCMALLOC=On
+        set SURELOG_USE_TCMALLOC=Off
         set PREFIX=%GITHUB_WORKSPACE%\install
         set CPU_CORES=%NUMBER_OF_PROCESSORS%
 
@@ -711,7 +711,7 @@ jobs:
         set CMAKE_GENERATOR=Ninja
         set CC=clang
         set CXX=clang++
-        set NO_TCMALLOC=On
+        set SURELOG_USE_TCMALLOC=Off
         set PREFIX=%GITHUB_WORKSPACE%\install
         set CPU_CORES=%NUMBER_OF_PROCESSORS%
 
