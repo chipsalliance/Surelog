@@ -1723,7 +1723,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
           ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
           operation* op = (operation*)rhs;
           int opType = op->VpiOpType();
-          if (opType == vpiAssignmentPatternOp) {
+          if (opType == vpiAssignmentPatternOp || opType == vpiConditionOp) {
             if (m_helper.substituteAssignedValue(rhs, m_compileDesign)) {
               rhs = m_helper.expandPatternAssignment(tps, (UHDM::expr*)rhs, mod,
                                                      m_compileDesign,
