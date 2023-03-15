@@ -61,8 +61,10 @@ void SV3_1aPpTreeShapeListener::enterComments(
           ->getCommandLineParser()
           ->reportNonSynthesizable()) {
     if (ctx->One_line_comment()) {
+      std::regex reg1("\\/\\/\\s*synopsys\\s+translate_off\\s*");
+      std::regex reg2("\\/\\/\\s*pragma\\s+translate_off\\s*");
       const std::string &text = ctx->One_line_comment()->getText();
-      if (strstr(text.c_str(), "//pragma translate_off")) {
+      if (std::regex_match(text, reg1) || std::regex_match(text, reg2)) {
         m_filterProtectedRegions = true;
         m_inProtectedRegion = true;
       }
@@ -83,8 +85,10 @@ void SV3_1aPpTreeShapeListener::enterComments(
           ->getCommandLineParser()
           ->reportNonSynthesizable()) {
     if (ctx->One_line_comment()) {
+      std::regex reg1("\\/\\/\\s*synopsys\\s+translate_on\\s*");
+      std::regex reg2("\\/\\/\\s*pragma\\s+translate_on\\s*");
       const std::string &text = ctx->One_line_comment()->getText();
-      if (strstr(text.c_str(), "//pragma translate_on")) {
+      if (std::regex_match(text, reg1) || std::regex_match(text, reg2)) {
         if (!m_pp->getCompileSourceFile()
                  ->getCommandLineParser()
                  ->filterProtectedRegions()) {
@@ -434,6 +438,9 @@ void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(
 void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     SV3_1aPpParser::MacroInstanceWithArgsContext *ctx) {
   FileSystem *const fileSystem = FileSystem::getInstance();
+  if (m_filterProtectedRegions && m_inProtectedRegion) {
+    return;
+  }
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::pair<int, int> startLineCol =
         ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
@@ -571,6 +578,9 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
 
 void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
     SV3_1aPpParser::MacroInstanceWithArgsContext *ctx) {
+  if (m_filterProtectedRegions && m_inProtectedRegion) {
+    return;
+  }
   if (m_append_paused_context == ctx) {
     m_append_paused_context = nullptr;
     m_pp->resumeAppend();
@@ -581,6 +591,9 @@ void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
 void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     SV3_1aPpParser::MacroInstanceNoArgsContext *ctx) {
   FileSystem *const fileSystem = FileSystem::getInstance();
+  if (m_filterProtectedRegions && m_inProtectedRegion) {
+    return;
+  }
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::string macroName;
     std::pair<int, int> startLineCol =
