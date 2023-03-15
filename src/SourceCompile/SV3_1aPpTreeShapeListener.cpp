@@ -61,8 +61,8 @@ void SV3_1aPpTreeShapeListener::enterComments(
           ->getCommandLineParser()
           ->reportNonSynthesizable()) {
     if (ctx->One_line_comment()) {
-      std::regex reg1("\\/\\/\\s*synopsys\\s+translate_off\\s*");
-      std::regex reg2("\\/\\/\\s*pragma\\s+translate_off\\s*");
+      static const std::regex reg1(R"(\/\/\s*synopsys\s+translate_off\s*)");
+      static const std::regex reg2(R"(\/\/\s*pragma\s+translate_off\s*)");
       const std::string &text = ctx->One_line_comment()->getText();
       if (std::regex_match(text, reg1) || std::regex_match(text, reg2)) {
         m_filterProtectedRegions = true;
@@ -85,8 +85,8 @@ void SV3_1aPpTreeShapeListener::enterComments(
           ->getCommandLineParser()
           ->reportNonSynthesizable()) {
     if (ctx->One_line_comment()) {
-      std::regex reg1("\\/\\/\\s*synopsys\\s+translate_on\\s*");
-      std::regex reg2("\\/\\/\\s*pragma\\s+translate_on\\s*");
+      static const std::regex reg1(R"(\/\/\s*synopsys\s+translate_on\s*)");
+      static const std::regex reg2(R"(\/\/\s*pragma\s+translate_on\s*)");
       const std::string &text = ctx->One_line_comment()->getText();
       if (std::regex_match(text, reg1) || std::regex_match(text, reg2)) {
         if (!m_pp->getCompileSourceFile()
@@ -935,8 +935,10 @@ void SV3_1aPpTreeShapeListener::enterString(
       std::string stringData = stringContent;
       stringData.erase(0, 1);
       stringData.erase(stringData.end() - 1, stringData.end());
-      stringData = std::regex_replace(stringData, std::regex("``.``"), ".");
-      stringData = std::regex_replace(stringData, std::regex("``-``"), "-");
+      static const std::regex backtick_dot_re("``.``");
+      static const std::regex backtick_dash_re("``-``");
+      stringData = std::regex_replace(stringData, backtick_dot_re, ".");
+      stringData = std::regex_replace(stringData, backtick_dash_re, "-");
       std::string mem = stringData;
       stringData = m_pp->evaluateMacroInstance(
           stringData, m_pp, lineCol.first,
@@ -1001,7 +1003,7 @@ void SV3_1aPpTreeShapeListener::enterTimescale_directive(
   compUnitTimeInfo.m_fileId = m_pp->getFileId(0);
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->TIMESCALE());
   compUnitTimeInfo.m_line = lineCol.first;
-  std::regex base_regex(
+  static const std::regex base_regex(
       "[ ]*([0-9]+)([mnsupf]+)[ ]*/[ ]*([0-9]+)([mnsupf]+)[ ]*");
   std::smatch base_match;
   const std::string value = ctx->TIMESCALE()->getText();
