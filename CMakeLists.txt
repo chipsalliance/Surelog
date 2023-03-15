@@ -32,6 +32,9 @@ option(
 option(
   SURELOG_USE_HOST_GTEST
   "Use googletest library from host instead of third_party" OFF)
+option(
+   SURELOG_WITH_TCMALLOC
+   "Use tcmalloc if installed" ON)
 
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
 
@@ -111,19 +114,19 @@ else()
   message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
 endif()
 
-# Use tcmalloc if installed and not NO_TCMALLOC is on. TODO: don't use negative
-# names, but positive. -DWITH_TCMALLOC=Off is easier to understand than
-# -DNO_TCMALLOC=On
-if(NOT NO_TCMALLOC)
+if(NO_TCMALLOC)  # Leave this message in for a while, then remove.
+  message(WARNING "-DNO_TCMALLOC has no effect, this option is now called -DSURELOG_WITH_TCMALLOC=Off")
+endif()
+
+# Use tcmalloc if requested and found on system.
+if(SURELOG_WITH_TCMALLOC)
   find_library(TCMALLOC_LIBRARY NAMES tcmalloc)
-  if(TCMALLOC_LIBRARY)
-    message(
-      WARNING
-        "USING TCMALLOC, IF YOU HAVE RUNTIME ISSUES, DISABLE -DNO_TCMALLOC=On")
+  if (TCMALLOC_LIBRARY)
+    message(WARNING
+        "Using tcmalloc; if this creates runtime issues, configure with -DSURELOG_WITH_TCMALLOC=Off")
     message("-- Found tcmalloc: ${TCMALLOC_LIBRARY}")
     set(TCMALLOC_COMPILE_OPTIONS
-        "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
-    )
+        "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
   endif()
 endif()
 
@@ -546,12 +549,8 @@ if (SURELOG_WITH_PYTHON)
   target_link_libraries(surelog PRIVATE ${Python3_LIBRARIES})
 endif()
 
-#NOT WORKING: if($<BOOL:${TCMALLOC_LIBRARY}>)
-if(NOT NO_TCMALLOC)
-  find_library(TCMALLOC_LIBRARY NAMES tcmalloc)
-  if(TCMALLOC_LIBRARY)
-    target_link_libraries(surelog PRIVATE tcmalloc)
-  endif()
+if (TCMALLOC_LIBRARY)
+   target_link_libraries(surelog PRIVATE ${TCMALLOC_LIBRARY})
 endif()
 
 if (UNIX)
@@ -573,7 +572,7 @@ if (SURELOG_BUILD_TESTS)
   # Unit tests
   enable_testing()
   include(GoogleTest)
-  
+
   if(MSVC)
     # Microsoft reports the value of __cplusplus wrong and gmock/gtest pulls in the
     # string_view implementation based on it's value. Microsoft's solution is to
@@ -586,11 +585,11 @@ if (SURELOG_BUILD_TESTS)
     target_compile_options(gtest PRIVATE /Zc:__cplusplus)
     target_compile_options(gtest_main PRIVATE /Zc:__cplusplus)
   endif()
-  
+
   # All unit-tests are registered with this custom target as dependency, so
   # just `make UnitTests` will build them all.
   add_custom_target(UnitTests)
-  
+
   # Concise way to register a new google test
   # call with register_gtest(path/to/UnitTestFile.cpp)
   function(register_gtests)
@@ -598,10 +597,10 @@ if (SURELOG_BUILD_TESTS)
       # We create the binary name and test prefix from the cpp-filepath
       get_filename_component(test_bin ${gtest_cc_file} NAME_WE)
       get_filename_component(test_prefix ${gtest_cc_file} DIRECTORY)
-  
+
       # Build binary, link all relevant libs and extract tests
       add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
-  
+
       # For simplicity, we link the test with libsurelog, but there is of
       # course a lot unnecessary churn if headers are modified.
       # Often it is sufficient to just have a few depeendencies.
@@ -609,12 +608,12 @@ if (SURELOG_BUILD_TESTS)
       gtest_discover_tests(${test_bin}
         TEST_PREFIX "${test_prefix}/"
         DISCOVERY_TIMEOUT 60)
-  
+
       # Now, add this binary to our UnitTests target that it builds this
       add_dependencies(UnitTests ${test_bin})
     endforeach()
   endfunction()
-  
+
   register_gtests(
     src/Cache/PPCache_test.cpp
     src/CommandLine/CommandLineParser_test.cpp
