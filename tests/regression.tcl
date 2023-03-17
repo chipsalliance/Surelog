@@ -299,7 +299,7 @@ proc load_tests { } {
         if {$VERIFICATION == 0} {
             append fileList "[findFiles $dir *.sl] "
         } else {
-            if {$TESTTARGET == "src"} {
+            if {$TESTTARGET == "src" || [regexp {\.json} $TESTTARGET]} {
                 append fileList "[findFiles $dir *.json] "
             } else {
                 append fileList "[findFiles $dir *.slv] "
@@ -313,7 +313,7 @@ proc load_tests { } {
         if {$VERIFICATION == 0} {
             regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
         } else {
-            if {$TESTTARGET == "src"} {
+            if {$TESTTARGET == "src" || [regexp {\.json} $TESTTARGET]} {
                 regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+\.json)} $file tmp testdir testname
             } else {
                 regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+)\.slv} $file tmp testdir testname
@@ -344,7 +344,7 @@ proc load_tests { } {
         if {$VERIFICATION == 0} {
             set fid [open $testdir/$testname.sl]
         } else {
-            if {$TESTTARGET == "src"} {
+            if {$TESTTARGET == "src" || [regexp {\.json} $TESTTARGET]} {
                 set fid 0
             } else {
                 set fid [open $testdir/$testname.slv]
