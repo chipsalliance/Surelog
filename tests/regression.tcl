@@ -528,7 +528,7 @@ proc formal_verification { command testname } {
     # Surelog parser
     set yid [open "$output_dir/surelog.ys" "w"]
     puts $yid "plugin -i systemverilog"
-    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout $search_modules $surelog_param_command $yosys_command"
+    puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout -synth $search_modules $surelog_param_command $yosys_command"
     puts $yid "hierarchy -auto-top"
     puts $yid "synth"    
     puts $yid "write_verilog  $output_dir/surelog_gate.v"
