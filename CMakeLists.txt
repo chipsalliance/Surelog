@@ -38,7 +38,8 @@ option(
 
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
 
-project(SURELOG)
+# Set the project and version
+project(SURELOG VERSION 1.48)
 
 # NOTE: Policy changes has to happen before adding any subprojects
 cmake_policy(SET CMP0091 NEW)
@@ -48,6 +49,49 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Setup code generation directory
+set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
+
+# Parse out version and configure header
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+  # running a build from the git repo, parse out tag and sha
+  # get latest commit
+  execute_process(COMMAND git describe --tags --abbrev=0
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE LATEST_VERSION)
+
+  # parse out first number after "v"
+  string(REGEX REPLACE "^v([0-9]+)\\..*" "\\1" SURELOG_VERSION_MAJOR "${LATEST_VERSION}")
+  # parse out second number, e.g. after "v[0-9]."
+  string(REGEX REPLACE "^v[0-9]+\\.([0-9]+).*" "\\1" SURELOG_VERSION_MINOR "${LATEST_VERSION}")
+
+  # get latest commit
+  execute_process(COMMAND git rev-parse HEAD
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    OUTPUT_VARIABLE SURELOG_VERSION_COMMIT_SHA)
+  # strip newline
+  string(REGEX REPLACE "\n$" "" SURELOG_VERSION_COMMIT_SHA "${SURELOG_VERSION_COMMIT_SHA}")
+
+  if("${SURELOG_VERSION_MAJOR}" STREQUAL "")
+    # No tags locally, user project version
+    set(SURELOG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+    set(SURELOG_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+  elseif(NOT "${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR}" STREQUAL "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}")
+    message(FATAL_ERROR "Git tag ${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR} \
+      does not match project version ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}. \
+      Did you forget to update project version in CMakeLists.txt?")
+  endif()
+else()
+  set(SURELOG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+  set(SURELOG_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+  set(SURELOG_VERSION_COMMIT_SHA "release")
+endif()
+
+set(SURELOG_BUILD_TYPE ${CMAKE_BUILD_TYPE})
+message("Building version v${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR} [${SURELOG_VERSION_COMMIT_SHA}]")
+configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/surelog-version.h.in ${GENDIR}/surelog-version.h)
+
 
 if(WITH_LIBCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
@@ -98,8 +142,6 @@ endif()
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-
-set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
 
 # Python
 if (SURELOG_WITH_PYTHON)
@@ -933,21 +975,32 @@ install(
   FILE Surelog.cmake
   DESTINATION cmake)
 
+
 # Generate cmake config files for reuse by downstream packages
 include(CMakePackageConfigHelpers)
 
 # generate the config file that is includes the exports
 configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configs/Config.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake"
   INSTALL_DESTINATION cmake
   NO_SET_AND_CHECK_MACRO
   NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configs/Surelog.pc.in
+  "${CMAKE_CURRENT_BINARY_DIR}/Surelog.pc"
+  @ONLY)
+
 # install the configuration file
 install(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake
-  DESTINATION cmake)
+  DESTINATION lib/cmake)
+
+# install the configuration file
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/Surelog.pc
+  DESTINATION lib/pkgconfig)
 
 ADD_CUSTOM_TARGET(
   surelog_link_target ALL
