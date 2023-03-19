@@ -499,40 +499,6 @@ foreach(gen_src ${surelog_generated_SRC})
   set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
 endforeach()
 
-# Parse out version and configure header
-if(NOT DEFINED ENV{SURELOG_VERSION_MAJOR})
-  # parse from working directory
-  # ensure `git` is installed
-  find_package (Git REQUIRED)
-
-  # get latest commit
-  execute_process(COMMAND git describe --tags --abbrev=0
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    OUTPUT_VARIABLE LATEST_VERSION)
-
-  # parse out first number after "v"
-  string(REGEX REPLACE "^v([0-9]+)\\..*" "\\1" SURELOG_VERSION_MAJOR "${LATEST_VERSION}")
-  # parse out second number, e.g. after "v[0-9]."
-  string(REGEX REPLACE "^v[0-9]+\\.([0-9]+).*" "\\1" SURELOG_VERSION_MINOR "${LATEST_VERSION}")
-
-  # get latest commit
-  execute_process(COMMAND git rev-parse HEAD
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    OUTPUT_VARIABLE SURELOG_VERSION_COMMIT_SHA)
-  # strip newline
-  string(REGEX REPLACE "\n$" "" SURELOG_VERSION_COMMIT_SHA "${SURELOG_VERSION_COMMIT_SHA}")
-else()
-  # if set in env, assume some other deployment mechanism where
-  # not working from the git repo / where git not installed
-  set(SURELOG_VERSION_MAJOR ENV{SURELOG_VERSION_MAJOR})
-  set(SURELOG_VERSION_MINOR ENV{SURELOG_VERSION_MINOR})
-  set(SURELOG_VERSION_COMMIT_SHA ENV{SURELOG_VERSION_COMMIT_SHA})
-endif()
-
-set(SURELOG_BUILD_TYPE ${CMAKE_BUILD_TYPE})
-message("Building version v${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR} [${SURELOG_VERSION_COMMIT_SHA}]")
-configure_file(${CMAKE_SOURCE_DIR}/include/Surelog/surelog-version.h.in ${GENDIR}/include/Surelog/surelog-version.h)
-
 add_library(surelog ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
 
