@@ -4231,31 +4231,6 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                                 compileDesign->getCompiler()->getSymbolTable()),
            rhs->VpiLineNo(), true, false);
   uint64_t patternSize = 0;
-  if (tps->UhdmType() == uhdmpacked_array_typespec) {
-    const packed_array_typespec* atps = (const packed_array_typespec*)tps;
-    typespec* etps = (typespec*)atps->Elem_typespec();
-    UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
-    if (size > 1) {
-      if (etps_type == uhdmenum_typespec) {
-        packed_array_var* array = s.MakePacked_array_var();
-        array->VpiSize(size);
-        array->Ranges(atps->Ranges());
-        array->Elements(vars);
-        for (unsigned int i = 0; i < size; i++) {
-          vars->push_back(s.MakeEnum_var());
-        }
-        result = array;
-      }
-    }
-  } else if (tps->UhdmType() == uhdmlogic_typespec) {
-    constant* c = s.MakeConstant();
-    c->VpiFile(rhs->VpiFile());
-    c->VpiLineNo(rhs->VpiLineNo());
-    c->VpiColumnNo(rhs->VpiColumnNo());
-    c->VpiEndLineNo(rhs->VpiEndLineNo());
-    c->VpiEndColumnNo(rhs->VpiEndColumnNo());
-    result = c;
-  }
 
   UHDM::ExprEval eval(true);
   rhs = eval.flattenPatternAssignments(s, tps, (UHDM::expr*)rhs);
@@ -4264,7 +4239,14 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
   if (rhs->UhdmType() == uhdmoperation) {
     operation* op = (operation*)rhs;
     int opType = op->VpiOpType();
-    if (opType == vpiAssignmentPatternOp) {
+    if (opType == vpiConditionOp) {
+      VectorOfany* ops = op->Operands();
+      ops->at(1) = expandPatternAssignment(tps, (expr*)ops->at(1), component,
+                                           compileDesign, instance);
+      ops->at(2) = expandPatternAssignment(tps, (expr*)ops->at(2), component,
+                                           compileDesign, instance);
+      return result;
+    } else if (opType == vpiAssignmentPatternOp) {
       VectorOfany* operands = op->Operands();
       if (operands) {
         // Get default
@@ -4404,14 +4386,40 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
     }
   }
 
-  if (tps->UhdmType() == uhdmlogic_typespec) {
-    uint64_t value = 0;
-    for (uint64_t i = 0; i < patternSize; i++) {
-      value |= (values[i]) ? ((uint64_t)1 << (patternSize - 1 - i)) : 0;
+  if (tps->UhdmType() == uhdmpacked_array_typespec) {
+    const packed_array_typespec* atps = (const packed_array_typespec*)tps;
+    typespec* etps = (typespec*)atps->Elem_typespec();
+    UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
+    if (size > 1) {
+      if (etps_type == uhdmenum_typespec) {
+        packed_array_var* array = s.MakePacked_array_var();
+        array->VpiSize(size);
+        array->Ranges(atps->Ranges());
+        array->Elements(vars);
+        for (unsigned int i = 0; i < size; i++) {
+          vars->push_back(s.MakeEnum_var());
+        }
+        result = array;
+      }
     }
-    result->VpiSize(size);
-    result->VpiValue("UINT:" + std::to_string(value));
-    result->VpiDecompile(std::to_string(size) + "\'d" + std::to_string(value));
+  } else if (tps->UhdmType() == uhdmlogic_typespec) {
+    if (patternSize) {
+      constant* c = s.MakeConstant();
+      c->VpiFile(rhs->VpiFile());
+      c->VpiLineNo(rhs->VpiLineNo());
+      c->VpiColumnNo(rhs->VpiColumnNo());
+      c->VpiEndLineNo(rhs->VpiEndLineNo());
+      c->VpiEndColumnNo(rhs->VpiEndColumnNo());
+      result = c;
+      uint64_t value = 0;
+      for (uint64_t i = 0; i < patternSize; i++) {
+        value |= (values[i]) ? ((uint64_t)1 << (patternSize - 1 - i)) : 0;
+      }
+      result->VpiSize(size);
+      result->VpiValue("UINT:" + std::to_string(value));
+      result->VpiDecompile(std::to_string(size) + "\'d" +
+                           std::to_string(value));
+    }
   }
   return result;
 }

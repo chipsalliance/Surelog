@@ -299,7 +299,11 @@ proc load_tests { } {
         if {$VERIFICATION == 0} {
             append fileList "[findFiles $dir *.sl] "
         } else {
-            append fileList "[findFiles $dir *.slv] "
+            if {$TESTTARGET == "src" || [regexp {\.json} $TESTTARGET]} {
+                append fileList "[findFiles $dir *.json] "
+            } else {
+                append fileList "[findFiles $dir *.slv] "
+            }
         }
     }
     set testcommand ""
@@ -309,11 +313,15 @@ proc load_tests { } {
         if {$VERIFICATION == 0} {
             regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
         } else {
-            regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+)\.slv} $file tmp testdir testname
-       }
+            if {$TESTTARGET == "src" || [regexp {\.json} $TESTTARGET]} {
+                regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+\.json)} $file tmp testdir testname
+            } else {
+                regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+)\.slv} $file tmp testdir testname
+            }
+        }
         regsub [pwd]/ $testdir "" testdir
         incr totaltest
-        if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
+        if {($TESTTARGET != "") && ($TESTTARGET != "src") && ![regexp $TESTTARGET $testname]} {
             continue
         }
         if {($ONETEST != "") && ($ONETEST != $testname)} {
@@ -336,10 +344,16 @@ proc load_tests { } {
         if {$VERIFICATION == 0} {
             set fid [open $testdir/$testname.sl]
         } else {
-             set fid [open $testdir/$testname.slv]
+            if {$TESTTARGET == "src" || [regexp {\.json} $TESTTARGET]} {
+                set fid 0
+            } else {
+                set fid [open $testdir/$testname.slv]
+            }
         }
-        set testcommand [read $fid]
-        close $fid
+        if {$fid != 0} {
+            set testcommand [read $fid]
+            close $fid
+        }
 
         set TESTS($testname) $testcommand
         set TESTS_DIR($testname) $testdir
@@ -465,14 +479,14 @@ proc formal_verification { command testname } {
     }
     set top_module ""
     set surelog_param_command ""
-    
     set search_modules ""
-    if [regexp {/src} [pwd]] {
+    if [regexp {\.json} $testname] {
         set search_modules "-y $directory +libext+.v+.sv"
         set yosys_command ""
-        set dir [file dirname [pwd]]
-        set json [findFiles $dir "*.json"]
+        set json $testname
+        set dir [pwd]
         set fid [open $json]
+        set surelog_param_command "-top [file rootname [file tail $json]] "
         set content [read $fid]
         close $fid
         set di [json::json2dict $content]
@@ -488,7 +502,7 @@ proc formal_verification { command testname } {
             } elseif {$key == "filelist"} {
                 set filelist $val
                 foreach file $filelist {
-                    append yosys_command "[file tail $file] "
+                    append yosys_command "src/[file tail $file] "
                 }
             } elseif {$key == "run_config"} {
                 set configs $val
@@ -523,7 +537,7 @@ proc formal_verification { command testname } {
     catch {set out [exec $YOSYS_EXE -s "$output_dir/surelog.ys" -q -q -l $output_dir/surelog.out]} surelog_parse
     initialize_reg $output_dir/surelog_gate.v
     
-    if [regexp {/src} [pwd]] {
+    if [regexp {\.json} $testname] {
         set yosys_parse ""
         if [file exists $dir/$gate_design_dir/top.v] {
             file copy -force $dir/$gate_design_dir/top.v $output_dir/yosys_gate.v
