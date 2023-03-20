@@ -599,11 +599,11 @@ proc formal_verification { command testname } {
             return [list "EQUIVALENT" ""] 
         }
         set yid [open "$output_dir/equiv.ys" "w"]
-        puts $yid "read_verilog $output_dir/surelog_gate.v $cells_sim $cells_xtra"
+        puts $yid "read_verilog -sv $output_dir/surelog_gate.v $cells_sim $cells_xtra"
         puts $yid "prep -flatten -top $topmodule"
         puts $yid "splitnets -ports;;"
         puts $yid "design -stash surelog"
-        puts $yid "read_verilog $output_dir/yosys_gate.v $cells_sim $cells_xtra"
+        puts $yid "read_verilog -sv $output_dir/yosys_gate.v $cells_sim $cells_xtra"
         puts $yid "splitnets -ports;;"
         puts $yid "prep -flatten -top $topmodule"
         puts $yid "design -stash yosys"
