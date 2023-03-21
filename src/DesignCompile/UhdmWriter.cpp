@@ -588,6 +588,12 @@ unsigned int UhdmWriter::getVpiNetType(VObjectType type) {
     case VObjectType::slNetType_Uwire:
       nettype = vpiUwire;
       break;
+    case VObjectType::slImplicit_data_type:
+    case VObjectType::slSigning_Signed:
+    case VObjectType::slPacked_dimension:
+    case VObjectType::slSigning_Unsigned:
+      nettype = vpiNone;
+      break;
     default:
       break;
   }
