@@ -87,6 +87,7 @@ target_include_directories(test_hellosureworld PRIVATE
   ${Python3_INCLUDE_DIRS}
 )
 target_link_directories(test_hellosureworld
+    PRIVATE ${INSTALL_DIR}/lib
     PRIVATE ${INSTALL_DIR}/lib/surelog
     PRIVATE ${INSTALL_DIR}/lib/uhdm
 )
