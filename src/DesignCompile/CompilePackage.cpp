@@ -106,8 +106,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
       VObjectType::slTask_body_declaration,
-      VObjectType::slInterface_class_declaration
-  };
+      VObjectType::slInterface_class_declaration};
   m_helper.setDesign(m_compileDesign->getCompiler()->getDesign());
   for (unsigned int i = 0; i < m_package->m_fileContents.size(); i++) {
     const FileContent* fC = m_package->m_fileContents[i];
