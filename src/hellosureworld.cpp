@@ -24,9 +24,13 @@
 // Example of usage:
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
-
+#include <Surelog/API/Surelog.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Common/FileSystem.h>
-#include <Surelog/surelog.h>
+#include <Surelog/Design/Design.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 #include <functional>
 #include <iostream>
