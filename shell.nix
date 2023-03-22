@@ -34,6 +34,7 @@ pkgs.mkShell {
       clang-tools   # clang-format, clang-tidy
       lcov          # generate coverage
       git cacert
+      pkg-config    # Testing install
     ];
   shellHook = ''
     export CMAKE_CXX_COMPILER_LAUNCHER=ccache
