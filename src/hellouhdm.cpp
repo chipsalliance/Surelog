@@ -25,7 +25,6 @@
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
 
-#include <Surelog/Utils/StringUtils.h>
 #include <Surelog/surelog.h>
 
 #include <functional>
@@ -88,8 +87,7 @@ int main(int argc, const char** argv) {
       // C++ top handle from which the entire design can be traversed using the
       // C++ API
       udesign = UhdmDesignFromVpiHandle(the_design);
-      SURELOG::StrAppend(&result, "Design name (C++): ", udesign->VpiName(),
-                         "\n");
+      result.append("Design name (C++): ").append(udesign->VpiName()) + "\n";
     }
     // Example demonstrating the classic VPI API traversal of the folded model
     // of the design Flat non-elaborated module/interface/packages/classes list
@@ -119,9 +117,9 @@ int main(int argc, const char** argv) {
       // ...
       // Iterate thru statements
       // ...
-      SURELOG::StrAppend(&result, "+ module: ", defName, objectName,
-                         ", file:", vpi_get_str(vpiFile, obj_h),
-                         ", line:", vpi_get(vpiLineNo, obj_h));
+      result.append("+ module: ") + defName + objectName +
+          ", file:" + vpi_get_str(vpiFile, obj_h) +
+          ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h));
       vpiHandle processItr = vpi_iterate(vpiProcess, obj_h);
       while (vpiHandle sub_h = vpi_scan(processItr)) {
         result += "\n    \\_ process stmt, file:" +
@@ -167,12 +165,12 @@ int main(int argc, const char** argv) {
             if (const char* s = vpi_get_str(vpiFile, obj_h)) {
               f = s;
             }
-            SURELOG::StrAppend(&res, margin, "+ module: ", defName, objectName,
-                               ", file:", f,
-                               ", line:", vpi_get(vpiLineNo, obj_h), "\n");
+            res.append(margin) + "+ module: " + defName + objectName +
+                ", file:" + f +
+                ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h)) + "\n";
 
             // Recursive tree traversal
-            margin = SURELOG::StrCat("  ", margin);
+            margin = std::string("  ") + margin;
             if (vpi_get(vpiType, obj_h) == vpiModule ||
                 vpi_get(vpiType, obj_h) == vpiGenScope) {
               vpiHandle subItr = vpi_iterate(vpiModule, obj_h);
@@ -201,7 +199,7 @@ int main(int argc, const char** argv) {
             }
             return res;
           };
-      SURELOG::StrAppend(&result, inst_visit(obj_h, ""));
+      result.append(inst_visit(obj_h, ""));
     }
   }
   std::cout << result << std::endl;
