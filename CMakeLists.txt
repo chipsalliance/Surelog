@@ -39,6 +39,9 @@ option(
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
 
 # Set the project and version
+# Version changes whenever some new features accumulated, or the
+# grammar or the cache format changes to make sure caches
+# are invalidated.
 project(SURELOG VERSION 1.48)
 
 # NOTE: Policy changes has to happen before adding any subprojects
@@ -90,7 +93,9 @@ endif()
 
 set(SURELOG_BUILD_TYPE ${CMAKE_BUILD_TYPE})
 message("Building version v${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR} [${SURELOG_VERSION_COMMIT_SHA}]")
-configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/surelog-version.h.in ${GENDIR}/surelog-version.h)
+# TODO: should we also make install this header, or do we encourage to
+# use CommandLineParser::getVersionNumber() ?
+configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/surelog-version.h.in ${GENDIR}/include/Surelog/surelog-version.h)
 
 
 if(WITH_LIBCXX)
