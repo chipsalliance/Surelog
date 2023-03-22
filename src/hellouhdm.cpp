@@ -25,7 +25,10 @@
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
 
-#include <Surelog/surelog.h>
+#include <Surelog/API/Surelog.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 #include <functional>
 #include <iostream>
