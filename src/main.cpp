@@ -29,11 +29,6 @@
 #include <unistd.h>
 #endif
 
-#include <Surelog/API/PythonAPI.h>
-#include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/ErrorReporting/Report.h>
-#include <Surelog/Utils/StringUtils.h>
-#include <Surelog/surelog.h>
 #include <string.h>
 #include <sys/stat.h>
 
@@ -45,6 +40,16 @@
 #if defined(_MSC_VER) && defined(_DEBUG)
 #include <Windows.h>
 #endif
+
+#include <Surelog/API/PythonAPI.h>
+#include <Surelog/API/Surelog.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/PlatformFileSystem.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/ErrorReporting/Report.h>
+#include <Surelog/ErrorReporting/Waiver.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Utils/StringUtils.h>
 
 namespace fs = std::filesystem;
 
