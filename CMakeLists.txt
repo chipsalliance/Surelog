@@ -53,38 +53,17 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Setup code generation directory
 set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
 
-# Parse out version and configure header
+# Set version from cmake and extract latest hash if available
+set(SURELOG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(SURELOG_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-  # running a build from the git repo, parse out tag and sha
-  # get latest commit
-  execute_process(COMMAND git describe --tags --abbrev=0
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    OUTPUT_VARIABLE LATEST_VERSION)
-
-  # parse out first number after "v"
-  string(REGEX REPLACE "^v([0-9]+)\\..*" "\\1" SURELOG_VERSION_MAJOR "${LATEST_VERSION}")
-  # parse out second number, e.g. after "v[0-9]."
-  string(REGEX REPLACE "^v[0-9]+\\.([0-9]+).*" "\\1" SURELOG_VERSION_MINOR "${LATEST_VERSION}")
-
-  # get latest commit
+  # Get latest commit
   execute_process(COMMAND git rev-parse HEAD
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     OUTPUT_VARIABLE SURELOG_VERSION_COMMIT_SHA)
   # strip newline
   string(REGEX REPLACE "\n$" "" SURELOG_VERSION_COMMIT_SHA "${SURELOG_VERSION_COMMIT_SHA}")
-
-  if("${SURELOG_VERSION_MAJOR}" STREQUAL "")
-    # No tags locally, user project version
-    set(SURELOG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-    set(SURELOG_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-  elseif(NOT "${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR}" STREQUAL "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}")
-    message(FATAL_ERROR "Git tag ${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR} \
-      does not match project version ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}. \
-      Did you forget to update project version in CMakeLists.txt?")
-  endif()
 else()
-  set(SURELOG_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-  set(SURELOG_VERSION_MINOR ${PROJECT_VERSION_MINOR})
   set(SURELOG_VERSION_COMMIT_SHA "release")
 endif()
 
