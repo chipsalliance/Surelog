@@ -25,9 +25,8 @@
 #define SURELOG_STRINGUTILS_H
 #pragma once
 
-#include <map>
-#include <sstream>
 #include <string>
+#include <sstream>
 #include <string_view>
 #include <vector>
 

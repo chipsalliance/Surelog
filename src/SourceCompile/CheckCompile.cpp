@@ -31,9 +31,6 @@
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 
-#include <iostream>
-#include <set>
-
 namespace SURELOG {
 
 bool CheckCompile::check() {

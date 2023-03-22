@@ -29,14 +29,9 @@
 #include <Surelog/ErrorReporting/LogListener.h>
 #include <Surelog/ErrorReporting/Waiver.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <antlr4-runtime.h>
 #include <stdio.h>
 
 #include <iostream>
-#include <mutex>
-#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-#include <unistd.h>
-#endif
 
 namespace SURELOG {
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,

@@ -32,8 +32,6 @@
 
 namespace SURELOG {
 
-class ClockingBlock;
-
 class ClockingBlockHolder {
  public:
   typedef std::multimap<SymbolId, ClockingBlock, SymbolIdLessThanComparer>

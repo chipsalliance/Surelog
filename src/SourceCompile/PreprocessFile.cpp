@@ -47,7 +47,11 @@
 
 namespace SURELOG {
 
-using namespace antlr4;
+using antlr4::ANTLRInputStream;
+using antlr4::CommonTokenStream;
+using antlr4::Parser;
+using antlr4::Recognizer;
+using antlr4::Token;
 
 const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
@@ -120,7 +124,8 @@ void PreprocessFile::setDebug(int level) {
   }
 }
 
-class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
+class PreprocessFile::DescriptiveErrorListener final
+    : public antlr4::ANTLRErrorListener {
  public:
   DescriptiveErrorListener(PreprocessFile* pp, PathId fileId)
       : m_pp(pp), m_fileId(fileId) {}
@@ -131,20 +136,21 @@ class PreprocessFile::DescriptiveErrorListener : public ANTLRErrorListener {
                    size_t charPositionInLine, const std::string& msg,
                    std::exception_ptr e) override;
 
-  void reportAmbiguity(Parser* recognizer, const dfa::DFA& dfa,
+  void reportAmbiguity(Parser* recognizer, const antlr4::dfa::DFA& dfa,
                        size_t startIndex, size_t stopIndex, bool exact,
                        const antlrcpp::BitSet& ambigAlts,
-                       atn::ATNConfigSet* configs) override;
+                       antlr4::atn::ATNConfigSet* configs) final;
 
-  void reportAttemptingFullContext(Parser* recognizer, const dfa::DFA& dfa,
+  void reportAttemptingFullContext(Parser* recognizer,
+                                   const antlr4::dfa::DFA& dfa,
                                    size_t startIndex, size_t stopIndex,
                                    const antlrcpp::BitSet& conflictingAlts,
-                                   atn::ATNConfigSet* configs) override;
+                                   antlr4::atn::ATNConfigSet* configs) final;
 
-  void reportContextSensitivity(Parser* recognizer, const dfa::DFA& dfa,
+  void reportContextSensitivity(Parser* recognizer, const antlr4::dfa::DFA& dfa,
                                 size_t startIndex, size_t stopIndex,
                                 size_t prediction,
-                                atn::ATNConfigSet* configs) override;
+                                antlr4::atn::ATNConfigSet* configs) final;
 
   PreprocessFile* const m_pp;
   const PathId m_fileId;
@@ -198,18 +204,18 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
 }
 
 void PreprocessFile::DescriptiveErrorListener::reportAmbiguity(
-    Parser* recognizer, const dfa::DFA& dfa, size_t startIndex,
+    Parser* recognizer, const antlr4::dfa::DFA& dfa, size_t startIndex,
     size_t stopIndex, bool exact, const antlrcpp::BitSet& ambigAlts,
-    atn::ATNConfigSet* configs) {}
+    antlr4::atn::ATNConfigSet* configs) {}
 
 void PreprocessFile::DescriptiveErrorListener::reportAttemptingFullContext(
-    Parser* recognizer, const dfa::DFA& dfa, size_t startIndex,
+    Parser* recognizer, const antlr4::dfa::DFA& dfa, size_t startIndex,
     size_t stopIndex, const antlrcpp::BitSet& conflictingAlts,
-    atn::ATNConfigSet* configs) {}
+    antlr4::atn::ATNConfigSet* configs) {}
 
 void PreprocessFile::DescriptiveErrorListener::reportContextSensitivity(
-    Parser* recognizer, const dfa::DFA& dfa, size_t startIndex,
-    size_t stopIndex, size_t prediction, atn::ATNConfigSet* configs) {}
+    Parser* recognizer, const antlr4::dfa::DFA& dfa, size_t startIndex,
+    size_t stopIndex, size_t prediction, antlr4::atn::ATNConfigSet* configs) {}
 
 PreprocessFile::PreprocessFile(PathId fileId, CompileSourceFile* csf,
                                SpecialInstructions& instructions,
@@ -472,11 +478,12 @@ bool PreprocessFile::preprocess() {
 
     m_antlrParserHandler->m_ppparser =
         new SV3_1aPpParser(m_antlrParserHandler->m_pptokens);
-    m_antlrParserHandler->m_ppparser->getInterpreter<atn::ParserATNSimulator>()
-        ->setPredictionMode(atn::PredictionMode::SLL);
+    m_antlrParserHandler->m_ppparser
+        ->getInterpreter<antlr4::atn::ParserATNSimulator>()
+        ->setPredictionMode(antlr4::atn::PredictionMode::SLL);
     m_antlrParserHandler->m_ppparser->removeErrorListeners();
     m_antlrParserHandler->m_ppparser->setErrorHandler(
-        std::make_shared<BailErrorStrategy>());
+        std::make_shared<antlr4::BailErrorStrategy>());
     try {
       m_antlrParserHandler->m_pptree =
           m_antlrParserHandler->m_ppparser->top_level_rule();
@@ -488,16 +495,16 @@ bool PreprocessFile::preprocess() {
                   fileSystem->toPath(m_fileId), "\n");
         tmr.reset();
       }
-    } catch (ParseCancellationException& pex) {
+    } catch (antlr4::ParseCancellationException& pex) {
       m_antlrParserHandler->m_pptokens->reset();
       m_antlrParserHandler->m_ppparser->reset();
       m_antlrParserHandler->m_ppparser->addErrorListener(
           m_antlrParserHandler->m_errorListener);
       m_antlrParserHandler->m_ppparser->setErrorHandler(
-          std::make_shared<DefaultErrorStrategy>());
+          std::make_shared<antlr4::DefaultErrorStrategy>());
       m_antlrParserHandler->m_ppparser
-          ->getInterpreter<atn::ParserATNSimulator>()
-          ->setPredictionMode(atn::PredictionMode::LL);
+          ->getInterpreter<antlr4::atn::ParserATNSimulator>()
+          ->setPredictionMode(antlr4::atn::PredictionMode::LL);
       m_antlrParserHandler->m_pptree =
           m_antlrParserHandler->m_ppparser->top_level_rule();
 
@@ -531,8 +538,8 @@ bool PreprocessFile::preprocess() {
   m_listener = new SV3_1aPpTreeShapeListener(
       this, m_antlrParserHandler->m_pptokens, m_instructions);
   // TODO: this leaks
-  tree::ParseTreeWalker::DEFAULT.walk(m_listener,
-                                      m_antlrParserHandler->m_pptree);
+  antlr4::tree::ParseTreeWalker::DEFAULT.walk(m_listener,
+                                              m_antlrParserHandler->m_pptree);
   if (m_debugAstModel && !precompiled)
     std::cout << m_fileContent->printObjects();
   m_lineCount = LinesCount(m_result);

@@ -28,7 +28,6 @@
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>
 
-#include <string>
 #include <vector>
 
 namespace SURELOG {

@@ -21,7 +21,6 @@
  * Created on January 27, 2018, 5:25 PM
  */
 
-#include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/ModuleDefinition.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/SourceCompile/SymbolTable.h>

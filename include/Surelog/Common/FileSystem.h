@@ -30,7 +30,6 @@
 #include <cstdint>
 #include <filesystem>
 #include <istream>
-#include <ostream>
 #include <regex>
 #include <sstream>
 #include <string>
@@ -64,7 +63,7 @@ class SymbolTable;
  *   toPath returns a printable representation of the PathId. This doesn't
  *     necessarily have to be a resolve-able path. What the string represent
  *     is up to the interpretation of the FileSystem implementation itself.
- * 
+ *
  *   toPlatformAbsPath returns a std::filesystem::path representation of PathId.
  *     The path itself can be non-existant, in certain cases, however
  *     it does have to exist because it is to be used by external processes
@@ -74,7 +73,7 @@ class SymbolTable;
  *   NOTE:
  *     toPath(id) == toPath(toPathId(toPath(id))) but
  *     toPlatformAbsPath(id) <> toPlatformAbsPath(toPathId(toPlatformAbsPath(id)))
- * 
+ *
  *     i.e. string representation can be converted to id (and vice-versa)
  *     using toPathId & toPath but the same is not necessarily guaranteed
  *     between toPathId & toPlatformAbsPath (primarily because of potential
@@ -84,7 +83,7 @@ class SymbolTable;
  *   Mappings are basically replacement symbols to use in place of the
  *   original. These are/can be used to retarget PathId to point to a
  *   different target.
- * 
+ *
  */
 class FileSystem {
  public:

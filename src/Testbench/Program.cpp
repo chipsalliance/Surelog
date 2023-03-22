@@ -23,7 +23,6 @@
 
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/FileContent.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/Program.h>
 
 #include <string_view>

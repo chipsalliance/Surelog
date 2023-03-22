@@ -31,15 +31,10 @@
 
 #if defined(_MSC_VER)
 #include <direct.h>
-#define PATH_MAX _MAX_PATH
-#else
-#include <sys/param.h>
-#include <unistd.h>
 #endif
 
 #include <cstring>
 #include <iostream>
-#include <sstream>
 #include <thread>
 
 namespace SURELOG {

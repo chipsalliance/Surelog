@@ -33,13 +33,10 @@
 #include <Surelog/Library/SVLibShapeListener.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
-#include <antlr4-runtime.h>
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
 
 namespace SURELOG {
-
-using namespace antlr4;
 
 ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
                                  ErrorContainer* errors,
@@ -116,11 +113,11 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
 
   AntlrLibParserErrorListener* errorListener =
       new AntlrLibParserErrorListener(this);
-  antlr4::ANTLRInputStream* inputStream = new ANTLRInputStream(stream);
+  antlr4::ANTLRInputStream* inputStream = new antlr4::ANTLRInputStream(stream);
   SV3_1aLexer* lexer = new SV3_1aLexer(inputStream);
   lexer->removeErrorListeners();
   lexer->addErrorListener(errorListener);
-  antlr4::CommonTokenStream* tokens = new CommonTokenStream(lexer);
+  antlr4::CommonTokenStream* tokens = new antlr4::CommonTokenStream(lexer);
   tokens->fill();
   SV3_1aParser* parser = new SV3_1aParser(tokens);
   parser->removeErrorListeners();
@@ -130,7 +127,7 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
   SVLibShapeListener* listener = new SVLibShapeListener(this, tokens);
   m_fileContent = listener->getFileContent();
 
-  tree::ParseTreeWalker::DEFAULT.walk(listener, m_tree);
+  antlr4::tree::ParseTreeWalker::DEFAULT.walk(listener, m_tree);
 
   if (m_fileContent->getLibrary() == nullptr) {
     if (lib) {

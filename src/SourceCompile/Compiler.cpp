@@ -43,15 +43,14 @@
 #include <Surelog/Utils/ContainerUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/Utils/Timer.h>
-#include <antlr4-runtime.h>
 
+#include <climits>
 #include <filesystem>
 #include <thread>
 
 #if defined(_MSC_VER)
 #include <direct.h>
 #else
-#include <sys/param.h>
 #include <unistd.h>
 #endif
 

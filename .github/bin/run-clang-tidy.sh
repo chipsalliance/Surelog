@@ -50,6 +50,7 @@ Checks: >
     clang-diagnostic-inconsistent-missing-override,
     clang-diagnostic-overloaded-virtual
     clang-diagnostic-unused-private-field,
+    google-build-using-namespace,
     modernize-loop-convert,
     modernize-raw-string-literal,
     modernize-use-override,

@@ -24,12 +24,11 @@
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/SourceCompile/CommonListenerHelper.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
 #include <antlr4-runtime.h>
 
 namespace SURELOG {
 
-using namespace antlr4;
+using antlr4::ParserRuleContext;
 
 NodeId CommonListenerHelper::NodeIdFromContext(
     const antlr4::tree::ParseTree* ctx) const {
@@ -122,7 +121,7 @@ NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx,
 void CommonListenerHelper::addParentChildRelations(NodeId indexParent,
                                                    ParserRuleContext* ctx) {
   NodeId currentIndex = indexParent;
-  for (tree::ParseTree* child : ctx->children) {
+  for (antlr4::tree::ParseTree* child : ctx->children) {
     NodeId childIndex = NodeIdFromContext(child);
     if (childIndex) {
       MutableParent(childIndex) = UniqueId(indexParent);

@@ -33,7 +33,6 @@
 #include <unistd.h>
 #else
 #include <limits.h>
-#include <sys/param.h>
 #include <unistd.h>
 #endif
 

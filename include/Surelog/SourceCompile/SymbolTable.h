@@ -26,8 +26,6 @@
 #define SURELOG_SYMBOLTABLE_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
-
 #include <uhdm/SymbolFactory.h>
 
 namespace SURELOG {

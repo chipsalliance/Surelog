@@ -41,8 +41,6 @@
 
 namespace SURELOG {
 
-using namespace antlr4;
-
 CompileSourceFile::CompileSourceFile(PathId fileId, CommandLineParser* clp,
                                      ErrorContainer* errors, Compiler* compiler,
                                      SymbolTable* symbols,

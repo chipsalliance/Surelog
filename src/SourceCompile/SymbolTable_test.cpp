@@ -14,6 +14,7 @@
  limitations under the License.
 */
 
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>

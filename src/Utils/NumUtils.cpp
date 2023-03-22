@@ -23,13 +23,8 @@
 
 #include <Surelog/Utils/NumUtils.h>
 
-#include <algorithm>
 #include <bitset>
 #include <cstring>
-#include <iostream>
-#include <locale>
-#include <regex>
-#include <sstream>
 
 namespace SURELOG {
 

@@ -25,8 +25,6 @@
 #define SURELOG_PYTHONAPI_H
 #pragma once
 
-#include <Surelog/Common/PathId.h>
-
 #include <filesystem>
 #include <string>
 #include <vector>

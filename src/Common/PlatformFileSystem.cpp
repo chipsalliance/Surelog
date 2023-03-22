@@ -25,8 +25,10 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <mutex>
 
 namespace SURELOG {
 static constexpr bool kEnableLogs = false;

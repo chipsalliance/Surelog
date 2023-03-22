@@ -17,7 +17,6 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/PlatformFileSystem.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <filesystem>
@@ -25,7 +24,6 @@
 
 namespace SURELOG {
 
-using ::testing::ElementsAre;
 namespace fs = std::filesystem;
 
 namespace {

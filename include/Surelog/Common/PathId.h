@@ -22,7 +22,6 @@
 
 #include <cstdint>
 #include <istream>
-#include <ostream>
 #include <set>
 #include <string_view>
 #include <unordered_set>

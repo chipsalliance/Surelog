@@ -25,7 +25,6 @@
 #include <Surelog/Library/AntlrLibParserErrorListener.h>
 #include <Surelog/Library/ParseLibraryDef.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <antlr4-runtime.h>
 
 namespace SURELOG {
 

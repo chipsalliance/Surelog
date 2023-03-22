@@ -15,14 +15,10 @@
 */
 
 #include <Surelog/Design/FileContent.h>
-#include <Surelog/SourceCompile/ParseFile.h>
 #include <Surelog/SourceCompile/ParserHarness.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace SURELOG {
-using ::testing::ElementsAre;
 
 namespace {
 TEST(ParserTest, BasicParse) {
