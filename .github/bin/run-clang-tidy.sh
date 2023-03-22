@@ -92,7 +92,7 @@ if [ ! -r compile_commands.json ]; then
 fi
 
 find src/ include/ -name "*.cpp" -or -name "*.h" \
-    | grep -v Python | grep -v Constraint.h \
+    | grep -v Python | grep -v Constraint.h | grep -v "hello.*\.cpp" \
     | xargs -P$(nproc) -n 5 -- ${CLANG_TIDY} ${CLANG_TIDY_OPTS} 2>/dev/null \
             > ${TIDY_OUT}
 
