@@ -1041,6 +1041,31 @@ jobs:
         name: ${{ env.regression-artifact-name }}
         path: build/${{ env.regression-artifact-name }}.tar.gz
 
+  release-tagging:
+    name: Version Tagging
+    runs-on: ubuntu-20.04
+    if: ${{github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')}}
+    steps:
+
+    - uses: actions/checkout@v2
+      with:
+       fetch-depth: 0
+
+    - name: Tag with CMake version if not already.
+      run: |
+        # We want to tag whenever the cmake version changes. So extract the
+        # hash of when the current version was entered.
+        read TAG_HASH TAG_VERSION <<<$(git annotate -l CMakeLists.txt | sed 's/\(^[0-9A-Fa-f]\+\).*project(SURELOG VERSION \([0-9]\+\.[0-9]\+\).*/\1 \2/p;d')
+
+        echo "Surelog Version v${TAG_VERSION} at hash ${TAG_HASH}"
+
+        # If this is the first time we see this tag: apply.
+        if [ -z "$(git tag -l "v${TAG_VERSION}")" ]; then
+          git tag -a "v${TAG_VERSION}" ${TAG_HASH} -m "Update to v${TAG_VERSION}"
+          git push origin "v${TAG_VERSION}"
+        else
+          echo "Tag already applied"
+        fi
 
 # Code formatting
   CodeFormatting:
