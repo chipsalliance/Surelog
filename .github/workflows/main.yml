@@ -1067,18 +1067,20 @@ jobs:
         if [ -z "$(git tag -l "${TAG}")" ]; then
           git tag -a "${TAG}" ${TAG_HASH} -m "Update to ${TAG}"
           echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "TAG_SHA=$TAG_HASH" >> $GITHUB_ENV
         else
-          echo "Tag already applied"
+          echo "Tag already applied, nothing to do."
         fi
 
     - name: Publish tag
       if: ${{ env.TAG != '' }}
-      # For now, just publish tag, but we can also use this to
-      # publish the binaries we built before.
-      uses: svenstaro/upload-release-action@v2
+      uses: rexdefuror/tag-commit@v1.0.0
       with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        owner: 'chipsalliance'
+        repo: 'Surelog'
         tag: ${{ env.TAG }}
+        commit: ${{ env.TAG_SHA }}
 
 # Code formatting
   CodeFormatting:
