@@ -1047,7 +1047,7 @@ jobs:
     if: ${{github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')}}
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
        fetch-depth: 0
 
@@ -1074,13 +1074,18 @@ jobs:
 
     - name: Publish tag
       if: ${{ env.TAG != '' }}
-      uses: rexdefuror/tag-commit@v1.0.0
+      uses: actions/github-script@v6
+      env:
+        TAG_NAME: ${{env.TAG}}
+        TAG_SHA: ${{env.TAG_SHA}}
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        owner: 'chipsalliance'
-        repo: 'Surelog'
-        tag: ${{ env.TAG }}
-        commit: ${{ env.TAG_SHA }}
+        script: |
+          const { TAG_NAME, TAG_SHA } = process.env;
+          github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: `refs/tags/${TAG_NAME}`,
+            sha: TAG_SHA});
 
 # Code formatting
   CodeFormatting:
