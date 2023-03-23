@@ -137,6 +137,17 @@ test_install:
 	cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$(PREFIX) -S tests/TestInstall -B tests/TestInstall/build
 	cmake --build tests/TestInstall/build -j $(CPU_CORES)
 
+# Using pkg-config. Its search-path might be set in different ways. Set both.
+# Depends on `install`, but skip dependency allow testing separately. Do:
+#    PREFIX=... make install test_install_pkgconfig
+test_install_pkgconfig:
+	PKG_CONFIG_PATH="$(PREFIX)/lib/pkgconfig:${PKG_CONFIG_PATH}" \
+	PKG_CONFIG_PATH_FOR_TARGET="$(PREFIX)/lib/pkgconfig:${PKG_CONFIG_PATH_FOR_TARGET}" \
+        $(MAKE) -f tests/TestInstall/Makefile \
+            build/hellosureworld \
+            build/hellouhdm \
+            build/hellodesign
+
 uninstall:
 	$(RM) -r $(PREFIX)/bin/surelog
 	$(RM) -r $(PREFIX)/lib/surelog
