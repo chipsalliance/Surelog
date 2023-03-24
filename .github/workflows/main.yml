@@ -57,6 +57,7 @@ jobs:
         ccache-key: linux-install-${{ matrix.compiler }}-${{ matrix.config }}
 
     - name: Install vendored dependencies
+      if: ${{ !matrix.vendored_dependencies }}
       run: |
         git clone https://github.com/google/flatbuffers.git
         pushd flatbuffers
@@ -84,7 +85,6 @@ jobs:
         pushd antlr4
         unzip ../antlr4-cpp-runtime-4.12.0-source.zip && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
         popd
-      if: ${{ !matrix.vendored_dependencies }}
 
     - name: Build, install & test
       run: |
@@ -125,6 +125,10 @@ jobs:
         fi
 
         cmake --build tests/TestInstall/build -j $(nproc)
+
+        echo "-- pkg-config content --"
+        cat $INSTALL_DIR/lib/pkgconfig/Surelog.pc
+        PREFIX=$INSTALL_DIR make test_install_pkgconfig
 
     - name: Prepare build artifacts
       run: |
@@ -473,6 +477,7 @@ jobs:
         make test/unittest
         make clean
         make test_install
+        #make test_install_pkgconfig  # not working yet.
 
     - name: Prepare build artifacts
       run: |
@@ -946,6 +951,7 @@ jobs:
         make test/unittest
         make clean   # make sure we only see installation artifacts
         make test_install
+        make test_install_pkgconfig
 
     - name: Prepare build artifacts
       run: |

@@ -144,9 +144,9 @@ test_install_pkgconfig:
 	PKG_CONFIG_PATH="$(PREFIX)/lib/pkgconfig:${PKG_CONFIG_PATH}" \
 	PKG_CONFIG_PATH_FOR_TARGET="$(PREFIX)/lib/pkgconfig:${PKG_CONFIG_PATH_FOR_TARGET}" \
         $(MAKE) -f tests/TestInstall/Makefile \
-            build/hellosureworld \
-            build/hellouhdm \
-            build/hellodesign
+            tests/TestInstall/build/hellosureworld \
+            tests/TestInstall/build/hellouhdm \
+            tests/TestInstall/build/hellodesign
 
 uninstall:
 	$(RM) -r $(PREFIX)/bin/surelog
