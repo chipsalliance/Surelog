@@ -1045,8 +1045,10 @@ jobs:
     name: Version Tagging
     runs-on: ubuntu-20.04
     if: ${{github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')}}
-    steps:
+    permissions:
+      contents: write
 
+    steps:
     - uses: actions/checkout@v3
       with:
        fetch-depth: 0
