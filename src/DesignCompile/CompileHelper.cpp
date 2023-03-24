@@ -933,7 +933,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           } else if (ts->UhdmType() == uhdmstruct_typespec) {
             struct_typespec* btps = (struct_typespec*)ts;
             btps->Resolution_func(resolution_func);
-          }
+          } else if (ts->UhdmType() == uhdmreal_typespec) {
+	    real_typespec* btps = (real_typespec*)ts;
+            btps->Resolution_func(resolution_func);
+	  }
+	  
+
         }
 
         if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
