@@ -42,7 +42,7 @@ option(SURELOG_BUILD_TESTS "Enable testing." ON)
 # Version changes whenever some new features accumulated, or the
 # grammar or the cache format changes to make sure caches
 # are invalidated.
-project(SURELOG VERSION 1.49)
+project(SURELOG VERSION 1.50)
 
 # NOTE: Policy changes has to happen before adding any subprojects
 cmake_policy(SET CMP0091 NEW)
