@@ -1184,6 +1184,11 @@ def _main():
     args.uhdm_dump_filepath = os.path.join(args.build_dirpath, args.uhdm_dump_filepath)
   args.uhdm_dump_filepath = os.path.abspath(args.uhdm_dump_filepath)
 
+  # If there is no uhdm-dump in third_party/ (e.g. due to SURELOG_USE_HOST_UHDM)
+  # then get it from the path.
+  if not os.path.exists(args.uhdm_dump_filepath):
+    args.uhdm_dump_filepath = shutil.which(_default_uhdm_dump_filename)
+
   if not os.path.isabs(args.roundtrip_filepath):
     args.roundtrip_filepath = os.path.join(args.build_dirpath, args.roundtrip_filepath)
   args.roundtrip_filepath = os.path.abspath(args.roundtrip_filepath)
