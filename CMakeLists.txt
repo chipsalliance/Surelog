@@ -1,6 +1,12 @@
 # -*- mode:cmake -*-
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
+# Set the project and version
+# Version changes whenever some new features accumulated, or the
+# grammar or the cache format changes to make sure caches
+# are invalidated.
+project(SURELOG VERSION 1.51)
+
 # Detect build type, fallback to release and throw a warning if use didn't
 # specify any
 if(NOT CMAKE_BUILD_TYPE)
@@ -37,12 +43,6 @@ option(
    "Use tcmalloc if installed" ON)
 
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
-
-# Set the project and version
-# Version changes whenever some new features accumulated, or the
-# grammar or the cache format changes to make sure caches
-# are invalidated.
-project(SURELOG VERSION 1.50)
 
 # NOTE: Policy changes has to happen before adding any subprojects
 cmake_policy(SET CMP0091 NEW)
