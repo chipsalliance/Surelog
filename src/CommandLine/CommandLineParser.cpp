@@ -57,11 +57,13 @@ static std::unordered_map<std::string, std::string>
 //         Or when the cache schema changes
 //        This will render the cache invalid
 std::string_view CommandLineParser::getVersionNumber() {
-#define VERSION_STRING(major, minor) #major "." #minor
+#define VSTRINGIFY(x) #x
+#define VERSION_STRING(major, minor) VSTRINGIFY(major) "." VSTRINGIFY(minor)
   // Defined in CMakeList.txt in project() call.
   static constexpr std::string_view kVersionNumber(
       VERSION_STRING(SURELOG_VERSION_MAJOR, SURELOG_VERSION_MINOR));
 #undef VERSION_STRING
+#undef VSTRINGIFY
   return kVersionNumber;
 }
 
