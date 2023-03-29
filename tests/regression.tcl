@@ -203,6 +203,10 @@ if [regexp {sv2v_exe=([A-Za-z0-9_/\.\-\:]+)} $argv tmp SV2V_EXE] {
 
 set SURELOG_VERSION "$EXE_PATH/$EXE_NAME"
 set UHDM_DUMP_COMMAND "[pwd]/third_party/UHDM/bin/uhdm-dump"
+if ![file exists $UHDM_DUMP_COMMAND] {
+    # In case of SURELOG_USE_HOST_UHDM, we just get it from the path.
+    set UHDM_DUMP_COMMAND "uhdm-dump"
+}
 #This condition is not compatible across platforms.
 #if ![file exist $SURELOG_VERSION] {
 #    puts "ERROR: Cannot find executable $SURELOG_VERSION!"
@@ -530,13 +534,13 @@ proc formal_verification { command testname } {
     puts $yid "plugin -i systemverilog"
     puts $yid "tee -o $output_dir/surelog_ast.txt read_systemverilog -dump_ast1 -mutestdout -synth $search_modules $surelog_param_command $yosys_command"
     puts $yid "hierarchy -auto-top"
-    puts $yid "synth"    
+    puts $yid "synth"
     puts $yid "write_verilog  $output_dir/surelog_gate.v"
     close $yid
     set surelog_parse ""
     catch {set out [exec $YOSYS_EXE -s "$output_dir/surelog.ys" -q -q -l $output_dir/surelog.out]} surelog_parse
     initialize_reg $output_dir/surelog_gate.v
-    
+
     if [regexp {\.json} $testname] {
         set yosys_parse ""
         if [file exists $dir/$gate_design_dir/top.v] {
@@ -549,13 +553,13 @@ proc formal_verification { command testname } {
         set yid [open "$output_dir/yosys.ys" "w"]
         puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 -sv $yosys_command"
         puts $yid "hierarchy -auto-top"
-        puts $yid "synth"    
+        puts $yid "synth"
         puts $yid "write_verilog $output_dir/yosys_gate.v"
         close $yid
         set yosys_parse ""
         catch {set out [exec $YOSYS_EXE -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
         initialize_reg $output_dir/yosys_gate.v
-        
+
         # If Yosys parser fails, try again with SV2V
         if [regexp {ERROR:} $yosys_parse] {
             catch {set out [exec $SV2V_EXE [lindex $yosys_command 0] -w=$output_dir/sv2v.v]} yosys_parse
@@ -565,16 +569,15 @@ proc formal_verification { command testname } {
             }
             puts $yid "tee -o $output_dir/yosys_ast.txt read_verilog -dump_ast1 $output_dir/sv2v.v"
             puts $yid "hierarchy -auto-top"
-            puts $yid "synth"    
+            puts $yid "synth"
             puts $yid "write_verilog $output_dir/yosys_gate.v"
             close $yid
             set yosys_parse ""
             catch {set out [exec $YOSYS_EXE -s "$output_dir/yosys.ys"  -q -q -l $output_dir/yosys.out]} yosys_parse
             initialize_reg $output_dir/yosys_gate.v
-            
         }
     }
-    
+
     if [file exist "$output_dir/surelog.out"] {
         set fid [open "$output_dir/surelog.out"]
         set content [read $fid]
@@ -596,7 +599,7 @@ proc formal_verification { command testname } {
         set diff ""
         catch {set diff [exec $SHELL $SHELL_ARGS "diff $output_dir/surelog_gate.v $output_dir/yosys_gate.v"]} diff
         if {$diff == ""} {
-            return [list "EQUIVALENT" ""] 
+            return [list "EQUIVALENT" ""]
         }
         set yid [open "$output_dir/equiv.ys" "w"]
         puts $yid "read_verilog -sv $output_dir/surelog_gate.v $cells_sim $cells_xtra"
@@ -637,19 +640,19 @@ proc formal_verification { command testname } {
             } elseif [regexp {ERROR: Can't find gate module yosys} $content] {
                 return [list "INVALID_MODEL_YOSYS" $equiv_run]
             } elseif [regexp {Proved 0 previously unproven \$equiv cells\.} $content] {
-                return [list "EMPTY_MODEL" $equiv_run] 
+                return [list "EMPTY_MODEL" $equiv_run]
             } elseif [regexp {ERROR:} $content] {
-                return [list "ERROR_MODEL" ""] 
-            }  
+                return [list "ERROR_MODEL" ""]
+            }
         }
         if {$proven} {
-            return [list "EQUIVALENT" $equiv_run] 
+            return [list "EQUIVALENT" $equiv_run]
         }
         if {$unproven} {
-            return [list "NOT_EQUIVALENT" $equiv_run]  
+            return [list "NOT_EQUIVALENT" $equiv_run]
         }
     }
-    return [list "INCONCLUSIVE" ""] 
+    return [list "INCONCLUSIVE" ""]
 }
 
 proc run_regression { } {
@@ -694,7 +697,7 @@ proc run_regression { } {
             source $REGRESSION_PATH/../formal/formal_status.tcl
         }
     }
-    
+
     foreach testname [lsort -dictionary [array names TESTS]] {
         set time_result ""
         set result ""
@@ -736,7 +739,7 @@ proc run_regression { } {
             if {$VERIFICATION == 0} {
                 if [file exist "$REGRESSION_PATH/tests/$test/${testname}.log"] {
                     log  [format "| %-*s | Copying $REGRESSION_PATH/tests/$test/${testname}.log to $testdir/${testname}.log" $w1 $testname]
-                    
+
                     set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
                     set content [read $fid]
                     close $fid
@@ -941,7 +944,7 @@ proc run_regression { } {
             close $fid
             foreach {log_fatals log_errors log_warnings log_notes log_details log_syntax} [count_messages $content] {}
         }
-        
+
         set prior_user 0
         set prior_elapsed_min 0
         set prior_elapsed 0
@@ -959,14 +962,14 @@ proc run_regression { } {
             set FASTER_OR_SLOWER 1
         } elseif [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
             set SPEED [format "%*s %*s " 3 "${elapsed}s" 3 "+[expr $elapsed - $prior_elapsed]"]
-                set FASTER_OR_SLOWER 1
+            set FASTER_OR_SLOWER 1
         } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
             set SPEED [format "%*s " 4 "${elapsed}s"]
         } else {
             set SPEED [format "%*s %*s " 3 "${elapsed}s" 3 "-[expr $prior_elapsed - $elapsed]"]
             set FASTER_OR_SLOWER 1
         }
-        
+
         set prior_mem 0
         regexp {([0-9]+)maxresident} $time_content tmp prior_mem
         set prior_mem [expr $prior_mem / 1024]
@@ -984,7 +987,7 @@ proc run_regression { } {
             set MEM  [format "%*s %*s " 3 "${mem}" 3 "-[expr $prior_mem - $mem]"]
             set DIFF_MEM 1
         }
-        
+
         if {($fatals != $log_fatals) || ($errors != $log_errors) || ($warnings != $log_warnings) || ($notes != $log_notes) || ($syntax != $log_syntax)} {
             set overrallpass "DIFF"
             set passstatus "DIFF"
@@ -1005,7 +1008,7 @@ proc run_regression { } {
                 set syntax "$syntax ([expr $syntax - $log_syntax])"
             }
         }
-        
+
 
         if [file exists "$REGRESSION_PATH/tests/$test/valgrind.log"] {
             set fid [open "$REGRESSION_PATH/tests/$test/valgrind.log" "r"]
@@ -1038,7 +1041,7 @@ proc run_regression { } {
             close $fid
             if [regexp {Nb undefined modules: [1-9][0-9]*} $result] {
                 set passstatus "INCOM"
-            }           
+            }
             if ![regexp {Dumping module } $result] {
                 set passstatus "S GATE"
             }
@@ -1057,13 +1060,13 @@ proc run_regression { } {
                 if {$passstatus == "S GATE"} {
                     set passstatus "NO GATE"
                 } elseif {$passstatus == "UH PLUG"} {
-                   set passstatus "UH YGATE" 
+                    set passstatus "UH YGATE"
                 } else {
                     set passstatus "Y GATE"
                 }
             }
-        } 
-        
+        }
+
         if {($fatals == -1) || ($errors == -1) || ($warnings == -1) || ($notes == -1)} {
             if {$segfault == 0} {
                 set segfault 1
@@ -1098,7 +1101,7 @@ proc run_regression { } {
                 }
             }
         }
-        
+
         log [format " %-*s | %*s | %*s | %*s | %*s | %*s | %*s | %*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
         flush stdout
         if {$SHOW_DETAILS == 1} {
