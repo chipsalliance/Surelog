@@ -363,7 +363,8 @@ PathId PlatformFileSystem::getPrecompiledDir(PathId programId,
 
   const std::filesystem::path programPath = programFile.parent_path();
   const std::vector<std::filesystem::path> search_paths = {
-      programPath,  // Build path
+      programPath,                               // Build path
+      programPath / ".." / "share" / "surelog",  // Install path
   };
 
   std::error_code ec;
@@ -381,6 +382,13 @@ PathId PlatformFileSystem::getPrecompiledDir(PathId programId,
   }
 
   return toPathId((programPath / kPrecompiledDirName).string(), symbolTable);
+}
+
+std::filesystem::path PlatformFileSystem::getPrecompiledDir(
+    SymbolTable *symbolTable) {
+  std::string programPath = getProgramPath().string();
+  PathId programId = toPathId(programPath, symbolTable);
+  return toPath(getPrecompiledDir(programId, symbolTable));
 }
 
 PathId PlatformFileSystem::getLogFile(bool isUnitCompilation,
@@ -455,7 +463,7 @@ PathId PlatformFileSystem::getPpCacheFile(bool isUnitCompilation,
 
   std::filesystem::path ppCacheFile;
   if (isPrecompiled) {
-    ppCacheFile = getProgramPath().parent_path();
+    ppCacheFile = getPrecompiledDir(symbolTable);
     ppCacheFile /= kPrecompiledDirName;
     ppCacheFile /= libraryName;
     ppCacheFile /= toPlatformAbsPath(sourceFileId).filename();
@@ -486,7 +494,7 @@ PathId PlatformFileSystem::getParseCacheFile(bool isUnitCompilation,
 
   std::filesystem::path parseCacheFile;
   if (isPrecompiled) {
-    parseCacheFile = getProgramPath().parent_path();
+    parseCacheFile = getPrecompiledDir(symbolTable);
     parseCacheFile /= kPrecompiledDirName;
     parseCacheFile /= libraryName;
     parseCacheFile /= ppFile.filename();

@@ -178,6 +178,7 @@ class PlatformFileSystem : public FileSystem {
  protected:
   // Internal helpers
   void addConfiguration(const std::filesystem::path &sourceDir);
+  std::filesystem::path getPrecompiledDir(SymbolTable *symbolTable);
 
   virtual std::istream &openInput(const std::filesystem::path &filepath,
                                   std::ios_base::openmode mode);
