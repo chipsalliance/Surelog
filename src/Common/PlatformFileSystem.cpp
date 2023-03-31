@@ -464,7 +464,6 @@ PathId PlatformFileSystem::getPpCacheFile(bool isUnitCompilation,
   std::filesystem::path ppCacheFile;
   if (isPrecompiled) {
     ppCacheFile = getPrecompiledDir(symbolTable);
-    ppCacheFile /= kPrecompiledDirName;
     ppCacheFile /= libraryName;
     ppCacheFile /= toPlatformAbsPath(sourceFileId).filename();
   } else {
@@ -495,7 +494,6 @@ PathId PlatformFileSystem::getParseCacheFile(bool isUnitCompilation,
   std::filesystem::path parseCacheFile;
   if (isPrecompiled) {
     parseCacheFile = getPrecompiledDir(symbolTable);
-    parseCacheFile /= kPrecompiledDirName;
     parseCacheFile /= libraryName;
     parseCacheFile /= ppFile.filename();
   } else {
