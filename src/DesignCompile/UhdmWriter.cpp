@@ -2544,7 +2544,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
       }
     }
   }
-  for (auto itr : mod->getLateResolutionFunction()) {
+  for (const auto& itr : mod->getLateResolutionFunction()) {
     std::string_view funcName = itr.first;
     std::pair<task_func*, DesignComponent*> ret =
         m_helper.getTaskFunc(funcName, mod, m_compileDesign, nullptr, nullptr);
