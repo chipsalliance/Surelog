@@ -565,6 +565,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   array_typespec* array_tps = nullptr;
   packed_array_typespec* packed_array_tps = nullptr;
   function* resolution_func = nullptr;
+  std::string resolutionFunctionName;
   if (Variable_dimension) {
     if (fC->Type(Variable_dimension) == VObjectType::slStringConst) {
       std::string_view name = fC->SymName(Variable_dimension);
@@ -572,6 +573,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           getTaskFunc(name, scope, compileDesign, nullptr, nullptr);
       task_func* tf = ret.first;
       resolution_func = any_cast<function*>(tf);
+      resolutionFunctionName = name;
     } else {
       array_tps = s.MakeArray_typespec();
       int size;
@@ -834,6 +836,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
             dummy->setTypespec(array_tps);
             if (resolution_func) {
               array_tps->Resolution_func(resolution_func);
+            } else if (!resolutionFunctionName.empty()) {
+              scope->needLateResolutionFunction(resolutionFunctionName,
+                                                array_tps);
             }
           } else if (packed_array_tps) {
             if (tpclone->UhdmType() == uhdmlogic_typespec) {
@@ -844,6 +849,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               logic_array_tps->Logic_typespec((logic_typespec*)tpclone);
               if (resolution_func) {
                 logic_array_tps->Resolution_func(resolution_func);
+              } else if (!resolutionFunctionName.empty()) {
+                scope->needLateResolutionFunction(resolutionFunctionName,
+                                                  logic_array_tps);
               }
               tpclone->Typedef_alias(ts);
               if (typespecs) typespecs->push_back(logic_array_tps);
@@ -865,6 +873,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                     struct_typespec* btps = (struct_typespec*)tpclone;
                     btps->Resolution_func(resolution_func);
                   }
+                } else if (!resolutionFunctionName.empty()) {
+                  scope->needLateResolutionFunction(resolutionFunctionName,
+                                                    tpclone);
                 }
                 if (typespecs) typespecs->push_back(tpclone);
                 newTypeDef->setTypespec(tpclone);
@@ -876,6 +887,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                 tpclone->Typedef_alias(ts);
                 if (resolution_func) {
                   packed_array_tps->Resolution_func(resolution_func);
+                } else if (!resolutionFunctionName.empty()) {
+                  scope->needLateResolutionFunction(resolutionFunctionName,
+                                                    packed_array_tps);
                 }
                 if (typespecs) typespecs->push_back(packed_array_tps);
                 newTypeDef->setTypespec(packed_array_tps);
@@ -897,6 +911,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                 struct_typespec* btps = (struct_typespec*)tpclone;
                 btps->Resolution_func(resolution_func);
               }
+            } else if (!resolutionFunctionName.empty()) {
+              scope->needLateResolutionFunction(resolutionFunctionName,
+                                                tpclone);
             }
             if (typespecs) typespecs->push_back(tpclone);
             newTypeDef->setTypespec(tpclone);
@@ -937,6 +954,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
             real_typespec* btps = (real_typespec*)ts;
             btps->Resolution_func(resolution_func);
           }
+        } else if (!resolutionFunctionName.empty()) {
+          scope->needLateResolutionFunction(resolutionFunctionName, ts);
         }
 
         if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
