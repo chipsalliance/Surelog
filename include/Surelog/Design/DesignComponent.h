@@ -93,6 +93,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   typedef std::map<std::string, std::pair<FileCNodeId, DesignComponent*>,
                    StringViewCompare>
       NamedObjectMap;
+  typedef std::vector<std::pair<std::string, UHDM::typespec*>> FuncNameTypespecVec;
 
   void addFileContent(const FileContent* fileContent, NodeId nodeId);
   const std::vector<const FileContent*>& getFileContents() const {
@@ -172,6 +173,14 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   const std::vector<UHDM::any*>& getLateTypedefBinding() const {
     return m_needLateTypedefBinding;
   }
+
+  void needLateResolutionFunction(std::string_view funcName, UHDM::typespec* tps) {
+    m_lateResolutionFunctions.emplace_back(funcName, tps);
+  } 
+  FuncNameTypespecVec& getLateResolutionFunction() {
+    return m_lateResolutionFunctions;
+  }
+
   void lateBinding(bool on) { m_lateBinding = on; }
 
   void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
@@ -213,6 +222,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::vector<UHDM::tf_call*> m_elab_sys_calls;
   std::vector<UHDM::ref_obj*> m_needLateBinding;
   std::vector<UHDM::any*> m_needLateTypedefBinding;
+  FuncNameTypespecVec m_lateResolutionFunctions;
   ParameterMap m_parameterMap;
   ParameterVec m_orderedParameters;
   ParamAssignVec m_paramAssigns;

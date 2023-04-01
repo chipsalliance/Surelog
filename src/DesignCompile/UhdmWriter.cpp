@@ -2544,6 +2544,35 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
       }
     }
   }
+  for (const auto& itr : mod->getLateResolutionFunction()) {
+    std::string_view funcName = itr.first;
+    std::pair<task_func*, DesignComponent*> ret =
+        m_helper.getTaskFunc(funcName, mod, m_compileDesign, nullptr, nullptr);
+    task_func* tf = ret.first;
+    function* resolution_func = any_cast<function*>(tf);
+    typespec* ts = itr.second;
+    if (resolution_func) {
+      if (ts->UhdmType() == uhdmbit_typespec) {
+        bit_typespec* btps = (bit_typespec*)ts;
+        btps->Resolution_func(resolution_func);
+      } else if (ts->UhdmType() == uhdmlogic_typespec) {
+        logic_typespec* btps = (logic_typespec*)ts;
+        btps->Resolution_func(resolution_func);
+      } else if (ts->UhdmType() == uhdmstruct_typespec) {
+        struct_typespec* btps = (struct_typespec*)ts;
+        btps->Resolution_func(resolution_func);
+      } else if (ts->UhdmType() == uhdmreal_typespec) {
+        real_typespec* btps = (real_typespec*)ts;
+        btps->Resolution_func(resolution_func);
+      } else if (ts->UhdmType() == uhdmarray_typespec) {
+        array_typespec* btps = (array_typespec*)ts;
+        btps->Resolution_func(resolution_func);
+      } else if (ts->UhdmType() == uhdmpacked_array_typespec) {
+        packed_array_typespec* btps = (packed_array_typespec*)ts;
+        btps->Resolution_func(resolution_func);
+      }
+    }
+  }
 }
 
 void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
@@ -3908,6 +3937,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           if (tf->VpiParent() == nullptr) tf->VpiParent(d);
         }
       }
+      lateTypedefBinding(s, fileIdContent.second, nullptr, componentMap);
     }
 
     // Packages
