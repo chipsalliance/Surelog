@@ -134,7 +134,7 @@ install-shared: release-shared
 	cmake --install build
 
 test_install:
-	cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$(PREFIX) -S tests/TestInstall -B tests/TestInstall/build
+	cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$(PREFIX) -DCMAKE_PREFIX_PATH=$(PREFIX) $(ADDITIONAL_CMAKE_OPTIONS) -S tests/TestInstall -B tests/TestInstall/build
 	cmake --build tests/TestInstall/build -j $(CPU_CORES)
 
 # Using pkg-config. Its search-path might be set in different ways. Set both.

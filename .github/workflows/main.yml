@@ -117,6 +117,9 @@ jobs:
         pushd build && ctest --output-on-failure && popd
 
         rm -rf build      # make sure we only see installation artifacts
+        
+        # this shouldnt be necessary, and can't be reproduced outside CI
+        export CMAKE_PREFIX_PATH=$INSTALL_DIR
 
         if [ "${{ matrix.vendored_dependencies }}" == "false" ]; then
           cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$INSTALL_DIR -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DBUILD_SHARED_LIBS=ON -DSURELOG_USE_HOST_FLATBUFFERS=ON -DSURELOG_USE_HOST_ANTLR=ON -DSURELOG_USE_HOST_UHDM=ON -DSURELOG_USE_HOST_GTEST=ON -S tests/TestInstall -B tests/TestInstall/build
@@ -697,6 +700,7 @@ jobs:
         set CC=cl
         set CXX=cl
         set PREFIX=%GITHUB_WORKSPACE%\install
+        set CMAKE_PREFIX_PATH=%GITHUB_WORKSPACE%\install
         set CPU_CORES=%NUMBER_OF_PROCESSORS%
 
         set MAKE_DIR=C:\make\bin
@@ -726,6 +730,7 @@ jobs:
         set CC=clang
         set CXX=clang++
         set PREFIX=%GITHUB_WORKSPACE%\install
+        set CMAKE_PREFIX_PATH=%GITHUB_WORKSPACE%\install
         set CPU_CORES=%NUMBER_OF_PROCESSORS%
 
         set MAKE_DIR=C:\make\bin
@@ -930,7 +935,8 @@ jobs:
     - name: Configure shell
       run: |
         echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
+        echo "PREFIX=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
+        echo "CMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
         echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation}' >> $GITHUB_ENV
 
     - name: Show shell configuration
