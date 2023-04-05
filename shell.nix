@@ -26,6 +26,7 @@ pkgs.mkShell {
       flatbuffers
       capnproto
       gtest
+      antlr4
       antlr4.runtime.cpp
 
       # Ease development
@@ -40,8 +41,7 @@ pkgs.mkShell {
     export CMAKE_CXX_COMPILER_LAUNCHER=ccache
     export ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_USE_HOST_GTEST=On"
     export ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -DSURELOG_USE_HOST_FLATBUFFERS=On"
-
-    # The following does not work yet: can't find ANTLR_JAR_LOCATION
-    #export ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -DSURELOG_USE_HOST_ANTLR=On"
+    export ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -DSURELOG_USE_HOST_ANTLR=On -DANTLR_JAR_LOCATION=${pkgs.antlr4.jarLocation}"
+"
   '';
 }
