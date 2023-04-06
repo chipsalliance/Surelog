@@ -39,8 +39,6 @@
 #include <strings.h>
 #endif
 
-#include <sstream>
-
 namespace SURELOG {
 
 Value* ExprBuilder::clone(Value* val) {

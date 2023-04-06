@@ -25,7 +25,8 @@
 #include <Surelog/Design/Struct.h>
 
 // UHDM
-#include <uhdm/uhdm.h>
+#include <uhdm/struct_typespec.h>
+#include <uhdm/typespec_member.h>
 
 namespace SURELOG {
 

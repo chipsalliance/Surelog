@@ -29,8 +29,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
-#include <string>
-#include <unordered_set>
+#include <string_view>
 #include <vector>
 
 namespace SURELOG {

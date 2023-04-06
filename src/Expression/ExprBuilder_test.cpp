@@ -17,17 +17,12 @@
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/ParserHarness.h>
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <memory>
-#include <string>
-#include <string_view>
 #include <vector>
 
 namespace SURELOG {
-
-using ::testing::ElementsAre;
 
 namespace {
 TEST(ExprBuilderTest, BasicValueOp) {

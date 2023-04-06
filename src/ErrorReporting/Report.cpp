@@ -33,12 +33,6 @@
 #include <regex>
 #include <thread>
 
-#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-#include <unistd.h>
-#endif
-
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-
 namespace SURELOG {
 
 namespace fs = std::filesystem;

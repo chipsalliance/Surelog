@@ -21,7 +21,6 @@
  * Created on May 13, 2017, 4:42 PM
  */
 
-#include <Surelog/API/PythonAPI.h>
 #include <Surelog/API/SLAPI.h>
 
 #ifdef SURELOG_WITH_PYTHON

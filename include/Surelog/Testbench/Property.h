@@ -25,7 +25,6 @@
 #define SURELOG_PROPERTY_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Testbench/Variable.h>
 
 namespace SURELOG {

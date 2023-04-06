@@ -22,11 +22,9 @@
  */
 
 #include <Surelog/Common/FileSystem.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/AntlrParserErrorListener.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
 
 namespace SURELOG {

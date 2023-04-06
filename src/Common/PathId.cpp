@@ -23,7 +23,6 @@
 
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/Common/PathId.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
 
 namespace SURELOG {
 std::ostream &operator<<(std::ostream &strm, const PathIdPP &id) {

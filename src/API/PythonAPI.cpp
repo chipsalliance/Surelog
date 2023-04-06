@@ -23,7 +23,6 @@
 
 #include <Surelog/API/PythonAPI.h>
 #include <Surelog/Common/FileSystem.h>
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/Design.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
@@ -42,6 +41,7 @@ typedef SURELOG::NodeId NodeId;
 #endif
 
 #include <cstring>
+#include <filesystem>
 #include <iostream>
 
 namespace SURELOG {
