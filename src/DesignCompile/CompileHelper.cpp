@@ -2387,8 +2387,8 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
                                          NodeId id,
                                          ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  auto subModuleArray = mod->getModuleArrays();
-
+  auto subModuleArrays = mod->getModuleArrays();
+  // auto subModules = mod->getRefModules();
   NodeId moduleName = fC->sl_collect(id, VObjectType::slStringConst);
   const std::string_view libName = fC->getLibrary()->getName();
   const std::string_view mname = fC->SymName(moduleName);
@@ -2426,25 +2426,27 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
         fC->populateCoreMembers(typespecId, typespecId, tps);
         mod_array->Elem_typespec(tps);
 
-        if (subModuleArray == nullptr) {
-          subModuleArray = s.MakeModule_arrayVec();
-          mod->setModuleArrays(subModuleArray);
+        if (subModuleArrays == nullptr) {
+          subModuleArrays = s.MakeModule_arrayVec();
+          mod->setModuleArrays(subModuleArrays);
         }
 
-        subModuleArray->push_back(mod_array);
+        subModuleArrays->push_back(mod_array);
       }
+    } else {
+      /*
+      // Simple instance
+      UHDM::ref_module* m = s.MakeRef_module();
+      m->VpiName(instName);
+      m->VpiDefName(modName);
+      fC->populateCoreMembers(identifierId, identifierId, m);
+      if (subModules == nullptr) {
+        subModules = s.MakeRef_moduleVec();
+        mod->setRefModules(subModules);
+      }
+      subModules->push_back(m);
+      */
     }
-    // } else {
-    //   // Simple instance
-    //   UHDM::module* m = s.MakeModule();
-    //   m->VpiName(instName);
-    //   m->VpiDefName(modName);
-    //   m->VpiDefLineNo(fC->Line(mod->getNodeIds()[0]));
-    //   m->VpiDefFile(fC->getSymbolTable()->getSymbol(
-    //       fC->GetDefinitionFile(mod->getNodeIds()[0])));
-    //   fC->populateCoreMembers(identifierId, identifierId, m);
-    //   m->Instance(m);
-
     hierInstId = fC->Sibling(hierInstId);
   }
 }
@@ -2639,11 +2641,12 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
     UHDM_OBJECT_TYPE ttps = ts->UhdmType();
     if (ttps == uhdmlogic_typespec) {
       logic_typespec* lts = (logic_typespec*)ts;
-      if (component && valuedcomponenti_cast<Package*>(component)) {
-        if (lts->Ranges() && !lts->Ranges()->empty()) isMultiDimension = true;
-      } else {
-        if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
-      }
+      // if (component && valuedcomponenti_cast<Package*>(component)) {
+      //   if (lts->Ranges() && !lts->Ranges()->empty()) isMultiDimension =
+      //   true;
+      // } else {
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+      //}
     } else if (ttps == uhdmarray_typespec) {
       array_typespec* lts = (array_typespec*)ts;
       if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
@@ -3016,9 +3019,17 @@ bool CompileHelper::compileParameterDeclaration(
       if ((valuedcomponenti_cast<Package*>(component) ||
            valuedcomponenti_cast<FileContent*>(component)) &&
           (instance == nullptr)) {
+        if (!isMultiDimension) {
+          // Check the RHS, we don't want to
+          NodeId pattAssign = fC->sl_collect(
+              actual_value, VObjectType::slConstant_concatenation);
+          if (pattAssign != InvalidNodeId) {
+            isMultiDimension = true;
+          }
+        }
         UHDM::any* expr =
             compileExpression(component, fC, actual_value, compileDesign,
-                              nullptr, nullptr, reduce && !isMultiDimension);
+                              nullptr, nullptr, reduce && (!isMultiDimension));
         UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
         if (expr) {
           expr = defaultPatternAssignment(ts, expr, component, compileDesign,

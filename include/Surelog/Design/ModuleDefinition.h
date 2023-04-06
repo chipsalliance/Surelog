@@ -98,7 +98,12 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   void setModuleArrays(std::vector<UHDM::module_array*>* modules) {
     m_moduleArrays = modules;
   }
-
+  /*
+  std::vector<UHDM::ref_module*>* getRefModules() { return m_ref_modules; }
+  void setRefModules(std::vector<UHDM::ref_module*>* modules) {
+    m_ref_modules = modules;
+  }
+  */
  private:
   const std::string m_name;
   ModPortSignalMap m_modportSignalMap;
@@ -109,6 +114,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
 
   UHDM::VectorOfattribute* attributes_ = nullptr;
   std::vector<UHDM::module_array*>* m_moduleArrays = nullptr;
+  //std::vector<UHDM::ref_module*>* m_ref_modules = nullptr;
 };
 
 class ModuleDefinitionFactory {

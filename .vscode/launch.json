@@ -837,7 +837,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-parse", "tests/ScratchPad.sv", "-d", "inst", "-d", "ast", "-d", "uhdm", "-d", "vpi_ids", "-replay", "-nocache", "-nobuiltin"],
+            "args": ["-parse", "tests/ScratchPad.sv", "-elabuhdm", "-d", "inst", "-d", "ast", "-d", "uhdm", "-d", "vpi_ids", "-replay", "-nocache", "-nobuiltin"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -876,6 +876,25 @@
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
             "args": ["-link", "-d", "cache", "-verbose"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/TestSepComp",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "TestSepComp",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["pkg1.sv", "pkg2.sv", "top.sv", "-parse", "-d", "uhdm"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/tests/TestSepComp",
             "environment": [],

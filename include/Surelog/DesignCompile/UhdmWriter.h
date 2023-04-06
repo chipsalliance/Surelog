@@ -49,6 +49,7 @@ class UhdmWriter final {
  public:
   typedef std::map<ModPort*, UHDM::modport*> ModPortMap;
   typedef std::map<const DesignComponent*, UHDM::BaseClass*> ComponentMap;
+  //typedef std::map<std::string, UHDM::BaseClass*> ModuleMap;
   typedef std::map<Signal*, UHDM::BaseClass*> SignalBaseClassMap;
   typedef std::map<std::string, Signal*, std::less<>> SignalMap;
   typedef std::map<ModuleInstance*, UHDM::BaseClass*> InstanceMap;
@@ -77,7 +78,7 @@ class UhdmWriter final {
                   SignalMap& signalMap, ModuleInstance* instance = nullptr,
                   ModuleDefinition* mod = nullptr);
   void writeModule(ModuleDefinition* mod, UHDM::module_inst* m, UHDM::Serializer& s,
-                   ComponentMap& componentMap, ModPortMap& modPortMap,
+                   ComponentMap& componentMap, /*ModuleMap& moduleMap,*/ ModPortMap& modPortMap,
                    ModuleInstance* instance = nullptr);
   void writeInterface(ModuleDefinition* mod, UHDM::interface_inst* m,
                       UHDM::Serializer& s, ComponentMap& componentMap,
