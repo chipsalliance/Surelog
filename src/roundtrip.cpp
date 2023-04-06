@@ -24,8 +24,11 @@
  * Created on February 10, 2022, 12:00 PM
  */
 
+#include <Surelog/API/Surelog.h>
+#include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/surelog.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/UhdmListener.h>
 #include <uhdm/VpiListener.h>
