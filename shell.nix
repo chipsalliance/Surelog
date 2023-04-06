@@ -23,18 +23,18 @@ pkgs.mkShell {
       swig
 
       # Libraries for USE_HOST_* use
-      flatbuffers
-      capnproto
-      gtest
       antlr4
       antlr4.runtime.cpp
+      capnproto
+      flatbuffers
+      gtest
 
       # Ease development
       ccache
-      ninja
       clang-tools   # clang-format, clang-tidy
-      lcov          # generate coverage
       git cacert
+      lcov          # generate coverage
+      ninja
       pkg-config    # Testing install
     ];
   shellHook = ''
