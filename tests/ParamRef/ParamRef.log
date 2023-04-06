@@ -231,34 +231,34 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              36
+constant                                              41
 design                                                 1
 import_typespec                                        1
-int_typespec                                          16
-logic_typespec                                         5
+int_typespec                                          18
+logic_typespec                                         4
 module_inst                                           16
-operation                                              9
+operation                                              7
 package                                                6
 param_assign                                          18
 parameter                                             19
-range                                                  5
-ref_obj                                                8
+range                                                  4
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              36
+constant                                              41
 design                                                 1
 import_typespec                                        1
-int_typespec                                          16
-logic_typespec                                         5
+int_typespec                                          18
+logic_typespec                                         4
 module_inst                                           16
-operation                                              9
+operation                                              7
 package                                                6
 param_assign                                          18
 parameter                                             19
-range                                                  5
-ref_obj                                                8
+range                                                  4
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamRef/slpp_all/surelog.uhdm ...
 
@@ -465,6 +465,7 @@ design: (work@top_earlgrey)
   \_parameter: (dm::ExceptionAddress), line:7:28, endln:7:44
     |vpiParent:
     \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
+    |UINT:12
     |vpiTypespec:
     \_logic_typespec: , line:7:15, endln:7:27
       |vpiParent:
@@ -511,23 +512,13 @@ design: (work@top_earlgrey)
     |vpiParent:
     \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
-    \_operation: , line:7:47, endln:7:62
-      |vpiOpType:24
-      |vpiOperand:
-      \_ref_obj: (HaltAddress), line:7:47, endln:7:58
-        |vpiParent:
-        \_operation: , line:7:47, endln:7:62
-        |vpiName:HaltAddress
-        |vpiActual:
-        \_parameter: (dm::HaltAddress), line:6:19, endln:6:30
-      |vpiOperand:
-      \_constant: , line:7:61, endln:7:62
-        |vpiParent:
-        \_operation: , line:7:47, endln:7:62
-        |vpiDecompile:2
-        |vpiSize:64
-        |UINT:2
-        |vpiConstType:9
+    \_constant: , line:7:47, endln:7:58
+      |vpiDecompile:12
+      |vpiSize:32
+      |UINT:12
+      |vpiTypespec:
+      \_logic_typespec: , line:7:15, endln:7:27
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (dm::ExceptionAddress), line:7:28, endln:7:44
   |vpiDefName:dm
@@ -717,36 +708,13 @@ design: (work@top_earlgrey)
       \_module_inst: work@rv_core_ibex (work@top_earlgrey.u_rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:13:3, endln:15:22
       |vpiOverriden:1
       |vpiRhs:
-      \_operation: , line:14:23, endln:14:66
-        |vpiOpType:24
-        |vpiOperand:
-        \_constant: , line:14:23, endln:14:43
-          |vpiParent:
-          \_operation: , line:14:23, endln:14:66
-          |vpiDecompile:1
-          |vpiSize:32
-          |UINT:1
-          |vpiConstType:9
-        |vpiOperand:
-        \_operation: , line:7:47, endln:7:62
-          |vpiParent:
-          \_operation: , line:14:23, endln:14:66
-          |vpiTypespec:
-          \_logic_typespec: , line:7:15, endln:7:27
-          |vpiOpType:24
-          |vpiOperand:
-          \_ref_obj: (HaltAddress), line:7:47, endln:7:58
-            |vpiParent:
-            \_operation: , line:7:47, endln:7:62
-            |vpiName:HaltAddress
-          |vpiOperand:
-          \_constant: , line:7:61, endln:7:62
-            |vpiParent:
-            \_operation: , line:7:47, endln:7:62
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
+      \_constant: , line:19:45, endln:19:46
+        |vpiDecompile:13
+        |vpiSize:32
+        |UINT:13
+        |vpiTypespec:
+        \_int_typespec: , line:19:14, endln:19:26
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top_earlgrey.u_rv_core_ibex.DmExceptionAddr), line:19:27, endln:19:42
     |vpiDefName:work@rv_core_ibex
@@ -777,62 +745,13 @@ design: (work@top_earlgrey)
         \_module_inst: work@ibex_core (work@top_earlgrey.u_rv_core_ibex.u_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:20:4, endln:22:14
         |vpiOverriden:1
         |vpiRhs:
-        \_operation: , line:21:24, endln:21:39
+        \_constant: , line:26:45, endln:26:46
+          |vpiDecompile:13
+          |vpiSize:32
+          |UINT:13
           |vpiTypespec:
-          \_int_typespec: , line:19:14, endln:19:26
-          |vpiOpType:24
-          |vpiOperand:
-          \_constant: , line:14:23, endln:14:43
-            |vpiParent:
-            \_operation: , line:21:24, endln:21:39
-            |vpiDecompile:1
-            |vpiSize:32
-            |UINT:1
-            |vpiConstType:9
-          |vpiOperand:
-          \_operation: , line:7:47, endln:7:62
-            |vpiParent:
-            \_operation: , line:21:24, endln:21:39
-            |vpiTypespec:
-            \_logic_typespec: , line:7:15, endln:7:27
-              |vpiParent:
-              \_operation: , line:7:47, endln:7:62
-              |vpiInstance:
-              \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
-              |vpiRange:
-              \_range: , line:7:21, endln:7:27
-                |vpiParent:
-                \_logic_typespec: , line:7:15, endln:7:27
-                |vpiLeftRange:
-                \_constant: , line:7:22, endln:7:24
-                  |vpiParent:
-                  \_range: , line:7:21, endln:7:27
-                  |vpiDecompile:31
-                  |vpiSize:64
-                  |UINT:31
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:7:25, endln:7:26
-                  |vpiParent:
-                  \_range: , line:7:21, endln:7:27
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiOpType:24
-            |vpiOperand:
-            \_ref_obj: (HaltAddress), line:7:47, endln:7:58
-              |vpiParent:
-              \_operation: , line:7:47, endln:7:62
-              |vpiName:HaltAddress
-            |vpiOperand:
-            \_constant: , line:7:61, endln:7:62
-              |vpiParent:
-              \_operation: , line:7:47, endln:7:62
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
+          \_int_typespec: , line:26:14, endln:26:26
+          |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top_earlgrey.u_rv_core_ibex.u_core.DmExceptionAddr), line:26:27, endln:26:42
       |vpiDefName:work@ibex_core

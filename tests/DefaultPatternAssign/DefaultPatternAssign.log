@@ -238,30 +238,30 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              37
+constant                                              29
 design                                                 1
 import_typespec                                        1
-int_typespec                                          24
+int_typespec                                          25
 module_inst                                           18
-operation                                             14
+operation                                             16
 package                                                3
 param_assign                                          14
 parameter                                             15
-ref_obj                                                6
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              37
+constant                                              29
 design                                                 1
 import_typespec                                        1
-int_typespec                                          24
+int_typespec                                          25
 module_inst                                           18
-operation                                             14
+operation                                             16
 package                                                3
 param_assign                                          14
 parameter                                             15
-ref_obj                                                6
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefaultPatternAssign/slpp_all/surelog.uhdm ...
 
@@ -674,13 +674,26 @@ design: (work@top)
         |vpiParent:
         \_module_inst: work@lower (work@top.upper_u.lower_u), file:${SURELOG_DIR}/tests/DefaultPatternAssign/dut.sv, line:19:3, endln:19:20
         |vpiRhs:
-        \_constant: , line:2:30, endln:2:46
-          |vpiDecompile:-1
-          |vpiSize:32
-          |INT:-1
+        \_operation: , line:2:30, endln:2:46
           |vpiTypespec:
-          \_int_typespec: , line:2:13, endln:2:16
-          |vpiConstType:7
+          \_int_typespec: , line:2:30, endln:2:33
+            |vpiSigned:1
+          |vpiOpType:67
+          |vpiOperand:
+          \_operation: , line:2:34, endln:2:46
+            |vpiParent:
+            \_operation: , line:2:30, endln:2:46
+            |vpiOpType:33
+            |vpiOperand:
+            \_ref_obj: (default), line:2:35, endln:2:42
+              |vpiName:default
+              |vpiStructMember:1
+            |vpiOperand:
+            \_constant: , line:2:44, endln:2:45
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.upper_u.lower_u.VALUE_TEMP), line:2:17, endln:2:27
       |vpiParamAssign:
