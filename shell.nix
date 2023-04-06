@@ -18,6 +18,7 @@ pkgs.mkShell {
 
       # Run regression scripts.
       tcl
+      time
 
       # If Python API is built.
       swig
