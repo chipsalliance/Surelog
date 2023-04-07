@@ -1949,6 +1949,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
    */
   NodeId List_of_net_decl_assignments;
   NodeId Packed_dimension;
+  bool isSigned = false;
   VObjectType nettype = VObjectType::slNoType;
   VObjectType subnettype = VObjectType::slNoType;
   NodeId NetTypeOrTrireg_Net = fC->Child(id);
@@ -1963,6 +1964,9 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
     }
     NodeId Data_type_or_implicit = fC->Sibling(NetType);
     Packed_dimension = fC->Child(Data_type_or_implicit);
+    if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed) {
+      isSigned = true;
+    }
     if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
       List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
     else
@@ -2022,6 +2026,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       sig->setDelay(delay);
       sig->setStatic();
       sig->setTypespecId(NetType);
+      if (isSigned) sig->setSigned();
       component->getSignals().push_back(sig);
     } else {
       Signal* sig =
@@ -2030,6 +2035,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       if (portRef) portRef->setLowConn(sig);
       sig->setDelay(delay);
       sig->setStatic();
+      if (isSigned) sig->setSigned();
       component->getSignals().push_back(sig);
     }
 
