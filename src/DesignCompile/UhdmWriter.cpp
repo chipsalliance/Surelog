@@ -1102,7 +1102,7 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
 void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
                              Serializer& s,
                              UhdmWriter::ComponentMap& componentMap,
-                             /*ModuleMap& moduleMap,*/
+                             ModuleMap& moduleMap,
                              UhdmWriter::ModPortMap& modPortMap,
                              ModuleInstance* instance) {
   UhdmWriter::SignalBaseClassMap signalBaseMap;
@@ -1224,24 +1224,17 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
     }
   }
   // Module Instantiation
-  /*
+
   if (std::vector<UHDM::ref_module*>* subModules = mod->getRefModules()) {
     m->Ref_modules(subModules);
-    for (auto subMod : *subModules) {
-      ModuleMap::iterator itr = moduleMap.find(std::string(subMod->VpiName()));
-      if (itr != moduleMap.end()) {
-        subMod->Actual_group((*itr).second);
-      }
-    }
   }
-  */
-
   if (VectorOfmodule_array* subModuleArrays = mod->getModuleArrays()) {
     m->Module_arrays(subModuleArrays);
     for (auto subModArr : *subModuleArrays) {
       subModArr->VpiParent(m);
     }
   }
+
   // Interface instantiation
   const std::vector<Signal*>& signals = mod->getSignals();
   if (!signals.empty()) {
@@ -3851,7 +3844,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   ComponentMap componentMap;
   ModPortMap modPortMap;
   InstanceMap instanceMap;
-  /*ModuleMap moduleMap;*/
+  ModuleMap moduleMap;
   Serializer& s = m_compileDesign->getSerializer();
   ExprBuilder exprBuilder;
   exprBuilder.seterrorReporting(
@@ -4021,6 +4014,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         const FileContent* fC = prog->getFileContents()[0];
         program* p = s.MakeProgram();
         componentMap.emplace(prog, p);
+        moduleMap.emplace(prog->getName(), p);
         p->VpiParent(d);
         p->VpiDefName(prog->getName());
         const NodeId modId = prog->getNodeIds()[0];
@@ -4044,6 +4038,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         const FileContent* fC = mod->getFileContents()[0];
         interface_inst* m = s.MakeInterface_inst();
         componentMap.emplace(mod, m);
+        moduleMap.emplace(mod->getName(), m);
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
         const NodeId modId = mod->getNodeIds()[0];
@@ -4072,7 +4067,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           m->VpiCellInstance(true);
         }
         componentMap.emplace(mod, m);
-        // moduleMap.emplace(mod->getName(), m);
+        moduleMap.emplace(mod->getName(), m);
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
         m->Attributes(mod->Attributes());
@@ -4081,7 +4076,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
             fC->sl_collect(modId, VObjectType::slModule_keyword);
         fC->populateCoreMembers(startId, modId, m);
         uhdm_modules->push_back(m);
-        writeModule(mod, m, s, componentMap, /*moduleMap,*/ modPortMap);
+        writeModule(mod, m, s, componentMap, moduleMap, modPortMap);
       } else if (mod->getType() == VObjectType::slUdp_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
         UHDM::udp_defn* defn = mod->getUdpDefn();
@@ -4099,6 +4094,17 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     }
     d->AllModules(uhdm_modules);
     d->AllUdps(uhdm_udps);
+    for (module_inst* mod : *uhdm_modules) {
+      if (mod->Ref_modules()) {
+        for (auto subMod : *mod->Ref_modules()) {
+          ModuleMap::iterator itr =
+              moduleMap.find(std::string(subMod->VpiDefName()));
+          if (itr != moduleMap.end()) {
+            subMod->Actual_group((*itr).second);
+          }
+        }
+      }
+    }
 
     // Classes
     auto classes = m_design->getClassDefinitions();

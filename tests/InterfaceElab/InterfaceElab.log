@@ -206,6 +206,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   5
 range                                                  4
+ref_module                                             2
 ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -227,6 +228,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   6
 range                                                  4
+ref_module                                             2
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceElab/slpp_all/surelog.uhdm ...
@@ -341,12 +343,16 @@ design: (work@testharness)
   \_design: (work@testharness)
   |vpiFullName:work@peripherals
   |vpiDefName:work@peripherals
+  |vpiRefModule:
+  \_ref_module: work@apb_to_reg (i_apb_to_reg), line:27:12, endln:27:24
 |uhdmallModules:
 \_module_inst: work@testharness (work@testharness), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:32:1, endln:36:10
   |vpiParent:
   \_design: (work@testharness)
   |vpiFullName:work@testharness
   |vpiDefName:work@testharness
+  |vpiRefModule:
+  \_ref_module: work@peripherals (i_peripherals), line:34:16, endln:34:29
 |uhdmtopModules:
 \_module_inst: work@testharness (work@testharness), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:32:1, endln:36:10
   |vpiName:work@testharness

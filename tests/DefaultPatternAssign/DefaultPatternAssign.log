@@ -247,6 +247,7 @@ operation                                             16
 package                                                3
 param_assign                                          14
 parameter                                             15
+ref_module                                             3
 ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -261,6 +262,7 @@ operation                                             16
 package                                                3
 param_assign                                          14
 parameter                                             15
+ref_module                                             3
 ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefaultPatternAssign/slpp_all/surelog.uhdm ...
@@ -498,6 +500,8 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (foo_pkg), line:10:10, endln:10:20
   |vpiDefName:work@lower
+  |vpiRefModule:
+  \_ref_module: work@bottom (bottom_u), line:14:5, endln:14:13
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternAssign/dut.sv, line:22:1, endln:25:10
   |vpiParent:
@@ -531,6 +535,8 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.VALUE), line:23:17, endln:23:22
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@upper (upper_u), line:24:9, endln:24:16
 |uhdmallModules:
 \_module_inst: work@upper (work@upper), file:${SURELOG_DIR}/tests/DefaultPatternAssign/dut.sv, line:17:1, endln:20:10
   |vpiParent:
@@ -564,6 +570,8 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@upper.VALUE), line:18:17, endln:18:22
   |vpiDefName:work@upper
+  |vpiRefModule:
+  \_ref_module: work@lower (lower_u), line:19:9, endln:19:16
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternAssign/dut.sv, line:22:1, endln:25:10
   |vpiName:work@top

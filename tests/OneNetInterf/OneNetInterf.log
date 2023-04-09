@@ -66,6 +66,7 @@ module_inst                                           18
 operation                                              2
 port                                                  27
 program                                                2
+ref_module                                             3
 ref_obj                                               55
 sys_func_call                                          9
 === UHDM Object Stats End ===
@@ -516,6 +517,8 @@ design: (work@dut)
       \_logic_net: (work@dut.o), line:2:38, endln:2:39
     |vpiTypedef:
     \_logic_typespec: , line:2:34, endln:2:37
+  |vpiRefModule:
+  \_ref_module: work@middle (middle1), line:4:10, endln:4:17
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:10:1, endln:12:10
   |vpiParent:
@@ -541,6 +544,8 @@ design: (work@dut)
     |vpiTypedef:
     \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
       |vpiName:ConnectTB
+  |vpiRefModule:
+  \_ref_module: work@SUB (sub1), line:11:7, endln:11:11
 |uhdmallModules:
 \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
   |vpiParent:
@@ -561,6 +566,8 @@ design: (work@dut)
     |vpiName:o
     |vpiFullName:work@tb.o
     |vpiNetType:1
+  |vpiRefModule:
+  \_ref_module: work@middle (dut1), line:17:10, endln:17:14
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
   |vpiName:work@dut

@@ -235,6 +235,7 @@ package                                                3
 param_assign                                          10
 parameter                                             13
 range                                                 21
+ref_module                                             2
 string_typespec                                       12
 struct_net                                             1
 struct_typespec                                       15
@@ -255,6 +256,7 @@ package                                                3
 param_assign                                          10
 parameter                                             13
 range                                                 21
+ref_module                                             2
 string_typespec                                       12
 struct_net                                             1
 struct_typespec                                       15
@@ -576,6 +578,8 @@ design: (work@aes_core)
     \_module_inst: work@aes_core (work@aes_core), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:22:1, endln:26:10
     |vpiName:ctrl_q
     |vpiFullName:work@aes_core.ctrl_q
+  |vpiRefModule:
+  \_ref_module: work@shadow (shadow_reg), line:25:33, endln:25:43
 |uhdmallModules:
 \_module_inst: work@shadow (work@shadow), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:16:1, endln:20:10
   |vpiParent:
@@ -625,6 +629,8 @@ design: (work@aes_core)
     |vpiLhs:
     \_parameter: (work@shadow.RESVAL), line:17:26, endln:17:32
   |vpiDefName:work@shadow
+  |vpiRefModule:
+  \_ref_module: work@subreg (commit_reg), line:19:29, endln:19:39
 |uhdmallModules:
 \_module_inst: work@subreg (work@subreg), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:11:1, endln:14:10
   |vpiParent:

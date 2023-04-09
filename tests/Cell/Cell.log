@@ -70,6 +70,7 @@ operation                                              3
 package                                                2
 param_assign                                           6
 parameter                                              6
+ref_module                                             3
 ref_obj                                                4
 task                                                   9
 === UHDM Object Stats End ===
@@ -97,6 +98,7 @@ operation                                              4
 package                                                2
 param_assign                                           6
 parameter                                              6
+ref_module                                             3
 ref_obj                                                8
 task                                                  18
 === UHDM Object Stats End ===
@@ -647,12 +649,18 @@ design: (work@top)
     \_parameter: (work@middleman.invert), line:8:30, endln:8:36
   |vpiDefName:work@middleman
   |vpiCellInstance:1
+  |vpiRefModule:
+  \_ref_module: work@assigner (asgn), line:9:32, endln:9:36
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@middleman (mdl1), line:2:28, endln:2:32
+  |vpiRefModule:
+  \_ref_module: work@middleman (mdl0), line:3:28, endln:3:32
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:1:1, endln:4:10
   |vpiName:work@top

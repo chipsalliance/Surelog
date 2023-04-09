@@ -218,6 +218,7 @@ param_assign                                           4
 parameter                                              6
 port                                                   6
 range                                                 12
+ref_module                                             3
 ref_obj                                               15
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -237,6 +238,7 @@ param_assign                                           4
 parameter                                              6
 port                                                  10
 range                                                 12
+ref_module                                             3
 ref_obj                                               26
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverload1/slpp_all/surelog.uhdm ...
@@ -415,6 +417,12 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:6:19, endln:6:22
       |vpiSigned:1
+  |vpiRefModule:
+  \_ref_module: work@dut (u_dut1), line:7:29, endln:7:35
+  |vpiRefModule:
+  \_ref_module: work@dut (u_dut2), line:8:8, endln:8:14
+  |vpiRefModule:
+  \_ref_module: work@dut (u_dut3), line:9:20, endln:9:26
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
   |vpiName:work@top

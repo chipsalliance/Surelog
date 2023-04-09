@@ -66,6 +66,7 @@ parameter                                             13
 port                                                  22
 program                                                2
 range                                                 44
+ref_module                                             3
 ref_obj                                               53
 sys_func_call                                          9
 === UHDM Object Stats End ===
@@ -640,6 +641,8 @@ design: (work@TOP)
     |vpiName:o
     |vpiFullName:work@TOP.o
     |vpiNetType:1
+  |vpiRefModule:
+  \_ref_module: work@dut (dut1), line:21:16, endln:21:20
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:2:1, endln:5:10
   |vpiParent:
@@ -763,6 +766,8 @@ design: (work@TOP)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiRefModule:
+  \_ref_module: work@middle (middle1), line:4:27, endln:4:34
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:11:1, endln:13:10
   |vpiParent:
@@ -811,6 +816,8 @@ design: (work@TOP)
     |vpiTypedef:
     \_interface_typespec: (ConnectTB), line:11:39, endln:11:48
       |vpiName:ConnectTB
+  |vpiRefModule:
+  \_ref_module: work@SUB (sub1), line:12:24, endln:12:28
 |uhdmtopModules:
 \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
   |vpiName:work@TOP

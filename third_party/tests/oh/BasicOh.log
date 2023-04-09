@@ -1301,6 +1301,7 @@ parameter                                            323
 part_select                                          312
 port                                                 962
 range                                                771
+ref_module                                            27
 ref_obj                                             3091
 ref_var                                                4
 string_typespec                                      114
@@ -1351,6 +1352,7 @@ parameter                                            323
 part_select                                          477
 port                                                1113
 range                                                771
+ref_module                                            27
 ref_obj                                             3727
 ref_var                                                7
 string_typespec                                      114
@@ -13880,6 +13882,14 @@ design: (work@oh_fifo_async)
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
+  |vpiRefModule:
+  \_ref_module: work@oh_lat0 (oh_lat0), line:105:4, endln:105:11
+  |vpiRefModule:
+  \_ref_module: work@oh_clockmux2 (oh_clockmux2), line:112:4, endln:112:16
+  |vpiRefModule:
+  \_ref_module: work@oh_lat0 (latch_clk1), line:144:4, endln:144:14
+  |vpiRefModule:
+  \_ref_module: work@oh_clockmux4 (mux_clk1), line:157:4, endln:157:12
 |uhdmallModules:
 \_module_inst: work@oh_clockgate (work@oh_clockgate), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_clockgate.v, line:8:1, endln:46:10
   |vpiParent:
@@ -17410,6 +17420,12 @@ design: (work@oh_fifo_async)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiRefModule:
+  \_ref_module: work@oh_csa32 (csa32_0), line:35:4, endln:35:11
+  |vpiRefModule:
+  \_ref_module: work@oh_csa32 (csa32_1), line:44:4, endln:44:11
+  |vpiRefModule:
+  \_ref_module: work@oh_csa42 (csa42), line:53:4, endln:53:9
 |uhdmallModules:
 \_module_inst: work@oh_csa92 (work@oh_csa92), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_csa92.v, line:8:1, endln:88:10
   |vpiParent:
@@ -18565,6 +18581,14 @@ design: (work@oh_fifo_async)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiRefModule:
+  \_ref_module: work@oh_csa32 (csa32_0), line:46:4, endln:46:11
+  |vpiRefModule:
+  \_ref_module: work@oh_csa32 (csa32_1), line:55:4, endln:55:11
+  |vpiRefModule:
+  \_ref_module: work@oh_csa32 (csa32_2), line:64:4, endln:64:11
+  |vpiRefModule:
+  \_ref_module: work@oh_csa62 (csa62), line:73:4, endln:73:9
 |uhdmallModules:
 \_module_inst: work@oh_datagate (work@oh_datagate), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_datagate.v, line:9:1, endln:49:10
   |vpiParent:
@@ -19204,6 +19228,12 @@ design: (work@oh_fifo_async)
       \_cont_assign: , line:75:11, endln:75:32
       |vpiName:clean_out
       |vpiFullName:work@oh_debouncer.clean_out
+  |vpiRefModule:
+  \_ref_module: work@oh_dsync (dsync), line:30:4, endln:30:9
+  |vpiRefModule:
+  \_ref_module: work@oh_rsync (rsync), line:38:4, endln:38:9
+  |vpiRefModule:
+  \_ref_module: work@oh_counter (oh_counter), line:55:4, endln:55:14
 |uhdmallModules:
 \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_delay.v, line:8:1, endln:36:10
   |vpiParent:
@@ -24186,6 +24216,16 @@ design: (work@oh_fifo_async)
       |vpiFullName:work@oh_fifo_async.wr_full
       |vpiActual:
       \_logic_net: (work@oh_fifo_async.wr_full), line:28:17, endln:28:24
+  |vpiRefModule:
+  \_ref_module: work@oh_rsync (wr_rsync), line:74:4, endln:74:12
+  |vpiRefModule:
+  \_ref_module: work@oh_rsync (rd_rsync), line:80:4, endln:80:12
+  |vpiRefModule:
+  \_ref_module: work@oh_bin2gray (wr_bin2gray), line:115:4, endln:115:15
+  |vpiRefModule:
+  \_ref_module: work@oh_bin2gray (rd_bin2gray), line:131:4, endln:131:15
+  |vpiRefModule:
+  \_ref_module: work@oh_memory_dp (oh_memory_dp), line:162:4, endln:162:16
 |uhdmallModules:
 \_module_inst: work@oh_fifo_cdc (work@oh_fifo_cdc), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_fifo_cdc.v, line:8:1, endln:86:10
   |vpiParent:
@@ -24760,6 +24800,10 @@ design: (work@oh_fifo_async)
       \_cont_assign: , line:36:11, endln:36:65
       |vpiName:ready_out
       |vpiFullName:work@oh_fifo_cdc.ready_out
+  |vpiRefModule:
+  \_ref_module: work@oh_rsync (sync_reset), line:41:4, endln:41:14
+  |vpiRefModule:
+  \_ref_module: work@oh_fifo_async (oh_fifo_async), line:56:4, endln:56:17
 |uhdmallModules:
 \_module_inst: work@oh_fifo_sync (work@oh_fifo_sync), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_fifo_sync.v, line:8:1, endln:144:10
   |vpiParent:
@@ -26906,6 +26950,8 @@ design: (work@oh_fifo_async)
       \_cont_assign: , line:108:11, endln:108:52
       |vpiName:empty
       |vpiFullName:work@oh_fifo_sync.empty
+  |vpiRefModule:
+  \_ref_module: work@oh_memory_dp (oh_memory_dp), line:120:4, endln:120:16
 |uhdmallModules:
 \_module_inst: work@oh_gray2bin (work@oh_gray2bin), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_gray2bin.v, line:8:1, endln:33:10
   |vpiParent:
@@ -52468,6 +52514,8 @@ design: (work@oh_fifo_async)
       \_cont_assign: , line:51:11, endln:51:41
       |vpiName:dout
       |vpiFullName:work@oh_pulse2pulse.dout
+  |vpiRefModule:
+  \_ref_module: work@oh_dsync (sync), line:39:4, endln:39:8
 |uhdmallModules:
 \_module_inst: work@oh_pwr_buf (work@oh_pwr_buf), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_pwr_buf.v, line:8:1, endln:24:10
   |vpiParent:
@@ -57598,6 +57646,14 @@ design: (work@oh_fifo_async)
       \_cont_assign: , line:86:12, endln:88:16
       |vpiName:clk_en
       |vpiFullName:work@oh_standby.clk_en
+  |vpiRefModule:
+  \_ref_module: work@oh_dsync (oh_dsync), line:43:4, endln:43:12
+  |vpiRefModule:
+  \_ref_module: work@oh_edge2pulse (oh_edge2pulse), line:52:18, endln:52:31
+  |vpiRefModule:
+  \_ref_module: work@oh_delay (oh_delay), line:63:4, endln:63:12
+  |vpiRefModule:
+  \_ref_module: work@oh_clockgate (oh_clockgate), line:91:17, endln:91:29
 |uhdmallModules:
 \_module_inst: work@oh_stretcher (work@oh_stretcher), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_stretcher.v, line:9:1, endln:28:10
   |vpiParent:

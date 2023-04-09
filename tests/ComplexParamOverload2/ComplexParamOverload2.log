@@ -399,6 +399,7 @@ package                                                3
 param_assign                                          10
 parameter                                             10
 port                                                   4
+ref_module                                             4
 ref_obj                                               12
 struct_typespec                                        6
 typespec_member                                        6
@@ -421,6 +422,7 @@ package                                                3
 param_assign                                          10
 parameter                                             10
 port                                                   6
+ref_module                                             4
 ref_obj                                               17
 struct_typespec                                        6
 typespec_member                                        6
@@ -643,6 +645,8 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (pinmux_pkg), line:47:11, endln:47:24
   |vpiDefName:work@almost_top
+  |vpiRefModule:
+  \_ref_module: work@prim_pad_attr (u_prim_pad_attr), line:52:6, endln:52:21
 |uhdmallModules:
 \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:19:1, endln:22:34
   |vpiParent:
@@ -746,6 +750,8 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@prim_pad_attr.PadType), line:36:18, endln:36:25
   |vpiDefName:work@prim_pad_attr
+  |vpiRefModule:
+  \_ref_module: work@prim_submodule (u_submodule), line:40:6, endln:40:17
 |uhdmallModules:
 \_module_inst: work@prim_submodule (work@prim_submodule), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:24:1, endln:32:10
   |vpiParent:
@@ -798,6 +804,8 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:24:30, endln:24:33
       |vpiSigned:1
+  |vpiRefModule:
+  \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:29:6, endln:29:20
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:57:1, endln:66:10
   |vpiParent:
@@ -837,6 +845,8 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (pinmux_pkg), line:58:11, endln:58:24
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@almost_top (u_top), line:63:6, endln:63:11
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:57:1, endln:66:10
   |vpiName:work@top
