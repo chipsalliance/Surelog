@@ -56,6 +56,7 @@ module_inst                                           12
 operation                                              2
 port                                                  10
 range                                                  3
+ref_module                                             2
 ref_obj                                               20
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortHighConn/slpp_unit/surelog.uhdm ...
@@ -131,6 +132,10 @@ design: (work@top)
     |vpiName:topB
     |vpiFullName:work@top.topB
     |vpiNetType:1
+  |vpiRefModule:
+  \_ref_module: work@moduleA (instanceA), line:7:13, endln:7:22
+  |vpiRefModule:
+  \_ref_module: work@moduleA (instanceD), line:10:13, endln:10:22
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:5:1, endln:11:10
   |vpiName:work@top

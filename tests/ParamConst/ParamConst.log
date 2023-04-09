@@ -539,6 +539,7 @@ package                                                5
 param_assign                                          16
 parameter                                             18
 range                                                 26
+ref_module                                             2
 ref_obj                                                4
 task                                                   9
 === UHDM Object Stats End ===
@@ -567,6 +568,7 @@ package                                                5
 param_assign                                          16
 parameter                                             18
 range                                                 26
+ref_module                                             2
 ref_obj                                                4
 task                                                  18
 === UHDM Object Stats End ===
@@ -1419,6 +1421,8 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@prim_flop.ResetValue), line:12:43, endln:12:53
   |vpiDefName:work@prim_flop
+  |vpiRefModule:
+  \_ref_module: work@generic_flop (impl_generic), line:15:7, endln:15:19
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConst/dut.sv, line:18:1, endln:25:10
   |vpiParent:
@@ -1641,6 +1645,8 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (lc_ctrl_state_pkg), line:19:10, endln:19:30
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@prim_flop (state_regs), line:23:5, endln:23:15
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConst/dut.sv, line:18:1, endln:25:10
   |vpiName:work@top

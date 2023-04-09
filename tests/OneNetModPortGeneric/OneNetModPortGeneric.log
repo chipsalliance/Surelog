@@ -72,6 +72,7 @@ module_inst                                           16
 operation                                              2
 port                                                  14
 program                                                2
+ref_module                                             4
 ref_obj                                               57
 sys_func_call                                          9
 unsupported_typespec                                   8
@@ -563,6 +564,10 @@ design: (work@TOP)
   \_design: (work@TOP)
   |vpiFullName:work@TOP
   |vpiDefName:work@TOP
+  |vpiRefModule:
+  \_ref_module: work@dut (dut1), line:17:7, endln:17:11
+  |vpiRefModule:
+  \_ref_module: work@OBSERVER (obs), line:19:12, endln:19:15
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:2:1, endln:7:10
   |vpiParent:
@@ -657,6 +662,8 @@ design: (work@TOP)
       |vpiFullName:work@dut.o
       |vpiActual:
       \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
+  |vpiRefModule:
+  \_ref_module: work@middle (middle1), line:6:10, endln:6:17
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:22:1, endln:24:10
   |vpiParent:
@@ -682,6 +689,8 @@ design: (work@TOP)
     |vpiTypedef:
     \_unsupported_typespec: (intf), line:22:26, endln:22:30
       |vpiName:intf
+  |vpiRefModule:
+  \_ref_module: work@SUB (sub1), line:23:7, endln:23:11
 |uhdmtopModules:
 \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/tb.v, line:15:1, endln:20:10
   |vpiName:work@TOP

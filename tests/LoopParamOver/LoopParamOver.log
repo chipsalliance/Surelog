@@ -177,6 +177,7 @@ module_inst                                            8
 operation                                              3
 param_assign                                          10
 parameter                                             10
+ref_module                                             1
 ref_obj                                             4528
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -189,6 +190,7 @@ module_inst                                            8
 operation                                              3
 param_assign                                          10
 parameter                                             10
+ref_module                                             1
 ref_obj                                             4528
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LoopParamOver/slpp_all/surelog.uhdm ...
@@ -308,6 +310,8 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.P1), line:11:13, endln:11:15
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@Foo (sub), line:12:16, endln:12:19
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LoopParamOver/dut.sv, line:8:1, endln:13:10
   |vpiName:work@top

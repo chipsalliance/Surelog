@@ -42,6 +42,7 @@ module_inst                                           11
 param_assign                                           3
 parameter                                              3
 range                                                  4
+ref_module                                             3
 ref_obj                                                2
 type_parameter                                         7
 === UHDM Object Stats End ===
@@ -59,6 +60,7 @@ module_inst                                           11
 param_assign                                           3
 parameter                                              3
 range                                                  4
+ref_module                                             3
 ref_obj                                                2
 type_parameter                                         7
 === UHDM Object Stats End ===
@@ -165,6 +167,10 @@ design: (work@top)
     \_module_inst: work@mid (work@mid), file:${SURELOG_DIR}/tests/TypeParam/dut.sv, line:10:1, endln:15:10
     |vpiName:DATA0
     |vpiFullName:work@mid.DATA0
+  |vpiRefModule:
+  \_ref_module: work@bottom (u1), line:12:22, endln:12:24
+  |vpiRefModule:
+  \_ref_module: work@bottom (u2), line:13:33, endln:13:35
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TypeParam/dut.sv, line:1:1, endln:8:10
   |vpiParent:
@@ -188,6 +194,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TypeParam/dut.sv, line:1:1, endln:8:10
     |vpiName:DATATOP
     |vpiFullName:work@top.DATATOP
+  |vpiRefModule:
+  \_ref_module: work@mid (u0), line:6:22, endln:6:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TypeParam/dut.sv, line:1:1, endln:8:10
   |vpiName:work@top

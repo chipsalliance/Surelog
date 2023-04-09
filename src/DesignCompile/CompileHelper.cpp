@@ -2394,7 +2394,7 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
                                          ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   auto subModuleArrays = mod->getModuleArrays();
-  // auto subModules = mod->getRefModules();
+  auto subModules = mod->getRefModules();
   NodeId moduleName = fC->sl_collect(id, VObjectType::slStringConst);
   const std::string_view libName = fC->getLibrary()->getName();
   const std::string_view mname = fC->SymName(moduleName);
@@ -2440,7 +2440,6 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
         subModuleArrays->push_back(mod_array);
       }
     } else {
-      /*
       // Simple instance
       UHDM::ref_module* m = s.MakeRef_module();
       m->VpiName(instName);
@@ -2451,7 +2450,6 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
         mod->setRefModules(subModules);
       }
       subModules->push_back(m);
-      */
     }
     hierInstId = fC->Sibling(hierInstId);
   }

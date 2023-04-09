@@ -270,6 +270,7 @@ package                                                3
 param_assign                                          16
 parameter                                             18
 range                                                 26
+ref_module                                             2
 ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -288,6 +289,7 @@ package                                                3
 param_assign                                          16
 parameter                                             18
 range                                                 26
+ref_module                                             2
 ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamByValue/slpp_all/surelog.uhdm ...
@@ -664,6 +666,8 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@prim_flop.ResetValue), line:12:44, endln:12:54
   |vpiDefName:work@prim_flop
+  |vpiRefModule:
+  \_ref_module: work@generic_flop (impl_generic), line:16:7, endln:16:19
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamByValue/dut.sv, line:20:1, endln:27:10
   |vpiParent:
@@ -886,6 +890,8 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (lc_ctrl_state_pkg), line:21:10, endln:21:30
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@prim_flop (state_regs), line:25:5, endln:25:15
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamByValue/dut.sv, line:20:1, endln:27:10
   |vpiName:work@top

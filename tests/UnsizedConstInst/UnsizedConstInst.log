@@ -179,6 +179,7 @@ param_assign                                           3
 parameter                                              3
 part_select                                            3
 range                                                  2
+ref_module                                             2
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -199,6 +200,7 @@ param_assign                                           3
 parameter                                              3
 part_select                                            5
 range                                                  2
+ref_module                                             2
 ref_obj                                               15
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedConstInst/slpp_all/surelog.uhdm ...
@@ -299,6 +301,10 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@bottom (u1), line:10:19, endln:10:21
+  |vpiRefModule:
+  \_ref_module: work@bottom (u2), line:11:19, endln:11:21
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:9:1, endln:12:10
   |vpiName:work@top

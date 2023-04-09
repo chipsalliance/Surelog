@@ -454,6 +454,7 @@ param_assign                                          27
 parameter                                             31
 part_select                                            3
 range                                                  8
+ref_module                                             8
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -474,6 +475,7 @@ param_assign                                          39
 parameter                                             31
 part_select                                            3
 range                                                  8
+ref_module                                             8
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EarlgreyPackParam/slpp_all/surelog.uhdm ...
@@ -802,6 +804,8 @@ design: (work@test)
     |vpiLhs:
     \_parameter: (work@prim_alert_sender.IsFatal), line:16:17, endln:16:24
   |vpiDefName:work@prim_alert_sender
+  |vpiRefModule:
+  \_ref_module: work@prim_diff_decode (dec_ack), line:21:5, endln:21:12
 |uhdmallModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
   |vpiParent:
@@ -877,6 +881,8 @@ design: (work@test)
   \_design: (work@test)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@aes (u_aes), line:45:4, endln:45:9
 |uhdmtopModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:7:1, endln:10:10
   |vpiName:work@test

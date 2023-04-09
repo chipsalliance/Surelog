@@ -285,6 +285,7 @@ packed_array_typespec                                  2
 param_assign                                          18
 parameter                                             20
 range                                                 32
+ref_module                                             3
 ref_obj                                                7
 struct_typespec                                       13
 typespec_member                                       13
@@ -305,6 +306,7 @@ packed_array_typespec                                  2
 param_assign                                          18
 parameter                                             20
 range                                                 32
+ref_module                                             3
 ref_obj                                                7
 struct_typespec                                       13
 typespec_member                                       13
@@ -943,6 +945,8 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (pkg), line:17:19, endln:17:25
   |vpiDefName:work@dut
+  |vpiRefModule:
+  \_ref_module: work@foo (f), line:18:32, endln:18:33
 |uhdmallModules:
 \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:13:1, endln:15:10
   |vpiParent:
@@ -992,6 +996,8 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@foo.ResetValue), line:13:37, endln:13:47
   |vpiDefName:work@foo
+  |vpiRefModule:
+  \_ref_module: work@foo2 (f), line:14:35, endln:14:36
 |uhdmallModules:
 \_module_inst: work@foo2 (work@foo2), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:10:1, endln:11:10
   |vpiParent:
@@ -1047,6 +1053,8 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@dut (d), line:22:7, endln:22:8
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:21:1, endln:23:10
   |vpiName:work@top
