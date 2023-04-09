@@ -68,8 +68,9 @@ class DesignElaboration : public TestbenchElaboration {
                           ModuleInstanceFactory* factory,
                           ModuleInstance* parent, Config* config,
                           std::vector<ModuleInstance*>& parentSubInstances);
-  void recurseInstanceLoop_(std::vector<int>& from, std::vector<int>& to,
-                            std::vector<int>& indexes, unsigned int pos,
+  void recurseInstanceLoop_(std::vector<int32_t>& from,
+                            std::vector<int32_t>& to,
+                            std::vector<int32_t>& indexes, uint32_t pos,
                             DesignComponent* def, const FileContent* fC,
                             NodeId subInstanceId, NodeId paramOverride,
                             ModuleInstanceFactory* factory,

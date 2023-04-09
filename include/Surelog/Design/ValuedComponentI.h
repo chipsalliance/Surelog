@@ -44,7 +44,7 @@ class ValuedComponentI : public RTTI {
   SURELOG_IMPLEMENT_RTTI(ValuedComponentI, RTTI)
  public:
   using ParamMap =
-      std::map<std::string, std::pair<Value*, int>, StringViewCompare>;
+      std::map<std::string, std::pair<Value*, int32_t>, StringViewCompare>;
   using ComplexValueMap = std::map<std::string, UHDM::expr*, StringViewCompare>;
 
   ValuedComponentI(const ValuedComponentI* parentScope,
@@ -57,7 +57,7 @@ class ValuedComponentI : public RTTI {
   virtual Value* getValue(std::string_view name,
                           ExprBuilder& exprBuilder) const;
   virtual void setValue(std::string_view name, Value* val,  // NOLINT
-                        ExprBuilder& exprBuilder, int lineNb = 0);
+                        ExprBuilder& exprBuilder, int32_t lineNb = 0);
   virtual void deleteValue(std::string_view name, ExprBuilder& exprBuilder);
   virtual void forgetValue(std::string_view name);
   const ParamMap& getMappedValues() const { return m_paramMap; }

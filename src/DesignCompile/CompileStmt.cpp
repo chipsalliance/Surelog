@@ -350,7 +350,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         item = fC->Sibling(item);
         if (item) {
           VObjectType jointype = fC->Type(item);
-          int vpijointype = 0;
+          int32_t vpijointype = 0;
           if (jointype == VObjectType::slJoin_keyword ||
               jointype == VObjectType::slJoin_any_keyword ||
               jointype == VObjectType::slJoin_none_keyword) {
@@ -511,7 +511,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         fC->populateCoreMembers(Param_assignment, Param_assignment, param);
         // Unpacked dimensions
         if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
-          int unpackedSize;
+          int32_t unpackedSize;
           std::vector<UHDM::range*>* unpackedDimensions =
               compileRanges(component, fC, value, compileDesign, param, nullptr,
                             true, unpackedSize, false);
@@ -943,7 +943,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(
         NodeId tmp = fC->Sibling(Var);
         std::vector<UHDM::range*>* unpackedDimensions = nullptr;
         if (fC->Type(tmp) != VObjectType::slExpression) {
-          int unpackedSize;
+          int32_t unpackedSize;
           unpackedDimensions =
               compileRanges(component, fC, tmp, compileDesign, nullptr,
                             instance, reduce, unpackedSize, false);
@@ -1057,7 +1057,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
     CompileDesign* compileDesign, UHDM::any* pstmt,
     ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  int qualifier = 0;
+  int32_t qualifier = 0;
   if (fC->Type(Cond_predicate) == VObjectType::slUnique_priority) {
     NodeId Qualifier = fC->Child(Cond_predicate);
     if (fC->Type(Qualifier) == VObjectType::slUnique) {
@@ -1372,7 +1372,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                                nullptr, true);
         } else if (fC->Type(Data_type) == VObjectType::slPacked_dimension) {
           // Implicit type
-          int size;
+          int32_t size;
           VectorOfrange* ranges =
               compileRanges(component, fC, Data_type, compileDesign, parent,
                             nullptr, false, size, false);
@@ -1390,7 +1390,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           NodeId Variable_dimension = fC->Sibling(nameId);
           if (fC->Type(Variable_dimension) ==
               VObjectType::slVariable_dimension) {
-            int size;
+            int32_t size;
             ranges =
                 compileRanges(component, fC, Variable_dimension, compileDesign,
                               parent, nullptr, false, size, false);
@@ -1505,7 +1505,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
   */
   // Compile arguments
   NodeId tf_port_item = fC->Child(tf_port_list);
-  int previousDirection = vpiInput;
+  int32_t previousDirection = vpiInput;
   UHDM::typespec* ts = nullptr;
   while (tf_port_item) {
     io_decl* decl = s.MakeIo_decl();
@@ -1534,7 +1534,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
     if (unpackedDimension &&
         (fC->Type(unpackedDimension) != VObjectType::slVariable_dimension))
       unpackedDimension = fC->Sibling(unpackedDimension);
-    int size;
+    int32_t size;
     std::vector<UHDM::range*>* unpackedDimensions =
         compileRanges(component, fC, unpackedDimension, compileDesign, nullptr,
                       nullptr, false, size, false);
@@ -1941,7 +1941,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
   } else {
     Stmt = fC->Sibling(Tf_port_list);
   }
-  int nbStmts = 0;
+  int32_t nbStmts = 0;
   NodeId StmtTmp = Stmt;
   while (StmtTmp) {
     if (fC->Type(StmtTmp) == VObjectType::slBlock_item_declaration) {

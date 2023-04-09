@@ -60,7 +60,7 @@ class CompileDesign {
   CompileDesign(const CompileDesign& orig) = delete;
 
   template <class ObjectType, class ObjectMapType, typename FunctorType>
-  void compileMT_(ObjectMapType& objects, int maxThreadCount);
+  void compileMT_(ObjectMapType& objects, int32_t maxThreadCount);
 
   void collectObjects_(Design::FileIdDesignContentMap& all_files,
                        Design* design, bool finalCollection);

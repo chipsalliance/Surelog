@@ -38,20 +38,20 @@
 
 namespace SURELOG {
 
-int FunctorCreateLookup::operator()() const {
+int32_t FunctorCreateLookup::operator()() const {
   ResolveSymbols* instance = new ResolveSymbols(
       m_compileDesign, m_fileData, m_symbolTable, m_errorContainer);
   instance->createFastLookup();
   delete instance;
-  return true;
+  return 0;
 }
 
-int FunctorResolve::operator()() const {
+int32_t FunctorResolve::operator()() const {
   ResolveSymbols* instance = new ResolveSymbols(
       m_compileDesign, m_fileData, m_symbolTable, m_errorContainer);
   instance->resolve();
   delete instance;
-  return true;
+  return 0;
 }
 
 std::string_view ResolveSymbols::SymName(NodeId index) const {
@@ -251,7 +251,7 @@ bool ResolveSymbols::SetType(NodeId index, VObjectType type) {
   return true;
 }
 
-unsigned int ResolveSymbols::Line(NodeId index) const {
+uint32_t ResolveSymbols::Line(NodeId index) const {
   return m_fileData->Line(index);
 }
 
@@ -337,7 +337,7 @@ bool ResolveSymbols::bindDefinition_(NodeId objIndex,
 }
 
 bool ResolveSymbols::resolve() {
-  unsigned int size = m_fileData->getVObjects().size();
+  uint32_t size = m_fileData->getVObjects().size();
   for (NodeId objIndex(0); objIndex < size; ++objIndex) {
     // ErrorDefinition::ErrorType errorType;
     bool bind = false;

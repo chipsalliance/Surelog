@@ -70,8 +70,8 @@ class CommonListenerHelper {
   NodeId Parent(NodeId index) const;
   NodeId Definition(NodeId index) const;
   VObjectType Type(NodeId index) const;
-  unsigned short Column(NodeId index) const;
-  unsigned int Line(NodeId index) const;
+  uint16_t Column(NodeId index) const;
+  uint32_t Line(NodeId index) const;
 
   NodeId addVObject(antlr4::ParserRuleContext* ctx, std::string_view name,
                     VObjectType objtype);
@@ -85,8 +85,8 @@ class CommonListenerHelper {
 
   NodeId getObjectId(antlr4::ParserRuleContext* ctx) const;
 
-  virtual std::tuple<PathId, unsigned int, unsigned short, unsigned int,
-                     unsigned short>
+  virtual std::tuple<PathId, uint32_t, uint16_t, uint32_t,
+                     uint16_t>
   getFileLine(antlr4::ParserRuleContext* ctx, antlr4::Token* token) const = 0;
 
   NodeId& MutableChild(NodeId index);

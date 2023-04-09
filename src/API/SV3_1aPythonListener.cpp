@@ -31,7 +31,7 @@ namespace SURELOG {
 SV3_1aPythonListener::SV3_1aPythonListener(PythonListen* pl,
                                            PyThreadState* interpState,
                                            antlr4::CommonTokenStream* tokens,
-                                           unsigned int lineOffset)
+                                           uint32_t lineOffset)
     : m_pl(pl),
       m_interpState(interpState),
       m_tokens(tokens),
@@ -44,7 +44,7 @@ SV3_1aPythonListener::~SV3_1aPythonListener() {}
 void SV3_1aPythonListener::logError(ErrorDefinition::ErrorType error,
                                     antlr4::ParserRuleContext* ctx,
                                     std::string object, bool printColumn) {
-  std::pair<int, int> lineCol =
+  ParseUtils::LineColumn lineCol =
       ParseUtils::getLineColumn(getTokenStream(), ctx);
 
   Location loc(

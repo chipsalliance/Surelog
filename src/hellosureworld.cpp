@@ -38,9 +38,9 @@
 // UHDM
 #include <uhdm/uhdm.h>
 
-int main(int argc, const char** argv) {
+int32_t main(int32_t argc, const char** argv) {
   // Read command line, compile a design, use -parse argument
-  unsigned int code = 0;
+  uint32_t code = 0;
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
   SURELOG::CommandLineParser* clp =
@@ -67,7 +67,7 @@ int main(int argc, const char** argv) {
             std::cout << "Inst: " << inst->getFullPathName() << std::endl;
             std::cout << "File: " << fileSystem->toPath(inst->getFileId())
                       << std::endl;
-            for (unsigned int i = 0; i < inst->getNbChildren(); i++) {
+            for (uint32_t i = 0; i < inst->getNbChildren(); i++) {
               inst_visit(inst->getChildren(i));
             }
           };

@@ -41,7 +41,7 @@ TimeInfo::Unit TimeInfo::unitFromString(std::string_view s) {
   return Unit::Picosecond;
 }
 
-uint64_t TimeInfo::femtoSeconds(Unit unit, int value) {
+uint64_t TimeInfo::femtoSeconds(Unit unit, int32_t value) {
   uint64_t result = value;
   switch (unit) {
     case Unit::Second:

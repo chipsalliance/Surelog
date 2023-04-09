@@ -251,7 +251,7 @@ UHDM::any* CompileHelper::compileVariable(
     return path;
   }
 
-  int size;
+  int32_t size;
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, pstmt,
                     instance, reduce, size, muteErrors);
@@ -747,7 +747,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
           ref->Parameters(params);
           VectorOfparam_assign* assigns = s.MakeParam_assignVec();
           ref->Param_assigns(assigns);
-          unsigned int index = 0;
+          uint32_t index = 0;
           NodeId Parameter_value_assignment = param;
           NodeId List_of_parameter_assignments =
               actualFC->Child(Parameter_value_assignment);
@@ -883,8 +883,8 @@ typespec* CompileHelper::compileDatastructureTypespec(
 
 UHDM::typespec_member* CompileHelper::buildTypespecMember(
     CompileDesign* compileDesign, PathId fileId, std::string_view name,
-    std::string_view value, unsigned int line, unsigned short column,
-    unsigned int eline, unsigned short ecolumn) {
+    std::string_view value, uint32_t line, uint16_t column, uint32_t eline,
+    uint16_t ecolumn) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   /*
   std::string hash = fileName + ":" + name + ":" + value + ":" +
@@ -912,8 +912,8 @@ UHDM::typespec_member* CompileHelper::buildTypespecMember(
 
 int_typespec* CompileHelper::buildIntTypespec(
     CompileDesign* compileDesign, PathId fileId, std::string_view name,
-    std::string_view value, unsigned int line, unsigned short column,
-    unsigned int eline, unsigned short ecolumn) {
+    std::string_view value, uint32_t line, uint16_t column, uint32_t eline,
+    uint16_t ecolumn) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   /*
   std::string hash = fileName + ":" + name + ":" + value + ":" +
@@ -1091,7 +1091,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       fC->Type(Packed_dimension) == VObjectType::slSigning_Unsigned) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
-  int size;
+  int32_t size;
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, pstmt,
                     instance, reduce, size, false);
@@ -1139,7 +1139,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       VectorOfenum_const* econsts = s.MakeEnum_constVec();
       en->Enum_consts(econsts);
       NodeId enum_name_declaration = type;
-      int val = 0;
+      int32_t val = 0;
       while (enum_name_declaration) {
         NodeId enumNameId = fC->Child(enum_name_declaration);
         const std::string_view enumName = fC->SymName(enumNameId);
@@ -1737,7 +1737,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                    instance, reduce);
           } else if (typ == uhdmconstant) {
             constant* c = (constant*)exp;
-            int ctype = c->VpiConstType();
+            int32_t ctype = c->VpiConstType();
             if (ctype == vpiIntConst || ctype == vpiDecConst) {
               int_typespec* tps = s.MakeInt_typespec();
               tps->VpiSigned(true);

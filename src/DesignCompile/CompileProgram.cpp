@@ -38,12 +38,12 @@
 
 namespace SURELOG {
 
-int FunctorCompileProgram::operator()() const {
+int32_t FunctorCompileProgram::operator()() const {
   CompileProgram* instance = new CompileProgram(m_compileDesign, m_program,
                                                 m_design, m_symbols, m_errors);
   instance->compile();
   delete instance;
-  return true;
+  return 0;
 }
 
 bool CompileProgram::compile() {

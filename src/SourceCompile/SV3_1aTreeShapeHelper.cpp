@@ -38,7 +38,7 @@ namespace SURELOG {
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
                                              antlr4::CommonTokenStream* tokens,
 
-                                             unsigned int lineOffset)
+                                             uint32_t lineOffset)
     : CommonListenerHelper(nullptr, tokens),
       m_pf(pf),
       m_currentElement(nullptr),
@@ -64,7 +64,7 @@ void SV3_1aTreeShapeHelper::logError(ErrorDefinition::ErrorType error,
                                      antlr4::ParserRuleContext* ctx,
                                      std::string_view object,
                                      bool printColumn) {
-  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+  ParseUtils::LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
 
   Location loc(
       m_pf->getFileId(lineCol.first /*+ m_lineOffset*/),
@@ -145,19 +145,19 @@ void SV3_1aTreeShapeHelper::addDesignElement(antlr4::ParserRuleContext* ctx,
   m_currentElement = m_fileContent->getDesignElements().back();
 }
 
-std::tuple<PathId, unsigned int, unsigned short, unsigned int, unsigned short>
+std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
 SV3_1aTreeShapeHelper::getFileLine(antlr4::ParserRuleContext* ctx,
                                    antlr4::Token* token) const {
-  std::pair<int, int> lineCol = (token == nullptr)
-                                    ? ParseUtils::getLineColumn(m_tokens, ctx)
-                                    : ParseUtils::getLineColumn(token);
-  std::pair<int, int> endLineCol =
+  ParseUtils::LineColumn lineCol =
+      (token == nullptr) ? ParseUtils::getLineColumn(m_tokens, ctx)
+                         : ParseUtils::getLineColumn(token);
+  ParseUtils::LineColumn endLineCol =
       (token == nullptr) ? ParseUtils::getEndLineColumn(m_tokens, ctx)
                          : ParseUtils::getEndLineColumn(token);
-  unsigned int line = 0;
-  unsigned short column = 0;
-  unsigned int endLine = 0;
-  unsigned short endColumn = 0;
+  uint32_t line = 0;
+  uint16_t column = 0;
+  uint32_t endLine = 0;
+  uint16_t endColumn = 0;
   PathId fileId;
   if (m_ppOutputFileLocation) {
     fileId = m_pf->getFileId(0);

@@ -25,7 +25,7 @@ namespace SURELOG {
 
 TEST(CompileHelper, ParseConstants) {
   UHDM::Serializer s;
-  auto tester = [&s](int type, std::string_view value, int64_t* result) {
+  auto tester = [&s](int32_t type, std::string_view value, int64_t* result) {
     CompileHelper testee;
     UHDM::constant* val = s.MakeConstant();
     val->VpiConstType(type);

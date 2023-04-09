@@ -59,16 +59,16 @@ class UhdmWriter final {
 
   vpiHandle write(PathId uhdmFileId);
 
-  static unsigned int getVpiDirection(VObjectType type);
+  static uint32_t getVpiDirection(VObjectType type);
 
-  static unsigned int getVpiNetType(VObjectType type);
+  static uint32_t getVpiNetType(VObjectType type);
 
-  static unsigned int getVpiOpType(VObjectType type);
+  static uint32_t getVpiOpType(VObjectType type);
 
-  static unsigned int getStrengthType(VObjectType type);
+  static uint32_t getStrengthType(VObjectType type);
 
   static std::string builtinGateName(VObjectType type);
-  static unsigned int getBuiltinType(VObjectType type);
+  static uint32_t getBuiltinType(VObjectType type);
 
  private:
   void writePorts(std::vector<Signal*>& orig_ports, UHDM::BaseClass* parent,

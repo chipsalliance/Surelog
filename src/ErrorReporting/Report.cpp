@@ -143,7 +143,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
 
   std::string diffCmd = StrCat("diff -r ", unitCompileDir, " ", allCompileDir,
                                " --exclude cache --brief > ", diffFile);
-  int retval = system(diffCmd.c_str());
+  int32_t retval = system(diffCmd.c_str());
 
   std::istream& ifs = fileSystem->openForRead(diffFileId);
   if (ifs.good()) {
@@ -164,10 +164,10 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   }
   fileSystem->close(ifs);
 
-  int nbFatal =
+  int32_t nbFatal =
       std::stoi(readUnitResult.m_nbFatal) + std::stoi(readAllResult.m_nbFatal);
-  int nbSyntax = std::stoi(readUnitResult.m_nbSyntax) +
-                 std::stoi(readAllResult.m_nbSyntax);
+  int32_t nbSyntax = std::stoi(readUnitResult.m_nbSyntax) +
+                     std::stoi(readAllResult.m_nbSyntax);
 
   // m.unlock();
   return std::make_pair(retval != -1, (!nbFatal) && (!nbSyntax));

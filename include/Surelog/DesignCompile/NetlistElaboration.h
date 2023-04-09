@@ -62,13 +62,13 @@ class NetlistElaboration : public TestbenchElaboration {
   UHDM::interface_inst* elab_interface_(
       ModuleInstance* instance, ModuleInstance* interf_instance,
       std::string_view instName, std::string_view defName,
-      ModuleDefinition* mod, PathId fileId, int lineNb,
+      ModuleDefinition* mod, PathId fileId, uint32_t lineNb,
       UHDM::interface_array* interf_array, std::string_view modPortName);
   UHDM::modport* elab_modport_(ModuleInstance* instance,
                                ModuleInstance* interfInstance,
                                std::string_view instName,
                                std::string_view defName, ModuleDefinition* mod,
-                               PathId fileId, int lineNb,
+                               PathId fileId, uint32_t lineNb,
                                std::string_view modPortName,
                                UHDM::interface_array* interf_array);
   bool elab_ports_nets_(ModuleInstance* instance, bool ports);

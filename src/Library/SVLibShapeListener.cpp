@@ -98,7 +98,7 @@ void SVLibShapeListener::enterInclude_statement(
   }
 
   if (!fileId || !fileSystem->isRegularFile(fileId)) {
-    std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+    ParseUtils::LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
     Location loc(m_parser->getFileId(), lineCol.first, lineCol.second,
                  symbolTable->registerSymbol(filename));
     Error err(ErrorDefinition::PP_CANNOT_OPEN_INCLUDE_FILE, loc);

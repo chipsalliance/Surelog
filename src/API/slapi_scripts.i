@@ -12,7 +12,7 @@ using SURELOG::RawNodeId;
 using SURELOG::VObjectType;
 %}
 
-%template (UIntVector) std::vector<unsigned int>;
+%template (UIntVector) std::vector<uint32_t>;
         
 %include <Surelog/API/SLAPI.h>
 

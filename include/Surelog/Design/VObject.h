@@ -39,15 +39,15 @@ class SymbolTable;
 
 class VObject final {
  public:
-  VObject(SymbolId name, PathId fileId, VObjectType type, unsigned int line,
-          unsigned short column, unsigned int endLine, unsigned short endColumn,
+  VObject(SymbolId name, PathId fileId, VObjectType type, uint32_t line,
+          uint16_t column, uint32_t endLine, uint16_t endColumn,
           NodeId parent = InvalidNodeId)
       : VObject(name, fileId, type, line, column, endLine, endColumn, parent,
                 InvalidNodeId /* definition */, InvalidNodeId /* child */,
                 InvalidNodeId /* sibling */) {}
 
-  VObject(SymbolId name, PathId fileId, VObjectType type, unsigned int line,
-          unsigned short column, unsigned int endLine, unsigned short endColumn,
+  VObject(SymbolId name, PathId fileId, VObjectType type, uint32_t line,
+          uint16_t column, uint32_t endLine, uint16_t endColumn,
           NodeId parent, NodeId definition, NodeId child, NodeId sibling)
       : m_name(name),
         m_fileId(fileId),
@@ -69,10 +69,10 @@ class VObject final {
   SymbolId m_name;
   PathId m_fileId;
   VObjectType m_type;
-  unsigned short m_column = 0;
-  unsigned short m_endColumn = 0;
-  unsigned int m_line = 0;
-  unsigned int m_endLine = 0;
+  uint16_t m_column = 0;
+  uint16_t m_endColumn = 0;
+  uint32_t m_line = 0;
+  uint32_t m_endLine = 0;
   NodeId m_parent;
   NodeId m_definition;
   NodeId m_child;

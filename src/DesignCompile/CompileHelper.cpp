@@ -77,7 +77,7 @@ void CompileHelper::checkForLoops(bool on) {
   m_unwind = false;
 }
 
-bool CompileHelper::loopDetected(PathId fileId, int lineNumber,
+bool CompileHelper::loopDetected(PathId fileId, uint32_t lineNumber,
                                  CompileDesign* compileDesign,
                                  ValuedComponentI* instance) {
 #if defined(_WIN32)
@@ -576,7 +576,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       resolutionFunctionName = name;
     } else {
       array_tps = s.MakeArray_typespec();
-      int size;
+      int32_t size;
       VectorOfrange* ranges =
           compileRanges(scope, fC, Variable_dimension, compileDesign, nullptr,
                         nullptr, reduce, size, false);
@@ -616,7 +616,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   if (Packed_dimension &&
       (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
     packed_array_tps = s.MakePacked_array_typespec();
-    int size;
+    int32_t size;
     VectorOfrange* ranges =
         compileRanges(scope, fC, Packed_dimension, compileDesign, nullptr,
                       nullptr, reduce, size, false);
@@ -701,7 +701,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   if (enumType) {
     TypeDef* newTypeDef =
         new TypeDef(fC, type_declaration, enum_base_type, name);
-    int val = 0;
+    int32_t val = 0;
     Enum* the_enum = new Enum(fC, type_name, enum_base_type);
     newTypeDef->setDataType(the_enum);
     newTypeDef->setDefinition(the_enum);
@@ -1210,7 +1210,7 @@ bool CompileHelper::compileForLoop_stmt(Scope* parent, Statement* parentStmt,
     stmt = new ForLoopStmt("", parent, parentStmt, fC, first_node,
                            VObjectType::slStatement_or_null);
   } else if (init_type == VObjectType::slFor_initialization) {
-    // for ( int i = 0; xxx ; xxx )
+    // for ( int32_t i = 0; xxx ; xxx )
     for_initialization = first_node;
     expression = fC->Sibling(for_initialization);
     if (fC->Type(expression) == VObjectType::slExpression)
@@ -2417,7 +2417,7 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
 
     NodeId unpackedDimId = fC->Sibling(identifierId);
     if (unpackedDimId) {
-      int unpackedSize = 0;
+      int32_t unpackedSize = 0;
       if (std::vector<UHDM::range*>* unpackedDimensions =
               compileRanges(mod, fC, unpackedDimId, compileDesign, nullptr,
                             instance, false, unpackedSize, false)) {
@@ -2791,7 +2791,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
   if (exp->UhdmType() == uhdmoperation) {
     operation* op = (operation*)exp;
     VectorOfany* operands = op->Operands();
-    int opType = op->VpiOpType();
+    int32_t opType = op->VpiOpType();
     switch (opType) {
       case vpiCastOp: {
         const typespec* optps = op->Typespec();
@@ -2800,7 +2800,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
           any* op0 = (*operands)[0];
           if (op0->UhdmType() == uhdmoperation) {
             operation* oper0 = (operation*)op0;
-            int op0Type = oper0->VpiOpType();
+            int32_t op0Type = oper0->VpiOpType();
             if (op0Type == vpiConcatOp) {
               VectorOfany* operandsConcat = oper0->Operands();
               any* op0Concat = (*operandsConcat)[0];
@@ -3065,7 +3065,7 @@ bool CompileHelper::compileParameterDeclaration(
 
       // Unpacked dimensions
       if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
-        int unpackedSize;
+        int32_t unpackedSize;
         std::vector<UHDM::range*>* unpackedDimensions =
             compileRanges(component, fC, value, compileDesign, param, instance,
                           reduce, unpackedSize, muteErrors);
@@ -3111,10 +3111,10 @@ bool CompileHelper::compileParameterDeclaration(
         } else if (expr && exprtype == UHDM::uhdmconstant) {
           UHDM::constant* c = (UHDM::constant*)expr;
           if (c->Typespec() == nullptr) c->Typespec(ts);
-          int size = c->VpiSize();
+          int32_t size = c->VpiSize();
           if (ts) {
             bool invalidValue = false;
-            int sizetmp =
+            int32_t sizetmp =
                 Bits(ts, invalidValue, component, compileDesign, instance,
                      fC->getFileId(), fC->Line(actual_value), true, false);
             if (!invalidValue) size = sizetmp;
@@ -3137,7 +3137,7 @@ bool CompileHelper::compileParameterDeclaration(
           if (isDecreasing) {
             if (expr->UhdmType() == uhdmoperation) {
               operation* op = (operation*)expr;
-              int optype = op->VpiOpType();
+              int32_t optype = op->VpiOpType();
               if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
                 VectorOfany* operands = op->Operands();
                 if (operands && !operands->empty()) {
@@ -3220,7 +3220,7 @@ bool CompileHelper::compileParameterDeclaration(
         if (isDecreasing) {
           if (rhs->UhdmType() == uhdmoperation) {
             operation* op = (operation*)rhs;
-            int optype = op->VpiOpType();
+            int32_t optype = op->VpiOpType();
             if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
               VectorOfany* operands = op->Operands();
               if (operands && !operands->empty()) {
@@ -3299,10 +3299,10 @@ bool CompileHelper::compileParameterDeclaration(
           adjustSize(ts, component, compileDesign, instance, c);
           c->Typespec(ts);
 
-          int size = c->VpiSize();
+          int32_t size = c->VpiSize();
           if (ts) {
             bool invalidValue = false;
-            int sizetmp =
+            int32_t sizetmp =
                 Bits(ts, invalidValue, component, compileDesign, instance,
                      fC->getFileId(), fC->Line(actual_value), true, false);
             if (!invalidValue) size = sizetmp;
@@ -3327,8 +3327,8 @@ bool CompileHelper::compileParameterDeclaration(
 char flip(char c) { return (c == '0') ? '1' : '0'; }
 
 std::string twosComplement(std::string_view bin) {
-  int n = bin.length();
-  int i;
+  int32_t n = bin.length();
+  int32_t i;
   std::string ones, twos;
   for (i = 0; i < n; i++) ones += flip(bin[i]);
   twos = ones;
@@ -3356,16 +3356,16 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
     return result;
   }
   FileSystem* const fileSystem = FileSystem::getInstance();
-  int orig_size = c->VpiSize();
+  int32_t orig_size = c->VpiSize();
 
   bool invalidValue = false;
-  int sizetmp =
+  int32_t sizetmp =
       Bits(ts, invalidValue, component, compileDesign, instance,
            fileSystem->toPathId(c->VpiFile(),
                                 compileDesign->getCompiler()->getSymbolTable()),
            c->VpiLineNo(), true, sizeMode);
 
-  int size = orig_size;
+  int32_t size = orig_size;
   if (!invalidValue) size = sizetmp;
 
   if (size != orig_size) {
@@ -3398,7 +3398,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                 std::string_view v = c->VpiValue();
                 v.remove_prefix(4);
                 const std::string res = twosComplement(v);
-                // Convert to int
+                // Convert to int32_t
                 val = std::strtoll(res.c_str(), 0, 2);
                 val = -val;
                 if (uniquify) {
@@ -3452,10 +3452,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
               c->VpiDecompile(std::to_string(uval));
               c->VpiConstType(vpiUIntConst);
             } else {
-              std::string mask;
-              for (int i = 0; i < size; i++) {
-                mask += "1";
-              }
+              std::string mask(size, '1');
               c->VpiValue("BIN:" + mask);
               c->VpiDecompile(mask);
               c->VpiConstType(vpiBinaryConst);
@@ -3599,7 +3596,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           modTmp->VpiName("tmp");
           const VectorOfseq_formal_decl* decls = stmt->Ios();
           VectorOfparam_assign* passigns = s.MakeParam_assignVec();
-          for (unsigned int i = 0; i < decls->size(); i++) {
+          for (uint32_t i = 0; i < decls->size(); i++) {
             seq_formal_decl* decl = decls->at(i);
             any* actual = nullptr;
             if (i < arguments->size()) actual = arguments->at(i);
@@ -3989,8 +3986,8 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
       VObjectType direction = fC->Type(item);
       UHDM::delay_control* dcInp = nullptr;
       UHDM::delay_control* dcOut = nullptr;
-      int inputEdge = 0;
-      int outputEdge = 0;
+      int32_t inputEdge = 0;
+      int32_t outputEdge = 0;
       if (direction == VObjectType::slDefaultSkew_IntputOutput) {
         NodeId Clocking_skew = fC->Child(item);
         if (Clocking_skew) {
@@ -4237,13 +4234,14 @@ bool CompileHelper::isSelected(const FileContent* fC,
   return false;
 }
 
-int CompileHelper::adjustOpSize(const typespec* tps, expr* cop, int opIndex,
-                                UHDM::expr* rhs, DesignComponent* component,
-                                CompileDesign* compileDesign,
-                                ValuedComponentI* instance) {
+int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
+                                    int32_t opIndex, UHDM::expr* rhs,
+                                    DesignComponent* component,
+                                    CompileDesign* compileDesign,
+                                    ValuedComponentI* instance) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   bool invalidValue = false;
-  int csize = cop->VpiSize();
+  int32_t csize = cop->VpiSize();
   if (csize == 0) {
     expr* vexp = reduceExpr(
         cop, invalidValue, component, compileDesign, instance,
@@ -4259,7 +4257,7 @@ int CompileHelper::adjustOpSize(const typespec* tps, expr* cop, int opIndex,
   }
   if (rtps->UhdmType() == uhdmstruct_typespec) {
     struct_typespec* stps = (struct_typespec*)rtps;
-    int index = 0;
+    int32_t index = 0;
     for (typespec_member* member : *stps->Members()) {
       if (index == opIndex) {
         csize = Bits(member->Typespec(), invalidValue, component, compileDesign,
@@ -4338,10 +4336,10 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
   UHDM::ExprEval eval(true);
   rhs = eval.flattenPatternAssignments(s, tps, (UHDM::expr*)rhs);
 
-  std::vector<int> values(size, 0);
+  std::vector<int32_t> values(size, 0);
   if (rhs->UhdmType() == uhdmoperation) {
     operation* op = (operation*)rhs;
-    int opType = op->VpiOpType();
+    int32_t opType = op->VpiOpType();
     if (opType == vpiConditionOp) {
       VectorOfany* ops = op->Operands();
       ops->at(1) = expandPatternAssignment(tps, (expr*)ops->at(1), component,
@@ -4353,7 +4351,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
       VectorOfany* operands = op->Operands();
       if (operands) {
         // Get default
-        int defaultval = 0;
+        int32_t defaultval = 0;
         bool taggedPattern = false;
         for (any* op : *operands) {
           if (op->UhdmType() == uhdmtagged_pattern) {
@@ -4384,7 +4382,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
           }
           if (rtps->UhdmType() == uhdmstruct_typespec) {
             struct_typespec* stps = (struct_typespec*)rtps;
-            int valIndex = 0;
+            int32_t valIndex = 0;
             // Apply default
             for (typespec_member* member : *stps->Members()) {
               uint64_t csize =
@@ -4395,7 +4393,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                        rhs->VpiLineNo(), true, false);
               patternSize += csize;
               for (uint64_t i = 0; i < csize; i++) {
-                if (valIndex > (int)(size - 1)) {
+                if (valIndex > (int32_t)(size - 1)) {
                   break;
                 }
                 values[valIndex] =
@@ -4414,7 +4412,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
 
               for (any* op : *operands) {
                 bool found = false;
-                int val = 0;
+                int32_t val = 0;
                 if (op->UhdmType() == uhdmtagged_pattern) {
                   taggedPattern = true;
                   tagged_pattern* tp = (tagged_pattern*)op;
@@ -4436,7 +4434,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                 }
 
                 for (uint64_t i = 0; i < csize; i++) {
-                  if (valIndex > (int)(size - 1)) {
+                  if (valIndex > (int32_t)(size - 1)) {
                     break;
                   }
                   if (found) {
@@ -4455,8 +4453,8 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
             }
           }
         } else {
-          int valIndex = 0;
-          int opIndex = 0;
+          int32_t valIndex = 0;
+          int32_t opIndex = 0;
           for (any* op : *operands) {
             expr* cop = (expr*)op;
             UHDM::ExprEval eval;
@@ -4467,11 +4465,11 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                     compileDesign->getCompiler()->getSymbolTable()),
                 cop->VpiLineNo(), nullptr);
             uint64_t v = eval.get_uvalue(invalidValue, vexp);
-            int csize = adjustOpSize(tps, cop, opIndex, rhs, component,
-                                     compileDesign, instance);
+            int32_t csize = adjustOpSize(tps, cop, opIndex, rhs, component,
+                                         compileDesign, instance);
             patternSize += csize;
-            for (int i = 0; i < csize; i++) {
-              if (valIndex > (int)(size - 1)) {
+            for (int32_t i = 0; i < csize; i++) {
+              if (valIndex > (int32_t)(size - 1)) {
                 break;
               }
               values[valIndex] = (v & (1ULL << (csize - 1 - i))) ? 1 : 0;
@@ -4483,8 +4481,8 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
       }
     }
   }
-  for (unsigned int i = 0; i < size; i++) {
-    if (vars && ((int)i < (int)(vars->size()))) {
+  for (uint32_t i = 0; i < size; i++) {
+    if (vars && ((int32_t)i < (int32_t)(vars->size()))) {
       ((variables*)(*vars)[i])->VpiValue("UINT:" + std::to_string(values[i]));
     }
   }
@@ -4499,7 +4497,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
         array->VpiSize(size);
         array->Ranges(atps->Ranges());
         array->Elements(vars);
-        for (unsigned int i = 0; i < size; i++) {
+        for (uint32_t i = 0; i < size; i++) {
           vars->push_back(s.MakeEnum_var());
         }
         result = array;
@@ -4598,8 +4596,8 @@ void CompileHelper::setRange(UHDM::constant* c, Value* val,
                              CompileDesign* compileDesign) {
   if (!val || !c) return;
   Serializer& s = compileDesign->getSerializer();
-  unsigned short lr = val->getLRange();
-  unsigned short rr = val->getRRange();
+  uint16_t lr = val->getLRange();
+  uint16_t rr = val->getRRange();
   if (lr || rr) {
     logic_typespec* tps = s.MakeLogic_typespec();
     c->Typespec(tps);

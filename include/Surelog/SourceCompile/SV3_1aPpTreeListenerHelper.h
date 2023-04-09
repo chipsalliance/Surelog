@@ -54,7 +54,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
 
  protected:
   // Helper function if-else
-  void setCurrentBranchActivity(unsigned int currentLine);
+  void setCurrentBranchActivity(uint32_t currentLine);
   // Helper function if-else
   bool isPreviousBranchActive();
   // Helper function to log errors
@@ -74,7 +74,7 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   SymbolTable* getSymbolTable() const;
   SymbolId registerSymbol(std::string_view symbol) final;
 
-  std::tuple<PathId, unsigned int, unsigned short, unsigned int, unsigned short>
+  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
   getFileLine(antlr4::ParserRuleContext* ctx,
               antlr4::Token* token) const override;
 

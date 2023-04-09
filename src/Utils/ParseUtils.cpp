@@ -27,16 +27,17 @@
 namespace SURELOG {
 
 ParseUtils::LineColumn ParseUtils::getLineColumn(antlr4::Token* token) {
-  const size_t lineNb = token->getLine();
-  const size_t columnNb = token->getCharPositionInLine() + 1;
+  const uint32_t lineNb = static_cast<uint32_t>(token->getLine());
+  const uint16_t columnNb =
+      static_cast<uint16_t>(token->getCharPositionInLine() + 1);
   return std::make_pair(lineNb, columnNb);
 }
 
 ParseUtils::LineColumn ParseUtils::getEndLineColumn(antlr4::Token* token) {
-  const size_t lineNb = token->getLine();
-  const size_t columnNb = token->getCharPositionInLine() +
-                          token->getStopIndex() - token->getStartIndex() + 1 +
-                          1;
+  const uint32_t lineNb = static_cast<uint32_t>(token->getLine());
+  const uint16_t columnNb = static_cast<uint16_t>(
+      token->getCharPositionInLine() + token->getStopIndex() -
+      token->getStartIndex() + 1 + 1);
   return std::make_pair(lineNb, columnNb);
 }
 
@@ -74,7 +75,7 @@ void ParseUtils::tokenizeAtComma(
     const std::vector<antlr4::tree::ParseTree*>& tokens) {
   bool notEmpty = false;
   std::vector<std::string> tmpArgs;
-  unsigned int topIndex = 0;
+  uint32_t topIndex = 0;
   for (antlr4::tree::ParseTree* token : tokens) {
     const std::string s = token->getText();
     if (s == ",") {
@@ -93,7 +94,7 @@ void ParseUtils::tokenizeAtComma(
     }
   }
 
-  for (unsigned int j = 0; j < tmpArgs.size(); j++) {
+  for (uint32_t j = 0; j < tmpArgs.size(); j++) {
     const std::string& s = tmpArgs[j];
     if (s != ",") {
       for (const char c : s) {  // TODO: use std:: fun

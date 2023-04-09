@@ -39,15 +39,16 @@ SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(std::string_view symbol) {
   return m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-std::tuple<PathId, unsigned int, unsigned short, unsigned int, unsigned short>
+std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
 SV3_1aPpTreeListenerHelper::getFileLine(antlr4::ParserRuleContext* ctx,
                                         antlr4::Token* token) const {
-  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
-  std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
-  unsigned int line = m_pp->getLineNb(lineCol.first);
-  unsigned short column = lineCol.second;
-  unsigned int endLine = m_pp->getLineNb(endLineCol.first);
-  unsigned short endColumn = endLineCol.second;
+  ParseUtils::LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+  ParseUtils::LineColumn endLineCol =
+      ParseUtils::getEndLineColumn(m_tokens, ctx);
+  uint32_t line = m_pp->getLineNb(lineCol.first);
+  uint16_t column = lineCol.second;
+  uint32_t endLine = m_pp->getLineNb(endLineCol.first);
+  uint16_t endColumn = endLineCol.second;
   PathId fileId = m_pp->getFileId(lineCol.first);
   return std::make_tuple(fileId, line, column, endLine, endColumn);
 }
@@ -112,7 +113,7 @@ void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
                                           std::string_view object,
                                           bool printColumn) {
   if (m_instructions.m_mute) return;
-  std::pair<int, int> lineCol =
+  ParseUtils::LineColumn lineCol =
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   if (m_pp->getMacroInfo()) {
     Location loc(m_pp->getMacroInfo()->m_fileId,
@@ -175,7 +176,7 @@ void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
     std::string_view macroName, antlr4::ParserRuleContext* ctx) {
   MacroInfo* macroInf = m_pp->getMacro(macroName);
   if (macroInf) {
-    std::pair<int, int> lineCol =
+    ParseUtils::LineColumn lineCol =
         ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
     if ((macroInf->m_fileId == m_pp->getFileId(lineCol.first)) &&
         (m_pp->getLineNb(lineCol.first) == macroInf->m_startLine))
@@ -189,10 +190,10 @@ void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
 }
 
 void SV3_1aPpTreeListenerHelper::setCurrentBranchActivity(
-    unsigned int currentLine) {
+    uint32_t currentLine) {
   PreprocessFile::IfElseStack& stack = m_pp->getStack();
   if (!stack.empty()) {
-    int index = stack.size() - 1;
+    int32_t index = stack.size() - 1;
     bool checkPrev = true;
     while (checkPrev) {
       PreprocessFile::IfElseItem& tmpitem = stack.at(index);
@@ -244,7 +245,7 @@ bool SV3_1aPpTreeListenerHelper::isPreviousBranchActive() {
   if (stack.empty()) {
     return false;
   }
-  int index = stack.size() - 1;
+  int32_t index = stack.size() - 1;
   while (checkPrev) {
     checkPrev = false;
     PreprocessFile::IfElseItem& tmpitem = stack.at(index);

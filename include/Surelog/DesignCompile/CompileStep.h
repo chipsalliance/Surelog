@@ -58,7 +58,7 @@ class CompileStep {
 
   virtual VObjectType Type(NodeId index) const = 0;
 
-  virtual unsigned int Line(NodeId index) const = 0;
+  virtual uint32_t Line(NodeId index) const = 0;
 
   virtual std::string_view Symbol(SymbolId id) const = 0;
 

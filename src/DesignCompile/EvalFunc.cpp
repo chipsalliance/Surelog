@@ -46,7 +46,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                               bool& invalidValue, DesignComponent* component,
                               CompileDesign* compileDesign,
                               ValuedComponentI* instance, PathId fileId,
-                              int lineNumber, any* pexpr) {
+                              uint32_t lineNumber, any* pexpr) {
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](std::string_view name, const any* inst,
           const any* pexpr) -> UHDM::any* {

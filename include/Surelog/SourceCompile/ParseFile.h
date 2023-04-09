@@ -57,7 +57,7 @@ class ParseFile final {
 
   // File chunk
   ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
-            PathId chunkFileId, unsigned int offsetLine);
+            PathId chunkFileId, uint32_t offsetLine);
 
   // Unit test constructor
   ParseFile(std::string_view text, CompileSourceFile* csf,
@@ -74,21 +74,21 @@ class ParseFile final {
   Library* getLibrary() const { return m_library; }
   SymbolTable* getSymbolTable();
   ErrorContainer* getErrorContainer();
-  PathId getFileId(unsigned int line);
+  PathId getFileId(uint32_t line);
   PathId getRawFileId() const { return m_fileId; }
   PathId getPpFileId() const { return m_ppFileId; }
-  unsigned int getLineNb(unsigned int line);
+  uint32_t getLineNb(uint32_t line);
 
   class LineTranslationInfo {
    public:
-    LineTranslationInfo(PathId pretendFileId, unsigned int originalLine,
-                        unsigned int pretendLine)
+    LineTranslationInfo(PathId pretendFileId, uint32_t originalLine,
+                        uint32_t pretendLine)
         : m_pretendFileId(pretendFileId),
           m_originalLine(originalLine),
           m_pretendLine(pretendLine) {}
     PathId m_pretendFileId;
-    unsigned int m_originalLine;
-    unsigned int m_pretendLine;
+    uint32_t m_originalLine;
+    uint32_t m_pretendLine;
   };
 
   AntlrParserHandler* getAntlrParserHandler() const {
@@ -124,17 +124,17 @@ class ParseFile final {
   FileContent* m_fileContent = nullptr;
   bool debug_AstModel;
 
-  bool parseOneFile_(PathId fileId, unsigned int lineOffset);
+  bool parseOneFile_(PathId fileId, uint32_t lineOffset);
   void buildLineInfoCache_();
   // For file chunk:
   std::vector<ParseFile*> m_children;
   ParseFile* const m_parent;
-  unsigned int m_offsetLine;
+  uint32_t m_offsetLine;
   SymbolTable* const m_symbolTable;
   ErrorContainer* const m_errors;
   std::string m_profileInfo;
   std::string m_sourceText;  // For Unit tests
-  std::vector<unsigned int> lineInfoCache;
+  std::vector<uint32_t> lineInfoCache;
   std::vector<PathId> fileInfoCache;
 };
 

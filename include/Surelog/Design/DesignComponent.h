@@ -53,7 +53,7 @@ class Variable;
 class ExprEval {
  public:
   ExprEval(UHDM::expr* expr, ValuedComponentI* instance, PathId fileId,
-           int lineNumber, UHDM::any* pexpr)
+           uint32_t lineNumber, UHDM::any* pexpr)
       : m_expr(expr),
         m_instance(instance),
         m_fileId(fileId),
@@ -62,7 +62,7 @@ class ExprEval {
   UHDM::expr* m_expr;
   ValuedComponentI* m_instance;
   PathId m_fileId;
-  int m_lineNumber;
+  uint32_t m_lineNumber;
   UHDM::any* m_pexpr;
 };
 
@@ -73,7 +73,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
       : ValuedComponentI(parent, definition), m_instance(nullptr) {}
   ~DesignComponent() override {}
 
-  virtual unsigned int getSize() const = 0;
+  virtual uint32_t getSize() const = 0;
   virtual VObjectType getType() const = 0;
   virtual bool isInstance() const = 0;
   virtual std::string_view getName() const = 0;

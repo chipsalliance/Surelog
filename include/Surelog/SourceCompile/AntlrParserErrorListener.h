@@ -38,7 +38,7 @@ class ParseFile;
 class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
  public:
   AntlrParserErrorListener(ParseFile *parser, bool watchDogOn,
-                           unsigned int lineOffset, PathId fileId)
+                           uint32_t lineOffset, PathId fileId)
       : m_parser(parser),
         m_reportedSyntaxError(false),
         m_watchDogOn(watchDogOn),
@@ -73,7 +73,7 @@ class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
   bool m_reportedSyntaxError;
   bool m_watchDogOn;
   bool m_barked;
-  unsigned int m_lineOffset;
+  uint32_t m_lineOffset;
   PathId m_fileId;
   std::vector<std::string> m_fileContent;
 };

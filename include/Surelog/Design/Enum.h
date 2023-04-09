@@ -45,10 +45,10 @@ class Enum : public DataType {
   Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
   ~Enum() override = default;
 
-  typedef std::map<std::string, std::pair<unsigned int, Value*>, std::less<>>
+  typedef std::map<std::string, std::pair<uint32_t, Value*>, std::less<>>
       NameValueMap;
 
-  void addValue(std::string_view name, unsigned int lineNb, Value* value) {
+  void addValue(std::string_view name, uint32_t lineNb, Value* value) {
     m_values.emplace(name, std::make_pair(lineNb, value));
   }
   Value* getValue(std::string_view name) const;

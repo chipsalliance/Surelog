@@ -204,8 +204,8 @@ PathId FileContent::GetDefinitionFile(NodeId index) const {
 }
 
 NodeId FileContent::addObject(SymbolId name, PathId fileId, VObjectType type,
-                              unsigned int line, unsigned short column,
-                              unsigned int endLine, unsigned short endColumn,
+                              uint32_t line, uint16_t column, uint32_t endLine,
+                              uint16_t endColumn,
                               NodeId parent /* = InvalidNodeId */,
                               NodeId definition /* = InvalidNodeId */,
                               NodeId child /* = InvalidNodeId */,
@@ -324,7 +324,7 @@ VObjectType FileContent::Type(NodeId index) const {
   return (VObjectType)m_objects[index].m_type;
 }
 
-unsigned int FileContent::Line(NodeId index) const {
+uint32_t FileContent::Line(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
     Location loc(m_fileId);
@@ -336,7 +336,7 @@ unsigned int FileContent::Line(NodeId index) const {
   return m_objects[index].m_line;
 }
 
-unsigned short FileContent::Column(NodeId index) const {
+uint16_t FileContent::Column(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
     Location loc(m_fileId);
@@ -348,7 +348,7 @@ unsigned short FileContent::Column(NodeId index) const {
   return m_objects[index].m_column;
 }
 
-unsigned int FileContent::EndLine(NodeId index) const {
+uint32_t FileContent::EndLine(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
     Location loc(m_fileId);
@@ -360,7 +360,7 @@ unsigned int FileContent::EndLine(NodeId index) const {
   return m_objects[index].m_endLine;
 }
 
-unsigned short FileContent::EndColumn(NodeId index) const {
+uint16_t FileContent::EndColumn(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
     Location loc(m_fileId);

@@ -45,7 +45,7 @@ struct FunctorCompileProgram {
         m_design(design),
         m_symbols(symbols),
         m_errors(errors) {}
-  int operator()() const;
+  int32_t operator()() const;
 
  private:
   CompileDesign* const m_compileDesign;

@@ -101,7 +101,7 @@ bool Cache::saveFlatbuffers(const flatbuffers::FlatBufferBuilder& builder,
   FileSystem* const fileSystem = FileSystem::getInstance();
 
   const unsigned char* buf = builder.GetBufferPointer();
-  const int size = builder.GetSize();
+  const int32_t size = builder.GetSize();
 
   PathId cacheDirId = fileSystem->getParent(cacheFileId, symbolTable);
   return fileSystem->mkdirs(cacheDirId) &&
@@ -149,7 +149,7 @@ flatbuffers::Offset<Cache::VectorOffsetError> Cache::cacheErrors(
 
 void Cache::restoreSymbols(const VectorOffsetString* symbolsBuf,
                            SymbolTable* cacheSymbols) {
-  for (unsigned int i = 0; i < symbolsBuf->size(); i++) {
+  for (uint32_t i = 0; i < symbolsBuf->size(); i++) {
     std::string_view symbol = symbolsBuf->Get(i)->string_view();
     cacheSymbols->registerSymbol(symbol);
   }
@@ -160,10 +160,10 @@ void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
                           ErrorContainer* errorContainer,
                           SymbolTable* localSymbols) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  for (unsigned int i = 0; i < errorsBuf->size(); i++) {
+  for (uint32_t i = 0; i < errorsBuf->size(); i++) {
     auto errorFlb = errorsBuf->Get(i);
     std::vector<Location> locs;
-    for (unsigned int j = 0; j < errorFlb->locations()->size(); j++) {
+    for (uint32_t j = 0; j < errorFlb->locations()->size(); j++) {
       auto locFlb = errorFlb->locations()->Get(j);
       PathId translFileId = fileSystem->toPathId(
           fileSystem->remap(cacheSymbols->getSymbol(
@@ -271,20 +271,20 @@ void Cache::restoreVObjects(
     uint64_t field4 = objectc->field4();
     // Decode compression done when saving cache (see below)
     // clang-format off
-    RawSymbolId name =         (field1 & 0x0000000000FFFFFF);
-    unsigned short type =      (field1 & 0x0000000FFF000000) >> (24);
-    unsigned short column =    (field1 & 0x0000FFF000000000) >> (24 + 12);
-    RawNodeId parent =         (field1 & 0xFFFF000000000000) >> (24 + 12 + 12);
-    parent |=                  (field2 & 0x0000000000000FFF) << (16);
-    RawNodeId definition =     (field2 & 0x000000FFFFFFF000) >> (12);
-    RawNodeId child =          (field2 & 0xFFFFFF0000000000) >> (12 + 28);
-    child |=                   (field3 & 0x000000000000000F) << (24);
-    RawNodeId sibling =        (field3 & 0x00000000FFFFFFF0) >> (4);
-    RawSymbolId fileId =       (field3 & 0x00FFFFFF00000000) >> (4 + 28);
-    unsigned int line =        (field3 & 0xFF00000000000000) >> (4 + 28 + 24);
-    line |=                    (field4 & 0x000000000000FFFF) << (8);
-    unsigned int endLine =     (field4 & 0x000000FFFFFF0000) >> (16);
-    unsigned short endColumn = (field4 & 0x000FFF0000000000) >> (16 + 24);
+    RawSymbolId name =      (field1 & 0x0000000000FFFFFF);
+    uint16_t type =         (field1 & 0x0000000FFF000000) >> (24);
+    uint16_t column =       (field1 & 0x0000FFF000000000) >> (24 + 12);
+    RawNodeId parent =      (field1 & 0xFFFF000000000000) >> (24 + 12 + 12);
+    parent |=               (field2 & 0x0000000000000FFF) << (16);
+    RawNodeId definition =  (field2 & 0x000000FFFFFFF000) >> (12);
+    RawNodeId child =       (field2 & 0xFFFFFF0000000000) >> (12 + 28);
+    child |=                (field3 & 0x000000000000000F) << (24);
+    RawNodeId sibling =     (field3 & 0x00000000FFFFFFF0) >> (4);
+    RawSymbolId fileId =    (field3 & 0x00FFFFFF00000000) >> (4 + 28);
+    uint32_t line =         (field3 & 0xFF00000000000000) >> (4 + 28 + 24);
+    line |=                 (field4 & 0x000000000000FFFF) << (8);
+    uint32_t endLine =      (field4 & 0x000000FFFFFF0000) >> (16);
+    uint16_t endColumn =    (field4 & 0x000FFF0000000000) >> (16 + 24);
     // clang-format on
 
     result->emplace_back(

@@ -40,7 +40,7 @@
 namespace SURELOG {
 namespace fs = std::filesystem;
 
-static std::unordered_map<std::string, int>
+static std::unordered_map<std::string, int32_t>
     cmd_ignore;  // commands with an arg to be dropped, and the number of args
                  // to drop
 static std::unordered_map<std::string, std::string>
@@ -310,7 +310,7 @@ static std::string BuildIdentifier() {
                 "\nBUILT  : ", __DATE__, "\n");
 }
 
-void CommandLineParser::logBanner(int argc, const char** argv) {
+void CommandLineParser::logBanner(int32_t argc, const char** argv) {
   std::string banners = printStringArray(banner);
   std::string copyrights = printStringArray(copyright);
   m_errors->printToLogFile(banners);
@@ -318,7 +318,7 @@ void CommandLineParser::logBanner(int argc, const char** argv) {
   const std::string version = BuildIdentifier();
   const std::string date = "DATE   : " + currentDateTime() + "\n";
   std::string cmd = "COMMAND:";
-  for (int i = 1; i < argc; i++) {
+  for (int32_t i = 1; i < argc; i++) {
     cmd += std::string(" ") + argv[i];
   }
   cmd += "\n\n";
@@ -561,12 +561,12 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
                                      fs::path& wd, fs::path& cd,
                                      std::vector<std::string>& container) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  for (unsigned int i = 0; i < args.size(); i++) {
+  for (uint32_t i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
     if (arg == "-cmd_ign") {
       // ignore command and drop <N> following arguments
       if (i < args.size() - 2) {
-        const int argcount = std::stoi(args[i + 2]);
+        const int32_t argcount = std::stoi(args[i + 2]);
         if (argcount < 0 || argcount > 100) {  // just a sane limit
           std::cerr << "Illegal argument count for -cmd_ign (" << args[i + 2]
                     << ")" << std::endl;
@@ -707,7 +707,7 @@ void CommandLineParser::processOutputDirectory_(
     const std::vector<std::string>& args) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   fs::path wd = fileSystem->getWorkingDir();
-  for (unsigned int i = 0; i < args.size(); i++) {
+  for (size_t i = 0; i < args.size(); i++) {
     std::string arg(undecorateArg(args[i]));
 
     if (arg == "-wd") {
@@ -743,12 +743,12 @@ void CommandLineParser::processOutputDirectory_(
   }
 }
 
-bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
+bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   m_programId = fileSystem->getProgramFile(argv[0], m_symbolTable);
 
   std::vector<std::string> cmd_line;
-  for (int i = 1; i < argc; i++) {
+  for (int32_t i = 1; i < argc; i++) {
     cmd_line.emplace_back(undecorateArg(argv[i]));
     const std::string& arg = cmd_line.back();
 
@@ -804,7 +804,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 
   /*
   std::string cmd = "EXPANDED CMD:";
-  for (unsigned int i = 0; i < all_arguments.size(); i++) {
+  for (size_t i = 0; i < all_arguments.size(); i++) {
     cmd += std::string(" ") + all_arguments[i];
   }
   cmd += "\n\n";
@@ -900,7 +900,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       } else if (all_arguments[i] == "coverelab") {
         // Ignored!
       } else if (is_number(all_arguments[i])) {
-        int debugLevel = std::stoi(all_arguments[i]);
+        int32_t debugLevel = std::stoi(all_arguments[i]);
         if (debugLevel < 0 || debugLevel > 4) {
           Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_DEBUG_INCORRECT_LEVEL, loc);
@@ -1046,9 +1046,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         break;
       }
       i++;
-      unsigned int maxMT = 0;
+      uint32_t maxMT = 0;
       if (all_arguments[i] == "max") {
-        unsigned int concurentThreadsSupported =
+        uint32_t concurentThreadsSupported =
             std::thread::hardware_concurrency();
         maxMT = concurentThreadsSupported;
       } else {
@@ -1060,7 +1060,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_errors->addError(err);
       } else {
         if (m_diffCompMode) {
-          unsigned int concurentThreadsSupported =
+          uint32_t concurentThreadsSupported =
               std::thread::hardware_concurrency();
           if (maxMT > (concurentThreadsSupported / 2))
             maxMT = (concurentThreadsSupported / 2);
@@ -1476,7 +1476,7 @@ bool CommandLineParser::isSVFile(PathId fileId) const {
   return fileId && (m_svSourceFiles.find(fileId) != m_svSourceFiles.end());
 }
 
-bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
+bool CommandLineParser::prepareCompilation_(int32_t argc, const char** argv) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   bool noError = true;
   const PathId compileDirId = getCompileDirId();

@@ -32,7 +32,7 @@
 
 namespace SURELOG {
 
-unsigned int Value::nbWords_(unsigned int size) {
+uint32_t Value::nbWords_(uint32_t size) {
   uint64_t nb = size / 64;
   if ((nb * 64) != size) nb++;
   return nb;
@@ -48,17 +48,17 @@ bool LValue::operator<(const Value& rhs) const {
   if (!isValid() || !rhs.isValid()) return false;
   switch (m_type) {
     case Value::Type::Integer:
-      for (unsigned int i = 0; i < m_nbWords; i++) {
+      for (uint32_t i = 0; i < m_nbWords; i++) {
         if (getValueL(i) >= rhs.getValueL(i)) return false;
       }
       break;
     case Value::Type::Double:
-      for (unsigned int i = 0; i < m_nbWords; i++) {
+      for (uint32_t i = 0; i < m_nbWords; i++) {
         if (getValueD(i) >= rhs.getValueD(i)) return false;
       }
       break;
     default:
-      for (unsigned int i = 0; i < m_nbWords; i++) {
+      for (uint32_t i = 0; i < m_nbWords; i++) {
         if (getValueUL(i) >= rhs.getValueUL(i)) return false;
       }
       break;
@@ -69,7 +69,7 @@ bool LValue::operator<(const Value& rhs) const {
 bool LValue::operator==(const Value& rhs) const {
   if (!isValid() || !rhs.isValid()) return false;
   if (getNbWords() != rhs.getNbWords()) return false;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     if (getValueL(i) != rhs.getValueL(i)) return false;
   }
   return true;
@@ -128,7 +128,7 @@ Value* ValueFactory::newValue(LValue& initVal) {
      ret->m_prev = nullptr;
      ret->m_next = nullptr;
      ret->adjust(&initVal);
-     for (unsigned int i = 0; i < ret->m_nbWords; i++) {
+     for (uint32_t i = 0; i < ret->m_nbWords; i++) {
        if (initVal.m_valueArray)
          ret->m_valueArray[i] = initVal.m_valueArray[i];
      }
@@ -193,7 +193,7 @@ void SValue::set(double val) {
   m_rrange = 0;
   m_signed = true;
 }
-void SValue::set(uint64_t val, Type type, short size) {
+void SValue::set(uint64_t val, Type type, int16_t size) {
   m_type = type;
   m_value.u_int = val;
   m_size = size;
@@ -320,7 +320,7 @@ std::string SValue::decompiledValue() {
   return result;
 }
 
-int SValue::vpiValType() {
+int32_t SValue::vpiValType() {
   Value::Type valueType = getType();
   switch (valueType) {
     case Value::Type::Binary:
@@ -402,8 +402,8 @@ void SValue::u_bitwAnd(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
-  int res = val & 1;
-  for (int i = 1; i < m_size; i++) {
+  int32_t res = val & 1;
+  for (int32_t i = 1; i < m_size; i++) {
     res = res & ((val & (1 << i)) >> i);
   }
   m_value.u_int = res;
@@ -417,7 +417,7 @@ void SValue::u_bitwNand(const Value* a) {
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   uint64_t res = val & 1;
-  for (int i = 1; i < m_size; i++) {
+  for (int32_t i = 1; i < m_size; i++) {
     res = res & ((val & (1 << i)) >> i);
   }
   m_value.u_int = !res;
@@ -430,8 +430,8 @@ void SValue::u_bitwOr(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
-  int res = val & 1;
-  for (int i = 1; i < m_size; i++) {
+  int32_t res = val & 1;
+  for (int32_t i = 1; i < m_size; i++) {
     res = res | ((val & (1 << i)) >> i);
   }
   m_value.u_int = res;
@@ -444,8 +444,8 @@ void SValue::u_bitwNor(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
-  int res = val & 1;
-  for (int i = 1; i < m_size; i++) {
+  int32_t res = val & 1;
+  for (int32_t i = 1; i < m_size; i++) {
     res = res | ((val & (1 << i)) >> i);
   }
   m_value.u_int = !res;
@@ -458,8 +458,8 @@ void SValue::u_bitwXor(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
-  int res = val & 1;
-  for (int i = 1; i < m_size; i++) {
+  int32_t res = val & 1;
+  for (int32_t i = 1; i < m_size; i++) {
     res = res ^ ((val & (1 << i)) >> i);
   }
   m_value.u_int = res;
@@ -472,8 +472,8 @@ void SValue::u_bitwXnor(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
-  int res = val & 1;
-  for (int i = 1; i < m_size; i++) {
+  int32_t res = val & 1;
+  for (int32_t i = 1; i < m_size; i++) {
     res = res ^ ((val & (1 << i)) >> i);
   }
   m_value.u_int = !res;
@@ -858,9 +858,9 @@ void SValue::shiftRight(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
 }
 
-short LValue::getSize() const {
-  short size = 0;
-  for (int i = 0; i < m_nbWords; i++) {
+int16_t LValue::getSize() const {
+  uint16_t size = 0;
+  for (int32_t i = 0; i < m_nbWords; i++) {
     size += m_valueArray[i].m_size;
   }
   return size;
@@ -879,31 +879,31 @@ std::string LValue::uhdmValue() {
   switch (m_type) {
     case Value::Type::Scalar:
       result = "SCAL:";
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.u_int);
       }
       break;
     case Value::Type::Double:
       result = "REAL:";
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.d_int);
       }
       break;
     case Value::Type::Integer:
       result = "INT:";
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.s_int);
       }
       break;
     case Value::Type::Unsigned:
       result = "UINT:";
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.u_int);
       }
       break;
     default:
       result = "INT:";
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.u_int);
       }
       break;
@@ -915,22 +915,22 @@ std::string LValue::decompiledValue() {
   std::string result;
   switch (m_type) {
     case Value::Type::Scalar:
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.u_int);
       }
       break;
     case Value::Type::Double:
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.d_int);
       }
       break;
     case Value::Type::Integer:
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.s_int);
       }
       break;
     default:
-      for (int i = 0; i < m_nbWords; i++) {
+      for (int32_t i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.u_int);
       }
       break;
@@ -938,7 +938,7 @@ std::string LValue::decompiledValue() {
   return result;
 }
 
-int LValue::vpiValType() {
+int32_t LValue::vpiValType() {
   // The value is encoded in int form for the most part.
   switch (m_type) {
     case Type::Binary:
@@ -981,7 +981,7 @@ LValue::LValue(const LValue& val)  // NOLINT(bugprone-copy-constructor-init)
   m_valueArray[0].m_lrange = 0;
   m_valueArray[0].m_rrange = 0;
 
-  for (int i = 0; i < val.m_nbWords; i++) {
+  for (int32_t i = 0; i < val.m_nbWords; i++) {
     m_valueArray[i].m_size = 0;
     m_valueArray[i] = val.m_valueArray[i];
   }
@@ -1038,7 +1038,7 @@ LValue::LValue(double val)
   m_rrange = 0;
 }
 
-LValue::LValue(int64_t val, Type type, short size)
+LValue::LValue(int64_t val, Type type, int16_t size)
     : m_type(type), m_nbWords(1), m_valueArray(new SValue[1]), m_valid(1) {
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.s_int = val;
@@ -1111,7 +1111,7 @@ void LValue::set(double val) {
   m_rrange = 0;
 }
 
-void LValue::set(uint64_t val, Type type, short size) {
+void LValue::set(uint64_t val, Type type, int16_t size) {
   m_type = type;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
@@ -1145,7 +1145,7 @@ void LValue::adjust(const Value* a) {
     m_nbWords = 1;
     m_valueArray[0].m_size = 0;
   }
-  for (unsigned short i = 0; i < m_nbWords; i++) {
+  for (uint16_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value.u_int = 0;
     m_valueArray[i].m_size = 0;
   }
@@ -1155,7 +1155,7 @@ void LValue::u_plus(const Value* a) {
   adjust(a);
   Type type = a->getType();
   m_type = type;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_size = a->getSize(i);
     m_valueArray[i].m_type = type;
     switch (a->getType()) {
@@ -1214,7 +1214,7 @@ void LValue::decr() {
 
 void LValue::u_minus(const Value* a) {
   adjust(a);
-  for (unsigned short i = 0; i < m_nbWords; i++) {
+  for (uint16_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_size = a->getSize(i);
     switch (a->getType()) {
       case Value::Type::Scalar:
@@ -1243,7 +1243,7 @@ void LValue::u_not(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_valid = a->isValid();
   if (!m_valid) return;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     m_valueArray[0].m_value.u_int |= a->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
@@ -1258,7 +1258,7 @@ void LValue::u_tilda(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_valid = a->isValid();
   if (!m_valid) return;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value.u_int = ~a->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
@@ -1270,11 +1270,11 @@ void LValue::u_bitwAnd(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_valid = a->isValid();
   if (!m_valid) return;
-  int res = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  int32_t res = 0;
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (int j = 1; j < a->getSize(i); j++) {
+    for (int32_t j = 1; j < a->getSize(i); j++) {
       res = res & ((val & (1 << j)) >> j);
     }
   }
@@ -1289,11 +1289,11 @@ void LValue::u_bitwNand(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_valid = a->isValid();
   if (!m_valid) return;
-  int res = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  int32_t res = 0;
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (int j = 1; j < a->getSize(i); j++) {
+    for (int32_t j = 1; j < a->getSize(i); j++) {
       res = res & ((val & (1 << j)) >> j);
     }
   }
@@ -1309,11 +1309,11 @@ void LValue::u_bitwOr(const Value* a) {
   m_type = Value::Type::Unsigned;
   m_valid = a->isValid();
   if (!m_valid) return;
-  int res = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  int32_t res = 0;
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (int j = 1; j < a->getSize(i); j++) {
+    for (int32_t j = 1; j < a->getSize(i); j++) {
       res = res | ((val & (1 << j)) >> j);
     }
   }
@@ -1330,10 +1330,10 @@ void LValue::u_bitwNor(const Value* a) {
   m_valid = a->isValid();
   if (!m_valid) return;
   uint64_t res = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (int j = 1; j < a->getSize(i); j++) {
+    for (int32_t j = 1; j < a->getSize(i); j++) {
       res = res | ((val & (1 << j)) >> j);
     }
   }
@@ -1349,10 +1349,10 @@ void LValue::u_bitwXor(const Value* a) {
   m_valid = a->isValid();
   if (!m_valid) return;
   uint64_t res = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (int j = 1; j < a->getSize(i); j++) {
+    for (int32_t j = 1; j < a->getSize(i); j++) {
       res = res ^ ((val & (1 << j)) >> j);
     }
   }
@@ -1368,10 +1368,10 @@ void LValue::u_bitwXnor(const Value* a) {
   m_valid = a->isValid();
   if (!m_valid) return;
   uint64_t res = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (int j = 1; j < a->getSize(i); j++) {
+    for (int32_t j = 1; j < a->getSize(i); j++) {
       res = res ^ ((val & (1 << j)) >> j);
     }
   }
@@ -1694,7 +1694,7 @@ void LValue::equiv(const Value* a, const Value* b) {
   adjust(b);
   m_valid = a->isValid() && b->isValid();
   if (!m_valid) return;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_size = a->getSize(i);
     if (a->getValueUL(i) != b->getValueUL(i)) {
       m_valueArray[0].m_value.u_int = 0;
@@ -1715,7 +1715,7 @@ void LValue::logAnd(const Value* a, const Value* b) {
   if (!m_valid) return;
   uint64_t tmp1 = 0;
   uint64_t tmp2 = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     tmp1 |= a->getValueUL(i);
     tmp2 |= b->getValueUL(i);
   }
@@ -1733,7 +1733,7 @@ void LValue::logOr(const Value* a, const Value* b) {
   if (!m_valid) return;
   uint64_t tmp1 = 0;
   uint64_t tmp2 = 0;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     tmp1 |= a->getValueUL(i);
     tmp2 |= b->getValueUL(i);
   }
@@ -1749,7 +1749,7 @@ void LValue::bitwAnd(const Value* a, const Value* b) {
   adjust(b);
   m_valid = a->isValid() && b->isValid();
   if (!m_valid) return;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value.u_int = a->getValueUL(i) & b->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
@@ -1766,7 +1766,7 @@ void LValue::bitwOr(const Value* a, const Value* b) {
   adjust(b);
   m_valid = a->isValid() && b->isValid();
   if (!m_valid) return;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value.u_int = a->getValueUL(i) | b->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
@@ -1782,7 +1782,7 @@ void LValue::bitwXor(const Value* a, const Value* b) {
   adjust(b);
   m_valid = a->isValid() && b->isValid();
   if (!m_valid) return;
-  for (unsigned int i = 0; i < m_nbWords; i++) {
+  for (uint32_t i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value.u_int = a->getValueUL(i) ^ b->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
@@ -1887,7 +1887,7 @@ void StValue::notEqual(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
 }
 
-int StValue::vpiValType() {
+int32_t StValue::vpiValType() {
   switch (m_type) {
     case Type::Binary:
       return vpiBinaryConst;

@@ -30,7 +30,7 @@
 namespace SURELOG {
 namespace ParseUtils {
 using ParseTree = antlr4::tree::ParseTree;
-using LineColumn = std::pair<int, int>;  // TODO: make <size_t, size_t> ?
+using LineColumn = std::pair<uint32_t, uint16_t>;
 
 LineColumn getLineColumn(antlr4::CommonTokenStream* stream,
                          antlr4::ParserRuleContext* context);

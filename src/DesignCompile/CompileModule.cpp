@@ -48,12 +48,12 @@
 
 namespace SURELOG {
 
-int FunctorCompileModule::operator()() const {
+int32_t FunctorCompileModule::operator()() const {
   CompileModule* instance = new CompileModule(
       m_compileDesign, m_module, m_design, m_symbols, m_errors, m_instance);
   instance->compile();
   delete instance;
-  return true;
+  return 0;
 }
 
 bool CompileModule::compile() {
@@ -318,10 +318,10 @@ bool CompileModule::collectUdpObjects_() {
         NodeId Output_symbol = fC->Sibling(Level_input_list);
         NodeId Level_symbol = fC->Child(Level_input_list);
         std::string ventry = "STRING:";
-        unsigned int nb = 0;
+        uint32_t nb = 0;
         while (Level_symbol) {
           NodeId Symbol = fC->Child(Level_symbol);
-          unsigned int nbSymb = 0;
+          uint32_t nbSymb = 0;
           if (fC->Type(Symbol) == VObjectType::slQmark) {
             ventry += "? ";
             nbSymb = 1;
@@ -332,7 +332,7 @@ bool CompileModule::collectUdpObjects_() {
             const std::string_view symb = fC->SymName(Symbol);
             nbSymb = symb.size();
             std::string symbols;
-            for (unsigned int i = 0; i < nbSymb; i++) {
+            for (uint32_t i = 0; i < nbSymb; i++) {
               char s = symb[i];
               symbols += s + std::string(" ");
             }
@@ -363,7 +363,7 @@ bool CompileModule::collectUdpObjects_() {
         NodeId Current_state = fC->Sibling(Seq_input_list);
         NodeId Next_state = fC->Sibling(Current_state);
         std::string ventry = "STRING:";
-        unsigned int nb = 0;
+        uint32_t nb = 0;
         NodeId Level_symbol = fC->Child(Level_input_list);
         while (Level_symbol) {
           if (fC->Type(Level_symbol) == VObjectType::slEdge_indicator) {
@@ -385,7 +385,7 @@ bool CompileModule::collectUdpObjects_() {
           } else {
             NodeId Symbol = fC->Child(Level_symbol);
 
-            unsigned int nbSymb = 0;
+            uint32_t nbSymb = 0;
             if (fC->Type(Symbol) == VObjectType::slQmark) {
               ventry += "? ";
               nbSymb = 1;
@@ -396,7 +396,7 @@ bool CompileModule::collectUdpObjects_() {
               const std::string_view symb = fC->SymName(Symbol);
               nbSymb = symb.size();
               std::string symbols;
-              for (unsigned int i = 0; i < nbSymb; i++) {
+              for (uint32_t i = 0; i < nbSymb; i++) {
                 char s = symb[i];
                 symbols += s + std::string(" ");
               }
@@ -415,9 +415,9 @@ bool CompileModule::collectUdpObjects_() {
           ventry += "* ";
         } else {
           const std::string_view symb = fC->SymName(Symbol);
-          unsigned int nbSymb = symb.size();
+          uint32_t nbSymb = symb.size();
           std::string symbols;
-          for (unsigned int i = 0; i < nbSymb; i++) {
+          for (uint32_t i = 0; i < nbSymb; i++) {
             char s = symb[i];
             symbols += s + std::string(" ");
           }
@@ -430,9 +430,9 @@ bool CompileModule::collectUdpObjects_() {
         if (fC->Type(Symbol) == VObjectType::slOutput_symbol) {
           Symbol = fC->Child(Symbol);
           const std::string_view symb = fC->SymName(Symbol);
-          unsigned int nbSymb = symb.size();
+          uint32_t nbSymb = symb.size();
           std::string symbols;
-          for (unsigned int i = 0; i < nbSymb; i++) {
+          for (uint32_t i = 0; i < nbSymb; i++) {
             char s = symb[i];
             symbols += s + std::string(" ");
           }
@@ -505,7 +505,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
       VObjectType::slTask_body_declaration,
       VObjectType::slGenerate_region};
 
-  for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
+  for (uint32_t i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
@@ -886,7 +886,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
       VObjectType::slTask_body_declaration};
-  for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
+  for (uint32_t i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
@@ -1256,8 +1256,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
 
 bool CompileModule::checkModule_() {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  int countMissingType = 0;
-  int countMissingDirection = 0;
+  int32_t countMissingType = 0;
+  int32_t countMissingDirection = 0;
   Location* missingTypeLoc = nullptr;
   Location* missingDirectionLoc = nullptr;
   for (Signal* port : m_module->m_ports) {
@@ -1334,7 +1334,7 @@ bool CompileModule::checkModule_() {
 
 bool CompileModule::checkInterface_() {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  int countMissingType = 0;
+  int32_t countMissingType = 0;
   Location* missingTypeLoc = nullptr;
   for (auto& port : m_module->m_ports) {
     if (port->getType() == VObjectType::slData_type_or_implicit) {

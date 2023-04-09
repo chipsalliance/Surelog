@@ -260,7 +260,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           }
           case VObjectType::slQmark:
           case VObjectType::slConditional_operator: {
-            long long v = valueL->getValueL();
+            int64_t v = valueL->getValueL();
             m_valueFactory.deleteValue(valueL);
             NodeId Expression = fC->Sibling(op);
             NodeId ConstantExpr = fC->Sibling(Expression);
@@ -417,7 +417,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         if (val.find('\'') != std::string::npos) {
           uint64_t hex_value = 0;
           char base = 'h';
-          unsigned int i = 0;
+          uint32_t i = 0;
           for (i = 0; i < val.size(); i++) {
             if (val[i] == '\'') {
               base = val[i + 1];
@@ -625,26 +625,26 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         const std::string_view funcName = fC->SymName(function);
         if (funcName == "clog2") {
-          int val = args[0]->getValueL();
+          int32_t val = args[0]->getValueL();
           val = val - 1;
           if (val < 0) {
             value->set((int64_t)0);
             value->setInvalid();
             break;
           }
-          int clog2 = 0;
+          int32_t clog2 = 0;
           for (; val > 0; clog2 = clog2 + 1) {
             val = val >> 1;
           }
           value->set((int64_t)clog2);
         } else if (funcName == "ln") {
-          int val = args[0]->getValueL();
+          int32_t val = args[0]->getValueL();
           value->set((int64_t)std::log(val));
         } else if (funcName == "clog") {
-          int val = args[0]->getValueL();
+          int32_t val = args[0]->getValueL();
           value->set((int64_t)std::log10(val));
         } else if (funcName == "exp") {
-          int val = args[0]->getValueL();
+          int32_t val = args[0]->getValueL();
           value->set((int64_t)std::exp2(val));
         } else if (funcName == "bits") {
           // $bits is implemented in compileExpression.cpp
@@ -670,11 +670,11 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           } else {
             Value* constVal =
                 evalExpr(fC, Primary_literal, instance, muteErrors);
-            unsigned long long v = constVal->getValueUL();
+            uint64_t v = constVal->getValueUL();
             token = NumUtils::toBinary(constVal->getSize(), v);
           }
           if (token.find('\'') != std::string::npos) {
-            unsigned int i = 0;
+            uint32_t i = 0;
             for (i = 0; i < token.size(); i++) {
               if (token[i] == '\'') {
                 base = token[i + 1];
@@ -912,7 +912,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 }
 // NOLINTEND(*.DeadStores)
 
-Value* ExprBuilder::fromVpiValue(std::string_view s, int size) {
+Value* ExprBuilder::fromVpiValue(std::string_view s, int32_t size) {
   Value* val = nullptr;
   if (s.find("UINT:") == 0) {
     val = m_valueFactory.newLValue();
@@ -1016,7 +1016,7 @@ Value* ExprBuilder::fromString(std::string_view value) {
   if (value.find('\'') != std::string::npos) {
     std::string sval;
     char base = 'b';
-    unsigned int i = 0;
+    uint32_t i = 0;
     for (i = 0; i < value.size(); i++) {
       if (value[i] == '\'') {
         base = value[i + 1];
@@ -1034,7 +1034,7 @@ Value* ExprBuilder::fromString(std::string_view value) {
     switch (base) {
       case 'h': {
         std::string_view size = StringUtils::rtrim_until(value, '\'');
-        int s = 0;
+        int32_t s = 0;
         if (NumUtils::parseInt32(size, &s) == nullptr) {
           s = 0;
         }
@@ -1045,7 +1045,7 @@ Value* ExprBuilder::fromString(std::string_view value) {
       }
       case 'b': {
         std::string_view size = StringUtils::rtrim_until(value, '\'');
-        int s = 0;
+        int32_t s = 0;
         if (NumUtils::parseInt32(size, &s) == nullptr) {
           s = 0;
         }
@@ -1056,7 +1056,7 @@ Value* ExprBuilder::fromString(std::string_view value) {
       }
       case 'o': {
         std::string_view size = StringUtils::rtrim_until(value, '\'');
-        int s = 0;
+        int32_t s = 0;
         if (NumUtils::parseInt32(size, &s) == nullptr) {
           s = 0;
         }
@@ -1073,7 +1073,7 @@ Value* ExprBuilder::fromString(std::string_view value) {
           val->set((double)v);
         } else {
           std::string size(StringUtils::rtrim_until(value, '\''));
-          int s = 0;
+          int32_t s = 0;
           if (NumUtils::parseInt32(size, &s) == nullptr) {
             s = 0;
           }
@@ -1101,7 +1101,7 @@ Value* ExprBuilder::fromString(std::string_view value) {
       }
       default: {
         std::string_view size = StringUtils::rtrim_until(value, '\'');
-        int s = 0;
+        int32_t s = 0;
         if (NumUtils::parseInt32(size, &s) == nullptr) {
           s = 0;
         }

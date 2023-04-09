@@ -288,8 +288,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return arg;
   }
 
-  void insert(const std::filesystem::path &filepath, int32_t line,
-              int32_t column, std::string_view data) {
+  void insert(const std::filesystem::path &filepath, uint32_t line,
+              uint16_t column, std::string_view data) {
     if (filepath.empty() || (line < 1) || (column < 1) || data.empty()) {
       return;
     }
@@ -322,7 +322,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     }
   }
 
-  void append(const std::filesystem::path &filepath, int32_t line,
+  void append(const std::filesystem::path &filepath, uint32_t line,
               std::string_view data) {
     if (filepath.empty() || (line < 1) || data.empty()) {
       return;
@@ -1716,7 +1716,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const UHDM::VectorOfany *const elements = object->Path_elems();
     if ((elements != nullptr) && !elements->empty()) {
-      for (int i = 1, n = elements->size(); i < n; ++i) {
+      for (size_t i = 1, n = elements->size(); i < n; ++i) {
         const UHDM::any *const element = elements->at(i);
         insert(filepath, element->VpiLineNo(), element->VpiColumnNo() - 1, ".");
       }
@@ -3156,7 +3156,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     const std::string name = formatName(object->VpiName());
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), name);
 
-    if (static_cast<short>(object->VpiColumnNo() + name.length()) <
+    if (static_cast<uint16_t>(object->VpiColumnNo() + name.length()) <
         object->VpiEndColumnNo()) {
       std::string text;
       text.append("=").append(object->VpiDecompile());
@@ -3217,11 +3217,11 @@ class RoundTripTracer final : public UHDM::UhdmListener {
            formatName(object->VpiName()));
     insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo(), "(");
 
-    unsigned closing_bracket_line = object->VpiLineNo();
-    unsigned closing_bracket_column = object->VpiEndColumnNo() + 1;
+    uint32_t closing_bracket_line = object->VpiLineNo();
+    uint32_t closing_bracket_column = object->VpiEndColumnNo() + 1;
     const UHDM::VectorOfany *const call_args = object->Tf_call_args();
     if ((call_args != nullptr) && !call_args->empty()) {
-      for (int i = 0, n = call_args->size() - 1; i < n; ++i) {
+      for (size_t i = 0, n = call_args->size() - 1; i < n; ++i) {
         const UHDM::any *const arg = call_args->at(i);
         if ((arg->VpiLineNo() > 0) && (arg->VpiColumnNo() > 0) &&
             (arg->VpiEndLineNo() > 0) && (arg->VpiEndColumnNo() > 0)) {
@@ -3487,9 +3487,9 @@ static comparison_result_t compare(const std::filesystem::path &filepath,
   return comparison_result_t(diffCount, index);
 }
 
-static int run(const std::vector<vpiHandle> &designHandles,
-               const std::filesystem::path &baseDir,
-               const std::filesystem::path &outDir) {
+static int32_t run(const std::vector<vpiHandle> &designHandles,
+                   const std::filesystem::path &baseDir,
+                   const std::filesystem::path &outDir) {
   std::error_code ec;
   std::filesystem::create_directories(outDir, ec);
 
@@ -3558,12 +3558,12 @@ static int run(const std::vector<vpiHandle> &designHandles,
   return 0;
 }
 
-static int usage(const char *const progname) {
+static int32_t usage(const char *const progname) {
   fprintf(stderr, "Usage: All options identical to surelog.exe.\n");
   return 1;
 }
 
-int main(int argc, const char **argv) {
+int32_t main(int32_t argc, const char **argv) {
   if (argc < 2) return usage(argv[0]);
 
 #if defined(_MSC_VER) && defined(_DEBUG)
@@ -3582,7 +3582,7 @@ int main(int argc, const char **argv) {
       new SURELOG::PlatformFileSystem(std::filesystem::current_path()));
 
   // Read command line, compile a design, use -parse argument
-  int code = 0;
+  uint32_t code = 0;
   SURELOG::FileSystem *const fileSystem = SURELOG::FileSystem::getInstance();
   SURELOG::SymbolTable *const symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer *const errors =

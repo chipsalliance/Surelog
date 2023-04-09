@@ -58,11 +58,11 @@ class Value : public RTTI {
 
   ~Value() override {}
 
-  virtual short getSize() const = 0;  // size in bits
-  virtual short getSize(
-      unsigned int wordIndex) const = 0;  // size in bits of a multi-word value
+  virtual int16_t getSize() const = 0;  // size in bits
+  virtual int16_t getSize(
+      uint32_t wordIndex) const = 0;  // size in bits of a multi-word value
   // nb of 64 bits words necessary to encode the size
-  virtual unsigned short getNbWords() const = 0;
+  virtual uint16_t getNbWords() const = 0;
 
   virtual Type getType() const = 0;
 
@@ -74,21 +74,21 @@ class Value : public RTTI {
   virtual void setSigned(bool isSigned) = 0;
   virtual bool isNegative() const = 0;
   virtual void setNegative() = 0;
-  virtual void setRange(unsigned short lrange, unsigned short rrange) = 0;
-  virtual unsigned short getLRange() const = 0;
-  virtual unsigned short getRRange() const = 0;
+  virtual void setRange(uint16_t lrange, uint16_t rrange) = 0;
+  virtual uint16_t getLRange() const = 0;
+  virtual uint16_t getRRange() const = 0;
   // is large value (more than one 64 bit word)
   virtual bool isLValue() const = 0;
 
-  virtual uint64_t getValueUL(unsigned short index = 0) const = 0;
-  virtual int64_t getValueL(unsigned short index = 0) const = 0;
-  virtual double getValueD(unsigned short index = 0) const = 0;
+  virtual uint64_t getValueUL(uint16_t index = 0) const = 0;
+  virtual int64_t getValueL(uint16_t index = 0) const = 0;
+  virtual double getValueD(uint16_t index = 0) const = 0;
   virtual std::string getValueS() const = 0;
 
   virtual void set(uint64_t val) = 0;
   virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
-  virtual void set(uint64_t val, Type type, short size) = 0;
+  virtual void set(uint64_t val, Type type, int16_t size) = 0;
   virtual void set(std::string_view val) = 0;
   virtual void set(std::string_view val, Type type) = 0;
   virtual bool operator<(const Value& rhs) const = 0;
@@ -101,7 +101,7 @@ class Value : public RTTI {
 
   virtual std::string uhdmValue() = 0;
   virtual std::string decompiledValue() = 0;
-  virtual int vpiValType() = 0;
+  virtual int32_t vpiValType() = 0;
 
   virtual void u_plus(const Value* a) = 0;
   virtual void u_minus(const Value* a) = 0;
@@ -139,7 +139,7 @@ class Value : public RTTI {
   ValueFactory* getValueFactory() { return m_valueFactory; }
 
  protected:
-  unsigned int nbWords_(unsigned int size);
+  uint32_t nbWords_(uint32_t size);
   ValueFactory* m_valueFactory = nullptr;
 };
 }  // namespace SURELOG
@@ -163,7 +163,7 @@ class SValue final : public Value {
       : m_type(Value::Type::Unsigned), m_size(0), m_valid(1), m_negative(0) {
     m_value.u_int = 0;
   }
-  SValue(int64_t val, short size)
+  SValue(int64_t val, int16_t size)
       : m_type(Value::Type::Integer),
         m_size(size),
         m_valid(1),
@@ -193,17 +193,17 @@ class SValue final : public Value {
   }
   ~SValue() final;
 
-  short getSize() const final { return m_size; }
-  short getSize(unsigned int wordIndex) const final { return m_size; }
-  void setRange(unsigned short lrange, unsigned short rrange) final {
+  int16_t getSize() const final { return m_size; }
+  int16_t getSize(uint32_t wordIndex) const final { return m_size; }
+  void setRange(uint16_t lrange, uint16_t rrange) final {
     m_lrange = lrange;
     m_rrange = rrange;
   }
-  bool isSigned() const final { return m_signed;}
+  bool isSigned() const final { return m_signed; }
   void setSigned(bool isSigned) final { m_signed = isSigned; }
-  unsigned short getLRange() const final { return m_lrange; };
-  unsigned short getRRange() const final { return m_rrange; };
-  unsigned short getNbWords() const final { return 1; }
+  uint16_t getLRange() const final { return m_lrange; };
+  uint16_t getRRange() const final { return m_rrange; };
+  uint16_t getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
@@ -214,7 +214,7 @@ class SValue final : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(uint64_t val, Type type, short size) final;
+  void set(uint64_t val, Type type, int16_t size) final;
 
   void set(std::string_view val) final {
     m_type = Value::Type::None;
@@ -252,20 +252,14 @@ class SValue final : public Value {
     }
   }
 
-  uint64_t getValueUL(unsigned short index = 0) const final {
-    return m_value.u_int;
-  }
-  int64_t getValueL(unsigned short index = 0) const final {
-    return m_value.s_int;
-  }
-  double getValueD(unsigned short index = 0) const final {
-    return m_value.d_int;
-  }
+  uint64_t getValueUL(uint16_t index = 0) const final { return m_value.u_int; }
+  int64_t getValueL(uint16_t index = 0) const final { return m_value.s_int; }
+  double getValueD(uint16_t index = 0) const final { return m_value.d_int; }
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
 
   std::string uhdmValue() final;
   std::string decompiledValue() final;
-  int vpiValType() final;
+  int32_t vpiValType() final;
 
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
@@ -301,12 +295,12 @@ class SValue final : public Value {
 
  private:
   Type m_type;
-  short m_size;
-  unsigned short m_valid = 0;
-  unsigned short m_negative = 0;
-  unsigned short m_lrange = 0;
-  unsigned short m_rrange = 0;
-  bool m_signed = false; 
+  int16_t m_size;
+  uint16_t m_valid = 0;
+  uint16_t m_negative = 0;
+  uint16_t m_lrange = 0;
+  uint16_t m_rrange = 0;
+  bool m_signed = false;
 };
 
 class ValueFactory {
@@ -332,7 +326,7 @@ class LValue final : public Value {
  public:
   LValue(const LValue&);
   LValue() = default;
-  LValue(Type type, SValue* values, unsigned short nbWords)
+  LValue(Type type, SValue* values, uint16_t nbWords)
       : m_type(type),
         m_nbWords(nbWords),
         m_valueArray(values),
@@ -341,25 +335,25 @@ class LValue final : public Value {
   explicit LValue(uint64_t val);
   explicit LValue(int64_t val);
   explicit LValue(double val);
-  LValue(int64_t val, Type type, short size);
+  LValue(int64_t val, Type type, int16_t size);
   ~LValue() final;
 
-  short getSize() const final;
-  short getSize(unsigned int wordIndex) const final {
+  int16_t getSize() const final;
+  int16_t getSize(uint32_t wordIndex) const final {
     if (m_valueArray) {
       return m_valueArray[wordIndex].m_size;
     } else
       return 0;
   }
-  bool isSigned() const final { return m_signed;}
+  bool isSigned() const final { return m_signed; }
   void setSigned(bool isSigned) final { m_signed = isSigned; }
-  void setRange(unsigned short lrange, unsigned short rrange) final {
+  void setRange(uint16_t lrange, uint16_t rrange) final {
     m_lrange = lrange;
     m_rrange = rrange;
   }
-  unsigned short getLRange() const final { return m_lrange; };
-  unsigned short getRRange() const final { return m_rrange; };
-  unsigned short getNbWords() const final { return m_nbWords; }
+  uint16_t getLRange() const final { return m_lrange; };
+  uint16_t getRRange() const final { return m_rrange; };
+  uint16_t getNbWords() const final { return m_nbWords; }
   bool isLValue() const final { return true; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
@@ -370,26 +364,26 @@ class LValue final : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(uint64_t val, Type type, short size) final;
+  void set(uint64_t val, Type type, int16_t size) final;
   void set(std::string_view val) final {}
   void set(std::string_view val, Type type) final {}
   bool operator<(const Value& rhs) const final;
   bool operator==(const Value& rhs) const final;
 
-  uint64_t getValueUL(unsigned short index = 0) const final {
+  uint64_t getValueUL(uint16_t index = 0) const final {
     return ((index < m_nbWords) ? m_valueArray[index].m_value.u_int : 0);
   }
-  int64_t getValueL(unsigned short index = 0) const final {
+  int64_t getValueL(uint16_t index = 0) const final {
     return ((index < m_nbWords) ? m_valueArray[index].m_value.s_int : 0);
   }
-  double getValueD(unsigned short index = 0) const final {
+  double getValueD(uint16_t index = 0) const final {
     return ((index < m_nbWords) ? m_valueArray[index].m_value.d_int : 0);
   }
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
 
   std::string uhdmValue() final;
   std::string decompiledValue() final;
-  int vpiValType() final;
+  int32_t vpiValType() final;
 
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
@@ -427,12 +421,12 @@ class LValue final : public Value {
 
  private:
   Type m_type = Type::None;
-  unsigned short m_nbWords = 0;
+  uint16_t m_nbWords = 0;
   SValue* m_valueArray = nullptr;
-  unsigned short m_valid = 0;
-  unsigned short m_negative = 0;
-  unsigned short m_lrange = 0;
-  unsigned short m_rrange = 0;
+  uint16_t m_valid = 0;
+  uint16_t m_negative = 0;
+  uint16_t m_lrange = 0;
+  uint16_t m_rrange = 0;
   bool m_signed = false;
 };
 
@@ -441,22 +435,22 @@ class StValue final : public Value {
   friend LValue;
 
  public:
-  StValue() : m_type(Type::String),  m_size(0), m_valid(false) {}
+  StValue() : m_type(Type::String), m_size(0), m_valid(false) {}
   explicit StValue(std::string_view val)
       : m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true) {}
   ~StValue() final;
 
-  short getSize() const final { return m_size; }
-  short getSize(unsigned int wordIndex) const final { return m_size; }
-  void setRange(unsigned short lrange, unsigned short rrange) final {
+  int16_t getSize() const final { return m_size; }
+  int16_t getSize(uint32_t wordIndex) const final { return m_size; }
+  void setRange(uint16_t lrange, uint16_t rrange) final {
     m_lrange = lrange;
     m_rrange = rrange;
   }
-  bool isSigned() const final { return m_signed;}
+  bool isSigned() const final { return m_signed; }
   void setSigned(bool isSigned) final { m_signed = isSigned; }
-  unsigned short getLRange() const final { return m_lrange; };
-  unsigned short getRRange() const final { return m_rrange; };
-  unsigned short getNbWords() const final { return 1; }
+  uint16_t getLRange() const final { return m_lrange; };
+  uint16_t getRRange() const final { return m_rrange; };
+  uint16_t getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
@@ -482,7 +476,7 @@ class StValue final : public Value {
     m_valid = true;
     m_signed = true;
   }
-  void set(uint64_t val, Type type, short size) final {
+  void set(uint64_t val, Type type, int16_t size) final {
     m_type = type;
     m_value = std::to_string(val);
     m_size = size;
@@ -499,7 +493,7 @@ class StValue final : public Value {
     m_valid = true;
     m_signed = false;
   }
-  void set(std::string_view val, Type type, short size) {
+  void set(std::string_view val, Type type, int16_t size) {
     m_type = type;
     m_value = val;
     m_size = size;
@@ -519,7 +513,7 @@ class StValue final : public Value {
   bool operator==(const Value& rhs) const final {
     return m_value == (value_cast<const StValue*>(&rhs))->m_value;
   }
-  uint64_t getValueUL(unsigned short index = 0) const final {
+  uint64_t getValueUL(uint16_t index = 0) const final {
     switch (m_type) {
       case Value::Type::Integer:
         return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 10);
@@ -535,7 +529,7 @@ class StValue final : public Value {
         return (uint64_t)std::strtoull(m_value.c_str(), nullptr, 10);
     }
   }
-  int64_t getValueL(unsigned short index = 0) const final {
+  int64_t getValueL(uint16_t index = 0) const final {
     switch (m_type) {
       case Value::Type::Integer:
         return (int64_t)std::strtoll(m_value.c_str(), nullptr, 10);
@@ -551,14 +545,14 @@ class StValue final : public Value {
         return (int64_t)std::strtoll(m_value.c_str(), nullptr, 10);
     }
   }
-  double getValueD(unsigned short index = 0) const final {
+  double getValueD(uint16_t index = 0) const final {
     return strtod(m_value.c_str(), nullptr);
   }
   std::string getValueS() const final { return m_value; }
 
   std::string uhdmValue() final;
   std::string decompiledValue() final;
-  int vpiValType() final;
+  int32_t vpiValType() final;
 
   void u_plus(const Value* a) final {}
   void u_minus(const Value* a) final {}
@@ -595,10 +589,10 @@ class StValue final : public Value {
  private:
   Type m_type;
   std::string m_value;
-  short m_size = 0;
-  unsigned short m_valid = 0;
-  unsigned short m_lrange = 0;
-  unsigned short m_rrange = 0;
+  int16_t m_size = 0;
+  uint16_t m_valid = 0;
+  uint16_t m_lrange = 0;
+  uint16_t m_rrange = 0;
   bool m_signed = false;
 };
 

@@ -111,7 +111,7 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
 
 void ErrorContainer::appendErrors(ErrorContainer& rhs) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  for (unsigned int i = 0; i < rhs.m_errors.size(); i++) {
+  for (uint32_t i = 0; i < rhs.m_errors.size(); i++) {
     Error err = rhs.m_errors[i];
     if (!err.m_reported) {
       // Translate IDs to master symbol table
@@ -197,8 +197,8 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
 
       /* Extra locations */
       bool extraTextAppended = false;
-      unsigned int nbExtraLoc = msg.m_locations.size();
-      for (unsigned int i = 1; i < nbExtraLoc; i++) {
+      uint32_t nbExtraLoc = msg.m_locations.size();
+      for (uint32_t i = 1; i < nbExtraLoc; i++) {
         const Location& extraLoc = msg.m_locations[i];
         if (extraLoc.m_fileId) {
           std::string extraLocation(fileSystem->toPath(extraLoc.m_fileId));

@@ -58,7 +58,7 @@ class ClassDefinition : public DesignComponent, public DataType {
 
   ~ClassDefinition() override = default;
 
-  unsigned int getSize() const override;
+  uint32_t getSize() const override;
   VObjectType getType() const override {
     return VObjectType::slClass_declaration;
   }

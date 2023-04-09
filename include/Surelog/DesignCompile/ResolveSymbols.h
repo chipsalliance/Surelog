@@ -47,7 +47,7 @@ struct FunctorCreateLookup {
         m_fileData(fileContent),
         m_symbolTable(symbolTable),
         m_errorContainer(errors) {}
-  int operator()() const;
+  int32_t operator()() const;
 
  private:
   CompileDesign* const m_compileDesign;
@@ -64,7 +64,7 @@ struct FunctorResolve {
         m_fileData(fileContent),
         m_symbolTable(symbolTable),
         m_errorContainer(errors) {}
-  int operator()() const;
+  int32_t operator()() const;
 
  private:
   CompileDesign* const m_compileDesign;
@@ -105,7 +105,7 @@ class ResolveSymbols : public CompileStep {
   VObjectType Type(NodeId index) const override;
   bool SetType(NodeId index, VObjectType type);
 
-  unsigned int Line(NodeId index) const override;
+  uint32_t Line(NodeId index) const override;
 
   std::string_view Symbol(SymbolId id) const override;
 

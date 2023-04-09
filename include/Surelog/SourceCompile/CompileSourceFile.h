@@ -62,7 +62,7 @@ class CompileSourceFile final {
 
   // Chunk File:
   CompileSourceFile(CompileSourceFile* parent, PathId ppResultFileId,
-                    unsigned int lineOffset);
+                    uint32_t lineOffset);
 
   bool compile(Action action);
   CompileSourceFile(const CompileSourceFile& orig);

@@ -61,7 +61,7 @@ bool PythonListen::listen() {
     }
 
     if (m_parse->m_children.size() != 0) {
-      for (unsigned int i = 0; i < m_parse->m_children.size(); i++) {
+      for (uint32_t i = 0; i < m_parse->m_children.size(); i++) {
         if (m_parse->m_children[i]->m_antlrParserHandler) {
           // Only visit the chunks that got re-parsed
           // TODO: Incrementally regenerate the FileContent

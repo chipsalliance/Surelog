@@ -28,12 +28,12 @@
 
 namespace SURELOG {
 
-int FunctorCompileFileContent::operator()() const {
+int32_t FunctorCompileFileContent::operator()() const {
   CompileFileContent* instance = new CompileFileContent(
       m_compileDesign, m_fileContent, m_design, m_symbols, m_errors);
   instance->compile();
   delete instance;
-  return true;
+  return 0;
 }
 
 bool CompileFileContent::compile() { return collectObjects_(); }

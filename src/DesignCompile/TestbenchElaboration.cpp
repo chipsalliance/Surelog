@@ -170,7 +170,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
       const FileContent* fC1 = classDefinition->getFileContents()[0];
       NodeId nodeId1 = classDefinition->getNodeIds()[0];
       PathId fileId1 = fileSystem->copy(fC1->getFileId(nodeId1), symbols);
-      unsigned int line1 = fC1->Line(nodeId1);
+      uint32_t line1 = fC1->Line(nodeId1);
       Location loc1(fileId1, line1, fC1->Column(nodeId1),
                     symbols->registerSymbol(className));
 
@@ -180,7 +180,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
         const FileContent* fC2 = prevClassDefinition->getFileContents()[0];
         NodeId nodeId2 = prevClassDefinition->getNodeIds()[0];
         PathId fileId2 = fileSystem->copy(fC2->getFileId(nodeId2), symbols);
-        unsigned int line2 = fC2->Line(nodeId2);
+        uint32_t line2 = fC2->Line(nodeId2);
         Location loc2(fileId2, line2, fC2->Column(nodeId2),
                       symbols->registerSymbol(className));
 
@@ -709,8 +709,8 @@ bool TestbenchElaboration::bindProperties_() {
       const std::string_view signame = sig->getName();
 
       // Packed and unpacked ranges
-      int packedSize = 0;
-      int unpackedSize = 0;
+      int32_t packedSize = 0;
+      int32_t unpackedSize = 0;
       std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(
           classDefinition, fC, packedDimension, m_compileDesign, nullptr,
           nullptr, true, packedSize, false);

@@ -36,7 +36,7 @@ std::string DefParam::getFullName() const {
     parent = parent->m_parent;
   }
   name = chunks[chunks.size() - 1];
-  for (int i = chunks.size() - 2; i >= 0; i--) {
+  for (int32_t i = chunks.size() - 2; i >= 0; i--) {
     name += "." + chunks[i];
   }
   return name;

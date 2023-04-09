@@ -430,7 +430,7 @@ bool ElaborationStep::bindTypedefsPostElab_() {
     ModuleInstance* current = queue.front();
     queue.pop();
     if (current == nullptr) continue;
-    for (unsigned int i = 0; i < current->getNbChildren(); i++) {
+    for (uint32_t i = 0; i < current->getNbChildren(); i++) {
       queue.push(current->getChildren(i));
     }
     if (auto comp = current->getDefinition()) {
@@ -819,10 +819,11 @@ Variable* ElaborationStep::locateVariable_(
           valuedcomponenti_cast<const ClassDefinition*>(currentComponent);
       if (classDefinition) {
         currentComponent = nullptr;
-        for (const auto& cc : classDefinition->getBaseClassMap()) {
-          currentComponent = datatype_cast<const ClassDefinition*>(cc.second);
+        const auto& baseClassMap = classDefinition->getBaseClassMap();
+        if (!baseClassMap.empty()) {
+          currentComponent = datatype_cast<const ClassDefinition*>(
+              baseClassMap.begin()->second);
           var = "this";
-          break;
         }
         if (currentComponent == nullptr) {
           var = "super";
@@ -853,7 +854,7 @@ Variable* ElaborationStep::locateStaticVariable_(
     NodeId id, Scope* scope, DesignComponent* parentComponent,
     ErrorDefinition::ErrorType errtype) {
   std::string name;
-  for (unsigned int i = 0; i < var_chain.size(); i++) {
+  for (uint32_t i = 0; i < var_chain.size(); i++) {
     name += var_chain[i];
     if (i < var_chain.size() - 1) name += "::";
   }
@@ -1386,9 +1387,9 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component,
 
 any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
                                std::vector<UHDM::range*>* packedDimensions,
-                               int packedSize,
+                               int32_t packedSize,
                                std::vector<UHDM::range*>* unpackedDimensions,
-                               int unpackedSize, ModuleInstance* instance,
+                               int32_t unpackedSize, ModuleInstance* instance,
                                UHDM::VectorOfvariables* vars,
                                UHDM::expr* assignExp, UHDM::typespec* tps) {
   Serializer& s = m_compileDesign->getSerializer();
@@ -1720,7 +1721,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     bool dynamic = false;
     bool associative = false;
     bool queue = false;
-    int index = 0;
+    int32_t index = 0;
     for (auto itr = unpackedDimensions->begin();
          itr != unpackedDimensions->end(); itr++) {
       range* r = *itr;
@@ -1867,7 +1868,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
                           (constant*)assignExp);
     } else if (assignExp->UhdmType() == uhdmoperation) {
       operation* op = (operation*)assignExp;
-      int opType = op->VpiOpType();
+      int32_t opType = op->VpiOpType();
       const typespec* tp = tps;
       if (opType == vpiAssignmentPatternOp) {
         if (tp->UhdmType() == uhdmpacked_array_typespec) {

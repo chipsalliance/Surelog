@@ -49,11 +49,11 @@ class ModuleInstance;
 class DesignComponent;
 class ErrorContainer;
 
-typedef std::vector<unsigned int> UIntVector;
+typedef std::vector<uint32_t> UIntVector;
 
 /* Error DB API  */
 void SLsetWaiver(const char* messageId, const char* fileName = 0,
-                 unsigned int line = 0, const char* objectName = 0);
+                 uint32_t line = 0, const char* objectName = 0);
 
 void SLoverrideSeverity(const char* messageId, const char* severity);
 
@@ -61,7 +61,7 @@ void SLregisterNewErrorType(const char* messageId, const char* text,
                             const char* secondLine);
 
 void SLaddError(ErrorContainer* container, const char* messageId,
-                const char* fileName, unsigned int line, unsigned int col,
+                const char* fileName, uint32_t line, uint32_t col,
                 const char* objectName);
 
 void SLaddErrorContext(SV3_1aPythonListener* prog,
@@ -76,18 +76,18 @@ void SLaddMLErrorContext(SV3_1aPythonListener* prog,
                          const char* objectName2, bool printColumn = 0);
 
 void SLaddMLError(ErrorContainer* container, const char* messageId,
-                  const char* fileName1, unsigned int line1, unsigned int col1,
+                  const char* fileName1, uint32_t line1, uint32_t col1,
                   const char* objectName1, const char* fileName2,
-                  unsigned int line2, unsigned int col2,
+                  uint32_t line2, uint32_t col2,
                   const char* objectName2);
 
 /* File Listener API */
 std::string SLgetFile(SV3_1aPythonListener* prog,
                       antlr4::ParserRuleContext* context);
 
-int SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
+int32_t SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
-int SLgetColumn(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
+int32_t SLgetColumn(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
 std::string SLgetText(SV3_1aPythonListener* prog,
                       antlr4::ParserRuleContext* context);
@@ -112,30 +112,30 @@ RawNodeId SLgetSibling(FileContent* fC, RawNodeId index);
 
 RawNodeId SLgetParent(FileContent* fC, RawNodeId index);
 
-unsigned int SLgetLine(FileContent* fC, RawNodeId index);
+uint32_t SLgetLine(FileContent* fC, RawNodeId index);
 
 std::string SLgetName(FileContent* fC, RawNodeId index);
 
-unsigned int SLgetType(FileContent* fC, RawNodeId index);
+uint32_t SLgetType(FileContent* fC, RawNodeId index);
 
 RawNodeId SLgetChild(FileContent* fC, RawNodeId parent,
-                  unsigned int type);  // Get first child item of type
+                  uint32_t type);  // Get first child item of type
 
 RawNodeId SLgetParent(FileContent* fC, RawNodeId parent,
-                   unsigned int type);  // Get first parent item of type
+                   uint32_t type);  // Get first parent item of type
 
 UIntVector SLgetAll(FileContent* fC, RawNodeId parent,
-                    unsigned int type);  // get all child items of type
+                    uint32_t type);  // get all child items of type
 
 UIntVector SLgetAll(FileContent* fC, RawNodeId parent,
                     const UIntVector& types);  // get all child items of types
 
 RawNodeId SLcollect(
     FileContent* fC, RawNodeId parent,
-    unsigned int type);  // Recursively search for first item of type
+    uint32_t type);  // Recursively search for first item of type
 
 UIntVector SLcollectAll(
-    FileContent* fC, RawNodeId parent, unsigned int type,
+    FileContent* fC, RawNodeId parent, uint32_t type,
     bool first);  // Recursively search for all items of type
 
 UIntVector SLcollectAll(
@@ -148,25 +148,25 @@ UIntVector SLcollectAll(FileContent* fC, RawNodeId parent,
 // Recursively search for all items of types
 // and stops at types stopPoints
 /* Design API */
-unsigned int SLgetnModuleDefinition(Design* design);
+uint32_t SLgetnModuleDefinition(Design* design);
 
-unsigned int SLgetnProgramDefinition(Design* design);
+uint32_t SLgetnProgramDefinition(Design* design);
 
-unsigned int SLgetnPackageDefinition(Design* design);
+uint32_t SLgetnPackageDefinition(Design* design);
 
-unsigned int SLgetnClassDefinition(Design* design);
+uint32_t SLgetnClassDefinition(Design* design);
 
-unsigned int SLgetnTopModuleInstance(Design* design);
+uint32_t SLgetnTopModuleInstance(Design* design);
 
-ModuleDefinition* SLgetModuleDefinition(Design* design, unsigned int index);
+ModuleDefinition* SLgetModuleDefinition(Design* design, uint32_t index);
 
-Program* SLgetProgramDefinition(Design* design, unsigned int index);
+Program* SLgetProgramDefinition(Design* design, uint32_t index);
 
-Package* SLgetPackageDefinition(Design* design, unsigned int index);
+Package* SLgetPackageDefinition(Design* design, uint32_t index);
 
-ClassDefinition* SLgetClassDefinition(Design* design, unsigned int index);
+ClassDefinition* SLgetClassDefinition(Design* design, uint32_t index);
 
-ModuleInstance* SLgetTopModuleInstance(Design* design, unsigned int index);
+ModuleInstance* SLgetTopModuleInstance(Design* design, uint32_t index);
 
 std::string SLgetModuleName(ModuleDefinition* module);
 
@@ -174,7 +174,7 @@ std::string SLgetModuleFile(ModuleDefinition* module);
 
 VObjectType SLgetModuleType(ModuleDefinition* module);
 
-unsigned int SLgetModuleLine(ModuleDefinition* module);
+uint32_t SLgetModuleLine(ModuleDefinition* module);
 
 FileContent* SLgetModuleFileContent(ModuleDefinition* module);
 
@@ -186,7 +186,7 @@ std::string SLgetClassFile(ClassDefinition* def);
 
 VObjectType SLgetClassType(ClassDefinition* def);
 
-unsigned int SLgetClassLine(ClassDefinition* def);
+uint32_t SLgetClassLine(ClassDefinition* def);
 
 FileContent* SLgetClassFileContent(ClassDefinition* def);
 
@@ -198,7 +198,7 @@ std::string SLgetPackageFile(Package* def);
 
 VObjectType SLgetPackageType(Package* def);
 
-unsigned int SLgetPackageLine(Package* def);
+uint32_t SLgetPackageLine(Package* def);
 
 FileContent* SLgetPackageFileContent(Package* def);
 
@@ -210,7 +210,7 @@ std::string SLgetProgramFile(Program* def);
 
 VObjectType SLgetProgramType(Program* def);
 
-unsigned int SLgetProgramLine(Program* def);
+uint32_t SLgetProgramLine(Program* def);
 
 FileContent* SLgetProgramFileContent(Program* def);
 
@@ -234,11 +234,11 @@ FileContent* SLgetInstanceFileContent(ModuleInstance* instance);
 
 RawNodeId SLgetInstanceNodeId(ModuleInstance* instance);
 
-unsigned int SLgetInstanceLine(ModuleInstance* instance);
+uint32_t SLgetInstanceLine(ModuleInstance* instance);
 
-unsigned int SLgetnInstanceChildren(ModuleInstance* instance);
+uint32_t SLgetnInstanceChildren(ModuleInstance* instance);
 
-ModuleInstance* SLgetInstanceChildren(ModuleInstance* instance, unsigned int i);
+ModuleInstance* SLgetInstanceChildren(ModuleInstance* instance, uint32_t i);
 
 ModuleInstance* SLgetInstanceParent(ModuleInstance* instance);
 

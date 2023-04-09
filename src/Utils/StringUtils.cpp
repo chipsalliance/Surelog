@@ -34,7 +34,7 @@ namespace SURELOG {
 
 static std::map<std::string, std::string> envVars;
 
-std::string StringUtils::to_string(double a_value, const int n) {
+std::string StringUtils::to_string(double a_value, const int32_t n) {
   std::ostringstream out;
   out.precision(n);
   out << std::fixed << a_value;
@@ -123,10 +123,10 @@ std::vector<std::string_view>& StringUtils::tokenizeBalanced(
     separators[(int32_t)ch] = true;
   }
 
-  const unsigned int stringSize = str.size();
+  const uint32_t stringSize = str.size();
   size_t start = 0;
   size_t end = 0;
-  int level = 0;
+  int32_t level = 0;
   bool inDoubleQuote = false;
   for (size_t i = 0; i < stringSize; i++) {
     if (str[i] == '"') {
@@ -169,7 +169,7 @@ static std::string removeLF(std::string_view st) {
 void StringUtils::replaceInTokenVector(
     std::vector<std::string>& tokens,
     const std::vector<std::string_view>& pattern, std::string_view news) {
-  unsigned int patternIndex = 0;
+  uint32_t patternIndex = 0;
   std::vector<std::string>::iterator itr;
   bool more = true;
   while (more) {
@@ -194,8 +194,8 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
                                        std::string_view pattern,
                                        std::string_view news) {
   const std::string news_s(news);
-  unsigned int tokensSize = tokens.size();
-  for (unsigned int i = 0; i < tokensSize; i++) {
+  uint32_t tokensSize = tokens.size();
+  for (uint32_t i = 0; i < tokensSize; i++) {
     if (tokens[i] == pattern) {
       const bool surrounded_by_quotes =
           (i > 0 && (tokens[i - 1] == "\"")) &&
@@ -266,7 +266,8 @@ static std::string_view SplitNext(std::string_view* src, char separator) {
   return result;
 }
 
-std::string_view StringUtils::getLineInString(std::string_view text, int line) {
+std::string_view StringUtils::getLineInString(std::string_view text,
+                                              int32_t line) {
   if (line < 1) return "";
 
   std::string_view s;

@@ -40,7 +40,7 @@
 
 namespace SURELOG {
 
-int FunctorCompilePackage::operator()() const {
+int32_t FunctorCompilePackage::operator()() const {
   CompilePackage* instance = new CompilePackage(m_compileDesign, m_package,
                                                 m_design, m_symbols, m_errors);
   instance->compile(true);
@@ -51,7 +51,7 @@ int FunctorCompilePackage::operator()() const {
   instance->compile(false);
   delete instance;
 
-  return true;
+  return 0;
 }
 
 bool CompilePackage::compile(bool reduce) {
@@ -108,7 +108,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
       VObjectType::slTask_body_declaration,
       VObjectType::slInterface_class_declaration};
   m_helper.setDesign(m_compileDesign->getCompiler()->getDesign());
-  for (unsigned int i = 0; i < m_package->m_fileContents.size(); i++) {
+  for (uint32_t i = 0; i < m_package->m_fileContents.size(); i++) {
     const FileContent* fC = m_package->m_fileContents[i];
     VObject current = fC->Object(m_package->m_nodeIds[i]);
     NodeId id = current.m_child;

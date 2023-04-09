@@ -172,8 +172,8 @@ bool UhdmChecker::registerFile(const FileContent* fC,
     {
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (skipModule == false) {
-        unsigned short from = fC->Column(id);
-        unsigned short to = fC->EndColumn(id);
+        uint16_t from = fC->Column(id);
+        uint16_t to = fC->EndColumn(id);
         if (lineItr != uhdmCover.end()) {
           bool found = false;
           for (ColRange& crange : (*lineItr).second) {
@@ -208,8 +208,8 @@ bool UhdmChecker::registerFile(const FileContent* fC,
     if (current.m_sibling) stack.push(current.m_sibling);
     if (current.m_child) stack.push(current.m_child);
     if (skip == false && skipModule == false) {
-      unsigned short from = fC->Column(id);
-      unsigned short to = fC->EndColumn(id);
+      uint16_t from = fC->Column(id);
+      uint16_t to = fC->EndColumn(id);
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         bool found = false;
@@ -264,9 +264,9 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
   report << "<h2 style=\"text-decoration: underline\">"
          << "Overall Coverage: " << std::setprecision(3) << overallCoverage
          << "%</h2>\n";
-  unsigned int fileIndex = 1;
+  uint32_t fileIndex = 1;
   std::string allUncovered;
-  static std::multimap<int, std::string> orderedCoverageMap;
+  static std::multimap<int32_t, std::string> orderedCoverageMap;
   for (const auto& [fC, uhdmCover] : fileNodeCoverMap) {
     std::vector<std::string> fileContentLines;
     if (!fileSystem->readLines(fC->getFileId(), fileContentLines)) {
@@ -320,7 +320,7 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
     bool uncovered = false;
     std::string pinkCoverage;
     std::string redCoverage;
-    int line = 0;
+    int32_t line = 0;
     for (const auto& lineText : fileContentLines) {
       ++line;
       RangesMap::const_iterator cItr = uhdmCover.find(line);
@@ -407,14 +407,14 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
       }
     }
     if (!redCoverage.empty()) {
-      orderedCoverageMap.emplace(static_cast<int>(cov), redCoverage);
+      orderedCoverageMap.emplace(static_cast<int32_t>(cov), redCoverage);
     } else {
       if (!pinkCoverage.empty()) {
-        orderedCoverageMap.emplace(static_cast<int>(cov), pinkCoverage);
+        orderedCoverageMap.emplace(static_cast<int32_t>(cov), pinkCoverage);
       }
     }
     if (uncovered == false) {
-      orderedCoverageMap.emplace(static_cast<int>(cov), fileStatGreen);
+      orderedCoverageMap.emplace(static_cast<int32_t>(cov), fileStatGreen);
     }
     reportF << "</body>\n</html>\n";
     fileSystem->close(reportF);
@@ -461,13 +461,13 @@ float UhdmChecker::reportCoverage(PathId uhdmFileId) {
     return false;
   }
 
-  int overallUncovered = 0;
-  int overallLineNb = 0;
+  int32_t overallUncovered = 0;
+  int32_t overallLineNb = 0;
   for (auto& [fC, uhdmCover] : fileNodeCoverMap) {
     bool fileNamePrinted = false;
-    int lineNb = 0;
-    int uncovered = 0;
-    int firstUncoveredLine = 0;
+    int32_t lineNb = 0;
+    int32_t uncovered = 0;
+    int32_t firstUncoveredLine = 0;
     for (auto& cItr : uhdmCover) {
       Ranges& ranges = cItr.second;
       bool exist = false;
@@ -554,8 +554,8 @@ void UhdmChecker::annotate() {
       if (fileItr != fileNodeCoverMap.end()) {
         RangesMap& uhdmCover = (*fileItr).second;
         RangesMap::iterator cItr = uhdmCover.find(bc->VpiLineNo());
-        // unsigned short from = bc->VpiColumnNo();
-        // unsigned short to = bc->VpiEndColumnNo();
+        // uint16_t from = bc->VpiColumnNo();
+        // uint16_t to = bc->VpiEndColumnNo();
 
         if (cItr != uhdmCover.end()) {
           // bool found = false;
@@ -630,7 +630,7 @@ void collectUsedFileContents(std::set<const FileContent*>& files,
         if (file) files.insert(file);
       }
     }
-    for (unsigned int index = 0; index < instance->getNbChildren(); index++) {
+    for (uint32_t index = 0; index < instance->getNbChildren(); index++) {
       collectUsedFileContents(files, moduleNames, instance->getChildren(index));
     }
   }

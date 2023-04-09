@@ -301,7 +301,8 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
     SURELOG::ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId the_stmt_child = fC->Child(the_stmt);
-  int isFinal = fC->Type(the_stmt_child) == VObjectType::slPound_delay ? 0 : 1;
+  int32_t isFinal =
+      fC->Type(the_stmt_child) == VObjectType::slPound_delay ? 0 : 1;
   NodeId Expression = isFinal ? the_stmt_child : fC->Sibling(the_stmt_child);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);

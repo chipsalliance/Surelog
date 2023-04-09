@@ -59,7 +59,7 @@ Value* ValuedComponentI::getValue(std::string_view name,
 
 void ValuedComponentI::deleteValue(std::string_view name,
                                    ExprBuilder& exprBuilder) {
-  std::map<std::string, std::pair<Value*, int>>::iterator itr =
+  std::map<std::string, std::pair<Value*, int32_t>>::iterator itr =
       m_paramMap.find(name);
   if (itr != m_paramMap.end()) {
     exprBuilder.deleteValue((*itr).second.first);
@@ -68,7 +68,7 @@ void ValuedComponentI::deleteValue(std::string_view name,
 }
 
 void ValuedComponentI::forgetValue(std::string_view name) {
-  std::map<std::string, std::pair<Value*, int>>::iterator itr =
+  std::map<std::string, std::pair<Value*, int32_t>>::iterator itr =
       m_paramMap.find(name);
   if (itr != m_paramMap.end()) {
     m_paramMap.erase(itr);
@@ -76,7 +76,7 @@ void ValuedComponentI::forgetValue(std::string_view name) {
 }
 
 void ValuedComponentI::setValue(std::string_view name, Value* val,  // NOLINT
-                                ExprBuilder& exprBuilder, int lineNb) {
+                                ExprBuilder& exprBuilder, int32_t lineNb) {
   deleteValue(name, exprBuilder);
   m_paramMap.emplace(name, std::make_pair(exprBuilder.clone(val), lineNb));
   forgetComplexValue(name);

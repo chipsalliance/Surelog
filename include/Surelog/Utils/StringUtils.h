@@ -121,7 +121,8 @@ std::string replaceAll(std::string_view str, std::string_view from,
 // Lines are 1 indexed. The newline separator is included in the
 // returned lines; the last line in text might not have a newline
 // so will not be included.
-[[nodiscard]] std::string_view getLineInString(std::string_view text, int line);
+[[nodiscard]] std::string_view getLineInString(std::string_view text,
+                                               int32_t line);
 
 // Split input text into lines at '\n'. This separator is included in the
 // returned lines; the last line in text might not have a newline so will
@@ -129,7 +130,7 @@ std::string replaceAll(std::string_view str, std::string_view from,
 std::vector<std::string_view> splitLines(std::string_view text);
 
 // Convert double number with given amount of precision.
-std::string to_string(double a_value, const int n = 3);
+std::string to_string(double a_value, const int32_t n = 3);
 
 // Remove '//' and '#'-style end-of-line comments
 [[nodiscard]] std::string removeComments(std::string_view text);

@@ -47,7 +47,7 @@ struct FunctorCompileModule {
         m_symbols(symbols),
         m_errors(errors),
         m_instance(instance) {}
-  int operator()() const;
+  int32_t operator()() const;
 
  private:
   CompileDesign* const m_compileDesign;
