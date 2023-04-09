@@ -1224,7 +1224,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
     }
   }
   // Module Instantiation
-  
+
   if (std::vector<UHDM::ref_module*>* subModules = mod->getRefModules()) {
     m->Ref_modules(subModules);
   }
@@ -4105,7 +4105,6 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         }
       }
     }
-
 
     // Classes
     auto classes = m_design->getClassDefinitions();
