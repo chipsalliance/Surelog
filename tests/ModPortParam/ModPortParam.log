@@ -107,12 +107,12 @@ design                                                 1
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
-logic_net                                              1
+logic_net                                              2
 modport                                                4
 module_inst                                            5
-port                                                   2
+port                                                   3
 ref_module                                             1
-ref_obj                                                4
+ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -121,12 +121,12 @@ design                                                 1
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
-logic_net                                              1
+logic_net                                              2
 modport                                                4
 module_inst                                            5
-port                                                   3
+port                                                   4
 ref_module                                             1
-ref_obj                                                6
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortParam/slpp_all/surelog.uhdm ...
 
@@ -196,6 +196,10 @@ design: (work@Core)
   |vpiName:work@Core
   |vpiDefName:work@Core
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (perfCounterIF)
+    |vpiName:perfCounterIF
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiInterface:
   \_interface_inst: work@PerformanceCounterIF (work@Core.perfCounterIF), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:14:2, endln:14:40
@@ -245,7 +249,7 @@ design: (work@Core)
         |vpiName:perfCounterIF
         |vpiFullName:work@Core.perfCounterIF
         |vpiActual:
-        \_interface_inst: work@PerformanceCounterIF (work@Core.perfCounterIF), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:14:2, endln:14:40
+        \_logic_net: (perfCounterIF)
       |vpiLowConn:
       \_ref_obj: (work@Core.csrUnit.perfCounter), line:16:19, endln:16:32
         |vpiParent:

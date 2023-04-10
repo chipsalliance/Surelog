@@ -2450,8 +2450,65 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
         mod->setRefModules(subModules);
       }
       subModules->push_back(m);
+      compileHighConn(mod, fC, compileDesign, instId, m);
     }
     hierInstId = fC->Sibling(hierInstId);
+  }
+}
+
+void CompileHelper::compileHighConn(ModuleDefinition* component,
+                                    const FileContent* fC,
+                                    CompileDesign* compileDesign, NodeId instId,
+                                    UHDM::ref_module* m) {
+  NodeId list_of_ports = fC->Sibling(instId);
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  NodeId Port_connection = fC->Child(list_of_ports);
+  VectorOfport* ports = nullptr;
+  if (Port_connection) {
+    ports = s.MakePortVec();
+    m->Ports(ports);
+  }
+  while (Port_connection) {
+    if (fC->Type(Port_connection) == VObjectType::slOrdered_port_connection) {
+      NodeId child = fC->Child(Port_connection);
+      if (child) {
+        port* p = s.MakePort();
+        fC->populateCoreMembers(Port_connection, Port_connection, p);
+        checkForLoops(true);
+        any* exp = compileExpression(component, fC, child, compileDesign,
+                                     nullptr, nullptr, false);
+        p->High_conn(exp);
+        checkForLoops(false);
+        ports->push_back(p);
+      }  // else:  mod inst ();
+    } else if (fC->Type(Port_connection) ==
+               VObjectType::slNamed_port_connection) {
+      NodeId formalName = fC->Child(Port_connection);
+      if (fC->Type(formalName) == VObjectType::slAttribute_instance) {
+        formalName = fC->Sibling(formalName);
+      }
+      if (fC->Type(formalName) == VObjectType::slDotStar) {
+      } else {
+        NodeId openParens = fC->Sibling(formalName);
+        NodeId expId = fC->Sibling(openParens);
+        port* p = s.MakePort();
+        fC->populateCoreMembers(Port_connection, Port_connection, p);
+        if (fC->Type(expId) == VObjectType::slCloseParens) {
+          // (.p())
+        } else {
+          p->VpiName(fC->SymName(formalName));
+          if (expId) {  // (.p, ...)
+            checkForLoops(true);
+            any* exp = compileExpression(component, fC, expId, compileDesign,
+                                         nullptr, nullptr, false);
+            p->High_conn(exp);
+            checkForLoops(false);
+          }
+        }
+        ports->push_back(p);
+      }
+    }
+    Port_connection = fC->Sibling(Port_connection);
   }
 }
 

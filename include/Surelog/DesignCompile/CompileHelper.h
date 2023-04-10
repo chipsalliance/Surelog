@@ -435,6 +435,9 @@ class CompileHelper final {
   void compileInstantiation(ModuleDefinition* mod, const FileContent* fC,
                             CompileDesign* compileDesign, NodeId id,
                             ValuedComponentI* instance);
+  void compileHighConn(ModuleDefinition* component, const FileContent* fC,
+                       CompileDesign* compileDesign, NodeId id,
+                       UHDM::ref_module* m);
 
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);

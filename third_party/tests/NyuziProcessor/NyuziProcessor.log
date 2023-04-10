@@ -1724,7 +1724,7 @@ array_var                                            144
 assign_stmt                                           70
 assignment                                          5852
 begin                                               1452
-bit_select                                          5171
+bit_select                                          5392
 bit_typespec                                           9
 bit_var                                                9
 case_item                                           2572
@@ -1732,7 +1732,7 @@ case_stmt                                            137
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                          119056
+constant                                          119188
 cont_assign                                         2214
 design                                                 1
 enum_const                                         13496
@@ -1745,14 +1745,14 @@ func_call                                             14
 function                                              10
 gen_scope                                           1014
 gen_scope_array                                     1014
-hier_path                                           2686
+hier_path                                           2876
 if_else                                              936
 if_stmt                                              328
 immediate_assert                                     239
 include_file_info                                    100
-indexed_part_select                                  687
+indexed_part_select                                  689
 initial                                               15
-int_typespec                                       54031
+int_typespec                                       54048
 int_var                                               92
 integer_typespec                                     120
 integer_var                                            1
@@ -1760,22 +1760,22 @@ interface_array                                        4
 interface_inst                                        48
 interface_typespec                                   118
 io_decl                                              831
-logic_net                                           3873
+logic_net                                           3878
 logic_typespec                                     19346
 logic_var                                           2684
 modport                                               77
 module_inst                                         1075
 named_begin                                            8
-operation                                          22735
+operation                                          22944
 package                                              152
 packed_array_typespec                               2304
 param_assign                                       30076
 parameter                                          43737
-part_select                                          402
-port                                                2951
+part_select                                          423
+port                                                3793
 range                                              17160
 ref_module                                           179
-ref_obj                                            35631
+ref_obj                                            37116
 string_typespec                                       83
 string_var                                             1
 struct_net                                            81
@@ -1797,7 +1797,7 @@ array_var                                            289
 assign_stmt                                          238
 assignment                                         22031
 begin                                               4701
-bit_select                                         15471
+bit_select                                         15692
 bit_typespec                                           9
 bit_var                                                9
 case_item                                          11489
@@ -1805,7 +1805,7 @@ case_stmt                                            430
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                          120301
+constant                                          120433
 cont_assign                                         5548
 design                                                 1
 enum_const                                         13501
@@ -1818,14 +1818,14 @@ func_call                                             28
 function                                              20
 gen_scope                                           1722
 gen_scope_array                                     1722
-hier_path                                           7056
+hier_path                                           7246
 if_else                                             3353
 if_stmt                                             1263
 immediate_assert                                     691
 include_file_info                                    100
-indexed_part_select                                 1609
+indexed_part_select                                 1611
 initial                                              188
-int_typespec                                       54031
+int_typespec                                       54048
 int_var                                              253
 integer_typespec                                     120
 integer_var                                            1
@@ -1833,22 +1833,22 @@ interface_array                                        4
 interface_inst                                        48
 interface_typespec                                   118
 io_decl                                              845
-logic_net                                           3873
+logic_net                                           3878
 logic_typespec                                     19346
 logic_var                                           6026
 modport                                               77
 module_inst                                         1243
 named_begin                                           50
-operation                                          43604
+operation                                          43813
 package                                              152
 packed_array_typespec                               2304
 param_assign                                       46058
 parameter                                          43737
-part_select                                         1146
-port                                                6533
+part_select                                         1167
+port                                                7375
 range                                              18250
 ref_module                                           179
-ref_obj                                           104413
+ref_obj                                           105898
 string_typespec                                       83
 string_var                                             1
 struct_net                                            81
@@ -1860,13 +1860,57 @@ task_call                                             22
 typespec_member                                     7574
 var_select                                           953
 === UHDM Object Stats End ===
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:299:17: Unresolved hierarchical reference "nyuzi_io_bus.write_en".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:301:23: Unresolved hierarchical reference "nyuzi_io_bus.address".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:305:38: Unresolved hierarchical reference "nyuzi_io_bus.write_data[7:0]".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:310:49: Unresolved hierarchical reference "nyuzi_io_bus.write_data[0]".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:313:51: Unresolved hierarchical reference "nyuzi_io_bus.write_data".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:317:17: Unresolved hierarchical reference "nyuzi_io_bus.read_en".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:319:24: Unresolved hierarchical reference "nyuzi_io_bus.address[15:0]".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:262:57: Unresolved hierarchical reference "nyuzi_io_bus.write_en".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:263:56: Unresolved hierarchical reference "nyuzi_io_bus.read_en".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:264:56: Unresolved hierarchical reference "nyuzi_io_bus.address".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:265:59: Unresolved hierarchical reference "nyuzi_io_bus.write_data".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:222:12: Unresolved hierarchical reference "host_jtag.tdi".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:222:28: Unresolved hierarchical reference "target_jtag.tdo".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:223:12: Unresolved hierarchical reference "target_jtag.tdi".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:223:30: Unresolved hierarchical reference "host_jtag.tdo".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:224:12: Unresolved hierarchical reference "target_jtag.tck".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:224:30: Unresolved hierarchical reference "host_jtag.tck".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:225:12: Unresolved hierarchical reference "target_jtag.trst_n".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:225:33: Unresolved hierarchical reference "host_jtag.trst_n".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:226:12: Unresolved hierarchical reference "target_jtag.tms".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:226:30: Unresolved hierarchical reference "host_jtag.tms".
+
+[ERR:UH0725] ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:256:12: Unresolved hierarchical reference "nyuzi_io_bus.read_data".
+
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NyuziProcessor/slpp_unit/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/NyuziProcessor/slpp_unit/checker/surelog.chk.html ...
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 48
+[  ERROR] : 70
 [WARNING] : 0
 [   NOTE] : 12
 
@@ -1937,5 +1981,5 @@ var_select                                           953
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/sim_ps2.sv              | ${SURELOG_DIR}/build/regression/NyuziProcessor/roundtrip/sim_ps2_000.sv                   | 16 | 72 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/sim_sdmmc.sv            | ${SURELOG_DIR}/build/regression/NyuziProcessor/roundtrip/sim_sdmmc_000.sv                 | 56 | 424 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/sim_sdram.sv            | ${SURELOG_DIR}/build/regression/NyuziProcessor/roundtrip/sim_sdram_000.sv                 | 103 | 287 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv               | ${SURELOG_DIR}/build/regression/NyuziProcessor/roundtrip/soc_tb_000.sv                    | 320 | 546 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv               | ${SURELOG_DIR}/build/regression/NyuziProcessor/roundtrip/soc_tb_000.sv                    | 316 | 546 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/NyuziProcessor/hardware/testbench/trace_logger.sv         | ${SURELOG_DIR}/build/regression/NyuziProcessor/roundtrip/trace_logger_000.sv              | 73 | 244 |
