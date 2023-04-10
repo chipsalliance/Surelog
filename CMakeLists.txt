@@ -41,6 +41,12 @@ option(
 option(
    SURELOG_WITH_TCMALLOC
    "Use tcmalloc if installed" ON)
+option(
+  SURELOG_SYMBOLID_DEBUG_ENABLED
+  "Enable SymbolId debugging" OFF)
+option(
+  SURELOG_PATHID_DEBUG_ENABLED
+  "Enable PathId debugging" OFF)
 
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
 
@@ -52,6 +58,11 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Make sure both SURELOG_SYMBOLID_DEBUG_ENABLED & UHDM_SYMBOLID_DEBUG_ENABLED
+# are set the same
+set(UHDM_SYMBOLID_DEBUG_ENABLED ${SURELOG_SYMBOLID_DEBUG_ENABLED}
+  CACHE BOOL "Enforcing" FORCE)
 
 # Setup code generation directory
 set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
@@ -486,6 +497,10 @@ endforeach()
 add_library(surelog ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
 
+configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/config.h.in ${GENDIR}/include/Surelog/config.h)
+target_compile_options(surelog PRIVATE
+  $<IF:$<CXX_COMPILER_ID:MSVC>,/FISurelog/config.h,-include Surelog/config.h>)
+
 if(BUILD_SHARED_LIBS)
   set_property(TARGET surelog PROPERTY POSITION_INDEPENDENT_CODE 1)
 endif()
@@ -793,6 +808,10 @@ if (SURELOG_WITH_PYTHON)
 endif()
 
 install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg DESTINATION share/surelog)
+install(
+  FILES ${GENDIR}/include/Surelog/config.h
+        ${GENDIR}/include/Surelog/surelog-version.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/CommandLine/CommandLineParser.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/CommandLine)
