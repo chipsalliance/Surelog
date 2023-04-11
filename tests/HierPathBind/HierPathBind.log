@@ -312,6 +312,24 @@ design: (work@top)
       \_logic_net: (work@top.o), line:5:26, endln:5:27
   |vpiRefModule:
   \_ref_module: work@dut (d), line:12:8, endln:12:9
+    |vpiName:d
+    |vpiDefName:work@dut
+    |vpiActual:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
+    |vpiPort:
+    \_port: (o), line:12:10, endln:12:31
+      |vpiName:o
+      |vpiHighConn:
+      \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
+        |vpiName:alert_rx_i.ping_p
+        |vpiActual:
+        \_ref_obj: (alert_rx_i), line:12:13, endln:12:23
+          |vpiParent:
+          \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
+          |vpiName:alert_rx_i
+        |vpiActual:
+        \_ref_obj: (ping_p), line:12:24, endln:12:30
+          |vpiName:ping_p
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
   |vpiName:work@top

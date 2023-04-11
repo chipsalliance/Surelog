@@ -345,6 +345,18 @@ design: (work@testharness)
   |vpiDefName:work@peripherals
   |vpiRefModule:
   \_ref_module: work@apb_to_reg (i_apb_to_reg), line:27:12, endln:27:24
+    |vpiName:i_apb_to_reg
+    |vpiDefName:work@apb_to_reg
+    |vpiActual:
+    \_module_inst: work@apb_to_reg (work@apb_to_reg), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:15:1, endln:19:10
+    |vpiPort:
+    \_port: (reg_o), line:27:26, endln:27:42
+      |vpiName:reg_o
+      |vpiHighConn:
+      \_ref_obj: (reg_bus), line:27:34, endln:27:41
+        |vpiName:reg_bus
+        |vpiActual:
+        \_logic_net: (reg_bus)
 |uhdmallModules:
 \_module_inst: work@testharness (work@testharness), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:32:1, endln:36:10
   |vpiParent:
@@ -353,6 +365,10 @@ design: (work@testharness)
   |vpiDefName:work@testharness
   |vpiRefModule:
   \_ref_module: work@peripherals (i_peripherals), line:34:16, endln:34:29
+    |vpiName:i_peripherals
+    |vpiDefName:work@peripherals
+    |vpiActual:
+    \_module_inst: work@peripherals (work@peripherals), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:21:1, endln:29:10
 |uhdmtopModules:
 \_module_inst: work@testharness (work@testharness), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:32:1, endln:36:10
   |vpiName:work@testharness

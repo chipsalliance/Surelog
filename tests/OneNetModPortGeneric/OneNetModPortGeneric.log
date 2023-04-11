@@ -566,8 +566,52 @@ design: (work@TOP)
   |vpiDefName:work@TOP
   |vpiRefModule:
   \_ref_module: work@dut (dut1), line:17:7, endln:17:11
+    |vpiName:dut1
+    |vpiDefName:work@dut
+    |vpiActual:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:2:1, endln:7:10
+    |vpiPort:
+    \_port: (i), line:17:13, endln:17:29
+      |vpiName:i
+      |vpiHighConn:
+      \_hier_path: (conntb.drive), line:17:16, endln:17:28
+        |vpiName:conntb.drive
+        |vpiActual:
+        \_ref_obj: (conntb), line:17:16, endln:17:22
+          |vpiParent:
+          \_hier_path: (conntb.drive), line:17:16, endln:17:28
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (drive), line:17:23, endln:17:28
+          |vpiName:drive
+    |vpiPort:
+    \_port: (o), line:17:31, endln:17:49
+      |vpiName:o
+      |vpiHighConn:
+      \_hier_path: (conntb.observe), line:17:34, endln:17:48
+        |vpiName:conntb.observe
+        |vpiActual:
+        \_ref_obj: (conntb), line:17:34, endln:17:40
+          |vpiParent:
+          \_hier_path: (conntb.observe), line:17:34, endln:17:48
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (observe), line:17:41, endln:17:48
+          |vpiName:observe
   |vpiRefModule:
   \_ref_module: work@OBSERVER (obs), line:19:12, endln:19:15
+    |vpiName:obs
+    |vpiDefName:work@OBSERVER
+    |vpiActual:
+    \_module_inst: work@OBSERVER (work@OBSERVER), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:30:1, endln:32:10
+    |vpiPort:
+    \_port: (intf), line:19:16, endln:19:29
+      |vpiName:intf
+      |vpiHighConn:
+      \_ref_obj: (conntb), line:19:22, endln:19:28
+        |vpiName:conntb
+        |vpiActual:
+        \_logic_net: (conntb)
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:2:1, endln:7:10
   |vpiParent:
@@ -664,6 +708,24 @@ design: (work@TOP)
       \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
   |vpiRefModule:
   \_ref_module: work@middle (middle1), line:6:10, endln:6:17
+    |vpiName:middle1
+    |vpiDefName:work@middle
+    |vpiActual:
+    \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:22:1, endln:24:10
+    |vpiPort:
+    \_port: (intf), line:6:19, endln:6:36
+      |vpiName:intf
+      |vpiHighConn:
+      \_hier_path: (conntb.dut), line:6:25, endln:6:35
+        |vpiName:conntb.dut
+        |vpiActual:
+        \_ref_obj: (conntb), line:6:25, endln:6:31
+          |vpiParent:
+          \_hier_path: (conntb.dut), line:6:25, endln:6:35
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (dut), line:6:32, endln:6:35
+          |vpiName:dut
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:22:1, endln:24:10
   |vpiParent:
@@ -691,6 +753,38 @@ design: (work@TOP)
       |vpiName:intf
   |vpiRefModule:
   \_ref_module: work@SUB (sub1), line:23:7, endln:23:11
+    |vpiName:sub1
+    |vpiDefName:work@SUB
+    |vpiActual:
+    \_module_inst: work@SUB (work@SUB), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/dut.v, line:26:1, endln:28:10
+    |vpiPort:
+    \_port: (inp), line:23:12, endln:23:28
+      |vpiName:inp
+      |vpiHighConn:
+      \_hier_path: (intf.drive), line:23:17, endln:23:27
+        |vpiName:intf.drive
+        |vpiActual:
+        \_ref_obj: (intf), line:23:17, endln:23:21
+          |vpiParent:
+          \_hier_path: (intf.drive), line:23:17, endln:23:27
+          |vpiName:intf
+        |vpiActual:
+        \_ref_obj: (drive), line:23:22, endln:23:27
+          |vpiName:drive
+    |vpiPort:
+    \_port: (out), line:23:30, endln:23:48
+      |vpiName:out
+      |vpiHighConn:
+      \_hier_path: (intf.observe), line:23:35, endln:23:47
+        |vpiName:intf.observe
+        |vpiActual:
+        \_ref_obj: (intf), line:23:35, endln:23:39
+          |vpiParent:
+          \_hier_path: (intf.observe), line:23:35, endln:23:47
+          |vpiName:intf
+        |vpiActual:
+        \_ref_obj: (observe), line:23:40, endln:23:47
+          |vpiName:observe
 |uhdmtopModules:
 \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/tb.v, line:15:1, endln:20:10
   |vpiName:work@TOP

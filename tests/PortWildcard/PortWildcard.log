@@ -455,7 +455,7 @@ AST_DEBUG_END
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              36
+constant                                              37
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -472,7 +472,7 @@ operation                                             12
 package                                                2
 param_assign                                           2
 parameter                                              2
-port                                                  13
+port                                                  14
 range                                                  8
 ref_module                                             1
 ref_obj                                               23
@@ -484,7 +484,7 @@ task                                                   9
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              36
+constant                                              37
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
@@ -501,7 +501,7 @@ operation                                             14
 package                                                2
 param_assign                                           2
 parameter                                              2
-port                                                  18
+port                                                  19
 range                                                  8
 ref_module                                             1
 ref_obj                                               34
@@ -1021,6 +1021,64 @@ design: (work@dut)
     \_logic_typespec: , line:16:7, endln:16:12
   |vpiRefModule:
   \_ref_module: work@rvdff (freezerfpc_ff), line:17:15, endln:17:28
+    |vpiName:freezerfpc_ff
+    |vpiDefName:work@rvdff
+    |vpiActual:
+    \_module_inst: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
+    |vpiPort:
+    \_port: , line:17:30, endln:17:32
+      |vpiHighConn:
+      \_constant: , line:17:30, endln:17:32
+        |vpiDecompile:.*
+        |STRING:.*
+    |vpiPort:
+    \_port: (clk), line:17:35, endln:17:49
+      |vpiName:clk
+      |vpiHighConn:
+      \_ref_obj: (free_clk), line:17:40, endln:17:48
+        |vpiName:free_clk
+        |vpiActual:
+        \_logic_net: (work@dut.free_clk), line:17:40, endln:17:48
+    |vpiPort:
+    \_port: (din), line:18:33, endln:18:75
+      |vpiName:din
+      |vpiHighConn:
+      \_operation: , line:18:38, endln:18:74
+        |vpiOpType:33
+        |vpiOperand:
+        \_ref_obj: (rfpc_postsync_in), line:18:39, endln:18:55
+          |vpiParent:
+          \_operation: , line:18:38, endln:18:74
+          |vpiName:rfpc_postsync_in
+          |vpiActual:
+          \_logic_net: (rfpc_postsync_in)
+        |vpiOperand:
+        \_ref_obj: (dma_mem_dccm_req), line:18:57, endln:18:73
+          |vpiParent:
+          \_operation: , line:18:38, endln:18:74
+          |vpiName:dma_mem_dccm_req
+          |vpiActual:
+          \_logic_net: (dma_mem_dccm_req)
+    |vpiPort:
+    \_port: (dout), line:19:33, endln:19:75
+      |vpiName:dout
+      |vpiHighConn:
+      \_operation: , line:19:39, endln:19:74
+        |vpiOpType:33
+        |vpiOperand:
+        \_ref_obj: (rfpc_postsync), line:19:40, endln:19:53
+          |vpiParent:
+          \_operation: , line:19:39, endln:19:74
+          |vpiName:rfpc_postsync
+          |vpiActual:
+          \_logic_net: (rfpc_postsync)
+        |vpiOperand:
+        \_ref_obj: (dma_mem_dccm_req_f), line:19:55, endln:19:73
+          |vpiParent:
+          \_operation: , line:19:39, endln:19:74
+          |vpiName:dma_mem_dccm_req_f
+          |vpiActual:
+          \_logic_net: (dma_mem_dccm_req_f)
 |uhdmallModules:
 \_module_inst: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
   |vpiParent:
