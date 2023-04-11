@@ -65,8 +65,8 @@ class ModuleInstance : public ValuedComponentI {
     m_boundInstance = boundToInstance;
   }
   DesignComponent* getDefinition() { return m_definition; }
-  unsigned int getNbChildren() const { return m_allSubInstances.size(); }
-  ModuleInstance* getChildren(unsigned int i) {
+  uint32_t getNbChildren() const { return m_allSubInstances.size(); }
+  ModuleInstance* getChildren(uint32_t i) {
     if (i < m_allSubInstances.size()) {
       return m_allSubInstances[i];
     } else {
@@ -77,10 +77,10 @@ class ModuleInstance : public ValuedComponentI {
   const FileContent* getFileContent() const { return m_fileContent; }
   PathId getFileId() const;
   NodeId getNodeId() const { return m_nodeId; }
-  unsigned int getLineNb() const;
-  unsigned short getColumnNb() const;
-  unsigned int getEndLineNb() const;
-  unsigned short getEndColumnNb() const;
+  uint32_t getLineNb() const;
+  uint16_t getColumnNb() const;
+  uint32_t getEndLineNb() const;
+  uint16_t getEndColumnNb() const;
   VObjectType getType() const;
   VObjectType getModuleType() const;
   SymbolId getFullPathId(SymbolTable* symbols) const;
@@ -89,7 +89,7 @@ class ModuleInstance : public ValuedComponentI {
   std::string getInstanceName() const;
   std::string getFullPathName() const;
   std::string_view getModuleName() const;
-  unsigned int getDepth() const;
+  uint32_t getDepth() const;
 
   void setNodeId(NodeId id) { m_nodeId = id; }  // Used for generate stmt
   void overrideParentChild(ModuleInstance* parent, ModuleInstance* interm,

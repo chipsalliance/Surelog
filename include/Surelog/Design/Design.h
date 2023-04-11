@@ -126,12 +126,12 @@ class Design final {
 
   std::string reportInstanceTree() const;
 
-  void reportInstanceTreeStats(unsigned int& nbTopLevelModules,
-                               unsigned int& maxDepth,
-                               unsigned int& numberOfInstances,
-                               unsigned int& numberOfLeafInstances,
-                               unsigned int& nbUndefinedModules,
-                               unsigned int& nbUndefinedInstances) const;
+  void reportInstanceTreeStats(uint32_t& nbTopLevelModules,
+                               uint32_t& maxDepth,
+                               uint32_t& numberOfInstances,
+                               uint32_t& numberOfLeafInstances,
+                               uint32_t& nbUndefinedModules,
+                               uint32_t& nbUndefinedInstances) const;
 
   DefParam* getDefParam(std::string_view name) const;
 

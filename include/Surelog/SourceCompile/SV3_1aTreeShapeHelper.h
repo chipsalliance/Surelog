@@ -79,20 +79,20 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   std::pair<double, TimeInfo::Unit> getTimeValue(
       SV3_1aParser::Time_literalContext* ctx);
 
-  std::tuple<PathId, unsigned int, unsigned short, unsigned int, unsigned short>
+  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
   getFileLine(antlr4::ParserRuleContext* ctx,
               antlr4::Token* token) const override;
 
  protected:
   SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,
-                        unsigned int lineOffset);
+                        uint32_t lineOffset);
   SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
 
  protected:
   ParseFile* m_pf;
   DesignElement* m_currentElement;
   std::stack<DesignElement*> m_nestedElements;
-  unsigned int m_lineOffset;
+  uint32_t m_lineOffset;
   bool m_ppOutputFileLocation;
   std::stack<IncludeFileInfo> m_includeFileInfo;
 };

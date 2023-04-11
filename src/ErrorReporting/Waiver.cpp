@@ -36,7 +36,7 @@ std::multimap<ErrorDefinition::ErrorType, Waiver::WaiverData> Waiver::m_waivers;
 // 294, col 8: Unused macro argument "CB".
 
 void Waiver::setWaiver(std::string_view messageId, std::string_view fileName,
-                       unsigned int line, std::string_view objectName) {
+                       uint32_t line, std::string_view objectName) {
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
   Waiver::WaiverData data(type, fileName, line, objectName);
   m_waivers.emplace(type, data);

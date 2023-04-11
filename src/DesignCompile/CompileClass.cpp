@@ -42,7 +42,7 @@
 #include <stack>
 
 namespace SURELOG {
-int FunctorCompileClass::operator()() const {
+int32_t FunctorCompileClass::operator()() const {
   CompileClass* instance =
       new CompileClass(m_compileDesign, m_class, m_design, m_symbols, m_errors);
   instance->compile();
@@ -71,7 +71,7 @@ bool CompileClass::compile() {
     fullName.assign(tmp_container->getName()).append("::");
   }
   if (!names.empty()) {
-    unsigned int index = names.size() - 1;
+    uint32_t index = names.size() - 1;
     while (1) {
       fullName += names[index];
       if (index > 0) fullName += "::";

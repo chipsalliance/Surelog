@@ -39,7 +39,7 @@ namespace SURELOG {
 // the listener is initialized.
 class LogListener {
  private:
-  static constexpr unsigned int DEFAULT_MAX_QUEUED_MESSAGE_COUNT = 100;
+  static constexpr uint32_t DEFAULT_MAX_QUEUED_MESSAGE_COUNT = 100;
 
  public:
   enum class LogResult {
@@ -49,10 +49,12 @@ class LogListener {
   };
 
   static bool succeeded(LogResult result) {
-    return static_cast<int>(result) >= 0;
+    return static_cast<int32_t>(result) >= 0;
   }
 
-  static bool failed(LogResult result) { return static_cast<int>(result) < 0; }
+  static bool failed(LogResult result) {
+    return static_cast<int32_t>(result) < 0;
+  }
 
  public:
   LogListener() = default;
@@ -60,11 +62,11 @@ class LogListener {
 
   virtual LogResult initialize(PathId fileId);
 
-  virtual void setMaxQueuedMessageCount(int count);
-  int getMaxQueuedMessageCount() const;
+  virtual void setMaxQueuedMessageCount(int32_t count);
+  int32_t getMaxQueuedMessageCount() const;
 
   PathId getLogFileId() const;
-  int getQueuedMessageCount() const;
+  int32_t getQueuedMessageCount() const;
 
   virtual LogResult log(std::string_view message);
   virtual LogResult flush();
@@ -78,8 +80,8 @@ class LogListener {
   PathId fileId;
   mutable std::mutex mutex;
   std::deque<std::string> queued;
-  int droppedCount = 0;
-  unsigned int maxQueuedMessageCount = DEFAULT_MAX_QUEUED_MESSAGE_COUNT;
+  int32_t droppedCount = 0;
+  uint32_t maxQueuedMessageCount = DEFAULT_MAX_QUEUED_MESSAGE_COUNT;
 
  private:
   LogListener(const LogListener&) = delete;

@@ -46,7 +46,7 @@
 #include <iostream>
 
 namespace SURELOG {
-void SLsetWaiver(const char* messageId, const char* fileName, unsigned int line,
+void SLsetWaiver(const char* messageId, const char* fileName, uint32_t line,
                  const char* objectName) {
   if (fileName == 0 && line == 0 && objectName == 0) {
     Waiver::setWaiver(messageId, "", 0, "");
@@ -81,7 +81,7 @@ void SLoverrideSeverity(const char* messageId, const char* severity) {
 static bool IsEmpty(const char* str) { return !(str && *str); }
 
 void SLaddError(ErrorContainer* errors, const char* messageId,
-                const char* fileName, unsigned int line, unsigned int col,
+                const char* fileName, uint32_t line, uint32_t col,
                 const char* objectName) {
   if (errors == nullptr) return;
   FileSystem* const fileSystem = FileSystem::getInstance();
@@ -100,10 +100,9 @@ void SLaddError(ErrorContainer* errors, const char* messageId,
 }
 
 void SLaddMLError(ErrorContainer* errors, const char* messageId,
-                  const char* fileName1, unsigned int line1, unsigned int col1,
+                  const char* fileName1, uint32_t line1, uint32_t col1,
                   const char* objectName1, const char* fileName2,
-                  unsigned int line2, unsigned int col2,
-                  const char* objectName2) {
+                  uint32_t line2, uint32_t col2, const char* objectName2) {
   if (errors == nullptr) return;
   FileSystem* const fileSystem = FileSystem::getInstance();
   SymbolTable* symbolTable = errors->getSymbolTable();
@@ -137,7 +136,7 @@ void SLaddErrorContext(SV3_1aPythonListener* prog,
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   ErrorContainer* errors =
       listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
-  std::pair<int, int> lineCol =
+  ParseUtils::LineColumn lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
 
@@ -167,9 +166,9 @@ void SLaddMLErrorContext(SV3_1aPythonListener* prog,
   antlr4::ParserRuleContext* ctx2 = (antlr4::ParserRuleContext*)context2;
   ErrorContainer* errors =
       listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
-  std::pair<int, int> lineCol1 =
+  ParseUtils::LineColumn lineCol1 =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx1);
-  std::pair<int, int> lineCol2 =
+  ParseUtils::LineColumn lineCol2 =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx2);
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
 
@@ -210,11 +209,12 @@ std::string SLgetFile(SV3_1aPythonListener* prog,
 #endif
 }
 
-int SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context) {
+int32_t SLgetLine(SV3_1aPythonListener* prog,
+                  antlr4::ParserRuleContext* context) {
 #ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
-  std::pair<int, int> lineCol =
+  ParseUtils::LineColumn lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.first;
 #else
@@ -223,12 +223,12 @@ int SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context) {
 #endif
 }
 
-int SLgetColumn(SV3_1aPythonListener* prog,
-                antlr4::ParserRuleContext* context) {
+int32_t SLgetColumn(SV3_1aPythonListener* prog,
+                    antlr4::ParserRuleContext* context) {
 #ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
-  std::pair<int, int> lineCol =
+  ParseUtils::LineColumn lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.second;
 #else
@@ -296,9 +296,9 @@ std::string SLgetFile(FileContent* fC, RawNodeId id) {
       FileSystem::getInstance()->toPath(fC->getFileId(NodeId(id))));
 }
 
-unsigned int SLgetType(FileContent* fC, RawNodeId id) {
+uint32_t SLgetType(FileContent* fC, RawNodeId id) {
   if (!fC) return 0;
-  return static_cast<unsigned int>(fC->Type(NodeId(id)));
+  return static_cast<uint32_t>(fC->Type(NodeId(id)));
 }
 
 RawNodeId SLgetChild(FileContent* fC, RawNodeId index) {
@@ -316,7 +316,7 @@ RawNodeId SLgetParent(FileContent* fC, RawNodeId index) {
   return fC->Parent(NodeId(index));
 }
 
-unsigned int SLgetLine(FileContent* fC, RawNodeId index) {
+uint32_t SLgetLine(FileContent* fC, RawNodeId index) {
   if (!fC) return 0;
   return fC->Line(NodeId(index));
 }
@@ -326,12 +326,12 @@ std::string SLgetName(FileContent* fC, RawNodeId index) {
   return std::string(fC->SymName(NodeId(index)));
 }
 
-RawNodeId SLgetChild(FileContent* fC, RawNodeId parent, unsigned int type) {
+RawNodeId SLgetChild(FileContent* fC, RawNodeId parent, uint32_t type) {
   if (!fC) return InvalidNodeId;
   return fC->sl_get(NodeId(parent), (VObjectType)type);
 }
 
-RawNodeId SLgetParent(FileContent* fC, RawNodeId parent, unsigned int type) {
+RawNodeId SLgetParent(FileContent* fC, RawNodeId parent, uint32_t type) {
   if (!fC) return InvalidNodeId;
   return fC->sl_parent(NodeId(parent), (VObjectType)type);
 }
@@ -345,13 +345,13 @@ static std::vector<RawNodeId> transform(const std::vector<NodeId>& input) {
 }
 
 std::vector<RawNodeId> SLgetAll(FileContent* fC, RawNodeId parent,
-                                unsigned int type) {
+                                uint32_t type) {
   if (!fC) return {};
   return transform(fC->sl_get_all(NodeId(parent), (VObjectType)type));
 }
 
 std::vector<RawNodeId> SLgetAll(FileContent* fC, RawNodeId parent,
-                                const std::vector<unsigned int>& types) {
+                                const std::vector<uint32_t>& types) {
   if (!fC) return {};
   VObjectTypeUnorderedSet vtypes;
   vtypes.reserve(types.size());
@@ -359,13 +359,13 @@ std::vector<RawNodeId> SLgetAll(FileContent* fC, RawNodeId parent,
   return transform(fC->sl_get_all(NodeId(parent), vtypes));
 }
 
-RawNodeId SLcollect(FileContent* fC, RawNodeId parent, unsigned int type) {
+RawNodeId SLcollect(FileContent* fC, RawNodeId parent, uint32_t type) {
   if (!fC) return {};
   return fC->sl_collect(NodeId(parent), (VObjectType)type);
 }
 
 std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
-                                    unsigned int type, bool first) {
+                                    uint32_t type, bool first) {
   if (fC)
     return transform(
         fC->sl_collect_all(NodeId(parent), (VObjectType)type, first));
@@ -374,7 +374,7 @@ std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
 }
 
 std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
-                                    const std::vector<unsigned int>& types,
+                                    const std::vector<uint32_t>& types,
                                     bool first) {
   if (!fC) return {};
   VObjectTypeUnorderedSet vtypes;
@@ -384,8 +384,8 @@ std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
 }
 
 std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
-                                    const std::vector<unsigned int>& types,
-                                    const std::vector<unsigned int>& stopPoints,
+                                    const std::vector<uint32_t>& types,
+                                    const std::vector<uint32_t>& stopPoints,
                                     bool first) {
   if (!fC) return {};
   VObjectTypeUnorderedSet vtypes;
@@ -397,64 +397,64 @@ std::vector<RawNodeId> SLcollectAll(FileContent* fC, RawNodeId parent,
   return transform(fC->sl_collect_all(NodeId(parent), vtypes, vstops, first));
 }
 
-unsigned int SLgetnModuleDefinition(Design* design) {
+uint32_t SLgetnModuleDefinition(Design* design) {
   if (!design) return 0;
   return design->getModuleDefinitions().size();
 }
 
-unsigned int SLgetnProgramDefinition(Design* design) {
+uint32_t SLgetnProgramDefinition(Design* design) {
   if (!design) return 0;
   return design->getProgramDefinitions().size();
 }
 
-unsigned int SLgetnPackageDefinition(Design* design) {
+uint32_t SLgetnPackageDefinition(Design* design) {
   if (!design) return 0;
   return design->getPackageDefinitions().size();
 }
 
-unsigned int SLgetnClassDefinition(Design* design) {
+uint32_t SLgetnClassDefinition(Design* design) {
   if (!design) return 0;
   return design->getUniqueClassDefinitions().size();
 }
 
-unsigned int SLgetnTopModuleInstance(Design* design) {
+uint32_t SLgetnTopModuleInstance(Design* design) {
   if (!design) return 0;
   return design->getTopLevelModuleInstances().size();
 }
 
-ModuleDefinition* SLgetModuleDefinition(Design* design, unsigned int index) {
+ModuleDefinition* SLgetModuleDefinition(Design* design, uint32_t index) {
   if (!design) return 0;
   ModuleNameModuleDefinitionMap::iterator itr =
       design->getModuleDefinitions().begin();
-  for (unsigned int i = 0; i < index; i++) itr++;
+  for (uint32_t i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
 
-Program* SLgetProgramDefinition(Design* design, unsigned int index) {
+Program* SLgetProgramDefinition(Design* design, uint32_t index) {
   if (!design) return 0;
   ProgramNameProgramDefinitionMap::iterator itr =
       design->getProgramDefinitions().begin();
-  for (unsigned int i = 0; i < index; i++) itr++;
+  for (uint32_t i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
 
-Package* SLgetPackageDefinition(Design* design, unsigned int index) {
+Package* SLgetPackageDefinition(Design* design, uint32_t index) {
   if (!design) return 0;
   PackageNamePackageDefinitionMultiMap::iterator itr =
       design->getPackageDefinitions().begin();
-  for (unsigned int i = 0; i < index; i++) itr++;
+  for (uint32_t i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
 
-ClassDefinition* SLgetClassDefinition(Design* design, unsigned int index) {
+ClassDefinition* SLgetClassDefinition(Design* design, uint32_t index) {
   if (!design) return 0;
   ClassNameClassDefinitionMap::iterator itr =
       design->getUniqueClassDefinitions().begin();
-  for (unsigned int i = 0; i < index; i++) itr++;
+  for (uint32_t i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
 
-ModuleInstance* SLgetTopModuleInstance(Design* design, unsigned int index) {
+ModuleInstance* SLgetTopModuleInstance(Design* design, uint32_t index) {
   if (!design) return 0;
   return design->getTopLevelModuleInstances()[index];
 }
@@ -477,7 +477,7 @@ std::string SLgetModuleFile(ModuleDefinition* module) {
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
-unsigned int SLgetModuleLine(ModuleDefinition* module) {
+uint32_t SLgetModuleLine(ModuleDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return 0;
   return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
@@ -509,7 +509,7 @@ std::string SLgetClassFile(ClassDefinition* module) {
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
-unsigned int SLgetClassLine(ClassDefinition* module) {
+uint32_t SLgetClassLine(ClassDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return 0;
   return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
@@ -541,7 +541,7 @@ std::string SLgetPackageFile(Package* module) {
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
-unsigned int SLgetPackageLine(Package* module) {
+uint32_t SLgetPackageLine(Package* module) {
   if (!ModuleHasFirstFileContent(module)) return 0;
   return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
@@ -572,7 +572,7 @@ std::string SLgetProgramFile(Program* module) {
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
-unsigned int SLgetProgramLine(Program* module) {
+uint32_t SLgetProgramLine(Program* module) {
   if (!ModuleHasFirstFileContent(module)) return 0;
   return module->getFileContents()[0]->Line(module->getNodeIds()[0]);
 }
@@ -639,18 +639,17 @@ RawNodeId SLgetInstanceNodeId(ModuleInstance* instance) {
   return instance->getNodeId();
 }
 
-unsigned int SLgetInstanceLine(ModuleInstance* instance) {
+uint32_t SLgetInstanceLine(ModuleInstance* instance) {
   if (!instance) return 0;
   return instance->getLineNb();
 }
 
-unsigned int SLgetnInstanceChildren(ModuleInstance* instance) {
+uint32_t SLgetnInstanceChildren(ModuleInstance* instance) {
   if (!instance) return 0;
   return instance->getNbChildren();
 }
 
-ModuleInstance* SLgetInstanceChildren(ModuleInstance* instance,
-                                      unsigned int i) {
+ModuleInstance* SLgetInstanceChildren(ModuleInstance* instance, uint32_t i) {
   if (!instance) return nullptr;
   return instance->getChildren(i);
 }

@@ -55,12 +55,12 @@ class CompilationUnit {
   void setCurrentTimeInfo(PathId fileId);
   std::vector<TimeInfo>& getTimeInfo() { return m_timeInfo; }
   void recordTimeInfo(TimeInfo& info);
-  TimeInfo& getTimeInfo(PathId fileId, unsigned int line);
+  TimeInfo& getTimeInfo(PathId fileId, uint32_t line);
 
   /* Following methods deal with `default_nettype */
   std::vector<NetTypeInfo>& getDefaultNetType() { return m_defaultNetTypes; }
   void recordDefaultNetType(NetTypeInfo& info);
-  VObjectType getDefaultNetType(PathId fileId, unsigned int line);
+  VObjectType getDefaultNetType(PathId fileId, uint32_t line);
 
   NodeId generateUniqueDesignElemId() {
     m_uniqueIdGenerator++;

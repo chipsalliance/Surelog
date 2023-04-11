@@ -55,7 +55,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   std::string_view getName() const override { return m_name; }
   VObjectType getType() const override;
   bool isInstance() const override;
-  unsigned int getSize() const override;
+  uint32_t getSize() const override;
 
   typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
   typedef std::map<std::string, ModPort, std::less<>> ModPortSignalMap;

@@ -53,7 +53,7 @@ void AntlrParserErrorListener::syntaxError(
   }
   if (m_reportedSyntaxError == false) {
     SymbolId msgId = m_parser->registerSymbol(msg);
-    int adjustedLine = m_parser->getLineNb(line + m_lineOffset);
+    int32_t adjustedLine = m_parser->getLineNb(line + m_lineOffset);
     Location loc1(m_parser->getFileId(line + m_lineOffset), adjustedLine,
                   charPositionInLine, msgId);
     Location loc2(m_parser->registerSymbol(lineText));

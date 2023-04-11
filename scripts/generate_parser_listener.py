@@ -371,7 +371,7 @@ def _generate_header(listener, antlr_definition_filepath, cpp_input_filepath, ou
       '  private:',
       '',
       '  public:',
-      '    SV3_1aTreeShapeListener(ParseFile* pf, antlr4::CommonTokenStream* tokens, unsigned int lineOffset);',
+      '    SV3_1aTreeShapeListener(ParseFile* pf, antlr4::CommonTokenStream* tokens, uint32_t lineOffset);',
       '    virtual ~SV3_1aTreeShapeListener() override;',
       ''
     ])

@@ -44,8 +44,8 @@ class AnalyzeFile final {
  public:
   class FileChunk final {
    public:
-    FileChunk(DesignElement::ElemType type, unsigned long from,
-              unsigned long to, unsigned long startChar, unsigned long endChar)
+    FileChunk(DesignElement::ElemType type, uint64_t from,
+              uint64_t to, uint64_t startChar, uint64_t endChar)
         : m_chunkType(type),
           m_fromLine(from),
           m_toLine(to),
@@ -54,16 +54,16 @@ class AnalyzeFile final {
           m_startChar(startChar),
           m_endChar(endChar) {}
     DesignElement::ElemType m_chunkType;
-    unsigned long m_fromLine;
-    unsigned long m_toLine;
-    unsigned long m_excludeLineFrom;
-    unsigned long m_excludeLineTo;
-    unsigned long m_startChar;
-    unsigned long m_endChar;
+    uint64_t m_fromLine;
+    uint64_t m_toLine;
+    uint64_t m_excludeLineFrom;
+    uint64_t m_excludeLineTo;
+    uint64_t m_startChar;
+    uint64_t m_endChar;
   };
 
   AnalyzeFile(CommandLineParser* clp, Design* design, PathId ppFileId,
-              PathId fileId, int nbChunks, std::string_view text = "")
+              PathId fileId, int32_t nbChunks, std::string_view text = "")
       : m_clp(clp),
         m_design(design),
         m_ppFileId(ppFileId),
@@ -73,7 +73,7 @@ class AnalyzeFile final {
 
   void analyze();
   const std::vector<PathId>& getSplitFiles() const { return m_splitFiles; }
-  const std::vector<unsigned int>& getLineOffsets() const {
+  const std::vector<uint32_t>& getLineOffsets() const {
     return m_lineOffsets;
   }
 
@@ -81,16 +81,16 @@ class AnalyzeFile final {
   ~AnalyzeFile() = default;
 
  private:
-  void checkSLlineDirective_(std::string_view line, unsigned int lineNb);
-  std::string setSLlineDirective_(unsigned int lineNb);
+  void checkSLlineDirective_(std::string_view line, uint32_t lineNb);
+  std::string setSLlineDirective_(uint32_t lineNb);
   CommandLineParser* const m_clp = nullptr;
   Design* const m_design = nullptr;
   PathId m_ppFileId;
   PathId m_fileId;
   std::vector<FileChunk> m_fileChunks;
   std::vector<PathId> m_splitFiles;
-  std::vector<unsigned int> m_lineOffsets;
-  int m_nbChunks;
+  std::vector<uint32_t> m_lineOffsets;
+  int32_t m_nbChunks;
   std::stack<IncludeFileInfo> m_includeFileInfo;
   std::string m_text;  // unit test
 };

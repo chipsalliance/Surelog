@@ -53,17 +53,17 @@ class DesignElement final {
   };
 
   DesignElement(SymbolId name, PathId fileId, ElemType type, NodeId uniqueId,
-                unsigned int line, unsigned short column, unsigned int endLine,
-                unsigned short endColumn, NodeId parent);
+                uint32_t line, uint16_t column, uint32_t endLine,
+                uint16_t endColumn, NodeId parent);
 
   SymbolId m_name;
   PathId m_fileId;
   const ElemType m_type;
   const NodeId m_uniqueId;
-  const unsigned int m_line;
-  const unsigned short m_column;
-  const unsigned int m_endLine;
-  const unsigned short m_endColumn;
+  const uint32_t m_line;
+  const uint16_t m_column;
+  const uint32_t m_endLine;
+  const uint16_t m_endColumn;
   NodeId m_parent;
 
   TimeInfo m_timeInfo;

@@ -79,7 +79,7 @@ static bool compareVectors(std::vector<T> a, std::vector<T> b) {
 }
 
 bool PPCache::restore_(PathId cacheFileId, const std::vector<char>& content,
-                       bool errorsOnly, int recursionDepth) {
+                       bool errorsOnly, int32_t recursionDepth) {
   if (content.empty()) return false;
   FileSystem* const fileSystem = FileSystem::getInstance();
 
@@ -364,7 +364,7 @@ bool PPCache::save() {
       /*
       Debug code for a flatbuffer issue"
       std::cout << "STRING VECTOR CONTENT:\n";
-      int index = 0;
+      int32_t index = 0;
       std::cout << "VECTOR SIZE: " << info->m_tokens.size() << std::endl;
       for (auto st : info->m_tokens) {
         std::cout << index << " ST:" << st.size() << " >>>" << st << "<<<"

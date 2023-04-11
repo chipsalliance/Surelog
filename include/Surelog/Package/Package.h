@@ -54,7 +54,7 @@ class Package : public DesignComponent {
 
   Library* getLibrary() { return m_library; }
 
-  unsigned int getSize() const override;
+  uint32_t getSize() const override;
   VObjectType getType() const override {
     return VObjectType::slPackage_declaration;
   }

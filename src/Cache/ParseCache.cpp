@@ -251,7 +251,7 @@ bool ParseCache::save() {
           elem->m_type, (RawNodeId)elem->m_uniqueId, elem->m_line,
           elem->m_column, elem->m_endLine, elem->m_endColumn, timeInfo,
           (RawNodeId)elem->m_parent, (RawNodeId)elem->m_node,
-          static_cast<unsigned int>(elem->m_defaultNetType)));
+          static_cast<uint32_t>(elem->m_defaultNetType)));
     }
   auto elementList = builder.CreateVector(element_vec);
 

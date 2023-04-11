@@ -37,7 +37,7 @@ class Location final {
   explicit Location(SymbolId object)
       : m_fileId(BadPathId), m_line(0), m_column(0), m_object(object) {}
   explicit Location(PathId fileId) : Location((SymbolId)fileId) {}
-  Location(PathId fileId, unsigned int line, unsigned short int column,
+  Location(PathId fileId, uint32_t line, uint16_t column,
            SymbolId object = BadSymbolId)
       : m_fileId(fileId), m_line(line), m_column(column), m_object(object) {}
 
@@ -49,8 +49,8 @@ class Location final {
   friend std::ostream& operator<<(std::ostream& strm, const Location& location);
 
   PathId m_fileId;
-  unsigned int m_line;
-  unsigned short int m_column;
+  uint32_t m_line;
+  uint16_t m_column;
   SymbolId m_object;
 };
 

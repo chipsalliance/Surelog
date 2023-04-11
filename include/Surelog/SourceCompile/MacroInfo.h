@@ -35,10 +35,9 @@ namespace SURELOG {
 
 class MacroInfo {
  public:
-  MacroInfo(std::string_view name, int type, PathId fileId,
-            unsigned int startLine, unsigned short int startColumn,
-            unsigned int endLine, unsigned short int endColumn,
-            const std::vector<std::string>& arguments,
+  MacroInfo(std::string_view name, int32_t type, PathId fileId,
+            uint32_t startLine, uint16_t startColumn, uint32_t endLine,
+            uint16_t endColumn, const std::vector<std::string>& arguments,
             const std::vector<std::string>& tokens);
   enum Type {
     NO_ARGS,
@@ -46,12 +45,12 @@ class MacroInfo {
   };
 
   const std::string m_name;
-  const int m_type;
+  const int32_t m_type;
   const PathId m_fileId;
-  const unsigned int m_startLine;
-  const unsigned short int m_startColumn;
-  const unsigned int m_endLine;
-  const unsigned short int m_endColumn;
+  const uint32_t m_startLine;
+  const uint16_t m_startColumn;
+  const uint32_t m_endLine;
+  const uint16_t m_endColumn;
   const std::vector<std::string> m_arguments;
   const std::vector<std::string> m_tokens;
 };

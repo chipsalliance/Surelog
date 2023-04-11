@@ -75,11 +75,11 @@ VObjectType CommonListenerHelper::Type(NodeId index) const {
   return m_fileContent->Type(index);
 }
 
-unsigned short CommonListenerHelper::Column(NodeId index) const {
+uint16_t CommonListenerHelper::Column(NodeId index) const {
   return m_fileContent->Column(index);
 }
 
-unsigned int CommonListenerHelper::Line(NodeId index) const {
+uint32_t CommonListenerHelper::Line(NodeId index) const {
   return m_fileContent->Line(index);
 }
 

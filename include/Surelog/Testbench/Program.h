@@ -48,7 +48,7 @@ class Program : public DesignComponent, public ClockingBlockHolder {
           NodeId nodeId);
   ~Program() override = default;
 
-  unsigned int getSize() const override;
+  uint32_t getSize() const override;
   VObjectType getType() const override;
   bool isInstance() const override { return true; }
   std::string_view getName() const override { return m_name; }

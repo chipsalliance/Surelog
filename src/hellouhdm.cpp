@@ -38,9 +38,9 @@
 #include <uhdm/VpiListener.h>
 #include <uhdm/uhdm.h>
 
-int main(int argc, const char** argv) {
+int32_t main(int32_t argc, const char** argv) {
   // Read command line, compile a design, use -parse argument
-  unsigned int code = 0;
+  uint32_t code = 0;
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
   SURELOG::CommandLineParser* clp =

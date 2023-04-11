@@ -73,7 +73,7 @@ void PreprocessFile::SpecialInstructions::print() {
             << std::endl;
 }
 
-void PreprocessFile::setDebug(int level) {
+void PreprocessFile::setDebug(int32_t level) {
   switch (level) {
     case 0:
       m_debugPP = false;
@@ -165,7 +165,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
 
   if (m_pp->m_macroInfo) {
     std::string lineText(m_pp->getMacroBody());
-    for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
+    for (uint32_t i = 0; i < charPositionInLine; i++) lineText += " ";
     lineText += "^-- " + m_macroContext + ":" + std::to_string(line) + ":" +
                 std::to_string(charPositionInLine) + ":";
     msgId = m_pp->registerSymbol(msg + "," + lineText);
@@ -221,7 +221,7 @@ PreprocessFile::PreprocessFile(PathId fileId, CompileSourceFile* csf,
                                SpecialInstructions& instructions,
                                CompilationUnit* comp_unit, Library* library,
                                PreprocessFile* includer /* = nullptr */,
-                               unsigned int includerLine /* = 0 */)
+                               uint32_t includerLine /* = 0 */)
     : m_fileId(fileId),
       m_library(library),
       m_includer(includer),
@@ -245,11 +245,13 @@ PreprocessFile::PreprocessFile(PathId fileId, CompileSourceFile* csf,
   }
 }
 
-PreprocessFile::PreprocessFile(
-    SymbolId macroId, CompileSourceFile* csf, SpecialInstructions& instructions,
-    CompilationUnit* comp_unit, Library* library, PreprocessFile* includer,
-    unsigned int includerLine, std::string_view macroBody, MacroInfo* macroInfo,
-    unsigned int embeddedMacroCallLine, PathId embeddedMacroCallFile)
+PreprocessFile::PreprocessFile(SymbolId macroId, CompileSourceFile* csf,
+                               SpecialInstructions& instructions,
+                               CompilationUnit* comp_unit, Library* library,
+                               PreprocessFile* includer, uint32_t includerLine,
+                               std::string_view macroBody, MacroInfo* macroInfo,
+                               uint32_t embeddedMacroCallLine,
+                               PathId embeddedMacroCallFile)
     : m_macroId(macroId),
       m_library(library),
       m_macroBody(macroBody),
@@ -382,10 +384,10 @@ bool PreprocessFile::preprocess() {
       char nonAscii;
       char c = stream.get();
       bool nonAsciiContent = false;
-      int lineNb = 1;
-      int columnNb = 0;
-      int lineNonAscii = 0;
-      int columnNonAscii = 0;
+      int32_t lineNb = 1;
+      int32_t columnNb = 0;
+      int32_t lineNonAscii = 0;
+      int32_t columnNonAscii = 0;
       while (stream.good()) {
         if (c != 0x0D) {
           if (isascii(c))
@@ -546,20 +548,19 @@ bool PreprocessFile::preprocess() {
   return true;
 }
 
-unsigned int PreprocessFile::getSumLineCount() {
-  unsigned int total = m_lineCount;
+uint32_t PreprocessFile::getSumLineCount() {
+  uint32_t total = m_lineCount;
   if (m_includer) total += m_includer->getSumLineCount();
   return total;
 }
 
-int PreprocessFile::addIncludeFileInfo(
-    IncludeFileInfo::Context context, unsigned int sectionStartLine,
-    SymbolId sectionSymbolId, PathId sectionFileId,
-    unsigned int originalStartLine, unsigned int originalStartColumn,
-    unsigned int originalEndLine, unsigned int originalEndColumn,
-    IncludeFileInfo::Action action, int indexOpening /* = 0 */,
-    int indexClosing /* = 0 */) {
-  int index = m_includeFileInfo.size();
+int32_t PreprocessFile::addIncludeFileInfo(
+    IncludeFileInfo::Context context, uint32_t sectionStartLine,
+    SymbolId sectionSymbolId, PathId sectionFileId, uint32_t originalStartLine,
+    uint32_t originalStartColumn, uint32_t originalEndLine,
+    uint32_t originalEndColumn, IncludeFileInfo::Action action,
+    int32_t indexOpening /* = 0 */, int32_t indexClosing /* = 0 */) {
+  int32_t index = m_includeFileInfo.size();
   m_includeFileInfo.emplace_back(
       context, sectionStartLine, sectionSymbolId, sectionFileId,
       originalStartLine, originalStartColumn, originalEndLine,
@@ -585,11 +586,9 @@ void PreprocessFile::append(std::string_view s) {
   }
 }
 
-void PreprocessFile::recordMacro(std::string_view name, unsigned int startLine,
-                                 unsigned short int startColumn,
-                                 unsigned int endLine,
-                                 unsigned short int endColumn,
-                                 std::string_view arguments,
+void PreprocessFile::recordMacro(std::string_view name, uint32_t startLine,
+                                 uint16_t startColumn, uint32_t endLine,
+                                 uint16_t endColumn, std::string_view arguments,
                                  const std::vector<std::string>& tokens) {
   // *** Argument processing
   std::string arguments_short(arguments);
@@ -650,10 +649,8 @@ std::string PreprocessFile::reportIncludeInfo() const {
 }
 
 void PreprocessFile::recordMacro(std::string_view name, PathId fileId,
-                                 unsigned int startLine,
-                                 unsigned short int startColumn,
-                                 unsigned int endLine,
-                                 unsigned short int endColumn,
+                                 uint32_t startLine, uint16_t startColumn,
+                                 uint32_t endLine, uint16_t endColumn,
                                  const std::vector<std::string>& arguments,
                                  const std::vector<std::string>& tokens) {
   MacroInfo* macroInfo = new MacroInfo(
@@ -668,7 +665,7 @@ void PreprocessFile::recordMacro(std::string_view name, PathId fileId,
 }
 
 void PreprocessFile::checkMacroArguments_(
-    std::string_view name, unsigned int line, unsigned short column,
+    std::string_view name, uint32_t line, uint16_t column,
     const std::vector<std::string>& arguments,
     const std::vector<std::string>& tokens) {
   std::set<std::string_view, std::less<>> argSet;
@@ -690,7 +687,7 @@ void PreprocessFile::checkMacroArguments_(
       addError(err);
     }
   }
-  for (unsigned int i = 0; i < tokens.size(); i++) {
+  for (uint32_t i = 0; i < tokens.size(); i++) {
     std::string s1 = tokens[i];
     std::string s2 = tokens[i];
     bool check = false;
@@ -724,7 +721,7 @@ void PreprocessFile::checkMacroArguments_(
   }
 }
 
-PathId PreprocessFile::getIncluderFileId(unsigned int line) const {
+PathId PreprocessFile::getIncluderFileId(uint32_t line) const {
   const PreprocessFile* tmp = this;
   while (tmp->m_includer != nullptr) {
     tmp = tmp->m_includer;
@@ -761,8 +758,7 @@ SymbolId PreprocessFile::getId(std::string_view symbol) const {
 
 std::string PreprocessFile::evaluateMacroInstance(
     std::string_view macro_instance, PreprocessFile* callingFile,
-    unsigned int callingLine,
-    SpecialInstructions::CheckLoopInstr checkMacroLoop,
+    uint32_t callingLine, SpecialInstructions::CheckLoopInstr checkMacroLoop,
     SpecialInstructions::AsIsUndefinedMacroInstr asisUndefMacro) {
   std::string result;
   // SymbolId macroArgs = registerSymbol (macro_instance);
@@ -796,10 +792,9 @@ static std::string_view getFirstNonEmptyToken(
 
 std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     std::string_view name, std::vector<std::string>& actual_args,
-    PreprocessFile* callingFile, unsigned int callingLine,
-    LoopCheck& loopChecker, MacroInfo* macroInfo,
-    SpecialInstructions& instructions, unsigned int embeddedMacroCallLine,
-    PathId embeddedMacroCallFile) {
+    PreprocessFile* callingFile, uint32_t callingLine, LoopCheck& loopChecker,
+    MacroInfo* macroInfo, SpecialInstructions& instructions,
+    uint32_t embeddedMacroCallLine, PathId embeddedMacroCallFile) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   std::string result;
   bool found = false;
@@ -871,7 +866,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   }
   bool incorrectArgNb = false;
   static const std::regex ws_re("[ \t]+");
-  for (unsigned int i = 0; i < formal_args.size(); i++) {
+  for (uint32_t i = 0; i < formal_args.size(); i++) {
     std::vector<std::string> formal_arg_default;
     StringUtils::tokenize(formal_args[i], "=", formal_arg_default);
     const std::string formal =
@@ -931,7 +926,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       StringUtils::replaceInTokenVector(body_tokens, formal + "``", "");
       StringUtils::replaceInTokenVector(body_tokens, formal, "");
 
-      if ((int)i > (int)(((int)actual_args.size()) - 1)) {
+      if ((int32_t)i > (int32_t)(((int32_t)actual_args.size()) - 1)) {
         if (!instructions.m_mute) {
           Location loc(callingFile->getFileId(callingLine),
                        callingFile->getLineNb(callingLine), 0, getId(name));
@@ -979,7 +974,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   }
   // Truncate trailing carriage returns (up to 2)
 
-  for (int i = 0; i < 2; i++) {
+  for (int32_t i = 0; i < 2; i++) {
     if (!body_short.empty()) {
       if (body_short.at(body_short.size() - 1) == '\n') {
         body_short.erase(body_short.size() - 1);
@@ -1126,9 +1121,9 @@ void PreprocessFile::undefineAllMacros(std::set<PreprocessFile*>& visited) {
 
 std::string PreprocessFile::getMacro(
     std::string_view name, std::vector<std::string>& arguments,
-    PreprocessFile* callingFile, unsigned int callingLine,
-    LoopCheck& loopChecker, SpecialInstructions& instructions,
-    unsigned int embeddedMacroCallLine, PathId embeddedMacroCallFile) {
+    PreprocessFile* callingFile, uint32_t callingLine, LoopCheck& loopChecker,
+    SpecialInstructions& instructions, uint32_t embeddedMacroCallLine,
+    PathId embeddedMacroCallFile) {
   SymbolId macroId = registerSymbol(name);
   if (m_debugMacro) {
     std::cout << "PP CALL TO getMacro for " << name << "\n";
@@ -1179,8 +1174,8 @@ std::string PreprocessFile::getMacro(
   }
 }
 
-PathId PreprocessFile::getFileId(unsigned int line) const {
-  const unsigned int size = m_lineTranslationVec.size();
+PathId PreprocessFile::getFileId(uint32_t line) const {
+  const uint32_t size = m_lineTranslationVec.size();
   if (isMacroBody() && m_macroInfo) {
     return m_macroInfo->m_fileId;
   } else {
@@ -1190,7 +1185,7 @@ PathId PreprocessFile::getFileId(unsigned int line) const {
           return (m_lineTranslationVec[0].m_pretendFileId);
         }
       } else {
-        unsigned int index = size - 1;
+        uint32_t index = size - 1;
         while (1) {
           if (line >= m_lineTranslationVec[index].m_originalLine) {
             return (m_lineTranslationVec[index].m_pretendFileId);
@@ -1206,11 +1201,11 @@ PathId PreprocessFile::getFileId(unsigned int line) const {
   }
 }
 
-unsigned int PreprocessFile::getLineNb(unsigned int line) {
+uint32_t PreprocessFile::getLineNb(uint32_t line) {
   if (isMacroBody() && m_macroInfo) {
     return (m_macroInfo->m_startLine + line - 1);
   } else if (!m_lineTranslationVec.empty()) {
-    unsigned int index = m_lineTranslationVec.size() - 1;
+    uint32_t index = m_lineTranslationVec.size() - 1;
     while (1) {
       if (line >= m_lineTranslationVec[index].m_originalLine) {
         return (m_lineTranslationVec[index].m_pretendLine +
@@ -1227,8 +1222,8 @@ std::string PreprocessFile::getPreProcessedFileContent() {
   FileSystem* const fileSystem = FileSystem::getInstance();
   // If File is empty (Only CR) return an empty string
   bool nonEmpty = false;
-  unsigned int pp_result_size = m_result.size();
-  for (unsigned int i = 0; i < pp_result_size; i++) {
+  uint32_t pp_result_size = m_result.size();
+  for (uint32_t i = 0; i < pp_result_size; i++) {
     if ((m_result[i] != '\n') && (m_result[i] != ' ')) {
       nonEmpty = true;
       break;

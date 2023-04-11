@@ -82,7 +82,7 @@ ParseFile::ParseFile(PathId fileId, CompileSourceFile* csf,
 }
 
 ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
-                     PathId chunkFileId, unsigned int offsetLine)
+                     PathId chunkFileId, uint32_t offsetLine)
     : m_fileId(parent->m_fileId),
       m_ppFileId(chunkFileId),
       m_compileSourceFile(compileSourceFile),
@@ -159,19 +159,19 @@ void ParseFile::buildLineInfoCache_() {
     lineInfoCache.resize(pp->getSumLineCount() + 10);
     lineInfoCache[0] = 1;
     fileInfoCache[0] = m_fileId;
-    for (unsigned int lineItr = 1; lineItr < pp->getSumLineCount() + 10;
+    for (uint32_t lineItr = 1; lineItr < pp->getSumLineCount() + 10;
          lineItr++) {
       fileInfoCache[lineItr] = m_fileId;
       lineInfoCache[lineItr] = lineItr;
       bool inRange = false;
-      unsigned int indexOpeningRange = 0;
-      unsigned int index = infos.size() - 1;
+      uint32_t indexOpeningRange = 0;
+      uint32_t index = infos.size() - 1;
       while (1) {
         if ((lineItr >= infos[index].m_originalStartLine) &&
             (infos[index].m_action == IncludeFileInfo::Action::POP)) {
           fileInfoCache[lineItr] = infos[index].m_sectionFileId;
-          unsigned int l = infos[index].m_sectionStartLine +
-                           (lineItr - infos[index].m_originalStartLine);
+          uint32_t l = infos[index].m_sectionStartLine +
+                       (lineItr - infos[index].m_originalStartLine);
           lineInfoCache[lineItr] = l;
           break;
         }
@@ -191,8 +191,8 @@ void ParseFile::buildLineInfoCache_() {
             (lineItr <
              infos[infos[index].m_indexClosing].m_originalStartLine)) {
           fileInfoCache[lineItr] = infos[index].m_sectionFileId;
-          unsigned int l = infos[index].m_sectionStartLine +
-                           (lineItr - infos[index].m_originalStartLine);
+          uint32_t l = infos[index].m_sectionStartLine +
+                       (lineItr - infos[index].m_originalStartLine);
           lineInfoCache[lineItr] = l;
           break;
         }
@@ -203,7 +203,7 @@ void ParseFile::buildLineInfoCache_() {
   }
 }
 
-PathId ParseFile::getFileId(unsigned int line) {
+PathId ParseFile::getFileId(uint32_t line) {
   if (!getCompileSourceFile()) {
     return m_fileId;
   }
@@ -235,7 +235,7 @@ PathId ParseFile::getFileId(unsigned int line) {
   }
 }
 
-unsigned int ParseFile::getLineNb(unsigned int line) {
+uint32_t ParseFile::getLineNb(uint32_t line) {
   if (!getCompileSourceFile()) return line;
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   if (!pp) return 0;
@@ -265,7 +265,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   }
 }
 
-bool ParseFile::parseOneFile_(PathId fileId, unsigned int lineOffset) {
+bool ParseFile::parseOneFile_(PathId fileId, uint32_t lineOffset) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();

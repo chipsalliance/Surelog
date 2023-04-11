@@ -52,9 +52,9 @@ ModuleDefinition* ModuleDefinitionFactory::newModuleDefinition(
   return new ModuleDefinition(fileContent, nodeId, name);
 }
 
-unsigned int ModuleDefinition::getSize() const {
-  unsigned int size = 0;
-  for (unsigned int i = 0; i < m_fileContents.size(); i++) {
+uint32_t ModuleDefinition::getSize() const {
+  uint32_t size = 0;
+  for (size_t i = 0; i < m_fileContents.size(); i++) {
     NodeId end = m_nodeIds[i];
     NodeId begin = m_fileContents[i]->Child(end);
     size += (RawNodeId)(end - begin);

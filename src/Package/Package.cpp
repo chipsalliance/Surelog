@@ -37,10 +37,10 @@ Package::Package(std::string_view name, Library* library, FileContent* fC,
   }
 }
 
-unsigned int Package::getSize() const {
+uint32_t Package::getSize() const {
   NodeId end = this->m_nodeIds[0];
   NodeId begin = m_fileContents[0]->Child(end);
-  unsigned int size = (RawNodeId)(end - begin);
+  uint32_t size = (RawNodeId)(end - begin);
   return size;
 }
 

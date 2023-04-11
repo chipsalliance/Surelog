@@ -110,7 +110,7 @@ bool CompileDesign::compile() {
 }
 
 template <class ObjectType, class ObjectMapType, typename FunctorType>
-void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
+void CompileDesign::compileMT_(ObjectMapType& objects, int32_t maxThreadCount) {
   if (maxThreadCount == 0) {
     for (const auto& itr : objects) {
       FunctorType funct(this, itr.second, m_compiler->getDesign(),
@@ -120,17 +120,14 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
   } else {
     // Optimize the load balance, try to even out the work in each thread by the
     // number of VObjects
-    std::vector<unsigned long> jobSize(maxThreadCount);
-    for (int i = 0; i < maxThreadCount; i++) {
-      jobSize[i] = 0;
-    }
+    std::vector<uint64_t> jobSize(maxThreadCount, 0);
     std::vector<std::vector<ObjectType*>> jobArray(maxThreadCount);
     for (const auto& mod : objects) {
-      unsigned int size = mod.second->getSize();
+      uint32_t size = mod.second->getSize();
       if (size == 0) size = 100;
-      unsigned int newJobIndex = 0;
-      unsigned long long minJobQueue = ULLONG_MAX;
-      for (int ii = 0; ii < maxThreadCount; ii++) {
+      uint32_t newJobIndex = 0;
+      uint64_t minJobQueue = ULLONG_MAX;
+      for (int32_t ii = 0; ii < maxThreadCount; ii++) {
         if (jobSize[ii] < minJobQueue) {
           newJobIndex = ii;
           minJobQueue = jobSize[ii];
@@ -142,9 +139,9 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
 
     if (getCompiler()->getCommandLineParser()->profile()) {
       std::cout << "Compilation Task\n";
-      for (int i = 0; i < maxThreadCount; i++) {
+      for (int32_t i = 0; i < maxThreadCount; i++) {
         std::cout << "Thread " << i << " : \n";
-        for (unsigned int j = 0; j < jobArray[i].size(); j++) {
+        for (uint32_t j = 0; j < jobArray[i].size(); j++) {
           std::cout << jobArray[i][j]->getName() << "\n";
         }
       }
@@ -152,9 +149,9 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
 
     // Create the threads with their respective workloads
     std::vector<std::thread*> threads;
-    for (int i = 0; i < maxThreadCount; i++) {
+    for (int32_t i = 0; i < maxThreadCount; i++) {
       std::thread* th = new std::thread([=] {
-        for (unsigned int j = 0; j < jobArray[i].size(); j++) {
+        for (uint32_t j = 0; j < jobArray[i].size(); j++) {
           FunctorType funct(this, jobArray[i][j], m_compiler->getDesign(),
                             m_symbolTables[i], m_errorContainers[i]);
           funct.operator()();
@@ -224,8 +221,8 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
             ((oldParentFile != newParentFile) ||
              ((oldParentFile == nullptr) && (newParentFile == nullptr)))) {
           NodeId oldNodeId = existing->getNodeIds()[0];
-          unsigned int oldLine = oldFC->Line(oldNodeId);
-          unsigned int newLine = newFC->Line(newNodeId);
+          uint32_t oldLine = oldFC->Line(oldNodeId);
+          uint32_t newLine = newFC->Line(newNodeId);
           if ((oldFC->getFileId() != newFC->getFileId()) ||
               (oldLine != newLine)) {
             Location loc1(oldFC->getFileId(), oldLine, oldFC->Column(oldNodeId),
@@ -278,14 +275,14 @@ bool CompileDesign::compilation_() {
   auto& all_files = design->getAllFileContents();
 
 #if 0
-  int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
+  int32_t maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
 #else
   // The Actual Module... Compilation is not Multithread safe anymore due to
   // the UHDM model creation
-  int maxThreadCount = 0;
+  int32_t maxThreadCount = 0;
 #endif
 
-  int index = 0;
+  int32_t index = 0;
   do {
     SymbolTable* symbols =
         m_compiler->getCommandLineParser()->getSymbolTable()->CreateSnapshot();
@@ -348,8 +345,8 @@ bool CompileDesign::compilation_() {
 
   m_compiler->getDesign()->orderPackages();
 
-  unsigned int size = m_symbolTables.size();
-  for (unsigned int i = 0; i < size; i++) {
+  uint32_t size = m_symbolTables.size();
+  for (uint32_t i = 0; i < size; i++) {
     m_compiler->getErrorContainer()->appendErrors(*m_errorContainers[i]);
     delete m_symbolTables[i];
     delete m_errorContainers[i];

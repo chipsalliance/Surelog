@@ -43,7 +43,7 @@ class CommandLineParser final {
  public:
   CommandLineParser(ErrorContainer* errors, SymbolTable* symbolTable,
                     bool diffCompMode = false, bool fileUnit = false);
-  bool parseCommandLine(int argc, const char** argv);
+  bool parseCommandLine(int32_t argc, const char** argv);
 
   /* Verilog command line content */
   const PathIdVector& getWorkingDirs() const { return m_workingDirs; }
@@ -123,7 +123,7 @@ class CommandLineParser final {
   void setMuteStdout() { m_muteStdout = true; }
   bool verbose() const { return m_verbose; }
   bool profile() const { return m_profile; }
-  int getDebugLevel() const { return m_debugLevel; }
+  int32_t getDebugLevel() const { return m_debugLevel; }
   bool getDebugAstModel() const { return m_debugAstModel; }
   bool getDebugUhdm() const { return m_dumpUhdm; }
   bool getUhdmStats() const { return m_uhdmStats; }
@@ -137,7 +137,7 @@ class CommandLineParser final {
   bool getDebugLibraryDef() const { return m_debugLibraryDef; }
   bool getDebugIncludeFileInfo() const { return m_debugIncludeFileInfo; }
   bool help() const { return m_help; }
-  void logBanner(int argc, const char** argv);
+  void logBanner(int32_t argc, const char** argv);
   void logFooter();
   static std::string_view getVersionNumber();
   /* Core functions options */
@@ -204,11 +204,11 @@ class CommandLineParser final {
 
   /* Internal */
   ErrorContainer* getErrorContainer() const { return m_errors; }
-  unsigned short int getNbMaxTreads() const { return m_nbMaxTreads; }
-  unsigned short int getNbMaxProcesses() const { return m_nbMaxProcesses; }
-  void setNbMaxTreads(unsigned short int max) { m_nbMaxTreads = max; }
-  void setNbMaxProcesses(unsigned short int max) { m_nbMaxProcesses = max; }
-  unsigned int getNbLinesForFileSpliting() const {
+  uint16_t getNbMaxTreads() const { return m_nbMaxTreads; }
+  uint16_t getNbMaxProcesses() const { return m_nbMaxProcesses; }
+  void setNbMaxTreads(uint16_t max) { m_nbMaxTreads = max; }
+  void setNbMaxProcesses(uint16_t max) { m_nbMaxProcesses = max; }
+  uint32_t getNbLinesForFileSpliting() const {
     return m_nbLinesForFileSplitting;
   }
   bool useTbb() const { return m_useTbb; }
@@ -263,7 +263,7 @@ class CommandLineParser final {
       std::string_view s,
       std::map<SymbolId, std::string, SymbolIdLessThanComparer>& container);
   bool checkCommandLine_();
-  bool prepareCompilation_(int argc, const char** argv);
+  bool prepareCompilation_(int32_t argc, const char** argv);
   bool setupCache_();
 
   PathIdVector m_workingDirs;
@@ -285,7 +285,7 @@ class CommandLineParser final {
   PathId m_writePpOutputFileId;
   bool m_writePpOutput;
   bool m_filterFileLine;
-  int m_debugLevel;
+  int32_t m_debugLevel;
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbolTable = nullptr;
   PathId m_logFileId;
@@ -314,8 +314,8 @@ class CommandLineParser final {
   bool m_precompiledCacheAllowed;
   bool m_debugCache;
   bool m_debugFSConfig;
-  unsigned short int m_nbMaxTreads;
-  unsigned short int m_nbMaxProcesses;
+  uint16_t m_nbMaxTreads;
+  uint16_t m_nbMaxProcesses;
   PathId m_compileUnitDirId;
   PathId m_compileAllDirId;
   PathId m_outputDirId;
@@ -330,7 +330,7 @@ class CommandLineParser final {
   bool m_debugLibraryDef;
   bool m_useTbb;
   bool m_pythonAllowed;
-  unsigned int m_nbLinesForFileSplitting;
+  uint32_t m_nbLinesForFileSplitting;
   std::string m_timescale;
   bool m_pythonEvalScriptPerFile;
   bool m_pythonEvalScript;

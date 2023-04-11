@@ -62,7 +62,7 @@ bool Error::operator<(const Error& rhs) const {
   if (m_locations.size() < rhs.m_locations.size()) return true;
   if (m_reported != rhs.m_reported) return false;
   if (m_waived != rhs.m_waived) return false;
-  for (unsigned int i = 0; i < m_locations.size(); i++) {
+  for (uint32_t i = 0; i < m_locations.size(); i++) {
     if (m_locations[i] < rhs.m_locations[i]) return true;
   }
   return false;

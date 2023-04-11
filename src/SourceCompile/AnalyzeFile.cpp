@@ -34,7 +34,7 @@
 
 namespace SURELOG {
 void AnalyzeFile::checkSLlineDirective_(std::string_view line,
-                                        unsigned int lineNb) {
+                                        uint32_t lineNb) {
   std::stringstream ss(
       (std::string(line))); /* Storing the whole string into string stream */
   std::string keyword;
@@ -53,7 +53,7 @@ void AnalyzeFile::checkSLlineDirective_(std::string_view line,
     info.m_sectionSymbolId = m_clp->getSymbolTable()->registerSymbol(symbol);
     info.m_sectionFileId =
         FileSystem::getInstance()->toPathId(file, m_clp->getSymbolTable());
-    unsigned int action = 0;
+    uint32_t action = 0;
     ss >> action;
 
     if (static_cast<IncludeFileInfo::Action>(action) ==
@@ -78,12 +78,12 @@ void AnalyzeFile::checkSLlineDirective_(std::string_view line,
   }
 }
 
-std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb) {
+std::string AnalyzeFile::setSLlineDirective_(uint32_t lineNb) {
   std::ostringstream result;
   if (!m_includeFileInfo.empty()) {
     FileSystem* const fileSystem = FileSystem::getInstance();
     const IncludeFileInfo& info = m_includeFileInfo.top();
-    unsigned int origFromLine =
+    uint32_t origFromLine =
         lineNb - info.m_originalStartLine + info.m_sectionStartLine;
     result << "SLline " << origFromLine << " "
            << m_clp->getSymbolTable()->getSymbol(info.m_sectionSymbolId) << "^"
@@ -117,29 +117,34 @@ void AnalyzeFile::analyze() {
   }
   if (allLines.empty()) return;
 
-  unsigned int minNbLineForPartitioning = m_clp->getNbLinesForFileSpliting();
+  uint32_t minNbLineForPartitioning = m_clp->getNbLinesForFileSpliting();
   std::vector<FileChunk> fileChunks;
   bool inPackage = false;
-  int inClass = 0;
-  int inModule = 0;
+  int32_t inClass = 0;
+  int32_t inModule = 0;
   bool inProgram = false;
-  int inInterface = 0;
+  int32_t inInterface = 0;
   bool inConfig = false;
   bool inChecker = false;
   bool inPrimitive = false;
-  // int  inFunction  = false;
-  // int  inTask      = false;
+  // int32_t  inFunction  = false;
+  // int32_t  inTask      = false;
   bool inComment = false;
   bool inString = false;
-  unsigned int lineNb = 0;
-  unsigned int charNb = 0;
-  unsigned int startLine = 0;
-  unsigned int startChar = 0;
-  unsigned int indexPackage = 0;
-  unsigned int indexModule = 0;
-  int nbPackage = 0, nbClass = 0, nbModule = 0, nbProgram = 0, nbInterface = 0,
-      nbConfig = 0, nbChecker = 0,
-      nbPrimitive = 0 /*./re   , nbFunction = 0, nbTask = 0*/;
+  uint32_t lineNb = 0;
+  uint32_t charNb = 0;
+  uint32_t startLine = 0;
+  uint32_t startChar = 0;
+  uint32_t indexPackage = 0;
+  uint32_t indexModule = 0;
+  int32_t nbPackage = 0;
+  int32_t nbClass = 0;
+  int32_t nbModule = 0;
+  int32_t nbProgram = 0;
+  int32_t nbInterface = 0;
+  int32_t nbConfig = 0;
+  int32_t nbChecker = 0;
+  int32_t nbPrimitive = 0 /*./re   , nbFunction = 0, nbTask = 0*/;
   std::string prev_keyword;
   std::string prev_prev_keyword;
   const std::regex import_regex("import[ ]+[a-zA-Z_0-9:\\*]+[ ]*;");
@@ -152,7 +157,7 @@ void AnalyzeFile::analyze() {
     char c = 0;
     char cp = 0;
     std::string keyword;
-    for (unsigned int i = 0; i < line.size(); i++) {
+    for (uint32_t i = 0; i < line.size(); i++) {
       charNb++;
       c = line[i];
       if (cp == '/' && c == '*') {
@@ -177,7 +182,7 @@ void AnalyzeFile::analyze() {
           if (keyword == "package") {
             std::string packageName;
             if (line[i] == ' ') {
-              for (unsigned int j = i + 1; j < line.size(); j++) {
+              for (uint32_t j = i + 1; j < line.size(); j++) {
                 if (line[j] == ';') break;
                 if (line[j] == ':') break;
                 if (line[j] != ' ') packageName += line[j];
@@ -371,7 +376,7 @@ void AnalyzeFile::analyze() {
     }
   }
 
-  unsigned int lineSize = lineNb;
+  uint32_t lineSize = lineNb;
 
   if (m_clp->getNbMaxProcesses() || (lineSize < minNbLineForPartitioning) ||
       (m_nbChunks < 2)) {
@@ -392,16 +397,16 @@ void AnalyzeFile::analyze() {
 
   // Split the file
 
-  unsigned int chunkSize = lineSize / m_nbChunks;
-  int chunkNb = 0;
+  uint32_t chunkSize = lineSize / m_nbChunks;
+  int32_t chunkNb = 0;
 
-  unsigned int fromLine = 1;
-  unsigned int toIndex = 0;
+  uint32_t fromLine = 1;
+  uint32_t toIndex = 0;
   m_includeFileInfo.emplace(IncludeFileInfo::Context::INCLUDE, 1, BadSymbolId,
                             m_fileId, 1, 0, 1, 0,
                             IncludeFileInfo::Action::PUSH);
-  unsigned int linesWriten = 0;
-  for (unsigned int i = 0; i < fileChunks.size(); i++) {
+  uint32_t linesWriten = 0;
+  for (uint32_t i = 0; i < fileChunks.size(); i++) {
     DesignElement::ElemType chunkType = fileChunks[i].m_chunkType;
 
     // The case of a package or a module
@@ -409,9 +414,9 @@ void AnalyzeFile::analyze() {
         chunkType == DesignElement::ElemType::Module) {
       std::string packageDeclaration;
       std::string importSection;
-      unsigned int packagelastLine = fileChunks[i].m_toLine;
+      uint32_t packagelastLine = fileChunks[i].m_toLine;
       packageDeclaration = allLines[fileChunks[i].m_fromLine];
-      for (unsigned hi = fileChunks[i].m_fromLine; hi < fileChunks[i].m_toLine;
+      for (uint32_t hi = fileChunks[i].m_fromLine; hi < fileChunks[i].m_toLine;
            hi++) {
         std::string header = allLines[hi];
         if (std::regex_search(header, pieces_match, import_regex)) {
@@ -423,13 +428,13 @@ void AnalyzeFile::analyze() {
         bool splitted = false;
         bool endPackageDetected = false;
         std::string sllineInfo;
-        // unsigned int baseFromLine = fromLine;
+        // uint32_t baseFromLine = fromLine;
         while (!endPackageDetected) {
           std::string content;
           bool actualContent = false;
           bool finishPackage = false;
           bool hitLimit = true;
-          for (unsigned int j = i + 1; j < fileChunks.size(); j++) {
+          for (uint32_t j = i + 1; j < fileChunks.size(); j++) {
             hitLimit = false;
             if (fileChunks[j].m_fromLine > packagelastLine) {
               finishPackage = true;
@@ -450,7 +455,7 @@ void AnalyzeFile::analyze() {
           if (hitLimit) {
             toIndex = fileChunks.size() - 1;
           }
-          unsigned int toLine = fileChunks[toIndex].m_toLine + 1;
+          uint32_t toLine = fileChunks[toIndex].m_toLine + 1;
           if (finishPackage) {
             toLine = packagelastLine + 1;
           }
@@ -474,7 +479,7 @@ void AnalyzeFile::analyze() {
           m_lineOffsets.push_back(linesWriten);
 
           // Detect end of package or end of module
-          for (unsigned int l = fromLine; l < toLine; l++) {
+          for (uint32_t l = fromLine; l < toLine; l++) {
             const std::string& line = allLines[l];
             checkSLlineDirective_(line, l);
 
@@ -558,8 +563,8 @@ void AnalyzeFile::analyze() {
       } else {
         // Split the complete package/module in a file
         std::string content;
-        unsigned int packagelastLine = fileChunks[i].m_toLine;
-        unsigned int toLine = fileChunks[i].m_toLine + 1;
+        uint32_t packagelastLine = fileChunks[i].m_toLine;
+        uint32_t toLine = fileChunks[i].m_toLine + 1;
         if (i == fileChunks.size() - 1) {
           toLine = allLines.size() - 1;
         }
@@ -580,7 +585,7 @@ void AnalyzeFile::analyze() {
         m_lineOffsets.push_back(linesWriten);
 
         StrAppend(&content, setSLlineDirective_(fromLine));
-        for (unsigned int l = fromLine; l < toLine; l++) {
+        for (uint32_t l = fromLine; l < toLine; l++) {
           checkSLlineDirective_(allLines[l], l);
           StrAppend(&content, allLines[l]);
           if (l != (toLine - 1)) {
@@ -605,7 +610,7 @@ void AnalyzeFile::analyze() {
         m_splitFiles.emplace_back(splitFileId);
 
         chunkNb++;
-        for (unsigned int j = i; j < fileChunks.size(); j++) {
+        for (uint32_t j = i; j < fileChunks.size(); j++) {
           if ((fileChunks[j].m_toLine > packagelastLine)) {
             break;
           }
@@ -622,7 +627,7 @@ void AnalyzeFile::analyze() {
     }
     // The case of classes and other chunks
     else {
-      for (unsigned int j = i; j < fileChunks.size(); j++) {
+      for (uint32_t j = i; j < fileChunks.size(); j++) {
         if (fileChunks[j].m_chunkType == DesignElement::ElemType::Package) {
           break;
         }
@@ -638,7 +643,7 @@ void AnalyzeFile::analyze() {
       }
 
       std::string content;
-      unsigned int toLine = fileChunks[toIndex].m_toLine + 1;
+      uint32_t toLine = fileChunks[toIndex].m_toLine + 1;
       if (toIndex == fileChunks.size() - 1) {
         toLine = allLines.size();
       }
@@ -646,7 +651,7 @@ void AnalyzeFile::analyze() {
 
       StrAppend(&content, setSLlineDirective_(fromLine));
       StrAppend(&content, "  ", fileLevelImportSection);
-      for (unsigned int l = fromLine; l < toLine; l++) {
+      for (uint32_t l = fromLine; l < toLine; l++) {
         checkSLlineDirective_(allLines[l], l);
         StrAppend(&content, allLines[l]);
         if (l != (toLine - 1)) {

@@ -46,21 +46,21 @@ class TimeInfo final {
 
   Type m_type = Type::None;
   PathId m_fileId;
-  unsigned int m_line = 0;
+  uint32_t m_line = 0;
   Unit m_timeUnit = Unit::Second;
   double m_timeUnitValue = 0.0;
   Unit m_timePrecision = Unit::Second;
   double m_timePrecisionValue = 0.0;
 
   static Unit unitFromString(std::string_view s);
-  static uint64_t femtoSeconds(Unit unit, int value);
+  static uint64_t femtoSeconds(Unit unit, int32_t value);
 };
 
 class NetTypeInfo final {
  public:
   VObjectType m_type = VObjectType::slNoType;
   PathId m_fileId;
-  unsigned int m_line = 0;
+  uint32_t m_line = 0;
 };
 
 }  // namespace SURELOG

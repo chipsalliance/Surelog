@@ -223,19 +223,19 @@ PathId ModuleInstance::getFileId() const {
   return m_fileContent->getFileId(m_nodeId);
 }
 
-unsigned int ModuleInstance::getLineNb() const {
+uint32_t ModuleInstance::getLineNb() const {
   return m_fileContent->Line(m_nodeId);
 }
 
-unsigned short ModuleInstance::getColumnNb() const {
+uint16_t ModuleInstance::getColumnNb() const {
   return m_fileContent->Column(m_nodeId);
 }
 
-unsigned int ModuleInstance::getEndLineNb() const {
+uint32_t ModuleInstance::getEndLineNb() const {
   return m_fileContent->EndLine(m_nodeId);
 }
 
-unsigned short ModuleInstance::getEndColumnNb() const {
+uint16_t ModuleInstance::getEndColumnNb() const {
   return m_fileContent->EndColumn(m_nodeId);
 }
 
@@ -258,7 +258,7 @@ std::string ModuleInstance::getFullPathName() const {
     nibbles.push_back(tmp->getInstanceName());
     tmp = tmp->getParent();
   }
-  for (int i = nibbles.size() - 1; i >= 0; i--) {
+  for (int32_t i = nibbles.size() - 1; i >= 0; i--) {
     path += nibbles[i];
     if (i > 0) {
       path += ".";
@@ -267,8 +267,8 @@ std::string ModuleInstance::getFullPathName() const {
   return path;
 }
 
-unsigned int ModuleInstance::getDepth() const {
-  unsigned int depth = 0;
+uint32_t ModuleInstance::getDepth() const {
+  uint32_t depth = 0;
   const ModuleInstance* tmp = this;
   while (tmp) {
     tmp = tmp->getParent();

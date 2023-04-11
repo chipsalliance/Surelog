@@ -32,14 +32,13 @@ namespace SURELOG {
 
 class IncludeFileInfo {
  public:
-  enum class Context : unsigned int { NONE = 0, INCLUDE = 1, MACRO = 2 };
-  enum class Action : unsigned int { NONE = 0, PUSH = 1, POP = 2 };
+  enum class Context : uint32_t { NONE = 0, INCLUDE = 1, MACRO = 2 };
+  enum class Action : uint32_t { NONE = 0, PUSH = 1, POP = 2 };
 
-  IncludeFileInfo(Context context, unsigned int sectionStartLine,
+  IncludeFileInfo(Context context, uint32_t sectionStartLine,
                   SymbolId sectionSymbolId, PathId sectionFileId,
-                  unsigned int originalStartLine,
-                  unsigned int originalStartColumn,
-                  unsigned int originalEndLine, unsigned int originalEndColumn,
+                  uint32_t originalStartLine, uint32_t originalStartColumn,
+                  uint32_t originalEndLine, uint32_t originalEndColumn,
                   Action action)
       : IncludeFileInfo(context, sectionStartLine, sectionSymbolId,
                         sectionFileId, originalStartLine, originalStartColumn,
@@ -56,12 +55,11 @@ class IncludeFileInfo {
         m_action(i.m_action),
         m_indexOpening(i.m_indexOpening),
         m_indexClosing(i.m_indexClosing) {}
-  IncludeFileInfo(Context context, unsigned int sectionStartLine,
+  IncludeFileInfo(Context context, uint32_t sectionStartLine,
                   SymbolId sectionSymbolId, PathId sectionFileId,
-                  unsigned int originalStartLine,
-                  unsigned int originalStartColumn,
-                  unsigned int originalEndLine, unsigned int originalEndColumn,
-                  Action action, int indexOpening, int indexClosing)
+                  uint32_t originalStartLine, uint32_t originalStartColumn,
+                  uint32_t originalEndLine, uint32_t originalEndColumn,
+                  Action action, int32_t indexOpening, int32_t indexClosing)
       : m_context(context),
         m_sectionStartLine(sectionStartLine),
         m_sectionSymbolId(sectionSymbolId),
@@ -75,16 +73,16 @@ class IncludeFileInfo {
         m_indexClosing(indexClosing) {}
 
   const Context m_context;
-  unsigned int m_sectionStartLine = 0;
+  uint32_t m_sectionStartLine = 0;
   SymbolId m_sectionSymbolId;
   PathId m_sectionFileId;
-  unsigned int m_originalStartLine = 0;
-  unsigned int m_originalStartColumn = 0;
-  const unsigned int m_originalEndLine = 0;
-  const unsigned int m_originalEndColumn = 0;
+  uint32_t m_originalStartLine = 0;
+  uint32_t m_originalStartColumn = 0;
+  const uint32_t m_originalEndLine = 0;
+  const uint32_t m_originalEndColumn = 0;
   Action m_action = Action::NONE;  // 1 or 2, push or pop
-  int m_indexOpening = 0;
-  int m_indexClosing = 0;
+  int32_t m_indexOpening = 0;
+  int32_t m_indexClosing = 0;
 };
 
 }  // namespace SURELOG

@@ -40,7 +40,7 @@ struct FunctorCompileClass {
         m_symbols(symbols),
         m_errors(errors) {}
 
-  int operator()() const;
+  int32_t operator()() const;
 
  private:
   CompileDesign* m_compileDesign;

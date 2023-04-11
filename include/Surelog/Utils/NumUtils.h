@@ -86,7 +86,7 @@ std::string hexToBin(std::string_view s);
 
 std::string binToHex(std::string_view s);
 
-std::string toBinary(int size, uint64_t val);
+std::string toBinary(int32_t size, uint64_t val);
 
 uint64_t getMask(uint64_t wide);
 

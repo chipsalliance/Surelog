@@ -108,7 +108,7 @@ std::string Design::reportInstanceTree() const {
     tmp = queue.front();
     queue.pop();
     if (tmp->getNbChildren()) {
-      for (unsigned int i = 0; i < tmp->getNbChildren(); i++) {
+      for (uint32_t i = 0; i < tmp->getNbChildren(); i++) {
         queue.push(tmp->getChildren(i));
       }
     }
@@ -185,12 +185,12 @@ std::string Design::reportInstanceTree() const {
   return tree;
 }
 
-void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
-                                     unsigned int& maxDepth,
-                                     unsigned int& numberOfInstances,
-                                     unsigned int& numberOfLeafInstances,
-                                     unsigned int& nbUndefinedModules,
-                                     unsigned int& nbUndefinedInstances) const {
+void Design::reportInstanceTreeStats(uint32_t& nbTopLevelModules,
+                                     uint32_t& maxDepth,
+                                     uint32_t& numberOfInstances,
+                                     uint32_t& numberOfLeafInstances,
+                                     uint32_t& nbUndefinedModules,
+                                     uint32_t& nbUndefinedInstances) const {
   nbTopLevelModules = 0;
   maxDepth = 0;
   numberOfInstances = 0;
@@ -216,13 +216,13 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
 
     if (isInstance) {
       numberOfInstances++;
-      unsigned int depth = tmp->getDepth();
+      uint32_t depth = tmp->getDepth();
       if (depth > maxDepth) {
         maxDepth = depth;
       }
     }
     if (tmp->getNbChildren()) {
-      for (unsigned int i = 0; i < tmp->getNbChildren(); i++) {
+      for (uint32_t i = 0; i < tmp->getNbChildren(); i++) {
         queue.push(tmp->getChildren(i));
       }
     } else {
@@ -282,7 +282,7 @@ ModuleInstance* Design::findInstance_(const std::vector<std::string>& path,
     }
   }
 
-  for (unsigned int i = 0; i < scope->getNbChildren(); i++) {
+  for (uint32_t i = 0; i < scope->getNbChildren(); i++) {
     ModuleInstance* child = scope->getChildren(i);
     if (path.empty()) continue;
     if (child->getInstanceName() == path[0]) {
@@ -450,14 +450,14 @@ ClassDefinition* Design::getClassDefinition(std::string_view name) const {
 void Design::orderPackages() {
   if (m_orderedPackageNames.empty()) return;
   m_orderedPackageDefinitions.resize(m_orderedPackageNames.size());
-  unsigned int index = 0;
-  typedef std::map<std::string, int> MultiDefCount;
+  uint32_t index = 0;
+  typedef std::map<std::string, int32_t> MultiDefCount;
   MultiDefCount multiDefCount;
   for (const auto& packageName : m_orderedPackageNames) {
-    for (unsigned int i = 0; i < m_packageDefinitions.size(); i++) {
+    for (uint32_t i = 0; i < m_packageDefinitions.size(); i++) {
       PackageNamePackageDefinitionMultiMap::iterator pos =
           m_packageDefinitions.begin();
-      for (unsigned ii = 0; ii < i; ii++) pos++;
+      std::advance(pos, i);
       std::pair<const std::string, Package*>* name_pack;
       name_pack = &(*pos);
 
@@ -466,10 +466,10 @@ void Design::orderPackages() {
         if (itr == multiDefCount.end()) {
           multiDefCount.emplace(packageName, 1);
         } else {
-          int level = (*itr).second;
+          int32_t level = (*itr).second;
           (*itr).second++;
           pos = m_packageDefinitions.begin();
-          for (unsigned ii = 0; ii < i + level; ii++) pos++;
+          std::advance(pos, i + level);
           name_pack = &(*pos);
         }
         m_orderedPackageDefinitions[index] = name_pack->second;

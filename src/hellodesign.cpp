@@ -77,11 +77,11 @@ static bool Build(const vpiHandle &design_handle) {
   return true;
 }
 
-int main(int argc, const char **argv) {
+int32_t main(int32_t argc, const char **argv) {
   if (argc < 2) return 0;
 
   // Read command line, compile a design, use -parse argument
-  int code = 0;
+  int32_t code = 0;
   SURELOG::SymbolTable *const symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer *const errors =
       new SURELOG::ErrorContainer(symbolTable);

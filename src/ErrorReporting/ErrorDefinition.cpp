@@ -52,7 +52,7 @@ ErrorDefinition::ErrorType ErrorDefinition::getErrorType(
   errorId = StringUtils::rtrim_until(errorId, ']');
   errorId = StringUtils::ltrim_until(errorId, '[');
   errorId.remove_prefix(8);
-  unsigned int id = 0;
+  uint32_t id = 0;
   return NumUtils::parseUint32(errorId, &id) ? (ErrorDefinition::ErrorType)id
                                              : NO_ERROR_MESSAGE;
 }

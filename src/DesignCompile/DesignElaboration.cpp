@@ -337,7 +337,7 @@ bool DesignElaboration::identifyTopModules_() {
       const FileContent* fC1 = (*itr).second.second;
       NodeId nodeId1 = moduleDefinition->m_node;
       PathId fileId1 = fileSystem->copy(fC1->getFileId(nodeId1), st);
-      unsigned int line1 = fC1->Line(nodeId1);
+      uint32_t line1 = fC1->Line(nodeId1);
       Location loc1(fileId1, line1, fC1->Column(nodeId1),
                     st->registerSymbol(moduleName));
 
@@ -347,7 +347,7 @@ bool DesignElaboration::identifyTopModules_() {
         const FileContent* fC2 = prevFileContent;
         NodeId nodeId2 = prevModuleDefinition->m_node;
         PathId fileId2 = fileSystem->copy(fC2->getFileId(nodeId2), st);
-        unsigned int line2 = fC2->Line(nodeId2);
+        uint32_t line2 = fC2->Line(nodeId2);
         Location loc2(fileId2, line2, fC2->Column(nodeId2),
                       st->registerSymbol(moduleName));
 
@@ -513,7 +513,7 @@ bool DesignElaboration::bindAllInstances_(ModuleInstance* parent,
       }
     }
   }
-  for (unsigned int i = 0; i < parent->getNbChildren(); i++) {
+  for (uint32_t i = 0; i < parent->getNbChildren(); i++) {
     ModuleInstance* child = parent->getChildren(i);
     bindAllInstances_(child, factory, config);
   }
@@ -542,7 +542,7 @@ bool DesignElaboration::elaborateModule_(std::string_view moduleName,
         design->addTopLevelModuleInstance(instance);
       } else {
         ModuleInstance* instance = design->findInstance(moduleName);
-        for (unsigned int i = 0; i < def->getFileContents().size(); i++) {
+        for (uint32_t i = 0; i < def->getFileContents().size(); i++) {
           std::vector<ModuleInstance*> parentSubInstances;
           NodeId id = def->getNodeIds()[i];
           elaborateInstance_(def->getFileContents()[i], id, InvalidNodeId,
@@ -559,15 +559,16 @@ bool DesignElaboration::elaborateModule_(std::string_view moduleName,
 }
 
 void DesignElaboration::recurseInstanceLoop_(
-    std::vector<int>& from, std::vector<int>& to, std::vector<int>& indexes,
-    unsigned int pos, DesignComponent* def, const FileContent* fC,
-    NodeId subInstanceId, NodeId paramOverride, ModuleInstanceFactory* factory,
-    ModuleInstance* parent, Config* config, std::string instanceName,
-    std::string_view modName, std::vector<ModuleInstance*>& allSubInstances) {
+    std::vector<int32_t>& from, std::vector<int32_t>& to,
+    std::vector<int32_t>& indexes, uint32_t pos, DesignComponent* def,
+    const FileContent* fC, NodeId subInstanceId, NodeId paramOverride,
+    ModuleInstanceFactory* factory, ModuleInstance* parent, Config* config,
+    std::string instanceName, std::string_view modName,
+    std::vector<ModuleInstance*>& allSubInstances) {
   if (pos == indexes.size()) {
     // This is where the real logic goes.
     // indexes[i] contain the value of the i-th index.
-    for (int index : indexes) {
+    for (int32_t index : indexes) {
       if (!instanceName.empty()) {
         if (instanceName[instanceName.size() - 1] == ' ') {
           instanceName.erase(instanceName.end() - 1);
@@ -579,7 +580,7 @@ void DesignElaboration::recurseInstanceLoop_(
         def, fC, subInstanceId, parent, instanceName, modName);
     VObjectType type = fC->Type(subInstanceId);
     if (def && (type != VObjectType::slGate_instantiation)) {
-      for (unsigned int i = 0; i < def->getFileContents().size(); i++) {
+      for (uint32_t i = 0; i < def->getFileContents().size(); i++) {
         elaborateInstance_(def->getFileContents()[i], def->getNodeIds()[i],
                            paramOverride, factory, child, config,
                            allSubInstances);
@@ -653,7 +654,7 @@ ModuleInstance* DesignElaboration::createBindInstance_(
 }
 
 const UHDM::any* resize(UHDM::Serializer& serializer, const UHDM::any* object,
-                        int maxsize, bool is_overall_unsigned) {
+                        int32_t maxsize, bool is_overall_unsigned) {
   if (object == nullptr) {
     return nullptr;
   }
@@ -664,7 +665,7 @@ const UHDM::any* resize(UHDM::Serializer& serializer, const UHDM::any* object,
     if (c->VpiSize() < maxsize) {
       UHDM::ElaboratorListener listener(&serializer);
       c = (UHDM::constant*)UHDM::clone_tree(c, serializer, &listener);
-      int constType = c->VpiConstType();
+      int32_t constType = c->VpiConstType();
       const UHDM::typespec* tps = c->Typespec();
       bool is_signed = false;
       if (tps) {
@@ -742,7 +743,7 @@ void DesignElaboration::elaborateInstance_(
 
   std::vector<ModuleInstance*>& allSubInstances = parent->getAllSubInstances();
   std::string genBlkBaseName = "genblk";
-  unsigned int genBlkIndex = 1;
+  uint32_t genBlkIndex = 1;
   bool reuseInstance = false;
   std::string mname;
 
@@ -1047,7 +1048,7 @@ void DesignElaboration::elaborateInstance_(
 
           while (cont) {
             Value* currentIndexValue = parent->getValue(name, m_exprBuilder);
-            long currVal = currentIndexValue->getValueUL();
+            uint64_t currVal = currentIndexValue->getValueUL();
             std::string indexedModName = parent->getFullPathName() + "." +
                                          modName + "[" +
                                          std::to_string(currVal) + "]";
@@ -1111,7 +1112,7 @@ void DesignElaboration::elaborateInstance_(
           if (fC->Type(tmp) ==
               VObjectType::slCase_generate_item) {  // Case stmt
             // Make all expressions match the largest expression size per LRM
-            int maxsize = 0;
+            int32_t maxsize = 0;
             bool is_overall_unsigned = false;
             {
               std::vector<NodeId> checkIds;
@@ -1633,9 +1634,9 @@ void DesignElaboration::elaborateInstance_(
           if (identifierId) unpackedDimId = fC->Sibling(identifierId);
 
           if (unpackedDimId) {
-            std::vector<int> from;
-            std::vector<int> to;
-            std::vector<int> index;
+            std::vector<int32_t> from;
+            std::vector<int32_t> to;
+            std::vector<int32_t> index;
 
             // Vector instances
             while (unpackedDimId) {
@@ -1682,7 +1683,7 @@ void DesignElaboration::elaborateInstance_(
 
             // Create module array
             if (type == VObjectType::slModule_instantiation) {
-              int unpackedSize = 0;
+              int32_t unpackedSize = 0;
               unpackedDimId = fC->Sibling(identifierId);
               if (std::vector<UHDM::range*>* unpackedDimensions =
                       m_helper.compileRanges(def, fC, unpackedDimId,
@@ -1744,12 +1745,12 @@ void DesignElaboration::elaborateInstance_(
 }
 
 void DesignElaboration::reportElaboration_() {
-  unsigned int nbTopLevelModules = 0;
-  unsigned int maxDepth = 0;
-  unsigned int numberOfInstances = 0;
-  unsigned int numberOfLeafInstances = 0;
-  unsigned int nbUndefinedModules = 0;
-  unsigned int nbUndefinedInstances = 0;
+  uint32_t nbTopLevelModules = 0;
+  uint32_t maxDepth = 0;
+  uint32_t numberOfInstances = 0;
+  uint32_t numberOfLeafInstances = 0;
+  uint32_t nbUndefinedModules = 0;
+  uint32_t nbUndefinedInstances = 0;
 
   m_compileDesign->getCompiler()->getDesign()->reportInstanceTreeStats(
       nbTopLevelModules, maxDepth, numberOfInstances, numberOfLeafInstances,
@@ -1896,7 +1897,7 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
       // dffr #4 u1 ( )
       overrideParams.push_back(parentParamOverride);
     }
-    unsigned int index = 0;
+    uint32_t index = 0;
     for (auto paramAssign : overrideParams) {
       NodeId child = parentFile->Child(paramAssign);
       if (parentFile->Type(paramAssign) == VObjectType::slDelay2 ||
@@ -2283,7 +2284,7 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                       instance);
                   instance->setComplexValue(name, expr);
                   UHDM::operation* op = (UHDM::operation*)expr;
-                  int opType = op->VpiOpType();
+                  int32_t opType = op->VpiOpType();
                   if (opType == vpiAssignmentPatternOp) {
                     if (ts) {
                       if (m_helper.substituteAssignedValue(expr,
@@ -2389,7 +2390,7 @@ void DesignElaboration::reduceUnnamedBlocks_() {
     ModuleInstance* current = queue.front();
     queue.pop();
     if (current == nullptr) continue;
-    for (unsigned int i = 0; i < current->getNbChildren(); i++) {
+    for (uint32_t i = 0; i < current->getNbChildren(); i++) {
       queue.push(current->getChildren(i));
     }
     const FileContent* fC = current->getFileContent();

@@ -238,11 +238,11 @@ void PythonAPI::initInterp_() {
 #endif
 }
 
-void PythonAPI::init(int argc, const char** argv) {
+void PythonAPI::init(int32_t argc, const char** argv) {
   std::string programPath = argv[0];
   programPath = StringUtils::replaceAll(programPath, "\\", "/");
   m_programPath = StringUtils::rtrim_until(programPath, '/');
-  for (int i = 1; i < argc; i++) {
+  for (int32_t i = 1; i < argc; i++) {
     if (!strcmp(argv[i], "-builtin")) {
       if (i < argc - 1) {
         m_builtinPath = argv[i + 1];
@@ -324,7 +324,7 @@ std::string PythonAPI::evalScript(const std::string& module,
 
     if (pFunc && PyCallable_Check(pFunc)) {
       pArgs = PyTuple_New(args.size());
-      for (unsigned int i = 0; i < args.size(); ++i) {
+      for (uint32_t i = 0; i < args.size(); ++i) {
         pValue = PyString_FromString(args[i].c_str());
         /* pValue reference stolen here: */
         PyTuple_SetItem(pArgs, i, pValue);

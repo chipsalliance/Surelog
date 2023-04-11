@@ -57,8 +57,7 @@ CompileSourceFile::CompileSourceFile(PathId fileId, CommandLineParser* clp,
       m_text(text) {}
 
 CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
-                                     PathId ppResultFileId,
-                                     unsigned int lineOffset)
+                                     PathId ppResultFileId, uint32_t lineOffset)
     : m_fileId(parent->m_fileId),
       m_commandLineParser(parent->m_commandLineParser),
       m_errors(parent->m_errors),

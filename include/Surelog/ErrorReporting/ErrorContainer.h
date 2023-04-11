@@ -51,12 +51,12 @@ class ErrorContainer final {
       return *this;
     }
 
-    int nbFatal = 0;
-    int nbSyntax = 0;
-    int nbError = 0;
-    int nbWarning = 0;
-    int nbNote = 0;
-    int nbInfo = 0;
+    int32_t nbFatal = 0;
+    int32_t nbSyntax = 0;
+    int32_t nbError = 0;
+    int32_t nbWarning = 0;
+    int32_t nbNote = 0;
+    int32_t nbInfo = 0;
   };
 
   explicit ErrorContainer(SymbolTable* symbolTable,

@@ -61,13 +61,13 @@ constexpr std::string_view batch_opt = "-batch";
 constexpr std::string_view nostdout_opt = "-nostdout";
 constexpr std::string_view output_folder_opt = "-o";
 
-unsigned int executeCompilation(
-    int argc, const char** argv, bool diffCompMode, bool fileUnit,
+uint32_t executeCompilation(
+    int32_t argc, const char** argv, bool diffCompMode, bool fileUnit,
     SURELOG::ErrorContainer::Stats* overallStats = nullptr) {
   SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
   bool success = true;
   bool noFatalErrors = true;
-  unsigned int codedReturn = 0;
+  uint32_t codedReturn = 0;
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
   SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser(
@@ -113,7 +113,7 @@ unsigned int executeCompilation(
         clp->getCompileDirId(), "file.lst", clp->getSymbolTable());
     fs::path fileList = fileSystem->toPath(fileId);
     std::string command = ext_command + " " + fileList.string();
-    int result = system(command.c_str());
+    int32_t result = system(command.c_str());
     codedReturn |= result;
     std::cout << "Command result: " << result << std::endl;
   }
@@ -143,9 +143,9 @@ enum COMP_MODE {
   BATCH,
 };
 
-int batchCompilation(const char* argv0, const fs::path& batchFile,
-                     const fs::path& outputDir, bool nostdout) {
-  int returnCode = 0;
+int32_t batchCompilation(const char* argv0, const fs::path& batchFile,
+                         const fs::path& outputDir, bool nostdout) {
+  int32_t returnCode = 0;
 
   std::error_code ec;
   const fs::path cwd = fs::current_path(ec);
@@ -159,7 +159,7 @@ int batchCompilation(const char* argv0, const fs::path& batchFile,
   }
 
   std::string line;
-  int count = 0;
+  int32_t count = 0;
   SURELOG::ErrorContainer::Stats overallStats;
   while (std::getline(stream, line)) {
     if (line.empty()) continue;
@@ -224,7 +224,7 @@ int batchCompilation(const char* argv0, const fs::path& batchFile,
   return returnCode;
 }
 
-int main(int argc, const char** argv) {
+int32_t main(int32_t argc, const char** argv) {
 #if defined(_MSC_VER) && defined(_DEBUG)
   // Redirect cout to file
   std::streambuf* cout_rdbuf = nullptr;
@@ -244,13 +244,13 @@ int main(int argc, const char** argv) {
   SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
   const fs::path workingDir = fileSystem->getWorkingDir();
 
-  unsigned int codedReturn = 0;
+  uint32_t codedReturn = 0;
   COMP_MODE mode = NORMAL;
   bool python_mode = true;
   bool nostdout = false;
   fs::path batchFile;
   fs::path outputDir;
-  for (int i = 1; i < argc; i++) {
+  for (int32_t i = 1; i < argc; i++) {
     if (parseonly_opt == argv[i]) {
     } else if (diff_unit_opt == argv[i]) {
       mode = DIFF;

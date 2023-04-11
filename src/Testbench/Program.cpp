@@ -35,10 +35,10 @@ Program::Program(std::string_view name, Library* library, FileContent* fC,
   addFileContent(fC, nodeId);
 }
 
-unsigned int Program::getSize() const {
+uint32_t Program::getSize() const {
   NodeId end = m_nodeIds[0];
   NodeId begin = m_fileContents[0]->Child(end);
-  unsigned int size = (RawNodeId)(end - begin);
+  uint32_t size = (RawNodeId)(end - begin);
   return size;
 }
 

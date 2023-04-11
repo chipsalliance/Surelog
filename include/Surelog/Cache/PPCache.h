@@ -44,7 +44,7 @@ class PPCache : Cache {
 
   PathId getCacheFileId_(PathId sourceFileId) const;
   bool restore_(PathId cacheFileId, const std::vector<char>& content,
-                bool errorsOnly, int recursionDepth);
+                bool errorsOnly, int32_t recursionDepth);
   bool checkCacheIsValid_(PathId cacheFileId) const;
   bool checkCacheIsValid_(PathId cacheFileId,
                           const std::vector<char>& content) const;

@@ -46,7 +46,7 @@ class PythonAPI {
   virtual ~PythonAPI() = default;
 
   /* Main interpreter (in main thread) */
-  static void init(int argc, const char** argv);
+  static void init(int32_t argc, const char** argv);
   static void shutdown();
   static PyThreadState* getMainInterp() { return m_mainThreadState; }
   /* Per thread interpreters */

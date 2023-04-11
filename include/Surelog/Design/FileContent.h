@@ -94,7 +94,9 @@ class FileContent : public DesignComponent {
                                      bool first = false) const;
   // Recursively search for all items of types
   // and stops at types stopPoints
-  unsigned int getSize() const override { return m_objects.size(); }
+  uint32_t getSize() const override {
+    return static_cast<uint32_t>(m_objects.size());
+  }
   VObjectType getType() const override { return VObjectType::slNoType; }
   bool isInstance() const override { return false; }
   std::string_view getName() const override;
@@ -115,8 +117,8 @@ class FileContent : public DesignComponent {
   const DesignElement* getDesignElement(std::string_view name) const;
   using DesignComponent::addObject;
   NodeId addObject(SymbolId name, PathId fileId, VObjectType type,
-                   unsigned int line, unsigned short column,
-                   unsigned int endLine, unsigned short endColumn,
+                   uint32_t line, uint16_t column,
+                   uint32_t endLine, uint16_t endColumn,
                    NodeId parent = InvalidNodeId,
                    NodeId definition = InvalidNodeId,
                    NodeId child = InvalidNodeId,
@@ -150,13 +152,13 @@ class FileContent : public DesignComponent {
 
   VObjectType Type(NodeId index) const;
 
-  unsigned int Line(NodeId index) const;
+  uint32_t Line(NodeId index) const;
 
-  unsigned short Column(NodeId index) const;
+  uint16_t Column(NodeId index) const;
 
-  unsigned int EndLine(NodeId index) const;
+  uint32_t EndLine(NodeId index) const;
 
-  unsigned short EndColumn(NodeId index) const;
+  uint16_t EndColumn(NodeId index) const;
 
   std::string_view SymName(NodeId index) const;
 

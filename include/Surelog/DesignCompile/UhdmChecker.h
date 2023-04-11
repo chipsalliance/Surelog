@@ -55,12 +55,12 @@ class UhdmChecker final {
 
   CompileDesign* const m_compileDesign;
   Design* const m_design;
-  typedef unsigned int LineNb;
+  typedef uint32_t LineNb;
   enum Status { EXIST, COVERED, UNSUPPORTED };
   class ColRange {
    public:
-    unsigned short from;
-    unsigned short to;
+    uint16_t from;
+    uint16_t to;
     Status covered;
   };
   typedef std::vector<ColRange> Ranges;

@@ -99,9 +99,9 @@ class ElaborationStep {
 
   UHDM::any* makeVar_(DesignComponent* component, Signal* sig,
                       std::vector<UHDM::range*>* packedDimensions,
-                      int packedSize,
+                      int32_t packedSize,
                       std::vector<UHDM::range*>* unpackedDimensions,
-                      int unpackedSize, ModuleInstance* instance,
+                      int32_t unpackedSize, ModuleInstance* instance,
                       UHDM::VectorOfvariables* vars, UHDM::expr* assignExp,
                       UHDM::typespec* tps);
 

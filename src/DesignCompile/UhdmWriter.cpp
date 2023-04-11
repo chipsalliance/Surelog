@@ -149,7 +149,7 @@ std::string UhdmWriter::builtinGateName(VObjectType type) {
   return modName;
 }
 
-unsigned int UhdmWriter::getBuiltinType(VObjectType type) {
+uint32_t UhdmWriter::getBuiltinType(VObjectType type) {
   switch (type) {
     case VObjectType::slNInpGate_And:
       return vpiAndPrim;
@@ -215,7 +215,7 @@ UhdmWriter::UhdmWriter(CompileDesign* compiler, Design* design)
       m_compileDesign->getCompiler()->getSymbolTable());
 }
 
-unsigned int UhdmWriter::getStrengthType(VObjectType type) {
+uint32_t UhdmWriter::getStrengthType(VObjectType type) {
   switch (type) {
     case VObjectType::slSupply0:
       return vpiSupply0;
@@ -242,7 +242,7 @@ unsigned int UhdmWriter::getStrengthType(VObjectType type) {
   }
 }
 
-unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
+uint32_t UhdmWriter::getVpiOpType(VObjectType type) {
   switch (type) {
     case VObjectType::slBinOp_Plus:
       return vpiAddOp;
@@ -526,8 +526,8 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
   return true;
 }
 
-unsigned int UhdmWriter::getVpiDirection(VObjectType type) {
-  unsigned int direction = vpiInout;
+uint32_t UhdmWriter::getVpiDirection(VObjectType type) {
+  uint32_t direction = vpiInout;
   if (type == VObjectType::slPortDir_Inp ||
       type == VObjectType::slTfPortDir_Inp)
     direction = vpiInput;
@@ -543,8 +543,8 @@ unsigned int UhdmWriter::getVpiDirection(VObjectType type) {
   return direction;
 }
 
-unsigned int UhdmWriter::getVpiNetType(VObjectType type) {
-  unsigned int nettype = 0;
+uint32_t UhdmWriter::getVpiNetType(VObjectType type) {
+  uint32_t nettype = 0;
   switch (type) {
     case VObjectType::slNetType_Wire:
       nettype = vpiWire;
@@ -608,7 +608,7 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
                             UhdmWriter::SignalBaseClassMap& signalBaseMap,
                             UhdmWriter::SignalMap& signalMap,
                             ModuleInstance* instance, ModuleDefinition* mod) {
-  int lastPortDirection = vpiInout;
+  int32_t lastPortDirection = vpiInout;
   for (Signal* orig_port : orig_ports) {
     port* dest_port = s.MakePort();
     signalBaseMap.emplace(orig_port, dest_port);
@@ -641,7 +641,7 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     }
     if (orig_port->getTypeSpecId() && mod) {
       if (NodeId unpackedDimensions = orig_port->getUnpackedDimension()) {
-        int unpackedSize = 0;
+        int32_t unpackedSize = 0;
         const FileContent* fC = orig_port->getFileContent();
         if (std::vector<UHDM::range*>* ranges = m_helper.compileRanges(
                 mod, fC, unpackedDimensions, m_compileDesign, nullptr, instance,
@@ -1243,7 +1243,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
     for (Signal* sig : signals) {
       NodeId unpackedDimension = sig->getUnpackedDimension();
       if (unpackedDimension && sig->getInterfaceDef()) {
-        int unpackedSize = 0;
+        int32_t unpackedSize = 0;
         const FileContent* fC = sig->getFileContent();
         if (std::vector<UHDM::range*>* unpackedDimensions =
                 m_helper.compileRanges(mod, fC, unpackedDimension,
@@ -1340,7 +1340,7 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
         m_helper.checkForLoops(false);
         io->Expr(exp);
       }
-      unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
+      uint32_t direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       ios->push_back(io);
     }
@@ -1734,7 +1734,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
           }
           ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
           operation* op = (operation*)rhs;
-          int opType = op->VpiOpType();
+          int32_t opType = op->VpiOpType();
           if (opType == vpiAssignmentPatternOp || opType == vpiConditionOp) {
             if (m_helper.substituteAssignedValue(rhs, m_compileDesign)) {
               rhs = m_helper.expandPatternAssignment(tps, (UHDM::expr*)rhs, mod,
@@ -3369,7 +3369,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
         m_helper.checkForLoops(false);
         io->Expr(exp);
       }
-      unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
+      uint32_t direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       io->VpiParent(dest_modport);
       ios->push_back(io);
@@ -3429,13 +3429,13 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
   return true;
 }
 
-void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType,
-                    Serializer& s) {
+void writePrimTerms(ModuleInstance* instance, primitive* prim,
+                    int32_t vpiGateType, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
   VectorOfprim_term* terms = s.MakePrim_termVec();
   prim->Prim_terms(terms);
   if (netlist->ports()) {
-    unsigned int index = 0;
+    uint32_t index = 0;
     VectorOfport* ports = netlist->ports();
     for (auto port : *ports) {
       prim_term* term = s.MakePrim_term();
@@ -3544,7 +3544,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
     }
   }
   std::map<ModuleInstance*, module_inst*> tempInstanceMap;
-  for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
+  for (uint32_t i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
     if (ModuleDefinition* mm =
@@ -3667,7 +3667,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         const FileContent* fC = child->getFileContent();
         NodeId gatenode = fC->Child(fC->Parent(child->getNodeId()));
         VObjectType gatetype = fC->Type(gatenode);
-        int vpiGateType = getBuiltinType(gatetype);
+        int32_t vpiGateType = getBuiltinType(gatetype);
         if (insttype == VObjectType::slUdp_instantiation) {
           UHDM::udp* udp = s.MakeUdp();
           gate = udp;

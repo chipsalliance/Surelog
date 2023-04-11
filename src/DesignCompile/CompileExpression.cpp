@@ -67,7 +67,7 @@ bool CompileHelper::substituteAssignedValue(const UHDM::any *oper,
   UHDM_OBJECT_TYPE opType = oper->UhdmType();
   if (opType == uhdmoperation) {
     operation *op = (operation *)oper;
-    int opType = op->VpiOpType();
+    int32_t opType = op->VpiOpType();
     if (opType == vpiAssignmentPatternOp || opType == vpiConcatOp) {
       substitute = compileDesign->getCompiler()
                        ->getCommandLineParser()
@@ -451,7 +451,7 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
       bool tickNumber = (value.find('\'') != std::string::npos);
       if (tickNumber || largeInt(value)) {
         char base = 'd';
-        unsigned int i = 0;
+        uint32_t i = 0;
         bool isSigned = false;
         std::string size(value);
         if (tickNumber) {
@@ -725,7 +725,7 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
                                    DesignComponent *component,
                                    CompileDesign *compileDesign,
                                    ValuedComponentI *instance, PathId fileId,
-                                   int lineNumber, any *pexpr, bool reduce,
+                                   uint32_t lineNumber, any *pexpr, bool reduce,
                                    bool muteErrors, bool returnTypespec) {
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](std::string_view name, const any *inst,
@@ -780,7 +780,8 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
                                 DesignComponent *component,
                                 CompileDesign *compileDesign,
                                 ValuedComponentI *instance, PathId fileId,
-                                int lineNumber, any *pexpr, bool muteErrors) {
+                                uint32_t lineNumber, any *pexpr,
+                                bool muteErrors) {
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
@@ -819,7 +820,7 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
 any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                              CompileDesign *compileDesign,
                              ValuedComponentI *instance, PathId fileId,
-                             int lineNumber, any *pexpr, bool reduce,
+                             uint32_t lineNumber, any *pexpr, bool reduce,
                              bool muteErrors) {
   Serializer &s = compileDesign->getSerializer();
   Value *sval = nullptr;
@@ -906,7 +907,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                 if (substituteAssignedValue(param->Rhs(), compileDesign)) {
                   if (param->Rhs()->UhdmType() == uhdmoperation) {
                     operation *op = (operation *)param->Rhs();
-                    int opType = op->VpiOpType();
+                    int32_t opType = op->VpiOpType();
                     if (opType == vpiAssignmentPatternOp) {
                       const any *lhs = param->Lhs();
                       any *rhs = (any *)param->Rhs();
@@ -1005,7 +1006,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
             if (substituteAssignedValue(param->Rhs(), compileDesign)) {
               if (param->Rhs()->UhdmType() == uhdmoperation) {
                 operation *op = (operation *)param->Rhs();
-                int opType = op->VpiOpType();
+                int32_t opType = op->VpiOpType();
                 if (opType == vpiAssignmentPatternOp) {
                   const any *lhs = param->Lhs();
                   any *rhs = (any *)param->Rhs();
@@ -1070,7 +1071,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
         if (tmp) result = tmp;
       }
     } else {
-      int setBreakpointHere = 1;
+      int32_t setBreakpointHere = 1;
       setBreakpointHere++;
     }
   }
@@ -1668,7 +1669,7 @@ UHDM::any *CompileHelper::compileExpression(
         case VObjectType::slUnary_ReductNor:
         case VObjectType::slUnary_ReductXnor1:
         case VObjectType::slUnary_ReductXnor2: {
-          unsigned int vopType = UhdmWriter::getVpiOpType(childType);
+          uint32_t vopType = UhdmWriter::getVpiOpType(childType);
           if (vopType) {
             UHDM::operation *op = s.MakeOperation();
             op->VpiOpType(vopType);
@@ -1937,7 +1938,7 @@ UHDM::any *CompileHelper::compileExpression(
             break;
           }
           VObjectType opType = fC->Type(op);
-          unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+          uint32_t vopType = UhdmWriter::getVpiOpType(opType);
           if (opType == VObjectType::slQmark ||
               opType == VObjectType::slConditional_operator) {  // Ternary op
             if (reduce) {
@@ -2115,7 +2116,7 @@ UHDM::any *CompileHelper::compileExpression(
             fC->populateCoreMembers(child, child, variable);
 
             VObjectType opType = fC->Type(op);
-            unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+            uint32_t vopType = UhdmWriter::getVpiOpType(opType);
             if (vopType) {
               // Post increment/decrement
               UHDM::operation *operation = s.MakeOperation();
@@ -2223,7 +2224,7 @@ UHDM::any *CompileHelper::compileExpression(
             UHDM::VectorOfany *operands = s.MakeAnyVec();
             operation->Operands(operands);
             operands->push_back(result);
-            int operationType = UhdmWriter::getVpiOpType(type);
+            int32_t operationType = UhdmWriter::getVpiOpType(type);
             if (NodeId subOp1 = fC->Child(oper)) {
               VObjectType subOp1type = fC->Type(subOp1);
               if (subOp1type == VObjectType::slPound_pound_delay) {
@@ -2797,7 +2798,7 @@ UHDM::any *CompileHelper::compileExpression(
                   instance, reduce, muteErrors);
               if (reduce) {
                 PathId fileId = fC->getFileId();
-                int lineNumber = fC->Line(nameId);
+                uint32_t lineNumber = fC->Line(nameId);
                 if (func == nullptr) {
                   ErrorContainer *errors =
                       compileDesign->getCompiler()->getErrorContainer();
@@ -2840,7 +2841,7 @@ UHDM::any *CompileHelper::compileExpression(
           operation *operation = s.MakeOperation();
           UHDM::VectorOfany *operands = s.MakeAnyVec();
           operation->Operands(operands);
-          int operationType = UhdmWriter::getVpiOpType(type);
+          int32_t operationType = UhdmWriter::getVpiOpType(type);
           if (NodeId subOp1 = fC->Child(child)) {
             VObjectType subOp1type = fC->Type(subOp1);
             if (subOp1type == VObjectType::slPound_pound_delay) {
@@ -2896,7 +2897,7 @@ UHDM::any *CompileHelper::compileExpression(
               case VObjectType::slS_UNTIL:
               case VObjectType::slUNTIL_WITH:
               case VObjectType::slS_UNTIL_WITH: {
-                int optype = UhdmWriter::getVpiOpType(type);
+                int32_t optype = UhdmWriter::getVpiOpType(type);
                 operation *oper = s.MakeOperation();
                 oper->VpiOpType(optype);
                 UHDM::VectorOfany *operands = s.MakeAnyVec();
@@ -2949,7 +2950,7 @@ UHDM::any *CompileHelper::compileExpression(
         case VObjectType::slUnary_ReductNor:
         case VObjectType::slUnary_ReductXnor1:
         case VObjectType::slUnary_ReductXnor2: {
-          unsigned int vopType = UhdmWriter::getVpiOpType(type);
+          uint32_t vopType = UhdmWriter::getVpiOpType(type);
           if (vopType) {
             UHDM::operation *op = s.MakeOperation();
             op->Attributes(attributes);
@@ -3219,7 +3220,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
             if (exp->UhdmType() == uhdmoperation) {
               UHDM::operation *op = (UHDM::operation *)exp;
               bool reduceMore = true;
-              int opType = op->VpiOpType();
+              int32_t opType = op->VpiOpType();
               if (opType == vpiConcatOp) {
                 if (op->Operands()->size() != 1) {
                   reduceMore = false;
@@ -3314,8 +3315,8 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
                                             std::string_view val,
                                             CompileDesign *compileDesign,
                                             ValuedComponentI *instance,
-                                            PathId fileId, unsigned int lineNo,
-                                            unsigned short columnNo) {
+                                            PathId fileId, uint32_t lineNo,
+                                            uint16_t columnNo) {
   FileSystem *const fileSystem = FileSystem::getInstance();
   if (val[4] == '-') {
     std::string instanceName;
@@ -3382,7 +3383,7 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
 std::vector<UHDM::range *> *CompileHelper::compileRanges(
     DesignComponent *component, const FileContent *fC, NodeId Packed_dimension,
     CompileDesign *compileDesign, UHDM::any *pexpr, ValuedComponentI *instance,
-    bool reduce, int &size, bool muteErrors) {
+    bool reduce, int32_t &size, bool muteErrors) {
   FileSystem *const fileSystem = FileSystem::getInstance();
   UHDM::Serializer &s = compileDesign->getSerializer();
   VectorOfrange *ranges = nullptr;
@@ -3722,20 +3723,20 @@ UHDM::any *CompileHelper::compilePartSelectRange(
             std::string val = cvv->getValueS();
             std::string part;
             if (fC->Type(op) == VObjectType::slIncPartSelectOp) {
-              int steps = r / 4;
+              int32_t steps = r / 4;
               l = l / 4;
-              for (int i = l; i < (int)(l + steps); i++) {
-                int index = ((int)val.size()) - 1 - i;
+              for (int32_t i = l; i < (int32_t)(l + steps); i++) {
+                int32_t index = ((int32_t)val.size()) - 1 - i;
                 if (index >= 0)
                   part += val[index];
                 else
                   part += '0';
               }
             } else {
-              int steps = r / 4;
+              int32_t steps = r / 4;
               l = l / 4;
-              for (int i = l; i > (int)(l - steps); i--) {
-                int index = ((int)val.size()) - 1 - i;
+              for (int32_t i = l; i > (int32_t)(l - steps); i--) {
+                int32_t index = ((int32_t)val.size()) - 1 - i;
                 if (index >= 0)
                   part += val[index];
                 else
@@ -3810,7 +3811,7 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
                              DesignComponent *component,
                              CompileDesign *compileDesign,
                              ValuedComponentI *instance, PathId fileId,
-                             int lineNumber, bool reduce, bool sizeMode) {
+                             uint32_t lineNumber, bool reduce, bool sizeMode) {
   if (loopDetected(fileId, lineNumber, compileDesign, instance)) {
     return 0;
   }
@@ -4046,7 +4047,7 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
         NodeId Unpacked_dimension = sig->getUnpackedDimension();
         if (fC->Type(Unpacked_dimension) != VObjectType::sl_INVALID_) {
           array_typespec *array = s.MakeArray_typespec();
-          int size;
+          int32_t size;
           VectorOfrange *ranges =
               compileRanges(component, fC, Unpacked_dimension, compileDesign,
                             nullptr, instance, reduce, size, false);
@@ -4064,7 +4065,7 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
         NodeId Unpacked_dimension = sig->getUnpackedDimension();
         if (fC->Type(Unpacked_dimension) != VObjectType::sl_INVALID_) {
           array_typespec *array = s.MakeArray_typespec();
-          int size;
+          int32_t size;
           VectorOfrange *ranges =
               compileRanges(component, fC, Unpacked_dimension, compileDesign,
                             nullptr, instance, reduce, size, false);
@@ -5115,7 +5116,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             uint64_t ind = (uint64_t)eval.get_value(invalidValue, index);
             if (invalidValue == false && type == uhdmoperation) {
               operation *op = (operation *)st;
-              int opType = op->VpiOpType();
+              int32_t opType = op->VpiOpType();
               if (opType == vpiAssignmentPatternOp) {
                 VectorOfany *operands = op->Operands();
                 if (ind < operands->size()) {
@@ -5263,15 +5264,12 @@ int64_t CompileHelper::getValue(bool &validValue, DesignComponent *component,
   return result;
 }
 
-void CompileHelper::reorderAssignmentPattern(DesignComponent *mod,
-                                             const UHDM::any *lhs,
-                                             UHDM::any *rhs,
-                                             CompileDesign *compileDesign,
-                                             ValuedComponentI *instance,
-                                             unsigned int level) {
+void CompileHelper::reorderAssignmentPattern(
+    DesignComponent *mod, const UHDM::any *lhs, UHDM::any *rhs,
+    CompileDesign *compileDesign, ValuedComponentI *instance, uint32_t level) {
   if (rhs->UhdmType() != uhdmoperation) return;
   operation *op = (operation *)rhs;
-  int optype = op->VpiOpType();
+  int32_t optype = op->VpiOpType();
   if (optype == vpiConditionOp) {
     bool invalidValue = false;
     expr *tmp = reduceExpr(op, invalidValue, mod, compileDesign, instance,

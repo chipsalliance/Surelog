@@ -45,19 +45,19 @@ PathId LogListener::getLogFileId() const {
   return fileId;
 }
 
-void LogListener::setMaxQueuedMessageCount(int count) {
+void LogListener::setMaxQueuedMessageCount(int32_t count) {
   std::scoped_lock<std::mutex> lock(mutex);
   maxQueuedMessageCount = count;
 }
 
-int LogListener::getMaxQueuedMessageCount() const {
+int32_t LogListener::getMaxQueuedMessageCount() const {
   // Lock unnecessary here ...
   return maxQueuedMessageCount;
 }
 
-int LogListener::getQueuedMessageCount() const {
+int32_t LogListener::getQueuedMessageCount() const {
   std::scoped_lock<std::mutex> lock(mutex);
-  return static_cast<int>(queued.size());
+  return static_cast<int32_t>(queued.size());
 }
 
 void LogListener::enqueue(std::string_view message) {
