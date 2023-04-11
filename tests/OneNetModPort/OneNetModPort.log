@@ -594,6 +594,17 @@ design: (work@TOP)
       \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
   |vpiRefModule:
   \_ref_module: work@middle (middle1), line:6:10, endln:6:17
+    |vpiName:middle1
+    |vpiDefName:work@middle
+    |vpiActual:
+    \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:22:1, endln:24:10
+    |vpiPort:
+    \_port: , line:6:18, endln:6:24
+      |vpiHighConn:
+      \_ref_obj: (conntb), line:6:18, endln:6:24
+        |vpiName:conntb
+        |vpiActual:
+        \_logic_net: (conntb)
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:22:1, endln:24:10
   |vpiParent:
@@ -624,6 +635,38 @@ design: (work@TOP)
       |vpiIsModPort:1
   |vpiRefModule:
   \_ref_module: work@SUB (sub1), line:23:7, endln:23:11
+    |vpiName:sub1
+    |vpiDefName:work@SUB
+    |vpiActual:
+    \_module_inst: work@SUB (work@SUB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:26:1, endln:28:10
+    |vpiPort:
+    \_port: (inp), line:23:12, endln:23:28
+      |vpiName:inp
+      |vpiHighConn:
+      \_hier_path: (intf.drive), line:23:17, endln:23:27
+        |vpiName:intf.drive
+        |vpiActual:
+        \_ref_obj: (intf), line:23:17, endln:23:21
+          |vpiParent:
+          \_hier_path: (intf.drive), line:23:17, endln:23:27
+          |vpiName:intf
+        |vpiActual:
+        \_ref_obj: (drive), line:23:22, endln:23:27
+          |vpiName:drive
+    |vpiPort:
+    \_port: (out), line:23:30, endln:23:48
+      |vpiName:out
+      |vpiHighConn:
+      \_hier_path: (intf.observe), line:23:35, endln:23:47
+        |vpiName:intf.observe
+        |vpiActual:
+        \_ref_obj: (intf), line:23:35, endln:23:39
+          |vpiParent:
+          \_hier_path: (intf.observe), line:23:35, endln:23:47
+          |vpiName:intf
+        |vpiActual:
+        \_ref_obj: (observe), line:23:40, endln:23:47
+          |vpiName:observe
 |uhdmtopModules:
 \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:15:1, endln:19:10
   |vpiName:work@TOP

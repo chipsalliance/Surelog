@@ -377,6 +377,27 @@ design: (work@dut)
       |vpiSigned:1
   |vpiRefModule:
   \_ref_module: work@mod (m), line:12:8, endln:12:9
+    |vpiName:m
+    |vpiDefName:work@mod
+    |vpiActual:
+    \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
+    |vpiPort:
+    \_port: (struct_i), line:12:10, endln:12:38
+      |vpiName:struct_i
+      |vpiHighConn:
+      \_bit_select: (struct_array), line:12:20, endln:12:37
+        |vpiParent:
+        \_ref_obj: (struct_array)
+          |vpiName:struct_array
+        |vpiName:struct_array
+        |vpiIndex:
+        \_ref_obj: (struct_array.sel), line:12:33, endln:12:36
+          |vpiParent:
+          \_bit_select: (struct_array), line:12:20, endln:12:37
+          |vpiName:sel
+          |vpiFullName:struct_array.sel
+          |vpiActual:
+          \_int_var: (work@dut.sel), line:9:22, endln:9:25
 |uhdmallModules:
 \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
   |vpiParent:

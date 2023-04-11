@@ -948,6 +948,18 @@ design: (work@foo)
     \_logic_typespec: , line:9:28, endln:9:32
   |vpiRefModule:
   \_ref_module: work@bar (bar_instance_1), line:11:7, endln:11:21
+    |vpiName:bar_instance_1
+    |vpiDefName:work@bar
+    |vpiActual:
+    \_module_inst: work@bar (work@bar), file:${SURELOG_DIR}/tests/Attributes2/dut.sv, line:2:1, endln:5:10
+    |vpiPort:
+    \_port: (clk), line:11:24, endln:11:53
+      |vpiName:clk
+      |vpiHighConn:
+      \_ref_obj: (clk), line:11:49, endln:11:52
+        |vpiName:clk
+        |vpiActual:
+        \_logic_net: (work@foo.clk), line:8:12, endln:8:15
 |uhdmtopModules:
 \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/Attributes2/dut.sv, line:8:1, endln:12:10
   |vpiName:work@foo

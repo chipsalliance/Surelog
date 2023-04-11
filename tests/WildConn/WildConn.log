@@ -346,7 +346,7 @@ AST_DEBUG_END
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                               5
+constant                                               6
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -360,7 +360,7 @@ logic_typespec                                         8
 logic_var                                              1
 module_inst                                            4
 package                                                2
-port                                                   8
+port                                                   9
 ref_module                                             1
 ref_obj                                               10
 task                                                   9
@@ -371,7 +371,7 @@ task                                                   9
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                               5
+constant                                               6
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
@@ -385,7 +385,7 @@ logic_typespec                                         8
 logic_var                                              1
 module_inst                                            4
 package                                                2
-port                                                  12
+port                                                  13
 ref_module                                             1
 ref_obj                                               16
 task                                                  18
@@ -967,6 +967,16 @@ design: (work@top)
     \_logic_typespec: , line:7:18, endln:7:23
   |vpiRefModule:
   \_ref_module: work@MOD (u1), line:12:7, endln:12:9
+    |vpiName:u1
+    |vpiDefName:work@MOD
+    |vpiActual:
+    \_module_inst: work@MOD (work@MOD), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:1:1, endln:5:10
+    |vpiPort:
+    \_port: , line:14:5, endln:14:7
+      |vpiHighConn:
+      \_constant: , line:14:5, endln:14:7
+        |vpiDecompile:.*
+        |STRING:.*
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildConn/dut.sv, line:7:1, endln:17:10
   |vpiName:work@top
@@ -1116,4 +1126,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/WildConn/dut.sv | ${SURELOG_DIR}/build/regression/WildConn/roundtrip/dut_000.sv | 10 | 17 |
+[roundtrip]: ${SURELOG_DIR}/tests/WildConn/dut.sv | ${SURELOG_DIR}/build/regression/WildConn/roundtrip/dut_000.sv | 9 | 17 |

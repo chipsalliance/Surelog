@@ -2468,6 +2468,7 @@ void CompileHelper::compileHighConn(ModuleDefinition* component,
     ports = s.MakePortVec();
     m->Ports(ports);
   }
+
   while (Port_connection) {
     if (fC->Type(Port_connection) == VObjectType::slOrdered_port_connection) {
       NodeId child = fC->Child(Port_connection);
@@ -2488,6 +2489,14 @@ void CompileHelper::compileHighConn(ModuleDefinition* component,
         formalName = fC->Sibling(formalName);
       }
       if (fC->Type(formalName) == VObjectType::slDotStar) {
+        constant* c = s.MakeConstant();
+        c->VpiValue("STRING:.*");
+        c->VpiDecompile(".*");
+        fC->populateCoreMembers(Port_connection, Port_connection, c);
+        port* p = s.MakePort();
+        fC->populateCoreMembers(Port_connection, Port_connection, p);
+        p->High_conn(c);
+        ports->push_back(p);
       } else {
         NodeId openParens = fC->Sibling(formalName);
         NodeId expId = fC->Sibling(openParens);
