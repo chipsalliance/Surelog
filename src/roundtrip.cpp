@@ -288,7 +288,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return arg;
   }
 
-  void insert(const std::filesystem::path &filepath, uint32_t line,
+  void insert(const std::filesystem::path &filepath, size_t line,
               uint16_t column, std::string_view data) {
     if (filepath.empty() || (line < 1) || (column < 1) || data.empty()) {
       return;
@@ -299,7 +299,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       it = contents.emplace(filepath, file_content_t()).first;
 
     file_content_t &content = it->second;
-    if (static_cast<int32_t>(content.size()) < line) content.resize(line);
+    if (content.size() < line) content.resize(line);
     --line;
     --column;
     if (content[line].length() < (column + data.length()))
@@ -322,7 +322,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     }
   }
 
-  void append(const std::filesystem::path &filepath, uint32_t line,
+  void append(const std::filesystem::path &filepath, size_t line,
               std::string_view data) {
     if (filepath.empty() || (line < 1) || data.empty()) {
       return;
@@ -333,7 +333,7 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       it = contents.emplace(filepath, file_content_t()).first;
 
     file_content_t &content = it->second;
-    if (static_cast<int32_t>(content.size()) < line) content.resize(line);
+    if (content.size() < line) content.resize(line);
     --line;
     content[line].reserve(content[line].size() + data.size());
 
@@ -3558,12 +3558,12 @@ static int32_t run(const std::vector<vpiHandle> &designHandles,
   return 0;
 }
 
-static int32_t usage(const char *const progname) {
+static int usage(const char *const progname) {
   fprintf(stderr, "Usage: All options identical to surelog.exe.\n");
   return 1;
 }
 
-int32_t main(int32_t argc, const char **argv) {
+int main(int argc, const char **argv) {
   if (argc < 2) return usage(argv[0]);
 
 #if defined(_MSC_VER) && defined(_DEBUG)
