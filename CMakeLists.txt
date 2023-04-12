@@ -498,7 +498,7 @@ add_library(surelog ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
 
 configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/config.h.in ${GENDIR}/include/Surelog/config.h)
-target_compile_options(surelog PRIVATE
+target_compile_options(surelog PUBLIC
   $<IF:$<CXX_COMPILER_ID:MSVC>,/FISurelog/config.h,-include Surelog/config.h>)
 
 if(BUILD_SHARED_LIBS)
