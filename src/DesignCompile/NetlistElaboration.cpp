@@ -1421,6 +1421,24 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       }
     }
   }
+  // Finally any unconnected ports with default value gets assigned the value
+  if (ports) {
+    for (auto p : *ports) {
+      if (p->High_conn() == nullptr) {
+        auto itr = allSignals.find(p->VpiName());
+        if (itr != allSignals.end()) {
+          auto pair = (*itr);
+          if (NodeId defaultId = pair.second->getDefaultValue()) {
+            m_helper.checkForLoops(true);
+            expr* exp = (expr*)m_helper.compileExpression(
+                comp, fC, defaultId, m_compileDesign, nullptr, instance, true);
+            m_helper.checkForLoops(false);
+            p->High_conn(exp);
+          }
+        }
+      }
+    }
+  }
   return true;
 }
 
