@@ -224,7 +224,7 @@ int32_t batchCompilation(const char* argv0, const fs::path& batchFile,
   return returnCode;
 }
 
-int32_t main(int32_t argc, const char** argv) {
+int main(int argc, const char** argv) {
 #if defined(_MSC_VER) && defined(_DEBUG)
   // Redirect cout to file
   std::streambuf* cout_rdbuf = nullptr;
