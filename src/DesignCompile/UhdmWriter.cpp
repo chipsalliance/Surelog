@@ -639,6 +639,11 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
         ref->Actual_group(found->second);
       }
     }
+    if (NodeId defId = orig_port->getDefaultValue()) {
+      any* exp = m_helper.compileExpression(mod, fC, defId, m_compileDesign,
+                                            nullptr, instance, false, false);
+      dest_port->High_conn(exp);
+    }
     if (orig_port->getTypeSpecId() && mod) {
       if (NodeId unpackedDimensions = orig_port->getUnpackedDimension()) {
         int32_t unpackedSize = 0;
