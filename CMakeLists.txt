@@ -499,7 +499,7 @@ set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h
 
 configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/config.h.in ${GENDIR}/include/Surelog/config.h)
 target_compile_options(surelog PUBLIC
-  $<IF:$<CXX_COMPILER_ID:MSVC>,/FISurelog/config.h,-include Surelog/config.h>)
+  "SHELL:$<IF:$<CXX_COMPILER_ID:MSVC>,/FI Surelog/config.h,-include Surelog/config.h>")
 
 if(BUILD_SHARED_LIBS)
   set_property(TARGET surelog PROPERTY POSITION_INDEPENDENT_CODE 1)
