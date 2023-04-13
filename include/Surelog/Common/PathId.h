@@ -49,7 +49,7 @@ class SymbolTable;
 
 class PathId final {
  public:
-#if PATHID_DEBUG_ENABLED
+#if SURELOG_PATHID_DEBUG_ENABLED
   PathId()
       : m_symbolTable(nullptr), m_id(BadRawPathId), m_value(BadRawPath) {}
   PathId(const SymbolTable *const symbolTable, RawPathId id,
@@ -74,7 +74,7 @@ class PathId final {
     if (this != &rhs) {
       m_symbolTable = rhs.m_symbolTable;
       m_id = rhs.m_id;
-#if PATHID_DEBUG_ENABLED
+#if SURELOG_PATHID_DEBUG_ENABLED
       m_value = rhs.m_value;
 #endif
     }
@@ -85,7 +85,7 @@ class PathId final {
 
   explicit operator RawPathId() const { return m_id; }
   explicit operator bool() const { return m_id != BadRawPathId; }
-#if PATHID_DEBUG_ENABLED
+#if SURELOG_PATHID_DEBUG_ENABLED
   explicit operator SymbolId() const { return SymbolId(m_id, m_value); }
 #else
   explicit operator SymbolId() const { return SymbolId(m_id, BadRawPath); }
@@ -97,7 +97,7 @@ class PathId final {
  private:
   const SymbolTable *m_symbolTable = nullptr;
   RawPathId m_id = BadRawPathId;
-#if PATHID_DEBUG_ENABLED
+#if SURELOG_PATHID_DEBUG_ENABLED
   std::string_view m_value;
 #endif
 
