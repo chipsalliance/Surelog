@@ -118,6 +118,7 @@ set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
 if(SURELOG_USE_HOST_UHDM)
   find_package(UHDM REQUIRED)
   find_package(CapnProto)
+  set(UHDM_LIBRARY uhdm::uhdm)
   set(CAPNPROTO_LIBRARY CapnProto::capnp)
 else()
   add_subdirectory(third_party/UHDM)
@@ -542,10 +543,10 @@ if (APPLE)
 endif()
 
 if (NOT QUICK_COMP)
-add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
-add_executable(hellouhdm ${PROJECT_SOURCE_DIR}/src/hellouhdm.cpp)
-add_executable(hellodesign ${PROJECT_SOURCE_DIR}/src/hellodesign.cpp)
-add_executable(roundtrip ${PROJECT_SOURCE_DIR}/src/roundtrip.cpp)
+  add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
+  add_executable(hellouhdm ${PROJECT_SOURCE_DIR}/src/hellouhdm.cpp)
+  add_executable(hellodesign ${PROJECT_SOURCE_DIR}/src/hellodesign.cpp)
+  add_executable(roundtrip ${PROJECT_SOURCE_DIR}/src/roundtrip.cpp)
 endif()
 
 if(MSVC OR WIN32)
@@ -554,10 +555,12 @@ if(MSVC OR WIN32)
   # becaues of /IMPLIB option when linking the executable. Unfortunately, there is no documented
   # way to disable the latter in CMake. So, moving the library to the bin directory (right next to the exe)
   set_target_properties(surelog-bin PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-  set_target_properties(hellouhdm PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-  set_target_properties(hellodesign PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-  set_target_properties(roundtrip PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-  set_target_properties(hellosureworld PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+  if (NOT QUICK_COMP)
+    set_target_properties(hellouhdm PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    set_target_properties(hellodesign PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    set_target_properties(roundtrip PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    set_target_properties(hellosureworld PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+  endif()
 endif()
 
 target_link_libraries(surelog-bin PUBLIC surelog)
@@ -743,8 +746,8 @@ add_custom_command(
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 if (NOT QUICK_COMP)
-add_dependencies(hellosureworld PrecompileOVM)
-add_dependencies(hellosureworld PrecompileUVM)
+  add_dependencies(hellosureworld PrecompileOVM)
+  add_dependencies(hellosureworld PrecompileUVM)
 endif()
 
 include(GNUInstallDirs)
@@ -753,10 +756,12 @@ include(GNUInstallDirs)
 if (QUICK_COMP)
   install(
     TARGETS surelog-bin
+    EXPORT Surelog
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 else()
   install(
     TARGETS surelog-bin roundtrip
+    EXPORT Surelog
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
@@ -940,22 +945,20 @@ if (WIN32)
   endif()
 endif()
 
-install(
-  EXPORT Surelog
-  FILE Surelog.cmake
-  DESTINATION cmake)
-
-
 # Generate cmake config files for reuse by downstream packages
 include(CMakePackageConfigHelpers)
 
 # generate the config file that is includes the exports
 configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configs/Config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake"
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configs/SurelogConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake
   INSTALL_DESTINATION cmake
-  NO_SET_AND_CHECK_MACRO
-  NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+)
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfigVersion.cmake
+  VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
+  COMPATIBILITY SameMajorVersion
+)
 
 configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/configs/Surelog.pc.in
@@ -963,9 +966,15 @@ configure_file(
   @ONLY)
 
 # install the configuration file
+install(EXPORT Surelog
+    FILE SurelogTargets.cmake
+    NAMESPACE surelog::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Surelog
+)
 install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake
-  DESTINATION lib/cmake)
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfigVersion.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Surelog
+)
 
 # install the configuration file
 install(

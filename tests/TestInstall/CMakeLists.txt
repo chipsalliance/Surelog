@@ -21,15 +21,24 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../cmake/modules" ${CMAKE_MODULE_PATH})
+cmake_path(CONVERT "${INSTALL_DIR}" TO_CMAKE_PATH_LIST INSTALL_DIR)
+list(APPEND CMAKE_MODULE_PATH "${INSTALL_DIR}/lib/cmake/")
+list(APPEND CMAKE_MODULE_PATH "${INSTALL_DIR}/lib/cmake/UHDM")
+list(APPEND CMAKE_MODULE_PATH "${INSTALL_DIR}/lib/cmake/Surelog")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../cmake/modules")
 
 # Dependencies
+find_package(Surelog REQUIRED)
 if(SURELOG_USE_HOST_FLATBUFFERS)
   find_package(Flatbuffers REQUIRED)
   set(FLATBUFFERS_LIBRARY flatbuffers::flatbuffers)
 else()
   set(FLATBUFFERS_LIBRARY flatbuffers)
 endif()
+
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+find_package(Threads REQUIRED)
 
 if(SURELOG_USE_HOST_ANTLR)
   find_package(ANTLR REQUIRED)
@@ -40,9 +49,11 @@ endif()
 if(SURELOG_USE_HOST_UHDM)
   find_package(UHDM REQUIRED)
   find_package(CapnProto)
+  set(UHDM_LIBRARY uhdm::uhdm)
   set(CAPNPROTO_LIBRARY CapnProto::capnp)
 else()
   set(UHDM_LIBRARY uhdm)
+  set(UHDM_LIB_DIR "${INSTALL_DIR}/lib/uhdm" "${INSTALL_DIR}/lib64/uhdm")
   set(CAPNPROTO_LIBRARY capnp kj)
 endif()
 
@@ -82,19 +93,20 @@ endif()
 
 add_executable(test_hellosureworld ${PROJECT_SOURCE_DIR}/../../src/hellosureworld.cpp)
 target_include_directories(test_hellosureworld PRIVATE
-  ${INSTALL_DIR}/include/Surelog
-  ${INSTALL_DIR}/include
+  ${SURELOG_INCLUDE_DIRS}
+  ${UHDM_INCLUDE_DIRS}
   ${Python3_INCLUDE_DIRS}
 )
+
 target_link_directories(test_hellosureworld
     PRIVATE ${INSTALL_DIR}/lib
-    PRIVATE ${INSTALL_DIR}/lib/surelog
-    PRIVATE ${INSTALL_DIR}/lib/uhdm
+    PRIVATE ${SURELOG_LIB_DIR}
+    PRIVATE ${UHDM_LIB_DIR}
 )
 
 if (SURELOG_WITH_PYTHON)
   target_link_libraries(test_hellosureworld
-    surelog
+    surelog::surelog
     ${ANTLR_LIBRARY}
     ${FLATBUFFERS_LIBRARY}
     ${UHDM_LIBRARY}
@@ -104,7 +116,7 @@ if (SURELOG_WITH_PYTHON)
 )
 else()
   target_link_libraries(test_hellosureworld
-    surelog
+    surelog::surelog
     ${ANTLR_LIBRARY}
     ${FLATBUFFERS_LIBRARY}
     ${UHDM_LIBRARY}
