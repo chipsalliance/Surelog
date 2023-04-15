@@ -437,7 +437,7 @@ class CompileHelper final {
                             ValuedComponentI* instance);
   void compileHighConn(ModuleDefinition* component, const FileContent* fC,
                        CompileDesign* compileDesign, NodeId id,
-                       UHDM::ref_module* m);
+                       UHDM::VectorOfport* ports);
 
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);

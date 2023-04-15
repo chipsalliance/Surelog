@@ -1270,7 +1270,7 @@ bit_select                                            90
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            3225
+constant                                            3229
 cont_assign                                          163
 design                                                 1
 enum_const                                             5
@@ -1298,11 +1298,11 @@ operation                                           1978
 package                                                2
 param_assign                                         323
 parameter                                            323
-part_select                                          387
-port                                                1143
+part_select                                          391
+port                                                1151
 range                                                771
 ref_module                                            27
-ref_obj                                             3325
+ref_obj                                             3337
 ref_var                                                4
 string_typespec                                      114
 sys_func_call                                         12
@@ -1321,7 +1321,7 @@ bit_select                                           155
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            3258
+constant                                            3262
 cont_assign                                          198
 design                                                 1
 enum_const                                            10
@@ -1349,11 +1349,11 @@ operation                                           2322
 package                                                2
 param_assign                                         323
 parameter                                            323
-part_select                                          552
-port                                                1294
+part_select                                          556
+port                                                1302
 range                                                771
 ref_module                                            27
-ref_obj                                             3961
+ref_obj                                             3973
 ref_var                                                7
 string_typespec                                      114
 sys_func_call                                         12
@@ -25918,6 +25918,60 @@ design: (work@oh_fifo_async)
     |vpiElemTypespec:
     \_module_typespec: (oh_dsync), line:119:4, endln:119:12
       |vpiName:oh_dsync
+    |vpiPort:
+    \_port: (dout), line:121:19, endln:121:52
+      |vpiName:dout
+      |vpiHighConn:
+      \_part_select: , line:121:28, endln:121:51
+        |vpiParent:
+        \_ref_obj: wr_addr_gray_sync (wr_addr_gray_sync), line:121:28, endln:121:45
+          |vpiName:wr_addr_gray_sync
+          |vpiDefName:wr_addr_gray_sync
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_ref_obj: (AW), line:121:46, endln:121:48
+          |vpiName:AW
+        |vpiRightRange:
+        \_constant: , line:121:49, endln:121:50
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiPort:
+    \_port: (clk), line:122:5, endln:122:21
+      |vpiName:clk
+      |vpiHighConn:
+      \_ref_obj: (rd_clk), line:122:14, endln:122:20
+        |vpiName:rd_clk
+        |vpiActual:
+        \_logic_net: (work@oh_fifo_async.rd_clk), line:33:16, endln:33:22
+    |vpiPort:
+    \_port: (nreset), line:123:5, endln:123:24
+      |vpiName:nreset
+      |vpiHighConn:
+      \_ref_obj: (rd_nreset), line:123:14, endln:123:23
+        |vpiName:rd_nreset
+        |vpiActual:
+        \_logic_net: (work@oh_fifo_async.rd_nreset), line:63:11, endln:63:20
+    |vpiPort:
+    \_port: (din), line:124:5, endln:124:33
+      |vpiName:din
+      |vpiHighConn:
+      \_part_select: , line:124:14, endln:124:32
+        |vpiParent:
+        \_ref_obj: wr_addr_gray (wr_addr_gray), line:124:14, endln:124:26
+          |vpiName:wr_addr_gray
+          |vpiDefName:wr_addr_gray
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_ref_obj: (AW), line:124:27, endln:124:29
+          |vpiName:AW
+        |vpiRightRange:
+        \_constant: , line:124:30, endln:124:31
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
   |vpiModuleArray:
   \_module_array: (work@oh_dsync), line:137:4, endln:137:11
     |vpiParent:
@@ -25942,6 +25996,60 @@ design: (work@oh_fifo_async)
     |vpiElemTypespec:
     \_module_typespec: (oh_dsync), line:135:4, endln:135:12
       |vpiName:oh_dsync
+    |vpiPort:
+    \_port: (dout), line:137:19, endln:137:52
+      |vpiName:dout
+      |vpiHighConn:
+      \_part_select: , line:137:28, endln:137:51
+        |vpiParent:
+        \_ref_obj: rd_addr_gray_sync (rd_addr_gray_sync), line:137:28, endln:137:45
+          |vpiName:rd_addr_gray_sync
+          |vpiDefName:rd_addr_gray_sync
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_ref_obj: (AW), line:137:46, endln:137:48
+          |vpiName:AW
+        |vpiRightRange:
+        \_constant: , line:137:49, endln:137:50
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiPort:
+    \_port: (clk), line:138:5, endln:138:21
+      |vpiName:clk
+      |vpiHighConn:
+      \_ref_obj: (wr_clk), line:138:14, endln:138:20
+        |vpiName:wr_clk
+        |vpiActual:
+        \_logic_net: (work@oh_fifo_async.wr_clk), line:25:16, endln:25:22
+    |vpiPort:
+    \_port: (nreset), line:139:5, endln:139:24
+      |vpiName:nreset
+      |vpiHighConn:
+      \_ref_obj: (wr_nreset), line:139:14, endln:139:23
+        |vpiName:wr_nreset
+        |vpiActual:
+        \_logic_net: (work@oh_fifo_async.wr_nreset), line:64:11, endln:64:20
+    |vpiPort:
+    \_port: (din), line:140:5, endln:140:33
+      |vpiName:din
+      |vpiHighConn:
+      \_part_select: , line:140:14, endln:140:32
+        |vpiParent:
+        \_ref_obj: rd_addr_gray (rd_addr_gray), line:140:14, endln:140:26
+          |vpiName:rd_addr_gray
+          |vpiDefName:rd_addr_gray
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_ref_obj: (AW), line:140:27, endln:140:29
+          |vpiName:AW
+        |vpiRightRange:
+        \_constant: , line:140:30, endln:140:31
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
   |vpiContAssign:
   \_cont_assign: , line:88:11, endln:88:40
     |vpiParent:

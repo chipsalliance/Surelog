@@ -2436,7 +2436,9 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
           subModuleArrays = s.MakeModule_arrayVec();
           mod->setModuleArrays(subModuleArrays);
         }
-
+        VectorOfport* ports = s.MakePortVec();
+        mod_array->Ports(ports);
+        compileHighConn(mod, fC, compileDesign, instId, ports);
         subModuleArrays->push_back(mod_array);
       }
     } else {
@@ -2449,8 +2451,10 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
         subModules = s.MakeRef_moduleVec();
         mod->setRefModules(subModules);
       }
+      VectorOfport* ports = s.MakePortVec();
+      m->Ports(ports);
       subModules->push_back(m);
-      compileHighConn(mod, fC, compileDesign, instId, m);
+      compileHighConn(mod, fC, compileDesign, instId, ports);
     }
     hierInstId = fC->Sibling(hierInstId);
   }
@@ -2459,16 +2463,11 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
 void CompileHelper::compileHighConn(ModuleDefinition* component,
                                     const FileContent* fC,
                                     CompileDesign* compileDesign, NodeId instId,
-                                    UHDM::ref_module* m) {
+                                    VectorOfport* ports) {
   NodeId list_of_ports = fC->Sibling(instId);
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Port_connection = fC->Child(list_of_ports);
-  VectorOfport* ports = nullptr;
-  if (Port_connection) {
-    ports = s.MakePortVec();
-    m->Ports(ports);
-  }
-
+  
   while (Port_connection) {
     if (fC->Type(Port_connection) == VObjectType::slOrdered_port_connection) {
       NodeId child = fC->Child(Port_connection);
