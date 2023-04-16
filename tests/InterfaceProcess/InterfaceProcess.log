@@ -131,6 +131,7 @@ logic_net                                              2
 logic_typespec                                         1
 logic_var                                              1
 module_inst                                            3
+ref_module                                             1
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -149,6 +150,7 @@ logic_net                                              2
 logic_typespec                                         1
 logic_var                                              1
 module_inst                                            3
+ref_module                                             1
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceProcess/slpp_all/surelog.uhdm ...
@@ -239,6 +241,12 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiRefModule:
+  \_ref_module: work@sw_test_status_if (u_sw), line:14:22, endln:14:26
+    |vpiName:u_sw
+    |vpiDefName:work@sw_test_status_if
+    |vpiActual:
+    \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
   |vpiName:work@top

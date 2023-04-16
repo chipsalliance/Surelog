@@ -123,6 +123,7 @@ logic_var                                              1
 module_inst                                            5
 port                                                   2
 range                                                  6
+ref_module                                             1
 ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -139,6 +140,7 @@ logic_var                                              1
 module_inst                                            5
 port                                                   3
 range                                                  6
+ref_module                                             1
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfHierPath/slpp_all/surelog.uhdm ...
@@ -234,6 +236,12 @@ design: (work@or_ex)
       |vpiActual:
       \_ref_obj: (a)
         |vpiName:a
+  |vpiRefModule:
+  \_ref_module: work@logic_gate_if (lg), line:12:17, endln:12:19
+    |vpiName:lg
+    |vpiDefName:work@logic_gate_if
+    |vpiActual:
+    \_interface_inst: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
 |uhdmtopModules:
 \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
   |vpiName:work@or_ex

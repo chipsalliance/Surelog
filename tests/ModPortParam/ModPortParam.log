@@ -111,7 +111,7 @@ logic_net                                              2
 modport                                                4
 module_inst                                            5
 port                                                   3
-ref_module                                             1
+ref_module                                             2
 ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -125,7 +125,7 @@ logic_net                                              2
 modport                                                4
 module_inst                                            5
 port                                                   4
-ref_module                                             1
+ref_module                                             2
 ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortParam/slpp_all/surelog.uhdm ...
@@ -189,6 +189,12 @@ design: (work@Core)
   \_design: (work@Core)
   |vpiFullName:work@Core
   |vpiDefName:work@Core
+  |vpiRefModule:
+  \_ref_module: work@PerformanceCounterIF (perfCounterIF), line:14:23, endln:14:36
+    |vpiName:perfCounterIF
+    |vpiDefName:work@PerformanceCounterIF
+    |vpiActual:
+    \_interface_inst: work@PerformanceCounterIF (work@PerformanceCounterIF), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:1:1, endln:6:13
   |vpiRefModule:
   \_ref_module: work@CSR_Unit (csrUnit), line:16:11, endln:16:18
     |vpiName:csrUnit

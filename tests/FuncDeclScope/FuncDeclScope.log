@@ -338,6 +338,7 @@ module_inst                                           10
 operation                                              2
 param_assign                                           6
 parameter                                              6
+ref_module                                             1
 ref_obj                                                6
 return_stmt                                            3
 === UHDM Object Stats End ===
@@ -359,6 +360,7 @@ module_inst                                           10
 operation                                              2
 param_assign                                           6
 parameter                                              6
+ref_module                                             1
 ref_obj                                                7
 return_stmt                                            5
 === UHDM Object Stats End ===
@@ -488,6 +490,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:o
     |vpiFullName:work@top.o
+  |vpiRefModule:
+  \_ref_module: work@intf (interf), line:28:8, endln:28:14
+    |vpiName:interf
+    |vpiDefName:work@intf
+    |vpiActual:
+    \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiName:work@top

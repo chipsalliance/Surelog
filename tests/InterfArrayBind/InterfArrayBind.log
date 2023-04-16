@@ -229,7 +229,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             6
-constant                                              36
+constant                                              38
 cont_assign                                            6
 design                                                 1
 enum_const                                             1
@@ -243,18 +243,20 @@ interface_inst                                         5
 logic_net                                              2
 logic_typespec                                         3
 logic_var                                              2
+module_array                                           1
 module_inst                                            8
-operation                                              7
+module_typespec                                        1
+operation                                              8
 param_assign                                           2
 parameter                                              4
-range                                                  3
-ref_obj                                               18
+range                                                  4
+ref_obj                                               19
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             9
-constant                                              36
+constant                                              38
 cont_assign                                            9
 design                                                 1
 enum_const                                             1
@@ -268,12 +270,14 @@ interface_inst                                         5
 logic_net                                              2
 logic_typespec                                         3
 logic_var                                              2
+module_array                                           1
 module_inst                                            8
-operation                                              7
+module_typespec                                        1
+operation                                              8
 param_assign                                           2
 parameter                                              4
-range                                                  3
-ref_obj                                               27
+range                                                  4
+ref_obj                                               28
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfArrayBind/slpp_all/surelog.uhdm ...
 
@@ -336,6 +340,43 @@ design: (work@soc_tb)
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |vpiName:io_bus_source
     |vpiFullName:work@soc_tb.io_bus_source
+  |vpiModuleArray:
+  \_module_array: (work@io_bus_interface), line:14:22, endln:14:39
+    |vpiParent:
+    \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
+    |vpiName:peripheral_io_bus
+    |vpiFullName:work@io_bus_interface
+    |vpiRange:
+    \_range: , line:14:39, endln:14:62
+      |vpiLeftRange:
+      \_operation: , line:14:40, endln:14:59
+        |vpiParent:
+        \_range: , line:14:39, endln:14:62
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (NUM_PERIPHERALS), line:14:40, endln:14:55
+          |vpiParent:
+          \_operation: , line:14:40, endln:14:59
+          |vpiName:NUM_PERIPHERALS
+        |vpiOperand:
+        \_constant: , line:14:58, endln:14:59
+          |vpiParent:
+          \_operation: , line:14:40, endln:14:59
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:14:60, endln:14:61
+        |vpiParent:
+        \_range: , line:14:39, endln:14:62
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_module_typespec: (io_bus_interface), line:14:5, endln:14:21
+      |vpiName:io_bus_interface
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:16:62
     |vpiParent:
@@ -654,4 +695,4 @@ design: (work@soc_tb)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InterfArrayBind/dut.sv | ${SURELOG_DIR}/build/regression/InterfArrayBind/roundtrip/dut_000.sv | 13 | 26 |
+[roundtrip]: ${SURELOG_DIR}/tests/InterfArrayBind/dut.sv | ${SURELOG_DIR}/build/regression/InterfArrayBind/roundtrip/dut_000.sv | 12 | 26 |
