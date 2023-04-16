@@ -57,16 +57,16 @@ initial                                                1
 interface_inst                                         7
 interface_typespec                                     8
 io_decl                                               24
-logic_net                                             12
+logic_net                                             13
 logic_typespec                                        20
 logic_var                                              8
 modport                                               12
 module_inst                                           13
 operation                                              2
-port                                                  15
+port                                                  16
 program                                                2
-ref_module                                             4
-ref_obj                                               51
+ref_module                                             5
+ref_obj                                               52
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetModPort/slpp_unit/surelog.uhdm ...
@@ -504,6 +504,19 @@ design: (work@TOP)
     |vpiDefName:work@ConnectTB
     |vpiActual:
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:9:1, endln:20:13
+  |vpiRefModule:
+  \_ref_module: work@TESTBENCH (tb), line:18:13, endln:18:15
+    |vpiName:tb
+    |vpiDefName:work@TESTBENCH
+    |vpiActual:
+    \_program: work@TESTBENCH (work@TESTBENCH), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:1:1, endln:12:11
+    |vpiPort:
+    \_port: , line:18:16, endln:18:22
+      |vpiHighConn:
+      \_ref_obj: (conntb), line:18:16, endln:18:22
+        |vpiName:conntb
+        |vpiActual:
+        \_logic_net: (conntb)
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:2:1, endln:7:10
   |vpiParent:
@@ -720,6 +733,10 @@ design: (work@TOP)
         \_interface_typespec: (ConnectTB), line:1:21, endln:1:30
         |vpiName:tb
         |vpiIsModPort:1
+  |vpiNet:
+  \_logic_net: (conntb)
+    |vpiName:conntb
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiInterface:
   \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:3, endln:16:22

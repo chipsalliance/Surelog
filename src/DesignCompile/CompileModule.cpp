@@ -786,7 +786,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slInterface_instantiation:
-        case VObjectType::slModule_instantiation: {
+        case VObjectType::slModule_instantiation:
+        case VObjectType::slProgram_instantiation: {
           if (collectType != CollectType::OTHER) break;
           m_helper.compileInstantiation(m_module, fC, m_compileDesign, id,
                                         m_instance);
@@ -1010,6 +1011,16 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slElaboration_system_task: {
           if (collectType != CollectType::FUNCTION) break;
           m_helper.elaborationSystemTask(m_module, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slInterface_instantiation:
+        case VObjectType::slModule_instantiation:
+        case VObjectType::slProgram_instantiation: {
+          if (collectType != CollectType::OTHER) break;
+          m_helper.compileInstantiation(m_module, fC, m_compileDesign, id,
+                                        m_instance);
+          FileCNodeId fnid(fC, id);
+          m_module->addObject(type, fnid);
           break;
         }
         case VObjectType::slClocking_declaration:
