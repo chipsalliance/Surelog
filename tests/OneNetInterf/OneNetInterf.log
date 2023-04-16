@@ -55,7 +55,7 @@ constant                                              10
 cont_assign                                            1
 delay_control                                          4
 design                                                 1
-hier_path                                              8
+hier_path                                             10
 immediate_assert                                       2
 initial                                                1
 interface_inst                                         7
@@ -64,10 +64,10 @@ logic_net                                             31
 logic_typespec                                        37
 module_inst                                           18
 operation                                              2
-port                                                  35
+port                                                  37
 program                                                2
-ref_module                                             5
-ref_obj                                               65
+ref_module                                             6
+ref_obj                                               69
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetInterf/slpp_unit/surelog.uhdm ...
@@ -666,6 +666,40 @@ design: (work@dut)
         |vpiName:conntb
         |vpiActual:
         \_logic_net: (conntb)
+  |vpiRefModule:
+  \_ref_module: work@TESTBENCH (tb), line:18:13, endln:18:15
+    |vpiName:tb
+    |vpiDefName:work@TESTBENCH
+    |vpiActual:
+    \_program: work@TESTBENCH (work@TESTBENCH), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:1:1, endln:12:11
+    |vpiPort:
+    \_port: (observe), line:18:16, endln:18:38
+      |vpiName:observe
+      |vpiHighConn:
+      \_hier_path: (conntb.con_o), line:18:25, endln:18:37
+        |vpiName:conntb.con_o
+        |vpiActual:
+        \_ref_obj: (conntb), line:18:25, endln:18:31
+          |vpiParent:
+          \_hier_path: (conntb.con_o), line:18:25, endln:18:37
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_o), line:18:32, endln:18:37
+          |vpiName:con_o
+    |vpiPort:
+    \_port: (drive), line:18:39, endln:18:59
+      |vpiName:drive
+      |vpiHighConn:
+      \_hier_path: (conntb.con_i), line:18:46, endln:18:58
+        |vpiName:conntb.con_i
+        |vpiActual:
+        \_ref_obj: (conntb), line:18:46, endln:18:52
+          |vpiParent:
+          \_hier_path: (conntb.con_i), line:18:46, endln:18:58
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_i), line:18:53, endln:18:58
+          |vpiName:con_i
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
   |vpiName:work@dut

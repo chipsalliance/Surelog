@@ -59,7 +59,7 @@ constant                                              10
 cont_assign                                            4
 delay_control                                          4
 design                                                 1
-hier_path                                             22
+hier_path                                             23
 immediate_assert                                       2
 initial                                                1
 interface_inst                                         8
@@ -70,10 +70,10 @@ logic_var                                             10
 modport                                               14
 module_inst                                           16
 operation                                              2
-port                                                  20
+port                                                  21
 program                                                2
-ref_module                                             6
-ref_obj                                               68
+ref_module                                             7
+ref_obj                                               70
 sys_func_call                                          9
 unsupported_typespec                                   8
 === UHDM Object Stats End ===
@@ -604,6 +604,26 @@ design: (work@TOP)
         |vpiActual:
         \_ref_obj: (observe), line:17:41, endln:17:48
           |vpiName:observe
+  |vpiRefModule:
+  \_ref_module: work@TESTBENCH (tb), line:18:13, endln:18:15
+    |vpiName:tb
+    |vpiDefName:work@TESTBENCH
+    |vpiActual:
+    \_program: work@TESTBENCH (work@TESTBENCH), file:${SURELOG_DIR}/tests/OneNetModPortGeneric/tb.v, line:1:1, endln:12:11
+    |vpiPort:
+    \_port: (intf), line:18:16, endln:18:32
+      |vpiName:intf
+      |vpiHighConn:
+      \_hier_path: (conntb.tb), line:18:22, endln:18:31
+        |vpiName:conntb.tb
+        |vpiActual:
+        \_ref_obj: (conntb), line:18:22, endln:18:28
+          |vpiParent:
+          \_hier_path: (conntb.tb), line:18:22, endln:18:31
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (tb), line:18:29, endln:18:31
+          |vpiName:tb
   |vpiRefModule:
   \_ref_module: work@OBSERVER (obs), line:19:12, endln:19:15
     |vpiName:obs
