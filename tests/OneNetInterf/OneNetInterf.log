@@ -64,10 +64,10 @@ logic_net                                             31
 logic_typespec                                        37
 module_inst                                           18
 operation                                              2
-port                                                  31
+port                                                  35
 program                                                2
-ref_module                                             3
-ref_obj                                               61
+ref_module                                             5
+ref_obj                                               65
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetInterf/slpp_unit/surelog.uhdm ...
@@ -518,6 +518,28 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:2:34, endln:2:37
   |vpiRefModule:
+  \_ref_module: work@ConnectTB (conntb), line:3:13, endln:3:19
+    |vpiName:conntb
+    |vpiDefName:work@ConnectTB
+    |vpiActual:
+    \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:7:1, endln:8:13
+    |vpiPort:
+    \_port: (con_i), line:3:20, endln:3:29
+      |vpiName:con_i
+      |vpiHighConn:
+      \_ref_obj: (i), line:3:27, endln:3:28
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (work@dut.i), line:2:24, endln:2:25
+    |vpiPort:
+    \_port: (con_o), line:3:30, endln:3:39
+      |vpiName:con_o
+      |vpiHighConn:
+      \_ref_obj: (o), line:3:37, endln:3:38
+        |vpiName:o
+        |vpiActual:
+        \_logic_net: (work@dut.o), line:2:38, endln:2:39
+  |vpiRefModule:
   \_ref_module: work@middle (middle1), line:4:10, endln:4:17
     |vpiName:middle1
     |vpiDefName:work@middle
@@ -609,6 +631,28 @@ design: (work@dut)
     |vpiName:o
     |vpiFullName:work@tb.o
     |vpiNetType:1
+  |vpiRefModule:
+  \_ref_module: work@ConnectTB (conntb), line:16:13, endln:16:19
+    |vpiName:conntb
+    |vpiDefName:work@ConnectTB
+    |vpiActual:
+    \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:7:1, endln:8:13
+    |vpiPort:
+    \_port: (con_i), line:16:20, endln:16:29
+      |vpiName:con_i
+      |vpiHighConn:
+      \_ref_obj: (i), line:16:27, endln:16:28
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (work@tb.i), line:15:8, endln:15:9
+    |vpiPort:
+    \_port: (con_o), line:16:30, endln:16:39
+      |vpiName:con_o
+      |vpiHighConn:
+      \_ref_obj: (o), line:16:37, endln:16:38
+        |vpiName:o
+        |vpiActual:
+        \_logic_net: (work@tb.o), line:15:10, endln:15:11
   |vpiRefModule:
   \_ref_module: work@middle (dut1), line:17:10, endln:17:14
     |vpiName:dut1

@@ -1224,11 +1224,11 @@ operation                                              7
 package                                                2
 param_assign                                           2
 parameter                                              2
-port                                                  14
+port                                                  15
 program                                                2
 range                                                 43
-ref_module                                             2
-ref_obj                                               44
+ref_module                                             3
+ref_obj                                               45
 sys_func_call                                          1
 task                                                   9
 === UHDM Object Stats End ===
@@ -2107,6 +2107,19 @@ design: (work@interface_modports)
           |vpiActual:
           \_logic_var: (work@interface_modports.clk), line:114:7, endln:114:14
     |vpiAlwaysType:1
+  |vpiRefModule:
+  \_ref_module: work@mem_if (miff), line:119:8, endln:119:12
+    |vpiName:miff
+    |vpiDefName:work@mem_if
+    |vpiActual:
+    \_interface_inst: work@mem_if (work@mem_if), file:${SURELOG_DIR}/tests/InterfaceModPort/top.v, line:26:1, endln:57:13
+    |vpiPort:
+    \_port: , line:119:13, endln:119:16
+      |vpiHighConn:
+      \_ref_obj: (clk), line:119:13, endln:119:16
+        |vpiName:clk
+        |vpiActual:
+        \_logic_var: (work@interface_modports.clk), line:114:7, endln:114:14
   |vpiRefModule:
   \_ref_module: work@memory_ctrl (U_ctrl), line:120:13, endln:120:19
     |vpiName:U_ctrl

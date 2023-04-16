@@ -65,7 +65,7 @@ module_inst                                           13
 operation                                              2
 port                                                  15
 program                                                2
-ref_module                                             2
+ref_module                                             4
 ref_obj                                               51
 sys_func_call                                          9
 === UHDM Object Stats End ===
@@ -498,6 +498,12 @@ design: (work@TOP)
   \_design: (work@TOP)
   |vpiFullName:work@TOP
   |vpiDefName:work@TOP
+  |vpiRefModule:
+  \_ref_module: work@ConnectTB (conntb), line:16:13, endln:16:19
+    |vpiName:conntb
+    |vpiDefName:work@ConnectTB
+    |vpiActual:
+    \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:9:1, endln:20:13
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:2:1, endln:7:10
   |vpiParent:
@@ -592,6 +598,12 @@ design: (work@TOP)
       |vpiFullName:work@dut.o
       |vpiActual:
       \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
+  |vpiRefModule:
+  \_ref_module: work@ConnectTB (conntb), line:5:13, endln:5:19
+    |vpiName:conntb
+    |vpiDefName:work@ConnectTB
+    |vpiActual:
+    \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:9:1, endln:20:13
   |vpiRefModule:
   \_ref_module: work@middle (middle1), line:6:10, endln:6:17
     |vpiName:middle1

@@ -63,11 +63,11 @@ module_inst                                           23
 operation                                             46
 param_assign                                          13
 parameter                                             13
-port                                                  27
+port                                                  31
 program                                                2
 range                                                 44
-ref_module                                             3
-ref_obj                                               62
+ref_module                                             5
+ref_obj                                               66
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetRange/slpp_unit/surelog.uhdm ...
@@ -642,6 +642,28 @@ design: (work@TOP)
     |vpiFullName:work@TOP.o
     |vpiNetType:1
   |vpiRefModule:
+  \_ref_module: work@ConnectTB (conntb), line:20:22, endln:20:28
+    |vpiName:conntb
+    |vpiDefName:work@ConnectTB
+    |vpiActual:
+    \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:8:1, endln:9:13
+    |vpiPort:
+    \_port: (con_i), line:20:29, endln:20:38
+      |vpiName:con_i
+      |vpiHighConn:
+      \_ref_obj: (i), line:20:36, endln:20:37
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (work@TOP.i), line:18:20, endln:18:21
+    |vpiPort:
+    \_port: (con_o), line:20:39, endln:20:48
+      |vpiName:con_o
+      |vpiHighConn:
+      \_ref_obj: (o), line:20:46, endln:20:47
+        |vpiName:o
+        |vpiActual:
+        \_logic_net: (work@TOP.o), line:19:20, endln:19:21
+  |vpiRefModule:
   \_ref_module: work@dut (dut1), line:21:16, endln:21:20
     |vpiName:dut1
     |vpiDefName:work@dut
@@ -798,6 +820,28 @@ design: (work@TOP)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiRefModule:
+  \_ref_module: work@ConnectTB (conntb), line:3:30, endln:3:36
+    |vpiName:conntb
+    |vpiDefName:work@ConnectTB
+    |vpiActual:
+    \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:8:1, endln:9:13
+    |vpiPort:
+    \_port: (con_i), line:3:37, endln:3:46
+      |vpiName:con_i
+      |vpiHighConn:
+      \_ref_obj: (i), line:3:44, endln:3:45
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (work@TOP.dut1.i), line:2:59, endln:2:60
+    |vpiPort:
+    \_port: (con_o), line:3:47, endln:3:56
+      |vpiName:con_o
+      |vpiHighConn:
+      \_ref_obj: (o), line:3:54, endln:3:55
+        |vpiName:o
+        |vpiActual:
+        \_logic_net: (work@TOP.dut1.o), line:2:85, endln:2:86
   |vpiRefModule:
   \_ref_module: work@middle (middle1), line:4:27, endln:4:34
     |vpiName:middle1

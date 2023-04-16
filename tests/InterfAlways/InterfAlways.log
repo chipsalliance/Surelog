@@ -114,8 +114,9 @@ int_var                                                2
 interface_inst                                         3
 logic_net                                              2
 module_inst                                            3
-port                                                   4
-ref_obj                                                6
+port                                                   5
+ref_module                                             1
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -130,8 +131,9 @@ int_var                                                2
 interface_inst                                         3
 logic_net                                              2
 module_inst                                            3
-port                                                   5
-ref_obj                                                7
+port                                                   6
+ref_module                                             1
+ref_obj                                                8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfAlways/slpp_all/surelog.uhdm ...
 
@@ -224,6 +226,20 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:7:19, endln:7:22
       |vpiSigned:1
+  |vpiRefModule:
+  \_ref_module: work@sw_test_status_if (u_sw), line:8:22, endln:8:26
+    |vpiName:u_sw
+    |vpiDefName:work@sw_test_status_if
+    |vpiActual:
+    \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:1:1, endln:5:13
+    |vpiPort:
+    \_port: (x), line:8:27, endln:8:32
+      |vpiName:x
+      |vpiHighConn:
+      \_ref_obj: (o), line:8:30, endln:8:31
+        |vpiName:o
+        |vpiActual:
+        \_int_var: (work@top.o), line:7:23, endln:7:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:7:1, endln:9:10
   |vpiName:work@top

@@ -204,10 +204,10 @@ module_inst                                            9
 operation                                              5
 param_assign                                           2
 parameter                                              2
-port                                                   6
+port                                                   7
 range                                                  4
-ref_module                                             2
-ref_obj                                                8
+ref_module                                             3
+ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -226,10 +226,10 @@ module_inst                                            9
 operation                                              5
 param_assign                                           2
 parameter                                              2
-port                                                   7
+port                                                   8
 range                                                  4
-ref_module                                             2
-ref_obj                                               10
+ref_module                                             3
+ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceElab/slpp_all/surelog.uhdm ...
 
@@ -343,6 +343,19 @@ design: (work@testharness)
   \_design: (work@testharness)
   |vpiFullName:work@peripherals
   |vpiDefName:work@peripherals
+  |vpiRefModule:
+  \_ref_module: work@REG_BUS (reg_bus), line:25:7, endln:25:14
+    |vpiName:reg_bus
+    |vpiDefName:work@REG_BUS
+    |vpiActual:
+    \_interface_inst: work@REG_BUS (work@REG_BUS), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:2:1, endln:13:13
+    |vpiPort:
+    \_port: , line:25:16, endln:25:21
+      |vpiHighConn:
+      \_ref_obj: (clk_i), line:25:16, endln:25:21
+        |vpiName:clk_i
+        |vpiActual:
+        \_logic_net: (work@testharness.i_peripherals.clk_i), line:25:16, endln:25:21
   |vpiRefModule:
   \_ref_module: work@apb_to_reg (i_apb_to_reg), line:27:12, endln:27:24
     |vpiName:i_apb_to_reg

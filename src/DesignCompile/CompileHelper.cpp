@@ -2467,7 +2467,7 @@ void CompileHelper::compileHighConn(ModuleDefinition* component,
   NodeId list_of_ports = fC->Sibling(instId);
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Port_connection = fC->Child(list_of_ports);
-  
+
   while (Port_connection) {
     if (fC->Type(Port_connection) == VObjectType::slOrdered_port_connection) {
       NodeId child = fC->Child(Port_connection);
