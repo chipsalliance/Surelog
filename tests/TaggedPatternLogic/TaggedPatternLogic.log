@@ -125,11 +125,11 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              37
+constant                                              33
 design                                                 1
 logic_typespec                                        18
 module_inst                                            4
-operation                                             17
+operation                                             14
 param_assign                                           2
 parameter                                              3
 range                                                  6
@@ -141,11 +141,11 @@ typespec_member                                       18
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              37
+constant                                              33
 design                                                 1
 logic_typespec                                        18
 module_inst                                            4
-operation                                             17
+operation                                             14
 param_assign                                           2
 parameter                                              3
 range                                                  6
@@ -459,18 +459,28 @@ design: (work@top)
           |vpiRefEndColumnNo:10
       |vpiOpType:75
       |vpiOperand:
-      \_operation: 
-        |vpiOpType:33
+      \_operation: , line:9:11, endln:9:25
+        |vpiParent:
+        \_tagged_pattern: , line:9:11, endln:9:25
+        |vpiSize:2
+        |vpiOpType:75
         |vpiOperand:
-        \_constant: , line:9:22, endln:9:24
+        \_tagged_pattern: , line:9:22, endln:9:24
           |vpiParent:
-          \_tagged_pattern: , line:9:22, endln:9:24
-          |vpiDecompile:'1
-          |vpiSize:-1
-          |BIN:1
-          |vpiConstType:3
-        |vpiOperand:
-        \_constant: , line:9:22, endln:9:24
+          \_operation: , line:9:11, endln:9:25
+          |vpiPattern:
+          \_constant: , line:9:22, endln:9:24
+            |vpiParent:
+            \_tagged_pattern: , line:9:22, endln:9:24
+            |vpiDecompile:'1
+            |vpiSize:-1
+            |BIN:1
+            |vpiConstType:3
+          |vpiTypespec:
+          \_string_typespec: (default), line:9:13, endln:9:20
+            |vpiParent:
+            \_tagged_pattern: , line:9:22, endln:9:24
+            |vpiName:default
       |vpiOperand:
       \_constant: , line:10:10, endln:10:14
         |vpiParent:

@@ -337,7 +337,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             189
+constant                                             193
 design                                                 1
 enum_const                                           132
 enum_typespec                                         44
@@ -346,7 +346,7 @@ int_typespec                                          63
 logic_net                                              1
 logic_typespec                                        44
 module_inst                                           10
-operation                                             43
+operation                                             47
 package                                                6
 param_assign                                          48
 parameter                                             60
@@ -354,16 +354,16 @@ port                                                   3
 range                                                 44
 ref_module                                             1
 ref_obj                                               23
-string_typespec                                       56
+string_typespec                                       58
 struct_typespec                                       44
 struct_var                                             1
-tagged_pattern                                        56
+tagged_pattern                                        58
 typespec_member                                       66
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             191
+constant                                             195
 design                                                 1
 enum_const                                           132
 enum_typespec                                         44
@@ -372,7 +372,7 @@ int_typespec                                          63
 logic_net                                              1
 logic_typespec                                        44
 module_inst                                           10
-operation                                             45
+operation                                             49
 package                                                6
 param_assign                                          48
 parameter                                             60
@@ -380,10 +380,10 @@ port                                                   4
 range                                                 44
 ref_module                                             1
 ref_obj                                               24
-string_typespec                                       56
+string_typespec                                       58
 struct_typespec                                       44
 struct_var                                             1
-tagged_pattern                                        56
+tagged_pattern                                        58
 typespec_member                                       66
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssignmentPatternInAssignmentPattern/slpp_all/surelog.uhdm ...
@@ -2859,27 +2859,15 @@ design: (work@top)
         |vpiConstType:7
       |vpiOperand:
       \_operation: , line:30:15, endln:30:42
-        |vpiParent:
-        \_tagged_pattern: , line:30:15, endln:30:42
-        |vpiSize:4
         |vpiOpType:75
         |vpiOperand:
-        \_tagged_pattern: , line:30:31, endln:30:40
+        \_constant: , line:30:31, endln:30:40
           |vpiParent:
-          \_operation: , line:30:15, endln:30:42
-          |vpiPattern:
-          \_constant: , line:30:31, endln:30:40
-            |vpiParent:
-            \_tagged_pattern: , line:30:31, endln:30:40
-            |vpiDecompile:4'h6
-            |vpiSize:4
-            |HEX:6
-            |vpiConstType:5
-          |vpiTypespec:
-          \_string_typespec: (en), line:30:18, endln:30:20
-            |vpiParent:
-            \_tagged_pattern: , line:30:31, endln:30:40
-            |vpiName:en
+          \_tagged_pattern: , line:30:31, endln:30:40
+          |vpiDecompile:4'h6
+          |vpiSize:4
+          |HEX:6
+          |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@top.HwDataAttr), line:28:32, endln:28:42
   |vpiTypedef:
@@ -3372,27 +3360,15 @@ design: (work@top)
           |vpiConstType:7
         |vpiOperand:
         \_operation: , line:30:15, endln:30:42
-          |vpiParent:
-          \_tagged_pattern: , line:30:15, endln:30:42
-          |vpiSize:4
           |vpiOpType:75
           |vpiOperand:
-          \_tagged_pattern: , line:30:31, endln:30:40
+          \_constant: , line:30:31, endln:30:40
             |vpiParent:
-            \_operation: , line:30:15, endln:30:42
-            |vpiPattern:
-            \_constant: , line:30:31, endln:30:40
-              |vpiParent:
-              \_tagged_pattern: , line:30:31, endln:30:40
-              |vpiDecompile:4'h6
-              |vpiSize:4
-              |HEX:6
-              |vpiConstType:5
-            |vpiTypespec:
-            \_string_typespec: (en), line:30:18, endln:30:20
-              |vpiParent:
-              \_tagged_pattern: , line:30:31, endln:30:40
-              |vpiName:en
+            \_tagged_pattern: , line:30:31, endln:30:40
+            |vpiDecompile:4'h6
+            |vpiSize:4
+            |HEX:6
+            |vpiConstType:5
       |vpiLhs:
       \_parameter: (work@top.f.HwDataAttr), line:28:32, endln:28:42
     |vpiTypedef:
@@ -3596,22 +3572,13 @@ design: (work@top)
           |vpiSize:4
           |vpiOpType:75
           |vpiOperand:
-          \_tagged_pattern: , line:30:31, endln:30:40
+          \_constant: , line:30:31, endln:30:40
             |vpiParent:
             \_operation: , line:30:15, endln:30:42
-            |vpiPattern:
-            \_constant: , line:30:31, endln:30:40
-              |vpiParent:
-              \_tagged_pattern: , line:30:31, endln:30:40
-              |vpiDecompile:4'h6
-              |vpiSize:4
-              |HEX:6
-              |vpiConstType:5
-            |vpiTypespec:
-            \_string_typespec: (en), line:30:18, endln:30:20
-              |vpiParent:
-              \_tagged_pattern: , line:30:31, endln:30:40
-              |vpiName:en
+            |vpiDecompile:4'h6
+            |vpiSize:4
+            |HEX:6
+            |vpiConstType:5
       |vpiLowConn:
       \_ref_obj: (work@top.f.DATA_REG), line:42:8, endln:42:16
         |vpiParent:
