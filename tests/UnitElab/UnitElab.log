@@ -13591,7 +13591,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-gate                                                   5
+gate                                                  10
 gen_scope                                           2426
 gen_scope_array                                     2426
 int_typespec                                        1219
@@ -14408,6 +14408,8 @@ design: (work@bottom1)
   |vpiDefName:work@small_top
   |vpiRefModule:
   \_ref_module: work@small_test (u1), line:2:24, endln:2:26
+    |vpiParent:
+    \_module_inst: work@small_top (work@small_top), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:1:1, endln:3:10
     |vpiName:u1
     |vpiDefName:work@small_test
     |vpiActual:
@@ -14496,6 +14498,20 @@ design: (work@bottom1)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@test.b), line:35:16, endln:35:17
+  |vpiPrimitive:
+  \_gate: (work@test.u0), line:39:7, endln:39:14
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
+    |vpiName:u0
+    |vpiFullName:work@test.u0
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@test.u4), line:58:6, endln:58:13
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
+    |vpiName:u4
+    |vpiFullName:work@test.u4
+    |vpiPrimType:1
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:26:1, endln:31:10
   |vpiParent:

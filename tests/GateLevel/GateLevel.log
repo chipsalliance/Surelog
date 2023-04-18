@@ -785,7 +785,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-gate                                                  13
+gate                                                  23
 int_typespec                                           9
 int_var                                                4
 io_decl                                               11
@@ -813,7 +813,7 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
-gate                                                  13
+gate                                                  36
 int_typespec                                           9
 int_var                                                4
 io_decl                                               22
@@ -821,12 +821,12 @@ logic_net                                             30
 logic_typespec                                        15
 logic_var                                              1
 module_inst                                            7
-operation                                             15
+operation                                             30
 package                                                2
 port                                                  76
-prim_term                                             40
-ref_obj                                               77
-switch_tran                                            1
+prim_term                                             80
+ref_obj                                              118
+switch_tran                                            2
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GateLevel/slpp_all/surelog.uhdm ...
@@ -1536,6 +1536,69 @@ design: (work@LogicGates)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@LogicGates.y10), line:1:53, endln:1:56
+  |vpiPrimitive:
+  \_gate: (work@LogicGates), line:5:6, endln:5:14
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiFullName:work@LogicGates
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@LogicGates), line:6:5, endln:6:13
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiFullName:work@LogicGates
+    |vpiPrimType:4
+  |vpiPrimitive:
+  \_gate: (work@LogicGates), line:7:6, endln:7:12
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiFullName:work@LogicGates
+    |vpiPrimType:8
+  |vpiPrimitive:
+  \_gate: (work@LogicGates), line:8:7, endln:8:15
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiFullName:work@LogicGates
+    |vpiPrimType:2
+  |vpiPrimitive:
+  \_gate: (work@LogicGates), line:9:6, endln:9:14
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiFullName:work@LogicGates
+    |vpiPrimType:3
+  |vpiPrimitive:
+  \_gate: (work@LogicGates), line:10:6, endln:10:14
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiFullName:work@LogicGates
+    |vpiPrimType:5
+  |vpiPrimitive:
+  \_gate: (work@LogicGates), line:11:7, endln:11:15
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiFullName:work@LogicGates
+    |vpiPrimType:6
+  |vpiPrimitive:
+  \_gate: (work@LogicGates.a1), line:13:14, endln:13:25
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiName:a1
+    |vpiFullName:work@LogicGates.a1
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@LogicGates.a2), line:14:13, endln:14:31
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiName:a2
+    |vpiFullName:work@LogicGates.a2
+    |vpiPrimType:4
+  |vpiPrimitive:
+  \_gate: (work@LogicGates.a3), line:15:25, endln:15:38
+    |vpiParent:
+    \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
+    |vpiName:a3
+    |vpiFullName:work@LogicGates.a3
+    |vpiPrimType:2
 |uhdmtopModules:
 \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiName:work@LogicGates
@@ -1907,7 +1970,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y1), line:5:7, endln:5:9
         |vpiParent:
-        \_gate: work@and (work@LogicGates.), line:5:6, endln:5:14
+        \_prim_term: , line:5:7, endln:5:9
         |vpiName:y1
         |vpiFullName:work@LogicGates.y1
         |vpiActual:
@@ -1921,7 +1984,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:5:10, endln:5:11
         |vpiParent:
-        \_gate: work@and (work@LogicGates.), line:5:6, endln:5:14
+        \_prim_term: , line:5:10, endln:5:11
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -1935,7 +1998,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:5:12, endln:5:13
         |vpiParent:
-        \_gate: work@and (work@LogicGates.), line:5:6, endln:5:14
+        \_prim_term: , line:5:12, endln:5:13
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -1955,7 +2018,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y2), line:6:6, endln:6:8
         |vpiParent:
-        \_gate: work@or (work@LogicGates.), line:6:5, endln:6:13
+        \_prim_term: , line:6:6, endln:6:8
         |vpiName:y2
         |vpiFullName:work@LogicGates.y2
         |vpiActual:
@@ -1969,7 +2032,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:6:9, endln:6:10
         |vpiParent:
-        \_gate: work@or (work@LogicGates.), line:6:5, endln:6:13
+        \_prim_term: , line:6:9, endln:6:10
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -1983,7 +2046,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:6:11, endln:6:12
         |vpiParent:
-        \_gate: work@or (work@LogicGates.), line:6:5, endln:6:13
+        \_prim_term: , line:6:11, endln:6:12
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2003,7 +2066,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y3), line:7:7, endln:7:9
         |vpiParent:
-        \_gate: work@not (work@LogicGates.), line:7:6, endln:7:12
+        \_prim_term: , line:7:7, endln:7:9
         |vpiName:y3
         |vpiFullName:work@LogicGates.y3
         |vpiActual:
@@ -2017,7 +2080,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:7:10, endln:7:11
         |vpiParent:
-        \_gate: work@not (work@LogicGates.), line:7:6, endln:7:12
+        \_prim_term: , line:7:10, endln:7:11
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2037,7 +2100,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y4), line:8:8, endln:8:10
         |vpiParent:
-        \_gate: work@nand (work@LogicGates.), line:8:7, endln:8:15
+        \_prim_term: , line:8:8, endln:8:10
         |vpiName:y4
         |vpiFullName:work@LogicGates.y4
         |vpiActual:
@@ -2051,7 +2114,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:8:11, endln:8:12
         |vpiParent:
-        \_gate: work@nand (work@LogicGates.), line:8:7, endln:8:15
+        \_prim_term: , line:8:11, endln:8:12
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2065,7 +2128,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:8:13, endln:8:14
         |vpiParent:
-        \_gate: work@nand (work@LogicGates.), line:8:7, endln:8:15
+        \_prim_term: , line:8:13, endln:8:14
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2085,7 +2148,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y5), line:9:7, endln:9:9
         |vpiParent:
-        \_gate: work@nor (work@LogicGates.), line:9:6, endln:9:14
+        \_prim_term: , line:9:7, endln:9:9
         |vpiName:y5
         |vpiFullName:work@LogicGates.y5
         |vpiActual:
@@ -2099,7 +2162,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:9:10, endln:9:11
         |vpiParent:
-        \_gate: work@nor (work@LogicGates.), line:9:6, endln:9:14
+        \_prim_term: , line:9:10, endln:9:11
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2113,7 +2176,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:9:12, endln:9:13
         |vpiParent:
-        \_gate: work@nor (work@LogicGates.), line:9:6, endln:9:14
+        \_prim_term: , line:9:12, endln:9:13
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2133,7 +2196,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y6), line:10:7, endln:10:9
         |vpiParent:
-        \_gate: work@xor (work@LogicGates.), line:10:6, endln:10:14
+        \_prim_term: , line:10:7, endln:10:9
         |vpiName:y6
         |vpiFullName:work@LogicGates.y6
         |vpiActual:
@@ -2147,7 +2210,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:10:10, endln:10:11
         |vpiParent:
-        \_gate: work@xor (work@LogicGates.), line:10:6, endln:10:14
+        \_prim_term: , line:10:10, endln:10:11
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2161,7 +2224,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:10:12, endln:10:13
         |vpiParent:
-        \_gate: work@xor (work@LogicGates.), line:10:6, endln:10:14
+        \_prim_term: , line:10:12, endln:10:13
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2181,7 +2244,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y7), line:11:8, endln:11:10
         |vpiParent:
-        \_gate: work@xnor (work@LogicGates.), line:11:7, endln:11:15
+        \_prim_term: , line:11:8, endln:11:10
         |vpiName:y7
         |vpiFullName:work@LogicGates.y7
         |vpiActual:
@@ -2195,7 +2258,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:11:11, endln:11:12
         |vpiParent:
-        \_gate: work@xnor (work@LogicGates.), line:11:7, endln:11:15
+        \_prim_term: , line:11:11, endln:11:12
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2209,7 +2272,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:11:13, endln:11:14
         |vpiParent:
-        \_gate: work@xnor (work@LogicGates.), line:11:7, endln:11:15
+        \_prim_term: , line:11:13, endln:11:14
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2236,7 +2299,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y8), line:13:18, endln:13:20
         |vpiParent:
-        \_gate: work@and (work@LogicGates.a1), line:13:14, endln:13:25
+        \_prim_term: , line:13:18, endln:13:20
         |vpiName:y8
         |vpiFullName:work@LogicGates.y8
         |vpiActual:
@@ -2250,7 +2313,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:13:21, endln:13:22
         |vpiParent:
-        \_gate: work@and (work@LogicGates.a1), line:13:14, endln:13:25
+        \_prim_term: , line:13:21, endln:13:22
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2264,7 +2327,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:13:23, endln:13:24
         |vpiParent:
-        \_gate: work@and (work@LogicGates.a1), line:13:14, endln:13:25
+        \_prim_term: , line:13:23, endln:13:24
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2279,9 +2342,13 @@ design: (work@LogicGates)
     |vpiPrimType:4
     |vpiDelay:
     \_operation: , line:14:6, endln:14:12
+      |vpiParent:
+      \_gate: work@or (work@LogicGates.a2), line:14:13, endln:14:31
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:14:8, endln:14:9
+        |vpiParent:
+        \_operation: , line:14:6, endln:14:12
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:14:8, endln:14:9
@@ -2291,6 +2358,8 @@ design: (work@LogicGates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:14:10, endln:14:11
+        |vpiParent:
+        \_operation: , line:14:6, endln:14:12
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:14:10, endln:14:11
@@ -2306,7 +2375,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.y9), line:14:17, endln:14:19
         |vpiParent:
-        \_gate: work@or (work@LogicGates.a2), line:14:13, endln:14:31
+        \_prim_term: , line:14:17, endln:14:19
         |vpiName:y9
         |vpiFullName:work@LogicGates.y9
         |vpiActual:
@@ -2320,7 +2389,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:14:20, endln:14:21
         |vpiParent:
-        \_gate: work@or (work@LogicGates.a2), line:14:13, endln:14:31
+        \_prim_term: , line:14:20, endln:14:21
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2334,7 +2403,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:14:22, endln:14:23
         |vpiParent:
-        \_gate: work@or (work@LogicGates.a2), line:14:13, endln:14:31
+        \_prim_term: , line:14:22, endln:14:23
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2348,7 +2417,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_operation: , line:14:25, endln:14:30
         |vpiParent:
-        \_gate: work@or (work@LogicGates.a2), line:14:13, endln:14:31
+        \_prim_term: , line:14:25, endln:14:30
         |vpiOpType:29
         |vpiOperand:
         \_ref_obj: (work@LogicGates.a2.a), line:14:25, endln:14:26
@@ -2376,9 +2445,13 @@ design: (work@LogicGates)
     |vpiPrimType:2
     |vpiDelay:
     \_operation: , line:15:8, endln:15:23
+      |vpiParent:
+      \_gate: work@nand (work@LogicGates.a3), line:15:25, endln:15:38
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:15:10, endln:15:15
+        |vpiParent:
+        \_operation: , line:15:8, endln:15:23
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:15:10, endln:15:11
@@ -2400,6 +2473,8 @@ design: (work@LogicGates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:15:17, endln:15:22
+        |vpiParent:
+        \_operation: , line:15:8, endln:15:23
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:15:17, endln:15:18
@@ -2427,7 +2502,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.nn), line:15:29, endln:15:31
         |vpiParent:
-        \_gate: work@nand (work@LogicGates.a3), line:15:25, endln:15:38
+        \_prim_term: , line:15:29, endln:15:31
         |vpiName:nn
         |vpiFullName:work@LogicGates.nn
         |vpiActual:
@@ -2441,7 +2516,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:15:33, endln:15:34
         |vpiParent:
-        \_gate: work@nand (work@LogicGates.a3), line:15:25, endln:15:38
+        \_prim_term: , line:15:33, endln:15:34
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2455,7 +2530,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:15:36, endln:15:37
         |vpiParent:
-        \_gate: work@nand (work@LogicGates.a3), line:15:25, endln:15:38
+        \_prim_term: , line:15:36, endln:15:37
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2470,9 +2545,13 @@ design: (work@LogicGates)
     |vpiPrimType:9
     |vpiDelay:
     \_operation: , line:16:10, endln:16:20
+      |vpiParent:
+      \_gate: work@bufif0 (work@LogicGates.a4), line:16:21, endln:16:36
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:16:12, endln:16:13
+        |vpiParent:
+        \_operation: , line:16:10, endln:16:20
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:16:12, endln:16:13
@@ -2482,6 +2561,8 @@ design: (work@LogicGates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:16:15, endln:16:16
+        |vpiParent:
+        \_operation: , line:16:10, endln:16:20
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:16:15, endln:16:16
@@ -2491,6 +2572,8 @@ design: (work@LogicGates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:16:18, endln:16:19
+        |vpiParent:
+        \_operation: , line:16:10, endln:16:20
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:16:18, endln:16:19
@@ -2506,7 +2589,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.out2), line:16:25, endln:16:29
         |vpiParent:
-        \_gate: work@bufif0 (work@LogicGates.a4), line:16:21, endln:16:36
+        \_prim_term: , line:16:25, endln:16:29
         |vpiName:out2
         |vpiFullName:work@LogicGates.out2
         |vpiActual:
@@ -2520,7 +2603,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:16:31, endln:16:32
         |vpiParent:
-        \_gate: work@bufif0 (work@LogicGates.a4), line:16:21, endln:16:36
+        \_prim_term: , line:16:31, endln:16:32
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2534,7 +2617,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:16:34, endln:16:35
         |vpiParent:
-        \_gate: work@bufif0 (work@LogicGates.a4), line:16:21, endln:16:36
+        \_prim_term: , line:16:34, endln:16:35
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2549,9 +2632,13 @@ design: (work@LogicGates)
     |vpiPrimType:9
     |vpiDelay:
     \_operation: , line:17:10, endln:17:32
+      |vpiParent:
+      \_gate: work@bufif0 (work@LogicGates.a5), line:17:33, endln:17:48
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:17:12, endln:17:17
+        |vpiParent:
+        \_operation: , line:17:10, endln:17:32
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:17:12, endln:17:13
@@ -2573,6 +2660,8 @@ design: (work@LogicGates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:17:19, endln:17:24
+        |vpiParent:
+        \_operation: , line:17:10, endln:17:32
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:17:19, endln:17:20
@@ -2594,6 +2683,8 @@ design: (work@LogicGates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:17:26, endln:17:31
+        |vpiParent:
+        \_operation: , line:17:10, endln:17:32
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:17:26, endln:17:27
@@ -2621,7 +2712,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.out3), line:17:37, endln:17:41
         |vpiParent:
-        \_gate: work@bufif0 (work@LogicGates.a5), line:17:33, endln:17:48
+        \_prim_term: , line:17:37, endln:17:41
         |vpiName:out3
         |vpiFullName:work@LogicGates.out3
         |vpiActual:
@@ -2635,7 +2726,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.a), line:17:43, endln:17:44
         |vpiParent:
-        \_gate: work@bufif0 (work@LogicGates.a5), line:17:33, endln:17:48
+        \_prim_term: , line:17:43, endln:17:44
         |vpiName:a
         |vpiFullName:work@LogicGates.a
         |vpiActual:
@@ -2649,7 +2740,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.b), line:17:46, endln:17:47
         |vpiParent:
-        \_gate: work@bufif0 (work@LogicGates.a5), line:17:33, endln:17:48
+        \_prim_term: , line:17:46, endln:17:47
         |vpiName:b
         |vpiFullName:work@LogicGates.b
         |vpiActual:
@@ -2670,7 +2761,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.p1), line:18:12, endln:18:14
         |vpiParent:
-        \_switch_tran: work@pmos (work@LogicGates.a6), line:18:8, endln:18:21
+        \_prim_term: , line:18:12, endln:18:14
         |vpiName:p1
         |vpiFullName:work@LogicGates.p1
         |vpiActual:
@@ -2684,7 +2775,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.p2), line:18:15, endln:18:17
         |vpiParent:
-        \_switch_tran: work@pmos (work@LogicGates.a6), line:18:8, endln:18:21
+        \_prim_term: , line:18:15, endln:18:17
         |vpiName:p2
         |vpiFullName:work@LogicGates.p2
         |vpiActual:
@@ -2698,7 +2789,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.p3), line:18:18, endln:18:20
         |vpiParent:
-        \_switch_tran: work@pmos (work@LogicGates.a6), line:18:8, endln:18:21
+        \_prim_term: , line:18:18, endln:18:20
         |vpiName:p3
         |vpiFullName:work@LogicGates.p3
         |vpiActual:
@@ -2719,7 +2810,7 @@ design: (work@LogicGates)
       |vpiExpr:
       \_ref_obj: (work@LogicGates.p1), line:19:14, endln:19:16
         |vpiParent:
-        \_gate: work@pullup (work@LogicGates.a7), line:19:10, endln:19:17
+        \_prim_term: , line:19:14, endln:19:16
         |vpiName:p1
         |vpiFullName:work@LogicGates.p1
         |vpiActual:

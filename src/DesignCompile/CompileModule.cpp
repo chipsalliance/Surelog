@@ -768,8 +768,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
-        case VObjectType::slN_input_gate_instance:
-        case VObjectType::slN_output_gate_instance:
         case VObjectType::slUdp_instance:
         case VObjectType::slUdp_instantiation:
         case VObjectType::slGate_instantiation:
@@ -783,6 +781,15 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
+          break;
+        }
+        case VObjectType::slN_input_gate_instance:
+        case VObjectType::slN_output_gate_instance: {
+          if (collectType != CollectType::OTHER) break;
+          FileCNodeId fnid(fC, id);
+          m_module->addObject(type, fnid);
+          m_helper.compileGateInstantiation(m_module, fC, m_compileDesign, id,
+                                            m_instance);
           break;
         }
         case VObjectType::slInterface_instantiation:

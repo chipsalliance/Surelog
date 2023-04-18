@@ -129,7 +129,7 @@ event_control                                         32
 for_stmt                                              11
 func_call                                              2
 function                                               9
-gate                                                   5
+gate                                                  10
 if_else                                               16
 if_stmt                                               21
 include_file_info                                      1
@@ -7273,6 +7273,41 @@ design: (work@dff_async_reset)
       \_logic_net: (work@full_adder_gates.carry), line:7:35, endln:7:40
     |vpiTypedef:
     \_logic_typespec: , line:9:8, endln:9:8
+  |vpiPrimitive:
+  \_gate: (work@full_adder_gates.U_and1), line:12:5, endln:12:22
+    |vpiParent:
+    \_module_inst: work@full_adder_gates (work@full_adder_gates), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/full_adder.v, line:7:1, endln:18:10
+    |vpiName:U_and1
+    |vpiFullName:work@full_adder_gates.U_and1
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@full_adder_gates.U_and2), line:13:5, endln:13:22
+    |vpiParent:
+    \_module_inst: work@full_adder_gates (work@full_adder_gates), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/full_adder.v, line:7:1, endln:18:10
+    |vpiName:U_and2
+    |vpiFullName:work@full_adder_gates.U_and2
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@full_adder_gates.U_and3), line:14:5, endln:14:22
+    |vpiParent:
+    \_module_inst: work@full_adder_gates (work@full_adder_gates), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/full_adder.v, line:7:1, endln:18:10
+    |vpiName:U_and3
+    |vpiFullName:work@full_adder_gates.U_and3
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@full_adder_gates.U_or), line:15:5, endln:15:34
+    |vpiParent:
+    \_module_inst: work@full_adder_gates (work@full_adder_gates), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/full_adder.v, line:7:1, endln:18:10
+    |vpiName:U_or
+    |vpiFullName:work@full_adder_gates.U_or
+    |vpiPrimType:4
+  |vpiPrimitive:
+  \_gate: (work@full_adder_gates.U_sum), line:16:5, endln:16:22
+    |vpiParent:
+    \_module_inst: work@full_adder_gates (work@full_adder_gates), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/full_adder.v, line:7:1, endln:18:10
+    |vpiName:U_sum
+    |vpiFullName:work@full_adder_gates.U_sum
+    |vpiPrimType:5
 |uhdmallModules:
 \_module_inst: work@mux21_switch (work@mux21_switch), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/mux21.v, line:7:1, endln:22:10
   |vpiParent:

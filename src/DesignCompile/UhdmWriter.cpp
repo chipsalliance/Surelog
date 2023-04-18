@@ -1229,9 +1229,11 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
     }
   }
   // Module Instantiation
-
   if (std::vector<UHDM::ref_module*>* subModules = mod->getRefModules()) {
     m->Ref_modules(subModules);
+    for (auto subModArr : *subModules) {
+      subModArr->VpiParent(m);
+    }
   }
   if (VectorOfmodule_array* subModuleArrays = mod->getModuleArrays()) {
     m->Module_arrays(subModuleArrays);
@@ -1239,7 +1241,18 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
       subModArr->VpiParent(m);
     }
   }
-
+  if (UHDM::VectorOfprimitive* subModules = mod->getPrimitives()) {
+    m->Primitives(subModules);
+    for (auto subModArr : *subModules) {
+      subModArr->VpiParent(m);
+    }
+  }
+  if (UHDM::VectorOfprimitive_array* subModules = mod->getPrimitiveArrays()) {
+    m->Primitive_arrays(subModules);
+    for (auto subModArr : *subModules) {
+      subModArr->VpiParent(m);
+    }
+  }
   // Interface instantiation
   const std::vector<Signal*>& signals = mod->getSignals();
   if (!signals.empty()) {
