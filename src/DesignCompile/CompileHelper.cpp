@@ -2460,7 +2460,6 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
   }
 }
 
-
 uint32_t CompileHelper::getBuiltinType(VObjectType type) {
   switch (type) {
     case VObjectType::slNInpGate_And:
