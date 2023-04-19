@@ -103,6 +103,14 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   void setRefModules(std::vector<UHDM::ref_module*>* modules) {
     m_ref_modules = modules;
   }
+
+  UHDM::VectorOfprimitive* getPrimitives() { return m_subPrimitives; }
+  UHDM::VectorOfprimitive_array* getPrimitiveArrays() { return m_subPrimitiveArrays; }
+  UHDM::VectorOfgen_scope_array* getGenScopeArrays() { return m_subGenScopeArrays; }
+
+  void setPrimitives(UHDM::VectorOfprimitive* primitives) { m_subPrimitives = primitives; }
+  void setPrimitiveArrays(UHDM::VectorOfprimitive_array* primitives) { m_subPrimitiveArrays = primitives; }
+  void setGenScpeArrays(UHDM::VectorOfgen_scope_array* gen_arrays) { m_subGenScopeArrays = gen_arrays; }
   
  private:
   const std::string m_name;
@@ -115,6 +123,10 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   UHDM::VectorOfattribute* attributes_ = nullptr;
   std::vector<UHDM::module_array*>* m_moduleArrays = nullptr;
   std::vector<UHDM::ref_module*>* m_ref_modules = nullptr;
+  UHDM::VectorOfprimitive* m_subPrimitives = nullptr;
+  UHDM::VectorOfprimitive_array* m_subPrimitiveArrays = nullptr;
+  UHDM::VectorOfgen_scope_array* m_subGenScopeArrays = nullptr;
+
 };
 
 class ModuleDefinitionFactory {

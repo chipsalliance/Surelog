@@ -669,6 +669,8 @@ design: (work@testbench)
       \_logic_net: (a)
   |vpiRefModule:
   \_ref_module: work@sub (sub1), line:10:7, endln:10:11
+    |vpiParent:
+    \_module_inst: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:8:1, endln:11:10
     |vpiName:sub1
     |vpiDefName:work@sub
     |vpiActual:
@@ -781,6 +783,8 @@ design: (work@testbench)
       \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76
   |vpiRefModule:
   \_ref_module: work@sub (sub1), line:15:7, endln:15:11
+    |vpiParent:
+    \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@bp_me_nonsynth_lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:13:1, endln:16:10
     |vpiName:sub1
     |vpiDefName:work@sub
     |vpiActual:
@@ -793,6 +797,8 @@ design: (work@testbench)
   |vpiDefName:work@inter
   |vpiRefModule:
   \_ref_module: work@bp_lce (u1), line:21:23, endln:21:25
+    |vpiParent:
+    \_module_inst: work@inter (work@inter), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:19:1, endln:23:10
     |vpiName:u1
     |vpiDefName:work@bp_lce
     |vpiActual:
@@ -853,12 +859,16 @@ design: (work@testbench)
     \_logic_typespec: , line:25:25, endln:25:30
   |vpiRefModule:
   \_ref_module: work@bp_lce (u1), line:27:24, endln:27:26
+    |vpiParent:
+    \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
     |vpiName:u1
     |vpiDefName:work@bp_lce
     |vpiActual:
     \_module_inst: work@bp_lce (work@bp_lce), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:1:1, endln:3:10
   |vpiRefModule:
   \_ref_module: work@inter (tt), line:28:9, endln:28:11
+    |vpiParent:
+    \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
     |vpiName:tt
     |vpiDefName:work@inter
     |vpiActual:

@@ -3164,15 +3164,15 @@ begin                                                  7
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              90
+constant                                              92
 delay_control                                         33
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-gate                                                  34
-gate_array                                             1
+gate                                                  65
+gate_array                                             2
 initial                                                7
 int_typespec                                           9
 int_var                                                4
@@ -3185,7 +3185,7 @@ operation                                             21
 package                                                2
 port                                                 124
 prim_term                                            116
-range                                                  5
+range                                                  6
 ref_obj                                              219
 switch_tran                                            2
 sys_func_call                                         16
@@ -3200,15 +3200,15 @@ begin                                                 14
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              90
+constant                                              92
 delay_control                                         66
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
-gate                                                  34
-gate_array                                             1
+gate                                                  99
+gate_array                                             3
 initial                                               14
 int_typespec                                           9
 int_var                                                4
@@ -3217,13 +3217,13 @@ logic_net                                            136
 logic_typespec                                        29
 logic_var                                              1
 module_inst                                           32
-operation                                             27
+operation                                             42
 package                                                2
 port                                                 128
-prim_term                                            116
-range                                                  5
-ref_obj                                              318
-switch_tran                                            2
+prim_term                                            232
+range                                                  7
+ref_obj                                              434
+switch_tran                                            4
 sys_func_call                                         32
 task                                                  18
 === UHDM Object Stats End ===
@@ -3929,6 +3929,20 @@ design: (work@gates)
           |vpiParent:
           \_delay_control: , line:140:3, endln:140:5
           |vpiName:$finish
+  |vpiPrimitive:
+  \_gate: (work@and_from_nand.U1), line:129:6, endln:129:16
+    |vpiParent:
+    \_module_inst: work@and_from_nand (work@and_from_nand), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:124:1, endln:143:10
+    |vpiName:U1
+    |vpiFullName:work@and_from_nand.U1
+    |vpiPrimType:2
+  |vpiPrimitive:
+  \_gate: (work@and_from_nand.U2), line:130:6, endln:130:17
+    |vpiParent:
+    \_module_inst: work@and_from_nand (work@and_from_nand), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:124:1, endln:143:10
+    |vpiName:U2
+    |vpiFullName:work@and_from_nand.U2
+    |vpiPrimType:2
 |uhdmallModules:
 \_module_inst: work@delay_example (work@delay_example), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:145:1, endln:176:10
   |vpiParent:
@@ -4217,6 +4231,33 @@ design: (work@gates)
           |vpiParent:
           \_delay_control: , line:173:3, endln:173:6
           |vpiName:$finish
+  |vpiPrimitive:
+  \_gate: (work@delay_example), line:151:38, endln:151:48
+    |vpiParent:
+    \_module_inst: work@delay_example (work@delay_example), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:145:1, endln:176:10
+    |vpiFullName:work@delay_example
+    |vpiPrimType:4
+  |vpiPrimitive:
+  \_gate: (work@delay_example.u_and), line:153:29, endln:153:48
+    |vpiParent:
+    \_module_inst: work@delay_example (work@delay_example), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:145:1, endln:176:10
+    |vpiName:u_and
+    |vpiFullName:work@delay_example.u_and
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@delay_example.u_nand), line:157:29, endln:157:48
+    |vpiParent:
+    \_module_inst: work@delay_example (work@delay_example), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:145:1, endln:176:10
+    |vpiName:u_nand
+    |vpiFullName:work@delay_example.u_nand
+    |vpiPrimType:2
+  |vpiPrimitive:
+  \_gate: (work@delay_example.u_buf), line:159:29, endln:159:46
+    |vpiParent:
+    \_module_inst: work@delay_example (work@delay_example), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:145:1, endln:176:10
+    |vpiName:u_buf
+    |vpiFullName:work@delay_example.u_buf
+    |vpiPrimType:7
 |uhdmallModules:
 \_module_inst: work@dff_from_nand (work@dff_from_nand), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:62:1, endln:83:10
   |vpiParent:
@@ -4450,6 +4491,34 @@ design: (work@gates)
           |vpiActual:
           \_logic_net: (work@dff_from_nand.CLK), line:64:7, endln:64:10
     |vpiAlwaysType:1
+  |vpiPrimitive:
+  \_gate: (work@dff_from_nand.U1), line:66:6, endln:66:18
+    |vpiParent:
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:62:1, endln:83:10
+    |vpiName:U1
+    |vpiFullName:work@dff_from_nand.U1
+    |vpiPrimType:2
+  |vpiPrimitive:
+  \_gate: (work@dff_from_nand.U2), line:67:6, endln:67:18
+    |vpiParent:
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:62:1, endln:83:10
+    |vpiName:U2
+    |vpiFullName:work@dff_from_nand.U2
+    |vpiPrimType:2
+  |vpiPrimitive:
+  \_gate: (work@dff_from_nand.U3), line:68:6, endln:68:20
+    |vpiParent:
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:62:1, endln:83:10
+    |vpiName:U3
+    |vpiFullName:work@dff_from_nand.U3
+    |vpiPrimType:2
+  |vpiPrimitive:
+  \_gate: (work@dff_from_nand.U4), line:69:6, endln:69:20
+    |vpiParent:
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:62:1, endln:83:10
+    |vpiName:U4
+    |vpiFullName:work@dff_from_nand.U4
+    |vpiPrimType:2
 |uhdmallModules:
 \_module_inst: work@gate_array (work@gate_array), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:230:1, endln:235:10
   |vpiParent:
@@ -4477,6 +4546,34 @@ design: (work@gates)
     |vpiName:in2
     |vpiFullName:work@gate_array.in2
     |vpiNetType:1
+  |vpiPrimitiveArray:
+  \_gate_array: (work@gate_array.n_gate), line:233:6, endln:233:34
+    |vpiParent:
+    \_module_inst: work@gate_array (work@gate_array), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:230:1, endln:235:10
+    |vpiName:n_gate
+    |vpiFullName:work@gate_array.n_gate
+    |vpiRange:
+    \_range: , line:233:13, endln:233:18
+      |vpiLeftRange:
+      \_constant: , line:233:14, endln:233:15
+        |vpiParent:
+        \_range: , line:233:13, endln:233:18
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:233:16, endln:233:17
+        |vpiParent:
+        \_range: , line:233:13, endln:233:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiPrimitive:
+    \_gate: (n_gate), line:233:6, endln:233:34
+      |vpiName:n_gate
+      |vpiPrimType:2
 |uhdmallModules:
 \_module_inst: work@gates (work@gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:1:1, endln:27:10
   |vpiParent:
@@ -4816,6 +4913,27 @@ design: (work@gates)
           |vpiParent:
           \_delay_control: , line:24:3, endln:24:5
           |vpiName:$finish
+  |vpiPrimitive:
+  \_gate: (work@gates.U1), line:8:5, endln:8:17
+    |vpiParent:
+    \_module_inst: work@gates (work@gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:1:1, endln:27:10
+    |vpiName:U1
+    |vpiFullName:work@gates.U1
+    |vpiPrimType:8
+  |vpiPrimitive:
+  \_gate: (work@gates.U2), line:9:5, endln:9:29
+    |vpiParent:
+    \_module_inst: work@gates (work@gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:1:1, endln:27:10
+    |vpiName:U2
+    |vpiFullName:work@gates.U2
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@gates.U3), line:10:5, endln:10:25
+    |vpiParent:
+    \_module_inst: work@gates (work@gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:1:1, endln:27:10
+    |vpiName:U3
+    |vpiFullName:work@gates.U3
+    |vpiPrimType:5
 |uhdmallModules:
 \_module_inst: work@half_adder (work@half_adder), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:222:1, endln:227:10
   |vpiParent:
@@ -4896,6 +5014,18 @@ design: (work@gates)
       \_logic_net: (work@half_adder.B), line:222:34, endln:222:35
     |vpiTypedef:
     \_logic_typespec: , line:223:8, endln:223:8
+  |vpiPrimitive:
+  \_gate: (work@half_adder), line:225:12, endln:225:23
+    |vpiParent:
+    \_module_inst: work@half_adder (work@half_adder), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:222:1, endln:227:10
+    |vpiFullName:work@half_adder
+    |vpiPrimType:5
+  |vpiPrimitive:
+  \_gate: (work@half_adder), line:226:12, endln:226:25
+    |vpiParent:
+    \_module_inst: work@half_adder (work@half_adder), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:222:1, endln:227:10
+    |vpiFullName:work@half_adder
+    |vpiPrimType:1
 |uhdmallModules:
 \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
   |vpiParent:
@@ -5400,6 +5530,48 @@ design: (work@gates)
           |vpiActual:
           \_logic_net: (work@mux_from_gates.c3), line:86:14, endln:86:16
     |vpiAlwaysType:1
+  |vpiPrimitive:
+  \_gate: (work@mux_from_gates), line:89:5, endln:89:15
+    |vpiParent:
+    \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
+    |vpiFullName:work@mux_from_gates
+    |vpiPrimType:8
+  |vpiPrimitive:
+  \_gate: (work@mux_from_gates), line:90:5, endln:90:15
+    |vpiParent:
+    \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
+    |vpiFullName:work@mux_from_gates
+    |vpiPrimType:8
+  |vpiPrimitive:
+  \_gate: (work@mux_from_gates), line:92:5, endln:92:24
+    |vpiParent:
+    \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
+    |vpiFullName:work@mux_from_gates
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@mux_from_gates), line:93:5, endln:93:20
+    |vpiParent:
+    \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
+    |vpiFullName:work@mux_from_gates
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@mux_from_gates), line:94:5, endln:94:20
+    |vpiParent:
+    \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
+    |vpiFullName:work@mux_from_gates
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@mux_from_gates), line:95:5, endln:95:16
+    |vpiParent:
+    \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
+    |vpiFullName:work@mux_from_gates
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@mux_from_gates), line:97:4, endln:97:20
+    |vpiParent:
+    \_module_inst: work@mux_from_gates (work@mux_from_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:85:1, endln:121:10
+    |vpiFullName:work@mux_from_gates
+    |vpiPrimType:4
 |uhdmallModules:
 \_module_inst: work@n_in_primitive (work@n_in_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:178:1, endln:206:10
   |vpiParent:
@@ -5739,6 +5911,27 @@ design: (work@gates)
           |vpiParent:
           \_delay_control: , line:203:3, endln:203:5
           |vpiName:$finish
+  |vpiPrimitive:
+  \_gate: (work@n_in_primitive.u_and1), line:184:5, endln:184:28
+    |vpiParent:
+    \_module_inst: work@n_in_primitive (work@n_in_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:178:1, endln:206:10
+    |vpiName:u_and1
+    |vpiFullName:work@n_in_primitive.u_and1
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@n_in_primitive.u_and2), line:186:5, endln:186:38
+    |vpiParent:
+    \_module_inst: work@n_in_primitive (work@n_in_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:178:1, endln:206:10
+    |vpiName:u_and2
+    |vpiFullName:work@n_in_primitive.u_and2
+    |vpiPrimType:1
+  |vpiPrimitive:
+  \_gate: (work@n_in_primitive.u_xnor1), line:188:6, endln:188:35
+    |vpiParent:
+    \_module_inst: work@n_in_primitive (work@n_in_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:178:1, endln:206:10
+    |vpiName:u_xnor1
+    |vpiFullName:work@n_in_primitive.u_xnor1
+    |vpiPrimType:6
 |uhdmallModules:
 \_module_inst: work@n_out_primitive (work@n_out_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:208:1, endln:220:10
   |vpiParent:
@@ -5808,6 +6001,27 @@ design: (work@gates)
     |vpiName:in
     |vpiFullName:work@n_out_primitive.in
     |vpiNetType:1
+  |vpiPrimitive:
+  \_gate: (work@n_out_primitive.u_buf0), line:214:5, endln:214:20
+    |vpiParent:
+    \_module_inst: work@n_out_primitive (work@n_out_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:208:1, endln:220:10
+    |vpiName:u_buf0
+    |vpiFullName:work@n_out_primitive.u_buf0
+    |vpiPrimType:7
+  |vpiPrimitive:
+  \_gate: (work@n_out_primitive.u_buf1), line:216:5, endln:216:44
+    |vpiParent:
+    \_module_inst: work@n_out_primitive (work@n_out_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:208:1, endln:220:10
+    |vpiName:u_buf1
+    |vpiFullName:work@n_out_primitive.u_buf1
+    |vpiPrimType:7
+  |vpiPrimitive:
+  \_gate: (work@n_out_primitive.u_not0), line:218:5, endln:218:37
+    |vpiParent:
+    \_module_inst: work@n_out_primitive (work@n_out_primitive), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:208:1, endln:220:10
+    |vpiName:u_not0
+    |vpiFullName:work@n_out_primitive.u_not0
+    |vpiPrimType:8
 |uhdmallModules:
 \_module_inst: work@switch_primitives (work@switch_primitives), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:52:1, endln:60:10
   |vpiParent:
@@ -6082,6 +6296,20 @@ design: (work@gates)
           |vpiActual:
           \_logic_net: (work@transmission_gates.in), line:31:22, endln:31:24
     |vpiAlwaysType:1
+  |vpiPrimitive:
+  \_gate: (work@transmission_gates.U2), line:35:6, endln:35:17
+    |vpiParent:
+    \_module_inst: work@transmission_gates (work@transmission_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:29:1, endln:50:10
+    |vpiName:U2
+    |vpiFullName:work@transmission_gates.U2
+    |vpiPrimType:7
+  |vpiPrimitive:
+  \_gate: (work@transmission_gates.U3), line:36:5, endln:36:16
+    |vpiParent:
+    \_module_inst: work@transmission_gates (work@transmission_gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:29:1, endln:50:10
+    |vpiName:U3
+    |vpiFullName:work@transmission_gates.U3
+    |vpiPrimType:8
 |uhdmtopModules:
 \_module_inst: work@gates (work@gates), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:1:1, endln:27:10
   |vpiName:work@gates
@@ -6397,7 +6625,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.out0), line:8:8, endln:8:12
         |vpiParent:
-        \_gate: work@not (work@gates.U1), line:8:5, endln:8:17
+        \_prim_term: , line:8:8, endln:8:12
         |vpiName:out0
         |vpiFullName:work@gates.out0
         |vpiActual:
@@ -6411,7 +6639,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in1), line:8:13, endln:8:16
         |vpiParent:
-        \_gate: work@not (work@gates.U1), line:8:5, endln:8:17
+        \_prim_term: , line:8:13, endln:8:16
         |vpiName:in1
         |vpiFullName:work@gates.in1
         |vpiActual:
@@ -6432,7 +6660,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.out1), line:9:8, endln:9:12
         |vpiParent:
-        \_gate: work@and (work@gates.U2), line:9:5, endln:9:29
+        \_prim_term: , line:9:8, endln:9:12
         |vpiName:out1
         |vpiFullName:work@gates.out1
         |vpiActual:
@@ -6446,7 +6674,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in1), line:9:13, endln:9:16
         |vpiParent:
-        \_gate: work@and (work@gates.U2), line:9:5, endln:9:29
+        \_prim_term: , line:9:13, endln:9:16
         |vpiName:in1
         |vpiFullName:work@gates.in1
         |vpiActual:
@@ -6460,7 +6688,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in2), line:9:17, endln:9:20
         |vpiParent:
-        \_gate: work@and (work@gates.U2), line:9:5, endln:9:29
+        \_prim_term: , line:9:17, endln:9:20
         |vpiName:in2
         |vpiFullName:work@gates.in2
         |vpiActual:
@@ -6474,7 +6702,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in3), line:9:21, endln:9:24
         |vpiParent:
-        \_gate: work@and (work@gates.U2), line:9:5, endln:9:29
+        \_prim_term: , line:9:21, endln:9:24
         |vpiName:in3
         |vpiFullName:work@gates.in3
         |vpiActual:
@@ -6488,7 +6716,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in4), line:9:25, endln:9:28
         |vpiParent:
-        \_gate: work@and (work@gates.U2), line:9:5, endln:9:29
+        \_prim_term: , line:9:25, endln:9:28
         |vpiName:in4
         |vpiFullName:work@gates.in4
         |vpiActual:
@@ -6509,7 +6737,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.out2), line:10:8, endln:10:12
         |vpiParent:
-        \_gate: work@xor (work@gates.U3), line:10:5, endln:10:25
+        \_prim_term: , line:10:8, endln:10:12
         |vpiName:out2
         |vpiFullName:work@gates.out2
         |vpiActual:
@@ -6523,7 +6751,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in1), line:10:13, endln:10:16
         |vpiParent:
-        \_gate: work@xor (work@gates.U3), line:10:5, endln:10:25
+        \_prim_term: , line:10:13, endln:10:16
         |vpiName:in1
         |vpiFullName:work@gates.in1
         |vpiActual:
@@ -6537,7 +6765,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in2), line:10:17, endln:10:20
         |vpiParent:
-        \_gate: work@xor (work@gates.U3), line:10:5, endln:10:25
+        \_prim_term: , line:10:17, endln:10:20
         |vpiName:in2
         |vpiFullName:work@gates.in2
         |vpiActual:
@@ -6551,7 +6779,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@gates.in3), line:10:21, endln:10:24
         |vpiParent:
-        \_gate: work@xor (work@gates.U3), line:10:5, endln:10:25
+        \_prim_term: , line:10:21, endln:10:24
         |vpiName:in3
         |vpiFullName:work@gates.in3
         |vpiActual:
@@ -6784,7 +7012,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@transmission_gates.data_bus), line:34:11, endln:34:19
         |vpiParent:
-        \_gate: work@bufif0 (work@transmission_gates.U1), line:34:8, endln:34:40
+        \_prim_term: , line:34:11, endln:34:19
         |vpiName:data_bus
         |vpiFullName:work@transmission_gates.data_bus
         |vpiActual:
@@ -6798,7 +7026,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@transmission_gates.in), line:34:20, endln:34:22
         |vpiParent:
-        \_gate: work@bufif0 (work@transmission_gates.U1), line:34:8, endln:34:40
+        \_prim_term: , line:34:20, endln:34:22
         |vpiName:in
         |vpiFullName:work@transmission_gates.in
         |vpiActual:
@@ -6812,7 +7040,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@transmission_gates.data_enable_low), line:34:24, endln:34:39
         |vpiParent:
-        \_gate: work@bufif0 (work@transmission_gates.U1), line:34:8, endln:34:40
+        \_prim_term: , line:34:24, endln:34:39
         |vpiName:data_enable_low
         |vpiFullName:work@transmission_gates.data_enable_low
         |vpiActual:
@@ -6833,7 +7061,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@transmission_gates.out1), line:35:9, endln:35:13
         |vpiParent:
-        \_gate: work@buf (work@transmission_gates.U2), line:35:6, endln:35:17
+        \_prim_term: , line:35:9, endln:35:13
         |vpiName:out1
         |vpiFullName:work@transmission_gates.out1
         |vpiActual:
@@ -6847,7 +7075,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@transmission_gates.in), line:35:14, endln:35:16
         |vpiParent:
-        \_gate: work@buf (work@transmission_gates.U2), line:35:6, endln:35:17
+        \_prim_term: , line:35:14, endln:35:16
         |vpiName:in
         |vpiFullName:work@transmission_gates.in
         |vpiActual:
@@ -6868,7 +7096,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@transmission_gates.out2), line:36:8, endln:36:12
         |vpiParent:
-        \_gate: work@not (work@transmission_gates.U3), line:36:5, endln:36:16
+        \_prim_term: , line:36:8, endln:36:12
         |vpiName:out2
         |vpiFullName:work@transmission_gates.out2
         |vpiActual:
@@ -6882,7 +7110,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@transmission_gates.in), line:36:13, endln:36:15
         |vpiParent:
-        \_gate: work@not (work@transmission_gates.U3), line:36:5, endln:36:16
+        \_prim_term: , line:36:13, endln:36:15
         |vpiName:in
         |vpiFullName:work@transmission_gates.in
         |vpiActual:
@@ -6963,7 +7191,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@switch_primitives.net1), line:57:19, endln:57:23
         |vpiParent:
-        \_switch_tran: work@tranif0 (work@switch_primitives.my_gate1), line:57:9, endln:57:36
+        \_prim_term: , line:57:19, endln:57:23
         |vpiName:net1
         |vpiFullName:work@switch_primitives.net1
         |vpiActual:
@@ -6977,7 +7205,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@switch_primitives.net2), line:57:25, endln:57:29
         |vpiParent:
-        \_switch_tran: work@tranif0 (work@switch_primitives.my_gate1), line:57:9, endln:57:36
+        \_prim_term: , line:57:25, endln:57:29
         |vpiName:net2
         |vpiFullName:work@switch_primitives.net2
         |vpiActual:
@@ -6991,7 +7219,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@switch_primitives.net3), line:57:31, endln:57:35
         |vpiParent:
-        \_switch_tran: work@tranif0 (work@switch_primitives.my_gate1), line:57:9, endln:57:36
+        \_prim_term: , line:57:31, endln:57:35
         |vpiName:net3
         |vpiFullName:work@switch_primitives.net3
         |vpiActual:
@@ -7012,7 +7240,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@switch_primitives.net4), line:58:20, endln:58:24
         |vpiParent:
-        \_switch_tran: work@rtranif1 (work@switch_primitives.my_gate2), line:58:10, endln:58:37
+        \_prim_term: , line:58:20, endln:58:24
         |vpiName:net4
         |vpiFullName:work@switch_primitives.net4
         |vpiActual:
@@ -7026,7 +7254,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@switch_primitives.net5), line:58:26, endln:58:30
         |vpiParent:
-        \_switch_tran: work@rtranif1 (work@switch_primitives.my_gate2), line:58:10, endln:58:37
+        \_prim_term: , line:58:26, endln:58:30
         |vpiName:net5
         |vpiFullName:work@switch_primitives.net5
         |vpiActual:
@@ -7040,7 +7268,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@switch_primitives.net6), line:58:32, endln:58:36
         |vpiParent:
-        \_switch_tran: work@rtranif1 (work@switch_primitives.my_gate2), line:58:10, endln:58:37
+        \_prim_term: , line:58:32, endln:58:36
         |vpiName:net6
         |vpiFullName:work@switch_primitives.net6
         |vpiActual:
@@ -7286,7 +7514,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.X), line:66:10, endln:66:11
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U1), line:66:6, endln:66:18
+        \_prim_term: , line:66:10, endln:66:11
         |vpiName:X
         |vpiFullName:work@dff_from_nand.X
         |vpiActual:
@@ -7300,7 +7528,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.D), line:66:12, endln:66:13
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U1), line:66:6, endln:66:18
+        \_prim_term: , line:66:12, endln:66:13
         |vpiName:D
         |vpiFullName:work@dff_from_nand.D
         |vpiActual:
@@ -7314,7 +7542,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.CLK), line:66:14, endln:66:17
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U1), line:66:6, endln:66:18
+        \_prim_term: , line:66:14, endln:66:17
         |vpiName:CLK
         |vpiFullName:work@dff_from_nand.CLK
         |vpiActual:
@@ -7335,7 +7563,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.Y), line:67:10, endln:67:11
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U2), line:67:6, endln:67:18
+        \_prim_term: , line:67:10, endln:67:11
         |vpiName:Y
         |vpiFullName:work@dff_from_nand.Y
         |vpiActual:
@@ -7349,7 +7577,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.X), line:67:12, endln:67:13
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U2), line:67:6, endln:67:18
+        \_prim_term: , line:67:12, endln:67:13
         |vpiName:X
         |vpiFullName:work@dff_from_nand.X
         |vpiActual:
@@ -7363,7 +7591,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.CLK), line:67:14, endln:67:17
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U2), line:67:6, endln:67:18
+        \_prim_term: , line:67:14, endln:67:17
         |vpiName:CLK
         |vpiFullName:work@dff_from_nand.CLK
         |vpiActual:
@@ -7384,7 +7612,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.Q), line:68:10, endln:68:11
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U3), line:68:6, endln:68:20
+        \_prim_term: , line:68:10, endln:68:11
         |vpiName:Q
         |vpiFullName:work@dff_from_nand.Q
         |vpiActual:
@@ -7398,7 +7626,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.Q_BAR), line:68:12, endln:68:17
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U3), line:68:6, endln:68:20
+        \_prim_term: , line:68:12, endln:68:17
         |vpiName:Q_BAR
         |vpiFullName:work@dff_from_nand.Q_BAR
         |vpiActual:
@@ -7412,7 +7640,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.X), line:68:18, endln:68:19
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U3), line:68:6, endln:68:20
+        \_prim_term: , line:68:18, endln:68:19
         |vpiName:X
         |vpiFullName:work@dff_from_nand.X
         |vpiActual:
@@ -7433,7 +7661,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.Q_BAR), line:69:10, endln:69:15
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U4), line:69:6, endln:69:20
+        \_prim_term: , line:69:10, endln:69:15
         |vpiName:Q_BAR
         |vpiFullName:work@dff_from_nand.Q_BAR
         |vpiActual:
@@ -7447,7 +7675,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.Q), line:69:16, endln:69:17
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U4), line:69:6, endln:69:20
+        \_prim_term: , line:69:16, endln:69:17
         |vpiName:Q
         |vpiFullName:work@dff_from_nand.Q
         |vpiActual:
@@ -7461,7 +7689,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@dff_from_nand.Y), line:69:18, endln:69:19
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U4), line:69:6, endln:69:20
+        \_prim_term: , line:69:18, endln:69:19
         |vpiName:Y
         |vpiFullName:work@dff_from_nand.Y
         |vpiActual:
@@ -7981,7 +8209,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.a_inv), line:89:6, endln:89:11
         |vpiParent:
-        \_gate: work@not (work@mux_from_gates.), line:89:5, endln:89:15
+        \_prim_term: , line:89:6, endln:89:11
         |vpiName:a_inv
         |vpiFullName:work@mux_from_gates.a_inv
         |vpiActual:
@@ -7995,7 +8223,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.A), line:89:13, endln:89:14
         |vpiParent:
-        \_gate: work@not (work@mux_from_gates.), line:89:5, endln:89:15
+        \_prim_term: , line:89:13, endln:89:14
         |vpiName:A
         |vpiFullName:work@mux_from_gates.A
         |vpiActual:
@@ -8015,7 +8243,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.b_inv), line:90:6, endln:90:11
         |vpiParent:
-        \_gate: work@not (work@mux_from_gates.), line:90:5, endln:90:15
+        \_prim_term: , line:90:6, endln:90:11
         |vpiName:b_inv
         |vpiFullName:work@mux_from_gates.b_inv
         |vpiActual:
@@ -8029,7 +8257,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.B), line:90:13, endln:90:14
         |vpiParent:
-        \_gate: work@not (work@mux_from_gates.), line:90:5, endln:90:15
+        \_prim_term: , line:90:13, endln:90:14
         |vpiName:B
         |vpiFullName:work@mux_from_gates.B
         |vpiActual:
@@ -8049,7 +8277,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y0), line:92:6, endln:92:8
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:92:5, endln:92:24
+        \_prim_term: , line:92:6, endln:92:8
         |vpiName:y0
         |vpiFullName:work@mux_from_gates.y0
         |vpiActual:
@@ -8063,7 +8291,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.c0), line:92:9, endln:92:11
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:92:5, endln:92:24
+        \_prim_term: , line:92:9, endln:92:11
         |vpiName:c0
         |vpiFullName:work@mux_from_gates.c0
         |vpiActual:
@@ -8077,7 +8305,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.a_inv), line:92:12, endln:92:17
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:92:5, endln:92:24
+        \_prim_term: , line:92:12, endln:92:17
         |vpiName:a_inv
         |vpiFullName:work@mux_from_gates.a_inv
         |vpiActual:
@@ -8091,7 +8319,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.b_inv), line:92:18, endln:92:23
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:92:5, endln:92:24
+        \_prim_term: , line:92:18, endln:92:23
         |vpiName:b_inv
         |vpiFullName:work@mux_from_gates.b_inv
         |vpiActual:
@@ -8111,7 +8339,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y1), line:93:6, endln:93:8
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:93:5, endln:93:20
+        \_prim_term: , line:93:6, endln:93:8
         |vpiName:y1
         |vpiFullName:work@mux_from_gates.y1
         |vpiActual:
@@ -8125,7 +8353,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.c1), line:93:9, endln:93:11
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:93:5, endln:93:20
+        \_prim_term: , line:93:9, endln:93:11
         |vpiName:c1
         |vpiFullName:work@mux_from_gates.c1
         |vpiActual:
@@ -8139,7 +8367,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.a_inv), line:93:12, endln:93:17
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:93:5, endln:93:20
+        \_prim_term: , line:93:12, endln:93:17
         |vpiName:a_inv
         |vpiFullName:work@mux_from_gates.a_inv
         |vpiActual:
@@ -8153,7 +8381,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.B), line:93:18, endln:93:19
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:93:5, endln:93:20
+        \_prim_term: , line:93:18, endln:93:19
         |vpiName:B
         |vpiFullName:work@mux_from_gates.B
         |vpiActual:
@@ -8173,7 +8401,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y2), line:94:6, endln:94:8
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:94:5, endln:94:20
+        \_prim_term: , line:94:6, endln:94:8
         |vpiName:y2
         |vpiFullName:work@mux_from_gates.y2
         |vpiActual:
@@ -8187,7 +8415,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.c2), line:94:9, endln:94:11
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:94:5, endln:94:20
+        \_prim_term: , line:94:9, endln:94:11
         |vpiName:c2
         |vpiFullName:work@mux_from_gates.c2
         |vpiActual:
@@ -8201,7 +8429,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.A), line:94:12, endln:94:13
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:94:5, endln:94:20
+        \_prim_term: , line:94:12, endln:94:13
         |vpiName:A
         |vpiFullName:work@mux_from_gates.A
         |vpiActual:
@@ -8215,7 +8443,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.b_inv), line:94:14, endln:94:19
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:94:5, endln:94:20
+        \_prim_term: , line:94:14, endln:94:19
         |vpiName:b_inv
         |vpiFullName:work@mux_from_gates.b_inv
         |vpiActual:
@@ -8235,7 +8463,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y3), line:95:6, endln:95:8
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:95:5, endln:95:16
+        \_prim_term: , line:95:6, endln:95:8
         |vpiName:y3
         |vpiFullName:work@mux_from_gates.y3
         |vpiActual:
@@ -8249,7 +8477,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.c3), line:95:9, endln:95:11
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:95:5, endln:95:16
+        \_prim_term: , line:95:9, endln:95:11
         |vpiName:c3
         |vpiFullName:work@mux_from_gates.c3
         |vpiActual:
@@ -8263,7 +8491,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.A), line:95:12, endln:95:13
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:95:5, endln:95:16
+        \_prim_term: , line:95:12, endln:95:13
         |vpiName:A
         |vpiFullName:work@mux_from_gates.A
         |vpiActual:
@@ -8277,7 +8505,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.B), line:95:14, endln:95:15
         |vpiParent:
-        \_gate: work@and (work@mux_from_gates.), line:95:5, endln:95:16
+        \_prim_term: , line:95:14, endln:95:15
         |vpiName:B
         |vpiFullName:work@mux_from_gates.B
         |vpiActual:
@@ -8297,7 +8525,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.Y), line:97:5, endln:97:6
         |vpiParent:
-        \_gate: work@or (work@mux_from_gates.), line:97:4, endln:97:20
+        \_prim_term: , line:97:5, endln:97:6
         |vpiName:Y
         |vpiFullName:work@mux_from_gates.Y
         |vpiActual:
@@ -8311,7 +8539,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y0), line:97:8, endln:97:10
         |vpiParent:
-        \_gate: work@or (work@mux_from_gates.), line:97:4, endln:97:20
+        \_prim_term: , line:97:8, endln:97:10
         |vpiName:y0
         |vpiFullName:work@mux_from_gates.y0
         |vpiActual:
@@ -8325,7 +8553,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y1), line:97:11, endln:97:13
         |vpiParent:
-        \_gate: work@or (work@mux_from_gates.), line:97:4, endln:97:20
+        \_prim_term: , line:97:11, endln:97:13
         |vpiName:y1
         |vpiFullName:work@mux_from_gates.y1
         |vpiActual:
@@ -8339,7 +8567,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y2), line:97:14, endln:97:16
         |vpiParent:
-        \_gate: work@or (work@mux_from_gates.), line:97:4, endln:97:20
+        \_prim_term: , line:97:14, endln:97:16
         |vpiName:y2
         |vpiFullName:work@mux_from_gates.y2
         |vpiActual:
@@ -8353,7 +8581,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@mux_from_gates.y3), line:97:17, endln:97:19
         |vpiParent:
-        \_gate: work@or (work@mux_from_gates.), line:97:4, endln:97:20
+        \_prim_term: , line:97:17, endln:97:19
         |vpiName:y3
         |vpiFullName:work@mux_from_gates.y3
         |vpiActual:
@@ -8561,7 +8789,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@and_from_nand.W), line:129:9, endln:129:10
         |vpiParent:
-        \_gate: work@nand (work@and_from_nand.U1), line:129:6, endln:129:16
+        \_prim_term: , line:129:9, endln:129:10
         |vpiName:W
         |vpiFullName:work@and_from_nand.W
         |vpiActual:
@@ -8575,7 +8803,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@and_from_nand.X), line:129:11, endln:129:12
         |vpiParent:
-        \_gate: work@nand (work@and_from_nand.U1), line:129:6, endln:129:16
+        \_prim_term: , line:129:11, endln:129:12
         |vpiName:X
         |vpiFullName:work@and_from_nand.X
         |vpiActual:
@@ -8589,7 +8817,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@and_from_nand.Y), line:129:14, endln:129:15
         |vpiParent:
-        \_gate: work@nand (work@and_from_nand.U1), line:129:6, endln:129:16
+        \_prim_term: , line:129:14, endln:129:15
         |vpiName:Y
         |vpiFullName:work@and_from_nand.Y
         |vpiActual:
@@ -8610,7 +8838,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@and_from_nand.F), line:130:9, endln:130:10
         |vpiParent:
-        \_gate: work@nand (work@and_from_nand.U2), line:130:6, endln:130:17
+        \_prim_term: , line:130:9, endln:130:10
         |vpiName:F
         |vpiFullName:work@and_from_nand.F
         |vpiActual:
@@ -8624,7 +8852,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@and_from_nand.W), line:130:12, endln:130:13
         |vpiParent:
-        \_gate: work@nand (work@and_from_nand.U2), line:130:6, endln:130:17
+        \_prim_term: , line:130:12, endln:130:13
         |vpiName:W
         |vpiFullName:work@and_from_nand.W
         |vpiActual:
@@ -8638,7 +8866,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@and_from_nand.W), line:130:15, endln:130:16
         |vpiParent:
-        \_gate: work@nand (work@and_from_nand.U2), line:130:6, endln:130:17
+        \_prim_term: , line:130:15, endln:130:16
         |vpiName:W
         |vpiFullName:work@and_from_nand.W
         |vpiActual:
@@ -8933,7 +9161,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.out1), line:151:39, endln:151:43
         |vpiParent:
-        \_gate: work@or (work@delay_example.u_or), line:151:38, endln:151:48
+        \_prim_term: , line:151:39, endln:151:43
         |vpiName:out1
         |vpiFullName:work@delay_example.out1
         |vpiActual:
@@ -8947,7 +9175,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.b), line:151:44, endln:151:45
         |vpiParent:
-        \_gate: work@or (work@delay_example.u_or), line:151:38, endln:151:48
+        \_prim_term: , line:151:44, endln:151:45
         |vpiName:b
         |vpiFullName:work@delay_example.b
         |vpiActual:
@@ -8961,7 +9189,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.c), line:151:46, endln:151:47
         |vpiParent:
-        \_gate: work@or (work@delay_example.u_or), line:151:38, endln:151:48
+        \_prim_term: , line:151:46, endln:151:47
         |vpiName:c
         |vpiFullName:work@delay_example.c
         |vpiActual:
@@ -8976,9 +9204,13 @@ design: (work@gates)
     |vpiPrimType:1
     |vpiDelay:
     \_operation: , line:153:8, endln:153:14
+      |vpiParent:
+      \_gate: work@and (work@delay_example.u_and), line:153:29, endln:153:48
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:153:10, endln:153:11
+        |vpiParent:
+        \_operation: , line:153:8, endln:153:14
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:153:10, endln:153:11
@@ -8988,6 +9220,8 @@ design: (work@gates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:153:12, endln:153:13
+        |vpiParent:
+        \_operation: , line:153:8, endln:153:14
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:153:12, endln:153:13
@@ -9003,7 +9237,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.out2), line:153:39, endln:153:43
         |vpiParent:
-        \_gate: work@and (work@delay_example.u_and), line:153:29, endln:153:48
+        \_prim_term: , line:153:39, endln:153:43
         |vpiName:out2
         |vpiFullName:work@delay_example.out2
         |vpiActual:
@@ -9017,7 +9251,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.b), line:153:44, endln:153:45
         |vpiParent:
-        \_gate: work@and (work@delay_example.u_and), line:153:29, endln:153:48
+        \_prim_term: , line:153:44, endln:153:45
         |vpiName:b
         |vpiFullName:work@delay_example.b
         |vpiActual:
@@ -9031,7 +9265,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.c), line:153:46, endln:153:47
         |vpiParent:
-        \_gate: work@and (work@delay_example.u_and), line:153:29, endln:153:48
+        \_prim_term: , line:153:46, endln:153:47
         |vpiName:c
         |vpiFullName:work@delay_example.c
         |vpiActual:
@@ -9046,9 +9280,13 @@ design: (work@gates)
     |vpiPrimType:10
     |vpiDelay:
     \_operation: , line:155:11, endln:155:19
+      |vpiParent:
+      \_gate: work@bufif1 (work@delay_example.u_nor), line:155:32, endln:155:51
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:155:13, endln:155:14
+        |vpiParent:
+        \_operation: , line:155:11, endln:155:19
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:155:13, endln:155:14
@@ -9058,6 +9296,8 @@ design: (work@gates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:155:15, endln:155:16
+        |vpiParent:
+        \_operation: , line:155:11, endln:155:19
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:155:15, endln:155:16
@@ -9067,6 +9307,8 @@ design: (work@gates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:155:17, endln:155:18
+        |vpiParent:
+        \_operation: , line:155:11, endln:155:19
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:155:17, endln:155:18
@@ -9082,7 +9324,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.out3), line:155:42, endln:155:46
         |vpiParent:
-        \_gate: work@bufif1 (work@delay_example.u_nor), line:155:32, endln:155:51
+        \_prim_term: , line:155:42, endln:155:46
         |vpiName:out3
         |vpiFullName:work@delay_example.out3
         |vpiActual:
@@ -9096,7 +9338,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.b), line:155:47, endln:155:48
         |vpiParent:
-        \_gate: work@bufif1 (work@delay_example.u_nor), line:155:32, endln:155:51
+        \_prim_term: , line:155:47, endln:155:48
         |vpiName:b
         |vpiFullName:work@delay_example.b
         |vpiActual:
@@ -9110,7 +9352,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.c), line:155:49, endln:155:50
         |vpiParent:
-        \_gate: work@bufif1 (work@delay_example.u_nor), line:155:32, endln:155:51
+        \_prim_term: , line:155:49, endln:155:50
         |vpiName:c
         |vpiFullName:work@delay_example.c
         |vpiActual:
@@ -9125,6 +9367,8 @@ design: (work@gates)
     |vpiPrimType:2
     |vpiDelay:
     \_operation: , line:157:8, endln:157:16
+      |vpiParent:
+      \_gate: work@nand (work@delay_example.u_nand), line:157:29, endln:157:48
       |vpiOpType:38
       |vpiOperand:
       \_constant: , line:157:10, endln:157:11
@@ -9152,7 +9396,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.out4), line:157:39, endln:157:43
         |vpiParent:
-        \_gate: work@nand (work@delay_example.u_nand), line:157:29, endln:157:48
+        \_prim_term: , line:157:39, endln:157:43
         |vpiName:out4
         |vpiFullName:work@delay_example.out4
         |vpiActual:
@@ -9166,7 +9410,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.b), line:157:44, endln:157:45
         |vpiParent:
-        \_gate: work@nand (work@delay_example.u_nand), line:157:29, endln:157:48
+        \_prim_term: , line:157:44, endln:157:45
         |vpiName:b
         |vpiFullName:work@delay_example.b
         |vpiActual:
@@ -9180,7 +9424,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.c), line:157:46, endln:157:47
         |vpiParent:
-        \_gate: work@nand (work@delay_example.u_nand), line:157:29, endln:157:48
+        \_prim_term: , line:157:46, endln:157:47
         |vpiName:c
         |vpiFullName:work@delay_example.c
         |vpiActual:
@@ -9195,9 +9439,13 @@ design: (work@gates)
     |vpiPrimType:7
     |vpiDelay:
     \_operation: , line:159:8, endln:159:22
+      |vpiParent:
+      \_gate: work@buf (work@delay_example.u_buf), line:159:29, endln:159:46
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:159:10, endln:159:15
+        |vpiParent:
+        \_operation: , line:159:8, endln:159:22
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:159:10, endln:159:11
@@ -9219,6 +9467,8 @@ design: (work@gates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:159:16, endln:159:21
+        |vpiParent:
+        \_operation: , line:159:8, endln:159:22
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:159:16, endln:159:17
@@ -9246,7 +9496,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.out5), line:159:39, endln:159:43
         |vpiParent:
-        \_gate: work@buf (work@delay_example.u_buf), line:159:29, endln:159:46
+        \_prim_term: , line:159:39, endln:159:43
         |vpiName:out5
         |vpiFullName:work@delay_example.out5
         |vpiActual:
@@ -9260,7 +9510,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.b), line:159:44, endln:159:45
         |vpiParent:
-        \_gate: work@buf (work@delay_example.u_buf), line:159:29, endln:159:46
+        \_prim_term: , line:159:44, endln:159:45
         |vpiName:b
         |vpiFullName:work@delay_example.b
         |vpiActual:
@@ -9275,9 +9525,13 @@ design: (work@gates)
     |vpiPrimType:12
     |vpiDelay:
     \_operation: , line:161:8, endln:161:28
+      |vpiParent:
+      \_gate: work@notif1 (work@delay_example.u_notif1), line:161:29, endln:161:48
       |vpiOpType:37
       |vpiOperand:
       \_operation: , line:161:10, endln:161:15
+        |vpiParent:
+        \_operation: , line:161:8, endln:161:28
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:161:10, endln:161:11
@@ -9299,6 +9553,8 @@ design: (work@gates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:161:16, endln:161:21
+        |vpiParent:
+        \_operation: , line:161:8, endln:161:28
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:161:16, endln:161:17
@@ -9320,6 +9576,8 @@ design: (work@gates)
           |vpiConstType:9
       |vpiOperand:
       \_operation: , line:161:22, endln:161:27
+        |vpiParent:
+        \_operation: , line:161:8, endln:161:28
         |vpiOpType:38
         |vpiOperand:
         \_constant: , line:161:22, endln:161:23
@@ -9347,7 +9605,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.out6), line:161:39, endln:161:43
         |vpiParent:
-        \_gate: work@notif1 (work@delay_example.u_notif1), line:161:29, endln:161:48
+        \_prim_term: , line:161:39, endln:161:43
         |vpiName:out6
         |vpiFullName:work@delay_example.out6
         |vpiActual:
@@ -9361,7 +9619,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.b), line:161:44, endln:161:45
         |vpiParent:
-        \_gate: work@notif1 (work@delay_example.u_notif1), line:161:29, endln:161:48
+        \_prim_term: , line:161:44, endln:161:45
         |vpiName:b
         |vpiFullName:work@delay_example.b
         |vpiActual:
@@ -9375,7 +9633,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@delay_example.c), line:161:46, endln:161:47
         |vpiParent:
-        \_gate: work@notif1 (work@delay_example.u_notif1), line:161:29, endln:161:48
+        \_prim_term: , line:161:46, endln:161:47
         |vpiName:c
         |vpiFullName:work@delay_example.c
         |vpiActual:
@@ -9695,7 +9953,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.out1), line:184:13, endln:184:17
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and1), line:184:5, endln:184:28
+        \_prim_term: , line:184:13, endln:184:17
         |vpiName:out1
         |vpiFullName:work@n_in_primitive.out1
         |vpiActual:
@@ -9709,7 +9967,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in1), line:184:19, endln:184:22
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and1), line:184:5, endln:184:28
+        \_prim_term: , line:184:19, endln:184:22
         |vpiName:in1
         |vpiFullName:work@n_in_primitive.in1
         |vpiActual:
@@ -9723,7 +9981,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in2), line:184:24, endln:184:27
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and1), line:184:5, endln:184:28
+        \_prim_term: , line:184:24, endln:184:27
         |vpiName:in2
         |vpiFullName:work@n_in_primitive.in2
         |vpiActual:
@@ -9744,7 +10002,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.out2), line:186:13, endln:186:17
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and2), line:186:5, endln:186:38
+        \_prim_term: , line:186:13, endln:186:17
         |vpiName:out2
         |vpiFullName:work@n_in_primitive.out2
         |vpiActual:
@@ -9758,7 +10016,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in1), line:186:19, endln:186:22
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and2), line:186:5, endln:186:38
+        \_prim_term: , line:186:19, endln:186:22
         |vpiName:in1
         |vpiFullName:work@n_in_primitive.in1
         |vpiActual:
@@ -9772,7 +10030,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in2), line:186:24, endln:186:27
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and2), line:186:5, endln:186:38
+        \_prim_term: , line:186:24, endln:186:27
         |vpiName:in2
         |vpiFullName:work@n_in_primitive.in2
         |vpiActual:
@@ -9786,7 +10044,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in3), line:186:29, endln:186:32
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and2), line:186:5, endln:186:38
+        \_prim_term: , line:186:29, endln:186:32
         |vpiName:in3
         |vpiFullName:work@n_in_primitive.in3
         |vpiActual:
@@ -9800,7 +10058,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in4), line:186:34, endln:186:37
         |vpiParent:
-        \_gate: work@and (work@n_in_primitive.u_and2), line:186:5, endln:186:38
+        \_prim_term: , line:186:34, endln:186:37
         |vpiName:in4
         |vpiFullName:work@n_in_primitive.in4
         |vpiActual:
@@ -9821,7 +10079,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.out3), line:188:15, endln:188:19
         |vpiParent:
-        \_gate: work@xnor (work@n_in_primitive.u_xnor1), line:188:6, endln:188:35
+        \_prim_term: , line:188:15, endln:188:19
         |vpiName:out3
         |vpiFullName:work@n_in_primitive.out3
         |vpiActual:
@@ -9835,7 +10093,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in1), line:188:21, endln:188:24
         |vpiParent:
-        \_gate: work@xnor (work@n_in_primitive.u_xnor1), line:188:6, endln:188:35
+        \_prim_term: , line:188:21, endln:188:24
         |vpiName:in1
         |vpiFullName:work@n_in_primitive.in1
         |vpiActual:
@@ -9849,7 +10107,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in2), line:188:26, endln:188:29
         |vpiParent:
-        \_gate: work@xnor (work@n_in_primitive.u_xnor1), line:188:6, endln:188:35
+        \_prim_term: , line:188:26, endln:188:29
         |vpiName:in2
         |vpiFullName:work@n_in_primitive.in2
         |vpiActual:
@@ -9863,7 +10121,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_in_primitive.in3), line:188:31, endln:188:34
         |vpiParent:
-        \_gate: work@xnor (work@n_in_primitive.u_xnor1), line:188:6, endln:188:35
+        \_prim_term: , line:188:31, endln:188:34
         |vpiName:in3
         |vpiFullName:work@n_in_primitive.in3
         |vpiActual:
@@ -9971,7 +10229,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out), line:214:13, endln:214:16
         |vpiParent:
-        \_gate: work@buf (work@n_out_primitive.u_buf0), line:214:5, endln:214:20
+        \_prim_term: , line:214:13, endln:214:16
         |vpiName:out
         |vpiFullName:work@n_out_primitive.out
         |vpiActual:
@@ -9985,7 +10243,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.in), line:214:17, endln:214:19
         |vpiParent:
-        \_gate: work@buf (work@n_out_primitive.u_buf0), line:214:5, endln:214:20
+        \_prim_term: , line:214:17, endln:214:19
         |vpiName:in
         |vpiFullName:work@n_out_primitive.in
         |vpiActual:
@@ -10006,7 +10264,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out_0), line:216:13, endln:216:18
         |vpiParent:
-        \_gate: work@buf (work@n_out_primitive.u_buf1), line:216:5, endln:216:44
+        \_prim_term: , line:216:13, endln:216:18
         |vpiName:out_0
         |vpiFullName:work@n_out_primitive.out_0
         |vpiActual:
@@ -10020,7 +10278,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out_1), line:216:20, endln:216:25
         |vpiParent:
-        \_gate: work@buf (work@n_out_primitive.u_buf1), line:216:5, endln:216:44
+        \_prim_term: , line:216:20, endln:216:25
         |vpiName:out_1
         |vpiFullName:work@n_out_primitive.out_1
         |vpiActual:
@@ -10034,7 +10292,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out_2), line:216:27, endln:216:32
         |vpiParent:
-        \_gate: work@buf (work@n_out_primitive.u_buf1), line:216:5, endln:216:44
+        \_prim_term: , line:216:27, endln:216:32
         |vpiName:out_2
         |vpiFullName:work@n_out_primitive.out_2
         |vpiActual:
@@ -10048,7 +10306,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out_3), line:216:34, endln:216:39
         |vpiParent:
-        \_gate: work@buf (work@n_out_primitive.u_buf1), line:216:5, endln:216:44
+        \_prim_term: , line:216:34, endln:216:39
         |vpiName:out_3
         |vpiFullName:work@n_out_primitive.out_3
         |vpiActual:
@@ -10062,7 +10320,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.in), line:216:41, endln:216:43
         |vpiParent:
-        \_gate: work@buf (work@n_out_primitive.u_buf1), line:216:5, endln:216:44
+        \_prim_term: , line:216:41, endln:216:43
         |vpiName:in
         |vpiFullName:work@n_out_primitive.in
         |vpiActual:
@@ -10083,7 +10341,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out_a), line:218:13, endln:218:18
         |vpiParent:
-        \_gate: work@not (work@n_out_primitive.u_not0), line:218:5, endln:218:37
+        \_prim_term: , line:218:13, endln:218:18
         |vpiName:out_a
         |vpiFullName:work@n_out_primitive.out_a
         |vpiActual:
@@ -10097,7 +10355,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out_b), line:218:20, endln:218:25
         |vpiParent:
-        \_gate: work@not (work@n_out_primitive.u_not0), line:218:5, endln:218:37
+        \_prim_term: , line:218:20, endln:218:25
         |vpiName:out_b
         |vpiFullName:work@n_out_primitive.out_b
         |vpiActual:
@@ -10111,7 +10369,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.out_c), line:218:27, endln:218:32
         |vpiParent:
-        \_gate: work@not (work@n_out_primitive.u_not0), line:218:5, endln:218:37
+        \_prim_term: , line:218:27, endln:218:32
         |vpiName:out_c
         |vpiFullName:work@n_out_primitive.out_c
         |vpiActual:
@@ -10125,7 +10383,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@n_out_primitive.in), line:218:34, endln:218:36
         |vpiParent:
-        \_gate: work@not (work@n_out_primitive.u_not0), line:218:5, endln:218:37
+        \_prim_term: , line:218:34, endln:218:36
         |vpiName:in
         |vpiFullName:work@n_out_primitive.in
         |vpiActual:
@@ -10264,7 +10522,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@half_adder.Sum), line:225:13, endln:225:16
         |vpiParent:
-        \_gate: work@xor (work@half_adder.U1), line:225:12, endln:225:23
+        \_prim_term: , line:225:13, endln:225:16
         |vpiName:Sum
         |vpiFullName:work@half_adder.Sum
         |vpiActual:
@@ -10278,7 +10536,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@half_adder.A), line:225:18, endln:225:19
         |vpiParent:
-        \_gate: work@xor (work@half_adder.U1), line:225:12, endln:225:23
+        \_prim_term: , line:225:18, endln:225:19
         |vpiName:A
         |vpiFullName:work@half_adder.A
         |vpiActual:
@@ -10292,7 +10550,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@half_adder.B), line:225:21, endln:225:22
         |vpiParent:
-        \_gate: work@xor (work@half_adder.U1), line:225:12, endln:225:23
+        \_prim_term: , line:225:21, endln:225:22
         |vpiName:B
         |vpiFullName:work@half_adder.B
         |vpiActual:
@@ -10319,7 +10577,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@half_adder.Carry), line:226:13, endln:226:18
         |vpiParent:
-        \_gate: work@and (work@half_adder.U2), line:226:12, endln:226:25
+        \_prim_term: , line:226:13, endln:226:18
         |vpiName:Carry
         |vpiFullName:work@half_adder.Carry
         |vpiActual:
@@ -10333,7 +10591,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@half_adder.A), line:226:20, endln:226:21
         |vpiParent:
-        \_gate: work@and (work@half_adder.U2), line:226:12, endln:226:25
+        \_prim_term: , line:226:20, endln:226:21
         |vpiName:A
         |vpiFullName:work@half_adder.A
         |vpiActual:
@@ -10347,7 +10605,7 @@ design: (work@gates)
       |vpiExpr:
       \_ref_obj: (work@half_adder.B), line:226:23, endln:226:24
         |vpiParent:
-        \_gate: work@and (work@half_adder.U2), line:226:12, endln:226:25
+        \_prim_term: , line:226:23, endln:226:24
         |vpiName:B
         |vpiFullName:work@half_adder.B
         |vpiActual:
@@ -10405,10 +10663,14 @@ design: (work@gates)
   |vpiTopModule:1
   |vpiPrimitiveArray:
   \_gate_array: (work@gate_array.n_gate), line:233:6, endln:233:34
+    |vpiParent:
+    \_module_inst: work@gate_array (work@gate_array), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:230:1, endln:235:10
     |vpiName:n_gate
     |vpiFullName:work@gate_array.n_gate
     |vpiRange:
     \_range: , line:233:13, endln:233:18
+      |vpiParent:
+      \_gate_array: (work@gate_array.n_gate), line:233:6, endln:233:34
       |vpiLeftRange:
       \_constant: , line:233:14, endln:233:15
         |vpiParent:
@@ -10428,7 +10690,7 @@ design: (work@gates)
     |vpiPrimitive:
     \_gate: work@nand (work@gate_array.n_gate), line:233:6, endln:233:34
       |vpiParent:
-      \_module_inst: work@gate_array (work@gate_array), file:${SURELOG_DIR}/tests/Gates/dut.sv, line:230:1, endln:235:10
+      \_gate_array: (work@gate_array.n_gate), line:233:6, endln:233:34
       |vpiDefName:work@nand
       |vpiName:n_gate
       |vpiFullName:work@gate_array.n_gate
@@ -10441,7 +10703,7 @@ design: (work@gates)
         |vpiExpr:
         \_ref_obj: (work@gate_array.out), line:233:20, endln:233:23
           |vpiParent:
-          \_gate: work@nand (work@gate_array.n_gate), line:233:6, endln:233:34
+          \_prim_term: , line:233:20, endln:233:23
           |vpiName:out
           |vpiFullName:work@gate_array.out
           |vpiActual:
@@ -10455,7 +10717,7 @@ design: (work@gates)
         |vpiExpr:
         \_ref_obj: (work@gate_array.in1), line:233:25, endln:233:28
           |vpiParent:
-          \_gate: work@nand (work@gate_array.n_gate), line:233:6, endln:233:34
+          \_prim_term: , line:233:25, endln:233:28
           |vpiName:in1
           |vpiFullName:work@gate_array.in1
           |vpiActual:
@@ -10469,7 +10731,7 @@ design: (work@gates)
         |vpiExpr:
         \_ref_obj: (work@gate_array.in2), line:233:30, endln:233:33
           |vpiParent:
-          \_gate: work@nand (work@gate_array.n_gate), line:233:6, endln:233:34
+          \_prim_term: , line:233:30, endln:233:33
           |vpiName:in2
           |vpiFullName:work@gate_array.in2
           |vpiActual:

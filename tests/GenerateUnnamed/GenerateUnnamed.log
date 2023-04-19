@@ -1053,7 +1053,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-gate                                                   8
+gate                                                  16
 gen_scope                                             17
 gen_scope_array                                       17
 int_typespec                                          17
@@ -1566,6 +1566,13 @@ design: (work@test1)
     |vpiName:c
     |vpiFullName:work@test1.c
     |vpiNetType:1
+  |vpiPrimitive:
+  \_gate: (work@test1.sg1), line:11:6, endln:11:18
+    |vpiParent:
+    \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
+    |vpiName:sg1
+    |vpiFullName:work@test1.sg1
+    |vpiPrimType:4
 |uhdmallModules:
 \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
   |vpiParent:
@@ -1639,6 +1646,13 @@ design: (work@test1)
     |vpiName:c
     |vpiFullName:work@test2.c
     |vpiNetType:1
+  |vpiPrimitive:
+  \_gate: (work@test2.sg1), line:70:6, endln:70:18
+    |vpiParent:
+    \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
+    |vpiName:sg1
+    |vpiFullName:work@test2.sg1
+    |vpiPrimType:4
 |uhdmtopModules:
 \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
   |vpiName:work@test1

@@ -2460,6 +2460,149 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
   }
 }
 
+uint32_t CompileHelper::getBuiltinType(VObjectType type) {
+  switch (type) {
+    case VObjectType::slNInpGate_And:
+      return vpiAndPrim;
+    case VObjectType::slNInpGate_Or:
+      return vpiOrPrim;
+    case VObjectType::slNInpGate_Nor:
+      return vpiNorPrim;
+    case VObjectType::slNInpGate_Nand:
+      return vpiNandPrim;
+    case VObjectType::slNInpGate_Xor:
+      return vpiXorPrim;
+    case VObjectType::slNInpGate_Xnor:
+      return vpiXnorPrim;
+    case VObjectType::slNOutGate_Buf:
+      return vpiBufPrim;
+    case VObjectType::slNOutGate_Not:
+      return vpiNotPrim;
+    case VObjectType::slPassEnSwitch_Tranif0:
+      return vpiTranif0Prim;
+    case VObjectType::slPassEnSwitch_Tranif1:
+      return vpiTranif1Prim;
+    case VObjectType::slPassEnSwitch_RTranif1:
+      return vpiRtranif1Prim;
+    case VObjectType::slPassEnSwitch_RTranif0:
+      return vpiRtranif0Prim;
+    case VObjectType::slPassSwitch_Tran:
+      return vpiTranPrim;
+    case VObjectType::slPassSwitch_RTran:
+      return vpiRtranPrim;
+    case VObjectType::slCmosSwitchType_Cmos:
+      return vpiCmosPrim;
+    case VObjectType::slCmosSwitchType_RCmos:
+      return vpiRcmosPrim;
+    case VObjectType::slEnableGateType_Bufif0:
+      return vpiBufif0Prim;
+    case VObjectType::slEnableGateType_Bufif1:
+      return vpiBufif1Prim;
+    case VObjectType::slEnableGateType_Notif0:
+      return vpiNotif0Prim;
+    case VObjectType::slEnableGateType_Notif1:
+      return vpiNotif1Prim;
+    case VObjectType::slMosSwitchType_NMos:
+      return vpiNmosPrim;
+    case VObjectType::slMosSwitchType_PMos:
+      return vpiPmosPrim;
+    case VObjectType::slMosSwitchType_RNMos:
+      return vpiRnmosPrim;
+    case VObjectType::slMosSwitchType_RPMos:
+      return vpiRpmosPrim;
+    case VObjectType::slPullup:
+      return vpiPullupPrim;
+    case VObjectType::slPulldown:
+      return vpiPulldownPrim;
+    default:
+      return 0;
+  }
+}
+
+void CompileHelper::compileGateInstantiation(ModuleDefinition* mod,
+                                             const FileContent* fC,
+                                             CompileDesign* compileDesign,
+                                             NodeId id,
+                                             ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::primitive* gate = nullptr;
+  UHDM::primitive_array* gate_array = nullptr;
+  NodeId gatenode = fC->Child(fC->Parent(id));
+  VObjectType gatetype = fC->Type(gatenode);
+  int32_t vpiGateType = getBuiltinType(gatetype);
+  NodeId Name_of_instance = fC->Child(id);
+  NodeId Name = fC->Child(Name_of_instance);
+  NodeId Unpacked_dimension = fC->Sibling(Name);
+  if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
+      vpiGateType == vpiNmosPrim || vpiGateType == vpiRnmosPrim ||
+      vpiGateType == vpiCmosPrim || vpiGateType == vpiRcmosPrim ||
+      vpiGateType == vpiTranif1Prim || vpiGateType == vpiTranif0Prim ||
+      vpiGateType == vpiRtranif1Prim || vpiGateType == vpiRtranif0Prim ||
+      vpiGateType == vpiTranPrim || vpiGateType == vpiRtranPrim) {
+    gate = s.MakeSwitch_tran();
+    if (fC->Type(Unpacked_dimension) == VObjectType::slUnpacked_dimension) {
+      gate_array = s.MakeSwitch_array();
+      VectorOfprimitive* prims = s.MakePrimitiveVec();
+      int32_t size;
+      VectorOfrange* ranges =
+          compileRanges(mod, fC, Unpacked_dimension, compileDesign, nullptr,
+                        instance, false, size, false);
+      gate_array->Primitives(prims);
+      gate_array->Ranges(ranges);
+      prims->push_back(gate);
+      if (mod->getPrimitiveArrays() == nullptr) {
+        mod->setPrimitiveArrays(s.MakePrimitive_arrayVec());
+      }
+      mod->getPrimitiveArrays()->push_back(gate_array);
+    } else {
+      if (mod->getPrimitives() == nullptr) {
+        mod->setPrimitives(s.MakePrimitiveVec());
+      }
+      mod->getPrimitives()->push_back(gate);
+    }
+    gate->VpiPrimType(vpiGateType);
+  } else {
+    gate = s.MakeGate();
+    if (fC->Type(Unpacked_dimension) == VObjectType::slUnpacked_dimension) {
+      gate_array = s.MakeGate_array();
+      gate_array->VpiName(fC->SymName(Name));
+      fC->populateCoreMembers(id, id, gate_array);
+      VectorOfprimitive* prims = s.MakePrimitiveVec();
+      gate_array->Primitives(prims);
+      int32_t size;
+      VectorOfrange* ranges =
+          compileRanges(mod, fC, Unpacked_dimension, compileDesign, nullptr,
+                        instance, false, size, false);
+      gate_array->Ranges(ranges);
+      prims->push_back(gate);
+      if (mod->getPrimitiveArrays() == nullptr) {
+        mod->setPrimitiveArrays(s.MakePrimitive_arrayVec());
+      }
+      mod->getPrimitiveArrays()->push_back(gate_array);
+    } else {
+      if (mod->getPrimitives() == nullptr) {
+        mod->setPrimitives(s.MakePrimitiveVec());
+      }
+      mod->getPrimitives()->push_back(gate);
+    }
+
+    gate->VpiPrimType(vpiGateType);
+  }
+  /*
+  if (UHDM::VectorOfexpr* delays = child->getNetlist()->delays()) {
+    if (delays->size() == 1) {
+      gate->Delay((*delays)[0]);
+    }
+  }
+  */
+  if (gate) {
+    gate->VpiName(fC->SymName(Name));
+    // gate->VpiDefName(child->getModuleName());
+    fC->populateCoreMembers(id, id, gate);
+  }
+  // writePrimTerms(child, gate, vpiGateType, s);
+}
+
 void CompileHelper::compileHighConn(ModuleDefinition* component,
                                     const FileContent* fC,
                                     CompileDesign* compileDesign, NodeId instId,

@@ -519,6 +519,8 @@ design: (work@dut)
     \_logic_typespec: , line:2:34, endln:2:37
   |vpiRefModule:
   \_ref_module: work@ConnectTB (conntb), line:3:13, endln:3:19
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
     |vpiName:conntb
     |vpiDefName:work@ConnectTB
     |vpiActual:
@@ -541,6 +543,8 @@ design: (work@dut)
         \_logic_net: (work@dut.o), line:2:38, endln:2:39
   |vpiRefModule:
   \_ref_module: work@middle (middle1), line:4:10, endln:4:17
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
     |vpiName:middle1
     |vpiDefName:work@middle
     |vpiActual:
@@ -579,6 +583,8 @@ design: (work@dut)
       |vpiName:ConnectTB
   |vpiRefModule:
   \_ref_module: work@SUB (sub1), line:11:7, endln:11:11
+    |vpiParent:
+    \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:10:1, endln:12:10
     |vpiName:sub1
     |vpiDefName:work@SUB
     |vpiActual:
@@ -633,6 +639,8 @@ design: (work@dut)
     |vpiNetType:1
   |vpiRefModule:
   \_ref_module: work@ConnectTB (conntb), line:16:13, endln:16:19
+    |vpiParent:
+    \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
     |vpiName:conntb
     |vpiDefName:work@ConnectTB
     |vpiActual:
@@ -655,6 +663,8 @@ design: (work@dut)
         \_logic_net: (work@tb.o), line:15:10, endln:15:11
   |vpiRefModule:
   \_ref_module: work@middle (dut1), line:17:10, endln:17:14
+    |vpiParent:
+    \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
     |vpiName:dut1
     |vpiDefName:work@middle
     |vpiActual:
@@ -668,6 +678,8 @@ design: (work@dut)
         \_logic_net: (conntb)
   |vpiRefModule:
   \_ref_module: work@TESTBENCH (tb), line:18:13, endln:18:15
+    |vpiParent:
+    \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
     |vpiName:tb
     |vpiDefName:work@TESTBENCH
     |vpiActual:

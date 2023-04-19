@@ -103,7 +103,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 design                                                 1
-gate                                                   2
+gate                                                   4
 logic_net                                             10
 logic_typespec                                         2
 module_inst                                            2
@@ -115,13 +115,13 @@ ref_obj                                                5
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 design                                                 1
-gate                                                   2
+gate                                                   6
 logic_net                                             10
 logic_typespec                                         2
 module_inst                                            2
 port                                                   5
-prim_term                                              5
-ref_obj                                                5
+prim_term                                             10
+ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Implicit/slpp_all/surelog.uhdm ...
 
@@ -132,182 +132,195 @@ ref_obj                                                5
 [INF:UH0711] Decompiling UHDM...
 
 ====== UHDM =======
-design: (work@dff_from_nand), id:18
+design: (work@dff_from_nand), id:20
 |vpiElaborated:1
 |vpiName:work@dff_from_nand
 |uhdmallModules:
-\_module_inst: work@dff_from_nand (work@dff_from_nand), id:19, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+\_module_inst: work@dff_from_nand (work@dff_from_nand), id:21, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
   |vpiParent:
-  \_design: (work@dff_from_nand), id:18
+  \_design: (work@dff_from_nand), id:20
   |vpiFullName:work@dff_from_nand
   |vpiDefName:work@dff_from_nand
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.Q), id:20, line:3:6, endln:3:7
+  \_logic_net: (work@dff_from_nand.Q), id:22, line:3:6, endln:3:7
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:19, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:21, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiName:Q
     |vpiFullName:work@dff_from_nand.Q
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.Q_BAR), id:21, line:3:8, endln:3:13
+  \_logic_net: (work@dff_from_nand.Q_BAR), id:23, line:3:8, endln:3:13
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:19, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:21, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiName:Q_BAR
     |vpiFullName:work@dff_from_nand.Q_BAR
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.D), id:22, line:4:6, endln:4:7
+  \_logic_net: (work@dff_from_nand.D), id:24, line:4:6, endln:4:7
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:19, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:21, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiName:D
     |vpiFullName:work@dff_from_nand.D
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.CLK), id:23, line:4:8, endln:4:11
+  \_logic_net: (work@dff_from_nand.CLK), id:25, line:4:8, endln:4:11
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:19, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:21, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiName:CLK
     |vpiFullName:work@dff_from_nand.CLK
     |vpiNetType:48
+  |vpiPrimitive:
+  \_gate: (work@dff_from_nand.U1), id:0, line:6:6, endln:6:18
+    |vpiParent:
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:21, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    |vpiName:U1
+    |vpiFullName:work@dff_from_nand.U1
+    |vpiPrimType:2
+  |vpiPrimitive:
+  \_gate: (work@dff_from_nand), id:1, line:7:5, endln:7:15
+    |vpiParent:
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:21, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    |vpiFullName:work@dff_from_nand
+    |vpiPrimType:8
 |uhdmtopModules:
-\_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+\_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
   |vpiName:work@dff_from_nand
   |vpiDefName:work@dff_from_nand
   |vpiTop:1
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.Q), id:1, line:3:6, endln:3:7
+  \_logic_net: (work@dff_from_nand.Q), id:3, line:3:6, endln:3:7
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , id:0, line:3:1, endln:3:5
+    \_logic_typespec: , id:2, line:3:1, endln:3:5
     |vpiName:Q
     |vpiFullName:work@dff_from_nand.Q
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.Q_BAR), id:2, line:3:8, endln:3:13
+  \_logic_net: (work@dff_from_nand.Q_BAR), id:4, line:3:8, endln:3:13
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , id:0, line:3:1, endln:3:5
+    \_logic_typespec: , id:2, line:3:1, endln:3:5
     |vpiName:Q_BAR
     |vpiFullName:work@dff_from_nand.Q_BAR
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.D), id:4, line:4:6, endln:4:7
+  \_logic_net: (work@dff_from_nand.D), id:6, line:4:6, endln:4:7
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , id:3, line:4:1, endln:4:4
+    \_logic_typespec: , id:5, line:4:1, endln:4:4
     |vpiName:D
     |vpiFullName:work@dff_from_nand.D
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.CLK), id:5, line:4:8, endln:4:11
+  \_logic_net: (work@dff_from_nand.CLK), id:7, line:4:8, endln:4:11
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , id:3, line:4:1, endln:4:4
+    \_logic_typespec: , id:5, line:4:1, endln:4:4
     |vpiName:CLK
     |vpiFullName:work@dff_from_nand.CLK
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.X), id:8, line:6:10, endln:6:11
+  \_logic_net: (work@dff_from_nand.X), id:10, line:6:10, endln:6:11
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiName:X
     |vpiFullName:work@dff_from_nand.X
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@dff_from_nand.X_BAR), id:15, line:7:6, endln:7:11
+  \_logic_net: (work@dff_from_nand.X_BAR), id:17, line:7:6, endln:7:11
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiName:X_BAR
     |vpiFullName:work@dff_from_nand.X_BAR
     |vpiNetType:1
   |vpiTopModule:1
   |vpiPrimitive:
-  \_gate: work@nand (work@dff_from_nand.U1), id:25, line:6:6, endln:6:18
+  \_gate: work@nand (work@dff_from_nand.U1), id:34, line:6:6, endln:6:18
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiDefName:work@nand
     |vpiName:U1
     |vpiFullName:work@dff_from_nand.U1
     |vpiPrimType:2
     |vpiPrimTerm:
-    \_prim_term: , id:26, line:6:10, endln:6:11
+    \_prim_term: , id:35, line:6:10, endln:6:11
       |vpiParent:
-      \_gate: work@nand (work@dff_from_nand.U1), id:25, line:6:6, endln:6:18
+      \_gate: work@nand (work@dff_from_nand.U1), id:34, line:6:6, endln:6:18
       |vpiDirection:2
       |vpiExpr:
-      \_ref_obj: (work@dff_from_nand.X), id:7, line:6:10, endln:6:11
+      \_ref_obj: (work@dff_from_nand.X), id:36, line:6:10, endln:6:11
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U1), id:25, line:6:6, endln:6:18
+        \_prim_term: , id:35, line:6:10, endln:6:11
         |vpiName:X
         |vpiFullName:work@dff_from_nand.X
         |vpiActual:
-        \_logic_net: (work@dff_from_nand.X), id:8, line:6:10, endln:6:11
+        \_logic_net: (work@dff_from_nand.X), id:10, line:6:10, endln:6:11
     |vpiPrimTerm:
-    \_prim_term: , id:27, line:6:12, endln:6:13
+    \_prim_term: , id:37, line:6:12, endln:6:13
       |vpiParent:
-      \_gate: work@nand (work@dff_from_nand.U1), id:25, line:6:6, endln:6:18
+      \_gate: work@nand (work@dff_from_nand.U1), id:34, line:6:6, endln:6:18
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (work@dff_from_nand.D), id:10, line:6:12, endln:6:13
+      \_ref_obj: (work@dff_from_nand.D), id:38, line:6:12, endln:6:13
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U1), id:25, line:6:6, endln:6:18
+        \_prim_term: , id:37, line:6:12, endln:6:13
         |vpiName:D
         |vpiFullName:work@dff_from_nand.D
         |vpiActual:
-        \_logic_net: (work@dff_from_nand.D), id:4, line:4:6, endln:4:7
+        \_logic_net: (work@dff_from_nand.D), id:6, line:4:6, endln:4:7
     |vpiPrimTerm:
-    \_prim_term: , id:28, line:6:14, endln:6:17
+    \_prim_term: , id:39, line:6:14, endln:6:17
       |vpiParent:
-      \_gate: work@nand (work@dff_from_nand.U1), id:25, line:6:6, endln:6:18
+      \_gate: work@nand (work@dff_from_nand.U1), id:34, line:6:6, endln:6:18
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (work@dff_from_nand.CLK), id:12, line:6:14, endln:6:17
+      \_ref_obj: (work@dff_from_nand.CLK), id:40, line:6:14, endln:6:17
         |vpiParent:
-        \_gate: work@nand (work@dff_from_nand.U1), id:25, line:6:6, endln:6:18
+        \_prim_term: , id:39, line:6:14, endln:6:17
         |vpiName:CLK
         |vpiFullName:work@dff_from_nand.CLK
         |vpiActual:
-        \_logic_net: (work@dff_from_nand.CLK), id:5, line:4:8, endln:4:11
+        \_logic_net: (work@dff_from_nand.CLK), id:7, line:4:8, endln:4:11
   |vpiPrimitive:
-  \_gate: work@not (work@dff_from_nand.), id:29, line:7:5, endln:7:15
+  \_gate: work@not (work@dff_from_nand.), id:41, line:7:5, endln:7:15
     |vpiParent:
-    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:24, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
+    \_module_inst: work@dff_from_nand (work@dff_from_nand), id:26, file:${SURELOG_DIR}/tests/Implicit/dut.sv, line:2:1, endln:8:10
     |vpiDefName:work@not
     |vpiFullName:work@dff_from_nand.
     |vpiPrimType:8
     |vpiPrimTerm:
-    \_prim_term: , id:30, line:7:6, endln:7:11
+    \_prim_term: , id:42, line:7:6, endln:7:11
       |vpiParent:
-      \_gate: work@not (work@dff_from_nand.), id:29, line:7:5, endln:7:15
+      \_gate: work@not (work@dff_from_nand.), id:41, line:7:5, endln:7:15
       |vpiDirection:2
       |vpiExpr:
-      \_ref_obj: (work@dff_from_nand.X_BAR), id:14, line:7:6, endln:7:11
+      \_ref_obj: (work@dff_from_nand.X_BAR), id:43, line:7:6, endln:7:11
         |vpiParent:
-        \_gate: work@not (work@dff_from_nand.), id:29, line:7:5, endln:7:15
+        \_prim_term: , id:42, line:7:6, endln:7:11
         |vpiName:X_BAR
         |vpiFullName:work@dff_from_nand.X_BAR
         |vpiActual:
-        \_logic_net: (work@dff_from_nand.X_BAR), id:15, line:7:6, endln:7:11
+        \_logic_net: (work@dff_from_nand.X_BAR), id:17, line:7:6, endln:7:11
     |vpiPrimTerm:
-    \_prim_term: , id:31, line:7:13, endln:7:14
+    \_prim_term: , id:44, line:7:13, endln:7:14
       |vpiParent:
-      \_gate: work@not (work@dff_from_nand.), id:29, line:7:5, endln:7:15
+      \_gate: work@not (work@dff_from_nand.), id:41, line:7:5, endln:7:15
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (work@dff_from_nand.X), id:17, line:7:13, endln:7:14
+      \_ref_obj: (work@dff_from_nand.X), id:45, line:7:13, endln:7:14
         |vpiParent:
-        \_gate: work@not (work@dff_from_nand.), id:29, line:7:5, endln:7:15
+        \_prim_term: , id:44, line:7:13, endln:7:14
         |vpiName:X
         |vpiFullName:work@dff_from_nand.X
         |vpiActual:
-        \_logic_net: (work@dff_from_nand.X), id:8, line:6:10, endln:6:11
+        \_logic_net: (work@dff_from_nand.X), id:10, line:6:10, endln:6:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

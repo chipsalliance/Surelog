@@ -429,10 +429,15 @@ class CompileHelper final {
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
 
+  uint32_t getBuiltinType(VObjectType type);
+
   void compileLetDeclaration(DesignComponent* component, const FileContent* fC,
                              NodeId nodeId, CompileDesign* compileDesign);
 
   void compileInstantiation(ModuleDefinition* mod, const FileContent* fC,
+                            CompileDesign* compileDesign, NodeId id,
+                            ValuedComponentI* instance);
+  void compileGateInstantiation(ModuleDefinition* mod, const FileContent* fC,
                             CompileDesign* compileDesign, NodeId id,
                             ValuedComponentI* instance);
   void compileHighConn(ModuleDefinition* component, const FileContent* fC,
