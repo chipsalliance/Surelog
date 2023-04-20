@@ -2597,7 +2597,7 @@ void CompileHelper::compileGateInstantiation(ModuleDefinition* mod,
   */
   if (gate) {
     gate->VpiName(fC->SymName(Name));
-    // gate->VpiDefName(child->getModuleName());
+    gate->VpiDefName(UhdmWriter::builtinGateName(gatetype));
     fC->populateCoreMembers(id, id, gate);
   }
   // writePrimTerms(child, gate, vpiGateType, s);

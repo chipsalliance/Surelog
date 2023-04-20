@@ -68,7 +68,6 @@ class UhdmWriter final {
   static uint32_t getStrengthType(VObjectType type);
 
   static std::string builtinGateName(VObjectType type);
-  static uint32_t getBuiltinType(VObjectType type);
 
  private:
   void writePorts(std::vector<Signal*>& orig_ports, UHDM::BaseClass* parent,

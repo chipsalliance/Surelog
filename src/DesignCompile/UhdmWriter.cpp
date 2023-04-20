@@ -149,65 +149,6 @@ std::string UhdmWriter::builtinGateName(VObjectType type) {
   return modName;
 }
 
-uint32_t UhdmWriter::getBuiltinType(VObjectType type) {
-  switch (type) {
-    case VObjectType::slNInpGate_And:
-      return vpiAndPrim;
-    case VObjectType::slNInpGate_Or:
-      return vpiOrPrim;
-    case VObjectType::slNInpGate_Nor:
-      return vpiNorPrim;
-    case VObjectType::slNInpGate_Nand:
-      return vpiNandPrim;
-    case VObjectType::slNInpGate_Xor:
-      return vpiXorPrim;
-    case VObjectType::slNInpGate_Xnor:
-      return vpiXnorPrim;
-    case VObjectType::slNOutGate_Buf:
-      return vpiBufPrim;
-    case VObjectType::slNOutGate_Not:
-      return vpiNotPrim;
-    case VObjectType::slPassEnSwitch_Tranif0:
-      return vpiTranif0Prim;
-    case VObjectType::slPassEnSwitch_Tranif1:
-      return vpiTranif1Prim;
-    case VObjectType::slPassEnSwitch_RTranif1:
-      return vpiRtranif1Prim;
-    case VObjectType::slPassEnSwitch_RTranif0:
-      return vpiRtranif0Prim;
-    case VObjectType::slPassSwitch_Tran:
-      return vpiTranPrim;
-    case VObjectType::slPassSwitch_RTran:
-      return vpiRtranPrim;
-    case VObjectType::slCmosSwitchType_Cmos:
-      return vpiCmosPrim;
-    case VObjectType::slCmosSwitchType_RCmos:
-      return vpiRcmosPrim;
-    case VObjectType::slEnableGateType_Bufif0:
-      return vpiBufif0Prim;
-    case VObjectType::slEnableGateType_Bufif1:
-      return vpiBufif1Prim;
-    case VObjectType::slEnableGateType_Notif0:
-      return vpiNotif0Prim;
-    case VObjectType::slEnableGateType_Notif1:
-      return vpiNotif1Prim;
-    case VObjectType::slMosSwitchType_NMos:
-      return vpiNmosPrim;
-    case VObjectType::slMosSwitchType_PMos:
-      return vpiPmosPrim;
-    case VObjectType::slMosSwitchType_RNMos:
-      return vpiRnmosPrim;
-    case VObjectType::slMosSwitchType_RPMos:
-      return vpiRpmosPrim;
-    case VObjectType::slPullup:
-      return vpiPullupPrim;
-    case VObjectType::slPulldown:
-      return vpiPulldownPrim;
-    default:
-      return 0;
-  }
-}
-
 UhdmWriter::UhdmWriter(CompileDesign* compiler, Design* design)
     : m_compileDesign(compiler), m_design(design) {
   m_helper.seterrorReporting(
@@ -3685,7 +3626,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         const FileContent* fC = child->getFileContent();
         NodeId gatenode = fC->Child(fC->Parent(child->getNodeId()));
         VObjectType gatetype = fC->Type(gatenode);
-        int32_t vpiGateType = getBuiltinType(gatetype);
+        int32_t vpiGateType = m_helper.getBuiltinType(gatetype);
         if (insttype == VObjectType::slUdp_instantiation) {
           UHDM::udp* udp = s.MakeUdp();
           gate = udp;
