@@ -1014,8 +1014,8 @@ void DesignElaboration::elaborateInstance_(
           bool validValue;
           m_helper.checkForLoops(true);
           uint64_t initVal = (uint64_t)m_helper.getValue(
-              validValue, parentDef, fC, constExpr, m_compileDesign, nullptr,
-              parent, true, false);
+              validValue, parentDef, fC, constExpr, m_compileDesign,
+              Reduce::Yes, nullptr, parent, false);
           m_helper.checkForLoops(false);
           Value* initValue = m_exprBuilder.getValueFactory().newLValue();
           initValue->set(initVal);
@@ -1040,9 +1040,9 @@ void DesignElaboration::elaborateInstance_(
           // Generate block
           NodeId genBlock = fC->Sibling(iteration);
           m_helper.checkForLoops(true);
-          int64_t condVal =
-              m_helper.getValue(validValue, parentDef, fC, endLoopTest,
-                                m_compileDesign, nullptr, parent, true, false);
+          int64_t condVal = m_helper.getValue(
+              validValue, parentDef, fC, endLoopTest, m_compileDesign,
+              Reduce::Yes, nullptr, parent, false);
           m_helper.checkForLoops(false);
           bool cont = (validValue && (condVal > 0));
 
@@ -1085,8 +1085,8 @@ void DesignElaboration::elaborateInstance_(
             parent->setValue(name, newVal, m_exprBuilder, fC->Line(varId));
             m_helper.checkForLoops(true);
             condVal = m_helper.getValue(validValue, parentDef, fC, endLoopTest,
-                                        m_compileDesign, nullptr, parent, true,
-                                        false);
+                                        m_compileDesign, Reduce::Yes, nullptr,
+                                        parent, false);
             m_helper.checkForLoops(false);
             cont = (validValue && (condVal > 0));
 
@@ -1103,9 +1103,9 @@ void DesignElaboration::elaborateInstance_(
           }
           bool validValue;
           m_helper.checkForLoops(true);
-          int64_t condVal =
-              m_helper.getValue(validValue, parentDef, fC, conditionId,
-                                m_compileDesign, nullptr, parent, true, false);
+          int64_t condVal = m_helper.getValue(
+              validValue, parentDef, fC, conditionId, m_compileDesign,
+              Reduce::Yes, nullptr, parent, false);
           m_helper.checkForLoops(false);
           NodeId tmp = fC->Sibling(conditionId);
 
@@ -1133,8 +1133,8 @@ void DesignElaboration::elaborateInstance_(
               for (NodeId id : checkIds) {
                 m_helper.checkForLoops(true);
                 UHDM::any* tmpExp = m_helper.compileExpression(
-                    parentDef, fC, id, m_compileDesign, nullptr, parent, true,
-                    false);
+                    parentDef, fC, id, m_compileDesign, Reduce::Yes, nullptr,
+                    parent, false);
                 m_helper.checkForLoops(false);
                 if (tmpExp && (tmpExp->UhdmType() == UHDM::uhdmconstant)) {
                   UHDM::constant* c = (UHDM::constant*)tmpExp;
@@ -1157,8 +1157,8 @@ void DesignElaboration::elaborateInstance_(
             }
             m_helper.checkForLoops(true);
             const UHDM::any* condExpr = m_helper.compileExpression(
-                parentDef, fC, conditionId, m_compileDesign, nullptr, parent,
-                true, false);
+                parentDef, fC, conditionId, m_compileDesign, Reduce::Yes,
+                nullptr, parent, false);
             m_helper.checkForLoops(false);
             condExpr = resize(m_compileDesign->getSerializer(), condExpr,
                               maxsize, is_overall_unsigned);
@@ -1185,8 +1185,8 @@ void DesignElaboration::elaborateInstance_(
                 if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
                   m_helper.checkForLoops(true);
                   const UHDM::any* caseExpr = m_helper.compileExpression(
-                      parentDef, fC, exprItem, m_compileDesign, nullptr, parent,
-                      true, false);
+                      parentDef, fC, exprItem, m_compileDesign, Reduce::Yes,
+                      nullptr, parent, false);
                   m_helper.checkForLoops(false);
                   caseExpr = resize(m_compileDesign->getSerializer(), caseExpr,
                                     maxsize, is_overall_unsigned);
@@ -1260,9 +1260,9 @@ void DesignElaboration::elaborateInstance_(
                     if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                       bool validValue;
                       m_helper.checkForLoops(true);
-                      condVal = m_helper.getValue(validValue, parentDef, fC,
-                                                  Cond, m_compileDesign,
-                                                  nullptr, parent, true, false);
+                      condVal = m_helper.getValue(
+                          validValue, parentDef, fC, Cond, m_compileDesign,
+                          Reduce::Yes, nullptr, parent, false);
                       m_helper.checkForLoops(false);
                     } else {
                       // It is not an else-if
@@ -1278,9 +1278,9 @@ void DesignElaboration::elaborateInstance_(
                     if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                       bool validValue;
                       m_helper.checkForLoops(true);
-                      condVal = m_helper.getValue(validValue, parentDef, fC,
-                                                  Cond, m_compileDesign,
-                                                  nullptr, parent, true, false);
+                      condVal = m_helper.getValue(
+                          validValue, parentDef, fC, Cond, m_compileDesign,
+                          Reduce::Yes, nullptr, parent, false);
                       m_helper.checkForLoops(false);
                     } else {
                       // It is not an else-if
@@ -1586,14 +1586,14 @@ void DesignElaboration::elaborateInstance_(
                 break;
               }
               case UseClause::UseLib: {
-                for (const auto& lib : use.getLibs()) {
+                const auto& libs = use.getLibs();
+                if (!libs.empty()) {
+                  const auto& lib = libs.front();
                   modName = StrCat(lib, "@", mname);
                   def = design->getComponentDefinition(modName);
                   if (def) {
                     use.setUsed();
-                    break;
                   }
-                  break;
                 }
                 break;
               }
@@ -1647,17 +1647,17 @@ void DesignElaboration::elaborateInstance_(
                 NodeId rightNode = fC->Sibling(leftNode);
                 bool validValue;
                 m_helper.checkForLoops(true);
-                int64_t left = m_helper.getValue(validValue, parentDef, fC,
-                                                 leftNode, m_compileDesign,
-                                                 nullptr, parent, true, false);
+                int64_t left = m_helper.getValue(
+                    validValue, parentDef, fC, leftNode, m_compileDesign,
+                    Reduce::Yes, nullptr, parent, false);
                 m_helper.checkForLoops(false);
                 int64_t right = 0;
                 if (rightNode && (fC->Type(rightNode) ==
                                   VObjectType::slConstant_expression)) {
                   m_helper.checkForLoops(true);
-                  right = m_helper.getValue(validValue, parentDef, fC,
-                                            rightNode, m_compileDesign, nullptr,
-                                            parent, true, false);
+                  right = m_helper.getValue(
+                      validValue, parentDef, fC, rightNode, m_compileDesign,
+                      Reduce::Yes, nullptr, parent, false);
                   m_helper.checkForLoops(false);
                 }
                 if (left < right) {
@@ -1686,9 +1686,9 @@ void DesignElaboration::elaborateInstance_(
               int32_t unpackedSize = 0;
               unpackedDimId = fC->Sibling(identifierId);
               if (std::vector<UHDM::range*>* unpackedDimensions =
-                      m_helper.compileRanges(def, fC, unpackedDimId,
-                                             m_compileDesign, nullptr, parent,
-                                             false, unpackedSize, false)) {
+                      m_helper.compileRanges(
+                          def, fC, unpackedDimId, m_compileDesign, Reduce::No,
+                          nullptr, parent, unpackedSize, false)) {
                 UHDM::Serializer& s = m_compileDesign->getSerializer();
                 UHDM::module_array* mod_array = s.MakeModule_array();
                 mod_array->Ranges(unpackedDimensions);
@@ -1919,8 +1919,8 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
         }
         m_helper.checkForLoops(true);
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
-            parentDefinition, parentFile, expr, m_compileDesign, nullptr,
-            parentInstance, true, false);
+            parentDefinition, parentFile, expr, m_compileDesign, Reduce::Yes,
+            nullptr, parentInstance, false);
         m_helper.checkForLoops(false);
         Value* value = nullptr;
         bool complex = false;
@@ -1935,8 +1935,8 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
               // GDB: p replay=true
               if (replay) {
                 m_helper.compileExpression(parentDefinition, parentFile, expr,
-                                           m_compileDesign, nullptr,
-                                           parentInstance, true, false);
+                                           m_compileDesign, Reduce::Yes,
+                                           nullptr, parentInstance, false);
 
                 m_exprBuilder.evalExpr(parentFile, expr, parentInstance, true);
               }
@@ -1957,7 +1957,7 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                 m_helper.checkForLoops(true);
                 complexV = (UHDM::expr*)m_helper.compileExpression(
                     parentDefinition, parentFile, expr, m_compileDesign,
-                    nullptr, parentInstance, false, false);
+                    Reduce::No, nullptr, parentInstance, false);
                 m_helper.checkForLoops(false);
                 if (complexV->UhdmType() == UHDM::uhdmref_obj) {
                   UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
@@ -2048,8 +2048,8 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             // GDB: p replay=true
             if (replay) {
               m_helper.compileExpression(parentDefinition, parentFile, expr,
-                                         m_compileDesign, nullptr,
-                                         parentInstance, true, false);
+                                         m_compileDesign, Reduce::Yes, nullptr,
+                                         parentInstance, false);
             }
 
             const std::string_view pname = parentFile->SymName(child);
@@ -2082,8 +2082,8 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
         }
         m_helper.checkForLoops(true);
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
-            parentDefinition, parentFile, expr, m_compileDesign, nullptr,
-            parentInstance, true, false);
+            parentDefinition, parentFile, expr, m_compileDesign, Reduce::Yes,
+            nullptr, parentInstance, false);
         m_helper.checkForLoops(false);
         Value* value = nullptr;
         bool complex = false;
@@ -2252,7 +2252,8 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             m_helper.checkForLoops(true);
             UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
                 instance->getDefinition(), param.fC, exprId, m_compileDesign,
-                nullptr, instance, !isMultidimension, false);
+                isMultidimension ? Reduce::No : Reduce::Yes, nullptr, instance,
+                false);
             m_helper.checkForLoops(false);
             Value* value = nullptr;
             bool complex = false;

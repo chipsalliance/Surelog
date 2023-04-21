@@ -580,8 +580,9 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
       }
     }
     if (NodeId defId = orig_port->getDefaultValue()) {
-      any* exp = m_helper.compileExpression(mod, fC, defId, m_compileDesign,
-                                            nullptr, instance, false, false);
+      any* exp =
+          m_helper.compileExpression(mod, fC, defId, m_compileDesign,
+                                     Reduce::No, nullptr, instance, false);
       dest_port->High_conn(exp);
     }
     if (orig_port->getTypeSpecId() && mod) {
@@ -589,8 +590,8 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
         int32_t unpackedSize = 0;
         const FileContent* fC = orig_port->getFileContent();
         if (std::vector<UHDM::range*>* ranges = m_helper.compileRanges(
-                mod, fC, unpackedDimensions, m_compileDesign, nullptr, instance,
-                false, unpackedSize, false)) {
+                mod, fC, unpackedDimensions, m_compileDesign, Reduce::No,
+                nullptr, instance, unpackedSize, false)) {
           array_typespec* array_ts = s.MakeArray_typespec();
           array_ts->Ranges(ranges);
           array_ts->VpiParent(dest_port);
@@ -616,14 +617,14 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
           dest_port->Typespec(array_ts);
 
           if (typespec* typespec = m_helper.compileTypespec(
-                  mod, fC, orig_port->getTypeSpecId(), m_compileDesign, nullptr,
-                  nullptr, false, true)) {
+                  mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
+                  Reduce::No, nullptr, nullptr, true)) {
             array_ts->Elem_typespec(typespec);
           }
         }
       } else if (typespec* typespec = m_helper.compileTypespec(
                      mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
-                     nullptr, nullptr, false, true)) {
+                     Reduce::No, nullptr, nullptr, true)) {
         dest_port->Typespec(typespec);
       }
     }
@@ -1214,8 +1215,8 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
         const FileContent* fC = sig->getFileContent();
         if (std::vector<UHDM::range*>* unpackedDimensions =
                 m_helper.compileRanges(mod, fC, unpackedDimension,
-                                       m_compileDesign, nullptr, instance,
-                                       false, unpackedSize, false)) {
+                                       m_compileDesign, Reduce::No, nullptr,
+                                       instance, unpackedSize, false)) {
           NodeId id = sig->getNodeId();
           const std::string typeName = sig->getInterfaceTypeName();
           interface_array* smarray = s.MakeInterface_array();
@@ -1303,7 +1304,7 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
         m_helper.checkForLoops(true);
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
-                                       nullptr, instance, true, true);
+                                       Reduce::Yes, nullptr, instance, true);
         m_helper.checkForLoops(false);
         io->Expr(exp);
       }
@@ -2401,8 +2402,8 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                           bool invalidValue = false;
                           indexTypespec = (typespec*)m_helper.decodeHierPath(
                               (hier_path*)var, invalidValue, mod,
-                              m_compileDesign, nullptr, parentFileId,
-                              parent->VpiLineNo(), (any*)parent, true,
+                              m_compileDesign, Reduce::Yes, nullptr,
+                              parentFileId, parent->VpiLineNo(), (any*)parent,
                               true /*mute for now*/, true);
                         }
                       }
@@ -2414,8 +2415,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                         bool invalidValue = false;
                         indexTypespec = (typespec*)m_helper.decodeHierPath(
                             (hier_path*)var, invalidValue, mod, m_compileDesign,
-                            nullptr, parentFileId, parent->VpiLineNo(),
-                            (any*)parent, true, true /*mute for now*/, true);
+                            Reduce::Yes, nullptr, parentFileId,
+                            parent->VpiLineNo(), (any*)parent,
+                            true /*mute for now*/, true);
                       } else if (var->UhdmType() == uhdmref_var) {
                         bool invalidValue = false;
                         hier_path* path = s.MakeHier_path();
@@ -2429,9 +2431,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                             parent->VpiFile(),
                             m_compileDesign->getCompiler()->getSymbolTable());
                         indexTypespec = (typespec*)m_helper.decodeHierPath(
-                            path, invalidValue, mod, m_compileDesign, nullptr,
-                            parentFileId, parent->VpiLineNo(), (any*)parent,
-                            true, true /*mute for now*/, true);
+                            path, invalidValue, mod, m_compileDesign,
+                            Reduce::Yes, nullptr, parentFileId,
+                            parent->VpiLineNo(), (any*)parent,
+                            true /*mute for now*/, true);
                       }
                     }
                     variables* swapVar = nullptr;
@@ -3340,7 +3343,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
         m_helper.checkForLoops(true);
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
-                                       nullptr, instance, true, true);
+                                       Reduce::Yes, nullptr, instance, true);
         m_helper.checkForLoops(false);
         io->Expr(exp);
       }
@@ -3841,9 +3844,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     designHandle = reinterpret_cast<vpiHandle>(new uhdm_handle(uhdmdesign, d));
     std::string designName = "unnamed";
     auto topLevelModules = m_design->getTopLevelModuleInstances();
-    for (auto inst : topLevelModules) {
-      designName = inst->getModuleName();
-      break;
+    if (!topLevelModules.empty()) {
+      designName = topLevelModules.front()->getModuleName();
     }
     d->VpiName(designName);
     designs.push_back(designHandle);

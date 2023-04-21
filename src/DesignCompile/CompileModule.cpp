@@ -614,7 +614,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, false,
-                                          m_compileDesign, false, m_attributes);
+                                          m_compileDesign, Reduce::No,
+                                          m_attributes);
           m_attributes = nullptr;
           break;
         }
@@ -649,8 +650,9 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           NodeId list_of_param_assignments = fC->Child(id);
           while (list_of_param_assignments) {
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_param_assignments, m_compileDesign, false,
-                m_instance, false, m_instance != nullptr, false);
+                m_module, fC, list_of_param_assignments, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
+                m_instance, false, false);
             list_of_param_assignments = fC->Sibling(list_of_param_assignments);
           }
           break;
@@ -664,13 +666,15 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
               fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_type_assignments, m_compileDesign, false,
-                m_instance, ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, list_of_type_assignments, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
+                m_instance, ParameterPortListId, false);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_module, fC, id, m_compileDesign, false, m_instance,
-                ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, id, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
+                m_instance, ParameterPortListId, false);
           }
           break;
         }
@@ -682,27 +686,30 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
               fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, list_of_type_assignments, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, true,
+                m_instance, ParameterPortListId, false);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_module, fC, id, m_compileDesign, true, m_instance,
-                ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, id, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, true,
+                m_instance, ParameterPortListId, false);
           }
           break;
         }
         case VObjectType::slTask_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileTask(m_module, fC, id, m_compileDesign, m_instance);
+          m_helper.compileTask(m_module, fC, id, m_compileDesign, Reduce::No,
+                               m_instance, false);
           break;
         }
         case VObjectType::slFunction_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
           m_helper.compileFunction(m_module, fC, id, m_compileDesign,
-                                   m_instance);
+                                   Reduce::No, m_instance, false);
           break;
         }
         case VObjectType::slDpi_import_export: {
@@ -941,8 +948,9 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           NodeId list_of_param_assignments = fC->Child(id);
           while (list_of_param_assignments) {
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_param_assignments, m_compileDesign, false,
-                m_instance, false, m_instance != nullptr, false);
+                m_module, fC, list_of_param_assignments, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
+                m_instance, false, false);
             list_of_param_assignments = fC->Sibling(list_of_param_assignments);
           }
           break;
@@ -970,7 +978,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, true,
-                                          m_compileDesign, false, m_attributes);
+                                          m_compileDesign, Reduce::No,
+                                          m_attributes);
           m_attributes = nullptr;
           break;
         }
@@ -994,13 +1003,14 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         }
         case VObjectType::slTask_declaration: {
           if (collectType != CollectType::FUNCTION) break;
-          m_helper.compileTask(m_module, fC, id, m_compileDesign, m_instance);
+          m_helper.compileTask(m_module, fC, id, m_compileDesign, Reduce::No,
+                               m_instance, false);
           break;
         }
         case VObjectType::slFunction_declaration: {
           if (collectType != CollectType::FUNCTION) break;
           m_helper.compileFunction(m_module, fC, id, m_compileDesign,
-                                   m_instance);
+                                   Reduce::No, m_instance, false);
           break;
         }
         case VObjectType::slDpi_import_export: {
@@ -1154,13 +1164,15 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
               fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_type_assignments, m_compileDesign, false,
-                m_instance, ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, list_of_type_assignments, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
+                m_instance, ParameterPortListId, false);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_module, fC, id, m_compileDesign, false, m_instance,
-                ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, id, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
+                m_instance, ParameterPortListId, false);
           }
           break;
         }
@@ -1172,13 +1184,15 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
               fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, list_of_type_assignments, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, true,
+                m_instance, ParameterPortListId, false);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_module, fC, id, m_compileDesign, true, m_instance,
-                ParameterPortListId, m_instance != nullptr, false);
+                m_module, fC, id, m_compileDesign,
+                m_instance != nullptr ? Reduce::Yes : Reduce::No, true,
+                m_instance, ParameterPortListId, false);
           }
           break;
         }

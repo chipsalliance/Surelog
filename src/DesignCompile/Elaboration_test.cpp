@@ -85,11 +85,11 @@ TEST(Elaboration, ExprFromPpTree) {
     NodeId rhs = fC->Sibling(param);
     // Not reduced
     UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(
-        component, fC, rhs, compileDesign, nullptr, top, false, true);
+        component, fC, rhs, compileDesign, Reduce::No, nullptr, top, true);
     EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
     // Reduced
     UHDM::expr* exp2 = (UHDM::expr*)helper.compileExpression(
-        component, fC, rhs, compileDesign, nullptr, top, true, true);
+        component, fC, rhs, compileDesign, Reduce::Yes, nullptr, top, true);
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
@@ -132,7 +132,7 @@ TEST(Elaboration, ExprFromText) {
     NodeId rhs = fC->Sibling(param);
     // Reduced
     UHDM::expr* exp = (UHDM::expr*)helper.compileExpression(
-        component, fC, rhs, compileDesign, nullptr, top, true, true);
+        component, fC, rhs, compileDesign, Reduce::Yes, nullptr, top, true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     UHDM::ExprEval eval;
@@ -180,7 +180,7 @@ TEST(Elaboration, ExprUsePackage) {
     NodeId rhs = fC->Sibling(param);
     // Reduced
     UHDM::expr* exp = (UHDM::expr*)helper.compileExpression(
-        component, fC, rhs, compileDesign, nullptr, top, true, true);
+        component, fC, rhs, compileDesign, Reduce::Yes, nullptr, top, true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     UHDM::ExprEval eval;

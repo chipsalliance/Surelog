@@ -57,8 +57,8 @@ TEST(CompileExpression, ExprFromParseTree1) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
     const UHDM::expr *exp = (UHDM::expr *)helper.compileExpression(
-        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true);
+        nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
+        nullptr, true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     UHDM::ExprEval eval;
@@ -87,8 +87,8 @@ TEST(CompileExpression, ExprFromParseTree2) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
     const UHDM::expr *exp = (UHDM::expr *)helper.compileExpression(
-        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true);
+        nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
+        nullptr, true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     UHDM::ExprEval eval;
@@ -116,12 +116,12 @@ TEST(CompileExpression, ExprFromParseTree3) {
     const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     const UHDM::expr *exp1 = (UHDM::expr *)helper.compileExpression(
-        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,
-        true);
+        nullptr, fC.get(), rhs, compileDesign.get(), Reduce::No, nullptr,
+        nullptr, true);
     EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
     const UHDM::expr *exp2 = (UHDM::expr *)helper.compileExpression(
-        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true);
+        nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
+        nullptr, true);
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
@@ -157,12 +157,12 @@ TEST(CompileExpression, ExprFromPpTree) {
     const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     const UHDM::expr *exp1 = (UHDM::expr *)helper.compileExpression(
-        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,
-        true);
+        nullptr, fC.get(), rhs, compileDesign.get(), Reduce::No, nullptr,
+        nullptr, true);
     EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
     const UHDM::expr *exp2 = (UHDM::expr *)helper.compileExpression(
-        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
-        true);
+        nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
+        nullptr, true);
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
