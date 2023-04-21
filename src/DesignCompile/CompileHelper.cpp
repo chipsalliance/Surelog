@@ -2726,11 +2726,12 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
   NodeId IntConst = fC->Child(Delay_control);
   const std::string_view value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
-  if (value[0] == '#')
+  if (value[0] == '#') {
     dc->VpiDelay(value);
-  else {
+  } else {
     ref_obj* ref = s.MakeRef_obj();
     ref->VpiName(value);
+    ref->VpiParent(pstmt);
     dc->Delay(ref);
   }
   fC->populateCoreMembers(Delay_control, Delay_control, dc);
@@ -3705,6 +3706,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       fcall->VpiName(mname);
       ref_obj* prefix = s.MakeRef_obj();
       prefix->VpiName(name);
+      prefix->VpiParent(fcall);
       fC->populateCoreMembers(dollar_or_string, dollar_or_string, prefix);
       fcall->Prefix(prefix);
       call = fcall;
