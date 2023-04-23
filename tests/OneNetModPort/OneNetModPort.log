@@ -57,7 +57,7 @@ initial                                                1
 interface_inst                                         7
 interface_typespec                                     8
 io_decl                                               24
-logic_net                                             13
+logic_net                                             11
 logic_typespec                                        20
 logic_var                                              8
 modport                                               12
@@ -520,7 +520,7 @@ design: (work@TOP)
       \_ref_obj: (conntb), line:18:16, endln:18:22
         |vpiName:conntb
         |vpiActual:
-        \_logic_net: (conntb)
+        \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:3, endln:16:22
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:2:1, endln:7:10
   |vpiParent:
@@ -637,7 +637,7 @@ design: (work@TOP)
       \_ref_obj: (conntb), line:6:18, endln:6:24
         |vpiName:conntb
         |vpiActual:
-        \_logic_net: (conntb)
+        \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:3, endln:5:22
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:22:1, endln:24:10
   |vpiParent:
@@ -743,10 +743,6 @@ design: (work@TOP)
         \_interface_typespec: (ConnectTB), line:1:21, endln:1:30
         |vpiName:tb
         |vpiIsModPort:1
-  |vpiNet:
-  \_logic_net: (conntb)
-    |vpiName:conntb
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiInterface:
   \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:3, endln:16:22
@@ -842,10 +838,6 @@ design: (work@TOP)
       |vpiName:o
       |vpiFullName:work@TOP.dut1.o
       |vpiNetType:48
-    |vpiNet:
-    \_logic_net: (conntb)
-      |vpiName:conntb
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:15:1, endln:19:10
     |vpiPort:
