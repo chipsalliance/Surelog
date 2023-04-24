@@ -382,7 +382,7 @@ design: (work@door_mod)
         |vpiLhs:
         \_ref_obj: (open), line:24:9, endln:24:13
           |vpiParent:
-          \_assignment: , line:24:9, endln:24:21
+          \_hier_path: (open)
           |vpiName:open
       |vpiStmt:
       \_method_func_call: (door_fsm), line:25:14, endln:25:22
@@ -390,8 +390,11 @@ design: (work@door_mod)
         \_begin: (work@door_mod), line:23:13, endln:26:8
         |vpiName:door_fsm
         |vpiPrefix:
-        \_ref_obj: (open), line:25:9, endln:25:13
+        \_ref_obj: (work@door_mod.open), line:25:9, endln:25:13
+          |vpiParent:
+          \_method_func_call: (door_fsm), line:25:14, endln:25:22
           |vpiName:open
+          |vpiFullName:work@door_mod.open
 |uhdmtopModules:
 \_module_inst: work@door_mod (work@door_mod), file:${SURELOG_DIR}/tests/ClassMini/dut.sv, line:21:1, endln:27:10
   |vpiName:work@door_mod

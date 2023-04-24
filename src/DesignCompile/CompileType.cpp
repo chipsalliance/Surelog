@@ -238,6 +238,7 @@ UHDM::any* CompileHelper::compileVariable(
     std::string fullName(fC->SymName(variable));
     ref_obj* obj = s.MakeRef_obj();
     obj->VpiName(fullName);
+    obj->VpiParent(path);
     elems->push_back(obj);
     while (fC->Type(Packed_dimension) == VObjectType::slStringConst) {
       ref_obj* obj = s.MakeRef_obj();
@@ -1551,6 +1552,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                           path->Path_elems(s.MakeAnyVec());
                           ref_obj* ref = s.MakeRef_obj();
                           ref->VpiName(typeName);
+                          ref->VpiParent(path);
                           path->Path_elems()->push_back(ref);
                         }
                         if (path) {

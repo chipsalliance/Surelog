@@ -1269,6 +1269,7 @@ UHDM::any *CompileHelper::compileSelectExpression(
             ref_obj *r2 = s.MakeRef_obj();
             r2->VpiName(fC->SymName(Bit_select));
             r2->VpiFullName(fC->SymName(Bit_select));
+            r2->VpiParent(path);
             elems->push_back(r2);
             hname.append(".").append(fC->SymName(Bit_select));
           }
@@ -1797,6 +1798,7 @@ UHDM::any *CompileHelper::compileExpression(
           NodeId Identifier = fC->Sibling(child);
           ref_obj *ref = s.MakeRef_obj();
           ref->VpiName(fC->SymName(Identifier));
+          ref->VpiParent(pexpr);
           fC->populateCoreMembers(Identifier, Identifier, ref);
           result = ref;
           break;
@@ -2927,6 +2929,7 @@ UHDM::any *CompileHelper::compileExpression(
                                     "::", fC->SymName(Class_scope_name));
           ref_obj *ref = s.MakeRef_obj();
           ref->VpiName(name);
+          ref->VpiParent(pexpr);
           fC->populateCoreMembers(child, child, ref);
           result = ref;
           break;
@@ -3686,6 +3689,7 @@ UHDM::any *CompileHelper::compilePartSelectRange(
       UHDM::ref_obj *ref = s.MakeRef_obj();
       ref->VpiName(name);
       ref->VpiDefName(name);
+      ref->VpiParent(pexpr);
       part_select->VpiParent(ref);
     }
     part_select->VpiConstantSelect(true);
@@ -3795,6 +3799,7 @@ UHDM::any *CompileHelper::compilePartSelectRange(
         UHDM::ref_obj *ref = s.MakeRef_obj();
         ref->VpiName(name);
         ref->VpiDefName(name);
+        ref->VpiParent(pexpr);
         part_select->VpiParent(ref);
       }
       part_select->VpiConstantSelect(true);
@@ -4547,11 +4552,13 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     elems->push_back(ref);
     ref->VpiName("$root");
     ref->VpiFullName("$root");
+    ref->VpiParent(path);
     std::string name = StrCat("$root.", fC->SymName(nameId));
     ref = s.MakeRef_obj();
     elems->push_back(ref);
     ref->VpiName(fC->SymName(nameId));
     ref->VpiFullName(fC->SymName(nameId));
+    ref->VpiParent(path);
     nameId = fC->Sibling(nameId);
     while (nameId) {
       if (fC->Type(nameId) == VObjectType::slStringConst) {
@@ -4560,6 +4567,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         elems->push_back(ref);
         ref->VpiName(fC->SymName(nameId));
         ref->VpiFullName(fC->SymName(nameId));
+        ref->VpiParent(path);
       } else if (fC->Type(nameId) == VObjectType::slConstant_expression) {
         NodeId Constant_expresion = fC->Child(nameId);
         if (Constant_expresion) {
@@ -4670,6 +4678,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             nameId = fC->Child(Method);
           }
           r->VpiName(fC->SymName(nameId));
+          r->VpiParent(path);
           fullName.append(".").append(fC->SymName(nameId));
           elems->push_back(r);
           Method = fC->Sibling(Method);
@@ -4992,6 +5001,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                 bit_select *select = s.MakeBit_select();
                 elems->push_back(select);
                 ref_obj *ref = s.MakeRef_obj();
+                ref->VpiName(tmpName);
                 ref->VpiParent(path);
                 if (!tmpName.empty()) select->VpiParent(ref);
                 select->VpiIndex(index);
@@ -5007,6 +5017,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
               elems->push_back(ref);
               ref->VpiName(tmpName);
               ref->VpiFullName(tmpName);
+              ref->VpiParent(path);
               fC->populateCoreMembers(name, name, ref);
             }
             tmpName.clear();
@@ -5223,6 +5234,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
     ref_obj *ref = s.MakeRef_obj();
     ref->VpiName(the_name);
     ref->VpiFullName(the_name);
+    ref->VpiParent(pexpr);
     result = ref;
   }
   return result;

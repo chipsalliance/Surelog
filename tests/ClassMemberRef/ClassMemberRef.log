@@ -453,7 +453,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (printer), line:26:5, endln:26:12
           |vpiParent:
-          \_assignment: , line:26:5, endln:26:18
+          \_hier_path: (printer)
           |vpiName:printer
       |vpiStmt:
       \_method_func_call: (set_name_enabled), line:27:9, endln:27:25
@@ -469,8 +469,11 @@ design: (work@top)
           \_logic_net: (en)
         |vpiName:set_name_enabled
         |vpiPrefix:
-        \_ref_obj: (printer), line:27:1, endln:27:8
+        \_ref_obj: (work@top.printer), line:27:1, endln:27:8
+          |vpiParent:
+          \_method_func_call: (set_name_enabled), line:27:9, endln:27:25
           |vpiName:printer
+          |vpiFullName:work@top.printer
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassMemberRef/dut.sv, line:22:1, endln:29:10
   |vpiName:work@top
