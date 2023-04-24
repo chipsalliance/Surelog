@@ -4774,6 +4774,31 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                 result->VpiParent(param);
               else
                 result = param;
+            } else if ((fC->Type(List_of_arguments) ==
+                        VObjectType::slStringConst)) {
+              hier_path *path = s.MakeHier_path();
+              VectorOfany *elems = s.MakeAnyVec();
+              path->Path_elems(elems);
+              ref_obj *ref = s.MakeRef_obj();
+              ref->VpiName(StrCat(packagename, "::", functionname));
+              ref->VpiFullName(StrCat(packagename, "::", functionname));
+              ref->Actual_group(param);
+              ref->VpiParent(pexpr);
+              fC->populateCoreMembers(name, name, ref);
+              elems->push_back(ref);
+              while (List_of_arguments) {
+                if ((fC->Type(List_of_arguments) ==
+                     VObjectType::slStringConst)) {
+                  ref_obj *ref = s.MakeRef_obj();
+                  ref->VpiName(fC->SymName(List_of_arguments));
+                  ref->VpiParent(pexpr);
+                  fC->populateCoreMembers(List_of_arguments, List_of_arguments,
+                                          ref);
+                  elems->push_back(ref);
+                }
+                List_of_arguments = fC->Sibling(List_of_arguments);
+              }
+              result = path;
             } else {
               ref_obj *ref = s.MakeRef_obj();
               ref->VpiName(StrCat(packagename, "::", functionname));
