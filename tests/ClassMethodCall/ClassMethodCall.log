@@ -495,7 +495,7 @@ design: (work@door_mod)
         |vpiLhs:
         \_ref_obj: (open), line:47:9, endln:47:13
           |vpiParent:
-          \_assignment: , line:47:9, endln:47:21
+          \_hier_path: (open)
           |vpiName:open
       |vpiStmt:
       \_method_func_call: (door_fsm), line:48:14, endln:48:22
@@ -503,16 +503,22 @@ design: (work@door_mod)
         \_begin: (work@door_mod), line:46:13, endln:50:8
         |vpiName:door_fsm
         |vpiPrefix:
-        \_ref_obj: (open), line:48:9, endln:48:13
+        \_ref_obj: (work@door_mod.open), line:48:9, endln:48:13
+          |vpiParent:
+          \_method_func_call: (door_fsm), line:48:14, endln:48:22
           |vpiName:open
+          |vpiFullName:work@door_mod.open
       |vpiStmt:
       \_method_func_call: (f1), line:49:14, endln:49:16
         |vpiParent:
         \_begin: (work@door_mod), line:46:13, endln:50:8
         |vpiName:f1
         |vpiPrefix:
-        \_ref_obj: (open), line:49:9, endln:49:13
+        \_ref_obj: (work@door_mod.open), line:49:9, endln:49:13
+          |vpiParent:
+          \_method_func_call: (f1), line:49:14, endln:49:16
           |vpiName:open
+          |vpiFullName:work@door_mod.open
 |uhdmtopModules:
 \_module_inst: work@door_mod (work@door_mod), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:43:1, endln:51:10
   |vpiName:work@door_mod
