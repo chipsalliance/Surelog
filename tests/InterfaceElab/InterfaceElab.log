@@ -196,7 +196,7 @@ int_typespec                                           2
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
-logic_net                                              7
+logic_net                                              6
 logic_typespec                                         6
 logic_var                                              2
 modport                                                4
@@ -218,7 +218,7 @@ int_typespec                                           2
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
-logic_net                                              7
+logic_net                                              6
 logic_typespec                                         6
 logic_var                                              2
 modport                                                4
@@ -373,7 +373,7 @@ design: (work@testharness)
       \_ref_obj: (reg_bus), line:27:34, endln:27:41
         |vpiName:reg_bus
         |vpiActual:
-        \_logic_net: (reg_bus)
+        \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.reg_bus), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:23:4, endln:25:23
 |uhdmallModules:
 \_module_inst: work@testharness (work@testharness), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:32:1, endln:36:10
   |vpiParent:
@@ -409,10 +409,6 @@ design: (work@testharness)
       \_module_inst: work@peripherals (work@testharness.i_peripherals), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:34:3, endln:34:33
       |vpiName:clk_i
       |vpiFullName:work@testharness.i_peripherals.clk_i
-      |vpiNetType:1
-    |vpiNet:
-    \_logic_net: (reg_bus)
-      |vpiName:reg_bus
       |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@testharness (work@testharness), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:32:1, endln:36:10
@@ -565,7 +561,7 @@ design: (work@testharness)
           |vpiName:reg_bus
           |vpiFullName:work@testharness.i_peripherals.reg_bus
           |vpiActual:
-          \_logic_net: (reg_bus)
+          \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.reg_bus), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:23:4, endln:25:23
         |vpiLowConn:
         \_ref_obj: (work@testharness.i_peripherals.i_apb_to_reg.reg_o), line:27:27, endln:27:32
           |vpiParent:

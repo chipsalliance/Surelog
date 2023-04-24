@@ -1932,11 +1932,6 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     }
   }
 
-  if (mod) {
-    lateTypedefBinding(s, mod, m, componentMap);
-    lateBinding(s, mod, m, componentMap);
-  }
-
   return true;
 }
 
@@ -2893,7 +2888,27 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
       parent = parent->VpiParent();
     }
     if (ref->Actual_group()) continue;
-
+    if (m->UhdmType() == uhdmmodule_inst) {
+      module_inst* minst = (module_inst*)m;
+      if (minst->Interfaces()) {
+        for (auto n : *minst->Interfaces()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (minst->Interface_arrays()) {
+        for (auto n : *minst->Interface_arrays()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+    }
     if (m->UhdmType() == uhdmmodule_inst ||
         m->UhdmType() == uhdminterface_inst || m->UhdmType() == uhdmprogram) {
       instance* inst = (instance*)m;
@@ -3200,13 +3215,6 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
       }
     }
   }
-
-  if (mod) {
-    lateTypedefBinding(s, mod, m, componentMap);
-    lateBinding(s, mod, m, componentMap);
-    lateTypedefBinding(s, mod, m, componentMap);
-  }
-
   return true;
 }
 
@@ -3379,12 +3387,6 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
       }
     }
   }
-
-  if (mod) {
-    lateTypedefBinding(s, mod, m, componentMap);
-    lateBinding(s, mod, m, componentMap);
-  }
-
   return true;
 }
 
@@ -3452,7 +3454,6 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
   VectorOfprimitive* subPrimitives = nullptr;
   VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
-
   if (m->UhdmType() == uhdmmodule_inst) {
     writeElabModule(s, instance, (module_inst*)m, exprBuilder);
   } else if (m->UhdmType() == uhdmgen_scope) {
@@ -3794,6 +3795,15 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
           }
         }
       }
+    }
+  }
+
+  if (mod && netlist) {
+    scope* sc = dynamic_cast<scope*>(m);
+    if (sc) {
+      lateTypedefBinding(s, mod, sc, componentMap);
+      lateBinding(s, mod, sc, componentMap);
+      lateTypedefBinding(s, mod, sc, componentMap);
     }
   }
 }

@@ -60,7 +60,7 @@ immediate_assert                                       2
 initial                                                1
 interface_inst                                         7
 interface_typespec                                     5
-logic_net                                             31
+logic_net                                             29
 logic_typespec                                        37
 module_inst                                           18
 operation                                              2
@@ -555,7 +555,7 @@ design: (work@dut)
       \_ref_obj: (conntb), line:4:18, endln:4:24
         |vpiName:conntb
         |vpiActual:
-        \_logic_net: (conntb)
+        \_interface_inst: work@ConnectTB (work@dut.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:3:3, endln:3:41
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:10:1, endln:12:10
   |vpiParent:
@@ -675,7 +675,7 @@ design: (work@dut)
       \_ref_obj: (conntb), line:17:15, endln:17:21
         |vpiName:conntb
         |vpiActual:
-        \_logic_net: (conntb)
+        \_interface_inst: work@ConnectTB (work@tb.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:16:3, endln:16:41
   |vpiRefModule:
   \_ref_module: work@TESTBENCH (tb), line:18:13, endln:18:15
     |vpiParent:
@@ -735,10 +735,6 @@ design: (work@dut)
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:48
-  |vpiNet:
-  \_logic_net: (conntb)
-    |vpiName:conntb
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (i), line:2:24, endln:2:25
@@ -1069,10 +1065,6 @@ design: (work@dut)
     \_logic_typespec: , line:15:3, endln:15:7
     |vpiName:o
     |vpiFullName:work@tb.o
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (conntb)
-    |vpiName:conntb
     |vpiNetType:1
   |vpiTopModule:1
   |vpiInterface:
