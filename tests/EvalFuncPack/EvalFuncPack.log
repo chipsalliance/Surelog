@@ -780,17 +780,17 @@ if_stmt                                                2
 import_typespec                                        3
 int_typespec                                          41
 int_var                                                8
-integer_typespec                                      15
+integer_typespec                                      17
 integer_var                                            8
 io_decl                                               19
 logic_net                                              1
 logic_typespec                                         1
 logic_var                                              2
-module_inst                                           57
+module_inst                                           63
 operation                                             34
 package                                               11
-param_assign                                          70
-parameter                                             73
+param_assign                                          74
+parameter                                             77
 range                                                  4
 ref_obj                                               60
 ref_var                                                2
@@ -819,17 +819,17 @@ if_stmt                                                5
 import_typespec                                        3
 int_typespec                                          41
 int_var                                               20
-integer_typespec                                      15
+integer_typespec                                      17
 integer_var                                           12
 io_decl                                               39
 logic_net                                              1
 logic_typespec                                         1
 logic_var                                              2
-module_inst                                           57
+module_inst                                           63
 operation                                             62
 package                                               11
-param_assign                                          70
-parameter                                             73
+param_assign                                          74
+parameter                                             77
 range                                                  7
 ref_obj                                              117
 ref_var                                                4
@@ -1169,6 +1169,11 @@ design: (work@flash_ctrl_info_cfg)
           \_ref_obj: (prim_util_pkg::vbits::value), line:17:53, endln:17:58
             |vpiParent:
             \_func_call: (prim_util_pkg::_clog2), line:17:31, endln:17:44
+            |vpiTypespec:
+            \_integer_typespec: , line:6:37, endln:6:44
+              |vpiInstance:
+              \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:2:1, endln:22:11
+              |vpiSigned:1
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
             |vpiActual:
@@ -1678,6 +1683,21 @@ design: (work@flash_ctrl_info_cfg)
           \_ref_obj: (otp_ctrl_pkg::vbits::value), line:17:53, endln:17:58
             |vpiParent:
             \_func_call: (prim_util_pkg::_clog2), line:17:31, endln:17:44
+            |vpiTypespec:
+            \_integer_typespec: , line:6:37, endln:6:44
+              |vpiParent:
+              \_ref_obj: (otp_ctrl_pkg::vbits::value), line:17:53, endln:17:58
+                |vpiParent:
+                \_func_call: (prim_util_pkg::_clog2), line:17:31, endln:17:44
+                |vpiTypespec:
+                \_integer_typespec: , line:6:37, endln:6:44
+                |vpiName:value
+                |vpiFullName:otp_ctrl_pkg::vbits::value
+                |vpiActual:
+                \_io_decl: (value), line:15:42, endln:15:47
+              |vpiInstance:
+              \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:2:1, endln:22:11
+              |vpiSigned:1
             |vpiName:value
             |vpiFullName:otp_ctrl_pkg::vbits::value
             |vpiActual:
@@ -1771,9 +1791,6 @@ design: (work@flash_ctrl_info_cfg)
       |vpiName:value
       |vpiTypedef:
       \_integer_typespec: , line:6:37, endln:6:44
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:2:1, endln:22:11
-        |vpiSigned:1
     |vpiStmt:
     \_begin: (prim_util_pkg::_clog2)
       |vpiParent:
@@ -2034,6 +2051,8 @@ design: (work@flash_ctrl_info_cfg)
           \_ref_obj: (prim_util_pkg::vbits::value), line:17:53, endln:17:58
             |vpiParent:
             \_func_call: (prim_util_pkg::_clog2), line:17:31, endln:17:44
+            |vpiTypespec:
+            \_integer_typespec: , line:6:37, endln:6:44
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
             |vpiActual:
@@ -2513,6 +2532,21 @@ design: (work@flash_ctrl_info_cfg)
           \_ref_obj: (otp_ctrl_pkg::vbits::value), line:17:53, endln:17:58
             |vpiParent:
             \_func_call: (prim_util_pkg::_clog2), line:17:31, endln:17:44
+            |vpiTypespec:
+            \_integer_typespec: , line:6:37, endln:6:44
+              |vpiParent:
+              \_ref_obj: (otp_ctrl_pkg::vbits::value), line:17:53, endln:17:58
+                |vpiParent:
+                \_func_call: (prim_util_pkg::_clog2), line:17:31, endln:17:44
+                |vpiTypespec:
+                \_integer_typespec: , line:6:37, endln:6:44
+                |vpiName:value
+                |vpiFullName:otp_ctrl_pkg::vbits::value
+                |vpiActual:
+                \_io_decl: (value), line:15:42, endln:15:47
+              |vpiInstance:
+              \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:2:1, endln:22:11
+              |vpiSigned:1
             |vpiName:value
             |vpiFullName:otp_ctrl_pkg::vbits::value
             |vpiActual:

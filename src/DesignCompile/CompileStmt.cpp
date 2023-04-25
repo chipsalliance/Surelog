@@ -701,7 +701,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId cond = fC->Sibling(the_stmt);
       if (cond) {
         expr* exp =
-            (expr*)compileExpression(component, fC, cond, compileDesign);
+            (expr*)compileExpression(component, fC, cond, compileDesign, pstmt, instance, reduce, true);
         if (exp) {
           if ((exp->VpiParent() != nullptr) &&
               (exp->VpiParent()->UhdmType() == UHDM::uhdmref_obj) &&

@@ -245,7 +245,8 @@ target_link_libraries(<your project name> surelog)
  * Three examples executable source file [`src/hellosureworld.cpp`](src/hellosureworld.cpp), [`src/hellouhdm.cpp`](src/hellouhdm.cpp),  [`src/hellodesign.cpp`](src/hellodesign.cpp) illustrate how to navigate the Surelog internal data structure or the UHDM "VPI Standard Object Model" of the design using the libsurelog.a library.
 
 ### Python API
-
+ 
+ * The most powerful Python API is the UHDM Python wrapper. It can be used independently of Surelog python's API and build options. See [UHDM Python API](https://github.com/chipsalliance/UHDM#python-api)   
  * By default Surelog does not build the Python API, See  [`src/README`](src/README.md)
  * The Python API is operating on the Preprocessor and Parser ASTs. It is not supporting elaboration. Post-elaborated API seekers need to the use UHDM C/C++ API.
  * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
