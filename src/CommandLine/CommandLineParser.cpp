@@ -63,7 +63,7 @@ std::string_view CommandLineParser::getVersionNumber() {
 }
 
 static const std::initializer_list<std::string_view> copyright = {
-    "Copyright (c) 2017-2022 Alain Dargelas,",
+    "Copyright (c) 2017-2023 Alain Dargelas,",
     "http://www.apache.org/licenses/LICENSE-2.0"};
 
 static const std::initializer_list<std::string_view> banner = {
