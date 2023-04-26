@@ -1014,6 +1014,10 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
     case VObjectType::slIntVec_TypeBit: {
       bit_typespec* var = s.MakeBit_typespec();
       var->Ranges(ranges);
+      isSigned = false;
+      if (sign && (fC->Type(sign) == VObjectType::slSigning_Signed)) {
+        isSigned = true;
+      }
       var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, type, var);
       result = var;
