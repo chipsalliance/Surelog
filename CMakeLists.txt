@@ -82,7 +82,7 @@ else()
 endif()
 
 set(SURELOG_BUILD_TYPE ${CMAKE_BUILD_TYPE})
-message("Building version v${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR} [${SURELOG_VERSION_COMMIT_SHA}]")
+message("Building Surelog version v${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR} [${SURELOG_VERSION_COMMIT_SHA}]")
 # TODO: should we also make install this header, or do we encourage to
 # use CommandLineParser::getVersionNumber() ?
 configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/surelog-version.h.in ${GENDIR}/include/Surelog/surelog-version.h)
@@ -793,12 +793,17 @@ if(NOT SURELOG_USE_HOST_FLATBUFFERS)
 endif()
 
 if(NOT SURELOG_USE_HOST_UHDM)
-  install(
-    TARGETS capnp kj
-    EXPORT Surelog
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
-
+  # Wouldn't it be cool to delegate install duty to UHDM in that case ?
+  # Otherwise we have to replicate the logic of what needs to be installed
+  # here (e.g. capnp).
+  # Might needs some messing with paths though.
+  if (NOT UHDM_USE_HOST_CAPNP)
+    install(
+      TARGETS capnp kj
+      EXPORT Surelog
+      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
+      PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
+  endif()
   install(
     TARGETS uhdm
     EXPORT Surelog
