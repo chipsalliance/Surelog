@@ -270,7 +270,7 @@ bool CompileClass::compile() {
 bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
   NodeId data_declaration = fC->Child(id);
   m_helper.compileDataDeclaration(m_class, fC, data_declaration, false,
-                                  m_compileDesign, false, m_attributes);
+                                  m_compileDesign, Reduce::No, m_attributes);
 
   NodeId var_decl = fC->Child(data_declaration);
   VObjectType type = fC->Type(data_declaration);
@@ -465,9 +465,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       }
     }
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                             nullptr, true);
+                             Reduce::No, nullptr, true);
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                             nullptr, true);
+                             Reduce::No, nullptr, true);
 
   } else if (func_type == VObjectType::slTask_declaration) {
     /*
@@ -496,10 +496,10 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
           .append(fC->SymName(fC->Sibling(task_name)));
     }
 
-    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
-                         true);
-    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
-                         true);
+    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign,
+                         Reduce::No, nullptr, true);
+    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign,
+                         Reduce::No, nullptr, true);
 
   } else if (func_type == VObjectType::slMethod_prototype) {
     /*
@@ -530,10 +530,10 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
             .append(fC->SymName(fC->Sibling(task_name)));
       }
 
-      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
-                           true);
-      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, nullptr,
-                           true);
+      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign,
+                           Reduce::No, nullptr, true);
+      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign,
+                           Reduce::No, nullptr, true);
 
     } else {
       NodeId function_data_type = fC->Child(func_prototype);
@@ -551,9 +551,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       funcName = fC->SymName(function_name);
 
       m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                               nullptr, true);
+                               Reduce::No, nullptr, true);
       m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                               nullptr, true);
+                               Reduce::No, nullptr, true);
     }
     is_extern = true;
   } else if (func_type == VObjectType::slClass_constructor_declaration) {
@@ -567,9 +567,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     funcName = "new";
 
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                             nullptr, true);
+                             Reduce::No, nullptr, true);
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign,
-                             nullptr, true);
+                             Reduce::No, nullptr, true);
 
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";
@@ -735,12 +735,13 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
       fC->Type(list_of_type_assignments) == VObjectType::slType) {
     // Type param
     m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
-                                         m_compileDesign, true, nullptr, false,
-                                         false, false);
+                                         m_compileDesign, Reduce::No, true,
+                                         nullptr, false, false);
 
   } else {
-    m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign, true,
-                                         nullptr, false, false, false);
+    m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign,
+                                         Reduce::No, true, nullptr, false,
+                                         false);
   }
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
@@ -779,12 +780,13 @@ bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
       fC->Type(list_of_type_assignments) == VObjectType::slType) {
     // Type param
     m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
-                                         m_compileDesign, false, nullptr, false,
-                                         false, false);
+                                         m_compileDesign, Reduce::No, false,
+                                         nullptr, false, false);
 
   } else {
     m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign,
-                                         false, nullptr, false, false, false);
+                                         Reduce::No, false, nullptr, false,
+                                         false);
   }
 
   NodeId data_type_or_implicit = fC->Child(id);
@@ -883,15 +885,15 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
           fC->Type(list_of_type_assignments) == VObjectType::slType) {
         // Type param
         m_helper.compileParameterDeclaration(
-            m_class, fC, list_of_type_assignments, m_compileDesign, false,
-            nullptr, false, false, false);
+            m_class, fC, list_of_type_assignments, m_compileDesign, Reduce::No,
+            false, nullptr, false, false);
       } else if (fC->Type(type) == VObjectType::slType) {
         // Handled in compile_parameter_declaration_
       } else {
         // Regular param
         m_helper.compileParameterDeclaration(
-            m_class, fC, parameter_port_declaration, m_compileDesign, false,
-            nullptr, false, false, false);
+            m_class, fC, parameter_port_declaration, m_compileDesign,
+            Reduce::No, false, nullptr, false, false);
       }
       parameter_port_declaration = fC->Sibling(parameter_port_declaration);
     }

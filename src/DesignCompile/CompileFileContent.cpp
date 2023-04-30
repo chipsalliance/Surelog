@@ -70,14 +70,14 @@ bool CompileFileContent::collectObjects_() {
       }
       case VObjectType::slFunction_declaration: {
         m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
-                                 nullptr, true);
+                                 Reduce::No, nullptr, true);
         m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
-                                 nullptr, true);
+                                 Reduce::No, nullptr, true);
         break;
       }
       case VObjectType::slData_declaration: {
         m_helper.compileDataDeclaration(m_fileContent, fC, id, false,
-                                        m_compileDesign, true, nullptr);
+                                        m_compileDesign, Reduce::Yes, nullptr);
         break;
       }
       case VObjectType::slParameter_declaration: {
@@ -88,12 +88,12 @@ bool CompileFileContent::collectObjects_() {
           // Type param
           m_helper.compileParameterDeclaration(
               m_fileContent, fC, list_of_type_assignments, m_compileDesign,
-              false, nullptr, false, true, false);
+              Reduce::Yes, false, nullptr, false, false);
 
         } else {
           m_helper.compileParameterDeclaration(m_fileContent, fC, id,
-                                               m_compileDesign, false, nullptr,
-                                               false, true, false);
+                                               m_compileDesign, Reduce::Yes,
+                                               false, nullptr, false, false);
         }
         break;
       }
@@ -109,12 +109,12 @@ bool CompileFileContent::collectObjects_() {
           // Type param
           m_helper.compileParameterDeclaration(
               m_fileContent, fC, list_of_type_assignments, m_compileDesign,
-              true, nullptr, false, true, false);
+              Reduce::Yes, true, nullptr, false, false);
 
         } else {
           m_helper.compileParameterDeclaration(m_fileContent, fC, id,
-                                               m_compileDesign, true, nullptr,
-                                               false, true, false);
+                                               m_compileDesign, Reduce::Yes,
+                                               true, nullptr, false, false);
         }
         break;
       }

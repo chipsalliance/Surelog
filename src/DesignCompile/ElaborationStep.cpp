@@ -166,8 +166,8 @@ bool ElaborationStep::bindTypedefs_() {
               fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) {
             tpclone = m_helper.compileTypespec(
                 defTuple.second, typd->getFileContent(),
-                typd->getDefinitionNode(), m_compileDesign, nullptr, nullptr,
-                true);
+                typd->getDefinitionNode(), m_compileDesign, Reduce::Yes,
+                nullptr, nullptr, false);
           } else if (typespec* tps = def->getTypespec()) {
             ElaboratorListener listener(&s, false, true);
             tpclone = (typespec*)UHDM::clone_tree((any*)tps, s, &listener);
@@ -195,9 +195,9 @@ bool ElaborationStep::bindTypedefs_() {
       if (typd->getTypespec() == nullptr) {
         const FileContent* typeF = typd->getFileContent();
         NodeId typeId = typd->getDefinitionNode();
-        UHDM::typespec* ts =
-            m_helper.compileTypespec(defTuple.second, typeF, typeId,
-                                     m_compileDesign, nullptr, nullptr, true);
+        UHDM::typespec* ts = m_helper.compileTypespec(
+            defTuple.second, typeF, typeId, m_compileDesign, Reduce::Yes,
+            nullptr, nullptr, false);
         if (ts) {
           ts->VpiName(typd->getName());
           std::string name;
@@ -240,7 +240,7 @@ bool ElaborationStep::bindTypedefs_() {
         typd->setTypespec(nullptr);
         UHDM::typespec* ts = m_helper.compileTypespec(
             defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
-            m_compileDesign, nullptr, nullptr, true);
+            m_compileDesign, Reduce::Yes, nullptr, nullptr, false);
         if (ts) {
           specs.emplace(typd->getName(), ts);
           ts->VpiName(typd->getName());
@@ -1320,7 +1320,8 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component,
   expr* exp = nullptr;
   if (expression) {
     exp = (expr*)m_helper.compileExpression(component, fC, expression,
-                                            m_compileDesign, nullptr, instance);
+                                            m_compileDesign, Reduce::No,
+                                            nullptr, instance);
   }
   return exp;
 }
@@ -1368,7 +1369,7 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component,
         if (ModuleInstance* pinst = instance->getParent()) parent = pinst;
         override_spec = m_helper.compileTypespec(
             component, param->getFileContent(), param->getNodeType(),
-            m_compileDesign, nullptr, parent, true);
+            m_compileDesign, Reduce::Yes, nullptr, parent, false);
       }
 
       if (override_spec) {
@@ -1423,7 +1424,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       if (tps == nullptr) {
         tps = m_helper.compileTypespec(component, un->getFileContent(),
                                        un->getNodeId(), m_compileDesign,
-                                       nullptr, instance, true, true);
+                                       Reduce::Yes, nullptr, instance, true);
         ((DummyType*)un)->setTypespec(tps);
       }
       variables* var = nullptr;

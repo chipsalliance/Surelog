@@ -479,7 +479,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                               const FileContent* fC,
                                               NodeId data_declaration,
                                               CompileDesign* compileDesign,
-                                              UHDM::any* pstmt, bool reduce) {
+                                              Reduce reduce, UHDM::any* pstmt) {
   DataType* newType = nullptr;
   Serializer& s = compileDesign->getSerializer();
   UHDM::VectorOftypespec* typespecs = nullptr;
@@ -578,8 +578,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       array_tps = s.MakeArray_typespec();
       int32_t size;
       VectorOfrange* ranges =
-          compileRanges(scope, fC, Variable_dimension, compileDesign, nullptr,
-                        nullptr, reduce, size, false);
+          compileRanges(scope, fC, Variable_dimension, compileDesign, reduce,
+                        nullptr, nullptr, size, false);
       array_tps->Ranges(ranges);
     }
   }
@@ -618,8 +618,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     packed_array_tps = s.MakePacked_array_typespec();
     int32_t size;
     VectorOfrange* ranges =
-        compileRanges(scope, fC, Packed_dimension, compileDesign, nullptr,
-                      nullptr, reduce, size, false);
+        compileRanges(scope, fC, Packed_dimension, compileDesign, reduce,
+                      nullptr, nullptr, size, false);
     packed_array_tps->Ranges(ranges);
   }
   NodeId enum_name_declaration;
@@ -640,9 +640,10 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       Struct* st = new Struct(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(
-          scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
-      if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
+      UHDM::typespec* ts =
+          compileTypespec(scope, fC, enum_base_type, compileDesign, reduce,
+                          nullptr, nullptr, false);
+      if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
       if (array_tps) {
@@ -664,9 +665,10 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       Union* st = new Union(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(
-          scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
-      if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
+      UHDM::typespec* ts =
+          compileTypespec(scope, fC, enum_base_type, compileDesign, reduce,
+                          nullptr, nullptr, false);
+      if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
       if (array_tps) {
@@ -707,7 +709,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     newTypeDef->setDefinition(the_enum);
     the_enum->setBaseTypespec(
         compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign,
-                        nullptr, nullptr, reduce));
+                        reduce, nullptr, nullptr, false));
 
     UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
 
@@ -732,7 +734,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
     // Enum basetype
     enum_t->Base_typespec(the_enum->getBaseTypespec());
-    if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
+    if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
       enum_t->Instance(scope->getUhdmInstance());
     }
     // Enum values
@@ -741,8 +743,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     uint64_t baseSize = 64;
     if (const typespec* base = enum_t->Base_typespec()) {
       bool invalidValue = false;
-      baseSize = Bits(base, invalidValue, scope, compileDesign, nullptr,
-                      fC->getFileId(), base->VpiLineNo(), reduce, true);
+      baseSize = Bits(base, invalidValue, scope, compileDesign, reduce, nullptr,
+                      fC->getFileId(), base->VpiLineNo(), true);
     }
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
@@ -751,7 +753,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       Value* value = nullptr;
       if (enumValueId) {
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
-                                     pstmt, nullptr, reduce);
+                                     reduce, pstmt, nullptr);
         if (exp && (exp->UhdmType() == uhdmconstant)) {
           constant* c = (constant*)exp;
           value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
@@ -778,7 +780,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       econst->VpiValue(value->uhdmValue());
       if (enumValueId) {
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
-                                     pstmt, nullptr, reduce);
+                                     reduce, pstmt, nullptr);
         UHDM::ExprEval eval;
         econst->VpiDecompile(eval.prettyPrint(exp));
       } else {
@@ -816,10 +818,11 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(dummy);
       // Don't create the typespec here, as it is most likely going to be
       // incomplete at compilation time, except for packages and FileContent
-      if (reduce && ((valuedcomponenti_cast<Package*>(scope) ||
-                      valuedcomponenti_cast<FileContent*>(scope)))) {
+      if ((reduce == Reduce::Yes) &&
+          ((valuedcomponenti_cast<Package*>(scope) ||
+            valuedcomponenti_cast<FileContent*>(scope)))) {
         UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
-                                             nullptr, nullptr, reduce);
+                                             reduce, nullptr, nullptr, false);
         if (ts && (ts->UhdmType() != uhdmclass_typespec) &&
             (ts->UhdmType() != uhdmunsupported_typespec)) {
           ElaboratorListener listener(&s, false, true);
@@ -934,7 +937,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDataType(simple);
       newTypeDef->setDefinition(simple);
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
-                                           nullptr, nullptr, reduce, false);
+                                           reduce, nullptr, nullptr, false);
       if (ts) {
         if (array_tps) {
           array_tps->Elem_typespec(ts);
@@ -958,7 +961,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           scope->needLateResolutionFunction(resolutionFunctionName, ts);
         }
 
-        if (reduce && (valuedcomponenti_cast<Package*>(scope))) {
+        if ((reduce == Reduce::Yes) &&
+            (valuedcomponenti_cast<Package*>(scope))) {
           ts->Instance(scope->getUhdmInstance());
         }
         ts->VpiName(name);
@@ -2089,7 +2093,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
 
 bool CompileHelper::compileDataDeclaration(
     DesignComponent* component, const FileContent* fC, NodeId id,
-    bool interface, CompileDesign* compileDesign, bool reduce,
+    bool interface, CompileDesign* compileDesign, Reduce reduce,
     UHDM::VectorOfattribute* attributes) {
   NodeId subNode = fC->Child(id);
   VObjectType subType = fC->Type(subNode);
@@ -2104,7 +2108,7 @@ bool CompileHelper::compileDataDeclaration(
         n<> u<17> t<Type_declaration> p<18> c<15> l<13>
         n<> u<18> t<Data_declaration> p<19> c<17> l<13>
        */
-      compileTypeDef(component, fC, id, compileDesign, nullptr, reduce);
+      compileTypeDef(component, fC, id, compileDesign, reduce, nullptr);
       break;
     }
     default:
@@ -2267,7 +2271,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
   } else if (fC->Type(List_of_net_assignments) == VObjectType::slDelay3) {
     delay_expr =
         (expr*)compileExpression(component, fC, List_of_net_assignments,
-                                 compileDesign, nullptr, instance);
+                                 compileDesign, Reduce::No, nullptr, instance);
     List_of_net_assignments = fC->Sibling(List_of_net_assignments);
   }
   NodeId Net_assignment = fC->Child(List_of_net_assignments);
@@ -2285,13 +2289,13 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       }
       UHDM::any* lhs_exp =
           compileExpression(component, fC, Hierarchical_identifier,
-                            compileDesign, nullptr, instance);
+                            compileDesign, Reduce::No, nullptr, instance);
       NodeId Constant_select = fC->Sibling(Ps_or_hierarchical_identifier);
       if ((fC->Type(Constant_select) == VObjectType::slConstant_select) &&
           (Ps_or_hierarchical_identifier != Hierarchical_identifier)) {
         UHDM::any* sel = compileSelectExpression(
             component, fC, fC->Child(Constant_select), "", compileDesign,
-            nullptr, instance, false, false);
+            Reduce::No, nullptr, instance, false);
         if ((lhs_exp->UhdmType() == uhdmhier_path) && sel) {
           hier_path* path = (hier_path*)lhs_exp;
           path->Path_elems()->push_back(sel);
@@ -2302,8 +2306,9 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
         }
       }
       // RHS
-      UHDM::any* rhs_exp = compileExpression(component, fC, Expression,
-                                             compileDesign, nullptr, instance);
+      UHDM::any* rhs_exp =
+          compileExpression(component, fC, Expression, compileDesign,
+                            Reduce::No, nullptr, instance);
 
       UHDM::cont_assign* cassign = s.MakeCont_assign();
       if (Strength0) {
@@ -2419,8 +2424,8 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
     if (unpackedDimId) {
       int32_t unpackedSize = 0;
       if (std::vector<UHDM::range*>* unpackedDimensions =
-              compileRanges(mod, fC, unpackedDimId, compileDesign, nullptr,
-                            instance, false, unpackedSize, false)) {
+              compileRanges(mod, fC, unpackedDimId, compileDesign, Reduce::No,
+                            nullptr, instance, unpackedSize, false)) {
         UHDM::module_array* mod_array = s.MakeModule_array();
         mod_array->Ranges(unpackedDimensions);
         mod_array->VpiName(instName);
@@ -2545,8 +2550,8 @@ void CompileHelper::compileGateInstantiation(ModuleDefinition* mod,
       VectorOfprimitive* prims = s.MakePrimitiveVec();
       int32_t size;
       VectorOfrange* ranges =
-          compileRanges(mod, fC, Unpacked_dimension, compileDesign, nullptr,
-                        instance, false, size, false);
+          compileRanges(mod, fC, Unpacked_dimension, compileDesign, Reduce::No,
+                        nullptr, instance, size, false);
       gate_array->Primitives(prims);
       gate_array->Ranges(ranges);
       prims->push_back(gate);
@@ -2571,8 +2576,8 @@ void CompileHelper::compileGateInstantiation(ModuleDefinition* mod,
       gate_array->Primitives(prims);
       int32_t size;
       VectorOfrange* ranges =
-          compileRanges(mod, fC, Unpacked_dimension, compileDesign, nullptr,
-                        instance, false, size, false);
+          compileRanges(mod, fC, Unpacked_dimension, compileDesign, Reduce::No,
+                        nullptr, instance, size, false);
       gate_array->Ranges(ranges);
       prims->push_back(gate);
       if (mod->getPrimitiveArrays() == nullptr) {
@@ -2619,7 +2624,7 @@ void CompileHelper::compileHighConn(ModuleDefinition* component,
         fC->populateCoreMembers(Port_connection, Port_connection, p);
         checkForLoops(true);
         any* exp = compileExpression(component, fC, child, compileDesign,
-                                     nullptr, nullptr, false);
+                                     Reduce::No, nullptr, nullptr);
         p->High_conn(exp);
         checkForLoops(false);
         ports->push_back(p);
@@ -2651,7 +2656,7 @@ void CompileHelper::compileHighConn(ModuleDefinition* component,
           if (expId) {  // (.p, ...)
             checkForLoops(true);
             any* exp = compileExpression(component, fC, expId, compileDesign,
-                                         nullptr, nullptr, false);
+                                         Reduce::No, nullptr, nullptr);
             p->High_conn(exp);
             checkForLoops(false);
           }
@@ -2678,8 +2683,8 @@ bool CompileHelper::compileInitialBlock(DesignComponent* component,
   processes->push_back(init);
   fC->populateCoreMembers(initial_construct, initial_construct, init);
   NodeId Statement_or_null = fC->Child(initial_construct);
-  VectorOfany* stmts =
-      compileStmt(component, fC, Statement_or_null, compileDesign, init);
+  VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
+                                   compileDesign, Reduce::No, init);
   if (stmts) init->Stmt((*stmts)[0]);
   compileDesign->unlockSerializer();
   return true;
@@ -2700,8 +2705,8 @@ bool CompileHelper::compileFinalBlock(DesignComponent* component,
   processes->push_back(final);
   fC->populateCoreMembers(final_construct, final_construct, final);
   NodeId Statement_or_null = fC->Child(final_construct);
-  VectorOfany* stmts =
-      compileStmt(component, fC, Statement_or_null, compileDesign, final);
+  VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
+                                   compileDesign, Reduce::No, final);
   if (stmts) final->Stmt((*stmts)[0]);
   compileDesign->unlockSerializer();
   return true;
@@ -2738,7 +2743,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
   if (Statement_or_null) {
     VectorOfany* st = compileStmt(component, fC, Statement_or_null,
-                                  compileDesign, dc, instance);
+                                  compileDesign, Reduce::No, dc, instance);
     if (st) {
       any* stmt = (*st)[0];
       dc->Stmt(stmt);
@@ -2829,12 +2834,12 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component,
   NodeId Statement_item = fC->Child(Statement);
   VectorOfany* stmts = nullptr;
   if (fC->Type(Statement_item) == VObjectType::slStringConst) {
-    stmts = compileStmt(component, fC, Statement_item, compileDesign, always,
-                        instance);
+    stmts = compileStmt(component, fC, Statement_item, compileDesign,
+                        Reduce::No, always, instance);
   } else {
     NodeId the_stmt = fC->Child(Statement_item);
-    stmts =
-        compileStmt(component, fC, the_stmt, compileDesign, always, instance);
+    stmts = compileStmt(component, fC, the_stmt, compileDesign, Reduce::No,
+                        always, instance);
   }
   if (stmts) {
     any* stmt = (*stmts)[0];
@@ -3084,8 +3089,8 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
 
 bool CompileHelper::compileParameterDeclaration(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
-    CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance,
-    bool port_param, bool reduce, bool muteErrors) {
+    CompileDesign* compileDesign, Reduce reduce, bool localParam,
+    ValuedComponentI* instance, bool port_param, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   std::vector<UHDM::any*>* parameters = component->getParameters();
@@ -3115,8 +3120,8 @@ bool CompileHelper::compileParameterDeclaration(
       UHDM::type_parameter* p = s.MakeType_parameter();
       p->VpiName(fC->SymName(typeNameId));
       fC->populateCoreMembers(typeNameId, typeNameId, p);
-      typespec* tps = compileTypespec(component, fC, ntype, compileDesign, p,
-                                      nullptr, false);
+      typespec* tps = compileTypespec(component, fC, ntype, compileDesign,
+                                      Reduce::No, p, nullptr, false);
       p->Typespec(tps);
       if (tps) tps->VpiParent(p);
       if (localParam) {
@@ -3144,7 +3149,7 @@ bool CompileHelper::compileParameterDeclaration(
       fC->populateCoreMembers(Identifier, Identifier, p);
       NodeId Data_type = fC->Child(Constant_param_expression);
       typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
-                                      p, nullptr, false);
+                                      Reduce::No, p, nullptr, false);
       p->Typespec(tps);
       if (tps) tps->VpiParent(p);
       if (localParam) {
@@ -3174,7 +3179,7 @@ bool CompileHelper::compileParameterDeclaration(
       UHDM::typespec* ts = nullptr;
       if (Data_type_or_implicit) {
         ts = compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
-                             compileDesign, nullptr, instance, reduce);
+                             compileDesign, reduce, nullptr, instance, false);
       }
       bool isSigned = false;
       NodeId Data_type = fC->Child(Data_type_or_implicit);
@@ -3210,8 +3215,8 @@ bool CompileHelper::compileParameterDeclaration(
       if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
         int32_t unpackedSize;
         std::vector<UHDM::range*>* unpackedDimensions =
-            compileRanges(component, fC, value, compileDesign, param, instance,
-                          reduce, unpackedSize, muteErrors);
+            compileRanges(component, fC, value, compileDesign, reduce, param,
+                          instance, unpackedSize, muteErrors);
         param->Ranges(unpackedDimensions);
         param->VpiSize(unpackedSize);
         array_typespec* atps = s.MakeArray_typespec();
@@ -3240,9 +3245,9 @@ bool CompileHelper::compileParameterDeclaration(
             isMultiDimension = true;
           }
         }
-        UHDM::any* expr =
-            compileExpression(component, fC, actual_value, compileDesign,
-                              nullptr, nullptr, reduce && (!isMultiDimension));
+        UHDM::any* expr = compileExpression(
+            component, fC, actual_value, compileDesign,
+            isMultiDimension ? Reduce::No : reduce, nullptr, nullptr);
         UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
         if (expr) {
           expr = defaultPatternAssignment(ts, expr, component, compileDesign,
@@ -3258,14 +3263,14 @@ bool CompileHelper::compileParameterDeclaration(
           if (ts) {
             bool invalidValue = false;
             int32_t sizetmp =
-                Bits(ts, invalidValue, component, compileDesign, instance,
-                     fC->getFileId(), fC->Line(actual_value), true, false);
+                Bits(ts, invalidValue, component, compileDesign, Reduce::Yes,
+                     instance, fC->getFileId(), fC->Line(actual_value), false);
             if (!invalidValue) size = sizetmp;
           }
           adjustSize(ts, component, compileDesign, instance, c);
           Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
           component->setValue(the_name, val, m_exprBuilder);
-        } else if (reduce && (!isMultiDimension)) {
+        } else if ((reduce == Reduce::Yes) && (!isMultiDimension)) {
           UHDM::expr* the_expr = (UHDM::expr*)expr;
           if (the_expr->Typespec() == nullptr) the_expr->Typespec(ts);
           ExprEval expr_eval(the_expr, instance, fC->getFileId(),
@@ -3333,8 +3338,9 @@ bool CompileHelper::compileParameterDeclaration(
         if ((valuedcomponenti_cast<Package*>(component) ||
              valuedcomponenti_cast<FileContent*>(component)) &&
             (instance == nullptr)) {
-          expr* rhs = (expr*)compileExpression(
-              component, fC, value, compileDesign, nullptr, instance, false);
+          expr* rhs =
+              (expr*)compileExpression(component, fC, value, compileDesign,
+                                       Reduce::No, nullptr, instance);
           rhs = (expr*)defaultPatternAssignment(ts, rhs, component,
                                                 compileDesign, instance);
           UHDM::param_assign* param_assign = s.MakeParam_assign();
@@ -3353,10 +3359,10 @@ bool CompileHelper::compileParameterDeclaration(
           param_assigns->push_back(param_assign);
         }
 
-        expr* rhs = (expr*)compileExpression(component, fC, value,
-                                             compileDesign, nullptr, instance,
-                                             reduce && (!isMultiDimension));
-        if (reduce) {
+        expr* rhs = (expr*)compileExpression(
+            component, fC, value, compileDesign,
+            isMultiDimension ? Reduce::No : reduce, nullptr, instance);
+        if (reduce == Reduce::Yes) {
           rhs = (expr*)defaultPatternAssignment(ts, rhs, component,
                                                 compileDesign, instance);
         }
@@ -3446,8 +3452,8 @@ bool CompileHelper::compileParameterDeclaration(
           if (ts) {
             bool invalidValue = false;
             int32_t sizetmp =
-                Bits(ts, invalidValue, component, compileDesign, instance,
-                     fC->getFileId(), fC->Line(actual_value), true, false);
+                Bits(ts, invalidValue, component, compileDesign, Reduce::Yes,
+                     instance, fC->getFileId(), fC->Line(actual_value), false);
             if (!invalidValue) size = sizetmp;
           }
           if (rhs->Typespec() == nullptr) rhs->Typespec(ts);
@@ -3503,10 +3509,10 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
 
   bool invalidValue = false;
   int32_t sizetmp =
-      Bits(ts, invalidValue, component, compileDesign, instance,
+      Bits(ts, invalidValue, component, compileDesign, Reduce::Yes, instance,
            fileSystem->toPathId(c->VpiFile(),
                                 compileDesign->getCompiler()->getSymbolTable()),
-           c->VpiLineNo(), true, sizeMode);
+           c->VpiLineNo(), sizeMode);
 
   int32_t size = orig_size;
   if (!invalidValue) size = sizetmp;
@@ -3634,7 +3640,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     name.assign("$").append(fC->SymName(tfNameNode));
   } else if (leaf_type == VObjectType::slImplicit_class_handle) {
     return compileComplexFuncCall(component, fC, fC->Child(Tf_call_stmt),
-                                  compileDesign, nullptr, nullptr, false,
+                                  compileDesign, Reduce::No, nullptr, nullptr,
                                   false);
   } else if (leaf_type == VObjectType::slDollar_root_keyword) {
     NodeId Dollar_root_keyword = dollar_or_string;
@@ -3651,7 +3657,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
         if (Constant_expresion) {
           name += "[";
           expr* select = (expr*)compileExpression(
-              component, fC, Constant_expresion, compileDesign);
+              component, fC, Constant_expresion, compileDesign, Reduce::No);
           name += select->VpiDecompile();
           name += "]";
           tfNameNode = nameId;
@@ -3674,8 +3680,8 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
         fC->Type(handle) == VObjectType::slThis_keyword ||
         fC->Type(handle) == VObjectType::slThis_dot_super) {
       return (tf_call*)compileComplexFuncCall(
-          component, fC, fC->Child(Tf_call_stmt), compileDesign, nullptr,
-          nullptr, false, false);
+          component, fC, fC->Child(Tf_call_stmt), compileDesign, Reduce::No,
+          nullptr, nullptr, false);
     } else if (fC->Type(handle) == VObjectType::slDollar_root_keyword) {
       name = "$root.";
       tfNameNode = fC->Sibling(dollar_or_string);
@@ -3684,8 +3690,8 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     }
   } else if (leaf_type == VObjectType::slClass_scope) {
     return (tf_call*)compileComplexFuncCall(
-        component, fC, fC->Child(Tf_call_stmt), compileDesign, nullptr, nullptr,
-        false, false);
+        component, fC, fC->Child(Tf_call_stmt), compileDesign, Reduce::No,
+        nullptr, nullptr, false);
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -3735,7 +3741,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           NodeId argListNode = fC->Sibling(tfNameNode);
           VectorOfany* arguments =
               compileTfCallArguments(component, fC, argListNode, compileDesign,
-                                     call, nullptr, false, false);
+                                     Reduce::No, call, nullptr, false);
           module_inst* modTmp = s.MakeModule_inst();
           modTmp->VpiName("tmp");
           const VectorOfseq_formal_decl* decls = stmt->Ios();
@@ -3775,7 +3781,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           NodeId argListNode = fC->Sibling(tfNameNode);
           VectorOfany* arguments =
               compileTfCallArguments(component, fC, argListNode, compileDesign,
-                                     call, nullptr, false, false);
+                                     Reduce::No, call, nullptr, false);
           VectorOfexpr* exprs = s.MakeExprVec();
           for (auto ex : (*arguments)) {
             exprs->push_back((expr*)ex);
@@ -3797,8 +3803,9 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     argListNode = fC->Sibling(argListNode);
   }
 
-  VectorOfany* arguments = compileTfCallArguments(
-      component, fC, argListNode, compileDesign, call, nullptr, false, false);
+  VectorOfany* arguments =
+      compileTfCallArguments(component, fC, argListNode, compileDesign,
+                             Reduce::No, call, nullptr, false);
   call->Tf_call_args(arguments);
 
   return call;
@@ -3806,8 +3813,8 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
 
 VectorOfany* CompileHelper::compileTfCallArguments(
     DesignComponent* component, const FileContent* fC, NodeId Arg_list_node,
-    CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance,
-    bool reduce, bool muteErrors) {
+    CompileDesign* compileDesign, Reduce reduce, UHDM::any* call,
+    ValuedComponentI* instance, bool muteErrors) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   UHDM::Serializer& s = compileDesign->getSerializer();
   if (fC->Type(Arg_list_node) == VObjectType::slSelect) {
@@ -3839,8 +3846,8 @@ VectorOfany* CompileHelper::compileTfCallArguments(
       // arg by name
       Expression = sibling;
       UHDM::any* exp =
-          compileExpression(component, fC, Expression, compileDesign, call,
-                            instance, reduce, muteErrors);
+          compileExpression(component, fC, Expression, compileDesign, reduce,
+                            call, instance, muteErrors);
       if (exp) {
         if (exp->VpiParent() == nullptr) exp->VpiParent(call);
         args.emplace(fC->SymName(argument), exp);
@@ -3853,8 +3860,8 @@ VectorOfany* CompileHelper::compileTfCallArguments(
       // arg by position
       Expression = argument;
       UHDM::any* exp =
-          compileExpression(component, fC, Expression, compileDesign, call,
-                            instance, reduce, muteErrors);
+          compileExpression(component, fC, Expression, compileDesign, reduce,
+                            call, instance, muteErrors);
       if (exp) {
         if (exp->VpiParent() == nullptr) exp->VpiParent(call);
         arguments->push_back(exp);
@@ -3865,8 +3872,8 @@ VectorOfany* CompileHelper::compileTfCallArguments(
       Expression = argument;
       if (Expression) {
         UHDM::any* exp =
-            compileExpression(component, fC, Expression, compileDesign, call,
-                              instance, reduce, muteErrors);
+            compileExpression(component, fC, Expression, compileDesign, reduce,
+                              call, instance, muteErrors);
         if (exp) {
           arguments->push_back(exp);
           if (exp->VpiParent() == nullptr) exp->VpiParent(call);
@@ -3886,7 +3893,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(
   if (NodeId clocking = fC->Sibling(Arg_list_node)) {
     if (fC->Type(clocking) == VObjectType::slClocking_event) {
       UHDM::any* exp = compileExpression(component, fC, clocking, compileDesign,
-                                         call, instance, reduce, muteErrors);
+                                         reduce, call, instance, muteErrors);
       if (exp) {
         arguments->push_back(exp);
         if (exp->VpiParent() == nullptr) exp->VpiParent(call);
@@ -3943,7 +3950,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     Delay_or_event_control = fC->Sibling(Variable_lvalue);
     NodeId Expression = fC->Sibling(Delay_or_event_control);
     lhs_rf = any_cast<expr*>(compileExpression(component, fC, Variable_lvalue,
-                                               compileDesign, pstmt, instance));
+                                               compileDesign, Reduce::No, pstmt,
+                                               instance));
     AssignOp_Assign = InvalidNodeId;
     if (fC->Type(Delay_or_event_control) == VObjectType::slDynamic_array_new) {
       method_func_call* fcall = s.MakeMethod_func_call();
@@ -3952,16 +3960,16 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
       fcall->VpiName("new");
       NodeId List_of_arguments = fC->Child(Delay_or_event_control);
       if (List_of_arguments) {
-        VectorOfany* arguments =
-            compileTfCallArguments(component, fC, Delay_or_event_control,
-                                   compileDesign, fcall, nullptr, false, false);
+        VectorOfany* arguments = compileTfCallArguments(
+            component, fC, Delay_or_event_control, compileDesign, Reduce::No,
+            fcall, nullptr, false);
         fcall->Tf_call_args(arguments);
       }
       Delay_or_event_control = InvalidNodeId;
       rhs_rf = fcall;
     } else {
       rhs_rf = compileExpression(component, fC, Expression, compileDesign,
-                                 pstmt, instance);
+                                 Reduce::No, pstmt, instance);
     }
   } else if (fC->Type(Variable_lvalue) == VObjectType::slVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
@@ -3977,7 +3985,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
 
     lhs_rf = any_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
-                          pstmt, instance, false));
+                          Reduce::No, pstmt, instance));
     NodeId Expression;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;
@@ -3990,8 +3998,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     } else {
       Expression = fC->Sibling(AssignOp_Assign);
     }
-    rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt,
-                               instance, false);
+    rhs_rf = compileExpression(component, fC, Expression, compileDesign,
+                               Reduce::No, pstmt, instance);
   } else if (fC->Type(Operator_assignment) ==
              VObjectType::slHierarchical_identifier) {
     //  = new ...
@@ -3999,17 +4007,17 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     NodeId Select = fC->Sibling(Hierarchical_identifier);
     NodeId Class_new = fC->Sibling(Select);
     NodeId List_of_arguments = fC->Child(Class_new);
-    lhs_rf = any_cast<expr*>(compileExpression(component, fC,
-                                               Hierarchical_identifier,
-                                               compileDesign, pstmt, instance));
+    lhs_rf = any_cast<expr*>(
+        compileExpression(component, fC, Hierarchical_identifier, compileDesign,
+                          Reduce::No, pstmt, instance));
     method_func_call* fcall = s.MakeMethod_func_call();
     fcall->VpiName("new");
     fC->populateCoreMembers(Hierarchical_identifier, Hierarchical_identifier,
                             fcall);
     if (List_of_arguments) {
-      VectorOfany* arguments =
-          compileTfCallArguments(component, fC, List_of_arguments,
-                                 compileDesign, fcall, nullptr, false, false);
+      VectorOfany* arguments = compileTfCallArguments(
+          component, fC, List_of_arguments, compileDesign, Reduce::No, fcall,
+          nullptr, false);
       fcall->Tf_call_args(arguments);
     }
 
@@ -4085,7 +4093,7 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
       results->push_back(attribute);
       if (Constant_expression) {
         UHDM::expr* expr = (UHDM::expr*)compileExpression(
-            component, fC, Constant_expression, compileDesign);
+            component, fC, Constant_expression, compileDesign, Reduce::No);
         attribute->VpiValue(expr->VpiValue());
       }
       nodeId = fC->Sibling(nodeId);
@@ -4321,7 +4329,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
                                   io);
           if (Expr) {
             UHDM::expr* exp = (expr*)compileExpression(
-                component, fC, Expr, compileDesign, ctrl, instance);
+                component, fC, Expr, compileDesign, Reduce::No, ctrl, instance);
             io->Expr(exp);
             if (exp) exp->VpiParent(ctrl);
           }
@@ -4359,7 +4367,7 @@ UHDM::event_control* CompileHelper::compileClocking_event(
   fC->populateCoreMembers(nodeId, nodeId, ctrl);
   NodeId identifier = fC->Child(nodeId);
   UHDM::any* exp = compileExpression(component, fC, identifier, compileDesign,
-                                     pexpr, instance);
+                                     Reduce::No, pexpr, instance);
   ctrl->VpiCondition(exp);
   if (exp) exp->VpiParent(ctrl);
   return ctrl;
@@ -4405,11 +4413,11 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
     for (typespec_member* member : *stps->Members()) {
       if (index == opIndex) {
         csize = Bits(member->Typespec(), invalidValue, component, compileDesign,
-                     instance,
+                     Reduce::Yes, instance,
                      fileSystem->toPathId(
                          member->VpiFile(),
                          compileDesign->getCompiler()->getSymbolTable()),
-                     member->VpiLineNo(), true, false);
+                     member->VpiLineNo(), false);
         // Fix the size of the member:
         cop->VpiSize(csize);
         break;
@@ -4419,32 +4427,33 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
   } else if (rtps->UhdmType() == uhdmarray_typespec) {
     array_typespec* atps = (array_typespec*)rtps;
     csize = Bits(
-        atps->Elem_typespec(), invalidValue, component, compileDesign, instance,
+        atps->Elem_typespec(), invalidValue, component, compileDesign,
+        Reduce::Yes, instance,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
-        rtps->VpiLineNo(), true, false);
+        rtps->VpiLineNo(), false);
     // Fix the size of the member:
     cop->VpiSize(csize);
   } else if (rtps->UhdmType() == uhdmlogic_typespec) {
     uint64_t fullSize = Bits(
-        rtps, invalidValue, component, compileDesign, instance,
+        rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
-        rtps->VpiLineNo(), true, false);
+        rtps->VpiLineNo(), false);
     uint64_t innerSize = Bits(
-        rtps, invalidValue, component, compileDesign, instance,
+        rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
-        rtps->VpiLineNo(), true, true);
+        rtps->VpiLineNo(), true);
     csize = fullSize / innerSize;
     // Fix the size of the member:
     cop->VpiSize(csize);
   } else {
     csize = Bits(
-        rtps, invalidValue, component, compileDesign, instance,
+        rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
-        rtps->VpiLineNo(), true, false);
+        rtps->VpiLineNo(), false);
     // Fix the size of the member:
     cop->VpiSize(csize);
   }
@@ -4471,10 +4480,10 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
 
   bool invalidValue = false;
   uint64_t size =
-      Bits(tps, invalidValue, component, compileDesign, instance,
+      Bits(tps, invalidValue, component, compileDesign, Reduce::Yes, instance,
            fileSystem->toPathId(rhs->VpiFile(),
                                 compileDesign->getCompiler()->getSymbolTable()),
-           rhs->VpiLineNo(), true, false);
+           rhs->VpiLineNo(), false);
   uint64_t patternSize = 0;
 
   UHDM::ExprEval eval(true);
@@ -4530,11 +4539,12 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
             // Apply default
             for (typespec_member* member : *stps->Members()) {
               uint64_t csize =
-                  Bits(member, invalidValue, component, compileDesign, instance,
+                  Bits(member, invalidValue, component, compileDesign,
+                       Reduce::Yes, instance,
                        fileSystem->toPathId(
                            rhs->VpiFile(),
                            compileDesign->getCompiler()->getSymbolTable()),
-                       rhs->VpiLineNo(), true, false);
+                       rhs->VpiLineNo(), false);
               patternSize += csize;
               for (uint64_t i = 0; i < csize; i++) {
                 if (valIndex > (int32_t)(size - 1)) {
@@ -4548,11 +4558,12 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
             valIndex = 0;
             for (typespec_member* member : *stps->Members()) {
               uint64_t csize =
-                  Bits(member, invalidValue, component, compileDesign, instance,
+                  Bits(member, invalidValue, component, compileDesign,
+                       Reduce::Yes, instance,
                        fileSystem->toPathId(
                            rhs->VpiFile(),
                            compileDesign->getCompiler()->getSymbolTable()),
-                       rhs->VpiLineNo(), true, false);
+                       rhs->VpiLineNo(), false);
 
               for (any* op : *operands) {
                 bool found = false;
@@ -4776,7 +4787,7 @@ void CompileHelper::compileLetDeclaration(DesignComponent* component,
       compileTfPortList(component, nullptr, fC, Let_port_list, compileDesign);
   component->lateBinding(false);
   expr* exp = (expr*)compileExpression(component, fC, Expression, compileDesign,
-                                       nullptr, nullptr, false, false);
+                                       Reduce::No, nullptr, nullptr, false);
   component->lateBinding(true);
   let_decl* decl = s.MakeLet_decl();
   decl->VpiName(name);

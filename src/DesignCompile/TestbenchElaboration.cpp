@@ -712,26 +712,27 @@ bool TestbenchElaboration::bindProperties_() {
       int32_t packedSize = 0;
       int32_t unpackedSize = 0;
       std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(
-          classDefinition, fC, packedDimension, m_compileDesign, nullptr,
-          nullptr, true, packedSize, false);
+          classDefinition, fC, packedDimension, m_compileDesign, Reduce::Yes,
+          nullptr, nullptr, packedSize, false);
       std::vector<UHDM::range*>* unpackedDimensions = nullptr;
       if (fC->Type(unpackedDimension) == VObjectType::slClass_new) {
       } else {
         unpackedDimensions = m_helper.compileRanges(
-            classDefinition, fC, unpackedDimension, m_compileDesign, nullptr,
-            nullptr, true, unpackedSize, false);
+            classDefinition, fC, unpackedDimension, m_compileDesign,
+            Reduce::Yes, nullptr, nullptr, unpackedSize, false);
       }
       UHDM::typespec* tps = nullptr;
       NodeId typeSpecId = sig->getTypeSpecId();
       if (typeSpecId) {
         tps = m_helper.compileTypespec(classDefinition, fC, typeSpecId,
-                                       m_compileDesign, nullptr, nullptr, true);
+                                       m_compileDesign, Reduce::Yes, nullptr,
+                                       nullptr, false);
       }
       if (tps == nullptr) {
         if (sig->getInterfaceTypeNameId()) {
           tps = m_helper.compileTypespec(
               classDefinition, fC, sig->getInterfaceTypeNameId(),
-              m_compileDesign, nullptr, nullptr, true);
+              m_compileDesign, Reduce::Yes, nullptr, nullptr, false);
         }
       }
 

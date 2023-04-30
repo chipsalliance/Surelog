@@ -41,8 +41,9 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component,
   NodeId item = fC->Child(nodeId);
   if (fC->Type(item) == VObjectType::slConcurrent_assertion_item) {
     NodeId Concurrent_assertion_statement = fC->Child(item);
-    UHDM::VectorOfany* stmts = compileStmt(
-        component, fC, Concurrent_assertion_statement, compileDesign, nullptr);
+    UHDM::VectorOfany* stmts =
+        compileStmt(component, fC, Concurrent_assertion_statement,
+                    compileDesign, Reduce::No, nullptr);
     UHDM::VectorOfany* assertions = component->getAssertions();
     if (assertions == nullptr) {
       component->setAssertions(s.MakeAnyVec());
@@ -108,12 +109,13 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     }
     UHDM::VectorOfany* if_stmts = nullptr;
     if (if_stmt_id)
-      if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+      if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign,
+                             Reduce::No, pstmt);
     if (if_stmts) if_stmt = (*if_stmts)[0];
     UHDM::VectorOfany* else_stmts = nullptr;
     if (else_stmt_id)
-      else_stmts =
-          compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
+      else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign,
+                               Reduce::No, pstmt);
     if (else_stmts) else_stmt = (*else_stmts)[0];
   }
 
@@ -123,8 +125,9 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr = compileExpression(
-          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      UHDM::any* property_expr =
+          compileExpression(component, fC, Property_expr, compileDesign,
+                            Reduce::No, pstmt, instance);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
       fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
@@ -139,14 +142,15 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       UHDM::expr* clocking_event = nullptr;
       if (fC->Type(Property_expr) == VObjectType::slClocking_event) {
         clocking_event = (UHDM::expr*)compileExpression(
-            component, fC, Property_expr, compileDesign, pstmt, instance,
-            false);
+            component, fC, Property_expr, compileDesign, Reduce::No, pstmt,
+            instance);
         Property_expr = fC->Sibling(Property_expr);
       }
       UHDM::assume* assume_stmt = s.MakeAssume();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr = compileExpression(
-          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      UHDM::any* property_expr =
+          compileExpression(component, fC, Property_expr, compileDesign,
+                            Reduce::No, pstmt, instance);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiClockingEvent(clocking_event);
       prop_spec->VpiPropertyExpr(property_expr);
@@ -163,8 +167,9 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::cover* cover_stmt = s.MakeCover();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr = compileExpression(
-          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      UHDM::any* property_expr =
+          compileExpression(component, fC, Property_expr, compileDesign,
+                            Reduce::No, pstmt, instance);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
       fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
@@ -178,8 +183,9 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       UHDM::cover* cover_stmt = s.MakeCover();
       cover_stmt->VpiIsCoverSequence();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr = compileExpression(
-          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      UHDM::any* property_expr =
+          compileExpression(component, fC, Property_expr, compileDesign,
+                            Reduce::No, pstmt, instance);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
       fC->populateCoreMembers(Property_expr, Property_expr, prop_spec);
@@ -192,8 +198,9 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::restrict* restrict_stmt = s.MakeRestrict();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr = compileExpression(
-          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      UHDM::any* property_expr =
+          compileExpression(component, fC, Property_expr, compileDesign,
+                            Reduce::No, pstmt, instance);
       property_expr = createPropertyInst(property_expr, s);
       prop_spec->VpiPropertyExpr(property_expr);
       fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
@@ -226,15 +233,17 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
     if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
   }
   UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign,
-                                      pstmt, instance, false);
+                                      Reduce::No, pstmt, instance);
   UHDM::VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
-    if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+    if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, Reduce::No,
+                           pstmt);
   UHDM::any* if_stmt = nullptr;
   if (if_stmts) if_stmt = (*if_stmts)[0];
   UHDM::VectorOfany* else_stmts = nullptr;
   if (else_stmt_id)
-    else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
+    else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign,
+                             Reduce::No, pstmt);
   UHDM::any* else_stmt = nullptr;
   if (else_stmts) else_stmt = (*else_stmts)[0];
   UHDM::any* stmt = nullptr;
@@ -315,15 +324,17 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
     if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
   }
   UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign,
-                                      pstmt, instance, false);
+                                      Reduce::No, pstmt, instance);
   UHDM::VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
-    if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+    if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, Reduce::No,
+                           pstmt);
   UHDM::any* if_stmt = nullptr;
   if (if_stmts) if_stmt = (*if_stmts)[0];
   UHDM::VectorOfany* else_stmts = nullptr;
   if (else_stmt_id)
-    else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
+    else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign,
+                             Reduce::No, pstmt);
   UHDM::any* else_stmt = nullptr;
   if (else_stmts) else_stmt = (*else_stmts)[0];
   UHDM::any* stmt = nullptr;

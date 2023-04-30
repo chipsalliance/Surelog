@@ -55,8 +55,8 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
   UHDM::GetObjectFunctor getValueFunctor = [&](std::string_view name,
                                                const any* inst,
                                                const any* pexpr) -> UHDM::any* {
-    return (expr*)getValue(name, component, compileDesign, instance, fileId,
-                           lineNumber, (any*)pexpr, true, false);
+    return (expr*)getValue(name, component, compileDesign, Reduce::Yes,
+                           instance, fileId, lineNumber, (any*)pexpr, false);
   };
   UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
       [&](std::string_view name, const any* inst) -> UHDM::task_func* {

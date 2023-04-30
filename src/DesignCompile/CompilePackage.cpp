@@ -43,22 +43,22 @@ namespace SURELOG {
 int32_t FunctorCompilePackage::operator()() const {
   CompilePackage* instance = new CompilePackage(m_compileDesign, m_package,
                                                 m_design, m_symbols, m_errors);
-  instance->compile(true);
+  instance->compile(Reduce::Yes);
   delete instance;
 
   instance = new CompilePackage(m_compileDesign, m_package->getUnElabPackage(),
                                 m_design, m_symbols, m_errors);
-  instance->compile(false);
+  instance->compile(Reduce::No);
   delete instance;
 
   return 0;
 }
 
-bool CompilePackage::compile(bool reduce) {
+bool CompilePackage::compile(Reduce reduce) {
   if (!m_package) return false;
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
-  m_helper.setUnElabMode(!reduce);
+  m_helper.setUnElabMode(reduce == Reduce::No);
   if (pack == nullptr) {
     pack = s.MakePackage();
     pack->VpiName(m_package->getName());
@@ -69,7 +69,7 @@ bool CompilePackage::compile(bool reduce) {
       m_compileDesign->getCompiler()->getDesign());
   const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
-  if (reduce) {
+  if (reduce == Reduce::Yes) {
     Location loc(fC->getFileId(packId), fC->Line(packId), fC->Column(packId),
                  m_symbols->getId(m_package->getName()));
     Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
@@ -101,7 +101,7 @@ bool CompilePackage::compile(bool reduce) {
   return true;
 }
 
-bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
+bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
   std::vector<VObjectType> stopPoints = {
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
@@ -155,13 +155,13 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
               fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_package, fC, list_of_type_assignments, m_compileDesign, false,
-                nullptr, false, reduce, false);
+                m_package, fC, list_of_type_assignments, m_compileDesign,
+                reduce, false, nullptr, false, false);
 
           } else {
             m_helper.compileParameterDeclaration(m_package, fC, id,
-                                                 m_compileDesign, false,
-                                                 nullptr, false, reduce, false);
+                                                 m_compileDesign, reduce, false,
+                                                 nullptr, false, false);
           }
           break;
         }
@@ -173,28 +173,28 @@ bool CompilePackage::collectObjects_(CollectType collectType, bool reduce) {
               fC->Type(list_of_type_assignments) == VObjectType::slType) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_package, fC, list_of_type_assignments, m_compileDesign, true,
-                nullptr, false, reduce, false);
+                m_package, fC, list_of_type_assignments, m_compileDesign,
+                reduce, true, nullptr, false, false);
 
           } else {
             m_helper.compileParameterDeclaration(m_package, fC, id,
-                                                 m_compileDesign, true, nullptr,
-                                                 false, reduce, false);
+                                                 m_compileDesign, reduce, true,
+                                                 nullptr, false, false);
           }
           break;
         }
         case VObjectType::slTask_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileTask(m_package, fC, id, m_compileDesign, nullptr,
-                               false, true);
+          m_helper.compileTask(m_package, fC, id, m_compileDesign, Reduce::Yes,
+                               nullptr, false);
           break;
         }
         case VObjectType::slFunction_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileFunction(m_package, fC, id, m_compileDesign, nullptr,
-                                   false, true);
+          m_helper.compileFunction(m_package, fC, id, m_compileDesign,
+                                   Reduce::Yes, nullptr, false);
           break;
         }
         case VObjectType::slLet_declaration: {
