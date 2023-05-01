@@ -1084,7 +1084,8 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
     UHDM::if_else* cond_stmt = s.MakeIf_else();
     cond_stmt->VpiQualifier(qualifier);
     cond_stmt->VpiCondition((UHDM::expr*)cond_exp);
-    if (cond_exp) cond_exp->VpiParent(cond_stmt);
+    if (cond_exp && (cond_exp->VpiParent() == nullptr))
+      cond_exp->VpiParent(cond_stmt);
     VectorOfany* if_stmts =
         compileStmt(component, fC, If_branch_stmt, compileDesign, Reduce::No,
                     cond_stmt, instance);
@@ -1104,7 +1105,8 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
     UHDM::if_stmt* cond_stmt = s.MakeIf_stmt();
     cond_stmt->VpiQualifier(qualifier);
     cond_stmt->VpiCondition((UHDM::expr*)cond_exp);
-    if (cond_exp) cond_exp->VpiParent(cond_stmt);
+    if (cond_exp && (cond_exp->VpiParent() == nullptr))
+      cond_exp->VpiParent(cond_stmt);
     VectorOfany* if_stmts =
         compileStmt(component, fC, If_branch_stmt, compileDesign, Reduce::No,
                     cond_stmt, instance);
