@@ -2268,15 +2268,17 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                   if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
                     m_helper.adjustSize(ts, instance->getDefinition(),
                                         m_compileDesign, instance, c);
-                    c->Typespec(ts);
+                    if (c->Typespec() == nullptr) c->Typespec(ts);
                   }
                 }
 
                 const std::string_view v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
+                value->setTypespec(((c->Typespec()) ? c->Typespec() : ts));
                 if (ts)
-                  m_helper.valueRange(value, ts, instance->getDefinition(),
-                                      m_compileDesign, instance);
+                  m_helper.valueRange(
+                      value, ts, (c->Typespec()) ? c->Typespec() : ts,
+                      instance->getDefinition(), m_compileDesign, instance);
               } else if (expr->UhdmType() == UHDM::uhdmoperation) {
                 if (instance) {
                   complex = true;

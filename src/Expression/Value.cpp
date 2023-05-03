@@ -980,7 +980,7 @@ LValue::LValue(const LValue& val)  // NOLINT(bugprone-copy-constructor-init)
   m_valueArray[0].m_negative = 0;
   m_valueArray[0].m_lrange = 0;
   m_valueArray[0].m_rrange = 0;
-
+  m_typespec = val.m_typespec;
   for (int32_t i = 0; i < val.m_nbWords; i++) {
     m_valueArray[i].m_size = 0;
     m_valueArray[i] = val.m_valueArray[i];
@@ -1002,6 +1002,7 @@ LValue::LValue(uint64_t val)
   m_negative = 0;
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 LValue::LValue(int64_t val)
@@ -1019,6 +1020,7 @@ LValue::LValue(int64_t val)
   m_negative = (val < 0);
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 LValue::LValue(double val)
@@ -1036,6 +1038,7 @@ LValue::LValue(double val)
   m_negative = (val < 0);
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 LValue::LValue(int64_t val, Type type, int16_t size)
@@ -1050,6 +1053,7 @@ LValue::LValue(int64_t val, Type type, int16_t size)
   m_negative = (val < 0);
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 void LValue::set(uint64_t val) {
@@ -1066,6 +1070,7 @@ void LValue::set(uint64_t val) {
   m_negative = 0;
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 void LValue::set(int64_t val) {
@@ -1082,6 +1087,7 @@ void LValue::set(int64_t val) {
   m_negative = (val < 0);
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 void LValue::set(double val) {
@@ -1109,6 +1115,7 @@ void LValue::set(double val) {
   m_negative = (val < 0);
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 void LValue::set(uint64_t val, Type type, int16_t size) {
@@ -1125,6 +1132,7 @@ void LValue::set(uint64_t val, Type type, int16_t size) {
   m_negative = 0;
   m_lrange = 0;
   m_rrange = 0;
+  m_typespec = nullptr;
 }
 
 void LValue::adjust(const Value* a) {
