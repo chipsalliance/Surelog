@@ -25,6 +25,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cstdint>
 #include <locale>
 #include <map>
 #include <regex>

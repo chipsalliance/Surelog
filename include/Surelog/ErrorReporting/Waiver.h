@@ -30,6 +30,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <cstdint>
 #include <string_view>
 
 namespace SURELOG {
