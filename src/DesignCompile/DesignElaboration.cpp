@@ -2260,6 +2260,14 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             UHDM::typespec* ts = nullptr;
             if (p) {
               ts = p->getTypespec();
+              if (UHDM::any* param = p->getUhdmParam()) {
+                if (param->UhdmType() == UHDM::uhdmparameter) {
+                  ts = (UHDM::typespec*)((UHDM::parameter*)param)->Typespec();
+                } else {
+                  ts = (UHDM::typespec*)((UHDM::type_parameter*)param)
+                           ->Typespec();
+                }
+              }
             }
             if (expr) {
               if (expr->UhdmType() == UHDM::uhdmconstant) {
@@ -2300,8 +2308,17 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                   }
                   if (p) {
                     if (UHDM::typespec* ts = p->getTypespec()) {
+                      if (UHDM::any* param = p->getUhdmParam()) {
+                        if (param->UhdmType() == UHDM::uhdmparameter) {
+                          ts = (UHDM::typespec*)((UHDM::parameter*)param)
+                                   ->Typespec();
+                        } else {
+                          ts = (UHDM::typespec*)((UHDM::type_parameter*)param)
+                                   ->Typespec();
+                        }
+                      }
                       if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
-                        op->Typespec(p->getTypespec());
+                        op->Typespec(ts);
                       }
                     }
                     m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),

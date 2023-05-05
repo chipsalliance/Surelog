@@ -4199,6 +4199,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     uhdmchecker->check(uhdmFileId);
     delete uhdmchecker;
   }
+
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
     if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
       Location loc((SymbolId)uhdmFileId);

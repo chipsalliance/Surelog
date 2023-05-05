@@ -3517,7 +3517,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
   int32_t size = orig_size;
   if (!invalidValue) size = sizetmp;
 
-  bool signedLhs = true;
+  bool signedLhs = false;
   if (ts->UhdmType() == uhdmint_typespec) {
     int_typespec* its = (int_typespec*)ts;
     signedLhs = its->VpiSigned();

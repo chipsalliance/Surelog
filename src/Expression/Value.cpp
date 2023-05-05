@@ -973,14 +973,14 @@ LValue::LValue(const LValue& val)  // NOLINT(bugprone-copy-constructor-init)
       m_negative(val.isNegative()),
       m_lrange(val.getLRange()),
       m_rrange(val.getRRange()),
-      m_signed(val.isSigned()) {
+      m_signed(val.isSigned()),
+      m_typespec(val.getTypespec()) {
   m_valueArray[0].m_size = 0;
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.u_int = 0;
   m_valueArray[0].m_negative = 0;
   m_valueArray[0].m_lrange = 0;
   m_valueArray[0].m_rrange = 0;
-  m_typespec = val.m_typespec;
   for (int32_t i = 0; i < val.m_nbWords; i++) {
     m_valueArray[i].m_size = 0;
     m_valueArray[i] = val.m_valueArray[i];
