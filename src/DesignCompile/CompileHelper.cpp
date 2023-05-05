@@ -3574,7 +3574,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
         } else if (ttype == uhdmint_typespec) {
           if (constantIsSigned) {
             uint64_t msb = val & 1 << (orig_size - 1);
-            if (msb /*&& (orig_size > 1)*/) {
+            if (msb) {
               // 2's complement
               std::string v = std::string(c->VpiValue());
               v.erase(0, 4);
