@@ -164,7 +164,7 @@ n<> u<157> t<Module_or_generate_item> p<158> c<156> l<19:13> el<19:22>
 n<> u<158> t<Generate_item> p<159> c<157> l<19:13> el<19:22>
 n<> u<159> t<Generate_block> p<160> c<158> l<19:13> el<19:22>
 n<> u<160> t<Case_generate_item> p<188> c<149> s<175> l<19:5> el<19:22>
-n<x_1sb1> u<161> t<StringConst> p<162> l<20:5> el<20:11>
+n<x_1sb0> u<161> t<StringConst> p<162> l<20:5> el<20:11>
 n<> u<162> t<Primary_literal> p<163> c<161> l<20:5> el<20:11>
 n<> u<163> t<Constant_primary> p<164> c<162> l<20:5> el<20:11>
 n<> u<164> t<Constant_expression> p<175> c<163> s<174> l<20:5> el<20:11>
@@ -368,7 +368,7 @@ design: (work@top)
   \_parameter: (work@top.x_1sb1), line:9:24, endln:9:30
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
-    |BIN:1
+    |INT:-1
     |vpiTypespec:
     \_bit_typespec: , line:9:13, endln:9:16
       |vpiParent:
@@ -381,7 +381,7 @@ design: (work@top)
   \_parameter: (work@top.x_2sb11), line:10:32, endln:10:39
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
-    |BIN:11
+    |INT:-1
     |vpiTypespec:
     \_logic_typespec: , line:10:13, endln:10:31
       |vpiParent:
@@ -442,12 +442,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
     |vpiRhs:
     \_constant: , line:9:33, endln:9:38
-      |vpiDecompile:1'sb1
+      |vpiDecompile:-1
       |vpiSize:1
-      |BIN:1
+      |INT:-1
       |vpiTypespec:
       \_bit_typespec: , line:9:13, endln:9:16
-      |vpiConstType:3
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.x_1sb1), line:9:24, endln:9:30
   |vpiParamAssign:
@@ -456,12 +456,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
     |vpiRhs:
     \_constant: , line:10:42, endln:10:48
-      |vpiDecompile:2'sb11
+      |vpiDecompile:-1
       |vpiSize:2
-      |BIN:11
+      |INT:-1
       |vpiTypespec:
       \_logic_typespec: , line:10:13, endln:10:31
-      |vpiConstType:3
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.x_2sb11), line:10:32, endln:10:39
   |vpiDefName:work@top
@@ -496,7 +496,7 @@ design: (work@top)
   \_parameter: (work@top.x_1sb1), line:9:24, endln:9:30
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
-    |BIN:1
+    |INT:-1
     |vpiTypespec:
     \_bit_typespec: , line:9:13, endln:9:16
       |vpiParent:
@@ -509,7 +509,7 @@ design: (work@top)
   \_parameter: (work@top.x_2sb11), line:10:32, endln:10:39
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
-    |BIN:11
+    |INT:-1
     |vpiTypespec:
     \_logic_typespec: , line:10:13, endln:10:31
       |vpiParent:
@@ -562,7 +562,8 @@ design: (work@top)
       |vpiSize:1
       |BIN:0
       |vpiTypespec:
-      \_bit_typespec: , line:8:13, endln:8:16
+      \_int_typespec: 
+        |vpiSigned:1
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.x_1sb0), line:8:24, endln:8:30
@@ -572,12 +573,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
     |vpiRhs:
     \_constant: , line:9:33, endln:9:38
-      |vpiDecompile:1'b1
+      |vpiDecompile:-1
       |vpiSize:1
-      |BIN:1
+      |INT:-1
       |vpiTypespec:
-      \_bit_typespec: , line:9:13, endln:9:16
-      |vpiConstType:3
+      \_int_typespec: 
+        |vpiSigned:1
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.x_1sb1), line:9:24, endln:9:30
   |vpiParamAssign:
@@ -586,12 +588,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
     |vpiRhs:
     \_constant: , line:10:42, endln:10:48
-      |vpiDecompile:2'b11
+      |vpiDecompile:-1
       |vpiSize:2
-      |BIN:11
+      |INT:-1
       |vpiTypespec:
-      \_logic_typespec: , line:10:13, endln:10:31
-      |vpiConstType:3
+      \_int_typespec: 
+        |vpiSigned:1
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.x_2sb11), line:10:32, endln:10:39
   |vpiDefName:work@top

@@ -197,10 +197,10 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              35
+constant                                              36
 cont_assign                                            4
 design                                                 1
-int_typespec                                          19
+int_typespec                                          20
 int_var                                                1
 logic_net                                              7
 logic_typespec                                         4
@@ -212,10 +212,10 @@ range                                                 10
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              35
+constant                                              36
 cont_assign                                            6
 design                                                 1
-int_typespec                                          19
+int_typespec                                          20
 int_var                                                1
 logic_net                                              7
 logic_typespec                                         4
@@ -245,7 +245,7 @@ design: (work@top1)
   \_parameter: (work@top1.p1), line:2:19, endln:2:21
     |vpiParent:
     \_module_inst: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
-    |UINT:3
+    |INT:3
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:18
       |vpiParent:
@@ -274,7 +274,7 @@ design: (work@top1)
   \_parameter: (work@top1.p2), line:3:19, endln:3:21
     |vpiParent:
     \_module_inst: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
-    |BIN:10
+    |INT:2
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:18
       |vpiParent:
@@ -320,10 +320,10 @@ design: (work@top1)
     \_constant: , line:2:25, endln:2:30
       |vpiDecompile:3
       |vpiSize:2
-      |UINT:3
+      |INT:3
       |vpiTypespec:
       \_int_typespec: , line:2:13, endln:2:18
-      |vpiConstType:9
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top1.p1), line:2:19, endln:2:21
   |vpiParamAssign:
@@ -332,12 +332,12 @@ design: (work@top1)
     \_module_inst: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:3:25, endln:3:31
-      |vpiDecompile:2'sb10
+      |vpiDecompile:2
       |vpiSize:2
-      |BIN:10
+      |INT:2
       |vpiTypespec:
       \_int_typespec: , line:3:13, endln:3:18
-      |vpiConstType:3
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top1.p2), line:3:19, endln:3:21
   |vpiParamAssign:
@@ -388,7 +388,7 @@ design: (work@top1)
   \_parameter: (work@top1.p1), line:2:19, endln:2:21
     |vpiParent:
     \_module_inst: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
-    |UINT:3
+    |INT:3
     |vpiTypespec:
     \_int_typespec: , line:2:13, endln:2:18
       |vpiParent:
@@ -419,7 +419,7 @@ design: (work@top1)
   \_parameter: (work@top1.p2), line:3:19, endln:3:21
     |vpiParent:
     \_module_inst: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
-    |BIN:10
+    |INT:2
     |vpiTypespec:
     \_int_typespec: , line:3:13, endln:3:18
       |vpiParent:
@@ -467,10 +467,10 @@ design: (work@top1)
     \_constant: , line:2:25, endln:2:30
       |vpiDecompile:3
       |vpiSize:2
-      |UINT:3
+      |INT:3
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:18
-      |vpiConstType:9
+      \_int_typespec: 
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top1.p1), line:2:19, endln:2:21
   |vpiParamAssign:
@@ -479,12 +479,12 @@ design: (work@top1)
     \_module_inst: work@top1 (work@top1), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:3:25, endln:3:31
-      |vpiDecompile:2'b10
+      |vpiDecompile:2
       |vpiSize:2
-      |BIN:10
+      |INT:2
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:18
-      |vpiConstType:3
+      \_int_typespec: 
+      |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top1.p2), line:3:19, endln:3:21
   |vpiParamAssign:
@@ -497,7 +497,8 @@ design: (work@top1)
       |vpiSize:32
       |INT:-2
       |vpiTypespec:
-      \_int_typespec: , line:4:13, endln:4:16
+      \_int_typespec: 
+        |vpiSigned:1
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top1.p3), line:4:17, endln:4:19
@@ -520,7 +521,7 @@ design: (work@top1)
     |vpiExpr:
     \_constant: , line:11:13, endln:11:19
       |vpiDecompile:-2
-      |vpiSize:32
+      |vpiSize:2
       |INT:-2
       |vpiTypespec:
       \_int_typespec: 
@@ -594,13 +595,12 @@ design: (work@top1)
       \_cont_assign: , line:9:13, endln:9:15
       |vpiDecompile:3
       |vpiSize:2
-      |UINT:3
+      |INT:3
       |vpiTypespec:
       \_int_typespec: 
         |vpiParent:
         \_constant: , line:9:19, endln:9:24
-        |vpiSigned:1
-      |vpiConstType:9
+      |vpiConstType:7
     |vpiLhs:
     \_logic_net: (work@top2.p1), line:9:13, endln:9:24
   |vpiContAssign:
@@ -612,13 +612,14 @@ design: (work@top1)
     \_constant: , line:10:19, endln:10:25
       |vpiParent:
       \_cont_assign: , line:10:13, endln:10:15
-      |vpiDecompile:2'sb10
+      |vpiDecompile:2
       |vpiSize:2
-      |BIN:10
+      |INT:2
       |vpiTypespec:
       \_int_typespec: 
-        |vpiSigned:1
-      |vpiConstType:3
+        |vpiParent:
+        \_constant: , line:10:19, endln:10:25
+      |vpiConstType:7
     |vpiLhs:
     \_logic_net: (work@top2.p2), line:10:13, endln:10:25
 ===================

@@ -180,13 +180,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              25
+constant                                              26
 cont_assign                                            2
 design                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
-int_typespec                                          10
+int_typespec                                          11
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         2
@@ -203,13 +203,13 @@ ref_obj                                                6
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              25
+constant                                              26
 cont_assign                                            3
 design                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
-int_typespec                                          10
+int_typespec                                          11
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         2
@@ -469,8 +469,6 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |vpiRhs:
     \_constant: , line:11:28, endln:11:29
-      |vpiParent:
-      \_cont_assign: , line:13:11, endln:13:22
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -512,6 +510,17 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |vpiRhs:
     \_constant: , line:11:28, endln:11:29
+      |vpiParent:
+      \_cont_assign: , line:13:11, endln:13:22
+      |vpiDecompile:1
+      |vpiSize:32
+      |UINT:1
+      |vpiTypespec:
+      \_int_typespec: , line:11:14, endln:11:17
+        |vpiParent:
+        \_constant: , line:11:28, endln:11:29
+        |vpiSigned:1
+      |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
       |vpiParent:

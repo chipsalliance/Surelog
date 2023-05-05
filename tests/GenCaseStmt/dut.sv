@@ -17,7 +17,7 @@ module top();
   // Mix signed and unsigned
   case (x_2sb11)
     x_1b0:  BAD u1();
-    x_1sb1: BAD u2();
+    x_1sb0: BAD u2();
     default: GOOD u3();
   endcase
 

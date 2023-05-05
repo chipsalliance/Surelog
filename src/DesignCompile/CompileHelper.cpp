@@ -3588,6 +3588,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                   for (uint32_t i = 0; i < uint32_t(size - orig_size); i++) {
                     v += '1';
                   }
+                  orig_size = size;
                 }
                 val = std::strtoll(v.c_str(), 0, 2);
               }
