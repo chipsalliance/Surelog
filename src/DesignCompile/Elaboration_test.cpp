@@ -423,6 +423,10 @@ module top();
   parameter [1:0] p2 =  2'sb10;
   parameter int p3 =  2'sb10;
   parameter int p4 =  3'sb101;
+  parameter unsigned [3:0] p5 =  2'sb11; // 15
+  parameter signed [3:0] p6 =  2'sb11; // -1
+  parameter bit signed p7 = 1'sb1; // -1
+  parameter logic signed [1:0] p8 = 2'sb11; // -1
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
@@ -444,6 +448,14 @@ endmodule
         EXPECT_EQ(val, -2);
       } else if (name == "p4") {
         EXPECT_EQ(val, -3);
+      } else if (name == "p5") {
+        EXPECT_EQ(val, 15);
+      } else if (name == "p6") {
+        EXPECT_EQ(val, -1);
+      } else if (name == "p7") {
+        EXPECT_EQ(val, -1);
+      } else if (name == "p8") {
+        EXPECT_EQ(val, -1);
       }
     }
   }
@@ -481,7 +493,7 @@ endmodule
         EXPECT_EQ(val, 3);
         const UHDM::typespec* tps = rhs->Typespec();
         UHDM::int_typespec* itps = (UHDM::int_typespec*)tps;
-        EXPECT_EQ(itps->VpiSigned(), true);
+        EXPECT_EQ(itps->VpiSigned(), false);
       } else if (name == "p2") {
         EXPECT_EQ(val, 2);
       } else if (name == "x") {
@@ -1189,7 +1201,7 @@ module top();
   // Mix signed and unsigned
   case (x_2sb11)
     x_1b0:  BAD u1();
-    x_1sb1: BAD u2();
+    x_1sb0: BAD u2();
     default: GOOD u3();
   endcase
 

@@ -350,6 +350,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         c->VpiDecompile(value->decompiledValue());
         c->VpiSize(value->getSize());
         c->VpiConstType(value->vpiValType());
+        if (value->getTypespec()) c->Typespec((typespec*)value->getTypespec());
         assign->getFileContent()->populateCoreMembers(assign->getAssignId(),
                                                       assign->getAssignId(), c);
         inst_assign->Rhs(c);

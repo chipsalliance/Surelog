@@ -3517,103 +3517,145 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
   int32_t size = orig_size;
   if (!invalidValue) size = sizetmp;
 
-  if (size != orig_size) {
-    UHDM::ExprEval eval;
-    int64_t val = eval.get_value(invalidValue, c);
-    if (!invalidValue) {
-      if (c->VpiConstType() == vpiUIntConst) {
-        uint64_t mask = NumUtils::getMask(size);
-        uint64_t uval = (uint64_t)val;
-        uval = uval & mask;
-        if (uniquify) {
-          UHDM::ElaboratorListener listener(&s, false, true);
-          c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
-          result = c;
+  bool signedLhs = false;
+  if (ts->UhdmType() == uhdmint_typespec) {
+    int_typespec* its = (int_typespec*)ts;
+    signedLhs = its->VpiSigned();
+  } else if (ts->UhdmType() == uhdmlogic_typespec) {
+    logic_typespec* its = (logic_typespec*)ts;
+    signedLhs = its->VpiSigned();
+  } else if (ts->UhdmType() == uhdmbit_typespec) {
+    bit_typespec* its = (bit_typespec*)ts;
+    signedLhs = its->VpiSigned();
+  }
+
+  UHDM::ExprEval eval;
+  int64_t val = eval.get_value(invalidValue, c);
+  bool constantIsSigned = false;
+  if (!invalidValue) {
+    if (c->VpiConstType() == vpiUIntConst) {
+      uint64_t mask = NumUtils::getMask(size);
+      uint64_t uval = (uint64_t)val;
+      uval = uval & mask;
+      if (uniquify) {
+        UHDM::ElaboratorListener listener(&s, false, true);
+        c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+        result = c;
+      }
+      c->VpiValue("UINT:" + std::to_string(uval));
+      c->VpiDecompile(std::to_string(uval));
+      c->VpiConstType(vpiUIntConst);
+      c->VpiSize(size);
+    } else if (c->VpiConstType() == vpiBinaryConst) {
+      if (const typespec* tstmp = c->Typespec()) {
+        if (tstmp->UhdmType() == uhdmint_typespec) {
+          int_typespec* itps = (int_typespec*)tstmp;
+          if (itps->VpiSigned()) {
+            constantIsSigned = true;
+          }
+          if (!signedLhs) {
+            itps->VpiSigned(false);
+          }
         }
-        c->VpiValue("UINT:" + std::to_string(uval));
-        c->VpiDecompile(std::to_string(uval));
-        c->VpiConstType(vpiUIntConst);
-        c->VpiSize(size);
-      } else if (c->VpiConstType() == vpiBinaryConst) {
-        const typespec* ts = c->Typespec();
-        if (ts) {
-          UHDM_OBJECT_TYPE ttype = ts->UhdmType();
-          if (ttype == uhdmint_typespec) {
-            int_typespec* itps = (int_typespec*)ts;
-            if (itps->VpiSigned()) {
-              uint64_t msb = val & 1 << (orig_size - 1);
-              if (msb && (orig_size > 1)) {
-                // 2's complement
-                std::string_view v = c->VpiValue();
-                v.remove_prefix(4);
+        ts = tstmp;
+      }
+      if (ts) {
+        UHDM_OBJECT_TYPE ttype = ts->UhdmType();
+        if (ttype == uhdmlogic_typespec) {
+          std::string_view v = c->VpiValue();
+          v.remove_prefix(4);
+          if (orig_size > size) {
+            v.remove_prefix(orig_size - size);
+            c->VpiValue("BIN:" + std::string(v));
+            c->VpiDecompile(v);
+            c->VpiConstType(vpiBinaryConst);
+            c->VpiSize(size);
+          }
+        } else if (ttype == uhdmint_typespec) {
+          if (constantIsSigned) {
+            uint64_t msb = val & 1 << (orig_size - 1);
+            if (msb) {
+              // 2's complement
+              std::string v = std::string(c->VpiValue());
+              v.erase(0, 4);
+              if (signedLhs) {
                 const std::string res = twosComplement(v);
                 // Convert to int32_t
                 val = std::strtoll(res.c_str(), 0, 2);
                 val = -val;
-                if (uniquify) {
-                  UHDM::ElaboratorListener listener(&s, false, true);
-                  c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
-                  result = c;
+              } else {
+                if (size > orig_size) {
+                  for (uint32_t i = 0; i < uint32_t(size - orig_size); i++) {
+                    v += '1';
+                  }
+                  orig_size = size;
                 }
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                c->VpiConstType(vpiIntConst);
-              } else if ((orig_size == 1) && (val == 1)) {
-                uint64_t mask = NumUtils::getMask(size);
-                if (uniquify) {
-                  UHDM::ElaboratorListener listener(&s, false, true);
-                  c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
-                  result = c;
-                }
-                c->VpiValue("UINT:" + std::to_string(mask));
-                c->VpiDecompile(std::to_string(mask));
-                c->VpiConstType(vpiUIntConst);
+                val = std::strtoll(v.c_str(), 0, 2);
               }
-            } else {
-              if ((orig_size == -1) && (val == 1)) {
-                uint64_t mask = NumUtils::getMask(size);
-                if (uniquify) {
-                  UHDM::ElaboratorListener listener(&s, false, true);
-                  c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
-                  result = c;
-                }
-                c->VpiValue("UINT:" + std::to_string(mask));
-                c->VpiDecompile(std::to_string(mask));
-                c->VpiConstType(vpiUIntConst);
+              if (uniquify) {
+                UHDM::ElaboratorListener listener(&s, false, true);
+                c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                result = c;
               }
-            }
-            c->VpiSize(size);
-          }
-        }
-        if (orig_size == -1) {
-          // '1, '0
-          uint64_t uval = (uint64_t)val;
-          if (uval == 1) {
-            if (uniquify) {
-              UHDM::ElaboratorListener listener(&s, false, true);
-              c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
-              result = c;
-            }
-            if (size <= 64) {
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              c->VpiConstType(vpiIntConst);
+            } else if ((orig_size == 1) && (val == 1)) {
               uint64_t mask = NumUtils::getMask(size);
-              uval = mask;
-              c->VpiValue("UINT:" + std::to_string(uval));
-              c->VpiDecompile(std::to_string(uval));
+              if (uniquify) {
+                UHDM::ElaboratorListener listener(&s, false, true);
+                c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                result = c;
+              }
+              c->VpiValue("UINT:" + std::to_string(mask));
+              c->VpiDecompile(std::to_string(mask));
               c->VpiConstType(vpiUIntConst);
-            } else {
-              std::string mask(size, '1');
-              c->VpiValue("BIN:" + mask);
-              c->VpiDecompile(mask);
-              c->VpiConstType(vpiBinaryConst);
+            }
+          } else {
+            if ((orig_size == -1) && (val == 1)) {
+              uint64_t mask = NumUtils::getMask(size);
+              if (uniquify) {
+                UHDM::ElaboratorListener listener(&s, false, true);
+                c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                result = c;
+              }
+              c->VpiValue("UINT:" + std::to_string(mask));
+              c->VpiDecompile(std::to_string(mask));
+              c->VpiConstType(vpiUIntConst);
             }
           }
-          c->VpiSize(size);
+          c->VpiSize((orig_size < size) ? orig_size : size);
         }
-      } else {
+      }
+      if (orig_size == -1) {
+        // '1, '0
+        uint64_t uval = (uint64_t)val;
+        if (uval == 1) {
+          if (uniquify) {
+            UHDM::ElaboratorListener listener(&s, false, true);
+            c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+            result = c;
+          }
+          if (size <= 64) {
+            uint64_t mask = NumUtils::getMask(size);
+            uval = mask;
+            c->VpiValue("UINT:" + std::to_string(uval));
+            c->VpiDecompile(std::to_string(uval));
+            c->VpiConstType(vpiUIntConst);
+          } else {
+            std::string mask(size, '1');
+            c->VpiValue("BIN:" + mask);
+            c->VpiDecompile(mask);
+            c->VpiConstType(vpiBinaryConst);
+          }
+        }
         c->VpiSize(size);
       }
+    } else {
+      c->VpiSize(size);
     }
   }
+
   return result;
 }
 
@@ -4680,51 +4722,69 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
   return result;
 }
 
-bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
+bool CompileHelper::valueRange(Value* val, const UHDM::typespec* lhstps,
+                               const UHDM::typespec* rhstps,
                                DesignComponent* component,
                                CompileDesign* compileDesign,
                                ValuedComponentI* instance) {
-  if (!ts) return false;
+  if (!lhstps || !rhstps) return false;
   range* r = nullptr;
-  bool isSigned = false;
-  UHDM_OBJECT_TYPE type = ts->UhdmType();
+  UHDM_OBJECT_TYPE type = lhstps->UhdmType();
   switch (type) {
     case uhdmlogic_typespec: {
-      logic_typespec* lts = (logic_typespec*)ts;
+      logic_typespec* lts = (logic_typespec*)lhstps;
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
-      isSigned = lts->VpiSigned();
       break;
     }
     case uhdmarray_typespec: {
-      array_typespec* lts = (array_typespec*)ts;
+      array_typespec* lts = (array_typespec*)lhstps;
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
       break;
     }
     case uhdmpacked_array_typespec: {
-      packed_array_typespec* lts = (packed_array_typespec*)ts;
+      packed_array_typespec* lts = (packed_array_typespec*)lhstps;
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
       break;
     }
     case uhdmbit_typespec: {
-      bit_typespec* lts = (bit_typespec*)ts;
+      bit_typespec* lts = (bit_typespec*)lhstps;
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
-      isSigned = lts->VpiSigned();
       break;
     }
     case uhdmint_typespec: {
-      int_typespec* lts = (int_typespec*)ts;
+      int_typespec* lts = (int_typespec*)lhstps;
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
-      isSigned = lts->VpiSigned();
+      break;
+    }
+    default:
+      break;
+  }
+  bool isSigned = false;
+  type = rhstps->UhdmType();
+  switch (type) {
+    case uhdmlogic_typespec: {
+      logic_typespec* tps = (logic_typespec*)rhstps;
+      isSigned = tps->VpiSigned();
+      break;
+    }
+    case uhdmbit_typespec: {
+      bit_typespec* tps = (bit_typespec*)rhstps;
+      isSigned = tps->VpiSigned();
+      break;
+    }
+    case uhdmint_typespec: {
+      int_typespec* tps = (int_typespec*)rhstps;
+      isSigned = tps->VpiSigned();
       break;
     }
     default:

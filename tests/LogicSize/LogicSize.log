@@ -142,11 +142,11 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               7
+constant                                               8
 cont_assign                                            2
 design                                                 1
 logic_net                                              4
-logic_typespec                                        10
+logic_typespec                                        11
 module_inst                                           10
 operation                                              1
 param_assign                                           4
@@ -158,11 +158,11 @@ ref_obj                                               10
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               7
+constant                                               8
 cont_assign                                            3
 design                                                 1
 logic_net                                              4
-logic_typespec                                        10
+logic_typespec                                        11
 module_inst                                           10
 operation                                              1
 param_assign                                           4
@@ -399,8 +399,6 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:24, endln:2:25
-        |vpiParent:
-        \_cont_assign: , line:3:11, endln:3:16
         |vpiDecompile:1
         |vpiSize:1
         |UINT:1
@@ -455,6 +453,16 @@ design: (work@top)
       \_module_inst: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:8:4, endln:12:6
       |vpiRhs:
       \_constant: , line:2:24, endln:2:25
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:16
+        |vpiDecompile:1
+        |vpiSize:1
+        |UINT:1
+        |vpiTypespec:
+        \_logic_typespec: , line:2:14, endln:2:19
+          |vpiParent:
+          \_constant: , line:2:24, endln:2:25
+        |vpiConstType:9
       |vpiLhs:
       \_ref_obj: (work@top.u_dut.a), line:3:11, endln:3:12
         |vpiParent:

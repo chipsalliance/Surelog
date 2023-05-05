@@ -2260,6 +2260,14 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             UHDM::typespec* ts = nullptr;
             if (p) {
               ts = p->getTypespec();
+              if (UHDM::any* param = p->getUhdmParam()) {
+                if (param->UhdmType() == UHDM::uhdmparameter) {
+                  ts = (UHDM::typespec*)((UHDM::parameter*)param)->Typespec();
+                } else {
+                  ts = (UHDM::typespec*)((UHDM::type_parameter*)param)
+                           ->Typespec();
+                }
+              }
             }
             if (expr) {
               if (expr->UhdmType() == UHDM::uhdmconstant) {
@@ -2268,15 +2276,17 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                   if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
                     m_helper.adjustSize(ts, instance->getDefinition(),
                                         m_compileDesign, instance, c);
-                    c->Typespec(ts);
+                    if (c->Typespec() == nullptr) c->Typespec(ts);
                   }
                 }
 
                 const std::string_view v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
+                value->setTypespec(((c->Typespec()) ? c->Typespec() : ts));
                 if (ts)
-                  m_helper.valueRange(value, ts, instance->getDefinition(),
-                                      m_compileDesign, instance);
+                  m_helper.valueRange(
+                      value, ts, (c->Typespec()) ? c->Typespec() : ts,
+                      instance->getDefinition(), m_compileDesign, instance);
               } else if (expr->UhdmType() == UHDM::uhdmoperation) {
                 if (instance) {
                   complex = true;
@@ -2298,8 +2308,17 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                   }
                   if (p) {
                     if (UHDM::typespec* ts = p->getTypespec()) {
+                      if (UHDM::any* param = p->getUhdmParam()) {
+                        if (param->UhdmType() == UHDM::uhdmparameter) {
+                          ts = (UHDM::typespec*)((UHDM::parameter*)param)
+                                   ->Typespec();
+                        } else {
+                          ts = (UHDM::typespec*)((UHDM::type_parameter*)param)
+                                   ->Typespec();
+                        }
+                      }
                       if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
-                        op->Typespec(p->getTypespec());
+                        op->Typespec(ts);
                       }
                     }
                     m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),

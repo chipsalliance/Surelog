@@ -554,7 +554,7 @@ class CompileHelper final {
                             uint32_t lineNumber, UHDM::any* pexpr,
                             bool muteErrors, bool returnTypespec);
 
-  bool valueRange(Value* val, UHDM::typespec* tps, DesignComponent* component,
+  bool valueRange(Value* val, const UHDM::typespec* lhstps, const UHDM::typespec* rhstps, DesignComponent* component,
                   CompileDesign* compileDesign, ValuedComponentI* instance);
 
   void setRange(UHDM::constant* c, Value* val, CompileDesign* compileDesign);

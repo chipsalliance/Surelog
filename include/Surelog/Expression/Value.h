@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/RTTI.h>
+#include <uhdm/typespec.h>
 
 #include <cstdint>
 #include <string>
@@ -75,6 +76,8 @@ class Value : public RTTI {
   virtual bool isNegative() const = 0;
   virtual void setNegative() = 0;
   virtual void setRange(uint16_t lrange, uint16_t rrange) = 0;
+  virtual void setTypespec(const UHDM::typespec* tps) = 0;
+  virtual const UHDM::typespec* getTypespec() const = 0;
   virtual uint16_t getLRange() const = 0;
   virtual uint16_t getRRange() const = 0;
   // is large value (more than one 64 bit word)
@@ -201,13 +204,15 @@ class SValue final : public Value {
   }
   bool isSigned() const final { return m_signed; }
   void setSigned(bool isSigned) final { m_signed = isSigned; }
-  uint16_t getLRange() const final { return m_lrange; };
-  uint16_t getRRange() const final { return m_rrange; };
+  uint16_t getLRange() const final { return m_lrange; }
+  uint16_t getRRange() const final { return m_rrange; }
   uint16_t getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
   void setValid() final { m_valid = true; }
+  void setTypespec(const UHDM::typespec* tps) final {}
+  const UHDM::typespec* getTypespec() const final { return nullptr; }
   void setInvalid() final { m_valid = 0; }
   bool isNegative() const final { return m_negative; }
   void setNegative() final { m_negative = 1; }
@@ -351,14 +356,16 @@ class LValue final : public Value {
     m_lrange = lrange;
     m_rrange = rrange;
   }
-  uint16_t getLRange() const final { return m_lrange; };
-  uint16_t getRRange() const final { return m_rrange; };
+  uint16_t getLRange() const final { return m_lrange; }
+  uint16_t getRRange() const final { return m_rrange; }
   uint16_t getNbWords() const final { return m_nbWords; }
   bool isLValue() const final { return true; }
   Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
   void setValid() final { m_valid = true; }
   void setInvalid() final { m_valid = 0; }
+  void setTypespec(const UHDM::typespec* tps) final { m_typespec = tps; }
+  const UHDM::typespec* getTypespec() const final { return m_typespec; };
   bool isNegative() const final { return m_negative; }
   void setNegative() final { m_negative = 1; }
   void set(uint64_t val) final;
@@ -428,6 +435,7 @@ class LValue final : public Value {
   uint16_t m_lrange = 0;
   uint16_t m_rrange = 0;
   bool m_signed = false;
+  const UHDM::typespec* m_typespec = nullptr;
 };
 
 class StValue final : public Value {
@@ -435,9 +443,9 @@ class StValue final : public Value {
   friend LValue;
 
  public:
-  StValue() : m_type(Type::String), m_size(0), m_valid(false) {}
+  StValue() : m_type(Type::String), m_size(0), m_valid(false), m_typespec(nullptr) {}
   explicit StValue(std::string_view val)
-      : m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true) {}
+      : m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true), m_typespec(nullptr) {}
   ~StValue() final;
 
   int16_t getSize() const final { return m_size; }
@@ -456,6 +464,8 @@ class StValue final : public Value {
   bool isValid() const final { return m_valid; }
   void setValid() final { m_valid = true; }
   void setInvalid() final { m_valid = false; }
+  void setTypespec(const UHDM::typespec* tps) final { m_typespec = tps; }
+  const UHDM::typespec* getTypespec() const final { return m_typespec; };
   void setNegative() final {}
   bool isNegative() const final { return false; }
   void set(uint64_t val) final {
@@ -463,18 +473,21 @@ class StValue final : public Value {
     m_value = std::to_string(val);
     m_valid = true;
     m_signed = false;
+    m_typespec = nullptr;
   }
   void set(int64_t val) final {
     m_type = Type::Integer;
     m_value = std::to_string(val);
     m_valid = true;
     m_signed = true;
+    m_typespec = nullptr;
   }
   void set(double val) final {
     m_type = Type::Double;
     m_value = std::to_string(val);
     m_valid = true;
     m_signed = true;
+    m_typespec = nullptr;
   }
   void set(uint64_t val, Type type, int16_t size) final {
     m_type = type;
@@ -482,6 +495,7 @@ class StValue final : public Value {
     m_size = size;
     m_valid = true;
     m_signed = false;
+    m_typespec = nullptr;
   }
   void set(std::string_view val, Type type) final {
     m_type = type;
@@ -492,6 +506,7 @@ class StValue final : public Value {
     }
     m_valid = true;
     m_signed = false;
+    m_typespec = nullptr;
   }
   void set(std::string_view val, Type type, int16_t size) {
     m_type = type;
@@ -499,6 +514,7 @@ class StValue final : public Value {
     m_size = size;
     m_valid = true;
     m_signed = false;
+    m_typespec = nullptr;
   }
   void set(std::string_view val) final {
     m_type = Type::String;
@@ -506,6 +522,7 @@ class StValue final : public Value {
     m_size = val.size() * 8;
     m_valid = true;
     m_signed = false;
+    m_typespec = nullptr;
   }
   bool operator<(const Value& rhs) const final {
     return m_value < (value_cast<const StValue*>(&rhs))->m_value;
@@ -594,6 +611,7 @@ class StValue final : public Value {
   uint16_t m_lrange = 0;
   uint16_t m_rrange = 0;
   bool m_signed = false;
+  const UHDM::typespec* m_typespec = nullptr;
 };
 
 };  // namespace SURELOG
