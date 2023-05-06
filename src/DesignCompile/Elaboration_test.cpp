@@ -1293,5 +1293,43 @@ endmodule
   }
 }
 
+TEST(Elaboration, SignedUnsigned) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top(out1, out2);
+  output wire[10:0] out1;
+  assign out1 = $signed((8'ha0));
+
+  output logic signed [10:0] out2;
+  assign out2 = $signed((8'h81));
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto cassign : *topMod->Cont_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+      bool invalidValue = false;
+      const std::string_view name = cassign->Lhs()->VpiName();
+      if (name == "out1") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 1952);
+      } else if (name == "out2") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, -127);
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG

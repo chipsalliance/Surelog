@@ -1744,6 +1744,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         bool invalidValue = false;
         FileSystem* const fileSystem = FileSystem::getInstance();
         m_helper.checkForLoops(true);
+        if ((rhs->UhdmType() == uhdmsys_func_call) &&
+            ((expr*)rhs)->Typespec() == nullptr)
+          ((expr*)rhs)->Typespec((UHDM::typespec*)tps);
         any* res = m_helper.reduceExpr(
             (expr*)rhs, invalidValue, mod, m_compileDesign,
             netlist->getParent(),

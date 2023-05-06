@@ -419,12 +419,12 @@ int_typespec                                           9
 int_var                                                4
 io_decl                                               22
 logic_net                                              5
-logic_typespec                                         7
+logic_typespec                                         8
 logic_var                                              2
 module_inst                                            4
 package                                                2
 port                                                   6
-range                                                 10
+range                                                 11
 ref_obj                                               10
 sys_func_call                                          2
 task                                                  18
@@ -1012,6 +1012,26 @@ design: (work@dut)
     \_sys_func_call: ($unsigned), line:4:15, endln:4:24
       |vpiParent:
       \_cont_assign: , line:4:11, endln:4:27
+      |vpiTypespec:
+      \_logic_typespec: , line:2:48, endln:2:68
+        |vpiRange:
+        \_range: , line:2:63, endln:2:68
+          |vpiLeftRange:
+          \_constant: , line:2:64, endln:2:65
+            |vpiParent:
+            \_range: , line:2:63, endln:2:68
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:2:66, endln:2:67
+            |vpiParent:
+            \_range: , line:2:63, endln:2:68
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiArgument:
       \_ref_obj: (work@dut.a), line:4:25, endln:4:26
         |vpiParent:
@@ -1116,24 +1136,6 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedPort/dut.sv, line:2:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:2:48, endln:2:68
-      |vpiRange:
-      \_range: , line:2:63, endln:2:68
-        |vpiLeftRange:
-        \_constant: , line:2:64, endln:2:65
-          |vpiParent:
-          \_range: , line:2:63, endln:2:68
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:66, endln:2:67
-          |vpiParent:
-          \_range: , line:2:63, endln:2:68
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:36
@@ -1223,6 +1225,18 @@ design: (work@dut)
     \_sys_func_call: ($unsigned), line:4:15, endln:4:24
       |vpiParent:
       \_cont_assign: , line:4:11, endln:4:27
+      |vpiTypespec:
+      \_logic_typespec: , line:2:48, endln:2:68
+        |vpiParent:
+        \_sys_func_call: ($unsigned), line:4:15, endln:4:24
+        |vpiRange:
+        \_range: , line:2:63, endln:2:68
+          |vpiParent:
+          \_logic_typespec: , line:2:48, endln:2:68
+          |vpiLeftRange:
+          \_constant: , line:2:64, endln:2:65
+          |vpiRightRange:
+          \_constant: , line:2:66, endln:2:67
       |vpiArgument:
       \_ref_obj: (work@dut.a), line:4:25, endln:4:26
         |vpiParent:
