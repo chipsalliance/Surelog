@@ -1988,7 +1988,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     break;
                   }
                   const std::string pname =
-                      StrCat(m->VpiName(), "::", typeName);
+                      StrCat(p->VpiName(), "::", typeName);
                   if (n->VpiName() == pname) {
                     found = true;
                     tps = n;
@@ -3983,6 +3983,11 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           fC->populateCoreMembers(startId, modId, p);
         }
       }
+    }
+
+    // FileContent Late Binding after Packages
+    for (auto& fileIdContent : m_design->getAllFileContents()) {
+      lateTypedefBinding(s, fileIdContent.second, nullptr, componentMap);
     }
 
     // Programs
