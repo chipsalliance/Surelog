@@ -401,13 +401,13 @@ gen_scope_array                                        6
 hier_path                                              3
 int_typespec                                           2
 logic_net                                              3
-logic_typespec                                         4
+logic_typespec                                         5
 module_inst                                            8
 operation                                              7
 param_assign                                           2
 parameter                                              2
 port                                                   3
-range                                                  5
+range                                                  6
 ref_obj                                               11
 sys_func_call                                          2
 === UHDM Object Stats End ===
@@ -656,6 +656,18 @@ design: (work@mod)
         \_sys_func_call: ($bits), line:24:22, endln:24:35
           |vpiParent:
           \_cont_assign: , line:24:16, endln:24:35
+          |vpiTypespec:
+          \_logic_typespec: , line:2:12, endln:2:23
+            |vpiParent:
+            \_sys_func_call: ($bits), line:24:22, endln:24:35
+            |vpiRange:
+            \_range: , line:2:17, endln:2:23
+              |vpiParent:
+              \_logic_typespec: , line:2:12, endln:2:23
+              |vpiLeftRange:
+              \_constant: , line:2:18, endln:2:20
+              |vpiRightRange:
+              \_constant: , line:2:21, endln:2:22
           |vpiArgument:
           \_hier_path: (blk4.z), line:24:28, endln:24:34
             |vpiParent:

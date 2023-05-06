@@ -98,30 +98,30 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              13
+constant                                              15
 cont_assign                                            2
 design                                                 1
 logic_net                                              2
-logic_typespec                                         3
+logic_typespec                                         4
 module_inst                                            4
 operation                                              6
 port                                                   2
-range                                                  4
+range                                                  5
 ref_obj                                                4
 sys_func_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              13
+constant                                              15
 cont_assign                                            3
 design                                                 1
 logic_net                                              2
-logic_typespec                                         3
+logic_typespec                                         4
 module_inst                                            4
 operation                                              6
 port                                                   3
-range                                                  4
+range                                                  5
 ref_obj                                                6
 sys_func_call                                          4
 === UHDM Object Stats End ===
@@ -188,6 +188,26 @@ design: (work@top)
     \_sys_func_call: ($unsigned), line:4:16, endln:4:25
       |vpiParent:
       \_cont_assign: , line:4:10, endln:4:55
+      |vpiTypespec:
+      \_logic_typespec: , line:2:10, endln:2:21
+        |vpiRange:
+        \_range: , line:2:15, endln:2:21
+          |vpiLeftRange:
+          \_constant: , line:2:16, endln:2:18
+            |vpiParent:
+            \_range: , line:2:15, endln:2:21
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:2:19, endln:2:20
+            |vpiParent:
+            \_range: , line:2:15, endln:2:21
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
       |vpiArgument:
       \_operation: , line:4:26, endln:4:54
         |vpiParent:
@@ -234,24 +254,6 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:2:10, endln:2:21
-      |vpiRange:
-      \_range: , line:2:15, endln:2:21
-        |vpiLeftRange:
-        \_constant: , line:2:16, endln:2:18
-          |vpiParent:
-          \_range: , line:2:15, endln:2:21
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:19, endln:2:20
-          |vpiParent:
-          \_range: , line:2:15, endln:2:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiName:out
     |vpiFullName:work@top.out
     |vpiNetType:1
