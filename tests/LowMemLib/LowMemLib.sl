@@ -1,0 +1,1 @@
+-lowmem -parse -y mylib mytop.v +libext+.sv+.v

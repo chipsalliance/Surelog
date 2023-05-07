@@ -546,7 +546,7 @@ bool CommandLineParser::plus_arguments_(std::string_view s,
     return true;
   }
   if (s.compare(0, libext.size(), libext) == 0) {
-    m_libraryExtensions.clear();
+    // Do not reset m_libraryExtensions, multiple arguments can be used
     splitPlusArg_(s, "libext", m_libraryExtensions);
     return true;
   }
