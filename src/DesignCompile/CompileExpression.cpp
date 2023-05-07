@@ -2327,9 +2327,7 @@ UHDM::any *CompileHelper::compileExpression(
             NodeId selectId = fC->Sibling(paramId);
             const std::string_view n = fC->SymName(paramId);
             name.assign(packageName).append("::").append(n);
-            if (m_unElabMode) {
-              // create ref_obj down below
-            } else {
+            if (m_elabMode) {
               Package *pack =
                   compileDesign->getCompiler()->getDesign()->getPackage(
                       packageName);
@@ -2365,6 +2363,8 @@ UHDM::any *CompileHelper::compileExpression(
                 }
                 if (result == nullptr) sval = pack->getValue(n);
               }
+            } else {
+              // create ref_obj down below
             }
           } else if (childType == VObjectType::slClass_type) {
             const std::string_view packageName = fC->SymName(fC->Child(child));
@@ -2377,9 +2377,7 @@ UHDM::any *CompileHelper::compileExpression(
             Package *pack =
                 compileDesign->getCompiler()->getDesign()->getPackage(
                     packageName);
-            if (m_unElabMode) {
-              // create ref_obj down below
-            } else {
+            if (m_elabMode) {
               if (pack) {
                 UHDM::VectorOfparam_assign *param_assigns =
                     pack->getParam_assigns();
@@ -2403,6 +2401,8 @@ UHDM::any *CompileHelper::compileExpression(
                 }
                 if (result == nullptr) sval = pack->getValue(n);
               }
+            } else {
+              // create ref_obj down below
             }
           } else {
             NodeId rhs;

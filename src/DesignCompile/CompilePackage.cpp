@@ -43,22 +43,23 @@ namespace SURELOG {
 int32_t FunctorCompilePackage::operator()() const {
   CompilePackage* instance = new CompilePackage(m_compileDesign, m_package,
                                                 m_design, m_symbols, m_errors);
-  instance->compile(Reduce::Yes);
+  instance->compile(true);
   delete instance;
 
   instance = new CompilePackage(m_compileDesign, m_package->getUnElabPackage(),
                                 m_design, m_symbols, m_errors);
-  instance->compile(Reduce::No);
+  instance->compile(false);
   delete instance;
 
   return 0;
 }
 
-bool CompilePackage::compile(Reduce reduce) {
+bool CompilePackage::compile(bool elabMode) {
   if (!m_package) return false;
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
-  m_helper.setUnElabMode(reduce == Reduce::No);
+  m_helper.setElabMode(elabMode);
+  const Reduce reduce = elabMode ? Reduce::Yes : Reduce::No;
   if (pack == nullptr) {
     pack = s.MakePackage();
     pack->VpiName(m_package->getName());
