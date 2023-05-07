@@ -116,7 +116,7 @@ void ResolveSymbols::createFastLookup() {
                   new ClassDefinition(name, lib, pdef, m_fileData, subobject,
                                       nullptr, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
-              pdef->addClassDefinition(name, def);
+              pdef->getUnElabPackage()->addClassDefinition(name, def);
             }
           }
           break;
@@ -179,7 +179,7 @@ void ResolveSymbols::createFastLookup() {
                     new ClassDefinition(name, lib, mdef, m_fileData, subobject,
                                         nullptr, s.MakeClass_defn());
                 m_fileData->addClassDefinition(fullSubName, def);
-                mdef->addClassDefinition(name, def);
+                mdef->getUnelabMmodule()->addClassDefinition(name, def);
               } else {
                 ModuleDefinition* def =
                     new ModuleDefinition(m_fileData, subobject, fullSubName);
@@ -193,11 +193,12 @@ void ResolveSymbols::createFastLookup() {
         case VObjectType::slConfig_declaration:
         case VObjectType::slUdp_declaration:
         case VObjectType::slInterface_declaration:
-        default:
+        default: {
           ModuleDefinition* def =
               new ModuleDefinition(m_fileData, object, fullName);
           m_fileData->addModuleDefinition(fullName, def);
           break;
+        }
       }
     }
   }

@@ -34,9 +34,16 @@ VObjectType ModuleDefinition::getType() const {
 
 ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
                                    NodeId nodeId, const std::string_view name)
-    : DesignComponent(fileContent, nullptr), m_name(name), m_udpDefn(nullptr) {
+    : DesignComponent(fileContent, nullptr),
+      m_name(name),
+      m_udpDefn(nullptr),
+      m_unelabModule(nullptr) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
+    if (!name.empty()) {  // avoid loop
+      m_unelabModule = new ModuleDefinition(fileContent, nodeId, "");
+      m_unelabModule->m_name = name;
+    }
   }
 }
 

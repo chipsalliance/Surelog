@@ -872,7 +872,7 @@ void DesignElaboration::elaborateInstance_(
             if (DesignComponent* def = parent->getDefinition()) {
               // Compile generate block
               ((ModuleDefinition*)def)->setGenBlockId(Generate_block);
-              FunctorCompileModule funct(
+              FunctorGenerateModule funct(
                   m_compileDesign, (ModuleDefinition*)def, design,
                   m_compileDesign->getCompiler()->getSymbolTable(),
                   m_compileDesign->getCompiler()->getErrorContainer(), parent);
@@ -1066,7 +1066,7 @@ void DesignElaboration::elaborateInstance_(
 
             // Compile generate block
             ((ModuleDefinition*)def)->setGenBlockId(genBlock);
-            FunctorCompileModule funct(
+            FunctorGenerateModule funct(
                 m_compileDesign, (ModuleDefinition*)def, design,
                 m_compileDesign->getCompiler()->getSymbolTable(),
                 m_compileDesign->getCompiler()->getErrorContainer(), parent);
@@ -1389,7 +1389,7 @@ void DesignElaboration::elaborateInstance_(
 
         // Compile generate block
         ((ModuleDefinition*)def)->setGenBlockId(childId);
-        FunctorCompileModule funct(
+        FunctorGenerateModule funct(
             m_compileDesign, (ModuleDefinition*)def, design,
             m_compileDesign->getCompiler()->getSymbolTable(),
             m_compileDesign->getCompiler()->getErrorContainer(), parent);
@@ -1471,7 +1471,7 @@ void DesignElaboration::elaborateInstance_(
         } else {
           // Compile generate block
           ((ModuleDefinition*)def)->setGenBlockId(childId);
-          FunctorCompileModule funct(
+          FunctorGenerateModule funct(
               m_compileDesign, (ModuleDefinition*)def, design,
               m_compileDesign->getCompiler()->getSymbolTable(),
               m_compileDesign->getCompiler()->getErrorContainer(), parent);

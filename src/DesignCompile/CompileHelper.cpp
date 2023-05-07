@@ -643,7 +643,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       UHDM::typespec* ts =
           compileTypespec(scope, fC, enum_base_type, compileDesign, reduce,
                           nullptr, nullptr, false);
-      if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
+      if (m_elabMode && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
       if (array_tps) {
@@ -668,7 +668,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       UHDM::typespec* ts =
           compileTypespec(scope, fC, enum_base_type, compileDesign, reduce,
                           nullptr, nullptr, false);
-      if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
+      if (m_elabMode && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
       if (array_tps) {
@@ -734,7 +734,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
     // Enum basetype
     enum_t->Base_typespec(the_enum->getBaseTypespec());
-    if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
+    if (m_elabMode && (valuedcomponenti_cast<Package*>(scope))) {
       enum_t->Instance(scope->getUhdmInstance());
     }
     // Enum values
@@ -818,9 +818,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(dummy);
       // Don't create the typespec here, as it is most likely going to be
       // incomplete at compilation time, except for packages and FileContent
-      if ((reduce == Reduce::Yes) &&
-          ((valuedcomponenti_cast<Package*>(scope) ||
-            valuedcomponenti_cast<FileContent*>(scope)))) {
+      if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) &&
+          (valuedcomponenti_cast<Package*>(scope) ||
+           valuedcomponenti_cast<FileContent*>(scope))) {
         UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
                                              reduce, nullptr, nullptr, false);
         if (ts && (ts->UhdmType() != uhdmclass_typespec) &&
@@ -961,8 +961,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           scope->needLateResolutionFunction(resolutionFunctionName, ts);
         }
 
-        if ((reduce == Reduce::Yes) &&
-            (valuedcomponenti_cast<Package*>(scope))) {
+        if (m_elabMode && (valuedcomponenti_cast<Package*>(scope))) {
           ts->Instance(scope->getUhdmInstance());
         }
         ts->VpiName(name);
@@ -3377,7 +3376,8 @@ bool CompileHelper::compileParameterDeclaration(
           adjustSize(ts, component, compileDesign, instance, c);
           Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
           component->setValue(the_name, val, m_exprBuilder);
-        } else if ((reduce == Reduce::Yes) && (!isMultiDimension)) {
+        } else if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) &&
+                   (!isMultiDimension)) {
           UHDM::expr* the_expr = (UHDM::expr*)expr;
           if (the_expr->Typespec() == nullptr) the_expr->Typespec(ts);
           ExprEval expr_eval(the_expr, instance, fC->getFileId(),
@@ -3469,7 +3469,7 @@ bool CompileHelper::compileParameterDeclaration(
         expr* rhs = (expr*)compileExpression(
             component, fC, value, compileDesign,
             isMultiDimension ? Reduce::No : reduce, nullptr, instance);
-        if (reduce == Reduce::Yes) {
+        if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
           rhs = (expr*)defaultPatternAssignment(ts, rhs, component,
                                                 compileDesign, instance);
         }

@@ -45,6 +45,26 @@ struct FunctorCompileModule {
         m_module(mdl),
         m_design(design),
         m_symbols(symbols),
+        m_errors(errors) {}
+  int32_t operator()() const;
+
+ private:
+  CompileDesign* const m_compileDesign;
+  ModuleDefinition* const m_module;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
+};
+
+struct FunctorGenerateModule {
+  FunctorGenerateModule(CompileDesign* compiler, ModuleDefinition* mdl,
+                         Design* design, SymbolTable* symbols,
+                         ErrorContainer* errors,
+                         ValuedComponentI* instance)
+      : m_compileDesign(compiler),
+        m_module(mdl),
+        m_design(design),
+        m_symbols(symbols),
         m_errors(errors),
         m_instance(instance) {}
   int32_t operator()() const;
@@ -72,7 +92,7 @@ class CompileModule final {
     m_helper.seterrorReporting(errors, symbols);
   }
 
-  bool compile();
+  bool compile(bool elabMode, Reduce reduce);
 
  private:
   CompileModule(const CompileModule&) = delete;

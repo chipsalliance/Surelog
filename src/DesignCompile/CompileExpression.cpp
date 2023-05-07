@@ -759,19 +759,17 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
   any *res = eval.decodeHierPath(path, invalidValue, m_exprEvalPlaceHolder,
                                  pexpr, returnTypespec, muteErrors);
 
-  if (res == nullptr) {
-    if ((reduce == Reduce::Yes) && (!muteErrors)) {
-      ErrorContainer *errors =
-          compileDesign->getCompiler()->getErrorContainer();
-      SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
-      // std::string fileContent = FileUtils::getFileContent(fileName);
-      // std::string_view lineText =
-      //     StringUtils::getLineInString(fileContent, lineNumber);
-      const std::string_view lineText = path->VpiFullName();
-      Location loc(fileId, lineNumber, 0, symbols->registerSymbol(lineText));
-      Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
-      errors->addError(err);
-    }
+  if ((res == nullptr) && (m_reduce == Reduce::Yes) &&
+      (reduce == Reduce::Yes) && (!muteErrors)) {
+    ErrorContainer *errors = compileDesign->getCompiler()->getErrorContainer();
+    SymbolTable *symbols = compileDesign->getCompiler()->getSymbolTable();
+    // std::string fileContent = FileUtils::getFileContent(fileName);
+    // std::string_view lineText =
+    //     StringUtils::getLineInString(fileContent, lineNumber);
+    const std::string_view lineText = path->VpiFullName();
+    Location loc(fileId, lineNumber, 0, symbols->registerSymbol(lineText));
+    Error err(ErrorDefinition::UHDM_UNRESOLVED_HIER_PATH, loc);
+    errors->addError(err);
   }
   return res;
 }
@@ -1064,7 +1062,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
     } else if (resultType == uhdmoperation || resultType == uhdmhier_path ||
                resultType == uhdmbit_select ||
                resultType == uhdmsys_func_call) {
-      if (reduce == Reduce::Yes) {
+      if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
         bool invalidValue = false;
         any *tmp = reduceExpr(result, invalidValue, component, compileDesign,
                               instance, fileId, lineNumber, pexpr, muteErrors);
@@ -1941,7 +1939,7 @@ UHDM::any *CompileHelper::compileExpression(
           uint32_t vopType = UhdmWriter::getVpiOpType(opType);
           if (opType == VObjectType::slQmark ||
               opType == VObjectType::slConditional_operator) {  // Ternary op
-            if (reduce == Reduce::Yes) {
+            if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
               if (opL->UhdmType() == uhdmconstant) {
                 UHDM::ExprEval eval;
                 bool invalidValue = false;
@@ -2442,14 +2440,16 @@ UHDM::any *CompileHelper::compileExpression(
               if (result) break;
             }
             if (result) break;
-            if ((reduce == Reduce::Yes) && instance)
+            if (instance && (m_reduce == Reduce::Yes) &&
+                (reduce == Reduce::Yes))
               sval = instance->getValue(name);
           }
           if (result) break;
 
           if (sval == nullptr || (sval && !sval->isValid())) {
             expr *complexValue = nullptr;
-            if (instance) {
+            if (instance &&
+                ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes))) {
               ModuleInstance *inst =
                   valuedcomponenti_cast<ModuleInstance *>(instance);
               if (inst) {
@@ -2462,28 +2462,26 @@ UHDM::any *CompileHelper::compileExpression(
                       if (param_ass && param_ass->Lhs()) {
                         const std::string_view param_name =
                             param_ass->Lhs()->VpiName();
-                        if (param_name == name) {
-                          if ((reduce == Reduce::Yes) ||
-                              (param_ass->Rhs()->UhdmType() == uhdmconstant)) {
-                            if (substituteAssignedValue(param_ass->Rhs(),
-                                                        compileDesign)) {
-                              ElaboratorListener listener(&s, false, true);
-                              result = UHDM::clone_tree((any *)param_ass->Rhs(),
-                                                        s, &listener);
-                              fC->populateCoreMembers(child, child, result);
-                              const any *lhs = param_ass->Lhs();
-                              expr *res = (expr *)result;
-                              const typespec *tps = nullptr;
-                              if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
-                                tps = ((UHDM::type_parameter *)lhs)->Typespec();
-                              } else {
-                                tps = ((UHDM::parameter *)lhs)->Typespec();
-                              }
-                              if (tps && (res->Typespec() == nullptr)) {
-                                res->Typespec((UHDM::typespec *)tps);
-                              }
-                              break;
+                        if ((param_name == name) &&
+                            (param_ass->Rhs()->UhdmType() == uhdmconstant)) {
+                          if (substituteAssignedValue(param_ass->Rhs(),
+                                                      compileDesign)) {
+                            ElaboratorListener listener(&s, false, true);
+                            result = UHDM::clone_tree((any *)param_ass->Rhs(),
+                                                      s, &listener);
+                            fC->populateCoreMembers(child, child, result);
+                            const any *lhs = param_ass->Lhs();
+                            expr *res = (expr *)result;
+                            const typespec *tps = nullptr;
+                            if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
+                              tps = ((UHDM::type_parameter *)lhs)->Typespec();
+                            } else {
+                              tps = ((UHDM::parameter *)lhs)->Typespec();
                             }
+                            if (tps && (res->Typespec() == nullptr)) {
+                              res->Typespec((UHDM::typespec *)tps);
+                            }
+                            break;
                           }
                         }
                       }
@@ -2505,8 +2503,8 @@ UHDM::any *CompileHelper::compileExpression(
                     const std::string_view param_name =
                         param_ass->Lhs()->VpiName();
                     bool paramFromPackage = false;
-                    if ((valuedcomponenti_cast<Package *>(component)) &&
-                        (reduce == Reduce::Yes)) {
+                    if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) &&
+                        (valuedcomponenti_cast<Package *>(component))) {
                       paramFromPackage = true;
                     }
                     if (param_ass->Lhs()->UhdmType() == uhdmparameter) {
@@ -2516,7 +2514,8 @@ UHDM::any *CompileHelper::compileExpression(
                       }
                     }
                     if (param_name == name) {
-                      if ((reduce == Reduce::Yes) ||
+                      if (((m_reduce == Reduce::Yes) &&
+                           (reduce == Reduce::Yes)) ||
                           (paramFromPackage &&
                            (param_ass->Rhs()->UhdmType() == uhdmconstant))) {
                         if (substituteAssignedValue(param_ass->Rhs(),
@@ -2796,7 +2795,7 @@ UHDM::any *CompileHelper::compileExpression(
               VectorOfany *args = compileTfCallArguments(
                   component, fC, List_of_arguments, compileDesign, reduce,
                   fcall, instance, muteErrors);
-              if (reduce == Reduce::Yes) {
+              if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
                 PathId fileId = fC->getFileId();
                 uint32_t lineNumber = fC->Line(nameId);
                 if (func == nullptr) {
@@ -3110,7 +3109,8 @@ UHDM::any *CompileHelper::compileExpression(
     }
   }
 
-  if ((result != nullptr) && (reduce == Reduce::Yes)) {
+  if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) &&
+      (result != nullptr)) {
     // Reduce
     bool invalidValue = false;
     any *tmp = reduceExpr(result, invalidValue, component, compileDesign,
@@ -3217,7 +3217,7 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
         if (any *exp =
                 compileExpression(component, fC, Expression, compileDesign,
                                   reduce, operation, instance, false)) {
-          if (reduce == Reduce::Yes) {
+          if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
             if (exp->UhdmType() == uhdmoperation) {
               UHDM::operation *op = (UHDM::operation *)exp;
               bool reduceMore = true;
@@ -3415,7 +3415,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         expr *lexp = any_cast<expr *>(
             compileExpression(component, fC, lexpr, compileDesign, reduce,
                               pexpr, instance, muteErrors));
-        if (reduce == Reduce::Yes) {
+        if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
           if (errorOnNegativeConstant(component, lexp, compileDesign,
                                       instance)) {
             bool replay = false;
@@ -3431,7 +3431,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         expr *rexp = any_cast<expr *>(
             compileExpression(component, fC, rexpr, compileDesign, reduce,
                               pexpr, instance, muteErrors));
-        if (reduce == Reduce::Yes) {
+        if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
           if (errorOnNegativeConstant(component, rexp, compileDesign,
                                       instance)) {
             bool replay = false;
@@ -3445,7 +3445,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         if (rexp) rexp->VpiParent(range);
         range->Right_expr(rexp);
         if ((lexp) && (rexp)) {
-          if (reduce == Reduce::Yes) {
+          if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
             UHDM::ExprEval eval;
             bool invalidValue = false;
             lexp = reduceExpr(lexp, invalidValue, component, compileDesign,
@@ -3486,7 +3486,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
 
         range->Left_expr(lexp);
         lexp->VpiParent(range);
-        if (reduce == Reduce::Yes) {
+        if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
           Value *rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
           if (rightV->isValid()) {
             int64_t rint = rightV->getValueL();
@@ -3501,7 +3501,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         if (rexp && rexp->UhdmType() == uhdmconstant) {
           constant *c = (constant *)rexp;
           const std::string_view val = c->VpiValue();
-          if ((reduce == Reduce::Yes) &&
+          if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) &&
               ((val == "UINT:0") || (val == "INT:0") || (val[4] == '-'))) {
             ErrorContainer *errors =
                 compileDesign->getCompiler()->getErrorContainer();
@@ -3531,7 +3531,7 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
           if (c->VpiConstType() == vpiUnboundedConst) associativeArray = true;
         }
         if (rexp && rexp->UhdmType() == uhdmref_obj) {
-          if (reduce == Reduce::Yes) {
+          if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
             typespec *assoc_tps =
                 compileTypespec(component, fC, rexpr, compileDesign, reduce,
                                 nullptr, instance, true);
@@ -3703,7 +3703,8 @@ UHDM::any *CompileHelper::compilePartSelectRange(
         (expr *)compileExpression(component, fC, fC->Sibling(op), compileDesign,
                                   reduce, pexpr, instance, muteErrors);
     bool reduced = false;
-    if ((reduce == Reduce::Yes) && (lexp->UhdmType() == uhdmconstant) &&
+    if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) &&
+        (lexp->UhdmType() == uhdmconstant) &&
         (rexp->UhdmType() == uhdmconstant)) {
       if (!name.empty()) {
         any *v = getValue(name, component, compileDesign, reduce, instance,
@@ -4203,10 +4204,11 @@ UHDM::any *CompileHelper::compileBits(
               reduce = Reduce::Yes;
             }
           }
-          if ((reduce == Reduce::Yes) && tps)
+          if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) && tps) {
             bits += Bits(tps, invalidValue, component, compileDesign, reduce,
                          instance, fC->getFileId(typeSpecId),
                          fC->Line(typeSpecId), sizeMode);
+          }
           ConcatExpression = fC->Sibling(ConcatExpression);
         }
       } else if (fC->Type(Primary_literal) ==
@@ -4228,11 +4230,11 @@ UHDM::any *CompileHelper::compileBits(
         reduce = Reduce::Yes;
       }
     }
-    if ((reduce == Reduce::Yes) && tps)
+    if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) && tps)
       bits = Bits(tps, invalidValue, component, compileDesign, reduce, instance,
                   fC->getFileId(typeSpecId), fC->Line(typeSpecId), sizeMode);
 
-    if ((reduce == Reduce::Yes) && (!tps)) {
+    if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) && (!tps)) {
       exp = compileExpression(component, fC, Expression, compileDesign,
                               Reduce::Yes, pexpr, instance, true);
       if (exp && typeSpecId) {
@@ -4243,14 +4245,16 @@ UHDM::any *CompileHelper::compileBits(
     }
   }
 
-  if ((reduce == Reduce::Yes) && tps && (!invalidValue)) {
+  if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) && tps &&
+      (!invalidValue)) {
     UHDM::constant *c = s.MakeConstant();
     c->VpiValue("UINT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));
     c->VpiConstType(vpiUIntConst);
     c->VpiSize(64);
     result = c;
-  } else if ((reduce == Reduce::Yes) && exp && (!invalidValue)) {
+  } else if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) && exp &&
+             (!invalidValue)) {
     UHDM::constant *c = s.MakeConstant();
     c->VpiValue("UINT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));
@@ -4481,7 +4485,7 @@ UHDM::any *CompileHelper::compileClog2(
 
   bool invalidValue = false;
   int64_t val = 0;
-  if (reduce == Reduce::Yes) {
+  if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
     expr *operand =
         (expr *)compileExpression(component, fC, Expression, compileDesign,
                                   reduce, pexpr, instance, muteErrors);
@@ -4491,7 +4495,8 @@ UHDM::any *CompileHelper::compileClog2(
         reduceExpr(operand, invalidValue, component, compileDesign, instance,
                    fC->getFileId(), fC->Line(Expression), pexpr, muteErrors));
   }
-  if ((reduce == Reduce::Yes) && (invalidValue == false)) {
+  if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) &&
+      (invalidValue == false)) {
     val = val - 1;
     uint64_t clog2 = 0;
     for (; val > 0; clog2 = clog2 + 1) {
@@ -4901,7 +4906,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
 
       UHDM::hier_path *path = s.MakeHier_path();
       VectorOfany *elems = s.MakeAnyVec();
-      if (instance && (reduce == Reduce::Yes)) {
+      if ((m_reduce == Reduce::Yes) && instance && (reduce == Reduce::Yes)) {
         UHDM::any *rootValue =
             getObject(the_name, component, compileDesign, instance, pexpr);
         if (rootValue) {

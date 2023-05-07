@@ -107,6 +107,11 @@ bool ElaborationStep::bindTypedefs_() {
       TypeDef* typd = typed.second;
       defs.emplace_back(typd, mod);
     }
+    mod = mod->getUnelabMmodule();
+    for (const auto& typed : mod->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      defs.emplace_back(typd, mod);
+    }
   }
 
   for (const auto& program_def : design->getProgramDefinitions()) {

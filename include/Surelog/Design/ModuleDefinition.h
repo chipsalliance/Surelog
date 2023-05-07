@@ -84,7 +84,10 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   }
   ClassDefinition* getClassDefinition(std::string_view name);
 
-  void setGenBlockId(NodeId id) { m_gen_block_id = id; }
+  void setGenBlockId(NodeId id) {
+    m_gen_block_id = id;
+    if (m_unelabModule) m_unelabModule->setGenBlockId(id);
+  }
   NodeId getGenBlockId() const { return m_gen_block_id; }
   UHDM::udp_defn* getUdpDefn() { return m_udpDefn; }
 
@@ -111,14 +114,17 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   void setPrimitives(UHDM::VectorOfprimitive* primitives) { m_subPrimitives = primitives; }
   void setPrimitiveArrays(UHDM::VectorOfprimitive_array* primitives) { m_subPrimitiveArrays = primitives; }
   void setGenScpeArrays(UHDM::VectorOfgen_scope_array* gen_arrays) { m_subGenScopeArrays = gen_arrays; }
-  
+
+  ModuleDefinition* getUnelabMmodule() { return m_unelabModule; }
+
  private:
-  const std::string m_name;
+  std::string m_name;
   ModPortSignalMap m_modportSignalMap;
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
   NodeId m_gen_block_id;
   UHDM::udp_defn* m_udpDefn;
+  ModuleDefinition* m_unelabModule;
 
   UHDM::VectorOfattribute* attributes_ = nullptr;
   std::vector<UHDM::module_array*>* m_moduleArrays = nullptr;

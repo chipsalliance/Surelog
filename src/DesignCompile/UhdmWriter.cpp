@@ -1243,6 +1243,8 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
       }
     }
   }
+
+  lateBinding(s, mod, m, componentMap);
 }
 
 void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
@@ -3085,6 +3087,11 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
               net->VpiName(name);
               net->VpiNetType(
                   UhdmWriter::getVpiNetType(elem->m_defaultNetType));
+              net->VpiLineNo(ref->VpiLineNo());
+              net->VpiColumnNo(ref->VpiColumnNo());
+              net->VpiEndLineNo(ref->VpiEndLineNo());
+              net->VpiEndColumnNo(ref->VpiEndColumnNo());
+              net->VpiParent(const_cast<any*>(ref->VpiParent()));
               ref->Actual_group(net);
               VectorOfnet* nets = inst->Nets();
               if (nets == nullptr) {
@@ -3527,6 +3534,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         if (subModules == nullptr) subModules = s.MakeModule_instVec();
         module_inst* sm = s.MakeModule_inst();
         tempInstanceMap.emplace(child, sm);
+        instanceMap.emplace(child, sm);
         if (childDef && !childDef->getFileContents().empty() &&
             compileDesign->getCompiler()->isLibraryFile(
                 childDef->getFileContents()[0]->getFileId())) {
@@ -3939,6 +3947,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     }
 
     VectorOfpackage* v2 = s.MakePackageVec();
+    d->TopPackages(v2);
     for (Package* pack : packages) {
       if (!pack) continue;
       if (!pack->getFileContents().empty() &&
@@ -3960,7 +3969,6 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         v2->push_back(p);
       }
     }
-    d->TopPackages(v2);
 
     VectorOfpackage* v3 = s.MakePackageVec();
     d->AllPackages(v3);
@@ -4062,7 +4070,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
             fC->sl_collect(modId, VObjectType::slModule_keyword);
         fC->populateCoreMembers(startId, modId, m);
         uhdm_modules->push_back(m);
-        writeModule(mod, m, s, componentMap, moduleMap, modPortMap);
+        writeModule(mod->getUnelabMmodule(), m, s, componentMap, moduleMap,
+                    modPortMap);
       } else if (mod->getType() == VObjectType::slUdp_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
         UHDM::udp_defn* defn = mod->getUdpDefn();

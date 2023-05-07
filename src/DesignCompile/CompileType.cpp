@@ -1520,7 +1520,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         byte_typespec* var = s.MakeByte_typespec();
         fC->populateCoreMembers(type, type, var);
         result = var;
-      } else if (reduce == Reduce::Yes) {
+      } else if ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes)) {
         if (any* cast_to =
                 getValue(typeName, component, compileDesign,
                          reduce == Reduce::Yes ? Reduce::No : Reduce::Yes,
