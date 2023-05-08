@@ -128,7 +128,6 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         3
 array_var                                              3
-assign_stmt                                            2
 assignment                                             2
 begin                                                  6
 bit_select                                             2
@@ -154,7 +153,6 @@ unsupported_typespec                                   6
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         3
 array_var                                              8
-assign_stmt                                            2
 assignment                                             4
 begin                                                 12
 bit_select                                             4
@@ -289,7 +287,7 @@ design: (unnamed)
           |vpiActual:
           \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
             |vpiParent:
-            \_assign_stmt: , line:11:10, endln:11:33
+            \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes)
             |vpiTypespec:
             \_array_typespec: 
             |vpiName:predecessors
@@ -540,7 +538,7 @@ design: (unnamed)
             |vpiActual:
             \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
               |vpiParent:
-              \_assign_stmt: , line:11:10, endln:11:33
+              \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes)
               |vpiTypespec:
               \_array_typespec: 
               |vpiName:predecessors

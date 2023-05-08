@@ -1842,6 +1842,9 @@ bool CompileHelper::compileTask(DesignComponent* component,
                 vars->push_back((variables*)stmt->Lhs());
                 if (stmt->Rhs() != nullptr) {
                   stmts->push_back(st);
+                } else {
+                  any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(begin);
+                  s.assign_stmtMaker.Erase(stmt);
                 }
               } else {
                 stmts->push_back(st);
@@ -1885,6 +1888,9 @@ bool CompileHelper::compileTask(DesignComponent* component,
               vars->push_back((variables*)stmt->Lhs());
               if (stmt->Rhs() != nullptr) {
                 task->Stmt(st);
+              } else {
+                any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(task);
+                s.assign_stmtMaker.Erase(stmt);
               }
             } else {
               task->Stmt(st);
@@ -2241,6 +2247,9 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                 vars->push_back((variables*)stmt->Lhs());
                 if (stmt->Rhs() != nullptr) {
                   stmts->push_back(st);
+                } else {
+                  any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(begin);
+                  s.assign_stmtMaker.Erase(stmt);
                 }
               } else {
                 stmts->push_back(st);
@@ -2284,6 +2293,9 @@ bool CompileHelper::compileFunction(DesignComponent* component,
             vars->push_back((variables*)stmt->Lhs());
             if (stmt->Rhs() != nullptr) {
               func->Stmt(st);
+            } else {
+              any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(func);
+              s.assign_stmtMaker.Erase(stmt);
             }
           } else {
             func->Stmt(st);
