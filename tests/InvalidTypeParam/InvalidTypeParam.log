@@ -87,9 +87,9 @@ AST_DEBUG_END
 constant                                               2
 design                                                 1
 integer_typespec                                       1
+integer_var                                            1
 interface_inst                                         3
 logic_net                                              1
-logic_var                                              1
 module_inst                                            3
 ref_module                                             1
 type_parameter                                         1
@@ -100,9 +100,9 @@ type_parameter                                         1
 constant                                               2
 design                                                 1
 integer_typespec                                       1
+integer_var                                            1
 interface_inst                                         3
 logic_net                                              1
-logic_var                                              1
 module_inst                                            3
 ref_module                                             1
 type_parameter                                         1
@@ -164,9 +164,12 @@ design: (work@top)
     |vpiName:intf
     |vpiFullName:work@top.intf
     |vpiVariables:
-    \_logic_var: (work@top.intf.x), line:3:7, endln:3:8
+    \_integer_var: (work@top.intf.x), line:3:7, endln:3:8
       |vpiParent:
       \_interface_inst: work@Interface (work@top.intf), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:6:5, endln:6:27
+      |vpiTypespec:
+      \_integer_typespec: , line:3:5, endln:3:6
+        |UINT:1
       |vpiName:x
       |vpiFullName:work@top.intf.x
       |vpiVisibility:1
