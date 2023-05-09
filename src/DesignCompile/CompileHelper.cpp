@@ -3565,7 +3565,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
           std::string_view v = c->VpiValue();
           v.remove_prefix(4);
           if (orig_size > size) {
-            v.remove_prefix(orig_size - size);
+            if (v.size() > ((uint32_t)(orig_size - size)))
+              v.remove_prefix(orig_size - size);
             c->VpiValue("BIN:" + std::string(v));
             c->VpiDecompile(v);
             c->VpiConstType(vpiBinaryConst);
