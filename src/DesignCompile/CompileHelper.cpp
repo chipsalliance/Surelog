@@ -4589,9 +4589,18 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                            compileDesign->getCompiler()->getSymbolTable()),
                        rhs->VpiLineNo(), false);
               patternSize += csize;
+              if (invalidValue) {
+                return result;
+              }
               for (uint64_t i = 0; i < csize; i++) {
                 if (valIndex > (int32_t)(size - 1)) {
                   break;
+                }
+                {
+                  int shift = (csize - 1 - i);
+                  if (shift < 0 || shift >= 64) {
+                    return result;
+                  }
                 }
                 values[valIndex] =
                     (defaultval & (1 << (csize - 1 - i))) ? 1 : 0;
@@ -4628,12 +4637,21 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                                 compileDesign->getCompiler()->getSymbolTable()),
                             tp->Pattern()->VpiLineNo(), nullptr));
                     found = true;
+                    if (invalidValue) {
+                      return result;
+                    }
                   }
                 }
 
                 for (uint64_t i = 0; i < csize; i++) {
                   if (valIndex > (int32_t)(size - 1)) {
                     break;
+                  }
+                  {
+                    int shift = (csize - 1 - i);
+                    if (shift < 0 || shift >= 64) {
+                      return result;
+                    }
                   }
                   if (found) {
                     values[valIndex] = (val & (1 << (csize - 1 - i))) ? 1 : 0;
@@ -4665,10 +4683,19 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
             uint64_t v = eval.get_uvalue(invalidValue, vexp);
             int32_t csize = adjustOpSize(tps, cop, opIndex, rhs, component,
                                          compileDesign, instance);
+            if (invalidValue) {
+              return result;
+            }
             patternSize += csize;
             for (int32_t i = 0; i < csize; i++) {
               if (valIndex > (int32_t)(size - 1)) {
                 break;
+              }
+              {
+                int shift = (csize - 1 - i);
+                if (shift < 0 || shift >= 64) {
+                  return result;
+                }
               }
               values[valIndex] = (v & (1ULL << (csize - 1 - i))) ? 1 : 0;
               valIndex++;
