@@ -268,20 +268,21 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              29
+array_typespec                                         6
+constant                                              45
 design                                                 1
 int_typespec                                           2
 logic_net                                              3
 logic_typespec                                        16
 module_inst                                            9
-operation                                              1
+operation                                              4
 package                                                6
 packed_array_net                                       2
 param_assign                                           2
 parameter                                              2
 port                                                   6
-range                                                 12
-ref_obj                                                6
+range                                                 18
+ref_obj                                                7
 struct_net                                             3
 struct_typespec                                        4
 typespec_member                                       16
@@ -289,20 +290,21 @@ typespec_member                                       16
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              29
+array_typespec                                         6
+constant                                              45
 design                                                 1
 int_typespec                                           2
 logic_net                                              3
 logic_typespec                                        16
 module_inst                                            9
-operation                                              1
+operation                                              4
 package                                                6
 packed_array_net                                       2
 param_assign                                           2
 parameter                                              2
 port                                                   9
-range                                                 12
-ref_obj                                                9
+range                                                 18
+ref_obj                                               10
 struct_net                                             3
 struct_typespec                                        4
 typespec_member                                       16
@@ -861,7 +863,27 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.alert_tx_o), line:10:33, endln:10:43
     |vpiTypedef:
-    \_struct_typespec: (pr_pkg::alert_tx_t), line:2:11, endln:2:17
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:10:27, endln:10:32
+        |vpiLeftRange:
+        \_constant: , line:10:28, endln:10:29
+          |vpiParent:
+          \_range: , line:10:27, endln:10:32
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:10:30, endln:10:31
+          |vpiParent:
+          \_range: , line:10:27, endln:10:32
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (pr_pkg::alert_tx_t), line:2:11, endln:2:17
 |uhdmallModules:
 \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
   |vpiParent:
@@ -918,7 +940,37 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut2.hartinfo_i), line:30:44, endln:30:54
     |vpiTypedef:
-    \_struct_typespec: (dm::hartinfo_t), line:16:9, endln:16:15
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:30:24, endln:30:37
+        |vpiLeftRange:
+        \_operation: , line:30:25, endln:30:34
+          |vpiParent:
+          \_range: , line:30:24, endln:30:37
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NrHarts), line:30:25, endln:30:32
+            |vpiParent:
+            \_operation: , line:30:25, endln:30:34
+            |vpiName:NrHarts
+          |vpiOperand:
+          \_constant: , line:30:33, endln:30:34
+            |vpiParent:
+            \_operation: , line:30:25, endln:30:34
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:30:35, endln:30:36
+          |vpiParent:
+          \_range: , line:30:24, endln:30:37
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (dm::hartinfo_t), line:16:9, endln:16:15
   |vpiPort:
   \_port: (hart_info_i_without_range), line:31:44, endln:31:69
     |vpiParent:
@@ -982,7 +1034,29 @@ design: (work@dut)
       |vpiActual:
       \_packed_array_net: (work@dut.alert_tx_o), line:10:33, endln:10:43
     |vpiTypedef:
-    \_struct_typespec: (pr_pkg::alert_tx_t), line:2:11, endln:2:17
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:10:27, endln:10:32
+        |vpiParent:
+        \_port: (alert_tx_o), line:10:33, endln:10:43
+        |vpiLeftRange:
+        \_constant: , line:10:28, endln:10:29
+          |vpiParent:
+          \_range: , line:10:27, endln:10:32
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:10:30, endln:10:31
+          |vpiParent:
+          \_range: , line:10:27, endln:10:32
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (pr_pkg::alert_tx_t), line:2:11, endln:2:17
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:9:1, endln:13:10
 |uhdmtopModules:
@@ -1070,7 +1144,29 @@ design: (work@dut)
       |vpiActual:
       \_packed_array_net: (work@dut2.hartinfo_i), line:30:44, endln:30:54
     |vpiTypedef:
-    \_struct_typespec: (dm::hartinfo_t), line:16:9, endln:16:15
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:30:24, endln:30:37
+        |vpiParent:
+        \_port: (hartinfo_i), line:30:44, endln:30:54
+        |vpiLeftRange:
+        \_constant: , line:30:25, endln:30:32
+          |vpiParent:
+          \_range: , line:30:24, endln:30:37
+          |vpiDecompile:0
+          |vpiSize:64
+          |INT:0
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:30:35, endln:30:36
+          |vpiParent:
+          \_range: , line:30:24, endln:30:37
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (dm::hartinfo_t), line:16:9, endln:16:15
     |vpiInstance:
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
   |vpiPort:

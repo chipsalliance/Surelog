@@ -1089,7 +1089,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
     Packed_dimension = fC->Sibling(Packed_dimension);
     isPacked = true;
   }
-  if (fC->Type(Packed_dimension) == VObjectType::slStruct_union_member) {
+  if (fC->Type(Packed_dimension) == VObjectType::slStruct_union_member ||
+      fC->Type(Packed_dimension) == VObjectType::slStringConst) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
 
@@ -1380,6 +1381,19 @@ UHDM::typespec* CompileHelper::compileTypespec(
                 break;
               }
             }
+          }
+        }
+        if (ranges) {
+          if (isPacked) {
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            pats->Elem_typespec(result);
+            pats->Ranges(ranges);
+            result = pats;
+          } else {
+            array_typespec* pats = s.MakeArray_typespec();
+            pats->Elem_typespec(result);
+            pats->Ranges(ranges);
+            result = pats;
           }
         }
       }
