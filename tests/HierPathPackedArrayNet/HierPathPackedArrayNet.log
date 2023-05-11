@@ -228,10 +228,11 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
+array_typespec                                         3
 assign_stmt                                            1
 begin                                                  3
 bit_select                                             1
-constant                                              26
+constant                                              36
 design                                                 1
 event_control                                          1
 for_stmt                                               1
@@ -242,14 +243,14 @@ int_var                                                1
 logic_net                                              2
 logic_typespec                                         2
 module_inst                                            7
-operation                                              6
+operation                                              9
 package                                                3
 packed_array_net                                       1
 param_assign                                          10
 parameter                                             10
 port                                                   2
-range                                                  3
-ref_obj                                               10
+range                                                  6
+ref_obj                                               11
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -258,10 +259,11 @@ typespec_member                                        2
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
+array_typespec                                         3
 assign_stmt                                            2
 begin                                                  6
 bit_select                                             2
-constant                                              26
+constant                                              36
 design                                                 1
 event_control                                          2
 for_stmt                                               2
@@ -272,14 +274,14 @@ int_var                                                2
 logic_net                                              2
 logic_typespec                                         2
 module_inst                                            7
-operation                                              9
+operation                                             12
 package                                                3
 packed_array_net                                       1
 param_assign                                          10
 parameter                                             10
 port                                                   3
-range                                                  3
-ref_obj                                               18
+range                                                  6
+ref_obj                                               19
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -557,7 +559,37 @@ design: (work@rvfi_tracer)
       |vpiActual:
       \_logic_net: (work@rvfi_tracer.rvfi_i), line:14:63, endln:14:69
     |vpiTypedef:
-    \_struct_typespec: (rvfi_pkg::rvfi_instr_t), line:5:9, endln:5:15
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:14:31, endln:14:52
+        |vpiLeftRange:
+        \_operation: , line:14:32, endln:14:49
+          |vpiParent:
+          \_range: , line:14:31, endln:14:52
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NR_COMMIT_PORTS), line:14:32, endln:14:47
+            |vpiParent:
+            \_operation: , line:14:32, endln:14:49
+            |vpiName:NR_COMMIT_PORTS
+          |vpiOperand:
+          \_constant: , line:14:48, endln:14:49
+            |vpiParent:
+            \_operation: , line:14:32, endln:14:49
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:14:50, endln:14:51
+          |vpiParent:
+          \_range: , line:14:31, endln:14:52
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (rvfi_pkg::rvfi_instr_t), line:5:9, endln:5:15
   |vpiProcess:
   \_always: , line:16:1, endln:21:4
     |vpiParent:
@@ -765,7 +797,29 @@ design: (work@rvfi_tracer)
       |vpiActual:
       \_packed_array_net: (work@rvfi_tracer.rvfi_i), line:14:63, endln:14:69
     |vpiTypedef:
-    \_struct_typespec: (rvfi_pkg::rvfi_instr_t), line:5:9, endln:5:15
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:14:31, endln:14:52
+        |vpiParent:
+        \_port: (rvfi_i), line:14:63, endln:14:69
+        |vpiLeftRange:
+        \_constant: , line:14:32, endln:14:47
+          |vpiParent:
+          \_range: , line:14:31, endln:14:52
+          |vpiDecompile:1
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:14:50, endln:14:51
+          |vpiParent:
+          \_range: , line:14:31, endln:14:52
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (rvfi_pkg::rvfi_instr_t), line:5:9, endln:5:15
     |vpiInstance:
     \_module_inst: work@rvfi_tracer (work@rvfi_tracer), file:${SURELOG_DIR}/tests/HierPathPackedArrayNet/dut.sv, line:11:1, endln:22:10
   |vpiProcess:

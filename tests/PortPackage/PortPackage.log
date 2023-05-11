@@ -27,18 +27,20 @@
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               7
+array_typespec                                         3
+constant                                              17
 design                                                 1
-int_typespec                                           2
+int_typespec                                           4
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                            6
+operation                                              3
 package                                                3
 param_assign                                           2
 parameter                                              2
 port                                                   2
-range                                                  2
-ref_obj                                                2
+range                                                  5
+ref_obj                                                3
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
@@ -46,18 +48,20 @@ typespec_member                                        4
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               7
+array_typespec                                         3
+constant                                              17
 design                                                 1
-int_typespec                                           2
+int_typespec                                           4
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                            6
+operation                                              3
 package                                                3
 param_assign                                           2
 parameter                                              2
 port                                                   3
-range                                                  2
-ref_obj                                                3
+range                                                  5
+ref_obj                                                4
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
@@ -260,7 +264,37 @@ design: (work@dm_top)
       |vpiActual:
       \_logic_net: (work@dm_top.hartinfo_i), line:13:35, endln:13:45
     |vpiTypedef:
-    \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:3:16
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:13:20, endln:13:33
+        |vpiLeftRange:
+        \_operation: , line:13:21, endln:13:30
+          |vpiParent:
+          \_range: , line:13:20, endln:13:33
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NrHarts), line:13:21, endln:13:28
+            |vpiParent:
+            \_operation: , line:13:21, endln:13:30
+            |vpiName:NrHarts
+          |vpiOperand:
+          \_constant: , line:13:29, endln:13:30
+            |vpiParent:
+            \_operation: , line:13:21, endln:13:30
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:13:31, endln:13:32
+          |vpiParent:
+          \_range: , line:13:20, endln:13:33
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:3:16
 |uhdmtopModules:
 \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
   |vpiName:work@dm_top
@@ -318,7 +352,29 @@ design: (work@dm_top)
       |vpiActual:
       \_struct_net: (work@dm_top.hartinfo_i), line:13:35, endln:13:45
     |vpiTypedef:
-    \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:3:16
+    \_array_typespec: 
+      |vpiRange:
+      \_range: , line:13:20, endln:13:33
+        |vpiParent:
+        \_port: (hartinfo_i), line:13:35, endln:13:45
+        |vpiLeftRange:
+        \_constant: , line:13:21, endln:13:28
+          |vpiParent:
+          \_range: , line:13:20, endln:13:33
+          |vpiDecompile:0
+          |vpiSize:64
+          |INT:0
+          |vpiConstType:7
+        |vpiRightRange:
+        \_constant: , line:13:31, endln:13:32
+          |vpiParent:
+          \_range: , line:13:20, endln:13:33
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:3:16
     |vpiInstance:
     \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
 ===================
