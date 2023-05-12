@@ -2524,6 +2524,62 @@ uint32_t CompileHelper::getBuiltinType(VObjectType type) {
   }
 }
 
+void CompileHelper::compileUdpInstantiation(ModuleDefinition* mod,
+                                            const FileContent* fC,
+                                            CompileDesign* compileDesign,
+                                            NodeId id,
+                                            ValuedComponentI* instance) {
+  VObjectTypeUnorderedSet insttypes = {VObjectType::slUdp_instance};
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<NodeId> hierInstIds = fC->sl_collect_all(id, insttypes, true);
+  NodeId hierInstId;
+  if (!hierInstIds.empty()) hierInstId = hierInstIds[0];
+  NodeId udpDefId = fC->Child(id);
+  if (!hierInstId) return;
+  std::string_view instName;
+  while (hierInstId) {
+    NodeId instId = fC->sl_collect(hierInstId, VObjectType::slName_of_instance);
+    NodeId identifierId;
+    if (instId) {
+      identifierId = fC->Child(instId);
+      instName = fC->SymName(identifierId);
+    }
+
+    NodeId unpackedDimId;
+    if (identifierId) unpackedDimId = fC->Sibling(identifierId);
+    UHDM::udp* udp = s.MakeUdp();
+    UHDM::primitive* gate = udp;
+    if (unpackedDimId &&
+        (fC->Type(unpackedDimId) == VObjectType::slUnpacked_dimension)) {
+      // Vector instances
+      int32_t size;
+      VectorOfrange* ranges =
+          compileRanges(mod, fC, unpackedDimId, compileDesign, Reduce::No,
+                        nullptr, instance, size, false);
+      if (mod->getPrimitiveArrays() == nullptr) {
+        mod->setPrimitiveArrays(s.MakePrimitive_arrayVec());
+      }
+      UHDM::primitive_array* gate_array = s.MakeUdp_array();
+      VectorOfprimitive* prims = s.MakePrimitiveVec();
+      gate_array->Primitives(prims);
+      gate_array->Ranges(ranges);
+      prims->push_back(gate);
+      mod->getPrimitiveArrays()->push_back(gate_array);
+    } else {
+      if (mod->getPrimitives() == nullptr) {
+        mod->setPrimitives(s.MakePrimitiveVec());
+      }
+      mod->getPrimitives()->push_back(gate);
+    }
+
+    gate->VpiName(instName);
+    gate->VpiDefName(fC->SymName(udpDefId));
+    fC->populateCoreMembers(id, id, gate);
+
+    hierInstId = fC->Sibling(hierInstId);
+  }
+}
+
 void CompileHelper::compileGateInstantiation(ModuleDefinition* mod,
                                              const FileContent* fC,
                                              CompileDesign* compileDesign,

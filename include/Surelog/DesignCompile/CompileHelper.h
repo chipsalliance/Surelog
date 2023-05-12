@@ -439,6 +439,9 @@ class CompileHelper final {
   void compileInstantiation(ModuleDefinition* mod, const FileContent* fC,
                             CompileDesign* compileDesign, NodeId id,
                             ValuedComponentI* instance);
+  void compileUdpInstantiation(ModuleDefinition* mod, const FileContent* fC,
+                                CompileDesign* compileDesign, NodeId id,
+                                ValuedComponentI* instance);
   void compileGateInstantiation(ModuleDefinition* mod, const FileContent* fC,
                                 CompileDesign* compileDesign, NodeId id,
                                 ValuedComponentI* instance);
