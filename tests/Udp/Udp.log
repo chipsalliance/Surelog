@@ -979,7 +979,7 @@ ref_obj                                               14
 sys_func_call                                          2
 table_entry                                           18
 task                                                   9
-udp                                                    1
+udp                                                    2
 udp_defn                                               4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -1012,7 +1012,7 @@ ref_obj                                               27
 sys_func_call                                          4
 table_entry                                           18
 task                                                  18
-udp                                                    2
+udp                                                    3
 udp_defn                                               4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Udp/slpp_all/surelog.uhdm ...
@@ -2152,6 +2152,13 @@ design: (work@udp_body_tb)
           |vpiParent:
           \_delay_control: , line:103:3, endln:103:5
           |vpiName:$finish
+  |vpiPrimitive:
+  \_udp: udp_body (work@udp_body_tb.udp), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:89:1, endln:89:22
+    |vpiParent:
+    \_module_inst: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
+    |vpiDefName:udp_body
+    |vpiName:udp
+    |vpiFullName:work@udp_body_tb.udp
 |uhdmtopModules:
 \_module_inst: work@udp_body_tb (work@udp_body_tb), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:84:1, endln:106:10
   |vpiName:work@udp_body_tb

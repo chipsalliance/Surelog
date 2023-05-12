@@ -776,7 +776,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slUdp_instance:
-        case VObjectType::slUdp_instantiation:
         case VObjectType::slGate_instantiation:
         case VObjectType::slConditional_generate_construct:
         case VObjectType::slGenerate_module_conditional_statement:
@@ -788,6 +787,14 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
+          break;
+        }
+        case VObjectType::slUdp_instantiation: {
+          if (collectType != CollectType::OTHER) break;
+          FileCNodeId fnid(fC, id);
+          m_module->addObject(type, fnid);
+          m_helper.compileUdpInstantiation(m_module, fC, m_compileDesign, id,
+                                           m_instance);
           break;
         }
         case VObjectType::slN_input_gate_instance:
