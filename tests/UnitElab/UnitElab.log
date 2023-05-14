@@ -13608,10 +13608,10 @@ package                                                2
 param_assign                                          10
 parameter                                           1210
 port                                                 115
-prim_term                                             22
+prim_term                                             24
 range                                                 89
 ref_module                                             1
-ref_obj                                              211
+ref_obj                                              213
 task                                                   9
 udp                                                    1
 === UHDM Object Stats End ===
@@ -14085,6 +14085,33 @@ design: (work@bottom1)
     |vpiDefName:bottom3
     |vpiName:u2
     |vpiFullName:work@bottom1.u2
+    |vpiPrimTerm:
+    \_prim_term: , line:3:14, endln:3:15
+      |vpiParent:
+      \_udp: bottom3 (work@bottom1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:3:2, endln:3:20
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@bottom1.u2.a), line:3:14, endln:3:15
+        |vpiParent:
+        \_udp: bottom3 (work@bottom1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:3:2, endln:3:20
+        |vpiName:a
+        |vpiFullName:work@bottom1.u2.a
+        |vpiActual:
+        \_logic_net: (work@bottom1.a), line:1:23, endln:1:24
+    |vpiPrimTerm:
+    \_prim_term: , line:3:17, endln:3:18
+      |vpiParent:
+      \_udp: bottom3 (work@bottom1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:3:2, endln:3:20
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@bottom1.u2.b), line:3:17, endln:3:18
+        |vpiParent:
+        \_udp: bottom3 (work@bottom1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:3:2, endln:3:20
+        |vpiName:b
+        |vpiFullName:work@bottom1.u2.b
+        |vpiActual:
+        \_logic_net: (work@bottom1.b), line:1:32, endln:1:33
 |uhdmallModules:
 \_module_inst: work@bottom2 (work@bottom2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:6:1, endln:8:10
   |vpiParent:
