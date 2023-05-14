@@ -13608,10 +13608,10 @@ package                                                2
 param_assign                                          10
 parameter                                           1210
 port                                                 115
-prim_term                                             11
+prim_term                                             22
 range                                                 89
 ref_module                                             1
-ref_obj                                              200
+ref_obj                                              211
 task                                                   9
 udp                                                    1
 === UHDM Object Stats End ===
@@ -14514,6 +14514,33 @@ design: (work@bottom1)
     |vpiName:u0
     |vpiFullName:work@test.u0
     |vpiPrimType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:39:10, endln:39:11
+      |vpiParent:
+      \_gate: work@and (work@test.u0), line:39:7, endln:39:14
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@test.u0.a), line:39:10, endln:39:11
+        |vpiParent:
+        \_gate: work@and (work@test.u0), line:39:7, endln:39:14
+        |vpiName:a
+        |vpiFullName:work@test.u0.a
+        |vpiActual:
+        \_logic_net: (work@test.a), line:35:13, endln:35:14
+    |vpiPrimTerm:
+    \_prim_term: , line:39:12, endln:39:13
+      |vpiParent:
+      \_gate: work@and (work@test.u0), line:39:7, endln:39:14
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@test.u0.b), line:39:12, endln:39:13
+        |vpiParent:
+        \_gate: work@and (work@test.u0), line:39:7, endln:39:14
+        |vpiName:b
+        |vpiFullName:work@test.u0.b
+        |vpiActual:
+        \_logic_net: (work@test.b), line:35:16, endln:35:17
   |vpiPrimitive:
   \_gate: work@and (work@test.u4), line:58:6, endln:58:13
     |vpiParent:
@@ -14522,6 +14549,33 @@ design: (work@bottom1)
     |vpiName:u4
     |vpiFullName:work@test.u4
     |vpiPrimType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:58:9, endln:58:10
+      |vpiParent:
+      \_gate: work@and (work@test.u4), line:58:6, endln:58:13
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@test.u4.a), line:58:9, endln:58:10
+        |vpiParent:
+        \_gate: work@and (work@test.u4), line:58:6, endln:58:13
+        |vpiName:a
+        |vpiFullName:work@test.u4.a
+        |vpiActual:
+        \_logic_net: (work@test.a), line:35:13, endln:35:14
+    |vpiPrimTerm:
+    \_prim_term: , line:58:11, endln:58:12
+      |vpiParent:
+      \_gate: work@and (work@test.u4), line:58:6, endln:58:13
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@test.u4.b), line:58:11, endln:58:12
+        |vpiParent:
+        \_gate: work@and (work@test.u4), line:58:6, endln:58:13
+        |vpiName:b
+        |vpiFullName:work@test.u4.b
+        |vpiActual:
+        \_logic_net: (work@test.b), line:35:16, endln:35:17
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:26:1, endln:31:10
   |vpiParent:
@@ -52677,4 +52731,4 @@ design: (work@bottom1)
 
 
 [roundtrip]: ${SURELOG_DIR}/tests/UnitElab/small.v | ${SURELOG_DIR}/build/regression/UnitElab/roundtrip/small_000.v | 35 | 54 |
-[roundtrip]: ${SURELOG_DIR}/tests/UnitElab/top.v   | ${SURELOG_DIR}/build/regression/UnitElab/roundtrip/top_000.v   | 43 | 76 |
+[roundtrip]: ${SURELOG_DIR}/tests/UnitElab/top.v   | ${SURELOG_DIR}/build/regression/UnitElab/roundtrip/top_000.v   | 41 | 76 |

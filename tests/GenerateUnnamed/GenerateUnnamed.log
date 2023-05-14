@@ -1068,8 +1068,8 @@ package                                                2
 param_assign                                           8
 parameter                                              8
 port                                                  24
-prim_term                                             24
-ref_obj                                               24
+prim_term                                             48
+ref_obj                                               48
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateUnnamed/slpp_unit/surelog.uhdm ...
@@ -1574,6 +1574,47 @@ design: (work@test1)
     |vpiName:sg1
     |vpiFullName:work@test1.sg1
     |vpiPrimType:4
+    |vpiPrimTerm:
+    \_prim_term: , line:11:10, endln:11:11
+      |vpiParent:
+      \_gate: work@or (work@test1.sg1), line:11:6, endln:11:18
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@test1.sg1.a), line:11:10, endln:11:11
+        |vpiParent:
+        \_gate: work@or (work@test1.sg1), line:11:6, endln:11:18
+        |vpiName:a
+        |vpiFullName:work@test1.sg1.a
+        |vpiActual:
+        \_logic_net: (work@test1.a), line:3:8, endln:3:9
+    |vpiPrimTerm:
+    \_prim_term: , line:11:13, endln:11:14
+      |vpiParent:
+      \_gate: work@or (work@test1.sg1), line:11:6, endln:11:18
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@test1.sg1.b), line:11:13, endln:11:14
+        |vpiParent:
+        \_gate: work@or (work@test1.sg1), line:11:6, endln:11:18
+        |vpiName:b
+        |vpiFullName:work@test1.sg1.b
+        |vpiActual:
+        \_logic_net: (work@test1.b), line:3:11, endln:3:12
+    |vpiPrimTerm:
+    \_prim_term: , line:11:16, endln:11:17
+      |vpiParent:
+      \_gate: work@or (work@test1.sg1), line:11:6, endln:11:18
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (work@test1.sg1.c), line:11:16, endln:11:17
+        |vpiParent:
+        \_gate: work@or (work@test1.sg1), line:11:6, endln:11:18
+        |vpiName:c
+        |vpiFullName:work@test1.sg1.c
+        |vpiActual:
+        \_logic_net: (work@test1.c), line:3:14, endln:3:15
 |uhdmallModules:
 \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
   |vpiParent:
@@ -1655,6 +1696,47 @@ design: (work@test1)
     |vpiName:sg1
     |vpiFullName:work@test2.sg1
     |vpiPrimType:4
+    |vpiPrimTerm:
+    \_prim_term: , line:70:10, endln:70:11
+      |vpiParent:
+      \_gate: work@or (work@test2.sg1), line:70:6, endln:70:18
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@test2.sg1.a), line:70:10, endln:70:11
+        |vpiParent:
+        \_gate: work@or (work@test2.sg1), line:70:6, endln:70:18
+        |vpiName:a
+        |vpiFullName:work@test2.sg1.a
+        |vpiActual:
+        \_logic_net: (work@test2.a), line:62:8, endln:62:9
+    |vpiPrimTerm:
+    \_prim_term: , line:70:13, endln:70:14
+      |vpiParent:
+      \_gate: work@or (work@test2.sg1), line:70:6, endln:70:18
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@test2.sg1.b), line:70:13, endln:70:14
+        |vpiParent:
+        \_gate: work@or (work@test2.sg1), line:70:6, endln:70:18
+        |vpiName:b
+        |vpiFullName:work@test2.sg1.b
+        |vpiActual:
+        \_logic_net: (work@test2.b), line:62:11, endln:62:12
+    |vpiPrimTerm:
+    \_prim_term: , line:70:16, endln:70:17
+      |vpiParent:
+      \_gate: work@or (work@test2.sg1), line:70:6, endln:70:18
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (work@test2.sg1.c), line:70:16, endln:70:17
+        |vpiParent:
+        \_gate: work@or (work@test2.sg1), line:70:6, endln:70:18
+        |vpiName:c
+        |vpiFullName:work@test2.sg1.c
+        |vpiActual:
+        \_logic_net: (work@test2.c), line:62:14, endln:62:15
 |uhdmtopModules:
 \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
   |vpiName:work@test1
@@ -2309,4 +2391,4 @@ design: (work@test1)
 [   NOTE] : 25
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenerateUnnamed/top.v | ${SURELOG_DIR}/build/regression/GenerateUnnamed/roundtrip/top_000.v | 66 | 115 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenerateUnnamed/top.v | ${SURELOG_DIR}/build/regression/GenerateUnnamed/roundtrip/top_000.v | 64 | 115 |

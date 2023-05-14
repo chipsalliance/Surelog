@@ -2580,6 +2580,53 @@ void CompileHelper::compileUdpInstantiation(ModuleDefinition* mod,
   }
 }
 
+void CompileHelper::writePrimTerms(ModuleDefinition* mod, const FileContent* fC,
+                                   CompileDesign* compileDesign, NodeId id,
+                                   primitive* prim, int32_t vpiGateType,
+                                   ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  VectorOfprim_term* terms = s.MakePrim_termVec();
+  prim->Prim_terms(terms);
+  uint32_t index = 0;
+  while (id) {
+    prim_term* term = s.MakePrim_term();
+    terms->push_back(term);
+    NodeId expId = fC->Child(id);
+    expr* hconn = (expr*)compileExpression(mod, fC, expId, compileDesign,
+                                           Reduce::No, nullptr);
+    hconn->VpiParent(prim);
+    term->Expr(hconn);
+    fC->populateCoreMembers(id, id, term);
+    term->VpiParent(prim);
+    term->VpiTermIndex(index);
+    if (vpiGateType == vpiBufPrim || vpiGateType == vpiNotPrim) {
+      if (index == 0) {
+        term->VpiDirection(vpiOutput);
+      } else {
+        term->VpiDirection(vpiInput);
+      }
+    } else if (vpiGateType == vpiTranif1Prim || vpiGateType == vpiTranif0Prim ||
+               vpiGateType == vpiRtranif1Prim ||
+               vpiGateType == vpiRtranif0Prim || vpiGateType == vpiTranPrim ||
+               vpiGateType == vpiRtranPrim) {
+      if (index == 0) {
+        term->VpiDirection(vpiInout);
+      } else {
+        term->VpiDirection(vpiInput);
+      }
+    } else {
+      if (index == 0) {
+        term->VpiDirection(vpiOutput);
+      } else {
+        term->VpiDirection(vpiInput);
+      }
+    }
+    index++;
+
+    id = fC->Sibling(id);
+  }
+}
+
 void CompileHelper::compileGateInstantiation(ModuleDefinition* mod,
                                              const FileContent* fC,
                                              CompileDesign* compileDesign,
@@ -2661,7 +2708,9 @@ void CompileHelper::compileGateInstantiation(ModuleDefinition* mod,
     gate->VpiDefName(UhdmWriter::builtinGateName(gatetype));
     fC->populateCoreMembers(id, id, gate);
   }
-  // writePrimTerms(child, gate, vpiGateType, s);
+  NodeId Net_lvalue = fC->Sibling(Name_of_instance);
+  writePrimTerms(mod, fC, compileDesign, Net_lvalue, gate, vpiGateType,
+                 instance);
 }
 
 void CompileHelper::compileHighConn(ModuleDefinition* component,
