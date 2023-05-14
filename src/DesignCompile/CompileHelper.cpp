@@ -2540,9 +2540,11 @@ void CompileHelper::compileUdpInstantiation(ModuleDefinition* mod,
   while (hierInstId) {
     NodeId instId = fC->sl_collect(hierInstId, VObjectType::slName_of_instance);
     NodeId identifierId;
+    NodeId Net_lvalue;
     if (instId) {
       identifierId = fC->Child(instId);
       instName = fC->SymName(identifierId);
+      Net_lvalue = fC->Sibling(instId);
     }
 
     NodeId unpackedDimId;
@@ -2575,7 +2577,7 @@ void CompileHelper::compileUdpInstantiation(ModuleDefinition* mod,
     gate->VpiName(instName);
     gate->VpiDefName(fC->SymName(udpDefId));
     fC->populateCoreMembers(id, id, gate);
-
+    writePrimTerms(mod, fC, compileDesign, Net_lvalue, gate, 0, instance);
     hierInstId = fC->Sibling(hierInstId);
   }
 }
