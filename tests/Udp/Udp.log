@@ -975,8 +975,9 @@ logic_typespec                                         2
 logic_var                                              1
 module_inst                                            2
 package                                                2
-prim_term                                              3
-ref_obj                                               17
+port                                                   3
+prim_term                                              6
+ref_obj                                               20
 sys_func_call                                          2
 table_entry                                           18
 task                                                   9
@@ -1009,8 +1010,9 @@ logic_typespec                                         2
 logic_var                                              1
 module_inst                                            2
 package                                                2
-prim_term                                              3
-ref_obj                                               30
+port                                                   3
+prim_term                                              9
+ref_obj                                               36
 sys_func_call                                          4
 table_entry                                           18
 task                                                  18
@@ -2492,6 +2494,47 @@ design: (work@udp_body_tb)
     |vpiDefName:work@udp_body
     |vpiName:udp
     |vpiFullName:work@udp_body_tb.udp
+    |vpiPrimTerm:
+    \_prim_term: , line:89:15, endln:89:16
+      |vpiParent:
+      \_udp: work@udp_body (work@udp_body_tb.udp), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:89:1, endln:89:22
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@udp_body_tb.a), line:89:15, endln:89:16
+        |vpiParent:
+        \_prim_term: , line:89:15, endln:89:16
+        |vpiName:a
+        |vpiFullName:work@udp_body_tb.a
+        |vpiActual:
+        \_logic_net: (work@udp_body_tb.a), line:87:6, endln:87:7
+    |vpiPrimTerm:
+    \_prim_term: , line:89:17, endln:89:18
+      |vpiParent:
+      \_udp: work@udp_body (work@udp_body_tb.udp), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:89:1, endln:89:22
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@udp_body_tb.b), line:89:17, endln:89:18
+        |vpiParent:
+        \_prim_term: , line:89:17, endln:89:18
+        |vpiName:b
+        |vpiFullName:work@udp_body_tb.b
+        |vpiActual:
+        \_logic_net: (work@udp_body_tb.b), line:86:5, endln:86:6
+    |vpiPrimTerm:
+    \_prim_term: , line:89:19, endln:89:20
+      |vpiParent:
+      \_udp: work@udp_body (work@udp_body_tb.udp), file:${SURELOG_DIR}/tests/Udp/dut.sv, line:89:1, endln:89:22
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (work@udp_body_tb.c), line:89:19, endln:89:20
+        |vpiParent:
+        \_prim_term: , line:89:19, endln:89:20
+        |vpiName:c
+        |vpiFullName:work@udp_body_tb.c
+        |vpiActual:
+        \_logic_net: (work@udp_body_tb.c), line:86:7, endln:86:8
     |vpiUdpDefn:
     \_udp_defn: work@udp_body, line:1:1, endln:18:13
 ===================
