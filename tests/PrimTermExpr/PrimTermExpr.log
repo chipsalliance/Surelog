@@ -145,32 +145,32 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_select                                             2
-constant                                              10
+bit_select                                             4
+constant                                              12
 design                                                 1
 gate                                                   4
 logic_net                                             10
 logic_typespec                                         9
 module_inst                                            5
 port                                                  16
-prim_term                                              6
+prim_term                                             12
 range                                                  4
-ref_obj                                               16
+ref_obj                                               22
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_select                                             4
-constant                                              10
+bit_select                                             6
+constant                                              12
 design                                                 1
 gate                                                   6
 logic_net                                             10
 logic_typespec                                         9
 module_inst                                            5
 port                                                  21
-prim_term                                             12
+prim_term                                             18
 range                                                  4
-ref_obj                                               27
+ref_obj                                               33
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PrimTermExpr/slpp_all/surelog.uhdm ...
 
@@ -306,6 +306,53 @@ design: (work@encoder_4to2_gates)
     |vpiName:o1
     |vpiFullName:work@encoder_4to2_gates.o1
     |vpiPrimType:4
+    |vpiPrimTerm:
+    \_prim_term: , line:5:8, endln:5:12
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+      |vpiDirection:2
+      |vpiExpr:
+      \_bit_select: (work@encoder_4to2_gates.o1.y), line:5:8, endln:5:12
+        |vpiParent:
+        \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+        |vpiName:y
+        |vpiFullName:work@encoder_4to2_gates.o1.y
+        |vpiIndex:
+        \_constant: , line:5:10, endln:5:11
+          |vpiParent:
+          \_bit_select: (work@encoder_4to2_gates.o1.y), line:5:8, endln:5:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiPrimTerm:
+    \_prim_term: , line:5:13, endln:5:15
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@encoder_4to2_gates.o1.i1), line:5:13, endln:5:15
+        |vpiParent:
+        \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+        |vpiName:i1
+        |vpiFullName:work@encoder_4to2_gates.o1.i1
+        |vpiActual:
+        \_logic_net: (work@encoder_4to2_gates.i1), line:1:31, endln:1:33
+    |vpiPrimTerm:
+    \_prim_term: , line:5:16, endln:5:18
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (work@encoder_4to2_gates.o1.i3), line:5:16, endln:5:18
+        |vpiParent:
+        \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+        |vpiName:i3
+        |vpiFullName:work@encoder_4to2_gates.o1.i3
+        |vpiActual:
+        \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
   |vpiPrimitive:
   \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
     |vpiParent:
@@ -314,6 +361,53 @@ design: (work@encoder_4to2_gates)
     |vpiName:o2
     |vpiFullName:work@encoder_4to2_gates.o2
     |vpiPrimType:4
+    |vpiPrimTerm:
+    \_prim_term: , line:6:8, endln:6:12
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+      |vpiDirection:2
+      |vpiExpr:
+      \_bit_select: (work@encoder_4to2_gates.o2.y), line:6:8, endln:6:12
+        |vpiParent:
+        \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+        |vpiName:y
+        |vpiFullName:work@encoder_4to2_gates.o2.y
+        |vpiIndex:
+        \_constant: , line:6:10, endln:6:11
+          |vpiParent:
+          \_bit_select: (work@encoder_4to2_gates.o2.y), line:6:8, endln:6:12
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+    |vpiPrimTerm:
+    \_prim_term: , line:6:13, endln:6:15
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@encoder_4to2_gates.o2.i2), line:6:13, endln:6:15
+        |vpiParent:
+        \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+        |vpiName:i2
+        |vpiFullName:work@encoder_4to2_gates.o2.i2
+        |vpiActual:
+        \_logic_net: (work@encoder_4to2_gates.i2), line:1:34, endln:1:36
+    |vpiPrimTerm:
+    \_prim_term: , line:6:16, endln:6:18
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (work@encoder_4to2_gates.o2.i3), line:6:16, endln:6:18
+        |vpiParent:
+        \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+        |vpiName:i3
+        |vpiFullName:work@encoder_4to2_gates.o2.i3
+        |vpiActual:
+        \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
 |uhdmtopModules:
 \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
   |vpiName:work@encoder_4to2_gates
@@ -618,4 +712,4 @@ design: (work@encoder_4to2_gates)
 [   NOTE] : 6
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PrimTermExpr/dut.sv | ${SURELOG_DIR}/build/regression/PrimTermExpr/roundtrip/dut_000.sv | 4 | 8 |
+[roundtrip]: ${SURELOG_DIR}/tests/PrimTermExpr/dut.sv | ${SURELOG_DIR}/build/regression/PrimTermExpr/roundtrip/dut_000.sv | 2 | 8 |

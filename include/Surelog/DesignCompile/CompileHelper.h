@@ -439,6 +439,10 @@ class CompileHelper final {
   void compileInstantiation(ModuleDefinition* mod, const FileContent* fC,
                             CompileDesign* compileDesign, NodeId id,
                             ValuedComponentI* instance);
+  void writePrimTerms(ModuleDefinition* mod, const FileContent* fC,
+                      CompileDesign* compileDesign, NodeId id,
+                      UHDM::primitive* prim, int32_t vpiGateType,
+                      ValuedComponentI* instance);
   void compileUdpInstantiation(ModuleDefinition* mod, const FileContent* fC,
                                 CompileDesign* compileDesign, NodeId id,
                                 ValuedComponentI* instance);
