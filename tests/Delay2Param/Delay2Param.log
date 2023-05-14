@@ -435,15 +435,16 @@ constant                                              62
 design                                                 1
 int_typespec                                          10
 io_decl                                                2
-logic_net                                             18
+logic_net                                             20
 logic_typespec                                         3
 module_inst                                           14
 operation                                             15
 param_assign                                          16
 parameter                                             16
-port                                                   8
+port                                                  10
+prim_term                                              2
 range                                                  6
-ref_obj                                               15
+ref_obj                                               17
 sys_func_call                                          3
 table_entry                                            2
 udp                                                    2
@@ -456,15 +457,16 @@ constant                                              62
 design                                                 1
 int_typespec                                          10
 io_decl                                                2
-logic_net                                             18
+logic_net                                             20
 logic_typespec                                         3
 module_inst                                           14
 operation                                             15
 param_assign                                          16
 parameter                                             16
-port                                                  12
+port                                                  14
+prim_term                                              4
 range                                                  6
-ref_obj                                               23
+ref_obj                                               27
 sys_func_call                                          3
 table_entry                                            2
 udp                                                    3
@@ -918,6 +920,20 @@ design: (work@iNToRecFN)
     |vpiName:sExp
     |vpiFullName:work@iNToRecFN.sExp
     |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@iNToRecFN.out), line:27:12, endln:27:15
+    |vpiParent:
+    \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
+    |vpiName:out
+    |vpiFullName:work@iNToRecFN.out
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@iNToRecFN.in), line:27:17, endln:27:19
+    |vpiParent:
+    \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
+    |vpiName:in
+    |vpiFullName:work@iNToRecFN.in
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiModule:
   \_module_inst: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
@@ -1290,6 +1306,33 @@ design: (work@iNToRecFN)
       |vpiSize:64
       |UINT:5
       |vpiConstType:9
+    |vpiPrimTerm:
+    \_prim_term: , line:27:12, endln:27:15
+      |vpiParent:
+      \_udp: work@BUFG (work@iNToRecFN.bg), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@iNToRecFN.out), line:27:12, endln:27:15
+        |vpiParent:
+        \_prim_term: , line:27:12, endln:27:15
+        |vpiName:out
+        |vpiFullName:work@iNToRecFN.out
+        |vpiActual:
+        \_logic_net: (work@iNToRecFN.out), line:27:12, endln:27:15
+    |vpiPrimTerm:
+    \_prim_term: , line:27:17, endln:27:19
+      |vpiParent:
+      \_udp: work@BUFG (work@iNToRecFN.bg), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@iNToRecFN.in), line:27:17, endln:27:19
+        |vpiParent:
+        \_prim_term: , line:27:17, endln:27:19
+        |vpiName:in
+        |vpiFullName:work@iNToRecFN.in
+        |vpiActual:
+        \_logic_net: (work@iNToRecFN.in), line:27:17, endln:27:19
     |vpiUdpDefn:
     \_udp_defn: work@BUFG, line:14:1, endln:21:13
 ===================

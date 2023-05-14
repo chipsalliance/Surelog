@@ -214,8 +214,9 @@ module_inst                                            8
 operation                                              6
 param_assign                                           8
 parameter                                              8
+port                                                   2
 prim_term                                              2
-ref_obj                                               10
+ref_obj                                               12
 ref_var                                                1
 udp                                                    1
 === UHDM Object Stats End ===
@@ -238,8 +239,9 @@ module_inst                                            8
 operation                                             10
 param_assign                                           8
 parameter                                              8
+port                                                   2
 prim_term                                              2
-ref_obj                                               17
+ref_obj                                               19
 ref_var                                                2
 udp                                                    1
 === UHDM Object Stats End ===
@@ -460,7 +462,7 @@ design: (work@mulAddRecFNToRaw_preMul)
         |vpiName:notCDom_reduced2AbsSigSum
         |vpiFullName:work@mulAddRecFNToRaw_preMul.countLeadingZeros_notCDom.notCDom_reduced2AbsSigSum
         |vpiActual:
-        \_logic_net: (notCDom_reduced2AbsSigSum)
+        \_logic_net: (work@mulAddRecFNToRaw_preMul.notCDom_reduced2AbsSigSum), line:15:13, endln:15:38
     |vpiPrimTerm:
     \_prim_term: , line:15:40, endln:15:64
       |vpiParent:
@@ -474,7 +476,7 @@ design: (work@mulAddRecFNToRaw_preMul)
         |vpiName:notCDom_normDistReduced2
         |vpiFullName:work@mulAddRecFNToRaw_preMul.countLeadingZeros_notCDom.notCDom_normDistReduced2
         |vpiActual:
-        \_logic_net: (notCDom_normDistReduced2)
+        \_logic_net: (work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2), line:15:40, endln:15:64
 |uhdmtopModules:
 \_module_inst: work@mulAddRecFNToRaw_preMul (work@mulAddRecFNToRaw_preMul), file:${SURELOG_DIR}/tests/FuncDef/dut.sv, line:1:1, endln:16:10
   |vpiName:work@mulAddRecFNToRaw_preMul
@@ -628,12 +630,18 @@ design: (work@mulAddRecFNToRaw_preMul)
     |vpiInstance:
     \_module_inst: work@mulAddRecFNToRaw_preMul (work@mulAddRecFNToRaw_preMul), file:${SURELOG_DIR}/tests/FuncDef/dut.sv, line:1:1, endln:16:10
   |vpiNet:
-  \_logic_net: (notCDom_reduced2AbsSigSum)
+  \_logic_net: (work@mulAddRecFNToRaw_preMul.notCDom_reduced2AbsSigSum), line:15:13, endln:15:38
+    |vpiParent:
+    \_module_inst: work@mulAddRecFNToRaw_preMul (work@mulAddRecFNToRaw_preMul), file:${SURELOG_DIR}/tests/FuncDef/dut.sv, line:1:1, endln:16:10
     |vpiName:notCDom_reduced2AbsSigSum
+    |vpiFullName:work@mulAddRecFNToRaw_preMul.notCDom_reduced2AbsSigSum
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (notCDom_normDistReduced2)
+  \_logic_net: (work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2), line:15:40, endln:15:64
+    |vpiParent:
+    \_module_inst: work@mulAddRecFNToRaw_preMul (work@mulAddRecFNToRaw_preMul), file:${SURELOG_DIR}/tests/FuncDef/dut.sv, line:1:1, endln:16:10
     |vpiName:notCDom_normDistReduced2
+    |vpiFullName:work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (prodWidth)
@@ -649,6 +657,26 @@ design: (work@mulAddRecFNToRaw_preMul)
     |vpiDefName:work@mulAddRecFNToRaw_preMul::countLeadingZeros
     |vpiInstance:
     \_module_inst: work@mulAddRecFNToRaw_preMul (work@mulAddRecFNToRaw_preMul), file:${SURELOG_DIR}/tests/FuncDef/dut.sv, line:1:1, endln:16:10
+    |vpiPort:
+    \_port: , line:15:13, endln:15:38
+      |vpiParent:
+      \_module_inst: work@mulAddRecFNToRaw_preMul::countLeadingZeros (work@mulAddRecFNToRaw_preMul.countLeadingZeros_notCDom), file:${SURELOG_DIR}/tests/FuncDef/dut.sv, line:13:5, endln:15:66
+      |vpiHighConn:
+      \_ref_obj: (work@mulAddRecFNToRaw_preMul.notCDom_reduced2AbsSigSum), line:15:13, endln:15:38
+        |vpiName:notCDom_reduced2AbsSigSum
+        |vpiFullName:work@mulAddRecFNToRaw_preMul.notCDom_reduced2AbsSigSum
+        |vpiActual:
+        \_logic_net: (work@mulAddRecFNToRaw_preMul.notCDom_reduced2AbsSigSum), line:15:13, endln:15:38
+    |vpiPort:
+    \_port: , line:15:40, endln:15:64
+      |vpiParent:
+      \_module_inst: work@mulAddRecFNToRaw_preMul::countLeadingZeros (work@mulAddRecFNToRaw_preMul.countLeadingZeros_notCDom), file:${SURELOG_DIR}/tests/FuncDef/dut.sv, line:13:5, endln:15:66
+      |vpiHighConn:
+      \_ref_obj: (work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2), line:15:40, endln:15:64
+        |vpiName:notCDom_normDistReduced2
+        |vpiFullName:work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2
+        |vpiActual:
+        \_logic_net: (work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2), line:15:40, endln:15:64
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

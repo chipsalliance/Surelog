@@ -956,7 +956,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             (inst_type == VObjectType::slN_output_gate_instance) ||
             (inst_type == VObjectType::slPass_enable_switch_instance) ||
             (inst_type == VObjectType::slPass_switch_instance) ||
-            (inst_type == VObjectType::slPull_gate_instance)) {
+            (inst_type == VObjectType::slPull_gate_instance) ||
+            (inst_type == VObjectType::slUdp_instantiation)) {
           port* p = s.MakePort();
           if (ports == nullptr) {
             ports = s.MakePortVec();
