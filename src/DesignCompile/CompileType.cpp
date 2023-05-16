@@ -1098,6 +1098,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
       fC->Type(Packed_dimension) == VObjectType::slSigning_Unsigned) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
+  if (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) {
+    isPacked = true;
+  }
   int32_t size;
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, reduce,
