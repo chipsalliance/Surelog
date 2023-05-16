@@ -339,24 +339,25 @@ array_typespec                                         5
 array_var                                              1
 assign_stmt                                            1
 assignment                                             1
-begin                                                  1
-bit_select                                             4
-constant                                              43
+begin                                                  4
+bit_select                                             7
+constant                                              49
 design                                                 1
 for_stmt                                               1
 func_call                                              3
 function                                               1
+gen_if                                                 3
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           5
 int_var                                                1
 module_inst                                            8
-operation                                             10
+operation                                             13
 param_assign                                          14
 parameter                                             14
 range                                                  5
 ref_module                                             1
-ref_obj                                                7
+ref_obj                                               10
 sys_task_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -367,24 +368,25 @@ array_typespec                                         5
 array_var                                              1
 assign_stmt                                            2
 assignment                                             2
-begin                                                  2
-bit_select                                             5
-constant                                              43
+begin                                                  5
+bit_select                                             8
+constant                                              49
 design                                                 1
 for_stmt                                               2
 func_call                                              3
 function                                               2
+gen_if                                                 3
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           5
 int_var                                                2
 module_inst                                            8
-operation                                             12
+operation                                             15
 param_assign                                          14
 parameter                                             14
 range                                                  5
 ref_module                                             1
-ref_obj                                               11
+ref_obj                                               14
 sys_task_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncRetArray/slpp_all/surelog.uhdm ...
@@ -661,6 +663,105 @@ design: (work@main)
               \_int_var: (work@top.ASSIGN_VADDR.i), line:4:18, endln:4:19
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:1:1, endln:20:10
+  |vpiGenStmt:
+  \_gen_if: , line:11:2, endln:11:4
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:1:1, endln:20:10
+    |vpiCondition:
+    \_operation: , line:11:6, endln:11:19
+      |vpiOpType:15
+      |vpiOperand:
+      \_bit_select: (VADDR), line:11:6, endln:11:14
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:11:6, endln:11:19
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:11:12, endln:11:13
+          |vpiParent:
+          \_bit_select: (VADDR), line:11:6, endln:11:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:11:18, endln:11:19
+        |vpiParent:
+        \_operation: , line:11:6, endln:11:19
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:14:2, endln:14:4
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:1:1, endln:20:10
+    |vpiCondition:
+    \_operation: , line:14:6, endln:14:19
+      |vpiOpType:15
+      |vpiOperand:
+      \_bit_select: (VADDR), line:14:6, endln:14:14
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:14:6, endln:14:19
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:14:12, endln:14:13
+          |vpiParent:
+          \_bit_select: (VADDR), line:14:6, endln:14:14
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:14:18, endln:14:19
+        |vpiParent:
+        \_operation: , line:14:6, endln:14:19
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:17:2, endln:17:4
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:1:1, endln:20:10
+    |vpiCondition:
+    \_operation: , line:17:6, endln:17:19
+      |vpiOpType:14
+      |vpiOperand:
+      \_bit_select: (VADDR), line:17:6, endln:17:14
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:17:6, endln:17:19
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:17:12, endln:17:13
+          |vpiParent:
+          \_bit_select: (VADDR), line:17:6, endln:17:14
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:17:18, endln:17:19
+        |vpiParent:
+        \_operation: , line:17:6, endln:17:19
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:22:1, endln:24:10
   |vpiName:work@main

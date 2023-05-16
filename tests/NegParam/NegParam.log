@@ -347,18 +347,20 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              68
+begin                                                  1
+constant                                              69
 design                                                 1
+gen_if                                                 1
 int_typespec                                          31
 logic_net                                              3
 logic_typespec                                         2
 logic_var                                              3
 module_inst                                            9
-operation                                             20
+operation                                             21
 param_assign                                          18
 parameter                                             19
 range                                                  9
-ref_obj                                                8
+ref_obj                                                9
 string_typespec                                        4
 sys_func_call                                          3
 tagged_pattern                                         4
@@ -367,18 +369,20 @@ unsupported_typespec                                   3
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              68
+begin                                                  1
+constant                                              69
 design                                                 1
+gen_if                                                 1
 int_typespec                                          31
 logic_net                                              3
 logic_typespec                                         2
 logic_var                                              3
 module_inst                                            9
-operation                                             20
+operation                                             21
 param_assign                                          18
 parameter                                             19
 range                                                  9
-ref_obj                                                8
+ref_obj                                                9
 string_typespec                                        4
 sys_func_call                                          3
 tagged_pattern                                         4
@@ -653,6 +657,28 @@ design: (work@top)
     |vpiName:lod_idx
     |vpiFullName:work@prim_packer.lod_idx
     |vpiNetType:36
+  |vpiGenStmt:
+  \_gen_if: , line:25:3, endln:25:5
+    |vpiParent:
+    \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
+    |vpiCondition:
+    \_operation: , line:25:7, endln:25:16
+      |vpiOpType:15
+      |vpiOperand:
+      \_ref_obj: (IdxW), line:25:7, endln:25:11
+        |vpiParent:
+        \_operation: , line:25:7, endln:25:16
+        |vpiName:IdxW
+      |vpiOperand:
+      \_constant: , line:25:15, endln:25:16
+        |vpiParent:
+        \_operation: , line:25:7, endln:25:16
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:1:1, endln:9:10
   |vpiParent:

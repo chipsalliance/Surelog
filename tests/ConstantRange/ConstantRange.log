@@ -258,9 +258,11 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_select                                            17
-constant                                             149
+begin                                                  1
+bit_select                                            18
+constant                                             150
 design                                                 1
+gen_if                                                 1
 gen_scope                                             24
 gen_scope_array                                       24
 int_typespec                                          27
@@ -271,14 +273,16 @@ param_assign                                           6
 parameter                                             14
 range                                                 21
 ref_module                                             4
-ref_obj                                               21
+ref_obj                                               22
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_select                                            17
-constant                                             149
+begin                                                  1
+bit_select                                            18
+constant                                             150
 design                                                 1
+gen_if                                                 1
 gen_scope                                             36
 gen_scope_array                                       36
 int_typespec                                          27
@@ -289,7 +293,7 @@ param_assign                                           6
 parameter                                             14
 range                                                 21
 ref_module                                             4
-ref_obj                                               21
+ref_obj                                               22
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstantRange/slpp_all/surelog.uhdm ...
 
@@ -448,6 +452,26 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
   |vpiDefName:work@dut
+  |vpiGenStmt:
+  \_gen_if: , line:17:1, endln:17:3
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
+    |vpiCondition:
+    \_bit_select: (ConnectDioIn), line:17:5, endln:17:20
+      |vpiParent:
+      \_ref_obj: (ConnectDioIn)
+        |vpiName:ConnectDioIn
+      |vpiName:ConnectDioIn
+      |vpiIndex:
+      \_constant: , line:17:18, endln:17:19
+        |vpiParent:
+        \_bit_select: (ConnectDioIn), line:17:5, endln:17:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
   |vpiName:work@dut

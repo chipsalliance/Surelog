@@ -560,43 +560,47 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              31
-cont_assign                                           22
+begin                                                  1
+constant                                              32
+cont_assign                                           23
 design                                                 1
+gen_if                                                 1
 gen_scope                                              4
 gen_scope_array                                        4
 initial                                                1
 int_typespec                                           3
 int_var                                                1
-logic_net                                             20
+logic_net                                             21
 logic_typespec                                         8
 module_inst                                           10
 operation                                              8
 param_assign                                           2
 parameter                                              2
 port                                                   6
-ref_obj                                               41
+ref_obj                                               43
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              31
-cont_assign                                           38
+begin                                                  1
+constant                                              32
+cont_assign                                           39
 design                                                 1
+gen_if                                                 1
 gen_scope                                              6
 gen_scope_array                                        6
 initial                                                2
 int_typespec                                           3
 int_var                                                1
-logic_net                                             20
+logic_net                                             21
 logic_typespec                                         8
 module_inst                                           10
 operation                                             16
 param_assign                                           2
 parameter                                              2
 port                                                   9
-ref_obj                                               73
+ref_obj                                               75
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultContAssign/slpp_all/surelog.uhdm ...
@@ -955,6 +959,36 @@ design: (work@top)
       |vpiFullName:work@top.pull_up_1
       |vpiActual:
       \_logic_net: (pull_up_1)
+  |vpiGenStmt:
+  \_gen_if: , line:17:4, endln:17:6
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
+    |vpiCondition:
+    \_constant: , line:17:8, endln:17:9
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:17:36, endln:17:49
+        |vpiStrength0:8
+        |vpiStrength1:8
+        |vpiRhs:
+        \_ref_obj: (pu), line:17:47, endln:17:49
+          |vpiParent:
+          \_cont_assign: , line:17:36, endln:17:49
+          |vpiName:pu
+          |vpiActual:
+          \_logic_net: (pu)
+        |vpiLhs:
+        \_ref_obj: (inout_i3), line:17:36, endln:17:44
+          |vpiParent:
+          \_cont_assign: , line:17:36, endln:17:49
+          |vpiName:inout_i3
+          |vpiActual:
+          \_logic_net: (inout_i3)
 |uhdmallModules:
 \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:57:1, endln:64:10
   |vpiParent:
@@ -1183,6 +1217,10 @@ design: (work@top)
     |vpiName:inout_i2
     |vpiNetType:1
   |vpiNet:
+  \_logic_net: (inout_i3)
+    |vpiName:inout_i3
+    |vpiNetType:1
+  |vpiNet:
   \_logic_net: (out)
     |vpiName:out
     |vpiNetType:1
@@ -1247,6 +1285,8 @@ design: (work@top)
           \_cont_assign: , line:18:35, endln:18:49
           |vpiName:inout_i3
           |vpiFullName:work@top.genblk1.inout_i3
+          |vpiActual:
+          \_logic_net: (inout_i3)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk2), line:31:4, endln:42:11
     |vpiParent:

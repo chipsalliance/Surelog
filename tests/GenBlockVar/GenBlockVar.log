@@ -352,6 +352,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -362,6 +363,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           9
@@ -373,11 +375,13 @@ module_inst                                            5
 package                                                2
 param_assign                                           2
 parameter                                              2
+ref_obj                                                1
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -388,6 +392,7 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           9
@@ -399,6 +404,7 @@ module_inst                                            5
 package                                                2
 param_assign                                           2
 parameter                                              2
+ref_obj                                                1
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenBlockVar/slpp_all/surelog.uhdm ...
@@ -919,6 +925,15 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.AsyncOn), line:3:17, endln:3:24
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_if: , line:6:3, endln:6:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenBlockVar/dut.sv, line:1:1, endln:12:10
+    |vpiCondition:
+    \_ref_obj: (AsyncOn), line:6:7, endln:6:14
+      |vpiName:AsyncOn
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenBlockVar/dut.sv, line:1:1, endln:12:10
   |vpiName:work@top

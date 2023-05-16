@@ -160,8 +160,10 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 constant                                              29
 design                                                 1
+gen_if                                                 1
 gen_scope                                             10
 gen_scope_array                                       10
 int_typespec                                           7
@@ -170,12 +172,15 @@ operation                                              5
 param_assign                                           7
 parameter                                              7
 ref_module                                             8
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 constant                                              29
 design                                                 1
+gen_if                                                 1
 gen_scope                                             67
 gen_scope_array                                       67
 int_typespec                                           7
@@ -184,6 +189,7 @@ operation                                              5
 param_assign                                          64
 parameter                                              7
 ref_module                                             8
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Loop/slpp_all/surelog.uhdm ...
 
@@ -240,6 +246,15 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@test.bht_row_width_p), line:12:14, endln:12:29
   |vpiDefName:work@test
+  |vpiGenStmt:
+  \_gen_if: , line:13:4, endln:13:6
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
+    |vpiCondition:
+    \_ref_obj: (bht_row_width_p), line:13:8, endln:13:23
+      |vpiName:bht_row_width_p
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
   |vpiParent:

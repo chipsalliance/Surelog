@@ -107,11 +107,11 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   UHDM::VectorOfprimitive* getPrimitives() { return m_subPrimitives; }
   UHDM::VectorOfprimitive_array* getPrimitiveArrays() { return m_subPrimitiveArrays; }
   UHDM::VectorOfgen_scope_array* getGenScopeArrays() { return m_subGenScopeArrays; }
-
+  std::vector<UHDM::gen_stmt*>* getGenStmts() { return m_genStmts; }
   void setPrimitives(UHDM::VectorOfprimitive* primitives) { m_subPrimitives = primitives; }
   void setPrimitiveArrays(UHDM::VectorOfprimitive_array* primitives) { m_subPrimitiveArrays = primitives; }
-  void setGenScpeArrays(UHDM::VectorOfgen_scope_array* gen_arrays) { m_subGenScopeArrays = gen_arrays; }
-  
+  void setGenScopeArrays(UHDM::VectorOfgen_scope_array* gen_arrays) { m_subGenScopeArrays = gen_arrays; }
+  void setGenStmts(std::vector<UHDM::gen_stmt*>* gen_stmts) { m_genStmts = gen_stmts; }
  private:
   const std::string m_name;
   ModPortSignalMap m_modportSignalMap;
@@ -126,7 +126,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   UHDM::VectorOfprimitive* m_subPrimitives = nullptr;
   UHDM::VectorOfprimitive_array* m_subPrimitiveArrays = nullptr;
   UHDM::VectorOfgen_scope_array* m_subGenScopeArrays = nullptr;
-
+  std::vector<UHDM::gen_stmt*>* m_genStmts = nullptr;
 };
 
 class ModuleDefinitionFactory {

@@ -407,26 +407,27 @@ array_typespec                                        12
 array_var                                              1
 assign_stmt                                            1
 assignment                                             1
-begin                                                  1
-bit_select                                             5
-constant                                             108
+begin                                                  4
+bit_select                                             8
+constant                                             114
 design                                                 1
 for_stmt                                               1
 func_call                                              3
 function                                               1
+gen_if                                                 3
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
 int_typespec                                          35
 int_var                                                1
 module_inst                                           11
-operation                                             28
+operation                                             31
 package                                                3
 param_assign                                          26
 parameter                                             28
 range                                                 17
 ref_module                                             1
-ref_obj                                               12
+ref_obj                                               15
 string_typespec                                        6
 sys_task_call                                          1
 tagged_pattern                                         6
@@ -439,26 +440,27 @@ array_typespec                                        12
 array_var                                              1
 assign_stmt                                            2
 assignment                                             2
-begin                                                  2
-bit_select                                             7
-constant                                             108
+begin                                                  5
+bit_select                                            10
+constant                                             114
 design                                                 1
 for_stmt                                               2
 func_call                                              3
 function                                               2
+gen_if                                                 3
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
 int_typespec                                          35
 int_var                                                2
 module_inst                                           11
-operation                                             30
+operation                                             33
 package                                                3
 param_assign                                          26
 parameter                                             28
 range                                                 17
 ref_module                                             1
-ref_obj                                               18
+ref_obj                                               21
 string_typespec                                        6
 sys_task_call                                          2
 tagged_pattern                                         6
@@ -1239,6 +1241,105 @@ design: (work@main)
               \_int_var: (work@top.ASSIGN_VADDR.i), line:12:14, endln:12:15
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternInt/dut.sv, line:8:1, endln:30:10
+  |vpiGenStmt:
+  \_gen_if: , line:19:1, endln:19:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternInt/dut.sv, line:8:1, endln:30:10
+    |vpiCondition:
+    \_operation: , line:19:5, endln:19:18
+      |vpiOpType:15
+      |vpiOperand:
+      \_bit_select: (VADDR), line:19:5, endln:19:13
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:19:5, endln:19:18
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:19:11, endln:19:12
+          |vpiParent:
+          \_bit_select: (VADDR), line:19:5, endln:19:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:19:17, endln:19:18
+        |vpiParent:
+        \_operation: , line:19:5, endln:19:18
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:22:1, endln:22:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternInt/dut.sv, line:8:1, endln:30:10
+    |vpiCondition:
+    \_operation: , line:22:5, endln:22:18
+      |vpiOpType:15
+      |vpiOperand:
+      \_bit_select: (VADDR), line:22:5, endln:22:13
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:22:5, endln:22:18
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:22:11, endln:22:12
+          |vpiParent:
+          \_bit_select: (VADDR), line:22:5, endln:22:13
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:22:17, endln:22:18
+        |vpiParent:
+        \_operation: , line:22:5, endln:22:18
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:26:1, endln:26:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternInt/dut.sv, line:8:1, endln:30:10
+    |vpiCondition:
+    \_operation: , line:26:5, endln:26:18
+      |vpiOpType:14
+      |vpiOperand:
+      \_bit_select: (VADDR), line:26:5, endln:26:13
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:26:5, endln:26:18
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:26:11, endln:26:12
+          |vpiParent:
+          \_bit_select: (VADDR), line:26:5, endln:26:13
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:26:17, endln:26:18
+        |vpiParent:
+        \_operation: , line:26:5, endln:26:18
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/DefaultPatternInt/dut.sv, line:32:1, endln:34:10
   |vpiName:work@main

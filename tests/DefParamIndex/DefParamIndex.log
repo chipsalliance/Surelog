@@ -315,32 +315,38 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              39
+begin                                                  3
+constant                                              42
 design                                                 1
+gen_if                                                 3
 gen_scope                                             10
 gen_scope_array                                       10
 int_typespec                                           5
 module_inst                                           14
-operation                                              9
+operation                                             12
 param_assign                                           3
 parameter                                              5
 range                                                  3
 ref_module                                             5
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              39
+begin                                                  3
+constant                                              42
 design                                                 1
+gen_if                                                 3
 gen_scope                                             31
 gen_scope_array                                       31
 int_typespec                                           5
 module_inst                                           35
-operation                                              9
+operation                                             12
 param_assign                                           9
 parameter                                              5
 range                                                  3
 ref_module                                             5
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefParamIndex/slpp_all/surelog.uhdm ...
 
@@ -415,6 +421,72 @@ design: (work@hierdefparam_top)
     |vpiLhs:
     \_parameter: (work@hierdefparam_b.addvalue), line:23:19, endln:23:27
   |vpiDefName:work@hierdefparam_b
+  |vpiGenStmt:
+  \_gen_if: , line:24:3, endln:24:5
+    |vpiParent:
+    \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
+    |vpiCondition:
+    \_operation: , line:24:7, endln:24:21
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (addvalue), line:24:7, endln:24:15
+        |vpiParent:
+        \_operation: , line:24:7, endln:24:21
+        |vpiName:addvalue
+      |vpiOperand:
+      \_constant: , line:24:19, endln:24:21
+        |vpiParent:
+        \_operation: , line:24:7, endln:24:21
+        |vpiDecompile:42
+        |vpiSize:64
+        |UINT:42
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:27:3, endln:27:5
+    |vpiParent:
+    \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
+    |vpiCondition:
+    \_operation: , line:27:7, endln:27:21
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (addvalue), line:27:7, endln:27:15
+        |vpiParent:
+        \_operation: , line:27:7, endln:27:21
+        |vpiName:addvalue
+      |vpiOperand:
+      \_constant: , line:27:19, endln:27:21
+        |vpiParent:
+        \_operation: , line:27:7, endln:27:21
+        |vpiDecompile:43
+        |vpiSize:64
+        |UINT:43
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:30:3, endln:30:5
+    |vpiParent:
+    \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
+    |vpiCondition:
+    \_operation: , line:30:7, endln:30:21
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (addvalue), line:30:7, endln:30:15
+        |vpiParent:
+        \_operation: , line:30:7, endln:30:21
+        |vpiName:addvalue
+      |vpiOperand:
+      \_constant: , line:30:19, endln:30:21
+        |vpiParent:
+        \_operation: , line:30:7, endln:30:21
+        |vpiDecompile:44
+        |vpiSize:64
+        |UINT:44
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@hierdefparam_top (work@hierdefparam_top), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:4:1, endln:10:10
   |vpiParent:

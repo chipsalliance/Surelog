@@ -219,31 +219,35 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             107
+begin                                                  1
+constant                                             108
 design                                                 1
+gen_if                                                 1
 gen_scope                                             34
 gen_scope_array                                       34
 int_typespec                                          45
 module_inst                                            7
-operation                                             38
+operation                                             40
 param_assign                                           8
 parameter                                             24
-ref_obj                                                1
+ref_obj                                                3
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             107
+begin                                                  1
+constant                                             108
 design                                                 1
+gen_if                                                 1
 gen_scope                                             51
 gen_scope_array                                       51
 int_typespec                                          45
 module_inst                                            7
-operation                                             38
+operation                                             40
 param_assign                                           9
 parameter                                             24
-ref_obj                                                1
+ref_obj                                                3
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfGen1/slpp_all/surelog.uhdm ...
@@ -344,6 +348,38 @@ design: (work@lzc)
     |vpiLhs:
     \_parameter: (work@lzc.level), line:8:19, endln:8:24
   |vpiDefName:work@lzc
+  |vpiGenStmt:
+  \_gen_if: , line:10:5, endln:10:7
+    |vpiParent:
+    \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test1/dut1.sv, line:1:1, endln:19:16
+    |vpiCondition:
+    \_operation: , line:10:9, endln:10:30
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (level), line:10:9, endln:10:14
+        |vpiParent:
+        \_operation: , line:10:9, endln:10:30
+        |vpiName:level
+      |vpiOperand:
+      \_operation: , line:10:18, endln:10:30
+        |vpiParent:
+        \_operation: , line:10:9, endln:10:30
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (NUM_LEVELS), line:10:18, endln:10:28
+          |vpiParent:
+          \_operation: , line:10:9, endln:10:30
+          |vpiName:NUM_LEVELS
+        |vpiOperand:
+        \_constant: , line:10:29, endln:10:30
+          |vpiParent:
+          \_operation: , line:10:18, endln:10:30
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test1/dut1.sv, line:1:1, endln:19:16
   |vpiName:work@lzc

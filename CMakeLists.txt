@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 # Version changes whenever some new features accumulated, or the
 # grammar or the cache format changes to make sure caches
 # are invalidated.
-project(SURELOG VERSION 1.58)
+project(SURELOG VERSION 1.59)
 
 # Detect build type, fallback to release and throw a warning if use didn't
 # specify any
@@ -414,6 +414,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileToolbox.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileType.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileGenStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/DesignElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaborationStep.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/NetlistElaboration.cpp

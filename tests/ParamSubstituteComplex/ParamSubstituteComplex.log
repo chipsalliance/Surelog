@@ -562,23 +562,25 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 bit_select                                             2
 bit_typespec                                          14
-constant                                             256
+constant                                             258
 design                                                 1
+gen_if                                                 2
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                              2
 int_typespec                                          14
 logic_typespec                                        81
 module_inst                                            8
-operation                                             38
+operation                                             40
 packed_array_typespec                                  1
 param_assign                                          26
 parameter                                             28
 range                                                 58
 ref_module                                             2
-ref_obj                                               35
+ref_obj                                               37
 string_typespec                                       70
 struct_typespec                                       12
 tagged_pattern                                        70
@@ -587,23 +589,25 @@ typespec_member                                       60
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 bit_select                                             2
 bit_typespec                                          14
-constant                                             256
+constant                                             258
 design                                                 1
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              2
 int_typespec                                          14
 logic_typespec                                        81
 module_inst                                           10
-operation                                             38
+operation                                             40
 packed_array_typespec                                  1
 param_assign                                          26
 parameter                                             28
 range                                                 58
 ref_module                                             2
-ref_obj                                               35
+ref_obj                                               37
 string_typespec                                       70
 struct_typespec                                       12
 tagged_pattern                                        70
@@ -1325,6 +1329,50 @@ design: (work@top)
   |vpiTypedef:
   \_struct_typespec: (fpu_features_t), line:8:9, endln:8:15
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_if: , line:45:1, endln:45:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
+    |vpiCondition:
+    \_operation: , line:45:5, endln:45:26
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (FpFmtMask), line:45:5, endln:45:14
+        |vpiParent:
+        \_operation: , line:45:5, endln:45:26
+        |vpiName:FpFmtMask
+      |vpiOperand:
+      \_constant: , line:45:18, endln:45:26
+        |vpiParent:
+        \_operation: , line:45:5, endln:45:26
+        |vpiDecompile:5'b11000
+        |vpiSize:5
+        |BIN:11000
+        |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:49:1, endln:49:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
+    |vpiCondition:
+    \_operation: , line:49:5, endln:49:17
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (DEBUGME), line:49:5, endln:49:12
+        |vpiParent:
+        \_operation: , line:49:5, endln:49:17
+        |vpiName:DEBUGME
+      |vpiOperand:
+      \_constant: , line:49:16, endln:49:17
+        |vpiParent:
+        \_operation: , line:49:5, endln:49:17
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
   |vpiName:work@top

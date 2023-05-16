@@ -1044,16 +1044,18 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              56
+constant                                              58
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
 gate                                                  16
+gen_if                                                 2
 gen_scope                                             17
 gen_scope_array                                       17
 int_typespec                                          17
@@ -1063,13 +1065,13 @@ logic_net                                             12
 logic_typespec                                         2
 logic_var                                              1
 module_inst                                            9
-operation                                              5
+operation                                              7
 package                                                2
 param_assign                                           8
 parameter                                              8
 port                                                  24
 prim_term                                             48
-ref_obj                                               48
+ref_obj                                               50
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateUnnamed/slpp_unit/surelog.uhdm ...
@@ -1615,6 +1617,28 @@ design: (work@test1)
         |vpiFullName:work@test1.sg1.c
         |vpiActual:
         \_logic_net: (work@test1.c), line:3:14, endln:3:15
+  |vpiGenStmt:
+  \_gen_if: , line:13:3, endln:13:5
+    |vpiParent:
+    \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
+    |vpiCondition:
+    \_operation: , line:13:7, endln:13:13
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (p), line:13:7, endln:13:8
+        |vpiParent:
+        \_operation: , line:13:7, endln:13:13
+        |vpiName:p
+      |vpiOperand:
+      \_constant: , line:13:12, endln:13:13
+        |vpiParent:
+        \_operation: , line:13:7, endln:13:13
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
   |vpiParent:
@@ -1737,6 +1761,28 @@ design: (work@test1)
         |vpiFullName:work@test2.sg1.c
         |vpiActual:
         \_logic_net: (work@test2.c), line:62:14, endln:62:15
+  |vpiGenStmt:
+  \_gen_if: , line:72:3, endln:72:5
+    |vpiParent:
+    \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
+    |vpiCondition:
+    \_operation: , line:72:7, endln:72:13
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (p), line:72:7, endln:72:8
+        |vpiParent:
+        \_operation: , line:72:7, endln:72:13
+        |vpiName:p
+      |vpiOperand:
+      \_constant: , line:72:12, endln:72:13
+        |vpiParent:
+        \_operation: , line:72:7, endln:72:13
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
   |vpiName:work@test1

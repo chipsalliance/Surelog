@@ -186,16 +186,18 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              38
+begin                                                  1
+constant                                              40
 design                                                 1
 enum_const                                             6
 enum_typespec                                          4
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           5
 logic_typespec                                         4
 module_inst                                            9
-operation                                              7
+operation                                              8
 package                                                6
 param_assign                                           4
 parameter                                              4
@@ -206,16 +208,18 @@ ref_obj                                                3
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              39
+begin                                                  1
+constant                                              41
 design                                                 1
 enum_const                                             6
 enum_typespec                                          4
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           5
 logic_typespec                                         4
 module_inst                                           10
-operation                                              7
+operation                                              8
 package                                                6
 param_assign                                           4
 parameter                                              4
@@ -498,6 +502,31 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_if: , line:24:4, endln:24:6
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstConcat/dut.sv, line:22:1, endln:28:10
+    |vpiCondition:
+    \_operation: , line:24:8, endln:24:30
+      |vpiOpType:14
+      |vpiOperand:
+      \_constant: , line:24:8, endln:24:13
+        |vpiParent:
+        \_operation: , line:24:8, endln:24:30
+        |vpiDecompile:10'b0011000101
+        |vpiSize:10
+        |BIN:0011000101
+        |vpiConstType:3
+      |vpiOperand:
+      \_constant: , line:24:27, endln:24:30
+        |vpiParent:
+        \_operation: , line:24:8, endln:24:30
+        |vpiDecompile:197
+        |vpiSize:64
+        |UINT:197
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstConcat/dut.sv, line:22:1, endln:28:10
   |vpiName:work@top

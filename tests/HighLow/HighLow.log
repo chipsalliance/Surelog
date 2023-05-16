@@ -314,41 +314,45 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              38
+begin                                                  4
+constant                                              42
 cont_assign                                            2
 design                                                 1
+gen_if                                                 4
 gen_scope                                              8
 gen_scope_array                                        8
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         1
 module_inst                                           11
-operation                                              4
+operation                                              8
 param_assign                                          10
 parameter                                             10
 range                                                  7
 ref_module                                             4
-ref_obj                                               17
+ref_obj                                               21
 sys_func_call                                         10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              38
+begin                                                  4
+constant                                              42
 cont_assign                                            3
 design                                                 1
+gen_if                                                 4
 gen_scope                                             12
 gen_scope_array                                       12
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         1
 module_inst                                           15
-operation                                              4
+operation                                              8
 param_assign                                          10
 parameter                                             10
 range                                                  7
 ref_module                                             4
-ref_obj                                               18
+ref_obj                                               22
 sys_func_call                                         10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HighLow/slpp_all/surelog.uhdm ...
@@ -521,6 +525,94 @@ design: (work@top)
       |vpiFullName:work@top.ccc
       |vpiActual:
       \_logic_net: (ccc)
+  |vpiGenStmt:
+  \_gen_if: , line:14:3, endln:14:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HighLow/dut.sv, line:4:1, endln:26:10
+    |vpiCondition:
+    \_operation: , line:14:7, endln:14:16
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (high), line:14:7, endln:14:11
+        |vpiParent:
+        \_operation: , line:14:7, endln:14:16
+        |vpiName:high
+      |vpiOperand:
+      \_constant: , line:14:15, endln:14:16
+        |vpiParent:
+        \_operation: , line:14:7, endln:14:16
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:17:3, endln:17:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HighLow/dut.sv, line:4:1, endln:26:10
+    |vpiCondition:
+    \_operation: , line:17:7, endln:17:15
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (low), line:17:7, endln:17:10
+        |vpiParent:
+        \_operation: , line:17:7, endln:17:15
+        |vpiName:low
+      |vpiOperand:
+      \_constant: , line:17:14, endln:17:15
+        |vpiParent:
+        \_operation: , line:17:7, endln:17:15
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:20:3, endln:20:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HighLow/dut.sv, line:4:1, endln:26:10
+    |vpiCondition:
+    \_operation: , line:20:7, endln:20:16
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (left), line:20:7, endln:20:11
+        |vpiParent:
+        \_operation: , line:20:7, endln:20:16
+        |vpiName:left
+      |vpiOperand:
+      \_constant: , line:20:15, endln:20:16
+        |vpiParent:
+        \_operation: , line:20:7, endln:20:16
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:23:3, endln:23:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HighLow/dut.sv, line:4:1, endln:26:10
+    |vpiCondition:
+    \_operation: , line:23:7, endln:23:17
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (right), line:23:7, endln:23:12
+        |vpiParent:
+        \_operation: , line:23:7, endln:23:17
+        |vpiName:right
+      |vpiOperand:
+      \_constant: , line:23:16, endln:23:17
+        |vpiParent:
+        \_operation: , line:23:7, endln:23:17
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HighLow/dut.sv, line:4:1, endln:26:10
   |vpiName:work@top

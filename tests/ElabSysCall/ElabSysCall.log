@@ -193,8 +193,10 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               8
+begin                                                  4
+constant                                              12
 design                                                 1
+gen_if                                                 4
 gen_scope                                              8
 gen_scope_array                                        8
 module_inst                                            9
@@ -203,8 +205,10 @@ sys_task_call                                          4
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               8
+begin                                                  4
+constant                                              12
 design                                                 1
+gen_if                                                 4
 gen_scope                                             12
 gen_scope_array                                       12
 module_inst                                            9
@@ -228,24 +232,72 @@ design: (work@top_fatal)
   \_design: (work@top_fatal)
   |vpiFullName:work@top_error
   |vpiDefName:work@top_error
+  |vpiGenStmt:
+  \_gen_if: , line:8:1, endln:8:3
+    |vpiParent:
+    \_module_inst: work@top_error (work@top_error), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:7:1, endln:11:10
+    |vpiCondition:
+    \_constant: , line:8:5, endln:8:6
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top_fatal (work@top_fatal), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@top_fatal)
   |vpiFullName:work@top_fatal
   |vpiDefName:work@top_fatal
+  |vpiGenStmt:
+  \_gen_if: , line:2:1, endln:2:3
+    |vpiParent:
+    \_module_inst: work@top_fatal (work@top_fatal), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:1:1, endln:5:10
+    |vpiCondition:
+    \_constant: , line:2:5, endln:2:6
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top_info (work@top_info), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:20:1, endln:24:10
   |vpiParent:
   \_design: (work@top_fatal)
   |vpiFullName:work@top_info
   |vpiDefName:work@top_info
+  |vpiGenStmt:
+  \_gen_if: , line:21:1, endln:21:3
+    |vpiParent:
+    \_module_inst: work@top_info (work@top_info), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:20:1, endln:24:10
+    |vpiCondition:
+    \_constant: , line:21:5, endln:21:6
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top_warning (work@top_warning), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:13:1, endln:17:10
   |vpiParent:
   \_design: (work@top_fatal)
   |vpiFullName:work@top_warning
   |vpiDefName:work@top_warning
+  |vpiGenStmt:
+  \_gen_if: , line:14:1, endln:14:3
+    |vpiParent:
+    \_module_inst: work@top_warning (work@top_warning), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:13:1, endln:17:10
+    |vpiCondition:
+    \_constant: , line:14:5, endln:14:6
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top_fatal (work@top_fatal), file:${SURELOG_DIR}/tests/ElabSysCall/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top_fatal

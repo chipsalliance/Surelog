@@ -480,15 +480,17 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         1
 array_var                                              1
+begin                                                  1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              34
+constant                                              35
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                              2
@@ -499,14 +501,14 @@ logic_net                                              2
 logic_typespec                                         7
 logic_var                                              2
 module_inst                                            9
-operation                                              6
+operation                                              7
 package                                                5
 param_assign                                           6
 parameter                                              6
 port                                                   2
 range                                                  5
 ref_module                                             1
-ref_obj                                                7
+ref_obj                                                8
 struct_net                                             1
 struct_typespec                                        2
 task                                                   9
@@ -517,15 +519,17 @@ typespec_member                                        6
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         1
 array_var                                              1
+begin                                                  1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              34
+constant                                              35
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                              2
@@ -536,14 +540,14 @@ logic_net                                              2
 logic_typespec                                         7
 logic_var                                              2
 module_inst                                           10
-operation                                              6
+operation                                              7
 package                                                5
 param_assign                                           6
 parameter                                              6
 port                                                   3
 range                                                  5
 ref_module                                             1
-ref_obj                                                8
+ref_obj                                                9
 struct_net                                             1
 struct_typespec                                        2
 task                                                  18
@@ -1340,6 +1344,28 @@ design: (work@kmac_keymgr)
       \_logic_net: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68
     |vpiTypedef:
     \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
+  |vpiGenStmt:
+  \_gen_if: , line:19:2, endln:19:4
+    |vpiParent:
+    \_module_inst: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
+    |vpiCondition:
+    \_operation: , line:19:6, endln:19:26
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (KeyMgrDigestW), line:19:6, endln:19:19
+        |vpiParent:
+        \_operation: , line:19:6, endln:19:26
+        |vpiName:KeyMgrDigestW
+      |vpiOperand:
+      \_constant: , line:19:23, endln:19:26
+        |vpiParent:
+        \_operation: , line:19:6, endln:19:26
+        |vpiDecompile:247
+        |vpiSize:64
+        |UINT:247
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
   |vpiName:work@kmac_keymgr

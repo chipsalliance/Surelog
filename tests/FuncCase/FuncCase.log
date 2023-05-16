@@ -48,14 +48,16 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 case_item                                             10
 case_stmt                                              2
-constant                                              22
+constant                                              23
 design                                                 1
 enum_const                                             8
 enum_typespec                                          2
 func_call                                              2
 function                                               2
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
@@ -64,13 +66,13 @@ int_var                                                2
 io_decl                                                2
 logic_typespec                                         2
 module_inst                                            8
-operation                                              1
+operation                                              2
 package                                                3
 param_assign                                           4
 parameter                                              4
 range                                                  2
 ref_module                                             1
-ref_obj                                               12
+ref_obj                                               13
 return_stmt                                           10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncCase/slpp_unit/surelog.uhdm ...
@@ -547,6 +549,28 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTaskFunc:
   \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14
+  |vpiGenStmt:
+  \_gen_if: , line:27:4, endln:27:6
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:22:1, endln:30:10
+    |vpiCondition:
+    \_operation: , line:27:8, endln:27:14
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (p), line:27:8, endln:27:9
+        |vpiParent:
+        \_operation: , line:27:8, endln:27:14
+        |vpiName:p
+      |vpiOperand:
+      \_constant: , line:27:13, endln:27:14
+        |vpiParent:
+        \_operation: , line:27:8, endln:27:14
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:22:1, endln:30:10
   |vpiName:work@top

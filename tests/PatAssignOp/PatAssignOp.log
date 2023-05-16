@@ -530,16 +530,18 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         3
+begin                                                  2
 bit_select                                             2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              50
+constant                                              52
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_if                                                 2
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                          20
@@ -547,28 +549,30 @@ int_var                                                4
 io_decl                                               11
 logic_var                                              1
 module_inst                                            6
-operation                                             18
+operation                                             20
 package                                                2
 param_assign                                          12
 parameter                                             13
 range                                                  5
-ref_obj                                               23
+ref_obj                                               25
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         3
+begin                                                  2
 bit_select                                             2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              50
+constant                                              52
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 2
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                          20
@@ -576,12 +580,12 @@ int_var                                                4
 io_decl                                               22
 logic_var                                              1
 module_inst                                            7
-operation                                             18
+operation                                             20
 package                                                2
 param_assign                                          12
 parameter                                             13
 range                                                  5
-ref_obj                                               23
+ref_obj                                               25
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PatAssignOp/slpp_all/surelog.uhdm ...
@@ -1310,6 +1314,50 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.coh_noc_cord_width_p), line:9:14, endln:9:34
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_if: , line:10:3, endln:10:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatAssignOp/dut.sv, line:2:1, endln:16:10
+    |vpiCondition:
+    \_operation: , line:10:7, endln:10:33
+      |vpiOpType:15
+      |vpiOperand:
+      \_ref_obj: (coh_noc_cord_width_p), line:10:7, endln:10:27
+        |vpiParent:
+        \_operation: , line:10:7, endln:10:33
+        |vpiName:coh_noc_cord_width_p
+      |vpiOperand:
+      \_constant: , line:10:31, endln:10:33
+        |vpiParent:
+        \_operation: , line:10:7, endln:10:33
+        |vpiDecompile:30
+        |vpiSize:64
+        |UINT:30
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:13:2, endln:13:4
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatAssignOp/dut.sv, line:2:1, endln:16:10
+    |vpiCondition:
+    \_operation: , line:13:6, endln:13:32
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (coh_noc_cord_width_p), line:13:6, endln:13:26
+        |vpiParent:
+        \_operation: , line:13:6, endln:13:32
+        |vpiName:coh_noc_cord_width_p
+      |vpiOperand:
+      \_constant: , line:13:30, endln:13:32
+        |vpiParent:
+        \_operation: , line:13:6, endln:13:32
+        |vpiDecompile:30
+        |vpiSize:64
+        |UINT:30
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatAssignOp/dut.sv, line:2:1, endln:16:10
   |vpiName:work@top

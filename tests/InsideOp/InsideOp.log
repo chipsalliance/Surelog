@@ -319,11 +319,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              40
-cont_assign                                            2
+begin                                                  1
+constant                                              41
+cont_assign                                            3
 design                                                 1
 enum_const                                            18
 enum_typespec                                          3
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
@@ -331,22 +333,24 @@ int_typespec                                           6
 int_var                                                1
 logic_net                                              1
 module_inst                                            9
-operation                                              3
+operation                                              4
 package                                                3
 param_assign                                           2
 parameter                                              2
 port                                                   2
 ref_module                                             1
-ref_obj                                                5
+ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              40
-cont_assign                                            3
+begin                                                  1
+constant                                              41
+cont_assign                                            4
 design                                                 1
 enum_const                                            18
 enum_typespec                                          3
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
@@ -354,13 +358,13 @@ int_typespec                                           6
 int_var                                                1
 logic_net                                              1
 module_inst                                           10
-operation                                              3
+operation                                              4
 package                                                3
 param_assign                                           2
 parameter                                              2
 port                                                   3
 ref_module                                             1
-ref_obj                                                7
+ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InsideOp/slpp_all/surelog.uhdm ...
 
@@ -539,6 +543,47 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:22:12, endln:22:15
       |vpiSigned:1
+  |vpiGenStmt:
+  \_gen_if: , line:25:3, endln:25:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
+    |vpiCondition:
+    \_operation: , line:25:7, endln:25:14
+      |vpiOpType:95
+      |vpiOperand:
+      \_ref_obj: (GetWhat), line:25:7, endln:25:14
+        |vpiParent:
+        \_operation: , line:25:7, endln:25:14
+        |vpiName:GetWhat
+      |vpiOperand:
+      \_ref_obj: (Get0), line:25:23, endln:25:27
+        |vpiName:Get0
+        |vpiActual:
+        \_enum_const: (Get0), line:4:5, endln:4:13
+      |vpiOperand:
+      \_ref_obj: (GetDefault), line:25:29, endln:25:39
+        |vpiName:GetDefault
+        |vpiActual:
+        \_enum_const: (GetDefault), line:9:5, endln:9:21
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:26:12, endln:26:19
+        |vpiRhs:
+        \_constant: , line:26:18, endln:26:19
+          |vpiParent:
+          \_cont_assign: , line:26:12, endln:26:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (out), line:26:12, endln:26:15
+          |vpiParent:
+          \_cont_assign: , line:26:12, endln:26:19
+          |vpiName:out
+          |vpiActual:
+          \_int_var: (work@top.out), line:22:16, endln:22:19
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
   |vpiName:work@top
@@ -709,4 +754,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InsideOp/dut.sv | ${SURELOG_DIR}/build/regression/InsideOp/roundtrip/dut_000.sv | 17 | 38 |
+[roundtrip]: ${SURELOG_DIR}/tests/InsideOp/dut.sv | ${SURELOG_DIR}/build/regression/InsideOp/roundtrip/dut_000.sv | 16 | 38 |

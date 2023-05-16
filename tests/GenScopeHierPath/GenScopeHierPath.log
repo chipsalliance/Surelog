@@ -456,12 +456,14 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 bit_select                                             4
-constant                                             185
-cont_assign                                            8
+constant                                             187
+cont_assign                                            9
 design                                                 1
 enum_const                                            42
 enum_typespec                                         21
+gen_if                                                 2
 gen_scope                                             24
 gen_scope_array                                       24
 hier_path                                              4
@@ -471,7 +473,7 @@ int_var                                                9
 logic_net                                              3
 logic_typespec                                        21
 module_inst                                           27
-operation                                             36
+operation                                             37
 package                                                6
 packed_array_typespec                                 13
 param_assign                                          24
@@ -479,7 +481,7 @@ parameter                                             31
 port                                                  20
 range                                                 34
 ref_module                                             8
-ref_obj                                               57
+ref_obj                                               60
 string_typespec                                       12
 struct_typespec                                       13
 tagged_pattern                                        12
@@ -488,12 +490,14 @@ typespec_member                                       13
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 bit_select                                             4
-constant                                             185
-cont_assign                                           36
+constant                                             187
+cont_assign                                           37
 design                                                 1
 enum_const                                            42
 enum_typespec                                         21
+gen_if                                                 2
 gen_scope                                             68
 gen_scope_array                                       68
 hier_path                                              4
@@ -503,7 +507,7 @@ int_var                                               25
 logic_net                                              3
 logic_typespec                                        21
 module_inst                                           43
-operation                                             36
+operation                                             37
 package                                                6
 packed_array_typespec                                 13
 param_assign                                          40
@@ -511,7 +515,7 @@ parameter                                             31
 port                                                  61
 range                                                 34
 ref_module                                             8
-ref_obj                                              166
+ref_obj                                              169
 string_typespec                                       12
 struct_typespec                                       13
 tagged_pattern                                        12
@@ -922,6 +926,44 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:23:37, endln:23:40
       |vpiSigned:1
+  |vpiGenStmt:
+  \_gen_if: , line:26:4, endln:26:6
+    |vpiParent:
+    \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:23:1, endln:29:34
+    |vpiCondition:
+    \_operation: , line:26:8, endln:26:20
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (PadType), line:26:8, endln:26:15
+        |vpiParent:
+        \_operation: , line:26:8, endln:26:20
+        |vpiName:PadType
+      |vpiOperand:
+      \_ref_obj: (B), line:26:19, endln:26:20
+        |vpiParent:
+        \_operation: , line:26:8, endln:26:20
+        |vpiName:B
+        |vpiActual:
+        \_enum_const: (B), line:4:7, endln:4:15
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:27:14, endln:27:19
+        |vpiRhs:
+        \_constant: , line:27:18, endln:27:19
+          |vpiParent:
+          \_cont_assign: , line:27:14, endln:27:19
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (a), line:27:14, endln:27:15
+          |vpiParent:
+          \_cont_assign: , line:27:14, endln:27:19
+          |vpiName:a
+          |vpiActual:
+          \_int_var: (work@top.gen_dio_attr[0].u_prim_pad_attr.gen_generic.u_impl_generic.a), line:23:41, endln:23:42
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:32:1, endln:42:10
   |vpiParent:
@@ -970,6 +1012,18 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:32:29, endln:32:32
       |vpiSigned:1
+  |vpiGenStmt:
+  \_gen_if: , line:36:4, endln:36:6
+    |vpiParent:
+    \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:32:1, endln:42:10
+    |vpiCondition:
+    \_constant: , line:36:8, endln:36:9
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
   |vpiParent:
@@ -2943,4 +2997,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv | ${SURELOG_DIR}/build/regression/GenScopeHierPath/roundtrip/dut_000.sv | 23 | 53 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv | ${SURELOG_DIR}/build/regression/GenScopeHierPath/roundtrip/dut_000.sv | 22 | 53 |

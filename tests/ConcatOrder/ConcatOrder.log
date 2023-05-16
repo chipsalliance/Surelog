@@ -358,12 +358,14 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
-constant                                             115
+constant                                             116
 design                                                 1
 enum_const                                             8
 enum_typespec                                          4
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                              2
@@ -371,14 +373,14 @@ import_typespec                                        1
 int_typespec                                          17
 integer_typespec                                      34
 module_inst                                            8
-operation                                             48
+operation                                             49
 package                                                3
 packed_array_typespec                                  8
 param_assign                                          42
 parameter                                             50
 range                                                 12
 ref_module                                             1
-ref_obj                                               49
+ref_obj                                               50
 string_typespec                                       24
 struct_typespec                                       34
 sys_func_call                                          4
@@ -388,12 +390,14 @@ typespec_member                                       34
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
-constant                                             122
+constant                                             123
 design                                                 1
 enum_const                                             8
 enum_typespec                                          4
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                              2
@@ -401,14 +405,14 @@ import_typespec                                        1
 int_typespec                                          17
 integer_typespec                                      34
 module_inst                                            9
-operation                                             48
+operation                                             49
 package                                                3
 packed_array_typespec                                  8
 param_assign                                          42
 parameter                                             50
 range                                                 12
 ref_module                                             1
-ref_obj                                               49
+ref_obj                                               50
 string_typespec                                       24
 struct_typespec                                       34
 sys_func_call                                          4
@@ -1555,6 +1559,28 @@ design: (work@testbench)
   |vpiTypedef:
   \_import_typespec: (bp_common_pkg), line:40:9, endln:40:25
   |vpiDefName:work@testbench
+  |vpiGenStmt:
+  \_gen_if: , line:48:2, endln:48:4
+    |vpiParent:
+    \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
+    |vpiCondition:
+    \_operation: , line:48:6, endln:48:22
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (cce_ucode_p), line:48:6, endln:48:17
+        |vpiParent:
+        \_operation: , line:48:6, endln:48:22
+        |vpiName:cce_ucode_p
+      |vpiOperand:
+      \_constant: , line:48:21, endln:48:22
+        |vpiParent:
+        \_operation: , line:48:6, endln:48:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
   |vpiName:work@testbench

@@ -266,32 +266,38 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_typespec                                           8
-constant                                              63
+constant                                              64
 design                                                 1
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           4
 module_inst                                            5
-operation                                             23
+operation                                             30
 param_assign                                           8
 parameter                                              8
 range                                                  8
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 bit_typespec                                           8
-constant                                              63
+constant                                              64
 design                                                 1
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           4
 module_inst                                            6
-operation                                             23
+operation                                             30
 param_assign                                           8
 parameter                                              8
 range                                                  8
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LeftPadding/slpp_all/surelog.uhdm ...
 
@@ -547,6 +553,88 @@ design: (work@socket_1n)
     |vpiLhs:
     \_parameter: (work@socket_1n.P4), line:5:23, endln:5:25
   |vpiDefName:work@socket_1n
+  |vpiGenStmt:
+  \_gen_if: , line:7:3, endln:7:5
+    |vpiParent:
+    \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/LeftPadding/dut.sv, line:1:1, endln:11:10
+    |vpiCondition:
+    \_operation: , line:7:7, endln:7:51
+      |vpiOpType:26
+      |vpiOperand:
+      \_operation: , line:7:7, endln:7:39
+        |vpiParent:
+        \_operation: , line:7:7, endln:7:51
+        |vpiOpType:26
+        |vpiOperand:
+        \_operation: , line:7:7, endln:7:27
+          |vpiParent:
+          \_operation: , line:7:7, endln:7:39
+          |vpiOpType:26
+          |vpiOperand:
+          \_operation: , line:7:7, endln:7:15
+            |vpiParent:
+            \_operation: , line:7:7, endln:7:27
+            |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (P1), line:7:7, endln:7:9
+              |vpiParent:
+              \_operation: , line:7:7, endln:7:15
+              |vpiName:P1
+            |vpiOperand:
+            \_ref_obj: (P2), line:7:13, endln:7:15
+              |vpiParent:
+              \_operation: , line:7:7, endln:7:15
+              |vpiName:P2
+          |vpiOperand:
+          \_operation: , line:7:19, endln:7:27
+            |vpiParent:
+            \_operation: , line:7:7, endln:7:27
+            |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (P2), line:7:19, endln:7:21
+              |vpiParent:
+              \_operation: , line:7:7, endln:7:27
+              |vpiName:P2
+            |vpiOperand:
+            \_ref_obj: (P3), line:7:25, endln:7:27
+              |vpiParent:
+              \_operation: , line:7:19, endln:7:27
+              |vpiName:P3
+        |vpiOperand:
+        \_operation: , line:7:31, endln:7:39
+          |vpiParent:
+          \_operation: , line:7:7, endln:7:39
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (P3), line:7:31, endln:7:33
+            |vpiParent:
+            \_operation: , line:7:7, endln:7:39
+            |vpiName:P3
+          |vpiOperand:
+          \_ref_obj: (P4), line:7:37, endln:7:39
+            |vpiParent:
+            \_operation: , line:7:31, endln:7:39
+            |vpiName:P4
+      |vpiOperand:
+      \_operation: , line:7:43, endln:7:51
+        |vpiParent:
+        \_operation: , line:7:7, endln:7:51
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (P4), line:7:43, endln:7:45
+          |vpiParent:
+          \_operation: , line:7:7, endln:7:51
+          |vpiName:P4
+        |vpiOperand:
+        \_constant: , line:7:49, endln:7:51
+          |vpiParent:
+          \_operation: , line:7:43, endln:7:51
+          |vpiDecompile:34
+          |vpiSize:64
+          |UINT:34
+          |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/LeftPadding/dut.sv, line:1:1, endln:11:10
   |vpiName:work@socket_1n

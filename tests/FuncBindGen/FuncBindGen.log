@@ -201,12 +201,13 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
-constant                                              20
+begin                                                  2
+constant                                              21
 cont_assign                                            2
 design                                                 1
 func_call                                              2
 function                                               1
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                          14
@@ -216,24 +217,25 @@ logic_net                                              1
 logic_typespec                                         2
 logic_var                                              2
 module_inst                                            5
-operation                                              7
+operation                                              8
 param_assign                                           4
 parameter                                              4
 port                                                   2
 range                                                  3
-ref_obj                                                5
+ref_obj                                                6
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
-begin                                                  2
-constant                                              20
+begin                                                  3
+constant                                              21
 cont_assign                                            3
 design                                                 1
 func_call                                              3
 function                                               2
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                          14
@@ -243,12 +245,12 @@ logic_net                                              1
 logic_typespec                                         2
 logic_var                                              5
 module_inst                                            5
-operation                                              9
+operation                                             10
 param_assign                                           4
 parameter                                              4
 port                                                   3
 range                                                  3
-ref_obj                                                8
+ref_obj                                                9
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncBindGen/slpp_all/surelog.uhdm ...
@@ -339,6 +341,28 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:1:19, endln:1:22
       |vpiSigned:1
+  |vpiGenStmt:
+  \_gen_if: , line:5:4, endln:5:6
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
+    |vpiCondition:
+    \_operation: , line:5:8, endln:5:17
+      |vpiOpType:18
+      |vpiOperand:
+      \_ref_obj: (Depth), line:5:8, endln:5:13
+        |vpiParent:
+        \_operation: , line:5:8, endln:5:17
+        |vpiName:Depth
+      |vpiOperand:
+      \_constant: , line:5:16, endln:5:17
+        |vpiParent:
+        \_operation: , line:5:8, endln:5:17
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
   |vpiName:work@top

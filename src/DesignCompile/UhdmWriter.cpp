@@ -1072,6 +1072,13 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
       decls->push_back((let_decl*)stmt.second->Decl());
     }
   }
+  // Gen stmts
+  if (mod->getGenStmts()) {
+    m->Gen_stmts(mod->getGenStmts());
+    for (auto stmt : *mod->getGenStmts()) {
+      stmt->VpiParent(m);
+    }
+  }
 
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();

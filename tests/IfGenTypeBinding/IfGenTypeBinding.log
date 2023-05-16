@@ -433,6 +433,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              2
+begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -443,6 +444,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
@@ -458,6 +460,7 @@ package                                                5
 param_assign                                           4
 parameter                                              4
 range                                                  2
+ref_obj                                                1
 struct_net                                             2
 struct_typespec                                        2
 task                                                   9
@@ -467,6 +470,7 @@ typespec_member                                        8
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              2
+begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -477,6 +481,7 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
@@ -492,6 +497,7 @@ package                                                5
 param_assign                                           4
 parameter                                              4
 range                                                  2
+ref_obj                                                1
 struct_net                                             2
 struct_typespec                                        2
 task                                                  18
@@ -1212,6 +1218,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv, line:13:1, endln:24:10
     |vpiName:pmp_cfg1
     |vpiFullName:work@top.pmp_cfg1
+  |vpiGenStmt:
+  \_gen_if: , line:20:4, endln:20:6
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv, line:13:1, endln:24:10
+    |vpiCondition:
+    \_ref_obj: (PMPEnable), line:20:8, endln:20:17
+      |vpiName:PMPEnable
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv, line:13:1, endln:24:10
   |vpiName:work@top

@@ -959,27 +959,29 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
+begin                                                  2
 bit_select                                             6
 bit_typespec                                           2
-constant                                              92
-cont_assign                                           10
+constant                                              97
+cont_assign                                           11
 design                                                 1
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
-hier_path                                              3
-indexed_part_select                                    1
+hier_path                                              4
+indexed_part_select                                    3
 int_typespec                                          28
-logic_net                                             25
+logic_net                                             27
 logic_typespec                                        17
 module_inst                                           32
-operation                                             35
+operation                                             40
 param_assign                                          24
 parameter                                             24
 part_select                                            2
 port                                                  11
 range                                                 13
 ref_module                                             1
-ref_obj                                               59
+ref_obj                                               69
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -987,27 +989,29 @@ tagged_pattern                                         3
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
+begin                                                  2
 bit_select                                             9
 bit_typespec                                           2
-constant                                              96
-cont_assign                                           16
+constant                                             101
+cont_assign                                           17
 design                                                 1
+gen_if                                                 2
 gen_scope                                              9
 gen_scope_array                                        9
-hier_path                                              3
-indexed_part_select                                    2
+hier_path                                              4
+indexed_part_select                                    4
 int_typespec                                          28
-logic_net                                             25
+logic_net                                             27
 logic_typespec                                        17
 module_inst                                           33
-operation                                             45
+operation                                             50
 param_assign                                          24
 parameter                                             24
 part_select                                            3
 port                                                  16
 range                                                 13
 ref_module                                             1
-ref_obj                                               79
+ref_obj                                               89
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -1496,6 +1500,154 @@ design: (work@divSqrtRecFNToRaw_small)
     |vpiLhs:
     \_parameter: (work@divSqrtRecFN_small.options), line:120:68, endln:120:75
   |vpiDefName:work@divSqrtRecFN_small
+  |vpiGenStmt:
+  \_gen_if: , line:127:13, endln:127:15
+    |vpiParent:
+    \_module_inst: work@divSqrtRecFN_small (work@divSqrtRecFN_small), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:117:1, endln:155:10
+    |vpiCondition:
+    \_operation: , line:127:17, endln:127:45
+      |vpiOpType:27
+      |vpiOperand:
+      \_operation: , line:127:18, endln:127:28
+        |vpiParent:
+        \_operation: , line:127:17, endln:127:45
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (i), line:127:18, endln:127:19
+          |vpiParent:
+          \_operation: , line:127:18, endln:127:28
+          |vpiName:i
+          |vpiActual:
+          \_logic_net: (i)
+        |vpiOperand:
+        \_constant: , line:127:23, endln:127:28
+          |vpiParent:
+          \_operation: , line:127:18, endln:127:28
+          |vpiDecompile:2'b10
+          |vpiSize:2
+          |BIN:10
+          |vpiConstType:3
+      |vpiOperand:
+      \_operation: , line:127:34, endln:127:44
+        |vpiParent:
+        \_operation: , line:127:17, endln:127:45
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (i), line:127:34, endln:127:35
+          |vpiParent:
+          \_operation: , line:127:17, endln:127:45
+          |vpiName:i
+          |vpiActual:
+          \_logic_net: (i)
+        |vpiOperand:
+        \_constant: , line:127:39, endln:127:44
+          |vpiParent:
+          \_operation: , line:127:34, endln:127:44
+          |vpiDecompile:2'b11
+          |vpiSize:2
+          |BIN:11
+          |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:129:24, endln:131:51
+        |vpiRhs:
+        \_operation: , line:129:37, endln:131:51
+          |vpiParent:
+          \_cont_assign: , line:129:24, endln:131:51
+          |vpiOpType:32
+          |vpiOperand:
+          \_hier_path: (decode_tv_r.amo_op), line:129:37, endln:129:55
+            |vpiParent:
+            \_operation: , line:129:37, endln:131:51
+            |vpiName:decode_tv_r.amo_op
+            |vpiActual:
+            \_ref_obj: (decode_tv_r), line:129:37, endln:129:48
+              |vpiParent:
+              \_hier_path: (decode_tv_r.amo_op), line:129:37, endln:129:55
+              |vpiName:decode_tv_r
+            |vpiActual:
+            \_ref_obj: (amo_op), line:129:49, endln:129:55
+              |vpiParent:
+              \_hier_path: (decode_tv_r.amo_op), line:129:37, endln:129:55
+              |vpiName:amo_op
+          |vpiOperand:
+          \_indexed_part_select: , line:130:34, endln:130:51
+            |vpiParent:
+            \_ref_obj: atomic_result (atomic_result)
+              |vpiParent:
+              \_operation: , line:129:37, endln:131:51
+              |vpiName:atomic_result
+              |vpiDefName:atomic_result
+            |vpiConstantSelect:1
+            |vpiIndexedPartSelectType:1
+            |vpiBaseExpr:
+            \_constant: , line:130:34, endln:130:35
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+            |vpiWidthExpr:
+            \_ref_obj: (slice_width_lp), line:130:37, endln:130:51
+              |vpiParent:
+              \_operation: , line:129:37, endln:131:51
+              |vpiName:slice_width_lp
+              |vpiActual:
+              \_logic_net: (slice_width_lp)
+          |vpiOperand:
+          \_indexed_part_select: , line:131:33, endln:131:50
+            |vpiParent:
+            \_ref_obj: st_data_tv_r (st_data_tv_r)
+              |vpiParent:
+              \_operation: , line:129:37, endln:131:51
+              |vpiName:st_data_tv_r
+              |vpiDefName:st_data_tv_r
+            |vpiConstantSelect:1
+            |vpiIndexedPartSelectType:1
+            |vpiBaseExpr:
+            \_constant: , line:131:33, endln:131:34
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+            |vpiWidthExpr:
+            \_ref_obj: (slice_width_lp), line:131:36, endln:131:50
+              |vpiParent:
+              \_operation: , line:129:37, endln:131:51
+              |vpiName:slice_width_lp
+              |vpiActual:
+              \_logic_net: (slice_width_lp)
+        |vpiLhs:
+        \_ref_obj: (slice_data), line:129:24, endln:129:34
+          |vpiParent:
+          \_cont_assign: , line:129:24, endln:131:51
+          |vpiName:slice_data
+          |vpiActual:
+          \_logic_net: (slice_data)
+  |vpiGenStmt:
+  \_gen_if: , line:138:15, endln:138:17
+    |vpiParent:
+    \_module_inst: work@divSqrtRecFN_small (work@divSqrtRecFN_small), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:117:1, endln:155:10
+    |vpiCondition:
+    \_operation: , line:138:19, endln:138:33
+      |vpiOpType:18
+      |vpiOperand:
+      \_ref_obj: (mc_y_dim_p), line:138:19, endln:138:29
+        |vpiParent:
+        \_operation: , line:138:19, endln:138:33
+        |vpiName:mc_y_dim_p
+        |vpiActual:
+        \_logic_net: (mc_y_dim_p)
+      |vpiOperand:
+      \_constant: , line:138:32, endln:138:33
+        |vpiParent:
+        \_operation: , line:138:19, endln:138:33
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@e (work@e), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:99:1, endln:115:10
   |vpiParent:
@@ -2771,6 +2923,14 @@ design: (work@divSqrtRecFNToRaw_small)
     |vpiName:i
     |vpiNetType:1
   |vpiNet:
+  \_logic_net: (slice_data)
+    |vpiName:slice_data
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (slice_width_lp)
+    |vpiName:slice_width_lp
+    |vpiNetType:1
+  |vpiNet:
   \_logic_net: (mc_y_dim_p)
     |vpiName:mc_y_dim_p
     |vpiNetType:1
@@ -2813,12 +2973,16 @@ design: (work@divSqrtRecFNToRaw_small)
             \_indexed_part_select: , line:135:50, endln:135:67
             |vpiName:slice_width_lp
             |vpiFullName:work@divSqrtRecFN_small.non_atomic.st_data_tv_r.slice_width_lp
+            |vpiActual:
+            \_logic_net: (slice_width_lp)
         |vpiLhs:
         \_ref_obj: (work@divSqrtRecFN_small.non_atomic.slice_data), line:135:24, endln:135:34
           |vpiParent:
           \_cont_assign: , line:135:24, endln:135:68
           |vpiName:slice_data
           |vpiFullName:work@divSqrtRecFN_small.non_atomic.slice_data
+          |vpiActual:
+          \_logic_net: (slice_data)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@divSqrtRecFN_small.stub), line:148:17, endln:152:20
     |vpiParent:
