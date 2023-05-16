@@ -139,34 +139,38 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              12
+begin                                                  2
+constant                                              14
 design                                                 1
+gen_if                                                 2
 gen_scope                                              4
 gen_scope_array                                        4
 int_typespec                                           7
 logic_net                                              2
 module_inst                                            7
-operation                                              2
+operation                                              4
 param_assign                                           4
 parameter                                              4
 ref_module                                             2
-ref_obj                                                2
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              12
+begin                                                  2
+constant                                              14
 design                                                 1
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 int_typespec                                           7
 logic_net                                              2
 module_inst                                            9
-operation                                              2
+operation                                              4
 param_assign                                           4
 parameter                                              4
 ref_module                                             2
-ref_obj                                                2
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstCapital/slpp_all/surelog.uhdm ...
 
@@ -192,6 +196,54 @@ design: (work@test)
   \_design: (work@test)
   |vpiFullName:work@test
   |vpiDefName:work@test
+  |vpiGenStmt:
+  \_gen_if: , line:10:1, endln:10:3
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+    |vpiCondition:
+    \_operation: , line:10:5, endln:10:20
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (foo), line:10:5, endln:10:8
+        |vpiParent:
+        \_operation: , line:10:5, endln:10:20
+        |vpiName:foo
+        |vpiActual:
+        \_logic_net: (foo)
+      |vpiOperand:
+      \_constant: , line:10:12, endln:10:20
+        |vpiParent:
+        \_operation: , line:10:5, endln:10:20
+        |vpiDecompile:32'h7fFF
+        |vpiSize:32
+        |HEX:7fFF
+        |vpiConstType:5
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:15:1, endln:15:3
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+    |vpiCondition:
+    \_operation: , line:15:5, endln:15:18
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (foo2), line:15:5, endln:15:9
+        |vpiParent:
+        \_operation: , line:15:5, endln:15:18
+        |vpiName:foo2
+        |vpiActual:
+        \_logic_net: (foo2)
+      |vpiOperand:
+      \_constant: , line:15:13, endln:15:18
+        |vpiParent:
+        \_operation: , line:15:5, endln:15:18
+        |vpiDecompile:32'D1
+        |vpiSize:32
+        |DEC:1
+        |vpiConstType:1
+    |vpiStmt:
+    \_begin: 
 |vpiParameter:
 \_parameter: (foo), line:1:15, endln:1:18
   |vpiParent:

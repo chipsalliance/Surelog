@@ -1392,12 +1392,14 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_select                                             2
-constant                                             165
+constant                                             166
 cont_assign                                            4
 design                                                 1
 enum_const                                            10
 enum_typespec                                          3
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 indexed_part_select                                    2
@@ -1406,12 +1408,12 @@ int_typespec                                          29
 logic_net                                              7
 logic_typespec                                        35
 module_inst                                            9
-operation                                             67
+operation                                             68
 param_assign                                          16
 parameter                                             16
 range                                                 36
 ref_module                                             1
-ref_obj                                               33
+ref_obj                                               34
 struct_typespec                                        7
 sys_func_call                                          8
 typespec_member                                       25
@@ -1419,12 +1421,14 @@ typespec_member                                       25
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 bit_select                                             3
-constant                                             166
+constant                                             167
 cont_assign                                            6
 design                                                 1
 enum_const                                            10
 enum_typespec                                          3
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 indexed_part_select                                    3
@@ -1433,12 +1437,12 @@ int_typespec                                          29
 logic_net                                              7
 logic_typespec                                        35
 module_inst                                           10
-operation                                             77
+operation                                             78
 param_assign                                          16
 parameter                                             16
 range                                                 36
 ref_module                                             1
-ref_obj                                               37
+ref_obj                                               38
 struct_typespec                                        7
 sys_func_call                                          9
 typespec_member                                       25
@@ -3105,6 +3109,28 @@ design: (work@top)
       |vpiFullName:work@top.pc
       |vpiActual:
       \_logic_net: (work@top.pc), line:144:15, endln:144:17
+  |vpiGenStmt:
+  \_gen_if: , line:158:1, endln:158:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
+    |vpiCondition:
+    \_operation: , line:158:5, endln:158:52
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (easy), line:158:5, endln:158:9
+        |vpiParent:
+        \_operation: , line:158:5, endln:158:52
+        |vpiName:easy
+      |vpiOperand:
+      \_constant: , line:158:13, endln:158:52
+        |vpiParent:
+        \_operation: , line:158:5, endln:158:52
+        |vpiDecompile:35'b11111111111111111111111111111111111
+        |vpiSize:35
+        |BIN:11111111111111111111111111111111111
+        |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
 |vpiTypedef:
 \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
 |vpiTypedef:

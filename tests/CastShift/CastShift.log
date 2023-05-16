@@ -617,16 +617,18 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_typespec                                           4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              98
+constant                                              99
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           9
@@ -636,27 +638,29 @@ io_decl                                               11
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            6
-operation                                             57
+operation                                             58
 package                                                2
 param_assign                                           8
 parameter                                              8
 range                                                  4
-ref_obj                                                4
+ref_obj                                                5
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 bit_typespec                                           4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              98
+constant                                              99
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           9
@@ -666,12 +670,12 @@ io_decl                                               22
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            7
-operation                                             57
+operation                                             58
 package                                                2
 param_assign                                           8
 parameter                                              8
 range                                                  4
-ref_obj                                                4
+ref_obj                                                5
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastShift/slpp_all/surelog.uhdm ...
@@ -1625,6 +1629,28 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35
   |vpiDefName:work@dut
+  |vpiGenStmt:
+  \_gen_if: , line:19:1, endln:19:3
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
+    |vpiCondition:
+    \_operation: , line:19:5, endln:19:29
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (MISA_VALUE), line:19:5, endln:19:15
+        |vpiParent:
+        \_operation: , line:19:5, endln:19:29
+        |vpiName:MISA_VALUE
+      |vpiOperand:
+      \_constant: , line:19:19, endln:19:29
+        |vpiParent:
+        \_operation: , line:19:5, endln:19:29
+        |vpiDecompile:1074794756
+        |vpiSize:64
+        |UINT:1074794756
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
   |vpiName:work@dut

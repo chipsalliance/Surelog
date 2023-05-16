@@ -49,57 +49,63 @@
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-class_defn                                             8
-class_typespec                                         4
-class_var                                              3
-constant                                              21
-cont_assign                                            2
-design                                                 1
-enum_const                                             5
-enum_typespec                                          1
-enum_var                                               1
-function                                               9
-gen_scope                                              4
-gen_scope_array                                        4
-int_typespec                                          15
-int_var                                                4
-io_decl                                               11
-logic_var                                              1
-module_inst                                           16
-operation                                              3
-package                                                2
-param_assign                                           6
-parameter                                              6
-ref_module                                             3
-ref_obj                                                4
-task                                                   9
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
 constant                                              21
 cont_assign                                            4
 design                                                 1
+enum_const                                             5
+enum_typespec                                          1
+enum_var                                               1
+function                                               9
+gen_if                                                 2
+gen_scope                                              4
+gen_scope_array                                        4
+int_typespec                                          15
+int_var                                                4
+io_decl                                               11
+logic_net                                              2
+logic_var                                              1
+module_inst                                           16
+operation                                              5
+package                                                2
+param_assign                                           6
+parameter                                              6
+ref_module                                             3
+ref_obj                                               10
+task                                                   9
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                              21
+cont_assign                                            6
+design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 int_typespec                                          15
 int_var                                                4
 io_decl                                               22
+logic_net                                              2
 logic_var                                              1
 module_inst                                           16
-operation                                              4
+operation                                              6
 package                                                2
 param_assign                                           6
 parameter                                              6
 ref_module                                             3
-ref_obj                                                8
+ref_obj                                               14
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Cell/slpp_unit/surelog.uhdm ...
@@ -619,6 +625,66 @@ design: (work@top)
     \_parameter: (work@assigner.invert), line:1:29, endln:1:35
   |vpiDefName:work@assigner
   |vpiCellInstance:1
+  |vpiGenStmt:
+  \_gen_if: , line:2:3, endln:2:5
+    |vpiParent:
+    \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
+    |vpiCondition:
+    \_operation: , line:2:7, endln:2:14
+      |vpiOpType:3
+      |vpiOperand:
+      \_ref_obj: (invert), line:2:8, endln:2:14
+        |vpiParent:
+        \_operation: , line:2:7, endln:2:14
+        |vpiName:invert
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:3:12, endln:3:21
+        |vpiRhs:
+        \_ref_obj: (inp), line:3:18, endln:3:21
+          |vpiParent:
+          \_cont_assign: , line:3:12, endln:3:21
+          |vpiName:inp
+          |vpiActual:
+          \_logic_net: (inp)
+        |vpiLhs:
+        \_ref_obj: (out), line:3:12, endln:3:15
+          |vpiParent:
+          \_cont_assign: , line:3:12, endln:3:21
+          |vpiName:out
+          |vpiActual:
+          \_logic_net: (out)
+  |vpiGenStmt:
+  \_gen_if: , line:4:3, endln:4:5
+    |vpiParent:
+    \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/Cell/cell.v, line:1:1, endln:6:10
+    |vpiCondition:
+    \_ref_obj: (invert), line:4:7, endln:4:13
+      |vpiName:invert
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:5:12, endln:5:22
+        |vpiRhs:
+        \_operation: , line:5:18, endln:5:22
+          |vpiParent:
+          \_cont_assign: , line:5:12, endln:5:22
+          |vpiOpType:4
+          |vpiOperand:
+          \_ref_obj: (inp), line:5:19, endln:5:22
+            |vpiParent:
+            \_operation: , line:5:18, endln:5:22
+            |vpiName:inp
+            |vpiActual:
+            \_logic_net: (inp)
+        |vpiLhs:
+        \_ref_obj: (out), line:5:12, endln:5:15
+          |vpiParent:
+          \_cont_assign: , line:5:12, endln:5:22
+          |vpiName:out
+          |vpiActual:
+          \_logic_net: (out)
 |uhdmallModules:
 \_module_inst: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/Cell/cell.v, line:8:1, endln:10:10
   |vpiParent:
@@ -759,6 +825,14 @@ design: (work@top)
       |vpiCellInstance:1
       |vpiDefFile:${SURELOG_DIR}/tests/Cell/cell.v
       |vpiDefLineNo:1
+      |vpiNet:
+      \_logic_net: (out)
+        |vpiName:out
+        |vpiNetType:1
+      |vpiNet:
+      \_logic_net: (inp)
+        |vpiName:inp
+        |vpiNetType:1
       |vpiInstance:
       \_module_inst: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:2:4, endln:2:35
       |vpiGenScopeArray:
@@ -787,12 +861,16 @@ design: (work@top)
                 \_operation: , line:5:18, endln:5:22
                 |vpiName:inp
                 |vpiFullName:work@top.mdl1.asgn.genblk2.inp
+                |vpiActual:
+                \_logic_net: (inp)
             |vpiLhs:
             \_ref_obj: (work@top.mdl1.asgn.genblk2.out), line:5:12, endln:5:15
               |vpiParent:
               \_cont_assign: , line:5:12, endln:5:22
               |vpiName:out
               |vpiFullName:work@top.mdl1.asgn.genblk2.out
+              |vpiActual:
+              \_logic_net: (out)
   |vpiModule:
   \_module_inst: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/Cell/dut.sv, line:3:4, endln:3:35
     |vpiParent:
@@ -904,5 +982,5 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/Cell/cell.v | ${SURELOG_DIR}/build/regression/Cell/roundtrip/cell_000.v | 7 | 10 |
+[roundtrip]: ${SURELOG_DIR}/tests/Cell/cell.v | ${SURELOG_DIR}/build/regression/Cell/roundtrip/cell_000.v | 5 | 10 |
 [roundtrip]: ${SURELOG_DIR}/tests/Cell/dut.sv | ${SURELOG_DIR}/build/regression/Cell/roundtrip/dut_000.sv | 2 | 4 |

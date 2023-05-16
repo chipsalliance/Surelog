@@ -659,17 +659,19 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             129
+constant                                             130
 design                                                 1
 enum_const                                             9
 enum_typespec                                          5
 enum_var                                               1
 function                                               9
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                             26
@@ -682,13 +684,13 @@ logic_net                                              1
 logic_typespec                                         1
 logic_var                                              2
 module_inst                                            7
-operation                                             71
+operation                                             72
 package                                                5
 packed_array_typespec                                  8
 param_assign                                          48
 parameter                                             59
 range                                                 14
-ref_obj                                               93
+ref_obj                                               94
 string_typespec                                       50
 struct_typespec                                       54
 tagged_pattern                                        50
@@ -698,17 +700,19 @@ typespec_member                                       54
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             129
+constant                                             130
 design                                                 1
 enum_const                                            14
 enum_typespec                                          6
 enum_var                                               1
 function                                              18
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                             26
@@ -721,13 +725,13 @@ logic_net                                              1
 logic_typespec                                         1
 logic_var                                              2
 module_inst                                            8
-operation                                             71
+operation                                             72
 package                                                5
 packed_array_typespec                                  8
 param_assign                                          48
 parameter                                             59
 range                                                 14
-ref_obj                                               93
+ref_obj                                               94
 string_typespec                                       50
 struct_typespec                                       54
 tagged_pattern                                        50
@@ -2488,6 +2492,28 @@ design: (work@top)
     |vpiName:aa
     |vpiFullName:work@top.aa
     |vpiNetType:36
+  |vpiGenStmt:
+  \_gen_if: , line:62:2, endln:62:4
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
+    |vpiCondition:
+    \_operation: , line:62:6, endln:62:21
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (cc_x_dim_p), line:62:6, endln:62:16
+        |vpiParent:
+        \_operation: , line:62:6, endln:62:21
+        |vpiName:cc_x_dim_p
+      |vpiOperand:
+      \_constant: , line:62:20, endln:62:21
+        |vpiParent:
+        \_operation: , line:62:6, endln:62:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
   |vpiName:work@top

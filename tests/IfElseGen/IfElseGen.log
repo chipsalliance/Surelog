@@ -195,28 +195,34 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 bit_typespec                                           4
 constant                                               8
 design                                                 1
+gen_if                                                 2
 gen_scope                                              4
 gen_scope_array                                        4
 module_inst                                           13
 param_assign                                           4
 parameter                                              4
 ref_module                                             2
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 bit_typespec                                           4
 constant                                               8
 design                                                 1
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 module_inst                                           15
 param_assign                                           4
 parameter                                              4
 ref_module                                             2
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfElseGen/slpp_all/surelog.uhdm ...
 
@@ -274,6 +280,15 @@ design: (work@dut1)
     |vpiLhs:
     \_parameter: (work@dut1.HasSndScratch), line:8:25, endln:8:38
   |vpiDefName:work@dut1
+  |vpiGenStmt:
+  \_gen_if: , line:9:1, endln:9:3
+    |vpiParent:
+    \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
+    |vpiCondition:
+    \_ref_obj: (HasSndScratch), line:9:5, endln:9:18
+      |vpiName:HasSndScratch
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
   |vpiParent:
@@ -306,6 +321,15 @@ design: (work@dut1)
     |vpiLhs:
     \_parameter: (work@dut2.HasSndScratch), line:18:25, endln:18:38
   |vpiDefName:work@dut2
+  |vpiGenStmt:
+  \_gen_if: , line:19:1, endln:19:3
+    |vpiParent:
+    \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
+    |vpiCondition:
+    \_ref_obj: (HasSndScratch), line:19:5, endln:19:18
+      |vpiName:HasSndScratch
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
   |vpiName:work@dut1

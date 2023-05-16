@@ -318,10 +318,11 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             4
-begin                                                  1
-constant                                              29
+begin                                                  2
+constant                                              30
 cont_assign                                            6
 design                                                 1
+gen_if                                                 1
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              4
@@ -340,10 +341,11 @@ ref_obj                                               26
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             8
-begin                                                  2
-constant                                              29
+begin                                                  3
+constant                                              30
 cont_assign                                           10
 design                                                 1
+gen_if                                                 1
 gen_scope                                              9
 gen_scope_array                                        9
 hier_path                                              8
@@ -666,6 +668,18 @@ design: (work@matching_end_labels_top)
           |vpiFullName:work@matching_end_labels_top.out2
           |vpiActual:
           \_logic_net: (work@matching_end_labels_top.out2), line:3:11, endln:3:15
+  |vpiGenStmt:
+  \_gen_if: , line:20:5, endln:20:7
+    |vpiParent:
+    \_module_inst: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_constant: , line:20:9, endln:20:10
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
   |vpiName:work@matching_end_labels_top

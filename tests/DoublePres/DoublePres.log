@@ -1131,11 +1131,12 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             1
-begin                                                  1
-constant                                             169
+begin                                                 15
+constant                                             188
 design                                                 1
 func_call                                              2
 function                                               1
+gen_if                                                14
 gen_scope                                             28
 gen_scope_array                                       28
 int_typespec                                           2
@@ -1145,24 +1146,25 @@ logic_net                                              8
 logic_typespec                                        12
 logic_var                                              1
 module_inst                                           22
-operation                                             62
+operation                                             89
 param_assign                                          43
 parameter                                             43
 port                                                  10
 real_typespec                                          4
 ref_module                                             1
-ref_obj                                               22
+ref_obj                                               41
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             2
-begin                                                  2
-constant                                             169
+begin                                                 16
+constant                                             188
 design                                                 1
 func_call                                              2
 function                                               2
+gen_if                                                14
 gen_scope                                             42
 gen_scope_array                                       42
 int_typespec                                           2
@@ -1172,13 +1174,13 @@ logic_net                                              8
 logic_typespec                                        12
 logic_var                                              1
 module_inst                                           36
-operation                                             63
+operation                                             90
 param_assign                                          43
 parameter                                             43
 port                                                  14
 real_typespec                                          4
 ref_module                                             1
-ref_obj                                               31
+ref_obj                                               50
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DoublePres/slpp_all/surelog.uhdm ...
@@ -1885,6 +1887,438 @@ design: (work@top)
       \_logic_net: (work@dut.b), line:10:20, endln:10:21
     |vpiTypedef:
     \_logic_typespec: , line:10:20, endln:10:20
+  |vpiGenStmt:
+  \_gen_if: , line:55:4, endln:55:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:55:8, endln:55:18
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A1), line:55:8, endln:55:10
+        |vpiParent:
+        \_operation: , line:55:8, endln:55:18
+        |vpiName:A1
+      |vpiOperand:
+      \_constant: , line:55:14, endln:55:18
+        |vpiParent:
+        \_operation: , line:55:8, endln:55:18
+        |vpiDecompile:0.05
+        |vpiSize:64
+        |REAL:0.050000
+        |vpiConstType:2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:59:4, endln:59:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:59:8, endln:59:18
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A2), line:59:8, endln:59:10
+        |vpiParent:
+        \_operation: , line:59:8, endln:59:18
+        |vpiName:A2
+      |vpiOperand:
+      \_operation: , line:59:14, endln:59:18
+        |vpiParent:
+        \_operation: , line:59:8, endln:59:18
+        |vpiOpType:1
+        |vpiOperand:
+        \_constant: , line:59:15, endln:59:18
+          |vpiDecompile:0.4
+          |vpiSize:64
+          |REAL:0.400000
+          |vpiConstType:2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:63:4, endln:63:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:63:8, endln:63:18
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A3), line:63:8, endln:63:10
+        |vpiParent:
+        \_operation: , line:63:8, endln:63:18
+        |vpiName:A3
+      |vpiOperand:
+      \_operation: , line:63:14, endln:63:18
+        |vpiParent:
+        \_operation: , line:63:8, endln:63:18
+        |vpiOpType:1
+        |vpiOperand:
+        \_constant: , line:63:15, endln:63:18
+          |vpiDecompile:0.6
+          |vpiSize:64
+          |REAL:0.600000
+          |vpiConstType:2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:67:4, endln:67:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:67:8, endln:67:15
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A4), line:67:8, endln:67:10
+        |vpiParent:
+        \_operation: , line:67:8, endln:67:15
+        |vpiName:A4
+      |vpiOperand:
+      \_constant: , line:67:14, endln:67:15
+        |vpiParent:
+        \_operation: , line:67:8, endln:67:15
+        |vpiDecompile:6
+        |vpiSize:64
+        |UINT:6
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:71:4, endln:71:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:71:8, endln:71:16
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A5), line:71:8, endln:71:10
+        |vpiParent:
+        \_operation: , line:71:8, endln:71:16
+        |vpiName:A5
+      |vpiOperand:
+      \_operation: , line:71:14, endln:71:16
+        |vpiParent:
+        \_operation: , line:71:8, endln:71:16
+        |vpiOpType:1
+        |vpiOperand:
+        \_constant: , line:71:15, endln:71:16
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:75:4, endln:75:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:75:8, endln:75:16
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A6), line:75:8, endln:75:10
+        |vpiParent:
+        \_operation: , line:75:8, endln:75:16
+        |vpiName:A6
+      |vpiOperand:
+      \_constant: , line:75:14, endln:75:16
+        |vpiParent:
+        \_operation: , line:75:8, endln:75:16
+        |vpiDecompile:10
+        |vpiSize:64
+        |UINT:10
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:79:4, endln:79:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:79:8, endln:79:15
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A7), line:79:8, endln:79:10
+        |vpiParent:
+        \_operation: , line:79:8, endln:79:15
+        |vpiName:A7
+      |vpiOperand:
+      \_constant: , line:79:14, endln:79:15
+        |vpiParent:
+        \_operation: , line:79:8, endln:79:15
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:83:2, endln:83:4
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:83:6, endln:83:13
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A8), line:83:6, endln:83:8
+        |vpiParent:
+        \_operation: , line:83:6, endln:83:13
+        |vpiName:A8
+      |vpiOperand:
+      \_constant: , line:83:12, endln:83:13
+        |vpiParent:
+        \_operation: , line:83:6, endln:83:13
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:87:3, endln:87:5
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:87:7, endln:87:29
+      |vpiOpType:26
+      |vpiOperand:
+      \_operation: , line:87:8, endln:87:16
+        |vpiParent:
+        \_operation: , line:87:7, endln:87:29
+        |vpiOpType:18
+        |vpiOperand:
+        \_ref_obj: (A9), line:87:8, endln:87:10
+          |vpiParent:
+          \_operation: , line:87:8, endln:87:16
+          |vpiName:A9
+        |vpiOperand:
+        \_constant: , line:87:13, endln:87:16
+          |vpiParent:
+          \_operation: , line:87:8, endln:87:16
+          |vpiDecompile:1.8
+          |vpiSize:64
+          |REAL:1.800000
+          |vpiConstType:2
+      |vpiOperand:
+      \_operation: , line:87:22, endln:87:28
+        |vpiParent:
+        \_operation: , line:87:7, endln:87:29
+        |vpiOpType:20
+        |vpiOperand:
+        \_ref_obj: (A9), line:87:22, endln:87:24
+          |vpiParent:
+          \_operation: , line:87:7, endln:87:29
+          |vpiName:A9
+        |vpiOperand:
+        \_constant: , line:87:27, endln:87:28
+          |vpiParent:
+          \_operation: , line:87:22, endln:87:28
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:91:3, endln:91:5
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:91:7, endln:91:35
+      |vpiOpType:26
+      |vpiOperand:
+      \_operation: , line:91:8, endln:91:18
+        |vpiParent:
+        \_operation: , line:91:7, endln:91:35
+        |vpiOpType:19
+        |vpiOperand:
+        \_ref_obj: (A10), line:91:8, endln:91:11
+          |vpiParent:
+          \_operation: , line:91:8, endln:91:18
+          |vpiName:A10
+        |vpiOperand:
+        \_constant: , line:91:15, endln:91:18
+          |vpiParent:
+          \_operation: , line:91:8, endln:91:18
+          |vpiDecompile:0.3
+          |vpiSize:64
+          |REAL:0.300000
+          |vpiConstType:2
+      |vpiOperand:
+      \_operation: , line:91:24, endln:91:34
+        |vpiParent:
+        \_operation: , line:91:7, endln:91:35
+        |vpiOpType:21
+        |vpiOperand:
+        \_ref_obj: (A10), line:91:24, endln:91:27
+          |vpiParent:
+          \_operation: , line:91:7, endln:91:35
+          |vpiName:A10
+        |vpiOperand:
+        \_constant: , line:91:31, endln:91:34
+          |vpiParent:
+          \_operation: , line:91:24, endln:91:34
+          |vpiDecompile:0.3
+          |vpiSize:64
+          |REAL:0.300000
+          |vpiConstType:2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:95:3, endln:95:5
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:95:7, endln:95:17
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (A11), line:95:7, endln:95:10
+        |vpiParent:
+        \_operation: , line:95:7, endln:95:17
+        |vpiName:A11
+      |vpiOperand:
+      \_constant: , line:95:14, endln:95:17
+        |vpiParent:
+        \_operation: , line:95:7, endln:95:17
+        |vpiDecompile:256
+        |vpiSize:64
+        |UINT:256
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:99:3, endln:99:5
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:99:7, endln:99:36
+      |vpiOpType:26
+      |vpiOperand:
+      \_operation: , line:99:8, endln:99:17
+        |vpiParent:
+        \_operation: , line:99:7, endln:99:36
+        |vpiOpType:18
+        |vpiOperand:
+        \_ref_obj: (A12), line:99:8, endln:99:11
+          |vpiParent:
+          \_operation: , line:99:8, endln:99:17
+          |vpiName:A12
+        |vpiOperand:
+        \_constant: , line:99:14, endln:99:17
+          |vpiParent:
+          \_operation: , line:99:8, endln:99:17
+          |vpiDecompile:378
+          |vpiSize:64
+          |UINT:378
+          |vpiConstType:9
+      |vpiOperand:
+      \_operation: , line:99:23, endln:99:35
+        |vpiParent:
+        \_operation: , line:99:7, endln:99:36
+        |vpiOpType:20
+        |vpiOperand:
+        \_ref_obj: (A12), line:99:23, endln:99:26
+          |vpiParent:
+          \_operation: , line:99:7, endln:99:36
+          |vpiName:A12
+        |vpiOperand:
+        \_constant: , line:99:29, endln:99:35
+          |vpiParent:
+          \_operation: , line:99:23, endln:99:35
+          |vpiDecompile:378.23
+          |vpiSize:64
+          |REAL:378.230000
+          |vpiConstType:2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:103:3, endln:103:5
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:103:7, endln:103:36
+      |vpiOpType:26
+      |vpiOperand:
+      \_operation: , line:103:8, endln:103:17
+        |vpiParent:
+        \_operation: , line:103:7, endln:103:36
+        |vpiOpType:18
+        |vpiOperand:
+        \_ref_obj: (A13), line:103:8, endln:103:11
+          |vpiParent:
+          \_operation: , line:103:8, endln:103:17
+          |vpiName:A13
+        |vpiOperand:
+        \_constant: , line:103:14, endln:103:17
+          |vpiParent:
+          \_operation: , line:103:8, endln:103:17
+          |vpiDecompile:378
+          |vpiSize:64
+          |UINT:378
+          |vpiConstType:9
+      |vpiOperand:
+      \_operation: , line:103:23, endln:103:35
+        |vpiParent:
+        \_operation: , line:103:7, endln:103:36
+        |vpiOpType:20
+        |vpiOperand:
+        \_ref_obj: (A13), line:103:23, endln:103:26
+          |vpiParent:
+          \_operation: , line:103:7, endln:103:36
+          |vpiName:A13
+        |vpiOperand:
+        \_constant: , line:103:29, endln:103:35
+          |vpiParent:
+          \_operation: , line:103:23, endln:103:35
+          |vpiDecompile:378.23
+          |vpiSize:64
+          |REAL:378.230000
+          |vpiConstType:2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:107:2, endln:107:4
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
+    |vpiCondition:
+    \_operation: , line:107:6, endln:107:33
+      |vpiOpType:26
+      |vpiOperand:
+      \_operation: , line:107:7, endln:107:15
+        |vpiParent:
+        \_operation: , line:107:6, endln:107:33
+        |vpiOpType:18
+        |vpiOperand:
+        \_ref_obj: (A15), line:107:7, endln:107:10
+          |vpiParent:
+          \_operation: , line:107:7, endln:107:15
+          |vpiName:A15
+        |vpiOperand:
+        \_constant: , line:107:13, endln:107:15
+          |vpiParent:
+          \_operation: , line:107:7, endln:107:15
+          |vpiDecompile:11
+          |vpiSize:64
+          |UINT:11
+          |vpiConstType:9
+      |vpiOperand:
+      \_operation: , line:107:21, endln:107:32
+        |vpiParent:
+        \_operation: , line:107:6, endln:107:33
+        |vpiOpType:21
+        |vpiOperand:
+        \_ref_obj: (A15), line:107:21, endln:107:24
+          |vpiParent:
+          \_operation: , line:107:6, endln:107:33
+          |vpiName:A15
+        |vpiOperand:
+        \_constant: , line:107:28, endln:107:32
+          |vpiParent:
+          \_operation: , line:107:21, endln:107:32
+          |vpiDecompile:11.1
+          |vpiSize:64
+          |REAL:11.100000
+          |vpiConstType:2
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:1:1, endln:6:10
   |vpiParent:

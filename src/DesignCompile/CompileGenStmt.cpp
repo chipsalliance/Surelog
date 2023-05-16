@@ -1,0 +1,102 @@
+/*
+ Copyright 2019-2023 Alain Dargelas
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+/*
+ * File:   CompileGenStmt.cpp
+ * Author: alain
+ *
+ * Created on May 14, 2023, 11:45 AM
+ */
+
+#include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Common/FileSystem.h>
+#include <Surelog/Design/DataType.h>
+#include <Surelog/Design/DummyType.h>
+#include <Surelog/Design/Enum.h>
+#include <Surelog/Design/FileContent.h>
+#include <Surelog/Design/ModuleDefinition.h>
+#include <Surelog/Design/ModuleInstance.h>
+#include <Surelog/Design/Netlist.h>
+#include <Surelog/Design/ParamAssign.h>
+#include <Surelog/Design/Parameter.h>
+#include <Surelog/Design/Signal.h>
+#include <Surelog/Design/SimpleType.h>
+#include <Surelog/Design/Struct.h>
+#include <Surelog/Design/TfPortItem.h>
+#include <Surelog/Design/Union.h>
+#include <Surelog/DesignCompile/CompileDesign.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
+#include <Surelog/DesignCompile/UhdmWriter.h>
+#include <Surelog/ErrorReporting/Error.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/ErrorReporting/Location.h>
+#include <Surelog/Library/Library.h>
+#include <Surelog/Package/Package.h>
+#include <Surelog/SourceCompile/Compiler.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Testbench/ClassDefinition.h>
+#include <Surelog/Testbench/Program.h>
+#include <Surelog/Testbench/TypeDef.h>
+#include <Surelog/Testbench/Variable.h>
+#include <Surelog/Utils/NumUtils.h>
+#include <Surelog/Utils/StringUtils.h>
+
+// UHDM
+#include <string.h>
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
+#include <uhdm/VpiListener.h>
+#include <uhdm/clone_tree.h>
+#include <uhdm/uhdm.h>
+
+#include <climits>
+#include <iostream>
+#include <string>
+#include <vector>
+
+namespace SURELOG {
+
+using namespace UHDM;  // NOLINT (we use a good chunk of these here)
+
+void CompileHelper::compileGenStmt(ModuleDefinition* component,
+                                   const FileContent* fC,
+                                   CompileDesign* compileDesign, NodeId id) {
+  Serializer& s = compileDesign->getSerializer();
+  NodeId stmtId = fC->Child(id);
+  if (fC->Type(stmtId) == VObjectType::slIf_generate_construct) {
+    NodeId ifElseId = fC->Child(stmtId);
+    if (fC->Type(ifElseId) == VObjectType::slIF) {
+      NodeId condId = fC->Sibling(ifElseId);
+      expr* cond = (expr*)compileExpression(component, fC, condId,
+                                            compileDesign, Reduce::No, nullptr);
+      NodeId stmtId = fC->Sibling(condId);
+      gen_if* genif = s.MakeGen_if();
+      genif->VpiCondition(cond);
+      fC->populateCoreMembers(ifElseId, ifElseId, genif);
+      begin* stmt = s.MakeBegin();
+      VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
+                                       Reduce::No, nullptr, nullptr, true);
+      stmt->Stmts(stmts);
+      genif->VpiStmt(stmt);
+      if (component->getGenStmts() == nullptr) {
+        component->setGenStmts(s.MakeGen_stmtVec());
+      }
+      component->getGenStmts()->push_back(genif);
+    }
+  }
+}
+
+}  // namespace SURELOG

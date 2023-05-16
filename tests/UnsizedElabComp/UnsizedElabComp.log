@@ -227,32 +227,38 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              26
+begin                                                  4
+constant                                              32
 design                                                 1
+gen_if                                                 4
 gen_scope                                              4
 gen_scope_array                                        4
 logic_typespec                                         4
 module_inst                                            8
-operation                                              4
+operation                                              8
 param_assign                                           4
 parameter                                              4
 range                                                  4
 ref_module                                             2
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              26
+begin                                                  4
+constant                                              32
 design                                                 1
+gen_if                                                 4
 gen_scope                                              6
 gen_scope_array                                        6
 logic_typespec                                         4
 module_inst                                           10
-operation                                              4
+operation                                              8
 param_assign                                           4
 parameter                                              4
 range                                                  4
 ref_module                                             2
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedElabComp/slpp_all/surelog.uhdm ...
 
@@ -364,6 +370,100 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.P2), line:6:25, endln:6:27
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_if: , line:7:3, endln:7:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
+    |vpiCondition:
+    \_operation: , line:7:8, endln:7:20
+      |vpiOpType:14
+      |vpiOperand:
+      \_constant: , line:7:8, endln:7:14
+        |vpiParent:
+        \_operation: , line:7:8, endln:7:20
+        |vpiDecompile:3'b111
+        |vpiSize:3
+        |BIN:111
+        |vpiConstType:3
+      |vpiOperand:
+      \_constant: , line:7:18, endln:7:20
+        |vpiParent:
+        \_operation: , line:7:8, endln:7:20
+        |vpiDecompile:'1
+        |vpiSize:-1
+        |BIN:1
+        |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:11:3, endln:11:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
+    |vpiCondition:
+    \_operation: , line:11:8, endln:11:16
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (P1), line:11:8, endln:11:10
+        |vpiParent:
+        \_operation: , line:11:8, endln:11:16
+        |vpiName:P1
+      |vpiOperand:
+      \_constant: , line:11:14, endln:11:16
+        |vpiParent:
+        \_operation: , line:11:8, endln:11:16
+        |vpiDecompile:'1
+        |vpiSize:-1
+        |BIN:1
+        |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:15:3, endln:15:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
+    |vpiCondition:
+    \_operation: , line:15:8, endln:15:20
+      |vpiOpType:14
+      |vpiOperand:
+      \_constant: , line:15:8, endln:15:14
+        |vpiParent:
+        \_operation: , line:15:8, endln:15:20
+        |vpiDecompile:3'b101
+        |vpiSize:3
+        |BIN:101
+        |vpiConstType:3
+      |vpiOperand:
+      \_constant: , line:15:18, endln:15:20
+        |vpiParent:
+        \_operation: , line:15:8, endln:15:20
+        |vpiDecompile:'1
+        |vpiSize:-1
+        |BIN:1
+        |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:19:3, endln:19:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
+    |vpiCondition:
+    \_operation: , line:19:8, endln:19:16
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (P2), line:19:8, endln:19:10
+        |vpiParent:
+        \_operation: , line:19:8, endln:19:16
+        |vpiName:P2
+      |vpiOperand:
+      \_constant: , line:19:14, endln:19:16
+        |vpiParent:
+        \_operation: , line:19:8, endln:19:16
+        |vpiDecompile:'1
+        |vpiSize:-1
+        |BIN:1
+        |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
   |vpiName:work@top

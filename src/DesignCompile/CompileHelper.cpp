@@ -2239,12 +2239,12 @@ bool CompileHelper::compileDataDeclaration(
   return true;
 }
 
-bool CompileHelper::compileContinuousAssignment(DesignComponent* component,
-                                                const FileContent* fC,
-                                                NodeId List_of_net_assignments,
-                                                CompileDesign* compileDesign,
-                                                ValuedComponentI* instance) {
+std::vector<cont_assign*> CompileHelper::compileContinuousAssignment(
+    DesignComponent* component, const FileContent* fC,
+    NodeId List_of_net_assignments, CompileDesign* compileDesign,
+    ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<cont_assign*> assigns;
   /*
 n<o> u<6> t<StringConst> p<7> l<4>
 n<> u<7> t<Ps_or_hierarchical_identifier> p<10> c<6> s<9> l<4>
@@ -2343,15 +2343,11 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       setParentNoOverride(rhs_exp, cassign);
       fC->populateCoreMembers(List_of_net_assignments, List_of_net_assignments,
                               cassign);
-      if (component->getContAssigns() == nullptr) {
-        component->setContAssigns(s.MakeCont_assignVec());
-      }
-
-      component->getContAssigns()->push_back(cassign);
+      assigns.push_back(cassign);
     }
     Net_assignment = fC->Sibling(Net_assignment);
   }
-  return true;
+  return assigns;
 }
 
 std::string CompileHelper::decompileHelper(const any* sel) {

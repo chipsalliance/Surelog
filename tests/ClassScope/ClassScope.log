@@ -10407,12 +10407,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  8
+begin                                                 16
 bit_select                                            32
 class_defn                                             1
 constant                                             800
 delay_control                                         10
 design                                                 1
+gen_if                                                 8
 gen_scope                                             16
 gen_scope_array                                       16
 initial                                               10
@@ -10428,7 +10429,7 @@ parameter                                            226
 part_select                                           31
 range                                                  3
 ref_module                                            48
-ref_obj                                              364
+ref_obj                                              372
 sys_func_call                                        109
 type_parameter                                        15
 unsupported_typespec                                  23
@@ -10436,12 +10437,13 @@ unsupported_typespec                                  23
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                 16
+begin                                                 24
 bit_select                                            32
 class_defn                                             1
 constant                                             816
 delay_control                                        114
 design                                                 1
+gen_if                                                 8
 gen_scope                                             24
 gen_scope_array                                       24
 initial                                              114
@@ -10457,7 +10459,7 @@ parameter                                            418
 part_select                                           31
 range                                                  3
 ref_module                                            48
-ref_obj                                             1113
+ref_obj                                             1121
 sys_func_call                                        406
 type_parameter                                        15
 unsupported_typespec                                  23
@@ -11118,6 +11120,78 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.E), line:39:16, endln:39:17
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:43:9, endln:43:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
+    |vpiCondition:
+    \_ref_obj: (FLAG), line:43:13, endln:43:17
+      |vpiName:FLAG
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
   |vpiName:work@top

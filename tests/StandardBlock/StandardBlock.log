@@ -286,8 +286,10 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              22
+begin                                                  3
+constant                                              23
 design                                                 1
+gen_if                                                 3
 gen_scope                                             14
 gen_scope_array                                       14
 int_typespec                                           4
@@ -297,12 +299,15 @@ module_inst                                            5
 operation                                              4
 param_assign                                           2
 parameter                                              4
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              22
+begin                                                  3
+constant                                              23
 design                                                 1
+gen_if                                                 3
 gen_scope                                             21
 gen_scope_array                                       21
 int_typespec                                           4
@@ -312,6 +317,7 @@ module_inst                                            5
 operation                                              4
 param_assign                                           2
 parameter                                              4
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StandardBlock/slpp_all/surelog.uhdm ...
 
@@ -354,6 +360,36 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.genblk2), line:2:11, endln:2:18
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_if: , line:5:1, endln:5:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+    |vpiCondition:
+    \_ref_obj: (genblk2), line:5:5, endln:5:12
+      |vpiName:genblk2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:9:1, endln:9:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+    |vpiCondition:
+    \_ref_obj: (genblk2), line:9:5, endln:9:12
+      |vpiName:genblk2
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:27:1, endln:27:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+    |vpiCondition:
+    \_constant: , line:27:5, endln:27:6
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
   |vpiName:work@top

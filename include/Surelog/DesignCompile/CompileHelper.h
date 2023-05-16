@@ -144,7 +144,7 @@ class CompileHelper final {
   // ------------------------------------------------------------------------------------------
   // UHDM modeling
 
-  bool compileContinuousAssignment(DesignComponent* component,
+  std::vector<UHDM::cont_assign*> compileContinuousAssignment(DesignComponent* component,
                                    const FileContent* fC, NodeId id,
                                    CompileDesign* compileDesign,
                                    ValuedComponentI* instance);
@@ -174,12 +174,12 @@ class CompileHelper final {
   UHDM::atomic_stmt* compileEventControlStmt(
       DesignComponent* component, const FileContent* fC, NodeId nodeId,
       CompileDesign* compileDesign, UHDM::any* pstmt,
-      ValuedComponentI* instance = nullptr);
+      ValuedComponentI* instance = nullptr, bool muteErrors = false);
 
   UHDM::atomic_stmt* compileConditionalStmt(
       DesignComponent* component, const FileContent* fC, NodeId nodeId,
       CompileDesign* compileDesign, UHDM::any* pstmt,
-      ValuedComponentI* instance = nullptr);
+      ValuedComponentI* instance = nullptr, bool muteErrors = false);
 
   bool compileParameterDeclaration(DesignComponent* component,
                                    const FileContent* fC, NodeId nodeId,
@@ -218,18 +218,18 @@ class CompileHelper final {
                                      const FileContent* fC, NodeId nodeId,
                                      CompileDesign* compileDesign,
                                      UHDM::any* pstmt = nullptr,
-                                     ValuedComponentI* instance = nullptr);
+                                     ValuedComponentI* instance = nullptr, bool muteErrors = false);
   UHDM::atomic_stmt* compileRandcaseStmt(DesignComponent* component,
                                          const FileContent* fC, NodeId nodeId,
                                          CompileDesign* compileDesign,
                                          UHDM::any* pstmt = nullptr,
-                                         ValuedComponentI* instance = nullptr);
+                                         ValuedComponentI* instance = nullptr, bool muteErrors = false);
 
   UHDM::VectorOfany* compileStmt(DesignComponent* component,
                                  const FileContent* fC, NodeId nodeId,
                                  CompileDesign* compileDesign, Reduce reduce,
                                  UHDM::any* pstmt = nullptr,
-                                 ValuedComponentI* instance = nullptr);
+                                 ValuedComponentI* instance = nullptr, bool muteError = false);
 
   UHDM::any* compileVariable(DesignComponent* component, const FileContent* fC,
                              NodeId nodeId, CompileDesign* compileDesign,
@@ -336,7 +336,7 @@ class CompileHelper final {
       ValuedComponentI* instance = nullptr);
 
   UHDM::any* compileForLoop(DesignComponent* component, const FileContent* fC,
-                            NodeId nodeId, CompileDesign* compileDesign);
+                            NodeId nodeId, CompileDesign* compileDesign, bool muteErrors = false);
 
   UHDM::any* compileSelectExpression(
       DesignComponent* component, const FileContent* fC, NodeId Bit_select,
@@ -452,6 +452,9 @@ class CompileHelper final {
   void compileHighConn(ModuleDefinition* component, const FileContent* fC,
                        CompileDesign* compileDesign, NodeId id,
                        UHDM::VectorOfport* ports);
+
+  void compileGenStmt(ModuleDefinition* component, const FileContent* fC,
+                       CompileDesign* compileDesign, NodeId id);
 
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);

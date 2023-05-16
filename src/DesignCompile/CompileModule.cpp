@@ -634,8 +634,16 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::slContinuous_assign: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id),
-                                               m_compileDesign, m_instance);
+          std::vector<UHDM::cont_assign*> assigns =
+              m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id),
+                                                   m_compileDesign, m_instance);
+          if (m_module->getContAssigns() == nullptr) {
+            m_module->setContAssigns(
+                m_compileDesign->getSerializer().MakeCont_assignVec());
+          }
+          for (auto assign : assigns) {
+            m_module->getContAssigns()->push_back(assign);
+          }
           break;
         }
         case VObjectType::slAlways_construct: {
@@ -777,7 +785,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slHierarchical_instance:
         case VObjectType::slUdp_instance:
         case VObjectType::slGate_instantiation:
-        case VObjectType::slConditional_generate_construct:
         case VObjectType::slGenerate_module_conditional_statement:
         case VObjectType::slLoop_generate_construct:
         case VObjectType::slGenerate_module_loop_statement:
@@ -851,6 +858,14 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
                   err);
             }
           }
+          break;
+        }
+        case VObjectType::slConditional_generate_construct: {
+          if (collectType != CollectType::OTHER) break;
+          if (m_instance) break;
+          m_helper.compileGenStmt(m_module, fC, m_compileDesign, id);
+          FileCNodeId fnid(fC, id);
+          m_module->addObject(type, fnid);
           break;
         }
         default:
@@ -998,8 +1013,16 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         }
         case VObjectType::slContinuous_assign: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id),
-                                               m_compileDesign, m_instance);
+          std::vector<UHDM::cont_assign*> assigns =
+              m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id),
+                                                   m_compileDesign, m_instance);
+          if (m_module->getContAssigns() == nullptr) {
+            m_module->setContAssigns(
+                m_compileDesign->getSerializer().MakeCont_assignVec());
+          }
+          for (auto assign : assigns) {
+            m_module->getContAssigns()->push_back(assign);
+          }
           break;
         }
         case VObjectType::slAlways_construct: {

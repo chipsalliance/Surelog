@@ -585,13 +585,14 @@ array_typespec                                         9
 array_var                                              1
 assign_stmt                                            2
 assignment                                             3
-begin                                                  4
-bit_select                                             6
-constant                                             110
+begin                                                  9
+bit_select                                             8
+constant                                             117
 design                                                 1
 for_stmt                                               2
 func_call                                              6
 function                                               2
+gen_if                                                 5
 gen_scope                                              8
 gen_scope_array                                        8
 if_stmt                                                1
@@ -599,12 +600,12 @@ int_typespec                                          21
 int_var                                                6
 io_decl                                                2
 module_inst                                           11
-operation                                             26
+operation                                             31
 param_assign                                          32
 parameter                                             33
 range                                                 12
 ref_module                                             1
-ref_obj                                               33
+ref_obj                                               38
 sys_task_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -615,13 +616,14 @@ array_typespec                                         9
 array_var                                              1
 assign_stmt                                            4
 assignment                                             6
-begin                                                  8
-bit_select                                            10
-constant                                             110
+begin                                                 13
+bit_select                                            12
+constant                                             117
 design                                                 1
 for_stmt                                               4
 func_call                                              6
 function                                               4
+gen_if                                                 5
 gen_scope                                             12
 gen_scope_array                                       12
 if_stmt                                                2
@@ -629,12 +631,12 @@ int_typespec                                          21
 int_var                                                8
 io_decl                                                4
 module_inst                                           11
-operation                                             32
+operation                                             37
 param_assign                                          32
 parameter                                             33
 range                                                 13
 ref_module                                             1
-ref_obj                                               51
+ref_obj                                               56
 sys_task_call                                          8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ArrayExprFunArg/slpp_all/surelog.uhdm ...
@@ -1262,6 +1264,138 @@ design: (work@main)
                   \_int_var: (MAX_VADDR_CNT), line:25:17, endln:25:29
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:1:1, endln:44:10
+  |vpiGenStmt:
+  \_gen_if: , line:17:1, endln:17:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:1:1, endln:44:10
+    |vpiCondition:
+    \_operation: , line:17:5, endln:17:18
+      |vpiOpType:14
+      |vpiOperand:
+      \_bit_select: (VADDR), line:17:5, endln:17:13
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:17:5, endln:17:18
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:17:11, endln:17:12
+          |vpiParent:
+          \_bit_select: (VADDR), line:17:5, endln:17:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:17:17, endln:17:18
+        |vpiParent:
+        \_operation: , line:17:5, endln:17:18
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:20:1, endln:20:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:1:1, endln:44:10
+    |vpiCondition:
+    \_operation: , line:20:5, endln:20:18
+      |vpiOpType:14
+      |vpiOperand:
+      \_bit_select: (VADDR), line:20:5, endln:20:13
+        |vpiParent:
+        \_ref_obj: (VADDR)
+          |vpiParent:
+          \_operation: , line:20:5, endln:20:18
+          |vpiName:VADDR
+        |vpiName:VADDR
+        |vpiIndex:
+        \_constant: , line:20:11, endln:20:12
+          |vpiParent:
+          \_bit_select: (VADDR), line:20:5, endln:20:13
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:20:17, endln:20:18
+        |vpiParent:
+        \_operation: , line:20:5, endln:20:18
+        |vpiDecompile:4
+        |vpiSize:64
+        |UINT:4
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:35:1, endln:35:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:1:1, endln:44:10
+    |vpiCondition:
+    \_operation: , line:35:5, endln:35:19
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (MAX_VADDR), line:35:5, endln:35:14
+        |vpiParent:
+        \_operation: , line:35:5, endln:35:19
+        |vpiName:MAX_VADDR
+      |vpiOperand:
+      \_constant: , line:35:18, endln:35:19
+        |vpiParent:
+        \_operation: , line:35:5, endln:35:19
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:38:1, endln:38:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:1:1, endln:44:10
+    |vpiCondition:
+    \_operation: , line:38:5, endln:38:19
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (MAX_VADDR), line:38:5, endln:38:14
+        |vpiParent:
+        \_operation: , line:38:5, endln:38:19
+        |vpiName:MAX_VADDR
+      |vpiOperand:
+      \_constant: , line:38:18, endln:38:19
+        |vpiParent:
+        \_operation: , line:38:5, endln:38:19
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_if: , line:41:1, endln:41:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:1:1, endln:44:10
+    |vpiCondition:
+    \_operation: , line:41:5, endln:41:19
+      |vpiOpType:15
+      |vpiOperand:
+      \_ref_obj: (MAX_VADDR), line:41:5, endln:41:14
+        |vpiParent:
+        \_operation: , line:41:5, endln:41:19
+        |vpiName:MAX_VADDR
+      |vpiOperand:
+      \_constant: , line:41:18, endln:41:19
+        |vpiParent:
+        \_operation: , line:41:5, endln:41:19
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:46:1, endln:48:10
   |vpiName:work@main

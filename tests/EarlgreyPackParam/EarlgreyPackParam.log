@@ -439,10 +439,12 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 bit_select                                             4
 bit_typespec                                          15
 constant                                             117
 design                                                 1
+gen_if                                                 2
 gen_scope                                             16
 gen_scope_array                                       16
 int_typespec                                           9
@@ -455,15 +457,17 @@ parameter                                             31
 part_select                                            3
 range                                                  8
 ref_module                                             8
-ref_obj                                                9
+ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 bit_select                                             4
 bit_typespec                                          15
 constant                                             117
 design                                                 1
+gen_if                                                 2
 gen_scope                                             32
 gen_scope_array                                       32
 int_typespec                                           9
@@ -476,7 +480,7 @@ parameter                                             31
 part_select                                            3
 range                                                  8
 ref_module                                             8
-ref_obj                                                9
+ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EarlgreyPackParam/slpp_all/surelog.uhdm ...
 
@@ -810,6 +814,15 @@ design: (work@test)
     |vpiDefName:work@prim_diff_decode
     |vpiActual:
     \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
+  |vpiGenStmt:
+  \_gen_if: , line:23:5, endln:23:7
+    |vpiParent:
+    \_module_inst: work@prim_alert_sender (work@prim_alert_sender), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:13:1, endln:26:11
+    |vpiCondition:
+    \_ref_obj: (AsyncOn), line:23:9, endln:23:16
+      |vpiName:AsyncOn
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
   |vpiParent:
@@ -841,6 +854,15 @@ design: (work@test)
     |vpiLhs:
     \_parameter: (work@prim_diff_decode.AsyncOn), line:32:17, endln:32:24
   |vpiDefName:work@prim_diff_decode
+  |vpiGenStmt:
+  \_gen_if: , line:35:3, endln:35:5
+    |vpiParent:
+    \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
+    |vpiCondition:
+    \_ref_obj: (AsyncOn), line:35:7, endln:35:14
+      |vpiName:AsyncOn
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:7:1, endln:10:10
   |vpiParent:

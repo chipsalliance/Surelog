@@ -789,17 +789,19 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 bit_select                                             1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             189
-cont_assign                                            2
+constant                                             191
+cont_assign                                            3
 design                                                 1
 enum_const                                            55
 enum_typespec                                         26
 enum_var                                               1
 function                                               9
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              1
@@ -811,7 +813,7 @@ logic_net                                              4
 logic_typespec                                        25
 logic_var                                              1
 module_inst                                           18
-operation                                             47
+operation                                             48
 package                                                8
 packed_array_typespec                                 23
 param_assign                                          20
@@ -819,7 +821,7 @@ parameter                                             26
 port                                                  11
 range                                                 48
 ref_module                                             3
-ref_obj                                               30
+ref_obj                                               33
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
@@ -829,17 +831,19 @@ typespec_member                                       23
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 bit_select                                             1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             189
-cont_assign                                            9
+constant                                             191
+cont_assign                                           10
 design                                                 1
 enum_const                                            60
 enum_typespec                                         27
 enum_var                                               1
 function                                              18
+gen_if                                                 2
 gen_scope                                             17
 gen_scope_array                                       17
 hier_path                                              1
@@ -851,7 +855,7 @@ logic_net                                              4
 logic_typespec                                        25
 logic_var                                              1
 module_inst                                           22
-operation                                             47
+operation                                             48
 package                                                8
 packed_array_typespec                                 23
 param_assign                                          24
@@ -859,7 +863,7 @@ parameter                                             26
 port                                                  23
 range                                                 48
 ref_module                                             3
-ref_obj                                               60
+ref_obj                                               63
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
@@ -1746,6 +1750,44 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:22:37, endln:22:40
       |vpiSigned:1
+  |vpiGenStmt:
+  \_gen_if: , line:25:4, endln:25:6
+    |vpiParent:
+    \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:22:1, endln:28:34
+    |vpiCondition:
+    \_operation: , line:25:8, endln:25:20
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (PadType), line:25:8, endln:25:15
+        |vpiParent:
+        \_operation: , line:25:8, endln:25:20
+        |vpiName:PadType
+      |vpiOperand:
+      \_ref_obj: (B), line:25:19, endln:25:20
+        |vpiParent:
+        \_operation: , line:25:8, endln:25:20
+        |vpiName:B
+        |vpiActual:
+        \_enum_const: (B), line:4:7, endln:4:15
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:26:14, endln:26:19
+        |vpiRhs:
+        \_constant: , line:26:18, endln:26:19
+          |vpiParent:
+          \_cont_assign: , line:26:14, endln:26:19
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (a), line:26:14, endln:26:15
+          |vpiParent:
+          \_cont_assign: , line:26:14, endln:26:19
+          |vpiName:a
+          |vpiActual:
+          \_int_var: (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.gen_generic.u_impl_generic.a), line:22:41, endln:22:42
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:30:1, endln:39:10
   |vpiParent:
@@ -1794,6 +1836,18 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:30:29, endln:30:32
       |vpiSigned:1
+  |vpiGenStmt:
+  \_gen_if: , line:34:4, endln:34:6
+    |vpiParent:
+    \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:30:1, endln:39:10
+    |vpiCondition:
+    \_constant: , line:34:8, endln:34:9
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
   |vpiParent:
@@ -3301,4 +3355,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv | ${SURELOG_DIR}/build/regression/MultiConcatValueSize/roundtrip/dut_000.sv | 29 | 60 |
+[roundtrip]: ${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv | ${SURELOG_DIR}/build/regression/MultiConcatValueSize/roundtrip/dut_000.sv | 28 | 60 |

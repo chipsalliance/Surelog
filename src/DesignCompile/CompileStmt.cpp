@@ -102,7 +102,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                                         const FileContent* fC, NodeId the_stmt,
                                         CompileDesign* compileDesign,
                                         Reduce reduce, UHDM::any* pstmt,
-                                        ValuedComponentI* instance) {
+                                        ValuedComponentI* instance,
+                                        bool muteErrors) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   VectorOfany* results = nullptr;
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -116,6 +117,20 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   type = fC->Type(the_stmt);
   UHDM::any* stmt = nullptr;
   switch (type) {
+    case VObjectType::slModule_common_item:
+    case VObjectType::slModule_or_generate_item:
+    case VObjectType::slGenerate_item:
+    case VObjectType::slGenerate_block: {
+      if (instance) break;
+      NodeId child = fC->Child(the_stmt);
+      if (!child) {
+        // That is the null statement (no statement)
+        return nullptr;
+      }
+      results = compileStmt(component, fC, child, compileDesign, reduce, pstmt,
+                            instance, muteErrors);
+      break;
+    }
     case VObjectType::slStatement_or_null: {
       NodeId child = fC->Child(the_stmt);
       if (!child) {
@@ -123,7 +138,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         return nullptr;
       }
       results = compileStmt(component, fC, child, compileDesign, reduce, pstmt,
-                            instance);
+                            instance, muteErrors);
       break;
     }
     case VObjectType::slBlock_item_declaration:
@@ -135,7 +150,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slProcedural_assertion_statement:
     case VObjectType::slLoop_statement: {
       results = compileStmt(component, fC, fC->Child(the_stmt), compileDesign,
-                            reduce, pstmt, instance);
+                            reduce, pstmt, instance, muteErrors);
       break;
     }
     case VObjectType::slInc_or_dec_expression: {
@@ -258,8 +273,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           }
           break;
         }
-        VectorOfany* cstmts = compileStmt(component, fC, item, compileDesign,
-                                          Reduce::No, stmt, instance);
+        VectorOfany* cstmts =
+            compileStmt(component, fC, item, compileDesign, Reduce::No, stmt,
+                        instance, muteErrors);
         if (cstmts) {
           for (any* cstmt : *cstmts) {
             bool isDecl = false;
@@ -322,8 +338,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         scope = fork;
       }
       while (item) {
-        VectorOfany* cstmts = compileStmt(component, fC, item, compileDesign,
-                                          Reduce::No, stmt, instance);
+        VectorOfany* cstmts =
+            compileStmt(component, fC, item, compileDesign, Reduce::No, stmt,
+                        instance, muteErrors);
         if (cstmts) {
           for (any* cstmt : *cstmts) {
             bool isDecl = false;
@@ -404,8 +421,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slForever: {
       UHDM::forever_stmt* forever = s.MakeForever_stmt();
       NodeId item = fC->Sibling(the_stmt);
-      VectorOfany* forev = compileStmt(component, fC, item, compileDesign,
-                                       Reduce::No, forever, instance);
+      VectorOfany* forev =
+          compileStmt(component, fC, item, compileDesign, Reduce::No, forever,
+                      instance, muteErrors);
       if (forev) {
         any* stmt = (*forev)[0];
         stmt->VpiParent(forever);
@@ -473,8 +491,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         Statement = fC->Sibling(Statement);
       }
       for_each->VpiLoopVars(loop_vars);
-      VectorOfany* forev = compileStmt(component, fC, Statement, compileDesign,
-                                       Reduce::No, for_each, instance);
+      VectorOfany* forev =
+          compileStmt(component, fC, Statement, compileDesign, Reduce::No,
+                      for_each, instance, muteErrors);
       if (forev) {
         any* stmt = (*forev)[0];
         stmt->VpiParent(for_each);
@@ -545,8 +564,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       UHDM::repeat* repeat = s.MakeRepeat();
       repeat->VpiCondition((UHDM::expr*)cond_exp);
       if (cond_exp) cond_exp->VpiParent(repeat);
-      VectorOfany* repeat_stmts = compileStmt(
-          component, fC, rstmt, compileDesign, Reduce::No, repeat, instance);
+      VectorOfany* repeat_stmts =
+          compileStmt(component, fC, rstmt, compileDesign, Reduce::No, repeat,
+                      instance, muteErrors);
       if (repeat_stmts) {
         any* stmt = (*repeat_stmts)[0];
         repeat->VpiStmt(stmt);
@@ -563,8 +583,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       UHDM::while_stmt* while_st = s.MakeWhile_stmt();
       while_st->VpiCondition((UHDM::expr*)cond_exp);
       if (cond_exp) cond_exp->VpiParent(while_st);
-      VectorOfany* while_stmts = compileStmt(
-          component, fC, rstmt, compileDesign, Reduce::No, while_st, instance);
+      VectorOfany* while_stmts =
+          compileStmt(component, fC, rstmt, compileDesign, Reduce::No, while_st,
+                      instance, muteErrors);
       if (while_stmts) {
         any* stmt = (*while_stmts)[0];
         while_st->VpiStmt(stmt);
@@ -581,7 +602,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       if (Statement) {
         VectorOfany* while_stmts =
             compileStmt(component, fC, Statement, compileDesign, Reduce::No,
-                        do_while, instance);
+                        do_while, instance, muteErrors);
         if (while_stmts && !while_stmts->empty()) {
           any* stmt = (*while_stmts)[0];
           do_while->VpiStmt(stmt);
@@ -610,7 +631,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         if (Statement) {
           VectorOfany* while_stmts =
               compileStmt(component, fC, Statement, compileDesign, Reduce::No,
-                          waitst, instance);
+                          waitst, instance, muteErrors);
           if (while_stmts && !while_stmts->empty()) {
             any* stmt = (*while_stmts)[0];
             waitst->VpiStmt(stmt);
@@ -642,8 +663,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         NodeId Stmt = fC->Child(Action_block);
         if (fC->Type(Stmt) == VObjectType::slStatement_or_null) {
           // If only
-          VectorOfany* if_stmts = compileStmt(
-              component, fC, Stmt, compileDesign, Reduce::No, waitst, instance);
+          VectorOfany* if_stmts =
+              compileStmt(component, fC, Stmt, compileDesign, Reduce::No,
+                          waitst, instance, muteErrors);
           if (if_stmts && !if_stmts->empty()) {
             any* stmt = (*if_stmts)[0];
             waitst->VpiStmt(stmt);
@@ -652,8 +674,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         } else if (fC->Type(Stmt) == VObjectType::slElse) {
           // Else Only
           Stmt = fC->Sibling(Stmt);
-          VectorOfany* if_stmts = compileStmt(
-              component, fC, Stmt, compileDesign, Reduce::No, waitst, instance);
+          VectorOfany* if_stmts =
+              compileStmt(component, fC, Stmt, compileDesign, Reduce::No,
+                          waitst, instance, muteErrors);
           if (if_stmts && !if_stmts->empty()) {
             any* stmt = (*if_stmts)[0];
             waitst->VpiElseStmt(stmt);
@@ -661,8 +684,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           }
         } else {
           // if else
-          VectorOfany* if_stmts = compileStmt(
-              component, fC, Stmt, compileDesign, Reduce::No, waitst, instance);
+          VectorOfany* if_stmts =
+              compileStmt(component, fC, Stmt, compileDesign, Reduce::No,
+                          waitst, instance, muteErrors);
           if (if_stmts && !if_stmts->empty()) {
             any* stmt = (*if_stmts)[0];
             waitst->VpiStmt(stmt);
@@ -670,8 +694,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           }
           NodeId Else = fC->Sibling(Stmt);
           Stmt = fC->Sibling(Else);
-          VectorOfany* else_stmts = compileStmt(
-              component, fC, Stmt, compileDesign, Reduce::No, waitst, instance);
+          VectorOfany* else_stmts =
+              compileStmt(component, fC, Stmt, compileDesign, Reduce::No,
+                          waitst, instance, muteErrors);
           if (else_stmts && !else_stmts->empty()) {
             any* stmt = (*else_stmts)[0];
             waitst->VpiElseStmt(stmt);
@@ -787,7 +812,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       const std::string_view label = fC->SymName(the_stmt);
       VectorOfany* stmts =
           compileStmt(component, fC, fC->Sibling(the_stmt), compileDesign,
-                      Reduce::No, pstmt, instance);
+                      Reduce::No, pstmt, instance, muteErrors);
       if (stmts) {
         for (any* st : *stmts) {
           if (UHDM::atomic_stmt* stm = any_cast<atomic_stmt*>(st)) {
@@ -822,12 +847,12 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         UHDM::VectorOfany* if_stmts = nullptr;
         if (if_stmt_id)
           if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign,
-                                 Reduce::No, pstmt);
+                                 Reduce::No, pstmt, instance, muteErrors);
         if (if_stmts) if_stmt = (*if_stmts)[0];
         UHDM::VectorOfany* else_stmts = nullptr;
         if (else_stmt_id)
           else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign,
-                                   Reduce::No, pstmt);
+                                   Reduce::No, pstmt, instance, muteErrors);
         if (else_stmts) else_stmt = (*else_stmts)[0];
       }
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
@@ -851,6 +876,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       expect->Else_stmt(else_stmt);
       stmt = expect;
       break;
+    }
+    case VObjectType::slContinuous_assign: {
+      // Non-elab model
+      VectorOfany* stmts = s.MakeAnyVec();
+      auto assigns = compileContinuousAssignment(
+          component, fC, fC->Child(the_stmt), compileDesign, nullptr);
+      for (auto assign : assigns) {
+        stmts->push_back(assign);
+      }
+      results = stmts;
     }
     default:
       break;
@@ -877,7 +912,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     }
   } else {
     VObjectType stmttype = fC->Type(the_stmt);
-    if ((stmttype != VObjectType::slEnd) &&
+    if ((muteErrors == false) && (stmttype != VObjectType::slEnd) &&
         (stmttype != VObjectType::slJoin_keyword) &&
         (stmttype != VObjectType::slJoin_any_keyword) &&
         (stmttype != VObjectType::slJoin_none_keyword)) {
@@ -1059,8 +1094,8 @@ VectorOfany* CompileHelper::compileDataDeclaration(
 
 UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
     DesignComponent* component, const FileContent* fC, NodeId Cond_predicate,
-    CompileDesign* compileDesign, UHDM::any* pstmt,
-    ValuedComponentI* instance) {
+    CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance,
+    bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   int32_t qualifier = 0;
   if (fC->Type(Cond_predicate) == VObjectType::slUnique_priority) {
@@ -1088,14 +1123,14 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
       cond_exp->VpiParent(cond_stmt);
     VectorOfany* if_stmts =
         compileStmt(component, fC, If_branch_stmt, compileDesign, Reduce::No,
-                    cond_stmt, instance);
+                    cond_stmt, instance, muteErrors);
     UHDM::any* if_stmt = nullptr;
     if (if_stmts) if_stmt = (*if_stmts)[0];
     cond_stmt->VpiStmt(if_stmt);
     if (if_stmt) if_stmt->VpiParent(cond_stmt);
     VectorOfany* else_stmts =
         compileStmt(component, fC, Else_branch_stmt, compileDesign, Reduce::No,
-                    cond_stmt, instance);
+                    cond_stmt, instance, muteErrors);
     UHDM::any* else_stmt = nullptr;
     if (else_stmts) else_stmt = (*else_stmts)[0];
     cond_stmt->VpiElseStmt(else_stmt);
@@ -1109,7 +1144,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
       cond_exp->VpiParent(cond_stmt);
     VectorOfany* if_stmts =
         compileStmt(component, fC, If_branch_stmt, compileDesign, Reduce::No,
-                    cond_stmt, instance);
+                    cond_stmt, instance, muteErrors);
     UHDM::any* if_stmt = nullptr;
     if (if_stmts) if_stmt = (*if_stmts)[0];
     cond_stmt->VpiStmt(if_stmt);
@@ -1122,7 +1157,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
 UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
     DesignComponent* component, const FileContent* fC,
     NodeId Procedural_timing_control, CompileDesign* compileDesign,
-    UHDM::any* pstmt, ValuedComponentI* instance) {
+    UHDM::any* pstmt, ValuedComponentI* instance, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   /*
   n<#100> u<70> t<IntConst> p<71> l<7>
@@ -1142,8 +1177,9 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
     if (exp) exp->VpiParent(event);
   }  // else @(*) : no event expression
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
-                                   compileDesign, Reduce::No, event, instance);
+  VectorOfany* stmts =
+      compileStmt(component, fC, Statement_or_null, compileDesign, Reduce::No,
+                  event, instance, muteErrors);
   if (stmts) {
     any* stmt = (*stmts)[0];
     event->Stmt(stmt);
@@ -1154,8 +1190,8 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
 
 UHDM::atomic_stmt* CompileHelper::compileRandcaseStmt(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
-    CompileDesign* compileDesign, UHDM::any* pstmt,
-    ValuedComponentI* instance) {
+    CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance,
+    bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::atomic_stmt* result = nullptr;
   NodeId RandCase = fC->Child(nodeId);
@@ -1177,8 +1213,9 @@ UHDM::atomic_stmt* CompileHelper::compileRandcaseStmt(
       exprs->push_back(item_exp);
     }
     NodeId stmt = fC->Sibling(Expression);
-    VectorOfany* stmts = compileStmt(component, fC, stmt, compileDesign,
-                                     Reduce::No, case_item, instance);
+    VectorOfany* stmts =
+        compileStmt(component, fC, stmt, compileDesign, Reduce::No, case_item,
+                    instance, muteErrors);
     if (stmts) {
       any* stmt = (*stmts)[0];
       stmt->VpiParent(case_item);
@@ -1192,12 +1229,10 @@ UHDM::atomic_stmt* CompileHelper::compileRandcaseStmt(
   return result;
 }
 
-UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component,
-                                                  const FileContent* fC,
-                                                  NodeId nodeId,
-                                                  CompileDesign* compileDesign,
-                                                  UHDM::any* pstmt,
-                                                  ValuedComponentI* instance) {
+UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance,
+    bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::atomic_stmt* result = nullptr;
   NodeId Case_keyword = fC->Child(nodeId);
@@ -1280,7 +1315,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component,
             // Stmt
             VectorOfany* stmts =
                 compileStmt(component, fC, Expression, compileDesign,
-                            Reduce::No, case_item, instance);
+                            Reduce::No, case_item, instance, muteErrors);
             if (stmts) {
               any* stmt = (*stmts)[0];
               stmt->VpiParent(case_item);
@@ -2549,7 +2584,8 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
 
 UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
                                          const FileContent* fC, NodeId nodeId,
-                                         CompileDesign* compileDesign) {
+                                         CompileDesign* compileDesign,
+                                         bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   for_stmt* for_stmt = s.MakeFor_stmt();
   NodeId For_initialization;
@@ -2699,8 +2735,9 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
 
   // Stmt
   if (Statement_or_null) {
-    VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
-                                     compileDesign, Reduce::No, for_stmt);
+    VectorOfany* stmts =
+        compileStmt(component, fC, Statement_or_null, compileDesign, Reduce::No,
+                    for_stmt, nullptr, muteErrors);
     if (stmts) for_stmt->VpiStmt((*stmts)[0]);
   }
 

@@ -383,27 +383,30 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 bit_select                                             1
-constant                                             128
-cont_assign                                            2
+constant                                             130
+cont_assign                                            3
 design                                                 1
 enum_const                                            30
 enum_typespec                                         15
+gen_if                                                 2
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                              1
 import_typespec                                        5
 int_typespec                                          43
+logic_net                                              1
 logic_typespec                                        15
 module_inst                                           15
-operation                                             28
+operation                                             29
 package                                                6
 packed_array_typespec                                 13
 param_assign                                          24
 parameter                                             31
 range                                                 28
 ref_module                                             2
-ref_obj                                               15
+ref_obj                                               18
 string_typespec                                       12
 struct_typespec                                       13
 tagged_pattern                                        12
@@ -412,27 +415,30 @@ typespec_member                                       13
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 bit_select                                             1
-constant                                             128
-cont_assign                                            5
+constant                                             130
+cont_assign                                            6
 design                                                 1
 enum_const                                            30
 enum_typespec                                         15
+gen_if                                                 2
 gen_scope                                              8
 gen_scope_array                                        8
 hier_path                                              1
 import_typespec                                        5
 int_typespec                                          43
+logic_net                                              1
 logic_typespec                                        15
 module_inst                                           16
-operation                                             28
+operation                                             29
 package                                                6
 packed_array_typespec                                 13
 param_assign                                          26
 parameter                                             31
 range                                                 28
 ref_module                                             2
-ref_obj                                               18
+ref_obj                                               21
 string_typespec                                       12
 struct_typespec                                       13
 tagged_pattern                                        12
@@ -984,6 +990,44 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (prim_pad_wrapper_pkg), line:24:11, endln:24:34
   |vpiDefName:work@prim_generic_pad_attr
+  |vpiGenStmt:
+  \_gen_if: , line:26:4, endln:26:6
+    |vpiParent:
+    \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:23:1, endln:29:34
+    |vpiCondition:
+    \_operation: , line:26:8, endln:26:20
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (PadType), line:26:8, endln:26:15
+        |vpiParent:
+        \_operation: , line:26:8, endln:26:20
+        |vpiName:PadType
+      |vpiOperand:
+      \_ref_obj: (B), line:26:19, endln:26:20
+        |vpiParent:
+        \_operation: , line:26:8, endln:26:20
+        |vpiName:B
+        |vpiActual:
+        \_enum_const: (B), line:6:7, endln:6:15
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:27:14, endln:27:19
+        |vpiRhs:
+        \_constant: , line:27:18, endln:27:19
+          |vpiParent:
+          \_cont_assign: , line:27:14, endln:27:19
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (a), line:27:14, endln:27:15
+          |vpiParent:
+          \_cont_assign: , line:27:14, endln:27:19
+          |vpiName:a
+          |vpiActual:
+          \_logic_net: (a)
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:32:1, endln:42:10
   |vpiParent:
@@ -1064,6 +1108,18 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (prim_pad_wrapper_pkg), line:33:11, endln:33:34
   |vpiDefName:work@prim_pad_attr
+  |vpiGenStmt:
+  \_gen_if: , line:36:4, endln:36:6
+    |vpiParent:
+    \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:32:1, endln:42:10
+    |vpiCondition:
+    \_constant: , line:36:8, endln:36:9
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:44:1, endln:50:10
   |vpiParent:
@@ -1991,6 +2047,10 @@ design: (work@top)
           |vpiDefName:work@prim_generic_pad_attr
           |vpiDefFile:${SURELOG_DIR}/tests/HierPathOverride/dut.sv
           |vpiDefLineNo:23
+          |vpiNet:
+          \_logic_net: (a)
+            |vpiName:a
+            |vpiNetType:1
           |vpiGenScopeArray:
           \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:4, endln:28:7
             |vpiParent:
@@ -2020,6 +2080,8 @@ design: (work@top)
                   \_cont_assign: , line:27:14, endln:27:19
                   |vpiName:a
                   |vpiFullName:work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign.a
+                  |vpiActual:
+                  \_logic_net: (a)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -2028,4 +2090,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/HierPathOverride/dut.sv | ${SURELOG_DIR}/build/regression/HierPathOverride/roundtrip/dut_000.sv | 18 | 50 |
+[roundtrip]: ${SURELOG_DIR}/tests/HierPathOverride/dut.sv | ${SURELOG_DIR}/build/regression/HierPathOverride/roundtrip/dut_000.sv | 17 | 50 |

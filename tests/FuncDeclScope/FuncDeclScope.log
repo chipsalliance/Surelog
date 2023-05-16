@@ -323,11 +323,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              17
+begin                                                  1
+constant                                              18
 cont_assign                                            4
 design                                                 1
 func_call                                              4
 function                                               4
+gen_if                                                 1
 gen_scope                                              4
 gen_scope_array                                        4
 int_typespec                                           9
@@ -335,21 +337,23 @@ int_var                                                5
 interface_inst                                         3
 logic_net                                              2
 module_inst                                           10
-operation                                              2
+operation                                              3
 param_assign                                           6
 parameter                                              6
 ref_module                                             1
-ref_obj                                                6
+ref_obj                                                7
 return_stmt                                            3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              17
+begin                                                  1
+constant                                              18
 cont_assign                                            5
 design                                                 1
 func_call                                              4
 function                                               6
+gen_if                                                 1
 gen_scope                                              5
 gen_scope_array                                        5
 int_typespec                                           9
@@ -357,11 +361,11 @@ int_var                                                5
 interface_inst                                         3
 logic_net                                              2
 module_inst                                           10
-operation                                              2
+operation                                              3
 param_assign                                           6
 parameter                                              6
 ref_module                                             1
-ref_obj                                                7
+ref_obj                                                8
 return_stmt                                            5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
@@ -498,6 +502,28 @@ design: (work@top)
     |vpiDefName:work@intf
     |vpiActual:
     \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+  |vpiGenStmt:
+  \_gen_if: , line:29:4, endln:29:6
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+    |vpiCondition:
+    \_operation: , line:29:8, endln:29:17
+      |vpiOpType:18
+      |vpiOperand:
+      \_ref_obj: (Depth), line:29:8, endln:29:13
+        |vpiParent:
+        \_operation: , line:29:8, endln:29:17
+        |vpiName:Depth
+      |vpiOperand:
+      \_constant: , line:29:16, endln:29:17
+        |vpiParent:
+        \_operation: , line:29:8, endln:29:17
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiName:work@top

@@ -503,16 +503,18 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
 constant                                              21
-cont_assign                                            3
+cont_assign                                            5
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_if                                                 2
 gen_scope                                              4
 gen_scope_array                                        4
 int_typespec                                          15
@@ -522,28 +524,30 @@ logic_net                                             12
 logic_typespec                                        19
 logic_var                                              1
 module_inst                                           10
-operation                                              4
+operation                                              6
 package                                                2
 param_assign                                           6
 parameter                                              6
 port                                                  16
 ref_module                                             2
-ref_obj                                               26
+ref_obj                                               32
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
 constant                                              21
-cont_assign                                            5
+cont_assign                                            7
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 int_typespec                                          15
@@ -553,13 +557,13 @@ logic_net                                             12
 logic_typespec                                        19
 logic_var                                              1
 module_inst                                           10
-operation                                              5
+operation                                              7
 package                                                2
 param_assign                                           6
 parameter                                              6
 port                                                  23
 ref_module                                             2
-ref_obj                                               41
+ref_obj                                               47
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LocalParam/slpp_all/surelog.uhdm ...
@@ -1144,6 +1148,66 @@ design: (work@top)
       \_logic_net: (work@assigner.out), line:6:69, endln:6:72
     |vpiTypedef:
     \_logic_typespec: , line:6:65, endln:6:68
+  |vpiGenStmt:
+  \_gen_if: , line:8:2, endln:8:4
+    |vpiParent:
+    \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
+    |vpiCondition:
+    \_operation: , line:8:6, endln:8:13
+      |vpiOpType:3
+      |vpiOperand:
+      \_ref_obj: (invert), line:8:7, endln:8:13
+        |vpiParent:
+        \_operation: , line:8:6, endln:8:13
+        |vpiName:invert
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:9:11, endln:9:20
+        |vpiRhs:
+        \_ref_obj: (inp), line:9:17, endln:9:20
+          |vpiParent:
+          \_cont_assign: , line:9:11, endln:9:20
+          |vpiName:inp
+          |vpiActual:
+          \_logic_net: (work@top.asgn0.inp), line:6:53, endln:6:56
+        |vpiLhs:
+        \_ref_obj: (out), line:9:11, endln:9:14
+          |vpiParent:
+          \_cont_assign: , line:9:11, endln:9:20
+          |vpiName:out
+          |vpiActual:
+          \_logic_net: (work@top.asgn0.out), line:6:69, endln:6:72
+  |vpiGenStmt:
+  \_gen_if: , line:10:2, endln:10:4
+    |vpiParent:
+    \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
+    |vpiCondition:
+    \_ref_obj: (invert), line:10:6, endln:10:12
+      |vpiName:invert
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:11:11, endln:11:21
+        |vpiRhs:
+        \_operation: , line:11:17, endln:11:21
+          |vpiParent:
+          \_cont_assign: , line:11:11, endln:11:21
+          |vpiOpType:4
+          |vpiOperand:
+          \_ref_obj: (inp), line:11:18, endln:11:21
+            |vpiParent:
+            \_operation: , line:11:17, endln:11:21
+            |vpiName:inp
+            |vpiActual:
+            \_logic_net: (work@top.asgn0.inp), line:6:53, endln:6:56
+        |vpiLhs:
+        \_ref_obj: (out), line:11:11, endln:11:14
+          |vpiParent:
+          \_cont_assign: , line:11:11, endln:11:21
+          |vpiName:out
+          |vpiActual:
+          \_logic_net: (work@top.asgn0.out), line:6:69, endln:6:72
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:1:1, endln:4:10
   |vpiParent:
@@ -1687,4 +1751,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/LocalParam/dut.sv | ${SURELOG_DIR}/build/regression/LocalParam/roundtrip/dut_000.sv | 8 | 12 |
+[roundtrip]: ${SURELOG_DIR}/tests/LocalParam/dut.sv | ${SURELOG_DIR}/build/regression/LocalParam/roundtrip/dut_000.sv | 6 | 12 |

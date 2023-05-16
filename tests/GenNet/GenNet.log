@@ -273,9 +273,11 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              38
+begin                                                  1
+constant                                              40
 cont_assign                                            1
 design                                                 1
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           2
@@ -283,21 +285,23 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            9
-operation                                             10
+operation                                             13
 param_assign                                           4
 parameter                                              4
 port                                                   2
 range                                                  6
 ref_module                                             1
-ref_obj                                                5
+ref_obj                                                7
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              38
+begin                                                  1
+constant                                              40
 cont_assign                                            2
 design                                                 1
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           2
@@ -305,13 +309,13 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              2
 module_inst                                            9
-operation                                             10
+operation                                             13
 param_assign                                           4
 parameter                                              4
 port                                                   3
 range                                                  7
 ref_module                                             1
-ref_obj                                                8
+ref_obj                                               10
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.uhdm ...
@@ -442,6 +446,51 @@ design: (work@dut)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiGenStmt:
+  \_gen_if: , line:8:3, endln:8:5
+    |vpiParent:
+    \_module_inst: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
+    |vpiCondition:
+    \_operation: , line:8:7, endln:8:47
+      |vpiOpType:27
+      |vpiOperand:
+      \_operation: , line:8:8, endln:8:24
+        |vpiParent:
+        \_operation: , line:8:7, endln:8:47
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (SWACCESS), line:8:8, endln:8:16
+          |vpiParent:
+          \_operation: , line:8:8, endln:8:24
+          |vpiName:SWACCESS
+        |vpiOperand:
+        \_constant: , line:8:20, endln:8:24
+          |vpiParent:
+          \_operation: , line:8:8, endln:8:24
+          |vpiDecompile:"RW"
+          |vpiSize:16
+          |STRING:RW
+          |vpiConstType:6
+      |vpiOperand:
+      \_operation: , line:8:30, endln:8:46
+        |vpiParent:
+        \_operation: , line:8:7, endln:8:47
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (SWACCESS), line:8:30, endln:8:38
+          |vpiParent:
+          \_operation: , line:8:7, endln:8:47
+          |vpiName:SWACCESS
+        |vpiOperand:
+        \_constant: , line:8:42, endln:8:46
+          |vpiParent:
+          \_operation: , line:8:30, endln:8:46
+          |vpiDecompile:"WO"
+          |vpiSize:16
+          |STRING:WO
+          |vpiConstType:6
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
   |vpiName:work@dut

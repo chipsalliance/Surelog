@@ -895,7 +895,7 @@ Instance tree:
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
 assignment                                             1
-begin                                                  1
+begin                                                  2
 case_item                                              2
 case_stmt                                              1
 class_defn                                             8
@@ -907,6 +907,7 @@ enum_const                                            11
 enum_typespec                                          4
 enum_var                                               1
 function                                               9
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
@@ -918,12 +919,12 @@ logic_typespec                                        88
 logic_var                                              1
 module_inst                                           10
 named_begin                                            1
-operation                                             67
+operation                                             68
 package                                               11
 param_assign                                          54
 parameter                                             54
 range                                                 88
-ref_obj                                               40
+ref_obj                                               42
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -931,7 +932,7 @@ task                                                   9
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
 assignment                                             2
-begin                                                  2
+begin                                                  3
 case_item                                              4
 case_stmt                                              2
 class_defn                                             8
@@ -943,6 +944,7 @@ enum_const                                            16
 enum_typespec                                          5
 enum_var                                               1
 function                                              18
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
@@ -954,12 +956,12 @@ logic_typespec                                        88
 logic_var                                              1
 module_inst                                           10
 named_begin                                            2
-operation                                             67
+operation                                             68
 package                                               11
 param_assign                                          54
 parameter                                             54
 range                                                 88
-ref_obj                                               44
+ref_obj                                               46
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageValue/slpp_all/surelog.uhdm ...
@@ -2899,6 +2901,27 @@ design: (work@prim_diff_decode)
   |vpiTypedef:
   \_import_typespec: (prim_pkg), line:15:12, endln:15:23
   |vpiDefName:work@prim_diff_decode
+  |vpiGenStmt:
+  \_gen_if: , line:17:5, endln:17:7
+    |vpiParent:
+    \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
+    |vpiCondition:
+    \_operation: , line:17:9, endln:17:28
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (Impl), line:17:9, endln:17:13
+        |vpiParent:
+        \_operation: , line:17:9, endln:17:28
+        |vpiName:Impl
+      |vpiOperand:
+      \_ref_obj: (ImplGeneric), line:17:17, endln:17:28
+        |vpiParent:
+        \_operation: , line:17:9, endln:17:28
+        |vpiName:ImplGeneric
+        |vpiActual:
+        \_enum_const: (ImplGeneric), line:5:5, endln:5:20
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
   |vpiName:work@prim_diff_decode

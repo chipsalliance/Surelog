@@ -809,16 +809,18 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                        10
+begin                                                  1
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             304
+constant                                             305
 design                                                 1
 enum_const                                             9
 enum_typespec                                          3
 enum_var                                               1
 function                                               9
+gen_if                                                 1
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                             12
@@ -831,13 +833,13 @@ logic_net                                              2
 logic_typespec                                        44
 logic_var                                              3
 module_inst                                           16
-operation                                             89
+operation                                             90
 package                                                8
 param_assign                                          30
 parameter                                             39
 range                                                 62
 ref_module                                             1
-ref_obj                                               25
+ref_obj                                               26
 string_typespec                                       46
 struct_typespec                                       16
 tagged_pattern                                        46
@@ -848,16 +850,18 @@ typespec_member                                       32
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                        10
+begin                                                  1
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             304
+constant                                             305
 design                                                 1
 enum_const                                            14
 enum_typespec                                          4
 enum_var                                               1
 function                                              18
+gen_if                                                 1
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                             12
@@ -870,13 +874,13 @@ logic_net                                              2
 logic_typespec                                        44
 logic_var                                              3
 module_inst                                           16
-operation                                             89
+operation                                             90
 package                                                8
 param_assign                                          34
 parameter                                             39
 range                                                 62
 ref_module                                             1
-ref_obj                                               25
+ref_obj                                               26
 string_typespec                                       46
 struct_typespec                                       16
 tagged_pattern                                        46
@@ -2134,6 +2138,28 @@ design: (work@top)
     |vpiName:cnt_d
     |vpiFullName:work@otp_ctrl_lci.cnt_d
     |vpiNetType:36
+  |vpiGenStmt:
+  \_gen_if: , line:44:3, endln:44:5
+    |vpiParent:
+    \_module_inst: work@otp_ctrl_lci (work@otp_ctrl_lci), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:33:1, endln:48:10
+    |vpiCondition:
+    \_operation: , line:44:7, endln:44:26
+      |vpiOpType:15
+      |vpiOperand:
+      \_ref_obj: (NumLcOtpWords), line:44:7, endln:44:20
+        |vpiParent:
+        \_operation: , line:44:7, endln:44:26
+        |vpiName:NumLcOtpWords
+      |vpiOperand:
+      \_constant: , line:44:24, endln:44:26
+        |vpiParent:
+        \_operation: , line:44:7, endln:44:26
+        |vpiDecompile:28
+        |vpiSize:64
+        |UINT:28
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:51:1, endln:71:10
   |vpiParent:

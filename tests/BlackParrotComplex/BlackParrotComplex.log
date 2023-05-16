@@ -3179,30 +3179,31 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         6
-begin                                                  1
+begin                                                  4
 bit_select                                             4
 bit_typespec                                           6
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            1203
+constant                                            1206
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_if                                                 3
 initial                                                1
 int_typespec                                          19
 int_var                                                4
 io_decl                                               11
 logic_var                                              1
 module_inst                                           10
-operation                                            420
+operation                                            423
 package                                                2
 param_assign                                          22
 parameter                                             23
 range                                                 27
-ref_obj                                               82
+ref_obj                                               85
 sys_func_call                                          2
 task                                                   9
 var_select                                           132
@@ -3211,30 +3212,31 @@ var_select                                           132
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         6
-begin                                                  2
+begin                                                  5
 bit_select                                             4
 bit_typespec                                           6
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            1203
+constant                                            1206
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_if                                                 3
 initial                                                2
 int_typespec                                          19
 int_var                                                4
 io_decl                                               22
 logic_var                                              1
 module_inst                                           10
-operation                                            420
+operation                                            423
 package                                                2
 param_assign                                          22
 parameter                                             23
 range                                                 27
-ref_obj                                               83
+ref_obj                                               86
 sys_func_call                                          3
 task                                                  18
 var_select                                           132
@@ -3828,6 +3830,28 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@bottom.A), line:82:13, endln:82:14
   |vpiDefName:work@bottom
+  |vpiGenStmt:
+  \_gen_if: , line:84:1, endln:84:3
+    |vpiParent:
+    \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
+    |vpiCondition:
+    \_operation: , line:84:5, endln:84:11
+      |vpiOpType:15
+      |vpiOperand:
+      \_ref_obj: (A), line:84:5, endln:84:6
+        |vpiParent:
+        \_operation: , line:84:5, endln:84:11
+        |vpiName:A
+      |vpiOperand:
+      \_constant: , line:84:10, endln:84:11
+        |vpiParent:
+        \_operation: , line:84:5, endln:84:11
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
   |vpiParent:
@@ -3924,6 +3948,28 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@middle.A), line:70:13, endln:70:14
   |vpiDefName:work@middle
+  |vpiGenStmt:
+  \_gen_if: , line:72:1, endln:72:3
+    |vpiParent:
+    \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:67:1, endln:76:10
+    |vpiCondition:
+    \_operation: , line:72:5, endln:72:11
+      |vpiOpType:15
+      |vpiOperand:
+      \_ref_obj: (A), line:72:5, endln:72:6
+        |vpiParent:
+        \_operation: , line:72:5, endln:72:11
+        |vpiName:A
+      |vpiOperand:
+      \_constant: , line:72:10, endln:72:11
+        |vpiParent:
+        \_operation: , line:72:5, endln:72:11
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
   |vpiParent:
@@ -7667,6 +7713,28 @@ design: (work@top)
           |vpiName:output_dirs_sparse_lp
           |vpiFullName:work@top.output_dirs_sparse_lp
         |vpiName:$display
+  |vpiGenStmt:
+  \_gen_if: , line:60:1, endln:60:3
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
+    |vpiCondition:
+    \_operation: , line:60:5, endln:60:31
+      |vpiOpType:15
+      |vpiOperand:
+      \_ref_obj: (output_dirs_sparse_lp), line:60:5, endln:60:26
+        |vpiParent:
+        \_operation: , line:60:5, endln:60:31
+        |vpiName:output_dirs_sparse_lp
+      |vpiOperand:
+      \_constant: , line:60:30, endln:60:31
+        |vpiParent:
+        \_operation: , line:60:5, endln:60:31
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:3:1, endln:64:10
   |vpiName:work@top

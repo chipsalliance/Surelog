@@ -414,6 +414,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileToolbox.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileType.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileGenStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/DesignElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaborationStep.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/NetlistElaboration.cpp

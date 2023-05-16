@@ -115,32 +115,38 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               9
+begin                                                  1
+constant                                              10
 design                                                 1
 enum_const                                             1
 enum_typespec                                          1
+gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 logic_typespec                                         1
 module_inst                                            6
-operation                                              3
+operation                                              4
 range                                                  1
 ref_module                                             1
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               9
+begin                                                  1
+constant                                              10
 design                                                 1
 enum_const                                             1
 enum_typespec                                          1
+gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 logic_typespec                                         1
 module_inst                                            7
-operation                                              3
+operation                                              4
 range                                                  1
 ref_module                                             1
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumConcat/slpp_all/surelog.uhdm ...
 
@@ -199,6 +205,30 @@ design: (work@dut)
       |vpiDecompile:{1'b1,5'd03}
       |vpiSize:6
   |vpiDefName:work@dut
+  |vpiGenStmt:
+  \_gen_if: , line:11:3, endln:11:5
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumConcat/dut.sv, line:6:1, endln:15:10
+    |vpiCondition:
+    \_operation: , line:11:7, endln:11:44
+      |vpiOpType:14
+      |vpiOperand:
+      \_ref_obj: (EXC_CAUSE_IRQ_SOFTWARE_M), line:11:7, endln:11:31
+        |vpiParent:
+        \_operation: , line:11:7, endln:11:44
+        |vpiName:EXC_CAUSE_IRQ_SOFTWARE_M
+        |vpiActual:
+        \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:8:3, endln:8:47
+      |vpiOperand:
+      \_constant: , line:11:35, endln:11:44
+        |vpiParent:
+        \_operation: , line:11:7, endln:11:44
+        |vpiDecompile:6'b100011
+        |vpiSize:6
+        |BIN:100011
+        |vpiConstType:3
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumConcat/dut.sv, line:6:1, endln:15:10
   |vpiName:work@dut
