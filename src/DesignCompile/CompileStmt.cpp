@@ -886,6 +886,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         stmts->push_back(assign);
       }
       results = stmts;
+      break;
     }
     case VObjectType::slInterface_instantiation:
     case VObjectType::slModule_instantiation:
