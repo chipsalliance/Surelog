@@ -971,17 +971,17 @@ gen_scope_array                                        6
 hier_path                                              4
 indexed_part_select                                    3
 int_typespec                                          28
-logic_net                                             27
+logic_net                                             29
 logic_typespec                                        17
 module_inst                                           32
 operation                                             40
 param_assign                                          24
 parameter                                             24
 part_select                                            2
-port                                                  11
+port                                                  13
 range                                                 13
-ref_module                                             1
-ref_obj                                               69
+ref_module                                             4
+ref_obj                                               71
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -1001,17 +1001,17 @@ gen_scope_array                                        9
 hier_path                                              4
 indexed_part_select                                    4
 int_typespec                                          28
-logic_net                                             27
+logic_net                                             29
 logic_typespec                                        17
 module_inst                                           33
 operation                                             50
 param_assign                                          24
 parameter                                             24
 part_select                                            3
-port                                                  16
+port                                                  18
 range                                                 13
-ref_module                                             1
-ref_obj                                               89
+ref_module                                             4
+ref_obj                                               91
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -1057,6 +1057,12 @@ design: (work@divSqrtRecFNToRaw_small)
   \_design: (work@divSqrtRecFNToRaw_small)
   |vpiFullName:work@a
   |vpiDefName:work@a
+  |vpiRefModule:
+  \_ref_module: work@U1 (u1), line:75:4, endln:75:6
+    |vpiParent:
+    \_module_inst: work@a (work@a), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:71:1, endln:77:10
+    |vpiName:u1
+    |vpiDefName:work@U1
 |uhdmallModules:
 \_module_inst: work@b (work@b), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:80:1, endln:82:10
   |vpiParent:
@@ -1648,6 +1654,26 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@bp_l2e_tile_node (l2e), line:142:26, endln:142:29
+        |vpiName:l2e
+        |vpiDefName:work@bp_l2e_tile_node
+        |vpiPort:
+        \_port: (core_clk_i), line:143:28, endln:143:51
+          |vpiName:core_clk_i
+          |vpiHighConn:
+          \_ref_obj: (core_clk_i), line:143:40, endln:143:50
+            |vpiName:core_clk_i
+            |vpiActual:
+            \_logic_net: (core_clk_i)
+        |vpiPort:
+        \_port: (core_reset_i), line:144:28, endln:144:55
+          |vpiName:core_reset_i
+          |vpiHighConn:
+          \_ref_obj: (core_reset_i), line:144:42, endln:144:54
+            |vpiName:core_reset_i
+            |vpiActual:
+            \_logic_net: (core_reset_i)
 |uhdmallModules:
 \_module_inst: work@e (work@e), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:99:1, endln:115:10
   |vpiParent:
@@ -2933,6 +2959,14 @@ design: (work@divSqrtRecFNToRaw_small)
   |vpiNet:
   \_logic_net: (mc_y_dim_p)
     |vpiName:mc_y_dim_p
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (core_clk_i)
+    |vpiName:core_clk_i
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (core_reset_i)
+    |vpiName:core_reset_i
     |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:

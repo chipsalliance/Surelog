@@ -579,7 +579,7 @@ packed_array_typespec                                  1
 param_assign                                          26
 parameter                                             28
 range                                                 58
-ref_module                                             2
+ref_module                                             4
 ref_obj                                               37
 string_typespec                                       70
 struct_typespec                                       12
@@ -606,7 +606,7 @@ packed_array_typespec                                  1
 param_assign                                          26
 parameter                                             28
 range                                                 58
-ref_module                                             2
+ref_module                                             4
 ref_obj                                               37
 string_typespec                                       70
 struct_typespec                                       12
@@ -1351,6 +1351,10 @@ design: (work@top)
         |vpiConstType:3
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good1), line:46:8, endln:46:13
+        |vpiName:good1
+        |vpiDefName:work@GOOD
   |vpiGenStmt:
   \_gen_if: , line:49:1, endln:49:3
     |vpiParent:
@@ -1373,6 +1377,10 @@ design: (work@top)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good2), line:50:8, endln:50:13
+        |vpiName:good2
+        |vpiDefName:work@GOOD
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
   |vpiName:work@top

@@ -436,19 +436,24 @@ class CompileHelper final {
   void compileLetDeclaration(DesignComponent* component, const FileContent* fC,
                              NodeId nodeId, CompileDesign* compileDesign);
 
-  void compileInstantiation(ModuleDefinition* mod, const FileContent* fC,
-                            CompileDesign* compileDesign, NodeId id,
-                            ValuedComponentI* instance);
+  std::pair<std::vector<UHDM::module_array*>, std::vector<UHDM::ref_module*>>
+  compileInstantiation(ModuleDefinition* mod, const FileContent* fC,
+                       CompileDesign* compileDesign, NodeId id,
+                       ValuedComponentI* instance);
+
   void writePrimTerms(ModuleDefinition* mod, const FileContent* fC,
                       CompileDesign* compileDesign, NodeId id,
                       UHDM::primitive* prim, int32_t vpiGateType,
                       ValuedComponentI* instance);
+
   void compileUdpInstantiation(ModuleDefinition* mod, const FileContent* fC,
                                 CompileDesign* compileDesign, NodeId id,
                                 ValuedComponentI* instance);
+
   void compileGateInstantiation(ModuleDefinition* mod, const FileContent* fC,
                                 CompileDesign* compileDesign, NodeId id,
                                 ValuedComponentI* instance);
+
   void compileHighConn(ModuleDefinition* component, const FileContent* fC,
                        CompileDesign* compileDesign, NodeId id,
                        UHDM::VectorOfport* ports);

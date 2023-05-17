@@ -205,7 +205,7 @@ gen_scope_array                                        4
 module_inst                                           13
 param_assign                                           4
 parameter                                              4
-ref_module                                             2
+ref_module                                             4
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -221,7 +221,7 @@ gen_scope_array                                        6
 module_inst                                           15
 param_assign                                           4
 parameter                                              4
-ref_module                                             2
+ref_module                                             4
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfElseGen/slpp_all/surelog.uhdm ...
@@ -289,6 +289,10 @@ design: (work@dut1)
       |vpiName:HasSndScratch
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD1 (cond_module), line:10:9, endln:10:20
+        |vpiName:cond_module
+        |vpiDefName:work@GOOD1
 |uhdmallModules:
 \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
   |vpiParent:
@@ -330,6 +334,10 @@ design: (work@dut1)
       |vpiName:HasSndScratch
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@BAD2 (cond_module), line:20:8, endln:20:19
+        |vpiName:cond_module
+        |vpiDefName:work@BAD2
 |uhdmtopModules:
 \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
   |vpiName:work@dut1

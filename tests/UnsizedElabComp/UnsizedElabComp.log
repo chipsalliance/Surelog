@@ -239,7 +239,7 @@ operation                                              8
 param_assign                                           4
 parameter                                              4
 range                                                  4
-ref_module                                             2
+ref_module                                             6
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -257,7 +257,7 @@ operation                                              8
 param_assign                                           4
 parameter                                              4
 range                                                  4
-ref_module                                             2
+ref_module                                             6
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedElabComp/slpp_all/surelog.uhdm ...
@@ -395,6 +395,10 @@ design: (work@top)
         |vpiConstType:3
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good1), line:8:10, endln:8:15
+        |vpiName:good1
+        |vpiDefName:work@GOOD
   |vpiGenStmt:
   \_gen_if: , line:11:3, endln:11:5
     |vpiParent:
@@ -417,6 +421,10 @@ design: (work@top)
         |vpiConstType:3
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good2), line:12:10, endln:12:15
+        |vpiName:good2
+        |vpiDefName:work@GOOD
   |vpiGenStmt:
   \_gen_if: , line:15:3, endln:15:5
     |vpiParent:
@@ -442,6 +450,10 @@ design: (work@top)
         |vpiConstType:3
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@BAD (bad), line:16:9, endln:16:12
+        |vpiName:bad
+        |vpiDefName:work@BAD
   |vpiGenStmt:
   \_gen_if: , line:19:3, endln:19:5
     |vpiParent:
@@ -464,6 +476,10 @@ design: (work@top)
         |vpiConstType:3
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@BAD (bad), line:20:9, endln:20:12
+        |vpiName:bad
+        |vpiDefName:work@BAD
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
   |vpiName:work@top

@@ -817,8 +817,31 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slModule_instantiation:
         case VObjectType::slProgram_instantiation: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileInstantiation(m_module, fC, m_compileDesign, id,
-                                        m_instance);
+          std::pair<std::vector<UHDM::module_array*>,
+                    std::vector<UHDM::ref_module*>>
+              result = m_helper.compileInstantiation(
+                  m_module, fC, m_compileDesign, id, m_instance);
+          if (!result.first.empty()) {
+            auto subModuleArrays = m_module->getModuleArrays();
+            if (subModuleArrays == nullptr) {
+              subModuleArrays =
+                  m_compileDesign->getSerializer().MakeModule_arrayVec();
+              m_module->setModuleArrays(subModuleArrays);
+            }
+            for (auto mod : result.first) {
+              subModuleArrays->push_back(mod);
+            }
+          }
+          if (!result.second.empty()) {
+            auto subModules = m_module->getRefModules();
+            if (subModules == nullptr) {
+              subModules = m_compileDesign->getSerializer().MakeRef_moduleVec();
+              m_module->setRefModules(subModules);
+            }
+            for (auto mod : result.second) {
+              subModules->push_back(mod);
+            }
+          }
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
           break;
@@ -1064,8 +1087,31 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slModule_instantiation:
         case VObjectType::slProgram_instantiation: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileInstantiation(m_module, fC, m_compileDesign, id,
-                                        m_instance);
+          std::pair<std::vector<UHDM::module_array*>,
+                    std::vector<UHDM::ref_module*>>
+              result = m_helper.compileInstantiation(
+                  m_module, fC, m_compileDesign, id, m_instance);
+          if (!result.first.empty()) {
+            auto subModuleArrays = m_module->getModuleArrays();
+            if (subModuleArrays == nullptr) {
+              subModuleArrays =
+                  m_compileDesign->getSerializer().MakeModule_arrayVec();
+              m_module->setModuleArrays(subModuleArrays);
+            }
+            for (auto mod : result.first) {
+              subModuleArrays->push_back(mod);
+            }
+          }
+          if (!result.second.empty()) {
+            auto subModules = m_module->getRefModules();
+            if (subModules == nullptr) {
+              subModules = m_compileDesign->getSerializer().MakeRef_moduleVec();
+              m_module->setRefModules(subModules);
+            }
+            for (auto mod : result.second) {
+              subModules->push_back(mod);
+            }
+          }
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
           break;

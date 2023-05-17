@@ -335,7 +335,7 @@ operation                                              2
 package                                                6
 param_assign                                           6
 parameter                                              6
-ref_module                                             3
+ref_module                                             5
 ref_obj                                                3
 struct_typespec                                        3
 typespec_member                                        6
@@ -359,7 +359,7 @@ operation                                              2
 package                                                6
 param_assign                                           7
 parameter                                              6
-ref_module                                             3
+ref_module                                             5
 ref_obj                                                3
 struct_typespec                                        3
 typespec_member                                        6
@@ -581,6 +581,10 @@ design: (work@top)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good), line:24:14, endln:24:18
+        |vpiName:good
+        |vpiDefName:work@GOOD
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:33:1, endln:44:10
   |vpiParent:
@@ -626,6 +630,10 @@ design: (work@top)
       |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:40:10, endln:40:24
+        |vpiName:u_impl_generic
+        |vpiDefName:work@prim_generic_pad_attr
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:46:1, endln:55:10
   |vpiParent:

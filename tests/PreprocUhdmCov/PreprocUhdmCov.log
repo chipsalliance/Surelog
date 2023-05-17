@@ -535,9 +535,10 @@ module_inst                                            6
 package                                                2
 param_assign                                           1
 parameter                                              1
-port                                                   5
+port                                                   6
 range                                                  5
-ref_obj                                               13
+ref_module                                             1
+ref_obj                                               14
 struct_typespec                                        2
 task                                                   9
 typespec_member                                        2
@@ -567,9 +568,10 @@ module_inst                                            6
 package                                                2
 param_assign                                           1
 parameter                                              1
-port                                                   7
+port                                                   8
 range                                                  5
-ref_obj                                               23
+ref_module                                             1
+ref_obj                                               24
 struct_typespec                                        2
 task                                                  18
 typespec_member                                        2
@@ -1330,6 +1332,20 @@ design: (work@top)
       |vpiFullName:work@top.a
       |vpiActual:
       \_logic_net: (work@top.a), line:4:41, endln:4:42
+  |vpiRefModule:
+  \_ref_module: work@prim_subreg (u_ip0_p7), line:32:5, endln:32:13
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PreprocUhdmCov/dut.sv, line:4:1, endln:50:17
+    |vpiName:u_ip0_p7
+    |vpiDefName:work@prim_subreg
+    |vpiPort:
+    \_port: (clk_i), line:33:4, endln:33:24
+      |vpiName:clk_i
+      |vpiHighConn:
+      \_ref_obj: (clk_i), line:33:14, endln:33:19
+        |vpiName:clk_i
+        |vpiActual:
+        \_logic_net: (work@top.clk_i), line:33:14, endln:33:19
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PreprocUhdmCov/dut.sv, line:4:1, endln:50:17
   |vpiName:work@top

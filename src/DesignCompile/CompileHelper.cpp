@@ -2388,22 +2388,18 @@ std::string CompileHelper::decompileHelper(const any* sel) {
   return path_name;
 }
 
-void CompileHelper::compileInstantiation(ModuleDefinition* mod,
-                                         const FileContent* fC,
-                                         CompileDesign* compileDesign,
-                                         NodeId id,
-                                         ValuedComponentI* instance) {
+std::pair<std::vector<UHDM::module_array*>, std::vector<UHDM::ref_module*>>
+CompileHelper::compileInstantiation(ModuleDefinition* mod,
+                                    const FileContent* fC,
+                                    CompileDesign* compileDesign, NodeId id,
+                                    ValuedComponentI* instance) {
+  std::pair<std::vector<UHDM::module_array*>, std::vector<UHDM::ref_module*>>
+      results;
   UHDM::Serializer& s = compileDesign->getSerializer();
-  auto subModuleArrays = mod->getModuleArrays();
-  auto subModules = mod->getRefModules();
   NodeId moduleName = fC->sl_collect(id, VObjectType::slStringConst);
   const std::string_view libName = fC->getLibrary()->getName();
   const std::string_view mname = fC->SymName(moduleName);
   std::string modName = StrCat(libName, "@", mname);
-
-  Design* design = compileDesign->getCompiler()->getDesign();
-  DesignComponent* def = design->getComponentDefinition(modName);
-  if (def == nullptr) return;
 
   NodeId typespecId = fC->Child(id);
   NodeId hierInstId = fC->sl_collect(id, VObjectType::slHierarchical_instance);
@@ -2432,15 +2428,10 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
         tps->VpiName(fC->SymName(typespecId));
         fC->populateCoreMembers(typespecId, typespecId, tps);
         mod_array->Elem_typespec(tps);
-
-        if (subModuleArrays == nullptr) {
-          subModuleArrays = s.MakeModule_arrayVec();
-          mod->setModuleArrays(subModuleArrays);
-        }
         VectorOfport* ports = s.MakePortVec();
         mod_array->Ports(ports);
         compileHighConn(mod, fC, compileDesign, instId, ports);
-        subModuleArrays->push_back(mod_array);
+        results.first.push_back(mod_array);
       }
     } else {
       // Simple instance
@@ -2448,17 +2439,14 @@ void CompileHelper::compileInstantiation(ModuleDefinition* mod,
       m->VpiName(instName);
       m->VpiDefName(modName);
       fC->populateCoreMembers(identifierId, identifierId, m);
-      if (subModules == nullptr) {
-        subModules = s.MakeRef_moduleVec();
-        mod->setRefModules(subModules);
-      }
       VectorOfport* ports = s.MakePortVec();
       m->Ports(ports);
-      subModules->push_back(m);
+      results.second.push_back(m);
       compileHighConn(mod, fC, compileDesign, instId, ports);
     }
     hierInstId = fC->Sibling(hierInstId);
   }
+  return results;
 }
 
 uint32_t CompileHelper::getBuiltinType(VObjectType type) {

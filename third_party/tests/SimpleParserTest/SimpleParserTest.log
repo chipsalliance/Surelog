@@ -118,7 +118,7 @@ case_stmt                                              4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             676
+constant                                             678
 cont_assign                                           14
 delay_control                                          3
 design                                                 1
@@ -149,10 +149,11 @@ package                                                2
 param_assign                                          14
 parameter                                             14
 part_select                                            9
-port                                                 163
+port                                                 173
 prim_term                                             48
 range                                                133
-ref_obj                                              670
+ref_module                                             1
+ref_obj                                              678
 ref_var                                               11
 repeat                                                 8
 switch_tran                                            4
@@ -9262,6 +9263,94 @@ design: (work@dff_async_reset)
       |vpiFullName:work@syn_fifo.empty
       |vpiActual:
       \_logic_net: (work@syn_fifo.empty), line:17:1, endln:17:6
+  |vpiRefModule:
+  \_ref_module: work@ram_dp_ar_aw (DP_RAM), line:91:38, endln:91:44
+    |vpiParent:
+    \_module_inst: work@syn_fifo (work@syn_fifo), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/synfifo.v, line:8:1, endln:104:10
+    |vpiName:DP_RAM
+    |vpiDefName:work@ram_dp_ar_aw
+    |vpiPort:
+    \_port: (address_0), line:92:1, endln:92:24
+      |vpiName:address_0
+      |vpiHighConn:
+      \_ref_obj: (wr_pointer), line:92:13, endln:92:23
+        |vpiName:wr_pointer
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.wr_pointer), line:38:22, endln:38:32
+    |vpiPort:
+    \_port: (data_0), line:93:1, endln:93:21
+      |vpiName:data_0
+      |vpiHighConn:
+      \_ref_obj: (data_in), line:93:13, endln:93:20
+        |vpiName:data_in
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.data_in), line:13:1, endln:13:8
+    |vpiPort:
+    \_port: (cs_0), line:94:1, endln:94:19
+      |vpiName:cs_0
+      |vpiHighConn:
+      \_ref_obj: (wr_cs), line:94:13, endln:94:18
+        |vpiName:wr_cs
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.wr_cs), line:11:1, endln:11:6
+    |vpiPort:
+    \_port: (we_0), line:95:1, endln:95:19
+      |vpiName:we_0
+      |vpiHighConn:
+      \_ref_obj: (wr_en), line:95:13, endln:95:18
+        |vpiName:wr_en
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.wr_en), line:15:1, endln:15:6
+    |vpiPort:
+    \_port: (oe_0), line:96:1, endln:96:18
+      |vpiName:oe_0
+      |vpiHighConn:
+      \_constant: , line:96:13, endln:96:17
+        |vpiDecompile:1'b0
+        |vpiSize:1
+        |BIN:0
+        |vpiConstType:3
+    |vpiPort:
+    \_port: (address_1), line:97:1, endln:97:24
+      |vpiName:address_1
+      |vpiHighConn:
+      \_ref_obj: (rd_pointer), line:97:13, endln:97:23
+        |vpiName:rd_pointer
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.rd_pointer), line:39:22, endln:39:32
+    |vpiPort:
+    \_port: (data_1), line:98:1, endln:98:22
+      |vpiName:data_1
+      |vpiHighConn:
+      \_ref_obj: (data_ram), line:98:13, endln:98:21
+        |vpiName:data_ram
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.data_ram), line:42:23, endln:42:31
+    |vpiPort:
+    \_port: (cs_1), line:99:1, endln:99:19
+      |vpiName:cs_1
+      |vpiHighConn:
+      \_ref_obj: (rd_cs), line:99:13, endln:99:18
+        |vpiName:rd_cs
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.rd_cs), line:12:1, endln:12:6
+    |vpiPort:
+    \_port: (we_1), line:100:1, endln:100:18
+      |vpiName:we_1
+      |vpiHighConn:
+      \_constant: , line:100:13, endln:100:17
+        |vpiDecompile:1'b0
+        |vpiSize:1
+        |BIN:0
+        |vpiConstType:3
+    |vpiPort:
+    \_port: (oe_1), line:101:1, endln:101:19
+      |vpiName:oe_1
+      |vpiHighConn:
+      \_ref_obj: (rd_en), line:101:13, endln:101:18
+        |vpiName:rd_en
+        |vpiActual:
+        \_logic_net: (work@syn_fifo.rd_en), line:14:1, endln:14:6
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/third_party/tests/SimpleParserTest/arbiter_tb.v, line:3:1, endln:64:10
   |vpiParent:

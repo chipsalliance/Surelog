@@ -1233,7 +1233,7 @@ package                                                2
 param_assign                                          13
 parameter                                             64
 range                                                  4
-ref_module                                             6
+ref_module                                            58
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitDefParam/slpp_unit/surelog.uhdm ...
@@ -1724,6 +1724,12 @@ design: (work@top_def)
     |vpiDefName:work@secret_number
     |vpiActual:
     \_module_inst: work@secret_number (work@secret_number), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:2:1, endln:12:10
+  |vpiRefModule:
+  \_ref_module: work@NO_DEF (U5), line:23:10, endln:23:12
+    |vpiParent:
+    \_module_inst: work@defparam_example (work@defparam_example), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:14:1, endln:27:10
+    |vpiName:U5
+    |vpiDefName:work@NO_DEF
 |uhdmallModules:
 \_module_inst: work@secret_number (work@secret_number), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:2:1, endln:12:10
   |vpiParent:

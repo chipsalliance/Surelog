@@ -131,6 +131,7 @@ operation                                              4
 param_assign                                           2
 parameter                                              2
 range                                                  2
+ref_module                                             2
 ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -148,6 +149,7 @@ operation                                              4
 param_assign                                           2
 parameter                                              2
 range                                                  2
+ref_module                                             2
 ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConcatRadix/slpp_all/surelog.uhdm ...
@@ -243,6 +245,10 @@ design: (work@test)
         |vpiConstType:3
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@bar (mybar), line:6:9, endln:6:14
+        |vpiName:mybar
+        |vpiDefName:work@bar
 |uhdmtopModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
   |vpiName:work@test
