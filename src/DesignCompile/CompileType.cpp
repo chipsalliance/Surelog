@@ -1402,6 +1402,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       if (result == nullptr) {
         unsupported_typespec* ref = s.MakeUnsupported_typespec();
+        ref->VpiPacked(isPacked);
+        ref->Ranges(ranges);
         ref->VpiName(typeName);
         fC->populateCoreMembers(type, type, ref);
         result = ref;
