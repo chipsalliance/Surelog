@@ -1971,6 +1971,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
       orig = ex->Typespec();
     }
     if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
+      unsupported_typespec* unsup = (unsupported_typespec*)orig;
       std::string_view name = StringUtils::trim(orig->VpiName());
       const typespec* tps = nullptr;
       bool found = false;
@@ -2386,7 +2387,22 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             }
           }
         }
-        if (found) break;
+        if (found) {
+          if (unsup->Ranges()) {
+            if (unsup->VpiPacked()) {
+              packed_array_typespec* ptps = s.MakePacked_array_typespec();
+              ptps->Elem_typespec((typespec*)tps);
+              ptps->Ranges(unsup->Ranges());
+              tps = ptps;
+            } else {
+              array_typespec* ptps = s.MakeArray_typespec();
+              ptps->Elem_typespec((typespec*)tps);
+              ptps->Ranges(unsup->Ranges());
+              tps = ptps;
+            }
+          }
+          break;
+        }
         parent = parent->VpiParent();
       }
 
