@@ -1387,16 +1387,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
           }
         }
         if (ranges) {
-          if (isPacked) {
-            packed_array_typespec* pats = s.MakePacked_array_typespec();
-            pats->Elem_typespec(result);
-            pats->Ranges(ranges);
-            result = pats;
-          } else {
-            array_typespec* pats = s.MakeArray_typespec();
-            pats->Elem_typespec(result);
-            pats->Ranges(ranges);
-            result = pats;
+          if ((result->UhdmType() != uhdmlogic_typespec) &&
+              (result->UhdmType() != uhdmbit_typespec) &&
+              (result->UhdmType() != uhdmint_typespec)) {
+            if (isPacked) {
+              packed_array_typespec* pats = s.MakePacked_array_typespec();
+              pats->Elem_typespec(result);
+              pats->Ranges(ranges);
+              result = pats;
+            } else {
+              array_typespec* pats = s.MakeArray_typespec();
+              pats->Elem_typespec(result);
+              pats->Ranges(ranges);
+              result = pats;
+            }
           }
         }
       }
