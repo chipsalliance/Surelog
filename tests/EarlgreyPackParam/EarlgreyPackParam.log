@@ -456,7 +456,7 @@ param_assign                                          27
 parameter                                             31
 part_select                                            3
 range                                                  8
-ref_module                                             8
+ref_module                                             9
 ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -479,7 +479,7 @@ param_assign                                          39
 parameter                                             31
 part_select                                            3
 range                                                  8
-ref_module                                             8
+ref_module                                             9
 ref_obj                                               11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EarlgreyPackParam/slpp_all/surelog.uhdm ...
@@ -863,6 +863,10 @@ design: (work@test)
       |vpiName:AsyncOn
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good), line:36:11, endln:36:15
+        |vpiName:good
+        |vpiDefName:work@GOOD
 |uhdmallModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:7:1, endln:10:10
   |vpiParent:

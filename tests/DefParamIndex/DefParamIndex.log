@@ -327,7 +327,7 @@ operation                                             12
 param_assign                                           3
 parameter                                              5
 range                                                  3
-ref_module                                             5
+ref_module                                             8
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -345,7 +345,7 @@ operation                                             12
 param_assign                                           9
 parameter                                              5
 range                                                  3
-ref_module                                             5
+ref_module                                             8
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefParamIndex/slpp_all/surelog.uhdm ...
@@ -443,6 +443,10 @@ design: (work@hierdefparam_top)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good0), line:25:7, endln:25:12
+        |vpiName:good0
+        |vpiDefName:work@GOOD
   |vpiGenStmt:
   \_gen_if: , line:27:3, endln:27:5
     |vpiParent:
@@ -465,6 +469,10 @@ design: (work@hierdefparam_top)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good1), line:28:11, endln:28:16
+        |vpiName:good1
+        |vpiDefName:work@GOOD
   |vpiGenStmt:
   \_gen_if: , line:30:3, endln:30:5
     |vpiParent:
@@ -487,6 +495,10 @@ design: (work@hierdefparam_top)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@BAD (bad), line:31:6, endln:31:9
+        |vpiName:bad
+        |vpiDefName:work@BAD
 |uhdmallModules:
 \_module_inst: work@hierdefparam_top (work@hierdefparam_top), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:4:1, endln:10:10
   |vpiParent:

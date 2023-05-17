@@ -818,10 +818,10 @@ package                                                8
 packed_array_typespec                                 23
 param_assign                                          20
 parameter                                             26
-port                                                  11
+port                                                  12
 range                                                 48
-ref_module                                             3
-ref_obj                                               33
+ref_module                                             4
+ref_obj                                               34
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
@@ -860,10 +860,10 @@ package                                                8
 packed_array_typespec                                 23
 param_assign                                          24
 parameter                                             26
-port                                                  23
+port                                                  24
 range                                                 48
-ref_module                                             3
-ref_obj                                               63
+ref_module                                             4
+ref_obj                                               64
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
@@ -1848,6 +1848,18 @@ design: (work@top)
       |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:37:9, endln:37:23
+        |vpiName:u_impl_generic
+        |vpiDefName:work@prim_generic_pad_attr
+        |vpiPort:
+        \_port: (a), line:37:24, endln:37:29
+          |vpiName:a
+          |vpiHighConn:
+          \_ref_obj: (b), line:37:27, endln:37:28
+            |vpiName:b
+            |vpiActual:
+            \_int_var: (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.b), line:30:33, endln:30:34
 |uhdmallModules:
 \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
   |vpiParent:

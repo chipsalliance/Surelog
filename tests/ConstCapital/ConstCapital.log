@@ -151,7 +151,7 @@ module_inst                                            7
 operation                                              4
 param_assign                                           4
 parameter                                              4
-ref_module                                             2
+ref_module                                             4
 ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -169,7 +169,7 @@ module_inst                                            9
 operation                                              4
 param_assign                                           4
 parameter                                              4
-ref_module                                             2
+ref_module                                             4
 ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstCapital/slpp_all/surelog.uhdm ...
@@ -220,6 +220,10 @@ design: (work@test)
         |vpiConstType:5
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good1), line:11:14, endln:11:19
+        |vpiName:good1
+        |vpiDefName:work@GOOD
   |vpiGenStmt:
   \_gen_if: , line:15:1, endln:15:3
     |vpiParent:
@@ -244,6 +248,10 @@ design: (work@test)
         |vpiConstType:1
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good2), line:16:14, endln:16:19
+        |vpiName:good2
+        |vpiDefName:work@GOOD
 |vpiParameter:
 \_parameter: (foo), line:1:15, endln:1:18
   |vpiParent:

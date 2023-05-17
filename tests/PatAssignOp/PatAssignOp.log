@@ -554,6 +554,7 @@ package                                                2
 param_assign                                          12
 parameter                                             13
 range                                                  5
+ref_module                                             3
 ref_obj                                               25
 task                                                   9
 === UHDM Object Stats End ===
@@ -585,6 +586,7 @@ package                                                2
 param_assign                                          12
 parameter                                             13
 range                                                  5
+ref_module                                             3
 ref_obj                                               25
 task                                                  18
 === UHDM Object Stats End ===
@@ -1336,6 +1338,10 @@ design: (work@top)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@BAD (bad), line:11:10, endln:11:13
+        |vpiName:bad
+        |vpiDefName:work@BAD
   |vpiGenStmt:
   \_gen_if: , line:13:2, endln:13:4
     |vpiParent:
@@ -1358,6 +1364,10 @@ design: (work@top)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD (good), line:14:11, endln:14:15
+        |vpiName:good
+        |vpiDefName:work@GOOD
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatAssignOp/dut.sv, line:2:1, endln:16:10
   |vpiName:work@top

@@ -887,6 +887,32 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       }
       results = stmts;
     }
+    case VObjectType::slInterface_instantiation:
+    case VObjectType::slModule_instantiation:
+    case VObjectType::slProgram_instantiation: {
+      // Non-elab model
+      ModuleDefinition* mod =
+          valuedcomponenti_cast<ModuleDefinition*>(component);
+      std::pair<std::vector<UHDM::module_array*>,
+                std::vector<UHDM::ref_module*>>
+          result =
+              compileInstantiation(mod, fC, compileDesign, the_stmt, nullptr);
+      if (!result.first.empty()) {
+        VectorOfany* stmts = s.MakeAnyVec();
+        for (auto mod : result.first) {
+          stmts->push_back(mod);
+        }
+        results = stmts;
+      }
+      if (!result.second.empty()) {
+        VectorOfany* stmts = s.MakeAnyVec();
+        for (auto mod : result.second) {
+          stmts->push_back(mod);
+        }
+        results = stmts;
+      }
+      break;
+    }
     default:
       break;
   }

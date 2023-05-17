@@ -104,6 +104,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   2
 range                                                  7
+ref_module                                             1
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -121,6 +122,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   3
 range                                                  7
+ref_module                                             1
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BlackboxMissingDef/slpp_all/surelog.uhdm ...
@@ -209,6 +211,12 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+  |vpiRefModule:
+  \_ref_module: work@PLLE2_ADV (pll), line:4:6, endln:4:9
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackboxMissingDef/dut.sv, line:1:1, endln:5:10
+    |vpiName:pll
+    |vpiDefName:work@PLLE2_ADV
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackboxMissingDef/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top
