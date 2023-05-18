@@ -202,7 +202,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
 begin                                                  2
-constant                                              21
+constant                                              26
 cont_assign                                            2
 design                                                 1
 func_call                                              2
@@ -216,13 +216,13 @@ integer_typespec                                       1
 logic_net                                              1
 logic_typespec                                         2
 logic_var                                              2
-module_inst                                            5
+module_inst                                            7
 operation                                              8
-param_assign                                           4
-parameter                                              4
+param_assign                                           6
+parameter                                              6
 port                                                   2
 range                                                  3
-ref_obj                                                6
+ref_obj                                                7
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -230,10 +230,10 @@ return_stmt                                            1
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
 begin                                                  3
-constant                                              21
+constant                                              26
 cont_assign                                            3
 design                                                 1
-func_call                                              3
+func_call                                              2
 function                                               2
 gen_if                                                 1
 gen_scope                                              3
@@ -244,13 +244,13 @@ integer_typespec                                       1
 logic_net                                              1
 logic_typespec                                         2
 logic_var                                              5
-module_inst                                            5
-operation                                             10
-param_assign                                           4
-parameter                                              4
+module_inst                                            7
+operation                                              9
+param_assign                                           6
+parameter                                              6
 port                                                   3
 range                                                  3
-ref_obj                                                9
+ref_obj                                               10
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncBindGen/slpp_all/surelog.uhdm ...
@@ -466,22 +466,11 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.gen_block)
         |vpiRhs:
-        \_operation: , line:11:18, endln:11:42
-          |vpiParent:
-          \_cont_assign: , line:11:14, endln:11:42
-          |vpiTypespec:
-          \_int_typespec: , line:11:18, endln:11:21
-            |vpiParent:
-            \_operation: , line:11:18, endln:11:42
-            |vpiSigned:1
-          |vpiOpType:67
-          |vpiOperand:
-          \_func_call: (get_casted_param), line:11:23, endln:11:41
-            |vpiParent:
-            \_operation: , line:11:18, endln:11:42
-            |vpiName:get_casted_param
-            |vpiFunction:
-            \_function: (work@top.gen_block.get_casted_param), line:6:7, endln:9:18
+        \_constant: 
+          |vpiDecompile:4
+          |vpiSize:32
+          |UINT:4
+          |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.gen_block.o), line:11:14, endln:11:15
           |vpiParent:

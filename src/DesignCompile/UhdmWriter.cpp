@@ -1647,6 +1647,7 @@ class DetectUnsizedConstant final : public VpiListener {
 void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
                                   DesignComponent* mod, any* m,
                                   std::vector<cont_assign*>* assigns) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
   if (netlist->cont_assigns()) {
     for (auto assign : *netlist->cont_assigns()) {
       const expr* lhs = assign->Lhs();
@@ -1679,8 +1680,31 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
               assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
               lhs = assign->Lhs();
               rhs = assign->Rhs();
-              delay = assign->Delay();
+              m_helper.checkForLoops(true);
+              bool invalidValue = false;
+              any* rhstmp = m_helper.reduceExpr(
+                  (expr*)rhs, invalidValue, mod, m_compileDesign,
+                  netlist->getParent(),
+                  fileSystem->toPathId(
+                      rhs->VpiFile(),
+                      m_compileDesign->getCompiler()->getSymbolTable()),
+                  rhs->VpiLineNo(), assign, true);
+              m_helper.checkForLoops(false);
               tps = lhs->Typespec();
+              if (expr* exp = any_cast<expr*>(var)) {
+                if (const typespec* temp = exp->Typespec()) {
+                  tps = temp;
+                }
+              }
+              if ((invalidValue == false) && rhstmp) {
+                if (rhstmp->UhdmType() == uhdmconstant)
+                  rhstmp = m_helper.adjustSize(tps, mod, m_compileDesign,
+                                               netlist->getParent(),
+                                               (constant*)rhstmp, true);
+                assign->Rhs((expr*)rhstmp);
+              }
+              rhs = assign->Rhs();
+              delay = assign->Delay();
             }
             ref_obj* ref = (ref_obj*)lhs;
             ref->Actual_group(var);
@@ -1749,11 +1773,10 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
       }
       if (simplified == false) {
         bool invalidValue = false;
-        FileSystem* const fileSystem = FileSystem::getInstance();
-        m_helper.checkForLoops(true);
         if ((rhs->UhdmType() == uhdmsys_func_call) &&
             ((expr*)rhs)->Typespec() == nullptr)
           ((expr*)rhs)->Typespec((UHDM::typespec*)tps);
+        m_helper.checkForLoops(true);
         any* res = m_helper.reduceExpr(
             (expr*)rhs, invalidValue, mod, m_compileDesign,
             netlist->getParent(),

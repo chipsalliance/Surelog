@@ -122,13 +122,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               8
+constant                                              10
 cont_assign                                            2
 design                                                 1
 int_typespec                                           9
 int_var                                                1
 logic_net                                              1
-module_inst                                            4
+module_inst                                            5
 operation                                              4
 param_assign                                           6
 parameter                                              6
@@ -138,18 +138,18 @@ ref_obj                                                8
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               8
+constant                                              10
 cont_assign                                            3
 design                                                 1
 int_typespec                                           9
 int_var                                                1
 logic_net                                              1
-module_inst                                            4
-operation                                              5
+module_inst                                            5
+operation                                              4
 param_assign                                           6
 parameter                                              6
 port                                                   3
-ref_obj                                               11
+ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DecValue/slpp_all/surelog.uhdm ...
 
@@ -388,23 +388,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DecValue/dut.sv, line:1:1, endln:7:10
     |vpiRhs:
-    \_operation: , line:6:15, endln:6:22
-      |vpiParent:
-      \_cont_assign: , line:6:11, endln:6:22
-      |vpiTypespec:
-      \_int_typespec: , line:6:15, endln:6:18
-        |vpiParent:
-        \_operation: , line:6:15, endln:6:22
-        |vpiSigned:1
-      |vpiOpType:67
-      |vpiOperand:
-      \_ref_obj: (work@top.C), line:6:20, endln:6:21
-        |vpiParent:
-        \_operation: , line:6:15, endln:6:22
-        |vpiName:C
-        |vpiFullName:work@top.C
-        |vpiActual:
-        \_parameter: (work@top.C), line:4:19, endln:4:20
+    \_constant: 
+      |vpiDecompile:4
+      |vpiSize:32
+      |UINT:4
+      |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
       |vpiParent:
