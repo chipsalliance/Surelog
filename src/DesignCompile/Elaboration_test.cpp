@@ -1331,5 +1331,62 @@ endmodule
   }
 }
 
+TEST(Elaboration, ContAssignConst) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module static_size_casting (
+     output wire [ 7:0] out1,
+     output wire [ 7:0] out2,
+     output wire [15:0] out3,
+     output wire [15:0] out4,
+     output wire [15:0] out5,
+     output wire [15:0] out6
+);
+
+  // 8-bit wide outputs.
+  assign out1 = (1 << 15) + 1;  // Expected 8'b00000001; 
+  assign out2 = 8'(1 << 15) + 1;  // Expected 8'b00000001; 
+
+  // 16-bit wide outputs.
+  assign out3 = 1 << 15;  // Expected 16'b1000000000000000; 
+  assign out4 = 8'(1 << 15) + 1;  // Expected 16'b0000000000000001; 
+  assign out5 = 16'(8'(1 << 15)) + 1;  // Expected 16'b0000000000000001; 
+  assign out6 = {8{2'(1'b1)}};  // Expected 16'b0101010101010101; 
+
+endmodule : static_size_casting
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto cassign : *topMod->Cont_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+      bool invalidValue = false;
+      const std::string_view name = cassign->Lhs()->VpiName();
+      UHDM::ExprEval eval;
+      int64_t val = eval.get_value(invalidValue, rhs);
+      if (name == "out1") {
+        EXPECT_EQ(val, 1);
+      } else if (name == "out2") {
+        EXPECT_EQ(val, 1);
+      } else if (name == "out3") {
+        EXPECT_EQ(val, 0b1000000000000000);
+      } else if (name == "out4") {
+        EXPECT_EQ(val, 1);
+      } else if (name == "out5") {
+        EXPECT_EQ(val, 1);
+      } else if (name == "out6") {
+        EXPECT_EQ(val, 0b0101010101010101);
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG

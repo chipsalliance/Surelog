@@ -9,6 +9,7 @@ module top;
    function automatic sp2v_e [1:0] get_BA();
       sp2v_e [1:0] out;
       out[0] = B;
+      out[1] = A;
       return out;
    endfunction
    
