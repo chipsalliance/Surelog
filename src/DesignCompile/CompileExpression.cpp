@@ -3702,107 +3702,32 @@ UHDM::any *CompileHelper::compilePartSelectRange(
     UHDM::expr *rexp =
         (expr *)compileExpression(component, fC, fC->Sibling(op), compileDesign,
                                   reduce, pexpr, instance, muteErrors);
-    bool reduced = false;
+
+    UHDM::indexed_part_select *part_select = s.MakeIndexed_part_select();
+    part_select->Base_expr(lexp);
+    part_select->Width_expr(rexp);
+    if (fC->Type(op) == VObjectType::slIncPartSelectOp)
+      part_select->VpiIndexedPartSelectType(vpiPosIndexed);
+    else
+      part_select->VpiIndexedPartSelectType(vpiNegIndexed);
+    if (name == "CREATE_UNNAMED_PARENT") {
+      UHDM::ref_obj *ref = s.MakeRef_obj();
+      part_select->VpiParent(ref);
+    } else if (!name.empty()) {
+      UHDM::ref_obj *ref = s.MakeRef_obj();
+      ref->VpiName(name);
+      ref->VpiDefName(name);
+      ref->VpiParent(pexpr);
+      part_select->VpiParent(ref);
+    }
+    part_select->VpiConstantSelect(true);
+    result = part_select;
+
     if ((reduce == Reduce::Yes) && (lexp->UhdmType() == uhdmconstant) &&
         (rexp->UhdmType() == uhdmconstant)) {
-      if (!name.empty()) {
-        any *v = getValue(name, component, compileDesign, reduce, instance,
-                          fC->getFileId(), fC->Line(Constant_expression), pexpr,
-                          muteErrors);
-        if (v && (v->UhdmType() == uhdmconstant)) {
-          constant *cv = (constant *)v;
-          Value *cvv =
-              m_exprBuilder.fromVpiValue(cv->VpiValue(), cv->VpiSize());
-          Value *left =
-              m_exprBuilder.fromVpiValue(lexp->VpiValue(), lexp->VpiSize());
-          Value *range =
-              m_exprBuilder.fromVpiValue(rexp->VpiValue(), rexp->VpiSize());
-          uint64_t l = left->getValueUL();
-          uint64_t r = range->getValueUL();
-          uint64_t res = 0;
-          if ((cvv->getType() == Value::Type::Hexadecimal) &&
-              (cvv->getSize() >
-               64 /* hex val stored as string above 64 bits */)) {
-            std::string val = cvv->getValueS();
-            std::string part;
-            if (fC->Type(op) == VObjectType::slIncPartSelectOp) {
-              int32_t steps = r / 4;
-              l = l / 4;
-              for (int32_t i = l; i < (int32_t)(l + steps); i++) {
-                int32_t index = ((int32_t)val.size()) - 1 - i;
-                if (index >= 0)
-                  part += val[index];
-                else
-                  part += '0';
-              }
-            } else {
-              int32_t steps = r / 4;
-              l = l / 4;
-              for (int32_t i = l; i > (int32_t)(l - steps); i--) {
-                int32_t index = ((int32_t)val.size()) - 1 - i;
-                if (index >= 0)
-                  part += val[index];
-                else
-                  part += '0';
-              }
-            }
-            if (NumUtils::parseHex(part, &res) == nullptr) {
-              res = 0;
-            }
-          } else {
-            uint64_t iv = cvv->getValueUL();
-            uint64_t mask = 0;
-            if (fC->Type(op) == VObjectType::slDecPartSelectOp) {
-              if (l >= r) {
-                for (uint64_t i = l; i > uint64_t(l - r); i--) {
-                  mask |= ((uint64_t)1 << i);
-                }
-                res = iv & mask;
-                res = res >> (l - r);
-              } else {
-                res = 0;
-              }
-            } else {
-              for (uint64_t i = l; i < uint64_t(l + r); i++) {
-                mask |= ((uint64_t)1 << i);
-              }
-              res = iv & mask;
-              res = res >> l;
-            }
-          }
-
-          std::string sval = "UINT:" + std::to_string(res);
-          UHDM::constant *c = s.MakeConstant();
-          c->VpiValue(sval);
-          c->VpiDecompile(std::to_string(res));
-          c->VpiSize(r);
-          c->VpiConstType(vpiUIntConst);
-          result = c;
-          reduced = true;
-        }
-      }
-    }
-
-    if (!reduced) {
-      UHDM::indexed_part_select *part_select = s.MakeIndexed_part_select();
-      part_select->Base_expr(lexp);
-      part_select->Width_expr(rexp);
-      if (fC->Type(op) == VObjectType::slIncPartSelectOp)
-        part_select->VpiIndexedPartSelectType(vpiPosIndexed);
-      else
-        part_select->VpiIndexedPartSelectType(vpiNegIndexed);
-      if (name == "CREATE_UNNAMED_PARENT") {
-        UHDM::ref_obj *ref = s.MakeRef_obj();
-        part_select->VpiParent(ref);
-      } else if (!name.empty()) {
-        UHDM::ref_obj *ref = s.MakeRef_obj();
-        ref->VpiName(name);
-        ref->VpiDefName(name);
-        ref->VpiParent(pexpr);
-        part_select->VpiParent(ref);
-      }
-      part_select->VpiConstantSelect(true);
-      result = part_select;
+      bool invalidValue = false;
+      result = reduceExpr(result, invalidValue, component, compileDesign,
+                          instance, BadPathId, 0, pexpr, muteErrors);
     }
   }
   if (result != nullptr) {
