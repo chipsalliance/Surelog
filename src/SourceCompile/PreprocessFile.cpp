@@ -312,6 +312,8 @@ PreprocessFile::~PreprocessFile() {
 PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
   delete m_errorListener;
   // delete m_pptree;  // INVALID MEMORY READ can be seen in AdvancedDebug
+  m_pplexer->getInterpreter<antlr4::atn::LexerATNSimulator>()->clearDFA();
+  m_ppparser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
   delete m_ppparser;
   delete m_pptokens;
   delete m_pplexer;
