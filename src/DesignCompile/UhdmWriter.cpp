@@ -3901,26 +3901,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
 
     // ---------------------------
     // Include File Info
-
-    VectorOfinclude_file_info* fileInfos = s.MakeInclude_file_infoVec();
-    d->Include_file_infos(fileInfos);
-    for (const CompileSourceFile* sourceFile :
-         m_compileDesign->getCompiler()->getCompileSourceFiles()) {
-      const PreprocessFile* const pf = sourceFile->getPreprocessor();
-      for (const IncludeFileInfo& ifi : pf->getIncludeFileInfo()) {
-        if ((ifi.m_context == IncludeFileInfo::Context::INCLUDE) &&
-            (ifi.m_action == IncludeFileInfo::Action::PUSH)) {
-          include_file_info* const pifi = s.MakeInclude_file_info();
-          pifi->VpiFile(fileSystem->toPath(pf->getRawFileId()));
-          pifi->VpiIncludedFile(fileSystem->toPath(ifi.m_sectionFileId));
-          pifi->VpiLineNo(ifi.m_originalStartLine);
-          pifi->VpiColumnNo(ifi.m_originalStartColumn);
-          pifi->VpiEndLineNo(ifi.m_originalEndLine);
-          pifi->VpiEndColumnNo(ifi.m_originalEndColumn);
-          fileInfos->push_back(pifi);
-        }
-      }
-    }
+    d->Include_file_infos(m_compileDesign->getFileInfo());
 
     // -------------------------------
     // Non-Elaborated Model

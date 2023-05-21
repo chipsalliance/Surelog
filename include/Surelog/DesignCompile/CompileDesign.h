@@ -49,13 +49,15 @@ class CompileDesign {
 
   bool compile();
   bool elaborate();
+  void purgeParsers();
   vpiHandle writeUHDM(PathId fileId);
 
   Compiler* getCompiler() const { return m_compiler; }
   virtual UHDM::Serializer& getSerializer() { return m_serializer; }
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }
-
+  UHDM::VectorOfinclude_file_info* getFileInfo() { return m_fileInfo; }
+   
  private:
   CompileDesign(const CompileDesign& orig) = delete;
 
@@ -70,7 +72,7 @@ class CompileDesign {
   Compiler* const m_compiler;
   std::vector<SymbolTable*> m_symbolTables;
   std::vector<ErrorContainer*> m_errorContainers;
-
+  UHDM::VectorOfinclude_file_info* m_fileInfo = nullptr;
   std::mutex m_serializerMutex;
   UHDM::Serializer m_serializer;
 };

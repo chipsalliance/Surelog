@@ -66,6 +66,7 @@ class Compiler {
   virtual ~Compiler();
 
   bool compile();
+  void purgeParsers();
   CommandLineParser* getCommandLineParser() const {
     return m_commandLineParser;
   }

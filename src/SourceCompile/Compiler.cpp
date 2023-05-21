@@ -103,6 +103,15 @@ Compiler::~Compiler() {
   cleanup_();
 }
 
+void Compiler::purgeParsers() {
+  for (auto& entry : m_antlrPpMap) {
+    delete entry.second;
+  }
+
+  m_antlrPpMap.clear();
+  DeleteContainerPointersAndClear(&m_compilers);
+}
+
 struct FunctorCompileOneFile {
   FunctorCompileOneFile(CompileSourceFile* compileSource,
                         CompileSourceFile::Action action)
@@ -1041,6 +1050,8 @@ bool Compiler::compile() {
       profile += msg;
       tmr.reset();
     }
+
+    m_compileDesign->purgeParsers();
 
     if (m_commandLineParser->elaborate()) {
       m_compileDesign->elaborate();
