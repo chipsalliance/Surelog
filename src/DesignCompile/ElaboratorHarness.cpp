@@ -22,6 +22,7 @@
  */
 
 #include <Surelog/CommandLine/CommandLineParser.h>
+#include <Surelog/Design/Design.h>
 #include <Surelog/DesignCompile/ElaboratorHarness.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
@@ -47,10 +48,8 @@ std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
   compiler->compile();
   Design* design = compiler->getDesign();
   FileContent* fC = nullptr;
-  if (!compiler->getCompileSourceFiles().empty()) {
-    CompileSourceFile* csf = compiler->getCompileSourceFiles().at(0);
-    ParseFile* pf = csf->getParser();
-    fC = pf->getFileContent();
+  if (!design->getAllFileContents().empty()) {
+    fC = design->getAllFileContents()[0].second;
   }
   result = std::make_tuple(design, fC, compiler->getCompileDesign());
   return result;

@@ -49,6 +49,7 @@
 #include <Surelog/Testbench/Program.h>
 
 // UHDM
+#include <uhdm/include_file_info.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/vpi_visitor.h>
 
@@ -331,6 +332,28 @@ bool CompileDesign::compilation_() {
     builtin->addBuiltinClasses();
   }
 
+  // Compile Include file info
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  m_fileInfo = m_serializer.MakeInclude_file_infoVec();
+  for (const CompileSourceFile* sourceFile :
+       getCompiler()->getCompileSourceFiles()) {
+    const PreprocessFile* const pf = sourceFile->getPreprocessor();
+    for (const IncludeFileInfo& ifi : pf->getIncludeFileInfo()) {
+      if ((ifi.m_context == IncludeFileInfo::Context::INCLUDE) &&
+          (ifi.m_action == IncludeFileInfo::Action::PUSH)) {
+        UHDM::include_file_info* const pifi =
+            m_serializer.MakeInclude_file_info();
+        pifi->VpiFile(fileSystem->toPath(pf->getRawFileId()));
+        pifi->VpiIncludedFile(fileSystem->toPath(ifi.m_sectionFileId));
+        pifi->VpiLineNo(ifi.m_originalStartLine);
+        pifi->VpiColumnNo(ifi.m_originalStartColumn);
+        pifi->VpiEndLineNo(ifi.m_originalEndLine);
+        pifi->VpiEndColumnNo(ifi.m_originalEndColumn);
+        m_fileInfo->push_back(pifi);
+      }
+    }
+  }
+
   // Compile classes
   compileMT_<ClassDefinition, ClassNameClassDefinitionMultiMap,
              FunctorCompileClass>(
@@ -369,6 +392,8 @@ bool CompileDesign::elaboration_() {
   delete uvmEl;
   return true;
 }
+
+void CompileDesign::purgeParsers() { m_compiler->purgeParsers(); }
 
 vpiHandle CompileDesign::writeUHDM(PathId fileId) {
   UhdmWriter* uhdmwriter = new UhdmWriter(this, m_compiler->getDesign());
