@@ -1035,25 +1035,14 @@ TEST(PlatformFileSystemTest, InMemoryTest) {
 
   Compiler *const compiler = new Compiler(clp, errors, symbolTable);
   compiler->compile();
+  Design *design = compiler->getDesign();
+  EXPECT_NE(design, nullptr);
 
-  const auto &compileSourceFiles = compiler->getCompileSourceFiles();
-  EXPECT_EQ(compileSourceFiles.size(), 1);
-
-  CompileSourceFile *const compileSourceFile = compileSourceFiles.front();
-  EXPECT_NE(compileSourceFile, nullptr);
-
-  ParseFile *const parseFile = compileSourceFile->getParser();
-  EXPECT_NE(parseFile, nullptr);
-
-  FileContent *const fC = parseFile->getFileContent();
-  EXPECT_NE(fC, nullptr);
+  const auto &compileSourceFiles = design->getAllFileContents();
+  EXPECT_EQ(compileSourceFiles.size(), 2);
 
   CompileDesign *const compileDesign = compiler->getCompileDesign();
   EXPECT_NE(compileDesign, nullptr);
-
-  // Preprocess, Parse, Compile, Elaborate
-  Design *const design = compiler->getDesign();
-  EXPECT_NE(design, nullptr);
 
   const auto &insts = design->getTopLevelModuleInstances();
   ModuleInstance *top = nullptr;
