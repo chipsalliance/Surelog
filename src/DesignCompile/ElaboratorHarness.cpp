@@ -48,7 +48,7 @@ std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
   compiler->compile();
   Design* design = compiler->getDesign();
   FileContent* fC = nullptr;
-  if (design->getAllFileContents().size()) {
+  if (!design->getAllFileContents().empty()) {
     fC = design->getAllFileContents()[0].second;
   }
   result = std::make_tuple(design, fC, compiler->getCompileDesign());
