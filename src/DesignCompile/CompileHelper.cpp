@@ -2352,14 +2352,18 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
 
 std::string CompileHelper::decompileHelper(const any* sel) {
   std::string path_name;
+  UHDM::ExprEval eval;
+  if (sel == nullptr) {
+    return "";
+  }
   if (sel->UhdmType() == uhdmconstant) {
     const std::string_view ind = ((expr*)sel)->VpiDecompile();
-    path_name.append("[").append(ind).append("]");
+    path_name.append(ind);
   } else if (sel->UhdmType() == uhdmref_obj) {
     const std::string_view ind = ((expr*)sel)->VpiName();
-    path_name.append("[").append(ind).append("]");
+    path_name.append(ind);
   } else if (sel->UhdmType() == uhdmoperation) {
-    path_name.append("[...]");
+    path_name.append(eval.prettyPrint(sel));
   } else if (sel->UhdmType() == uhdmbit_select) {
     bit_select* bsel = (bit_select*)sel;
     const expr* index = bsel->VpiIndex();
@@ -2370,19 +2374,29 @@ std::string CompileHelper::decompileHelper(const any* sel) {
       const std::string_view ind = ((expr*)index)->VpiName();
       path_name.append("[").append(ind).append("]");
     } else if (index->UhdmType() == uhdmoperation) {
-      path_name.append("[...]");
+      path_name.append("[" + eval.prettyPrint(index) + "]");
     }
   } else if (const part_select* pselect = any_cast<const part_select*>(sel)) {
     std::string selectRange =
-        StrCat("[", pselect->Left_range()->VpiDecompile(), ":",
-               pselect->Right_range()->VpiDecompile(), "]");
+        StrCat("[", decompileHelper(pselect->Left_range()), ":",
+               decompileHelper(pselect->Right_range()), "]");
     path_name += selectRange;
   } else if (const indexed_part_select* pselect =
                  any_cast<const indexed_part_select*>(sel)) {
     std::string selectRange = StrCat(
-        "[", pselect->Base_expr()->VpiDecompile(),
+        "[", decompileHelper(pselect->Base_expr()),
         ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed) ? "+" : "-"),
-        ":", pselect->Width_expr()->VpiDecompile(), "]");
+        ":", decompileHelper(pselect->Width_expr()), "]");
+    path_name += selectRange;
+  } else if (const var_select* pselect = any_cast<const var_select*>(sel)) {
+    std::string selectRange;
+    VectorOfexpr* exprs = pselect->Exprs();
+    for (auto ex : *exprs) {
+      std::string tmp = decompileHelper(ex);
+      if ((!tmp.empty()) && tmp[0] != '[') selectRange += StrCat("[");
+      selectRange += StrCat(tmp);
+      if ((!tmp.empty()) && tmp[0] != '[') selectRange += StrCat("]");
+    }
     path_name += selectRange;
   }
   return path_name;

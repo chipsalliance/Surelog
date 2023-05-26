@@ -253,7 +253,6 @@ always                                                 1
 assign_stmt                                            1
 assignment                                             1
 begin                                                  1
-bit_select                                             1
 constant                                              49
 cont_assign                                            2
 design                                                 1
@@ -273,10 +272,11 @@ parameter                                             21
 part_select                                            1
 port                                                   2
 range                                                  6
-ref_obj                                               10
+ref_obj                                                9
 struct_net                                             2
 struct_typespec                                        3
 typespec_member                                        3
+var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -285,7 +285,6 @@ always                                                 2
 assign_stmt                                            2
 assignment                                             2
 begin                                                  2
-bit_select                                             2
 constant                                              49
 cont_assign                                            3
 design                                                 1
@@ -305,10 +304,11 @@ parameter                                             21
 part_select                                            2
 port                                                   3
 range                                                  6
-ref_obj                                               16
+ref_obj                                               15
 struct_net                                             2
 struct_typespec                                        3
 typespec_member                                        3
+var_select                                             2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectNoParent/slpp_all/surelog.uhdm ...
 
@@ -953,35 +953,33 @@ design: (work@top)
                 \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                 |vpiName:keymgr_key_i
               |vpiActual:
-              \_bit_select: (key), line:16:27, endln:16:30
-                |vpiParent:
-                \_ref_obj: (work@top.key_sideload_get.key[0])
-                  |vpiParent:
-                  \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
-                  |vpiName:key[0]
-                  |vpiFullName:work@top.key_sideload_get.key[0]
+              \_var_select: (key), line:16:27, endln:16:41
                 |vpiName:key
                 |vpiIndex:
                 \_constant: , line:16:31, endln:16:32
+                  |vpiParent:
+                  \_var_select: (key), line:16:27, endln:16:41
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
                   |vpiConstType:9
-              |vpiActual:
-              \_part_select: , line:16:27, endln:16:40
-                |vpiConstantSelect:1
-                |vpiLeftRange:
-                \_constant: , line:16:34, endln:16:36
-                  |vpiDecompile:31
-                  |vpiSize:64
-                  |UINT:31
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:16:39, endln:16:40
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
+                |vpiIndex:
+                \_part_select: , line:16:34, endln:16:40
+                  |vpiParent:
+                  \_var_select: (key), line:16:27, endln:16:41
+                  |vpiConstantSelect:1
+                  |vpiLeftRange:
+                  \_constant: , line:16:34, endln:16:36
+                    |vpiDecompile:31
+                    |vpiSize:64
+                    |UINT:31
+                    |vpiConstType:9
+                  |vpiRightRange:
+                  \_constant: , line:16:39, endln:16:40
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+                    |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (work@top.key_sideload_get.o), line:16:10, endln:16:11
               |vpiParent:
@@ -1211,27 +1209,26 @@ design: (work@top)
                 |vpiActual:
                 \_struct_net: (work@top.keymgr_key_i), line:13:17, endln:13:29
               |vpiActual:
-              \_bit_select: (key), line:16:27, endln:16:30
+              \_var_select: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:27, endln:16:41
                 |vpiParent:
-                \_ref_obj: (work@top.key_sideload_get.key[0])
-                  |vpiParent:
-                  \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
-                  |vpiName:key[0]
-                  |vpiFullName:work@top.key_sideload_get.key[0]
-                  |vpiActual:
-                  \_typespec_member: (key), line:7:40, endln:7:43
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                 |vpiName:key
+                |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key
                 |vpiIndex:
                 \_constant: , line:16:31, endln:16:32
-                |vpiActual:
-                \_typespec_member: (key), line:7:40, endln:7:43
-              |vpiActual:
-              \_part_select: , line:16:27, endln:16:40
-                |vpiConstantSelect:1
-                |vpiLeftRange:
-                \_constant: , line:16:34, endln:16:36
-                |vpiRightRange:
-                \_constant: , line:16:39, endln:16:40
+                |vpiIndex:
+                \_part_select: , line:16:34, endln:16:40
+                  |vpiParent:
+                  \_ref_obj: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key.key)
+                    |vpiParent:
+                    \_var_select: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:27, endln:16:41
+                    |vpiName:key
+                    |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key.key
+                  |vpiConstantSelect:1
+                  |vpiLeftRange:
+                  \_constant: , line:16:34, endln:16:36
+                  |vpiRightRange:
+                  \_constant: , line:16:39, endln:16:40
             |vpiLhs:
             \_ref_obj: (work@top.key_sideload_get.o), line:16:10, endln:16:11
               |vpiParent:
@@ -1264,4 +1261,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectNoParent/roundtrip/dut_000.sv | 4 | 19 |
+[roundtrip]: ${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectNoParent/roundtrip/dut_000.sv | 5 | 19 |
