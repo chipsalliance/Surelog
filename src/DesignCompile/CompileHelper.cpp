@@ -2393,9 +2393,9 @@ std::string CompileHelper::decompileHelper(const any* sel) {
     VectorOfexpr* exprs = pselect->Exprs();
     for (auto ex : *exprs) {
       std::string tmp = decompileHelper(ex);
-      if (tmp.size() && tmp[0] != '[') selectRange += StrCat("[");
+      if ((!tmp.empty()) && tmp[0] != '[') selectRange += StrCat("[");
       selectRange += StrCat(tmp);
-      if (tmp.size() && tmp[0] != '[') selectRange += StrCat("]");
+      if ((!tmp.empty()) && tmp[0] != '[') selectRange += StrCat("]");
     }
     path_name += selectRange;
   }
