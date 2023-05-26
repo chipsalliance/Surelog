@@ -4913,7 +4913,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                 elems->push_back(select);
                 the_name += decompileHelper(select);
               }
-              tmpName = "";
+              tmpName.clear();
               break;
             } else if (fC->Type(BitSelect) ==
                        VObjectType::slPart_select_range) {
