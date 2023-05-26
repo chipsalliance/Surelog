@@ -3748,11 +3748,11 @@ unsupported_typespec                                   9
 
 [ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:418:33: Unresolved hierarchical reference "sender_if[i].ready".
 
-[ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:418:7: Unresolved hierarchical reference "receiver_if.ready".
+[ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:418:7: Unresolved hierarchical reference "receiver_if.ready[i]".
 
 [ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:419:33: Unresolved hierarchical reference "sender_if[i].vc_ready".
 
-[ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:419:7: Unresolved hierarchical reference "receiver_if.vc_ready".
+[ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:419:7: Unresolved hierarchical reference "receiver_if.vc_ready[i]".
 
 [ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:424:29: Unresolved hierarchical reference "receiver_if.flit[i]".
 
@@ -24531,20 +24531,21 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (valid), line:417:45, endln:417:50
+              \_bit_select: (work@tnoc_vc_splitter.g[0].valid)
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].valid[i])
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].valid)
                   |vpiParent:
                   \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
-                  |vpiName:valid[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].valid[i]
+                  |vpiName:valid
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].valid
                 |vpiName:valid
+                |vpiFullName:work@tnoc_vc_splitter.g[0].valid
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].valid[i].i), line:417:51, endln:417:52
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].valid.i), line:417:51, endln:417:52
                   |vpiParent:
-                  \_bit_select: (valid), line:417:45, endln:417:50
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].valid)
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].valid[i].i
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].valid.i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
             |vpiLhs:
@@ -24612,33 +24613,33 @@ design: (work@tnoc_vc_splitter)
                 \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
                 |vpiName:ready
             |vpiLhs:
-            \_hier_path: (receiver_if.ready), line:418:7, endln:418:27
+            \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
               |vpiParent:
               \_assignment: , line:418:7, endln:418:51
-              |vpiName:receiver_if.ready
+              |vpiName:receiver_if.ready[i]
               |vpiActual:
               \_ref_obj: (receiver_if)
                 |vpiParent:
-                \_hier_path: (receiver_if.ready), line:418:7, endln:418:27
+                \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
                 |vpiName:receiver_if
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready), line:418:19, endln:418:24
+              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i]), line:418:19, endln:418:24
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.ready)
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i])
                   |vpiParent:
-                  \_hier_path: (receiver_if.ready), line:418:7, endln:418:27
-                  |vpiName:receiver_if.ready
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready
+                  \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
+                  |vpiName:receiver_if.ready[i]
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready[i]
                 |vpiName:ready
-                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready
+                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready[i]
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.ready.i), line:418:25, endln:418:26
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i].i), line:418:25, endln:418:26
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready), line:418:19, endln:418:24
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i]), line:418:19, endln:418:24
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready.i
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
           |vpiStmt:
@@ -24677,33 +24678,33 @@ design: (work@tnoc_vc_splitter)
                 \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
                 |vpiName:vc_ready
             |vpiLhs:
-            \_hier_path: (receiver_if.vc_ready), line:419:7, endln:419:30
+            \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
               |vpiParent:
               \_assignment: , line:419:7, endln:419:54
-              |vpiName:receiver_if.vc_ready
+              |vpiName:receiver_if.vc_ready[i]
               |vpiActual:
               \_ref_obj: (receiver_if)
                 |vpiParent:
-                \_hier_path: (receiver_if.vc_ready), line:419:7, endln:419:30
+                \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
                 |vpiName:receiver_if
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready), line:419:19, endln:419:27
+              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]), line:419:19, endln:419:27
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready)
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i])
                   |vpiParent:
-                  \_hier_path: (receiver_if.vc_ready), line:419:7, endln:419:30
-                  |vpiName:receiver_if.vc_ready
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready
+                  \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
+                  |vpiName:receiver_if.vc_ready[i]
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]
                 |vpiName:vc_ready
-                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready
+                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready.i), line:419:28, endln:419:29
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i].i), line:419:28, endln:419:29
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready), line:419:19, endln:419:27
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]), line:419:19, endln:419:27
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready.i
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
         |vpiAlwaysType:2
@@ -24746,20 +24747,21 @@ design: (work@tnoc_vc_splitter)
                     |vpiActual:
                     \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
                   |vpiActual:
-                  \_bit_select: (flit), line:424:41, endln:424:45
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].g.flit)
                     |vpiParent:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.flit[i])
+                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.flit)
                       |vpiParent:
                       \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
-                      |vpiName:flit[i]
-                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit[i]
+                      |vpiName:flit
+                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit
                     |vpiName:flit
+                    |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit
                     |vpiIndex:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.flit[i].i), line:424:46, endln:424:47
+                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.flit.i), line:424:46, endln:424:47
                       |vpiParent:
-                      \_bit_select: (flit), line:424:41, endln:424:45
+                      \_bit_select: (work@tnoc_vc_splitter.g[0].g.flit)
                       |vpiName:i
-                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit[i].i
+                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit.i
                       |vpiActual:
                       \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
                 |vpiLhs:
@@ -24841,20 +24843,21 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (valid), line:417:45, endln:417:50
+              \_bit_select: (work@tnoc_vc_splitter.g[1].valid)
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].valid[i])
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].valid)
                   |vpiParent:
                   \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
-                  |vpiName:valid[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].valid[i]
+                  |vpiName:valid
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].valid
                 |vpiName:valid
+                |vpiFullName:work@tnoc_vc_splitter.g[1].valid
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].valid[i].i), line:417:51, endln:417:52
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].valid.i), line:417:51, endln:417:52
                   |vpiParent:
-                  \_bit_select: (valid), line:417:45, endln:417:50
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].valid)
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].valid[i].i
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].valid.i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
             |vpiLhs:
@@ -24922,33 +24925,33 @@ design: (work@tnoc_vc_splitter)
                 \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
                 |vpiName:ready
             |vpiLhs:
-            \_hier_path: (receiver_if.ready), line:418:7, endln:418:27
+            \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
               |vpiParent:
               \_assignment: , line:418:7, endln:418:51
-              |vpiName:receiver_if.ready
+              |vpiName:receiver_if.ready[i]
               |vpiActual:
               \_ref_obj: (receiver_if)
                 |vpiParent:
-                \_hier_path: (receiver_if.ready), line:418:7, endln:418:27
+                \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
                 |vpiName:receiver_if
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready), line:418:19, endln:418:24
+              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i]), line:418:19, endln:418:24
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.ready)
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i])
                   |vpiParent:
-                  \_hier_path: (receiver_if.ready), line:418:7, endln:418:27
-                  |vpiName:receiver_if.ready
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready
+                  \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
+                  |vpiName:receiver_if.ready[i]
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready[i]
                 |vpiName:ready
-                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready
+                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready[i]
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.ready.i), line:418:25, endln:418:26
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i].i), line:418:25, endln:418:26
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready), line:418:19, endln:418:24
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i]), line:418:19, endln:418:24
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready.i
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
           |vpiStmt:
@@ -24987,33 +24990,33 @@ design: (work@tnoc_vc_splitter)
                 \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
                 |vpiName:vc_ready
             |vpiLhs:
-            \_hier_path: (receiver_if.vc_ready), line:419:7, endln:419:30
+            \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
               |vpiParent:
               \_assignment: , line:419:7, endln:419:54
-              |vpiName:receiver_if.vc_ready
+              |vpiName:receiver_if.vc_ready[i]
               |vpiActual:
               \_ref_obj: (receiver_if)
                 |vpiParent:
-                \_hier_path: (receiver_if.vc_ready), line:419:7, endln:419:30
+                \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
                 |vpiName:receiver_if
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready), line:419:19, endln:419:27
+              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]), line:419:19, endln:419:27
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready)
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i])
                   |vpiParent:
-                  \_hier_path: (receiver_if.vc_ready), line:419:7, endln:419:30
-                  |vpiName:receiver_if.vc_ready
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready
+                  \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
+                  |vpiName:receiver_if.vc_ready[i]
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]
                 |vpiName:vc_ready
-                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready
+                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready.i), line:419:28, endln:419:29
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i].i), line:419:28, endln:419:29
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready), line:419:19, endln:419:27
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]), line:419:19, endln:419:27
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready.i
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
         |vpiAlwaysType:2
@@ -25056,20 +25059,21 @@ design: (work@tnoc_vc_splitter)
                     |vpiActual:
                     \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
                   |vpiActual:
-                  \_bit_select: (flit), line:424:41, endln:424:45
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].g.flit)
                     |vpiParent:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.flit[i])
+                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.flit)
                       |vpiParent:
                       \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
-                      |vpiName:flit[i]
-                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit[i]
+                      |vpiName:flit
+                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit
                     |vpiName:flit
+                    |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit
                     |vpiIndex:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.flit[i].i), line:424:46, endln:424:47
+                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.flit.i), line:424:46, endln:424:47
                       |vpiParent:
-                      \_bit_select: (flit), line:424:41, endln:424:45
+                      \_bit_select: (work@tnoc_vc_splitter.g[1].g.flit)
                       |vpiName:i
-                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit[i].i
+                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit.i
                       |vpiActual:
                       \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
                 |vpiLhs:

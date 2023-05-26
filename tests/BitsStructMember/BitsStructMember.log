@@ -647,14 +647,15 @@ design: (work@top)
                           \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                           |vpiName:keymgr_data_i
                         |vpiActual:
-                        \_bit_select: (strb), line:23:50, endln:23:54
+                        \_bit_select: (work@top.strb)
                           |vpiParent:
-                          \_ref_obj: (work@top.strb[i])
+                          \_ref_obj: (work@top.strb)
                             |vpiParent:
-                            \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
-                            |vpiName:strb[i]
-                            |vpiFullName:work@top.strb[i]
+                            \_begin: (work@top), line:22:63, endln:24:12
+                            |vpiName:strb
+                            |vpiFullName:work@top.strb
                           |vpiName:strb
+                          |vpiFullName:work@top.strb
                           |vpiIndex:
                           \_ref_obj: (work@top.i), line:23:55, endln:23:56
                             |vpiParent:
@@ -961,22 +962,23 @@ design: (work@top)
                           |vpiActual:
                           \_struct_net: (work@top.keymgr_data_i), line:16:48, endln:16:61
                         |vpiActual:
-                        \_bit_select: (strb), line:23:50, endln:23:54
+                        \_bit_select: (work@top.strb)
                           |vpiParent:
-                          \_ref_obj: (work@top.strb[i])
+                          \_ref_obj: (work@top.strb)
                             |vpiParent:
                             \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
-                            |vpiName:strb[i]
-                            |vpiFullName:work@top.strb[i]
+                            |vpiName:strb
+                            |vpiFullName:work@top.strb
                             |vpiActual:
                             \_typespec_member: (strb), line:8:35, endln:8:39
                           |vpiName:strb
+                          |vpiFullName:work@top.strb
                           |vpiIndex:
-                          \_ref_obj: (work@top.strb[i].i), line:23:55, endln:23:56
+                          \_ref_obj: (work@top.strb.i), line:23:55, endln:23:56
                             |vpiParent:
-                            \_bit_select: (strb), line:23:50, endln:23:54
+                            \_bit_select: (work@top.strb)
                             |vpiName:i
-                            |vpiFullName:work@top.strb[i].i
+                            |vpiFullName:work@top.strb.i
                             |vpiActual:
                             \_int_var: (work@top.i), line:22:18, endln:22:19
                           |vpiActual:
@@ -1020,4 +1022,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BitsStructMember/dut.sv | ${SURELOG_DIR}/build/regression/BitsStructMember/roundtrip/dut_000.sv | 3 | 28 |
+[roundtrip]: ${SURELOG_DIR}/tests/BitsStructMember/dut.sv | ${SURELOG_DIR}/build/regression/BitsStructMember/roundtrip/dut_000.sv | 4 | 28 |

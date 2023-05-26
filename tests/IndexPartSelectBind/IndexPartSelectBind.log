@@ -392,14 +392,14 @@ design: (unnamed)
               |vpiOpType:82
               |vpiBlocking:1
               |vpiRhs:
-              \_hier_path: (rw.data[+:8]), line:13:17, endln:13:32
+              \_hier_path: (rw.data[i * 8+:8]), line:13:17, endln:13:32
                 |vpiParent:
                 \_assignment: , line:13:4, endln:13:32
-                |vpiName:rw.data[+:8]
+                |vpiName:rw.data[i * 8+:8]
                 |vpiActual:
                 \_ref_obj: (rw), line:13:17, endln:13:19
                   |vpiParent:
-                  \_hier_path: (rw.data[+:8]), line:13:17, endln:13:32
+                  \_hier_path: (rw.data[i * 8+:8]), line:13:17, endln:13:32
                   |vpiName:rw
                   |vpiActual:
                   \_io_decl: (rw), line:10:69, endln:10:71
@@ -408,7 +408,7 @@ design: (unnamed)
                   |vpiParent:
                   \_ref_obj: (pkg::tt::reg2bus::data)
                     |vpiParent:
-                    \_hier_path: (rw.data[+:8]), line:13:17, endln:13:32
+                    \_hier_path: (rw.data[i * 8+:8]), line:13:17, endln:13:32
                     |vpiName:data
                     |vpiFullName:pkg::tt::reg2bus::data
                   |vpiConstantSelect:1
@@ -441,35 +441,35 @@ design: (unnamed)
                     |UINT:8
                     |vpiConstType:9
               |vpiLhs:
-              \_hier_path: (rw.data), line:13:4, endln:13:14
+              \_hier_path: (rw.data[i]), line:13:4, endln:13:14
                 |vpiParent:
                 \_assignment: , line:13:4, endln:13:32
-                |vpiName:rw.data
+                |vpiName:rw.data[i]
                 |vpiActual:
                 \_ref_obj: (rw)
                   |vpiParent:
-                  \_hier_path: (rw.data), line:13:4, endln:13:14
+                  \_hier_path: (rw.data[i]), line:13:4, endln:13:14
                   |vpiName:rw
                   |vpiActual:
                   \_io_decl: (rw), line:10:69, endln:10:71
                 |vpiActual:
-                \_bit_select: (pkg::tt::reg2bus::rw.data), line:13:7, endln:13:11
+                \_bit_select: (pkg::tt::reg2bus::rw.data[i]), line:13:7, endln:13:11
                   |vpiParent:
-                  \_ref_obj: (pkg::tt::reg2bus::rw.data)
+                  \_ref_obj: (pkg::tt::reg2bus::rw.data[i])
                     |vpiParent:
-                    \_hier_path: (rw.data), line:13:4, endln:13:14
-                    |vpiName:rw.data
-                    |vpiFullName:pkg::tt::reg2bus::rw.data
+                    \_hier_path: (rw.data[i]), line:13:4, endln:13:14
+                    |vpiName:rw.data[i]
+                    |vpiFullName:pkg::tt::reg2bus::rw.data[i]
                     |vpiActual:
                     \_typespec_member: (data), line:5:18, endln:5:22
                   |vpiName:data
-                  |vpiFullName:pkg::tt::reg2bus::rw.data
+                  |vpiFullName:pkg::tt::reg2bus::rw.data[i]
                   |vpiIndex:
-                  \_ref_obj: (pkg::tt::reg2bus::rw.data::i), line:13:12, endln:13:13
+                  \_ref_obj: (pkg::tt::reg2bus::rw.data[i]::i), line:13:12, endln:13:13
                     |vpiParent:
-                    \_bit_select: (pkg::tt::reg2bus::rw.data), line:13:7, endln:13:11
+                    \_bit_select: (pkg::tt::reg2bus::rw.data[i]), line:13:7, endln:13:11
                     |vpiName:i
-                    |vpiFullName:pkg::tt::reg2bus::rw.data::i
+                    |vpiFullName:pkg::tt::reg2bus::rw.data[i]::i
                     |vpiActual:
                     \_int_var: (pkg::tt::reg2bus::i), line:12:10, endln:12:11
         |vpiStmt:
