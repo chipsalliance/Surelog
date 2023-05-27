@@ -312,8 +312,10 @@ PreprocessFile::~PreprocessFile() {
 PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
   delete m_errorListener;
   // delete m_pptree;  // INVALID MEMORY READ can be seen in AdvancedDebug
-  m_pplexer->getInterpreter<antlr4::atn::LexerATNSimulator>()->clearDFA();
-  m_ppparser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
+  if (m_clearAntlrCache) {
+    m_pplexer->getInterpreter<antlr4::atn::LexerATNSimulator>()->clearDFA();
+    m_ppparser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
+  }
   delete m_ppparser;
   delete m_pptokens;
   delete m_pplexer;
@@ -364,6 +366,7 @@ bool PreprocessFile::preprocess() {
 
   if (m_antlrParserHandler == nullptr) {
     m_antlrParserHandler = new AntlrParserHandler();
+    m_antlrParserHandler->m_clearAntlrCache = clp->lowMem();
     if (m_macroBody.empty()) {
       if (m_debugPP)
         std::cout << "PP PREPROCESS FILE: " << PathIdPP(m_fileId) << std::endl;

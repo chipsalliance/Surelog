@@ -33,8 +33,10 @@ AntlrParserHandler::~AntlrParserHandler() {
   delete m_errorListener;
   // ParseTree is deleted in antlr4::ParseTreeTracker
   // delete m_tree; // INVALID MEMORY READ can be seen in AdvancedDebug
-  m_lexer->getInterpreter<antlr4::atn::LexerATNSimulator>()->clearDFA();
-  m_parser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
+  if (m_clearAntlrCache) {
+    m_lexer->getInterpreter<antlr4::atn::LexerATNSimulator>()->clearDFA();
+    m_parser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
+  }
   delete m_parser;
   delete m_tokens;
   delete m_lexer;

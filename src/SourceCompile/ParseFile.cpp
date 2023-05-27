@@ -271,6 +271,7 @@ bool ParseFile::parseOneFile_(PathId fileId, uint32_t lineOffset) {
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;
   m_antlrParserHandler = new AntlrParserHandler();
+  m_antlrParserHandler->m_clearAntlrCache = clp->lowMem();
   if (m_sourceText.empty()) {
     std::istream& stream = fileSystem->openForRead(fileId);
     if (!stream.good()) {
