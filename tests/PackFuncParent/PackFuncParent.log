@@ -244,23 +244,23 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             2
 begin                                                  2
-constant                                              61
-cont_assign                                            2
+constant                                              57
+cont_assign                                            1
 design                                                 1
-func_call                                              4
+func_call                                              3
 function                                               4
 indexed_part_select                                    4
 io_decl                                                4
 logic_net                                              2
-logic_typespec                                        16
+logic_typespec                                        15
 logic_var                                              6
 module_inst                                            8
 package                                                3
 param_assign                                           6
 parameter                                              6
 port                                                   2
-range                                                 23
-ref_obj                                               14
+range                                                 22
+ref_obj                                               13
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -268,23 +268,23 @@ return_stmt                                            4
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             4
 begin                                                  4
-constant                                              61
-cont_assign                                            3
+constant                                              57
+cont_assign                                            2
 design                                                 1
 func_call                                              6
 function                                               8
 indexed_part_select                                    8
 io_decl                                                8
 logic_net                                              2
-logic_typespec                                        16
+logic_typespec                                        15
 logic_var                                             10
 module_inst                                            8
 package                                                3
 param_assign                                           6
 parameter                                              6
 port                                                   3
-range                                                 23
-ref_obj                                               24
+range                                                 22
+ref_obj                                               23
 return_stmt                                            8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackFuncParent/slpp_all/surelog.uhdm ...
@@ -978,13 +978,14 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:13:1, endln:15:10
     |vpiRhs:
-    \_constant: 
+    \_func_call: (my_pkg::sbox4_16bit), line:14:15, endln:14:21
       |vpiParent:
       \_cont_assign: , line:14:11, endln:14:44
-      |vpiDecompile:xxxxxxxx11001101
-      |vpiSize:16
-      |BIN:xxxxxxxx11001101
-      |vpiConstType:3
+      |vpiArgument:
+      \_constant: , line:14:35, endln:14:43
+      |vpiName:my_pkg::sbox4_16bit
+      |vpiFunction:
+      \_function: (my_pkg::sbox4_16bit), line:6:4, endln:10:29
     |vpiLhs:
     \_ref_obj: (work@top.o), line:14:11, endln:14:12
       |vpiParent:
