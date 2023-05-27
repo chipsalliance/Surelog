@@ -260,6 +260,7 @@ class PreprocessFile final {
   struct AntlrParserHandler final {
     AntlrParserHandler() = default;
     ~AntlrParserHandler();
+    bool m_clearAntlrCache = false;
     antlr4::ANTLRInputStream* m_inputStream = nullptr;
     SV3_1aPpLexer* m_pplexer = nullptr;
     antlr4::CommonTokenStream* m_pptokens = nullptr;

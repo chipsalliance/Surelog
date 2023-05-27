@@ -44,7 +44,7 @@ class AntlrParserHandler {
  public:
   AntlrParserHandler() = default;
   ~AntlrParserHandler();
-
+  bool m_clearAntlrCache = false;
   antlr4::ANTLRInputStream* m_inputStream = nullptr;
   SV3_1aLexer* m_lexer = nullptr;
   antlr4::CommonTokenStream* m_tokens = nullptr;
