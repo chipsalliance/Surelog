@@ -2298,6 +2298,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
             Reduce::No, nullptr, instance, false);
         if ((lhs_exp->UhdmType() == uhdmhier_path) && sel) {
           hier_path* path = (hier_path*)lhs_exp;
+          sel->VpiParent(lhs_exp);
           path->Path_elems()->push_back(sel);
           std::string path_name(path->VpiName());
           path_name += decompileHelper(sel);
@@ -3768,7 +3769,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
 UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
                                         const FileContent* fC,
                                         NodeId Tf_call_stmt,
-                                        CompileDesign* compileDesign) {
+                                        CompileDesign* compileDesign,
+                                        any* pexpr) {
   UHDM::Serializer& s = compileDesign->getSerializer();
 
   NodeId dollar_or_string = fC->Child(Tf_call_stmt);
@@ -3788,7 +3790,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     name.assign("$").append(fC->SymName(tfNameNode));
   } else if (leaf_type == VObjectType::slImplicit_class_handle) {
     return compileComplexFuncCall(component, fC, fC->Child(Tf_call_stmt),
-                                  compileDesign, Reduce::No, nullptr, nullptr,
+                                  compileDesign, Reduce::No, pexpr, nullptr,
                                   false);
   } else if (leaf_type == VObjectType::slDollar_root_keyword) {
     NodeId Dollar_root_keyword = dollar_or_string;
@@ -3796,6 +3798,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
     name.assign("$root.").append(fC->SymName(nameId));
     nameId = fC->Sibling(nameId);
     tfNameNode = nameId;
+    func_call* fcall = s.MakeFunc_call();
     while (nameId) {
       if (fC->Type(nameId) == VObjectType::slStringConst) {
         name.append(".").append(fC->SymName(nameId));
@@ -3804,8 +3807,9 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
         NodeId Constant_expresion = fC->Child(nameId);
         if (Constant_expresion) {
           name += "[";
-          expr* select = (expr*)compileExpression(
-              component, fC, Constant_expresion, compileDesign, Reduce::No);
+          expr* select =
+              (expr*)compileExpression(component, fC, Constant_expresion,
+                                       compileDesign, Reduce::No, fcall);
           name += select->VpiDecompile();
           name += "]";
           tfNameNode = nameId;
@@ -3815,8 +3819,8 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       }
       nameId = fC->Sibling(nameId);
     }
-    func_call* fcall = s.MakeFunc_call();
     fcall->VpiName(name);
+    fcall->VpiParent(pexpr);
     call = fcall;
   } else if (leaf_type == VObjectType::slSystem_task_names) {
     tfNameNode = dollar_or_string;
@@ -3829,7 +3833,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
         fC->Type(handle) == VObjectType::slThis_dot_super) {
       return (tf_call*)compileComplexFuncCall(
           component, fC, fC->Child(Tf_call_stmt), compileDesign, Reduce::No,
-          nullptr, nullptr, false);
+          pexpr, nullptr, false);
     } else if (fC->Type(handle) == VObjectType::slDollar_root_keyword) {
       name = "$root.";
       tfNameNode = fC->Sibling(dollar_or_string);
@@ -3839,7 +3843,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
   } else if (leaf_type == VObjectType::slClass_scope) {
     return (tf_call*)compileComplexFuncCall(
         component, fC, fC->Child(Tf_call_stmt), compileDesign, Reduce::No,
-        nullptr, nullptr, false);
+        pexpr, nullptr, false);
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -3858,6 +3862,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
       const std::string_view mname = fC->SymName(tfNameNode);
       fC->populateCoreMembers(tfNameNode, tfNameNode, fcall);
       fcall->VpiName(mname);
+      fcall->VpiParent(pexpr);
       ref_obj* prefix = s.MakeRef_obj();
       prefix->VpiName(name);
       prefix->VpiParent(fcall);
@@ -3878,6 +3883,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
         tcall->Task(any_cast<task*>(tf));
         call = tcall;
       }
+      call->VpiParent(pexpr);
     }
     if (call == nullptr) {
       LetStmt* stmt = component->getLetStmt(name);
@@ -4088,6 +4094,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
   } else {
     Variable_lvalue = fC->Child(Operator_assignment);
   }
+  assignment* assign = s.MakeAssignment();
   UHDM::expr* lhs_rf = nullptr;
   UHDM::any* rhs_rf = nullptr;
   NodeId Delay_or_event_control;
@@ -4098,8 +4105,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     Delay_or_event_control = fC->Sibling(Variable_lvalue);
     NodeId Expression = fC->Sibling(Delay_or_event_control);
     lhs_rf = any_cast<expr*>(compileExpression(component, fC, Variable_lvalue,
-                                               compileDesign, Reduce::No, pstmt,
-                                               instance));
+                                               compileDesign, Reduce::No,
+                                               assign, instance));
     AssignOp_Assign = InvalidNodeId;
     if (fC->Type(Delay_or_event_control) == VObjectType::slDynamic_array_new) {
       method_func_call* fcall = s.MakeMethod_func_call();
@@ -4117,7 +4124,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
       rhs_rf = fcall;
     } else {
       rhs_rf = compileExpression(component, fC, Expression, compileDesign,
-                                 Reduce::No, pstmt, instance);
+                                 Reduce::No, assign, instance);
     }
   } else if (fC->Type(Variable_lvalue) == VObjectType::slVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
@@ -4133,7 +4140,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
 
     lhs_rf = any_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
-                          Reduce::No, pstmt, instance));
+                          Reduce::No, assign, instance));
     NodeId Expression;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;
@@ -4147,7 +4154,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
       Expression = fC->Sibling(AssignOp_Assign);
     }
     rhs_rf = compileExpression(component, fC, Expression, compileDesign,
-                               Reduce::No, pstmt, instance);
+                               Reduce::No, assign, instance);
   } else if (fC->Type(Operator_assignment) ==
              VObjectType::slHierarchical_identifier) {
     //  = new ...
@@ -4157,9 +4164,10 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     NodeId List_of_arguments = fC->Child(Class_new);
     lhs_rf = any_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
-                          Reduce::No, pstmt, instance));
+                          Reduce::No, assign, instance));
     method_func_call* fcall = s.MakeMethod_func_call();
     fcall->VpiName("new");
+    fcall->VpiParent(assign);
     fC->populateCoreMembers(Hierarchical_identifier, Hierarchical_identifier,
                             fcall);
     if (List_of_arguments) {
@@ -4172,7 +4180,6 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     rhs_rf = fcall;
   }
 
-  assignment* assign = s.MakeAssignment();
   UHDM::delay_control* delay_control = nullptr;
   if (Delay_or_event_control &&
       (fC->Type(Delay_or_event_control) != VObjectType::slSelect)) {
@@ -4193,8 +4200,6 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
   if (blocking) assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
   assign->Rhs(rhs_rf);
-  setParentNoOverride(lhs_rf, assign);
-  setParentNoOverride(rhs_rf, assign);
   return assign;
 }
 

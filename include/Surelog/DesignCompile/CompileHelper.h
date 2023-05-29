@@ -154,7 +154,8 @@ class CompileHelper final {
                           ValuedComponentI* instance);
 
   UHDM::any* compileTfCall(DesignComponent* component, const FileContent* fC,
-                           NodeId Tf_call_stmt, CompileDesign* compileDesign);
+                           NodeId Tf_call_stmt, CompileDesign* compileDesign,
+                           UHDM::any* pexpr);
 
   UHDM::VectorOfany* compileTfCallArguments(
       DesignComponent* component, const FileContent* fC, NodeId Arg_list_node,
