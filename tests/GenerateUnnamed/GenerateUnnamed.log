@@ -1044,7 +1044,7 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -1055,7 +1055,7 @@ enum_typespec                                          1
 enum_var                                               1
 function                                               9
 gate                                                  16
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                             17
 gen_scope_array                                       17
 int_typespec                                          17
@@ -1582,7 +1582,7 @@ design: (work@test1)
         |vpiActual:
         \_logic_net: (work@test1.c), line:3:14, endln:3:15
   |vpiGenStmt:
-  \_gen_if: , line:13:3, endln:13:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |vpiCondition:
@@ -1602,6 +1602,8 @@ design: (work@test1)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
+    \_begin: 
+    |vpiElseStmt:
     \_begin: 
 |uhdmallModules:
 \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
@@ -1726,7 +1728,7 @@ design: (work@test1)
         |vpiActual:
         \_logic_net: (work@test2.c), line:62:14, endln:62:15
   |vpiGenStmt:
-  \_gen_if: , line:72:3, endln:72:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |vpiCondition:
@@ -1746,6 +1748,8 @@ design: (work@test1)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
+    \_begin: 
+    |vpiElseStmt:
     \_begin: 
 |uhdmtopModules:
 \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10

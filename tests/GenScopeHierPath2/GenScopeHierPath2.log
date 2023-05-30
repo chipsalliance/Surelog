@@ -371,11 +371,11 @@ Instance tree:
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              1
-begin                                                  2
+begin                                                  4
 constant                                              34
 cont_assign                                            2
 design                                                 1
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                              4
@@ -395,11 +395,11 @@ sys_func_call                                          2
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              1
-begin                                                  2
+begin                                                  4
 constant                                              34
 cont_assign                                            3
 design                                                 1
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              5
@@ -494,7 +494,7 @@ design: (work@mod)
           |UINT:0
           |vpiConstType:9
   |vpiGenStmt:
-  \_gen_if: , line:5:5, endln:5:7
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiCondition:
@@ -515,8 +515,10 @@ design: (work@mod)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+    |vpiElseStmt:
+    \_begin: 
   |vpiGenStmt:
-  \_gen_if: , line:17:5, endln:17:7
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiCondition:
@@ -566,6 +568,8 @@ design: (work@mod)
           |vpiName:out
           |vpiActual:
           \_logic_net: (work@mod.out), line:2:24, endln:2:27
+    |vpiElseStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
   |vpiName:work@mod

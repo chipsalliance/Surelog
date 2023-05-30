@@ -319,12 +319,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  3
 constant                                              24
 design                                                 1
 enum_const                                             5
 enum_typespec                                          5
-gen_if                                                 2
+gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                              1
@@ -343,12 +344,13 @@ typespec_member                                        6
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+begin                                                  3
 constant                                              24
 design                                                 1
 enum_const                                             5
 enum_typespec                                          5
-gen_if                                                 2
+gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              8
 gen_scope_array                                        8
 hier_path                                              1
@@ -560,7 +562,7 @@ design: (work@top)
   \_import_typespec: (prim_pad_wrapper_pkg), line:20:11, endln:20:34
   |vpiDefName:work@prim_generic_pad_attr
   |vpiGenStmt:
-  \_gen_if: , line:22:4, endln:22:6
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:19:1, endln:30:34
     |vpiCondition:
@@ -585,6 +587,8 @@ design: (work@top)
       \_ref_module: work@GOOD (good), line:24:14, endln:24:18
         |vpiName:good
         |vpiDefName:work@GOOD
+    |vpiElseStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:33:1, endln:44:10
   |vpiParent:

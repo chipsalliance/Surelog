@@ -1352,20 +1352,21 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 2
 assignment                                             3
-begin                                                  4
+begin                                                  5
 bit_select                                             3
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             165
-cont_assign                                            6
+constant                                             166
+cont_assign                                            7
 design                                                 1
 enum_const                                            23
 enum_typespec                                         10
 enum_var                                               1
 event_control                                          1
 function                                               9
-gen_if                                                 2
+gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 if_else                                                1
@@ -1377,14 +1378,14 @@ logic_net                                             21
 logic_typespec                                        18
 logic_var                                              2
 module_inst                                           26
-operation                                             53
+operation                                             55
 package                                                5
 param_assign                                          35
 parameter                                             35
 port                                                   4
 range                                                 22
 ref_module                                             2
-ref_obj                                               55
+ref_obj                                               58
 string_typespec                                        3
 sys_func_call                                          3
 task                                                   9
@@ -1399,20 +1400,21 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 5
 assignment                                             8
-begin                                                  7
+begin                                                  8
 bit_select                                             5
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             176
-cont_assign                                           10
+constant                                             177
+cont_assign                                           11
 design                                                 1
 enum_const                                            28
 enum_typespec                                         11
 enum_var                                               1
 event_control                                          3
 function                                              18
-gen_if                                                 2
+gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 if_else                                                3
@@ -1424,14 +1426,14 @@ logic_net                                             21
 logic_typespec                                        18
 logic_var                                              2
 module_inst                                           26
-operation                                             73
+operation                                             75
 package                                                5
 param_assign                                          35
 parameter                                             35
 port                                                   6
 range                                                 22
 ref_module                                             2
-ref_obj                                               85
+ref_obj                                               88
 string_typespec                                        3
 sys_func_call                                          3
 task                                                  18
@@ -2587,7 +2589,7 @@ design: (work@dut1)
           |UINT:0
           |vpiConstType:9
   |vpiGenStmt:
-  \_gen_if: , line:41:6, endln:41:8
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/Bindings/dut.sv, line:35:1, endln:50:10
     |vpiCondition:
@@ -2608,6 +2610,44 @@ design: (work@dut1)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:47:15, endln:47:44
+        |vpiRhs:
+        \_operation: , line:47:19, endln:47:44
+          |vpiParent:
+          \_cont_assign: , line:47:15, endln:47:44
+          |vpiTypespec:
+          \_string_typespec: 
+          |vpiOpType:67
+          |vpiOperand:
+          \_operation: , line:47:34, endln:47:43
+            |vpiParent:
+            \_operation: , line:47:19, endln:47:44
+            |vpiOpType:22
+            |vpiOperand:
+            \_constant: , line:47:34, endln:47:38
+              |vpiParent:
+              \_operation: , line:47:34, endln:47:43
+              |vpiDecompile:1'b1
+              |vpiSize:1
+              |BIN:1
+              |vpiConstType:3
+            |vpiOperand:
+            \_ref_obj: (i), line:47:42, endln:47:43
+              |vpiParent:
+              \_operation: , line:47:34, endln:47:43
+              |vpiName:i
+              |vpiActual:
+              \_logic_net: (work@dut2.i), line:37:36, endln:37:37
+        |vpiLhs:
+        \_ref_obj: (o), line:47:15, endln:47:16
+          |vpiParent:
+          \_cont_assign: , line:47:15, endln:47:44
+          |vpiName:o
+          |vpiActual:
+          \_logic_net: (work@dut2.o), line:38:36, endln:38:37
 |uhdmallModules:
 \_module_inst: work@dut3 (work@dut3), file:${SURELOG_DIR}/tests/Bindings/dut.sv, line:54:1, endln:64:10
   |vpiParent:

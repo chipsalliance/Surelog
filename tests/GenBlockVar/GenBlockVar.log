@@ -352,7 +352,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -363,7 +363,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           9
@@ -381,7 +381,7 @@ task                                                   9
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -392,7 +392,7 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           9
@@ -890,13 +890,15 @@ design: (work@top)
     \_parameter: (work@top.AsyncOn), line:3:17, endln:3:24
   |vpiDefName:work@top
   |vpiGenStmt:
-  \_gen_if: , line:6:3, endln:6:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenBlockVar/dut.sv, line:1:1, endln:12:10
     |vpiCondition:
     \_ref_obj: (AsyncOn), line:6:7, endln:6:14
       |vpiName:AsyncOn
     |vpiStmt:
+    \_begin: 
+    |vpiElseStmt:
     \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenBlockVar/dut.sv, line:1:1, endln:12:10

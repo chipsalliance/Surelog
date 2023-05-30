@@ -560,11 +560,11 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                              32
-cont_assign                                           23
+cont_assign                                           24
 design                                                 1
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              4
 gen_scope_array                                        4
 initial                                                1
@@ -573,21 +573,21 @@ int_var                                                1
 logic_net                                             21
 logic_typespec                                         8
 module_inst                                           10
-operation                                              8
+operation                                              9
 param_assign                                           2
 parameter                                              2
 port                                                   6
-ref_obj                                               43
+ref_obj                                               45
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                              32
-cont_assign                                           39
+cont_assign                                           40
 design                                                 1
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              6
 gen_scope_array                                        6
 initial                                                2
@@ -596,11 +596,11 @@ int_var                                                1
 logic_net                                             21
 logic_typespec                                         8
 module_inst                                           10
-operation                                             16
+operation                                             17
 param_assign                                           2
 parameter                                              2
 port                                                   9
-ref_obj                                               75
+ref_obj                                               77
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultContAssign/slpp_all/surelog.uhdm ...
@@ -960,7 +960,7 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (pull_up_1)
   |vpiGenStmt:
-  \_gen_if: , line:17:4, endln:17:6
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
     |vpiCondition:
@@ -986,6 +986,31 @@ design: (work@top)
         \_ref_obj: (inout_i3), line:17:36, endln:17:44
           |vpiParent:
           \_cont_assign: , line:17:36, endln:17:49
+          |vpiName:inout_i3
+          |vpiActual:
+          \_logic_net: (inout_i3)
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:18:35, endln:18:49
+        |vpiStrength0:8
+        |vpiStrength1:8
+        |vpiRhs:
+        \_operation: , line:18:46, endln:18:49
+          |vpiParent:
+          \_cont_assign: , line:18:35, endln:18:49
+          |vpiOpType:4
+          |vpiOperand:
+          \_ref_obj: (pd), line:18:47, endln:18:49
+            |vpiParent:
+            \_operation: , line:18:46, endln:18:49
+            |vpiName:pd
+            |vpiActual:
+            \_logic_net: (pd)
+        |vpiLhs:
+        \_ref_obj: (inout_i3), line:18:35, endln:18:43
+          |vpiParent:
+          \_cont_assign: , line:18:35, endln:18:49
           |vpiName:inout_i3
           |vpiActual:
           \_logic_net: (inout_i3)

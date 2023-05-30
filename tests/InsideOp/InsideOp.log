@@ -319,13 +319,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                              41
 cont_assign                                            3
 design                                                 1
 enum_const                                            18
 enum_typespec                                          3
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
@@ -344,13 +344,13 @@ ref_obj                                                9
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                              41
 cont_assign                                            4
 design                                                 1
 enum_const                                            18
 enum_typespec                                          3
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
@@ -544,7 +544,7 @@ design: (work@top)
     \_int_typespec: , line:22:12, endln:22:15
       |vpiSigned:1
   |vpiGenStmt:
-  \_gen_if: , line:25:3, endln:25:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
     |vpiCondition:
@@ -584,6 +584,8 @@ design: (work@top)
           |vpiName:out
           |vpiActual:
           \_int_var: (work@top.out), line:22:16, endln:22:19
+    |vpiElseStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
   |vpiName:work@top
