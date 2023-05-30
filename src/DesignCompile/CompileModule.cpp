@@ -197,9 +197,10 @@ bool CompileModule::compile() {
       } while (nodeId &&
                (fC->Type(nodeId) != VObjectType::slAttribute_instance));
       if (nodeId) {
-        UHDM::VectorOfattribute* attributes =
-            m_helper.compileAttributes(m_module, fC, nodeId, m_compileDesign);
-        m_module->Attributes(attributes);
+        if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
+                m_module, fC, nodeId, m_compileDesign, nullptr)) {
+          m_module->Attributes(attributes);
+        }
       }
 
       break;
@@ -228,12 +229,12 @@ bool CompileModule::collectUdpObjects_() {
       case VObjectType::slUdp_declaration:
       case VObjectType::slUdp_nonansi_declaration:
       case VObjectType::slUdp_ansi_declaration: {
-        UHDM::VectorOfattribute* attributes = nullptr;
         NodeId Attributes = fC->Child(id);
         if (fC->Type(Attributes) == VObjectType::slAttribute_instance) {
-          attributes = m_helper.compileAttributes(m_module, fC, Attributes,
-                                                  m_compileDesign);
-          defn->Attributes(attributes);
+          if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
+                  m_module, fC, Attributes, m_compileDesign, defn)) {
+            defn->Attributes(attributes);
+          }
         }
         break;
       }
@@ -258,21 +259,20 @@ bool CompileModule::collectUdpObjects_() {
       case VObjectType::slUdp_output_declaration:
       case VObjectType::slUdp_reg_declaration: {
         NodeId Output = fC->Child(id);
-        UHDM::VectorOfattribute* attributes = nullptr;
+        UHDM::logic_net* net = s.MakeLogic_net();
         if (fC->Type(Output) == VObjectType::slAttribute_instance) {
-          attributes =
-              m_helper.compileAttributes(m_module, fC, Output, m_compileDesign);
+          if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
+                  m_module, fC, Output, m_compileDesign, net)) {
+            net->Attributes(attributes);
+          }
           while (fC->Type(Output) == VObjectType::slAttribute_instance)
             Output = fC->Sibling(Output);
         }
 
         const std::string_view outputname = fC->SymName(Output);
-        std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
-        UHDM::logic_net* net = s.MakeLogic_net();
         fC->populateCoreMembers(id, id, net);
-        net->Attributes(attributes);
         net->VpiParent(defn);
-        if (ios) {
+        if (std::vector<UHDM::io_decl*>* ios = defn->Io_decls()) {
           for (auto io : *ios) {
             if (io->VpiName() == outputname) {
               if (io->Expr() == nullptr)
@@ -290,7 +290,7 @@ bool CompileModule::collectUdpObjects_() {
         UHDM::VectorOfattribute* attributes = nullptr;
         if (fC->Type(Indentifier_list) == VObjectType::slAttribute_instance) {
           attributes = m_helper.compileAttributes(
-              m_module, fC, Indentifier_list, m_compileDesign);
+              m_module, fC, Indentifier_list, m_compileDesign, nullptr);
           while (fC->Type(Indentifier_list) ==
                  VObjectType::slAttribute_instance)
             Indentifier_list = fC->Sibling(Indentifier_list);
@@ -298,11 +298,13 @@ bool CompileModule::collectUdpObjects_() {
         NodeId Identifier = fC->Child(Indentifier_list);
         while (Identifier) {
           const std::string_view inputname = fC->SymName(Identifier);
-          std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
-          if (ios) {
+          if (std::vector<UHDM::io_decl*>* ios = defn->Io_decls()) {
             UHDM::logic_net* net = s.MakeLogic_net();
             fC->populateCoreMembers(id, id, net);
-            net->Attributes(attributes);
+            if (attributes != nullptr) {
+              net->Attributes(attributes);
+              for (auto a : *attributes) a->VpiParent(net);
+            }
             net->VpiParent(defn);
             for (auto io : *ios) {
               if (io->VpiName() == inputname) {
@@ -631,8 +633,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::slAttribute_instance: {
           if (collectType != CollectType::DEFINITION) break;
-          m_attributes =
-              m_helper.compileAttributes(m_module, fC, id, m_compileDesign);
+          m_attributes = m_helper.compileAttributes(m_module, fC, id,
+                                                    m_compileDesign, nullptr);
           break;
         }
         case VObjectType::slPort_declaration: {
@@ -1081,8 +1083,8 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         }
         case VObjectType::slAttribute_instance: {
           if (collectType != CollectType::DEFINITION) break;
-          m_attributes =
-              m_helper.compileAttributes(m_module, fC, id, m_compileDesign);
+          m_attributes = m_helper.compileAttributes(m_module, fC, id,
+                                                    m_compileDesign, nullptr);
           break;
         }
         case VObjectType::slContinuous_assign: {

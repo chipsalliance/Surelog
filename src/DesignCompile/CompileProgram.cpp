@@ -89,9 +89,10 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
   } while (programId &&
            (fC->Type(programId) != VObjectType::slAttribute_instance));
   if (programId) {
-    UHDM::VectorOfattribute* attributes =
-        m_helper.compileAttributes(m_program, fC, programId, m_compileDesign);
-    m_program->Attributes(attributes);
+    if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
+            m_program, fC, programId, m_compileDesign, nullptr)) {
+      m_program->Attributes(attributes);
+    }
   }
 
   if (fC->getSize() == 0) return true;
@@ -275,8 +276,8 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       }
       case VObjectType::slAttribute_instance: {
         if (collectType != CollectType::DEFINITION) break;
-        m_attributes =
-            m_helper.compileAttributes(m_program, fC, id, m_compileDesign);
+        m_attributes = m_helper.compileAttributes(m_program, fC, id,
+                                                  m_compileDesign, nullptr);
         break;
       }
       case VObjectType::slInitial_construct: {

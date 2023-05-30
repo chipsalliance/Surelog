@@ -254,6 +254,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
         UHDM::class_defn* parent = bdef->getUhdmDefinition();
         classDefinition->insertProperty(prop);
         UHDM::extends* extends = s.MakeExtends();
+        extends->VpiParent(derived);
         fCDef->populateCoreMembers(placeHolder->getNodeId(),
                                    placeHolder->getNodeId(), extends);
         UHDM::class_typespec* tps = s.MakeClass_typespec();
@@ -739,6 +740,7 @@ bool TestbenchElaboration::bindProperties_() {
       // Assignment to a default value
       UHDM::expr* exp =
           exprFromAssign_(classDefinition, fC, id, unpackedDimension, nullptr);
+      if (exp != nullptr) exp->VpiParent(defn);
 
       UHDM::any* obj =
           makeVar_(classDefinition, sig, packedDimensions, packedSize,

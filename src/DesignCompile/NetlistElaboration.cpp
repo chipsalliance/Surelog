@@ -148,10 +148,11 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
       uint32_t line = mv.second.second;
       const FileContent* instfC = instance->getFileContent();
       if (value && value->isValid()) {
-        parameter* p = s.MakeParameter();
-        p->VpiName(paramName);
         param_assign* inst_assign = s.MakeParam_assign();
         inst_assign->VpiOverriden(instance->isOverridenParam(paramName));
+        parameter* p = s.MakeParameter();
+        p->VpiName(paramName);
+        p->VpiParent(inst_assign);
         constant* c = s.MakeConstant();
         c->VpiValue(value->uhdmValue());
         c->VpiDecompile(value->decompiledValue());
@@ -350,6 +351,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         c->VpiDecompile(value->decompiledValue());
         c->VpiSize(value->getSize());
         c->VpiConstType(value->vpiValType());
+        c->VpiParent(inst_assign);
         if (value->getTypespec()) c->Typespec((typespec*)value->getTypespec());
         assign->getFileContent()->populateCoreMembers(assign->getAssignId(),
                                                       assign->getAssignId(), c);
@@ -374,15 +376,17 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         if (!isMultidimensional) {
           bool invalidValue = false;
           m_helper.checkForLoops(true);
-          expr* tmp = m_helper.reduceExpr(
-              exp, invalidValue, mod, m_compileDesign, instance,
-              fileSystem->toPathId(
-                  exp->VpiFile(),
-                  m_compileDesign->getCompiler()->getSymbolTable()),
-              exp->VpiLineNo(), nullptr, true);
+          if (expr* tmp = m_helper.reduceExpr(
+                  exp, invalidValue, mod, m_compileDesign, instance,
+                  fileSystem->toPathId(
+                      exp->VpiFile(),
+                      m_compileDesign->getCompiler()->getSymbolTable()),
+                  exp->VpiLineNo(), nullptr, true)) {
+            if (!invalidValue) exp = tmp;
+          }
           m_helper.checkForLoops(false);
-          if (tmp && (invalidValue == false)) exp = tmp;
         }
+        m_helper.setParentNoOverride(exp, inst_assign);
         inst_assign->Rhs(exp);
 
         if (en_replay && m_helper.errorOnNegativeConstant(
@@ -437,7 +441,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         expr* rhs = (expr*)m_helper.compileExpression(
             mod, assign->getFileContent(), assign->getAssignId(),
             m_compileDesign, isMultidimensional ? Reduce::No : Reduce::Yes,
-            nullptr, instance);
+            inst_assign, instance);
         m_helper.checkForLoops(false);
         inst_assign->Rhs(rhs);
       }
@@ -908,6 +912,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 c->VpiSize(64);
                 fC->populateCoreMembers(sigId, sigId, c);
                 sel->VpiIndex(c);
+                sel->VpiParent(p);
                 p->High_conn(sel);
                 fC->populateCoreMembers(sigId, sigId, sel);
                 sel->Actual_group(net);
@@ -915,6 +920,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 ref_obj* ref = s.MakeRef_obj();
                 fC->populateCoreMembers(sigId, sigId, ref);
                 p->High_conn(ref);
+                ref->VpiParent(p);
                 ref->VpiName(sigName);
                 if (parent) {
                   ref->VpiFullName(parent->getFullPathName() + "." + sigName);
@@ -936,16 +942,19 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 m_helper.checkForLoops(true);
                 exp = m_helper.compileExpression(
                     parent_comp, fC, Hierarchical_identifier, m_compileDesign,
-                    Reduce::Yes, nullptr, parent);
+                    Reduce::Yes, p, parent);
                 m_helper.checkForLoops(false);
               } else {
                 m_helper.checkForLoops(true);
                 exp = m_helper.compileExpression(parent_comp, fC, Net_lvalue,
                                                  m_compileDesign, Reduce::Yes,
-                                                 nullptr, parent);
+                                                 p, parent);
                 m_helper.checkForLoops(false);
               }
-              p->High_conn(exp);
+              if (exp != nullptr) {
+                p->High_conn(exp);
+                exp->VpiParent(p);
+              }
             }
           }
         }
@@ -970,11 +979,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             fC->populateCoreMembers(sigId, sigId, ref);
             p->High_conn(ref);
             ref->VpiName(sigName);
+            ref->VpiParent(p);
             if (parent) {
               ref->VpiFullName(parent->getFullPathName() + "." + sigName);
-              any* net = bind_net_(fC, sigId, parent,
-                                   instance->getInstanceBinding(), sigName);
-              ref->Actual_group(net);
+              if (any* net =
+                      bind_net_(fC, sigId, parent,
+                                instance->getInstanceBinding(), sigName)) {
+                ref->Actual_group(net);
+              }
             }
           } else {
             NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
@@ -992,12 +1004,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 Reduce::Yes, nullptr, parent);
             m_helper.checkForLoops(false);
             p->High_conn(exp);
+            exp->VpiParent(p);
             if (exp->UhdmType() == uhdmref_obj) {
               ref_obj* ref = (ref_obj*)exp;
               const std::string_view n = ref->VpiName();
-              any* net = bind_net_(fC, Hierarchical_identifier, parent,
-                                   instance->getInstanceBinding(), n);
-              ref->Actual_group(net);
+              if (any* net = bind_net_(fC, Hierarchical_identifier, parent,
+                                       instance->getInstanceBinding(), n)) {
+                ref->Actual_group(net);
+              }
             }
           }
           ports->push_back(p);
@@ -1062,7 +1076,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         UHDM::VectorOfattribute* attributes = nullptr;
         if (fC->Type(formalId) == VObjectType::slAttribute_instance) {
           attributes = m_helper.compileAttributes(parent_comp, fC, formalId,
-                                                  m_compileDesign);
+                                                  m_compileDesign, nullptr);
           while (fC->Type(formalId) == VObjectType::slAttribute_instance) {
             formalId = fC->Sibling(formalId);
           }
@@ -1120,6 +1134,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               operation* op = s.MakeOperation();
               op->VpiOpType(vpiNullOp);
               fC->populateCoreMembers(tmp, tmp, op);
+              op->VpiParent(p);
               p->High_conn(op);
               index++;
               continue;
@@ -1132,8 +1147,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
         expr* hexpr = nullptr;
         if (fC->Type(Expression) == VObjectType::slAttribute_instance) {
-          attributes =
-              m_helper.compileAttributes(comp, fC, Expression, m_compileDesign);
+          attributes = m_helper.compileAttributes(comp, fC, Expression,
+                                                  m_compileDesign, nullptr);
           while (fC->Type(Expression) == VObjectType::slAttribute_instance)
             Expression = fC->Sibling(Expression);
         }
@@ -1195,6 +1210,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           ref->VpiName(sigName);
           if (parent) {
             ref->VpiFullName(parent->getFullPathName() + "." + sigName);
+            ref->VpiParent(p);
             p->High_conn(ref);
             ref->Actual_group(net);
           }
@@ -1203,9 +1219,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             operation* op = (operation*)hexpr;
             int32_t opType = op->VpiOpType();
             const typespec* tps = nullptr;
-            if (p) {
-              tps = p->Typespec();
-            }
+            if (p) tps = p->Typespec();
             if (opType == vpiAssignmentPatternOp) {
               if (m_helper.substituteAssignedValue(hexpr, m_compileDesign)) {
                 hexpr = m_helper.expandPatternAssignment(
@@ -1228,7 +1242,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             }
           }
           p->High_conn(hexpr);
+          hexpr->VpiParent(p);
           if (hexpr->UhdmType() == uhdmref_obj) {
+            ((ref_obj*)hexpr)->VpiParent(p);
             ((ref_obj*)hexpr)->Actual_group(net);
             if (parent) {
               ((ref_obj*)hexpr)
@@ -1238,7 +1254,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
         }
         p->VpiName(formalName);
-        p->Attributes(attributes);
+        if (attributes) {
+          p->Attributes(attributes);
+          for (auto a : *attributes) a->VpiParent(p);
+        }
         if (p->VpiLineNo() == 0) {
           fC->populateCoreMembers(formalId, formalId, p);
         }
@@ -1289,6 +1308,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->VpiColumnNo(p->VpiColumnNo());
             ref->VpiEndLineNo(p->VpiEndLineNo());
             ref->VpiEndColumnNo(p->VpiEndColumnNo());
+            ref->VpiParent(p);
             ref->Actual_group(mp);
             p->Low_conn(ref);
           }
@@ -1320,6 +1340,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
           if (sm) {
             ref_obj* ref = s.MakeRef_obj();
+            ref->VpiParent(p);
             ref->Actual_group(sm);
             fC->populateCoreMembers(Named_port_connection,
                                     Named_port_connection, ref);
@@ -1372,14 +1393,16 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiEndLineNo(wildcardLineNumber);
               ref->VpiEndColumnNo(wildcardColumnNumber + 1);
               ref->VpiName(sigName);
+              ref->VpiParent(pp);
               if (parent) {
                 ref->VpiFullName(
                     StrCat(parent->getFullPathName(), ".", sigName));
                 pp->High_conn(ref);
-                UHDM::any* net =
-                    bind_net_(fC, InvalidNodeId, parent,
-                              instance->getInstanceBinding(), sigName);
-                ref->Actual_group(net);
+                if (UHDM::any* net =
+                        bind_net_(fC, InvalidNodeId, parent,
+                                  instance->getInstanceBinding(), sigName)) {
+                  ref->Actual_group(net);
+                }
               }
             }
           }
@@ -1405,11 +1428,12 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               if (p) {
                 if (NodeId defaultId = pair.second->getDefaultValue()) {
                   m_helper.checkForLoops(true);
-                  expr* exp = (expr*)m_helper.compileExpression(
-                      comp, fC, defaultId, m_compileDesign, Reduce::Yes,
-                      nullptr, instance);
+                  if (expr* exp = (expr*)m_helper.compileExpression(
+                          comp, fC, defaultId, m_compileDesign, Reduce::Yes, p,
+                          instance)) {
+                    p->High_conn(exp);
+                  }
                   m_helper.checkForLoops(false);
-                  p->High_conn(exp);
                 }
               }
             } else {
@@ -1434,11 +1458,12 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       if (found == allSignals.end()) continue;
       if (NodeId defaultId = (*found).second->getDefaultValue()) {
         m_helper.checkForLoops(true);
-        expr* exp = (expr*)m_helper.compileExpression(
-            comp, fC, defaultId, m_compileDesign, Reduce::Yes, nullptr,
-            instance);
+        if (expr* exp = (expr*)m_helper.compileExpression(
+                comp, fC, defaultId, m_compileDesign, Reduce::Yes, p,
+                instance)) {
+          p->High_conn(exp);
+        }
         m_helper.checkForLoops(false);
-        p->High_conn(exp);
       }
     }
   }
@@ -1470,6 +1495,7 @@ interface_inst* NetlistElaboration::elab_interface_(
   sm->VpiLineNo(lineNb);
   subInterfaces->push_back(sm);
   if (interf_array) {
+    sm->VpiParent(interf_array);
     interf_array->Instances()->push_back(sm);
     netlist->getInstanceMap().emplace(
         instName, std::make_pair(interf_instance, interf_array));
@@ -1509,6 +1535,7 @@ interface_inst* NetlistElaboration::elab_interface_(
       const std::string_view sigName = sig.getName();
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sigName);
+      io->VpiParent(dest_modport);
       uint32_t direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       fC->populateCoreMembers(nodeId, nodeId, io);
@@ -1526,6 +1553,7 @@ interface_inst* NetlistElaboration::elab_interface_(
         net = n;
         io->Expr(net);
       } else {
+        m_helper.setParentNoOverride(net, io);
         io->Expr(net);
       }
       ios->push_back(io);
@@ -1811,78 +1839,108 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         UHDM::typespec* spec = en->getTypespec();
         if (spec->UhdmType() == uhdmlogic_typespec) {
           logic_net* logicn = s.MakeLogic_net();
-          logicn->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            logicn->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(logicn);
+          }
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           // Move range to typespec for simple types
           // logicn->Ranges(packedDimensions);
-          logicn->Typespec(tps);
-          logicn->VpiName(signame);
-          obj = logicn;
           logicn->Typespec(spec);
+          logicn->VpiName(signame);
+          spec->VpiParent(logicn);
+          obj = logicn;
         } else if (spec->UhdmType() == uhdmstruct_typespec) {
           struct_net* stv = s.MakeStruct_net();
-          stv->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            stv->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(stv);
+          }
           stv->Typespec(spec);
+          spec->VpiParent(stv);
           obj = stv;
           if (packedDimensions) {
             packed_array_net* pnets = s.MakePacked_array_net();
             pnets->Ranges(packedDimensions);
             pnets->Elements(s.MakeAnyVec());
             pnets->Elements()->push_back(stv);
+            stv->VpiParent(pnets);
+            for (auto r : *packedDimensions) r->VpiParent(pnets);
             obj = pnets;
           }
         } else if (spec->UhdmType() == uhdmenum_typespec) {
           enum_net* stv = s.MakeEnum_net();
-          stv->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            stv->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(stv);
+          }
           stv->Typespec(spec);
+          spec->VpiParent(stv);
           obj = stv;
           if (packedDimensions) {
             packed_array_net* pnets = s.MakePacked_array_net();
             pnets->Ranges(packedDimensions);
             pnets->Elements(s.MakeAnyVec());
             pnets->Elements()->push_back(stv);
+            stv->VpiParent(pnets);
+            for (auto r : *packedDimensions) r->VpiParent(pnets);
             obj = pnets;
           }
         } else if (spec->UhdmType() == uhdmbit_typespec) {
           bit_var* logicn = s.MakeBit_var();
-          logicn->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            logicn->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(logicn);
+          }
           logicn->VpiSigned(sig->isSigned());
           // Move range to typespec for simple types
           // logicn->Ranges(packedDimensions);
-          logicn->Typespec(tps);
-          logicn->VpiName(signame);
-          obj = logicn;
           logicn->Typespec(spec);
+          logicn->VpiName(signame);
+          spec->VpiParent(logicn);
+          obj = logicn;
         } else if (spec->UhdmType() == uhdmbyte_typespec) {
           byte_var* logicn = s.MakeByte_var();
-          logicn->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            logicn->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(logicn);
+          }
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiName(signame);
-          obj = logicn;
           logicn->Typespec(spec);
+          spec->VpiParent(logicn);
+          obj = logicn;
         } else {
           variables* var = m_helper.getSimpleVarFromTypespec(
               spec, packedDimensions, m_compileDesign);
-          var->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            var->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(var);
+          }
           var->Expr(exp);
           var->VpiConstantVariable(sig->isConst());
           var->VpiSigned(sig->isSigned());
           var->VpiName(signame);
+          exp->VpiParent(var);
           obj = var;
         }
-
       } else if (const Enum* en = datatype_cast<const Enum*>(dtype)) {
         enum_net* stv = s.MakeEnum_net();
         stv->VpiName(signame);
         stv->Typespec(en->getTypespec());
-        stv->Attributes(sig->attributes());
+        if (sig->attributes()) {
+          stv->Attributes(sig->attributes());
+          for (auto a : *sig->attributes()) a->VpiParent(stv);
+        }
         obj = stv;
         if (packedDimensions) {
           packed_array_net* pnets = s.MakePacked_array_net();
           pnets->Ranges(packedDimensions);
           pnets->Elements(s.MakeAnyVec());
           pnets->Elements()->push_back(stv);
+          stv->VpiParent(pnets);
+          for (auto r : *packedDimensions) r->VpiParent(pnets);
           obj = pnets;
           pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
         } else {
@@ -1891,7 +1949,10 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       } else if (const Struct* st = datatype_cast<const Struct*>(dtype)) {
         struct_net* stv = s.MakeStruct_net();
         stv->VpiName(signame);
-        stv->Attributes(sig->attributes());
+        if (sig->attributes()) {
+          stv->Attributes(sig->attributes());
+          for (auto a : *sig->attributes()) a->VpiParent(stv);
+        }
         stv->Typespec(st->getTypespec());
         obj = stv;
         if (packedDimensions) {
@@ -1899,6 +1960,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           pnets->Ranges(packedDimensions);
           pnets->Elements(s.MakeAnyVec());
           pnets->Elements()->push_back(stv);
+          stv->VpiParent(pnets);
+          for (auto r : *packedDimensions) r->VpiParent(pnets);
           obj = pnets;
           pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
         } else {
@@ -1919,26 +1982,35 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         }
         if (spec->UhdmType() == uhdmlogic_typespec) {
           logic_net* logicn = s.MakeLogic_net();
-          logicn->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            logicn->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(logicn);
+          }
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           // Move range to typespec for simple types
           // logicn->Ranges(packedDimensions);
-          logicn->Typespec(tps);
+          logicn->Typespec(spec);
+          spec->VpiParent(logicn);
           logicn->VpiName(signame);
           obj = logicn;
-          logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmstruct_typespec) {
           struct_net* stv = s.MakeStruct_net();
           stv->VpiName(signame);
-          stv->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            stv->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(stv);
+          }
           stv->Typespec(spec);
+          spec->VpiParent(stv);
           obj = stv;
           if (packedDimensions) {
             packed_array_net* pnets = s.MakePacked_array_net();
             pnets->Ranges(packedDimensions);
             pnets->Elements(s.MakeAnyVec());
             pnets->Elements()->push_back(stv);
+            stv->VpiParent(pnets);
+            for (auto r : *packedDimensions) r->VpiParent(pnets);
             obj = pnets;
             pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           } else {
@@ -1947,14 +2019,20 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         } else if (spec->UhdmType() == uhdmenum_typespec) {
           enum_net* stv = s.MakeEnum_net();
           stv->VpiName(signame);
-          stv->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            stv->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(stv);
+          }
           stv->Typespec(spec);
+          spec->VpiParent(stv);
           obj = stv;
           if (packedDimensions) {
             packed_array_net* pnets = s.MakePacked_array_net();
             pnets->Ranges(packedDimensions);
             pnets->Elements(s.MakeAnyVec());
             pnets->Elements()->push_back(stv);
+            stv->VpiParent(pnets);
+            for (auto r : *packedDimensions) r->VpiParent(pnets);
             obj = pnets;
             pnets->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
           } else {
@@ -1962,37 +2040,52 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           }
         } else if (spec->UhdmType() == uhdmbit_typespec) {
           bit_var* logicn = s.MakeBit_var();
-          logicn->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            logicn->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(logicn);
+          }
           logicn->VpiSigned(sig->isSigned());
-          logicn->Typespec(tps);
+          logicn->Typespec(spec);
+          spec->VpiParent(logicn);
           // Move range to typespec for simple types
           // logicn->Ranges(packedDimensions);
           logicn->VpiName(signame);
           obj = logicn;
-          logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmbyte_typespec) {
           byte_var* logicn = s.MakeByte_var();
-          logicn->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            logicn->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(logicn);
+          }
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiName(signame);
-          obj = logicn;
           logicn->Typespec(spec);
+          spec->VpiParent(logicn);
+          obj = logicn;
         } else {
           variables* var = m_helper.getSimpleVarFromTypespec(
               spec, packedDimensions, m_compileDesign);
-          var->Attributes(sig->attributes());
+          if (sig->attributes()) {
+            var->Attributes(sig->attributes());
+            for (auto a : *sig->attributes()) a->VpiParent(var);
+          }
           var->Expr(exp);
           var->VpiConstantVariable(sig->isConst());
           var->VpiSigned(sig->isSigned());
           var->VpiName(signame);
+          exp->VpiParent(var);
           obj = var;
         }
       } else {
         logic_net* logicn = s.MakeLogic_net();
-        logicn->Attributes(sig->attributes());
+        if (sig->attributes()) {
+          logicn->Attributes(sig->attributes());
+          for (auto a : *sig->attributes()) a->VpiParent(logicn);
+        }
         logicn->VpiSigned(sig->isSigned());
         logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
         logicn->Typespec(tps);
+        tps->VpiParent(logicn);
         // Move range to typespec for simple types
         // logicn->Ranges(packedDimensions);
         logicn->VpiName(signame);
@@ -2005,6 +2098,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
+        for (auto r : *unpackedDimensions) r->VpiParent(array_net);
         fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_net);
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
@@ -2015,7 +2109,6 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         obj->VpiParent(array_net);
         UHDM::VectorOfnet* array_n = array_net->Nets();
         array_n->push_back((net*)obj);
-
       } else {
         if (nets == nullptr) {
           nets = s.MakeNetVec();
@@ -2035,8 +2128,12 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       // Implicit type
       struct_net* stv = s.MakeStruct_net();
       stv->VpiName(signame);
-      stv->Attributes(sig->attributes());
+      if (sig->attributes()) {
+        stv->Attributes(sig->attributes());
+        for (auto a : *sig->attributes()) a->VpiParent(stv);
+      }
       stv->Typespec(tps);
+      tps->VpiParent(stv);
       obj = stv;
       stv->VpiName(signame);
       if (nets == nullptr) {
@@ -2048,6 +2145,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       struct_net* stv = s.MakeStruct_net();
       stv->VpiName(signame);
       stv->Typespec(tps);
+      tps->VpiParent(stv);
       obj = stv;
       if (unpackedDimensions) {
         array_net* array_net = s.MakeArray_net();
@@ -2055,6 +2153,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
+        for (auto r : *unpackedDimensions) r->VpiParent(array_net);
         fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_net);
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
@@ -2065,7 +2164,6 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         obj->VpiParent(array_net);
         UHDM::VectorOfnet* array_n = array_net->Nets();
         array_n->push_back((net*)obj);
-
       } else {
         if (nets == nullptr) {
           nets = s.MakeNetVec();
@@ -2082,11 +2180,16 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       logic_net* logicn = s.MakeLogic_net();
       logicn->VpiSigned(sig->isSigned());
       logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-      // Move range to typespec for simple types
-      // logicn->Ranges(packedDimensions);
-      logicn->Typespec(tps);
-      logicn->Attributes(sig->attributes());
-      logicn->Typespec(tps);
+      if (sig->attributes()) {
+        logicn->Attributes(sig->attributes());
+        for (auto a : *sig->attributes()) a->VpiParent(logicn);
+      }
+      if (tps != nullptr) {
+        // Move range to typespec for simple types
+        // logicn->Ranges(packedDimensions);
+        logicn->Typespec(tps);
+        tps->VpiParent(logicn);
+      }
       if (unpackedDimensions) {
         fC->populateCoreMembers(id, id, logicn);
         array_net* array_net = s.MakeArray_net();
@@ -2094,6 +2197,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         array_net->Ranges(unpackedDimensions);
         array_net->VpiName(signame);
         array_net->VpiSize(unpackedSize);
+        for (auto r : *unpackedDimensions) r->VpiParent(array_net);
         fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_net);
         if (array_nets == nullptr) {
           array_nets = s.MakeArray_netVec();
@@ -2129,11 +2233,12 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       m_helper.setParentNoOverride(exp, assign);
       if (sig->getDelay()) {
         m_helper.checkForLoops(true);
-        expr* delay_expr = (expr*)m_helper.compileExpression(
-            comp, fC, sig->getDelay(), m_compileDesign, Reduce::Yes, nullptr,
-            child);
+        if (expr* delay_expr = (expr*)m_helper.compileExpression(
+                comp, fC, sig->getDelay(), m_compileDesign, Reduce::Yes, assign,
+                child)) {
+          assign->Delay(delay_expr);
+        }
         m_helper.checkForLoops(false);
-        assign->Delay(delay_expr);
       }
       std::vector<cont_assign*>* assigns = netlist->cont_assigns();
       if (assigns == nullptr) {
@@ -2275,6 +2380,7 @@ bool NetlistElaboration::elab_ports_nets_(
           ref->VpiFullName(
               StrCat(instance->getFullPathName(), ".", sig->getName()));
           fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), ref);
+          ref->VpiParent(dest_port);
           dest_port->Low_conn(ref);
           Netlist::ModPortMap::iterator itr =
               netlist->getModPortMap().find(signame);
@@ -2460,6 +2566,7 @@ bool NetlistElaboration::elab_ports_nets_(
                              signame);
             fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), ref);
             ref->Actual_group(n);
+            ref->VpiParent(dest_port);
             dest_port->Low_conn(ref);
           }
         }

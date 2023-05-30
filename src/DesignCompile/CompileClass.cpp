@@ -107,9 +107,10 @@ bool CompileClass::compile() {
     VObject current = fC->Object(classId);
     classId = current.m_child;
     if (fC->Type(classId) == VObjectType::slAttribute_instance) {
-      UHDM::VectorOfattribute* attributes =
-          m_helper.compileAttributes(m_class, fC, classId, m_compileDesign);
-      m_class->Attributes(attributes);
+      if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
+              m_class, fC, classId, m_compileDesign, nullptr)) {
+        m_class->Attributes(attributes);
+      }
     }
   }
 

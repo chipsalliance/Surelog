@@ -69,13 +69,29 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component,
   return true;
 }
 
-UHDM::property_inst* createPropertyInst(UHDM::any* property_expr,
+UHDM::property_inst* createPropertyInst(DesignComponent* component,
+                                        UHDM::any* property_expr,
                                         UHDM::Serializer& s) {
   UHDM::property_inst* inst = (UHDM::property_inst*)property_expr;
   if (property_expr->UhdmType() == UHDM::uhdmfunc_call) {
     UHDM::func_call* call = (UHDM::func_call*)property_expr;
     UHDM::property_inst* real_property_expr = s.MakeProperty_inst();
-    real_property_expr->VpiArguments(call->Tf_call_args());
+    if (call->Tf_call_args()) {
+      UHDM::ElaboratorListener listener(&s, false, true);
+      UHDM::VectorOfany* args = s.MakeAnyVec();
+      real_property_expr->VpiArguments(args);
+      for (auto arg : *call->Tf_call_args()) {
+        if (arg->UhdmType() == UHDM::uhdmref_obj) {
+          UHDM::ref_obj* ref =
+              (UHDM::ref_obj*)UHDM::clone_tree(arg, s, &listener);
+          args->emplace_back(ref);
+          ref->VpiParent(real_property_expr);
+          component->needLateBinding(ref);
+        } else {
+          args->emplace_back(arg);
+        }
+      }
+    }
     real_property_expr->VpiName(call->VpiName());
     real_property_expr->VpiFile(call->VpiFile());
     real_property_expr->VpiLineNo(call->VpiLineNo());
@@ -103,109 +119,137 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     if (fC->Type(if_stmt_id) == VObjectType::slElse) {
       else_stmt_id = fC->Sibling(if_stmt_id);
       if_stmt_id = InvalidNodeId;
-    } else {
-      NodeId else_keyword = fC->Sibling(if_stmt_id);
-      if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
+    } else if (NodeId else_keyword = fC->Sibling(if_stmt_id)) {
+      else_stmt_id = fC->Sibling(else_keyword);
     }
-    UHDM::VectorOfany* if_stmts = nullptr;
-    if (if_stmt_id)
-      if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign,
-                             Reduce::No, pstmt);
-    if (if_stmts) if_stmt = (*if_stmts)[0];
-    UHDM::VectorOfany* else_stmts = nullptr;
-    if (else_stmt_id)
-      else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign,
-                               Reduce::No, pstmt);
-    if (else_stmts) else_stmt = (*else_stmts)[0];
+    if (if_stmt_id) {
+      if (UHDM::VectorOfany* if_stmts = compileStmt(
+              component, fC, if_stmt_id, compileDesign, Reduce::No, pstmt)) {
+        if_stmt = (*if_stmts)[0];
+      }
+    }
+    if (else_stmt_id) {
+      if (UHDM::VectorOfany* else_stmts = compileStmt(
+              component, fC, else_stmt_id, compileDesign, Reduce::No, pstmt)) {
+        else_stmt = (*else_stmts)[0];
+      }
+    }
   }
 
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
     case VObjectType::slAssert_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
-      UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr =
-          compileExpression(component, fC, Property_expr, compileDesign,
-                            Reduce::No, pstmt, instance);
-      property_expr = createPropertyInst(property_expr, s);
-      prop_spec->VpiPropertyExpr(property_expr);
+      if (UHDM::any* property_expr =
+              compileExpression(component, fC, Property_expr, compileDesign,
+                                Reduce::No, prop_spec, instance)) {
+        property_expr = createPropertyInst(component, property_expr, s);
+        prop_spec->VpiPropertyExpr(property_expr);
+      }
       fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
+      UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
+      prop_spec->VpiParent(assert_stmt);
       assert_stmt->VpiProperty(prop_spec);
-      assert_stmt->Stmt(if_stmt);
-      assert_stmt->Else_stmt(else_stmt);
+      if (if_stmt) {
+        assert_stmt->Stmt(if_stmt);
+        if_stmt->VpiParent(assert_stmt);
+      } else if (else_stmt) {
+        assert_stmt->Stmt(else_stmt);
+        else_stmt->VpiParent(assert_stmt);
+      }
       stmt = assert_stmt;
       break;
     }
     case VObjectType::slAssume_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
-      UHDM::expr* clocking_event = nullptr;
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
       if (fC->Type(Property_expr) == VObjectType::slClocking_event) {
-        clocking_event = (UHDM::expr*)compileExpression(
-            component, fC, Property_expr, compileDesign, Reduce::No, pstmt,
-            instance);
+        if (UHDM::expr* clocking_event = (UHDM::expr*)compileExpression(
+                component, fC, Property_expr, compileDesign, Reduce::No,
+                prop_spec, instance)) {
+          prop_spec->VpiClockingEvent(clocking_event);
+        }
         Property_expr = fC->Sibling(Property_expr);
       }
-      UHDM::assume* assume_stmt = s.MakeAssume();
-      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr =
-          compileExpression(component, fC, Property_expr, compileDesign,
-                            Reduce::No, pstmt, instance);
-      property_expr = createPropertyInst(property_expr, s);
-      prop_spec->VpiClockingEvent(clocking_event);
-      prop_spec->VpiPropertyExpr(property_expr);
+      if (UHDM::any* property_expr =
+              compileExpression(component, fC, Property_expr, compileDesign,
+                                Reduce::No, prop_spec, instance)) {
+        property_expr = createPropertyInst(component, property_expr, s);
+        prop_spec->VpiPropertyExpr(property_expr);
+      }
       fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
+      UHDM::assume* assume_stmt = s.MakeAssume();
       assume_stmt->VpiProperty(prop_spec);
-      if (if_stmt)
+      prop_spec->VpiParent(assume_stmt);
+      if (if_stmt) {
         assume_stmt->Stmt(if_stmt);
-      else
+        if_stmt->VpiParent(assume_stmt);
+      } else if (else_stmt) {
         assume_stmt->Stmt(else_stmt);
+        else_stmt->VpiParent(assume_stmt);
+      }
       stmt = assume_stmt;
       break;
     }
     case VObjectType::slCover_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
-      UHDM::cover* cover_stmt = s.MakeCover();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr =
-          compileExpression(component, fC, Property_expr, compileDesign,
-                            Reduce::No, pstmt, instance);
-      property_expr = createPropertyInst(property_expr, s);
-      prop_spec->VpiPropertyExpr(property_expr);
+      if (UHDM::any* property_expr =
+              compileExpression(component, fC, Property_expr, compileDesign,
+                                Reduce::No, prop_spec, instance)) {
+        property_expr = createPropertyInst(component, property_expr, s);
+        prop_spec->VpiPropertyExpr(property_expr);
+      }
       fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
+      UHDM::cover* cover_stmt = s.MakeCover();
+      prop_spec->VpiParent(cover_stmt);
       cover_stmt->VpiProperty(prop_spec);
-      cover_stmt->Stmt(if_stmt);
+      if (if_stmt != nullptr) {
+        cover_stmt->Stmt(if_stmt);
+        if_stmt->VpiParent(cover_stmt);
+      }
       stmt = cover_stmt;
       break;
     }
     case VObjectType::slCover_sequence_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+      if (UHDM::any* property_expr =
+              compileExpression(component, fC, Property_expr, compileDesign,
+                                Reduce::No, prop_spec, instance)) {
+        property_expr = createPropertyInst(component, property_expr, s);
+        prop_spec->VpiPropertyExpr(property_expr);
+      }
+      fC->populateCoreMembers(Property_expr, Property_expr, prop_spec);
       UHDM::cover* cover_stmt = s.MakeCover();
       cover_stmt->VpiIsCoverSequence();
-      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr =
-          compileExpression(component, fC, Property_expr, compileDesign,
-                            Reduce::No, pstmt, instance);
-      property_expr = createPropertyInst(property_expr, s);
-      prop_spec->VpiPropertyExpr(property_expr);
-      fC->populateCoreMembers(Property_expr, Property_expr, prop_spec);
+      prop_spec->VpiParent(cover_stmt);
       cover_stmt->VpiProperty(prop_spec);
-      cover_stmt->Stmt(if_stmt);
+      if (if_stmt != nullptr) {
+        cover_stmt->Stmt(if_stmt);
+        if_stmt->VpiParent(cover_stmt);
+      }
       stmt = cover_stmt;
       break;
     }
     case VObjectType::slRestrict_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
-      UHDM::restrict* restrict_stmt = s.MakeRestrict();
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      UHDM::any* property_expr =
-          compileExpression(component, fC, Property_expr, compileDesign,
-                            Reduce::No, pstmt, instance);
-      property_expr = createPropertyInst(property_expr, s);
-      prop_spec->VpiPropertyExpr(property_expr);
+      if (UHDM::any* property_expr =
+              compileExpression(component, fC, Property_expr, compileDesign,
+                                Reduce::No, prop_spec, instance)) {
+        property_expr = createPropertyInst(component, property_expr, s);
+        prop_spec->VpiPropertyExpr(property_expr);
+      }
       fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
+      UHDM::restrict* restrict_stmt = s.MakeRestrict();
+      prop_spec->VpiParent(restrict_stmt);
       restrict_stmt->VpiProperty(prop_spec);
-      restrict_stmt->Stmt(if_stmt);
+      if (if_stmt != nullptr) {
+        restrict_stmt->Stmt(if_stmt);
+        if_stmt->VpiParent(restrict_stmt);
+      }
       stmt = restrict_stmt;
       break;
     }

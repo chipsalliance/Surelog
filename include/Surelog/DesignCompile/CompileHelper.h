@@ -378,9 +378,11 @@ class CompileHelper final {
                                     ValuedComponentI* instance,
                                     bool muteErrors);
 
-  std::vector<UHDM::attribute*>* compileAttributes(
-      DesignComponent* component, const FileContent* fC, NodeId nodeId,
-      CompileDesign* compileDesign);
+  std::vector<UHDM::attribute*>* compileAttributes(DesignComponent* component,
+                                                   const FileContent* fC,
+                                                   NodeId nodeId,
+                                                   CompileDesign* compileDesign,
+                                                   UHDM::any* pexpr);
 
   void compileImportDeclaration(DesignComponent* component,
                                 const FileContent* fC, NodeId id,
@@ -430,7 +432,8 @@ class CompileHelper final {
 
   UHDM::any* compileConstraintBlock(DesignComponent* component,
                                     const FileContent* fC, NodeId nodeId,
-                                    CompileDesign* compileDesign);
+                                    CompileDesign* compileDesign,
+                                    UHDM::any* pexpr);
 
   uint32_t getBuiltinType(VObjectType type);
 
