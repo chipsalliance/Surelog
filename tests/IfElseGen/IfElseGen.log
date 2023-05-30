@@ -195,33 +195,33 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  4
 bit_typespec                                           4
 constant                                               8
 design                                                 1
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                              4
 gen_scope_array                                        4
 module_inst                                           13
 param_assign                                           4
 parameter                                              4
-ref_module                                             4
+ref_module                                             6
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+begin                                                  4
 bit_typespec                                           4
 constant                                               8
 design                                                 1
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                              6
 gen_scope_array                                        6
 module_inst                                           15
 param_assign                                           4
 parameter                                              4
-ref_module                                             4
+ref_module                                             6
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfElseGen/slpp_all/surelog.uhdm ...
@@ -281,7 +281,7 @@ design: (work@dut1)
     \_parameter: (work@dut1.HasSndScratch), line:8:25, endln:8:38
   |vpiDefName:work@dut1
   |vpiGenStmt:
-  \_gen_if: , line:9:1, endln:9:3
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
     |vpiCondition:
@@ -293,6 +293,12 @@ design: (work@dut1)
       \_ref_module: work@GOOD1 (cond_module), line:10:9, endln:10:20
         |vpiName:cond_module
         |vpiDefName:work@GOOD1
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@BAD1 (cond_module), line:12:8, endln:12:19
+        |vpiName:cond_module
+        |vpiDefName:work@BAD1
 |uhdmallModules:
 \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
   |vpiParent:
@@ -326,7 +332,7 @@ design: (work@dut1)
     \_parameter: (work@dut2.HasSndScratch), line:18:25, endln:18:38
   |vpiDefName:work@dut2
   |vpiGenStmt:
-  \_gen_if: , line:19:1, endln:19:3
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
     |vpiCondition:
@@ -338,6 +344,12 @@ design: (work@dut1)
       \_ref_module: work@BAD2 (cond_module), line:20:8, endln:20:19
         |vpiName:cond_module
         |vpiDefName:work@BAD2
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@GOOD2 (cond_module), line:22:9, endln:22:20
+        |vpiName:cond_module
+        |vpiDefName:work@GOOD2
 |uhdmtopModules:
 \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
   |vpiName:work@dut1

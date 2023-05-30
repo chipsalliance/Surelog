@@ -233,10 +233,10 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                             111
 design                                                 1
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                             34
 gen_scope_array                                       34
 int_typespec                                          46
@@ -250,10 +250,10 @@ sys_func_call                                          1
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                             111
 design                                                 1
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                             51
 gen_scope_array                                       51
 int_typespec                                          46
@@ -363,7 +363,7 @@ design: (work@lzc)
     \_parameter: (work@lzc.level), line:10:19, endln:10:24
   |vpiDefName:work@lzc
   |vpiGenStmt:
-  \_gen_if: , line:12:3, endln:12:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiCondition:
@@ -393,6 +393,8 @@ design: (work@lzc)
           |UINT:1
           |vpiConstType:9
     |vpiStmt:
+    \_begin: 
+    |vpiElseStmt:
     \_begin: 
 |uhdmtopModules:
 \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16

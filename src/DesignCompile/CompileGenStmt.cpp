@@ -79,22 +79,53 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
   if (fC->Type(stmtId) == VObjectType::slIf_generate_construct) {
     NodeId ifElseId = fC->Child(stmtId);
     if (fC->Type(ifElseId) == VObjectType::slIF) {
+      // lookahead
+      NodeId tmp = ifElseId;
+      bool ifelse = false;
+      while (tmp) {
+        if (fC->Type(tmp) == VObjectType::slElse) {
+          ifelse = true;
+          break;
+        }
+        tmp = fC->Sibling(tmp);
+      }
+
       NodeId condId = fC->Sibling(ifElseId);
       expr* cond = (expr*)compileExpression(component, fC, condId,
                                             compileDesign, Reduce::No, nullptr);
       NodeId stmtId = fC->Sibling(condId);
-      gen_if* genif = s.MakeGen_if();
-      genif->VpiCondition(cond);
-      fC->populateCoreMembers(ifElseId, ifElseId, genif);
-      begin* stmt = s.MakeBegin();
-      VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
-                                       Reduce::No, nullptr, nullptr, true);
-      stmt->Stmts(stmts);
-      genif->VpiStmt(stmt);
+      gen_stmt* genstmt = nullptr;
+      if (ifelse) {
+        gen_if_else* genif = s.MakeGen_if_else();
+        genstmt = genif;
+        genif->VpiCondition(cond);
+        begin* stmt = s.MakeBegin();
+        VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
+                                         Reduce::No, nullptr, nullptr, true);
+        stmt->Stmts(stmts);
+        genif->VpiStmt(stmt);
+        NodeId ElseId = fC->Sibling(stmtId);
+        NodeId elseStmtId = fC->Sibling(ElseId);
+        stmts = compileStmt(component, fC, elseStmtId, compileDesign,
+                            Reduce::No, nullptr, nullptr, true);
+        stmt = s.MakeBegin();
+        stmt->Stmts(stmts);
+        genif->VpiElseStmt(stmt);
+      } else {
+        gen_if* genif = s.MakeGen_if();
+        genstmt = genif;
+        genif->VpiCondition(cond);
+        fC->populateCoreMembers(ifElseId, ifElseId, genif);
+        begin* stmt = s.MakeBegin();
+        VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
+                                         Reduce::No, nullptr, nullptr, true);
+        stmt->Stmts(stmts);
+        genif->VpiStmt(stmt);
+      }
       if (component->getGenStmts() == nullptr) {
         component->setGenStmts(s.MakeGen_stmtVec());
       }
-      component->getGenStmts()->push_back(genif);
+      component->getGenStmts()->push_back(genstmt);
     }
   }
 }

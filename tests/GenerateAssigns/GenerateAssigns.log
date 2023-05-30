@@ -567,7 +567,7 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -578,7 +578,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              4
 gen_scope_array                                        4
 int_typespec                                          13
@@ -1088,7 +1088,7 @@ design: (work@dut)
     |vpiTypedef:
     \_logic_typespec: , line:1:37, endln:1:37
   |vpiGenStmt:
-  \_gen_if: , line:10:3, endln:10:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiCondition:
@@ -1108,6 +1108,8 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
+    \_begin: 
+    |vpiElseStmt:
     \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10

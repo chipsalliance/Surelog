@@ -959,17 +959,17 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
-begin                                                  2
-bit_select                                             6
+begin                                                  4
+bit_select                                             7
 bit_typespec                                           2
-constant                                              97
-cont_assign                                           11
+constant                                              99
+cont_assign                                           13
 design                                                 1
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              4
-indexed_part_select                                    3
+indexed_part_select                                    4
 int_typespec                                          28
 logic_net                                             29
 logic_typespec                                        17
@@ -981,7 +981,7 @@ part_select                                            2
 port                                                  13
 range                                                 13
 ref_module                                             4
-ref_obj                                               71
+ref_obj                                               76
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -989,17 +989,17 @@ tagged_pattern                                         3
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
-begin                                                  2
-bit_select                                             9
+begin                                                  4
+bit_select                                            10
 bit_typespec                                           2
-constant                                             101
-cont_assign                                           17
+constant                                             103
+cont_assign                                           19
 design                                                 1
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                              9
 gen_scope_array                                        9
 hier_path                                              4
-indexed_part_select                                    4
+indexed_part_select                                    5
 int_typespec                                          28
 logic_net                                             29
 logic_typespec                                        17
@@ -1011,7 +1011,7 @@ part_select                                            3
 port                                                  18
 range                                                 13
 ref_module                                             4
-ref_obj                                               91
+ref_obj                                               96
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -1507,7 +1507,7 @@ design: (work@divSqrtRecFNToRaw_small)
     \_parameter: (work@divSqrtRecFN_small.options), line:120:68, endln:120:75
   |vpiDefName:work@divSqrtRecFN_small
   |vpiGenStmt:
-  \_gen_if: , line:127:13, endln:127:15
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@divSqrtRecFN_small (work@divSqrtRecFN_small), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:117:1, endln:155:10
     |vpiCondition:
@@ -1630,8 +1630,40 @@ design: (work@divSqrtRecFNToRaw_small)
           |vpiName:slice_data
           |vpiActual:
           \_logic_net: (slice_data)
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:135:24, endln:135:68
+        |vpiRhs:
+        \_indexed_part_select: , line:135:50, endln:135:67
+          |vpiParent:
+          \_ref_obj: st_data_tv_r (st_data_tv_r)
+            |vpiParent:
+            \_cont_assign: , line:135:24, endln:135:68
+            |vpiName:st_data_tv_r
+            |vpiDefName:st_data_tv_r
+          |vpiConstantSelect:1
+          |vpiIndexedPartSelectType:1
+          |vpiBaseExpr:
+          \_constant: , line:135:50, endln:135:51
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiWidthExpr:
+          \_ref_obj: (slice_width_lp), line:135:53, endln:135:67
+            |vpiName:slice_width_lp
+            |vpiActual:
+            \_logic_net: (slice_width_lp)
+        |vpiLhs:
+        \_ref_obj: (slice_data), line:135:24, endln:135:34
+          |vpiParent:
+          \_cont_assign: , line:135:24, endln:135:68
+          |vpiName:slice_data
+          |vpiActual:
+          \_logic_net: (slice_data)
   |vpiGenStmt:
-  \_gen_if: , line:138:15, endln:138:17
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@divSqrtRecFN_small (work@divSqrtRecFN_small), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:117:1, endln:155:10
     |vpiCondition:
@@ -1674,6 +1706,34 @@ design: (work@divSqrtRecFNToRaw_small)
             |vpiName:core_reset_i
             |vpiActual:
             \_logic_net: (core_reset_i)
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:149:26, endln:149:50
+        |vpiRhs:
+        \_constant: , line:149:48, endln:149:50
+          |vpiParent:
+          \_cont_assign: , line:149:26, endln:149:50
+          |vpiDecompile:'0
+          |vpiSize:-1
+          |BIN:0
+          |vpiConstType:3
+        |vpiLhs:
+        \_bit_select: (lce_req_link_lo), line:149:26, endln:149:44
+          |vpiParent:
+          \_ref_obj: (lce_req_link_lo)
+            |vpiParent:
+            \_cont_assign: , line:149:26, endln:149:50
+            |vpiName:lce_req_link_lo
+          |vpiName:lce_req_link_lo
+          |vpiIndex:
+          \_ref_obj: (lce_req_link_lo.i), line:149:42, endln:149:43
+            |vpiParent:
+            \_bit_select: (lce_req_link_lo), line:149:26, endln:149:44
+            |vpiName:i
+            |vpiFullName:lce_req_link_lo.i
+            |vpiActual:
+            \_logic_net: (i)
 |uhdmallModules:
 \_module_inst: work@e (work@e), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:99:1, endln:115:10
   |vpiParent:
@@ -3096,4 +3156,4 @@ design: (work@divSqrtRecFNToRaw_small)
 [   NOTE] : 15
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/UhdmCoverage/dut.sv | ${SURELOG_DIR}/build/regression/UhdmCoverage/roundtrip/dut_000.sv | 84 | 155 |
+[roundtrip]: ${SURELOG_DIR}/tests/UhdmCoverage/dut.sv | ${SURELOG_DIR}/build/regression/UhdmCoverage/roundtrip/dut_000.sv | 83 | 155 |

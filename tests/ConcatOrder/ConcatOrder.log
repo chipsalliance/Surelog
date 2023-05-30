@@ -358,14 +358,14 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 bit_select                                             5
 bit_typespec                                           4
 constant                                             116
 design                                                 1
 enum_const                                             8
 enum_typespec                                          4
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                              2
@@ -379,7 +379,7 @@ packed_array_typespec                                  8
 param_assign                                          42
 parameter                                             50
 range                                                 12
-ref_module                                             2
+ref_module                                             3
 ref_obj                                               50
 string_typespec                                       24
 struct_typespec                                       34
@@ -390,14 +390,14 @@ typespec_member                                       34
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 bit_select                                             5
 bit_typespec                                           4
 constant                                             123
 design                                                 1
 enum_const                                             8
 enum_typespec                                          4
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                              2
@@ -411,7 +411,7 @@ packed_array_typespec                                  8
 param_assign                                          42
 parameter                                             50
 range                                                 12
-ref_module                                             2
+ref_module                                             3
 ref_obj                                               50
 string_typespec                                       24
 struct_typespec                                       34
@@ -1560,7 +1560,7 @@ design: (work@testbench)
   \_import_typespec: (bp_common_pkg), line:40:9, endln:40:25
   |vpiDefName:work@testbench
   |vpiGenStmt:
-  \_gen_if: , line:48:2, endln:48:4
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiCondition:
@@ -1585,6 +1585,12 @@ design: (work@testbench)
       \_ref_module: work@GOOD (good), line:49:11, endln:49:15
         |vpiName:good
         |vpiDefName:work@GOOD
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@BAD (bad), line:51:10, endln:51:13
+        |vpiName:bad
+        |vpiDefName:work@BAD
 |uhdmtopModules:
 \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
   |vpiName:work@testbench

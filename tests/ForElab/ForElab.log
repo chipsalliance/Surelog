@@ -75,14 +75,14 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  4
 bit_select                                             1
 bit_typespec                                           2
 constant                                             140
 cont_assign                                            1
 design                                                 1
 gate                                                   6
-gen_if                                                 2
+gen_if_else                                            2
 gen_scope                                             10
 gen_scope_array                                       10
 int_typespec                                          21
@@ -292,7 +292,7 @@ design: (work@tlul_socket_m1)
     |vpiTypedef:
     \_logic_typespec: , line:22:9, endln:22:9
   |vpiGenStmt:
-  \_gen_if: , line:28:3, endln:28:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@prim_arbiter_tree (work@prim_arbiter_tree), file:${SURELOG_DIR}/tests/ForElab/top.v, line:16:1, endln:47:10
     |vpiCondition:
@@ -338,6 +338,8 @@ design: (work@tlul_socket_m1)
           |vpiName:valid_o
           |vpiActual:
           \_logic_net: (valid_o)
+    |vpiElseStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
   |vpiParent:
@@ -345,7 +347,7 @@ design: (work@tlul_socket_m1)
   |vpiFullName:work@tlul_socket_m1
   |vpiDefName:work@tlul_socket_m1
   |vpiGenStmt:
-  \_gen_if: , line:52:3, endln:52:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
     |vpiCondition:
@@ -372,6 +374,8 @@ design: (work@tlul_socket_m1)
         |STRING:PPC
         |vpiConstType:6
     |vpiStmt:
+    \_begin: 
+    |vpiElseStmt:
     \_begin: 
 |uhdmtopModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10

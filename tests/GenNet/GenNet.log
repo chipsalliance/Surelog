@@ -273,11 +273,11 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                              40
 cont_assign                                            1
 design                                                 1
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           2
@@ -297,11 +297,11 @@ string_typespec                                        2
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
+begin                                                  2
 constant                                              40
 cont_assign                                            2
 design                                                 1
-gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           2
@@ -447,7 +447,7 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
   |vpiGenStmt:
-  \_gen_if: , line:8:3, endln:8:5
+  \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@prim_subreg_arb (work@prim_subreg_arb), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:1:1, endln:15:10
     |vpiCondition:
@@ -490,6 +490,8 @@ design: (work@dut)
           |STRING:WO
           |vpiConstType:6
     |vpiStmt:
+    \_begin: 
+    |vpiElseStmt:
     \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
