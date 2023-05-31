@@ -491,66 +491,74 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            1
+begin                                                  3
 bit_select                                             1
-constant                                             185
+constant                                             187
 cont_assign                                            3
 design                                                 1
 enum_const                                            50
 enum_typespec                                         25
+gen_for                                                1
 gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          37
-logic_net                                              1
+int_typespec                                          38
+logic_net                                              2
 logic_typespec                                        25
 module_inst                                           18
-operation                                             48
+operation                                             49
 package                                                6
 packed_array_typespec                                 23
 param_assign                                          20
 parameter                                             26
 range                                                 48
-ref_module                                             4
-ref_obj                                               19
+ref_module                                             5
+ref_obj                                               20
+ref_var                                                1
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
 typespec_member                                       23
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            1
+begin                                                  3
 bit_select                                             1
-constant                                             185
+constant                                             187
 cont_assign                                           10
 design                                                 1
 enum_const                                            50
 enum_typespec                                         25
+gen_for                                                1
 gen_if                                                 2
 gen_scope                                             17
 gen_scope_array                                       17
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          37
-logic_net                                              1
+int_typespec                                          38
+logic_net                                              2
 logic_typespec                                        25
 module_inst                                           22
-operation                                             48
+operation                                             49
 package                                                6
 packed_array_typespec                                 23
 param_assign                                          24
 parameter                                             26
 range                                                 48
-ref_module                                             4
-ref_obj                                               26
+ref_module                                             5
+ref_obj                                               27
+ref_var                                                1
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
 typespec_member                                       23
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamElabMulti/slpp_all/surelog.uhdm ...
 
@@ -1332,6 +1340,62 @@ design: (work@top)
   |vpiTypedef:
   \_import_typespec: (pinmux_pkg), line:42:11, endln:42:24
   |vpiDefName:work@sub_top
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/ParamElabMulti/dut.sv, line:41:1, endln:50:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:45:8, endln:45:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:45:19, endln:45:20
+        |vpiParent:
+        \_assign_stmt: , line:45:8, endln:45:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@sub_top.k), line:45:15, endln:45:16
+        |vpiParent:
+        \_assign_stmt: , line:45:8, endln:45:20
+        |vpiTypespec:
+        \_unsupported_typespec: (k), line:45:15, endln:45:16
+          |vpiName:k
+        |vpiName:k
+        |vpiFullName:work@sub_top.k
+    |vpiCondition:
+    \_operation: , line:45:22, endln:45:34
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (k), line:45:22, endln:45:23
+        |vpiParent:
+        \_operation: , line:45:22, endln:45:34
+        |vpiName:k
+        |vpiActual:
+        \_logic_net: (k)
+      |vpiOperand:
+      \_constant: , line:45:26, endln:45:34
+        |vpiParent:
+        \_operation: , line:45:22, endln:45:34
+        |vpiDecompile:1
+        |vpiSize:32
+        |UINT:1
+        |vpiTypespec:
+        \_int_typespec: , line:11:14, endln:11:17
+          |vpiParent:
+          \_constant: , line:45:26, endln:45:34
+          |vpiInstance:
+          \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/ParamElabMulti/dut.sv, line:8:1, endln:20:24
+          |vpiSigned:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@prim_pad_attr (u_prim_pad_attr), line:48:8, endln:48:23
+        |vpiName:u_prim_pad_attr
+        |vpiDefName:work@prim_pad_attr
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamElabMulti/dut.sv, line:52:1, endln:61:10
   |vpiParent:
@@ -2095,6 +2159,10 @@ design: (work@top)
     |vpiDefName:work@sub_top
     |vpiDefFile:${SURELOG_DIR}/tests/ParamElabMulti/dut.sv
     |vpiDefLineNo:41
+    |vpiNet:
+    \_logic_net: (k)
+      |vpiName:k
+      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamElabMulti/dut.sv, line:52:1, endln:61:10
     |vpiGenScopeArray:

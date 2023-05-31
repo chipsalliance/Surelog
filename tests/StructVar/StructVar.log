@@ -42,32 +42,37 @@
 array_net                                              2
 array_typespec                                         7
 array_var                                              7
-bit_select                                             4
+assign_stmt                                            1
+begin                                                  1
+bit_select                                             6
 bit_typespec                                           5
-constant                                              78
-cont_assign                                            2
+constant                                              81
+cont_assign                                            3
 design                                                 1
 enum_const                                             1
 enum_typespec                                          1
+gen_for                                                1
 gen_scope                                              4
 gen_scope_array                                        4
-hier_path                                              4
+hier_path                                              6
 initial                                                1
 int_typespec                                           2
-logic_net                                             13
+logic_net                                             15
 logic_typespec                                         8
 logic_var                                              3
 module_inst                                           14
-operation                                             23
+operation                                             28
 parameter                                              2
 range                                                 21
 ref_module                                             3
-ref_obj                                               17
+ref_obj                                               26
+ref_var                                                1
 struct_net                                             3
 struct_typespec                                        4
 struct_var                                             6
 sys_func_call                                          1
 typespec_member                                       10
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -75,32 +80,37 @@ typespec_member                                       10
 array_net                                              2
 array_typespec                                         7
 array_var                                              7
-bit_select                                             8
+assign_stmt                                            1
+begin                                                  1
+bit_select                                            10
 bit_typespec                                           5
-constant                                              78
-cont_assign                                            4
+constant                                              81
+cont_assign                                            5
 design                                                 1
 enum_const                                             1
 enum_typespec                                          1
+gen_for                                                1
 gen_scope                                              6
 gen_scope_array                                        6
-hier_path                                              8
+hier_path                                             10
 initial                                                2
 int_typespec                                           2
-logic_net                                             13
+logic_net                                             15
 logic_typespec                                         8
 logic_var                                              3
 module_inst                                           14
-operation                                             31
+operation                                             36
 parameter                                              2
 range                                                 21
 ref_module                                             3
-ref_obj                                               34
+ref_obj                                               43
+ref_var                                                1
 struct_net                                             3
 struct_typespec                                        4
 struct_var                                             6
 sys_func_call                                          2
 typespec_member                                       10
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StructVar/slpp_unit/surelog.uhdm ...
 
@@ -532,6 +542,145 @@ design: (work@test)
     \_module_inst: work@prim_generic_ram_1 (work@prim_generic_ram_1), file:${SURELOG_DIR}/tests/StructVar/dut.sv, line:47:1, endln:66:10
     |vpiName:pmp_cfg
     |vpiFullName:work@prim_generic_ram_1.pmp_cfg
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@prim_generic_ram_1 (work@prim_generic_ram_1), file:${SURELOG_DIR}/tests/StructVar/dut.sv, line:47:1, endln:66:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:59:7, endln:59:19
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:59:18, endln:59:19
+        |vpiParent:
+        \_assign_stmt: , line:59:7, endln:59:19
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@prim_generic_ram_1.i), line:59:14, endln:59:15
+        |vpiParent:
+        \_assign_stmt: , line:59:7, endln:59:19
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:59:14, endln:59:15
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@prim_generic_ram_1.i
+    |vpiCondition:
+    \_operation: , line:59:21, endln:59:26
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:59:21, endln:59:22
+        |vpiParent:
+        \_operation: , line:59:21, endln:59:26
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_constant: , line:59:25, endln:59:26
+        |vpiParent:
+        \_operation: , line:59:21, endln:59:26
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:61:10, endln:62:38
+        |vpiRhs:
+        \_operation: , line:61:24, endln:62:38
+          |vpiParent:
+          \_cont_assign: , line:61:10, endln:62:38
+          |vpiOpType:28
+          |vpiOperand:
+          \_operation: , line:61:24, endln:61:40
+            |vpiParent:
+            \_operation: , line:61:24, endln:62:38
+            |vpiOpType:4
+            |vpiOperand:
+            \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
+              |vpiParent:
+              \_operation: , line:61:24, endln:61:40
+              |vpiName:pmp_cfg[i].lock
+              |vpiActual:
+              \_bit_select: (pmp_cfg), line:61:25, endln:61:32
+                |vpiParent:
+                \_ref_obj: (pmp_cfg[i])
+                  |vpiParent:
+                  \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
+                  |vpiName:pmp_cfg[i]
+                |vpiName:pmp_cfg
+                |vpiIndex:
+                \_ref_obj: (i), line:61:33, endln:61:34
+                  |vpiParent:
+                  \_operation: , line:61:24, endln:61:40
+                  |vpiName:i
+                  |vpiActual:
+                  \_logic_net: (i)
+              |vpiActual:
+              \_ref_obj: (lock), line:61:36, endln:61:40
+                |vpiParent:
+                \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
+                |vpiName:lock
+          |vpiOperand:
+          \_operation: , line:62:4, endln:62:37
+            |vpiParent:
+            \_operation: , line:61:24, endln:62:38
+            |vpiOpType:15
+            |vpiOperand:
+            \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
+              |vpiParent:
+              \_operation: , line:61:24, endln:62:38
+              |vpiName:pmp_cfg[i + 1].mode
+              |vpiActual:
+              \_bit_select: (pmp_cfg), line:62:4, endln:62:11
+                |vpiParent:
+                \_ref_obj: (pmp_cfg[i + 1])
+                  |vpiParent:
+                  \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
+                  |vpiName:pmp_cfg[i + 1]
+                |vpiName:pmp_cfg
+                |vpiIndex:
+                \_operation: , line:62:12, endln:62:15
+                  |vpiParent:
+                  \_operation: , line:61:24, endln:62:38
+                  |vpiOpType:24
+                  |vpiOperand:
+                  \_ref_obj: (i), line:62:12, endln:62:13
+                    |vpiParent:
+                    \_operation: , line:61:24, endln:62:38
+                    |vpiName:i
+                    |vpiActual:
+                    \_logic_net: (i)
+                  |vpiOperand:
+                  \_constant: , line:62:14, endln:62:15
+                    |vpiParent:
+                    \_operation: , line:62:12, endln:62:15
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+                    |vpiConstType:9
+              |vpiActual:
+              \_ref_obj: (mode), line:62:17, endln:62:21
+                |vpiParent:
+                \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
+                |vpiName:mode
+            |vpiOperand:
+            \_ref_obj: (PMP_MODE_TOR), line:62:25, endln:62:37
+              |vpiParent:
+              \_operation: , line:62:4, endln:62:37
+              |vpiName:PMP_MODE_TOR
+              |vpiActual:
+              \_enum_const: (PMP_MODE_TOR), line:50:5, endln:50:27
+        |vpiLhs:
+        \_ref_obj: (pmp_addr_we), line:61:10, endln:61:21
+          |vpiParent:
+          \_cont_assign: , line:61:10, endln:62:38
+          |vpiName:pmp_addr_we
+          |vpiActual:
+          \_logic_net: (pmp_addr_we)
 |uhdmallModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/StructVar/dut.sv, line:69:1, endln:76:10
   |vpiParent:
@@ -1187,6 +1336,14 @@ design: (work@test)
     |vpiDefName:work@prim_generic_ram_1
     |vpiDefFile:${SURELOG_DIR}/tests/StructVar/dut.sv
     |vpiDefLineNo:47
+    |vpiNet:
+    \_logic_net: (i)
+      |vpiName:i
+      |vpiNetType:1
+    |vpiNet:
+    \_logic_net: (pmp_addr_we)
+      |vpiName:pmp_addr_we
+      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/StructVar/dut.sv, line:69:1, endln:76:10
     |vpiGenScopeArray:
@@ -1318,6 +1475,8 @@ design: (work@test)
             \_cont_assign: , line:61:10, endln:62:38
             |vpiName:pmp_addr_we
             |vpiFullName:work@test.u3.g_pmp_csrs[0].pmp_addr_we
+            |vpiActual:
+            \_logic_net: (pmp_addr_we)
     |vpiGenScopeArray:
     \_gen_scope_array: (work@test.u3.g_pmp_csrs[1]), line:59:33, endln:64:5
       |vpiParent:
@@ -1447,6 +1606,8 @@ design: (work@test)
             \_cont_assign: , line:61:10, endln:62:38
             |vpiName:pmp_addr_we
             |vpiFullName:work@test.u3.g_pmp_csrs[1].pmp_addr_we
+            |vpiActual:
+            \_logic_net: (pmp_addr_we)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

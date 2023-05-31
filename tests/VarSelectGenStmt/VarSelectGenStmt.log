@@ -217,39 +217,49 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             140
+assign_stmt                                            1
+begin                                                  1
+constant                                             142
 design                                                 1
+gen_for                                                1
 gen_scope                                             12
 gen_scope_array                                       12
 int_typespec                                           6
-logic_net                                              7
+logic_net                                              8
 logic_typespec                                        12
 module_inst                                           13
-operation                                              9
+operation                                             10
 parameter                                              6
 port                                                  11
 range                                                 51
 ref_module                                             4
-ref_obj                                               15
+ref_obj                                               16
+ref_var                                                1
+unsupported_typespec                                   1
 var_select                                             8
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             140
+assign_stmt                                            1
+begin                                                  1
+constant                                             142
 design                                                 1
+gen_for                                                1
 gen_scope                                             18
 gen_scope_array                                       18
 int_typespec                                           6
-logic_net                                              7
+logic_net                                              8
 logic_typespec                                        12
 module_inst                                           17
-operation                                              9
+operation                                             10
 parameter                                              6
 port                                                  24
 range                                                 51
 ref_module                                             4
-ref_obj                                               28
+ref_obj                                               29
+ref_var                                                1
+unsupported_typespec                                   1
 var_select                                            20
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VarSelectGenStmt/slpp_all/surelog.uhdm ...
@@ -422,6 +432,51 @@ design: (work@aes_sub_bytes)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@aes_sub_bytes (work@aes_sub_bytes), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:8:1, endln:23:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:14:8, endln:14:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:14:19, endln:14:20
+        |vpiParent:
+        \_assign_stmt: , line:14:8, endln:14:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@aes_sub_bytes.j), line:14:15, endln:14:16
+        |vpiParent:
+        \_assign_stmt: , line:14:8, endln:14:20
+        |vpiTypespec:
+        \_unsupported_typespec: (j), line:14:15, endln:14:16
+          |vpiName:j
+        |vpiName:j
+        |vpiFullName:work@aes_sub_bytes.j
+    |vpiCondition:
+    \_operation: , line:14:22, endln:14:27
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (j), line:14:22, endln:14:23
+        |vpiParent:
+        \_operation: , line:14:22, endln:14:27
+        |vpiName:j
+        |vpiActual:
+        \_logic_net: (j)
+      |vpiOperand:
+      \_constant: , line:14:26, endln:14:27
+        |vpiParent:
+        \_operation: , line:14:22, endln:14:27
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@aes_sub_bytes (work@aes_sub_bytes), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:8:1, endln:23:10
   |vpiName:work@aes_sub_bytes
@@ -490,6 +545,10 @@ design: (work@aes_sub_bytes)
     |vpiName:data_i
     |vpiFullName:work@aes_sub_bytes.data_i
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (j)
+    |vpiName:j
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (data_i), line:10:32, endln:10:38

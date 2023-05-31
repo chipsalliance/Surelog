@@ -208,34 +208,46 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_select                                            30
-constant                                              42
-cont_assign                                           10
+assign_stmt                                            1
+begin                                                  1
+bit_select                                            32
+constant                                              44
+cont_assign                                           11
 design                                                 1
+gen_for                                                1
 gen_scope                                             10
 gen_scope_array                                       10
 int_typespec                                           7
+logic_net                                              3
 module_inst                                            6
-operation                                             46
+operation                                             49
 param_assign                                           2
 parameter                                              7
-ref_obj                                               70
+ref_obj                                               77
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_select                                            60
-constant                                              42
-cont_assign                                           20
+assign_stmt                                            1
+begin                                                  1
+bit_select                                            62
+constant                                              44
+cont_assign                                           21
 design                                                 1
+gen_for                                                1
 gen_scope                                             15
 gen_scope_array                                       15
 int_typespec                                           7
+logic_net                                              3
 module_inst                                            6
-operation                                             86
+operation                                             89
 param_assign                                           2
 parameter                                              7
-ref_obj                                              140
+ref_obj                                              147
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssignPlus/slpp_all/surelog.uhdm ...
 
@@ -278,6 +290,106 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.bht_row_width_p), line:3:14, endln:3:29
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPlus/dut.sv, line:1:1, endln:11:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:5:10, endln:5:22
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:5:21, endln:5:22
+        |vpiParent:
+        \_assign_stmt: , line:5:10, endln:5:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@top.i), line:5:17, endln:5:18
+        |vpiParent:
+        \_assign_stmt: , line:5:10, endln:5:22
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:5:17, endln:5:18
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@top.i
+    |vpiCondition:
+    \_operation: , line:5:24, endln:5:43
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:5:24, endln:5:25
+        |vpiParent:
+        \_operation: , line:5:24, endln:5:43
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (bht_row_width_p), line:5:28, endln:5:43
+        |vpiParent:
+        \_operation: , line:5:24, endln:5:43
+        |vpiName:bht_row_width_p
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:7:14, endln:7:69
+        |vpiRhs:
+        \_operation: , line:7:31, endln:7:69
+          |vpiParent:
+          \_cont_assign: , line:7:14, endln:7:69
+          |vpiOpType:32
+          |vpiOperand:
+          \_ref_obj: (is_clear), line:7:31, endln:7:39
+            |vpiParent:
+            \_operation: , line:7:31, endln:7:69
+            |vpiName:is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
+          |vpiOperand:
+          \_bit_select: (bht_init_lp), line:7:42, endln:7:56
+            |vpiParent:
+            \_ref_obj: (bht_init_lp)
+              |vpiParent:
+              \_operation: , line:7:31, endln:7:69
+              |vpiName:bht_init_lp
+            |vpiName:bht_init_lp
+            |vpiIndex:
+            \_constant: , line:7:54, endln:7:55
+              |vpiParent:
+              \_bit_select: (bht_init_lp), line:7:42, endln:7:56
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiOperand:
+          \_operation: , line:7:59, endln:7:69
+            |vpiParent:
+            \_operation: , line:7:31, endln:7:69
+            |vpiOpType:4
+            |vpiOperand:
+            \_ref_obj: (correct_i), line:7:60, endln:7:69
+              |vpiParent:
+              \_operation: , line:7:59, endln:7:69
+              |vpiName:correct_i
+              |vpiActual:
+              \_logic_net: (correct_i)
+        |vpiLhs:
+        \_bit_select: (w_data_li), line:7:14, endln:7:26
+          |vpiParent:
+          \_ref_obj: (w_data_li)
+            |vpiParent:
+            \_cont_assign: , line:7:14, endln:7:69
+            |vpiName:w_data_li
+          |vpiName:w_data_li
+          |vpiIndex:
+          \_ref_obj: (w_data_li.i), line:7:24, endln:7:25
+            |vpiParent:
+            \_bit_select: (w_data_li), line:7:14, endln:7:26
+            |vpiName:i
+            |vpiFullName:w_data_li.i
+            |vpiActual:
+            \_logic_net: (i)
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPlus/dut.sv, line:1:1, endln:11:10
   |vpiName:work@top
@@ -308,6 +420,18 @@ design: (work@top)
     \_parameter: (work@top.bht_row_width_p), line:3:14, endln:3:29
   |vpiDefName:work@top
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (is_clear)
+    |vpiName:is_clear
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (correct_i)
+    |vpiName:correct_i
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.wval[0]), line:6:5, endln:9:8
@@ -345,6 +469,8 @@ design: (work@top)
             \_operation: , line:7:31, endln:7:69
             |vpiName:is_clear
             |vpiFullName:work@top.wval[0].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[0].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
@@ -374,6 +500,8 @@ design: (work@top)
               \_operation: , line:7:59, endln:7:69
               |vpiName:correct_i
               |vpiFullName:work@top.wval[0].correct_i
+              |vpiActual:
+              \_logic_net: (correct_i)
         |vpiLhs:
         \_bit_select: (work@top.wval[0].w_data_li), line:7:14, endln:7:26
           |vpiParent:
@@ -407,6 +535,8 @@ design: (work@top)
             \_operation: , line:8:31, endln:8:95
             |vpiName:is_clear
             |vpiFullName:work@top.wval[0].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[0].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
@@ -477,6 +607,8 @@ design: (work@top)
                   \_operation: , line:8:73, endln:8:83
                   |vpiName:correct_i
                   |vpiFullName:work@top.wval[0].correct_i
+                  |vpiActual:
+                  \_logic_net: (correct_i)
               |vpiOperand:
               \_bit_select: (work@top.wval[0].val_i), line:8:86, endln:8:94
                 |vpiParent:
@@ -562,6 +694,8 @@ design: (work@top)
             \_operation: , line:7:31, endln:7:69
             |vpiName:is_clear
             |vpiFullName:work@top.wval[2].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[2].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
@@ -591,6 +725,8 @@ design: (work@top)
               \_operation: , line:7:59, endln:7:69
               |vpiName:correct_i
               |vpiFullName:work@top.wval[2].correct_i
+              |vpiActual:
+              \_logic_net: (correct_i)
         |vpiLhs:
         \_bit_select: (work@top.wval[2].w_data_li), line:7:14, endln:7:26
           |vpiParent:
@@ -624,6 +760,8 @@ design: (work@top)
             \_operation: , line:8:31, endln:8:95
             |vpiName:is_clear
             |vpiFullName:work@top.wval[2].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[2].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
@@ -694,6 +832,8 @@ design: (work@top)
                   \_operation: , line:8:73, endln:8:83
                   |vpiName:correct_i
                   |vpiFullName:work@top.wval[2].correct_i
+                  |vpiActual:
+                  \_logic_net: (correct_i)
               |vpiOperand:
               \_bit_select: (work@top.wval[2].val_i), line:8:86, endln:8:94
                 |vpiParent:
@@ -779,6 +919,8 @@ design: (work@top)
             \_operation: , line:7:31, endln:7:69
             |vpiName:is_clear
             |vpiFullName:work@top.wval[4].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[4].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
@@ -808,6 +950,8 @@ design: (work@top)
               \_operation: , line:7:59, endln:7:69
               |vpiName:correct_i
               |vpiFullName:work@top.wval[4].correct_i
+              |vpiActual:
+              \_logic_net: (correct_i)
         |vpiLhs:
         \_bit_select: (work@top.wval[4].w_data_li), line:7:14, endln:7:26
           |vpiParent:
@@ -841,6 +985,8 @@ design: (work@top)
             \_operation: , line:8:31, endln:8:95
             |vpiName:is_clear
             |vpiFullName:work@top.wval[4].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[4].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
@@ -911,6 +1057,8 @@ design: (work@top)
                   \_operation: , line:8:73, endln:8:83
                   |vpiName:correct_i
                   |vpiFullName:work@top.wval[4].correct_i
+                  |vpiActual:
+                  \_logic_net: (correct_i)
               |vpiOperand:
               \_bit_select: (work@top.wval[4].val_i), line:8:86, endln:8:94
                 |vpiParent:
@@ -996,6 +1144,8 @@ design: (work@top)
             \_operation: , line:7:31, endln:7:69
             |vpiName:is_clear
             |vpiFullName:work@top.wval[6].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[6].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
@@ -1025,6 +1175,8 @@ design: (work@top)
               \_operation: , line:7:59, endln:7:69
               |vpiName:correct_i
               |vpiFullName:work@top.wval[6].correct_i
+              |vpiActual:
+              \_logic_net: (correct_i)
         |vpiLhs:
         \_bit_select: (work@top.wval[6].w_data_li), line:7:14, endln:7:26
           |vpiParent:
@@ -1058,6 +1210,8 @@ design: (work@top)
             \_operation: , line:8:31, endln:8:95
             |vpiName:is_clear
             |vpiFullName:work@top.wval[6].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[6].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
@@ -1128,6 +1282,8 @@ design: (work@top)
                   \_operation: , line:8:73, endln:8:83
                   |vpiName:correct_i
                   |vpiFullName:work@top.wval[6].correct_i
+                  |vpiActual:
+                  \_logic_net: (correct_i)
               |vpiOperand:
               \_bit_select: (work@top.wval[6].val_i), line:8:86, endln:8:94
                 |vpiParent:
@@ -1213,6 +1369,8 @@ design: (work@top)
             \_operation: , line:7:31, endln:7:69
             |vpiName:is_clear
             |vpiFullName:work@top.wval[8].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[8].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
@@ -1242,6 +1400,8 @@ design: (work@top)
               \_operation: , line:7:59, endln:7:69
               |vpiName:correct_i
               |vpiFullName:work@top.wval[8].correct_i
+              |vpiActual:
+              \_logic_net: (correct_i)
         |vpiLhs:
         \_bit_select: (work@top.wval[8].w_data_li), line:7:14, endln:7:26
           |vpiParent:
@@ -1275,6 +1435,8 @@ design: (work@top)
             \_operation: , line:8:31, endln:8:95
             |vpiName:is_clear
             |vpiFullName:work@top.wval[8].is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
           |vpiOperand:
           \_bit_select: (work@top.wval[8].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
@@ -1345,6 +1507,8 @@ design: (work@top)
                   \_operation: , line:8:73, endln:8:83
                   |vpiName:correct_i
                   |vpiFullName:work@top.wval[8].correct_i
+                  |vpiActual:
+                  \_logic_net: (correct_i)
               |vpiOperand:
               \_bit_select: (work@top.wval[8].val_i), line:8:86, endln:8:94
                 |vpiParent:
@@ -1402,4 +1566,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/AssignPlus/dut.sv | ${SURELOG_DIR}/build/regression/AssignPlus/roundtrip/dut_000.sv | 5 | 11 |
+[roundtrip]: ${SURELOG_DIR}/tests/AssignPlus/dut.sv | ${SURELOG_DIR}/build/regression/AssignPlus/roundtrip/dut_000.sv | 4 | 11 |

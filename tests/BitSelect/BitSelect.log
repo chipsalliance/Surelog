@@ -207,40 +207,52 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+assign_stmt                                            1
+begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
-constant                                              56
+constant                                              57
 design                                                 1
+gen_for                                                1
 gen_scope                                              6
 gen_scope_array                                        6
 int_typespec                                          11
+logic_net                                              1
 logic_typespec                                         6
 module_inst                                           13
-operation                                             10
+operation                                             11
 param_assign                                          10
 parameter                                             13
 range                                                  6
-ref_module                                             3
-ref_obj                                                8
+ref_module                                             4
+ref_obj                                               10
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+assign_stmt                                            1
+begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
-constant                                              56
+constant                                              57
 design                                                 1
+gen_for                                                1
 gen_scope                                              9
 gen_scope_array                                        9
 int_typespec                                          11
+logic_net                                              1
 logic_typespec                                         6
 module_inst                                           16
-operation                                             10
+operation                                             11
 param_assign                                          13
 parameter                                             13
 range                                                  6
-ref_module                                             3
-ref_obj                                                8
+ref_module                                             4
+ref_obj                                               10
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitSelect/slpp_all/surelog.uhdm ...
 
@@ -407,6 +419,52 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@dut.res), line:9:11, endln:9:14
   |vpiDefName:work@dut
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/BitSelect/dut.sv, line:6:1, endln:15:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:10:6, endln:10:18
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:10:17, endln:10:18
+        |vpiParent:
+        \_assign_stmt: , line:10:6, endln:10:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@dut.i), line:10:13, endln:10:14
+        |vpiParent:
+        \_assign_stmt: , line:10:6, endln:10:18
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:10:13, endln:10:14
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@dut.i
+    |vpiCondition:
+    \_operation: , line:10:20, endln:10:33
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:10:20, endln:10:21
+        |vpiParent:
+        \_operation: , line:10:20, endln:10:33
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (NumAlerts), line:10:24, endln:10:33
+        |vpiParent:
+        \_operation: , line:10:20, endln:10:33
+        |vpiName:NumAlerts
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@alert_sender (i_alert_sender), line:13:5, endln:13:19
+        |vpiName:i_alert_sender
+        |vpiDefName:work@alert_sender
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/BitSelect/dut.sv, line:6:1, endln:15:10
   |vpiName:work@dut
@@ -522,6 +580,10 @@ design: (work@dut)
     \_parameter: (work@dut.res), line:9:11, endln:9:14
   |vpiDefName:work@dut
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.gen_alert_tx[0]), line:10:40, endln:14:4

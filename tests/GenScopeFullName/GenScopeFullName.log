@@ -131,42 +131,52 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_select                                             2
-constant                                              12
+assign_stmt                                            1
+begin                                                  1
+bit_select                                             3
+constant                                              14
 design                                                 1
+gen_for                                                1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           1
-logic_net                                              3
+logic_net                                              4
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            7
-operation                                              2
+operation                                              3
 parameter                                              1
-port                                                   3
+port                                                   4
 range                                                  2
-ref_module                                             1
-ref_obj                                                5
+ref_module                                             2
+ref_obj                                                8
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_select                                             5
-constant                                              12
+assign_stmt                                            1
+begin                                                  1
+bit_select                                             6
+constant                                              14
 design                                                 1
+gen_for                                                1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           1
-logic_net                                              3
+logic_net                                              4
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            8
-operation                                              2
+operation                                              3
 parameter                                              1
-port                                                   6
+port                                                   7
 range                                                  2
-ref_module                                             1
-ref_obj                                               11
+ref_module                                             2
+ref_obj                                               14
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenScopeFullName/slpp_all/surelog.uhdm ...
 
@@ -193,6 +203,72 @@ design: (work@dut)
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:36
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:4:8, endln:4:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:4:19, endln:4:20
+        |vpiParent:
+        \_assign_stmt: , line:4:8, endln:4:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@dut.i), line:4:15, endln:4:16
+        |vpiParent:
+        \_assign_stmt: , line:4:8, endln:4:20
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:4:15, endln:4:16
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@dut.i
+    |vpiCondition:
+    \_operation: , line:4:22, endln:4:27
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:4:22, endln:4:23
+        |vpiParent:
+        \_operation: , line:4:22, endln:4:27
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_constant: , line:4:26, endln:4:27
+        |vpiParent:
+        \_operation: , line:4:22, endln:4:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@ibex_counter (module_in_genscope), line:5:20, endln:5:38
+        |vpiName:module_in_genscope
+        |vpiDefName:work@ibex_counter
+        |vpiPort:
+        \_port: (b), line:5:39, endln:5:47
+          |vpiName:b
+          |vpiHighConn:
+          \_bit_select: (a), line:5:42, endln:5:46
+            |vpiParent:
+            \_ref_obj: (a)
+              |vpiName:a
+            |vpiName:a
+            |vpiIndex:
+            \_ref_obj: (a.i), line:5:44, endln:5:45
+              |vpiParent:
+              \_bit_select: (a), line:5:42, endln:5:46
+              |vpiName:i
+              |vpiFullName:a.i
+              |vpiActual:
+              \_logic_net: (i)
 |uhdmallModules:
 \_module_inst: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
   |vpiParent:
@@ -268,6 +344,10 @@ design: (work@dut)
         |vpiConstType:9
   |vpiDefName:work@dut
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.gen_modules[0]), line:4:34, endln:8:7

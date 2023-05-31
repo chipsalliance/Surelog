@@ -3652,20 +3652,21 @@ AST_DEBUG_END
 always                                                 4
 array_net                                              1
 array_typespec                                         1
-assign_stmt                                            2
+assign_stmt                                            3
 assignment                                           110
-begin                                                 94
+begin                                                 95
 bit_select                                            30
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             2
-constant                                             336
+constant                                             337
 design                                                 1
 enum_const                                            28
 enum_typespec                                          9
 for_stmt                                               2
 func_call                                            108
 function                                              68
+gen_for                                                1
 gen_scope                                              8
 gen_scope_array                                        8
 hier_path                                             64
@@ -3675,24 +3676,25 @@ import_typespec                                        1
 int_typespec                                         136
 int_var                                               86
 io_decl                                               72
-logic_net                                              6
+logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
 module_inst                                           76
-operation                                            118
+operation                                            119
 package                                                3
 param_assign                                         118
 parameter                                            125
 port                                                   6
 range                                                  9
-ref_obj                                              443
+ref_obj                                              445
+ref_var                                                1
 return_stmt                                           88
 short_int_typespec                                   104
 string_typespec                                       96
 struct_typespec                                       15
 tagged_pattern                                        96
 typespec_member                                      110
-unsupported_typespec                                   9
+unsupported_typespec                                  10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -3700,20 +3702,21 @@ unsupported_typespec                                   9
 always                                                 8
 array_net                                              1
 array_typespec                                         1
-assign_stmt                                            5
+assign_stmt                                            6
 assignment                                           271
-begin                                                233
+begin                                                234
 bit_select                                            67
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             5
-constant                                             339
+constant                                             340
 design                                                 1
 enum_const                                            28
 enum_typespec                                          9
 for_stmt                                               5
 func_call                                            267
 function                                             170
+gen_for                                                1
 gen_scope                                             12
 gen_scope_array                                       12
 hier_path                                            149
@@ -3723,24 +3726,25 @@ import_typespec                                        1
 int_typespec                                         136
 int_var                                              191
 io_decl                                              180
-logic_net                                              6
+logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
 module_inst                                           76
-operation                                            268
+operation                                            269
 package                                                3
 param_assign                                         118
 parameter                                            125
 port                                                   9
 range                                                  9
-ref_obj                                             1049
+ref_obj                                             1051
+ref_var                                                1
 return_stmt                                          220
 short_int_typespec                                   104
 string_typespec                                       96
 struct_typespec                                       15
 tagged_pattern                                        96
 typespec_member                                      110
-unsupported_typespec                                   9
+unsupported_typespec                                  10
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:417:33: Unresolved hierarchical reference "receiver_if.valid[i]".
 
@@ -19204,6 +19208,48 @@ design: (work@tnoc_vc_splitter)
       |vpiElemTypespec:
       \_unsupported_typespec: (tnoc_flit_if), line:413:3, endln:413:15
         |vpiName:tnoc_flit_if
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:415:8, endln:415:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:415:19, endln:415:20
+        |vpiParent:
+        \_assign_stmt: , line:415:8, endln:415:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@tnoc_vc_splitter.i), line:415:15, endln:415:16
+        |vpiParent:
+        \_assign_stmt: , line:415:8, endln:415:20
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:415:15, endln:415:16
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@tnoc_vc_splitter.i
+    |vpiCondition:
+    \_operation: , line:415:21, endln:415:33
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:415:21, endln:415:22
+        |vpiParent:
+        \_operation: , line:415:21, endln:415:33
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (CHANNELS), line:415:25, endln:415:33
+        |vpiParent:
+        \_operation: , line:415:21, endln:415:33
+        |vpiName:CHANNELS
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiName:work@tnoc_vc_splitter
@@ -24108,6 +24154,10 @@ design: (work@tnoc_vc_splitter)
       |vpiName:tnoc_flit_if
     |vpiName:receiver_if
     |vpiFullName:work@tnoc_vc_splitter.receiver_if
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
   |vpiArrayNet:
   \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
     |vpiParent:

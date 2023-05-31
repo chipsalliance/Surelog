@@ -180,48 +180,58 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_select                                             8
-constant                                              25
-cont_assign                                            4
+assign_stmt                                            1
+begin                                                  1
+bit_select                                             9
+constant                                              28
+cont_assign                                            5
 design                                                 1
+gen_for                                                1
 gen_scope                                              2
 gen_scope_array                                        2
-hier_path                                              5
+hier_path                                              7
 int_typespec                                           2
-logic_net                                              1
+logic_net                                              2
 module_inst                                            7
-operation                                              2
+operation                                              3
 packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                               15
+ref_obj                                               20
+ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_select                                            12
-constant                                              25
-cont_assign                                            6
+assign_stmt                                            1
+begin                                                  1
+bit_select                                            13
+constant                                              28
+cont_assign                                            7
 design                                                 1
+gen_for                                                1
 gen_scope                                              3
 gen_scope_array                                        3
-hier_path                                              7
+hier_path                                              9
 int_typespec                                           2
-logic_net                                              1
+logic_net                                              2
 module_inst                                            7
-operation                                              2
+operation                                              3
 packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                               23
+ref_obj                                               28
+ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:3:12: Unresolved hierarchical reference "hw2reg.alert_cause[k].d".
 
@@ -243,6 +253,89 @@ design: (work@alert_handler_reg_wrap)
   \_design: (work@alert_handler_reg_wrap)
   |vpiFullName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:1:1, endln:5:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:2:8, endln:2:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_assign_stmt: , line:2:8, endln:2:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@alert_handler_reg_wrap.k), line:2:15, endln:2:16
+        |vpiParent:
+        \_assign_stmt: , line:2:8, endln:2:20
+        |vpiTypespec:
+        \_unsupported_typespec: (k), line:2:15, endln:2:16
+          |vpiName:k
+        |vpiName:k
+        |vpiFullName:work@alert_handler_reg_wrap.k
+    |vpiCondition:
+    \_operation: , line:2:22, endln:2:27
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (k), line:2:22, endln:2:23
+        |vpiParent:
+        \_operation: , line:2:22, endln:2:27
+        |vpiName:k
+        |vpiActual:
+        \_logic_net: (k)
+      |vpiOperand:
+      \_constant: , line:2:26, endln:2:27
+        |vpiParent:
+        \_operation: , line:2:22, endln:2:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:3:12, endln:3:43
+        |vpiRhs:
+        \_constant: , line:3:39, endln:3:43
+          |vpiParent:
+          \_cont_assign: , line:3:12, endln:3:43
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiLhs:
+        \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
+          |vpiParent:
+          \_cont_assign: , line:3:12, endln:3:43
+          |vpiName:hw2reg.alert_cause[k].d
+          |vpiActual:
+          \_ref_obj: (hw2reg)
+            |vpiParent:
+            \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
+            |vpiName:hw2reg
+          |vpiActual:
+          \_bit_select: (alert_cause), line:3:19, endln:3:30
+            |vpiParent:
+            \_ref_obj: (hw2reg.alert_cause[k])
+              |vpiParent:
+              \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
+              |vpiName:hw2reg.alert_cause[k]
+            |vpiName:alert_cause
+            |vpiIndex:
+            \_ref_obj: (k), line:3:31, endln:3:32
+              |vpiName:k
+              |vpiActual:
+              \_logic_net: (k)
+          |vpiActual:
+          \_ref_obj: (d)
+            |vpiParent:
+            \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
+            |vpiName:d
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
   |vpiParent:
@@ -340,6 +433,10 @@ design: (work@alert_handler_reg_wrap)
   |vpiName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (k)
+    |vpiName:k
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6

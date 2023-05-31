@@ -133,24 +133,42 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               8
+assign_stmt                                            1
+begin                                                  1
+bit_select                                             3
+constant                                              10
+cont_assign                                            1
 design                                                 1
+gen_for                                                1
 int_typespec                                           3
+logic_net                                              2
 module_inst                                            4
-operation                                              3
+operation                                              7
 param_assign                                           2
 parameter                                              2
+ref_obj                                               10
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               8
+assign_stmt                                            1
+begin                                                  1
+bit_select                                             3
+constant                                              10
+cont_assign                                            1
 design                                                 1
+gen_for                                                1
 int_typespec                                           3
+logic_net                                              2
 module_inst                                            4
-operation                                              3
+operation                                              7
 param_assign                                           2
 parameter                                              2
+ref_obj                                               10
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NegInt/slpp_all/surelog.uhdm ...
 
@@ -197,6 +215,131 @@ design: (work@find_first_one)
     |vpiLhs:
     \_parameter: (work@find_first_one.WIDTH), line:1:40, endln:1:45
   |vpiDefName:work@find_first_one
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@find_first_one (work@find_first_one), file:${SURELOG_DIR}/tests/NegInt/dut.sv, line:1:1, endln:5:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:2:10, endln:2:22
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:2:21, endln:2:22
+        |vpiParent:
+        \_assign_stmt: , line:2:10, endln:2:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@find_first_one.i), line:2:17, endln:2:18
+        |vpiParent:
+        \_assign_stmt: , line:2:10, endln:2:22
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:2:17, endln:2:18
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@find_first_one.i
+    |vpiCondition:
+    \_operation: , line:2:24, endln:2:33
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:2:24, endln:2:25
+        |vpiParent:
+        \_operation: , line:2:24, endln:2:33
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (WIDTH), line:2:28, endln:2:33
+        |vpiParent:
+        \_operation: , line:2:24, endln:2:33
+        |vpiName:WIDTH
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:3:16, endln:3:60
+        |vpiRhs:
+        \_operation: , line:3:28, endln:3:60
+          |vpiParent:
+          \_cont_assign: , line:3:16, endln:3:60
+          |vpiOpType:32
+          |vpiOperand:
+          \_ref_obj: (FLIP), line:3:28, endln:3:32
+            |vpiParent:
+            \_operation: , line:3:28, endln:3:60
+            |vpiName:FLIP
+            |vpiActual:
+            \_logic_net: (FLIP)
+          |vpiOperand:
+          \_bit_select: (in_i), line:3:35, endln:3:50
+            |vpiParent:
+            \_ref_obj: (in_i)
+              |vpiParent:
+              \_operation: , line:3:28, endln:3:60
+              |vpiName:in_i
+            |vpiName:in_i
+            |vpiIndex:
+            \_operation: , line:3:40, endln:3:49
+              |vpiParent:
+              \_operation: , line:3:28, endln:3:60
+              |vpiOpType:11
+              |vpiOperand:
+              \_operation: , line:3:40, endln:3:47
+                |vpiParent:
+                \_operation: , line:3:28, endln:3:60
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (WIDTH), line:3:40, endln:3:45
+                  |vpiParent:
+                  \_operation: , line:3:28, endln:3:60
+                  |vpiName:WIDTH
+                |vpiOperand:
+                \_constant: , line:3:46, endln:3:47
+                  |vpiParent:
+                  \_operation: , line:3:40, endln:3:47
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+              |vpiOperand:
+              \_ref_obj: (i), line:3:48, endln:3:49
+                |vpiParent:
+                \_operation: , line:3:40, endln:3:49
+                |vpiName:i
+                |vpiActual:
+                \_logic_net: (i)
+          |vpiOperand:
+          \_bit_select: (in_i), line:3:53, endln:3:60
+            |vpiParent:
+            \_ref_obj: (in_i)
+              |vpiParent:
+              \_operation: , line:3:28, endln:3:60
+              |vpiName:in_i
+            |vpiName:in_i
+            |vpiIndex:
+            \_ref_obj: (i), line:3:58, endln:3:59
+              |vpiParent:
+              \_operation: , line:3:28, endln:3:60
+              |vpiName:i
+              |vpiActual:
+              \_logic_net: (i)
+        |vpiLhs:
+        \_bit_select: (in_tmp), line:3:16, endln:3:25
+          |vpiParent:
+          \_ref_obj: (in_tmp)
+            |vpiParent:
+            \_cont_assign: , line:3:16, endln:3:60
+            |vpiName:in_tmp
+          |vpiName:in_tmp
+          |vpiIndex:
+          \_ref_obj: (in_tmp.i), line:3:23, endln:3:24
+            |vpiParent:
+            \_bit_select: (in_tmp), line:3:16, endln:3:25
+            |vpiName:i
+            |vpiFullName:in_tmp.i
+            |vpiActual:
+            \_logic_net: (i)
 |uhdmtopModules:
 \_module_inst: work@find_first_one (work@find_first_one), file:${SURELOG_DIR}/tests/NegInt/dut.sv, line:1:1, endln:5:10
   |vpiName:work@find_first_one
@@ -228,6 +371,14 @@ design: (work@find_first_one)
     \_parameter: (work@find_first_one.WIDTH), line:1:40, endln:1:45
   |vpiDefName:work@find_first_one
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (FLIP)
+    |vpiName:FLIP
+    |vpiNetType:1
   |vpiTopModule:1
 ===================
 [  FATAL] : 0
@@ -237,4 +388,4 @@ design: (work@find_first_one)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/NegInt/dut.sv | ${SURELOG_DIR}/build/regression/NegInt/roundtrip/dut_000.sv | 4 | 5 |
+[roundtrip]: ${SURELOG_DIR}/tests/NegInt/dut.sv | ${SURELOG_DIR}/build/regression/NegInt/roundtrip/dut_000.sv | 3 | 5 |

@@ -882,18 +882,20 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            2
+begin                                                  4
 bit_typespec                                          12
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             188
+constant                                             190
 cont_assign                                            5
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_for                                                2
 gen_if_else                                            1
 gen_scope                                             16
 gen_scope_array                                       16
@@ -901,34 +903,38 @@ indexed_part_select                                    8
 int_typespec                                          33
 int_var                                                4
 io_decl                                               11
-logic_net                                              1
+logic_net                                              3
 logic_typespec                                         6
 logic_var                                              1
 module_inst                                           34
-operation                                             39
+operation                                             41
 package                                                2
 param_assign                                          30
 parameter                                             34
 range                                                 18
-ref_module                                             5
-ref_obj                                               17
+ref_module                                             7
+ref_obj                                               21
+ref_var                                                2
 task                                                   9
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            2
+begin                                                  4
 bit_typespec                                          12
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             188
+constant                                             190
 cont_assign                                           11
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_for                                                2
 gen_if_else                                            1
 gen_scope                                             32
 gen_scope_array                                       32
@@ -936,18 +942,20 @@ indexed_part_select                                    8
 int_typespec                                          33
 int_var                                                4
 io_decl                                               22
-logic_net                                              1
+logic_net                                              3
 logic_typespec                                         6
 logic_var                                              1
 module_inst                                           42
-operation                                             39
+operation                                             41
 package                                                2
 param_assign                                          44
 parameter                                             34
 range                                                 18
-ref_module                                             5
-ref_obj                                               23
+ref_module                                             7
+ref_obj                                               27
+ref_var                                                2
 task                                                  18
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ElabCParam/slpp_all/surelog.uhdm ...
 
@@ -1604,6 +1612,52 @@ design: (work@socket_1n)
     |vpiLhs:
     \_parameter: (work@all_zero.BB), line:58:23, endln:58:25
   |vpiDefName:work@all_zero
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@all_zero (work@all_zero), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:54:1, endln:67:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:60:8, endln:60:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:60:19, endln:60:20
+        |vpiParent:
+        \_assign_stmt: , line:60:8, endln:60:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@all_zero.i), line:60:15, endln:60:16
+        |vpiParent:
+        \_assign_stmt: , line:60:8, endln:60:20
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:60:15, endln:60:16
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@all_zero.i
+    |vpiCondition:
+    \_operation: , line:60:23, endln:60:28
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:60:23, endln:60:24
+        |vpiParent:
+        \_operation: , line:60:23, endln:60:28
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (N), line:60:27, endln:60:28
+        |vpiParent:
+        \_operation: , line:60:23, endln:60:28
+        |vpiName:N
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@fifo_sync (fifo_d), line:63:7, endln:63:13
+        |vpiName:fifo_d
+        |vpiDefName:work@fifo_sync
 |uhdmallModules:
 \_module_inst: work@fifo_sync (work@fifo_sync), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:24:1, endln:33:10
   |vpiParent:
@@ -1916,6 +1970,52 @@ design: (work@socket_1n)
     |vpiLhs:
     \_parameter: (work@socket_1n.BB), line:42:23, endln:42:25
   |vpiDefName:work@socket_1n
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:38:1, endln:51:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:44:8, endln:44:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:44:19, endln:44:20
+        |vpiParent:
+        \_assign_stmt: , line:44:8, endln:44:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@socket_1n.i), line:44:15, endln:44:16
+        |vpiParent:
+        \_assign_stmt: , line:44:8, endln:44:20
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:44:15, endln:44:16
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@socket_1n.i
+    |vpiCondition:
+    \_operation: , line:44:23, endln:44:28
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:44:23, endln:44:24
+        |vpiParent:
+        \_operation: , line:44:23, endln:44:28
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (N), line:44:27, endln:44:28
+        |vpiParent:
+        \_operation: , line:44:23, endln:44:28
+        |vpiName:N
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@fifo_sync (fifo_d), line:47:7, endln:47:13
+        |vpiName:fifo_d
+        |vpiDefName:work@fifo_sync
 |uhdmtopModules:
 \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:38:1, endln:51:10
   |vpiName:work@socket_1n
@@ -2086,6 +2186,10 @@ design: (work@socket_1n)
     \_parameter: (work@socket_1n.BB), line:42:23, endln:42:25
   |vpiDefName:work@socket_1n
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@socket_1n.gen_dfifo[0]), line:44:36, endln:48:6
@@ -2525,6 +2629,10 @@ design: (work@socket_1n)
     \_parameter: (work@all_zero.BB), line:58:23, endln:58:25
   |vpiDefName:work@all_zero
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@all_zero.gen_dfifo[0]), line:60:36, endln:64:6
