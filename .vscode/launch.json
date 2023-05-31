@@ -1441,6 +1441,25 @@
             ]
         },
         {
+            "name": "UnitElab",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "UnitElab.sl", "-d", "ast", "-I./", "-d", "uhdm",  "-d", "inst", "-nocache", "-nobuiltin", "-elabuhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/UnitElab",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "UnitElabExternNested",
             "type": "cppdbg",
             "request": "launch",

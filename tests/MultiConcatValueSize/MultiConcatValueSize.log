@@ -789,86 +789,94 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            1
+begin                                                  3
 bit_select                                             1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             191
+constant                                             193
 cont_assign                                            3
 design                                                 1
 enum_const                                            55
 enum_typespec                                         26
 enum_var                                               1
 function                                               9
+gen_for                                                1
 gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          58
+int_typespec                                          59
 int_var                                                8
 io_decl                                               11
-logic_net                                              4
+logic_net                                              5
 logic_typespec                                        25
 logic_var                                              1
 module_inst                                           18
-operation                                             48
+operation                                             49
 package                                                8
 packed_array_typespec                                 23
 param_assign                                          20
 parameter                                             26
-port                                                  12
+port                                                  13
 range                                                 48
-ref_module                                             4
-ref_obj                                               34
+ref_module                                             5
+ref_obj                                               36
+ref_var                                                1
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
 task                                                   9
 typespec_member                                       23
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            1
+begin                                                  3
 bit_select                                             1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             191
+constant                                             193
 cont_assign                                           10
 design                                                 1
 enum_const                                            60
 enum_typespec                                         27
 enum_var                                               1
 function                                              18
+gen_for                                                1
 gen_if                                                 2
 gen_scope                                             17
 gen_scope_array                                       17
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          58
+int_typespec                                          59
 int_var                                               12
 io_decl                                               22
-logic_net                                              4
+logic_net                                              5
 logic_typespec                                        25
 logic_var                                              1
 module_inst                                           22
-operation                                             48
+operation                                             49
 package                                                8
 packed_array_typespec                                 23
 param_assign                                          24
 parameter                                             26
-port                                                  24
+port                                                  25
 range                                                 48
-ref_module                                             4
-ref_obj                                               64
+ref_module                                             5
+ref_obj                                               66
+ref_var                                                1
 string_typespec                                       19
 struct_typespec                                       23
 tagged_pattern                                        19
 task                                                  18
 typespec_member                                       23
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultiConcatValueSize/slpp_all/surelog.uhdm ...
 
@@ -2154,6 +2162,70 @@ design: (work@top)
     |vpiTypedef:
     \_int_typespec: , line:41:23, endln:41:26
       |vpiSigned:1
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:45:8, endln:45:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:45:19, endln:45:20
+        |vpiParent:
+        \_assign_stmt: , line:45:8, endln:45:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@sub_top.k), line:45:15, endln:45:16
+        |vpiParent:
+        \_assign_stmt: , line:45:8, endln:45:20
+        |vpiTypespec:
+        \_unsupported_typespec: (k), line:45:15, endln:45:16
+          |vpiName:k
+        |vpiName:k
+        |vpiFullName:work@sub_top.k
+    |vpiCondition:
+    \_operation: , line:45:22, endln:45:34
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (k), line:45:22, endln:45:23
+        |vpiParent:
+        \_operation: , line:45:22, endln:45:34
+        |vpiName:k
+        |vpiActual:
+        \_logic_net: (k)
+      |vpiOperand:
+      \_constant: , line:45:26, endln:45:34
+        |vpiParent:
+        \_operation: , line:45:22, endln:45:34
+        |vpiDecompile:1
+        |vpiSize:32
+        |UINT:1
+        |vpiTypespec:
+        \_int_typespec: , line:11:14, endln:11:17
+          |vpiParent:
+          \_constant: , line:45:26, endln:45:34
+          |vpiInstance:
+          \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:8:1, endln:20:24
+          |vpiSigned:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@prim_pad_attr (u_prim_pad_attr), line:48:8, endln:48:23
+        |vpiName:u_prim_pad_attr
+        |vpiDefName:work@prim_pad_attr
+        |vpiPort:
+        \_port: (b), line:48:24, endln:48:29
+          |vpiName:b
+          |vpiHighConn:
+          \_ref_obj: (c), line:48:27, endln:48:28
+            |vpiName:c
+            |vpiActual:
+            \_int_var: (work@top.u_sub.c), line:41:27, endln:41:28
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:52:1, endln:60:10
   |vpiParent:
@@ -2985,6 +3057,10 @@ design: (work@top)
     |vpiDefName:work@sub_top
     |vpiDefFile:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv
     |vpiDefLineNo:41
+    |vpiNet:
+    \_logic_net: (k)
+      |vpiName:k
+      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:52:1, endln:60:10
     |vpiPort:

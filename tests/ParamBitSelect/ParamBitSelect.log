@@ -198,38 +198,50 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+assign_stmt                                            1
+begin                                                  1
 bit_select                                             4
-constant                                              53
+constant                                              55
 design                                                 1
+gen_for                                                1
 gen_scope                                             14
 gen_scope_array                                       14
 int_typespec                                           6
+logic_net                                              1
 logic_typespec                                         4
 module_inst                                           10
-operation                                             11
+operation                                             12
 param_assign                                           2
 parameter                                              6
 range                                                  6
 ref_module                                             4
-ref_obj                                                4
+ref_obj                                                5
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+assign_stmt                                            1
+begin                                                  1
 bit_select                                             4
-constant                                              53
+constant                                              55
 design                                                 1
+gen_for                                                1
 gen_scope                                             20
 gen_scope_array                                       20
 int_typespec                                           6
+logic_net                                              1
 logic_typespec                                         4
 module_inst                                           14
-operation                                             11
+operation                                             12
 param_assign                                           2
 parameter                                              6
 range                                                  6
 ref_module                                             4
-ref_obj                                                4
+ref_obj                                                5
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamBitSelect/slpp_all/surelog.uhdm ...
 
@@ -286,6 +298,51 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15
   |vpiDefName:work@dut
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:9:6, endln:9:18
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:9:17, endln:9:18
+        |vpiParent:
+        \_assign_stmt: , line:9:6, endln:9:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@dut.k), line:9:13, endln:9:14
+        |vpiParent:
+        \_assign_stmt: , line:9:6, endln:9:18
+        |vpiTypespec:
+        \_unsupported_typespec: (k), line:9:13, endln:9:14
+          |vpiName:k
+        |vpiName:k
+        |vpiFullName:work@dut.k
+    |vpiCondition:
+    \_operation: , line:9:20, endln:9:25
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (k), line:9:20, endln:9:21
+        |vpiParent:
+        \_operation: , line:9:20, endln:9:25
+        |vpiName:k
+        |vpiActual:
+        \_logic_net: (k)
+      |vpiOperand:
+      \_constant: , line:9:24, endln:9:25
+        |vpiParent:
+        \_operation: , line:9:20, endln:9:25
+        |vpiDecompile:4
+        |vpiSize:64
+        |UINT:4
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
   |vpiName:work@dut
@@ -338,6 +395,10 @@ design: (work@dut)
     \_parameter: (work@dut.test), line:7:11, endln:7:15
   |vpiDefName:work@dut
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (k)
+    |vpiName:k
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.genblk1[0]), line:9:32, endln:19:4

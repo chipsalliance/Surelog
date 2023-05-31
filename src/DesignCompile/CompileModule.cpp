@@ -786,7 +786,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slUdp_instance:
         case VObjectType::slGate_instantiation:
         case VObjectType::slGenerate_module_conditional_statement:
-        case VObjectType::slLoop_generate_construct:
         case VObjectType::slGenerate_module_loop_statement:
         case VObjectType::slPar_block:
         case VObjectType::slSeq_block:
@@ -883,6 +882,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           }
           break;
         }
+        case VObjectType::slLoop_generate_construct:
         case VObjectType::slConditional_generate_construct: {
           if (collectType != CollectType::OTHER) break;
           if (m_instance) break;

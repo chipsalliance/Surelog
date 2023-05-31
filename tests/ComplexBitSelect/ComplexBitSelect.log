@@ -498,63 +498,75 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                        10
+assign_stmt                                            1
+begin                                                  1
 bit_select                                            24
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             180
+constant                                             182
 cont_assign                                           14
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_for                                                1
 gen_scope                                             34
 gen_scope_array                                       34
 import_typespec                                        1
-int_typespec                                          70
+int_typespec                                          71
 int_var                                                4
 io_decl                                               11
+logic_net                                              1
 logic_var                                              1
 module_inst                                            8
-operation                                             47
+operation                                             48
 package                                                5
 param_assign                                          20
 parameter                                             34
 range                                                 16
-ref_obj                                               41
+ref_obj                                               42
+ref_var                                                1
 task                                                   9
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                        10
+assign_stmt                                            1
+begin                                                  1
 bit_select                                            31
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             187
+constant                                             189
 cont_assign                                           21
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_for                                                1
 gen_scope                                             51
 gen_scope_array                                       51
 import_typespec                                        1
-int_typespec                                          70
+int_typespec                                          71
 int_var                                                4
 io_decl                                               22
+logic_net                                              1
 logic_var                                              1
 module_inst                                            8
-operation                                             47
+operation                                             48
 package                                                5
 param_assign                                          20
 parameter                                             34
 range                                                 16
-ref_obj                                               55
+ref_obj                                               56
+ref_var                                                1
 task                                                  18
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexBitSelect/slpp_all/surelog.uhdm ...
 
@@ -1661,6 +1673,58 @@ design: (work@flash_ctrl_info_cfg)
   |vpiTypedef:
   \_import_typespec: (flash_ctrl_pkg), line:12:35, endln:12:52
   |vpiDefName:work@flash_ctrl_info_cfg
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@flash_ctrl_info_cfg (work@flash_ctrl_info_cfg), file:${SURELOG_DIR}/tests/ComplexBitSelect/dut.sv, line:12:1, endln:24:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:16:7, endln:16:19
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:16:18, endln:16:19
+        |vpiParent:
+        \_assign_stmt: , line:16:7, endln:16:19
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@flash_ctrl_info_cfg.i), line:16:14, endln:16:15
+        |vpiParent:
+        \_assign_stmt: , line:16:7, endln:16:19
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:16:14, endln:16:15
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@flash_ctrl_info_cfg.i
+    |vpiCondition:
+    \_operation: , line:16:21, endln:16:37
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:16:21, endln:16:22
+        |vpiParent:
+        \_operation: , line:16:21, endln:16:37
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_constant: , line:16:25, endln:16:37
+        |vpiParent:
+        \_operation: , line:16:21, endln:16:37
+        |vpiDecompile:10
+        |vpiSize:32
+        |UINT:10
+        |vpiTypespec:
+        \_int_typespec: , line:8:13, endln:8:16
+          |vpiParent:
+          \_constant: , line:16:25, endln:16:37
+          |vpiInstance:
+          \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ComplexBitSelect/dut.sv, line:1:1, endln:9:11
+          |vpiSigned:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@flash_ctrl_info_cfg (work@flash_ctrl_info_cfg), file:${SURELOG_DIR}/tests/ComplexBitSelect/dut.sv, line:12:1, endln:24:10
   |vpiName:work@flash_ctrl_info_cfg
@@ -1938,6 +2002,10 @@ design: (work@flash_ctrl_info_cfg)
   \_import_typespec: (flash_ctrl_pkg), line:12:35, endln:12:52
   |vpiDefName:work@flash_ctrl_info_cfg
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@flash_ctrl_info_cfg.gen_info_priv[0]), line:16:44, endln:22:6

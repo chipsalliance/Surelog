@@ -809,83 +809,91 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                        10
-begin                                                  1
+assign_stmt                                            1
+begin                                                  2
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             305
+constant                                             307
 design                                                 1
 enum_const                                             9
 enum_typespec                                          3
 enum_var                                               1
 function                                               9
+gen_for                                                1
 gen_if                                                 1
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                             12
 import_typespec                                        4
-int_typespec                                          68
+int_typespec                                          69
 int_var                                                4
 integer_typespec                                      12
 io_decl                                               11
-logic_net                                              2
+logic_net                                              3
 logic_typespec                                        44
 logic_var                                              3
 module_inst                                           16
-operation                                             90
+operation                                             91
 package                                                8
 param_assign                                          30
 parameter                                             39
 range                                                 62
 ref_module                                             2
-ref_obj                                               26
+ref_obj                                               27
+ref_var                                                1
 string_typespec                                       46
 struct_typespec                                       16
 tagged_pattern                                        46
 task                                                   9
 typespec_member                                       32
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                        10
-begin                                                  1
+assign_stmt                                            1
+begin                                                  2
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             305
+constant                                             307
 design                                                 1
 enum_const                                            14
 enum_typespec                                          4
 enum_var                                               1
 function                                              18
+gen_for                                                1
 gen_if                                                 1
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                             12
 import_typespec                                        4
-int_typespec                                          68
+int_typespec                                          69
 int_var                                                4
 integer_typespec                                      12
 io_decl                                               22
-logic_net                                              2
+logic_net                                              3
 logic_typespec                                        44
 logic_var                                              3
 module_inst                                           16
-operation                                             90
+operation                                             91
 package                                                8
 param_assign                                          34
 parameter                                             39
 range                                                 62
 ref_module                                             2
-ref_obj                                               26
+ref_obj                                               27
+ref_var                                                1
 string_typespec                                       46
 struct_typespec                                       16
 tagged_pattern                                        46
 task                                                  18
 typespec_member                                       32
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamArraySelect/slpp_all/surelog.uhdm ...
 
@@ -2662,6 +2670,58 @@ design: (work@top)
     |vpiDefName:work@otp_ctrl_lci
     |vpiActual:
     \_module_inst: work@otp_ctrl_lci (work@otp_ctrl_lci), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:33:1, endln:48:10
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:51:1, endln:71:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:61:7, endln:61:19
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:61:18, endln:61:19
+        |vpiParent:
+        \_assign_stmt: , line:61:7, endln:61:19
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@top.k), line:61:14, endln:61:15
+        |vpiParent:
+        \_assign_stmt: , line:61:7, endln:61:19
+        |vpiTypespec:
+        \_unsupported_typespec: (k), line:61:14, endln:61:15
+          |vpiName:k
+        |vpiName:k
+        |vpiFullName:work@top.k
+    |vpiCondition:
+    \_operation: , line:61:21, endln:61:32
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (k), line:61:21, endln:61:22
+        |vpiParent:
+        \_operation: , line:61:21, endln:61:32
+        |vpiName:k
+        |vpiActual:
+        \_logic_net: (k)
+      |vpiOperand:
+      \_constant: , line:61:25, endln:61:32
+        |vpiParent:
+        \_operation: , line:61:21, endln:61:32
+        |vpiDecompile:2
+        |vpiSize:32
+        |UINT:2
+        |vpiTypespec:
+        \_int_typespec: , line:6:13, endln:6:16
+          |vpiParent:
+          \_constant: , line:61:25, endln:61:32
+          |vpiInstance:
+          \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:1:1, endln:7:11
+          |vpiSigned:1
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:51:1, endln:71:10
   |vpiName:work@top
@@ -3153,6 +3213,10 @@ design: (work@top)
   \_import_typespec: (otp_ctrl_part_pkg), line:52:10, endln:52:30
   |vpiDefName:work@top
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (k)
+    |vpiName:k
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiModule:
   \_module_inst: work@otp_ctrl_lci (work@top.u_otp_ctrl_lci), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:54:3, endln:56:23

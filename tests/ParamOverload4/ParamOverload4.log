@@ -693,28 +693,42 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                            1073
+assign_stmt                                            1
+begin                                                  1
+constant                                            1074
 design                                                 1
+gen_for                                                1
 gen_scope                                            520
 gen_scope_array                                      520
 int_typespec                                         138
+logic_net                                              1
 module_inst                                            5
-operation                                            397
+operation                                            398
 param_assign                                           6
 parameter                                            138
+ref_obj                                                2
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                            1073
+assign_stmt                                            1
+begin                                                  1
+constant                                            1074
 design                                                 1
+gen_for                                                1
 gen_scope                                            780
 gen_scope_array                                      780
 int_typespec                                         138
+logic_net                                              1
 module_inst                                            5
-operation                                            397
+operation                                            398
 param_assign                                           6
 parameter                                            138
+ref_obj                                                2
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverload4/slpp_all/surelog.uhdm ...
 
@@ -809,6 +823,48 @@ design: (work@ibex_pmp)
     |vpiLhs:
     \_parameter: (work@ibex_pmp.PMPNumRegions), line:9:28, endln:9:41
   |vpiDefName:work@ibex_pmp
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:20:8, endln:20:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:20:19, endln:20:20
+        |vpiParent:
+        \_assign_stmt: , line:20:8, endln:20:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@ibex_pmp.r), line:20:15, endln:20:16
+        |vpiParent:
+        \_assign_stmt: , line:20:8, endln:20:20
+        |vpiTypespec:
+        \_unsupported_typespec: (r), line:20:15, endln:20:16
+          |vpiName:r
+        |vpiName:r
+        |vpiFullName:work@ibex_pmp.r
+    |vpiCondition:
+    \_operation: , line:20:22, endln:20:39
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (r), line:20:22, endln:20:23
+        |vpiParent:
+        \_operation: , line:20:22, endln:20:39
+        |vpiName:r
+        |vpiActual:
+        \_logic_net: (r)
+      |vpiOperand:
+      \_ref_obj: (PMPNumRegions), line:20:26, endln:20:39
+        |vpiParent:
+        \_operation: , line:20:22, endln:20:39
+        |vpiName:PMPNumRegions
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
   |vpiName:work@ibex_pmp
@@ -889,6 +945,10 @@ design: (work@ibex_pmp)
     \_parameter: (work@ibex_pmp.PMPNumRegions), line:9:28, endln:9:41
   |vpiDefName:work@ibex_pmp
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (r)
+    |vpiName:r
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@ibex_pmp.g_addr_exp[0]), line:20:46, endln:30:6

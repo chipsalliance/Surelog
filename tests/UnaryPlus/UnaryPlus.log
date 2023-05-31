@@ -77,26 +77,40 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              28
+assign_stmt                                            1
+begin                                                  1
+constant                                              30
 design                                                 1
+gen_for                                                1
 gen_scope                                             16
 gen_scope_array                                       16
 int_typespec                                           8
+logic_net                                              1
 module_inst                                            3
-operation                                              9
+operation                                             10
 parameter                                              8
+ref_obj                                                1
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              28
+assign_stmt                                            1
+begin                                                  1
+constant                                              30
 design                                                 1
+gen_for                                                1
 gen_scope                                             24
 gen_scope_array                                       24
 int_typespec                                           8
+logic_net                                              1
 module_inst                                            3
-operation                                              9
+operation                                             10
 parameter                                              8
+ref_obj                                                1
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnaryPlus/slpp_all/surelog.uhdm ...
 
@@ -116,11 +130,60 @@ design: (work@alert_handler_reg_wrap)
   \_design: (work@alert_handler_reg_wrap)
   |vpiFullName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/UnaryPlus/dut.sv, line:1:1, endln:4:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:2:7, endln:2:24
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:2:23, endln:2:24
+        |vpiParent:
+        \_assign_stmt: , line:2:7, endln:2:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@alert_handler_reg_wrap.i_word), line:2:14, endln:2:20
+        |vpiParent:
+        \_assign_stmt: , line:2:7, endln:2:24
+        |vpiTypespec:
+        \_unsupported_typespec: (i_word), line:2:14, endln:2:20
+          |vpiName:i_word
+        |vpiName:i_word
+        |vpiFullName:work@alert_handler_reg_wrap.i_word
+    |vpiCondition:
+    \_operation: , line:2:26, endln:2:36
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i_word), line:2:26, endln:2:32
+        |vpiParent:
+        \_operation: , line:2:26, endln:2:36
+        |vpiName:i_word
+        |vpiActual:
+        \_logic_net: (i_word)
+      |vpiOperand:
+      \_constant: , line:2:35, endln:2:36
+        |vpiParent:
+        \_operation: , line:2:26, endln:2:36
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/UnaryPlus/dut.sv, line:1:1, endln:4:10
   |vpiName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
   |vpiTop:1
+  |vpiNet:
+  \_logic_net: (i_word)
+    |vpiName:i_word
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@alert_handler_reg_wrap.g_dmem_intg_check[0]), line:2:48, endln:3:6

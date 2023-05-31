@@ -777,35 +777,40 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_select                                             6
+assign_stmt                                            1
+begin                                                  1
+bit_select                                             8
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             140
-cont_assign                                            3
+constant                                             143
+cont_assign                                            4
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_for                                                1
 gen_scope                                             44
 gen_scope_array                                       44
 int_typespec                                          51
 int_var                                                4
 io_decl                                               11
-logic_net                                              4
+logic_net                                              5
 logic_typespec                                         6
 logic_var                                              1
 module_inst                                           25
-operation                                             32
+operation                                             34
 package                                                2
 param_assign                                           4
 parameter                                             22
 port                                                   4
 range                                                 12
 ref_module                                            15
-ref_obj                                               16
+ref_obj                                               21
+ref_var                                                1
 task                                                   9
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateModule/slpp_unit/surelog.uhdm ...
 
@@ -1351,6 +1356,98 @@ design: (work@small_test)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenerateModule/top.v, line:21:1, endln:26:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:23:8, endln:23:18
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:23:17, endln:23:18
+        |vpiParent:
+        \_assign_stmt: , line:23:8, endln:23:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@top.i), line:23:15, endln:23:16
+        |vpiParent:
+        \_assign_stmt: , line:23:8, endln:23:18
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:23:15, endln:23:16
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@top.i
+    |vpiCondition:
+    \_operation: , line:23:20, endln:23:23
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:23:20, endln:23:21
+        |vpiParent:
+        \_operation: , line:23:20, endln:23:23
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_constant: , line:23:22, endln:23:23
+        |vpiParent:
+        \_operation: , line:23:20, endln:23:23
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:24:14, endln:24:27
+        |vpiRhs:
+        \_bit_select: (a), line:24:21, endln:24:27
+          |vpiParent:
+          \_ref_obj: (a)
+            |vpiParent:
+            \_cont_assign: , line:24:14, endln:24:27
+            |vpiName:a
+          |vpiName:a
+          |vpiIndex:
+          \_operation: , line:24:23, endln:24:26
+            |vpiParent:
+            \_bit_select: (a), line:24:21, endln:24:27
+            |vpiOpType:11
+            |vpiOperand:
+            \_constant: , line:24:23, endln:24:24
+              |vpiParent:
+              \_operation: , line:24:23, endln:24:26
+              |vpiDecompile:2
+              |vpiSize:64
+              |UINT:2
+              |vpiConstType:9
+            |vpiOperand:
+            \_ref_obj: (a.i), line:24:25, endln:24:26
+              |vpiParent:
+              \_operation: , line:24:23, endln:24:26
+              |vpiName:i
+              |vpiFullName:a.i
+              |vpiActual:
+              \_logic_net: (i)
+        |vpiLhs:
+        \_bit_select: (b), line:24:14, endln:24:18
+          |vpiParent:
+          \_ref_obj: (b)
+            |vpiParent:
+            \_cont_assign: , line:24:14, endln:24:27
+            |vpiName:b
+          |vpiName:b
+          |vpiIndex:
+          \_ref_obj: (b.i), line:24:16, endln:24:17
+            |vpiParent:
+            \_bit_select: (b), line:24:14, endln:24:18
+            |vpiName:i
+            |vpiFullName:b.i
+            |vpiActual:
+            \_logic_net: (i)
 |uhdmtopModules:
 \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/GenerateModule/top.v, line:1:1, endln:19:10
   |vpiName:work@small_test
@@ -1963,6 +2060,10 @@ design: (work@small_test)
           |vpiConstType:9
     |vpiName:b
     |vpiFullName:work@top.b
+  |vpiNet:
+  \_logic_net: (i)
+    |vpiName:i
+    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (a), line:21:24, endln:21:25
@@ -2250,4 +2351,4 @@ design: (work@small_test)
 [   NOTE] : 47
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenerateModule/top.v | ${SURELOG_DIR}/build/regression/GenerateModule/roundtrip/top_000.v | 16 | 26 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenerateModule/top.v | ${SURELOG_DIR}/build/regression/GenerateModule/roundtrip/top_000.v | 15 | 26 |

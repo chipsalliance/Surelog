@@ -439,48 +439,58 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            1
+begin                                                  3
 bit_select                                             4
 bit_typespec                                          15
-constant                                             117
+constant                                             119
 design                                                 1
+gen_for                                                1
 gen_if                                                 2
 gen_scope                                             16
 gen_scope_array                                       16
 int_typespec                                           9
+logic_net                                              1
 logic_typespec                                         8
 module_inst                                           33
-operation                                             12
+operation                                             13
 package                                                3
 param_assign                                          27
 parameter                                             31
 part_select                                            3
 range                                                  8
-ref_module                                             9
-ref_obj                                               11
+ref_module                                            10
+ref_obj                                               12
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+assign_stmt                                            1
+begin                                                  3
 bit_select                                             4
 bit_typespec                                          15
-constant                                             117
+constant                                             119
 design                                                 1
+gen_for                                                1
 gen_if                                                 2
 gen_scope                                             32
 gen_scope_array                                       32
 int_typespec                                           9
+logic_net                                              1
 logic_typespec                                         8
 module_inst                                           47
-operation                                             12
+operation                                             13
 package                                                3
 param_assign                                          39
 parameter                                             31
 part_select                                            3
 range                                                  8
-ref_module                                             9
-ref_obj                                               11
+ref_module                                            10
+ref_obj                                               12
+ref_var                                                1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EarlgreyPackParam/slpp_all/surelog.uhdm ...
 
@@ -750,6 +760,55 @@ design: (work@test)
     |vpiLhs:
     \_parameter: (work@aes.AlertAsyncOn), line:50:28, endln:50:40
   |vpiDefName:work@aes
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@aes (work@aes), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:49:1, endln:60:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:52:9, endln:52:21
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:52:20, endln:52:21
+        |vpiParent:
+        \_assign_stmt: , line:52:9, endln:52:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@aes.i), line:52:16, endln:52:17
+        |vpiParent:
+        \_assign_stmt: , line:52:9, endln:52:21
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:52:16, endln:52:17
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@aes.i
+    |vpiCondition:
+    \_operation: , line:52:23, endln:52:28
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:52:23, endln:52:24
+        |vpiParent:
+        \_operation: , line:52:23, endln:52:28
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_constant: , line:52:27, endln:52:28
+        |vpiParent:
+        \_operation: , line:52:23, endln:52:28
+        |vpiDecompile:4
+        |vpiSize:64
+        |UINT:4
+        |vpiConstType:9
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@prim_alert_sender (alert_sender), line:56:7, endln:56:19
+        |vpiName:alert_sender
+        |vpiDefName:work@prim_alert_sender
 |uhdmallModules:
 \_module_inst: work@prim_alert_sender (work@prim_alert_sender), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:13:1, endln:26:11
   |vpiParent:
@@ -1015,6 +1074,10 @@ design: (work@test)
     |vpiDefName:work@aes
     |vpiDefFile:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv
     |vpiDefLineNo:49
+    |vpiNet:
+    \_logic_net: (i)
+      |vpiName:i
+      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:41:1, endln:47:10
     |vpiGenScopeArray:

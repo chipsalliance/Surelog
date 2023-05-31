@@ -76,7 +76,9 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
                                    CompileDesign* compileDesign, NodeId id) {
   Serializer& s = compileDesign->getSerializer();
   NodeId stmtId = fC->Child(id);
-  if (fC->Type(stmtId) == VObjectType::slIf_generate_construct) {
+  gen_stmt* genstmt = nullptr;
+  if (fC->Type(stmtId) ==
+      VObjectType::slIf_generate_construct) {  // If, If-Else stmt
     NodeId ifElseId = fC->Child(stmtId);
     if (fC->Type(ifElseId) == VObjectType::slIF) {
       // lookahead
@@ -94,7 +96,6 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
       expr* cond = (expr*)compileExpression(component, fC, condId,
                                             compileDesign, Reduce::No, nullptr);
       NodeId stmtId = fC->Sibling(condId);
-      gen_stmt* genstmt = nullptr;
       if (ifelse) {
         gen_if_else* genif = s.MakeGen_if_else();
         genstmt = genif;
@@ -122,12 +123,83 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
         stmt->Stmts(stmts);
         genif->VpiStmt(stmt);
       }
-      if (component->getGenStmts() == nullptr) {
-        component->setGenStmts(s.MakeGen_stmtVec());
-      }
-      component->getGenStmts()->push_back(genstmt);
     }
+  } else if (fC->Type(stmtId) == VObjectType::slGenvar_initialization ||
+             fC->Type(stmtId) ==
+                 VObjectType::slGenvar_decl_assignment) {  // For loop stmt
+
+    NodeId varInit = stmtId;
+    NodeId endLoopTest = fC->Sibling(varInit);
+    gen_for* genfor = s.MakeGen_for();
+    genstmt = genfor;
+
+    // Var init
+    genfor->VpiForInitStmts(s.MakeAnyVec());
+    VectorOfany* stmts = genfor->VpiForInitStmts();
+
+    NodeId Var = fC->Child(varInit);
+    NodeId Expression = fC->Sibling(Var);
+    assign_stmt* assign_stmt = s.MakeAssign_stmt();
+    assign_stmt->VpiParent(genfor);
+    fC->populateCoreMembers(varInit, varInit, assign_stmt);
+    variables* varb =
+        (variables*)compileVariable(component, fC, Var, compileDesign,
+                                    Reduce::No, assign_stmt, nullptr, false);
+    if (varb) {
+      assign_stmt->Lhs(varb);
+      varb->VpiParent(assign_stmt);
+      varb->VpiName(fC->SymName(Var));
+      fC->populateCoreMembers(Var, Var, varb);
+    }
+    expr* rhs = (expr*)compileExpression(component, fC, Expression,
+                                         compileDesign, Reduce::No);
+    if (rhs) {
+      rhs->VpiParent(assign_stmt);
+      assign_stmt->Rhs(rhs);
+    }
+    stmts->push_back(assign_stmt);
+
+    // Condition
+    expr* cond = (expr*)compileExpression(component, fC, endLoopTest,
+                                          compileDesign, Reduce::No);
+    genfor->VpiCondition(cond);
+
+    // Iteration
+    NodeId iteration = fC->Sibling(endLoopTest);
+    NodeId var = fC->Child(iteration);
+    NodeId assignOp = fC->Sibling(var);
+    NodeId exprId = fC->Sibling(assignOp);
+    if (!exprId) {  // Unary operator like i++
+      exprId = var;
+    } else if (fC->Type(assignOp) !=
+               VObjectType::slAssignOp_Assign) {  // Operators like +=
+      exprId = var;
+    } else {
+      assign_stmt = s.MakeAssign_stmt();
+      genfor->VpiForIncStmt(assign_stmt);
+      assign_stmt->VpiParent(genfor);
+      fC->populateCoreMembers(iteration, iteration, assign_stmt);
+      expr* lhs = (expr*)compileExpression(component, fC, var, compileDesign,
+                                           Reduce::No);
+      assign_stmt->Lhs(lhs);
+      expr* rhs = (expr*)compileExpression(component, fC, exprId, compileDesign,
+                                           Reduce::No);
+      assign_stmt->Rhs(rhs);
+    }
+
+    // Stmts
+    NodeId genBlock = fC->Sibling(iteration);
+    begin* stmt = s.MakeBegin();
+    stmts = compileStmt(component, fC, genBlock, compileDesign, Reduce::No,
+                        nullptr, nullptr, true);
+    stmt->Stmts(stmts);
+    genfor->VpiStmt(stmt);
   }
+  if (component->getGenStmts() == nullptr) {
+    component->setGenStmts(s.MakeGen_stmtVec());
+  }
+  if (genstmt)
+    component->getGenStmts()->push_back(genstmt);
 }
 
 }  // namespace SURELOG

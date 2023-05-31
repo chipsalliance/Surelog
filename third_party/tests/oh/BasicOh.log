@@ -1263,15 +1263,15 @@ Instance tree:
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                59
 array_net                                              1
-assign_stmt                                            4
+assign_stmt                                           14
 assignment                                           129
-begin                                                  9
-bit_select                                            90
+begin                                                 14
+bit_select                                            93
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            3229
-cont_assign                                          163
+constant                                            3247
+cont_assign                                          165
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -1279,10 +1279,12 @@ enum_var                                               1
 event_control                                         57
 for_stmt                                               4
 function                                               9
+gen_for                                                5
 gen_scope                                             30
 gen_scope_array                                       30
 if_else                                               55
 if_stmt                                               17
+indexed_part_select                                    2
 int_typespec                                         353
 int_var                                                4
 integer_typespec                                       4
@@ -1294,35 +1296,36 @@ logic_var                                              1
 module_array                                           4
 module_inst                                          331
 module_typespec                                        4
-operation                                           1978
+operation                                           1999
 package                                                2
 param_assign                                         323
 parameter                                            323
-part_select                                          391
-port                                                1151
+part_select                                          395
+port                                                1154
 range                                                771
-ref_module                                            27
-ref_obj                                             3337
-ref_var                                                4
+ref_module                                            28
+ref_obj                                             3383
+ref_var                                                9
 string_typespec                                      114
 sys_func_call                                         12
 task                                                   9
-var_select                                             1
+unsupported_typespec                                   5
+var_select                                             3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                91
 array_net                                              1
-assign_stmt                                            7
+assign_stmt                                           17
 assignment                                           194
-begin                                                 11
-bit_select                                           155
+begin                                                 16
+bit_select                                           158
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            3262
-cont_assign                                          198
+constant                                            3280
+cont_assign                                          200
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
@@ -1330,10 +1333,12 @@ enum_var                                               1
 event_control                                         89
 for_stmt                                               7
 function                                              18
+gen_for                                                5
 gen_scope                                             57
 gen_scope_array                                       57
 if_else                                               83
 if_stmt                                               21
+indexed_part_select                                    2
 int_typespec                                         353
 int_var                                                4
 integer_typespec                                       4
@@ -1345,20 +1350,21 @@ logic_var                                              1
 module_array                                           4
 module_inst                                          331
 module_typespec                                        4
-operation                                           2322
+operation                                           2343
 package                                                2
 param_assign                                         323
 parameter                                            323
-part_select                                          556
-port                                                1302
+part_select                                          560
+port                                                1305
 range                                                771
-ref_module                                            27
-ref_obj                                             3973
-ref_var                                                7
+ref_module                                            28
+ref_obj                                             4019
+ref_var                                               12
 string_typespec                                      114
 sys_func_call                                         12
 task                                                  18
-var_select                                             2
+unsupported_typespec                                   5
+var_select                                             4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BasicOh/slpp_all/surelog.uhdm ...
 
@@ -11420,6 +11426,126 @@ design: (work@oh_fifo_async)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@oh_bin2onehot (work@oh_bin2onehot), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_bin2onehot.v, line:8:1, endln:21:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:18:8, endln:18:11
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:18:10, endln:18:11
+        |vpiParent:
+        \_assign_stmt: , line:18:8, endln:18:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@oh_bin2onehot.i), line:18:8, endln:18:9
+        |vpiParent:
+        \_assign_stmt: , line:18:8, endln:18:11
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:18:8, endln:18:9
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@oh_bin2onehot.i
+    |vpiCondition:
+    \_operation: , line:18:12, endln:18:15
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:18:12, endln:18:13
+        |vpiParent:
+        \_operation: , line:18:12, endln:18:15
+        |vpiName:i
+      |vpiOperand:
+      \_ref_obj: (N), line:18:14, endln:18:15
+        |vpiParent:
+        \_operation: , line:18:12, endln:18:15
+        |vpiName:N
+    |vpiForIncStmt:
+    \_assign_stmt: , line:18:16, endln:18:21
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_operation: , line:18:18, endln:18:21
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (i), line:18:18, endln:18:19
+          |vpiParent:
+          \_operation: , line:18:18, endln:18:21
+          |vpiName:i
+        |vpiOperand:
+        \_constant: , line:18:20, endln:18:21
+          |vpiParent:
+          \_operation: , line:18:18, endln:18:21
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (i), line:18:16, endln:18:17
+        |vpiName:i
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:19:14, endln:19:40
+        |vpiRhs:
+        \_operation: , line:19:24, endln:19:39
+          |vpiParent:
+          \_cont_assign: , line:19:14, endln:19:40
+          |vpiOpType:14
+          |vpiOperand:
+          \_part_select: , line:19:24, endln:19:34
+            |vpiParent:
+            \_ref_obj: in (in), line:19:24, endln:19:26
+              |vpiParent:
+              \_operation: , line:19:24, endln:19:39
+              |vpiName:in
+              |vpiDefName:in
+            |vpiConstantSelect:1
+            |vpiLeftRange:
+            \_operation: , line:19:27, endln:19:31
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (NB), line:19:27, endln:19:29
+                |vpiParent:
+                \_operation: , line:19:27, endln:19:31
+                |vpiName:NB
+              |vpiOperand:
+              \_constant: , line:19:30, endln:19:31
+                |vpiParent:
+                \_operation: , line:19:27, endln:19:31
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:19:32, endln:19:33
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiOperand:
+          \_ref_obj: (i), line:19:38, endln:19:39
+            |vpiParent:
+            \_operation: , line:19:24, endln:19:39
+            |vpiName:i
+        |vpiLhs:
+        \_bit_select: (out), line:19:14, endln:19:20
+          |vpiParent:
+          \_ref_obj: (out)
+            |vpiParent:
+            \_cont_assign: , line:19:14, endln:19:40
+            |vpiName:out
+          |vpiName:out
+          |vpiIndex:
+          \_ref_obj: (out.i), line:19:18, endln:19:19
+            |vpiParent:
+            \_bit_select: (out), line:19:14, endln:19:20
+            |vpiName:i
+            |vpiFullName:out.i
 |uhdmallModules:
 \_module_inst: work@oh_bitreverse (work@oh_bitreverse), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_bitreverse.v, line:8:1, endln:23:10
   |vpiParent:
@@ -56712,6 +56838,480 @@ design: (work@oh_fifo_async)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@oh_regfile (work@oh_regfile), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_regfile.v, line:8:1, endln:76:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:41:8, endln:41:11
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:41:10, endln:41:11
+        |vpiParent:
+        \_assign_stmt: , line:41:8, endln:41:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@oh_regfile.i), line:41:8, endln:41:9
+        |vpiParent:
+        \_assign_stmt: , line:41:8, endln:41:11
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:41:8, endln:41:9
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@oh_regfile.i
+    |vpiCondition:
+    \_operation: , line:41:12, endln:41:18
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:41:12, endln:41:13
+        |vpiParent:
+        \_operation: , line:41:12, endln:41:18
+        |vpiName:i
+      |vpiOperand:
+      \_ref_obj: (REGS), line:41:14, endln:41:18
+        |vpiParent:
+        \_operation: , line:41:12, endln:41:18
+        |vpiName:REGS
+    |vpiForIncStmt:
+    \_assign_stmt: , line:41:19, endln:41:24
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_operation: , line:41:21, endln:41:24
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (i), line:41:21, endln:41:22
+          |vpiParent:
+          \_operation: , line:41:21, endln:41:24
+          |vpiName:i
+        |vpiOperand:
+        \_constant: , line:41:23, endln:41:24
+          |vpiParent:
+          \_operation: , line:41:21, endln:41:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (i), line:41:19, endln:41:20
+        |vpiName:i
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@oh_regfile (work@oh_regfile), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_regfile.v, line:8:1, endln:76:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:50:8, endln:50:11
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:50:10, endln:50:11
+        |vpiParent:
+        \_assign_stmt: , line:50:8, endln:50:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@oh_regfile.i), line:50:8, endln:50:9
+        |vpiParent:
+        \_assign_stmt: , line:50:8, endln:50:11
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:50:8, endln:50:9
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@oh_regfile.i
+    |vpiCondition:
+    \_operation: , line:50:12, endln:50:18
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:50:12, endln:50:13
+        |vpiParent:
+        \_operation: , line:50:12, endln:50:18
+        |vpiName:i
+      |vpiOperand:
+      \_ref_obj: (REGS), line:50:14, endln:50:18
+        |vpiParent:
+        \_operation: , line:50:12, endln:50:18
+        |vpiName:REGS
+    |vpiForIncStmt:
+    \_assign_stmt: , line:50:19, endln:50:24
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_operation: , line:50:21, endln:50:24
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (i), line:50:21, endln:50:22
+          |vpiParent:
+          \_operation: , line:50:21, endln:50:24
+          |vpiName:i
+        |vpiOperand:
+        \_constant: , line:50:23, endln:50:24
+          |vpiParent:
+          \_operation: , line:50:21, endln:50:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (i), line:50:19, endln:50:20
+        |vpiName:i
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_ref_module: work@oh_mux (iwrmux), line:53:2, endln:53:8
+        |vpiName:iwrmux
+        |vpiDefName:work@oh_mux
+        |vpiPort:
+        \_port: (out), line:53:9, endln:53:34
+          |vpiName:out
+          |vpiHighConn:
+          \_var_select: (datamux), line:53:15, endln:53:33
+            |vpiName:datamux
+            |vpiIndex:
+            \_ref_obj: (datamux.i), line:53:23, endln:53:24
+              |vpiParent:
+              \_var_select: (datamux), line:53:15, endln:53:33
+              |vpiName:i
+              |vpiFullName:datamux.i
+            |vpiIndex:
+            \_part_select: , line:53:26, endln:53:32
+              |vpiParent:
+              \_var_select: (datamux), line:53:15, endln:53:33
+              |vpiConstantSelect:1
+              |vpiLeftRange:
+              \_operation: , line:53:26, endln:53:30
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (RW), line:53:26, endln:53:28
+                  |vpiParent:
+                  \_operation: , line:53:26, endln:53:30
+                  |vpiName:RW
+                |vpiOperand:
+                \_constant: , line:53:29, endln:53:30
+                  |vpiParent:
+                  \_operation: , line:53:26, endln:53:30
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:53:31, endln:53:32
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiPort:
+        \_port: (sel), line:54:9, endln:54:35
+          |vpiName:sel
+          |vpiHighConn:
+          \_var_select: (write_en), line:54:15, endln:54:34
+            |vpiName:write_en
+            |vpiIndex:
+            \_ref_obj: (write_en.i), line:54:24, endln:54:25
+              |vpiParent:
+              \_var_select: (write_en), line:54:15, endln:54:34
+              |vpiName:i
+              |vpiFullName:write_en.i
+            |vpiIndex:
+            \_part_select: , line:54:27, endln:54:33
+              |vpiParent:
+              \_var_select: (write_en), line:54:15, endln:54:34
+              |vpiConstantSelect:1
+              |vpiLeftRange:
+              \_operation: , line:54:27, endln:54:31
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (WP), line:54:27, endln:54:29
+                  |vpiParent:
+                  \_operation: , line:54:27, endln:54:31
+                  |vpiName:WP
+                |vpiOperand:
+                \_constant: , line:54:30, endln:54:31
+                  |vpiParent:
+                  \_operation: , line:54:27, endln:54:31
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:54:32, endln:54:33
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+        |vpiPort:
+        \_port: (in), line:55:9, endln:55:34
+          |vpiName:in
+          |vpiHighConn:
+          \_part_select: , line:55:15, endln:55:33
+            |vpiParent:
+            \_ref_obj: wr_data (wr_data), line:55:15, endln:55:22
+              |vpiName:wr_data
+              |vpiDefName:wr_data
+            |vpiConstantSelect:1
+            |vpiLeftRange:
+            \_operation: , line:55:23, endln:55:30
+              |vpiOpType:11
+              |vpiOperand:
+              \_operation: , line:55:23, endln:55:28
+                |vpiParent:
+                \_operation: , line:55:23, endln:55:30
+                |vpiOpType:25
+                |vpiOperand:
+                \_ref_obj: (WP), line:55:23, endln:55:25
+                  |vpiParent:
+                  \_operation: , line:55:23, endln:55:28
+                  |vpiName:WP
+                |vpiOperand:
+                \_ref_obj: (RW), line:55:26, endln:55:28
+                  |vpiParent:
+                  \_operation: , line:55:23, endln:55:28
+                  |vpiName:RW
+              |vpiOperand:
+              \_constant: , line:55:29, endln:55:30
+                |vpiParent:
+                \_operation: , line:55:23, endln:55:30
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:55:31, endln:55:32
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@oh_regfile (work@oh_regfile), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_regfile.v, line:8:1, endln:76:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:59:8, endln:59:11
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:59:10, endln:59:11
+        |vpiParent:
+        \_assign_stmt: , line:59:8, endln:59:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@oh_regfile.i), line:59:8, endln:59:9
+        |vpiParent:
+        \_assign_stmt: , line:59:8, endln:59:11
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:59:8, endln:59:9
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@oh_regfile.i
+    |vpiCondition:
+    \_operation: , line:59:12, endln:59:18
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:59:12, endln:59:13
+        |vpiParent:
+        \_operation: , line:59:12, endln:59:18
+        |vpiName:i
+      |vpiOperand:
+      \_ref_obj: (REGS), line:59:14, endln:59:18
+        |vpiParent:
+        \_operation: , line:59:12, endln:59:18
+        |vpiName:REGS
+    |vpiForIncStmt:
+    \_assign_stmt: , line:59:19, endln:59:24
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_operation: , line:59:21, endln:59:24
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (i), line:59:21, endln:59:22
+          |vpiParent:
+          \_operation: , line:59:21, endln:59:24
+          |vpiName:i
+        |vpiOperand:
+        \_constant: , line:59:23, endln:59:24
+          |vpiParent:
+          \_operation: , line:59:21, endln:59:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (i), line:59:19, endln:59:20
+        |vpiName:i
+    |vpiStmt:
+    \_begin: 
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@oh_regfile (work@oh_regfile), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_regfile.v, line:8:1, endln:76:10
+    |vpiForInitStmt:
+    \_assign_stmt: , line:71:9, endln:71:12
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:71:11, endln:71:12
+        |vpiParent:
+        \_assign_stmt: , line:71:9, endln:71:12
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@oh_regfile.i), line:71:9, endln:71:10
+        |vpiParent:
+        \_assign_stmt: , line:71:9, endln:71:12
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:71:9, endln:71:10
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@oh_regfile.i
+    |vpiCondition:
+    \_operation: , line:71:13, endln:71:17
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:71:13, endln:71:14
+        |vpiParent:
+        \_operation: , line:71:13, endln:71:17
+        |vpiName:i
+      |vpiOperand:
+      \_ref_obj: (RP), line:71:15, endln:71:17
+        |vpiParent:
+        \_operation: , line:71:13, endln:71:17
+        |vpiName:RP
+    |vpiForIncStmt:
+    \_assign_stmt: , line:71:18, endln:71:23
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_operation: , line:71:20, endln:71:23
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (i), line:71:20, endln:71:21
+          |vpiParent:
+          \_operation: , line:71:20, endln:71:23
+          |vpiName:i
+        |vpiOperand:
+        \_constant: , line:71:22, endln:71:23
+          |vpiParent:
+          \_operation: , line:71:20, endln:71:23
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (i), line:71:18, endln:71:19
+        |vpiName:i
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:72:14, endln:73:29
+        |vpiRhs:
+        \_operation: , line:72:34, endln:73:29
+          |vpiParent:
+          \_cont_assign: , line:72:14, endln:73:29
+          |vpiOpType:28
+          |vpiOperand:
+          \_operation: , line:72:34, endln:72:53
+            |vpiParent:
+            \_operation: , line:72:34, endln:73:29
+            |vpiOpType:34
+            |vpiOperand:
+            \_ref_obj: (RW), line:72:36, endln:72:38
+              |vpiParent:
+              \_operation: , line:72:34, endln:72:53
+              |vpiName:RW
+            |vpiOperand:
+            \_operation: , line:72:39, endln:72:52
+              |vpiParent:
+              \_operation: , line:72:34, endln:72:53
+              |vpiOpType:33
+              |vpiOperand:
+              \_bit_select: (rd_valid), line:72:40, endln:72:51
+                |vpiParent:
+                \_ref_obj: (rd_valid)
+                  |vpiName:rd_valid
+                |vpiName:rd_valid
+                |vpiIndex:
+                \_ref_obj: (rd_valid.i), line:72:49, endln:72:50
+                  |vpiParent:
+                  \_bit_select: (rd_valid), line:72:40, endln:72:51
+                  |vpiName:i
+                  |vpiFullName:rd_valid.i
+          |vpiOperand:
+          \_bit_select: (mem), line:73:5, endln:73:29
+            |vpiParent:
+            \_ref_obj: (mem)
+              |vpiParent:
+              \_operation: , line:72:34, endln:73:29
+              |vpiName:mem
+            |vpiName:mem
+            |vpiIndex:
+            \_indexed_part_select: , line:73:17, endln:73:27
+              |vpiParent:
+              \_ref_obj: rd_addr (rd_addr)
+                |vpiParent:
+                \_operation: , line:72:34, endln:73:29
+                |vpiName:rd_addr
+                |vpiDefName:rd_addr
+              |vpiConstantSelect:1
+              |vpiIndexedPartSelectType:1
+              |vpiBaseExpr:
+              \_operation: , line:73:17, endln:73:22
+                |vpiParent:
+                \_operation: , line:72:34, endln:73:29
+                |vpiOpType:25
+                |vpiOperand:
+                \_ref_obj: (i), line:73:17, endln:73:18
+                  |vpiParent:
+                  \_operation: , line:72:34, endln:73:29
+                  |vpiName:i
+                |vpiOperand:
+                \_ref_obj: (RAW), line:73:19, endln:73:22
+                  |vpiParent:
+                  \_operation: , line:73:17, endln:73:22
+                  |vpiName:RAW
+              |vpiWidthExpr:
+              \_ref_obj: (RAW), line:73:24, endln:73:27
+                |vpiParent:
+                \_operation: , line:72:34, endln:73:29
+                |vpiName:RAW
+        |vpiLhs:
+        \_indexed_part_select: , line:72:14, endln:72:31
+          |vpiParent:
+          \_ref_obj: rd_data (rd_data)
+            |vpiParent:
+            \_cont_assign: , line:72:14, endln:73:29
+            |vpiName:rd_data
+            |vpiDefName:rd_data
+          |vpiConstantSelect:1
+          |vpiIndexedPartSelectType:1
+          |vpiBaseExpr:
+          \_operation: , line:72:22, endln:72:26
+            |vpiOpType:25
+            |vpiOperand:
+            \_ref_obj: (i), line:72:22, endln:72:23
+              |vpiParent:
+              \_operation: , line:72:22, endln:72:26
+              |vpiName:i
+            |vpiOperand:
+            \_ref_obj: (RW), line:72:24, endln:72:26
+              |vpiParent:
+              \_operation: , line:72:22, endln:72:26
+              |vpiName:RW
+          |vpiWidthExpr:
+          \_ref_obj: (RW), line:72:28, endln:72:30
+            |vpiName:RW
 |uhdmallModules:
 \_module_inst: work@oh_rise2pulse (work@oh_rise2pulse), file:${SURELOG_DIR}/third_party/tests/oh/stdlib/hdl/oh_rise2pulse.v, line:8:1, endln:26:10
   |vpiParent:
