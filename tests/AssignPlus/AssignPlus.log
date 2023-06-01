@@ -209,9 +209,10 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
+assignment                                             1
 begin                                                  1
 bit_select                                            32
-constant                                              44
+constant                                              45
 cont_assign                                           11
 design                                                 1
 gen_for                                                1
@@ -223,7 +224,7 @@ module_inst                                            6
 operation                                             49
 param_assign                                           2
 parameter                                              7
-ref_obj                                               77
+ref_obj                                               78
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -231,9 +232,10 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
+assignment                                             1
 begin                                                  1
 bit_select                                            62
-constant                                              44
+constant                                              45
 cont_assign                                           21
 design                                                 1
 gen_for                                                1
@@ -245,7 +247,7 @@ module_inst                                            6
 operation                                             89
 param_assign                                           2
 parameter                                              7
-ref_obj                                              147
+ref_obj                                              148
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -330,6 +332,22 @@ design: (work@top)
         |vpiParent:
         \_operation: , line:5:24, endln:5:43
         |vpiName:bht_row_width_p
+    |vpiForIncStmt:
+    \_assignment: , line:5:45, endln:5:49
+      |vpiParent:
+      \_gen_for: 
+      |vpiOpType:24
+      |vpiRhs:
+      \_constant: , line:5:48, endln:5:49
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (i), line:5:45, endln:5:46
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
     |vpiStmt:
     \_begin: 
       |vpiStmt:
