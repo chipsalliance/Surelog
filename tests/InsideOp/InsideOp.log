@@ -319,13 +319,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
-constant                                              41
-cont_assign                                            3
+begin                                                  8
+constant                                              45
+cont_assign                                            7
 design                                                 1
 enum_const                                            18
 enum_typespec                                          3
-gen_if_else                                            1
+gen_if_else                                            4
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
@@ -333,24 +333,24 @@ int_typespec                                           6
 int_var                                                1
 logic_net                                              1
 module_inst                                            9
-operation                                              4
+operation                                              7
 package                                                3
 param_assign                                           2
 parameter                                              2
 port                                                   2
 ref_module                                             1
-ref_obj                                                9
+ref_obj                                               20
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
-constant                                              41
-cont_assign                                            4
+begin                                                  8
+constant                                              45
+cont_assign                                            8
 design                                                 1
 enum_const                                            18
 enum_typespec                                          3
-gen_if_else                                            1
+gen_if_else                                            4
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
@@ -358,13 +358,13 @@ int_typespec                                           6
 int_var                                                1
 logic_net                                              1
 module_inst                                           10
-operation                                              4
+operation                                              7
 package                                                3
 param_assign                                           2
 parameter                                              2
 port                                                   3
 ref_module                                             1
-ref_obj                                               11
+ref_obj                                               22
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InsideOp/slpp_all/surelog.uhdm ...
 
@@ -586,6 +586,140 @@ design: (work@top)
           \_int_var: (work@top.out), line:22:16, endln:22:19
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:27:12, endln:36:6
+        |vpiCondition:
+        \_operation: , line:27:16, endln:27:31
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (GetWhat), line:27:16, endln:27:23
+            |vpiParent:
+            \_operation: , line:27:16, endln:27:31
+            |vpiName:GetWhat
+          |vpiOperand:
+          \_ref_obj: (Get1), line:27:27, endln:27:31
+            |vpiParent:
+            \_operation: , line:27:16, endln:27:31
+            |vpiName:Get1
+            |vpiActual:
+            \_enum_const: (Get1), line:5:5, endln:5:13
+        |vpiStmt:
+        \_begin: 
+          |vpiStmt:
+          \_cont_assign: , line:28:12, endln:28:19
+            |vpiRhs:
+            \_constant: , line:28:18, endln:28:19
+              |vpiParent:
+              \_cont_assign: , line:28:12, endln:28:19
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiLhs:
+            \_ref_obj: (out), line:28:12, endln:28:15
+              |vpiParent:
+              \_cont_assign: , line:28:12, endln:28:19
+              |vpiName:out
+              |vpiActual:
+              \_int_var: (work@top.out), line:22:16, endln:22:19
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if_else: , line:29:12, endln:36:6
+            |vpiCondition:
+            \_operation: , line:29:16, endln:29:23
+              |vpiOpType:95
+              |vpiOperand:
+              \_ref_obj: (GetWhat), line:29:16, endln:29:23
+                |vpiParent:
+                \_operation: , line:29:16, endln:29:23
+                |vpiName:GetWhat
+              |vpiOperand:
+              \_ref_obj: (Get2), line:29:32, endln:29:36
+                |vpiName:Get2
+                |vpiActual:
+                \_enum_const: (Get2), line:6:5, endln:6:13
+              |vpiOperand:
+              \_ref_obj: (Get3), line:29:38, endln:29:42
+                |vpiName:Get3
+                |vpiActual:
+                \_enum_const: (Get3), line:7:5, endln:7:13
+            |vpiStmt:
+            \_begin: 
+              |vpiStmt:
+              \_cont_assign: , line:30:12, endln:30:19
+                |vpiRhs:
+                \_constant: , line:30:18, endln:30:19
+                  |vpiParent:
+                  \_cont_assign: , line:30:12, endln:30:19
+                  |vpiDecompile:2
+                  |vpiSize:64
+                  |UINT:2
+                  |vpiConstType:9
+                |vpiLhs:
+                \_ref_obj: (out), line:30:12, endln:30:15
+                  |vpiParent:
+                  \_cont_assign: , line:30:12, endln:30:19
+                  |vpiName:out
+                  |vpiActual:
+                  \_int_var: (work@top.out), line:22:16, endln:22:19
+            |vpiElseStmt:
+            \_begin: 
+              |vpiStmt:
+              \_gen_if_else: , line:32:12, endln:36:6
+                |vpiCondition:
+                \_operation: , line:32:16, endln:32:31
+                  |vpiOpType:14
+                  |vpiOperand:
+                  \_ref_obj: (GetWhat), line:32:16, endln:32:23
+                    |vpiParent:
+                    \_operation: , line:32:16, endln:32:31
+                    |vpiName:GetWhat
+                  |vpiOperand:
+                  \_ref_obj: (Get4), line:32:27, endln:32:31
+                    |vpiParent:
+                    \_operation: , line:32:16, endln:32:31
+                    |vpiName:Get4
+                    |vpiActual:
+                    \_enum_const: (Get4), line:8:5, endln:8:13
+                |vpiStmt:
+                \_begin: 
+                  |vpiStmt:
+                  \_cont_assign: , line:33:12, endln:33:19
+                    |vpiRhs:
+                    \_constant: , line:33:18, endln:33:19
+                      |vpiParent:
+                      \_cont_assign: , line:33:12, endln:33:19
+                      |vpiDecompile:3
+                      |vpiSize:64
+                      |UINT:3
+                      |vpiConstType:9
+                    |vpiLhs:
+                    \_ref_obj: (out), line:33:12, endln:33:15
+                      |vpiParent:
+                      \_cont_assign: , line:33:12, endln:33:19
+                      |vpiName:out
+                      |vpiActual:
+                      \_int_var: (work@top.out), line:22:16, endln:22:19
+                |vpiElseStmt:
+                \_begin: 
+                  |vpiStmt:
+                  \_cont_assign: , line:35:12, endln:35:21
+                    |vpiRhs:
+                    \_constant: , line:35:18, endln:35:21
+                      |vpiParent:
+                      \_cont_assign: , line:35:12, endln:35:21
+                      |vpiDecompile:255
+                      |vpiSize:64
+                      |UINT:255
+                      |vpiConstType:9
+                    |vpiLhs:
+                    \_ref_obj: (out), line:35:12, endln:35:15
+                      |vpiParent:
+                      \_cont_assign: , line:35:12, endln:35:21
+                      |vpiName:out
+                      |vpiActual:
+                      \_int_var: (work@top.out), line:22:16, endln:22:19
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
   |vpiName:work@top
@@ -756,4 +890,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InsideOp/dut.sv | ${SURELOG_DIR}/build/regression/InsideOp/roundtrip/dut_000.sv | 16 | 38 |
+[roundtrip]: ${SURELOG_DIR}/tests/InsideOp/dut.sv | ${SURELOG_DIR}/build/regression/InsideOp/roundtrip/dut_000.sv | 12 | 38 |

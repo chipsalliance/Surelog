@@ -199,11 +199,12 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
-bit_select                                             4
+begin                                                  2
+bit_select                                             5
 constant                                              55
 design                                                 1
 gen_for                                                1
+gen_if                                                 1
 gen_scope                                             14
 gen_scope_array                                       14
 int_typespec                                           6
@@ -214,8 +215,8 @@ operation                                             13
 param_assign                                           2
 parameter                                              6
 range                                                  6
-ref_module                                             4
-ref_obj                                                6
+ref_module                                             5
+ref_obj                                                8
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -223,11 +224,12 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
-bit_select                                             4
+begin                                                  2
+bit_select                                             5
 constant                                              55
 design                                                 1
 gen_for                                                1
+gen_if                                                 1
 gen_scope                                             20
 gen_scope_array                                       20
 int_typespec                                           6
@@ -238,8 +240,8 @@ operation                                             13
 param_assign                                           2
 parameter                                              6
 range                                                  6
-ref_module                                             4
-ref_obj                                                6
+ref_module                                             5
+ref_obj                                                8
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -351,6 +353,28 @@ design: (work@dut)
         \_logic_net: (k)
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:10:3, endln:10:5
+        |vpiCondition:
+        \_bit_select: (test), line:10:7, endln:10:14
+          |vpiParent:
+          \_ref_obj: (test)
+            |vpiName:test
+          |vpiName:test
+          |vpiIndex:
+          \_ref_obj: (test.k), line:10:12, endln:10:13
+            |vpiParent:
+            \_bit_select: (test), line:10:7, endln:10:14
+            |vpiName:k
+            |vpiFullName:test.k
+            |vpiActual:
+            \_logic_net: (k)
+        |vpiStmt:
+        \_begin: 
+          |vpiStmt:
+          \_ref_module: work@MOD (m), line:11:9, endln:11:10
+            |vpiName:m
+            |vpiDefName:work@MOD
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
   |vpiName:work@dut

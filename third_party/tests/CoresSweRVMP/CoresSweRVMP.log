@@ -3,7 +3,7 @@
 [WRN:CM0010] Command line argument "-Wno-UNOPTFLAT" ignored.
 
 Running: cd ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_parser; cmake -G "Unix Makefiles" .; make -j 16
--- Configuring done (0.0s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_parser
 [100%] Generating preprocessing
@@ -115,21 +115,21 @@ PP CACHE USED FOR: ${SURELOG_DIR}/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv
 [INF:PP0122] Preprocessing source file "${SURELOG_DIR}/third_party/tests/CoresSweRVMP/design/lib/axi4_to_ahb.sv".
 
 Running: cd ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_preprocess; cmake -G "Unix Makefiles" .; make -j 16
--- Configuring done (0.0s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_preprocess
-[  6%] Generating 11_ifu_bp_ctl.sv
+[  6%] Generating 10_lsu_bus_intf.sv
 [ 12%] Generating 12_beh_lib.sv
-[ 18%] Generating 10_lsu_bus_intf.sv
+[ 18%] Generating 11_ifu_bp_ctl.sv
 [ 25%] Generating 13_ifu_mem_ctl.sv
 [ 31%] Generating 14_mem_lib.sv
 [ 37%] Generating 15_exu.sv
 [ 43%] Generating 16_dec_decode_ctl.sv
 [ 50%] Generating 1_lsu_stbuf.sv
-[ 56%] Generating 2_ahb_to_axi4.sv
+[ 56%] Generating 5_lsu_bus_buffer.sv
 [ 62%] Generating 3_rvjtag_tap.sv
-[ 68%] Generating 4_dec_tlu_ctl.sv
-[ 75%] Generating 5_lsu_bus_buffer.sv
+[ 68%] Generating 2_ahb_to_axi4.sv
+[ 75%] Generating 4_dec_tlu_ctl.sv
 [ 81%] Generating 6_dbg.sv
 [ 87%] Generating 7_axi4_to_ahb.sv
 [ 93%] Generating 8_ifu_aln_ctl.sv
@@ -4886,8 +4886,8 @@ array_typespec                                       671
 array_var                                            648
 assign_stmt                                         1945
 assignment                                          7688
-begin                                               7218
-bit_select                                         19578
+begin                                               7223
+bit_select                                         19580
 bit_typespec                                        2213
 bit_var                                             1213
 break_stmt                                            53
@@ -4900,9 +4900,9 @@ chandle_var                                            2
 class_defn                                           613
 class_typespec                                      8459
 class_var                                           3301
-constant                                          212751
+constant                                          212773
 constraint                                             4
-cont_assign                                         6916
+cont_assign                                         6920
 continue_stmt                                         52
 delay_control                                         54
 design                                                 1
@@ -4922,7 +4922,8 @@ fork_stmt                                             31
 func_call                                           5163
 function                                            4734
 gen_for                                               40
-gen_if_else                                           16
+gen_if                                                 1
+gen_if_else                                           18
 gen_scope                                           3434
 gen_scope_array                                     3434
 hier_path                                          11155
@@ -4947,19 +4948,19 @@ module_inst                                         7783
 named_begin                                           34
 named_event                                            8
 named_fork                                             3
-operation                                          92963
+operation                                          92981
 package                                                8
 packed_array_typespec                                 28
 packed_array_var                                      10
 param_assign                                        5466
 parameter                                           6806
-part_select                                        15328
+part_select                                        15334
 port                                               34661
 range                                              32897
 real_typespec                                         33
 real_var                                               8
 ref_module                                          2049
-ref_obj                                           170966
+ref_obj                                           170990
 ref_var                                             1830
 repeat                                                26
 return_stmt                                         3379
@@ -4977,7 +4978,7 @@ time_var                                              38
 type_parameter                                       273
 typespec_member                                      481
 unsupported_typespec                                1606
-var_select                                          4762
+var_select                                          4767
 wait_fork                                              1
 wait_stmt                                             45
 while_stmt                                           108
@@ -4992,8 +4993,8 @@ array_typespec                                       674
 array_var                                           5037
 assign_stmt                                         8535
 assignment                                         43720
-begin                                              46194
-bit_select                                         25351
+begin                                              46199
+bit_select                                         25353
 bit_typespec                                        2216
 bit_var                                             8396
 break_stmt                                           258
@@ -5006,9 +5007,9 @@ chandle_var                                            2
 class_defn                                           613
 class_typespec                                      9907
 class_var                                          21106
-constant                                          212870
+constant                                          212892
 constraint                                            10
-cont_assign                                         6965
+cont_assign                                         6969
 continue_stmt                                        173
 delay_control                                        170
 design                                                 1
@@ -5028,7 +5029,8 @@ fork_stmt                                             88
 func_call                                          31522
 function                                           29579
 gen_for                                               40
-gen_if_else                                           16
+gen_if                                                 1
+gen_if_else                                           18
 gen_scope                                           3434
 gen_scope_array                                     3434
 hier_path                                          55209
@@ -5054,19 +5056,19 @@ module_inst                                         7783
 named_begin                                           43
 named_event                                           50
 named_fork                                            10
-operation                                         142430
+operation                                         142448
 package                                                8
 packed_array_typespec                                 28
 packed_array_var                                      10
 param_assign                                        5479
 parameter                                           6806
-part_select                                        15592
+part_select                                        15598
 port                                               34964
 range                                              34689
 real_typespec                                         33
 real_var                                              10
 ref_module                                          2049
-ref_obj                                           424031
+ref_obj                                           424055
 ref_var                                             8940
 repeat                                               207
 return_stmt                                        19618
@@ -5084,7 +5086,7 @@ time_var                                             203
 type_parameter                                       273
 typespec_member                                      521
 unsupported_typespec                                1606
-var_select                                          4830
+var_select                                          4835
 wait_fork                                              3
 wait_stmt                                            140
 while_stmt                                           353

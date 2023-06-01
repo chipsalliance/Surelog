@@ -886,7 +886,15 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slConditional_generate_construct: {
           if (collectType != CollectType::OTHER) break;
           if (m_instance) break;
-          m_helper.compileGenStmt(m_module, fC, m_compileDesign, id);
+          UHDM::VectorOfgen_stmt* stmts =
+              m_helper.compileGenStmt(m_module, fC, m_compileDesign, id);
+          if (m_module->getGenStmts() == nullptr) {
+            m_module->setGenStmts(
+                m_compileDesign->getSerializer().MakeGen_stmtVec());
+          }
+          for (auto st : *stmts) {
+            m_module->getGenStmts()->push_back(st);
+          }
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
           break;

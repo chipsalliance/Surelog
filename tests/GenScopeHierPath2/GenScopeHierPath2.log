@@ -371,49 +371,49 @@ Instance tree:
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              1
-begin                                                  4
-constant                                              34
-cont_assign                                            2
+begin                                                 12
+constant                                              38
+cont_assign                                            5
 design                                                 1
-gen_if_else                                            2
+gen_if_else                                            6
 gen_scope                                              4
 gen_scope_array                                        4
-hier_path                                              4
+hier_path                                             10
 int_typespec                                           2
 logic_net                                              3
 logic_typespec                                         4
 module_inst                                            8
-operation                                              9
+operation                                             13
 param_assign                                           2
 parameter                                              2
 port                                                   2
 range                                                  5
-ref_obj                                               14
-sys_func_call                                          2
+ref_obj                                               33
+sys_func_call                                          5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              1
-begin                                                  4
-constant                                              34
-cont_assign                                            3
+begin                                                 12
+constant                                              38
+cont_assign                                            6
 design                                                 1
-gen_if_else                                            2
+gen_if_else                                            6
 gen_scope                                              6
 gen_scope_array                                        6
-hier_path                                              5
+hier_path                                             11
 int_typespec                                           2
 logic_net                                              3
 logic_typespec                                         5
 module_inst                                            8
-operation                                              9
+operation                                             13
 param_assign                                           2
 parameter                                              2
 port                                                   3
 range                                                  6
-ref_obj                                               18
-sys_func_call                                          3
+ref_obj                                               37
+sys_func_call                                          6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm ...
 
@@ -517,6 +517,50 @@ design: (work@mod)
     \_begin: 
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:8:10, endln:16:8
+        |vpiCondition:
+        \_operation: , line:8:14, endln:8:20
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (P), line:8:14, endln:8:15
+            |vpiParent:
+            \_operation: , line:8:14, endln:8:20
+            |vpiName:P
+          |vpiOperand:
+          \_constant: , line:8:19, endln:8:20
+            |vpiParent:
+            \_operation: , line:8:14, endln:8:20
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if_else: , line:11:10, endln:16:8
+            |vpiCondition:
+            \_operation: , line:11:14, endln:11:20
+              |vpiOpType:14
+              |vpiOperand:
+              \_ref_obj: (P), line:11:14, endln:11:15
+                |vpiParent:
+                \_operation: , line:11:14, endln:11:20
+                |vpiName:P
+              |vpiOperand:
+              \_constant: , line:11:19, endln:11:20
+                |vpiParent:
+                \_operation: , line:11:14, endln:11:20
+                |vpiDecompile:3
+                |vpiSize:64
+                |UINT:3
+                |vpiConstType:9
+            |vpiStmt:
+            \_begin: 
+            |vpiElseStmt:
+            \_begin: 
   |vpiGenStmt:
   \_gen_if_else: 
     |vpiParent:
@@ -570,6 +614,137 @@ design: (work@mod)
           \_logic_net: (work@mod.out), line:2:24, endln:2:27
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:19:10, endln:24:36
+        |vpiCondition:
+        \_operation: , line:19:14, endln:19:20
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (P), line:19:14, endln:19:15
+            |vpiParent:
+            \_operation: , line:19:14, endln:19:20
+            |vpiName:P
+          |vpiOperand:
+          \_constant: , line:19:19, endln:19:20
+            |vpiParent:
+            \_operation: , line:19:14, endln:19:20
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
+          |vpiStmt:
+          \_cont_assign: , line:20:16, endln:20:35
+            |vpiRhs:
+            \_sys_func_call: ($bits), line:20:22, endln:20:35
+              |vpiParent:
+              \_cont_assign: , line:20:16, endln:20:35
+              |vpiArgument:
+              \_hier_path: (blk2.x), line:20:28, endln:20:34
+                |vpiParent:
+                \_sys_func_call: ($bits), line:20:22, endln:20:35
+                |vpiName:blk2.x
+                |vpiActual:
+                \_ref_obj: (blk2), line:20:28, endln:20:32
+                  |vpiParent:
+                  \_hier_path: (blk2.x), line:20:28, endln:20:34
+                  |vpiName:blk2
+                |vpiActual:
+                \_ref_obj: (x), line:20:33, endln:20:34
+                  |vpiParent:
+                  \_hier_path: (blk2.x), line:20:28, endln:20:34
+                  |vpiName:x
+              |vpiName:$bits
+            |vpiLhs:
+            \_ref_obj: (out), line:20:16, endln:20:19
+              |vpiParent:
+              \_cont_assign: , line:20:16, endln:20:35
+              |vpiName:out
+              |vpiActual:
+              \_logic_net: (work@mod.out), line:2:24, endln:2:27
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if_else: , line:21:10, endln:24:36
+            |vpiCondition:
+            \_operation: , line:21:14, endln:21:20
+              |vpiOpType:14
+              |vpiOperand:
+              \_ref_obj: (P), line:21:14, endln:21:15
+                |vpiParent:
+                \_operation: , line:21:14, endln:21:20
+                |vpiName:P
+              |vpiOperand:
+              \_constant: , line:21:19, endln:21:20
+                |vpiParent:
+                \_operation: , line:21:14, endln:21:20
+                |vpiDecompile:3
+                |vpiSize:64
+                |UINT:3
+                |vpiConstType:9
+            |vpiStmt:
+            \_begin: 
+              |vpiStmt:
+              \_cont_assign: , line:22:16, endln:22:35
+                |vpiRhs:
+                \_sys_func_call: ($bits), line:22:22, endln:22:35
+                  |vpiParent:
+                  \_cont_assign: , line:22:16, endln:22:35
+                  |vpiArgument:
+                  \_hier_path: (blk3.y), line:22:28, endln:22:34
+                    |vpiParent:
+                    \_sys_func_call: ($bits), line:22:22, endln:22:35
+                    |vpiName:blk3.y
+                    |vpiActual:
+                    \_ref_obj: (blk3), line:22:28, endln:22:32
+                      |vpiParent:
+                      \_hier_path: (blk3.y), line:22:28, endln:22:34
+                      |vpiName:blk3
+                    |vpiActual:
+                    \_ref_obj: (y), line:22:33, endln:22:34
+                      |vpiParent:
+                      \_hier_path: (blk3.y), line:22:28, endln:22:34
+                      |vpiName:y
+                  |vpiName:$bits
+                |vpiLhs:
+                \_ref_obj: (out), line:22:16, endln:22:19
+                  |vpiParent:
+                  \_cont_assign: , line:22:16, endln:22:35
+                  |vpiName:out
+                  |vpiActual:
+                  \_logic_net: (work@mod.out), line:2:24, endln:2:27
+            |vpiElseStmt:
+            \_begin: 
+              |vpiStmt:
+              \_cont_assign: , line:24:16, endln:24:35
+                |vpiRhs:
+                \_sys_func_call: ($bits), line:24:22, endln:24:35
+                  |vpiParent:
+                  \_cont_assign: , line:24:16, endln:24:35
+                  |vpiArgument:
+                  \_hier_path: (blk4.z), line:24:28, endln:24:34
+                    |vpiParent:
+                    \_sys_func_call: ($bits), line:24:22, endln:24:35
+                    |vpiName:blk4.z
+                    |vpiActual:
+                    \_ref_obj: (blk4), line:24:28, endln:24:32
+                      |vpiParent:
+                      \_hier_path: (blk4.z), line:24:28, endln:24:34
+                      |vpiName:blk4
+                    |vpiActual:
+                    \_ref_obj: (z), line:24:33, endln:24:34
+                      |vpiParent:
+                      \_hier_path: (blk4.z), line:24:28, endln:24:34
+                      |vpiName:z
+                  |vpiName:$bits
+                |vpiLhs:
+                \_ref_obj: (out), line:24:16, endln:24:19
+                  |vpiParent:
+                  \_cont_assign: , line:24:16, endln:24:35
+                  |vpiName:out
+                  |vpiActual:
+                  \_logic_net: (work@mod.out), line:2:24, endln:2:27
 |uhdmtopModules:
 \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
   |vpiName:work@mod
@@ -785,4 +960,4 @@ design: (work@mod)
 [   NOTE] : 8
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv | ${SURELOG_DIR}/build/regression/GenScopeHierPath2/roundtrip/dut_000.sv | 21 | 25 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv | ${SURELOG_DIR}/build/regression/GenScopeHierPath2/roundtrip/dut_000.sv | 18 | 25 |

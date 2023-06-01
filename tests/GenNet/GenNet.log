@@ -273,10 +273,11 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
-constant                                              40
+begin                                                  3
+constant                                              41
 cont_assign                                            1
 design                                                 1
+gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
@@ -285,22 +286,23 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            9
-operation                                             13
+operation                                             14
 param_assign                                           4
 parameter                                              4
 port                                                   2
 range                                                  6
 ref_module                                             1
-ref_obj                                                7
+ref_obj                                                8
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
-constant                                              40
+begin                                                  3
+constant                                              41
 cont_assign                                            2
 design                                                 1
+gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
@@ -309,13 +311,13 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              2
 module_inst                                            9
-operation                                             13
+operation                                             14
 param_assign                                           4
 parameter                                              4
 port                                                   3
 range                                                  7
 ref_module                                             1
-ref_obj                                               10
+ref_obj                                               11
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.uhdm ...
@@ -493,6 +495,26 @@ design: (work@dut)
     \_begin: 
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:11:12, endln:11:14
+        |vpiCondition:
+        \_operation: , line:11:16, endln:11:32
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (SWACCESS), line:11:16, endln:11:24
+            |vpiParent:
+            \_operation: , line:11:16, endln:11:32
+            |vpiName:SWACCESS
+          |vpiOperand:
+          \_constant: , line:11:28, endln:11:32
+            |vpiParent:
+            \_operation: , line:11:16, endln:11:32
+            |vpiDecompile:"RO"
+            |vpiSize:16
+            |STRING:RO
+            |vpiConstType:6
+        |vpiStmt:
+        \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
   |vpiName:work@dut

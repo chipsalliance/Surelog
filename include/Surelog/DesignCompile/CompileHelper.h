@@ -458,7 +458,7 @@ class CompileHelper final {
                        CompileDesign* compileDesign, NodeId id,
                        UHDM::VectorOfport* ports);
 
-  void compileGenStmt(ModuleDefinition* component, const FileContent* fC,
+  UHDM::VectorOfgen_stmt*  compileGenStmt(ModuleDefinition* component, const FileContent* fC,
                        CompileDesign* compileDesign, NodeId id);
 
   /** Variable is either a bit select or a range */
