@@ -174,11 +174,9 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
       expr* ex = (expr*)compileExpression(component, fC, exprId, compileDesign,
                                           Reduce::No);
       genfor->VpiForIncStmt(ex);
-    } else if (fC->Type(assignOp) !=
-               VObjectType::slAssignOp_Assign) {  // Operators like +=
-      exprId = var;
     } else {
-      assign_stmt = s.MakeAssign_stmt();
+      assignment* assign_stmt = s.MakeAssignment();
+      assign_stmt->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(assignOp)));
       genfor->VpiForIncStmt(assign_stmt);
       assign_stmt->VpiParent(genfor);
       fC->populateCoreMembers(iteration, iteration, assign_stmt);
