@@ -75,14 +75,14 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  4
+begin                                                  6
 bit_select                                             1
 bit_typespec                                           2
-constant                                             140
+constant                                             142
 cont_assign                                            1
 design                                                 1
 gate                                                   6
-gen_if_else                                            2
+gen_if_else                                            3
 gen_scope                                             10
 gen_scope_array                                       10
 int_typespec                                          21
@@ -90,16 +90,16 @@ logic_net                                             16
 logic_typespec                                         7
 logic_var                                              1
 module_inst                                           17
-operation                                             45
+operation                                             46
 package                                                3
 param_assign                                          24
 parameter                                             27
-port                                                  15
+port                                                  17
 prim_term                                             18
 range                                                  2
-ref_module                                             1
+ref_module                                             2
 ref_obj                                               30
-string_typespec                                        5
+string_typespec                                        6
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ForElab/slpp_all/surelog.uhdm ...
@@ -377,6 +377,45 @@ design: (work@tlul_socket_m1)
     \_begin: 
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:54:12, endln:64:6
+        |vpiCondition:
+        \_operation: , line:54:16, endln:54:50
+          |vpiOpType:14
+          |vpiOperand:
+          \_constant: , line:54:16, endln:54:26
+            |vpiParent:
+            \_operation: , line:54:16, endln:54:50
+            |vpiDecompile:"BINTREE"
+            |vpiSize:56
+            |STRING:BINTREE
+            |vpiTypespec:
+            \_string_typespec: 
+              |vpiParent:
+              \_constant: , line:54:16, endln:54:26
+            |vpiConstType:6
+          |vpiOperand:
+          \_constant: , line:54:41, endln:54:50
+            |vpiParent:
+            \_operation: , line:54:16, endln:54:50
+            |vpiDecompile:"BINTREE"
+            |vpiSize:56
+            |STRING:BINTREE
+            |vpiConstType:6
+        |vpiStmt:
+        \_begin: 
+          |vpiStmt:
+          \_ref_module: work@prim_arbiter_tree (u_reqarb), line:58:7, endln:58:15
+            |vpiName:u_reqarb
+            |vpiDefName:work@prim_arbiter_tree
+            |vpiPort:
+            \_port: (clk_i), line:59:7, endln:59:13
+              |vpiName:clk_i
+            |vpiPort:
+            \_port: (rst_ni), line:60:7, endln:60:14
+              |vpiName:rst_ni
+        |vpiElseStmt:
+        \_begin: 
 |uhdmtopModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
   |vpiName:work@tlul_socket_m1

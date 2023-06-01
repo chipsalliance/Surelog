@@ -1044,18 +1044,19 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  4
+begin                                                 14
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              58
+constant                                              64
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
 gate                                                  16
-gen_if_else                                            2
+gen_if                                                 2
+gen_if_else                                            6
 gen_scope                                             17
 gen_scope_array                                       17
 int_typespec                                          17
@@ -1065,13 +1066,13 @@ logic_net                                             12
 logic_typespec                                         2
 logic_var                                              1
 module_inst                                            9
-operation                                              7
+operation                                             13
 package                                                2
 param_assign                                           8
 parameter                                              8
 port                                                  24
 prim_term                                             48
-ref_obj                                               50
+ref_obj                                               56
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateUnnamed/slpp_unit/surelog.uhdm ...
@@ -1603,8 +1604,72 @@ design: (work@test1)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:14:5, endln:27:11
+        |vpiCondition:
+        \_operation: , line:14:9, endln:14:15
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (q), line:14:9, endln:14:10
+            |vpiParent:
+            \_operation: , line:14:9, endln:14:15
+            |vpiName:q
+          |vpiOperand:
+          \_constant: , line:14:14, endln:14:15
+            |vpiParent:
+            \_operation: , line:14:9, endln:14:15
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if_else: , line:20:10, endln:27:11
+            |vpiCondition:
+            \_operation: , line:20:14, endln:20:20
+              |vpiOpType:14
+              |vpiOperand:
+              \_ref_obj: (q), line:20:14, endln:20:15
+                |vpiParent:
+                \_operation: , line:20:14, endln:20:20
+                |vpiName:q
+              |vpiOperand:
+              \_constant: , line:20:19, endln:20:20
+                |vpiParent:
+                \_operation: , line:20:14, endln:20:20
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+            |vpiStmt:
+            \_begin: 
+            |vpiElseStmt:
+            \_begin: 
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:29:8, endln:29:10
+        |vpiCondition:
+        \_operation: , line:29:12, endln:29:18
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (p), line:29:12, endln:29:13
+            |vpiParent:
+            \_operation: , line:29:12, endln:29:18
+            |vpiName:p
+          |vpiOperand:
+          \_constant: , line:29:17, endln:29:18
+            |vpiParent:
+            \_operation: , line:29:12, endln:29:18
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
 |uhdmallModules:
 \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
   |vpiParent:
@@ -1749,8 +1814,72 @@ design: (work@test1)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:73:5, endln:86:9
+        |vpiCondition:
+        \_operation: , line:73:9, endln:73:15
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (q), line:73:9, endln:73:10
+            |vpiParent:
+            \_operation: , line:73:9, endln:73:15
+            |vpiName:q
+          |vpiOperand:
+          \_constant: , line:73:14, endln:73:15
+            |vpiParent:
+            \_operation: , line:73:9, endln:73:15
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if_else: , line:79:8, endln:86:9
+            |vpiCondition:
+            \_operation: , line:79:12, endln:79:18
+              |vpiOpType:14
+              |vpiOperand:
+              \_ref_obj: (q), line:79:12, endln:79:13
+                |vpiParent:
+                \_operation: , line:79:12, endln:79:18
+                |vpiName:q
+              |vpiOperand:
+              \_constant: , line:79:17, endln:79:18
+                |vpiParent:
+                \_operation: , line:79:12, endln:79:18
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+            |vpiStmt:
+            \_begin: 
+            |vpiElseStmt:
+            \_begin: 
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:88:8, endln:88:10
+        |vpiCondition:
+        \_operation: , line:88:12, endln:88:18
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (p), line:88:12, endln:88:13
+            |vpiParent:
+            \_operation: , line:88:12, endln:88:18
+            |vpiName:p
+          |vpiOperand:
+          \_constant: , line:88:17, endln:88:18
+            |vpiParent:
+            \_operation: , line:88:12, endln:88:18
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
 |uhdmtopModules:
 \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
   |vpiName:work@test1

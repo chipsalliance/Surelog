@@ -131,6 +131,21 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                             instance, muteErrors);
       break;
     }
+    case VObjectType::slConditional_generate_construct: {
+      NodeId child = fC->Child(the_stmt);
+      if (!child) {
+        // That is the null statement (no statement)
+        return nullptr;
+      }
+      VectorOfgen_stmt* sts =
+          compileGenStmt(valuedcomponenti_cast<ModuleDefinition*>(component),
+                         fC, compileDesign, the_stmt);
+      for (auto st : *sts) {
+        stmt = st;
+        break;
+      }
+      break;
+    }
     case VObjectType::slStatement_or_null: {
       NodeId child = fC->Child(the_stmt);
       if (!child) {

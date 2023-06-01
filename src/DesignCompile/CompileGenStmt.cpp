@@ -71,9 +71,9 @@ namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (we use a good chunk of these here)
 
-void CompileHelper::compileGenStmt(ModuleDefinition* component,
-                                   const FileContent* fC,
-                                   CompileDesign* compileDesign, NodeId id) {
+UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
+    ModuleDefinition* component, const FileContent* fC,
+    CompileDesign* compileDesign, NodeId id) {
   Serializer& s = compileDesign->getSerializer();
   NodeId stmtId = fC->Child(id);
   gen_stmt* genstmt = nullptr;
@@ -196,10 +196,10 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
     stmt->Stmts(stmts);
     genfor->VpiStmt(stmt);
   }
-  if (component->getGenStmts() == nullptr) {
-    component->setGenStmts(s.MakeGen_stmtVec());
-  }
-  if (genstmt) component->getGenStmts()->push_back(genstmt);
+  VectorOfgen_stmt* stmts = s.MakeGen_stmtVec();
+  if (genstmt)
+    stmts->push_back(genstmt);
+  return stmts;
 }
 
 }  // namespace SURELOG

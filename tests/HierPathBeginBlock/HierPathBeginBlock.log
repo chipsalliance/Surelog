@@ -318,11 +318,11 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             4
-begin                                                  2
-constant                                              30
+begin                                                  3
+constant                                              31
 cont_assign                                            6
 design                                                 1
-gen_if                                                 1
+gen_if                                                 2
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              4
@@ -341,11 +341,11 @@ ref_obj                                               26
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             8
-begin                                                  3
-constant                                              30
+begin                                                  4
+constant                                              31
 cont_assign                                           10
 design                                                 1
-gen_if                                                 1
+gen_if                                                 2
 gen_scope                                              9
 gen_scope_array                                        9
 hier_path                                              8
@@ -680,6 +680,16 @@ design: (work@matching_end_labels_top)
       |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:21:9, endln:21:11
+        |vpiCondition:
+        \_constant: , line:21:13, endln:21:14
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
 |uhdmtopModules:
 \_module_inst: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
   |vpiName:work@matching_end_labels_top

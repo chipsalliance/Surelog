@@ -263,23 +263,25 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-begin                                                  1
-constant                                              67
+begin                                                  4
+constant                                              75
 design                                                 1
 gen_for                                                1
+gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                              8
 gen_scope_array                                        8
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            7
-operation                                             17
+operation                                             25
 param_assign                                           4
 parameter                                              6
-part_select                                            3
+part_select                                            5
 range                                                  5
-ref_module                                             2
-ref_obj                                               13
+ref_module                                             4
+ref_obj                                               19
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -288,23 +290,25 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-begin                                                  1
-constant                                              67
+begin                                                  4
+constant                                              75
 design                                                 1
 gen_for                                                1
+gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                             12
 gen_scope_array                                       12
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            9
-operation                                             17
+operation                                             25
 param_assign                                           4
 parameter                                              6
-part_select                                            3
+part_select                                            5
 range                                                  5
-ref_module                                             2
-ref_obj                                               13
+ref_module                                             4
+ref_obj                                               19
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -462,6 +466,162 @@ design: (work@test)
         \_logic_net: (i)
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:9:2, endln:16:7
+        |vpiCondition:
+        \_operation: , line:9:6, endln:9:29
+          |vpiOpType:14
+          |vpiOperand:
+          \_part_select: , line:9:6, endln:9:20
+            |vpiParent:
+            \_ref_obj: MAP (MAP)
+              |vpiParent:
+              \_operation: , line:9:6, endln:9:29
+              |vpiName:MAP
+              |vpiDefName:MAP
+            |vpiConstantSelect:1
+            |vpiLeftRange:
+            \_operation: , line:9:10, endln:9:15
+              |vpiOpType:24
+              |vpiOperand:
+              \_operation: , line:9:10, endln:9:13
+                |vpiParent:
+                \_operation: , line:9:10, endln:9:15
+                |vpiOpType:25
+                |vpiOperand:
+                \_ref_obj: (i), line:9:10, endln:9:11
+                  |vpiParent:
+                  \_operation: , line:9:10, endln:9:13
+                  |vpiName:i
+                  |vpiActual:
+                  \_logic_net: (i)
+                |vpiOperand:
+                \_constant: , line:9:12, endln:9:13
+                  |vpiParent:
+                  \_operation: , line:9:10, endln:9:13
+                  |vpiDecompile:2
+                  |vpiSize:64
+                  |UINT:2
+                  |vpiConstType:9
+              |vpiOperand:
+              \_constant: , line:9:14, endln:9:15
+                |vpiParent:
+                \_operation: , line:9:10, endln:9:15
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+            |vpiRightRange:
+            \_operation: , line:9:16, endln:9:19
+              |vpiOpType:25
+              |vpiOperand:
+              \_ref_obj: (i), line:9:16, endln:9:17
+                |vpiParent:
+                \_operation: , line:9:16, endln:9:19
+                |vpiName:i
+                |vpiActual:
+                \_logic_net: (i)
+              |vpiOperand:
+              \_constant: , line:9:18, endln:9:19
+                |vpiParent:
+                \_operation: , line:9:16, endln:9:19
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+          |vpiOperand:
+          \_constant: , line:9:24, endln:9:29
+            |vpiParent:
+            \_operation: , line:9:6, endln:9:29
+            |vpiDecompile:2'b00
+            |vpiSize:2
+            |BIN:00
+            |vpiConstType:3
+        |vpiStmt:
+        \_begin: 
+          |vpiStmt:
+          \_ref_module: work@foo (i0), line:11:11, endln:11:13
+            |vpiName:i0
+            |vpiDefName:work@foo
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if: , line:13:7, endln:13:9
+            |vpiCondition:
+            \_operation: , line:13:11, endln:13:34
+              |vpiOpType:14
+              |vpiOperand:
+              \_part_select: , line:13:11, endln:13:25
+                |vpiParent:
+                \_ref_obj: MAP (MAP)
+                  |vpiParent:
+                  \_operation: , line:13:11, endln:13:34
+                  |vpiName:MAP
+                  |vpiDefName:MAP
+                |vpiConstantSelect:1
+                |vpiLeftRange:
+                \_operation: , line:13:15, endln:13:20
+                  |vpiOpType:24
+                  |vpiOperand:
+                  \_operation: , line:13:15, endln:13:18
+                    |vpiParent:
+                    \_operation: , line:13:15, endln:13:20
+                    |vpiOpType:25
+                    |vpiOperand:
+                    \_ref_obj: (i), line:13:15, endln:13:16
+                      |vpiParent:
+                      \_operation: , line:13:15, endln:13:18
+                      |vpiName:i
+                      |vpiActual:
+                      \_logic_net: (i)
+                    |vpiOperand:
+                    \_constant: , line:13:17, endln:13:18
+                      |vpiParent:
+                      \_operation: , line:13:15, endln:13:18
+                      |vpiDecompile:2
+                      |vpiSize:64
+                      |UINT:2
+                      |vpiConstType:9
+                  |vpiOperand:
+                  \_constant: , line:13:19, endln:13:20
+                    |vpiParent:
+                    \_operation: , line:13:15, endln:13:20
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+                    |vpiConstType:9
+                |vpiRightRange:
+                \_operation: , line:13:21, endln:13:24
+                  |vpiOpType:25
+                  |vpiOperand:
+                  \_ref_obj: (i), line:13:21, endln:13:22
+                    |vpiParent:
+                    \_operation: , line:13:21, endln:13:24
+                    |vpiName:i
+                    |vpiActual:
+                    \_logic_net: (i)
+                  |vpiOperand:
+                  \_constant: , line:13:23, endln:13:24
+                    |vpiParent:
+                    \_operation: , line:13:21, endln:13:24
+                    |vpiDecompile:2
+                    |vpiSize:64
+                    |UINT:2
+                    |vpiConstType:9
+              |vpiOperand:
+              \_constant: , line:13:29, endln:13:34
+                |vpiParent:
+                \_operation: , line:13:11, endln:13:34
+                |vpiDecompile:2'b01
+                |vpiSize:2
+                |BIN:01
+                |vpiConstType:3
+            |vpiStmt:
+            \_begin: 
+              |vpiStmt:
+              \_ref_module: work@bar (i0), line:15:11, endln:15:13
+                |vpiName:i0
+                |vpiDefName:work@bar
 |uhdmtopModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
   |vpiName:work@test

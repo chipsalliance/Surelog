@@ -288,11 +288,11 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             2
-begin                                                  7
-constant                                              29
+begin                                                  9
+constant                                              31
 design                                                 1
 gen_for                                                2
-gen_if                                                 1
+gen_if                                                 3
 gen_if_else                                            2
 gen_scope                                             14
 gen_scope_array                                       14
@@ -313,11 +313,11 @@ unsupported_typespec                                   2
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             2
-begin                                                  7
-constant                                              29
+begin                                                  9
+constant                                              31
 design                                                 1
 gen_for                                                2
-gen_if                                                 1
+gen_if                                                 3
 gen_if_else                                            2
 gen_scope                                             21
 gen_scope_array                                       21
@@ -469,6 +469,16 @@ design: (work@top)
         \_logic_net: (i)
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:16:1, endln:16:3
+        |vpiCondition:
+        \_constant: , line:16:5, endln:16:6
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -542,6 +552,16 @@ design: (work@top)
         \_logic_net: (i)
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:25:1, endln:25:3
+        |vpiCondition:
+        \_constant: , line:25:5, endln:25:6
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_begin: 
   |vpiGenStmt:
   \_gen_if: , line:27:1, endln:27:3
     |vpiParent:
