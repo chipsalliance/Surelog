@@ -170,7 +170,10 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
     NodeId assignOp = fC->Sibling(var);
     NodeId exprId = fC->Sibling(assignOp);
     if (!exprId) {  // Unary operator like i++
-      exprId = var;
+      exprId = iteration;
+      expr* ex = (expr*)compileExpression(component, fC, exprId, compileDesign,
+                                          Reduce::No);
+      genfor->VpiForIncStmt(ex);
     } else if (fC->Type(assignOp) !=
                VObjectType::slAssignOp_Assign) {  // Operators like +=
       exprId = var;
@@ -198,8 +201,7 @@ void CompileHelper::compileGenStmt(ModuleDefinition* component,
   if (component->getGenStmts() == nullptr) {
     component->setGenStmts(s.MakeGen_stmtVec());
   }
-  if (genstmt)
-    component->getGenStmts()->push_back(genstmt);
+  if (genstmt) component->getGenStmts()->push_back(genstmt);
 }
 
 }  // namespace SURELOG

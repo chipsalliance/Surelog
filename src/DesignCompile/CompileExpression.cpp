@@ -2425,20 +2425,52 @@ UHDM::any *CompileHelper::compileExpression(
             }
             NodeId rhsbackup = rhs;
             while ((rhs = fC->Sibling(rhs))) {
-              if (fC->Type(rhs) == VObjectType::slStringConst) {
+              VObjectType type = fC->Type(rhs);
+              if (type == VObjectType::slStringConst) {
                 if (fC->Type(rhsbackup) == VObjectType::slPackage_scope) {
                   name.append("::").append(fC->SymName(rhs));
                 } else {
                   name.append(".").append(fC->SymName(rhs));
                 }
-              } else if (fC->Type(rhs) == VObjectType::slSelect ||
-                         fC->Type(rhs) == VObjectType::slConstant_select) {
+              } else if (type == VObjectType::slSelect ||
+                         type == VObjectType::slConstant_select) {
                 NodeId Bit_select = fC->Child(rhs);
                 result = compileSelectExpression(component, fC, Bit_select,
                                                  name, compileDesign, reduce,
                                                  pexpr, instance, muteErrors);
                 if (result != nullptr) {
                   fC->populateCoreMembers(rhsbackup, rhs, result);
+                }
+              } else if (type == VObjectType::slIncDec_PlusPlus ||
+                         type == VObjectType::slIncDec_MinusMinus) {
+                uint32_t vopType = UhdmWriter::getVpiOpType(type);
+                if (vopType) {
+                  UHDM::operation *op = s.MakeOperation();
+                  op->Attributes(attributes);
+                  op->VpiOpType(vopType);
+                  op->VpiParent(pexpr);
+                  UHDM::VectorOfany *operands = s.MakeAnyVec();
+                  UHDM::ref_obj *ref = s.MakeRef_obj();
+                  ref->VpiName(name);
+                  ref->VpiParent(pexpr);
+                  if (pexpr) {
+                    if (UHDM::any *var =
+                            bindVariable(component, pexpr, name, compileDesign))
+                      ref->Actual_group(var);
+                    else if (component)
+                      component->needLateBinding(ref);
+                  } else if (instance) {
+                    if (UHDM::any *var = bindVariable(component, instance, name,
+                                                      compileDesign))
+                      ref->Actual_group(var);
+                    else if (component)
+                      component->needLateBinding(ref);
+                  } else if (component) {
+                    component->needLateBinding(ref);
+                  }
+                  operands->push_back(ref);
+                  op->Operands(operands);
+                  result = op;
                 }
               }
               if (result) break;
