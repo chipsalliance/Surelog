@@ -152,6 +152,49 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         }
       }
     }
+  } else if (fC->Type(stmtId) ==
+             VObjectType::slCase_generate_construct) {  // Case
+    NodeId tmp = fC->Child(stmtId);
+    gen_case* gencase = s.MakeGen_case();
+    genstmt = gencase;
+    expr* cond =
+        (expr*)compileExpression(component, fC, tmp, compileDesign, Reduce::No);
+    gencase->VpiCondition(cond);
+    VectorOfcase_item* items = s.MakeCase_itemVec();
+    gencase->Case_items(items);
+    tmp = fC->Sibling(tmp);
+    while (tmp) {
+      if (fC->Type(tmp) == VObjectType::slCase_generate_item) {
+        NodeId itemExp = fC->Child(tmp);
+        expr* ex = nullptr;
+        NodeId stmtId = itemExp;
+        if (fC->Type(itemExp) == VObjectType::slConstant_expression) {
+          ex = (expr*)compileExpression(component, fC, itemExp, compileDesign,
+                                        Reduce::No);
+          stmtId = fC->Sibling(stmtId);
+        }
+        VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
+                                         Reduce::No, nullptr, nullptr, true);
+        case_item* citem = s.MakeCase_item();
+        items->push_back(citem);
+        VectorOfany* exprs = s.MakeAnyVec();
+        citem->VpiExprs(exprs);
+        if (ex) exprs->push_back(ex);
+        NodeId blockNameId = fC->Child(stmtId);
+        if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+          std::string_view blockName = fC->SymName(blockNameId);
+          named_begin* stmt = s.MakeNamed_begin();
+          stmt->VpiName(blockName);
+          stmt->Stmts(stmts);
+          citem->Stmt(stmt);
+        } else {
+          begin* stmt = s.MakeBegin();
+          stmt->Stmts(stmts);
+          citem->Stmt(stmt);
+        }
+      }
+      tmp = fC->Sibling(tmp);
+    }
   } else if (fC->Type(stmtId) == VObjectType::slGenvar_initialization ||
              fC->Type(stmtId) ==
                  VObjectType::slGenvar_decl_assignment) {  // For loop stmt

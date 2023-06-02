@@ -13580,11 +13580,13 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_select                                            72
+case_item                                              3
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            4408
+constant                                            4410
 cont_assign                                           26
 design                                                 1
 enum_const                                             5
@@ -13592,6 +13594,7 @@ enum_typespec                                          1
 enum_var                                               1
 function                                               9
 gate                                                  10
+gen_case                                               1
 gen_scope                                           2426
 gen_scope_array                                     2426
 int_typespec                                        1219
@@ -13603,6 +13606,7 @@ logic_var                                              1
 module_array                                           1
 module_inst                                         1275
 module_typespec                                        1
+named_begin                                            2
 operation                                           1360
 package                                                2
 param_assign                                          10
@@ -13611,7 +13615,7 @@ port                                                 117
 prim_term                                             24
 range                                                 89
 ref_module                                          1201
-ref_obj                                              215
+ref_obj                                              216
 task                                                   9
 udp                                                    1
 === UHDM Object Stats End ===
@@ -14567,6 +14571,39 @@ design: (work@bottom1)
         |vpiFullName:work@test.u4.b
         |vpiActual:
         \_logic_net: (work@test.b), line:35:16, endln:35:17
+  |vpiGenStmt:
+  \_gen_case: 
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
+    |vpiCondition:
+    \_ref_obj: (POWER1), line:62:12, endln:62:18
+      |vpiName:POWER1
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiExpr:
+      \_constant: , line:63:9, endln:63:10
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiStmt:
+      \_begin: 
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiExpr:
+      \_constant: , line:66:9, endln:66:10
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiStmt:
+      \_named_begin: (u1)
+        |vpiName:u1
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiStmt:
+      \_named_begin: (u1)
+        |vpiName:u1
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:26:1, endln:31:10
   |vpiParent:
