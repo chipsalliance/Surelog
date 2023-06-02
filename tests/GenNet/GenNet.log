@@ -275,14 +275,14 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
 constant                                              41
-cont_assign                                            1
+cont_assign                                            3
 design                                                 1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           2
-logic_net                                              2
+logic_net                                              4
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            9
@@ -293,7 +293,7 @@ parameter                                              4
 port                                                   2
 range                                                  6
 ref_module                                             1
-ref_obj                                                8
+ref_obj                                               12
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -301,14 +301,14 @@ string_typespec                                        2
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  1
 constant                                              41
-cont_assign                                            2
+cont_assign                                            4
 design                                                 1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           2
-logic_net                                              2
+logic_net                                              4
 logic_typespec                                         4
 logic_var                                              2
 module_inst                                            9
@@ -319,7 +319,7 @@ parameter                                              4
 port                                                   3
 range                                                  7
 ref_module                                             1
-ref_obj                                               11
+ref_obj                                               15
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.uhdm ...
@@ -496,6 +496,22 @@ design: (work@dut)
     |vpiStmt:
     \_named_begin: (gen_w)
       |vpiName:gen_w
+      |vpiStmt:
+      \_cont_assign: , line:10:12, endln:10:27
+        |vpiRhs:
+        \_ref_obj: (q), line:10:26, endln:10:27
+          |vpiParent:
+          \_cont_assign: , line:10:12, endln:10:27
+          |vpiName:q
+          |vpiActual:
+          \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19
+        |vpiLhs:
+        \_ref_obj: (unused_q_wo), line:10:12, endln:10:23
+          |vpiParent:
+          \_cont_assign: , line:10:12, endln:10:27
+          |vpiName:unused_q_wo
+          |vpiActual:
+          \_logic_net: (unused_q_wo)
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -519,6 +535,22 @@ design: (work@dut)
         |vpiStmt:
         \_named_begin: (gen_ro)
           |vpiName:gen_ro
+          |vpiStmt:
+          \_cont_assign: , line:13:12, endln:13:28
+            |vpiRhs:
+            \_ref_obj: (q), line:13:27, endln:13:28
+              |vpiParent:
+              \_cont_assign: , line:13:12, endln:13:28
+              |vpiName:q
+              |vpiActual:
+              \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19
+            |vpiLhs:
+            \_ref_obj: (unused_q_ro), line:13:12, endln:13:23
+              |vpiParent:
+              \_cont_assign: , line:13:12, endln:13:28
+              |vpiName:unused_q_ro
+              |vpiActual:
+              \_logic_net: (unused_q_ro)
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
   |vpiName:work@dut
@@ -614,6 +646,14 @@ design: (work@dut)
             |vpiConstType:9
       |vpiName:q
       |vpiFullName:work@dut.m1.q
+    |vpiNet:
+    \_logic_net: (unused_q_wo)
+      |vpiName:unused_q_wo
+      |vpiNetType:1
+    |vpiNet:
+    \_logic_net: (unused_q_ro)
+      |vpiName:unused_q_ro
+      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
     |vpiPort:
@@ -740,4 +780,4 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenNet/dut.sv | ${SURELOG_DIR}/build/regression/GenNet/roundtrip/dut_000.sv | 16 | 23 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenNet/dut.sv | ${SURELOG_DIR}/build/regression/GenNet/roundtrip/dut_000.sv | 14 | 23 |

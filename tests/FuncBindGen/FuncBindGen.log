@@ -203,14 +203,14 @@ AST_DEBUG_END
 assign_stmt                                            1
 begin                                                  1
 constant                                              26
-cont_assign                                            2
+cont_assign                                            3
 design                                                 1
-func_call                                              2
+func_call                                              3
 function                                               1
 gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
-int_typespec                                          14
+int_typespec                                          15
 int_var                                                1
 integer_typespec                                       1
 logic_net                                              1
@@ -218,12 +218,12 @@ logic_typespec                                         2
 logic_var                                              2
 module_inst                                            7
 named_begin                                            1
-operation                                              8
+operation                                              9
 param_assign                                           6
 parameter                                              6
 port                                                   2
 range                                                  3
-ref_obj                                                7
+ref_obj                                                8
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -232,14 +232,14 @@ return_stmt                                            1
 assign_stmt                                            2
 begin                                                  2
 constant                                              26
-cont_assign                                            3
+cont_assign                                            4
 design                                                 1
-func_call                                              2
+func_call                                              3
 function                                               2
 gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
-int_typespec                                          14
+int_typespec                                          15
 int_var                                                1
 integer_typespec                                       1
 logic_net                                              1
@@ -247,12 +247,12 @@ logic_typespec                                         2
 logic_var                                              5
 module_inst                                            7
 named_begin                                            1
-operation                                              9
+operation                                             10
 param_assign                                           6
 parameter                                              6
 port                                                   3
 range                                                  3
-ref_obj                                               10
+ref_obj                                               11
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncBindGen/slpp_all/surelog.uhdm ...
@@ -366,6 +366,28 @@ design: (work@top)
     |vpiStmt:
     \_named_begin: (gen_block)
       |vpiName:gen_block
+      |vpiStmt:
+      \_cont_assign: , line:11:14, endln:11:42
+        |vpiRhs:
+        \_operation: , line:11:18, endln:11:42
+          |vpiParent:
+          \_cont_assign: , line:11:14, endln:11:42
+          |vpiTypespec:
+          \_int_typespec: , line:11:18, endln:11:21
+            |vpiSigned:1
+          |vpiOpType:67
+          |vpiOperand:
+          \_func_call: (get_casted_param), line:11:23, endln:11:41
+            |vpiParent:
+            \_operation: , line:11:18, endln:11:42
+            |vpiName:get_casted_param
+        |vpiLhs:
+        \_ref_obj: (o), line:11:14, endln:11:15
+          |vpiParent:
+          \_cont_assign: , line:11:14, endln:11:42
+          |vpiName:o
+          |vpiActual:
+          \_int_var: (work@top.o), line:1:23, endln:1:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
   |vpiName:work@top

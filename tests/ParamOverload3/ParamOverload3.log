@@ -666,32 +666,33 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-bit_select                                             6
-constant                                             268
-cont_assign                                            2
+bit_select                                             7
+constant                                             269
+cont_assign                                            3
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 func_call                                             10
 function                                               2
 gen_for                                                1
+gen_if_else                                            1
 gen_scope                                             20
 gen_scope_array                                       20
-hier_path                                             11
+hier_path                                             12
 int_typespec                                          52
 int_var                                                2
 io_decl                                                2
-logic_net                                              1
+logic_net                                              2
 logic_typespec                                         2
 module_inst                                           28
-named_begin                                            1
-operation                                             98
+named_begin                                            3
+operation                                            100
 package                                                3
 packed_array_typespec                                  4
 param_assign                                          52
 parameter                                             58
 range                                                  6
-ref_obj                                               54
+ref_obj                                               60
 ref_var                                                1
 return_stmt                                            2
 string_typespec                                       50
@@ -705,32 +706,33 @@ unsupported_typespec                                   8
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-bit_select                                            11
-constant                                             275
-cont_assign                                            3
+bit_select                                            12
+constant                                             276
+cont_assign                                            4
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 func_call                                             10
 function                                               4
 gen_for                                                1
+gen_if_else                                            1
 gen_scope                                             30
 gen_scope_array                                       30
-hier_path                                             15
+hier_path                                             16
 int_typespec                                          52
 int_var                                                2
 io_decl                                                4
-logic_net                                              1
+logic_net                                              2
 logic_typespec                                         2
 module_inst                                           28
-named_begin                                            1
-operation                                            102
+named_begin                                            3
+operation                                            104
 package                                                3
 packed_array_typespec                                  4
 param_assign                                          57
 parameter                                             58
 range                                                  6
-ref_obj                                               68
+ref_obj                                               74
 ref_var                                                1
 return_stmt                                            4
 string_typespec                                       50
@@ -1949,6 +1951,75 @@ design: (work@top)
     |vpiStmt:
     \_named_begin: (gen_nanbox_check)
       |vpiName:gen_nanbox_check
+      |vpiStmt:
+      \_gen_if_else: , line:52:5, endln:60:8
+        |vpiCondition:
+        \_operation: , line:52:9, endln:52:52
+          |vpiOpType:26
+          |vpiOperand:
+          \_hier_path: (Features.EnableNanBox), line:52:9, endln:52:30
+            |vpiParent:
+            \_operation: , line:52:9, endln:52:52
+            |vpiName:Features.EnableNanBox
+            |vpiActual:
+            \_ref_obj: (Features)
+              |vpiParent:
+              \_hier_path: (Features.EnableNanBox), line:52:9, endln:52:30
+              |vpiName:Features
+            |vpiActual:
+            \_ref_obj: (EnableNanBox)
+              |vpiParent:
+              \_hier_path: (Features.EnableNanBox), line:52:9, endln:52:30
+              |vpiName:EnableNanBox
+          |vpiOperand:
+          \_operation: , line:52:35, endln:52:51
+            |vpiParent:
+            \_operation: , line:52:9, endln:52:52
+            |vpiOpType:20
+            |vpiOperand:
+            \_ref_obj: (FP_WIDTH), line:52:35, endln:52:43
+              |vpiParent:
+              \_operation: , line:52:9, endln:52:52
+              |vpiName:FP_WIDTH
+              |vpiActual:
+              \_logic_net: (FP_WIDTH)
+            |vpiOperand:
+            \_ref_obj: (WIDTH), line:52:46, endln:52:51
+              |vpiParent:
+              \_operation: , line:52:35, endln:52:51
+              |vpiName:WIDTH
+        |vpiStmt:
+        \_named_begin: (check)
+          |vpiName:check
+        |vpiElseStmt:
+        \_named_begin: (no_check)
+          |vpiName:no_check
+          |vpiStmt:
+          \_cont_assign: , line:59:14, endln:59:32
+            |vpiRhs:
+            \_constant: , line:59:30, endln:59:32
+              |vpiParent:
+              \_cont_assign: , line:59:14, endln:59:32
+              |vpiDecompile:'1
+              |vpiSize:-1
+              |BIN:1
+              |vpiConstType:3
+            |vpiLhs:
+            \_bit_select: (is_boxed), line:59:14, endln:59:27
+              |vpiParent:
+              \_ref_obj: (is_boxed)
+                |vpiParent:
+                \_cont_assign: , line:59:14, endln:59:32
+                |vpiName:is_boxed
+              |vpiName:is_boxed
+              |vpiIndex:
+              \_ref_obj: (is_boxed.fmt), line:59:23, endln:59:26
+                |vpiParent:
+                \_bit_select: (is_boxed), line:59:14, endln:59:27
+                |vpiName:fmt
+                |vpiFullName:is_boxed.fmt
+                |vpiActual:
+                \_logic_net: (fmt)
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload3/dut.sv, line:43:1, endln:64:10
   |vpiName:work@top
@@ -2112,6 +2183,10 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (fmt)
     |vpiName:fmt
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (FP_WIDTH)
+    |vpiName:FP_WIDTH
     |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
@@ -2452,4 +2527,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ParamOverload3/dut.sv | ${SURELOG_DIR}/build/regression/ParamOverload3/roundtrip/dut_000.sv | 21 | 64 |
+[roundtrip]: ${SURELOG_DIR}/tests/ParamOverload3/dut.sv | ${SURELOG_DIR}/build/regression/ParamOverload3/roundtrip/dut_000.sv | 20 | 64 |

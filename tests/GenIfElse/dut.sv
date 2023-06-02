@@ -5,5 +5,6 @@ module top;
    end
    else begin
     assign c = d;
+    assign e = f;
    end
 endmodule

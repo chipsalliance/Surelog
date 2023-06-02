@@ -325,9 +325,9 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
 constant                                              19
-cont_assign                                            5
+cont_assign                                            6
 design                                                 1
-func_call                                              4
+func_call                                              5
 function                                               4
 gen_if_else                                            1
 gen_scope                                              4
@@ -342,7 +342,7 @@ operation                                              3
 param_assign                                           6
 parameter                                              6
 ref_module                                             1
-ref_obj                                                8
+ref_obj                                                9
 return_stmt                                            3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -350,9 +350,9 @@ return_stmt                                            3
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  1
 constant                                              19
-cont_assign                                            6
+cont_assign                                            7
 design                                                 1
-func_call                                              4
+func_call                                              5
 function                                               6
 gen_if_else                                            1
 gen_scope                                              5
@@ -367,7 +367,7 @@ operation                                              3
 param_assign                                           6
 parameter                                              6
 ref_module                                             1
-ref_obj                                                9
+ref_obj                                               10
 return_stmt                                            5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
@@ -523,6 +523,20 @@ design: (work@top)
     |vpiStmt:
     \_named_begin: (gen_block)
       |vpiName:gen_block
+      |vpiStmt:
+      \_cont_assign: , line:34:14, endln:34:24
+        |vpiRhs:
+        \_func_call: (get1), line:34:18, endln:34:24
+          |vpiParent:
+          \_cont_assign: , line:34:14, endln:34:24
+          |vpiName:get1
+        |vpiLhs:
+        \_ref_obj: (o), line:34:14, endln:34:15
+          |vpiParent:
+          \_cont_assign: , line:34:14, endln:34:24
+          |vpiName:o
+          |vpiActual:
+          \_int_var: (work@top.o), line:23:27, endln:23:28
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -771,4 +785,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv | ${SURELOG_DIR}/build/regression/FuncDeclScope/roundtrip/dut_000.sv | 20 | 40 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv | ${SURELOG_DIR}/build/regression/FuncDeclScope/roundtrip/dut_000.sv | 19 | 40 |

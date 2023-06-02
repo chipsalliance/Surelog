@@ -1044,12 +1044,12 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                 11
+begin                                                 13
 case_item                                              4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              66
+constant                                              70
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -1057,7 +1057,7 @@ enum_var                                               1
 function                                               9
 gate                                                  16
 gen_case                                               2
-gen_if                                                 2
+gen_if                                                 6
 gen_if_else                                            6
 gen_scope                                             17
 gen_scope_array                                       17
@@ -1068,7 +1068,7 @@ logic_net                                             12
 logic_typespec                                         2
 logic_var                                              1
 module_inst                                            9
-named_begin                                            7
+named_begin                                            9
 operation                                             13
 package                                                2
 param_assign                                           8
@@ -1695,6 +1695,27 @@ design: (work@test1)
               |vpiStmt:
               \_named_begin: (u1)
                 |vpiName:u1
+          |vpiStmt:
+          \_gen_if: , line:43:5, endln:43:7
+            |vpiCondition:
+            \_constant: , line:43:9, endln:43:10
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiStmt:
+            \_begin: 
+          |vpiStmt:
+          \_gen_if: , line:49:5, endln:49:7
+            |vpiCondition:
+            \_constant: , line:49:9, endln:49:10
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiStmt:
+            \_named_begin: (n5)
+              |vpiName:n5
 |uhdmallModules:
 \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
   |vpiParent:
@@ -1928,6 +1949,27 @@ design: (work@test1)
               |vpiStmt:
               \_named_begin: (u1)
                 |vpiName:u1
+          |vpiStmt:
+          \_gen_if: , line:102:5, endln:102:7
+            |vpiCondition:
+            \_constant: , line:102:9, endln:102:10
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiStmt:
+            \_begin: 
+          |vpiStmt:
+          \_gen_if: , line:108:5, endln:108:7
+            |vpiCondition:
+            \_constant: , line:108:9, endln:108:10
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiStmt:
+            \_named_begin: (n5)
+              |vpiName:n5
 |uhdmtopModules:
 \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
   |vpiName:work@test1

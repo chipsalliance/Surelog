@@ -3664,9 +3664,10 @@ design                                                 1
 enum_const                                            28
 enum_typespec                                          9
 for_stmt                                               2
-func_call                                            108
+func_call                                            109
 function                                              68
 gen_for                                                1
+gen_if_else                                            1
 gen_scope                                              8
 gen_scope_array                                        8
 hier_path                                             64
@@ -3680,14 +3681,14 @@ logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
 module_inst                                           76
-named_begin                                            1
+named_begin                                            3
 operation                                            120
 package                                                3
 param_assign                                         118
 parameter                                            125
 port                                                   6
 range                                                  9
-ref_obj                                              446
+ref_obj                                              447
 ref_var                                                1
 return_stmt                                           88
 short_int_typespec                                   104
@@ -3715,9 +3716,10 @@ design                                                 1
 enum_const                                            28
 enum_typespec                                          9
 for_stmt                                               5
-func_call                                            267
+func_call                                            268
 function                                             170
 gen_for                                                1
+gen_if_else                                            1
 gen_scope                                             12
 gen_scope_array                                       12
 hier_path                                            149
@@ -3731,14 +3733,14 @@ logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
 module_inst                                           76
-named_begin                                            1
+named_begin                                            3
 operation                                            270
 package                                                3
 param_assign                                         118
 parameter                                            125
 port                                                   9
 range                                                  9
-ref_obj                                             1052
+ref_obj                                             1053
 ref_var                                                1
 return_stmt                                          220
 short_int_typespec                                   104
@@ -19263,6 +19265,24 @@ design: (work@tnoc_vc_splitter)
     |vpiStmt:
     \_named_begin: (g)
       |vpiName:g
+      |vpiStmt:
+      \_gen_if_else: , line:422:5, endln:431:8
+        |vpiCondition:
+        \_func_call: (is_local_port), line:422:9, endln:422:22
+          |vpiArgument:
+          \_ref_obj: (PORT_TYPE), line:422:23, endln:422:32
+            |vpiParent:
+            \_func_call: (is_local_port), line:422:9, endln:422:22
+            |vpiName:PORT_TYPE
+          |vpiName:is_local_port
+          |vpiFunction:
+          \_function: (tnoc_pkg::is_local_port), line:378:3, endln:380:14
+        |vpiStmt:
+        \_named_begin: (g)
+          |vpiName:g
+        |vpiElseStmt:
+        \_named_begin: (g)
+          |vpiName:g
 |uhdmtopModules:
 \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiName:work@tnoc_vc_splitter

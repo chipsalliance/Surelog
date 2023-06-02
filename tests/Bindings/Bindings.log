@@ -1357,8 +1357,8 @@ bit_select                                             3
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             166
-cont_assign                                            7
+constant                                             167
+cont_assign                                            8
 design                                                 1
 enum_const                                            23
 enum_typespec                                         10
@@ -1385,7 +1385,7 @@ parameter                                             35
 port                                                   4
 range                                                 22
 ref_module                                             2
-ref_obj                                               58
+ref_obj                                               59
 string_typespec                                        3
 sys_func_call                                          3
 task                                                   9
@@ -1405,8 +1405,8 @@ bit_select                                             5
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             177
-cont_assign                                           11
+constant                                             178
+cont_assign                                           12
 design                                                 1
 enum_const                                            28
 enum_typespec                                         11
@@ -1433,7 +1433,7 @@ parameter                                             35
 port                                                   6
 range                                                 22
 ref_module                                             2
-ref_obj                                               88
+ref_obj                                               89
 string_typespec                                        3
 sys_func_call                                          3
 task                                                  18
@@ -2610,6 +2610,23 @@ design: (work@dut1)
         |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:44:15, endln:44:23
+        |vpiRhs:
+        \_constant: , line:44:19, endln:44:23
+          |vpiParent:
+          \_cont_assign: , line:44:15, endln:44:23
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiLhs:
+        \_ref_obj: (o), line:44:15, endln:44:16
+          |vpiParent:
+          \_cont_assign: , line:44:15, endln:44:23
+          |vpiName:o
+          |vpiActual:
+          \_logic_net: (work@dut2.o), line:38:36, endln:38:37
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -4352,4 +4369,4 @@ design: (work@dut1)
 [   NOTE] : 10
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/Bindings/dut.sv | ${SURELOG_DIR}/build/regression/Bindings/roundtrip/dut_000.sv | 39 | 108 |
+[roundtrip]: ${SURELOG_DIR}/tests/Bindings/dut.sv | ${SURELOG_DIR}/build/regression/Bindings/roundtrip/dut_000.sv | 38 | 108 |
