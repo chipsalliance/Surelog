@@ -210,9 +210,9 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-bit_select                                            32
-constant                                              45
-cont_assign                                           11
+bit_select                                            36
+constant                                              48
+cont_assign                                           12
 design                                                 1
 gen_for                                                1
 gen_scope                                             10
@@ -221,10 +221,10 @@ int_typespec                                           7
 logic_net                                              3
 module_inst                                            6
 named_begin                                            1
-operation                                             49
+operation                                             55
 param_assign                                           2
 parameter                                              7
-ref_obj                                               78
+ref_obj                                               87
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -233,9 +233,9 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-bit_select                                            62
-constant                                              45
-cont_assign                                           21
+bit_select                                            66
+constant                                              48
+cont_assign                                           22
 design                                                 1
 gen_for                                                1
 gen_scope                                             15
@@ -244,10 +244,10 @@ int_typespec                                           7
 logic_net                                              3
 module_inst                                            6
 named_begin                                            1
-operation                                             89
+operation                                             95
 param_assign                                           2
 parameter                                              7
-ref_obj                                              148
+ref_obj                                              157
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -409,6 +409,130 @@ design: (work@top)
             |vpiFullName:w_data_li.i
             |vpiActual:
             \_logic_net: (i)
+      |vpiStmt:
+      \_cont_assign: , line:8:14, endln:8:95
+        |vpiRhs:
+        \_operation: , line:8:31, endln:8:95
+          |vpiParent:
+          \_cont_assign: , line:8:14, endln:8:95
+          |vpiOpType:32
+          |vpiOperand:
+          \_ref_obj: (is_clear), line:8:31, endln:8:39
+            |vpiParent:
+            \_operation: , line:8:31, endln:8:95
+            |vpiName:is_clear
+            |vpiActual:
+            \_logic_net: (is_clear)
+          |vpiOperand:
+          \_bit_select: (bht_init_lp), line:8:42, endln:8:56
+            |vpiParent:
+            \_ref_obj: (bht_init_lp)
+              |vpiParent:
+              \_operation: , line:8:31, endln:8:95
+              |vpiName:bht_init_lp
+            |vpiName:bht_init_lp
+            |vpiIndex:
+            \_constant: , line:8:54, endln:8:55
+              |vpiParent:
+              \_bit_select: (bht_init_lp), line:8:42, endln:8:56
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiOperand:
+          \_operation: , line:8:59, endln:8:95
+            |vpiParent:
+            \_operation: , line:8:31, endln:8:95
+            |vpiOpType:30
+            |vpiOperand:
+            \_bit_select: (val_i), line:8:59, endln:8:69
+              |vpiParent:
+              \_ref_obj: (val_i)
+                |vpiParent:
+                \_operation: , line:8:59, endln:8:95
+                |vpiName:val_i
+              |vpiName:val_i
+              |vpiIndex:
+              \_operation: , line:8:65, endln:8:68
+                |vpiParent:
+                \_operation: , line:8:31, endln:8:95
+                |vpiOpType:24
+                |vpiOperand:
+                \_ref_obj: (i), line:8:65, endln:8:66
+                  |vpiParent:
+                  \_operation: , line:8:31, endln:8:95
+                  |vpiName:i
+                  |vpiActual:
+                  \_logic_net: (i)
+                |vpiOperand:
+                \_constant: , line:8:67, endln:8:68
+                  |vpiParent:
+                  \_operation: , line:8:65, endln:8:68
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+            |vpiOperand:
+            \_operation: , line:8:73, endln:8:94
+              |vpiParent:
+              \_operation: , line:8:59, endln:8:95
+              |vpiOpType:28
+              |vpiOperand:
+              \_operation: , line:8:73, endln:8:83
+                |vpiParent:
+                \_operation: , line:8:59, endln:8:95
+                |vpiOpType:4
+                |vpiOperand:
+                \_ref_obj: (correct_i), line:8:74, endln:8:83
+                  |vpiParent:
+                  \_operation: , line:8:73, endln:8:83
+                  |vpiName:correct_i
+                  |vpiActual:
+                  \_logic_net: (correct_i)
+              |vpiOperand:
+              \_bit_select: (val_i), line:8:86, endln:8:94
+                |vpiParent:
+                \_ref_obj: (val_i)
+                  |vpiParent:
+                  \_operation: , line:8:73, endln:8:94
+                  |vpiName:val_i
+                |vpiName:val_i
+                |vpiIndex:
+                \_ref_obj: (i), line:8:92, endln:8:93
+                  |vpiParent:
+                  \_operation: , line:8:73, endln:8:94
+                  |vpiName:i
+                  |vpiActual:
+                  \_logic_net: (i)
+        |vpiLhs:
+        \_bit_select: (w_data_li), line:8:14, endln:8:28
+          |vpiParent:
+          \_ref_obj: (w_data_li)
+            |vpiParent:
+            \_cont_assign: , line:8:14, endln:8:95
+            |vpiName:w_data_li
+          |vpiName:w_data_li
+          |vpiIndex:
+          \_operation: , line:8:24, endln:8:27
+            |vpiParent:
+            \_bit_select: (w_data_li), line:8:14, endln:8:28
+            |vpiOpType:24
+            |vpiOperand:
+            \_ref_obj: (w_data_li.i), line:8:24, endln:8:25
+              |vpiParent:
+              \_operation: , line:8:24, endln:8:27
+              |vpiName:i
+              |vpiFullName:w_data_li.i
+              |vpiActual:
+              \_logic_net: (i)
+            |vpiOperand:
+            \_constant: , line:8:26, endln:8:27
+              |vpiParent:
+              \_operation: , line:8:24, endln:8:27
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPlus/dut.sv, line:1:1, endln:11:10
   |vpiName:work@top

@@ -119,8 +119,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   switch (type) {
     case VObjectType::slModule_common_item:
     case VObjectType::slModule_or_generate_item:
-    case VObjectType::slGenerate_item:
-    case VObjectType::slGenerate_block: {
+    case VObjectType::slGenerate_item: {
       if (instance) break;
       NodeId child = fC->Child(the_stmt);
       if (!child) {
@@ -129,6 +128,35 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       }
       results = compileStmt(component, fC, child, compileDesign, reduce, pstmt,
                             instance, muteErrors);
+      break;
+    }
+    case VObjectType::slGenerate_block: {
+      if (instance) break;
+      NodeId child = fC->Child(the_stmt);
+      if (!child) {
+        // That is the null statement (no statement)
+        return nullptr;
+      }
+      if (fC->Sibling(child)) {
+        results = s.MakeAnyVec();
+        NodeId tmp = child;
+        while (tmp) {
+          if (fC->Type(tmp) != VObjectType::slStringConst) {
+            VectorOfany* stmts =
+                compileStmt(component, fC, tmp, compileDesign, reduce, pstmt,
+                            instance, muteErrors);
+            if (stmts) {
+              for (any* st : *stmts) {
+                results->push_back(st);
+              }
+            }
+          }
+          tmp = fC->Sibling(tmp);
+        }
+      } else {
+        results = compileStmt(component, fC, child, compileDesign, reduce,
+                              pstmt, instance, muteErrors);
+      }
       break;
     }
     case VObjectType::slConditional_generate_construct: {

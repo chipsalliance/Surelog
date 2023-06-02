@@ -199,24 +199,25 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  2
+begin                                                  4
 bit_select                                             5
-constant                                              55
+constant                                              57
 design                                                 1
 gen_for                                                1
 gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                             14
 gen_scope_array                                       14
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                           10
-operation                                             13
+operation                                             16
 param_assign                                           2
 parameter                                              6
 range                                                  6
-ref_module                                             5
-ref_obj                                                8
+ref_module                                             7
+ref_obj                                               10
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -224,24 +225,25 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  2
+begin                                                  4
 bit_select                                             5
-constant                                              55
+constant                                              57
 design                                                 1
 gen_for                                                1
 gen_if                                                 1
+gen_if_else                                            1
 gen_scope                                             20
 gen_scope_array                                       20
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                           14
-operation                                             13
+operation                                             16
 param_assign                                           2
 parameter                                              6
 range                                                  6
-ref_module                                             5
-ref_obj                                                8
+ref_module                                             7
+ref_obj                                               10
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -375,6 +377,63 @@ design: (work@dut)
           \_ref_module: work@MOD (m), line:11:9, endln:11:10
             |vpiName:m
             |vpiDefName:work@MOD
+          |vpiStmt:
+          \_gen_if_else: , line:12:5, endln:16:8
+            |vpiCondition:
+            \_operation: , line:12:9, endln:12:25
+              |vpiOpType:27
+              |vpiOperand:
+              \_operation: , line:12:9, endln:12:15
+                |vpiParent:
+                \_operation: , line:12:9, endln:12:25
+                |vpiOpType:14
+                |vpiOperand:
+                \_ref_obj: (k), line:12:9, endln:12:10
+                  |vpiParent:
+                  \_operation: , line:12:9, endln:12:15
+                  |vpiName:k
+                  |vpiActual:
+                  \_logic_net: (k)
+                |vpiOperand:
+                \_constant: , line:12:14, endln:12:15
+                  |vpiParent:
+                  \_operation: , line:12:9, endln:12:15
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+              |vpiOperand:
+              \_operation: , line:12:19, endln:12:25
+                |vpiParent:
+                \_operation: , line:12:9, endln:12:25
+                |vpiOpType:14
+                |vpiOperand:
+                \_ref_obj: (k), line:12:19, endln:12:20
+                  |vpiParent:
+                  \_operation: , line:12:9, endln:12:25
+                  |vpiName:k
+                  |vpiActual:
+                  \_logic_net: (k)
+                |vpiOperand:
+                \_constant: , line:12:24, endln:12:25
+                  |vpiParent:
+                  \_operation: , line:12:19, endln:12:25
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+            |vpiStmt:
+            \_begin: 
+              |vpiStmt:
+              \_ref_module: work@GOOD (good), line:13:13, endln:13:17
+                |vpiName:good
+                |vpiDefName:work@GOOD
+            |vpiElseStmt:
+            \_begin: 
+              |vpiStmt:
+              \_ref_module: work@BAD (bad), line:15:12, endln:15:15
+                |vpiName:bad
+                |vpiDefName:work@BAD
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
   |vpiName:work@dut

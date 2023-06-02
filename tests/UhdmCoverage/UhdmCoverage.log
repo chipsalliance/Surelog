@@ -959,10 +959,10 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
-bit_select                                             7
+bit_select                                             8
 bit_typespec                                           2
-constant                                              99
-cont_assign                                           13
+constant                                             100
+cont_assign                                           14
 design                                                 1
 gen_if_else                                            2
 gen_scope                                              6
@@ -981,7 +981,7 @@ part_select                                            2
 port                                                  13
 range                                                 13
 ref_module                                             4
-ref_obj                                               76
+ref_obj                                               78
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -989,10 +989,10 @@ tagged_pattern                                         3
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
-bit_select                                            10
+bit_select                                            11
 bit_typespec                                           2
-constant                                             103
-cont_assign                                           19
+constant                                             104
+cont_assign                                           20
 design                                                 1
 gen_if_else                                            2
 gen_scope                                              9
@@ -1011,7 +1011,7 @@ part_select                                            3
 port                                                  18
 range                                                 13
 ref_module                                             4
-ref_obj                                               96
+ref_obj                                               98
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -1736,6 +1736,32 @@ design: (work@divSqrtRecFNToRaw_small)
             \_bit_select: (lce_req_link_lo), line:149:26, endln:149:44
             |vpiName:i
             |vpiFullName:lce_req_link_lo.i
+            |vpiActual:
+            \_logic_net: (i)
+      |vpiStmt:
+      \_cont_assign: , line:150:27, endln:150:51
+        |vpiRhs:
+        \_constant: , line:150:49, endln:150:51
+          |vpiParent:
+          \_cont_assign: , line:150:27, endln:150:51
+          |vpiDecompile:'0
+          |vpiSize:-1
+          |BIN:0
+          |vpiConstType:3
+        |vpiLhs:
+        \_bit_select: (lce_cmd_link_lo), line:150:27, endln:150:45
+          |vpiParent:
+          \_ref_obj: (lce_cmd_link_lo)
+            |vpiParent:
+            \_cont_assign: , line:150:27, endln:150:51
+            |vpiName:lce_cmd_link_lo
+          |vpiName:lce_cmd_link_lo
+          |vpiIndex:
+          \_ref_obj: (lce_cmd_link_lo.i), line:150:43, endln:150:44
+            |vpiParent:
+            \_bit_select: (lce_cmd_link_lo), line:150:27, endln:150:45
+            |vpiName:i
+            |vpiFullName:lce_cmd_link_lo.i
             |vpiActual:
             \_logic_net: (i)
 |uhdmallModules:
@@ -3160,4 +3186,4 @@ design: (work@divSqrtRecFNToRaw_small)
 [   NOTE] : 15
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/UhdmCoverage/dut.sv | ${SURELOG_DIR}/build/regression/UhdmCoverage/roundtrip/dut_000.sv | 83 | 155 |
+[roundtrip]: ${SURELOG_DIR}/tests/UhdmCoverage/dut.sv | ${SURELOG_DIR}/build/regression/UhdmCoverage/roundtrip/dut_000.sv | 82 | 155 |

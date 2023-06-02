@@ -6,6 +6,7 @@ module top();
         assign tmp[i] = 1'b1;
      end else begin: tag3
         assign tmp[i] = 1'b0;
+        assign tmp2[i] = 1'b1;
      end
   end
 
