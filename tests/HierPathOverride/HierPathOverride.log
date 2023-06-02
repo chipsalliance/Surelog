@@ -383,7 +383,6 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
 bit_select                                             1
 constant                                             130
 cont_assign                                            3
@@ -399,6 +398,7 @@ int_typespec                                          43
 logic_net                                              1
 logic_typespec                                        15
 module_inst                                           15
+named_begin                                            2
 operation                                             29
 package                                                6
 packed_array_typespec                                 13
@@ -415,7 +415,6 @@ typespec_member                                       13
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
 bit_select                                             1
 constant                                             130
 cont_assign                                            6
@@ -431,6 +430,7 @@ int_typespec                                          43
 logic_net                                              1
 logic_typespec                                        15
 module_inst                                           16
+named_begin                                            2
 operation                                             29
 package                                                6
 packed_array_typespec                                 13
@@ -1010,7 +1010,8 @@ design: (work@top)
         |vpiActual:
         \_enum_const: (B), line:6:7, endln:6:15
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_assign)
+      |vpiName:gen_assign
       |vpiStmt:
       \_cont_assign: , line:27:14, endln:27:19
         |vpiRhs:
@@ -1119,7 +1120,8 @@ design: (work@top)
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_generic)
+      |vpiName:gen_generic
       |vpiStmt:
       \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:39:9, endln:39:23
         |vpiName:u_impl_generic

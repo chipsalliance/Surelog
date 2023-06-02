@@ -210,7 +210,6 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-begin                                                  1
 bit_select                                            32
 constant                                              45
 cont_assign                                           11
@@ -221,6 +220,7 @@ gen_scope_array                                       10
 int_typespec                                           7
 logic_net                                              3
 module_inst                                            6
+named_begin                                            1
 operation                                             49
 param_assign                                           2
 parameter                                              7
@@ -233,7 +233,6 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-begin                                                  1
 bit_select                                            62
 constant                                              45
 cont_assign                                           21
@@ -244,6 +243,7 @@ gen_scope_array                                       15
 int_typespec                                           7
 logic_net                                              3
 module_inst                                            6
+named_begin                                            1
 operation                                             89
 param_assign                                           2
 parameter                                              7
@@ -349,7 +349,8 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (wval)
+      |vpiName:wval
       |vpiStmt:
       \_cont_assign: , line:7:14, endln:7:69
         |vpiRhs:

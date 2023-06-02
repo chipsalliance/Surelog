@@ -433,7 +433,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              2
-begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -455,6 +454,7 @@ logic_net                                              1
 logic_typespec                                         8
 logic_var                                              1
 module_inst                                            6
+named_begin                                            1
 operation                                              2
 package                                                5
 param_assign                                           4
@@ -470,7 +470,6 @@ typespec_member                                        8
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              2
-begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -492,6 +491,7 @@ logic_net                                              1
 logic_typespec                                         8
 logic_var                                              1
 module_inst                                            6
+named_begin                                            1
 operation                                              2
 package                                                5
 param_assign                                           4
@@ -1190,7 +1190,8 @@ design: (work@top)
     \_ref_obj: (PMPEnable), line:20:8, endln:20:17
       |vpiName:PMPEnable
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g_pmp_registers)
+      |vpiName:g_pmp_registers
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv, line:13:1, endln:24:10
   |vpiName:work@top

@@ -810,7 +810,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                        10
 assign_stmt                                            1
-begin                                                  2
+begin                                                  1
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
@@ -835,6 +835,7 @@ logic_net                                              3
 logic_typespec                                        44
 logic_var                                              3
 module_inst                                           16
+named_begin                                            1
 operation                                             92
 package                                                8
 param_assign                                          30
@@ -855,7 +856,7 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                        10
 assign_stmt                                            1
-begin                                                  2
+begin                                                  1
 bit_select                                            11
 class_defn                                             8
 class_typespec                                         4
@@ -880,6 +881,7 @@ logic_net                                              3
 logic_typespec                                        44
 logic_var                                              3
 module_inst                                           16
+named_begin                                            1
 operation                                             92
 package                                                8
 param_assign                                          34
@@ -2729,7 +2731,8 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (k)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_part_sel)
+      |vpiName:gen_part_sel
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:51:1, endln:71:10
   |vpiName:work@top

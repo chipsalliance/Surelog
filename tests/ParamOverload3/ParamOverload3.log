@@ -666,7 +666,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                             6
 constant                                             268
 cont_assign                                            2
@@ -685,6 +684,7 @@ io_decl                                                2
 logic_net                                              1
 logic_typespec                                         2
 module_inst                                           28
+named_begin                                            1
 operation                                             98
 package                                                3
 packed_array_typespec                                  4
@@ -705,7 +705,6 @@ unsupported_typespec                                   8
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                            11
 constant                                             275
 cont_assign                                            3
@@ -724,6 +723,7 @@ io_decl                                                4
 logic_net                                              1
 logic_typespec                                         2
 module_inst                                           28
+named_begin                                            1
 operation                                            102
 package                                                3
 packed_array_typespec                                  4
@@ -1947,7 +1947,8 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (fmt)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_nanbox_check)
+      |vpiName:gen_nanbox_check
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload3/dut.sv, line:43:1, endln:64:10
   |vpiName:work@top

@@ -208,7 +208,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
 constant                                              57
@@ -220,6 +219,7 @@ int_typespec                                          11
 logic_net                                              1
 logic_typespec                                         6
 module_inst                                           13
+named_begin                                            1
 operation                                             12
 param_assign                                          10
 parameter                                             13
@@ -233,7 +233,6 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                             5
 bit_typespec                                           4
 constant                                              57
@@ -245,6 +244,7 @@ int_typespec                                          11
 logic_net                                              1
 logic_typespec                                         6
 module_inst                                           16
+named_begin                                            1
 operation                                             12
 param_assign                                          13
 parameter                                             13
@@ -468,7 +468,8 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_alert_tx)
+      |vpiName:gen_alert_tx
       |vpiStmt:
       \_ref_module: work@alert_sender (i_alert_sender), line:13:5, endln:13:19
         |vpiName:i_alert_sender

@@ -420,7 +420,6 @@ AST_DEBUG_END
 array_net                                              1
 array_typespec                                         1
 assign_stmt                                            1
-begin                                                  1
 bit_select                                            15
 class_defn                                             8
 class_typespec                                         4
@@ -442,6 +441,7 @@ logic_net                                              2
 logic_typespec                                         8
 logic_var                                              1
 module_inst                                            4
+named_begin                                            1
 operation                                             28
 package                                                2
 parameter                                              7
@@ -461,7 +461,6 @@ unsupported_typespec                                   1
 array_net                                              1
 array_typespec                                         1
 assign_stmt                                            1
-begin                                                  1
 bit_select                                            22
 class_defn                                             8
 class_typespec                                         4
@@ -483,6 +482,7 @@ logic_net                                              2
 logic_typespec                                         8
 logic_var                                              1
 module_inst                                            4
+named_begin                                            1
 operation                                             35
 package                                                2
 parameter                                              7
@@ -1096,7 +1096,8 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g_fill)
+      |vpiName:g_fill
       |vpiStmt:
       \_cont_assign: , line:9:14, endln:9:37
         |vpiRhs:

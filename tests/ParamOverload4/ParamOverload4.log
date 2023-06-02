@@ -694,7 +694,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 constant                                            1074
 design                                                 1
 gen_for                                                1
@@ -703,6 +702,7 @@ gen_scope_array                                      520
 int_typespec                                         138
 logic_net                                              1
 module_inst                                            5
+named_begin                                            1
 operation                                            399
 param_assign                                           6
 parameter                                            138
@@ -714,7 +714,6 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 constant                                            1074
 design                                                 1
 gen_for                                                1
@@ -723,6 +722,7 @@ gen_scope_array                                      780
 int_typespec                                         138
 logic_net                                              1
 module_inst                                            5
+named_begin                                            1
 operation                                            399
 param_assign                                           6
 parameter                                            138
@@ -872,7 +872,8 @@ design: (work@ibex_pmp)
         |vpiActual:
         \_logic_net: (r)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g_addr_exp)
+      |vpiName:g_addr_exp
 |uhdmtopModules:
 \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
   |vpiName:work@ibex_pmp

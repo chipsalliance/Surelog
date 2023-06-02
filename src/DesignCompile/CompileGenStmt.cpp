@@ -100,28 +100,56 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         gen_if_else* genif = s.MakeGen_if_else();
         genstmt = genif;
         genif->VpiCondition(cond);
-        begin* stmt = s.MakeBegin();
         VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                          Reduce::No, nullptr, nullptr, true);
-        stmt->Stmts(stmts);
-        genif->VpiStmt(stmt);
+        NodeId blockNameId = fC->Child(stmtId);
+        if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+          std::string_view blockName = fC->SymName(blockNameId);
+          named_begin* stmt = s.MakeNamed_begin();
+          stmt->VpiName(blockName);
+          stmt->Stmts(stmts);
+          genif->VpiStmt(stmt);
+        } else {
+          begin* stmt = s.MakeBegin();
+          stmt->Stmts(stmts);
+          genif->VpiStmt(stmt);
+        }
+
         NodeId ElseId = fC->Sibling(stmtId);
         NodeId elseStmtId = fC->Sibling(ElseId);
         stmts = compileStmt(component, fC, elseStmtId, compileDesign,
                             Reduce::No, nullptr, nullptr, true);
-        stmt = s.MakeBegin();
-        stmt->Stmts(stmts);
-        genif->VpiElseStmt(stmt);
+        blockNameId = fC->Child(elseStmtId);
+        if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+          std::string_view blockName = fC->SymName(blockNameId);
+          named_begin* stmt = s.MakeNamed_begin();
+          stmt->VpiName(blockName);
+          stmt->Stmts(stmts);
+          genif->VpiElseStmt(stmt);
+        } else {
+          begin* stmt = s.MakeBegin();
+          stmt->Stmts(stmts);
+          genif->VpiElseStmt(stmt);
+        }
       } else {
         gen_if* genif = s.MakeGen_if();
         genstmt = genif;
         genif->VpiCondition(cond);
         fC->populateCoreMembers(ifElseId, ifElseId, genif);
-        begin* stmt = s.MakeBegin();
         VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                          Reduce::No, nullptr, nullptr, true);
-        stmt->Stmts(stmts);
-        genif->VpiStmt(stmt);
+        NodeId blockNameId = fC->Child(stmtId);
+        if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+          std::string_view blockName = fC->SymName(blockNameId);
+          named_begin* stmt = s.MakeNamed_begin();
+          stmt->VpiName(blockName);
+          stmt->Stmts(stmts);
+          genif->VpiStmt(stmt);
+        } else {
+          begin* stmt = s.MakeBegin();
+          stmt->Stmts(stmts);
+          genif->VpiStmt(stmt);
+        }
       }
     }
   } else if (fC->Type(stmtId) == VObjectType::slGenvar_initialization ||
@@ -190,15 +218,23 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
 
     // Stmts
     NodeId genBlock = fC->Sibling(iteration);
-    begin* stmt = s.MakeBegin();
     stmts = compileStmt(component, fC, genBlock, compileDesign, Reduce::No,
                         nullptr, nullptr, true);
-    stmt->Stmts(stmts);
-    genfor->VpiStmt(stmt);
+    NodeId blockNameId = fC->Child(genBlock);
+    if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+      std::string_view blockName = fC->SymName(blockNameId);
+      named_begin* stmt = s.MakeNamed_begin();
+      stmt->VpiName(blockName);
+      stmt->Stmts(stmts);
+      genfor->VpiStmt(stmt);
+    } else {
+      begin* stmt = s.MakeBegin();
+      stmt->Stmts(stmts);
+      genfor->VpiStmt(stmt);
+    }
   }
   VectorOfgen_stmt* stmts = s.MakeGen_stmtVec();
-  if (genstmt)
-    stmts->push_back(genstmt);
+  if (genstmt) stmts->push_back(genstmt);
   return stmts;
 }
 

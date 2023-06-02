@@ -181,7 +181,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                             9
 constant                                              28
 cont_assign                                            5
@@ -193,6 +192,7 @@ hier_path                                              7
 int_typespec                                           2
 logic_net                                              2
 module_inst                                            7
+named_begin                                            1
 operation                                              4
 packed_array_typespec                                  1
 packed_array_var                                       1
@@ -209,7 +209,6 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                            13
 constant                                              28
 cont_assign                                            7
@@ -221,6 +220,7 @@ hier_path                                              9
 int_typespec                                           2
 logic_net                                              2
 module_inst                                            7
+named_begin                                            1
 operation                                              4
 packed_array_typespec                                  1
 packed_array_var                                       1
@@ -305,7 +305,8 @@ design: (work@alert_handler_reg_wrap)
         |vpiActual:
         \_logic_net: (k)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_alert_cause)
+      |vpiName:gen_alert_cause
       |vpiStmt:
       \_cont_assign: , line:3:12, endln:3:43
         |vpiRhs:

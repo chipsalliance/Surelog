@@ -3654,7 +3654,7 @@ array_net                                              1
 array_typespec                                         1
 assign_stmt                                            3
 assignment                                           110
-begin                                                 95
+begin                                                 94
 bit_select                                            30
 bit_typespec                                           9
 bit_var                                                4
@@ -3680,6 +3680,7 @@ logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
 module_inst                                           76
+named_begin                                            1
 operation                                            120
 package                                                3
 param_assign                                         118
@@ -3704,7 +3705,7 @@ array_net                                              1
 array_typespec                                         1
 assign_stmt                                            6
 assignment                                           271
-begin                                                234
+begin                                                233
 bit_select                                            67
 bit_typespec                                           9
 bit_var                                                4
@@ -3730,6 +3731,7 @@ logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
 module_inst                                           76
+named_begin                                            1
 operation                                            270
 package                                                3
 param_assign                                         118
@@ -19259,7 +19261,8 @@ design: (work@tnoc_vc_splitter)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g)
+      |vpiName:g
 |uhdmtopModules:
 \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiName:work@tnoc_vc_splitter

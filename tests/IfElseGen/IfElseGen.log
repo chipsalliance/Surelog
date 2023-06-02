@@ -195,7 +195,6 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  4
 bit_typespec                                           4
 constant                                               8
 design                                                 1
@@ -203,6 +202,7 @@ gen_if_else                                            2
 gen_scope                                              4
 gen_scope_array                                        4
 module_inst                                           13
+named_begin                                            4
 param_assign                                           4
 parameter                                              4
 ref_module                                             6
@@ -211,7 +211,6 @@ ref_obj                                                2
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  4
 bit_typespec                                           4
 constant                                               8
 design                                                 1
@@ -219,6 +218,7 @@ gen_if_else                                            2
 gen_scope                                              6
 gen_scope_array                                        6
 module_inst                                           15
+named_begin                                            4
 param_assign                                           4
 parameter                                              4
 ref_module                                             6
@@ -288,13 +288,15 @@ design: (work@dut1)
     \_ref_obj: (HasSndScratch), line:9:5, endln:9:18
       |vpiName:HasSndScratch
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_rom_snd_scratch)
+      |vpiName:gen_rom_snd_scratch
       |vpiStmt:
       \_ref_module: work@GOOD1 (cond_module), line:10:9, endln:10:20
         |vpiName:cond_module
         |vpiDefName:work@GOOD1
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (gen_rom_one_scratch)
+      |vpiName:gen_rom_one_scratch
       |vpiStmt:
       \_ref_module: work@BAD1 (cond_module), line:12:8, endln:12:19
         |vpiName:cond_module
@@ -339,13 +341,15 @@ design: (work@dut1)
     \_ref_obj: (HasSndScratch), line:19:5, endln:19:18
       |vpiName:HasSndScratch
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_rom_snd_scratch)
+      |vpiName:gen_rom_snd_scratch
       |vpiStmt:
       \_ref_module: work@BAD2 (cond_module), line:20:8, endln:20:19
         |vpiName:cond_module
         |vpiDefName:work@BAD2
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (gen_rom_one_scratch)
+      |vpiName:gen_rom_one_scratch
       |vpiStmt:
       \_ref_module: work@GOOD2 (cond_module), line:22:9, endln:22:20
         |vpiName:cond_module

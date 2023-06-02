@@ -75,7 +75,7 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  6
+begin                                                  1
 bit_select                                             1
 bit_typespec                                           2
 constant                                             142
@@ -90,6 +90,7 @@ logic_net                                             16
 logic_typespec                                         7
 logic_var                                              1
 module_inst                                           17
+named_begin                                            5
 operation                                             46
 package                                                3
 param_assign                                          24
@@ -312,7 +313,8 @@ design: (work@tlul_socket_m1)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_degenerate_case)
+      |vpiName:gen_degenerate_case
       |vpiStmt:
       \_cont_assign: , line:30:12, endln:30:31
         |vpiRhs:
@@ -339,7 +341,8 @@ design: (work@tlul_socket_m1)
           |vpiActual:
           \_logic_net: (valid_o)
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (gen_normal_case)
+      |vpiName:gen_normal_case
 |uhdmallModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
   |vpiParent:
@@ -374,7 +377,8 @@ design: (work@tlul_socket_m1)
         |STRING:PPC
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_arb_ppc)
+      |vpiName:gen_arb_ppc
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -403,7 +407,8 @@ design: (work@tlul_socket_m1)
             |STRING:BINTREE
             |vpiConstType:6
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (gen_tree_arb)
+          |vpiName:gen_tree_arb
           |vpiStmt:
           \_ref_module: work@prim_arbiter_tree (u_reqarb), line:58:7, endln:58:15
             |vpiName:u_reqarb
@@ -415,7 +420,8 @@ design: (work@tlul_socket_m1)
             \_port: (rst_ni), line:60:7, endln:60:14
               |vpiName:rst_ni
         |vpiElseStmt:
-        \_begin: 
+        \_named_begin: (gen_unknown)
+          |vpiName:gen_unknown
 |uhdmtopModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
   |vpiName:work@tlul_socket_m1

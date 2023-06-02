@@ -959,7 +959,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
-begin                                                  4
 bit_select                                             7
 bit_typespec                                           2
 constant                                              99
@@ -974,6 +973,7 @@ int_typespec                                          28
 logic_net                                             29
 logic_typespec                                        17
 module_inst                                           32
+named_begin                                            4
 operation                                             40
 param_assign                                          24
 parameter                                             24
@@ -989,7 +989,6 @@ tagged_pattern                                         3
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
-begin                                                  4
 bit_select                                            10
 bit_typespec                                           2
 constant                                             103
@@ -1004,6 +1003,7 @@ int_typespec                                          28
 logic_net                                             29
 logic_typespec                                        17
 module_inst                                           33
+named_begin                                            4
 operation                                             50
 param_assign                                          24
 parameter                                             24
@@ -1554,7 +1554,8 @@ design: (work@divSqrtRecFNToRaw_small)
           |BIN:11
           |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (atomic)
+      |vpiName:atomic
       |vpiStmt:
       \_cont_assign: , line:129:24, endln:131:51
         |vpiRhs:
@@ -1631,7 +1632,8 @@ design: (work@divSqrtRecFNToRaw_small)
           |vpiActual:
           \_logic_net: (slice_data)
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (non_atomic)
+      |vpiName:non_atomic
       |vpiStmt:
       \_cont_assign: , line:135:24, endln:135:68
         |vpiRhs:
@@ -1685,7 +1687,8 @@ design: (work@divSqrtRecFNToRaw_small)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (node)
+      |vpiName:node
       |vpiStmt:
       \_ref_module: work@bp_l2e_tile_node (l2e), line:142:26, endln:142:29
         |vpiName:l2e
@@ -1707,7 +1710,8 @@ design: (work@divSqrtRecFNToRaw_small)
             |vpiActual:
             \_logic_net: (core_reset_i)
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (stub)
+      |vpiName:stub
       |vpiStmt:
       \_cont_assign: , line:149:26, endln:149:50
         |vpiRhs:

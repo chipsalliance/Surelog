@@ -323,7 +323,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  1
 constant                                              19
 cont_assign                                            5
 design                                                 1
@@ -337,6 +337,7 @@ int_var                                                5
 interface_inst                                         3
 logic_net                                              2
 module_inst                                           10
+named_begin                                            1
 operation                                              3
 param_assign                                           6
 parameter                                              6
@@ -347,7 +348,7 @@ return_stmt                                            3
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+begin                                                  1
 constant                                              19
 cont_assign                                            6
 design                                                 1
@@ -361,6 +362,7 @@ int_var                                                5
 interface_inst                                         3
 logic_net                                              2
 module_inst                                           10
+named_begin                                            1
 operation                                              3
 param_assign                                           6
 parameter                                              6
@@ -519,7 +521,8 @@ design: (work@top)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_block)
+      |vpiName:gen_block
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:

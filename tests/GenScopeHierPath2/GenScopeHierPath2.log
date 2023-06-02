@@ -371,7 +371,7 @@ Instance tree:
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              1
-begin                                                 12
+begin                                                  8
 constant                                              38
 cont_assign                                            5
 design                                                 1
@@ -383,6 +383,7 @@ int_typespec                                           2
 logic_net                                              3
 logic_typespec                                         4
 module_inst                                            8
+named_begin                                            4
 operation                                             13
 param_assign                                           2
 parameter                                              2
@@ -395,7 +396,7 @@ sys_func_call                                          5
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              1
-begin                                                 12
+begin                                                  8
 constant                                              38
 cont_assign                                            6
 design                                                 1
@@ -407,6 +408,7 @@ int_typespec                                           2
 logic_net                                              3
 logic_typespec                                         5
 module_inst                                            8
+named_begin                                            4
 operation                                             13
 param_assign                                           2
 parameter                                              2
@@ -514,7 +516,8 @@ design: (work@mod)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (blk1)
+      |vpiName:blk1
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -536,7 +539,8 @@ design: (work@mod)
             |UINT:2
             |vpiConstType:9
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (blk2)
+          |vpiName:blk2
         |vpiElseStmt:
         \_begin: 
           |vpiStmt:
@@ -558,9 +562,11 @@ design: (work@mod)
                 |UINT:3
                 |vpiConstType:9
             |vpiStmt:
-            \_begin: 
+            \_named_begin: (blk3)
+              |vpiName:blk3
             |vpiElseStmt:
-            \_begin: 
+            \_named_begin: (blk4)
+              |vpiName:blk4
   |vpiGenStmt:
   \_gen_if_else: 
     |vpiParent:

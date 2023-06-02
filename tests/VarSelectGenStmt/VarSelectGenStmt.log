@@ -218,7 +218,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 constant                                             142
 design                                                 1
 gen_for                                                1
@@ -228,6 +227,7 @@ int_typespec                                           6
 logic_net                                              8
 logic_typespec                                        12
 module_inst                                           13
+named_begin                                            1
 operation                                             11
 parameter                                              6
 port                                                  11
@@ -242,7 +242,6 @@ var_select                                             8
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 constant                                             142
 design                                                 1
 gen_for                                                1
@@ -252,6 +251,7 @@ int_typespec                                           6
 logic_net                                              8
 logic_typespec                                        12
 module_inst                                           17
+named_begin                                            1
 operation                                             11
 parameter                                              6
 port                                                  24
@@ -484,7 +484,8 @@ design: (work@aes_sub_bytes)
         |vpiActual:
         \_logic_net: (j)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_sbox_j)
+      |vpiName:gen_sbox_j
 |uhdmtopModules:
 \_module_inst: work@aes_sub_bytes (work@aes_sub_bytes), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:8:1, endln:23:10
   |vpiName:work@aes_sub_bytes

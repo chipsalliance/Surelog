@@ -567,7 +567,7 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  6
+begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -588,6 +588,7 @@ logic_net                                              6
 logic_typespec                                         9
 logic_var                                              1
 module_inst                                            6
+named_begin                                            4
 operation                                              9
 package                                                2
 param_assign                                           4
@@ -1128,7 +1129,8 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (u1)
+          |vpiName:u1
           |vpiStmt:
           \_cont_assign: , line:14:16, endln:14:25
             |vpiRhs:
@@ -1178,7 +1180,8 @@ design: (work@dut)
                 |UINT:2
                 |vpiConstType:9
             |vpiStmt:
-            \_begin: 
+            \_named_begin: (u1)
+              |vpiName:u1
               |vpiStmt:
               \_cont_assign: , line:20:16, endln:20:25
                 |vpiRhs:
@@ -1208,7 +1211,8 @@ design: (work@dut)
                   |vpiActual:
                   \_logic_net: (work@dut.y), line:1:37, endln:1:38
             |vpiElseStmt:
-            \_begin: 
+            \_named_begin: (u1)
+              |vpiName:u1
               |vpiStmt:
               \_cont_assign: , line:25:16, endln:25:26
                 |vpiRhs:
@@ -1238,7 +1242,8 @@ design: (work@dut)
                   |vpiActual:
                   \_logic_net: (work@dut.y), line:1:37, endln:1:38
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (u2)
+      |vpiName:u2
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
   |vpiName:work@dut

@@ -78,7 +78,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 constant                                              30
 design                                                 1
 gen_for                                                1
@@ -87,6 +86,7 @@ gen_scope_array                                       16
 int_typespec                                           8
 logic_net                                              1
 module_inst                                            3
+named_begin                                            1
 operation                                             11
 parameter                                              8
 ref_obj                                                2
@@ -97,7 +97,6 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 constant                                              30
 design                                                 1
 gen_for                                                1
@@ -106,6 +105,7 @@ gen_scope_array                                       24
 int_typespec                                           8
 logic_net                                              1
 module_inst                                            3
+named_begin                                            1
 operation                                             11
 parameter                                              8
 ref_obj                                                2
@@ -184,7 +184,8 @@ design: (work@alert_handler_reg_wrap)
         |vpiActual:
         \_logic_net: (i_word)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g_dmem_intg_check)
+      |vpiName:g_dmem_intg_check
 |uhdmtopModules:
 \_module_inst: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/UnaryPlus/dut.sv, line:1:1, endln:4:10
   |vpiName:work@alert_handler_reg_wrap
