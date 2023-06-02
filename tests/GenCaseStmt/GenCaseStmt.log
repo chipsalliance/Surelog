@@ -288,9 +288,12 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  8
 bit_typespec                                           6
-constant                                              39
+case_item                                              8
+constant                                              40
 design                                                 1
+gen_case                                               3
 gen_scope                                              6
 gen_scope_array                                        6
 int_typespec                                          24
@@ -299,14 +302,18 @@ module_inst                                            9
 param_assign                                           8
 parameter                                              8
 range                                                  2
-ref_module                                             3
+ref_module                                            11
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  8
 bit_typespec                                           6
-constant                                              39
+case_item                                              8
+constant                                              40
 design                                                 1
+gen_case                                               3
 gen_scope                                              9
 gen_scope_array                                        9
 int_typespec                                          24
@@ -315,7 +322,8 @@ module_inst                                           12
 param_assign                                           8
 parameter                                              8
 range                                                  2
-ref_module                                             3
+ref_module                                            11
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenCaseStmt/slpp_all/surelog.uhdm ...
 
@@ -465,6 +473,109 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.x_2sb11), line:10:32, endln:10:39
   |vpiDefName:work@top
+  |vpiGenStmt:
+  \_gen_case: 
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
+    |vpiCondition:
+    \_ref_obj: (x_2sb11), line:12:9, endln:12:16
+      |vpiName:x_2sb11
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiExpr:
+      \_constant: , line:13:5, endln:13:10
+        |vpiDecompile:2'b?1
+        |vpiSize:2
+        |BIN:?1
+        |vpiConstType:3
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@BAD (u2), line:13:16, endln:13:18
+          |vpiName:u2
+          |vpiDefName:work@BAD
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@GOOD (u3), line:14:19, endln:14:21
+          |vpiName:u3
+          |vpiDefName:work@GOOD
+  |vpiGenStmt:
+  \_gen_case: 
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
+    |vpiCondition:
+    \_ref_obj: (x_2sb11), line:18:9, endln:18:16
+      |vpiName:x_2sb11
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiExpr:
+      \_ref_obj: (x_1b0), line:19:5, endln:19:10
+        |vpiName:x_1b0
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@BAD (u1), line:19:17, endln:19:19
+          |vpiName:u1
+          |vpiDefName:work@BAD
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiExpr:
+      \_ref_obj: (x_1sb0), line:20:5, endln:20:11
+        |vpiName:x_1sb0
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@BAD (u2), line:20:17, endln:20:19
+          |vpiName:u2
+          |vpiDefName:work@BAD
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@GOOD (u3), line:21:19, endln:21:21
+          |vpiName:u3
+          |vpiDefName:work@GOOD
+  |vpiGenStmt:
+  \_gen_case: 
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
+    |vpiCondition:
+    \_ref_obj: (x_2sb11), line:24:9, endln:24:16
+      |vpiName:x_2sb11
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiExpr:
+      \_ref_obj: (x_1sb0), line:25:5, endln:25:11
+        |vpiName:x_1sb0
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@BAD (u1), line:25:18, endln:25:20
+          |vpiName:u1
+          |vpiDefName:work@BAD
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiExpr:
+      \_ref_obj: (x_1sb1), line:26:5, endln:26:11
+        |vpiName:x_1sb1
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@GOOD (u2), line:26:18, endln:26:20
+          |vpiName:u2
+          |vpiDefName:work@GOOD
+    |vpiCaseItem:
+    \_case_item: 
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_ref_module: work@BAD (u3), line:27:18, endln:27:20
+          |vpiName:u3
+          |vpiDefName:work@BAD
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCaseStmt/dut.sv, line:6:1, endln:30:10
   |vpiName:work@top

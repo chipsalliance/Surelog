@@ -567,17 +567,19 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  3
+case_item                                              2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              27
-cont_assign                                            5
+constant                                              28
+cont_assign                                            6
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_case                                               1
 gen_if_else                                            3
 gen_scope                                              4
 gen_scope_array                                        4
@@ -588,13 +590,13 @@ logic_net                                              6
 logic_typespec                                         9
 logic_var                                              1
 module_inst                                            6
-named_begin                                            4
-operation                                              9
+named_begin                                            5
+operation                                             10
 package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   6
-ref_obj                                               24
+ref_obj                                               28
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateAssigns/slpp_unit/surelog.uhdm ...
@@ -1244,6 +1246,54 @@ design: (work@dut)
     |vpiElseStmt:
     \_named_begin: (u2)
       |vpiName:u2
+      |vpiStmt:
+      \_gen_case: , line:29:7, endln:40:14
+        |vpiCondition:
+        \_ref_obj: (q), line:29:13, endln:29:14
+          |vpiName:q
+        |vpiCaseItem:
+        \_case_item: 
+          |vpiExpr:
+          \_constant: , line:30:9, endln:30:10
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiStmt:
+          \_begin: 
+        |vpiCaseItem:
+        \_case_item: 
+          |vpiStmt:
+          \_named_begin: (u1)
+            |vpiName:u1
+            |vpiStmt:
+            \_cont_assign: , line:38:20, endln:38:30
+              |vpiRhs:
+              \_operation: , line:38:24, endln:38:30
+                |vpiParent:
+                \_cont_assign: , line:38:20, endln:38:30
+                |vpiOpType:31
+                |vpiOperand:
+                \_ref_obj: (a), line:38:24, endln:38:25
+                  |vpiParent:
+                  \_operation: , line:38:24, endln:38:30
+                  |vpiName:a
+                  |vpiActual:
+                  \_logic_net: (work@dut.a), line:1:18, endln:1:19
+                |vpiOperand:
+                \_ref_obj: (b), line:38:29, endln:38:30
+                  |vpiParent:
+                  \_operation: , line:38:24, endln:38:30
+                  |vpiName:b
+                  |vpiActual:
+                  \_logic_net: (work@dut.b), line:1:27, endln:1:28
+              |vpiLhs:
+              \_ref_obj: (y), line:38:20, endln:38:21
+                |vpiParent:
+                \_cont_assign: , line:38:20, endln:38:30
+                |vpiName:y
+                |vpiActual:
+                \_logic_net: (work@dut.y), line:1:37, endln:1:38
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
   |vpiName:work@dut
