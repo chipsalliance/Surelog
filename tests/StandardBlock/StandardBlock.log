@@ -288,7 +288,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             2
-begin                                                  9
+begin                                                  8
 constant                                              31
 design                                                 1
 gen_for                                                2
@@ -301,6 +301,7 @@ logic_net                                              1
 logic_typespec                                         5
 logic_var                                              5
 module_inst                                            5
+named_begin                                            1
 operation                                              8
 param_assign                                           2
 parameter                                              4
@@ -313,7 +314,7 @@ unsupported_typespec                                   2
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             2
-begin                                                  9
+begin                                                  8
 constant                                              31
 design                                                 1
 gen_for                                                2
@@ -326,6 +327,7 @@ logic_net                                              1
 logic_typespec                                         5
 logic_var                                             10
 module_inst                                            5
+named_begin                                            1
 operation                                              8
 param_assign                                           2
 parameter                                              4
@@ -468,7 +470,8 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g1)
+      |vpiName:g1
       |vpiStmt:
       \_gen_if: , line:16:1, endln:16:3
         |vpiCondition:

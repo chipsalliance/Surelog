@@ -318,7 +318,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             4
-begin                                                  3
+begin                                                  2
 constant                                              31
 cont_assign                                            6
 design                                                 1
@@ -331,7 +331,7 @@ logic_net                                             10
 logic_typespec                                        10
 logic_var                                              2
 module_inst                                            5
-named_begin                                            2
+named_begin                                            3
 port                                                   8
 range                                                 10
 ref_obj                                               26
@@ -341,7 +341,7 @@ ref_obj                                               26
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
 assignment                                             8
-begin                                                  4
+begin                                                  3
 constant                                              31
 cont_assign                                           10
 design                                                 1
@@ -354,7 +354,7 @@ logic_net                                             10
 logic_typespec                                        10
 logic_var                                              4
 module_inst                                            5
-named_begin                                            4
+named_begin                                            5
 port                                                  12
 range                                                 10
 ref_obj                                               46
@@ -689,7 +689,8 @@ design: (work@matching_end_labels_top)
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (blk3)
+          |vpiName:blk3
 |uhdmtopModules:
 \_module_inst: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
   |vpiName:work@matching_end_labels_top

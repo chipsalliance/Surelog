@@ -259,7 +259,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  3
+begin                                                  1
 bit_select                                            20
 constant                                             151
 design                                                 1
@@ -271,6 +271,7 @@ int_typespec                                          27
 logic_net                                              1
 logic_typespec                                        21
 module_inst                                           10
+named_begin                                            2
 operation                                             24
 param_assign                                           6
 parameter                                             14
@@ -284,7 +285,7 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  3
+begin                                                  1
 bit_select                                            20
 constant                                             151
 design                                                 1
@@ -296,6 +297,7 @@ int_typespec                                          27
 logic_net                                              1
 logic_typespec                                        21
 module_inst                                           14
+named_begin                                            2
 operation                                             24
 param_assign                                           6
 parameter                                             14
@@ -511,7 +513,8 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (k)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_mio_pads)
+      |vpiName:gen_mio_pads
       |vpiStmt:
       \_gen_if: , line:12:6, endln:12:8
         |vpiCondition:
@@ -549,7 +552,8 @@ design: (work@dut)
               |vpiActual:
               \_logic_net: (k)
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (gen_mio_inout)
+          |vpiName:gen_mio_inout
           |vpiStmt:
           \_ref_module: work@GOOD (good), line:13:19, endln:13:23
             |vpiName:good

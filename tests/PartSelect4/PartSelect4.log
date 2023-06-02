@@ -287,7 +287,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_typespec                                           2
 constant                                             110
 design                                                 1
@@ -299,6 +298,7 @@ int_typespec                                          21
 logic_net                                              1
 logic_typespec                                         1
 module_inst                                           27
+named_begin                                            1
 operation                                             25
 param_assign                                          17
 parameter                                             25
@@ -312,7 +312,6 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_typespec                                           2
 constant                                             110
 design                                                 1
@@ -324,6 +323,7 @@ int_typespec                                          21
 logic_net                                              1
 logic_typespec                                         1
 module_inst                                           35
+named_begin                                            1
 operation                                             25
 param_assign                                          25
 parameter                                             25
@@ -497,7 +497,8 @@ design: (work@xbar_main)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_dfifo)
+      |vpiName:gen_dfifo
       |vpiStmt:
       \_ref_module: work@tlul_fifo_sync (fifo_d), line:7:52, endln:7:58
         |vpiName:fifo_d

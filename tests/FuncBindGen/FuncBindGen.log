@@ -201,7 +201,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  2
+begin                                                  1
 constant                                              26
 cont_assign                                            2
 design                                                 1
@@ -217,6 +217,7 @@ logic_net                                              1
 logic_typespec                                         2
 logic_var                                              2
 module_inst                                            7
+named_begin                                            1
 operation                                              8
 param_assign                                           6
 parameter                                              6
@@ -229,7 +230,7 @@ return_stmt                                            1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
-begin                                                  3
+begin                                                  2
 constant                                              26
 cont_assign                                            3
 design                                                 1
@@ -245,6 +246,7 @@ logic_net                                              1
 logic_typespec                                         2
 logic_var                                              5
 module_inst                                            7
+named_begin                                            1
 operation                                              9
 param_assign                                           6
 parameter                                              6
@@ -362,7 +364,8 @@ design: (work@top)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_block)
+      |vpiName:gen_block
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
   |vpiName:work@top

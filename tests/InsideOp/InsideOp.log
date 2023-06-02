@@ -319,7 +319,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  8
+begin                                                  3
 constant                                              45
 cont_assign                                            7
 design                                                 1
@@ -333,6 +333,7 @@ int_typespec                                           6
 int_var                                                1
 logic_net                                              1
 module_inst                                            9
+named_begin                                            5
 operation                                              7
 package                                                3
 param_assign                                           2
@@ -344,7 +345,7 @@ ref_obj                                               20
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  8
+begin                                                  3
 constant                                              45
 cont_assign                                            8
 design                                                 1
@@ -358,6 +359,7 @@ int_typespec                                           6
 int_var                                                1
 logic_net                                              1
 module_inst                                           10
+named_begin                                            5
 operation                                              7
 package                                                3
 param_assign                                           2
@@ -566,7 +568,8 @@ design: (work@top)
         |vpiActual:
         \_enum_const: (GetDefault), line:9:5, endln:9:21
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_zero)
+      |vpiName:gen_zero
       |vpiStmt:
       \_cont_assign: , line:26:12, endln:26:19
         |vpiRhs:
@@ -604,7 +607,8 @@ design: (work@top)
             |vpiActual:
             \_enum_const: (Get1), line:5:5, endln:5:13
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (gen_one)
+          |vpiName:gen_one
           |vpiStmt:
           \_cont_assign: , line:28:12, endln:28:19
             |vpiRhs:
@@ -645,7 +649,8 @@ design: (work@top)
                 |vpiActual:
                 \_enum_const: (Get3), line:7:5, endln:7:13
             |vpiStmt:
-            \_begin: 
+            \_named_begin: (gen_two)
+              |vpiName:gen_two
               |vpiStmt:
               \_cont_assign: , line:30:12, endln:30:19
                 |vpiRhs:
@@ -683,7 +688,8 @@ design: (work@top)
                     |vpiActual:
                     \_enum_const: (Get4), line:8:5, endln:8:13
                 |vpiStmt:
-                \_begin: 
+                \_named_begin: (gen_three)
+                  |vpiName:gen_three
                   |vpiStmt:
                   \_cont_assign: , line:33:12, endln:33:19
                     |vpiRhs:
@@ -702,7 +708,8 @@ design: (work@top)
                       |vpiActual:
                       \_int_var: (work@top.out), line:22:16, endln:22:19
                 |vpiElseStmt:
-                \_begin: 
+                \_named_begin: (gen_invalid)
+                  |vpiName:gen_invalid
                   |vpiStmt:
                   \_cont_assign: , line:35:12, endln:35:21
                     |vpiRhs:

@@ -352,7 +352,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -372,6 +372,7 @@ io_decl                                               11
 logic_typespec                                         1
 logic_var                                              3
 module_inst                                            5
+named_begin                                            1
 package                                                2
 param_assign                                           2
 parameter                                              2
@@ -381,7 +382,7 @@ task                                                   9
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
 class_typespec                                         4
@@ -401,6 +402,7 @@ io_decl                                               22
 logic_typespec                                         1
 logic_var                                              5
 module_inst                                            5
+named_begin                                            1
 package                                                2
 param_assign                                           2
 parameter                                              2
@@ -899,7 +901,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: 
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (gen_no_async)
+      |vpiName:gen_no_async
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenBlockVar/dut.sv, line:1:1, endln:12:10
   |vpiName:work@top

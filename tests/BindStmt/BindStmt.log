@@ -444,7 +444,6 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
 constant                                              26
 cont_assign                                            3
 design                                                 1
@@ -455,6 +454,7 @@ int_typespec                                           2
 logic_net                                             28
 logic_typespec                                        38
 module_inst                                           31
+named_begin                                            1
 operation                                              4
 param_assign                                          11
 parameter                                             11
@@ -466,7 +466,6 @@ string_typespec                                        9
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
 constant                                              26
 cont_assign                                            9
 design                                                 1
@@ -477,6 +476,7 @@ int_typespec                                           2
 logic_net                                             28
 logic_typespec                                        38
 module_inst                                           31
+named_begin                                            1
 operation                                              4
 param_assign                                          11
 parameter                                             11
@@ -898,7 +898,8 @@ design: (work@testbench)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (do_bind)
+      |vpiName:do_bind
 |uhdmtopModules:
 \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
   |vpiName:work@testbench

@@ -219,7 +219,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  2
+begin                                                  1
 constant                                             108
 design                                                 1
 gen_if_else                                            1
@@ -227,6 +227,7 @@ gen_scope                                             34
 gen_scope_array                                       34
 int_typespec                                          45
 module_inst                                            7
+named_begin                                            1
 operation                                             40
 param_assign                                           8
 parameter                                             24
@@ -236,7 +237,7 @@ sys_func_call                                          1
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  2
+begin                                                  1
 constant                                             108
 design                                                 1
 gen_if_else                                            1
@@ -244,6 +245,7 @@ gen_scope                                             51
 gen_scope_array                                       51
 int_typespec                                          45
 module_inst                                            7
+named_begin                                            1
 operation                                             40
 param_assign                                           9
 parameter                                             24
@@ -379,7 +381,8 @@ design: (work@lzc)
           |UINT:1
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g_last_level)
+      |vpiName:g_last_level
     |vpiElseStmt:
     \_begin: 
 |uhdmtopModules:

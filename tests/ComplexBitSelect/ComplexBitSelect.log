@@ -499,7 +499,6 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                        10
 assign_stmt                                            1
-begin                                                  2
 bit_select                                            26
 class_defn                                             8
 class_typespec                                         4
@@ -522,6 +521,7 @@ io_decl                                               11
 logic_net                                              1
 logic_var                                              1
 module_inst                                            8
+named_begin                                            2
 operation                                             50
 package                                                5
 param_assign                                          20
@@ -537,7 +537,6 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                        10
 assign_stmt                                            1
-begin                                                  2
 bit_select                                            33
 class_defn                                             8
 class_typespec                                         4
@@ -560,6 +559,7 @@ io_decl                                               22
 logic_net                                              1
 logic_var                                              1
 module_inst                                            8
+named_begin                                            2
 operation                                             50
 package                                                5
 param_assign                                          20
@@ -1734,7 +1734,8 @@ design: (work@flash_ctrl_info_cfg)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_info_priv)
+      |vpiName:gen_info_priv
       |vpiStmt:
       \_gen_if: , line:19:5, endln:19:7
         |vpiCondition:
@@ -1761,7 +1762,8 @@ design: (work@flash_ctrl_info_cfg)
               \_operation: , line:19:9, endln:19:34
               |vpiName:InfoSel
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (gen_invalid_region)
+          |vpiName:gen_invalid_region
           |vpiStmt:
           \_cont_assign: , line:20:14, endln:20:28
             |vpiRhs:

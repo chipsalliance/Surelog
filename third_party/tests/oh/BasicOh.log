@@ -1265,7 +1265,7 @@ always                                                59
 array_net                                              1
 assign_stmt                                            9
 assignment                                           134
-begin                                                 14
+begin                                                  9
 bit_select                                            93
 class_defn                                             8
 class_typespec                                         4
@@ -1296,6 +1296,7 @@ logic_var                                              1
 module_array                                           4
 module_inst                                          331
 module_typespec                                        4
+named_begin                                            5
 operation                                           1999
 package                                                2
 param_assign                                         323
@@ -1319,7 +1320,7 @@ always                                                91
 array_net                                              1
 assign_stmt                                           12
 assignment                                           199
-begin                                                 16
+begin                                                 11
 bit_select                                           158
 class_defn                                             8
 class_typespec                                         4
@@ -1350,6 +1351,7 @@ logic_var                                              1
 module_array                                           4
 module_inst                                          331
 module_typespec                                        4
+named_begin                                            5
 operation                                           2343
 package                                                2
 param_assign                                         323
@@ -11489,7 +11491,8 @@ design: (work@oh_fifo_async)
       \_ref_obj: (i), line:18:16, endln:18:17
         |vpiName:i
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_onehot)
+      |vpiName:gen_onehot
       |vpiStmt:
       \_cont_assign: , line:19:14, endln:19:40
         |vpiRhs:
@@ -56902,7 +56905,8 @@ design: (work@oh_fifo_async)
       \_ref_obj: (i), line:41:19, endln:41:20
         |vpiName:i
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_regwrite)
+      |vpiName:gen_regwrite
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -56966,7 +56970,8 @@ design: (work@oh_fifo_async)
       \_ref_obj: (i), line:50:19, endln:50:20
         |vpiName:i
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_wrmux)
+      |vpiName:gen_wrmux
       |vpiStmt:
       \_ref_module: work@oh_mux (iwrmux), line:53:2, endln:53:8
         |vpiName:iwrmux
@@ -57154,7 +57159,8 @@ design: (work@oh_fifo_async)
       \_ref_obj: (i), line:59:19, endln:59:20
         |vpiName:i
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_reg)
+      |vpiName:gen_reg
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -57218,7 +57224,8 @@ design: (work@oh_fifo_async)
       \_ref_obj: (i), line:71:18, endln:71:19
         |vpiName:i
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_rdport)
+      |vpiName:gen_rdport
       |vpiStmt:
       \_cont_assign: , line:72:14, endln:73:29
         |vpiRhs:

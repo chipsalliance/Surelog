@@ -1031,7 +1031,7 @@ Instance tree:
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             8
-begin                                                 10
+begin                                                  9
 bit_typespec                                          11
 bit_var                                                3
 class_defn                                             8
@@ -1058,6 +1058,7 @@ io_decl                                               23
 logic_net                                              6
 logic_var                                              1
 module_inst                                            8
+named_begin                                            1
 operation                                              7
 package                                                8
 param_assign                                           5
@@ -1077,7 +1078,7 @@ typespec_member                                        6
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                            24
-begin                                                 27
+begin                                                 26
 bit_typespec                                          11
 bit_var                                                3
 class_defn                                             8
@@ -1104,6 +1105,7 @@ io_decl                                               58
 logic_net                                              6
 logic_var                                              1
 module_inst                                            9
+named_begin                                            1
 operation                                             16
 package                                                8
 param_assign                                           6
@@ -3480,7 +3482,8 @@ design: (work@simple_package)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (inst)
+      |vpiName:inst
       |vpiStmt:
       \_ref_module: work@M1 (u1), line:16:7, endln:16:9
         |vpiName:u1

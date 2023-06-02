@@ -233,7 +233,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  3
+begin                                                  1
 constant                                             112
 design                                                 1
 gen_if                                                 1
@@ -242,6 +242,7 @@ gen_scope                                             34
 gen_scope_array                                       34
 int_typespec                                          46
 module_inst                                            7
+named_begin                                            2
 operation                                             41
 param_assign                                           8
 parameter                                             24
@@ -251,7 +252,7 @@ sys_func_call                                          1
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  3
+begin                                                  1
 constant                                             112
 design                                                 1
 gen_if                                                 1
@@ -260,6 +261,7 @@ gen_scope                                             51
 gen_scope_array                                       51
 int_typespec                                          46
 module_inst                                            7
+named_begin                                            2
 operation                                             41
 param_assign                                           9
 parameter                                             24
@@ -395,7 +397,8 @@ design: (work@lzc)
           |UINT:1
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g_last_level)
+      |vpiName:g_last_level
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -407,7 +410,8 @@ design: (work@lzc)
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (all_true)
+          |vpiName:all_true
 |uhdmtopModules:
 \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
   |vpiName:work@lzc

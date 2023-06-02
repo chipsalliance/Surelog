@@ -895,7 +895,7 @@ Instance tree:
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
 assignment                                             1
-begin                                                  2
+begin                                                  1
 case_item                                              2
 case_stmt                                              1
 class_defn                                             8
@@ -918,7 +918,7 @@ io_decl                                               11
 logic_typespec                                        88
 logic_var                                              1
 module_inst                                           10
-named_begin                                            1
+named_begin                                            2
 operation                                             68
 package                                               11
 param_assign                                          54
@@ -932,7 +932,7 @@ task                                                   9
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
 assignment                                             2
-begin                                                  3
+begin                                                  2
 case_item                                              4
 case_stmt                                              2
 class_defn                                             8
@@ -955,7 +955,7 @@ io_decl                                               22
 logic_typespec                                        88
 logic_var                                              1
 module_inst                                           10
-named_begin                                            2
+named_begin                                            3
 operation                                             68
 package                                               11
 param_assign                                          54
@@ -2885,7 +2885,8 @@ design: (work@prim_diff_decode)
         |vpiActual:
         \_enum_const: (ImplGeneric), line:5:5, endln:5:20
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_pad_generic)
+      |vpiName:gen_pad_generic
 |uhdmtopModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
   |vpiName:work@prim_diff_decode

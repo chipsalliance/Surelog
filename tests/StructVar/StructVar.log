@@ -43,7 +43,6 @@ array_net                                              2
 array_typespec                                         7
 array_var                                              7
 assign_stmt                                            1
-begin                                                  1
 bit_select                                             6
 bit_typespec                                           5
 constant                                              81
@@ -61,6 +60,7 @@ logic_net                                             15
 logic_typespec                                         8
 logic_var                                              3
 module_inst                                           14
+named_begin                                            1
 operation                                             29
 parameter                                              2
 range                                                 21
@@ -81,7 +81,6 @@ array_net                                              2
 array_typespec                                         7
 array_var                                              7
 assign_stmt                                            1
-begin                                                  1
 bit_select                                            10
 bit_typespec                                           5
 constant                                              81
@@ -99,6 +98,7 @@ logic_net                                             15
 logic_typespec                                         8
 logic_var                                              3
 module_inst                                           14
+named_begin                                            1
 operation                                             37
 parameter                                              2
 range                                                 21
@@ -594,7 +594,8 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (g_pmp_csrs)
+      |vpiName:g_pmp_csrs
       |vpiStmt:
       \_cont_assign: , line:61:10, endln:62:38
         |vpiRhs:

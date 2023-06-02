@@ -263,7 +263,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-begin                                                  4
+begin                                                  1
 constant                                              75
 design                                                 1
 gen_for                                                1
@@ -275,6 +275,7 @@ int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            7
+named_begin                                            3
 operation                                             25
 param_assign                                           4
 parameter                                              6
@@ -290,7 +291,7 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
 assignment                                             1
-begin                                                  4
+begin                                                  1
 constant                                              75
 design                                                 1
 gen_for                                                1
@@ -302,6 +303,7 @@ int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            9
+named_begin                                            3
 operation                                             25
 param_assign                                           4
 parameter                                              6
@@ -465,7 +467,8 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (loop)
+      |vpiName:loop
       |vpiStmt:
       \_gen_if_else: , line:9:2, endln:16:7
         |vpiCondition:
@@ -538,7 +541,8 @@ design: (work@test)
             |BIN:00
             |vpiConstType:3
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (foo)
+          |vpiName:foo
           |vpiStmt:
           \_ref_module: work@foo (i0), line:11:11, endln:11:13
             |vpiName:i0
@@ -617,7 +621,8 @@ design: (work@test)
                 |BIN:01
                 |vpiConstType:3
             |vpiStmt:
-            \_begin: 
+            \_named_begin: (bar)
+              |vpiName:bar
               |vpiStmt:
               \_ref_module: work@bar (i0), line:15:11, endln:15:13
                 |vpiName:i0

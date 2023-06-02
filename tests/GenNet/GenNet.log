@@ -273,7 +273,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  3
+begin                                                  1
 constant                                              41
 cont_assign                                            1
 design                                                 1
@@ -286,6 +286,7 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            9
+named_begin                                            2
 operation                                             14
 param_assign                                           4
 parameter                                              4
@@ -298,7 +299,7 @@ string_typespec                                        2
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  3
+begin                                                  1
 constant                                              41
 cont_assign                                            2
 design                                                 1
@@ -311,6 +312,7 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              2
 module_inst                                            9
+named_begin                                            2
 operation                                             14
 param_assign                                           4
 parameter                                              4
@@ -492,7 +494,8 @@ design: (work@dut)
           |STRING:WO
           |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_w)
+      |vpiName:gen_w
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -514,7 +517,8 @@ design: (work@dut)
             |STRING:RO
             |vpiConstType:6
         |vpiStmt:
-        \_begin: 
+        \_named_begin: (gen_ro)
+          |vpiName:gen_ro
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
   |vpiName:work@dut

@@ -440,7 +440,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  3
 bit_select                                             4
 bit_typespec                                          15
 constant                                             119
@@ -453,6 +452,7 @@ int_typespec                                           9
 logic_net                                              1
 logic_typespec                                         8
 module_inst                                           33
+named_begin                                            3
 operation                                             14
 package                                                3
 param_assign                                          27
@@ -468,7 +468,6 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  3
 bit_select                                             4
 bit_typespec                                          15
 constant                                             119
@@ -481,6 +480,7 @@ int_typespec                                           9
 logic_net                                              1
 logic_typespec                                         8
 module_inst                                           47
+named_begin                                            3
 operation                                             14
 package                                                3
 param_assign                                          39
@@ -812,7 +812,8 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_alert_tx)
+      |vpiName:gen_alert_tx
       |vpiStmt:
       \_ref_module: work@prim_alert_sender (alert_sender), line:56:7, endln:56:19
         |vpiName:alert_sender
@@ -889,7 +890,8 @@ design: (work@test)
     \_ref_obj: (AsyncOn), line:23:9, endln:23:16
       |vpiName:AsyncOn
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_async_assert)
+      |vpiName:gen_async_assert
 |uhdmallModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
   |vpiParent:
@@ -929,7 +931,8 @@ design: (work@test)
     \_ref_obj: (AsyncOn), line:35:7, endln:35:14
       |vpiName:AsyncOn
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_async)
+      |vpiName:gen_async
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:36:11, endln:36:15
         |vpiName:good

@@ -319,7 +319,6 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  3
 constant                                              24
 design                                                 1
 enum_const                                             5
@@ -332,6 +331,7 @@ hier_path                                              1
 import_typespec                                        5
 logic_typespec                                         8
 module_inst                                           17
+named_begin                                            3
 operation                                              2
 package                                                6
 param_assign                                           6
@@ -344,7 +344,6 @@ typespec_member                                        6
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  3
 constant                                              24
 design                                                 1
 enum_const                                             5
@@ -357,6 +356,7 @@ hier_path                                              1
 import_typespec                                        5
 logic_typespec                                         8
 module_inst                                           21
+named_begin                                            3
 operation                                              2
 package                                                6
 param_assign                                           7
@@ -582,13 +582,15 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_inner_if_true)
+      |vpiName:gen_inner_if_true
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:24:14, endln:24:18
         |vpiName:good
         |vpiDefName:work@GOOD
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (gen_inner_if_false)
+      |vpiName:gen_inner_if_false
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:33:1, endln:44:10
   |vpiParent:
@@ -633,7 +635,8 @@ design: (work@top)
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_outer_if)
+      |vpiName:gen_outer_if
       |vpiStmt:
       \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:40:10, endln:40:24
         |vpiName:u_impl_generic

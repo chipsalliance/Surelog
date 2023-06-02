@@ -883,7 +883,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
-begin                                                  4
 bit_typespec                                          12
 class_defn                                             8
 class_typespec                                         4
@@ -907,6 +906,7 @@ logic_net                                              3
 logic_typespec                                         6
 logic_var                                              1
 module_inst                                           34
+named_begin                                            4
 operation                                             43
 package                                                2
 param_assign                                          30
@@ -922,7 +922,6 @@ unsupported_typespec                                   2
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            2
-begin                                                  4
 bit_typespec                                          12
 class_defn                                             8
 class_typespec                                         4
@@ -946,6 +945,7 @@ logic_net                                              3
 logic_typespec                                         6
 logic_var                                              1
 module_inst                                           42
+named_begin                                            4
 operation                                             43
 package                                                2
 param_assign                                          44
@@ -1661,7 +1661,8 @@ design: (work@socket_1n)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_dfifo)
+      |vpiName:gen_dfifo
       |vpiStmt:
       \_ref_module: work@fifo_sync (fifo_d), line:63:7, endln:63:13
         |vpiName:fifo_d
@@ -1757,7 +1758,8 @@ design: (work@socket_1n)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_passthru)
+      |vpiName:gen_passthru
       |vpiStmt:
       \_cont_assign: , line:11:12, endln:11:24
         |vpiRhs:
@@ -1776,7 +1778,8 @@ design: (work@socket_1n)
           |vpiActual:
           \_logic_net: (depth)
     |vpiElseStmt:
-    \_begin: 
+    \_named_begin: (gen_normal)
+      |vpiName:gen_normal
 |uhdmallModules:
 \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:38:1, endln:51:10
   |vpiParent:
@@ -2027,7 +2030,8 @@ design: (work@socket_1n)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_dfifo)
+      |vpiName:gen_dfifo
       |vpiStmt:
       \_ref_module: work@fifo_sync (fifo_d), line:47:7, endln:47:13
         |vpiName:fifo_d

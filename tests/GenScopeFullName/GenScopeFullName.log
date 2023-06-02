@@ -132,7 +132,6 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                             3
 constant                                              14
 design                                                 1
@@ -144,6 +143,7 @@ logic_net                                              4
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            7
+named_begin                                            1
 operation                                              4
 parameter                                              1
 port                                                   4
@@ -157,7 +157,6 @@ unsupported_typespec                                   1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
 bit_select                                             6
 constant                                              14
 design                                                 1
@@ -169,6 +168,7 @@ logic_net                                              4
 logic_typespec                                         4
 logic_var                                              1
 module_inst                                            8
+named_begin                                            1
 operation                                              4
 parameter                                              1
 port                                                   7
@@ -255,7 +255,8 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (i)
     |vpiStmt:
-    \_begin: 
+    \_named_begin: (gen_modules)
+      |vpiName:gen_modules
       |vpiStmt:
       \_ref_module: work@ibex_counter (module_in_genscope), line:5:20, endln:5:38
         |vpiName:module_in_genscope
