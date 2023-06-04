@@ -286,7 +286,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            2
+assign_stmt                                            9
 assignment                                             2
 begin                                                  8
 constant                                              31
@@ -298,8 +298,8 @@ gen_scope                                             14
 gen_scope_array                                       14
 int_typespec                                           4
 logic_net                                              1
-logic_typespec                                         5
-logic_var                                              5
+logic_typespec                                        12
+logic_var                                             12
 module_inst                                            5
 named_begin                                            1
 operation                                              8
@@ -312,7 +312,7 @@ unsupported_typespec                                   2
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
+assign_stmt                                            9
 assignment                                             2
 begin                                                  8
 constant                                              31
@@ -324,8 +324,8 @@ gen_scope                                             21
 gen_scope_array                                       21
 int_typespec                                           4
 logic_net                                              1
-logic_typespec                                         5
-logic_var                                             10
+logic_typespec                                        12
+logic_var                                             17
 module_inst                                            5
 named_begin                                            1
 operation                                              8
@@ -385,8 +385,26 @@ design: (work@top)
       |vpiName:genblk2
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_assign_stmt: , line:5:20, endln:5:21
+        |vpiLhs:
+        \_logic_var: (a), line:5:20, endln:5:21
+          |vpiParent:
+          \_assign_stmt: , line:5:20, endln:5:21
+          |vpiTypespec:
+          \_logic_typespec: , line:5:14, endln:5:19
+          |vpiName:a
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_assign_stmt: , line:6:12, endln:6:13
+        |vpiLhs:
+        \_logic_var: (b), line:6:12, endln:6:13
+          |vpiParent:
+          \_assign_stmt: , line:6:12, endln:6:13
+          |vpiTypespec:
+          \_logic_typespec: , line:6:6, endln:6:11
+          |vpiName:b
   |vpiGenStmt:
   \_gen_if_else: 
     |vpiParent:
@@ -396,8 +414,26 @@ design: (work@top)
       |vpiName:genblk2
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_assign_stmt: , line:9:20, endln:9:21
+        |vpiLhs:
+        \_logic_var: (a), line:9:20, endln:9:21
+          |vpiParent:
+          \_assign_stmt: , line:9:20, endln:9:21
+          |vpiTypespec:
+          \_logic_typespec: , line:9:14, endln:9:19
+          |vpiName:a
     |vpiElseStmt:
     \_begin: 
+      |vpiStmt:
+      \_assign_stmt: , line:10:12, endln:10:13
+        |vpiLhs:
+        \_logic_var: (b), line:10:12, endln:10:13
+          |vpiParent:
+          \_assign_stmt: , line:10:12, endln:10:13
+          |vpiTypespec:
+          \_logic_typespec: , line:10:6, endln:10:11
+          |vpiName:b
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -482,6 +518,15 @@ design: (work@top)
           |vpiConstType:9
         |vpiStmt:
         \_begin: 
+          |vpiStmt:
+          \_assign_stmt: , line:16:14, endln:16:15
+            |vpiLhs:
+            \_logic_var: (a), line:16:14, endln:16:15
+              |vpiParent:
+              \_assign_stmt: , line:16:14, endln:16:15
+              |vpiTypespec:
+              \_logic_typespec: , line:16:8, endln:16:13
+              |vpiName:a
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -565,6 +610,15 @@ design: (work@top)
           |vpiConstType:9
         |vpiStmt:
         \_begin: 
+          |vpiStmt:
+          \_assign_stmt: , line:25:14, endln:25:15
+            |vpiLhs:
+            \_logic_var: (a), line:25:14, endln:25:15
+              |vpiParent:
+              \_assign_stmt: , line:25:14, endln:25:15
+              |vpiTypespec:
+              \_logic_typespec: , line:25:8, endln:25:13
+              |vpiName:a
   |vpiGenStmt:
   \_gen_if: , line:27:1, endln:27:3
     |vpiParent:
@@ -577,6 +631,15 @@ design: (work@top)
       |vpiConstType:9
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_assign_stmt: , line:27:14, endln:27:15
+        |vpiLhs:
+        \_logic_var: (a), line:27:14, endln:27:15
+          |vpiParent:
+          \_assign_stmt: , line:27:14, endln:27:15
+          |vpiTypespec:
+          \_logic_typespec: , line:27:8, endln:27:13
+          |vpiName:a
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
   |vpiName:work@top

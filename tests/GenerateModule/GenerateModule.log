@@ -778,7 +778,7 @@ Instance tree:
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
-begin                                                  1
+begin                                                  2
 bit_select                                             8
 class_defn                                             8
 class_typespec                                         4
@@ -791,6 +791,7 @@ enum_typespec                                          1
 enum_var                                               1
 function                                               9
 gen_for                                                1
+gen_region                                             1
 gen_scope                                             44
 gen_scope_array                                       44
 int_typespec                                          51
@@ -1247,6 +1248,12 @@ design: (work@small_test)
     |vpiLhs:
     \_parameter: (work@small_test.SIZE), line:3:26, endln:3:30
   |vpiDefName:work@small_test
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/GenerateModule/top.v, line:1:1, endln:19:10
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenerateModule/top.v, line:21:1, endln:26:10
   |vpiParent:
@@ -1438,8 +1445,6 @@ design: (work@small_test)
               \_operation: , line:24:23, endln:24:26
               |vpiName:i
               |vpiFullName:a.i
-              |vpiActual:
-              \_logic_net: (i)
         |vpiLhs:
         \_bit_select: (b), line:24:14, endln:24:18
           |vpiParent:
@@ -1454,8 +1459,6 @@ design: (work@small_test)
             \_bit_select: (b), line:24:14, endln:24:18
             |vpiName:i
             |vpiFullName:b.i
-            |vpiActual:
-            \_logic_net: (i)
 |uhdmtopModules:
 \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/GenerateModule/top.v, line:1:1, endln:19:10
   |vpiName:work@small_test

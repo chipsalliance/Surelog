@@ -1350,14 +1350,16 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-always                                                 2
-assignment                                             3
-begin                                                  5
+always                                                 3
+assignment                                             9
+begin                                                  9
 bit_select                                             3
+case_item                                              3
+case_stmt                                              1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             167
+constant                                             176
 cont_assign                                            8
 design                                                 1
 enum_const                                            23
@@ -1378,18 +1380,18 @@ logic_net                                             21
 logic_typespec                                        18
 logic_var                                              2
 module_inst                                           26
-operation                                             55
+operation                                             61
 package                                                5
 param_assign                                          35
 parameter                                             35
 port                                                   4
 range                                                 22
 ref_module                                             2
-ref_obj                                               59
+ref_obj                                               70
 string_typespec                                        3
 sys_func_call                                          3
 task                                                   9
-unsupported_typespec                                   1
+unsupported_typespec                                   5
 === UHDM Object Stats End ===
 [ERR:UH0718] ${SURELOG_DIR}/tests/Bindings/dut.sv:75:11: Illegal lhs of type wire "data_r".
 
@@ -1398,14 +1400,16 @@ unsupported_typespec                                   1
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-always                                                 5
-assignment                                             8
-begin                                                  8
+always                                                 6
+assignment                                            14
+begin                                                 12
 bit_select                                             5
+case_item                                              3
+case_stmt                                              1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             178
+constant                                             187
 cont_assign                                           12
 design                                                 1
 enum_const                                            28
@@ -1426,18 +1430,18 @@ logic_net                                             21
 logic_typespec                                        18
 logic_var                                              2
 module_inst                                           26
-operation                                             75
+operation                                             81
 package                                                5
 param_assign                                          35
 parameter                                             35
 port                                                   6
 range                                                 22
 ref_module                                             2
-ref_obj                                               89
+ref_obj                                              100
 string_typespec                                        3
 sys_func_call                                          3
 task                                                  18
-unsupported_typespec                                   1
+unsupported_typespec                                   5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Bindings/slpp_all/surelog.uhdm ...
 
@@ -2625,8 +2629,6 @@ design: (work@dut1)
           |vpiParent:
           \_cont_assign: , line:44:15, endln:44:23
           |vpiName:o
-          |vpiActual:
-          \_logic_net: (work@dut2.o), line:38:36, endln:38:37
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -2636,7 +2638,8 @@ design: (work@dut1)
           |vpiParent:
           \_cont_assign: , line:47:15, endln:47:44
           |vpiTypespec:
-          \_string_typespec: 
+          \_unsupported_typespec: (num_out_p), line:47:20, endln:47:29
+            |vpiName:num_out_p
           |vpiOpType:67
           |vpiOperand:
           \_operation: , line:47:34, endln:47:43
@@ -2656,15 +2659,11 @@ design: (work@dut1)
               |vpiParent:
               \_operation: , line:47:34, endln:47:43
               |vpiName:i
-              |vpiActual:
-              \_logic_net: (work@dut2.i), line:37:36, endln:37:37
         |vpiLhs:
         \_ref_obj: (o), line:47:15, endln:47:16
           |vpiParent:
           \_cont_assign: , line:47:15, endln:47:44
           |vpiName:o
-          |vpiActual:
-          \_logic_net: (work@dut2.o), line:38:36, endln:38:37
 |uhdmallModules:
 \_module_inst: work@dut3 (work@dut3), file:${SURELOG_DIR}/tests/Bindings/dut.sv, line:54:1, endln:64:10
   |vpiParent:
@@ -3094,6 +3093,228 @@ design: (work@dut1)
       \_logic_net: (GEN)
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_always: , line:99:3, endln:106:5
+        |vpiStmt:
+        \_begin: , line:100:4, endln:106:5
+          |vpiParent:
+          \_always: , line:99:3, endln:106:5
+          |vpiStmt:
+          \_case_stmt: , line:101:5, endln:105:12
+            |vpiParent:
+            \_begin: , line:100:4, endln:106:5
+            |vpiCaseType:3
+            |vpiQualifier:1
+            |vpiCondition:
+            \_operation: , line:101:18, endln:101:34
+              |vpiParent:
+              \_begin: , line:100:4, endln:106:5
+              |vpiOpType:33
+              |vpiOperand:
+              \_ref_obj: (last_r), line:101:19, endln:101:25
+                |vpiParent:
+                \_begin: , line:100:4, endln:106:5
+                |vpiName:last_r
+              |vpiOperand:
+              \_ref_obj: (reqs_i), line:101:27, endln:101:33
+                |vpiParent:
+                \_begin: , line:100:4, endln:106:5
+                |vpiName:reqs_i
+            |vpiCaseItem:
+            \_case_item: , line:102:5, endln:102:73
+              |vpiParent:
+              \_case_stmt: , line:101:5, endln:105:12
+              |vpiExpr:
+              \_constant: , line:102:5, endln:102:11
+                |vpiParent:
+                \_case_item: , line:102:5, endln:102:73
+                |vpiDecompile:2'b?_0
+                |vpiSize:2
+                |BIN:?0
+                |vpiConstType:3
+              |vpiStmt:
+              \_begin: , line:102:13, endln:102:73
+                |vpiParent:
+                \_case_item: , line:102:5, endln:102:73
+                |vpiStmt:
+                \_assignment: , line:102:19, endln:102:39
+                  |vpiParent:
+                  \_begin: , line:102:13, endln:102:73
+                  |vpiOpType:82
+                  |vpiBlocking:1
+                  |vpiRhs:
+                  \_constant: , line:102:35, endln:102:39
+                    |vpiParent:
+                    \_assignment: , line:102:19, endln:102:39
+                    |vpiDecompile:1'b0
+                    |vpiSize:1
+                    |BIN:0
+                    |vpiConstType:3
+                  |vpiLhs:
+                  \_ref_obj: (sel_one_hot_n), line:102:19, endln:102:32
+                    |vpiParent:
+                    \_begin: , line:102:13, endln:102:73
+                    |vpiName:sel_one_hot_n
+                |vpiStmt:
+                \_assignment: , line:102:41, endln:102:68
+                  |vpiParent:
+                  \_begin: , line:102:13, endln:102:73
+                  |vpiOpType:82
+                  |vpiBlocking:1
+                  |vpiRhs:
+                  \_operation: , line:102:49, endln:102:68
+                    |vpiParent:
+                    \_assignment: , line:102:41, endln:102:68
+                    |vpiTypespec:
+                    \_unsupported_typespec: (lg_inputs_p), line:102:50, endln:102:61
+                      |vpiName:lg_inputs_p
+                    |vpiOpType:67
+                    |vpiOperand:
+                    \_constant: , line:102:66, endln:102:67
+                      |vpiParent:
+                      \_operation: , line:102:49, endln:102:68
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
+                      |vpiConstType:9
+                  |vpiLhs:
+                  \_ref_obj: (tag_o), line:102:41, endln:102:46
+                    |vpiParent:
+                    \_begin: , line:102:13, endln:102:73
+                    |vpiName:tag_o
+            |vpiCaseItem:
+            \_case_item: , line:103:5, endln:103:72
+              |vpiParent:
+              \_case_stmt: , line:101:5, endln:105:12
+              |vpiExpr:
+              \_constant: , line:103:5, endln:103:11
+                |vpiParent:
+                \_case_item: , line:103:5, endln:103:72
+                |vpiDecompile:2'b0_1
+                |vpiSize:2
+                |BIN:01
+                |vpiConstType:3
+              |vpiStmt:
+              \_begin: , line:103:13, endln:103:72
+                |vpiParent:
+                \_case_item: , line:103:5, endln:103:72
+                |vpiStmt:
+                \_assignment: , line:103:19, endln:103:38
+                  |vpiParent:
+                  \_begin: , line:103:13, endln:103:72
+                  |vpiOpType:82
+                  |vpiBlocking:1
+                  |vpiRhs:
+                  \_constant: , line:103:34, endln:103:38
+                    |vpiParent:
+                    \_assignment: , line:103:19, endln:103:38
+                    |vpiDecompile:1'b1
+                    |vpiSize:1
+                    |BIN:1
+                    |vpiConstType:3
+                  |vpiLhs:
+                  \_ref_obj: (sel_one_hot_n), line:103:19, endln:103:32
+                    |vpiParent:
+                    \_begin: , line:103:13, endln:103:72
+                    |vpiName:sel_one_hot_n
+                |vpiStmt:
+                \_assignment: , line:103:40, endln:103:67
+                  |vpiParent:
+                  \_begin: , line:103:13, endln:103:72
+                  |vpiOpType:82
+                  |vpiBlocking:1
+                  |vpiRhs:
+                  \_operation: , line:103:48, endln:103:67
+                    |vpiParent:
+                    \_assignment: , line:103:40, endln:103:67
+                    |vpiTypespec:
+                    \_unsupported_typespec: (lg_inputs_p), line:103:49, endln:103:60
+                      |vpiName:lg_inputs_p
+                    |vpiOpType:67
+                    |vpiOperand:
+                    \_constant: , line:103:65, endln:103:66
+                      |vpiParent:
+                      \_operation: , line:103:48, endln:103:67
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
+                      |vpiConstType:9
+                  |vpiLhs:
+                  \_ref_obj: (tag_o), line:103:40, endln:103:45
+                    |vpiParent:
+                    \_begin: , line:103:13, endln:103:72
+                    |vpiName:tag_o
+            |vpiCaseItem:
+            \_case_item: , line:104:7, endln:104:80
+              |vpiParent:
+              \_case_stmt: , line:101:5, endln:105:12
+              |vpiStmt:
+              \_begin: , line:104:16, endln:104:80
+                |vpiParent:
+                \_case_item: , line:104:7, endln:104:80
+                |vpiStmt:
+                \_assignment: , line:104:22, endln:104:46
+                  |vpiParent:
+                  \_begin: , line:104:16, endln:104:80
+                  |vpiOpType:82
+                  |vpiBlocking:1
+                  |vpiRhs:
+                  \_operation: , line:104:37, endln:104:46
+                    |vpiParent:
+                    \_begin: , line:104:16, endln:104:80
+                    |vpiOpType:34
+                    |vpiOperand:
+                    \_constant: , line:104:38, endln:104:39
+                      |vpiParent:
+                      \_operation: , line:104:37, endln:104:46
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                      |vpiConstType:9
+                    |vpiOperand:
+                    \_operation: , line:104:39, endln:104:45
+                      |vpiParent:
+                      \_begin: , line:104:16, endln:104:80
+                      |vpiOpType:33
+                      |vpiOperand:
+                      \_constant: , line:104:40, endln:104:44
+                        |vpiDecompile:1'bX
+                        |vpiSize:1
+                        |BIN:X
+                        |vpiConstType:3
+                  |vpiLhs:
+                  \_ref_obj: (sel_one_hot_n), line:104:22, endln:104:35
+                    |vpiParent:
+                    \_begin: , line:104:16, endln:104:80
+                    |vpiName:sel_one_hot_n
+                |vpiStmt:
+                \_assignment: , line:104:48, endln:104:75
+                  |vpiParent:
+                  \_begin: , line:104:16, endln:104:80
+                  |vpiOpType:82
+                  |vpiBlocking:1
+                  |vpiRhs:
+                  \_operation: , line:104:56, endln:104:75
+                    |vpiParent:
+                    \_assignment: , line:104:48, endln:104:75
+                    |vpiTypespec:
+                    \_unsupported_typespec: (lg_inputs_p), line:104:57, endln:104:68
+                      |vpiName:lg_inputs_p
+                    |vpiOpType:67
+                    |vpiOperand:
+                    \_constant: , line:104:73, endln:104:74
+                      |vpiParent:
+                      \_operation: , line:104:56, endln:104:75
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
+                      |vpiConstType:9
+                  |vpiLhs:
+                  \_ref_obj: (tag_o), line:104:48, endln:104:53
+                    |vpiParent:
+                    \_begin: , line:104:16, endln:104:80
+                    |vpiName:tag_o
+        |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/Bindings/dut.sv, line:20:1, endln:31:10
   |vpiName:work@dut1
@@ -4369,4 +4590,4 @@ design: (work@dut1)
 [   NOTE] : 10
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/Bindings/dut.sv | ${SURELOG_DIR}/build/regression/Bindings/roundtrip/dut_000.sv | 38 | 108 |
+[roundtrip]: ${SURELOG_DIR}/tests/Bindings/dut.sv | ${SURELOG_DIR}/build/regression/Bindings/roundtrip/dut_000.sv | 33 | 108 |

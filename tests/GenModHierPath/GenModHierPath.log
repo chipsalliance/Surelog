@@ -129,9 +129,12 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         1
 array_var                                              1
-constant                                               4
+begin                                                  1
+constant                                               5
 design                                                 1
 function                                               1
+gen_if                                                 1
+gen_region                                             1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                              1
@@ -139,9 +142,10 @@ int_typespec                                           1
 int_var                                                1
 logic_net                                              1
 module_inst                                            6
+named_begin                                            1
 operation                                              1
 range                                                  1
-ref_module                                             1
+ref_module                                             2
 ref_obj                                                3
 sys_func_call                                          1
 === UHDM Object Stats End ===
@@ -150,9 +154,12 @@ sys_func_call                                          1
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         1
 array_var                                              2
-constant                                               4
+begin                                                  1
+constant                                               5
 design                                                 1
 function                                               2
+gen_if                                                 1
+gen_region                                             1
 gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                              2
@@ -160,9 +167,10 @@ int_typespec                                           1
 int_var                                                2
 logic_net                                              1
 module_inst                                            7
+named_begin                                            1
 operation                                              2
 range                                                  2
-ref_module                                             1
+ref_module                                             2
 ref_obj                                                6
 sys_func_call                                          2
 === UHDM Object Stats End ===
@@ -231,6 +239,27 @@ design: (work@InitializedBlockRAM)
       |vpiName:$readmemh
     |vpiInstance:
     \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:11:5, endln:11:7
+        |vpiCondition:
+        \_constant: , line:11:9, endln:11:10
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_named_begin: (body)
+          |vpiName:body
+          |vpiStmt:
+          \_ref_module: work@ForNarrowRequest (ram), line:12:26, endln:12:29
+            |vpiName:ram
+            |vpiDefName:work@ForNarrowRequest
 |uhdmtopModules:
 \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
   |vpiName:work@InitializedBlockRAM

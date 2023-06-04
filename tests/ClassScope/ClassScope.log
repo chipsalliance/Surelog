@@ -10407,62 +10407,62 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                 16
+begin                                                 24
 bit_select                                            32
 class_defn                                             1
-constant                                             800
-delay_control                                         10
+constant                                             878
+delay_control                                         18
 design                                                 1
 gen_if                                                 8
 gen_scope                                             16
 gen_scope_array                                       16
-initial                                               10
-int_typespec                                          14
+initial                                               18
+int_typespec                                          16
 integer_typespec                                       1
 interface_inst                                        49
 logic_typespec                                         4
 module_inst                                           49
-operation                                            118
+operation                                            134
 package                                                3
-param_assign                                         226
-parameter                                            226
+param_assign                                         242
+parameter                                            242
 part_select                                           31
 range                                                  3
 ref_module                                            96
-ref_obj                                              372
-sys_func_call                                        109
+ref_obj                                              484
+sys_func_call                                        213
 type_parameter                                        15
-unsupported_typespec                                  23
+unsupported_typespec                                  38
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                 24
+begin                                                 32
 bit_select                                            32
 class_defn                                             1
-constant                                             816
-delay_control                                        114
+constant                                             894
+delay_control                                        122
 design                                                 1
 gen_if                                                 8
 gen_scope                                             24
 gen_scope_array                                       24
-initial                                              114
-int_typespec                                          14
+initial                                              122
+int_typespec                                          16
 integer_typespec                                       1
 interface_inst                                        73
 logic_typespec                                         4
 module_inst                                           73
-operation                                            135
+operation                                            151
 package                                                3
-param_assign                                         428
-parameter                                            418
+param_assign                                         444
+parameter                                            434
 part_select                                           31
 range                                                  3
 ref_module                                            96
-ref_obj                                             1121
-sys_func_call                                        406
+ref_obj                                             1233
+sys_func_call                                        510
 type_parameter                                        15
-unsupported_typespec                                  23
+unsupported_typespec                                  38
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassScope/slpp_all/surelog.uhdm ...
 
@@ -11130,6 +11130,231 @@ design: (work@top)
     |vpiStmt:
     \_begin: 
       |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:36
+        |vpiRhs:
+        \_ref_obj: (E), line:44:35, endln:44:36
+          |vpiName:E
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:36
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:41
+        |vpiRhs:
+        \_ref_obj: (T), line:45:40, endln:45:41
+          |vpiName:T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:41
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:53
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:39
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:53
+              |vpiDecompile:"E = %0d %0d"
+              |vpiSize:88
+              |STRING:E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:41, endln:48:49
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:53
+              |vpiName:the_expr
+            |vpiArgument:
+            \_ref_obj: (E), line:48:51, endln:48:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:53
+              |vpiName:E
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:74
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:46
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:74
+              |vpiDecompile:"$bits(E) = %0d %0d"
+              |vpiSize:144
+              |STRING:$bits(E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:48, endln:49:63
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:74
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:54, endln:49:62
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:48, endln:49:63
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:65, endln:49:73
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:74
+              |vpiArgument:
+              \_ref_obj: (E), line:49:71, endln:49:72
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:65, endln:49:73
+                |vpiName:E
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:74
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:46
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:74
+              |vpiDecompile:"$bits(T) = %0d %0d"
+              |vpiSize:144
+              |STRING:$bits(T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:48, endln:50:63
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:74
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:54, endln:50:62
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:48, endln:50:63
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:65, endln:50:73
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:74
+              |vpiArgument:
+              \_ref_obj: (T), line:50:71, endln:50:72
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:65, endln:50:73
+                |vpiName:T
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:53
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:42
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:53
+              |vpiDecompile:"$left(E) = %0d"
+              |vpiSize:112
+              |STRING:$left(E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:44, endln:51:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:53
+              |vpiArgument:
+              \_ref_obj: (E), line:51:50, endln:51:51
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:44, endln:51:52
+                |vpiName:E
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:53
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:42
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:53
+              |vpiDecompile:"$left(T) = %0d"
+              |vpiSize:112
+              |STRING:$left(T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:44, endln:52:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:53
+              |vpiArgument:
+              \_ref_obj: (T), line:52:50, endln:52:51
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:44, endln:52:52
+                |vpiName:T
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:48
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:39
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:48
+              |vpiDecompile:"E'('z) = %b"
+              |vpiSize:88
+              |STRING:E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:41, endln:53:47
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:48
+              |vpiTypespec:
+              \_unsupported_typespec: (E), line:53:41, endln:53:42
+                |vpiName:E
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:44, endln:53:46
+                |vpiParent:
+                \_operation: , line:53:41, endln:53:47
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:48
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:39
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:48
+              |vpiDecompile:"T'('z) = %b"
+              |vpiSize:88
+              |STRING:T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:41, endln:54:47
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:48
+              |vpiTypespec:
+              \_unsupported_typespec: (T), line:54:41, endln:54:42
+                |vpiName:T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:44, endln:54:46
+                |vpiParent:
+                \_operation: , line:54:41, endln:54:47
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+      |vpiStmt:
       \_ref_module: work@I (i1), line:56:39, endln:56:41
         |vpiName:i1
         |vpiDefName:work@I
@@ -11162,6 +11387,251 @@ design: (work@top)
       |vpiName:FLAG
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:39
+        |vpiRhs:
+        \_constant: , line:44:35, endln:44:38
+          |vpiDecompile:2
+          |vpiSize:32
+          |UINT:2
+          |vpiTypespec:
+          \_int_typespec: 
+            |vpiParent:
+            \_constant: , line:44:35, endln:44:38
+          |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:39
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:44
+        |vpiRhs:
+        \_ref_obj: (P::T), line:45:40, endln:45:43
+          |vpiName:P::T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:44
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:59
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:42
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:59
+              |vpiDecompile:"P::E = %0d %0d"
+              |vpiSize:112
+              |STRING:P::E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:44, endln:48:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:59
+              |vpiName:the_expr
+            |vpiArgument:
+            \_constant: , line:48:54, endln:48:58
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:59
+              |vpiDecompile:2
+              |vpiSize:64
+              |UINT:2
+              |vpiConstType:9
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:80
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:49
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:80
+              |vpiDecompile:"$bits(P::E) = %0d %0d"
+              |vpiSize:168
+              |STRING:$bits(P::E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:51, endln:49:66
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:80
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:57, endln:49:65
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:51, endln:49:66
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:68, endln:49:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:80
+              |vpiArgument:
+              \_constant: , line:49:74, endln:49:78
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:68, endln:49:79
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:80
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:49
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:80
+              |vpiDecompile:"$bits(P::T) = %0d %0d"
+              |vpiSize:168
+              |STRING:$bits(P::T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:51, endln:50:66
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:80
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:57, endln:50:65
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:51, endln:50:66
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:68, endln:50:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:80
+              |vpiArgument:
+              \_ref_obj: (P::T), line:50:74, endln:50:77
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:68, endln:50:79
+                |vpiName:P::T
+                |vpiActual:
+                \_type_parameter: (P::T), line:11:21, endln:11:22
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:59
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:45
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:59
+              |vpiDecompile:"$left(P::E) = %0d"
+              |vpiSize:136
+              |STRING:$left(P::E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:47, endln:51:58
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:59
+              |vpiArgument:
+              \_constant: , line:51:53, endln:51:57
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:47, endln:51:58
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:59
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:45
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:59
+              |vpiDecompile:"$left(P::T) = %0d"
+              |vpiSize:136
+              |STRING:$left(P::T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:47, endln:52:58
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:59
+              |vpiArgument:
+              \_ref_obj: (P::T), line:52:53, endln:52:56
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:47, endln:52:58
+                |vpiName:P::T
+                |vpiActual:
+                \_type_parameter: (P::T), line:11:21, endln:11:22
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:54
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:42
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:54
+              |vpiDecompile:"P::E'('z) = %b"
+              |vpiSize:112
+              |STRING:P::E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:44, endln:53:53
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:54
+              |vpiTypespec:
+              \_int_typespec: 
+                |UINT:2
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:50, endln:53:52
+                |vpiParent:
+                \_operation: , line:53:44, endln:53:53
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:54
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:42
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:54
+              |vpiDecompile:"P::T'('z) = %b"
+              |vpiSize:112
+              |STRING:P::T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:44, endln:54:53
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:54
+              |vpiTypespec:
+              \_unsupported_typespec: (P::T), line:54:44, endln:54:47
+                |vpiName:P::T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:50, endln:54:52
+                |vpiParent:
+                \_operation: , line:54:44, endln:54:53
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:48, endln:56:50
         |vpiName:i1
@@ -11196,6 +11666,231 @@ design: (work@top)
     |vpiStmt:
     \_begin: 
       |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:42
+        |vpiRhs:
+        \_ref_obj: (C::E), line:44:35, endln:44:41
+          |vpiName:C::E
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:42
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:47
+        |vpiRhs:
+        \_ref_obj: (C::T), line:45:40, endln:45:46
+          |vpiName:C::T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:47
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:65
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:45
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:65
+              |vpiDecompile:"C#()::E = %0d %0d"
+              |vpiSize:136
+              |STRING:C#()::E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:47, endln:48:55
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:65
+              |vpiName:the_expr
+            |vpiArgument:
+            \_ref_obj: (C::E), line:48:57, endln:48:61
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:65
+              |vpiName:C::E
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:86
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:86
+              |vpiDecompile:"$bits(C#()::E) = %0d %0d"
+              |vpiSize:192
+              |STRING:$bits(C#()::E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:54, endln:49:69
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:86
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:60, endln:49:68
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:54, endln:49:69
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:71, endln:49:85
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:86
+              |vpiArgument:
+              \_ref_obj: (C::E), line:49:77, endln:49:81
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:71, endln:49:85
+                |vpiName:C::E
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:86
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:86
+              |vpiDecompile:"$bits(C#()::T) = %0d %0d"
+              |vpiSize:192
+              |STRING:$bits(C#()::T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:54, endln:50:69
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:86
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:60, endln:50:68
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:54, endln:50:69
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:71, endln:50:85
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:86
+              |vpiArgument:
+              \_ref_obj: (C::T), line:50:77, endln:50:81
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:71, endln:50:85
+                |vpiName:C::T
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:65
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:48
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:65
+              |vpiDecompile:"$left(C#()::E) = %0d"
+              |vpiSize:160
+              |STRING:$left(C#()::E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:50, endln:51:64
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:65
+              |vpiArgument:
+              \_ref_obj: (C::E), line:51:56, endln:51:60
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:50, endln:51:64
+                |vpiName:C::E
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:65
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:48
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:65
+              |vpiDecompile:"$left(C#()::T) = %0d"
+              |vpiSize:160
+              |STRING:$left(C#()::T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:50, endln:52:64
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:65
+              |vpiArgument:
+              \_ref_obj: (C::T), line:52:56, endln:52:60
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:50, endln:52:64
+                |vpiName:C::T
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:60
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:45
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:60
+              |vpiDecompile:"C#()::E'('z) = %b"
+              |vpiSize:136
+              |STRING:C#()::E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:47, endln:53:59
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:60
+              |vpiTypespec:
+              \_unsupported_typespec: (C::E), line:53:47, endln:53:53
+                |vpiName:C::E
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:56, endln:53:58
+                |vpiParent:
+                \_operation: , line:53:47, endln:53:59
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:60
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:45
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:60
+              |vpiDecompile:"C#()::T'('z) = %b"
+              |vpiSize:136
+              |STRING:C#()::T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:47, endln:54:59
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:60
+              |vpiTypespec:
+              \_unsupported_typespec: (C::T), line:54:47, endln:54:53
+                |vpiName:C::T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:56, endln:54:58
+                |vpiParent:
+                \_operation: , line:54:47, endln:54:59
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+      |vpiStmt:
       \_ref_module: work@I (i1), line:56:57, endln:56:59
         |vpiName:i1
         |vpiDefName:work@I
@@ -11228,6 +11923,231 @@ design: (work@top)
       |vpiName:FLAG
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:46
+        |vpiRhs:
+        \_ref_obj: (C::E), line:44:35, endln:44:45
+          |vpiName:C::E
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:46
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:51
+        |vpiRhs:
+        \_ref_obj: (C::T), line:45:40, endln:45:50
+          |vpiName:C::T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:51
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:73
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:49
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:73
+              |vpiDecompile:"C#(E, T)::E = %0d %0d"
+              |vpiSize:168
+              |STRING:C#(E, T)::E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:51, endln:48:59
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:73
+              |vpiName:the_expr
+            |vpiArgument:
+            \_ref_obj: (C::E), line:48:61, endln:48:69
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:73
+              |vpiName:C::E
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:94
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:56
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:94
+              |vpiDecompile:"$bits(C#(E, T)::E) = %0d %0d"
+              |vpiSize:224
+              |STRING:$bits(C#(E, T)::E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:58, endln:49:73
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:94
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:64, endln:49:72
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:58, endln:49:73
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:75, endln:49:93
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:94
+              |vpiArgument:
+              \_ref_obj: (C::E), line:49:81, endln:49:89
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:75, endln:49:93
+                |vpiName:C::E
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:94
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:56
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:94
+              |vpiDecompile:"$bits(C#(E, T)::T) = %0d %0d"
+              |vpiSize:224
+              |STRING:$bits(C#(E, T)::T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:58, endln:50:73
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:94
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:64, endln:50:72
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:58, endln:50:73
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:75, endln:50:93
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:94
+              |vpiArgument:
+              \_ref_obj: (C::T), line:50:81, endln:50:89
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:75, endln:50:93
+                |vpiName:C::T
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:73
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:73
+              |vpiDecompile:"$left(C#(E, T)::E) = %0d"
+              |vpiSize:192
+              |STRING:$left(C#(E, T)::E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:54, endln:51:72
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:73
+              |vpiArgument:
+              \_ref_obj: (C::E), line:51:60, endln:51:68
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:54, endln:51:72
+                |vpiName:C::E
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:73
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:52
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:73
+              |vpiDecompile:"$left(C#(E, T)::T) = %0d"
+              |vpiSize:192
+              |STRING:$left(C#(E, T)::T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:54, endln:52:72
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:73
+              |vpiArgument:
+              \_ref_obj: (C::T), line:52:60, endln:52:68
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:54, endln:52:72
+                |vpiName:C::T
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:68
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:49
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:68
+              |vpiDecompile:"C#(E, T)::E'('z) = %b"
+              |vpiSize:168
+              |STRING:C#(E, T)::E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:51, endln:53:67
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:68
+              |vpiTypespec:
+              \_unsupported_typespec: (C::E), line:53:51, endln:53:61
+                |vpiName:C::E
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:64, endln:53:66
+                |vpiParent:
+                \_operation: , line:53:51, endln:53:67
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:68
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:49
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:68
+              |vpiDecompile:"C#(E, T)::T'('z) = %b"
+              |vpiSize:168
+              |STRING:C#(E, T)::T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:51, endln:54:67
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:68
+              |vpiTypespec:
+              \_unsupported_typespec: (C::T), line:54:51, endln:54:61
+                |vpiName:C::T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:64, endln:54:66
+                |vpiParent:
+                \_operation: , line:54:51, endln:54:67
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:69, endln:56:71
         |vpiName:i1
@@ -11262,6 +12182,231 @@ design: (work@top)
     |vpiStmt:
     \_begin: 
       |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:52
+        |vpiRhs:
+        \_ref_obj: (C::E), line:44:35, endln:44:51
+          |vpiName:C::E
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:52
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:57
+        |vpiRhs:
+        \_ref_obj: (C::T), line:45:40, endln:45:56
+          |vpiName:C::T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:57
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:85
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:55
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:85
+              |vpiDecompile:"C#(P::E, P::T)::E = %0d %0d"
+              |vpiSize:216
+              |STRING:C#(P::E, P::T)::E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:57, endln:48:65
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:85
+              |vpiName:the_expr
+            |vpiArgument:
+            \_ref_obj: (C::E), line:48:67, endln:48:81
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:85
+              |vpiName:C::E
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:106
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:62
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:106
+              |vpiDecompile:"$bits(C#(P::E, P::T)::E) = %0d %0d"
+              |vpiSize:272
+              |STRING:$bits(C#(P::E, P::T)::E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:64, endln:49:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:106
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:70, endln:49:78
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:64, endln:49:79
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:81, endln:49:105
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:106
+              |vpiArgument:
+              \_ref_obj: (C::E), line:49:87, endln:49:101
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:81, endln:49:105
+                |vpiName:C::E
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:106
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:62
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:106
+              |vpiDecompile:"$bits(C#(P::E, P::T)::T) = %0d %0d"
+              |vpiSize:272
+              |STRING:$bits(C#(P::E, P::T)::T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:64, endln:50:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:106
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:70, endln:50:78
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:64, endln:50:79
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:81, endln:50:105
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:106
+              |vpiArgument:
+              \_ref_obj: (C::T), line:50:87, endln:50:101
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:81, endln:50:105
+                |vpiName:C::T
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:85
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:58
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:85
+              |vpiDecompile:"$left(C#(P::E, P::T)::E) = %0d"
+              |vpiSize:240
+              |STRING:$left(C#(P::E, P::T)::E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:60, endln:51:84
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:85
+              |vpiArgument:
+              \_ref_obj: (C::E), line:51:66, endln:51:80
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:60, endln:51:84
+                |vpiName:C::E
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:85
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:58
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:85
+              |vpiDecompile:"$left(C#(P::E, P::T)::T) = %0d"
+              |vpiSize:240
+              |STRING:$left(C#(P::E, P::T)::T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:60, endln:52:84
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:85
+              |vpiArgument:
+              \_ref_obj: (C::T), line:52:66, endln:52:80
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:60, endln:52:84
+                |vpiName:C::T
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:80
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:55
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:80
+              |vpiDecompile:"C#(P::E, P::T)::E'('z) = %b"
+              |vpiSize:216
+              |STRING:C#(P::E, P::T)::E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:57, endln:53:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:80
+              |vpiTypespec:
+              \_unsupported_typespec: (C::E), line:53:57, endln:53:73
+                |vpiName:C::E
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:76, endln:53:78
+                |vpiParent:
+                \_operation: , line:53:57, endln:53:79
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:80
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:55
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:80
+              |vpiDecompile:"C#(P::E, P::T)::T'('z) = %b"
+              |vpiSize:216
+              |STRING:C#(P::E, P::T)::T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:57, endln:54:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:80
+              |vpiTypespec:
+              \_unsupported_typespec: (C::T), line:54:57, endln:54:73
+                |vpiName:C::T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:76, endln:54:78
+                |vpiParent:
+                \_operation: , line:54:57, endln:54:79
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+      |vpiStmt:
       \_ref_module: work@I (i1), line:56:87, endln:56:89
         |vpiName:i1
         |vpiDefName:work@I
@@ -11294,6 +12439,231 @@ design: (work@top)
       |vpiName:FLAG
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:66
+        |vpiRhs:
+        \_ref_obj: (C::E), line:44:35, endln:44:65
+          |vpiName:C::E
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:66
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:71
+        |vpiRhs:
+        \_ref_obj: (C::T), line:45:40, endln:45:70
+          |vpiName:C::T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:71
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:113
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:69
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:113
+              |vpiDecompile:"C#(C#(E, T)::E, C#(E, T)::T)::E = %0d %0d"
+              |vpiSize:328
+              |STRING:C#(C#(E, T)::E, C#(E, T)::T)::E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:71, endln:48:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:113
+              |vpiName:the_expr
+            |vpiArgument:
+            \_ref_obj: (C::E), line:48:81, endln:48:109
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:113
+              |vpiName:C::E
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:134
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:76
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:134
+              |vpiDecompile:"$bits(C#(C#(E, T)::E, C#(E, T)::T)::E) = %0d %0d"
+              |vpiSize:384
+              |STRING:$bits(C#(C#(E, T)::E, C#(E, T)::T)::E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:78, endln:49:93
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:134
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:84, endln:49:92
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:78, endln:49:93
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:95, endln:49:133
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:134
+              |vpiArgument:
+              \_ref_obj: (C::E), line:49:101, endln:49:129
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:95, endln:49:133
+                |vpiName:C::E
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:134
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:76
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:134
+              |vpiDecompile:"$bits(C#(C#(E, T)::E, C#(E, T)::T)::T) = %0d %0d"
+              |vpiSize:384
+              |STRING:$bits(C#(C#(E, T)::E, C#(E, T)::T)::T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:78, endln:50:93
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:134
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:84, endln:50:92
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:78, endln:50:93
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:95, endln:50:133
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:134
+              |vpiArgument:
+              \_ref_obj: (C::T), line:50:101, endln:50:129
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:95, endln:50:133
+                |vpiName:C::T
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:113
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:72
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:113
+              |vpiDecompile:"$left(C#(C#(E, T)::E, C#(E, T)::T)::E) = %0d"
+              |vpiSize:352
+              |STRING:$left(C#(C#(E, T)::E, C#(E, T)::T)::E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:74, endln:51:112
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:113
+              |vpiArgument:
+              \_ref_obj: (C::E), line:51:80, endln:51:108
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:74, endln:51:112
+                |vpiName:C::E
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:113
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:72
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:113
+              |vpiDecompile:"$left(C#(C#(E, T)::E, C#(E, T)::T)::T) = %0d"
+              |vpiSize:352
+              |STRING:$left(C#(C#(E, T)::E, C#(E, T)::T)::T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:74, endln:52:112
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:113
+              |vpiArgument:
+              \_ref_obj: (C::T), line:52:80, endln:52:108
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:74, endln:52:112
+                |vpiName:C::T
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:108
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:69
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:108
+              |vpiDecompile:"C#(C#(E, T)::E, C#(E, T)::T)::E'('z) = %b"
+              |vpiSize:328
+              |STRING:C#(C#(E, T)::E, C#(E, T)::T)::E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:71, endln:53:107
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:108
+              |vpiTypespec:
+              \_unsupported_typespec: (C::E), line:53:71, endln:53:101
+                |vpiName:C::E
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:104, endln:53:106
+                |vpiParent:
+                \_operation: , line:53:71, endln:53:107
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:108
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:69
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:108
+              |vpiDecompile:"C#(C#(E, T)::E, C#(E, T)::T)::T'('z) = %b"
+              |vpiSize:328
+              |STRING:C#(C#(E, T)::E, C#(E, T)::T)::T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:71, endln:54:107
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:108
+              |vpiTypespec:
+              \_unsupported_typespec: (C::T), line:54:71, endln:54:101
+                |vpiName:C::T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:104, endln:54:106
+                |vpiParent:
+                \_operation: , line:54:71, endln:54:107
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:129, endln:56:131
         |vpiName:i1
@@ -11328,6 +12698,231 @@ design: (work@top)
     |vpiStmt:
     \_begin: 
       |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:52
+        |vpiRhs:
+        \_ref_obj: (C::E), line:44:35, endln:44:51
+          |vpiName:C::E
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:52
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:57
+        |vpiRhs:
+        \_ref_obj: (C::T), line:45:40, endln:45:56
+          |vpiName:C::T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:57
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:85
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:55
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:85
+              |vpiDecompile:"C#(E[1], T[2])::E = %0d %0d"
+              |vpiSize:216
+              |STRING:C#(E[1], T[2])::E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:57, endln:48:65
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:85
+              |vpiName:the_expr
+            |vpiArgument:
+            \_ref_obj: (C::E), line:48:67, endln:48:81
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:85
+              |vpiName:C::E
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:106
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:62
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:106
+              |vpiDecompile:"$bits(C#(E[1], T[2])::E) = %0d %0d"
+              |vpiSize:272
+              |STRING:$bits(C#(E[1], T[2])::E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:64, endln:49:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:106
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:70, endln:49:78
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:64, endln:49:79
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:81, endln:49:105
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:106
+              |vpiArgument:
+              \_ref_obj: (C::E), line:49:87, endln:49:101
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:81, endln:49:105
+                |vpiName:C::E
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:106
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:62
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:106
+              |vpiDecompile:"$bits(C#(E[1], T[2])::T) = %0d %0d"
+              |vpiSize:272
+              |STRING:$bits(C#(E[1], T[2])::T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:64, endln:50:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:106
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:70, endln:50:78
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:64, endln:50:79
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:81, endln:50:105
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:106
+              |vpiArgument:
+              \_ref_obj: (C::T), line:50:87, endln:50:101
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:81, endln:50:105
+                |vpiName:C::T
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:85
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:58
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:85
+              |vpiDecompile:"$left(C#(E[1], T[2])::E) = %0d"
+              |vpiSize:240
+              |STRING:$left(C#(E[1], T[2])::E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:60, endln:51:84
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:85
+              |vpiArgument:
+              \_ref_obj: (C::E), line:51:66, endln:51:80
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:60, endln:51:84
+                |vpiName:C::E
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:85
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:58
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:85
+              |vpiDecompile:"$left(C#(E[1], T[2])::T) = %0d"
+              |vpiSize:240
+              |STRING:$left(C#(E[1], T[2])::T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:60, endln:52:84
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:85
+              |vpiArgument:
+              \_ref_obj: (C::T), line:52:66, endln:52:80
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:60, endln:52:84
+                |vpiName:C::T
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:80
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:55
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:80
+              |vpiDecompile:"C#(E[1], T[2])::E'('z) = %b"
+              |vpiSize:216
+              |STRING:C#(E[1], T[2])::E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:57, endln:53:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:80
+              |vpiTypespec:
+              \_unsupported_typespec: (C::E), line:53:57, endln:53:73
+                |vpiName:C::E
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:76, endln:53:78
+                |vpiParent:
+                \_operation: , line:53:57, endln:53:79
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:80
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:55
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:80
+              |vpiDecompile:"C#(E[1], T[2])::T'('z) = %b"
+              |vpiSize:216
+              |STRING:C#(E[1], T[2])::T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:57, endln:54:79
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:80
+              |vpiTypespec:
+              \_unsupported_typespec: (C::T), line:54:57, endln:54:73
+                |vpiName:C::T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:76, endln:54:78
+                |vpiParent:
+                \_operation: , line:54:57, endln:54:79
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+      |vpiStmt:
       \_ref_module: work@I (i1), line:56:87, endln:56:89
         |vpiName:i1
         |vpiDefName:work@I
@@ -11360,6 +12955,231 @@ design: (work@top)
       |vpiName:FLAG
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_param_assign: , line:44:24, endln:44:56
+        |vpiRhs:
+        \_ref_obj: (C::E), line:44:35, endln:44:55
+          |vpiName:C::E
+        |vpiLhs:
+        \_parameter: (the_expr), line:44:24, endln:44:56
+          |vpiLocalParam:1
+          |vpiName:the_expr
+      |vpiStmt:
+      \_param_assign: , line:45:29, endln:45:61
+        |vpiRhs:
+        \_ref_obj: (C::T), line:45:40, endln:45:60
+          |vpiName:C::T
+        |vpiLhs:
+        \_parameter: (the_type), line:45:29, endln:45:61
+          |vpiLocalParam:1
+          |vpiName:the_type
+      |vpiStmt:
+      \_initial: , line:46:13, endln:55:16
+        |vpiStmt:
+        \_begin: , line:46:21, endln:55:16
+          |vpiParent:
+          \_initial: , line:46:13, endln:55:16
+          |vpiStmt:
+          \_delay_control: , line:47:17, endln:47:26
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiDelay:
+            \_ref_obj: 
+              |vpiParent:
+              \_begin: , line:46:21, endln:55:16
+          |vpiStmt:
+          \_sys_func_call: ($display), line:48:17, endln:48:93
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:48:26, endln:48:59
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:93
+              |vpiDecompile:"C#(E[2:0], T[2:0])::E = %0d %0d"
+              |vpiSize:248
+              |STRING:C#(E[2:0], T[2:0])::E = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_ref_obj: (the_expr), line:48:61, endln:48:69
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:93
+              |vpiName:the_expr
+            |vpiArgument:
+            \_ref_obj: (C::E), line:48:71, endln:48:89
+              |vpiParent:
+              \_sys_func_call: ($display), line:48:17, endln:48:93
+              |vpiName:C::E
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:49:17, endln:49:114
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:49:26, endln:49:66
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:114
+              |vpiDecompile:"$bits(C#(E[2:0], T[2:0])::E) = %0d %0d"
+              |vpiSize:304
+              |STRING:$bits(C#(E[2:0], T[2:0])::E) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:68, endln:49:83
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:114
+              |vpiArgument:
+              \_ref_obj: (the_expr), line:49:74, endln:49:82
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:68, endln:49:83
+                |vpiName:the_expr
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:49:85, endln:49:113
+              |vpiParent:
+              \_sys_func_call: ($display), line:49:17, endln:49:114
+              |vpiArgument:
+              \_ref_obj: (C::E), line:49:91, endln:49:109
+                |vpiParent:
+                \_sys_func_call: ($bits), line:49:85, endln:49:113
+                |vpiName:C::E
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:50:17, endln:50:114
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:50:26, endln:50:66
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:114
+              |vpiDecompile:"$bits(C#(E[2:0], T[2:0])::T) = %0d %0d"
+              |vpiSize:304
+              |STRING:$bits(C#(E[2:0], T[2:0])::T) = %0d %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:68, endln:50:83
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:114
+              |vpiArgument:
+              \_ref_obj: (the_type), line:50:74, endln:50:82
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:68, endln:50:83
+                |vpiName:the_type
+              |vpiName:$bits
+            |vpiArgument:
+            \_sys_func_call: ($bits), line:50:85, endln:50:113
+              |vpiParent:
+              \_sys_func_call: ($display), line:50:17, endln:50:114
+              |vpiArgument:
+              \_ref_obj: (C::T), line:50:91, endln:50:109
+                |vpiParent:
+                \_sys_func_call: ($bits), line:50:85, endln:50:113
+                |vpiName:C::T
+              |vpiName:$bits
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:51:17, endln:51:93
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:51:26, endln:51:62
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:93
+              |vpiDecompile:"$left(C#(E[2:0], T[2:0])::E) = %0d"
+              |vpiSize:272
+              |STRING:$left(C#(E[2:0], T[2:0])::E) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:51:64, endln:51:92
+              |vpiParent:
+              \_sys_func_call: ($display), line:51:17, endln:51:93
+              |vpiArgument:
+              \_ref_obj: (C::E), line:51:70, endln:51:88
+                |vpiParent:
+                \_sys_func_call: ($left), line:51:64, endln:51:92
+                |vpiName:C::E
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:52:17, endln:52:93
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:52:26, endln:52:62
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:93
+              |vpiDecompile:"$left(C#(E[2:0], T[2:0])::T) = %0d"
+              |vpiSize:272
+              |STRING:$left(C#(E[2:0], T[2:0])::T) = %0d
+              |vpiConstType:6
+            |vpiArgument:
+            \_sys_func_call: ($left), line:52:64, endln:52:92
+              |vpiParent:
+              \_sys_func_call: ($display), line:52:17, endln:52:93
+              |vpiArgument:
+              \_ref_obj: (C::T), line:52:70, endln:52:88
+                |vpiParent:
+                \_sys_func_call: ($left), line:52:64, endln:52:92
+                |vpiName:C::T
+              |vpiName:$left
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:53:17, endln:53:88
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:53:26, endln:53:59
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:88
+              |vpiDecompile:"C#(E[2:0], T[2:0])::E'('z) = %b"
+              |vpiSize:248
+              |STRING:C#(E[2:0], T[2:0])::E'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:53:61, endln:53:87
+              |vpiParent:
+              \_sys_func_call: ($display), line:53:17, endln:53:88
+              |vpiTypespec:
+              \_unsupported_typespec: (C::E), line:53:61, endln:53:81
+                |vpiName:C::E
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:53:84, endln:53:86
+                |vpiParent:
+                \_operation: , line:53:61, endln:53:87
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
+          |vpiStmt:
+          \_sys_func_call: ($display), line:54:17, endln:54:88
+            |vpiParent:
+            \_begin: , line:46:21, endln:55:16
+            |vpiArgument:
+            \_constant: , line:54:26, endln:54:59
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:88
+              |vpiDecompile:"C#(E[2:0], T[2:0])::T'('z) = %b"
+              |vpiSize:248
+              |STRING:C#(E[2:0], T[2:0])::T'('z) = %b
+              |vpiConstType:6
+            |vpiArgument:
+            \_operation: , line:54:61, endln:54:87
+              |vpiParent:
+              \_sys_func_call: ($display), line:54:17, endln:54:88
+              |vpiTypespec:
+              \_unsupported_typespec: (C::T), line:54:61, endln:54:81
+                |vpiName:C::T
+              |vpiOpType:67
+              |vpiOperand:
+              \_constant: , line:54:84, endln:54:86
+                |vpiParent:
+                \_operation: , line:54:61, endln:54:87
+                |vpiDecompile:'Z
+                |vpiSize:-1
+                |BIN:Z
+                |vpiConstType:3
+            |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:99, endln:56:101
         |vpiName:i1

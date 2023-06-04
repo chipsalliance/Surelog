@@ -1539,13 +1539,15 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                            14
-begin                                                  5
-bit_select                                             3
-constant                                             181
-cont_assign                                            1
+begin                                                  6
+bit_select                                             4
+constant                                             183
+cont_assign                                            3
 design                                                 1
-func_call                                              4
+func_call                                              6
 function                                               4
+gen_if_else                                            1
+gen_region                                             1
 gen_scope                                              2
 gen_scope_array                                        2
 if_else                                                1
@@ -1555,27 +1557,30 @@ logic_net                                             12
 logic_typespec                                        45
 logic_var                                             14
 module_inst                                           11
-operation                                             76
+named_begin                                            2
+operation                                             77
 param_assign                                          23
 parameter                                             23
 part_select                                            7
 port                                                  15
 range                                                 54
 ref_module                                             1
-ref_obj                                              122
+ref_obj                                              131
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                            28
-begin                                                 10
-bit_select                                             6
-constant                                             183
-cont_assign                                            2
+begin                                                 11
+bit_select                                             7
+constant                                             185
+cont_assign                                            4
 design                                                 1
-func_call                                              8
+func_call                                             10
 function                                               8
+gen_if_else                                            1
+gen_region                                             1
 gen_scope                                              3
 gen_scope_array                                        3
 if_else                                                2
@@ -1585,14 +1590,15 @@ logic_net                                             12
 logic_typespec                                        45
 logic_var                                             19
 module_inst                                           11
-operation                                            102
+named_begin                                            2
+operation                                            103
 param_assign                                          29
 parameter                                             35
 part_select                                           14
 port                                                  21
 range                                                 54
 ref_module                                             1
-ref_obj                                              199
+ref_obj                                              208
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncIoTypespec/slpp_all/surelog.uhdm ...
@@ -3426,6 +3432,101 @@ design: (work@top)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:11:12, endln:18:6
+        |vpiCondition:
+        \_ref_obj: (signd_a), line:11:17, endln:11:24
+          |vpiName:signd_a
+        |vpiStmt:
+        \_named_begin: (SGNED)
+          |vpiName:SGNED
+          |vpiStmt:
+          \_cont_assign: , line:13:12, endln:13:40
+            |vpiRhs:
+            \_func_call: (fshl_s), line:13:16, endln:13:40
+              |vpiParent:
+              \_cont_assign: , line:13:12, endln:13:40
+              |vpiArgument:
+              \_ref_obj: (a), line:13:23, endln:13:24
+                |vpiParent:
+                \_func_call: (fshl_s), line:13:16, endln:13:40
+                |vpiName:a
+              |vpiArgument:
+              \_ref_obj: (s), line:13:25, endln:13:26
+                |vpiParent:
+                \_func_call: (fshl_s), line:13:16, endln:13:40
+                |vpiName:s
+              |vpiArgument:
+              \_bit_select: (a), line:13:27, endln:13:39
+                |vpiParent:
+                \_ref_obj: (a)
+                  |vpiParent:
+                  \_func_call: (fshl_s), line:13:16, endln:13:40
+                  |vpiName:a
+                |vpiName:a
+                |vpiIndex:
+                \_operation: , line:13:29, endln:13:38
+                  |vpiParent:
+                  \_func_call: (fshl_s), line:13:16, endln:13:40
+                  |vpiOpType:11
+                  |vpiOperand:
+                  \_ref_obj: (width_a), line:13:29, endln:13:36
+                    |vpiParent:
+                    \_func_call: (fshl_s), line:13:16, endln:13:40
+                    |vpiName:width_a
+                  |vpiOperand:
+                  \_constant: , line:13:37, endln:13:38
+                    |vpiParent:
+                    \_operation: , line:13:29, endln:13:38
+                    |vpiDecompile:1
+                    |vpiSize:64
+                    |UINT:1
+                    |vpiConstType:9
+              |vpiName:fshl_s
+            |vpiLhs:
+            \_ref_obj: (z), line:13:12, endln:13:13
+              |vpiParent:
+              \_cont_assign: , line:13:12, endln:13:40
+              |vpiName:z
+        |vpiElseStmt:
+        \_named_begin: (UNSGNED)
+          |vpiName:UNSGNED
+          |vpiStmt:
+          \_cont_assign: , line:17:12, endln:17:32
+            |vpiRhs:
+            \_func_call: (fshl_s), line:17:16, endln:17:32
+              |vpiParent:
+              \_cont_assign: , line:17:12, endln:17:32
+              |vpiArgument:
+              \_ref_obj: (a), line:17:23, endln:17:24
+                |vpiParent:
+                \_func_call: (fshl_s), line:17:16, endln:17:32
+                |vpiName:a
+              |vpiArgument:
+              \_ref_obj: (s), line:17:25, endln:17:26
+                |vpiParent:
+                \_func_call: (fshl_s), line:17:16, endln:17:32
+                |vpiName:s
+              |vpiArgument:
+              \_constant: , line:17:27, endln:17:31
+                |vpiParent:
+                \_func_call: (fshl_s), line:17:16, endln:17:32
+                |vpiDecompile:1'b0
+                |vpiSize:1
+                |BIN:0
+                |vpiConstType:3
+              |vpiName:fshl_s
+            |vpiLhs:
+            \_ref_obj: (z), line:17:12, endln:17:13
+              |vpiParent:
+              \_cont_assign: , line:17:12, endln:17:32
+              |vpiName:z
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
   |vpiParent:
@@ -5468,4 +5569,4 @@ design: (work@top)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv | ${SURELOG_DIR}/build/regression/FuncIoTypespec/roundtrip/dut_000.sv | 50 | 102 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv | ${SURELOG_DIR}/build/regression/FuncIoTypespec/roundtrip/dut_000.sv | 48 | 102 |

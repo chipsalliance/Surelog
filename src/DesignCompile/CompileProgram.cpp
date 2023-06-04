@@ -33,6 +33,8 @@
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Testbench/Program.h>
 #include <Surelog/Utils/StringUtils.h>
+#include <uhdm/final_stmt.h>
+#include <uhdm/initial.h>
 
 #include <stack>
 
@@ -277,14 +279,32 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
             m_helper.compileAttributes(m_program, fC, id, m_compileDesign);
         break;
       }
-      case VObjectType::slInitial_construct:
+      case VObjectType::slInitial_construct: {
         if (collectType != CollectType::OTHER) break;
-        m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
+        UHDM::initial* init =
+            m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
+        UHDM::VectorOfprocess_stmt* processes = m_program->getProcesses();
+        if (processes == nullptr) {
+          m_program->setProcesses(
+              m_compileDesign->getSerializer().MakeProcess_stmtVec());
+          processes = m_program->getProcesses();
+        }
+        processes->push_back(init);
         break;
-      case VObjectType::slFinal_construct:
+      }
+      case VObjectType::slFinal_construct: {
         if (collectType != CollectType::OTHER) break;
-        m_helper.compileFinalBlock(m_program, fC, id, m_compileDesign);
+        UHDM::final_stmt* final =
+            m_helper.compileFinalBlock(m_program, fC, id, m_compileDesign);
+        UHDM::VectorOfprocess_stmt* processes = m_program->getProcesses();
+        if (processes == nullptr) {
+          m_program->setProcesses(
+              m_compileDesign->getSerializer().MakeProcess_stmtVec());
+          processes = m_program->getProcesses();
+        }
+        processes->push_back(final);
         break;
+      }
       case VObjectType::slParam_assignment:
       case VObjectType::slDefparam_assignment: {
         if (collectType != CollectType::DEFINITION) break;

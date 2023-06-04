@@ -75,33 +75,34 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+assign_stmt                                            1
 begin                                                  1
 bit_select                                             1
 bit_typespec                                           2
-constant                                             142
+constant                                             146
 cont_assign                                            1
 design                                                 1
 gate                                                   6
 gen_if_else                                            3
 gen_scope                                             10
 gen_scope_array                                       10
-int_typespec                                          21
-logic_net                                             16
-logic_typespec                                         7
-logic_var                                              1
+int_typespec                                          22
+logic_net                                             15
+logic_typespec                                         8
+logic_var                                              2
 module_inst                                           17
 named_begin                                            5
-operation                                             46
+operation                                             48
 package                                                3
-param_assign                                          24
-parameter                                             27
+param_assign                                          25
+parameter                                             28
 port                                                  17
 prim_term                                             18
-range                                                  2
+range                                                  4
 ref_module                                             2
-ref_obj                                               30
+ref_obj                                               33
 string_typespec                                        6
-sys_func_call                                          1
+sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ForElab/slpp_all/surelog.uhdm ...
 
@@ -338,11 +339,62 @@ design: (work@tlul_socket_m1)
           |vpiParent:
           \_cont_assign: , line:30:12, endln:30:31
           |vpiName:valid_o
-          |vpiActual:
-          \_logic_net: (valid_o)
     |vpiElseStmt:
     \_named_begin: (gen_normal_case)
       |vpiName:gen_normal_case
+      |vpiStmt:
+      \_param_assign: , line:34:29, endln:34:49
+        |vpiRhs:
+        \_sys_func_call: ($clog2), line:34:40, endln:34:49
+          |vpiArgument:
+          \_ref_obj: (N), line:34:47, endln:34:48
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:34:40, endln:34:49
+            |vpiName:N
+          |vpiName:$clog2
+        |vpiLhs:
+        \_parameter: (N_LEVELS), line:34:29, endln:34:49
+          |vpiTypespec:
+          \_int_typespec: , line:34:16, endln:34:28
+          |vpiLocalParam:1
+          |vpiName:N_LEVELS
+      |vpiStmt:
+      \_assign_stmt: , line:35:47, endln:35:50
+        |vpiLhs:
+        \_logic_var: (req), line:35:47, endln:35:50
+          |vpiParent:
+          \_assign_stmt: , line:35:47, endln:35:50
+          |vpiTypespec:
+          \_logic_typespec: , line:35:5, endln:35:18
+            |vpiRange:
+            \_range: , line:35:11, endln:35:18
+              |vpiLeftRange:
+              \_operation: , line:35:12, endln:35:15
+                |vpiParent:
+                \_range: , line:35:11, endln:35:18
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (N), line:35:12, endln:35:13
+                  |vpiParent:
+                  \_operation: , line:35:12, endln:35:15
+                  |vpiName:N
+                |vpiOperand:
+                \_constant: , line:35:14, endln:35:15
+                  |vpiParent:
+                  \_operation: , line:35:12, endln:35:15
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:35:16, endln:35:17
+                |vpiParent:
+                \_range: , line:35:11, endln:35:18
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiName:req
 |uhdmallModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
   |vpiParent:
@@ -555,10 +607,6 @@ design: (work@tlul_socket_m1)
           \_logic_typespec: , line:22:9, endln:22:9
           |vpiName:rst_ni
           |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.rst_ni
-        |vpiNet:
-        \_logic_net: (valid_o)
-          |vpiName:valid_o
-          |vpiNetType:1
         |vpiPort:
         \_port: (clk_i), line:21:9, endln:21:14
           |vpiParent:
@@ -1132,4 +1180,4 @@ design: (work@tlul_socket_m1)
 [   NOTE] : 15
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ForElab/top.v | ${SURELOG_DIR}/build/regression/ForElab/roundtrip/top_000.v | 29 | 68 |
+[roundtrip]: ${SURELOG_DIR}/tests/ForElab/top.v | ${SURELOG_DIR}/build/regression/ForElab/roundtrip/top_000.v | 27 | 68 |

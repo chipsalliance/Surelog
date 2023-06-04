@@ -162,10 +162,12 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_select                                             1
 constant                                               8
 cont_assign                                            1
 design                                                 1
+gen_region                                             1
 gen_scope                                              1
 gen_scope_array                                        1
 hier_path                                              1
@@ -178,10 +180,12 @@ ref_obj                                                5
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 bit_select                                             2
 constant                                               8
 cont_assign                                            2
 design                                                 1
+gen_region                                             1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                              2
@@ -223,6 +227,12 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@nyuzi
   |vpiDefName:work@nyuzi
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@nyuzi (work@nyuzi), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:12:1, endln:21:10
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:25:1, endln:34:10
   |vpiParent:

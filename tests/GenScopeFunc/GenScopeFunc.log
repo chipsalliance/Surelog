@@ -143,10 +143,13 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             1
-constant                                               2
+begin                                                  1
+constant                                               3
 cont_assign                                            1
 design                                                 1
 function                                               1
+gen_if                                                 1
+gen_region                                             1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                              1
@@ -156,6 +159,7 @@ logic_typespec                                         2
 logic_var                                              2
 method_func_call                                       1
 module_inst                                            6
+named_begin                                            1
 operation                                              1
 ref_module                                             1
 ref_obj                                                5
@@ -164,10 +168,13 @@ ref_obj                                                5
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             2
-constant                                               2
+begin                                                  1
+constant                                               3
 cont_assign                                            2
 design                                                 1
 function                                               2
+gen_if                                                 1
+gen_region                                             1
 gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                              2
@@ -177,6 +184,7 @@ logic_typespec                                         2
 logic_var                                              2
 method_func_call                                       2
 module_inst                                            6
+named_begin                                            1
 operation                                              2
 ref_module                                             1
 ref_obj                                               10
@@ -231,6 +239,23 @@ design: (work@top)
       |vpiFullName:work@mod.foo
       |vpiActual:
       \_logic_net: (foo)
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv, line:1:1, endln:12:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:4:5, endln:4:7
+        |vpiCondition:
+        \_constant: , line:4:9, endln:4:10
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_named_begin: (cscope)
+          |vpiName:cscope
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv, line:14:1, endln:16:10
   |vpiParent:

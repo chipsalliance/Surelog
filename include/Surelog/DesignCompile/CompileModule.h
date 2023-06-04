@@ -76,7 +76,7 @@ class CompileModule final {
 
  private:
   CompileModule(const CompileModule&) = delete;
-  enum CollectType { FUNCTION, DEFINITION, OTHER };
+  enum CollectType { FUNCTION, DEFINITION, GENERATE_REGIONS, OTHER };
   bool collectModuleObjects_(CollectType collectType);
   bool checkModule_();
   bool collectInterfaceObjects_(CollectType collectType);

@@ -273,8 +273,9 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+assign_stmt                                            2
 begin                                                  1
-constant                                              41
+constant                                              49
 cont_assign                                            3
 design                                                 1
 gen_if                                                 1
@@ -282,25 +283,26 @@ gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           2
-logic_net                                              4
-logic_typespec                                         4
-logic_var                                              1
+logic_net                                              2
+logic_typespec                                         6
+logic_var                                              3
 module_inst                                            9
 named_begin                                            2
-operation                                             14
+operation                                             18
 param_assign                                           4
 parameter                                              4
 port                                                   2
-range                                                  6
+range                                                 10
 ref_module                                             1
-ref_obj                                               12
+ref_obj                                               16
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+assign_stmt                                            2
 begin                                                  1
-constant                                              41
+constant                                              49
 cont_assign                                            4
 design                                                 1
 gen_if                                                 1
@@ -308,18 +310,18 @@ gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           2
-logic_net                                              4
-logic_typespec                                         4
-logic_var                                              2
+logic_net                                              2
+logic_typespec                                         6
+logic_var                                              4
 module_inst                                            9
 named_begin                                            2
-operation                                             14
+operation                                             18
 param_assign                                           4
 parameter                                              4
 port                                                   3
-range                                                  7
+range                                                 11
 ref_module                                             1
-ref_obj                                               15
+ref_obj                                               19
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenNet/slpp_all/surelog.uhdm ...
@@ -497,21 +499,54 @@ design: (work@dut)
     \_named_begin: (gen_w)
       |vpiName:gen_w
       |vpiStmt:
+      \_assign_stmt: , line:9:20, endln:9:31
+        |vpiLhs:
+        \_logic_var: (unused_q_wo), line:9:20, endln:9:31
+          |vpiParent:
+          \_assign_stmt: , line:9:20, endln:9:31
+          |vpiTypespec:
+          \_logic_typespec: , line:9:5, endln:9:19
+            |vpiRange:
+            \_range: , line:9:11, endln:9:19
+              |vpiLeftRange:
+              \_operation: , line:9:12, endln:9:16
+                |vpiParent:
+                \_range: , line:9:11, endln:9:19
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (DW), line:9:12, endln:9:14
+                  |vpiParent:
+                  \_operation: , line:9:12, endln:9:16
+                  |vpiName:DW
+                |vpiOperand:
+                \_constant: , line:9:15, endln:9:16
+                  |vpiParent:
+                  \_operation: , line:9:12, endln:9:16
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:9:17, endln:9:18
+                |vpiParent:
+                \_range: , line:9:11, endln:9:19
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiName:unused_q_wo
+      |vpiStmt:
       \_cont_assign: , line:10:12, endln:10:27
         |vpiRhs:
         \_ref_obj: (q), line:10:26, endln:10:27
           |vpiParent:
           \_cont_assign: , line:10:12, endln:10:27
           |vpiName:q
-          |vpiActual:
-          \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19
         |vpiLhs:
         \_ref_obj: (unused_q_wo), line:10:12, endln:10:23
           |vpiParent:
           \_cont_assign: , line:10:12, endln:10:27
           |vpiName:unused_q_wo
-          |vpiActual:
-          \_logic_net: (unused_q_wo)
     |vpiElseStmt:
     \_begin: 
       |vpiStmt:
@@ -536,21 +571,54 @@ design: (work@dut)
         \_named_begin: (gen_ro)
           |vpiName:gen_ro
           |vpiStmt:
+          \_assign_stmt: , line:12:20, endln:12:31
+            |vpiLhs:
+            \_logic_var: (unused_q_ro), line:12:20, endln:12:31
+              |vpiParent:
+              \_assign_stmt: , line:12:20, endln:12:31
+              |vpiTypespec:
+              \_logic_typespec: , line:12:5, endln:12:19
+                |vpiRange:
+                \_range: , line:12:11, endln:12:19
+                  |vpiLeftRange:
+                  \_operation: , line:12:12, endln:12:16
+                    |vpiParent:
+                    \_range: , line:12:11, endln:12:19
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (DW), line:12:12, endln:12:14
+                      |vpiParent:
+                      \_operation: , line:12:12, endln:12:16
+                      |vpiName:DW
+                    |vpiOperand:
+                    \_constant: , line:12:15, endln:12:16
+                      |vpiParent:
+                      \_operation: , line:12:12, endln:12:16
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                      |vpiConstType:9
+                  |vpiRightRange:
+                  \_constant: , line:12:17, endln:12:18
+                    |vpiParent:
+                    \_range: , line:12:11, endln:12:19
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+                    |vpiConstType:9
+              |vpiName:unused_q_ro
+          |vpiStmt:
           \_cont_assign: , line:13:12, endln:13:28
             |vpiRhs:
             \_ref_obj: (q), line:13:27, endln:13:28
               |vpiParent:
               \_cont_assign: , line:13:12, endln:13:28
               |vpiName:q
-              |vpiActual:
-              \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19
             |vpiLhs:
             \_ref_obj: (unused_q_ro), line:13:12, endln:13:23
               |vpiParent:
               \_cont_assign: , line:13:12, endln:13:28
               |vpiName:unused_q_ro
-              |vpiActual:
-              \_logic_net: (unused_q_ro)
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
   |vpiName:work@dut
@@ -646,14 +714,6 @@ design: (work@dut)
             |vpiConstType:9
       |vpiName:q
       |vpiFullName:work@dut.m1.q
-    |vpiNet:
-    \_logic_net: (unused_q_wo)
-      |vpiName:unused_q_wo
-      |vpiNetType:1
-    |vpiNet:
-    \_logic_net: (unused_q_ro)
-      |vpiName:unused_q_ro
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenNet/dut.sv, line:17:1, endln:23:10
     |vpiPort:
@@ -780,4 +840,4 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenNet/dut.sv | ${SURELOG_DIR}/build/regression/GenNet/roundtrip/dut_000.sv | 14 | 23 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenNet/dut.sv | ${SURELOG_DIR}/build/regression/GenNet/roundtrip/dut_000.sv | 12 | 23 |

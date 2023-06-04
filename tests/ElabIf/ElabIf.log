@@ -62,7 +62,6 @@ gen_scope_array                                        4
 int_typespec                                          15
 int_var                                                4
 io_decl                                               11
-logic_net                                              2
 logic_var                                              1
 module_inst                                           16
 operation                                              5
@@ -93,7 +92,6 @@ gen_scope_array                                        6
 int_typespec                                          15
 int_var                                                4
 io_decl                                               22
-logic_net                                              2
 logic_var                                              1
 module_inst                                           16
 operation                                              6
@@ -605,15 +603,11 @@ design: (work@top)
           |vpiParent:
           \_cont_assign: , line:8:12, endln:8:21
           |vpiName:inp
-          |vpiActual:
-          \_logic_net: (inp)
         |vpiLhs:
         \_ref_obj: (out), line:8:12, endln:8:15
           |vpiParent:
           \_cont_assign: , line:8:12, endln:8:21
           |vpiName:out
-          |vpiActual:
-          \_logic_net: (out)
   |vpiGenStmt:
   \_gen_if: , line:9:3, endln:9:5
     |vpiParent:
@@ -635,15 +629,11 @@ design: (work@top)
             |vpiParent:
             \_operation: , line:10:18, endln:10:22
             |vpiName:inp
-            |vpiActual:
-            \_logic_net: (inp)
         |vpiLhs:
         \_ref_obj: (out), line:10:12, endln:10:15
           |vpiParent:
           \_cont_assign: , line:10:12, endln:10:22
           |vpiName:out
-          |vpiActual:
-          \_logic_net: (out)
 |uhdmallModules:
 \_module_inst: work@middleman (work@middleman), file:${SURELOG_DIR}/tests/ElabIf/dut.sv, line:13:1, endln:15:10
   |vpiParent:
@@ -781,14 +771,6 @@ design: (work@top)
       |vpiDefName:work@assigner
       |vpiDefFile:${SURELOG_DIR}/tests/ElabIf/dut.sv
       |vpiDefLineNo:6
-      |vpiNet:
-      \_logic_net: (out)
-        |vpiName:out
-        |vpiNetType:1
-      |vpiNet:
-      \_logic_net: (inp)
-        |vpiName:inp
-        |vpiNetType:1
       |vpiInstance:
       \_module_inst: work@middleman (work@top.mdl1), file:${SURELOG_DIR}/tests/ElabIf/dut.sv, line:2:4, endln:2:35
       |vpiGenScopeArray:
@@ -817,16 +799,12 @@ design: (work@top)
                 \_operation: , line:10:18, endln:10:22
                 |vpiName:inp
                 |vpiFullName:work@top.mdl1.asgn.genblk2.inp
-                |vpiActual:
-                \_logic_net: (inp)
             |vpiLhs:
             \_ref_obj: (work@top.mdl1.asgn.genblk2.out), line:10:12, endln:10:15
               |vpiParent:
               \_cont_assign: , line:10:12, endln:10:22
               |vpiName:out
               |vpiFullName:work@top.mdl1.asgn.genblk2.out
-              |vpiActual:
-              \_logic_net: (out)
   |vpiModule:
   \_module_inst: work@middleman (work@top.mdl0), file:${SURELOG_DIR}/tests/ElabIf/dut.sv, line:3:4, endln:3:35
     |vpiParent:

@@ -77,8 +77,31 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
   Serializer& s = compileDesign->getSerializer();
   NodeId stmtId = fC->Child(id);
   gen_stmt* genstmt = nullptr;
-  if (fC->Type(stmtId) ==
-      VObjectType::slIf_generate_construct) {  // If, If-Else stmt
+  if (fC->Type(id) == VObjectType::slGenerate_region) {
+    gen_region* genreg = s.MakeGen_region();
+    genstmt = genreg;
+    ModuleDefinition* subComponent =
+        new ModuleDefinition(fC, id, "GENERATE_STMT_PLACEHOLDER");
+    component = subComponent;
+    checkForLoops(true);
+    VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
+                                     Reduce::No, nullptr, nullptr, true);
+    checkForLoops(false);
+    NodeId blockNameId = fC->Child(stmtId);
+    if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+      std::string_view blockName = fC->SymName(blockNameId);
+      named_begin* stmt = s.MakeNamed_begin();
+      stmt->VpiName(blockName);
+      stmt->Stmts(stmts);
+      genreg->VpiStmt(stmt);
+    } else {
+      begin* stmt = s.MakeBegin();
+      stmt->Stmts(stmts);
+      genreg->VpiStmt(stmt);
+    }
+
+  } else if (fC->Type(stmtId) ==
+             VObjectType::slIf_generate_construct) {  // If, If-Else stmt
     NodeId ifElseId = fC->Child(stmtId);
     if (fC->Type(ifElseId) == VObjectType::slIF) {
       // lookahead
@@ -93,15 +116,22 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
       }
 
       NodeId condId = fC->Sibling(ifElseId);
+      checkForLoops(true);
       expr* cond = (expr*)compileExpression(component, fC, condId,
                                             compileDesign, Reduce::No, nullptr);
+      checkForLoops(false);
       NodeId stmtId = fC->Sibling(condId);
       if (ifelse) {
         gen_if_else* genif = s.MakeGen_if_else();
         genstmt = genif;
         genif->VpiCondition(cond);
+        checkForLoops(true);
+        ModuleDefinition* subComponent =
+            new ModuleDefinition(fC, id, "GENERATE_STMT_PLACEHOLDER");
+        component = subComponent;
         VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                          Reduce::No, nullptr, nullptr, true);
+        checkForLoops(false);
         NodeId blockNameId = fC->Child(stmtId);
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
           std::string_view blockName = fC->SymName(blockNameId);
@@ -117,8 +147,13 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
 
         NodeId ElseId = fC->Sibling(stmtId);
         NodeId elseStmtId = fC->Sibling(ElseId);
+        checkForLoops(true);
+        subComponent =
+            new ModuleDefinition(fC, id, "GENERATE_STMT_PLACEHOLDER");
+        component = subComponent;
         stmts = compileStmt(component, fC, elseStmtId, compileDesign,
                             Reduce::No, nullptr, nullptr, true);
+        checkForLoops(false);
         blockNameId = fC->Child(elseStmtId);
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
           std::string_view blockName = fC->SymName(blockNameId);
@@ -136,8 +171,13 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         genstmt = genif;
         genif->VpiCondition(cond);
         fC->populateCoreMembers(ifElseId, ifElseId, genif);
+        ModuleDefinition* subComponent =
+            new ModuleDefinition(fC, id, "GENERATE_STMT_PLACEHOLDER");
+        component = subComponent;
+        checkForLoops(true);
         VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                          Reduce::No, nullptr, nullptr, true);
+        checkForLoops(false);
         NodeId blockNameId = fC->Child(stmtId);
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
           std::string_view blockName = fC->SymName(blockNameId);
@@ -157,8 +197,10 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
     NodeId tmp = fC->Child(stmtId);
     gen_case* gencase = s.MakeGen_case();
     genstmt = gencase;
+    checkForLoops(true);
     expr* cond =
         (expr*)compileExpression(component, fC, tmp, compileDesign, Reduce::No);
+    checkForLoops(false);
     gencase->VpiCondition(cond);
     VectorOfcase_item* items = s.MakeCase_itemVec();
     gencase->Case_items(items);
@@ -169,12 +211,19 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         expr* ex = nullptr;
         NodeId stmtId = itemExp;
         if (fC->Type(itemExp) == VObjectType::slConstant_expression) {
+          checkForLoops(true);
           ex = (expr*)compileExpression(component, fC, itemExp, compileDesign,
                                         Reduce::No);
+          checkForLoops(false);
           stmtId = fC->Sibling(stmtId);
         }
+        ModuleDefinition* subComponent =
+            new ModuleDefinition(fC, id, "GENERATE_STMT_PLACEHOLDER");
+        component = subComponent;
+        checkForLoops(true);
         VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                          Reduce::No, nullptr, nullptr, true);
+        checkForLoops(false);
         case_item* citem = s.MakeCase_item();
         items->push_back(citem);
         VectorOfany* exprs = s.MakeAnyVec();
@@ -222,8 +271,10 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
       varb->VpiName(fC->SymName(Var));
       fC->populateCoreMembers(Var, Var, varb);
     }
+    checkForLoops(true);
     expr* rhs = (expr*)compileExpression(component, fC, Expression,
                                          compileDesign, Reduce::No);
+    checkForLoops(false);
     if (rhs) {
       rhs->VpiParent(assign_stmt);
       assign_stmt->Rhs(rhs);
@@ -231,8 +282,10 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
     stmts->push_back(assign_stmt);
 
     // Condition
+    checkForLoops(true);
     expr* cond = (expr*)compileExpression(component, fC, endLoopTest,
                                           compileDesign, Reduce::No);
+    checkForLoops(false);
     genfor->VpiCondition(cond);
 
     // Iteration
@@ -242,8 +295,10 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
     NodeId exprId = fC->Sibling(assignOp);
     if (!exprId) {  // Unary operator like i++
       exprId = iteration;
+      checkForLoops(true);
       expr* ex = (expr*)compileExpression(component, fC, exprId, compileDesign,
                                           Reduce::No);
+      checkForLoops(false);
       genfor->VpiForIncStmt(ex);
     } else {
       assignment* assign_stmt = s.MakeAssignment();
@@ -251,18 +306,25 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
       genfor->VpiForIncStmt(assign_stmt);
       assign_stmt->VpiParent(genfor);
       fC->populateCoreMembers(iteration, iteration, assign_stmt);
+      checkForLoops(true);
       expr* lhs = (expr*)compileExpression(component, fC, var, compileDesign,
                                            Reduce::No);
       assign_stmt->Lhs(lhs);
       expr* rhs = (expr*)compileExpression(component, fC, exprId, compileDesign,
                                            Reduce::No);
+      checkForLoops(false);
       assign_stmt->Rhs(rhs);
     }
 
     // Stmts
     NodeId genBlock = fC->Sibling(iteration);
+    ModuleDefinition* subComponent =
+        new ModuleDefinition(fC, id, "GENERATE_STMT_PLACEHOLDER");
+    component = subComponent;
+    checkForLoops(true);
     stmts = compileStmt(component, fC, genBlock, compileDesign, Reduce::No,
                         nullptr, nullptr, true);
+    checkForLoops(false);
     NodeId blockNameId = fC->Child(genBlock);
     if (fC->Type(blockNameId) == VObjectType::slStringConst) {
       std::string_view blockName = fC->SymName(blockNameId);

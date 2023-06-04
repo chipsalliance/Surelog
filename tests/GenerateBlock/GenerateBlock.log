@@ -194,34 +194,38 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              29
-cont_assign                                            7
+constant                                              30
+cont_assign                                            8
 design                                                 1
+gen_region                                             3
 gen_scope                                              6
 gen_scope_array                                        6
-hier_path                                              2
-logic_net                                              8
-logic_typespec                                         7
-module_inst                                            7
-operation                                              2
-range                                                 11
-ref_obj                                                5
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              29
-cont_assign                                           11
-design                                                 1
-gen_scope                                              9
-gen_scope_array                                        9
 hier_path                                              4
 logic_net                                              8
 logic_typespec                                         7
 module_inst                                            7
+named_begin                                            3
 operation                                              4
 range                                                 11
 ref_obj                                               10
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              30
+cont_assign                                           12
+design                                                 1
+gen_region                                             3
+gen_scope                                              9
+gen_scope_array                                        9
+hier_path                                              6
+logic_net                                              8
+logic_typespec                                         7
+module_inst                                            7
+named_begin                                            3
+operation                                              6
+range                                                 11
+ref_obj                                               15
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateBlock/slpp_all/surelog.uhdm ...
 
@@ -248,6 +252,82 @@ design: (work@gen_test9)
     |vpiName:w
     |vpiFullName:work@gen_test9.w
     |vpiNetType:1
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
+    |vpiStmt:
+    \_named_begin: (A)
+      |vpiName:A
+      |vpiStmt:
+      \_gen_region: , line:6:25, endln:10:36
+        |vpiStmt:
+        \_named_begin: (B)
+          |vpiName:B
+      |vpiStmt:
+      \_gen_region: , line:11:25, endln:15:36
+        |vpiStmt:
+        \_named_begin: (C)
+          |vpiName:C
+      |vpiStmt:
+      \_cont_assign: , line:16:32, endln:16:53
+        |vpiRhs:
+        \_operation: , line:16:36, endln:16:53
+          |vpiParent:
+          \_cont_assign: , line:16:32, endln:16:53
+          |vpiOpType:30
+          |vpiOperand:
+          \_operation: , line:16:36, endln:16:47
+            |vpiParent:
+            \_operation: , line:16:36, endln:16:53
+            |vpiOpType:30
+            |vpiOperand:
+            \_hier_path: (B.y), line:16:36, endln:16:39
+              |vpiParent:
+              \_operation: , line:16:36, endln:16:47
+              |vpiName:B.y
+              |vpiActual:
+              \_ref_obj: (B), line:16:36, endln:16:37
+                |vpiParent:
+                \_hier_path: (B.y), line:16:36, endln:16:39
+                |vpiName:B
+                |vpiActual:
+                \_named_begin: (B)
+              |vpiActual:
+              \_ref_obj: (y), line:16:38, endln:16:39
+                |vpiParent:
+                \_hier_path: (B.y), line:16:36, endln:16:39
+                |vpiName:y
+            |vpiOperand:
+            \_constant: , line:16:42, endln:16:47
+              |vpiParent:
+              \_operation: , line:16:36, endln:16:47
+              |vpiDecompile:2'b11
+              |vpiSize:2
+              |BIN:11
+              |vpiConstType:3
+          |vpiOperand:
+          \_hier_path: (C.z), line:16:50, endln:16:53
+            |vpiParent:
+            \_operation: , line:16:36, endln:16:53
+            |vpiName:C.z
+            |vpiActual:
+            \_ref_obj: (C), line:16:50, endln:16:51
+              |vpiParent:
+              \_hier_path: (C.z), line:16:50, endln:16:53
+              |vpiName:C
+              |vpiActual:
+              \_named_begin: (C)
+            |vpiActual:
+            \_ref_obj: (z), line:16:52, endln:16:53
+              |vpiParent:
+              \_hier_path: (C.z), line:16:50, endln:16:53
+              |vpiName:z
+        |vpiLhs:
+        \_ref_obj: (x), line:16:32, endln:16:33
+          |vpiParent:
+          \_cont_assign: , line:16:32, endln:16:53
+          |vpiName:x
 |uhdmtopModules:
 \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
   |vpiName:work@gen_test9
@@ -516,4 +596,4 @@ design: (work@gen_test9)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenerateBlock/dut.sv | ${SURELOG_DIR}/build/regression/GenerateBlock/roundtrip/dut_000.sv | 17 | 19 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenerateBlock/dut.sv | ${SURELOG_DIR}/build/regression/GenerateBlock/roundtrip/dut_000.sv | 16 | 19 |

@@ -4612,7 +4612,7 @@ always                                                11
 array_net                                              2
 array_typespec                                         2
 assignment                                           223
-begin                                                 25
+begin                                                 26
 bit_select                                            24
 case_item                                            193
 case_stmt                                              8
@@ -4620,6 +4620,7 @@ constant                                             575
 cont_assign                                           30
 design                                                 1
 event_control                                          2
+gen_region                                             1
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                             35
@@ -4653,7 +4654,7 @@ always                                                22
 array_net                                              2
 array_typespec                                         2
 assignment                                           446
-begin                                                 50
+begin                                                 51
 bit_select                                            47
 case_item                                            386
 case_stmt                                             16
@@ -4661,6 +4662,7 @@ constant                                             581
 cont_assign                                           55
 design                                                 1
 event_control                                          4
+gen_region                                             1
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                             65
@@ -7319,6 +7321,12 @@ design: (work@int_execute_stage)
       |vpiFullName:work@int_execute_stage.privileged_op_fault
       |vpiActual:
       \_logic_var: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiStmt:
+    \_begin: 
 |vpiTypedef:
 \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
 |vpiTypedef:

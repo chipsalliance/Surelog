@@ -2773,48 +2773,36 @@ void CompileHelper::compileHighConn(ModuleDefinition* component,
   }
 }
 
-bool CompileHelper::compileInitialBlock(DesignComponent* component,
-                                        const FileContent* fC,
-                                        NodeId initial_construct,
-                                        CompileDesign* compileDesign) {
+initial* CompileHelper::compileInitialBlock(DesignComponent* component,
+                                            const FileContent* fC,
+                                            NodeId initial_construct,
+                                            CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   initial* init = s.MakeInitial();
-  VectorOfprocess_stmt* processes = component->getProcesses();
-  if (processes == nullptr) {
-    component->setProcesses(s.MakeProcess_stmtVec());
-    processes = component->getProcesses();
-  }
-  processes->push_back(init);
   fC->populateCoreMembers(initial_construct, initial_construct, init);
   NodeId Statement_or_null = fC->Child(initial_construct);
   VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
                                    compileDesign, Reduce::No, init);
   if (stmts) init->Stmt((*stmts)[0]);
   compileDesign->unlockSerializer();
-  return true;
+  return init;
 }
 
-bool CompileHelper::compileFinalBlock(DesignComponent* component,
-                                      const FileContent* fC,
-                                      NodeId final_construct,
-                                      CompileDesign* compileDesign) {
+final_stmt* CompileHelper::compileFinalBlock(DesignComponent* component,
+                                             const FileContent* fC,
+                                             NodeId final_construct,
+                                             CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   final_stmt* final = s.MakeFinal_stmt();
-  VectorOfprocess_stmt* processes = component->getProcesses();
-  if (processes == nullptr) {
-    component->setProcesses(s.MakeProcess_stmtVec());
-    processes = component->getProcesses();
-  }
-  processes->push_back(final);
   fC->populateCoreMembers(final_construct, final_construct, final);
   NodeId Statement_or_null = fC->Child(final_construct);
   VectorOfany* stmts = compileStmt(component, fC, Statement_or_null,
                                    compileDesign, Reduce::No, final);
   if (stmts) final->Stmt((*stmts)[0]);
   compileDesign->unlockSerializer();
-  return true;
+  return final;
 }
 
 UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
@@ -2905,19 +2893,13 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(
   return dc;
 }
 
-bool CompileHelper::compileAlwaysBlock(DesignComponent* component,
-                                       const FileContent* fC, NodeId id,
-                                       CompileDesign* compileDesign,
-                                       ValuedComponentI* instance) {
+always* CompileHelper::compileAlwaysBlock(DesignComponent* component,
+                                          const FileContent* fC, NodeId id,
+                                          CompileDesign* compileDesign,
+                                          ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   always* always = s.MakeAlways();
-  VectorOfprocess_stmt* processes = component->getProcesses();
-  if (processes == nullptr) {
-    component->setProcesses(s.MakeProcess_stmtVec());
-    processes = component->getProcesses();
-  }
-  processes->push_back(always);
   NodeId always_keyword = fC->Child(id);
   switch (fC->Type(always_keyword)) {
     case VObjectType::slAlwaysKeywd_Always:
@@ -2954,7 +2936,7 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component,
 
   fC->populateCoreMembers(id, id, always);
   compileDesign->unlockSerializer();
-  return true;
+  return always;
 }
 
 bool CompileHelper::isMultidimensional(UHDM::typespec* ts,

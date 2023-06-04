@@ -352,6 +352,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+assign_stmt                                            2
 begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
@@ -369,8 +370,8 @@ gen_scope_array                                        2
 int_typespec                                           9
 int_var                                                4
 io_decl                                               11
-logic_typespec                                         1
-logic_var                                              3
+logic_typespec                                         3
+logic_var                                              5
 module_inst                                            5
 named_begin                                            1
 package                                                2
@@ -382,6 +383,7 @@ task                                                   9
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+assign_stmt                                            2
 begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
@@ -399,8 +401,8 @@ gen_scope_array                                        3
 int_typespec                                           9
 int_var                                                4
 io_decl                                               22
-logic_typespec                                         1
-logic_var                                              5
+logic_typespec                                         3
+logic_var                                              7
 module_inst                                            5
 named_begin                                            1
 package                                                2
@@ -903,6 +905,24 @@ design: (work@top)
     |vpiElseStmt:
     \_named_begin: (gen_no_async)
       |vpiName:gen_no_async
+      |vpiStmt:
+      \_assign_stmt: , line:8:11, endln:8:18
+        |vpiLhs:
+        \_logic_var: (diff_pq), line:8:11, endln:8:18
+          |vpiParent:
+          \_assign_stmt: , line:8:11, endln:8:18
+          |vpiTypespec:
+          \_logic_typespec: , line:8:5, endln:8:10
+          |vpiName:diff_pq
+      |vpiStmt:
+      \_assign_stmt: , line:8:20, endln:8:27
+        |vpiLhs:
+        \_logic_var: (diff_pd), line:8:20, endln:8:27
+          |vpiParent:
+          \_assign_stmt: , line:8:20, endln:8:27
+          |vpiTypespec:
+          \_logic_typespec: , line:8:5, endln:8:10
+          |vpiName:diff_pd
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenBlockVar/dut.sv, line:1:1, endln:12:10
   |vpiName:work@top

@@ -207,7 +207,7 @@ immediate_assert                                       3
 io_decl                                                3
 let_decl                                               3
 let_expr                                               3
-logic_net                                              3
+logic_net                                              1
 logic_typespec                                         1
 logic_var                                              1
 module_inst                                            2
@@ -227,7 +227,7 @@ immediate_assert                                       6
 io_decl                                                3
 let_decl                                               9
 let_expr                                               6
-logic_net                                              3
+logic_net                                              1
 logic_typespec                                         1
 logic_var                                              1
 module_inst                                            2
@@ -262,8 +262,6 @@ design: (work@m)
         |vpiParent:
         \_sys_func_call: ($past), line:4:13, endln:4:21
         |vpiName:x
-        |vpiActual:
-        \_logic_net: (x)
       |vpiName:$past
     |vpiName:p1
   |vpiLetDecl:
@@ -275,8 +273,6 @@ design: (work@m)
         |vpiParent:
         \_sys_func_call: ($past), line:6:13, endln:6:18
         |vpiName:x
-        |vpiActual:
-        \_logic_net: (x)
       |vpiArgument:
       \_constant: , line:6:21, endln:6:21
         |vpiDecompile:0
@@ -299,8 +295,6 @@ design: (work@m)
           |vpiParent:
           \_operation: , line:6:25, endln:6:38
           |vpiName:clock
-          |vpiActual:
-          \_logic_net: (clock)
       |vpiName:$past
     |vpiName:p2
   |vpiLetDecl:
@@ -312,8 +306,6 @@ design: (work@m)
         |vpiParent:
         \_sys_func_call: ($sampled), line:7:12, endln:7:23
         |vpiName:x
-        |vpiActual:
-        \_logic_net: (x)
       |vpiName:$sampled
     |vpiName:s
   |vpiDefName:work@m
@@ -408,8 +400,6 @@ design: (work@m)
         \_sys_func_call: ($past), line:4:13, endln:4:21
         |vpiName:x
         |vpiFullName:work@m.p1.x
-        |vpiActual:
-        \_logic_net: (x)
       |vpiName:$past
     |vpiName:p1
   |vpiLetDecl:
@@ -426,8 +416,6 @@ design: (work@m)
         \_sys_func_call: ($past), line:6:13, endln:6:18
         |vpiName:x
         |vpiFullName:work@m.p2.x
-        |vpiActual:
-        \_logic_net: (x)
       |vpiArgument:
       \_constant: , line:6:21, endln:6:21
       |vpiArgument:
@@ -443,8 +431,6 @@ design: (work@m)
           \_operation: , line:6:25, endln:6:38
           |vpiName:clock
           |vpiFullName:work@m.p2.clock
-          |vpiActual:
-          \_logic_net: (clock)
       |vpiName:$past
     |vpiName:p2
   |vpiLetDecl:
@@ -461,20 +447,10 @@ design: (work@m)
         \_sys_func_call: ($sampled), line:7:12, endln:7:23
         |vpiName:x
         |vpiFullName:work@m.s.x
-        |vpiActual:
-        \_logic_net: (x)
       |vpiName:$sampled
     |vpiName:s
   |vpiDefName:work@m
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (x)
-    |vpiName:x
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (clock)
-    |vpiName:clock
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_always: , line:9:1, endln:13:4
@@ -516,8 +492,6 @@ design: (work@m)
                 \_sys_func_call: ($past), line:4:13, endln:4:21
                 |vpiName:x
                 |vpiFullName:work@m.a1.p1.x
-                |vpiActual:
-                \_logic_net: (x)
               |vpiName:$past
             |vpiName:p1
       |vpiStmt:
@@ -551,8 +525,6 @@ design: (work@m)
                 \_sys_func_call: ($past), line:6:13, endln:6:18
                 |vpiName:x
                 |vpiFullName:work@m.a2.p2.x
-                |vpiActual:
-                \_logic_net: (x)
               |vpiArgument:
               \_constant: , line:6:21, endln:6:21
               |vpiArgument:
@@ -568,8 +540,6 @@ design: (work@m)
                   \_operation: , line:6:25, endln:6:38
                   |vpiName:clock
                   |vpiFullName:work@m.a2.p2.clock
-                  |vpiActual:
-                  \_logic_net: (clock)
               |vpiName:$past
             |vpiName:p2
       |vpiStmt:
@@ -603,8 +573,6 @@ design: (work@m)
                 \_sys_func_call: ($sampled), line:7:12, endln:7:23
                 |vpiName:x
                 |vpiFullName:work@m.a3.s.x
-                |vpiActual:
-                \_logic_net: (x)
               |vpiName:$sampled
             |vpiName:s
     |vpiAlwaysType:2

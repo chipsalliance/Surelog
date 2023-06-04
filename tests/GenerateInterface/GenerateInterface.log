@@ -786,6 +786,7 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 bit_select                                            15
 class_defn                                             8
 class_typespec                                         4
@@ -799,6 +800,7 @@ enum_typespec                                          1
 enum_var                                               1
 event_control                                          3
 function                                               9
+gen_region                                             1
 gen_scope                                             14
 gen_scope_array                                       14
 int_typespec                                          38
@@ -1414,6 +1416,12 @@ design: (work@top)
         |vpiName:pins
         |vpiActual:
         \_logic_net: (work@top2.pins), line:34:61, endln:34:65
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:34:1, endln:43:10
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:16:1, endln:19:10
   |vpiName:work@top

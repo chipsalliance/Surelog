@@ -191,10 +191,12 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         1
+begin                                                  1
 bit_select                                             8
 constant                                              31
 cont_assign                                            4
 design                                                 1
+gen_region                                             1
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                              4
@@ -219,10 +221,12 @@ ref_obj                                               24
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         1
+begin                                                  1
 bit_select                                            12
 constant                                              33
 cont_assign                                            6
 design                                                 1
+gen_region                                             1
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              6
@@ -400,6 +404,12 @@ design: (work@r5p_bus_dec)
     |vpiElemTypespec:
     \_interface_typespec: (r5p_bus_if.man), line:15:3, endln:15:17
       |vpiName:r5p_bus_if.man
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
   |vpiName:work@r5p_bus_dec

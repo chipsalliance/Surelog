@@ -162,21 +162,24 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
     return m_elab_sys_calls;
   }
 
-  void needLateBinding(UHDM::ref_obj* obj) { m_needLateBinding.push_back(obj); }
+  void needLateBinding(UHDM::ref_obj* obj) {
+    if (m_lateBinding) m_needLateBinding.push_back(obj);
+  }
   const std::vector<UHDM::ref_obj*>& getLateBinding() const {
     return m_needLateBinding;
   }
 
   void needLateTypedefBinding(UHDM::any* obj) {
-    m_needLateTypedefBinding.push_back(obj);
+    if (m_lateBinding) m_needLateTypedefBinding.push_back(obj);
   }
   const std::vector<UHDM::any*>& getLateTypedefBinding() const {
     return m_needLateTypedefBinding;
   }
 
-  void needLateResolutionFunction(std::string_view funcName, UHDM::typespec* tps) {
-    m_lateResolutionFunctions.emplace_back(funcName, tps);
-  } 
+  void needLateResolutionFunction(std::string_view funcName,
+                                  UHDM::typespec* tps) {
+    if (m_lateBinding) m_lateResolutionFunctions.emplace_back(funcName, tps);
+  }
   FuncNameTypespecVec& getLateResolutionFunction() {
     return m_lateResolutionFunctions;
   }

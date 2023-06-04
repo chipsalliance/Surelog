@@ -315,37 +315,41 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  3
+begin                                                  4
 constant                                              42
 design                                                 1
 gen_if                                                 3
+gen_region                                             2
 gen_scope                                             10
 gen_scope_array                                       10
 int_typespec                                           5
 module_inst                                           14
+named_begin                                            1
 operation                                             12
 param_assign                                           3
 parameter                                              5
 range                                                  3
-ref_module                                             8
+ref_module                                             9
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  3
+begin                                                  4
 constant                                              42
 design                                                 1
 gen_if                                                 3
+gen_region                                             2
 gen_scope                                             31
 gen_scope_array                                       31
 int_typespec                                           5
 module_inst                                           35
+named_begin                                            1
 operation                                             12
 param_assign                                           9
 parameter                                              5
 range                                                  3
-ref_module                                             8
+ref_module                                             9
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefParamIndex/slpp_all/surelog.uhdm ...
@@ -372,6 +376,12 @@ design: (work@hierdefparam_top)
   \_design: (work@hierdefparam_top)
   |vpiFullName:work@hierdefparam_a
   |vpiDefName:work@hierdefparam_a
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@hierdefparam_a (work@hierdefparam_a), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:12:1, endln:20:10
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
   |vpiParent:
@@ -505,6 +515,17 @@ design: (work@hierdefparam_top)
   \_design: (work@hierdefparam_top)
   |vpiFullName:work@hierdefparam_top
   |vpiDefName:work@hierdefparam_top
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@hierdefparam_top (work@hierdefparam_top), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:4:1, endln:10:10
+    |vpiStmt:
+    \_named_begin: (foo)
+      |vpiName:foo
+      |vpiStmt:
+      \_ref_module: work@hierdefparam_a (mod_a), line:6:20, endln:6:25
+        |vpiName:mod_a
+        |vpiDefName:work@hierdefparam_a
 |uhdmtopModules:
 \_module_inst: work@hierdefparam_top (work@hierdefparam_top), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:4:1, endln:10:10
   |vpiName:work@hierdefparam_top
