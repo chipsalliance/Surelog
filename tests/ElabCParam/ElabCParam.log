@@ -899,22 +899,23 @@ gen_if_else                                            1
 gen_scope                                             16
 gen_scope_array                                       16
 indexed_part_select                                    8
-int_typespec                                          33
+int_typespec                                          34
 int_var                                                4
 io_decl                                               11
-logic_net                                              3
+logic_net                                              2
 logic_typespec                                         6
 logic_var                                              1
 module_inst                                           34
 named_begin                                            4
-operation                                             43
+operation                                             45
 package                                                2
-param_assign                                          30
-parameter                                             34
+param_assign                                          31
+parameter                                             35
 range                                                 18
 ref_module                                             7
-ref_obj                                               23
+ref_obj                                               25
 ref_var                                                2
+sys_func_call                                          2
 task                                                   9
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -938,22 +939,23 @@ gen_if_else                                            1
 gen_scope                                             32
 gen_scope_array                                       32
 indexed_part_select                                    8
-int_typespec                                          33
+int_typespec                                          34
 int_var                                                4
 io_decl                                               22
-logic_net                                              3
+logic_net                                              2
 logic_typespec                                         6
 logic_var                                              1
 module_inst                                           42
 named_begin                                            4
-operation                                             43
+operation                                             45
 package                                                2
-param_assign                                          44
-parameter                                             34
+param_assign                                          45
+parameter                                             35
 range                                                 18
 ref_module                                             7
-ref_obj                                               29
+ref_obj                                               31
 ref_var                                                2
+sys_func_call                                          2
 task                                                  18
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -1775,11 +1777,43 @@ design: (work@socket_1n)
           |vpiParent:
           \_cont_assign: , line:11:12, endln:11:24
           |vpiName:depth
-          |vpiActual:
-          \_logic_net: (depth)
     |vpiElseStmt:
     \_named_begin: (gen_normal)
       |vpiName:gen_normal
+      |vpiStmt:
+      \_param_assign: , line:18:29, endln:18:72
+        |vpiRhs:
+        \_operation: , line:18:41, endln:18:72
+          |vpiOpType:24
+          |vpiOperand:
+          \_sys_func_call: ($clog2), line:18:41, endln:18:54
+            |vpiParent:
+            \_operation: , line:18:41, endln:18:72
+            |vpiArgument:
+            \_ref_obj: (Depth), line:18:48, endln:18:53
+              |vpiParent:
+              \_sys_func_call: ($clog2), line:18:41, endln:18:54
+              |vpiName:Depth
+            |vpiName:$clog2
+          |vpiOperand:
+          \_operation: , line:18:57, endln:18:72
+            |vpiParent:
+            \_operation: , line:18:41, endln:18:72
+            |vpiOpType:8
+            |vpiOperand:
+            \_sys_func_call: ($clog2), line:18:59, endln:18:72
+              |vpiArgument:
+              \_ref_obj: (Depth), line:18:66, endln:18:71
+                |vpiParent:
+                \_sys_func_call: ($clog2), line:18:59, endln:18:72
+                |vpiName:Depth
+              |vpiName:$clog2
+        |vpiLhs:
+        \_parameter: (PTRV_W), line:18:29, endln:18:72
+          |vpiTypespec:
+          \_int_typespec: , line:18:16, endln:18:28
+          |vpiLocalParam:1
+          |vpiName:PTRV_W
 |uhdmallModules:
 \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:38:1, endln:51:10
   |vpiParent:
@@ -2302,10 +2336,6 @@ design: (work@socket_1n)
           |vpiDefName:work@prim_fifo_sync
           |vpiDefFile:${SURELOG_DIR}/tests/ElabCParam/dut.sv
           |vpiDefLineNo:2
-          |vpiNet:
-          \_logic_net: (depth)
-            |vpiName:depth
-            |vpiNetType:1
           |vpiInstance:
           \_module_inst: work@fifo_sync (work@socket_1n.gen_dfifo[0].fifo_d), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:45:5, endln:47:17
           |vpiGenScopeArray:
@@ -2906,4 +2936,4 @@ design: (work@socket_1n)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ElabCParam/dut.sv | ${SURELOG_DIR}/build/regression/ElabCParam/roundtrip/dut_000.sv | 27 | 67 |
+[roundtrip]: ${SURELOG_DIR}/tests/ElabCParam/dut.sv | ${SURELOG_DIR}/build/regression/ElabCParam/roundtrip/dut_000.sv | 26 | 67 |

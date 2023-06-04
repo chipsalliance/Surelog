@@ -811,11 +811,11 @@ AST_DEBUG_END
 array_typespec                                        10
 assign_stmt                                            1
 begin                                                  1
-bit_select                                            11
+bit_select                                            13
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             307
+constant                                             313
 design                                                 1
 enum_const                                             9
 enum_typespec                                          3
@@ -825,31 +825,31 @@ gen_for                                                1
 gen_if                                                 1
 gen_scope                                              4
 gen_scope_array                                        4
-hier_path                                             12
+hier_path                                             14
 import_typespec                                        4
 int_typespec                                          69
 int_var                                                4
-integer_typespec                                      12
+integer_typespec                                      14
 io_decl                                               11
 logic_net                                              3
-logic_typespec                                        44
+logic_typespec                                        46
 logic_var                                              3
 module_inst                                           16
 named_begin                                            1
-operation                                             92
+operation                                            100
 package                                                8
-param_assign                                          30
-parameter                                             39
-range                                                 62
+param_assign                                          32
+parameter                                             41
+range                                                 64
 ref_module                                             2
-ref_obj                                               28
+ref_obj                                               39
 ref_var                                                1
 string_typespec                                       46
 struct_typespec                                       16
 tagged_pattern                                        46
 task                                                   9
 typespec_member                                       32
-unsupported_typespec                                   1
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -857,11 +857,11 @@ unsupported_typespec                                   1
 array_typespec                                        10
 assign_stmt                                            1
 begin                                                  1
-bit_select                                            11
+bit_select                                            13
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             307
+constant                                             313
 design                                                 1
 enum_const                                            14
 enum_typespec                                          4
@@ -871,31 +871,31 @@ gen_for                                                1
 gen_if                                                 1
 gen_scope                                              6
 gen_scope_array                                        6
-hier_path                                             12
+hier_path                                             14
 import_typespec                                        4
 int_typespec                                          69
 int_var                                                4
-integer_typespec                                      12
+integer_typespec                                      14
 io_decl                                               22
 logic_net                                              3
-logic_typespec                                        44
+logic_typespec                                        46
 logic_var                                              3
 module_inst                                           16
 named_begin                                            1
-operation                                             92
+operation                                            100
 package                                                8
-param_assign                                          34
-parameter                                             39
-range                                                 62
+param_assign                                          36
+parameter                                             41
+range                                                 64
 ref_module                                             2
-ref_obj                                               28
+ref_obj                                               39
 ref_var                                                1
 string_typespec                                       46
 struct_typespec                                       16
 tagged_pattern                                        46
 task                                                  18
 typespec_member                                       32
-unsupported_typespec                                   1
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamArraySelect/slpp_all/surelog.uhdm ...
 
@@ -2733,6 +2733,180 @@ design: (work@top)
     |vpiStmt:
     \_named_begin: (gen_part_sel)
       |vpiName:gen_part_sel
+      |vpiStmt:
+      \_param_assign: , line:62:43, endln:63:92
+        |vpiRhs:
+        \_operation: , line:62:53, endln:63:92
+          |vpiOpType:24
+          |vpiOperand:
+          \_operation: , line:62:53, endln:62:94
+            |vpiParent:
+            \_operation: , line:62:53, endln:63:92
+            |vpiTypespec:
+            \_integer_typespec: , line:62:54, endln:62:72
+              |vpiExpr:
+              \_operation: , line:62:54, endln:62:72
+                |vpiOpType:24
+                |vpiOperand:
+                \_ref_obj: (OtpByteAddrWidth), line:62:54, endln:62:70
+                  |vpiParent:
+                  \_operation: , line:62:54, endln:62:72
+                  |vpiName:OtpByteAddrWidth
+                |vpiOperand:
+                \_constant: , line:62:71, endln:62:72
+                  |vpiParent:
+                  \_operation: , line:62:54, endln:62:72
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+            |vpiOpType:67
+            |vpiOperand:
+            \_hier_path: (PartInfo[k].offset), line:62:75, endln:62:83
+              |vpiParent:
+              \_operation: , line:62:53, endln:62:94
+              |vpiName:PartInfo[k].offset
+              |vpiActual:
+              \_bit_select: (PartInfo), line:62:75, endln:62:83
+                |vpiParent:
+                \_ref_obj: (PartInfo[k])
+                  |vpiParent:
+                  \_hier_path: (PartInfo[k].offset), line:62:75, endln:62:83
+                  |vpiName:PartInfo[k]
+                |vpiName:PartInfo
+                |vpiIndex:
+                \_ref_obj: (k), line:62:84, endln:62:85
+                  |vpiName:k
+              |vpiActual:
+              \_ref_obj: (offset), line:62:87, endln:62:93
+                |vpiParent:
+                \_hier_path: (PartInfo[k].offset), line:62:75, endln:62:83
+                |vpiName:offset
+          |vpiOperand:
+          \_operation: , line:63:53, endln:63:92
+            |vpiParent:
+            \_operation: , line:62:53, endln:63:92
+            |vpiTypespec:
+            \_integer_typespec: , line:63:54, endln:63:72
+              |vpiExpr:
+              \_operation: , line:63:54, endln:63:72
+                |vpiOpType:24
+                |vpiOperand:
+                \_ref_obj: (OtpByteAddrWidth), line:63:54, endln:63:70
+                  |vpiParent:
+                  \_operation: , line:63:54, endln:63:72
+                  |vpiName:OtpByteAddrWidth
+                |vpiOperand:
+                \_constant: , line:63:71, endln:63:72
+                  |vpiParent:
+                  \_operation: , line:63:54, endln:63:72
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+            |vpiOpType:67
+            |vpiOperand:
+            \_hier_path: (PartInfo[k].size), line:63:75, endln:63:83
+              |vpiParent:
+              \_operation: , line:63:53, endln:63:92
+              |vpiName:PartInfo[k].size
+              |vpiActual:
+              \_bit_select: (PartInfo), line:63:75, endln:63:83
+                |vpiParent:
+                \_ref_obj: (PartInfo[k])
+                  |vpiParent:
+                  \_hier_path: (PartInfo[k].size), line:63:75, endln:63:83
+                  |vpiName:PartInfo[k]
+                |vpiName:PartInfo
+                |vpiIndex:
+                \_ref_obj: (k), line:63:84, endln:63:85
+                  |vpiName:k
+              |vpiActual:
+              \_ref_obj: (size), line:63:87, endln:63:91
+                |vpiParent:
+                \_hier_path: (PartInfo[k].size), line:63:75, endln:63:83
+                |vpiName:size
+        |vpiLhs:
+        \_parameter: (PartEnd), line:62:43, endln:63:92
+          |vpiTypespec:
+          \_logic_typespec: , line:62:16, endln:62:42
+            |vpiRange:
+            \_range: , line:62:22, endln:62:42
+              |vpiLeftRange:
+              \_ref_obj: (OtpByteAddrWidth), line:62:23, endln:62:39
+                |vpiParent:
+                \_range: , line:62:22, endln:62:42
+                |vpiName:OtpByteAddrWidth
+              |vpiRightRange:
+              \_constant: , line:62:40, endln:62:41
+                |vpiParent:
+                \_range: , line:62:22, endln:62:42
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiLocalParam:1
+          |vpiName:PartEnd
+      |vpiStmt:
+      \_param_assign: , line:65:45, endln:66:80
+        |vpiRhs:
+        \_operation: , line:65:60, endln:66:80
+          |vpiTypespec:
+          \_unsupported_typespec: (OtpByteAddrWidth), line:65:60, endln:65:76
+            |vpiName:OtpByteAddrWidth
+          |vpiOpType:67
+          |vpiOperand:
+          \_operation: , line:65:78, endln:66:79
+            |vpiParent:
+            \_operation: , line:65:60, endln:66:80
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (PartEnd), line:65:78, endln:65:85
+              |vpiParent:
+              \_operation: , line:65:78, endln:66:79
+              |vpiName:PartEnd
+            |vpiOperand:
+            \_constant: , line:66:78, endln:66:79
+              |vpiParent:
+              \_operation: , line:65:78, endln:66:79
+              |vpiDecompile:4
+              |vpiSize:64
+              |UINT:4
+              |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (DigestOffset), line:65:45, endln:66:80
+          |vpiTypespec:
+          \_logic_typespec: , line:65:16, endln:65:44
+            |vpiRange:
+            \_range: , line:65:22, endln:65:44
+              |vpiLeftRange:
+              \_operation: , line:65:23, endln:65:41
+                |vpiParent:
+                \_range: , line:65:22, endln:65:44
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (OtpByteAddrWidth), line:65:23, endln:65:39
+                  |vpiParent:
+                  \_operation: , line:65:23, endln:65:41
+                  |vpiName:OtpByteAddrWidth
+                |vpiOperand:
+                \_constant: , line:65:40, endln:65:41
+                  |vpiParent:
+                  \_operation: , line:65:23, endln:65:41
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+              |vpiRightRange:
+              \_constant: , line:65:42, endln:65:43
+                |vpiParent:
+                \_range: , line:65:22, endln:65:44
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+          |vpiLocalParam:1
+          |vpiName:DigestOffset
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:51:1, endln:71:10
   |vpiName:work@top

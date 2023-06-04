@@ -177,45 +177,50 @@
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-always                                                85
+always                                                95
 array_net                                             21
 assign_stmt                                            5
-assignment                                           680
-begin                                                258
-bit_select                                           225
-case_item                                             72
-case_stmt                                             17
-constant                                            7394
-cont_assign                                          443
+assignment                                           737
+begin                                                350
+bit_select                                           267
+case_item                                             89
+case_stmt                                             21
+constant                                            7658
+cont_assign                                          492
 delay_control                                          1
 design                                                 1
-event_control                                         86
+event_control                                         96
 for_stmt                                               5
+gen_case                                               2
+gen_if                                                 8
+gen_if_else                                           13
+gen_region                                            29
 gen_scope                                             76
 gen_scope_array                                       76
 hier_path                                              2
-if_else                                              128
-if_stmt                                              131
+if_else                                              145
+if_stmt                                              146
 include_file_info                                     43
-initial                                               10
+initial                                               12
 int_typespec                                         155
 integer_typespec                                       6
 integer_var                                            6
 logic_net                                           1841
 logic_typespec                                      1770
 module_inst                                           87
-operation                                           3685
+named_begin                                           10
+operation                                           3905
 param_assign                                         215
 parameter                                            235
-part_select                                          226
+part_select                                          258
 port                                                1290
 range                                               1082
 ref_module                                            25
-ref_obj                                             5218
+ref_obj                                             5558
 ref_var                                                5
 repeat                                                 2
 string_typespec                                       11
-sys_func_call                                         30
+sys_func_call                                         32
 var_select                                             8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/YosysBigSimLm32/slpp_unit/surelog.uhdm ...
@@ -230,22 +235,22 @@ var_select                                             8
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v            | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_adder_000.v            | 43 | 135 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_addsub.v           | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_addsub_000.v           | 25 | 95 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_cpu.v              | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_cpu_000.v              | 2283 | 3123 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_dcache.v           | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_dcache_000.v           | 319 | 537 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_debug.v            | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_debug_000.v            | 198 | 365 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_dcache.v           | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_dcache_000.v           | 282 | 537 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_debug.v            | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_debug_000.v            | 197 | 365 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_decoder.v          | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_decoder_000.v          | 390 | 601 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_dp_ram.v           | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_dp_ram_000.v           | 60 | 145 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_dp_ram.v           | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_dp_ram_000.v           | 59 | 145 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_dtlb.v             | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_dtlb_000.v             | 156 | 296 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_icache.v           | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_icache_000.v           | 295 | 516 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_icache.v           | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_icache_000.v           | 271 | 516 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_include.v          | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_include_000.v          | 16 | 61 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_instruction_unit.v | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_instruction_unit_000.v | 637 | 955 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_interrupt.v        | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_interrupt_000.v        | 254 | 388 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_instruction_unit.v | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_instruction_unit_000.v | 635 | 955 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_interrupt.v        | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_interrupt_000.v        | 182 | 388 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_itlb.v             | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_itlb_000.v             | 141 | 275 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_jtag.v             | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_jtag_000.v             | 58 | 110 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_load_store_unit.v  | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_load_store_unit_000.v  | 540 | 895 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_logic_op.v         | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_logic_op_000.v         | 20 | 97 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_mc_arithmetic.v    | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_mc_arithmetic_000.v    | 171 | 309 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_multiplier.v       | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_multiplier_000.v       | 33 | 120 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_ram.v              | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_ram_000.v              | 54 | 138 |
+[roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_ram.v              | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_ram_000.v              | 53 | 138 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_shifter.v          | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_shifter_000.v          | 47 | 155 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/rtl/lm32_top.v              | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/lm32_top_000.v              | 220 | 353 |
 [roundtrip]: ${SURELOG_DIR}/third_party/tests/YosysBigSim/lm32/sim/tb_lm32_system.v        | ${SURELOG_DIR}/build/regression/YosysBigSimLm32/roundtrip/tb_lm32_system_000.v        | 217 | 390 |

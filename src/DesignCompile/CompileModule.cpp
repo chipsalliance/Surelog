@@ -35,8 +35,10 @@
 #include <Surelog/Utils/StringUtils.h>
 
 // UHDM
+#include <uhdm/always.h>
 #include <uhdm/assign_stmt.h>
 #include <uhdm/constant.h>
+#include <uhdm/final_stmt.h>
 #include <uhdm/initial.h>
 #include <uhdm/io_decl.h>
 #include <uhdm/logic_net.h>
@@ -140,6 +142,7 @@ bool CompileModule::compile() {
     case VObjectType::slModule_declaration:
       if (!collectModuleObjects_(CollectType::FUNCTION)) return false;
       if (!collectModuleObjects_(CollectType::DEFINITION)) return false;
+      if (!collectModuleObjects_(CollectType::GENERATE_REGIONS)) return false;
       if (!collectModuleObjects_(CollectType::OTHER)) return false;
       if (!checkModule_()) return false;
       break;
@@ -502,8 +505,14 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
       VObjectType::slModule_declaration,
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
-      VObjectType::slTask_body_declaration,
-      VObjectType::slGenerate_region};
+      VObjectType::slTask_body_declaration};
+  if (collectType == CollectType::GENERATE_REGIONS) {
+    if (m_instance != nullptr) {
+      stopPoints.push_back(VObjectType::slGenerate_region);
+    }
+  } else {
+    stopPoints.push_back(VObjectType::slGenerate_region);
+  }
 
   for (uint32_t i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
@@ -648,8 +657,15 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::slAlways_construct: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign,
-                                      m_instance);
+          UHDM::always* always = m_helper.compileAlwaysBlock(
+              m_module, fC, id, m_compileDesign, m_instance);
+          UHDM::VectorOfprocess_stmt* processes = m_module->getProcesses();
+          if (processes == nullptr) {
+            m_module->setProcesses(
+                m_compileDesign->getSerializer().MakeProcess_stmtVec());
+            processes = m_module->getProcesses();
+          }
+          processes->push_back(always);
           break;
         }
         case VObjectType::slParameter_port_list: {
@@ -845,14 +861,32 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           m_module->addObject(type, fnid);
           break;
         }
-        case VObjectType::slInitial_construct:
+        case VObjectType::slInitial_construct: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
+          UHDM::initial* init =
+              m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
+          UHDM::VectorOfprocess_stmt* processes = m_module->getProcesses();
+          if (processes == nullptr) {
+            m_module->setProcesses(
+                m_compileDesign->getSerializer().MakeProcess_stmtVec());
+            processes = m_module->getProcesses();
+          }
+          processes->push_back(init);
           break;
-        case VObjectType::slFinal_construct:
+        }
+        case VObjectType::slFinal_construct: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+          UHDM::final_stmt* final =
+              m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+          UHDM::VectorOfprocess_stmt* processes = m_module->getProcesses();
+          if (processes == nullptr) {
+            m_module->setProcesses(
+                m_compileDesign->getSerializer().MakeProcess_stmtVec());
+            processes = m_module->getProcesses();
+          }
+          processes->push_back(final);
           break;
+        }
         case VObjectType::slStringConst: {
           if (collectType != CollectType::DEFINITION) break;
           NodeId sibling = fC->Sibling(id);
@@ -882,9 +916,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           }
           break;
         }
+        case VObjectType::slGenerate_region:
         case VObjectType::slLoop_generate_construct:
         case VObjectType::slConditional_generate_construct: {
           if (collectType != CollectType::OTHER) break;
+          FileCNodeId fnid(fC, id);
+          m_module->addObject(type, fnid);
           if (m_instance) break;
           UHDM::VectorOfgen_stmt* stmts =
               m_helper.compileGenStmt(m_module, fC, m_compileDesign, id);
@@ -895,8 +932,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           for (auto st : *stmts) {
             m_module->getGenStmts()->push_back(st);
           }
-          FileCNodeId fnid(fC, id);
-          m_module->addObject(type, fnid);
           break;
         }
         default:
@@ -1058,8 +1093,15 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         }
         case VObjectType::slAlways_construct: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign,
-                                      m_instance);
+          UHDM::always* always = m_helper.compileAlwaysBlock(
+              m_module, fC, id, m_compileDesign, m_instance);
+          UHDM::VectorOfprocess_stmt* processes = m_module->getProcesses();
+          if (processes == nullptr) {
+            m_module->setProcesses(
+                m_compileDesign->getSerializer().MakeProcess_stmtVec());
+            processes = m_module->getProcesses();
+          }
+          processes->push_back(always);
           break;
         }
         case VObjectType::slTask_declaration: {
@@ -1231,14 +1273,32 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             }
           }
           break;
-        case VObjectType::slInitial_construct:
+        case VObjectType::slInitial_construct: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
+          UHDM::initial* init =
+              m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
+          UHDM::VectorOfprocess_stmt* processes = m_module->getProcesses();
+          if (processes == nullptr) {
+            m_module->setProcesses(
+                m_compileDesign->getSerializer().MakeProcess_stmtVec());
+            processes = m_module->getProcesses();
+          }
+          processes->push_back(init);
           break;
-        case VObjectType::slFinal_construct:
+        }
+        case VObjectType::slFinal_construct: {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+          UHDM::final_stmt* final =
+              m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+          UHDM::VectorOfprocess_stmt* processes = m_module->getProcesses();
+          if (processes == nullptr) {
+            m_module->setProcesses(
+                m_compileDesign->getSerializer().MakeProcess_stmtVec());
+            processes = m_module->getProcesses();
+          }
+          processes->push_back(final);
           break;
+        }
         case VObjectType::slParameter_declaration: {
           if (collectType != CollectType::DEFINITION) break;
 

@@ -161,30 +161,40 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              14
+begin                                                  2
+constant                                              16
 design                                                 1
+gen_if_else                                            2
+gen_region                                             1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           4
 module_inst                                            7
-operation                                              3
+named_begin                                            3
+operation                                              6
 param_assign                                           4
 parameter                                              4
-ref_module                                             1
+ref_module                                             2
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              14
+begin                                                  2
+constant                                              16
 design                                                 1
+gen_if_else                                            2
+gen_region                                             1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           4
 module_inst                                            8
-operation                                              3
+named_begin                                            3
+operation                                              6
 param_assign                                           4
 parameter                                              4
-ref_module                                             1
+ref_module                                             2
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfElseIf1/slpp_all/surelog.uhdm ...
 
@@ -256,6 +266,73 @@ design: (work@axi)
     |vpiLhs:
     \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
   |vpiDefName:work@axi
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test1/dut.sv, line:4:1, endln:21:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:11:7, endln:18:14
+        |vpiCondition:
+        \_operation: , line:11:11, endln:11:17
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (j), line:11:11, endln:11:12
+            |vpiParent:
+            \_operation: , line:11:11, endln:11:17
+            |vpiName:j
+          |vpiOperand:
+          \_constant: , line:11:16, endln:11:17
+            |vpiParent:
+            \_operation: , line:11:11, endln:11:17
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiStmt:
+        \_named_begin: (LAST_NODE)
+          |vpiName:LAST_NODE
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if_else: , line:13:16, endln:18:14
+            |vpiCondition:
+            \_operation: , line:13:21, endln:13:39
+              |vpiOpType:20
+              |vpiOperand:
+              \_ref_obj: (j), line:13:21, endln:13:22
+                |vpiParent:
+                \_operation: , line:13:21, endln:13:39
+                |vpiName:j
+              |vpiOperand:
+              \_operation: , line:13:25, endln:13:39
+                |vpiParent:
+                \_operation: , line:13:21, endln:13:39
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (LOG_MASTER), line:13:25, endln:13:35
+                  |vpiParent:
+                  \_operation: , line:13:21, endln:13:39
+                  |vpiName:LOG_MASTER
+                |vpiOperand:
+                \_constant: , line:13:38, endln:13:39
+                  |vpiParent:
+                  \_operation: , line:13:25, endln:13:39
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+            |vpiStmt:
+            \_named_begin: (MIDDLE_NODES)
+              |vpiName:MIDDLE_NODES
+            |vpiElseStmt:
+            \_named_begin: (LEAF_NODES)
+              |vpiName:LEAF_NODES
+              |vpiStmt:
+              \_ref_module: work@GOOD (good), line:17:19, endln:17:23
+                |vpiName:good
+                |vpiDefName:work@GOOD
 |uhdmtopModules:
 \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test1/dut.sv, line:4:1, endln:21:10
   |vpiName:work@axi

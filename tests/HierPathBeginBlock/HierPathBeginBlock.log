@@ -316,7 +316,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            2
+assign_stmt                                            4
 assignment                                             4
 begin                                                  2
 constant                                              34
@@ -327,9 +327,9 @@ gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              6
 initial                                                1
-logic_net                                             11
-logic_typespec                                        10
-logic_var                                              2
+logic_net                                             10
+logic_typespec                                        12
+logic_var                                              4
 module_inst                                            5
 named_begin                                            4
 port                                                   8
@@ -339,7 +339,7 @@ ref_obj                                               34
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
+assign_stmt                                            4
 assignment                                             8
 begin                                                  3
 constant                                              34
@@ -350,9 +350,9 @@ gen_scope                                              9
 gen_scope_array                                        9
 hier_path                                             10
 initial                                                2
-logic_net                                             11
-logic_typespec                                        10
-logic_var                                              4
+logic_net                                             10
+logic_typespec                                        12
+logic_var                                              6
 module_inst                                            5
 named_begin                                            6
 port                                                  12
@@ -692,6 +692,15 @@ design: (work@matching_end_labels_top)
         \_named_begin: (blk3)
           |vpiName:blk3
           |vpiStmt:
+          \_assign_stmt: , line:22:17, endln:22:18
+            |vpiLhs:
+            \_logic_var: (x), line:22:17, endln:22:18
+              |vpiParent:
+              \_assign_stmt: , line:22:17, endln:22:18
+              |vpiTypespec:
+              \_logic_typespec: , line:22:13, endln:22:16
+              |vpiName:x
+          |vpiStmt:
           \_cont_assign: , line:23:20, endln:23:25
             |vpiRhs:
             \_constant: , line:23:24, endln:23:25
@@ -706,8 +715,6 @@ design: (work@matching_end_labels_top)
               |vpiParent:
               \_cont_assign: , line:23:20, endln:23:25
               |vpiName:x
-              |vpiActual:
-              \_logic_net: (x)
       |vpiStmt:
       \_cont_assign: , line:25:16, endln:25:29
         |vpiRhs:
@@ -732,8 +739,6 @@ design: (work@matching_end_labels_top)
           |vpiParent:
           \_cont_assign: , line:25:16, endln:25:29
           |vpiName:out3
-          |vpiActual:
-          \_logic_net: (work@matching_end_labels_top.out3), line:3:17, endln:3:21
       |vpiStmt:
       \_gen_if: , line:26:9, endln:26:11
         |vpiCondition:
@@ -745,6 +750,15 @@ design: (work@matching_end_labels_top)
         |vpiStmt:
         \_named_begin: (blk4)
           |vpiName:blk4
+          |vpiStmt:
+          \_assign_stmt: , line:27:17, endln:27:18
+            |vpiLhs:
+            \_logic_var: (x), line:27:17, endln:27:18
+              |vpiParent:
+              \_assign_stmt: , line:27:17, endln:27:18
+              |vpiTypespec:
+              \_logic_typespec: , line:27:13, endln:27:16
+              |vpiName:x
           |vpiStmt:
           \_cont_assign: , line:28:20, endln:28:25
             |vpiRhs:
@@ -760,8 +774,6 @@ design: (work@matching_end_labels_top)
               |vpiParent:
               \_cont_assign: , line:28:20, endln:28:25
               |vpiName:x
-              |vpiActual:
-              \_logic_net: (x)
       |vpiStmt:
       \_cont_assign: , line:30:16, endln:30:29
         |vpiRhs:
@@ -786,8 +798,6 @@ design: (work@matching_end_labels_top)
           |vpiParent:
           \_cont_assign: , line:30:16, endln:30:29
           |vpiName:out4
-          |vpiActual:
-          \_logic_net: (work@matching_end_labels_top.out4), line:3:23, endln:3:27
 |uhdmtopModules:
 \_module_inst: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
   |vpiName:work@matching_end_labels_top
@@ -847,10 +857,6 @@ design: (work@matching_end_labels_top)
     |vpiName:out4
     |vpiFullName:work@matching_end_labels_top.out4
     |vpiNetType:48
-  |vpiNet:
-  \_logic_net: (x)
-    |vpiName:x
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (out1), line:3:5, endln:3:9

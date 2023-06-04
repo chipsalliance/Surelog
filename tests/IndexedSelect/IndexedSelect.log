@@ -184,8 +184,10 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 constant                                              46
 design                                                 1
+gen_region                                             1
 gen_scope                                              8
 gen_scope_array                                        8
 indexed_part_select                                    7
@@ -200,8 +202,10 @@ sys_task_call                                          4
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 constant                                              46
 design                                                 1
+gen_region                                             1
 gen_scope                                             12
 gen_scope_array                                       12
 indexed_part_select                                    7
@@ -317,6 +321,12 @@ design: (work@test)
     |vpiLhs:
     \_parameter: (work@test.DEBUG), line:6:11, endln:6:16
   |vpiDefName:work@test
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
   |vpiName:work@test

@@ -893,11 +893,11 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-always                                                 1
-assignment                                             1
-begin                                                  1
-case_item                                              2
-case_stmt                                              1
+always                                                 2
+assignment                                             2
+begin                                                  2
+case_item                                              4
+case_stmt                                              2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -918,23 +918,23 @@ io_decl                                               11
 logic_typespec                                        88
 logic_var                                              1
 module_inst                                           10
-named_begin                                            2
+named_begin                                            3
 operation                                             68
 package                                               11
 param_assign                                          54
 parameter                                             54
 range                                                 88
-ref_obj                                               42
+ref_obj                                               46
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-always                                                 2
-assignment                                             2
-begin                                                  2
-case_item                                              4
-case_stmt                                              2
+always                                                 3
+assignment                                             3
+begin                                                  3
+case_item                                              6
+case_stmt                                              3
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -955,13 +955,13 @@ io_decl                                               22
 logic_typespec                                        88
 logic_var                                              1
 module_inst                                           10
-named_begin                                            3
+named_begin                                            4
 operation                                             68
 package                                               11
 param_assign                                          54
 parameter                                             54
 range                                                 88
-ref_obj                                               46
+ref_obj                                               50
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageValue/slpp_all/surelog.uhdm ...
@@ -2887,6 +2887,63 @@ design: (work@prim_diff_decode)
     |vpiStmt:
     \_named_begin: (gen_pad_generic)
       |vpiName:gen_pad_generic
+      |vpiStmt:
+      \_always: , line:19:5, endln:29:8
+        |vpiStmt:
+        \_named_begin: (p_diff_fsm), line:19:17, endln:29:8
+          |vpiParent:
+          \_always: , line:19:5, endln:29:8
+          |vpiName:p_diff_fsm
+          |vpiStmt:
+          \_case_stmt: , line:21:7, endln:28:14
+            |vpiParent:
+            \_named_begin: (p_diff_fsm), line:19:17, endln:29:8
+            |vpiCaseType:1
+            |vpiQualifier:1
+            |vpiCondition:
+            \_ref_obj: (p_diff_fsm.state_q), line:21:20, endln:21:27
+              |vpiParent:
+              \_named_begin: (p_diff_fsm), line:19:17, endln:29:8
+              |vpiName:state_q
+              |vpiFullName:p_diff_fsm.state_q
+            |vpiCaseItem:
+            \_case_item: , line:24:9, endln:26:12
+              |vpiParent:
+              \_case_stmt: , line:21:7, endln:28:14
+              |vpiExpr:
+              \_ref_obj: (p_diff_fsm.IsSkewed), line:24:9, endln:24:17
+                |vpiParent:
+                \_named_begin: (p_diff_fsm), line:19:17, endln:29:8
+                |vpiName:IsSkewed
+                |vpiFullName:p_diff_fsm.IsSkewed
+              |vpiStmt:
+              \_begin: (p_diff_fsm), line:24:19, endln:26:12
+                |vpiParent:
+                \_case_item: , line:24:9, endln:26:12
+                |vpiFullName:p_diff_fsm
+                |vpiStmt:
+                \_assignment: , line:25:13, endln:25:28
+                  |vpiParent:
+                  \_begin: (p_diff_fsm), line:24:19, endln:26:12
+                  |vpiOpType:82
+                  |vpiBlocking:1
+                  |vpiRhs:
+                  \_ref_obj: (p_diff_fsm.IsStd), line:25:23, endln:25:28
+                    |vpiParent:
+                    \_begin: (p_diff_fsm), line:24:19, endln:26:12
+                    |vpiName:IsStd
+                    |vpiFullName:p_diff_fsm.IsStd
+                  |vpiLhs:
+                  \_ref_obj: (p_diff_fsm.state_d), line:25:13, endln:25:20
+                    |vpiParent:
+                    \_begin: (p_diff_fsm), line:24:19, endln:26:12
+                    |vpiName:state_d
+                    |vpiFullName:p_diff_fsm.state_d
+            |vpiCaseItem:
+            \_case_item: , line:27:9, endln:27:20
+              |vpiParent:
+              \_case_stmt: , line:21:7, endln:28:14
+        |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
   |vpiName:work@prim_diff_decode
@@ -3027,4 +3084,4 @@ design: (work@prim_diff_decode)
 [   NOTE] : 9
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PackageValue/top.sv | ${SURELOG_DIR}/build/regression/PackageValue/roundtrip/top_000.sv | 23 | 72 |
+[roundtrip]: ${SURELOG_DIR}/tests/PackageValue/top.sv | ${SURELOG_DIR}/build/regression/PackageValue/roundtrip/top_000.sv | 15 | 72 |

@@ -3649,13 +3649,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-always                                                 4
+always                                                 7
 array_net                                              1
 array_typespec                                         1
 assign_stmt                                            3
-assignment                                           110
-begin                                                 94
-bit_select                                            30
+assignment                                           115
+begin                                                 97
+bit_select                                            39
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             2
@@ -3670,7 +3670,7 @@ gen_for                                                1
 gen_if_else                                            1
 gen_scope                                              8
 gen_scope_array                                        8
-hier_path                                             64
+hier_path                                             74
 if_else                                               20
 if_stmt                                               18
 import_typespec                                        1
@@ -3688,7 +3688,7 @@ param_assign                                         118
 parameter                                            125
 port                                                   6
 range                                                  9
-ref_obj                                              447
+ref_obj                                              476
 ref_var                                                1
 return_stmt                                           88
 short_int_typespec                                   104
@@ -3701,13 +3701,13 @@ unsupported_typespec                                  10
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-always                                                 8
+always                                                11
 array_net                                              1
 array_typespec                                         1
 assign_stmt                                            6
-assignment                                           271
-begin                                                233
-bit_select                                            67
+assignment                                           276
+begin                                                236
+bit_select                                            76
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             5
@@ -3722,7 +3722,7 @@ gen_for                                                1
 gen_if_else                                            1
 gen_scope                                             12
 gen_scope_array                                       12
-hier_path                                            149
+hier_path                                            159
 if_else                                               50
 if_stmt                                               45
 import_typespec                                        1
@@ -3740,7 +3740,7 @@ param_assign                                         118
 parameter                                            125
 port                                                   9
 range                                                  9
-ref_obj                                             1053
+ref_obj                                             1082
 ref_var                                                1
 return_stmt                                          220
 short_int_typespec                                   104
@@ -19266,6 +19266,171 @@ design: (work@tnoc_vc_splitter)
     \_named_begin: (g)
       |vpiName:g
       |vpiStmt:
+      \_always: , line:416:5, endln:420:8
+        |vpiStmt:
+        \_begin: , line:416:17, endln:420:8
+          |vpiParent:
+          \_always: , line:416:5, endln:420:8
+          |vpiStmt:
+          \_assignment: , line:417:7, endln:417:53
+            |vpiParent:
+            \_begin: , line:416:17, endln:420:8
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
+              |vpiParent:
+              \_begin: , line:416:17, endln:420:8
+              |vpiName:receiver_if.valid[i]
+              |vpiActual:
+              \_ref_obj: (receiver_if), line:417:33, endln:417:44
+                |vpiParent:
+                \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
+                |vpiName:receiver_if
+              |vpiActual:
+              \_bit_select: (valid)
+                |vpiParent:
+                \_ref_obj: (valid)
+                  |vpiParent:
+                  \_begin: , line:416:17, endln:420:8
+                  |vpiName:valid
+                |vpiName:valid
+                |vpiIndex:
+                \_ref_obj: (i), line:417:51, endln:417:52
+                  |vpiParent:
+                  \_begin: , line:416:17, endln:420:8
+                  |vpiName:i
+            |vpiLhs:
+            \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
+              |vpiParent:
+              \_begin: , line:416:17, endln:420:8
+              |vpiName:sender_if[i].valid
+              |vpiActual:
+              \_bit_select: (sender_if), line:417:7, endln:417:16
+                |vpiParent:
+                \_ref_obj: (sender_if[i])
+                  |vpiParent:
+                  \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
+                  |vpiName:sender_if[i]
+                |vpiName:sender_if
+                |vpiIndex:
+                \_ref_obj: (i), line:417:17, endln:417:18
+                  |vpiParent:
+                  \_begin: , line:416:17, endln:420:8
+                  |vpiName:i
+              |vpiActual:
+              \_ref_obj: (valid)
+                |vpiParent:
+                \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
+                |vpiName:valid
+          |vpiStmt:
+          \_assignment: , line:418:7, endln:418:51
+            |vpiParent:
+            \_begin: , line:416:17, endln:420:8
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
+              |vpiParent:
+              \_begin: , line:416:17, endln:420:8
+              |vpiName:sender_if[i].ready
+              |vpiActual:
+              \_bit_select: (sender_if), line:418:33, endln:418:42
+                |vpiParent:
+                \_ref_obj: (sender_if[i])
+                  |vpiParent:
+                  \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
+                  |vpiName:sender_if[i]
+                |vpiName:sender_if
+                |vpiIndex:
+                \_ref_obj: (i), line:418:43, endln:418:44
+                  |vpiParent:
+                  \_begin: , line:416:17, endln:420:8
+                  |vpiName:i
+              |vpiActual:
+              \_ref_obj: (ready), line:418:46, endln:418:51
+                |vpiParent:
+                \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
+                |vpiName:ready
+            |vpiLhs:
+            \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
+              |vpiParent:
+              \_begin: , line:416:17, endln:420:8
+              |vpiName:receiver_if.ready[i]
+              |vpiActual:
+              \_ref_obj: (receiver_if)
+                |vpiParent:
+                \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
+                |vpiName:receiver_if
+              |vpiActual:
+              \_bit_select: (receiver_if.ready[i]), line:418:19, endln:418:24
+                |vpiParent:
+                \_ref_obj: (receiver_if.ready[i])
+                  |vpiParent:
+                  \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
+                  |vpiName:receiver_if.ready[i]
+                |vpiName:ready
+                |vpiFullName:receiver_if.ready[i]
+                |vpiIndex:
+                \_ref_obj: (i), line:418:25, endln:418:26
+                  |vpiParent:
+                  \_begin: , line:416:17, endln:420:8
+                  |vpiName:i
+          |vpiStmt:
+          \_assignment: , line:419:7, endln:419:54
+            |vpiParent:
+            \_begin: , line:416:17, endln:420:8
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
+              |vpiParent:
+              \_begin: , line:416:17, endln:420:8
+              |vpiName:sender_if[i].vc_ready
+              |vpiActual:
+              \_bit_select: (sender_if), line:419:33, endln:419:42
+                |vpiParent:
+                \_ref_obj: (sender_if[i])
+                  |vpiParent:
+                  \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
+                  |vpiName:sender_if[i]
+                |vpiName:sender_if
+                |vpiIndex:
+                \_ref_obj: (i), line:419:43, endln:419:44
+                  |vpiParent:
+                  \_begin: , line:416:17, endln:420:8
+                  |vpiName:i
+              |vpiActual:
+              \_ref_obj: (vc_ready), line:419:46, endln:419:54
+                |vpiParent:
+                \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
+                |vpiName:vc_ready
+            |vpiLhs:
+            \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
+              |vpiParent:
+              \_begin: , line:416:17, endln:420:8
+              |vpiName:receiver_if.vc_ready[i]
+              |vpiActual:
+              \_ref_obj: (receiver_if)
+                |vpiParent:
+                \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
+                |vpiName:receiver_if
+              |vpiActual:
+              \_bit_select: (receiver_if.vc_ready[i]), line:419:19, endln:419:27
+                |vpiParent:
+                \_ref_obj: (receiver_if.vc_ready[i])
+                  |vpiParent:
+                  \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
+                  |vpiName:receiver_if.vc_ready[i]
+                |vpiName:vc_ready
+                |vpiFullName:receiver_if.vc_ready[i]
+                |vpiIndex:
+                \_ref_obj: (i), line:419:28, endln:419:29
+                  |vpiParent:
+                  \_begin: , line:416:17, endln:420:8
+                  |vpiName:i
+        |vpiAlwaysType:2
+      |vpiStmt:
       \_gen_if_else: , line:422:5, endln:431:8
         |vpiCondition:
         \_func_call: (is_local_port), line:422:9, endln:422:22
@@ -19275,14 +19440,122 @@ design: (work@tnoc_vc_splitter)
             \_func_call: (is_local_port), line:422:9, endln:422:22
             |vpiName:PORT_TYPE
           |vpiName:is_local_port
-          |vpiFunction:
-          \_function: (tnoc_pkg::is_local_port), line:378:3, endln:380:14
         |vpiStmt:
         \_named_begin: (g)
           |vpiName:g
+          |vpiStmt:
+          \_always: , line:423:7, endln:425:10
+            |vpiStmt:
+            \_begin: , line:423:19, endln:425:10
+              |vpiParent:
+              \_always: , line:423:7, endln:425:10
+              |vpiStmt:
+              \_assignment: , line:424:9, endln:424:48
+                |vpiParent:
+                \_begin: , line:423:19, endln:425:10
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
+                  |vpiParent:
+                  \_begin: , line:423:19, endln:425:10
+                  |vpiName:receiver_if.flit[i]
+                  |vpiActual:
+                  \_ref_obj: (receiver_if), line:424:29, endln:424:40
+                    |vpiParent:
+                    \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
+                    |vpiName:receiver_if
+                  |vpiActual:
+                  \_bit_select: (flit)
+                    |vpiParent:
+                    \_ref_obj: (flit)
+                      |vpiParent:
+                      \_begin: , line:423:19, endln:425:10
+                      |vpiName:flit
+                    |vpiName:flit
+                    |vpiIndex:
+                    \_ref_obj: (i), line:424:46, endln:424:47
+                      |vpiParent:
+                      \_begin: , line:423:19, endln:425:10
+                      |vpiName:i
+                |vpiLhs:
+                \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
+                  |vpiParent:
+                  \_begin: , line:423:19, endln:425:10
+                  |vpiName:sender_if[i].flit
+                  |vpiActual:
+                  \_bit_select: (sender_if), line:424:9, endln:424:18
+                    |vpiParent:
+                    \_ref_obj: (sender_if[i])
+                      |vpiParent:
+                      \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
+                      |vpiName:sender_if[i]
+                    |vpiName:sender_if
+                    |vpiIndex:
+                    \_ref_obj: (i), line:424:19, endln:424:20
+                      |vpiParent:
+                      \_begin: , line:423:19, endln:425:10
+                      |vpiName:i
+                  |vpiActual:
+                  \_ref_obj: (flit)
+                    |vpiParent:
+                    \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
+                    |vpiName:flit
+            |vpiAlwaysType:2
         |vpiElseStmt:
         \_named_begin: (g)
           |vpiName:g
+          |vpiStmt:
+          \_always: , line:428:7, endln:430:10
+            |vpiStmt:
+            \_begin: , line:428:19, endln:430:10
+              |vpiParent:
+              \_always: , line:428:7, endln:430:10
+              |vpiStmt:
+              \_assignment: , line:429:9, endln:429:45
+                |vpiParent:
+                \_begin: , line:428:19, endln:430:10
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (receiver_if.flit), line:429:29, endln:429:45
+                  |vpiParent:
+                  \_begin: , line:428:19, endln:430:10
+                  |vpiName:receiver_if.flit
+                  |vpiActual:
+                  \_ref_obj: (receiver_if), line:429:29, endln:429:40
+                    |vpiParent:
+                    \_hier_path: (receiver_if.flit), line:429:29, endln:429:45
+                    |vpiName:receiver_if
+                  |vpiActual:
+                  \_ref_obj: (flit), line:429:41, endln:429:45
+                    |vpiParent:
+                    \_hier_path: (receiver_if.flit), line:429:29, endln:429:45
+                    |vpiName:flit
+                |vpiLhs:
+                \_hier_path: (sender_if[i].flit), line:429:9, endln:429:18
+                  |vpiParent:
+                  \_begin: , line:428:19, endln:430:10
+                  |vpiName:sender_if[i].flit
+                  |vpiActual:
+                  \_bit_select: (sender_if), line:429:9, endln:429:18
+                    |vpiParent:
+                    \_ref_obj: (sender_if[i])
+                      |vpiParent:
+                      \_hier_path: (sender_if[i].flit), line:429:9, endln:429:18
+                      |vpiName:sender_if[i]
+                    |vpiName:sender_if
+                    |vpiIndex:
+                    \_ref_obj: (i), line:429:19, endln:429:20
+                      |vpiParent:
+                      \_begin: , line:428:19, endln:430:10
+                      |vpiName:i
+                  |vpiActual:
+                  \_ref_obj: (flit)
+                    |vpiParent:
+                    \_hier_path: (sender_if[i].flit), line:429:9, endln:429:18
+                    |vpiName:flit
+            |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiName:work@tnoc_vc_splitter
@@ -24925,4 +25198,4 @@ design: (work@tnoc_vc_splitter)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/FuncDef2/dut.sv | ${SURELOG_DIR}/build/regression/FuncDef2/roundtrip/dut_000.sv | 84 | 433 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncDef2/dut.sv | ${SURELOG_DIR}/build/regression/FuncDef2/roundtrip/dut_000.sv | 78 | 433 |

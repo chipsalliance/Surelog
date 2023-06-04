@@ -13580,13 +13580,13 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
+begin                                                  6
 bit_select                                            72
 case_item                                              3
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            4410
+constant                                            4415
 cont_assign                                           26
 design                                                 1
 enum_const                                             5
@@ -13595,6 +13595,9 @@ enum_var                                               1
 function                                               9
 gate                                                  10
 gen_case                                               1
+gen_if                                                 3
+gen_if_else                                            2
+gen_region                                             3
 gen_scope                                           2426
 gen_scope_array                                     2426
 int_typespec                                        1219
@@ -13606,8 +13609,8 @@ logic_var                                              1
 module_array                                           1
 module_inst                                         1275
 module_typespec                                        1
-named_begin                                            2
-operation                                           1360
+named_begin                                            7
+operation                                           1365
 package                                                2
 param_assign                                          10
 parameter                                           1210
@@ -13615,7 +13618,7 @@ port                                                 117
 prim_term                                             24
 range                                                 89
 ref_module                                          1201
-ref_obj                                              216
+ref_obj                                              221
 task                                                   9
 udp                                                    1
 === UHDM Object Stats End ===
@@ -14403,6 +14406,12 @@ design: (work@bottom1)
     |vpiLhs:
     \_parameter: (work@small_test.p1), line:10:11, endln:10:13
   |vpiDefName:work@small_test
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:5:1, endln:54:10
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@small_top (work@small_top), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:1:1, endln:3:10
   |vpiParent:
@@ -14571,6 +14580,127 @@ design: (work@bottom1)
         |vpiFullName:work@test.u4.b
         |vpiActual:
         \_logic_net: (work@test.b), line:35:16, endln:35:17
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:41:2, endln:47:8
+        |vpiCondition:
+        \_operation: , line:41:6, endln:41:16
+          |vpiOpType:18
+          |vpiOperand:
+          \_ref_obj: (POWER1), line:41:6, endln:41:12
+            |vpiParent:
+            \_operation: , line:41:6, endln:41:16
+            |vpiName:POWER1
+          |vpiOperand:
+          \_constant: , line:41:15, endln:41:16
+            |vpiParent:
+            \_operation: , line:41:6, endln:41:16
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiStmt:
+        \_named_begin: (g1)
+          |vpiName:g1
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_gen_if_else: , line:43:14, endln:47:8
+            |vpiCondition:
+            \_operation: , line:43:18, endln:43:29
+              |vpiOpType:14
+              |vpiOperand:
+              \_ref_obj: (POWER2), line:43:18, endln:43:24
+                |vpiParent:
+                \_operation: , line:43:18, endln:43:29
+                |vpiName:POWER2
+              |vpiOperand:
+              \_constant: , line:43:28, endln:43:29
+                |vpiParent:
+                \_operation: , line:43:18, endln:43:29
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+            |vpiStmt:
+            \_named_begin: (g1)
+              |vpiName:g1
+            |vpiElseStmt:
+            \_begin: 
+              |vpiStmt:
+              \_gen_if: , line:45:14, endln:45:16
+                |vpiCondition:
+                \_operation: , line:45:18, endln:45:28
+                  |vpiOpType:18
+                  |vpiOperand:
+                  \_ref_obj: (POWER2), line:45:18, endln:45:24
+                    |vpiParent:
+                    \_operation: , line:45:18, endln:45:28
+                    |vpiName:POWER2
+                  |vpiOperand:
+                  \_constant: , line:45:27, endln:45:28
+                    |vpiParent:
+                    \_operation: , line:45:18, endln:45:28
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+                    |vpiConstType:9
+                |vpiStmt:
+                \_named_begin: (g1)
+                  |vpiName:g1
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if: , line:51:5, endln:51:7
+        |vpiCondition:
+        \_operation: , line:51:9, endln:51:19
+          |vpiOpType:18
+          |vpiOperand:
+          \_ref_obj: (POWER1), line:51:9, endln:51:15
+            |vpiParent:
+            \_operation: , line:51:9, endln:51:19
+            |vpiName:POWER1
+          |vpiOperand:
+          \_constant: , line:51:18, endln:51:19
+            |vpiParent:
+            \_operation: , line:51:9, endln:51:19
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiStmt:
+        \_named_begin: (g1)
+          |vpiName:g1
+          |vpiStmt:
+          \_gen_if: , line:52:8, endln:52:10
+            |vpiCondition:
+            \_operation: , line:52:12, endln:52:23
+              |vpiOpType:19
+              |vpiOperand:
+              \_ref_obj: (POWER2), line:52:12, endln:52:18
+                |vpiParent:
+                \_operation: , line:52:12, endln:52:23
+                |vpiName:POWER2
+              |vpiOperand:
+              \_constant: , line:52:22, endln:52:23
+                |vpiParent:
+                \_operation: , line:52:12, endln:52:23
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+            |vpiStmt:
+            \_named_begin: (g1)
+              |vpiName:g1
   |vpiGenStmt:
   \_gen_case: 
     |vpiParent:

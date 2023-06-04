@@ -1212,6 +1212,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -1221,6 +1222,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_region                                             2
 gen_scope                                            106
 gen_scope_array                                      106
 int_typespec                                          73
@@ -1723,6 +1725,12 @@ design: (work@top_def)
     |vpiLhs:
     \_parameter: (work@secret_number.SIZE), line:3:12, endln:3:16
   |vpiDefName:work@secret_number
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@secret_number (work@secret_number), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:2:1, endln:12:10
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:11:1, endln:60:10
   |vpiParent:
@@ -1827,6 +1835,12 @@ design: (work@top_def)
     |vpiLhs:
     \_parameter: (work@small_test.p1), line:16:11, endln:16:13
   |vpiDefName:work@small_test
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:11:1, endln:60:10
+    |vpiStmt:
+    \_begin: 
 |uhdmallModules:
 \_module_inst: work@small_top (work@small_top), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:7:1, endln:9:10
   |vpiParent:

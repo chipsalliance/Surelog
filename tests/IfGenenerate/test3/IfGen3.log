@@ -234,38 +234,38 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
-constant                                             112
+constant                                             113
 design                                                 1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                             34
 gen_scope_array                                       34
-int_typespec                                          46
+int_typespec                                          47
 module_inst                                            7
 named_begin                                            2
-operation                                             41
-param_assign                                           8
-parameter                                             24
-ref_obj                                                3
+operation                                             42
+param_assign                                           9
+parameter                                             25
+ref_obj                                                4
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  1
-constant                                             112
+constant                                             113
 design                                                 1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                             51
 gen_scope_array                                       51
-int_typespec                                          46
+int_typespec                                          47
 module_inst                                            7
 named_begin                                            2
-operation                                             41
-param_assign                                           9
-parameter                                             24
-ref_obj                                                3
+operation                                             42
+param_assign                                          10
+parameter                                             25
+ref_obj                                                4
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfGen3/slpp_all/surelog.uhdm ...
@@ -412,6 +412,31 @@ design: (work@lzc)
         |vpiStmt:
         \_named_begin: (all_true)
           |vpiName:all_true
+          |vpiStmt:
+          \_param_assign: , line:15:22, endln:15:39
+            |vpiRhs:
+            \_operation: , line:15:31, endln:15:39
+              |vpiOpType:43
+              |vpiOperand:
+              \_constant: , line:15:31, endln:15:32
+                |vpiParent:
+                \_operation: , line:15:31, endln:15:39
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+                |vpiConstType:9
+              |vpiOperand:
+              \_ref_obj: (level), line:15:34, endln:15:39
+                |vpiParent:
+                \_operation: , line:15:31, endln:15:39
+                |vpiName:level
+            |vpiLhs:
+            \_parameter: (POWER), line:15:22, endln:15:39
+              |vpiTypespec:
+              \_int_typespec: , line:15:18, endln:15:21
+                |vpiSigned:1
+              |vpiLocalParam:1
+              |vpiName:POWER
 |uhdmtopModules:
 \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
   |vpiName:work@lzc
@@ -884,4 +909,4 @@ design: (work@lzc)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv | ${SURELOG_DIR}/build/regression/IfGen3/roundtrip/dut3_000.sv | 12 | 21 |
+[roundtrip]: ${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv | ${SURELOG_DIR}/build/regression/IfGen3/roundtrip/dut3_000.sv | 11 | 21 |

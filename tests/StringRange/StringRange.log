@@ -2083,13 +2083,15 @@ AST_DEBUG_END
 always                                                 1
 assign_stmt                                            1
 assignment                                            11
-begin                                                  2
-constant                                            5540
-cont_assign                                           18
+begin                                                  5
+constant                                            5542
+cont_assign                                           20
 design                                                 1
 for_stmt                                               1
-func_call                                           1206
+func_call                                           1208
 function                                               2
+gen_if_else                                            1
+gen_region                                             1
 gen_scope                                            596
 gen_scope_array                                      596
 if_stmt                                                1
@@ -2104,13 +2106,13 @@ logic_net                                             55
 logic_typespec                                        40
 logic_var                                              2
 module_inst                                         1223
-operation                                            917
+operation                                            918
 param_assign                                        2419
 parameter                                           2707
 part_select                                          293
 port                                                  22
 range                                                 46
-ref_obj                                              419
+ref_obj                                              423
 ref_var                                                1
 string_typespec                                       11
 sys_func_call                                          6
@@ -2121,13 +2123,15 @@ sys_func_call                                          6
 always                                                 2
 assign_stmt                                            5
 assignment                                            46
-begin                                                  7
-constant                                            5540
-cont_assign                                           27
+begin                                                 10
+constant                                            5542
+cont_assign                                           29
 design                                                 1
 for_stmt                                               5
-func_call                                           1222
+func_call                                           1224
 function                                               7
+gen_if_else                                            1
+gen_region                                             1
 gen_scope                                            894
 gen_scope_array                                      894
 if_stmt                                                5
@@ -2142,13 +2146,13 @@ logic_net                                             55
 logic_typespec                                        40
 logic_var                                              2
 module_inst                                         1223
-operation                                            958
+operation                                            959
 param_assign                                        2419
 parameter                                           2707
 part_select                                          297
 port                                                  39
 range                                                 46
-ref_obj                                              551
+ref_obj                                              555
 ref_var                                                5
 string_typespec                                       11
 sys_func_call                                          6
@@ -2715,6 +2719,71 @@ design: (work@top)
         |vpiFullName:work@Example.outC
         |vpiActual:
         \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:12:9, endln:15:29
+        |vpiCondition:
+        \_operation: , line:12:13, endln:12:40
+          |vpiOpType:14
+          |vpiOperand:
+          \_func_call: (flip), line:12:13, endln:12:17
+            |vpiParent:
+            \_operation: , line:12:13, endln:12:40
+            |vpiArgument:
+            \_ref_obj: (OUTPUT), line:12:18, endln:12:24
+              |vpiParent:
+              \_func_call: (flip), line:12:13, endln:12:17
+              |vpiName:OUTPUT
+            |vpiName:flip
+          |vpiOperand:
+          \_func_call: (flip), line:12:29, endln:12:33
+            |vpiParent:
+            \_operation: , line:12:13, endln:12:40
+            |vpiArgument:
+            \_constant: , line:12:34, endln:12:39
+              |vpiParent:
+              \_func_call: (flip), line:12:29, endln:12:33
+              |vpiDecompile:"BAR"
+              |vpiSize:24
+              |STRING:BAR
+              |vpiConstType:6
+            |vpiName:flip
+        |vpiStmt:
+        \_begin: 
+          |vpiStmt:
+          \_cont_assign: , line:13:20, endln:13:33
+            |vpiRhs:
+            \_ref_obj: (OUTPUT), line:13:27, endln:13:33
+              |vpiParent:
+              \_cont_assign: , line:13:20, endln:13:33
+              |vpiName:OUTPUT
+            |vpiLhs:
+            \_ref_obj: (outA), line:13:20, endln:13:24
+              |vpiParent:
+              \_cont_assign: , line:13:20, endln:13:33
+              |vpiName:outA
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_cont_assign: , line:15:20, endln:15:28
+            |vpiRhs:
+            \_constant: , line:15:27, endln:15:28
+              |vpiParent:
+              \_cont_assign: , line:15:20, endln:15:28
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+            |vpiLhs:
+            \_ref_obj: (outA), line:15:20, endln:15:24
+              |vpiParent:
+              \_cont_assign: , line:15:20, endln:15:28
+              |vpiName:outA
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
   |vpiParent:
@@ -13260,4 +13329,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/StringRange/dut.sv | ${SURELOG_DIR}/build/regression/StringRange/roundtrip/dut_000.sv | 35 | 86 |
+[roundtrip]: ${SURELOG_DIR}/tests/StringRange/dut.sv | ${SURELOG_DIR}/build/regression/StringRange/roundtrip/dut_000.sv | 33 | 86 |

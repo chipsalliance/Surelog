@@ -162,33 +162,41 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  2
 constant                                              14
 design                                                 1
+gen_if_else                                            1
+gen_region                                             1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           2
 module_inst                                            7
-operation                                              3
+named_begin                                            1
+operation                                              4
 param_assign                                           6
 parameter                                              6
-ref_module                                             1
-ref_obj                                                2
+ref_module                                             2
+ref_obj                                                4
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  2
 constant                                              14
 design                                                 1
+gen_if_else                                            1
+gen_region                                             1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           2
 module_inst                                            8
-operation                                              3
+named_begin                                            1
+operation                                              4
 param_assign                                           6
 parameter                                              6
-ref_module                                             1
-ref_obj                                                2
+ref_module                                             2
+ref_obj                                                4
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenBlock/slpp_all/surelog.uhdm ...
@@ -287,6 +295,36 @@ design: (work@axi)
     |vpiLhs:
     \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30
   |vpiDefName:work@axi
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_gen_if_else: , line:13:7, endln:19:10
+        |vpiCondition:
+        \_operation: , line:13:10, endln:13:36
+          |vpiOpType:15
+          |vpiOperand:
+          \_ref_obj: (N_MASTER), line:13:10, endln:13:18
+            |vpiParent:
+            \_operation: , line:13:10, endln:13:36
+            |vpiName:N_MASTER
+          |vpiOperand:
+          \_ref_obj: (TOTAL_N_MASTER), line:13:22, endln:13:36
+            |vpiParent:
+            \_operation: , line:13:10, endln:13:36
+            |vpiName:TOTAL_N_MASTER
+        |vpiStmt:
+        \_named_begin: (ARRAY_INT)
+          |vpiName:ARRAY_INT
+        |vpiElseStmt:
+        \_begin: 
+          |vpiStmt:
+          \_ref_module: work@GOOD (good), line:18:14, endln:18:18
+            |vpiName:good
+            |vpiDefName:work@GOOD
 |uhdmtopModules:
 \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
   |vpiName:work@axi

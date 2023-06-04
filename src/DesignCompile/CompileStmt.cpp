@@ -119,6 +119,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
   switch (type) {
     case VObjectType::slModule_common_item:
     case VObjectType::slModule_or_generate_item:
+    case VObjectType::slModule_or_generate_item_declaration:
+    case VObjectType::slPackage_or_generate_item_declaration:
     case VObjectType::slGenerate_item: {
       if (instance) break;
       NodeId child = fC->Child(the_stmt);
@@ -128,6 +130,16 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       }
       results = compileStmt(component, fC, child, compileDesign, reduce, pstmt,
                             instance, muteErrors);
+      break;
+    }
+    case VObjectType::slGenerate_region: {
+      VectorOfgen_stmt* sts =
+          compileGenStmt(valuedcomponenti_cast<ModuleDefinition*>(component),
+                         fC, compileDesign, the_stmt);
+      for (auto st : *sts) {
+        stmt = st;
+        break;
+      }
       break;
     }
     case VObjectType::slGenerate_block: {
@@ -591,9 +603,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         param->Typespec(ts);
         param->Expr(unpacked);
         param_assign->Lhs(param);
-        param_assign->Rhs((expr*)compileExpression(component, fC, value,
-                                                   compileDesign, Reduce::Yes,
-                                                   nullptr, nullptr));
+        param_assign->Rhs((expr*)compileExpression(
+            component, fC, value, compileDesign,
+            ((reduce == Reduce::Yes) || instance) ? Reduce::Yes : Reduce::No,
+            nullptr, nullptr));
         Param_assignment = fC->Sibling(Param_assignment);
       }
       results = param_assigns;
@@ -922,6 +935,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     }
     case VObjectType::slContinuous_assign: {
       // Non-elab model
+      component->lateBinding(false);
       VectorOfany* stmts = s.MakeAnyVec();
       auto assigns = compileContinuousAssignment(
           component, fC, fC->Child(the_stmt), compileDesign, nullptr);
@@ -929,6 +943,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         stmts->push_back(assign);
       }
       results = stmts;
+      component->lateBinding(true);
       break;
     }
     case VObjectType::slInterface_instantiation:
@@ -937,6 +952,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       // Non-elab model
       ModuleDefinition* mod =
           valuedcomponenti_cast<ModuleDefinition*>(component);
+      mod->lateBinding(false);
       std::pair<std::vector<UHDM::module_array*>,
                 std::vector<UHDM::ref_module*>>
           result =
@@ -955,6 +971,40 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         }
         results = stmts;
       }
+      mod->lateBinding(true);
+      break;
+    }
+    case VObjectType::slAlways_construct: {
+      // Non-elab model
+      ModuleDefinition* mod =
+          valuedcomponenti_cast<ModuleDefinition*>(component);
+      mod->lateBinding(false);
+      UHDM::always* always =
+          compileAlwaysBlock(mod, fC, the_stmt, compileDesign, nullptr);
+      stmt = always;
+      mod->lateBinding(true);
+      break;
+    }
+    case VObjectType::slInitial_construct: {
+      // Non-elab model
+      ModuleDefinition* mod =
+          valuedcomponenti_cast<ModuleDefinition*>(component);
+      mod->lateBinding(false);
+      UHDM::initial* init =
+          compileInitialBlock(mod, fC, the_stmt, compileDesign);
+      stmt = init;
+      mod->lateBinding(true);
+      break;
+    }
+    case VObjectType::slFinal_construct: {
+      // Non-elab model
+      ModuleDefinition* mod =
+          valuedcomponenti_cast<ModuleDefinition*>(component);
+      mod->lateBinding(false);
+      UHDM::final_stmt* final =
+          compileFinalBlock(mod, fC, the_stmt, compileDesign);
+      stmt = final;
+      mod->lateBinding(true);
       break;
     }
     default:

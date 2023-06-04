@@ -522,14 +522,14 @@ begin                                                  4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              15
+constant                                              14
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 event_control                                          2
 function                                               9
-int_typespec                                          16
+int_typespec                                          15
 int_var                                                8
 integer_typespec                                       4
 integer_var                                            1
@@ -542,7 +542,7 @@ package                                                5
 param_assign                                           3
 parameter                                              3
 range                                                  3
-ref_obj                                               11
+ref_obj                                               12
 task                                                  12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -553,14 +553,14 @@ begin                                                  8
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              15
+constant                                              14
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 event_control                                          4
 function                                              18
-int_typespec                                          16
+int_typespec                                          15
 int_var                                               16
 integer_typespec                                       4
 integer_var                                            2
@@ -573,7 +573,7 @@ package                                                5
 param_assign                                           4
 parameter                                              4
 range                                                  3
-ref_obj                                               21
+ref_obj                                               23
 task                                                  24
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaskDecls/slpp_all/surelog.uhdm ...
@@ -1294,15 +1294,8 @@ design: (work@gen_errors)
       |vpiParent:
       \_begin: (work@gen_errors.A)
       |vpiRhs:
-      \_constant: , line:30:23, endln:30:30
-        |vpiDecompile:8
-        |vpiSize:32
-        |UINT:8
-        |vpiTypespec:
-        \_int_typespec: 
-          |vpiParent:
-          \_constant: , line:30:23, endln:30:30
-        |vpiConstType:9
+      \_ref_obj: (width_a), line:30:23, endln:30:30
+        |vpiName:width_a
       |vpiLhs:
       \_parameter: (llen), line:30:16, endln:30:30
         |vpiLocalParam:1
@@ -1480,7 +1473,13 @@ design: (work@gen_errors)
       |vpiParent:
       \_task: (work@gen_errors.A), line:20:4, endln:35:11
       |vpiRhs:
-      \_constant: , line:30:23, endln:30:30
+      \_ref_obj: (work@gen_errors.A.width_a), line:30:23, endln:30:30
+        |vpiParent:
+        \_param_assign: , line:30:16, endln:30:30
+        |vpiName:width_a
+        |vpiFullName:work@gen_errors.A.width_a
+        |vpiActual:
+        \_parameter: (work@gen_errors.width_a), line:19:12, endln:19:19
       |vpiLhs:
       \_parameter: (work@gen_errors.A.llen), line:30:16, endln:30:30
         |vpiParent:

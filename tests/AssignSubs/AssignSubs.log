@@ -193,39 +193,6 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-always                                                 1
-array_typespec                                         1
-array_var                                              1
-assign_stmt                                            1
-assignment                                             1
-begin                                                  2
-bit_select                                             1
-constant                                              25
-design                                                 1
-enum_const                                             2
-enum_typespec                                          2
-event_control                                          1
-gen_for                                                1
-gen_scope                                              2
-gen_scope_array                                        2
-import_typespec                                        1
-int_typespec                                           1
-logic_net                                              4
-logic_typespec                                         6
-logic_var                                              1
-module_inst                                            6
-operation                                              7
-package                                                3
-parameter                                              1
-port                                                   2
-range                                                  5
-ref_obj                                                8
-ref_var                                                1
-unsupported_typespec                                   1
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
 array_typespec                                         1
 array_var                                              1
@@ -239,8 +206,8 @@ enum_const                                             2
 enum_typespec                                          2
 event_control                                          2
 gen_for                                                1
-gen_scope                                              3
-gen_scope_array                                        3
+gen_scope                                              2
+gen_scope_array                                        2
 import_typespec                                        1
 int_typespec                                           1
 logic_net                                              4
@@ -250,9 +217,42 @@ module_inst                                            6
 operation                                              9
 package                                                3
 parameter                                              1
+port                                                   2
+range                                                  5
+ref_obj                                               12
+ref_var                                                1
+unsupported_typespec                                   1
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+always                                                 3
+array_typespec                                         1
+array_var                                              1
+assign_stmt                                            1
+assignment                                             3
+begin                                                  4
+bit_select                                             3
+constant                                              25
+design                                                 1
+enum_const                                             2
+enum_typespec                                          2
+event_control                                          3
+gen_for                                                1
+gen_scope                                              3
+gen_scope_array                                        3
+import_typespec                                        1
+int_typespec                                           1
+logic_net                                              4
+logic_typespec                                         6
+logic_var                                              1
+module_inst                                            6
+operation                                             11
+package                                                3
+parameter                                              1
 port                                                   3
 range                                                  5
-ref_obj                                               13
+ref_obj                                               17
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -441,6 +441,56 @@ design: (work@dut)
         \_logic_net: (i)
     |vpiStmt:
     \_begin: 
+      |vpiStmt:
+      \_always: , line:15:3, endln:17:6
+        |vpiStmt:
+        \_event_control: , line:15:10, endln:15:23
+          |vpiParent:
+          \_always: , line:15:3, endln:17:6
+          |vpiCondition:
+          \_operation: , line:15:12, endln:15:22
+            |vpiParent:
+            \_event_control: , line:15:10, endln:15:23
+            |vpiOpType:39
+            |vpiOperand:
+            \_ref_obj: (a0), line:15:20, endln:15:22
+              |vpiParent:
+              \_operation: , line:15:12, endln:15:22
+              |vpiName:a0
+          |vpiStmt:
+          \_begin: , line:15:24, endln:17:6
+            |vpiParent:
+            \_event_control: , line:15:10, endln:15:23
+            |vpiStmt:
+            \_assignment: , line:16:4, endln:16:23
+              |vpiParent:
+              \_begin: , line:15:24, endln:17:6
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiRhs:
+              \_operation: , line:16:11, endln:16:23
+                |vpiParent:
+                \_begin: , line:15:24, endln:17:6
+                |vpiOpType:33
+                |vpiOperand:
+                \_ref_obj: (PRIV_LVL_M), line:16:12, endln:16:22
+                  |vpiParent:
+                  \_begin: , line:15:24, endln:17:6
+                  |vpiName:PRIV_LVL_M
+              |vpiLhs:
+              \_bit_select: (c), line:16:4, endln:16:8
+                |vpiParent:
+                \_ref_obj: (c)
+                  |vpiParent:
+                  \_assignment: , line:16:4, endln:16:23
+                  |vpiName:c
+                |vpiName:c
+                |vpiIndex:
+                \_ref_obj: (i), line:16:6, endln:16:7
+                  |vpiParent:
+                  \_begin: , line:15:24, endln:17:6
+                  |vpiName:i
+        |vpiAlwaysType:1
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
   |vpiName:work@dut
@@ -659,4 +709,4 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/AssignSubs/dut.sv | ${SURELOG_DIR}/build/regression/AssignSubs/roundtrip/dut_000.sv | 7 | 19 |
+[roundtrip]: ${SURELOG_DIR}/tests/AssignSubs/dut.sv | ${SURELOG_DIR}/build/regression/AssignSubs/roundtrip/dut_000.sv | 4 | 19 |

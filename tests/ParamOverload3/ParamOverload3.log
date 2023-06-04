@@ -672,27 +672,27 @@ cont_assign                                            3
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
-func_call                                             10
+func_call                                             11
 function                                               2
 gen_for                                                1
 gen_if_else                                            1
 gen_scope                                             20
 gen_scope_array                                       20
 hier_path                                             12
-int_typespec                                          52
+int_typespec                                          53
 int_var                                                2
 io_decl                                                2
-logic_net                                              2
+logic_net                                              1
 logic_typespec                                         2
 module_inst                                           28
 named_begin                                            3
-operation                                            100
+operation                                            101
 package                                                3
 packed_array_typespec                                  4
-param_assign                                          52
-parameter                                             58
+param_assign                                          53
+parameter                                             59
 range                                                  6
-ref_obj                                               60
+ref_obj                                               61
 ref_var                                                1
 return_stmt                                            2
 string_typespec                                       50
@@ -712,27 +712,27 @@ cont_assign                                            4
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
-func_call                                             10
+func_call                                             11
 function                                               4
 gen_for                                                1
 gen_if_else                                            1
 gen_scope                                             30
 gen_scope_array                                       30
 hier_path                                             16
-int_typespec                                          52
+int_typespec                                          53
 int_var                                                2
 io_decl                                                4
-logic_net                                              2
+logic_net                                              1
 logic_typespec                                         2
 module_inst                                           28
 named_begin                                            3
-operation                                            104
+operation                                            105
 package                                                3
 packed_array_typespec                                  4
-param_assign                                          57
-parameter                                             58
+param_assign                                          58
+parameter                                             59
 range                                                  6
-ref_obj                                               74
+ref_obj                                               75
 ref_var                                                1
 return_stmt                                            4
 string_typespec                                       50
@@ -1952,6 +1952,31 @@ design: (work@top)
     \_named_begin: (gen_nanbox_check)
       |vpiName:gen_nanbox_check
       |vpiStmt:
+      \_param_assign: , line:50:29, endln:50:89
+        |vpiRhs:
+        \_func_call: (fpnew_pkg::fp_width), line:50:40, endln:50:51
+          |vpiArgument:
+          \_operation: , line:50:60, endln:50:88
+            |vpiParent:
+            \_func_call: (fpnew_pkg::fp_width), line:50:40, endln:50:51
+            |vpiTypespec:
+            \_enum_typespec: (fpnew_pkg::fp_format_e), line:11:3, endln:18:17
+            |vpiOpType:67
+            |vpiOperand:
+            \_ref_obj: (fmt), line:50:84, endln:50:87
+              |vpiParent:
+              \_operation: , line:50:60, endln:50:88
+              |vpiName:fmt
+          |vpiName:fpnew_pkg::fp_width
+          |vpiFunction:
+          \_function: (fpnew_pkg::fp_width), line:37:3, endln:39:14
+        |vpiLhs:
+        \_parameter: (FP_WIDTH), line:50:29, endln:50:89
+          |vpiTypespec:
+          \_int_typespec: , line:50:16, endln:50:28
+          |vpiLocalParam:1
+          |vpiName:FP_WIDTH
+      |vpiStmt:
       \_gen_if_else: , line:52:5, endln:60:8
         |vpiCondition:
         \_operation: , line:52:9, endln:52:52
@@ -1981,8 +2006,6 @@ design: (work@top)
               |vpiParent:
               \_operation: , line:52:9, endln:52:52
               |vpiName:FP_WIDTH
-              |vpiActual:
-              \_logic_net: (FP_WIDTH)
             |vpiOperand:
             \_ref_obj: (WIDTH), line:52:46, endln:52:51
               |vpiParent:
@@ -2018,8 +2041,6 @@ design: (work@top)
                 \_bit_select: (is_boxed), line:59:14, endln:59:27
                 |vpiName:fmt
                 |vpiFullName:is_boxed.fmt
-                |vpiActual:
-                \_logic_net: (fmt)
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload3/dut.sv, line:43:1, endln:64:10
   |vpiName:work@top
@@ -2183,10 +2204,6 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (fmt)
     |vpiName:fmt
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (FP_WIDTH)
-    |vpiName:FP_WIDTH
     |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:

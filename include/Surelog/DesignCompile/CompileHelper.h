@@ -149,7 +149,7 @@ class CompileHelper final {
                                    CompileDesign* compileDesign,
                                    ValuedComponentI* instance);
 
-  bool compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
+  UHDM::always* compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
                           NodeId id, CompileDesign* compileDesign,
                           ValuedComponentI* instance);
 
@@ -280,10 +280,10 @@ class CompileHelper final {
                                         UHDM::any* pstmt,
                                         ValuedComponentI* instance);
 
-  bool compileInitialBlock(DesignComponent* component, const FileContent* fC,
+  UHDM::initial* compileInitialBlock(DesignComponent* component, const FileContent* fC,
                            NodeId id, CompileDesign* compileDesign);
 
-  bool compileFinalBlock(DesignComponent* component, const FileContent* fC,
+  UHDM::final_stmt* compileFinalBlock(DesignComponent* component, const FileContent* fC,
                          NodeId id, CompileDesign* compileDesign);
 
   void compileBindStmt(DesignComponent* component, const FileContent* fC,

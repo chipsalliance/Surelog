@@ -451,6 +451,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -460,6 +461,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
+gen_region                                             1
 gen_scope                                              8
 gen_scope_array                                        8
 int_typespec                                          24
@@ -478,6 +480,7 @@ task                                                   9
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -487,6 +490,7 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
+gen_region                                             1
 gen_scope                                             12
 gen_scope_array                                       12
 int_typespec                                          24
@@ -1059,6 +1063,12 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@test.MaskWidth), line:12:24, endln:12:33
   |vpiDefName:work@test
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:8:1, endln:20:10
+    |vpiStmt:
+    \_begin: 
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamElab/dut.sv, line:1:1, endln:6:10
   |vpiName:work@dut
