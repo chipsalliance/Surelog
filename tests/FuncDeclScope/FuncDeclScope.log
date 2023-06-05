@@ -323,52 +323,52 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-begin                                                  1
-constant                                              19
-cont_assign                                            6
+begin                                                  2
+constant                                              22
+cont_assign                                            8
 design                                                 1
-func_call                                              5
+func_call                                              6
 function                                               4
-gen_if_else                                            1
+gen_if_else                                            2
 gen_scope                                              4
 gen_scope_array                                        4
-int_typespec                                           9
-int_var                                                5
+int_typespec                                          10
+int_var                                                6
 interface_inst                                         3
 logic_net                                              2
 module_inst                                           10
-named_begin                                            1
-operation                                              3
+named_begin                                            2
+operation                                              4
 param_assign                                           6
 parameter                                              6
 ref_module                                             1
-ref_obj                                                9
-return_stmt                                            3
+ref_obj                                               12
+return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
-constant                                              19
-cont_assign                                            7
+begin                                                  2
+constant                                              22
+cont_assign                                            9
 design                                                 1
-func_call                                              5
+func_call                                              6
 function                                               6
-gen_if_else                                            1
+gen_if_else                                            2
 gen_scope                                              5
 gen_scope_array                                        5
-int_typespec                                           9
-int_var                                                5
+int_typespec                                          10
+int_var                                                6
 interface_inst                                         3
 logic_net                                              2
 module_inst                                           10
-named_begin                                            1
-operation                                              3
+named_begin                                            2
+operation                                              4
 param_assign                                           6
 parameter                                              6
 ref_module                                             1
-ref_obj                                               10
-return_stmt                                            5
+ref_obj                                               13
+return_stmt                                            6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
 
@@ -419,6 +419,26 @@ design: (work@top)
     \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiName:get2
     |vpiFullName:work@intf.get2
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_int_var: , line:5:23, endln:5:26
+      |vpiTypespec:
+      \_int_typespec: , line:5:23, endln:5:26
+        |vpiSigned:1
+      |vpiSigned:1
+    |vpiStmt:
+    \_return_stmt: , line:6:10, endln:6:16
+      |vpiParent:
+      \_function: (work@intf.get2), line:5:4, endln:7:18
+      |vpiCondition:
+      \_constant: , line:6:17, endln:6:18
+        |vpiParent:
+        \_return_stmt: , line:6:10, endln:6:16
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
     |vpiInstance:
     \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
   |vpiNet:
@@ -427,6 +447,58 @@ design: (work@top)
     \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiName:o
     |vpiFullName:work@intf.o
+  |vpiGenStmt:
+  \_gen_if_else: 
+    |vpiParent:
+    \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+    |vpiCondition:
+    \_operation: , line:9:8, endln:9:17
+      |vpiOpType:18
+      |vpiOperand:
+      \_ref_obj: (Depth), line:9:8, endln:9:13
+        |vpiParent:
+        \_operation: , line:9:8, endln:9:17
+        |vpiName:Depth
+      |vpiOperand:
+      \_constant: , line:9:16, endln:9:17
+        |vpiParent:
+        \_operation: , line:9:8, endln:9:17
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiStmt:
+    \_named_begin: (gen_block)
+      |vpiName:gen_block
+      |vpiStmt:
+      \_cont_assign: , line:14:14, endln:14:24
+        |vpiRhs:
+        \_func_call: (get3), line:14:18, endln:14:24
+          |vpiParent:
+          \_cont_assign: , line:14:14, endln:14:24
+          |vpiName:get3
+        |vpiLhs:
+        \_ref_obj: (o), line:14:14, endln:14:15
+          |vpiParent:
+          \_cont_assign: , line:14:14, endln:14:24
+          |vpiName:o
+    |vpiElseStmt:
+    \_begin: 
+      |vpiStmt:
+      \_cont_assign: , line:17:13, endln:17:18
+        |vpiRhs:
+        \_constant: , line:17:17, endln:17:18
+          |vpiParent:
+          \_cont_assign: , line:17:13, endln:17:18
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiLhs:
+        \_ref_obj: (o), line:17:13, endln:17:14
+          |vpiParent:
+          \_cont_assign: , line:17:13, endln:17:18
+          |vpiName:o
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiParent:
@@ -781,4 +853,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv | ${SURELOG_DIR}/build/regression/FuncDeclScope/roundtrip/dut_000.sv | 19 | 40 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv | ${SURELOG_DIR}/build/regression/FuncDeclScope/roundtrip/dut_000.sv | 15 | 40 |
