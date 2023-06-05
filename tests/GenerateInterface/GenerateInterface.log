@@ -786,13 +786,14 @@ Instance tree:
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+assign_stmt                                            2
 begin                                                  1
 bit_select                                            15
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
 clocking_block                                         3
-constant                                             105
+constant                                             107
 cont_assign                                            4
 design                                                 1
 enum_const                                             5
@@ -800,6 +801,7 @@ enum_typespec                                          1
 enum_var                                               1
 event_control                                          3
 function                                               9
+gen_for                                                2
 gen_region                                             1
 gen_scope                                             14
 gen_scope_array                                       14
@@ -807,19 +809,22 @@ int_typespec                                          38
 int_var                                                4
 interface_inst                                         6
 io_decl                                               11
-logic_net                                              7
+logic_net                                              9
 logic_typespec                                         8
 logic_var                                              4
 module_inst                                           12
-operation                                             30
+named_begin                                            2
+operation                                             34
 package                                                2
 param_assign                                           6
 parameter                                             13
 port                                                   5
 range                                                 13
 ref_module                                             2
-ref_obj                                               37
+ref_obj                                               43
+ref_var                                                2
 task                                                   9
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateInterface/slpp_unit/surelog.uhdm ...
 
@@ -1252,6 +1257,57 @@ design: (work@top)
     |vpiName:clk_i
     |vpiFullName:work@abc_if.clk_i
     |vpiNetType:36
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_interface_inst: work@abc_if (work@abc_if), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:1:1, endln:13:13
+    |vpiForInitStmt:
+    \_assign_stmt: , line:6:8, endln:6:18
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:6:17, endln:6:18
+        |vpiParent:
+        \_assign_stmt: , line:6:8, endln:6:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@abc_if.i), line:6:15, endln:6:16
+        |vpiParent:
+        \_assign_stmt: , line:6:8, endln:6:18
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:6:15, endln:6:16
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@abc_if.i
+    |vpiCondition:
+    \_operation: , line:6:19, endln:6:29
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:6:19, endln:6:20
+        |vpiParent:
+        \_operation: , line:6:19, endln:6:29
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (NO_Input), line:6:21, endln:6:29
+        |vpiParent:
+        \_operation: , line:6:19, endln:6:29
+        |vpiName:NO_Input
+    |vpiForIncStmt:
+    \_operation: , line:6:30, endln:6:31
+      |vpiOpType:62
+      |vpiOperand:
+      \_ref_obj: (i)
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+    |vpiStmt:
+    \_named_begin: (block)
+      |vpiName:block
 |uhdmallInterfaces:
 \_interface_inst: work@pins_if (work@pins_if), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:22:1, endln:32:13
   |vpiParent:
@@ -1308,6 +1364,57 @@ design: (work@top)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (work@pins_if.pins), line:23:21, endln:23:25
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_interface_inst: work@pins_if (work@pins_if), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:22:1, endln:32:13
+    |vpiForInitStmt:
+    \_assign_stmt: , line:28:10, endln:28:22
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:28:21, endln:28:22
+        |vpiParent:
+        \_assign_stmt: , line:28:10, endln:28:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_var: (work@pins_if.i), line:28:17, endln:28:18
+        |vpiParent:
+        \_assign_stmt: , line:28:10, endln:28:22
+        |vpiTypespec:
+        \_unsupported_typespec: (i), line:28:17, endln:28:18
+          |vpiName:i
+        |vpiName:i
+        |vpiFullName:work@pins_if.i
+    |vpiCondition:
+    \_operation: , line:28:24, endln:28:33
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (i), line:28:24, endln:28:25
+        |vpiParent:
+        \_operation: , line:28:24, endln:28:33
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+      |vpiOperand:
+      \_ref_obj: (Width), line:28:28, endln:28:33
+        |vpiParent:
+        \_operation: , line:28:24, endln:28:33
+        |vpiName:Width
+    |vpiForIncStmt:
+    \_operation: , line:28:35, endln:28:36
+      |vpiOpType:62
+      |vpiOperand:
+      \_ref_obj: (i)
+        |vpiName:i
+        |vpiActual:
+        \_logic_net: (i)
+    |vpiStmt:
+    \_named_begin: (each_pin_intf)
+      |vpiName:each_pin_intf
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:16:1, endln:19:10
   |vpiParent:
@@ -1553,6 +1660,10 @@ design: (work@top)
     |vpiDefName:work@abc_if
     |vpiDefFile:${SURELOG_DIR}/tests/GenerateInterface/top.sv
     |vpiDefLineNo:1
+    |vpiNet:
+    \_logic_net: (i)
+      |vpiName:i
+      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:16:1, endln:19:10
     |vpiGenScopeArray:
@@ -1888,6 +1999,10 @@ design: (work@top)
             |vpiConstType:9
       |vpiName:pins
       |vpiFullName:work@top2.intf.pins
+    |vpiNet:
+    \_logic_net: (i)
+      |vpiName:i
+      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:34:1, endln:43:10
     |vpiPort:

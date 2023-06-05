@@ -164,6 +164,7 @@ bool CompileModule::compile() {
     case VObjectType::slInterface_declaration:
       if (!collectInterfaceObjects_(CollectType::FUNCTION)) return false;
       if (!collectInterfaceObjects_(CollectType::DEFINITION)) return false;
+      if (!collectModuleObjects_(CollectType::GENERATE_REGIONS)) return false;
       if (!collectInterfaceObjects_(CollectType::OTHER)) return false;
       if (!checkInterface_()) return false;
       break;
@@ -801,8 +802,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slHierarchical_instance:
         case VObjectType::slUdp_instance:
         case VObjectType::slGate_instantiation:
-        case VObjectType::slGenerate_module_conditional_statement:
-        case VObjectType::slGenerate_module_loop_statement:
         case VObjectType::slPar_block:
         case VObjectType::slSeq_block:
         case VObjectType::slDefparam_assignment: {
@@ -918,7 +917,9 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::slGenerate_region:
         case VObjectType::slLoop_generate_construct:
-        case VObjectType::slConditional_generate_construct: {
+        case VObjectType::slConditional_generate_construct:
+        case VObjectType::slGenerate_module_conditional_statement:
+        case VObjectType::slGenerate_module_loop_statement: {
           if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
@@ -989,6 +990,13 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
       VObjectType::slTask_body_declaration};
+  if (collectType == CollectType::GENERATE_REGIONS) {
+    if (m_instance != nullptr) {
+      stopPoints.push_back(VObjectType::slGenerate_region);
+    }
+  } else {
+    stopPoints.push_back(VObjectType::slGenerate_region);
+  }
   for (uint32_t i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
     VObject current = fC->Object(m_module->m_nodeIds[i]);
@@ -1346,10 +1354,6 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                                    m_instance);
           break;
         }
-        case VObjectType::slConditional_generate_construct:
-        case VObjectType::slGenerate_interface_conditional_statement:
-        case VObjectType::slLoop_generate_construct:
-        case VObjectType::slGenerate_interface_loop_statement:
         case VObjectType::slParam_assignment:
         case VObjectType::slDefparam_assignment: {
           if (collectType != CollectType::OTHER) break;
@@ -1387,6 +1391,26 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
               m_compileDesign->getCompiler()->getErrorContainer()->addError(
                   err);
             }
+          }
+          break;
+        }
+        case VObjectType::slGenerate_region:
+        case VObjectType::slLoop_generate_construct:
+        case VObjectType::slGenerate_interface_loop_statement:
+        case VObjectType::slGenerate_interface_conditional_statement:
+        case VObjectType::slConditional_generate_construct: {
+          if (collectType != CollectType::OTHER) break;
+          FileCNodeId fnid(fC, id);
+          m_module->addObject(type, fnid);
+          if (m_instance) break;
+          UHDM::VectorOfgen_stmt* stmts =
+              m_helper.compileGenStmt(m_module, fC, m_compileDesign, id);
+          if (m_module->getGenStmts() == nullptr) {
+            m_module->setGenStmts(
+                m_compileDesign->getSerializer().MakeGen_stmtVec());
+          }
+          for (auto st : *stmts) {
+            m_module->getGenStmts()->push_back(st);
           }
           break;
         }
