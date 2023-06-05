@@ -1388,5 +1388,36 @@ endmodule : static_size_casting
   }
 }
 
+TEST(Elaboration, ConstantPush) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+module top;
+    logic [63:0] s1c;
+    assign s1c = ('1 << 8);
+endmodule
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto cassign : *topMod->Cont_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+      bool invalidValue = false;
+      const std::string_view name = cassign->Lhs()->VpiName();
+      UHDM::ExprEval eval;
+      int64_t val = eval.get_value(invalidValue, rhs);
+      if (name == "s1c") {
+        EXPECT_EQ(val, (ULLONG_MAX << 8));
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG
