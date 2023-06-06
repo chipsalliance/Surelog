@@ -2298,6 +2298,14 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
             Reduce::No, nullptr, instance, false);
         if ((lhs_exp->UhdmType() == uhdmhier_path) && sel) {
           hier_path* path = (hier_path*)lhs_exp;
+          any* last = path->Path_elems()->back();
+          if (last->UhdmType() == uhdmref_obj &&
+              sel->UhdmType() == uhdmbit_select) {
+            path->Path_elems()->pop_back();
+            ((bit_select*)sel)->VpiName(last->VpiName());
+            ((bit_select*)sel)->VpiFullName(last->VpiName());
+            sel->VpiParent(last);
+          }
           path->Path_elems()->push_back(sel);
           std::string path_name(path->VpiName());
           path_name += decompileHelper(sel);

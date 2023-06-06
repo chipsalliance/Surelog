@@ -4980,18 +4980,23 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
                   instance, muteErrors);
               if (index) {
                 bit_select *select = s.MakeBit_select();
-                elems->push_back(select);
-                ref_obj *ref = s.MakeRef_obj();
-                ref->VpiName(tmpName);
-                ref->VpiParent(path);
-                if (!tmpName.empty()) select->VpiParent(ref);
-                select->VpiIndex(index);
-                select->VpiName(tmpName);
-                select->VpiFullName(tmpName);
-                fC->populateCoreMembers(name, name, select);
                 std::string indexName = "[" + decompileHelper(index) + "]";
+                elems->push_back(select);
+                select->VpiIndex(index);
+                if (tmpName.empty()) {
+                  select->VpiName(indexName);
+                  select->VpiFullName(indexName);
+                } else {
+                  select->VpiName(tmpName);
+                  select->VpiFullName(tmpName);
+                  ref_obj *ref = s.MakeRef_obj();
+                  select->VpiParent(ref);
+                  ref->VpiName(tmpName + indexName);
+                  ref->VpiParent(path);
+                  ref->VpiName(tmpName + indexName);
+                }
+                fC->populateCoreMembers(name, name, select);
                 the_name += indexName;
-                if (!tmpName.empty()) ref->VpiName(tmpName + indexName);
               }
             } else {
               ref_obj *ref = s.MakeRef_obj();

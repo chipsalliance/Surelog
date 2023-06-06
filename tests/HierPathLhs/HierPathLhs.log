@@ -198,7 +198,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                               21
+ref_obj                                               19
 ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
@@ -226,7 +226,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                               29
+ref_obj                                               26
 ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
@@ -411,7 +411,8 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: , line:15:12, endln:15:13
+      \_bit_select: ([0]), line:15:12, endln:15:13
+        |vpiName:[0]
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
           |vpiDecompile:0
@@ -419,18 +420,17 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (x)
+      \_bit_select: (x)
         |vpiParent:
-        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+        \_ref_obj: (x)
+          |vpiParent:
+          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+          |vpiName:x
         |vpiName:x
-      |vpiActual:
-      \_bit_select: 
-        |vpiParent:
-        \_ref_obj: 
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
-          \_bit_select: 
+          \_bit_select: (x)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -599,45 +599,42 @@ design: (work@alert_handler_reg_wrap)
         |vpiActual:
         \_packed_array_var: (work@top.a), line:13:23, endln:13:24
       |vpiActual:
-      \_bit_select: (work@top.a[0][0].x[0]), line:15:12, endln:15:13
+      \_bit_select: ([0]), line:15:12, endln:15:13
         |vpiParent:
         \_ref_obj: (work@top.a[0][0].x[0])
           |vpiParent:
           \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
           |vpiName:a[0][0].x[0]
           |vpiFullName:work@top.a[0][0].x[0]
-        |vpiFullName:work@top.a[0][0].x[0]
+        |vpiName:[0]
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
           |vpiParent:
-          \_bit_select: (a[0][0].x[0]), line:15:12, endln:15:13
+          \_bit_select: ([0]), line:15:12, endln:15:13
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (x)
+      \_bit_select: (x)
         |vpiParent:
-        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-        |vpiName:x
-        |vpiActual:
-        \_typespec_member: (x), line:10:9, endln:10:10
-      |vpiActual:
-      \_bit_select: (work@top)
-        |vpiParent:
-        \_ref_obj: (work@top)
+        \_ref_obj: (x)
           |vpiParent:
           \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-          |vpiFullName:work@top
-        |vpiFullName:work@top
+          |vpiName:x
+          |vpiActual:
+          \_typespec_member: (x), line:10:9, endln:10:10
+        |vpiName:x
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
-          \_bit_select: 
+          \_bit_select: (x)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+        |vpiActual:
+        \_typespec_member: (x), line:10:9, endln:10:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
