@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 # Version changes whenever some new features accumulated, or the
 # grammar or the cache format changes to make sure caches
 # are invalidated.
-project(SURELOG VERSION 1.62)
+project(SURELOG VERSION 1.63)
 
 # Detect build type, fallback to release and throw a warning if use didn't
 # specify any
