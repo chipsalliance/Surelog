@@ -1399,7 +1399,7 @@ TEST(Elaboration, ConstantPush) {
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
 module top;
     logic [63:0] s1c;
-    assign s1c = ('1 << 8);
+    assign s1c = ('1 << 8) + 1;
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
@@ -1413,7 +1413,7 @@ endmodule
       UHDM::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
       if (name == "s1c") {
-        EXPECT_EQ(val, (ULLONG_MAX << 8));
+        EXPECT_EQ(val, ((ULLONG_MAX << 8) + 1));
       }
     }
   }
