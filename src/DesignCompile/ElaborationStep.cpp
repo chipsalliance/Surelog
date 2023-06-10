@@ -1853,6 +1853,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     array_var->VpiName(signame);
     array_var->VpiRandType(vpiNotRand);
     array_var->VpiVisibility(vpiPublicVis);
+    fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_var);
     vars->push_back(array_var);
     obj->VpiParent(array_var);
     if ((array_var->Typespec() == nullptr) || associative) {

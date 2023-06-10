@@ -681,11 +681,11 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
   }
 }
 
-void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
-               VectorOfnet* dest_nets, Serializer& s,
-               UhdmWriter::SignalBaseClassMap& signalBaseMap,
-               UhdmWriter::SignalMap& signalMap, UhdmWriter::SignalMap& portMap,
-               ModuleInstance* instance = nullptr) {
+void UhdmWriter::writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
+                           VectorOfnet* dest_nets, Serializer& s,
+                           SignalBaseClassMap& signalBaseMap,
+                           SignalMap& signalMap, SignalMap& portMap,
+                           ModuleInstance* instance /* = nullptr */) {
   for (auto& orig_net : orig_nets) {
     net* dest_net = nullptr;
     if (instance) {
@@ -712,20 +712,44 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
                 signalBaseMap.find(sig);
             if (itr != signalBaseMap.end()) {
               port* p = (port*)((*itr).second);
+              NodeId nodeId = orig_net->getNodeId();
               if (p->Low_conn() == nullptr) {
                 ref_obj* ref = s.MakeRef_obj();
                 ref->VpiName(p->VpiName());
                 ref->Actual_group(dest_net);
                 ref->VpiParent(p);
                 p->Low_conn(ref);
+                fC->populateCoreMembers(nodeId, nodeId, ref);
               } else if (p->Low_conn()->UhdmType() == uhdmref_obj) {
                 ref_obj* ref = (ref_obj*)p->Low_conn();
                 ref->VpiName(p->VpiName());
+                if (ref->VpiLineNo() == 0) {
+                  fC->populateCoreMembers(nodeId, nodeId, ref);
+                }
                 if (ref->Actual_group() == nullptr) {
                   ref->Actual_group(dest_net);
                 }
                 ref->VpiParent(p);
               }
+            }
+          }
+        } else {
+          // compileTypespec function need to take care of range informatio  if
+          // there is any in the typespec. Because all the type of typespec do
+          // not have Range(). Later we will remove the code below when solve
+          // typespec problems.
+          if (orig_net->getTypeSpecId()) {
+            if (typespec* typespec = m_helper.compileTypespec(
+                    nullptr, fC, orig_net->getTypeSpecId(), m_compileDesign,
+                    Reduce::No, nullptr, nullptr, true)) {
+              dest_net->Typespec(typespec);
+              NodeId unpackedDimensions = orig_net->getUnpackedDimension();
+              NodeId packedDimensions = unpackedDimensions
+                                            ? unpackedDimensions
+                                            : orig_net->getPackedDimension();
+              if (packedDimensions)
+                fC->populateCoreMembers(InvalidNodeId, packedDimensions,
+                                        typespec);
             }
           }
         }
@@ -756,6 +780,10 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
           ((port*)itrport->second)->Low_conn(ref);
           ref->VpiParent(itrport->second);
           ref->Actual_group(itrlow->second);
+
+          const FileContent* fC = orig_port->getFileContent();
+          fC->populateCoreMembers(orig_port->getNodeId(),
+                                  orig_port->getNodeId(), ref);
         }
       }
     }
@@ -1240,6 +1268,10 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
     for (auto subModArr : *subModules) {
       subModArr->VpiParent(m);
     }
+  }
+  // Late bind
+  if (mod) {
+    lateBinding(s, mod, m, componentMap);
   }
   // Interface instantiation
   const std::vector<Signal*>& signals = mod->getSignals();
@@ -3234,6 +3266,10 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m,
               net->VpiEndColumnNo(ref->VpiEndColumnNo());
               net->VpiNetType(
                   UhdmWriter::getVpiNetType(elem->m_defaultNetType));
+              net->VpiLineNo(ref->VpiLineNo());
+              net->VpiEndLineNo(ref->VpiEndLineNo());
+              net->VpiColumnNo(ref->VpiColumnNo());
+              net->VpiEndColumnNo(ref->VpiEndColumnNo());
               ref->Actual_group(net);
               VectorOfnet* nets = inst->Nets();
               if (nets == nullptr) {
@@ -3751,6 +3787,8 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         gen_scope* a_gen_scope = s.MakeGen_scope();
         sm->Gen_scopes(s.MakeGen_scopeVec());
         sm->Gen_scopes()->push_back(a_gen_scope);
+        child->getFileContent()->populateCoreMembers(
+            child->getNodeId(), child->getNodeId(), a_gen_scope);
         a_gen_scope->VpiParent(sm);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
         if (utype == uhdmmodule_inst) {

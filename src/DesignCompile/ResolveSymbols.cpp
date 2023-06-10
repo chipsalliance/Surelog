@@ -96,7 +96,7 @@ void ResolveSymbols::createFastLookup() {
           UHDM::package* pack = s.MakePackage();
           pack->VpiName(pdef->getName());
           pdef->setUhdmInstance(pack);
-
+          m_fileData->populateCoreMembers(object, object, pack);
           m_fileData->addPackageDefinition(pkgname, pdef);
 
           VObjectTypeUnorderedSet subtypes = {VObjectType::slClass_declaration};

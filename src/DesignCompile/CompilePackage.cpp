@@ -60,13 +60,13 @@ bool CompilePackage::compile(Reduce reduce) {
   UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
   const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
-  m_helper.setUnElabMode(reduce == Reduce::No);
+  m_helper.setElabMode(reduce == Reduce::Yes);
   if (pack == nullptr) {
     pack = s.MakePackage();
     pack->VpiName(m_package->getName());
     m_package->setUhdmInstance(pack);
-    fC->populateCoreMembers(packId, packId, pack);
   }
+  fC->populateCoreMembers(packId, packId, pack);
   m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
   m_package->m_exprBuilder.setDesign(
       m_compileDesign->getCompiler()->getDesign());
