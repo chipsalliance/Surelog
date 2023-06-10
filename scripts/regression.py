@@ -28,14 +28,21 @@ import blacklisted
 _this_filepath = os.path.realpath(__file__)
 _default_workspace_dirpath = os.path.dirname(os.path.dirname(_this_filepath))
 
+def _is_ci_build():
+  return 'GITHUB_JOB' in os.environ
+
 # Except for the workspace dirpath all paths are expected to be relative
 # either to the workspace directory or the build directory
 _default_test_dirpaths = [ 'tests', os.path.join('third_party', 'tests') ]
 _default_build_dirpath = 'build'
-# _default_build_dirpath = os.path.join('out', 'build', 'x64-Debug')
-# _default_build_dirpath = os.path.join('out', 'build', 'x64-Release')
-# _default_build_dirpath = os.path.join('out', 'build', 'x64-Clang-Debug')
-# _default_build_dirpath = os.path.join('out', 'build', 'x64-Clang-Release')
+
+if not _is_ci_build():
+  # _default_build_dirpath = os.path.join('out', 'build', 'x64-Debug')
+  # _default_build_dirpath = os.path.join('out', 'build', 'x64-Release')
+  # _default_build_dirpath = os.path.join('out', 'build', 'x64-Clang-Debug')
+  # _default_build_dirpath = os.path.join('out', 'build', 'x64-Clang-Release')
+  pass
+
 _default_output_dirpath = 'regression'
 _default_surelog_filename = 'surelog.exe' if platform.system() == 'Windows' else 'surelog'
 _default_uhdm_dump_filename = 'uhdm-dump.exe' if platform.system() == 'Windows' else 'uhdm-dump'
@@ -57,6 +64,7 @@ def log(text, end='\n'):
   finally:
     _log_mutex.release()
 
+
 @unique
 class Status(Enum):
   PASS = 0
@@ -70,10 +78,6 @@ class Status(Enum):
 
   def __str__(self):
     return str(self.name)
-
-
-def _is_ci_build():
-  return 'GITHUB_JOB' in os.environ
 
 
 def _get_platform_id():
@@ -1202,6 +1206,19 @@ def _main():
     os.path.abspath(dirpath if os.path.isabs(dirpath) else os.path.join(args.workspace_dirpath, dirpath))
     for dirpath in args.test_dirpaths
   ]
+
+  if args.filters:
+    filters = set()
+    for filter in args.filters:
+      if filter.startswith('@'):
+        with open(filter[1:], 'rt') as strm:
+          for line in strm:
+            line = line.strip()
+            if line:
+              filters.add(line.strip())
+      else:
+        filters.add(filter)
+    args.filters = filters
 
   args.filters = [text if text.isalnum() else re.compile(text, re.IGNORECASE) for text in args.filters]
   all_tests, filtered_tests, blacklisted_tests = _scan(args.test_dirpaths, args.filters, args.shard, args.num_shards)
