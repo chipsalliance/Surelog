@@ -1,0 +1,36 @@
+From 9b52c0a72cc0d16522615d19df2eaa04b2cdf199 Mon Sep 17 00:00:00 2001
+From: HS <hs@apotell.com>
+Date: Sun, 28 May 2023 10:42:52 -0700
+Subject: [PATCH] chipsalliance/Surelog#3670
+
+---
+ systemverilog-plugin/UhdmAst.cc | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/systemverilog-plugin/UhdmAst.cc b/systemverilog-plugin/UhdmAst.cc
+index 00816d6..ce0c539 100644
+--- a/systemverilog-plugin/UhdmAst.cc
++++ b/systemverilog-plugin/UhdmAst.cc
+@@ -3242,9 +3242,6 @@ void UhdmAst::process_bit_select()
+ void UhdmAst::process_part_select()
+ {
+     current_node = make_ast_node(AST::AST_IDENTIFIER);
+-    vpiHandle parent_h = vpi_handle(vpiParent, obj_h);
+-    current_node->str = get_name(parent_h);
+-    vpi_release_handle(parent_h);
+     auto range_node = new AST::AstNode(AST::AST_RANGE);
+     range_node->filename = current_node->filename;
+     range_node->location = current_node->location;
+@@ -3255,9 +3252,6 @@ void UhdmAst::process_part_select()
+ void UhdmAst::process_indexed_part_select()
+ {
+     current_node = make_ast_node(AST::AST_IDENTIFIER);
+-    vpiHandle parent_h = vpi_handle(vpiParent, obj_h);
+-    current_node->str = get_name(parent_h);
+-    vpi_release_handle(parent_h);
+     // TODO: check if there are other types, for now only handle 1 and 2 (+: and -:)
+     auto indexed_part_select_type = vpi_get(vpiIndexedPartSelectType, obj_h) == 1 ? AST::AST_ADD : AST::AST_SUB;
+     auto range_node = new AST::AstNode(AST::AST_RANGE);
+-- 
+2.38.0.windows.1
+
