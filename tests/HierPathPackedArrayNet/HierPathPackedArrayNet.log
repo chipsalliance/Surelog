@@ -250,7 +250,7 @@ param_assign                                          10
 parameter                                             10
 port                                                   2
 range                                                  6
-ref_obj                                               11
+ref_obj                                               10
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -281,7 +281,7 @@ param_assign                                          10
 parameter                                             10
 port                                                   3
 range                                                  6
-ref_obj                                               19
+ref_obj                                               17
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -383,7 +383,7 @@ design: (work@rvfi_tracer)
             |vpiOperand:
             \_ref_obj: (rvfi_pkg::rvfi_pkg::rvfi_instr_t::NRET), line:6:10, endln:6:14
               |vpiParent:
-              \_struct_typespec: (rvfi_pkg::rvfi_instr_t), line:5:9, endln:5:15
+              \_operation: , line:6:10, endln:6:16
               |vpiName:NRET
               |vpiFullName:rvfi_pkg::rvfi_pkg::rvfi_instr_t::NRET
               |vpiActual:
@@ -690,14 +690,11 @@ design: (work@rvfi_tracer)
                 \_begin: (work@rvfi_tracer), line:17:45, endln:20:6
                 |vpiName:rvfi_i[i].trap
                 |vpiActual:
-                \_bit_select: (rvfi_i), line:18:9, endln:18:15
+                \_bit_select: (rvfi_i[i]), line:18:9, endln:18:15
                   |vpiParent:
-                  \_ref_obj: (work@rvfi_tracer.rvfi_i[i])
-                    |vpiParent:
-                    \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
-                    |vpiName:rvfi_i[i]
-                    |vpiFullName:work@rvfi_tracer.rvfi_i[i]
+                  \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
                   |vpiName:rvfi_i
+                  |vpiFullName:rvfi_i[i]
                   |vpiIndex:
                   \_ref_obj: (work@rvfi_tracer.i), line:18:16, endln:18:17
                     |vpiParent:
@@ -707,10 +704,11 @@ design: (work@rvfi_tracer)
                     |vpiActual:
                     \_int_var: (work@rvfi_tracer.i), line:17:12, endln:17:13
                 |vpiActual:
-                \_ref_obj: (trap), line:18:19, endln:18:23
+                \_ref_obj: (work@rvfi_tracer.trap), line:18:19, endln:18:23
                   |vpiParent:
                   \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
                   |vpiName:trap
+                  |vpiFullName:work@rvfi_tracer.trap
               |vpiStmt:
               \_begin: (work@rvfi_tracer), line:18:25, endln:19:8
                 |vpiParent:
@@ -919,28 +917,25 @@ design: (work@rvfi_tracer)
                 |vpiActual:
                 \_bit_select: (work@rvfi_tracer.rvfi_i), line:18:9, endln:18:15
                   |vpiParent:
-                  \_ref_obj: (work@rvfi_tracer.rvfi_i[i])
-                    |vpiParent:
-                    \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
-                    |vpiName:rvfi_i[i]
-                    |vpiFullName:work@rvfi_tracer.rvfi_i[i]
+                  \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
                   |vpiName:rvfi_i
                   |vpiFullName:work@rvfi_tracer.rvfi_i
+                  |vpiActual:
+                  \_packed_array_net: (work@rvfi_tracer.rvfi_i), line:14:63, endln:14:69
                   |vpiIndex:
-                  \_ref_obj: (work@rvfi_tracer.rvfi_i[i].i), line:18:16, endln:18:17
+                  \_ref_obj: (work@rvfi_tracer.rvfi_i[i].trap.i), line:18:16, endln:18:17
                     |vpiParent:
                     \_bit_select: (work@rvfi_tracer.rvfi_i), line:18:9, endln:18:15
                     |vpiName:i
-                    |vpiFullName:work@rvfi_tracer.rvfi_i[i].i
+                    |vpiFullName:work@rvfi_tracer.rvfi_i[i].trap.i
                     |vpiActual:
                     \_int_var: (work@rvfi_tracer.i), line:17:12, endln:17:13
-                  |vpiActual:
-                  \_packed_array_net: (work@rvfi_tracer.rvfi_i), line:14:63, endln:14:69
                 |vpiActual:
-                \_ref_obj: (trap), line:18:19, endln:18:23
+                \_ref_obj: (work@rvfi_tracer.trap), line:18:19, endln:18:23
                   |vpiParent:
                   \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
                   |vpiName:trap
+                  |vpiFullName:work@rvfi_tracer.trap
                   |vpiActual:
                   \_typespec_member: (trap), line:6:36, endln:6:40
               |vpiStmt:

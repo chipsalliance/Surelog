@@ -55,7 +55,7 @@ param_assign                                           4
 parameter                                              4
 port                                                   6
 range                                                  4
-ref_obj                                               36
+ref_obj                                               31
 task                                                   7
 task_call                                              4
 === UHDM Object Stats End ===
@@ -91,7 +91,7 @@ param_assign                                          28
 parameter                                              4
 port                                                   9
 range                                                  4
-ref_obj                                              192
+ref_obj                                              159
 task                                                  45
 task_call                                             76
 === UHDM Object Stats End ===
@@ -205,8 +205,6 @@ design: (work@fsm_class)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:11:22, endln:11:23
-            |vpiParent:
-            \_assignment: , line:11:9, endln:11:23
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -227,8 +225,6 @@ design: (work@fsm_class)
           |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:12:37, endln:12:41
-            |vpiParent:
-            \_assignment: , line:12:9, endln:12:41
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
@@ -236,25 +232,19 @@ design: (work@fsm_class)
           |vpiLhs:
           \_bit_select: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:9, endln:12:34
             |vpiParent:
-            \_ref_obj: (work@fsm_class::baseFsm::next_state_transition::next_state)
-              |vpiParent:
-              \_assignment: , line:12:9, endln:12:41
-              |vpiName:next_state
-              |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state
-              |vpiActual:
-              \_bit_var: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
+            \_assignment: , line:12:9, endln:12:41
             |vpiName:next_state
             |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state
+            |vpiActual:
+            \_bit_var: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
             |vpiIndex:
-            \_ref_obj: (work@fsm_class::baseFsm::next_state_transition::next_state::state_to_bit), line:12:21, endln:12:33
+            \_ref_obj: (work@fsm_class::baseFsm::next_state_transition::state_to_bit), line:12:21, endln:12:33
               |vpiParent:
               \_bit_select: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:9, endln:12:34
               |vpiName:state_to_bit
-              |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state::state_to_bit
+              |vpiFullName:work@fsm_class::baseFsm::next_state_transition::state_to_bit
               |vpiActual:
               \_io_decl: (state_to_bit), line:8:43, endln:8:55
-            |vpiActual:
-            \_bit_var: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
     |vpiMethod:
     \_task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
       |vpiParent:
@@ -296,8 +286,6 @@ design: (work@fsm_class)
             |vpiBlocking:1
             |vpiRhs:
             \_constant: , line:19:25, endln:19:26
-              |vpiParent:
-              \_assignment: , line:19:9, endln:19:26
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -702,25 +690,19 @@ design: (work@fsm_class)
               |vpiExpr:
               \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
                 |vpiParent:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                  |vpiParent:
-                  \_case_item: , line:72:11, endln:72:54
-                  |vpiName:current_state
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                  |vpiActual:
-                  \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                \_case_item: , line:72:11, endln:72:54
                 |vpiName:current_state
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
                 |vpiIndex:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_00_BIT), line:72:25, endln:72:37
+                \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_00_BIT), line:72:25, endln:72:37
                   |vpiParent:
                   \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
                   |vpiName:STATE_00_BIT
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_00_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_00_BIT
                   |vpiActual:
                   \_parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:29
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiStmt:
               \_task_call: (from_state_00), line:72:40, endln:72:53
                 |vpiParent:
@@ -735,25 +717,19 @@ design: (work@fsm_class)
               |vpiExpr:
               \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
                 |vpiParent:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                  |vpiParent:
-                  \_case_item: , line:73:11, endln:73:54
-                  |vpiName:current_state
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                  |vpiActual:
-                  \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                \_case_item: , line:73:11, endln:73:54
                 |vpiName:current_state
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
                 |vpiIndex:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_01_BIT), line:73:25, endln:73:37
+                \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_01_BIT), line:73:25, endln:73:37
                   |vpiParent:
                   \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
                   |vpiName:STATE_01_BIT
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_01_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_01_BIT
                   |vpiActual:
                   \_parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:29
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiStmt:
               \_task_call: (from_state_01), line:73:40, endln:73:53
                 |vpiParent:
@@ -768,25 +744,19 @@ design: (work@fsm_class)
               |vpiExpr:
               \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
                 |vpiParent:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                  |vpiParent:
-                  \_case_item: , line:74:11, endln:74:54
-                  |vpiName:current_state
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                  |vpiActual:
-                  \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                \_case_item: , line:74:11, endln:74:54
                 |vpiName:current_state
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
                 |vpiIndex:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_10_BIT), line:74:25, endln:74:37
+                \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_10_BIT), line:74:25, endln:74:37
                   |vpiParent:
                   \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
                   |vpiName:STATE_10_BIT
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_10_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_10_BIT
                   |vpiActual:
                   \_parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:29
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiStmt:
               \_task_call: (from_state_10), line:74:40, endln:74:53
                 |vpiParent:
@@ -801,25 +771,19 @@ design: (work@fsm_class)
               |vpiExpr:
               \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
                 |vpiParent:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                  |vpiParent:
-                  \_case_item: , line:75:11, endln:75:54
-                  |vpiName:current_state
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                  |vpiActual:
-                  \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                \_case_item: , line:75:11, endln:75:54
                 |vpiName:current_state
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
                 |vpiIndex:
-                \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_11_BIT), line:75:25, endln:75:37
+                \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_11_BIT), line:75:25, endln:75:37
                   |vpiParent:
                   \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
                   |vpiName:STATE_11_BIT
-                  |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_11_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_11_BIT
                   |vpiActual:
                   \_parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:29
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiStmt:
               \_task_call: (from_state_11), line:75:40, endln:75:53
                 |vpiParent:
@@ -1048,25 +1012,19 @@ design: (work@fsm_class)
           |vpiLhs:
           \_bit_select: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:9, endln:12:34
             |vpiParent:
-            \_ref_obj: (work@fsm_class::baseFsm::next_state_transition::next_state)
-              |vpiParent:
-              \_assignment: , line:12:9, endln:12:41
-              |vpiName:next_state
-              |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state
-              |vpiActual:
-              \_bit_var: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
+            \_assignment: , line:12:9, endln:12:41
             |vpiName:next_state
             |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state
+            |vpiActual:
+            \_bit_var: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
             |vpiIndex:
-            \_ref_obj: (work@fsm_class::baseFsm::next_state_transition::next_state::state_to_bit), line:12:21, endln:12:33
+            \_ref_obj: (work@fsm_class::baseFsm::next_state_transition::state_to_bit), line:12:21, endln:12:33
               |vpiParent:
               \_bit_select: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:9, endln:12:34
               |vpiName:state_to_bit
-              |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state::state_to_bit
+              |vpiFullName:work@fsm_class::baseFsm::next_state_transition::state_to_bit
               |vpiActual:
               \_io_decl: (state_to_bit), line:8:43, endln:8:55
-            |vpiActual:
-            \_bit_var: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
     |vpiMethod:
     \_task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
       |vpiParent:
@@ -1448,25 +1406,19 @@ design: (work@fsm_class)
             |vpiExpr:
             \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
               |vpiParent:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                |vpiParent:
-                \_case_item: , line:72:11, endln:72:54
-                |vpiName:current_state
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+              \_case_item: , line:72:11, endln:72:54
               |vpiName:current_state
               |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+              |vpiActual:
+              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiIndex:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_00_BIT), line:72:25, endln:72:37
+              \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_00_BIT), line:72:25, endln:72:37
                 |vpiParent:
                 \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
                 |vpiName:STATE_00_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_00_BIT
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_00_BIT
                 |vpiActual:
                 \_parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:29
-              |vpiActual:
-              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
             |vpiStmt:
             \_task_call: (from_state_00), line:72:40, endln:72:53
               |vpiParent:
@@ -1481,25 +1433,19 @@ design: (work@fsm_class)
             |vpiExpr:
             \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
               |vpiParent:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                |vpiParent:
-                \_case_item: , line:73:11, endln:73:54
-                |vpiName:current_state
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+              \_case_item: , line:73:11, endln:73:54
               |vpiName:current_state
               |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+              |vpiActual:
+              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiIndex:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_01_BIT), line:73:25, endln:73:37
+              \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_01_BIT), line:73:25, endln:73:37
                 |vpiParent:
                 \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
                 |vpiName:STATE_01_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_01_BIT
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_01_BIT
                 |vpiActual:
                 \_parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:29
-              |vpiActual:
-              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
             |vpiStmt:
             \_task_call: (from_state_01), line:73:40, endln:73:53
               |vpiParent:
@@ -1514,25 +1460,19 @@ design: (work@fsm_class)
             |vpiExpr:
             \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
               |vpiParent:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                |vpiParent:
-                \_case_item: , line:74:11, endln:74:54
-                |vpiName:current_state
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+              \_case_item: , line:74:11, endln:74:54
               |vpiName:current_state
               |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+              |vpiActual:
+              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiIndex:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_10_BIT), line:74:25, endln:74:37
+              \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_10_BIT), line:74:25, endln:74:37
                 |vpiParent:
                 \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
                 |vpiName:STATE_10_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_10_BIT
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_10_BIT
                 |vpiActual:
                 \_parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:29
-              |vpiActual:
-              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
             |vpiStmt:
             \_task_call: (from_state_10), line:74:40, endln:74:53
               |vpiParent:
@@ -1547,25 +1487,19 @@ design: (work@fsm_class)
             |vpiExpr:
             \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
               |vpiParent:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state)
-                |vpiParent:
-                \_case_item: , line:75:11, endln:75:54
-                |vpiName:current_state
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-                |vpiActual:
-                \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+              \_case_item: , line:75:11, endln:75:54
               |vpiName:current_state
               |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+              |vpiActual:
+              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
               |vpiIndex:
-              \_ref_obj: (work@fsm_class::specificFSM::main_comb::current_state::STATE_11_BIT), line:75:25, endln:75:37
+              \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_11_BIT), line:75:25, endln:75:37
                 |vpiParent:
                 \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
                 |vpiName:STATE_11_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state::STATE_11_BIT
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_11_BIT
                 |vpiActual:
                 \_parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:29
-              |vpiActual:
-              \_bit_var: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
             |vpiStmt:
             \_task_call: (from_state_11), line:75:40, endln:75:53
               |vpiParent:

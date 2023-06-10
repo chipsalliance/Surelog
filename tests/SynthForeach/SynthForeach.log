@@ -600,12 +600,12 @@ design: (work@dut)
               |vpiRhs:
               \_operation: , line:5:30, endln:5:35
                 |vpiParent:
-                \_foreach_stmt: (work@dut), line:4:13, endln:4:20
+                \_assignment: , line:5:17, endln:5:35
                 |vpiOpType:25
                 |vpiOperand:
                 \_ref_obj: (work@dut.i), line:5:30, endln:5:31
                   |vpiParent:
-                  \_foreach_stmt: (work@dut), line:4:13, endln:4:20
+                  \_operation: , line:5:30, endln:5:35
                   |vpiName:i
                   |vpiFullName:work@dut.i
                   |vpiActual:
@@ -625,19 +625,19 @@ design: (work@dut)
                 |vpiName:data
                 |vpiFullName:work@dut.data
                 |vpiIndex:
-                \_ref_obj: (work@dut.i), line:5:22, endln:5:23
+                \_ref_obj: (work@dut.data.i), line:5:22, endln:5:23
                   |vpiParent:
-                  \_foreach_stmt: (work@dut), line:4:13, endln:4:20
+                  \_var_select: (work@dut.data), line:5:17, endln:5:27
                   |vpiName:i
-                  |vpiFullName:work@dut.i
+                  |vpiFullName:work@dut.data.i
                   |vpiActual:
                   \_logic_var: (i), line:3:22, endln:3:23
                 |vpiIndex:
-                \_ref_obj: (work@dut.j), line:5:25, endln:5:26
+                \_ref_obj: (work@dut.data.j), line:5:25, endln:5:26
                   |vpiParent:
-                  \_foreach_stmt: (work@dut), line:4:13, endln:4:20
+                  \_var_select: (work@dut.data), line:5:17, endln:5:27
                   |vpiName:j
-                  |vpiFullName:work@dut.j
+                  |vpiFullName:work@dut.data.j
                   |vpiActual:
                   \_logic_var: (j), line:4:29, endln:4:30
     |vpiAlwaysType:1
@@ -947,7 +947,7 @@ design: (work@dut)
               |vpiRhs:
               \_ref_obj: (work@top.r), line:12:29, endln:12:30
                 |vpiParent:
-                \_begin: (work@top), line:11:31, endln:14:12
+                \_assignment: , line:12:13, endln:12:30
                 |vpiName:r
                 |vpiFullName:work@top.r
                 |vpiActual:
@@ -959,19 +959,19 @@ design: (work@dut)
                 |vpiName:B
                 |vpiFullName:work@top.B
                 |vpiIndex:
-                \_ref_obj: (work@top.q), line:12:15, endln:12:16
+                \_ref_obj: (work@top.B.q), line:12:15, endln:12:16
                   |vpiParent:
-                  \_begin: (work@top), line:11:31, endln:14:12
+                  \_var_select: (work@top.B), line:12:13, endln:12:26
                   |vpiName:q
-                  |vpiFullName:work@top.q
+                  |vpiFullName:work@top.B.q
                   |vpiActual:
                   \_bit_var: (q), line:11:19, endln:11:20
                 |vpiIndex:
-                \_ref_obj: (work@top.r), line:12:18, endln:12:19
+                \_ref_obj: (work@top.B.r), line:12:18, endln:12:19
                   |vpiParent:
-                  \_begin: (work@top), line:11:31, endln:14:12
+                  \_var_select: (work@top.B), line:12:13, endln:12:26
                   |vpiName:r
-                  |vpiFullName:work@top.r
+                  |vpiFullName:work@top.B.r
                   |vpiActual:
                   \_bit_var: (r), line:11:22, endln:11:23
                 |vpiIndex:
@@ -983,11 +983,11 @@ design: (work@dut)
                   |UINT:0
                   |vpiConstType:9
                 |vpiIndex:
-                \_ref_obj: (work@top.s), line:12:24, endln:12:25
+                \_ref_obj: (work@top.B.s), line:12:24, endln:12:25
                   |vpiParent:
-                  \_begin: (work@top), line:11:31, endln:14:12
+                  \_var_select: (work@top.B), line:12:13, endln:12:26
                   |vpiName:s
-                  |vpiFullName:work@top.s
+                  |vpiFullName:work@top.B.s
                   |vpiActual:
                   \_bit_var: (s), line:11:27, endln:11:28
             |vpiStmt:
@@ -998,8 +998,6 @@ design: (work@dut)
               |vpiBlocking:1
               |vpiRhs:
               \_constant: , line:13:29, endln:13:30
-                |vpiParent:
-                \_assignment: , line:13:13, endln:13:30
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
@@ -1011,19 +1009,19 @@ design: (work@dut)
                 |vpiName:B
                 |vpiFullName:work@top.B
                 |vpiIndex:
-                \_ref_obj: (work@top.q), line:13:15, endln:13:16
+                \_ref_obj: (work@top.B.q), line:13:15, endln:13:16
                   |vpiParent:
-                  \_begin: (work@top), line:11:31, endln:14:12
+                  \_var_select: (work@top.B), line:13:13, endln:13:26
                   |vpiName:q
-                  |vpiFullName:work@top.q
+                  |vpiFullName:work@top.B.q
                   |vpiActual:
                   \_bit_var: (q), line:11:19, endln:11:20
                 |vpiIndex:
-                \_ref_obj: (work@top.r), line:13:18, endln:13:19
+                \_ref_obj: (work@top.B.r), line:13:18, endln:13:19
                   |vpiParent:
-                  \_begin: (work@top), line:11:31, endln:14:12
+                  \_var_select: (work@top.B), line:13:13, endln:13:26
                   |vpiName:r
-                  |vpiFullName:work@top.r
+                  |vpiFullName:work@top.B.r
                   |vpiActual:
                   \_bit_var: (r), line:11:22, endln:11:23
                 |vpiIndex:
@@ -1035,11 +1033,11 @@ design: (work@dut)
                   |UINT:1
                   |vpiConstType:9
                 |vpiIndex:
-                \_ref_obj: (work@top.s), line:13:24, endln:13:25
+                \_ref_obj: (work@top.B.s), line:13:24, endln:13:25
                   |vpiParent:
-                  \_begin: (work@top), line:11:31, endln:14:12
+                  \_var_select: (work@top.B), line:13:13, endln:13:26
                   |vpiName:s
-                  |vpiFullName:work@top.s
+                  |vpiFullName:work@top.B.s
                   |vpiActual:
                   \_bit_var: (s), line:11:27, endln:11:28
     |vpiAlwaysType:1
@@ -1298,7 +1296,7 @@ design: (work@dut)
                   |vpiName:i
                   |vpiFullName:work@dut.i
                   |vpiActual:
-                  \_ref_var: (work@dut.i), line:4:26, endln:4:27
+                  \_logic_var: (i), line:3:22, endln:3:23
                 |vpiOperand:
                 \_ref_obj: (work@dut.j), line:5:34, endln:5:35
                   |vpiParent:
@@ -1313,6 +1311,8 @@ design: (work@dut)
                 \_assignment: , line:5:17, endln:5:35
                 |vpiName:data
                 |vpiFullName:work@dut.data
+                |vpiActual:
+                \_array_net: (work@dut.data), line:1:43, endln:1:47
                 |vpiIndex:
                 \_ref_obj: (work@dut.data.i), line:5:22, endln:5:23
                   |vpiParent:
@@ -1320,7 +1320,7 @@ design: (work@dut)
                   |vpiName:i
                   |vpiFullName:work@dut.data.i
                   |vpiActual:
-                  \_ref_var: (work@dut.i), line:4:26, endln:4:27
+                  \_logic_var: (i), line:3:22, endln:3:23
                 |vpiIndex:
                 \_ref_obj: (work@dut.data.j), line:5:25, endln:5:26
                   |vpiParent:
@@ -1618,6 +1618,8 @@ design: (work@dut)
                 \_assignment: , line:12:13, endln:12:30
                 |vpiName:B
                 |vpiFullName:work@top.B
+                |vpiActual:
+                \_array_var: (work@top.B), line:9:45, endln:9:52
                 |vpiIndex:
                 \_ref_obj: (work@top.B.q), line:12:15, endln:12:16
                   |vpiParent:
@@ -1658,6 +1660,8 @@ design: (work@dut)
                 \_assignment: , line:13:13, endln:13:30
                 |vpiName:B
                 |vpiFullName:work@top.B
+                |vpiActual:
+                \_array_var: (work@top.B), line:9:45, endln:9:52
                 |vpiIndex:
                 \_ref_obj: (work@top.B.q), line:13:15, endln:13:16
                   |vpiParent:

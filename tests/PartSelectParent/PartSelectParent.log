@@ -133,7 +133,7 @@ module_inst                                            3
 operation                                              3
 part_select                                            3
 port                                                   2
-ref_obj                                                6
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -151,7 +151,7 @@ module_inst                                            3
 operation                                              5
 part_select                                            5
 port                                                   3
-ref_obj                                               10
+ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectParent/slpp_all/surelog.uhdm ...
 
@@ -207,8 +207,6 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_assignment: , line:3:7, endln:3:12
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -216,7 +214,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@top.o), line:3:7, endln:3:8
           |vpiParent:
-          \_begin: (work@top), line:2:12, endln:5:7
+          \_assignment: , line:3:7, endln:3:12
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
@@ -229,8 +227,6 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:4:18, endln:4:23
-          |vpiParent:
-          \_assignment: , line:4:7, endln:4:23
           |vpiDecompile:2'b11
           |vpiSize:2
           |BIN:11
@@ -238,17 +234,15 @@ design: (work@top)
         |vpiLhs:
         \_operation: , line:4:8, endln:4:14
           |vpiParent:
-          \_begin: (work@top), line:2:12, endln:5:7
+          \_assignment: , line:4:7, endln:4:23
           |vpiOpType:33
           |vpiOperand:
-          \_part_select: , line:4:8, endln:4:14
+          \_part_select: o (work@top.o), line:4:8, endln:4:14
             |vpiParent:
-            \_ref_obj: o (work@top.o)
-              |vpiParent:
-              \_begin: (work@top), line:2:12, endln:5:7
-              |vpiName:o
-              |vpiFullName:work@top.o
-              |vpiDefName:o
+            \_assignment: , line:4:7, endln:4:23
+            |vpiName:o
+            |vpiFullName:work@top.o
+            |vpiDefName:o
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:4:10, endln:4:11
@@ -280,14 +274,12 @@ design: (work@top)
       \_cont_assign: , line:7:13, endln:7:29
       |vpiOpType:33
       |vpiOperand:
-      \_part_select: , line:7:14, endln:7:20
+      \_part_select: o (work@top.o), line:7:14, endln:7:20
         |vpiParent:
-        \_ref_obj: o (work@top.o)
-          |vpiParent:
-          \_operation: , line:7:14, endln:7:20
-          |vpiName:o
-          |vpiFullName:work@top.o
-          |vpiDefName:o
+        \_operation: , line:7:14, endln:7:20
+        |vpiName:o
+        |vpiFullName:work@top.o
+        |vpiDefName:o
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:7:16, endln:7:17
@@ -376,16 +368,14 @@ design: (work@top)
           \_assignment: , line:4:7, endln:4:23
           |vpiOpType:33
           |vpiOperand:
-          \_part_select: , line:4:8, endln:4:14
+          \_part_select: o (work@top.o), line:4:8, endln:4:14
             |vpiParent:
-            \_ref_obj: o (work@top.o)
-              |vpiParent:
-              \_operation: , line:4:8, endln:4:14
-              |vpiName:o
-              |vpiFullName:work@top.o
-              |vpiDefName:o
-              |vpiActual:
-              \_int_var: (work@top.o), line:1:23, endln:1:24
+            \_operation: , line:4:8, endln:4:14
+            |vpiName:o
+            |vpiFullName:work@top.o
+            |vpiDefName:o
+            |vpiActual:
+            \_int_var: (work@top.o), line:1:23, endln:1:24
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:4:10, endln:4:11
@@ -403,21 +393,19 @@ design: (work@top)
       \_cont_assign: , line:7:13, endln:7:29
       |vpiOpType:33
       |vpiOperand:
-      \_part_select: , line:7:14, endln:7:20
+      \_part_select: o (work@top.o), line:7:14, endln:7:20
         |vpiParent:
-        \_ref_obj: o (work@top.o)
-          |vpiParent:
-          \_operation: , line:7:14, endln:7:20
-          |vpiName:o
-          |vpiFullName:work@top.o
-          |vpiDefName:o
-          |vpiActual:
-          \_int_var: (work@top.o), line:1:23, endln:1:24
+        \_operation: , line:7:14, endln:7:20
+        |vpiName:o
+        |vpiFullName:work@top.o
+        |vpiDefName:o
+        |vpiActual:
+        \_int_var: (work@top.o), line:1:23, endln:1:24
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:7:16, endln:7:17
           |vpiParent:
-          \_part_select: , line:7:14, endln:7:20
+          \_part_select: o (o), line:7:14, endln:7:20
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -425,7 +413,7 @@ design: (work@top)
         |vpiRightRange:
         \_constant: , line:7:18, endln:7:19
           |vpiParent:
-          \_part_select: , line:7:14, endln:7:20
+          \_part_select: o (o), line:7:14, endln:7:20
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0

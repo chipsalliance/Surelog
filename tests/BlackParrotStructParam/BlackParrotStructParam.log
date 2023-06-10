@@ -691,7 +691,7 @@ param_assign                                          48
 parameter                                             59
 range                                                 14
 ref_module                                             2
-ref_obj                                               94
+ref_obj                                               89
 string_typespec                                       50
 struct_typespec                                       54
 tagged_pattern                                        50
@@ -733,7 +733,7 @@ param_assign                                          48
 parameter                                             59
 range                                                 14
 ref_module                                             2
-ref_obj                                               94
+ref_obj                                               89
 string_typespec                                       50
 struct_typespec                                       54
 tagged_pattern                                        50
@@ -2413,16 +2413,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:57:46, endln:57:70
-      |vpiParent:
-      \_ref_obj: (all_cfgs_gp)
-        |vpiName:all_cfgs_gp
       |vpiName:all_cfgs_gp
       |vpiIndex:
-      \_ref_obj: (all_cfgs_gp.bp_params_p), line:57:58, endln:57:69
+      \_ref_obj: (bp_params_p), line:57:58, endln:57:69
         |vpiParent:
         \_bit_select: (all_cfgs_gp), line:57:46, endln:57:70
         |vpiName:bp_params_p
-        |vpiFullName:all_cfgs_gp.bp_params_p
     |vpiLhs:
     \_parameter: (work@top.proc_param_lp), line:57:30, endln:57:43
   |vpiParamAssign:
@@ -2882,10 +2878,9 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:57:46, endln:57:70
-      |vpiParent:
-      \_ref_obj: (all_cfgs_gp)
-        |vpiName:all_cfgs_gp
       |vpiName:all_cfgs_gp
+      |vpiActual:
+      \_parameter: (work@top.all_cfgs_gp), line:42:41, endln:42:52
       |vpiIndex:
       \_constant: , line:57:58, endln:57:69
         |vpiParent:

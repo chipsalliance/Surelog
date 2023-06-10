@@ -123,7 +123,6 @@ logic_var                                              1
 module_inst                                            4
 part_select                                            2
 range                                                  6
-ref_obj                                                2
 var_select                                             2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -138,7 +137,6 @@ logic_var                                              1
 module_inst                                            4
 part_select                                            3
 range                                                  6
-ref_obj                                                3
 var_select                                             3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelect3/slpp_all/surelog.uhdm ...
@@ -201,9 +199,12 @@ design: (work@t)
         |UINT:3
         |vpiConstType:9
       |vpiIndex:
-      \_part_select: , line:3:22, endln:3:25
+      \_part_select: state_d (work@t.state_d.state_d), line:3:22, endln:3:25
         |vpiParent:
         \_var_select: (work@t.state_d), line:3:8, endln:3:26
+        |vpiName:state_d
+        |vpiFullName:work@t.state_d.state_d
+        |vpiDefName:state_d
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
@@ -352,6 +353,8 @@ design: (work@t)
       \_cont_assign: , line:3:8, endln:3:40
       |vpiName:state_d
       |vpiFullName:work@t.state_d
+      |vpiActual:
+      \_logic_var: (work@t.state_d), line:2:23, endln:2:30
       |vpiIndex:
       \_constant: , line:3:16, endln:3:17
         |vpiParent:
@@ -369,20 +372,19 @@ design: (work@t)
         |UINT:3
         |vpiConstType:9
       |vpiIndex:
-      \_part_select: , line:3:22, endln:3:25
+      \_part_select: state_d (work@t.state_d.state_d), line:3:22, endln:3:25
         |vpiParent:
-        \_ref_obj: (work@t.state_d.state_d)
-          |vpiParent:
-          \_var_select: (work@t.state_d), line:3:8, endln:3:26
-          |vpiName:state_d
-          |vpiFullName:work@t.state_d.state_d
-          |vpiActual:
-          \_logic_var: (work@t.state_d), line:2:23, endln:2:30
+        \_var_select: (work@t.state_d), line:3:8, endln:3:26
+        |vpiName:state_d
+        |vpiFullName:work@t.state_d.state_d
+        |vpiDefName:state_d
+        |vpiActual:
+        \_logic_var: (work@t.state_d), line:2:23, endln:2:30
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
-          \_part_select: , line:3:22, endln:3:25
+          \_part_select: state_d (state_d.state_d), line:3:22, endln:3:25
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
@@ -390,7 +392,7 @@ design: (work@t)
         |vpiRightRange:
         \_constant: , line:3:24, endln:3:25
           |vpiParent:
-          \_part_select: , line:3:22, endln:3:25
+          \_part_select: state_d (state_d.state_d), line:3:22, endln:3:25
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0

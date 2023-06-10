@@ -252,7 +252,7 @@ operation                                              8
 param_assign                                           2
 parameter                                              4
 range                                                  4
-ref_obj                                               19
+ref_obj                                               13
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -281,7 +281,7 @@ operation                                              8
 param_assign                                           2
 parameter                                              4
 range                                                  4
-ref_obj                                               28
+ref_obj                                               19
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfArrayBind/slpp_all/surelog.uhdm ...
 
@@ -399,24 +399,22 @@ design: (work@soc_tb)
       \_cont_assign: , line:16:12, endln:16:62
       |vpiName:peripheral_io_bus[IO_ONES].write_en
       |vpiActual:
-      \_bit_select: (peripheral_io_bus), line:16:12, endln:16:29
+      \_bit_select: (peripheral_io_bus[IO_ONES]), line:16:12, endln:16:29
         |vpiParent:
-        \_ref_obj: (work@soc_tb.peripheral_io_bus[IO_ONES])
-          |vpiParent:
-          \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
-          |vpiName:peripheral_io_bus[IO_ONES]
-          |vpiFullName:work@soc_tb.peripheral_io_bus[IO_ONES]
+        \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
         |vpiName:peripheral_io_bus
+        |vpiFullName:peripheral_io_bus[IO_ONES]
         |vpiIndex:
         \_ref_obj: (IO_ONES), line:16:30, endln:16:37
           |vpiName:IO_ONES
           |vpiActual:
           \_enum_const: (IO_ONES), line:11:7, endln:11:14
       |vpiActual:
-      \_ref_obj: (write_en)
+      \_ref_obj: (peripheral_io_bus[IO_ONES].write_en)
         |vpiParent:
         \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
         |vpiName:write_en
+        |vpiFullName:peripheral_io_bus[IO_ONES].write_en
   |vpiGenStmt:
   \_gen_region: 
     |vpiParent:
@@ -571,29 +569,27 @@ design: (work@soc_tb)
           \_cont_assign: , line:22:20, endln:22:58
           |vpiName:peripheral_io_bus[io_idx].write_en
           |vpiActual:
-          \_bit_select: (peripheral_io_bus), line:22:20, endln:22:37
+          \_bit_select: (peripheral_io_bus[io_idx]), line:22:20, endln:22:37
             |vpiParent:
-            \_ref_obj: (work@soc_tb.io_gen[0].peripheral_io_bus[io_idx])
-              |vpiParent:
-              \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
-              |vpiName:peripheral_io_bus[io_idx]
-              |vpiFullName:work@soc_tb.io_gen[0].peripheral_io_bus[io_idx]
+            \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
             |vpiName:peripheral_io_bus
-            |vpiIndex:
-            \_ref_obj: (work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].io_idx), line:22:38, endln:22:44
-              |vpiParent:
-              \_bit_select: (peripheral_io_bus), line:22:20, endln:22:37
-              |vpiName:io_idx
-              |vpiFullName:work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].io_idx
-              |vpiActual:
-              \_parameter: (work@soc_tb.io_gen[0].io_idx), line:20:0
+            |vpiFullName:peripheral_io_bus[io_idx]
             |vpiActual:
             \_interface_inst: work@io_bus_interface (work@soc_tb.peripheral_io_bus[0]), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:14:5, endln:14:65
+            |vpiIndex:
+            \_ref_obj: (work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx), line:22:38, endln:22:44
+              |vpiParent:
+              \_bit_select: (peripheral_io_bus[io_idx]), line:22:20, endln:22:37
+              |vpiName:io_idx
+              |vpiFullName:work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx
+              |vpiActual:
+              \_parameter: (work@soc_tb.io_gen[0].io_idx), line:20:0
           |vpiActual:
-          \_ref_obj: (write_en)
+          \_ref_obj: (peripheral_io_bus[io_idx].write_en)
             |vpiParent:
             \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
             |vpiName:write_en
+            |vpiFullName:peripheral_io_bus[io_idx].write_en
             |vpiActual:
             \_logic_var: (work@soc_tb.peripheral_io_bus[0].write_en), line:2:11, endln:2:19
   |vpiGenScopeArray:
@@ -635,29 +631,27 @@ design: (work@soc_tb)
           \_cont_assign: , line:22:20, endln:22:58
           |vpiName:peripheral_io_bus[io_idx].write_en
           |vpiActual:
-          \_bit_select: (peripheral_io_bus), line:22:20, endln:22:37
+          \_bit_select: (peripheral_io_bus[io_idx]), line:22:20, endln:22:37
             |vpiParent:
-            \_ref_obj: (work@soc_tb.io_gen[1].peripheral_io_bus[io_idx])
-              |vpiParent:
-              \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
-              |vpiName:peripheral_io_bus[io_idx]
-              |vpiFullName:work@soc_tb.io_gen[1].peripheral_io_bus[io_idx]
+            \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
             |vpiName:peripheral_io_bus
-            |vpiIndex:
-            \_ref_obj: (work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].io_idx), line:22:38, endln:22:44
-              |vpiParent:
-              \_bit_select: (peripheral_io_bus), line:22:20, endln:22:37
-              |vpiName:io_idx
-              |vpiFullName:work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].io_idx
-              |vpiActual:
-              \_parameter: (work@soc_tb.io_gen[1].io_idx), line:20:0
+            |vpiFullName:peripheral_io_bus[io_idx]
             |vpiActual:
             \_interface_inst: work@io_bus_interface (work@soc_tb.peripheral_io_bus[1]), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:14:5, endln:14:65
+            |vpiIndex:
+            \_ref_obj: (work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx), line:22:38, endln:22:44
+              |vpiParent:
+              \_bit_select: (peripheral_io_bus[io_idx]), line:22:20, endln:22:37
+              |vpiName:io_idx
+              |vpiFullName:work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx
+              |vpiActual:
+              \_parameter: (work@soc_tb.io_gen[1].io_idx), line:20:0
           |vpiActual:
-          \_ref_obj: (write_en)
+          \_ref_obj: (peripheral_io_bus[io_idx].write_en)
             |vpiParent:
             \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
             |vpiName:write_en
+            |vpiFullName:peripheral_io_bus[io_idx].write_en
             |vpiActual:
             \_logic_var: (work@soc_tb.peripheral_io_bus[1].write_en), line:2:11, endln:2:19
   |vpiContAssign:
@@ -672,29 +666,27 @@ design: (work@soc_tb)
       \_cont_assign: , line:16:12, endln:16:62
       |vpiName:peripheral_io_bus[IO_ONES].write_en
       |vpiActual:
-      \_bit_select: (peripheral_io_bus), line:16:12, endln:16:29
+      \_bit_select: (peripheral_io_bus[IO_ONES]), line:16:12, endln:16:29
         |vpiParent:
-        \_ref_obj: (work@soc_tb.peripheral_io_bus[IO_ONES])
-          |vpiParent:
-          \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
-          |vpiName:peripheral_io_bus[IO_ONES]
-          |vpiFullName:work@soc_tb.peripheral_io_bus[IO_ONES]
+        \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
         |vpiName:peripheral_io_bus
-        |vpiIndex:
-        \_ref_obj: (work@soc_tb.peripheral_io_bus[IO_ONES].IO_ONES), line:16:30, endln:16:37
-          |vpiParent:
-          \_bit_select: (peripheral_io_bus), line:16:12, endln:16:29
-          |vpiName:IO_ONES
-          |vpiFullName:work@soc_tb.peripheral_io_bus[IO_ONES].IO_ONES
-          |vpiActual:
-          \_enum_const: (IO_ONES), line:11:7, endln:11:14
+        |vpiFullName:peripheral_io_bus[IO_ONES]
         |vpiActual:
         \_interface_inst: work@io_bus_interface (work@soc_tb.peripheral_io_bus[0]), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:14:5, endln:14:65
+        |vpiIndex:
+        \_ref_obj: (work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES), line:16:30, endln:16:37
+          |vpiParent:
+          \_bit_select: (peripheral_io_bus[IO_ONES]), line:16:12, endln:16:29
+          |vpiName:IO_ONES
+          |vpiFullName:work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES
+          |vpiActual:
+          \_enum_const: (IO_ONES), line:11:7, endln:11:14
       |vpiActual:
-      \_ref_obj: (write_en)
+      \_ref_obj: (peripheral_io_bus[IO_ONES].write_en)
         |vpiParent:
         \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
         |vpiName:write_en
+        |vpiFullName:peripheral_io_bus[IO_ONES].write_en
         |vpiActual:
         \_logic_var: (work@soc_tb.peripheral_io_bus[0].write_en), line:2:11, endln:2:19
 ===================

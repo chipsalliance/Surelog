@@ -193,7 +193,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   2
 range                                                  5
-ref_obj                                                8
+ref_obj                                                7
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -222,7 +222,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   3
 range                                                  7
-ref_obj                                               13
+ref_obj                                               11
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IncompFunc/slpp_all/surelog.uhdm ...
@@ -406,7 +406,7 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@top.get_BA.B), line:9:16, endln:9:17
           |vpiParent:
-          \_begin: (work@top.get_BA)
+          \_assignment: , line:9:7, endln:9:17
           |vpiName:B
           |vpiFullName:work@top.get_BA.B
           |vpiActual:
@@ -414,13 +414,11 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.get_BA.out), line:9:7, endln:9:13
           |vpiParent:
-          \_ref_obj: (work@top.get_BA.out)
-            |vpiParent:
-            \_assignment: , line:9:7, endln:9:17
-            |vpiName:out
-            |vpiFullName:work@top.get_BA.out
+          \_assignment: , line:9:7, endln:9:17
           |vpiName:out
           |vpiFullName:work@top.get_BA.out
+          |vpiActual:
+          \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
           |vpiIndex:
           \_constant: , line:9:11, endln:9:12
             |vpiParent:
@@ -585,19 +583,13 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.get_BA.out), line:9:7, endln:9:13
           |vpiParent:
-          \_ref_obj: (work@top.get_BA.out)
-            |vpiParent:
-            \_assignment: , line:9:7, endln:9:17
-            |vpiName:out
-            |vpiFullName:work@top.get_BA.out
-            |vpiActual:
-            \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
+          \_assignment: , line:9:7, endln:9:17
           |vpiName:out
           |vpiFullName:work@top.get_BA.out
-          |vpiIndex:
-          \_constant: , line:9:11, endln:9:12
           |vpiActual:
           \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
+          |vpiIndex:
+          \_constant: , line:9:11, endln:9:12
       |vpiStmt:
       \_return_stmt: , line:10:7, endln:10:13
         |vpiParent:

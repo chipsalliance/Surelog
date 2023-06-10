@@ -196,7 +196,7 @@ module_inst                                            5
 operation                                              9
 param_assign                                           6
 parameter                                             10
-ref_obj                                                8
+ref_obj                                                1
 sys_task_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -214,7 +214,7 @@ module_inst                                            5
 operation                                              9
 param_assign                                           6
 parameter                                             10
-ref_obj                                                8
+ref_obj                                                1
 sys_task_call                                          8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexedSelect/slpp_all/surelog.uhdm ...
@@ -299,11 +299,9 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
-    \_indexed_part_select: , line:6:19, endln:6:34
-      |vpiParent:
-      \_ref_obj: FOO_REPL (FOO_REPL)
-        |vpiName:FOO_REPL
-        |vpiDefName:FOO_REPL
+    \_indexed_part_select: FOO_REPL (FOO_REPL), line:6:19, endln:6:34
+      |vpiName:FOO_REPL
+      |vpiDefName:FOO_REPL
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
@@ -529,4 +527,4 @@ design: (work@test)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/IndexedSelect/dut.sv | ${SURELOG_DIR}/build/regression/IndexedSelect/roundtrip/dut_000.sv | 6 | 17 |
+[roundtrip]: ${SURELOG_DIR}/tests/IndexedSelect/dut.sv | ${SURELOG_DIR}/build/regression/IndexedSelect/roundtrip/dut_000.sv | 7 | 17 |

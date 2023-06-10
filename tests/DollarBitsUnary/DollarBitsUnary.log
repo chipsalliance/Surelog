@@ -169,7 +169,7 @@ operation                                              4
 part_select                                            1
 port                                                   2
 range                                                  7
-ref_obj                                                5
+ref_obj                                                4
 struct_typespec                                        1
 sys_func_call                                          1
 typespec_member                                        1
@@ -188,7 +188,7 @@ operation                                              6
 part_select                                            2
 port                                                   3
 range                                                  7
-ref_obj                                                9
+ref_obj                                                7
 struct_typespec                                        1
 sys_func_call                                          2
 typespec_member                                        1
@@ -302,17 +302,17 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
-    \_part_select: , line:8:15, endln:8:37
+    \_part_select: dr_x (work@top.dr_x), line:8:15, endln:8:37
       |vpiParent:
-      \_ref_obj: dr_x (work@top.dr_x), line:8:15, endln:8:19
-        |vpiParent:
-        \_cont_assign: , line:8:11, endln:8:37
-        |vpiName:dr_x
-        |vpiFullName:work@top.dr_x
-        |vpiDefName:dr_x
+      \_cont_assign: , line:8:11, endln:8:37
+      |vpiName:dr_x
+      |vpiFullName:work@top.dr_x
+      |vpiDefName:dr_x
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_operation: , line:8:20, endln:8:34
+        |vpiParent:
+        \_part_select: dr_x (work@top.dr_x), line:8:15, endln:8:37
         |vpiOpType:11
         |vpiOperand:
         \_sys_func_call: ($bits), line:8:20, endln:8:32
@@ -324,10 +324,11 @@ design: (work@top)
             \_sys_func_call: ($bits), line:8:20, endln:8:32
             |vpiOpType:4
             |vpiOperand:
-            \_ref_obj: (dr_q), line:8:27, endln:8:31
+            \_ref_obj: (work@top.dr_x.dr_q), line:8:27, endln:8:31
               |vpiParent:
               \_operation: , line:8:26, endln:8:27
               |vpiName:dr_q
+              |vpiFullName:work@top.dr_x.dr_q
               |vpiActual:
               \_logic_var: (work@top.dr_q), line:6:28, endln:6:32
           |vpiName:$bits
@@ -476,19 +477,17 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
-    \_part_select: , line:8:15, endln:8:37
+    \_part_select: dr_x (work@top.dr_x), line:8:15, endln:8:37
       |vpiParent:
-      \_ref_obj: dr_x (work@top.dr_x), line:8:15, endln:8:19
-        |vpiParent:
-        \_cont_assign: , line:8:11, endln:8:37
-        |vpiName:dr_x
-        |vpiFullName:work@top.dr_x
-        |vpiDefName:dr_x
+      \_cont_assign: , line:8:11, endln:8:37
+      |vpiName:dr_x
+      |vpiFullName:work@top.dr_x
+      |vpiDefName:dr_x
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_operation: , line:8:20, endln:8:34
         |vpiParent:
-        \_part_select: , line:8:15, endln:8:37
+        \_part_select: dr_x (work@top.dr_x), line:8:15, endln:8:37
         |vpiOpType:11
         |vpiOperand:
         \_sys_func_call: ($bits), line:8:20, endln:8:32

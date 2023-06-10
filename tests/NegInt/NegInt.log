@@ -146,7 +146,7 @@ module_inst                                            4
 operation                                              8
 param_assign                                           2
 parameter                                              2
-ref_obj                                               11
+ref_obj                                                8
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -166,7 +166,7 @@ module_inst                                            4
 operation                                              8
 param_assign                                           2
 parameter                                              2
-ref_obj                                               11
+ref_obj                                                8
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -280,26 +280,24 @@ design: (work@find_first_one)
           |vpiOperand:
           \_bit_select: (in_i), line:3:35, endln:3:50
             |vpiParent:
-            \_ref_obj: (in_i)
-              |vpiParent:
-              \_operation: , line:3:28, endln:3:60
-              |vpiName:in_i
+            \_operation: , line:3:28, endln:3:60
             |vpiName:in_i
             |vpiIndex:
             \_operation: , line:3:40, endln:3:49
               |vpiParent:
-              \_operation: , line:3:28, endln:3:60
+              \_bit_select: (in_i), line:3:35, endln:3:50
               |vpiOpType:11
               |vpiOperand:
               \_operation: , line:3:40, endln:3:47
                 |vpiParent:
-                \_operation: , line:3:28, endln:3:60
+                \_operation: , line:3:40, endln:3:49
                 |vpiOpType:11
                 |vpiOperand:
-                \_ref_obj: (WIDTH), line:3:40, endln:3:45
+                \_ref_obj: (in_i.WIDTH), line:3:40, endln:3:45
                   |vpiParent:
-                  \_operation: , line:3:28, endln:3:60
+                  \_operation: , line:3:40, endln:3:47
                   |vpiName:WIDTH
+                  |vpiFullName:in_i.WIDTH
                 |vpiOperand:
                 \_constant: , line:3:46, endln:3:47
                   |vpiParent:
@@ -309,37 +307,31 @@ design: (work@find_first_one)
                   |UINT:1
                   |vpiConstType:9
               |vpiOperand:
-              \_ref_obj: (i), line:3:48, endln:3:49
+              \_ref_obj: (in_i.i), line:3:48, endln:3:49
                 |vpiParent:
                 \_operation: , line:3:40, endln:3:49
                 |vpiName:i
+                |vpiFullName:in_i.i
           |vpiOperand:
           \_bit_select: (in_i), line:3:53, endln:3:60
             |vpiParent:
-            \_ref_obj: (in_i)
-              |vpiParent:
-              \_operation: , line:3:28, endln:3:60
-              |vpiName:in_i
+            \_operation: , line:3:28, endln:3:60
             |vpiName:in_i
             |vpiIndex:
             \_ref_obj: (i), line:3:58, endln:3:59
               |vpiParent:
-              \_operation: , line:3:28, endln:3:60
+              \_bit_select: (in_i), line:3:53, endln:3:60
               |vpiName:i
         |vpiLhs:
         \_bit_select: (in_tmp), line:3:16, endln:3:25
           |vpiParent:
-          \_ref_obj: (in_tmp)
-            |vpiParent:
-            \_cont_assign: , line:3:16, endln:3:60
-            |vpiName:in_tmp
+          \_cont_assign: , line:3:16, endln:3:60
           |vpiName:in_tmp
           |vpiIndex:
-          \_ref_obj: (in_tmp.i), line:3:23, endln:3:24
+          \_ref_obj: (i), line:3:23, endln:3:24
             |vpiParent:
             \_bit_select: (in_tmp), line:3:16, endln:3:25
             |vpiName:i
-            |vpiFullName:in_tmp.i
 |uhdmtopModules:
 \_module_inst: work@find_first_one (work@find_first_one), file:${SURELOG_DIR}/tests/NegInt/dut.sv, line:1:1, endln:5:10
   |vpiName:work@find_first_one

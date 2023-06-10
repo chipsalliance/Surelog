@@ -106,7 +106,7 @@ logic_net                                              1
 logic_typespec                                         1
 module_inst                                            3
 range                                                  1
-ref_obj                                                4
+ref_obj                                                2
 struct_net                                             1
 struct_typespec                                        1
 typespec_member                                        1
@@ -123,7 +123,7 @@ logic_net                                              1
 logic_typespec                                         1
 module_inst                                            3
 range                                                  1
-ref_obj                                                6
+ref_obj                                                3
 struct_net                                             1
 struct_typespec                                        1
 typespec_member                                        1
@@ -217,19 +217,15 @@ design: (work@dut2)
         \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
         |vpiName:read_buf
       |vpiActual:
-      \_bit_select: (work@dut2.read_buf.q[1]), line:8:17, endln:8:18
+      \_bit_select: (work@dut2.read_buf.q[1].q), line:8:17, endln:8:18
         |vpiParent:
-        \_ref_obj: (work@dut2.read_buf.q[1])
-          |vpiParent:
-          \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
-          |vpiName:read_buf.q[1]
-          |vpiFullName:work@dut2.read_buf.q[1]
+        \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
         |vpiName:q
-        |vpiFullName:work@dut2.read_buf.q[1]
+        |vpiFullName:work@dut2.read_buf.q[1].q
         |vpiIndex:
         \_constant: , line:8:19, endln:8:20
           |vpiParent:
-          \_bit_select: (work@dut2.read_buf.q[1]), line:8:17, endln:8:18
+          \_bit_select: (work@dut2.read_buf.q[1].q), line:8:17, endln:8:18
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -269,27 +265,21 @@ design: (work@dut2)
         |vpiActual:
         \_struct_net: (work@dut2.read_buf), line:6:16, endln:6:24
       |vpiActual:
-      \_bit_select: (work@dut2.read_buf.q[1]), line:8:17, endln:8:18
+      \_bit_select: (work@dut2.read_buf.q[1].q), line:8:17, endln:8:18
         |vpiParent:
-        \_ref_obj: (work@dut2.read_buf.q[1])
-          |vpiParent:
-          \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
-          |vpiName:read_buf.q[1]
-          |vpiFullName:work@dut2.read_buf.q[1]
-          |vpiActual:
-          \_typespec_member: (q), line:4:15, endln:4:16
+        \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
         |vpiName:q
-        |vpiFullName:work@dut2.read_buf.q[1]
+        |vpiFullName:work@dut2.read_buf.q[1].q
+        |vpiActual:
+        \_typespec_member: (q), line:4:15, endln:4:16
         |vpiIndex:
         \_constant: , line:8:19, endln:8:20
           |vpiParent:
-          \_bit_select: (read_buf.q[1]), line:8:17, endln:8:18
+          \_bit_select: (read_buf.q[1].q), line:8:17, endln:8:18
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
-        |vpiActual:
-        \_typespec_member: (q), line:4:15, endln:4:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

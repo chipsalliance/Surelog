@@ -177,7 +177,7 @@ function                                               1
 hier_path                                              2
 package                                                3
 range                                                  2
-ref_obj                                                8
+ref_obj                                                6
 ref_var                                                3
 string_typespec                                        3
 string_var                                             1
@@ -204,7 +204,7 @@ function                                               2
 hier_path                                              4
 package                                                3
 range                                                  2
-ref_obj                                               16
+ref_obj                                               12
 ref_var                                                6
 string_typespec                                        3
 string_var                                             3
@@ -437,25 +437,19 @@ design: (unnamed)
               |vpiRhs:
               \_bit_select: (pack::uvm_mem_mam::check_reg::paths), line:17:30, endln:17:38
                 |vpiParent:
-                \_ref_obj: (pack::uvm_mem_mam::check_reg::paths)
-                  |vpiParent:
-                  \_assign_stmt: , line:17:25, endln:17:38
-                  |vpiName:paths
-                  |vpiFullName:pack::uvm_mem_mam::check_reg::paths
-                  |vpiActual:
-                  \_array_var: (pack::uvm_mem_mam::check_reg::paths), line:14:23, endln:14:28
+                \_assign_stmt: , line:17:25, endln:17:38
                 |vpiName:paths
                 |vpiFullName:pack::uvm_mem_mam::check_reg::paths
+                |vpiActual:
+                \_array_var: (pack::uvm_mem_mam::check_reg::paths), line:14:23, endln:14:28
                 |vpiIndex:
-                \_ref_obj: (pack::uvm_mem_mam::check_reg::paths::p), line:17:36, endln:17:37
+                \_ref_obj: (pack::uvm_mem_mam::check_reg::p), line:17:36, endln:17:37
                   |vpiParent:
                   \_bit_select: (pack::uvm_mem_mam::check_reg::paths), line:17:30, endln:17:38
                   |vpiName:p
-                  |vpiFullName:pack::uvm_mem_mam::check_reg::paths::p
+                  |vpiFullName:pack::uvm_mem_mam::check_reg::p
                   |vpiActual:
                   \_ref_var: (pack::uvm_mem_mam::check_reg::p), line:16:17, endln:16:18
-                |vpiActual:
-                \_array_var: (pack::uvm_mem_mam::check_reg::paths), line:14:23, endln:14:28
               |vpiLhs:
               \_class_var: (pack::uvm_mem_mam::check_reg::path), line:17:25, endln:17:29
                 |vpiParent:
@@ -533,29 +527,27 @@ design: (unnamed)
                       |vpiActual:
                       \_class_var: (pack::uvm_mem_mam::check_reg::path), line:17:25, endln:17:29
                     |vpiActual:
-                    \_bit_select: (slices), line:19:24, endln:19:30
+                    \_bit_select: (path.slices[j]), line:19:24, endln:19:30
                       |vpiParent:
-                      \_ref_obj: (pack::uvm_mem_mam::check_reg::slices[j])
-                        |vpiParent:
-                        \_hier_path: (path.slices[j].spath), line:19:19, endln:19:39
-                        |vpiName:slices[j]
-                        |vpiFullName:pack::uvm_mem_mam::check_reg::slices[j]
-                        |vpiActual:
-                        \_array_var: (pack::uvm_hdl_path_concat::slices), line:8:23, endln:8:29
+                      \_hier_path: (path.slices[j].spath), line:19:19, endln:19:39
                       |vpiName:slices
+                      |vpiFullName:path.slices[j]
+                      |vpiActual:
+                      \_array_var: (pack::uvm_hdl_path_concat::slices), line:8:23, endln:8:29
                       |vpiIndex:
-                      \_ref_obj: (pack::uvm_mem_mam::check_reg::slices[j]::j), line:19:31, endln:19:32
+                      \_ref_obj: (pack::uvm_mem_mam::check_reg::path.slices[j].spath::j), line:19:31, endln:19:32
                         |vpiParent:
-                        \_bit_select: (slices), line:19:24, endln:19:30
+                        \_bit_select: (path.slices[j]), line:19:24, endln:19:30
                         |vpiName:j
-                        |vpiFullName:pack::uvm_mem_mam::check_reg::slices[j]::j
+                        |vpiFullName:pack::uvm_mem_mam::check_reg::path.slices[j].spath::j
                         |vpiActual:
                         \_ref_var: (pack::uvm_mem_mam::check_reg::j), line:18:26, endln:18:27
                     |vpiActual:
-                    \_ref_obj: (spath), line:19:34, endln:19:39
+                    \_ref_obj: (pack::uvm_mem_mam::check_reg::spath), line:19:34, endln:19:39
                       |vpiParent:
                       \_hier_path: (path.slices[j].spath), line:19:19, endln:19:39
                       |vpiName:spath
+                      |vpiFullName:pack::uvm_mem_mam::check_reg::spath
                       |vpiActual:
                       \_typespec_member: (spath), line:4:11, endln:4:16
                   |vpiLhs:

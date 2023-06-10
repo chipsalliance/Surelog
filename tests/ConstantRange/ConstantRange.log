@@ -277,7 +277,7 @@ param_assign                                           6
 parameter                                             14
 range                                                 21
 ref_module                                             6
-ref_obj                                               29
+ref_obj                                                9
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -303,7 +303,7 @@ param_assign                                           6
 parameter                                             14
 range                                                 21
 ref_module                                             6
-ref_obj                                               29
+ref_obj                                                9
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -523,29 +523,22 @@ design: (work@dut)
           |vpiOperand:
           \_bit_select: (ConnectDioIn), line:12:10, endln:12:25
             |vpiParent:
-            \_ref_obj: (ConnectDioIn)
-              |vpiParent:
-              \_operation: , line:12:10, endln:12:45
-              |vpiName:ConnectDioIn
+            \_operation: , line:12:10, endln:12:45
             |vpiName:ConnectDioIn
             |vpiIndex:
-            \_ref_obj: (ConnectDioIn.k), line:12:23, endln:12:24
+            \_ref_obj: (k), line:12:23, endln:12:24
               |vpiParent:
               \_bit_select: (ConnectDioIn), line:12:10, endln:12:25
               |vpiName:k
-              |vpiFullName:ConnectDioIn.k
           |vpiOperand:
           \_bit_select: (ConnectDioOut), line:12:29, endln:12:45
             |vpiParent:
-            \_ref_obj: (ConnectDioOut)
-              |vpiParent:
-              \_operation: , line:12:10, endln:12:45
-              |vpiName:ConnectDioOut
+            \_operation: , line:12:10, endln:12:45
             |vpiName:ConnectDioOut
             |vpiIndex:
             \_ref_obj: (k), line:12:43, endln:12:44
               |vpiParent:
-              \_operation: , line:12:10, endln:12:45
+              \_bit_select: (ConnectDioOut), line:12:29, endln:12:45
               |vpiName:k
         |vpiStmt:
         \_named_begin: (gen_mio_inout)
@@ -560,9 +553,6 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
     |vpiCondition:
     \_bit_select: (ConnectDioIn), line:17:5, endln:17:20
-      |vpiParent:
-      \_ref_obj: (ConnectDioIn)
-        |vpiName:ConnectDioIn
       |vpiName:ConnectDioIn
       |vpiIndex:
       \_constant: , line:17:18, endln:17:19

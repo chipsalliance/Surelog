@@ -144,7 +144,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   2
 range                                                  5
-ref_obj                                                6
+ref_obj                                                4
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -166,7 +166,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   3
 range                                                  5
-ref_obj                                               10
+ref_obj                                                6
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -274,14 +274,11 @@ design: (work@top)
       \_cont_assign: , line:8:11, endln:8:29
       |vpiName:a[0][0].min_v
       |vpiActual:
-      \_bit_select: (a), line:8:11, endln:8:12
+      \_bit_select: (a[0]), line:8:11, endln:8:12
         |vpiParent:
-        \_ref_obj: (work@top.a[0])
-          |vpiParent:
-          \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
-          |vpiName:a[0]
-          |vpiFullName:work@top.a[0]
+        \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
         |vpiName:a
+        |vpiFullName:a[0]
         |vpiIndex:
         \_constant: , line:8:13, endln:8:14
           |vpiDecompile:0
@@ -289,8 +286,10 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: ([0]), line:8:13, endln:8:14
-        |vpiName:[0]
+      \_bit_select: (a[0][0]), line:8:13, endln:8:14
+        |vpiParent:
+        \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
+        |vpiFullName:a[0][0]
         |vpiIndex:
         \_constant: , line:8:16, endln:8:17
           |vpiDecompile:0
@@ -298,10 +297,11 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (min_v)
+      \_ref_obj: (a[0][0].min_v)
         |vpiParent:
         \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
         |vpiName:min_v
+        |vpiFullName:a[0][0].min_v
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
   |vpiName:work@top
@@ -406,46 +406,40 @@ design: (work@top)
       \_cont_assign: , line:8:11, endln:8:29
       |vpiName:a[0][0].min_v
       |vpiActual:
-      \_bit_select: (a), line:8:11, endln:8:12
+      \_bit_select: (a[0]), line:8:11, endln:8:12
         |vpiParent:
-        \_ref_obj: (work@top.a[0])
-          |vpiParent:
-          \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
-          |vpiName:a[0]
-          |vpiFullName:work@top.a[0]
+        \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
         |vpiName:a
+        |vpiFullName:a[0]
+        |vpiActual:
+        \_packed_array_var: (work@top.a), line:7:28, endln:7:29
         |vpiIndex:
         \_constant: , line:8:13, endln:8:14
           |vpiParent:
-          \_bit_select: (a), line:8:11, endln:8:12
+          \_bit_select: (a[0]), line:8:11, endln:8:12
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
-        |vpiActual:
-        \_packed_array_var: (work@top.a), line:7:28, endln:7:29
       |vpiActual:
-      \_bit_select: ([0]), line:8:13, endln:8:14
+      \_bit_select: (a[0][0]), line:8:13, endln:8:14
         |vpiParent:
-        \_ref_obj: (work@top.a[0][0].min_v)
-          |vpiParent:
-          \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
-          |vpiName:a[0][0].min_v
-          |vpiFullName:work@top.a[0][0].min_v
-        |vpiName:[0]
+        \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
+        |vpiFullName:a[0][0]
         |vpiIndex:
         \_constant: , line:8:16, endln:8:17
           |vpiParent:
-          \_bit_select: ([0]), line:8:13, endln:8:14
+          \_bit_select: (a[0][0]), line:8:13, endln:8:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (min_v)
+      \_ref_obj: (a[0][0].min_v)
         |vpiParent:
         \_hier_path: (a[0][0].min_v), line:8:11, endln:8:12
         |vpiName:min_v
+        |vpiFullName:a[0][0].min_v
         |vpiActual:
         \_typespec_member: (min_v), line:4:19, endln:4:24
 ===================

@@ -119,7 +119,7 @@ logic_net                                              2
 module_inst                                            4
 operation                                              1
 range                                                  1
-ref_obj                                                4
+ref_obj                                                3
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -138,7 +138,7 @@ logic_net                                              2
 module_inst                                            4
 operation                                              1
 range                                                  1
-ref_obj                                                8
+ref_obj                                                6
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -177,14 +177,11 @@ design: (work@IntegerRegisterWriteStage)
       \_cont_assign: , line:14:8, endln:14:40
       |vpiName:pipeReg[1].brResult.nextAddr
       |vpiActual:
-      \_bit_select: (pipeReg), line:14:12, endln:14:19
+      \_bit_select: (pipeReg[1]), line:14:12, endln:14:19
         |vpiParent:
-        \_ref_obj: (work@IntegerRegisterWriteStage.pipeReg[1])
-          |vpiParent:
-          \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
-          |vpiName:pipeReg[1]
-          |vpiFullName:work@IntegerRegisterWriteStage.pipeReg[1]
+        \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
         |vpiName:pipeReg
+        |vpiFullName:pipeReg[1]
         |vpiIndex:
         \_constant: , line:14:20, endln:14:21
           |vpiDecompile:1
@@ -197,10 +194,11 @@ design: (work@IntegerRegisterWriteStage)
         \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
         |vpiName:brResult
       |vpiActual:
-      \_ref_obj: (nextAddr), line:14:32, endln:14:40
+      \_ref_obj: (work@IntegerRegisterWriteStage.nextAddr), line:14:32, endln:14:40
         |vpiParent:
         \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
         |vpiName:nextAddr
+        |vpiFullName:work@IntegerRegisterWriteStage.nextAddr
     |vpiLhs:
     \_ref_obj: (work@IntegerRegisterWriteStage.o), line:14:8, endln:14:9
       |vpiParent:
@@ -313,18 +311,15 @@ design: (work@IntegerRegisterWriteStage)
       \_cont_assign: , line:14:8, endln:14:40
       |vpiName:pipeReg[1].brResult.nextAddr
       |vpiActual:
-      \_bit_select: (pipeReg), line:14:12, endln:14:19
+      \_bit_select: (pipeReg[1]), line:14:12, endln:14:19
         |vpiParent:
-        \_ref_obj: (work@IntegerRegisterWriteStage.pipeReg[1])
-          |vpiParent:
-          \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
-          |vpiName:pipeReg[1]
-          |vpiFullName:work@IntegerRegisterWriteStage.pipeReg[1]
+        \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
         |vpiName:pipeReg
-        |vpiIndex:
-        \_constant: , line:14:20, endln:14:21
+        |vpiFullName:pipeReg[1]
         |vpiActual:
         \_array_net: (work@IntegerRegisterWriteStage.pipeReg), line:12:34, endln:12:41
+        |vpiIndex:
+        \_constant: , line:14:20, endln:14:21
       |vpiActual:
       \_ref_obj: (brResult), line:14:23, endln:14:31
         |vpiParent:
@@ -333,10 +328,11 @@ design: (work@IntegerRegisterWriteStage)
         |vpiActual:
         \_typespec_member: (brResult), line:6:18, endln:6:26
       |vpiActual:
-      \_ref_obj: (nextAddr), line:14:32, endln:14:40
+      \_ref_obj: (work@IntegerRegisterWriteStage.nextAddr), line:14:32, endln:14:40
         |vpiParent:
         \_hier_path: (pipeReg[1].brResult.nextAddr), line:14:12, endln:14:40
         |vpiName:nextAddr
+        |vpiFullName:work@IntegerRegisterWriteStage.nextAddr
         |vpiActual:
         \_typespec_member: (nextAddr), line:2:9, endln:2:17
     |vpiLhs:

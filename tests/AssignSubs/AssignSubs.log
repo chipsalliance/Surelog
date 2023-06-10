@@ -219,7 +219,7 @@ package                                                3
 parameter                                              1
 port                                                   2
 range                                                  5
-ref_obj                                               12
+ref_obj                                               10
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -252,7 +252,7 @@ package                                                3
 parameter                                              1
 port                                                   3
 range                                                  5
-ref_obj                                               17
+ref_obj                                               14
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -470,25 +470,22 @@ design: (work@dut)
               |vpiRhs:
               \_operation: , line:16:11, endln:16:23
                 |vpiParent:
-                \_begin: , line:15:24, endln:17:6
+                \_assignment: , line:16:4, endln:16:23
                 |vpiOpType:33
                 |vpiOperand:
                 \_ref_obj: (PRIV_LVL_M), line:16:12, endln:16:22
                   |vpiParent:
-                  \_begin: , line:15:24, endln:17:6
+                  \_assignment: , line:16:4, endln:16:23
                   |vpiName:PRIV_LVL_M
               |vpiLhs:
               \_bit_select: (c), line:16:4, endln:16:8
                 |vpiParent:
-                \_ref_obj: (c)
-                  |vpiParent:
-                  \_assignment: , line:16:4, endln:16:23
-                  |vpiName:c
+                \_assignment: , line:16:4, endln:16:23
                 |vpiName:c
                 |vpiIndex:
                 \_ref_obj: (i), line:16:6, endln:16:7
                   |vpiParent:
-                  \_begin: , line:15:24, endln:17:6
+                  \_bit_select: (c), line:16:4, endln:16:8
                   |vpiName:i
         |vpiAlwaysType:1
 |uhdmtopModules:
@@ -681,25 +678,19 @@ design: (work@dut)
               |vpiLhs:
               \_bit_select: (work@dut.genblk1[0].c), line:16:4, endln:16:8
                 |vpiParent:
-                \_ref_obj: (work@dut.genblk1[0].c)
-                  |vpiParent:
-                  \_assignment: , line:16:4, endln:16:23
-                  |vpiName:c
-                  |vpiFullName:work@dut.genblk1[0].c
-                  |vpiActual:
-                  \_array_var: (work@dut.c), line:12:14, endln:12:19
+                \_assignment: , line:16:4, endln:16:23
                 |vpiName:c
                 |vpiFullName:work@dut.genblk1[0].c
+                |vpiActual:
+                \_array_var: (work@dut.c), line:12:14, endln:12:19
                 |vpiIndex:
-                \_ref_obj: (work@dut.genblk1[0].c.i), line:16:6, endln:16:7
+                \_ref_obj: (work@dut.genblk1[0].i), line:16:6, endln:16:7
                   |vpiParent:
                   \_bit_select: (work@dut.genblk1[0].c), line:16:4, endln:16:8
                   |vpiName:i
-                  |vpiFullName:work@dut.genblk1[0].c.i
+                  |vpiFullName:work@dut.genblk1[0].i
                   |vpiActual:
                   \_parameter: (work@dut.genblk1[0].i), line:14:0
-                |vpiActual:
-                \_array_var: (work@dut.c), line:12:14, endln:12:19
         |vpiAlwaysType:1
 ===================
 [  FATAL] : 0

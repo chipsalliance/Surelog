@@ -308,7 +308,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   2
 range                                                 14
-ref_obj                                               10
+ref_obj                                                9
 struct_typespec                                        2
 struct_var                                             1
 type_parameter                                         1
@@ -337,7 +337,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   3
 range                                                 14
-ref_obj                                               16
+ref_obj                                               14
 struct_typespec                                        2
 struct_var                                             1
 type_parameter                                         1
@@ -962,17 +962,14 @@ design: (work@axi_adapter_arbiter)
           |vpiOperand:
           \_hier_path: (req_i[i].req), line:22:12, endln:22:24
             |vpiParent:
-            \_begin: (work@axi_adapter_arbiter), line:21:17, endln:25:8
+            \_operation: , line:22:12, endln:22:32
             |vpiName:req_i[i].req
             |vpiActual:
-            \_bit_select: (req_i), line:22:12, endln:22:17
+            \_bit_select: (req_i[i]), line:22:12, endln:22:17
               |vpiParent:
-              \_ref_obj: (work@axi_adapter_arbiter.req_i[i])
-                |vpiParent:
-                \_hier_path: (req_i[i].req), line:22:12, endln:22:24
-                |vpiName:req_i[i]
-                |vpiFullName:work@axi_adapter_arbiter.req_i[i]
+              \_hier_path: (req_i[i].req), line:22:12, endln:22:24
               |vpiName:req_i
+              |vpiFullName:req_i[i]
               |vpiIndex:
               \_ref_obj: (work@axi_adapter_arbiter.i), line:22:18, endln:22:19
                 |vpiParent:
@@ -982,10 +979,11 @@ design: (work@axi_adapter_arbiter)
                 |vpiActual:
                 \_logic_net: (i)
             |vpiActual:
-            \_ref_obj: (req), line:22:21, endln:22:24
+            \_ref_obj: (work@axi_adapter_arbiter.req), line:22:21, endln:22:24
               |vpiParent:
               \_hier_path: (req_i[i].req), line:22:12, endln:22:24
               |vpiName:req
+              |vpiFullName:work@axi_adapter_arbiter.req
           |vpiOperand:
           \_constant: , line:22:28, endln:22:32
             |vpiParent:
@@ -1008,7 +1006,7 @@ design: (work@axi_adapter_arbiter)
             |vpiRhs:
             \_ref_obj: (work@axi_adapter_arbiter.SERVING), line:23:21, endln:23:28
               |vpiParent:
-              \_begin: (work@axi_adapter_arbiter), line:22:34, endln:24:10
+              \_assignment: , line:23:11, endln:23:28
               |vpiName:SERVING
               |vpiFullName:work@axi_adapter_arbiter.SERVING
               |vpiActual:
@@ -1016,7 +1014,7 @@ design: (work@axi_adapter_arbiter)
             |vpiLhs:
             \_ref_obj: (work@axi_adapter_arbiter.state_d), line:23:11, endln:23:18
               |vpiParent:
-              \_begin: (work@axi_adapter_arbiter), line:22:34, endln:24:10
+              \_assignment: , line:23:11, endln:23:28
               |vpiName:state_d
               |vpiFullName:work@axi_adapter_arbiter.state_d
               |vpiActual:
@@ -1145,29 +1143,27 @@ design: (work@axi_adapter_arbiter)
             \_operation: , line:22:12, endln:22:32
             |vpiName:req_i[i].req
             |vpiActual:
-            \_bit_select: (req_i), line:22:12, endln:22:17
+            \_bit_select: (req_i[i]), line:22:12, endln:22:17
               |vpiParent:
-              \_ref_obj: (work@axi_adapter_arbiter.req_i[i])
-                |vpiParent:
-                \_hier_path: (req_i[i].req), line:22:12, endln:22:24
-                |vpiName:req_i[i]
-                |vpiFullName:work@axi_adapter_arbiter.req_i[i]
+              \_hier_path: (req_i[i].req), line:22:12, endln:22:24
               |vpiName:req_i
-              |vpiIndex:
-              \_ref_obj: (work@axi_adapter_arbiter.req_i[i].i), line:22:18, endln:22:19
-                |vpiParent:
-                \_bit_select: (req_i), line:22:12, endln:22:17
-                |vpiName:i
-                |vpiFullName:work@axi_adapter_arbiter.req_i[i].i
-                |vpiActual:
-                \_logic_net: (i)
+              |vpiFullName:req_i[i]
               |vpiActual:
               \_packed_array_var: (work@axi_adapter_arbiter.req_i), line:19:34, endln:19:39
+              |vpiIndex:
+              \_ref_obj: (work@axi_adapter_arbiter.req_i[i].req.i), line:22:18, endln:22:19
+                |vpiParent:
+                \_bit_select: (req_i[i]), line:22:12, endln:22:17
+                |vpiName:i
+                |vpiFullName:work@axi_adapter_arbiter.req_i[i].req.i
+                |vpiActual:
+                \_logic_net: (i)
             |vpiActual:
-            \_ref_obj: (req), line:22:21, endln:22:24
+            \_ref_obj: (work@axi_adapter_arbiter.req), line:22:21, endln:22:24
               |vpiParent:
               \_hier_path: (req_i[i].req), line:22:12, endln:22:24
               |vpiName:req
+              |vpiFullName:work@axi_adapter_arbiter.req
               |vpiActual:
               \_typespec_member: (req), line:3:26, endln:3:29
           |vpiOperand:

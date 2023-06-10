@@ -3688,7 +3688,7 @@ param_assign                                         118
 parameter                                            125
 port                                                   6
 range                                                  9
-ref_obj                                              476
+ref_obj                                              437
 ref_var                                                1
 return_stmt                                           88
 short_int_typespec                                   104
@@ -3740,7 +3740,7 @@ param_assign                                         118
 parameter                                            125
 port                                                   9
 range                                                  9
-ref_obj                                             1082
+ref_obj                                             1006
 ref_var                                                1
 return_stmt                                          220
 short_int_typespec                                   104
@@ -4417,8 +4417,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:69:15, endln:69:16
-          |vpiParent:
-          \_assignment: , line:69:5, endln:69:16
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -4506,25 +4504,19 @@ design: (work@tnoc_vc_splitter)
             |vpiCondition:
             \_bit_select: (tnoc_pkg::tnoc_clog2::n), line:71:11, endln:71:15
               |vpiParent:
-              \_ref_obj: (tnoc_pkg::tnoc_clog2::n)
-                |vpiParent:
-                \_if_stmt: , line:71:7, endln:74:10
-                |vpiName:n
-                |vpiFullName:tnoc_pkg::tnoc_clog2::n
-                |vpiActual:
-                \_io_decl: (n), line:66:48, endln:66:49
+              \_if_stmt: , line:71:7, endln:74:10
               |vpiName:n
               |vpiFullName:tnoc_pkg::tnoc_clog2::n
+              |vpiActual:
+              \_io_decl: (n), line:66:48, endln:66:49
               |vpiIndex:
-              \_ref_obj: (tnoc_pkg::tnoc_clog2::n::i), line:71:13, endln:71:14
+              \_ref_obj: (tnoc_pkg::tnoc_clog2::i), line:71:13, endln:71:14
                 |vpiParent:
                 \_bit_select: (tnoc_pkg::tnoc_clog2::n), line:71:11, endln:71:15
                 |vpiName:i
-                |vpiFullName:tnoc_pkg::tnoc_clog2::n::i
+                |vpiFullName:tnoc_pkg::tnoc_clog2::i
                 |vpiActual:
                 \_int_var: (tnoc_pkg::tnoc_clog2::i), line:70:14, endln:70:15
-              |vpiActual:
-              \_io_decl: (n), line:66:48, endln:66:49
             |vpiStmt:
             \_begin: (tnoc_pkg::tnoc_clog2), line:71:17, endln:74:10
               |vpiParent:
@@ -4689,10 +4681,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:85:60, endln:85:73
           |vpiActual:
-          \_ref_obj: (size_x), line:86:23, endln:86:29
+          \_ref_obj: (tnoc_pkg::get_id_x_width::size_x), line:86:23, endln:86:29
             |vpiParent:
             \_hier_path: (packet_config.size_x), line:86:9, endln:86:29
             |vpiName:size_x
+            |vpiFullName:tnoc_pkg::get_id_x_width::size_x
             |vpiActual:
             \_typespec_member: (size_x), line:45:15, endln:45:21
         |vpiOperand:
@@ -4729,10 +4722,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:85:60, endln:85:73
               |vpiActual:
-              \_ref_obj: (size_x), line:87:39, endln:87:45
+              \_ref_obj: (tnoc_pkg::get_id_x_width::size_x), line:87:39, endln:87:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_x), line:87:25, endln:87:45
                 |vpiName:size_x
+                |vpiFullName:tnoc_pkg::get_id_x_width::size_x
                 |vpiActual:
                 \_typespec_member: (size_x), line:45:15, endln:45:21
             |vpiName:tnoc_clog2
@@ -4803,10 +4797,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:94:60, endln:94:73
           |vpiActual:
-          \_ref_obj: (size_y), line:95:23, endln:95:29
+          \_ref_obj: (tnoc_pkg::get_id_y_width::size_y), line:95:23, endln:95:29
             |vpiParent:
             \_hier_path: (packet_config.size_y), line:95:9, endln:95:29
             |vpiName:size_y
+            |vpiFullName:tnoc_pkg::get_id_y_width::size_y
             |vpiActual:
             \_typespec_member: (size_y), line:46:15, endln:46:21
         |vpiOperand:
@@ -4843,10 +4838,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:94:60, endln:94:73
               |vpiActual:
-              \_ref_obj: (size_y), line:96:39, endln:96:45
+              \_ref_obj: (tnoc_pkg::get_id_y_width::size_y), line:96:39, endln:96:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_y), line:96:25, endln:96:45
                 |vpiName:size_y
+                |vpiFullName:tnoc_pkg::get_id_y_width::size_y
                 |vpiActual:
                 \_typespec_member: (size_y), line:46:15, endln:46:21
             |vpiName:tnoc_clog2
@@ -4986,10 +4982,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:107:58, endln:107:71
           |vpiActual:
-          \_ref_obj: (virtual_channels), line:108:23, endln:108:39
+          \_ref_obj: (tnoc_pkg::get_vc_width::virtual_channels), line:108:23, endln:108:39
             |vpiParent:
             \_hier_path: (packet_config.virtual_channels), line:108:9, endln:108:39
             |vpiName:virtual_channels
+            |vpiFullName:tnoc_pkg::get_vc_width::virtual_channels
             |vpiActual:
             \_typespec_member: (virtual_channels), line:47:15, endln:47:31
         |vpiOperand:
@@ -5026,10 +5023,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:107:58, endln:107:71
               |vpiActual:
-              \_ref_obj: (virtual_channels), line:109:39, endln:109:55
+              \_ref_obj: (tnoc_pkg::get_vc_width::virtual_channels), line:109:39, endln:109:55
                 |vpiParent:
                 \_hier_path: (packet_config.virtual_channels), line:109:25, endln:109:55
                 |vpiName:virtual_channels
+                |vpiFullName:tnoc_pkg::get_vc_width::virtual_channels
                 |vpiActual:
                 \_typespec_member: (virtual_channels), line:47:15, endln:47:31
             |vpiName:tnoc_clog2
@@ -5100,10 +5098,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:116:59, endln:116:72
           |vpiActual:
-          \_ref_obj: (tags), line:117:23, endln:117:27
+          \_ref_obj: (tnoc_pkg::get_tag_width::tags), line:117:23, endln:117:27
             |vpiParent:
             \_hier_path: (packet_config.tags), line:117:9, endln:117:27
             |vpiName:tags
+            |vpiFullName:tnoc_pkg::get_tag_width::tags
             |vpiActual:
             \_typespec_member: (tags), line:48:15, endln:48:19
         |vpiOperand:
@@ -5140,10 +5139,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:116:59, endln:116:72
               |vpiActual:
-              \_ref_obj: (tags), line:118:39, endln:118:43
+              \_ref_obj: (tnoc_pkg::get_tag_width::tags), line:118:39, endln:118:43
                 |vpiParent:
                 \_hier_path: (packet_config.tags), line:118:25, endln:118:43
                 |vpiName:tags
+                |vpiFullName:tnoc_pkg::get_tag_width::tags
                 |vpiActual:
                 \_typespec_member: (tags), line:48:15, endln:48:19
             |vpiName:tnoc_clog2
@@ -5214,10 +5214,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:125:65, endln:125:78
           |vpiActual:
-          \_ref_obj: (max_data_width), line:126:23, endln:126:37
+          \_ref_obj: (tnoc_pkg::get_byte_size_width::max_data_width), line:126:23, endln:126:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:126:9, endln:126:37
             |vpiName:max_data_width
+            |vpiFullName:tnoc_pkg::get_byte_size_width::max_data_width
             |vpiActual:
             \_typespec_member: (max_data_width), line:51:15, endln:51:29
         |vpiOperand:
@@ -5268,10 +5269,11 @@ design: (work@tnoc_vc_splitter)
                       |vpiActual:
                       \_io_decl: (packet_config), line:125:65, endln:125:78
                     |vpiActual:
-                    \_ref_obj: (max_data_width), line:127:50, endln:127:64
+                    \_ref_obj: (tnoc_pkg::get_byte_size_width::max_data_width), line:127:50, endln:127:64
                       |vpiParent:
                       \_hier_path: (packet_config.max_data_width), line:127:36, endln:127:64
                       |vpiName:max_data_width
+                      |vpiFullName:tnoc_pkg::get_byte_size_width::max_data_width
                       |vpiActual:
                       \_typespec_member: (max_data_width), line:51:15, endln:51:29
                   |vpiOperand:
@@ -5367,10 +5369,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:134:67, endln:134:80
             |vpiActual:
-            \_ref_obj: (max_byte_length), line:135:37, endln:135:52
+            \_ref_obj: (tnoc_pkg::get_byte_length_width::max_byte_length), line:135:37, endln:135:52
               |vpiParent:
               \_hier_path: (packet_config.max_byte_length), line:135:23, endln:135:52
               |vpiName:max_byte_length
+              |vpiFullName:tnoc_pkg::get_byte_length_width::max_byte_length
               |vpiActual:
               \_typespec_member: (max_byte_length), line:52:15, endln:52:30
           |vpiOperand:
@@ -5432,10 +5435,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:138:74, endln:138:87
           |vpiActual:
-          \_ref_obj: (max_byte_length), line:139:23, endln:139:38
+          \_ref_obj: (tnoc_pkg::get_packed_byte_length_width::max_byte_length), line:139:23, endln:139:38
             |vpiParent:
             \_hier_path: (packet_config.max_byte_length), line:139:9, endln:139:38
             |vpiName:max_byte_length
+            |vpiFullName:tnoc_pkg::get_packed_byte_length_width::max_byte_length
             |vpiActual:
             \_typespec_member: (max_byte_length), line:52:15, endln:52:30
         |vpiOperand:
@@ -5472,10 +5476,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:138:74, endln:138:87
               |vpiActual:
-              \_ref_obj: (max_byte_length), line:140:39, endln:140:54
+              \_ref_obj: (tnoc_pkg::get_packed_byte_length_width::max_byte_length), line:140:39, endln:140:54
                 |vpiParent:
                 \_hier_path: (packet_config.max_byte_length), line:140:25, endln:140:54
                 |vpiName:max_byte_length
+                |vpiFullName:tnoc_pkg::get_packed_byte_length_width::max_byte_length
                 |vpiActual:
                 \_typespec_member: (max_byte_length), line:52:15, endln:52:30
             |vpiName:tnoc_clog2
@@ -5546,10 +5551,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:147:67, endln:147:80
           |vpiActual:
-          \_ref_obj: (max_data_width), line:148:23, endln:148:37
+          \_ref_obj: (tnoc_pkg::get_byte_offset_width::max_data_width), line:148:23, endln:148:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:148:9, endln:148:37
             |vpiName:max_data_width
+            |vpiFullName:tnoc_pkg::get_byte_offset_width::max_data_width
             |vpiActual:
             \_typespec_member: (max_data_width), line:51:15, endln:51:29
         |vpiOperand:
@@ -5591,10 +5597,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:147:67, endln:147:80
                 |vpiActual:
-                \_ref_obj: (max_data_width), line:149:39, endln:149:53
+                \_ref_obj: (tnoc_pkg::get_byte_offset_width::max_data_width), line:149:39, endln:149:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_data_width), line:149:25, endln:149:53
                   |vpiName:max_data_width
+                  |vpiFullName:tnoc_pkg::get_byte_offset_width::max_data_width
                   |vpiActual:
                   \_typespec_member: (max_data_width), line:51:15, endln:51:29
               |vpiOperand:
@@ -5673,10 +5680,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:156:64, endln:156:77
           |vpiActual:
-          \_ref_obj: (data_width), line:157:23, endln:157:33
+          \_ref_obj: (tnoc_pkg::get_byte_end_width::data_width), line:157:23, endln:157:33
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:157:9, endln:157:33
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_byte_end_width::data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiOperand:
@@ -5718,10 +5726,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:156:64, endln:156:77
                 |vpiActual:
-                \_ref_obj: (data_width), line:158:39, endln:158:49
+                \_ref_obj: (tnoc_pkg::get_byte_end_width::data_width), line:158:39, endln:158:49
                   |vpiParent:
                   \_hier_path: (packet_config.data_width), line:158:25, endln:158:49
                   |vpiName:data_width
+                  |vpiFullName:tnoc_pkg::get_byte_end_width::data_width
                   |vpiActual:
                   \_typespec_member: (data_width), line:50:15, endln:50:25
               |vpiOperand:
@@ -5828,10 +5837,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:165:68, endln:165:81
             |vpiActual:
-            \_ref_obj: (data_width), line:167:33, endln:167:43
+            \_ref_obj: (tnoc_pkg::get_burst_length_width::data_width), line:167:33, endln:167:43
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:167:19, endln:167:43
               |vpiName:data_width
+              |vpiFullName:tnoc_pkg::get_burst_length_width::data_width
               |vpiActual:
               \_typespec_member: (data_width), line:50:15, endln:50:25
           |vpiOperand:
@@ -5883,10 +5893,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:165:68, endln:165:81
                 |vpiActual:
-                \_ref_obj: (max_byte_length), line:168:38, endln:168:53
+                \_ref_obj: (tnoc_pkg::get_burst_length_width::max_byte_length), line:168:38, endln:168:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_byte_length), line:168:24, endln:168:53
                   |vpiName:max_byte_length
+                  |vpiFullName:tnoc_pkg::get_burst_length_width::max_byte_length
                   |vpiActual:
                   \_typespec_member: (max_byte_length), line:52:15, endln:52:30
               |vpiOperand:
@@ -6015,15 +6026,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_request_packet_type::packet_type), line:204:52, endln:204:94
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_request_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:204:51, endln:204:94
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:203:68, endln:203:79
+            \_operation: , line:204:51, endln:204:94
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:203:68, endln:203:79
             |vpiIndex:
             \_constant: , line:204:64, endln:204:93
               |vpiParent:
@@ -6039,8 +6046,6 @@ design: (work@tnoc_vc_splitter)
                 \_package: (tnoc_pkg)
                 |vpiSigned:1
               |vpiConstType:9
-            |vpiActual:
-            \_io_decl: (packet_type), line:203:68, endln:203:79
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6094,15 +6099,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_response_packet_type::packet_type), line:208:50, endln:208:92
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_response_packet_type::packet_type)
-            |vpiParent:
-            \_operation: , line:208:13, endln:208:92
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:207:69, endln:207:80
+          \_operation: , line:208:13, endln:208:92
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:207:69, endln:207:80
           |vpiIndex:
           \_constant: , line:208:62, endln:208:91
             |vpiParent:
@@ -6118,8 +6119,6 @@ design: (work@tnoc_vc_splitter)
               \_package: (tnoc_pkg)
               |vpiSigned:1
             |vpiConstType:9
-          |vpiActual:
-          \_io_decl: (packet_type), line:207:69, endln:207:80
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6173,15 +6172,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_packet_with_payload_type::packet_type), line:212:50, endln:212:91
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_packet_with_payload_type::packet_type)
-            |vpiParent:
-            \_operation: , line:212:13, endln:212:91
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:211:73, endln:211:84
+          \_operation: , line:212:13, endln:212:91
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:211:73, endln:211:84
           |vpiIndex:
           \_constant: , line:212:62, endln:212:90
             |vpiParent:
@@ -6197,8 +6192,6 @@ design: (work@tnoc_vc_splitter)
               \_package: (tnoc_pkg)
               |vpiSigned:1
             |vpiConstType:9
-          |vpiActual:
-          \_io_decl: (packet_type), line:211:73, endln:211:84
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6257,15 +6250,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_header_only_packet_type::packet_type), line:216:52, endln:216:93
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_header_only_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:216:51, endln:216:93
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:215:72, endln:215:83
+            \_operation: , line:216:51, endln:216:93
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:215:72, endln:215:83
             |vpiIndex:
             \_constant: , line:216:64, endln:216:92
               |vpiParent:
@@ -6281,8 +6270,6 @@ design: (work@tnoc_vc_splitter)
                 \_package: (tnoc_pkg)
                 |vpiSigned:1
               |vpiConstType:9
-            |vpiActual:
-            \_io_decl: (packet_type), line:215:72, endln:215:83
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6341,15 +6328,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_posted_request_packet_type::packet_type), line:220:54, endln:220:98
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_posted_request_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:220:53, endln:220:98
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:219:75, endln:219:86
+            \_operation: , line:220:53, endln:220:98
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:219:75, endln:219:86
             |vpiIndex:
             \_constant: , line:220:66, endln:220:97
               |vpiParent:
@@ -6365,8 +6348,6 @@ design: (work@tnoc_vc_splitter)
                 \_package: (tnoc_pkg)
                 |vpiSigned:1
               |vpiConstType:9
-            |vpiActual:
-            \_io_decl: (packet_type), line:219:75, endln:219:86
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6420,15 +6401,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_non_posted_request_packet_type::packet_type), line:224:52, endln:224:96
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_non_posted_request_packet_type::packet_type)
-            |vpiParent:
-            \_operation: , line:224:13, endln:224:96
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:223:79, endln:223:90
+          \_operation: , line:224:13, endln:224:96
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:223:79, endln:223:90
           |vpiIndex:
           \_constant: , line:224:64, endln:224:95
             |vpiParent:
@@ -6444,8 +6421,6 @@ design: (work@tnoc_vc_splitter)
               \_package: (tnoc_pkg)
               |vpiSigned:1
             |vpiConstType:9
-          |vpiActual:
-          \_io_decl: (packet_type), line:223:79, endln:223:90
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6506,8 +6481,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:229:13, endln:229:14
-          |vpiParent:
-          \_assignment: , line:229:5, endln:229:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -6528,8 +6501,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:230:14, endln:230:37
-          |vpiParent:
-          \_assignment: , line:230:5, endln:230:37
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -6666,8 +6637,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:235:14, endln:235:15
-          |vpiParent:
-          \_assignment: , line:235:5, endln:235:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -6752,8 +6721,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:241:13, endln:241:14
-          |vpiParent:
-          \_assignment: , line:241:5, endln:241:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -6872,10 +6839,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:239:70, endln:239:83
           |vpiActual:
-          \_ref_obj: (address_width), line:245:28, endln:245:41
+          \_ref_obj: (tnoc_pkg::get_request_header_width::address_width), line:245:28, endln:245:41
             |vpiParent:
             \_hier_path: (packet_config.address_width), line:245:14, endln:245:41
             |vpiName:address_width
+            |vpiFullName:tnoc_pkg::get_request_header_width::address_width
             |vpiActual:
             \_typespec_member: (address_width), line:49:15, endln:49:28
         |vpiLhs:
@@ -6894,8 +6862,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:246:14, endln:246:36
-          |vpiParent:
-          \_assignment: , line:246:5, endln:246:36
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -6980,8 +6946,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:252:13, endln:252:14
-          |vpiParent:
-          \_assignment: , line:252:5, endln:252:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -7089,8 +7053,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:256:14, endln:256:41
-          |vpiParent:
-          \_assignment: , line:256:5, endln:256:41
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -7175,8 +7137,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:263:13, endln:263:14
-          |vpiParent:
-          \_assignment: , line:263:5, endln:263:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -7393,8 +7353,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:276:13, endln:276:14
-          |vpiParent:
-          \_assignment: , line:276:5, endln:276:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -7426,10 +7384,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:274:71, endln:274:84
           |vpiActual:
-          \_ref_obj: (data_width), line:277:28, endln:277:38
+          \_ref_obj: (tnoc_pkg::get_request_payload_width::data_width), line:277:28, endln:277:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:277:14, endln:277:38
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_request_payload_width::data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiLhs:
@@ -7464,10 +7423,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:274:71, endln:274:84
             |vpiActual:
-            \_ref_obj: (data_width), line:278:28, endln:278:38
+            \_ref_obj: (tnoc_pkg::get_request_payload_width::data_width), line:278:28, endln:278:38
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:278:14, endln:278:38
               |vpiName:data_width
+              |vpiFullName:tnoc_pkg::get_request_payload_width::data_width
               |vpiActual:
               \_typespec_member: (data_width), line:50:15, endln:50:25
           |vpiOperand:
@@ -7558,8 +7518,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:284:13, endln:284:14
-          |vpiParent:
-          \_assignment: , line:284:5, endln:284:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -7591,10 +7549,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:282:72, endln:282:85
           |vpiActual:
-          \_ref_obj: (data_width), line:285:28, endln:285:38
+          \_ref_obj: (tnoc_pkg::get_response_payload_width::data_width), line:285:28, endln:285:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:285:14, endln:285:38
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_response_payload_width::data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiLhs:
@@ -7613,8 +7572,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:286:14, endln:286:41
-          |vpiParent:
-          \_assignment: , line:286:5, endln:286:41
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -7664,8 +7621,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:288:14, endln:288:15
-          |vpiParent:
-          \_assignment: , line:288:5, endln:288:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -7750,8 +7705,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:295:13, endln:295:14
-          |vpiParent:
-          \_assignment: , line:295:5, endln:295:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -7968,8 +7921,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:317:13, endln:317:14
-          |vpiParent:
-          \_assignment: , line:317:5, endln:317:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -8186,8 +8137,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:331:13, endln:331:14
-          |vpiParent:
-          \_assignment: , line:331:5, endln:331:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -8208,8 +8157,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:332:14, endln:332:35
-          |vpiParent:
-          \_assignment: , line:332:5, endln:332:35
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -8230,8 +8177,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:333:14, endln:333:15
-          |vpiParent:
-          \_assignment: , line:333:5, endln:333:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -8252,8 +8197,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:334:14, endln:334:15
-          |vpiParent:
-          \_assignment: , line:334:5, endln:334:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -8731,8 +8674,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:359:13, endln:359:14
-          |vpiParent:
-          \_assignment: , line:359:5, endln:359:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -9795,8 +9736,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:69:15, endln:69:16
-          |vpiParent:
-          \_assignment: , line:69:5, endln:69:16
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -9884,25 +9823,19 @@ design: (work@tnoc_vc_splitter)
             |vpiCondition:
             \_bit_select: (tnoc_pkg::tnoc_clog2::n), line:71:11, endln:71:15
               |vpiParent:
-              \_ref_obj: (tnoc_pkg::tnoc_clog2::n)
-                |vpiParent:
-                \_if_stmt: , line:71:7, endln:74:10
-                |vpiName:n
-                |vpiFullName:tnoc_pkg::tnoc_clog2::n
-                |vpiActual:
-                \_io_decl: (n), line:66:48, endln:66:49
+              \_if_stmt: , line:71:7, endln:74:10
               |vpiName:n
               |vpiFullName:tnoc_pkg::tnoc_clog2::n
+              |vpiActual:
+              \_io_decl: (n), line:66:48, endln:66:49
               |vpiIndex:
-              \_ref_obj: (tnoc_pkg::tnoc_clog2::n::i), line:71:13, endln:71:14
+              \_ref_obj: (tnoc_pkg::tnoc_clog2::i), line:71:13, endln:71:14
                 |vpiParent:
                 \_bit_select: (tnoc_pkg::tnoc_clog2::n), line:71:11, endln:71:15
                 |vpiName:i
-                |vpiFullName:tnoc_pkg::tnoc_clog2::n::i
+                |vpiFullName:tnoc_pkg::tnoc_clog2::i
                 |vpiActual:
                 \_int_var: (tnoc_pkg::tnoc_clog2::i), line:70:14, endln:70:15
-              |vpiActual:
-              \_io_decl: (n), line:66:48, endln:66:49
             |vpiStmt:
             \_begin: (tnoc_pkg::tnoc_clog2), line:71:17, endln:74:10
               |vpiParent:
@@ -10067,10 +10000,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:85:60, endln:85:73
           |vpiActual:
-          \_ref_obj: (size_x), line:86:23, endln:86:29
+          \_ref_obj: (tnoc_pkg::get_id_x_width::size_x), line:86:23, endln:86:29
             |vpiParent:
             \_hier_path: (packet_config.size_x), line:86:9, endln:86:29
             |vpiName:size_x
+            |vpiFullName:tnoc_pkg::get_id_x_width::size_x
             |vpiActual:
             \_typespec_member: (size_x), line:45:15, endln:45:21
         |vpiOperand:
@@ -10107,10 +10041,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:85:60, endln:85:73
               |vpiActual:
-              \_ref_obj: (size_x), line:87:39, endln:87:45
+              \_ref_obj: (tnoc_pkg::get_id_x_width::size_x), line:87:39, endln:87:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_x), line:87:25, endln:87:45
                 |vpiName:size_x
+                |vpiFullName:tnoc_pkg::get_id_x_width::size_x
                 |vpiActual:
                 \_typespec_member: (size_x), line:45:15, endln:45:21
             |vpiName:tnoc_clog2
@@ -10181,10 +10116,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:94:60, endln:94:73
           |vpiActual:
-          \_ref_obj: (size_y), line:95:23, endln:95:29
+          \_ref_obj: (tnoc_pkg::get_id_y_width::size_y), line:95:23, endln:95:29
             |vpiParent:
             \_hier_path: (packet_config.size_y), line:95:9, endln:95:29
             |vpiName:size_y
+            |vpiFullName:tnoc_pkg::get_id_y_width::size_y
             |vpiActual:
             \_typespec_member: (size_y), line:46:15, endln:46:21
         |vpiOperand:
@@ -10221,10 +10157,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:94:60, endln:94:73
               |vpiActual:
-              \_ref_obj: (size_y), line:96:39, endln:96:45
+              \_ref_obj: (tnoc_pkg::get_id_y_width::size_y), line:96:39, endln:96:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_y), line:96:25, endln:96:45
                 |vpiName:size_y
+                |vpiFullName:tnoc_pkg::get_id_y_width::size_y
                 |vpiActual:
                 \_typespec_member: (size_y), line:46:15, endln:46:21
             |vpiName:tnoc_clog2
@@ -10364,10 +10301,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:107:58, endln:107:71
           |vpiActual:
-          \_ref_obj: (virtual_channels), line:108:23, endln:108:39
+          \_ref_obj: (tnoc_pkg::get_vc_width::virtual_channels), line:108:23, endln:108:39
             |vpiParent:
             \_hier_path: (packet_config.virtual_channels), line:108:9, endln:108:39
             |vpiName:virtual_channels
+            |vpiFullName:tnoc_pkg::get_vc_width::virtual_channels
             |vpiActual:
             \_typespec_member: (virtual_channels), line:47:15, endln:47:31
         |vpiOperand:
@@ -10404,10 +10342,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:107:58, endln:107:71
               |vpiActual:
-              \_ref_obj: (virtual_channels), line:109:39, endln:109:55
+              \_ref_obj: (tnoc_pkg::get_vc_width::virtual_channels), line:109:39, endln:109:55
                 |vpiParent:
                 \_hier_path: (packet_config.virtual_channels), line:109:25, endln:109:55
                 |vpiName:virtual_channels
+                |vpiFullName:tnoc_pkg::get_vc_width::virtual_channels
                 |vpiActual:
                 \_typespec_member: (virtual_channels), line:47:15, endln:47:31
             |vpiName:tnoc_clog2
@@ -10478,10 +10417,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:116:59, endln:116:72
           |vpiActual:
-          \_ref_obj: (tags), line:117:23, endln:117:27
+          \_ref_obj: (tnoc_pkg::get_tag_width::tags), line:117:23, endln:117:27
             |vpiParent:
             \_hier_path: (packet_config.tags), line:117:9, endln:117:27
             |vpiName:tags
+            |vpiFullName:tnoc_pkg::get_tag_width::tags
             |vpiActual:
             \_typespec_member: (tags), line:48:15, endln:48:19
         |vpiOperand:
@@ -10518,10 +10458,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:116:59, endln:116:72
               |vpiActual:
-              \_ref_obj: (tags), line:118:39, endln:118:43
+              \_ref_obj: (tnoc_pkg::get_tag_width::tags), line:118:39, endln:118:43
                 |vpiParent:
                 \_hier_path: (packet_config.tags), line:118:25, endln:118:43
                 |vpiName:tags
+                |vpiFullName:tnoc_pkg::get_tag_width::tags
                 |vpiActual:
                 \_typespec_member: (tags), line:48:15, endln:48:19
             |vpiName:tnoc_clog2
@@ -10592,10 +10533,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:125:65, endln:125:78
           |vpiActual:
-          \_ref_obj: (max_data_width), line:126:23, endln:126:37
+          \_ref_obj: (tnoc_pkg::get_byte_size_width::max_data_width), line:126:23, endln:126:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:126:9, endln:126:37
             |vpiName:max_data_width
+            |vpiFullName:tnoc_pkg::get_byte_size_width::max_data_width
             |vpiActual:
             \_typespec_member: (max_data_width), line:51:15, endln:51:29
         |vpiOperand:
@@ -10646,10 +10588,11 @@ design: (work@tnoc_vc_splitter)
                       |vpiActual:
                       \_io_decl: (packet_config), line:125:65, endln:125:78
                     |vpiActual:
-                    \_ref_obj: (max_data_width), line:127:50, endln:127:64
+                    \_ref_obj: (tnoc_pkg::get_byte_size_width::max_data_width), line:127:50, endln:127:64
                       |vpiParent:
                       \_hier_path: (packet_config.max_data_width), line:127:36, endln:127:64
                       |vpiName:max_data_width
+                      |vpiFullName:tnoc_pkg::get_byte_size_width::max_data_width
                       |vpiActual:
                       \_typespec_member: (max_data_width), line:51:15, endln:51:29
                   |vpiOperand:
@@ -10745,10 +10688,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:134:67, endln:134:80
             |vpiActual:
-            \_ref_obj: (max_byte_length), line:135:37, endln:135:52
+            \_ref_obj: (tnoc_pkg::get_byte_length_width::max_byte_length), line:135:37, endln:135:52
               |vpiParent:
               \_hier_path: (packet_config.max_byte_length), line:135:23, endln:135:52
               |vpiName:max_byte_length
+              |vpiFullName:tnoc_pkg::get_byte_length_width::max_byte_length
               |vpiActual:
               \_typespec_member: (max_byte_length), line:52:15, endln:52:30
           |vpiOperand:
@@ -10810,10 +10754,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:138:74, endln:138:87
           |vpiActual:
-          \_ref_obj: (max_byte_length), line:139:23, endln:139:38
+          \_ref_obj: (tnoc_pkg::get_packed_byte_length_width::max_byte_length), line:139:23, endln:139:38
             |vpiParent:
             \_hier_path: (packet_config.max_byte_length), line:139:9, endln:139:38
             |vpiName:max_byte_length
+            |vpiFullName:tnoc_pkg::get_packed_byte_length_width::max_byte_length
             |vpiActual:
             \_typespec_member: (max_byte_length), line:52:15, endln:52:30
         |vpiOperand:
@@ -10850,10 +10795,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:138:74, endln:138:87
               |vpiActual:
-              \_ref_obj: (max_byte_length), line:140:39, endln:140:54
+              \_ref_obj: (tnoc_pkg::get_packed_byte_length_width::max_byte_length), line:140:39, endln:140:54
                 |vpiParent:
                 \_hier_path: (packet_config.max_byte_length), line:140:25, endln:140:54
                 |vpiName:max_byte_length
+                |vpiFullName:tnoc_pkg::get_packed_byte_length_width::max_byte_length
                 |vpiActual:
                 \_typespec_member: (max_byte_length), line:52:15, endln:52:30
             |vpiName:tnoc_clog2
@@ -10924,10 +10870,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:147:67, endln:147:80
           |vpiActual:
-          \_ref_obj: (max_data_width), line:148:23, endln:148:37
+          \_ref_obj: (tnoc_pkg::get_byte_offset_width::max_data_width), line:148:23, endln:148:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:148:9, endln:148:37
             |vpiName:max_data_width
+            |vpiFullName:tnoc_pkg::get_byte_offset_width::max_data_width
             |vpiActual:
             \_typespec_member: (max_data_width), line:51:15, endln:51:29
         |vpiOperand:
@@ -10969,10 +10916,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:147:67, endln:147:80
                 |vpiActual:
-                \_ref_obj: (max_data_width), line:149:39, endln:149:53
+                \_ref_obj: (tnoc_pkg::get_byte_offset_width::max_data_width), line:149:39, endln:149:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_data_width), line:149:25, endln:149:53
                   |vpiName:max_data_width
+                  |vpiFullName:tnoc_pkg::get_byte_offset_width::max_data_width
                   |vpiActual:
                   \_typespec_member: (max_data_width), line:51:15, endln:51:29
               |vpiOperand:
@@ -11051,10 +10999,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:156:64, endln:156:77
           |vpiActual:
-          \_ref_obj: (data_width), line:157:23, endln:157:33
+          \_ref_obj: (tnoc_pkg::get_byte_end_width::data_width), line:157:23, endln:157:33
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:157:9, endln:157:33
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_byte_end_width::data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiOperand:
@@ -11096,10 +11045,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:156:64, endln:156:77
                 |vpiActual:
-                \_ref_obj: (data_width), line:158:39, endln:158:49
+                \_ref_obj: (tnoc_pkg::get_byte_end_width::data_width), line:158:39, endln:158:49
                   |vpiParent:
                   \_hier_path: (packet_config.data_width), line:158:25, endln:158:49
                   |vpiName:data_width
+                  |vpiFullName:tnoc_pkg::get_byte_end_width::data_width
                   |vpiActual:
                   \_typespec_member: (data_width), line:50:15, endln:50:25
               |vpiOperand:
@@ -11206,10 +11156,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:165:68, endln:165:81
             |vpiActual:
-            \_ref_obj: (data_width), line:167:33, endln:167:43
+            \_ref_obj: (tnoc_pkg::get_burst_length_width::data_width), line:167:33, endln:167:43
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:167:19, endln:167:43
               |vpiName:data_width
+              |vpiFullName:tnoc_pkg::get_burst_length_width::data_width
               |vpiActual:
               \_typespec_member: (data_width), line:50:15, endln:50:25
           |vpiOperand:
@@ -11261,10 +11212,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:165:68, endln:165:81
                 |vpiActual:
-                \_ref_obj: (max_byte_length), line:168:38, endln:168:53
+                \_ref_obj: (tnoc_pkg::get_burst_length_width::max_byte_length), line:168:38, endln:168:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_byte_length), line:168:24, endln:168:53
                   |vpiName:max_byte_length
+                  |vpiFullName:tnoc_pkg::get_burst_length_width::max_byte_length
                   |vpiActual:
                   \_typespec_member: (max_byte_length), line:52:15, endln:52:30
               |vpiOperand:
@@ -11393,15 +11345,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_request_packet_type::packet_type), line:204:52, endln:204:94
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_request_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:204:51, endln:204:94
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:203:68, endln:203:79
+            \_operation: , line:204:51, endln:204:94
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:203:68, endln:203:79
             |vpiIndex:
             \_constant: , line:204:64, endln:204:93
               |vpiParent:
@@ -11417,8 +11365,6 @@ design: (work@tnoc_vc_splitter)
                 \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
                 |vpiSigned:1
               |vpiConstType:9
-            |vpiActual:
-            \_io_decl: (packet_type), line:203:68, endln:203:79
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11472,15 +11418,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_response_packet_type::packet_type), line:208:50, endln:208:92
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_response_packet_type::packet_type)
-            |vpiParent:
-            \_operation: , line:208:13, endln:208:92
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:207:69, endln:207:80
+          \_operation: , line:208:13, endln:208:92
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:207:69, endln:207:80
           |vpiIndex:
           \_constant: , line:208:62, endln:208:91
             |vpiParent:
@@ -11496,8 +11438,6 @@ design: (work@tnoc_vc_splitter)
               \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
               |vpiSigned:1
             |vpiConstType:9
-          |vpiActual:
-          \_io_decl: (packet_type), line:207:69, endln:207:80
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11551,15 +11491,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_packet_with_payload_type::packet_type), line:212:50, endln:212:91
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_packet_with_payload_type::packet_type)
-            |vpiParent:
-            \_operation: , line:212:13, endln:212:91
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:211:73, endln:211:84
+          \_operation: , line:212:13, endln:212:91
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:211:73, endln:211:84
           |vpiIndex:
           \_constant: , line:212:62, endln:212:90
             |vpiParent:
@@ -11575,8 +11511,6 @@ design: (work@tnoc_vc_splitter)
               \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
               |vpiSigned:1
             |vpiConstType:9
-          |vpiActual:
-          \_io_decl: (packet_type), line:211:73, endln:211:84
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11635,15 +11569,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_header_only_packet_type::packet_type), line:216:52, endln:216:93
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_header_only_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:216:51, endln:216:93
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:215:72, endln:215:83
+            \_operation: , line:216:51, endln:216:93
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:215:72, endln:215:83
             |vpiIndex:
             \_constant: , line:216:64, endln:216:92
               |vpiParent:
@@ -11659,8 +11589,6 @@ design: (work@tnoc_vc_splitter)
                 \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
                 |vpiSigned:1
               |vpiConstType:9
-            |vpiActual:
-            \_io_decl: (packet_type), line:215:72, endln:215:83
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11719,15 +11647,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_posted_request_packet_type::packet_type), line:220:54, endln:220:98
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_posted_request_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:220:53, endln:220:98
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:219:75, endln:219:86
+            \_operation: , line:220:53, endln:220:98
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:219:75, endln:219:86
             |vpiIndex:
             \_constant: , line:220:66, endln:220:97
               |vpiParent:
@@ -11743,8 +11667,6 @@ design: (work@tnoc_vc_splitter)
                 \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
                 |vpiSigned:1
               |vpiConstType:9
-            |vpiActual:
-            \_io_decl: (packet_type), line:219:75, endln:219:86
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11798,15 +11720,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_non_posted_request_packet_type::packet_type), line:224:52, endln:224:96
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_non_posted_request_packet_type::packet_type)
-            |vpiParent:
-            \_operation: , line:224:13, endln:224:96
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:223:79, endln:223:90
+          \_operation: , line:224:13, endln:224:96
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:223:79, endln:223:90
           |vpiIndex:
           \_constant: , line:224:64, endln:224:95
             |vpiParent:
@@ -11822,8 +11740,6 @@ design: (work@tnoc_vc_splitter)
               \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
               |vpiSigned:1
             |vpiConstType:9
-          |vpiActual:
-          \_io_decl: (packet_type), line:223:79, endln:223:90
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -11884,8 +11800,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:229:13, endln:229:14
-          |vpiParent:
-          \_assignment: , line:229:5, endln:229:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -11906,8 +11820,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:230:14, endln:230:37
-          |vpiParent:
-          \_assignment: , line:230:5, endln:230:37
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -12044,8 +11956,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:235:14, endln:235:15
-          |vpiParent:
-          \_assignment: , line:235:5, endln:235:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -12130,8 +12040,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:241:13, endln:241:14
-          |vpiParent:
-          \_assignment: , line:241:5, endln:241:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -12250,10 +12158,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:239:70, endln:239:83
           |vpiActual:
-          \_ref_obj: (address_width), line:245:28, endln:245:41
+          \_ref_obj: (tnoc_pkg::get_request_header_width::address_width), line:245:28, endln:245:41
             |vpiParent:
             \_hier_path: (packet_config.address_width), line:245:14, endln:245:41
             |vpiName:address_width
+            |vpiFullName:tnoc_pkg::get_request_header_width::address_width
             |vpiActual:
             \_typespec_member: (address_width), line:49:15, endln:49:28
         |vpiLhs:
@@ -12272,8 +12181,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:246:14, endln:246:36
-          |vpiParent:
-          \_assignment: , line:246:5, endln:246:36
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -12358,8 +12265,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:252:13, endln:252:14
-          |vpiParent:
-          \_assignment: , line:252:5, endln:252:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -12467,8 +12372,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:256:14, endln:256:41
-          |vpiParent:
-          \_assignment: , line:256:5, endln:256:41
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -12553,8 +12456,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:263:13, endln:263:14
-          |vpiParent:
-          \_assignment: , line:263:5, endln:263:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -12771,8 +12672,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:276:13, endln:276:14
-          |vpiParent:
-          \_assignment: , line:276:5, endln:276:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -12804,10 +12703,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:274:71, endln:274:84
           |vpiActual:
-          \_ref_obj: (data_width), line:277:28, endln:277:38
+          \_ref_obj: (tnoc_pkg::get_request_payload_width::data_width), line:277:28, endln:277:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:277:14, endln:277:38
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_request_payload_width::data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiLhs:
@@ -12842,10 +12742,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:274:71, endln:274:84
             |vpiActual:
-            \_ref_obj: (data_width), line:278:28, endln:278:38
+            \_ref_obj: (tnoc_pkg::get_request_payload_width::data_width), line:278:28, endln:278:38
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:278:14, endln:278:38
               |vpiName:data_width
+              |vpiFullName:tnoc_pkg::get_request_payload_width::data_width
               |vpiActual:
               \_typespec_member: (data_width), line:50:15, endln:50:25
           |vpiOperand:
@@ -12936,8 +12837,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:284:13, endln:284:14
-          |vpiParent:
-          \_assignment: , line:284:5, endln:284:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -12969,10 +12868,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:282:72, endln:282:85
           |vpiActual:
-          \_ref_obj: (data_width), line:285:28, endln:285:38
+          \_ref_obj: (tnoc_pkg::get_response_payload_width::data_width), line:285:28, endln:285:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:285:14, endln:285:38
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_response_payload_width::data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiLhs:
@@ -12991,8 +12891,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:286:14, endln:286:41
-          |vpiParent:
-          \_assignment: , line:286:5, endln:286:41
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -13042,8 +12940,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:288:14, endln:288:15
-          |vpiParent:
-          \_assignment: , line:288:5, endln:288:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -13128,8 +13024,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:295:13, endln:295:14
-          |vpiParent:
-          \_assignment: , line:295:5, endln:295:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -13346,8 +13240,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:317:13, endln:317:14
-          |vpiParent:
-          \_assignment: , line:317:5, endln:317:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -13564,8 +13456,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:331:13, endln:331:14
-          |vpiParent:
-          \_assignment: , line:331:5, endln:331:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -13586,8 +13476,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:332:14, endln:332:35
-          |vpiParent:
-          \_assignment: , line:332:5, endln:332:35
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -13608,8 +13496,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:333:14, endln:333:15
-          |vpiParent:
-          \_assignment: , line:333:5, endln:333:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -13630,8 +13516,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:334:14, endln:334:15
-          |vpiParent:
-          \_assignment: , line:334:5, endln:334:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -14109,8 +13993,6 @@ design: (work@tnoc_vc_splitter)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:359:13, endln:359:14
-          |vpiParent:
-          \_assignment: , line:359:5, endln:359:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -15272,7 +15154,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::tnoc_clog2::result), line:69:5, endln:69:11
           |vpiParent:
-          \_begin: (tnoc_pkg::tnoc_clog2)
+          \_assignment: , line:69:5, endln:69:16
           |vpiName:result
           |vpiFullName:tnoc_pkg::tnoc_clog2::result
           |vpiActual:
@@ -15337,17 +15219,15 @@ design: (work@tnoc_vc_splitter)
             |vpiCondition:
             \_bit_select: (tnoc_pkg::tnoc_clog2::n), line:71:11, endln:71:15
               |vpiParent:
-              \_ref_obj: (tnoc_pkg::tnoc_clog2::n)
-                |vpiParent:
-                \_begin: (tnoc_pkg::tnoc_clog2), line:70:33, endln:75:8
-                |vpiName:n
-                |vpiFullName:tnoc_pkg::tnoc_clog2::n
+              \_begin: (tnoc_pkg::tnoc_clog2), line:70:33, endln:75:8
               |vpiName:n
               |vpiFullName:tnoc_pkg::tnoc_clog2::n
+              |vpiActual:
+              \_io_decl: (n), line:66:48, endln:66:49
               |vpiIndex:
               \_ref_obj: (tnoc_pkg::tnoc_clog2::i), line:71:13, endln:71:14
                 |vpiParent:
-                \_begin: (tnoc_pkg::tnoc_clog2), line:70:33, endln:75:8
+                \_bit_select: (tnoc_pkg::tnoc_clog2::n), line:71:11, endln:71:15
                 |vpiName:i
                 |vpiFullName:tnoc_pkg::tnoc_clog2::i
                 |vpiActual:
@@ -15366,7 +15246,7 @@ design: (work@tnoc_vc_splitter)
                 |vpiRhs:
                 \_ref_obj: (tnoc_pkg::tnoc_clog2::i), line:72:19, endln:72:20
                   |vpiParent:
-                  \_begin: (tnoc_pkg::tnoc_clog2), line:71:17, endln:74:10
+                  \_assignment: , line:72:9, endln:72:20
                   |vpiName:i
                   |vpiFullName:tnoc_pkg::tnoc_clog2::i
                   |vpiActual:
@@ -15374,7 +15254,7 @@ design: (work@tnoc_vc_splitter)
                 |vpiLhs:
                 \_ref_obj: (tnoc_pkg::tnoc_clog2::result), line:72:9, endln:72:15
                   |vpiParent:
-                  \_begin: (tnoc_pkg::tnoc_clog2), line:71:17, endln:74:10
+                  \_assignment: , line:72:9, endln:72:20
                   |vpiName:result
                   |vpiFullName:tnoc_pkg::tnoc_clog2::result
                   |vpiActual:
@@ -15395,7 +15275,7 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_operation: , line:77:10, endln:77:19
             |vpiParent:
-            \_begin: (tnoc_pkg::tnoc_clog2)
+            \_operation: , line:77:9, endln:77:25
             |vpiOpType:43
             |vpiOperand:
             \_constant: , line:77:10, endln:77:11
@@ -15449,7 +15329,7 @@ design: (work@tnoc_vc_splitter)
               |vpiOperand:
               \_ref_obj: (tnoc_pkg::tnoc_clog2::result), line:81:14, endln:81:20
                 |vpiParent:
-                \_begin: (tnoc_pkg::tnoc_clog2), line:80:10, endln:82:8
+                \_operation: , line:81:14, endln:81:24
                 |vpiName:result
                 |vpiFullName:tnoc_pkg::tnoc_clog2::result
                 |vpiActual:
@@ -15486,7 +15366,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.size_x), line:86:9, endln:86:29
           |vpiParent:
-          \_function: (tnoc_pkg::get_id_x_width), line:85:3, endln:92:14
+          \_operation: , line:86:9, endln:86:34
           |vpiName:packet_config.size_x
           |vpiActual:
           \_ref_obj: (packet_config), line:86:9, endln:86:22
@@ -15496,10 +15376,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:85:60, endln:85:73
           |vpiActual:
-          \_ref_obj: (size_x), line:86:23, endln:86:29
+          \_ref_obj: (tnoc_pkg::get_id_x_width::size_x), line:86:23, endln:86:29
             |vpiParent:
             \_hier_path: (packet_config.size_x), line:86:9, endln:86:29
             |vpiName:size_x
+            |vpiFullName:tnoc_pkg::get_id_x_width::size_x
         |vpiOperand:
         \_constant: , line:86:33, endln:86:34
       |vpiStmt:
@@ -15528,10 +15409,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:85:60, endln:85:73
               |vpiActual:
-              \_ref_obj: (size_x), line:87:39, endln:87:45
+              \_ref_obj: (tnoc_pkg::get_id_x_width::size_x), line:87:39, endln:87:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_x), line:87:25, endln:87:45
                 |vpiName:size_x
+                |vpiFullName:tnoc_pkg::get_id_x_width::size_x
             |vpiName:tnoc_clog2
             |vpiFunction:
             \_function: (tnoc_pkg::tnoc_clog2), line:66:3, endln:83:14
@@ -15576,7 +15458,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.size_y), line:95:9, endln:95:29
           |vpiParent:
-          \_function: (tnoc_pkg::get_id_y_width), line:94:3, endln:101:14
+          \_operation: , line:95:9, endln:95:34
           |vpiName:packet_config.size_y
           |vpiActual:
           \_ref_obj: (packet_config), line:95:9, endln:95:22
@@ -15586,10 +15468,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:94:60, endln:94:73
           |vpiActual:
-          \_ref_obj: (size_y), line:95:23, endln:95:29
+          \_ref_obj: (tnoc_pkg::get_id_y_width::size_y), line:95:23, endln:95:29
             |vpiParent:
             \_hier_path: (packet_config.size_y), line:95:9, endln:95:29
             |vpiName:size_y
+            |vpiFullName:tnoc_pkg::get_id_y_width::size_y
         |vpiOperand:
         \_constant: , line:95:33, endln:95:34
       |vpiStmt:
@@ -15618,10 +15501,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:94:60, endln:94:73
               |vpiActual:
-              \_ref_obj: (size_y), line:96:39, endln:96:45
+              \_ref_obj: (tnoc_pkg::get_id_y_width::size_y), line:96:39, endln:96:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_y), line:96:25, endln:96:45
                 |vpiName:size_y
+                |vpiFullName:tnoc_pkg::get_id_y_width::size_y
             |vpiName:tnoc_clog2
             |vpiFunction:
             \_function: (tnoc_pkg::tnoc_clog2), line:66:3, endln:83:14
@@ -15727,7 +15611,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.virtual_channels), line:108:9, endln:108:39
           |vpiParent:
-          \_function: (tnoc_pkg::get_vc_width), line:107:3, endln:114:14
+          \_operation: , line:108:9, endln:108:44
           |vpiName:packet_config.virtual_channels
           |vpiActual:
           \_ref_obj: (packet_config), line:108:9, endln:108:22
@@ -15737,10 +15621,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:107:58, endln:107:71
           |vpiActual:
-          \_ref_obj: (virtual_channels), line:108:23, endln:108:39
+          \_ref_obj: (tnoc_pkg::get_vc_width::virtual_channels), line:108:23, endln:108:39
             |vpiParent:
             \_hier_path: (packet_config.virtual_channels), line:108:9, endln:108:39
             |vpiName:virtual_channels
+            |vpiFullName:tnoc_pkg::get_vc_width::virtual_channels
         |vpiOperand:
         \_constant: , line:108:43, endln:108:44
       |vpiStmt:
@@ -15769,10 +15654,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:107:58, endln:107:71
               |vpiActual:
-              \_ref_obj: (virtual_channels), line:109:39, endln:109:55
+              \_ref_obj: (tnoc_pkg::get_vc_width::virtual_channels), line:109:39, endln:109:55
                 |vpiParent:
                 \_hier_path: (packet_config.virtual_channels), line:109:25, endln:109:55
                 |vpiName:virtual_channels
+                |vpiFullName:tnoc_pkg::get_vc_width::virtual_channels
             |vpiName:tnoc_clog2
             |vpiFunction:
             \_function: (tnoc_pkg::tnoc_clog2), line:66:3, endln:83:14
@@ -15817,7 +15703,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.tags), line:117:9, endln:117:27
           |vpiParent:
-          \_function: (tnoc_pkg::get_tag_width), line:116:3, endln:123:14
+          \_operation: , line:117:9, endln:117:32
           |vpiName:packet_config.tags
           |vpiActual:
           \_ref_obj: (packet_config), line:117:9, endln:117:22
@@ -15827,10 +15713,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:116:59, endln:116:72
           |vpiActual:
-          \_ref_obj: (tags), line:117:23, endln:117:27
+          \_ref_obj: (tnoc_pkg::get_tag_width::tags), line:117:23, endln:117:27
             |vpiParent:
             \_hier_path: (packet_config.tags), line:117:9, endln:117:27
             |vpiName:tags
+            |vpiFullName:tnoc_pkg::get_tag_width::tags
         |vpiOperand:
         \_constant: , line:117:31, endln:117:32
       |vpiStmt:
@@ -15859,10 +15746,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:116:59, endln:116:72
               |vpiActual:
-              \_ref_obj: (tags), line:118:39, endln:118:43
+              \_ref_obj: (tnoc_pkg::get_tag_width::tags), line:118:39, endln:118:43
                 |vpiParent:
                 \_hier_path: (packet_config.tags), line:118:25, endln:118:43
                 |vpiName:tags
+                |vpiFullName:tnoc_pkg::get_tag_width::tags
             |vpiName:tnoc_clog2
             |vpiFunction:
             \_function: (tnoc_pkg::tnoc_clog2), line:66:3, endln:83:14
@@ -15907,7 +15795,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.max_data_width), line:126:9, endln:126:37
           |vpiParent:
-          \_function: (tnoc_pkg::get_byte_size_width), line:125:3, endln:132:14
+          \_operation: , line:126:9, endln:126:43
           |vpiName:packet_config.max_data_width
           |vpiActual:
           \_ref_obj: (packet_config), line:126:9, endln:126:22
@@ -15917,10 +15805,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:125:65, endln:125:78
           |vpiActual:
-          \_ref_obj: (max_data_width), line:126:23, endln:126:37
+          \_ref_obj: (tnoc_pkg::get_byte_size_width::max_data_width), line:126:23, endln:126:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:126:9, endln:126:37
             |vpiName:max_data_width
+            |vpiFullName:tnoc_pkg::get_byte_size_width::max_data_width
         |vpiOperand:
         \_constant: , line:126:41, endln:126:43
       |vpiStmt:
@@ -15953,7 +15842,7 @@ design: (work@tnoc_vc_splitter)
                   |vpiOperand:
                   \_hier_path: (packet_config.max_data_width), line:127:36, endln:127:64
                     |vpiParent:
-                    \_func_call: (tnoc_clog2), line:127:25, endln:127:69
+                    \_operation: , line:127:36, endln:127:68
                     |vpiName:packet_config.max_data_width
                     |vpiActual:
                     \_ref_obj: (packet_config), line:127:36, endln:127:49
@@ -15963,10 +15852,11 @@ design: (work@tnoc_vc_splitter)
                       |vpiActual:
                       \_io_decl: (packet_config), line:125:65, endln:125:78
                     |vpiActual:
-                    \_ref_obj: (max_data_width), line:127:50, endln:127:64
+                    \_ref_obj: (tnoc_pkg::get_byte_size_width::max_data_width), line:127:50, endln:127:64
                       |vpiParent:
                       \_hier_path: (packet_config.max_data_width), line:127:36, endln:127:64
                       |vpiName:max_data_width
+                      |vpiFullName:tnoc_pkg::get_byte_size_width::max_data_width
                   |vpiOperand:
                   \_constant: , line:127:67, endln:127:68
                 |vpiName:tnoc_clog2
@@ -16024,7 +15914,7 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_hier_path: (packet_config.max_byte_length), line:135:23, endln:135:52
             |vpiParent:
-            \_func_call: (tnoc_clog2), line:135:12, endln:135:57
+            \_operation: , line:135:23, endln:135:56
             |vpiName:packet_config.max_byte_length
             |vpiActual:
             \_ref_obj: (packet_config), line:135:23, endln:135:36
@@ -16034,10 +15924,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:134:67, endln:134:80
             |vpiActual:
-            \_ref_obj: (max_byte_length), line:135:37, endln:135:52
+            \_ref_obj: (tnoc_pkg::get_byte_length_width::max_byte_length), line:135:37, endln:135:52
               |vpiParent:
               \_hier_path: (packet_config.max_byte_length), line:135:23, endln:135:52
               |vpiName:max_byte_length
+              |vpiFullName:tnoc_pkg::get_byte_length_width::max_byte_length
           |vpiOperand:
           \_constant: , line:135:55, endln:135:56
         |vpiName:tnoc_clog2
@@ -16073,7 +15964,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.max_byte_length), line:139:9, endln:139:38
           |vpiParent:
-          \_function: (tnoc_pkg::get_packed_byte_length_width), line:138:3, endln:145:14
+          \_operation: , line:139:9, endln:139:43
           |vpiName:packet_config.max_byte_length
           |vpiActual:
           \_ref_obj: (packet_config), line:139:9, endln:139:22
@@ -16083,10 +15974,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:138:74, endln:138:87
           |vpiActual:
-          \_ref_obj: (max_byte_length), line:139:23, endln:139:38
+          \_ref_obj: (tnoc_pkg::get_packed_byte_length_width::max_byte_length), line:139:23, endln:139:38
             |vpiParent:
             \_hier_path: (packet_config.max_byte_length), line:139:9, endln:139:38
             |vpiName:max_byte_length
+            |vpiFullName:tnoc_pkg::get_packed_byte_length_width::max_byte_length
         |vpiOperand:
         \_constant: , line:139:42, endln:139:43
       |vpiStmt:
@@ -16115,10 +16007,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:138:74, endln:138:87
               |vpiActual:
-              \_ref_obj: (max_byte_length), line:140:39, endln:140:54
+              \_ref_obj: (tnoc_pkg::get_packed_byte_length_width::max_byte_length), line:140:39, endln:140:54
                 |vpiParent:
                 \_hier_path: (packet_config.max_byte_length), line:140:25, endln:140:54
                 |vpiName:max_byte_length
+                |vpiFullName:tnoc_pkg::get_packed_byte_length_width::max_byte_length
             |vpiName:tnoc_clog2
             |vpiFunction:
             \_function: (tnoc_pkg::tnoc_clog2), line:66:3, endln:83:14
@@ -16163,7 +16056,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.max_data_width), line:148:9, endln:148:37
           |vpiParent:
-          \_function: (tnoc_pkg::get_byte_offset_width), line:147:3, endln:154:14
+          \_operation: , line:148:9, endln:148:43
           |vpiName:packet_config.max_data_width
           |vpiActual:
           \_ref_obj: (packet_config), line:148:9, endln:148:22
@@ -16173,10 +16066,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:147:67, endln:147:80
           |vpiActual:
-          \_ref_obj: (max_data_width), line:148:23, endln:148:37
+          \_ref_obj: (tnoc_pkg::get_byte_offset_width::max_data_width), line:148:23, endln:148:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:148:9, endln:148:37
             |vpiName:max_data_width
+            |vpiFullName:tnoc_pkg::get_byte_offset_width::max_data_width
         |vpiOperand:
         \_constant: , line:148:41, endln:148:43
       |vpiStmt:
@@ -16200,7 +16094,7 @@ design: (work@tnoc_vc_splitter)
               |vpiOperand:
               \_hier_path: (packet_config.max_data_width), line:149:25, endln:149:53
                 |vpiParent:
-                \_func_call: (tnoc_clog2), line:149:14, endln:149:58
+                \_operation: , line:149:25, endln:149:57
                 |vpiName:packet_config.max_data_width
                 |vpiActual:
                 \_ref_obj: (packet_config), line:149:25, endln:149:38
@@ -16210,10 +16104,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:147:67, endln:147:80
                 |vpiActual:
-                \_ref_obj: (max_data_width), line:149:39, endln:149:53
+                \_ref_obj: (tnoc_pkg::get_byte_offset_width::max_data_width), line:149:39, endln:149:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_data_width), line:149:25, endln:149:53
                   |vpiName:max_data_width
+                  |vpiFullName:tnoc_pkg::get_byte_offset_width::max_data_width
               |vpiOperand:
               \_constant: , line:149:56, endln:149:57
             |vpiName:tnoc_clog2
@@ -16260,7 +16155,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_hier_path: (packet_config.data_width), line:157:9, endln:157:33
           |vpiParent:
-          \_function: (tnoc_pkg::get_byte_end_width), line:156:3, endln:163:14
+          \_operation: , line:157:9, endln:157:39
           |vpiName:packet_config.data_width
           |vpiActual:
           \_ref_obj: (packet_config), line:157:9, endln:157:22
@@ -16270,10 +16165,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:156:64, endln:156:77
           |vpiActual:
-          \_ref_obj: (data_width), line:157:23, endln:157:33
+          \_ref_obj: (tnoc_pkg::get_byte_end_width::data_width), line:157:23, endln:157:33
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:157:9, endln:157:33
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_byte_end_width::data_width
         |vpiOperand:
         \_constant: , line:157:37, endln:157:39
       |vpiStmt:
@@ -16297,7 +16193,7 @@ design: (work@tnoc_vc_splitter)
               |vpiOperand:
               \_hier_path: (packet_config.data_width), line:158:25, endln:158:49
                 |vpiParent:
-                \_func_call: (tnoc_clog2), line:158:14, endln:158:54
+                \_operation: , line:158:25, endln:158:53
                 |vpiName:packet_config.data_width
                 |vpiActual:
                 \_ref_obj: (packet_config), line:158:25, endln:158:38
@@ -16307,10 +16203,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:156:64, endln:156:77
                 |vpiActual:
-                \_ref_obj: (data_width), line:158:39, endln:158:49
+                \_ref_obj: (tnoc_pkg::get_byte_end_width::data_width), line:158:39, endln:158:49
                   |vpiParent:
                   \_hier_path: (packet_config.data_width), line:158:25, endln:158:49
                   |vpiName:data_width
+                  |vpiFullName:tnoc_pkg::get_byte_end_width::data_width
               |vpiOperand:
               \_constant: , line:158:52, endln:158:53
             |vpiName:tnoc_clog2
@@ -16370,12 +16267,12 @@ design: (work@tnoc_vc_splitter)
         |vpiRhs:
         \_operation: , line:167:19, endln:167:47
           |vpiParent:
-          \_begin: (tnoc_pkg::get_burst_length_width)
+          \_assignment: , line:167:5, endln:167:47
           |vpiOpType:12
           |vpiOperand:
           \_hier_path: (packet_config.data_width), line:167:19, endln:167:43
             |vpiParent:
-            \_begin: (tnoc_pkg::get_burst_length_width)
+            \_operation: , line:167:19, endln:167:47
             |vpiName:packet_config.data_width
             |vpiActual:
             \_ref_obj: (packet_config), line:167:19, endln:167:32
@@ -16385,16 +16282,17 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:165:68, endln:165:81
             |vpiActual:
-            \_ref_obj: (data_width), line:167:33, endln:167:43
+            \_ref_obj: (tnoc_pkg::get_burst_length_width::data_width), line:167:33, endln:167:43
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:167:19, endln:167:43
               |vpiName:data_width
+              |vpiFullName:tnoc_pkg::get_burst_length_width::data_width
           |vpiOperand:
           \_constant: , line:167:46, endln:167:47
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_burst_length_width::byte_width), line:167:5, endln:167:15
           |vpiParent:
-          \_begin: (tnoc_pkg::get_burst_length_width)
+          \_assignment: , line:167:5, endln:167:47
           |vpiName:byte_width
           |vpiFullName:tnoc_pkg::get_burst_length_width::byte_width
           |vpiActual:
@@ -16417,12 +16315,12 @@ design: (work@tnoc_vc_splitter)
             |vpiOperand:
             \_operation: , line:168:24, endln:168:66
               |vpiParent:
-              \_func_call: (tnoc_clog2), line:168:12, endln:168:72
+              \_operation: , line:168:23, endln:168:71
               |vpiOpType:12
               |vpiOperand:
               \_hier_path: (packet_config.max_byte_length), line:168:24, endln:168:53
                 |vpiParent:
-                \_func_call: (tnoc_clog2), line:168:12, endln:168:72
+                \_operation: , line:168:24, endln:168:66
                 |vpiName:packet_config.max_byte_length
                 |vpiActual:
                 \_ref_obj: (packet_config), line:168:24, endln:168:37
@@ -16432,10 +16330,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:165:68, endln:165:81
                 |vpiActual:
-                \_ref_obj: (max_byte_length), line:168:38, endln:168:53
+                \_ref_obj: (tnoc_pkg::get_burst_length_width::max_byte_length), line:168:38, endln:168:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_byte_length), line:168:24, endln:168:53
                   |vpiName:max_byte_length
+                  |vpiFullName:tnoc_pkg::get_burst_length_width::max_byte_length
               |vpiOperand:
               \_ref_obj: (tnoc_pkg::get_burst_length_width::byte_width), line:168:56, endln:168:66
                 |vpiParent:
@@ -16479,7 +16378,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_ref_obj: (tnoc_pkg::is_valid_packet_type::packet_type), line:200:13, endln:200:24
           |vpiParent:
-          \_function: (tnoc_pkg::is_valid_packet_type), line:199:3, endln:201:14
+          \_operation: , line:200:13, endln:200:47
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_valid_packet_type::packet_type
           |vpiActual:
@@ -16544,13 +16443,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_request_packet_type::packet_type), line:204:52, endln:204:94
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_request_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:204:51, endln:204:94
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type
+            \_operation: , line:204:51, endln:204:94
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:203:68, endln:203:79
             |vpiIndex:
             \_constant: , line:204:64, endln:204:93
     |vpiInstance:
@@ -16600,13 +16497,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_response_packet_type::packet_type), line:208:50, endln:208:92
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_response_packet_type::packet_type)
-            |vpiParent:
-            \_operation: , line:208:13, endln:208:92
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type
+          \_operation: , line:208:13, endln:208:92
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:207:69, endln:207:80
           |vpiIndex:
           \_constant: , line:208:62, endln:208:91
     |vpiInstance:
@@ -16656,13 +16551,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_packet_with_payload_type::packet_type), line:212:50, endln:212:91
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_packet_with_payload_type::packet_type)
-            |vpiParent:
-            \_operation: , line:212:13, endln:212:91
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type
+          \_operation: , line:212:13, endln:212:91
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:211:73, endln:211:84
           |vpiIndex:
           \_constant: , line:212:62, endln:212:90
     |vpiInstance:
@@ -16717,13 +16610,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_header_only_packet_type::packet_type), line:216:52, endln:216:93
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_header_only_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:216:51, endln:216:93
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type
+            \_operation: , line:216:51, endln:216:93
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:215:72, endln:215:83
             |vpiIndex:
             \_constant: , line:216:64, endln:216:92
     |vpiInstance:
@@ -16778,13 +16669,11 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (tnoc_pkg::is_posted_request_packet_type::packet_type), line:220:54, endln:220:98
             |vpiParent:
-            \_ref_obj: (tnoc_pkg::is_posted_request_packet_type::packet_type)
-              |vpiParent:
-              \_operation: , line:220:53, endln:220:98
-              |vpiName:packet_type
-              |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type
+            \_operation: , line:220:53, endln:220:98
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type
+            |vpiActual:
+            \_io_decl: (packet_type), line:219:75, endln:219:86
             |vpiIndex:
             \_constant: , line:220:66, endln:220:97
     |vpiInstance:
@@ -16834,13 +16723,11 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (tnoc_pkg::is_non_posted_request_packet_type::packet_type), line:224:52, endln:224:96
           |vpiParent:
-          \_ref_obj: (tnoc_pkg::is_non_posted_request_packet_type::packet_type)
-            |vpiParent:
-            \_operation: , line:224:13, endln:224:96
-            |vpiName:packet_type
-            |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type
+          \_operation: , line:224:13, endln:224:96
           |vpiName:packet_type
           |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type
+          |vpiActual:
+          \_io_decl: (packet_type), line:223:79, endln:223:90
           |vpiIndex:
           \_constant: , line:224:64, endln:224:95
     |vpiInstance:
@@ -16888,7 +16775,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:229:5, endln:229:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_common_header_field_width)
+          \_assignment: , line:229:5, endln:229:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_common_header_field_width::width
           |vpiActual:
@@ -16904,7 +16791,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:230:5, endln:230:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_common_header_field_width)
+          \_assignment: , line:230:5, endln:230:37
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_common_header_field_width::width
           |vpiActual:
@@ -16933,7 +16820,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:231:5, endln:231:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_common_header_field_width)
+          \_assignment: , line:231:5, endln:231:50
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_common_header_field_width::width
           |vpiActual:
@@ -16962,7 +16849,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:232:5, endln:232:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_common_header_field_width)
+          \_assignment: , line:232:5, endln:232:50
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_common_header_field_width::width
           |vpiActual:
@@ -16991,7 +16878,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:233:5, endln:233:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_common_header_field_width)
+          \_assignment: , line:233:5, endln:233:41
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_common_header_field_width::width
           |vpiActual:
@@ -17020,7 +16907,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:234:5, endln:234:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_common_header_field_width)
+          \_assignment: , line:234:5, endln:234:42
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_common_header_field_width::width
           |vpiActual:
@@ -17036,7 +16923,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:235:5, endln:235:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_common_header_field_width)
+          \_assignment: , line:235:5, endln:235:15
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_common_header_field_width::width
           |vpiActual:
@@ -17098,7 +16985,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_width::width), line:241:5, endln:241:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_width)
+          \_assignment: , line:241:5, endln:241:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_header_width::width
           |vpiActual:
@@ -17127,7 +17014,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_width::width), line:242:5, endln:242:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_width)
+          \_assignment: , line:242:5, endln:242:58
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_header_width::width
           |vpiActual:
@@ -17156,7 +17043,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_width::width), line:243:5, endln:243:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_width)
+          \_assignment: , line:243:5, endln:243:48
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_header_width::width
           |vpiActual:
@@ -17185,7 +17072,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_width::width), line:244:5, endln:244:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_width)
+          \_assignment: , line:244:5, endln:244:57
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_header_width::width
           |vpiActual:
@@ -17199,7 +17086,7 @@ design: (work@tnoc_vc_splitter)
         |vpiRhs:
         \_hier_path: (packet_config.address_width), line:245:14, endln:245:41
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_width)
+          \_assignment: , line:245:5, endln:245:41
           |vpiName:packet_config.address_width
           |vpiActual:
           \_ref_obj: (packet_config), line:245:14, endln:245:27
@@ -17209,14 +17096,15 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:239:70, endln:239:83
           |vpiActual:
-          \_ref_obj: (address_width), line:245:28, endln:245:41
+          \_ref_obj: (tnoc_pkg::get_request_header_width::address_width), line:245:28, endln:245:41
             |vpiParent:
             \_hier_path: (packet_config.address_width), line:245:14, endln:245:41
             |vpiName:address_width
+            |vpiFullName:tnoc_pkg::get_request_header_width::address_width
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_width::width), line:245:5, endln:245:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_width)
+          \_assignment: , line:245:5, endln:245:41
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_header_width::width
           |vpiActual:
@@ -17232,7 +17120,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_width::width), line:246:5, endln:246:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_width)
+          \_assignment: , line:246:5, endln:246:36
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_header_width::width
           |vpiActual:
@@ -17294,7 +17182,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_width::width), line:252:5, endln:252:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_header_width)
+          \_assignment: , line:252:5, endln:252:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_header_width::width
           |vpiActual:
@@ -17323,7 +17211,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_width::width), line:253:5, endln:253:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_header_width)
+          \_assignment: , line:253:5, endln:253:58
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_header_width::width
           |vpiActual:
@@ -17352,7 +17240,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_width::width), line:254:5, endln:254:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_header_width)
+          \_assignment: , line:254:5, endln:254:48
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_header_width::width
           |vpiActual:
@@ -17381,7 +17269,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_width::width), line:255:5, endln:255:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_header_width)
+          \_assignment: , line:255:5, endln:255:50
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_header_width::width
           |vpiActual:
@@ -17397,7 +17285,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_width::width), line:256:5, endln:256:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_header_width)
+          \_assignment: , line:256:5, endln:256:41
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_header_width::width
           |vpiActual:
@@ -17459,7 +17347,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_header_width::width), line:263:5, endln:263:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_header_width)
+          \_assignment: , line:263:5, endln:263:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_header_width::width
           |vpiActual:
@@ -17525,7 +17413,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_header_width::width), line:265:7, endln:265:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_header_width), line:264:58, endln:266:8
+              \_assignment: , line:265:7, endln:265:54
               |vpiName:width
               |vpiFullName:tnoc_pkg::get_header_width::width
               |vpiActual:
@@ -17591,7 +17479,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_header_width::width), line:268:7, endln:268:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_header_width), line:267:59, endln:269:8
+              \_assignment: , line:268:7, endln:268:55
               |vpiName:width
               |vpiFullName:tnoc_pkg::get_header_width::width
               |vpiActual:
@@ -17653,7 +17541,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_payload_width::width), line:276:5, endln:276:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_payload_width)
+          \_assignment: , line:276:5, endln:276:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_payload_width::width
           |vpiActual:
@@ -17667,7 +17555,7 @@ design: (work@tnoc_vc_splitter)
         |vpiRhs:
         \_hier_path: (packet_config.data_width), line:277:14, endln:277:38
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_payload_width)
+          \_assignment: , line:277:5, endln:277:38
           |vpiName:packet_config.data_width
           |vpiActual:
           \_ref_obj: (packet_config), line:277:14, endln:277:27
@@ -17677,14 +17565,15 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:274:71, endln:274:84
           |vpiActual:
-          \_ref_obj: (data_width), line:277:28, endln:277:38
+          \_ref_obj: (tnoc_pkg::get_request_payload_width::data_width), line:277:28, endln:277:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:277:14, endln:277:38
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_request_payload_width::data_width
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_payload_width::width), line:277:5, endln:277:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_payload_width)
+          \_assignment: , line:277:5, endln:277:38
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_payload_width::width
           |vpiActual:
@@ -17698,12 +17587,12 @@ design: (work@tnoc_vc_splitter)
         |vpiRhs:
         \_operation: , line:278:14, endln:278:42
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_payload_width)
+          \_assignment: , line:278:5, endln:278:42
           |vpiOpType:12
           |vpiOperand:
           \_hier_path: (packet_config.data_width), line:278:14, endln:278:38
             |vpiParent:
-            \_begin: (tnoc_pkg::get_request_payload_width)
+            \_operation: , line:278:14, endln:278:42
             |vpiName:packet_config.data_width
             |vpiActual:
             \_ref_obj: (packet_config), line:278:14, endln:278:27
@@ -17713,16 +17602,17 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:274:71, endln:274:84
             |vpiActual:
-            \_ref_obj: (data_width), line:278:28, endln:278:38
+            \_ref_obj: (tnoc_pkg::get_request_payload_width::data_width), line:278:28, endln:278:38
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:278:14, endln:278:38
               |vpiName:data_width
+              |vpiFullName:tnoc_pkg::get_request_payload_width::data_width
           |vpiOperand:
           \_constant: , line:278:41, endln:278:42
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_payload_width::width), line:278:5, endln:278:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_payload_width)
+          \_assignment: , line:278:5, endln:278:42
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_request_payload_width::width
           |vpiActual:
@@ -17784,7 +17674,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_payload_width::width), line:284:5, endln:284:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_payload_width)
+          \_assignment: , line:284:5, endln:284:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_payload_width::width
           |vpiActual:
@@ -17798,7 +17688,7 @@ design: (work@tnoc_vc_splitter)
         |vpiRhs:
         \_hier_path: (packet_config.data_width), line:285:14, endln:285:38
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_payload_width)
+          \_assignment: , line:285:5, endln:285:38
           |vpiName:packet_config.data_width
           |vpiActual:
           \_ref_obj: (packet_config), line:285:14, endln:285:27
@@ -17808,14 +17698,15 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:282:72, endln:282:85
           |vpiActual:
-          \_ref_obj: (data_width), line:285:28, endln:285:38
+          \_ref_obj: (tnoc_pkg::get_response_payload_width::data_width), line:285:28, endln:285:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:285:14, endln:285:38
             |vpiName:data_width
+            |vpiFullName:tnoc_pkg::get_response_payload_width::data_width
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_payload_width::width), line:285:5, endln:285:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_payload_width)
+          \_assignment: , line:285:5, endln:285:38
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_payload_width::width
           |vpiActual:
@@ -17831,7 +17722,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_payload_width::width), line:286:5, endln:286:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_payload_width)
+          \_assignment: , line:286:5, endln:286:41
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_payload_width::width
           |vpiActual:
@@ -17860,7 +17751,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_payload_width::width), line:287:5, endln:287:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_payload_width)
+          \_assignment: , line:287:5, endln:287:47
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_payload_width::width
           |vpiActual:
@@ -17876,7 +17767,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_payload_width::width), line:288:5, endln:288:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_payload_width)
+          \_assignment: , line:288:5, endln:288:15
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_response_payload_width::width
           |vpiActual:
@@ -17938,7 +17829,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_payload_width::width), line:295:5, endln:295:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_payload_width)
+          \_assignment: , line:295:5, endln:295:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_payload_width::width
           |vpiActual:
@@ -18004,7 +17895,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_payload_width::width), line:297:7, endln:297:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_payload_width), line:296:59, endln:298:8
+              \_assignment: , line:297:7, endln:297:55
               |vpiName:width
               |vpiFullName:tnoc_pkg::get_payload_width::width
               |vpiActual:
@@ -18070,7 +17961,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_payload_width::width), line:300:7, endln:300:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_payload_width), line:299:60, endln:301:8
+              \_assignment: , line:300:7, endln:300:56
               |vpiName:width
               |vpiFullName:tnoc_pkg::get_payload_width::width
               |vpiActual:
@@ -18132,7 +18023,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_flit_data_width::width), line:317:5, endln:317:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_flit_data_width)
+          \_assignment: , line:317:5, endln:317:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_flit_data_width::width
           |vpiActual:
@@ -18198,7 +18089,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_flit_data_width::width), line:319:7, endln:319:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_flit_data_width), line:318:63, endln:320:8
+              \_assignment: , line:319:7, endln:319:59
               |vpiName:width
               |vpiFullName:tnoc_pkg::get_flit_data_width::width
               |vpiActual:
@@ -18264,7 +18155,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_flit_data_width::width), line:322:7, endln:322:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_flit_data_width), line:321:51, endln:323:8
+              \_assignment: , line:322:7, endln:322:47
               |vpiName:width
               |vpiFullName:tnoc_pkg::get_flit_data_width::width
               |vpiActual:
@@ -18326,7 +18217,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_flit_width::width), line:331:5, endln:331:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_flit_width)
+          \_assignment: , line:331:5, endln:331:14
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_flit_width::width
           |vpiActual:
@@ -18342,7 +18233,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_flit_width::width), line:332:5, endln:332:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_flit_width)
+          \_assignment: , line:332:5, endln:332:35
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_flit_width::width
           |vpiActual:
@@ -18358,7 +18249,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_flit_width::width), line:333:5, endln:333:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_flit_width)
+          \_assignment: , line:333:5, endln:333:15
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_flit_width::width
           |vpiActual:
@@ -18374,7 +18265,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_flit_width::width), line:334:5, endln:334:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_flit_width)
+          \_assignment: , line:334:5, endln:334:15
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_flit_width::width
           |vpiActual:
@@ -18403,7 +18294,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_flit_width::width), line:335:5, endln:335:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_flit_width)
+          \_assignment: , line:335:5, endln:335:48
           |vpiName:width
           |vpiFullName:tnoc_pkg::get_flit_width::width
           |vpiActual:
@@ -18489,7 +18380,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_flits::header_width), line:343:5, endln:343:17
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_flits)
+          \_assignment: , line:343:5, endln:343:60
           |vpiName:header_width
           |vpiFullName:tnoc_pkg::get_request_header_flits::header_width
           |vpiActual:
@@ -18518,7 +18409,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_flits::flit_width), line:344:5, endln:344:15
           |vpiParent:
-          \_begin: (tnoc_pkg::get_request_header_flits)
+          \_assignment: , line:344:5, endln:344:55
           |vpiName:flit_width
           |vpiFullName:tnoc_pkg::get_request_header_flits::flit_width
           |vpiActual:
@@ -18535,17 +18426,17 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_operation: , line:345:13, endln:345:42
             |vpiParent:
-            \_begin: (tnoc_pkg::get_request_header_flits)
+            \_operation: , line:345:12, endln:345:56
             |vpiOpType:11
             |vpiOperand:
             \_operation: , line:345:13, endln:345:38
               |vpiParent:
-              \_begin: (tnoc_pkg::get_request_header_flits)
+              \_operation: , line:345:13, endln:345:42
               |vpiOpType:24
               |vpiOperand:
               \_ref_obj: (tnoc_pkg::get_request_header_flits::header_width), line:345:13, endln:345:25
                 |vpiParent:
-                \_begin: (tnoc_pkg::get_request_header_flits)
+                \_operation: , line:345:13, endln:345:38
                 |vpiName:header_width
                 |vpiFullName:tnoc_pkg::get_request_header_flits::header_width
                 |vpiActual:
@@ -18637,7 +18528,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_flits::header_width), line:351:5, endln:351:17
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_header_flits)
+          \_assignment: , line:351:5, endln:351:61
           |vpiName:header_width
           |vpiFullName:tnoc_pkg::get_response_header_flits::header_width
           |vpiActual:
@@ -18666,7 +18557,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_flits::flit_width), line:352:5, endln:352:15
           |vpiParent:
-          \_begin: (tnoc_pkg::get_response_header_flits)
+          \_assignment: , line:352:5, endln:352:55
           |vpiName:flit_width
           |vpiFullName:tnoc_pkg::get_response_header_flits::flit_width
           |vpiActual:
@@ -18683,17 +18574,17 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_operation: , line:353:13, endln:353:42
             |vpiParent:
-            \_begin: (tnoc_pkg::get_response_header_flits)
+            \_operation: , line:353:12, endln:353:56
             |vpiOpType:11
             |vpiOperand:
             \_operation: , line:353:13, endln:353:38
               |vpiParent:
-              \_begin: (tnoc_pkg::get_response_header_flits)
+              \_operation: , line:353:13, endln:353:42
               |vpiOpType:24
               |vpiOperand:
               \_ref_obj: (tnoc_pkg::get_response_header_flits::header_width), line:353:13, endln:353:25
                 |vpiParent:
-                \_begin: (tnoc_pkg::get_response_header_flits)
+                \_operation: , line:353:13, endln:353:38
                 |vpiName:header_width
                 |vpiFullName:tnoc_pkg::get_response_header_flits::header_width
                 |vpiActual:
@@ -18761,7 +18652,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_header_flits::flits), line:359:5, endln:359:10
           |vpiParent:
-          \_begin: (tnoc_pkg::get_header_flits)
+          \_assignment: , line:359:5, endln:359:14
           |vpiName:flits
           |vpiFullName:tnoc_pkg::get_header_flits::flits
           |vpiActual:
@@ -18827,7 +18718,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_header_flits::flits), line:361:7, endln:361:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_header_flits), line:360:58, endln:362:8
+              \_assignment: , line:361:7, endln:361:54
               |vpiName:flits
               |vpiFullName:tnoc_pkg::get_header_flits::flits
               |vpiActual:
@@ -18893,7 +18784,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_ref_obj: (tnoc_pkg::get_header_flits::flits), line:364:7, endln:364:12
               |vpiParent:
-              \_begin: (tnoc_pkg::get_header_flits), line:363:59, endln:365:8
+              \_assignment: , line:364:7, endln:364:55
               |vpiName:flits
               |vpiFullName:tnoc_pkg::get_header_flits::flits
               |vpiActual:
@@ -18940,7 +18831,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_ref_obj: (tnoc_pkg::is_local_port::port_type), line:379:13, endln:379:22
           |vpiParent:
-          \_function: (tnoc_pkg::is_local_port), line:378:3, endln:380:14
+          \_operation: , line:379:13, endln:379:41
           |vpiName:port_type
           |vpiFullName:tnoc_pkg::is_local_port::port_type
           |vpiActual:
@@ -18977,7 +18868,7 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_ref_obj: (tnoc_pkg::is_interna_port::port_type), line:383:13, endln:383:22
           |vpiParent:
-          \_function: (tnoc_pkg::is_interna_port), line:382:3, endln:384:14
+          \_operation: , line:383:13, endln:383:44
           |vpiName:port_type
           |vpiFullName:tnoc_pkg::is_interna_port::port_type
           |vpiActual:
@@ -19054,7 +18945,7 @@ design: (work@tnoc_vc_splitter)
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_port_flit_width::flit_width), line:392:5, endln:392:15
           |vpiParent:
-          \_begin: (tnoc_pkg::get_port_flit_width)
+          \_assignment: , line:392:5, endln:392:48
           |vpiName:flit_width
           |vpiFullName:tnoc_pkg::get_port_flit_width::flit_width
           |vpiActual:
@@ -19066,7 +18957,7 @@ design: (work@tnoc_vc_splitter)
         |vpiCondition:
         \_func_call: (is_local_port), line:393:9, endln:393:33
           |vpiParent:
-          \_if_else: , line:393:5, endln:398:8
+          \_begin: (tnoc_pkg::get_port_flit_width)
           |vpiArgument:
           \_ref_obj: (tnoc_pkg::get_port_flit_width::port_type), line:393:23, endln:393:32
             |vpiParent:
@@ -19095,7 +18986,7 @@ design: (work@tnoc_vc_splitter)
               |vpiOperand:
               \_ref_obj: (tnoc_pkg::get_port_flit_width::channels), line:394:14, endln:394:22
                 |vpiParent:
-                \_begin: (tnoc_pkg::get_port_flit_width), line:393:35, endln:395:8
+                \_operation: , line:394:14, endln:394:35
                 |vpiName:channels
                 |vpiFullName:tnoc_pkg::get_port_flit_width::channels
                 |vpiActual:
@@ -19280,7 +19171,7 @@ design: (work@tnoc_vc_splitter)
             |vpiRhs:
             \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
               |vpiParent:
-              \_begin: , line:416:17, endln:420:8
+              \_assignment: , line:417:7, endln:417:53
               |vpiName:receiver_if.valid[i]
               |vpiActual:
               \_ref_obj: (receiver_if), line:417:33, endln:417:44
@@ -19290,39 +19181,35 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_bit_select: (valid)
                 |vpiParent:
-                \_ref_obj: (valid)
-                  |vpiParent:
-                  \_begin: , line:416:17, endln:420:8
-                  |vpiName:valid
+                \_assignment: , line:417:7, endln:417:53
                 |vpiName:valid
                 |vpiIndex:
                 \_ref_obj: (i), line:417:51, endln:417:52
                   |vpiParent:
-                  \_begin: , line:416:17, endln:420:8
+                  \_bit_select: (valid)
                   |vpiName:i
             |vpiLhs:
             \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
               |vpiParent:
-              \_begin: , line:416:17, endln:420:8
+              \_assignment: , line:417:7, endln:417:53
               |vpiName:sender_if[i].valid
               |vpiActual:
-              \_bit_select: (sender_if), line:417:7, endln:417:16
+              \_bit_select: (sender_if[i]), line:417:7, endln:417:16
                 |vpiParent:
-                \_ref_obj: (sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
-                  |vpiName:sender_if[i]
+                \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
                 |vpiName:sender_if
+                |vpiFullName:sender_if[i]
                 |vpiIndex:
                 \_ref_obj: (i), line:417:17, endln:417:18
                   |vpiParent:
-                  \_begin: , line:416:17, endln:420:8
+                  \_assignment: , line:417:7, endln:417:53
                   |vpiName:i
               |vpiActual:
-              \_ref_obj: (valid)
+              \_ref_obj: (sender_if[i].valid)
                 |vpiParent:
                 \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
                 |vpiName:valid
+                |vpiFullName:sender_if[i].valid
           |vpiStmt:
           \_assignment: , line:418:7, endln:418:51
             |vpiParent:
@@ -19332,20 +19219,18 @@ design: (work@tnoc_vc_splitter)
             |vpiRhs:
             \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
               |vpiParent:
-              \_begin: , line:416:17, endln:420:8
+              \_assignment: , line:418:7, endln:418:51
               |vpiName:sender_if[i].ready
               |vpiActual:
-              \_bit_select: (sender_if), line:418:33, endln:418:42
+              \_bit_select: (sender_if[i]), line:418:33, endln:418:42
                 |vpiParent:
-                \_ref_obj: (sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
-                  |vpiName:sender_if[i]
+                \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
                 |vpiName:sender_if
+                |vpiFullName:sender_if[i]
                 |vpiIndex:
                 \_ref_obj: (i), line:418:43, endln:418:44
                   |vpiParent:
-                  \_begin: , line:416:17, endln:420:8
+                  \_assignment: , line:418:7, endln:418:51
                   |vpiName:i
               |vpiActual:
               \_ref_obj: (ready), line:418:46, endln:418:51
@@ -19355,7 +19240,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
               |vpiParent:
-              \_begin: , line:416:17, endln:420:8
+              \_assignment: , line:418:7, endln:418:51
               |vpiName:receiver_if.ready[i]
               |vpiActual:
               \_ref_obj: (receiver_if)
@@ -19363,19 +19248,17 @@ design: (work@tnoc_vc_splitter)
                 \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
                 |vpiName:receiver_if
               |vpiActual:
-              \_bit_select: (receiver_if.ready[i]), line:418:19, endln:418:24
+              \_bit_select: (receiver_if.ready[i].ready), line:418:19, endln:418:24
                 |vpiParent:
-                \_ref_obj: (receiver_if.ready[i])
-                  |vpiParent:
-                  \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
-                  |vpiName:receiver_if.ready[i]
+                \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
                 |vpiName:ready
-                |vpiFullName:receiver_if.ready[i]
+                |vpiFullName:receiver_if.ready[i].ready
                 |vpiIndex:
-                \_ref_obj: (i), line:418:25, endln:418:26
+                \_ref_obj: (receiver_if.ready[i].i), line:418:25, endln:418:26
                   |vpiParent:
-                  \_begin: , line:416:17, endln:420:8
+                  \_bit_select: (receiver_if.ready[i].ready), line:418:19, endln:418:24
                   |vpiName:i
+                  |vpiFullName:receiver_if.ready[i].i
           |vpiStmt:
           \_assignment: , line:419:7, endln:419:54
             |vpiParent:
@@ -19385,20 +19268,18 @@ design: (work@tnoc_vc_splitter)
             |vpiRhs:
             \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
               |vpiParent:
-              \_begin: , line:416:17, endln:420:8
+              \_assignment: , line:419:7, endln:419:54
               |vpiName:sender_if[i].vc_ready
               |vpiActual:
-              \_bit_select: (sender_if), line:419:33, endln:419:42
+              \_bit_select: (sender_if[i]), line:419:33, endln:419:42
                 |vpiParent:
-                \_ref_obj: (sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
-                  |vpiName:sender_if[i]
+                \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
                 |vpiName:sender_if
+                |vpiFullName:sender_if[i]
                 |vpiIndex:
                 \_ref_obj: (i), line:419:43, endln:419:44
                   |vpiParent:
-                  \_begin: , line:416:17, endln:420:8
+                  \_assignment: , line:419:7, endln:419:54
                   |vpiName:i
               |vpiActual:
               \_ref_obj: (vc_ready), line:419:46, endln:419:54
@@ -19408,7 +19289,7 @@ design: (work@tnoc_vc_splitter)
             |vpiLhs:
             \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
               |vpiParent:
-              \_begin: , line:416:17, endln:420:8
+              \_assignment: , line:419:7, endln:419:54
               |vpiName:receiver_if.vc_ready[i]
               |vpiActual:
               \_ref_obj: (receiver_if)
@@ -19416,19 +19297,17 @@ design: (work@tnoc_vc_splitter)
                 \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
                 |vpiName:receiver_if
               |vpiActual:
-              \_bit_select: (receiver_if.vc_ready[i]), line:419:19, endln:419:27
+              \_bit_select: (receiver_if.vc_ready[i].vc_ready), line:419:19, endln:419:27
                 |vpiParent:
-                \_ref_obj: (receiver_if.vc_ready[i])
-                  |vpiParent:
-                  \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
-                  |vpiName:receiver_if.vc_ready[i]
+                \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
                 |vpiName:vc_ready
-                |vpiFullName:receiver_if.vc_ready[i]
+                |vpiFullName:receiver_if.vc_ready[i].vc_ready
                 |vpiIndex:
-                \_ref_obj: (i), line:419:28, endln:419:29
+                \_ref_obj: (receiver_if.vc_ready[i].i), line:419:28, endln:419:29
                   |vpiParent:
-                  \_begin: , line:416:17, endln:420:8
+                  \_bit_select: (receiver_if.vc_ready[i].vc_ready), line:419:19, endln:419:27
                   |vpiName:i
+                  |vpiFullName:receiver_if.vc_ready[i].i
         |vpiAlwaysType:2
       |vpiStmt:
       \_gen_if_else: , line:422:5, endln:431:8
@@ -19458,7 +19337,7 @@ design: (work@tnoc_vc_splitter)
                 |vpiRhs:
                 \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
                   |vpiParent:
-                  \_begin: , line:423:19, endln:425:10
+                  \_assignment: , line:424:9, endln:424:48
                   |vpiName:receiver_if.flit[i]
                   |vpiActual:
                   \_ref_obj: (receiver_if), line:424:29, endln:424:40
@@ -19468,39 +19347,35 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_bit_select: (flit)
                     |vpiParent:
-                    \_ref_obj: (flit)
-                      |vpiParent:
-                      \_begin: , line:423:19, endln:425:10
-                      |vpiName:flit
+                    \_assignment: , line:424:9, endln:424:48
                     |vpiName:flit
                     |vpiIndex:
                     \_ref_obj: (i), line:424:46, endln:424:47
                       |vpiParent:
-                      \_begin: , line:423:19, endln:425:10
+                      \_bit_select: (flit)
                       |vpiName:i
                 |vpiLhs:
                 \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
                   |vpiParent:
-                  \_begin: , line:423:19, endln:425:10
+                  \_assignment: , line:424:9, endln:424:48
                   |vpiName:sender_if[i].flit
                   |vpiActual:
-                  \_bit_select: (sender_if), line:424:9, endln:424:18
+                  \_bit_select: (sender_if[i]), line:424:9, endln:424:18
                     |vpiParent:
-                    \_ref_obj: (sender_if[i])
-                      |vpiParent:
-                      \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
-                      |vpiName:sender_if[i]
+                    \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
                     |vpiName:sender_if
+                    |vpiFullName:sender_if[i]
                     |vpiIndex:
                     \_ref_obj: (i), line:424:19, endln:424:20
                       |vpiParent:
-                      \_begin: , line:423:19, endln:425:10
+                      \_assignment: , line:424:9, endln:424:48
                       |vpiName:i
                   |vpiActual:
-                  \_ref_obj: (flit)
+                  \_ref_obj: (sender_if[i].flit)
                     |vpiParent:
                     \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
                     |vpiName:flit
+                    |vpiFullName:sender_if[i].flit
             |vpiAlwaysType:2
         |vpiElseStmt:
         \_named_begin: (g)
@@ -19520,7 +19395,7 @@ design: (work@tnoc_vc_splitter)
                 |vpiRhs:
                 \_hier_path: (receiver_if.flit), line:429:29, endln:429:45
                   |vpiParent:
-                  \_begin: , line:428:19, endln:430:10
+                  \_assignment: , line:429:9, endln:429:45
                   |vpiName:receiver_if.flit
                   |vpiActual:
                   \_ref_obj: (receiver_if), line:429:29, endln:429:40
@@ -19535,26 +19410,25 @@ design: (work@tnoc_vc_splitter)
                 |vpiLhs:
                 \_hier_path: (sender_if[i].flit), line:429:9, endln:429:18
                   |vpiParent:
-                  \_begin: , line:428:19, endln:430:10
+                  \_assignment: , line:429:9, endln:429:45
                   |vpiName:sender_if[i].flit
                   |vpiActual:
-                  \_bit_select: (sender_if), line:429:9, endln:429:18
+                  \_bit_select: (sender_if[i]), line:429:9, endln:429:18
                     |vpiParent:
-                    \_ref_obj: (sender_if[i])
-                      |vpiParent:
-                      \_hier_path: (sender_if[i].flit), line:429:9, endln:429:18
-                      |vpiName:sender_if[i]
+                    \_hier_path: (sender_if[i].flit), line:429:9, endln:429:18
                     |vpiName:sender_if
+                    |vpiFullName:sender_if[i]
                     |vpiIndex:
                     \_ref_obj: (i), line:429:19, endln:429:20
                       |vpiParent:
-                      \_begin: , line:428:19, endln:430:10
+                      \_assignment: , line:429:9, endln:429:45
                       |vpiName:i
                   |vpiActual:
-                  \_ref_obj: (flit)
+                  \_ref_obj: (sender_if[i].flit)
                     |vpiParent:
                     \_hier_path: (sender_if[i].flit), line:429:9, endln:429:18
                     |vpiName:flit
+                    |vpiFullName:sender_if[i].flit
             |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
@@ -20398,25 +20272,19 @@ design: (work@tnoc_vc_splitter)
             |vpiCondition:
             \_bit_select: (work@tnoc_vc_splitter.tnoc_clog2.n), line:71:11, endln:71:15
               |vpiParent:
-              \_ref_obj: (work@tnoc_vc_splitter.tnoc_clog2.n)
-                |vpiParent:
-                \_if_stmt: , line:71:7, endln:74:10
-                |vpiName:n
-                |vpiFullName:work@tnoc_vc_splitter.tnoc_clog2.n
-                |vpiActual:
-                \_io_decl: (n), line:66:48, endln:66:49
+              \_if_stmt: , line:71:7, endln:74:10
               |vpiName:n
               |vpiFullName:work@tnoc_vc_splitter.tnoc_clog2.n
+              |vpiActual:
+              \_io_decl: (n), line:66:48, endln:66:49
               |vpiIndex:
-              \_ref_obj: (work@tnoc_vc_splitter.tnoc_clog2.n.i), line:71:13, endln:71:14
+              \_ref_obj: (work@tnoc_vc_splitter.tnoc_clog2.i), line:71:13, endln:71:14
                 |vpiParent:
                 \_bit_select: (work@tnoc_vc_splitter.tnoc_clog2.n), line:71:11, endln:71:15
                 |vpiName:i
-                |vpiFullName:work@tnoc_vc_splitter.tnoc_clog2.n.i
+                |vpiFullName:work@tnoc_vc_splitter.tnoc_clog2.i
                 |vpiActual:
                 \_int_var: (tnoc_pkg::tnoc_clog2::i), line:70:14, endln:70:15
-              |vpiActual:
-              \_io_decl: (n), line:66:48, endln:66:49
             |vpiStmt:
             \_begin: (work@tnoc_vc_splitter.tnoc_clog2), line:71:17, endln:74:10
               |vpiParent:
@@ -20563,10 +20431,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:85:60, endln:85:73
           |vpiActual:
-          \_ref_obj: (size_x), line:86:23, endln:86:29
+          \_ref_obj: (work@tnoc_vc_splitter.get_id_x_width.size_x), line:86:23, endln:86:29
             |vpiParent:
             \_hier_path: (packet_config.size_x), line:86:9, endln:86:29
             |vpiName:size_x
+            |vpiFullName:work@tnoc_vc_splitter.get_id_x_width.size_x
             |vpiActual:
             \_typespec_member: (size_x), line:45:15, endln:45:21
         |vpiOperand:
@@ -20597,10 +20466,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:85:60, endln:85:73
               |vpiActual:
-              \_ref_obj: (size_x), line:87:39, endln:87:45
+              \_ref_obj: (work@tnoc_vc_splitter.get_id_x_width.size_x), line:87:39, endln:87:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_x), line:87:25, endln:87:45
                 |vpiName:size_x
+                |vpiFullName:work@tnoc_vc_splitter.get_id_x_width.size_x
                 |vpiActual:
                 \_typespec_member: (size_x), line:45:15, endln:45:21
             |vpiName:tnoc_clog2
@@ -20659,10 +20529,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:94:60, endln:94:73
           |vpiActual:
-          \_ref_obj: (size_y), line:95:23, endln:95:29
+          \_ref_obj: (work@tnoc_vc_splitter.get_id_y_width.size_y), line:95:23, endln:95:29
             |vpiParent:
             \_hier_path: (packet_config.size_y), line:95:9, endln:95:29
             |vpiName:size_y
+            |vpiFullName:work@tnoc_vc_splitter.get_id_y_width.size_y
             |vpiActual:
             \_typespec_member: (size_y), line:46:15, endln:46:21
         |vpiOperand:
@@ -20693,10 +20564,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:94:60, endln:94:73
               |vpiActual:
-              \_ref_obj: (size_y), line:96:39, endln:96:45
+              \_ref_obj: (work@tnoc_vc_splitter.get_id_y_width.size_y), line:96:39, endln:96:45
                 |vpiParent:
                 \_hier_path: (packet_config.size_y), line:96:25, endln:96:45
                 |vpiName:size_y
+                |vpiFullName:work@tnoc_vc_splitter.get_id_y_width.size_y
                 |vpiActual:
                 \_typespec_member: (size_y), line:46:15, endln:46:21
             |vpiName:tnoc_clog2
@@ -20818,10 +20690,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:107:58, endln:107:71
           |vpiActual:
-          \_ref_obj: (virtual_channels), line:108:23, endln:108:39
+          \_ref_obj: (work@tnoc_vc_splitter.get_vc_width.virtual_channels), line:108:23, endln:108:39
             |vpiParent:
             \_hier_path: (packet_config.virtual_channels), line:108:9, endln:108:39
             |vpiName:virtual_channels
+            |vpiFullName:work@tnoc_vc_splitter.get_vc_width.virtual_channels
             |vpiActual:
             \_typespec_member: (virtual_channels), line:47:15, endln:47:31
         |vpiOperand:
@@ -20852,10 +20725,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:107:58, endln:107:71
               |vpiActual:
-              \_ref_obj: (virtual_channels), line:109:39, endln:109:55
+              \_ref_obj: (work@tnoc_vc_splitter.get_vc_width.virtual_channels), line:109:39, endln:109:55
                 |vpiParent:
                 \_hier_path: (packet_config.virtual_channels), line:109:25, endln:109:55
                 |vpiName:virtual_channels
+                |vpiFullName:work@tnoc_vc_splitter.get_vc_width.virtual_channels
                 |vpiActual:
                 \_typespec_member: (virtual_channels), line:47:15, endln:47:31
             |vpiName:tnoc_clog2
@@ -20914,10 +20788,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:116:59, endln:116:72
           |vpiActual:
-          \_ref_obj: (tags), line:117:23, endln:117:27
+          \_ref_obj: (work@tnoc_vc_splitter.get_tag_width.tags), line:117:23, endln:117:27
             |vpiParent:
             \_hier_path: (packet_config.tags), line:117:9, endln:117:27
             |vpiName:tags
+            |vpiFullName:work@tnoc_vc_splitter.get_tag_width.tags
             |vpiActual:
             \_typespec_member: (tags), line:48:15, endln:48:19
         |vpiOperand:
@@ -20948,10 +20823,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:116:59, endln:116:72
               |vpiActual:
-              \_ref_obj: (tags), line:118:39, endln:118:43
+              \_ref_obj: (work@tnoc_vc_splitter.get_tag_width.tags), line:118:39, endln:118:43
                 |vpiParent:
                 \_hier_path: (packet_config.tags), line:118:25, endln:118:43
                 |vpiName:tags
+                |vpiFullName:work@tnoc_vc_splitter.get_tag_width.tags
                 |vpiActual:
                 \_typespec_member: (tags), line:48:15, endln:48:19
             |vpiName:tnoc_clog2
@@ -21010,10 +20886,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:125:65, endln:125:78
           |vpiActual:
-          \_ref_obj: (max_data_width), line:126:23, endln:126:37
+          \_ref_obj: (work@tnoc_vc_splitter.get_byte_size_width.max_data_width), line:126:23, endln:126:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:126:9, endln:126:37
             |vpiName:max_data_width
+            |vpiFullName:work@tnoc_vc_splitter.get_byte_size_width.max_data_width
             |vpiActual:
             \_typespec_member: (max_data_width), line:51:15, endln:51:29
         |vpiOperand:
@@ -21058,10 +20935,11 @@ design: (work@tnoc_vc_splitter)
                       |vpiActual:
                       \_io_decl: (packet_config), line:125:65, endln:125:78
                     |vpiActual:
-                    \_ref_obj: (max_data_width), line:127:50, endln:127:64
+                    \_ref_obj: (work@tnoc_vc_splitter.get_byte_size_width.max_data_width), line:127:50, endln:127:64
                       |vpiParent:
                       \_hier_path: (packet_config.max_data_width), line:127:36, endln:127:64
                       |vpiName:max_data_width
+                      |vpiFullName:work@tnoc_vc_splitter.get_byte_size_width.max_data_width
                       |vpiActual:
                       \_typespec_member: (max_data_width), line:51:15, endln:51:29
                   |vpiOperand:
@@ -21133,10 +21011,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:134:67, endln:134:80
             |vpiActual:
-            \_ref_obj: (max_byte_length), line:135:37, endln:135:52
+            \_ref_obj: (work@tnoc_vc_splitter.get_byte_length_width.max_byte_length), line:135:37, endln:135:52
               |vpiParent:
               \_hier_path: (packet_config.max_byte_length), line:135:23, endln:135:52
               |vpiName:max_byte_length
+              |vpiFullName:work@tnoc_vc_splitter.get_byte_length_width.max_byte_length
               |vpiActual:
               \_typespec_member: (max_byte_length), line:52:15, endln:52:30
           |vpiOperand:
@@ -21186,10 +21065,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:138:74, endln:138:87
           |vpiActual:
-          \_ref_obj: (max_byte_length), line:139:23, endln:139:38
+          \_ref_obj: (work@tnoc_vc_splitter.get_packed_byte_length_width.max_byte_length), line:139:23, endln:139:38
             |vpiParent:
             \_hier_path: (packet_config.max_byte_length), line:139:9, endln:139:38
             |vpiName:max_byte_length
+            |vpiFullName:work@tnoc_vc_splitter.get_packed_byte_length_width.max_byte_length
             |vpiActual:
             \_typespec_member: (max_byte_length), line:52:15, endln:52:30
         |vpiOperand:
@@ -21220,10 +21100,11 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_io_decl: (packet_config), line:138:74, endln:138:87
               |vpiActual:
-              \_ref_obj: (max_byte_length), line:140:39, endln:140:54
+              \_ref_obj: (work@tnoc_vc_splitter.get_packed_byte_length_width.max_byte_length), line:140:39, endln:140:54
                 |vpiParent:
                 \_hier_path: (packet_config.max_byte_length), line:140:25, endln:140:54
                 |vpiName:max_byte_length
+                |vpiFullName:work@tnoc_vc_splitter.get_packed_byte_length_width.max_byte_length
                 |vpiActual:
                 \_typespec_member: (max_byte_length), line:52:15, endln:52:30
             |vpiName:tnoc_clog2
@@ -21282,10 +21163,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:147:67, endln:147:80
           |vpiActual:
-          \_ref_obj: (max_data_width), line:148:23, endln:148:37
+          \_ref_obj: (work@tnoc_vc_splitter.get_byte_offset_width.max_data_width), line:148:23, endln:148:37
             |vpiParent:
             \_hier_path: (packet_config.max_data_width), line:148:9, endln:148:37
             |vpiName:max_data_width
+            |vpiFullName:work@tnoc_vc_splitter.get_byte_offset_width.max_data_width
             |vpiActual:
             \_typespec_member: (max_data_width), line:51:15, endln:51:29
         |vpiOperand:
@@ -21321,10 +21203,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:147:67, endln:147:80
                 |vpiActual:
-                \_ref_obj: (max_data_width), line:149:39, endln:149:53
+                \_ref_obj: (work@tnoc_vc_splitter.get_byte_offset_width.max_data_width), line:149:39, endln:149:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_data_width), line:149:25, endln:149:53
                   |vpiName:max_data_width
+                  |vpiFullName:work@tnoc_vc_splitter.get_byte_offset_width.max_data_width
                   |vpiActual:
                   \_typespec_member: (max_data_width), line:51:15, endln:51:29
               |vpiOperand:
@@ -21385,10 +21268,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:156:64, endln:156:77
           |vpiActual:
-          \_ref_obj: (data_width), line:157:23, endln:157:33
+          \_ref_obj: (work@tnoc_vc_splitter.get_byte_end_width.data_width), line:157:23, endln:157:33
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:157:9, endln:157:33
             |vpiName:data_width
+            |vpiFullName:work@tnoc_vc_splitter.get_byte_end_width.data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiOperand:
@@ -21424,10 +21308,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:156:64, endln:156:77
                 |vpiActual:
-                \_ref_obj: (data_width), line:158:39, endln:158:49
+                \_ref_obj: (work@tnoc_vc_splitter.get_byte_end_width.data_width), line:158:39, endln:158:49
                   |vpiParent:
                   \_hier_path: (packet_config.data_width), line:158:25, endln:158:49
                   |vpiName:data_width
+                  |vpiFullName:work@tnoc_vc_splitter.get_byte_end_width.data_width
                   |vpiActual:
                   \_typespec_member: (data_width), line:50:15, endln:50:25
               |vpiOperand:
@@ -21513,10 +21398,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:165:68, endln:165:81
             |vpiActual:
-            \_ref_obj: (data_width), line:167:33, endln:167:43
+            \_ref_obj: (work@tnoc_vc_splitter.get_burst_length_width.data_width), line:167:33, endln:167:43
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:167:19, endln:167:43
               |vpiName:data_width
+              |vpiFullName:work@tnoc_vc_splitter.get_burst_length_width.data_width
               |vpiActual:
               \_typespec_member: (data_width), line:50:15, endln:50:25
           |vpiOperand:
@@ -21562,10 +21448,11 @@ design: (work@tnoc_vc_splitter)
                   |vpiActual:
                   \_io_decl: (packet_config), line:165:68, endln:165:81
                 |vpiActual:
-                \_ref_obj: (max_byte_length), line:168:38, endln:168:53
+                \_ref_obj: (work@tnoc_vc_splitter.get_burst_length_width.max_byte_length), line:168:38, endln:168:53
                   |vpiParent:
                   \_hier_path: (packet_config.max_byte_length), line:168:24, endln:168:53
                   |vpiName:max_byte_length
+                  |vpiFullName:work@tnoc_vc_splitter.get_burst_length_width.max_byte_length
                   |vpiActual:
                   \_typespec_member: (max_byte_length), line:52:15, endln:52:30
               |vpiOperand:
@@ -21678,19 +21565,13 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (work@tnoc_vc_splitter.is_request_packet_type.packet_type), line:204:52, endln:204:94
             |vpiParent:
-            \_ref_obj: (work@tnoc_vc_splitter.is_request_packet_type.packet_type)
-              |vpiParent:
-              \_operation: , line:204:51, endln:204:94
-              |vpiName:packet_type
-              |vpiFullName:work@tnoc_vc_splitter.is_request_packet_type.packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:203:68, endln:203:79
+            \_operation: , line:204:51, endln:204:94
             |vpiName:packet_type
             |vpiFullName:work@tnoc_vc_splitter.is_request_packet_type.packet_type
-            |vpiIndex:
-            \_constant: , line:204:64, endln:204:93
             |vpiActual:
             \_io_decl: (packet_type), line:203:68, endln:203:79
+            |vpiIndex:
+            \_constant: , line:204:64, endln:204:93
     |vpiInstance:
     \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21740,19 +21621,13 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (work@tnoc_vc_splitter.is_response_packet_type.packet_type), line:208:50, endln:208:92
           |vpiParent:
-          \_ref_obj: (work@tnoc_vc_splitter.is_response_packet_type.packet_type)
-            |vpiParent:
-            \_operation: , line:208:13, endln:208:92
-            |vpiName:packet_type
-            |vpiFullName:work@tnoc_vc_splitter.is_response_packet_type.packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:207:69, endln:207:80
+          \_operation: , line:208:13, endln:208:92
           |vpiName:packet_type
           |vpiFullName:work@tnoc_vc_splitter.is_response_packet_type.packet_type
-          |vpiIndex:
-          \_constant: , line:208:62, endln:208:91
           |vpiActual:
           \_io_decl: (packet_type), line:207:69, endln:207:80
+          |vpiIndex:
+          \_constant: , line:208:62, endln:208:91
     |vpiInstance:
     \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21802,19 +21677,13 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (work@tnoc_vc_splitter.is_packet_with_payload_type.packet_type), line:212:50, endln:212:91
           |vpiParent:
-          \_ref_obj: (work@tnoc_vc_splitter.is_packet_with_payload_type.packet_type)
-            |vpiParent:
-            \_operation: , line:212:13, endln:212:91
-            |vpiName:packet_type
-            |vpiFullName:work@tnoc_vc_splitter.is_packet_with_payload_type.packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:211:73, endln:211:84
+          \_operation: , line:212:13, endln:212:91
           |vpiName:packet_type
           |vpiFullName:work@tnoc_vc_splitter.is_packet_with_payload_type.packet_type
-          |vpiIndex:
-          \_constant: , line:212:62, endln:212:90
           |vpiActual:
           \_io_decl: (packet_type), line:211:73, endln:211:84
+          |vpiIndex:
+          \_constant: , line:212:62, endln:212:90
     |vpiInstance:
     \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21869,19 +21738,13 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (work@tnoc_vc_splitter.is_header_only_packet_type.packet_type), line:216:52, endln:216:93
             |vpiParent:
-            \_ref_obj: (work@tnoc_vc_splitter.is_header_only_packet_type.packet_type)
-              |vpiParent:
-              \_operation: , line:216:51, endln:216:93
-              |vpiName:packet_type
-              |vpiFullName:work@tnoc_vc_splitter.is_header_only_packet_type.packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:215:72, endln:215:83
+            \_operation: , line:216:51, endln:216:93
             |vpiName:packet_type
             |vpiFullName:work@tnoc_vc_splitter.is_header_only_packet_type.packet_type
-            |vpiIndex:
-            \_constant: , line:216:64, endln:216:92
             |vpiActual:
             \_io_decl: (packet_type), line:215:72, endln:215:83
+            |vpiIndex:
+            \_constant: , line:216:64, endln:216:92
     |vpiInstance:
     \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21936,19 +21799,13 @@ design: (work@tnoc_vc_splitter)
           |vpiOperand:
           \_bit_select: (work@tnoc_vc_splitter.is_posted_request_packet_type.packet_type), line:220:54, endln:220:98
             |vpiParent:
-            \_ref_obj: (work@tnoc_vc_splitter.is_posted_request_packet_type.packet_type)
-              |vpiParent:
-              \_operation: , line:220:53, endln:220:98
-              |vpiName:packet_type
-              |vpiFullName:work@tnoc_vc_splitter.is_posted_request_packet_type.packet_type
-              |vpiActual:
-              \_io_decl: (packet_type), line:219:75, endln:219:86
+            \_operation: , line:220:53, endln:220:98
             |vpiName:packet_type
             |vpiFullName:work@tnoc_vc_splitter.is_posted_request_packet_type.packet_type
-            |vpiIndex:
-            \_constant: , line:220:66, endln:220:97
             |vpiActual:
             \_io_decl: (packet_type), line:219:75, endln:219:86
+            |vpiIndex:
+            \_constant: , line:220:66, endln:220:97
     |vpiInstance:
     \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -21998,19 +21855,13 @@ design: (work@tnoc_vc_splitter)
         |vpiOperand:
         \_bit_select: (work@tnoc_vc_splitter.is_non_posted_request_packet_type.packet_type), line:224:52, endln:224:96
           |vpiParent:
-          \_ref_obj: (work@tnoc_vc_splitter.is_non_posted_request_packet_type.packet_type)
-            |vpiParent:
-            \_operation: , line:224:13, endln:224:96
-            |vpiName:packet_type
-            |vpiFullName:work@tnoc_vc_splitter.is_non_posted_request_packet_type.packet_type
-            |vpiActual:
-            \_io_decl: (packet_type), line:223:79, endln:223:90
+          \_operation: , line:224:13, endln:224:96
           |vpiName:packet_type
           |vpiFullName:work@tnoc_vc_splitter.is_non_posted_request_packet_type.packet_type
-          |vpiIndex:
-          \_constant: , line:224:64, endln:224:95
           |vpiActual:
           \_io_decl: (packet_type), line:223:79, endln:223:90
+          |vpiIndex:
+          \_constant: , line:224:64, endln:224:95
     |vpiInstance:
     \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
   |vpiTaskFunc:
@@ -22395,10 +22246,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:239:70, endln:239:83
           |vpiActual:
-          \_ref_obj: (address_width), line:245:28, endln:245:41
+          \_ref_obj: (work@tnoc_vc_splitter.get_request_header_width.address_width), line:245:28, endln:245:41
             |vpiParent:
             \_hier_path: (packet_config.address_width), line:245:14, endln:245:41
             |vpiName:address_width
+            |vpiFullName:work@tnoc_vc_splitter.get_request_header_width.address_width
             |vpiActual:
             \_typespec_member: (address_width), line:49:15, endln:49:28
         |vpiLhs:
@@ -22892,10 +22744,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:274:71, endln:274:84
           |vpiActual:
-          \_ref_obj: (data_width), line:277:28, endln:277:38
+          \_ref_obj: (work@tnoc_vc_splitter.get_request_payload_width.data_width), line:277:28, endln:277:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:277:14, endln:277:38
             |vpiName:data_width
+            |vpiFullName:work@tnoc_vc_splitter.get_request_payload_width.data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiLhs:
@@ -22930,10 +22783,11 @@ design: (work@tnoc_vc_splitter)
               |vpiActual:
               \_io_decl: (packet_config), line:274:71, endln:274:84
             |vpiActual:
-            \_ref_obj: (data_width), line:278:28, endln:278:38
+            \_ref_obj: (work@tnoc_vc_splitter.get_request_payload_width.data_width), line:278:28, endln:278:38
               |vpiParent:
               \_hier_path: (packet_config.data_width), line:278:14, endln:278:38
               |vpiName:data_width
+              |vpiFullName:work@tnoc_vc_splitter.get_request_payload_width.data_width
               |vpiActual:
               \_typespec_member: (data_width), line:50:15, endln:50:25
           |vpiOperand:
@@ -23036,10 +22890,11 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_config), line:282:72, endln:282:85
           |vpiActual:
-          \_ref_obj: (data_width), line:285:28, endln:285:38
+          \_ref_obj: (work@tnoc_vc_splitter.get_response_payload_width.data_width), line:285:28, endln:285:38
             |vpiParent:
             \_hier_path: (packet_config.data_width), line:285:14, endln:285:38
             |vpiName:data_width
+            |vpiFullName:work@tnoc_vc_splitter.get_response_payload_width.data_width
             |vpiActual:
             \_typespec_member: (data_width), line:50:15, endln:50:25
         |vpiLhs:
@@ -24615,21 +24470,17 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[0].valid)
+              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.valid[i].valid)
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].valid)
-                  |vpiParent:
-                  \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
-                  |vpiName:valid
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].valid
+                \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
                 |vpiName:valid
-                |vpiFullName:work@tnoc_vc_splitter.g[0].valid
+                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.valid[i].valid
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].valid.i), line:417:51, endln:417:52
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.valid[i].i), line:417:51, endln:417:52
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[0].valid)
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.valid[i].valid)
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].valid.i
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.valid[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
             |vpiLhs:
@@ -24638,29 +24489,27 @@ design: (work@tnoc_vc_splitter)
               \_assignment: , line:417:7, endln:417:53
               |vpiName:sender_if[i].valid
               |vpiActual:
-              \_bit_select: (sender_if), line:417:7, endln:417:16
+              \_bit_select: (sender_if[i]), line:417:7, endln:417:16
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
-                  |vpiName:sender_if[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i]
+                \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
                 |vpiName:sender_if
-                |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i].i), line:417:17, endln:417:18
-                  |vpiParent:
-                  \_bit_select: (sender_if), line:417:7, endln:417:16
-                  |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].i
-                  |vpiActual:
-                  \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                |vpiFullName:sender_if[i]
                 |vpiActual:
                 \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                |vpiIndex:
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i].valid.i), line:417:17, endln:417:18
+                  |vpiParent:
+                  \_bit_select: (sender_if[i]), line:417:7, endln:417:16
+                  |vpiName:i
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].valid.i
+                  |vpiActual:
+                  \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
               |vpiActual:
-              \_ref_obj: (valid)
+              \_ref_obj: (sender_if[i].valid)
                 |vpiParent:
                 \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
                 |vpiName:valid
+                |vpiFullName:sender_if[i].valid
           |vpiStmt:
           \_assignment: , line:418:7, endln:418:51
             |vpiParent:
@@ -24673,29 +24522,27 @@ design: (work@tnoc_vc_splitter)
               \_assignment: , line:418:7, endln:418:51
               |vpiName:sender_if[i].ready
               |vpiActual:
-              \_bit_select: (sender_if), line:418:33, endln:418:42
+              \_bit_select: (sender_if[i]), line:418:33, endln:418:42
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
-                  |vpiName:sender_if[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i]
+                \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
                 |vpiName:sender_if
-                |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i].i), line:418:43, endln:418:44
-                  |vpiParent:
-                  \_bit_select: (sender_if), line:418:33, endln:418:42
-                  |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].i
-                  |vpiActual:
-                  \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                |vpiFullName:sender_if[i]
                 |vpiActual:
                 \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                |vpiIndex:
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i].ready.i), line:418:43, endln:418:44
+                  |vpiParent:
+                  \_bit_select: (sender_if[i]), line:418:33, endln:418:42
+                  |vpiName:i
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].ready.i
+                  |vpiActual:
+                  \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
               |vpiActual:
-              \_ref_obj: (ready), line:418:46, endln:418:51
+              \_ref_obj: (work@tnoc_vc_splitter.g[0].ready), line:418:46, endln:418:51
                 |vpiParent:
                 \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
                 |vpiName:ready
+                |vpiFullName:work@tnoc_vc_splitter.g[0].ready
             |vpiLhs:
             \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
               |vpiParent:
@@ -24709,19 +24556,15 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i]), line:418:19, endln:418:24
+              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i].ready), line:418:19, endln:418:24
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i])
-                  |vpiParent:
-                  \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
-                  |vpiName:receiver_if.ready[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready[i]
+                \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
                 |vpiName:ready
-                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready[i]
+                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready[i].ready
                 |vpiIndex:
                 \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i].i), line:418:25, endln:418:26
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i]), line:418:19, endln:418:24
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.ready[i].ready), line:418:19, endln:418:24
                   |vpiName:i
                   |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.ready[i].i
                   |vpiActual:
@@ -24738,29 +24581,27 @@ design: (work@tnoc_vc_splitter)
               \_assignment: , line:419:7, endln:419:54
               |vpiName:sender_if[i].vc_ready
               |vpiActual:
-              \_bit_select: (sender_if), line:419:33, endln:419:42
+              \_bit_select: (sender_if[i]), line:419:33, endln:419:42
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
-                  |vpiName:sender_if[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i]
+                \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
                 |vpiName:sender_if
-                |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i].i), line:419:43, endln:419:44
-                  |vpiParent:
-                  \_bit_select: (sender_if), line:419:33, endln:419:42
-                  |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].i
-                  |vpiActual:
-                  \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                |vpiFullName:sender_if[i]
                 |vpiActual:
                 \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                |vpiIndex:
+                \_ref_obj: (work@tnoc_vc_splitter.g[0].sender_if[i].vc_ready.i), line:419:43, endln:419:44
+                  |vpiParent:
+                  \_bit_select: (sender_if[i]), line:419:33, endln:419:42
+                  |vpiName:i
+                  |vpiFullName:work@tnoc_vc_splitter.g[0].sender_if[i].vc_ready.i
+                  |vpiActual:
+                  \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
               |vpiActual:
-              \_ref_obj: (vc_ready), line:419:46, endln:419:54
+              \_ref_obj: (work@tnoc_vc_splitter.g[0].vc_ready), line:419:46, endln:419:54
                 |vpiParent:
                 \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
                 |vpiName:vc_ready
+                |vpiFullName:work@tnoc_vc_splitter.g[0].vc_ready
             |vpiLhs:
             \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
               |vpiParent:
@@ -24774,19 +24615,15 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]), line:419:19, endln:419:27
+              \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i].vc_ready), line:419:19, endln:419:27
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i])
-                  |vpiParent:
-                  \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
-                  |vpiName:receiver_if.vc_ready[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]
+                \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
                 |vpiName:vc_ready
-                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]
+                |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i].vc_ready
                 |vpiIndex:
                 \_ref_obj: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i].i), line:419:28, endln:419:29
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i]), line:419:19, endln:419:27
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i].vc_ready), line:419:19, endln:419:27
                   |vpiName:i
                   |vpiFullName:work@tnoc_vc_splitter.g[0].receiver_if.vc_ready[i].i
                   |vpiActual:
@@ -24831,21 +24668,17 @@ design: (work@tnoc_vc_splitter)
                     |vpiActual:
                     \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
                   |vpiActual:
-                  \_bit_select: (work@tnoc_vc_splitter.g[0].g.flit)
+                  \_bit_select: (work@tnoc_vc_splitter.g[0].g.receiver_if.flit[i].flit)
                     |vpiParent:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.flit)
-                      |vpiParent:
-                      \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
-                      |vpiName:flit
-                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit
+                    \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
                     |vpiName:flit
-                    |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit
+                    |vpiFullName:work@tnoc_vc_splitter.g[0].g.receiver_if.flit[i].flit
                     |vpiIndex:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.flit.i), line:424:46, endln:424:47
+                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.receiver_if.flit[i].i), line:424:46, endln:424:47
                       |vpiParent:
-                      \_bit_select: (work@tnoc_vc_splitter.g[0].g.flit)
+                      \_bit_select: (work@tnoc_vc_splitter.g[0].g.receiver_if.flit[i].flit)
                       |vpiName:i
-                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.flit.i
+                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.receiver_if.flit[i].i
                       |vpiActual:
                       \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
                 |vpiLhs:
@@ -24854,29 +24687,27 @@ design: (work@tnoc_vc_splitter)
                   \_assignment: , line:424:9, endln:424:48
                   |vpiName:sender_if[i].flit
                   |vpiActual:
-                  \_bit_select: (sender_if), line:424:9, endln:424:18
+                  \_bit_select: (sender_if[i]), line:424:9, endln:424:18
                     |vpiParent:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.sender_if[i])
-                      |vpiParent:
-                      \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
-                      |vpiName:sender_if[i]
-                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.sender_if[i]
+                    \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
                     |vpiName:sender_if
-                    |vpiIndex:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.sender_if[i].i), line:424:19, endln:424:20
-                      |vpiParent:
-                      \_bit_select: (sender_if), line:424:9, endln:424:18
-                      |vpiName:i
-                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.sender_if[i].i
-                      |vpiActual:
-                      \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
+                    |vpiFullName:sender_if[i]
                     |vpiActual:
                     \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                    |vpiIndex:
+                    \_ref_obj: (work@tnoc_vc_splitter.g[0].g.sender_if[i].flit.i), line:424:19, endln:424:20
+                      |vpiParent:
+                      \_bit_select: (sender_if[i]), line:424:9, endln:424:18
+                      |vpiName:i
+                      |vpiFullName:work@tnoc_vc_splitter.g[0].g.sender_if[i].flit.i
+                      |vpiActual:
+                      \_parameter: (work@tnoc_vc_splitter.g[0].i), line:415:0
                   |vpiActual:
-                  \_ref_obj: (flit)
+                  \_ref_obj: (sender_if[i].flit)
                     |vpiParent:
                     \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
                     |vpiName:flit
+                    |vpiFullName:sender_if[i].flit
             |vpiAlwaysType:2
   |vpiGenScopeArray:
   \_gen_scope_array: (work@tnoc_vc_splitter.g[1]), line:415:39, endln:432:6
@@ -24927,21 +24758,17 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[1].valid)
+              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.valid[i].valid)
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].valid)
-                  |vpiParent:
-                  \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
-                  |vpiName:valid
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].valid
+                \_hier_path: (receiver_if.valid[i]), line:417:33, endln:417:53
                 |vpiName:valid
-                |vpiFullName:work@tnoc_vc_splitter.g[1].valid
+                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.valid[i].valid
                 |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].valid.i), line:417:51, endln:417:52
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.valid[i].i), line:417:51, endln:417:52
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[1].valid)
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.valid[i].valid)
                   |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].valid.i
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.valid[i].i
                   |vpiActual:
                   \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
             |vpiLhs:
@@ -24950,29 +24777,27 @@ design: (work@tnoc_vc_splitter)
               \_assignment: , line:417:7, endln:417:53
               |vpiName:sender_if[i].valid
               |vpiActual:
-              \_bit_select: (sender_if), line:417:7, endln:417:16
+              \_bit_select: (sender_if[i]), line:417:7, endln:417:16
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
-                  |vpiName:sender_if[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i]
+                \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
                 |vpiName:sender_if
-                |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i].i), line:417:17, endln:417:18
-                  |vpiParent:
-                  \_bit_select: (sender_if), line:417:7, endln:417:16
-                  |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].i
-                  |vpiActual:
-                  \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                |vpiFullName:sender_if[i]
                 |vpiActual:
                 \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                |vpiIndex:
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i].valid.i), line:417:17, endln:417:18
+                  |vpiParent:
+                  \_bit_select: (sender_if[i]), line:417:7, endln:417:16
+                  |vpiName:i
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].valid.i
+                  |vpiActual:
+                  \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
               |vpiActual:
-              \_ref_obj: (valid)
+              \_ref_obj: (sender_if[i].valid)
                 |vpiParent:
                 \_hier_path: (sender_if[i].valid), line:417:7, endln:417:16
                 |vpiName:valid
+                |vpiFullName:sender_if[i].valid
           |vpiStmt:
           \_assignment: , line:418:7, endln:418:51
             |vpiParent:
@@ -24985,29 +24810,27 @@ design: (work@tnoc_vc_splitter)
               \_assignment: , line:418:7, endln:418:51
               |vpiName:sender_if[i].ready
               |vpiActual:
-              \_bit_select: (sender_if), line:418:33, endln:418:42
+              \_bit_select: (sender_if[i]), line:418:33, endln:418:42
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
-                  |vpiName:sender_if[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i]
+                \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
                 |vpiName:sender_if
-                |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i].i), line:418:43, endln:418:44
-                  |vpiParent:
-                  \_bit_select: (sender_if), line:418:33, endln:418:42
-                  |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].i
-                  |vpiActual:
-                  \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                |vpiFullName:sender_if[i]
                 |vpiActual:
                 \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                |vpiIndex:
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i].ready.i), line:418:43, endln:418:44
+                  |vpiParent:
+                  \_bit_select: (sender_if[i]), line:418:33, endln:418:42
+                  |vpiName:i
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].ready.i
+                  |vpiActual:
+                  \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
               |vpiActual:
-              \_ref_obj: (ready), line:418:46, endln:418:51
+              \_ref_obj: (work@tnoc_vc_splitter.g[1].ready), line:418:46, endln:418:51
                 |vpiParent:
                 \_hier_path: (sender_if[i].ready), line:418:33, endln:418:51
                 |vpiName:ready
+                |vpiFullName:work@tnoc_vc_splitter.g[1].ready
             |vpiLhs:
             \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
               |vpiParent:
@@ -25021,19 +24844,15 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i]), line:418:19, endln:418:24
+              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i].ready), line:418:19, endln:418:24
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i])
-                  |vpiParent:
-                  \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
-                  |vpiName:receiver_if.ready[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready[i]
+                \_hier_path: (receiver_if.ready[i]), line:418:7, endln:418:27
                 |vpiName:ready
-                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready[i]
+                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready[i].ready
                 |vpiIndex:
                 \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i].i), line:418:25, endln:418:26
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i]), line:418:19, endln:418:24
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.ready[i].ready), line:418:19, endln:418:24
                   |vpiName:i
                   |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.ready[i].i
                   |vpiActual:
@@ -25050,29 +24869,27 @@ design: (work@tnoc_vc_splitter)
               \_assignment: , line:419:7, endln:419:54
               |vpiName:sender_if[i].vc_ready
               |vpiActual:
-              \_bit_select: (sender_if), line:419:33, endln:419:42
+              \_bit_select: (sender_if[i]), line:419:33, endln:419:42
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i])
-                  |vpiParent:
-                  \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
-                  |vpiName:sender_if[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i]
+                \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
                 |vpiName:sender_if
-                |vpiIndex:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i].i), line:419:43, endln:419:44
-                  |vpiParent:
-                  \_bit_select: (sender_if), line:419:33, endln:419:42
-                  |vpiName:i
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].i
-                  |vpiActual:
-                  \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                |vpiFullName:sender_if[i]
                 |vpiActual:
                 \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                |vpiIndex:
+                \_ref_obj: (work@tnoc_vc_splitter.g[1].sender_if[i].vc_ready.i), line:419:43, endln:419:44
+                  |vpiParent:
+                  \_bit_select: (sender_if[i]), line:419:33, endln:419:42
+                  |vpiName:i
+                  |vpiFullName:work@tnoc_vc_splitter.g[1].sender_if[i].vc_ready.i
+                  |vpiActual:
+                  \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
               |vpiActual:
-              \_ref_obj: (vc_ready), line:419:46, endln:419:54
+              \_ref_obj: (work@tnoc_vc_splitter.g[1].vc_ready), line:419:46, endln:419:54
                 |vpiParent:
                 \_hier_path: (sender_if[i].vc_ready), line:419:33, endln:419:54
                 |vpiName:vc_ready
+                |vpiFullName:work@tnoc_vc_splitter.g[1].vc_ready
             |vpiLhs:
             \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
               |vpiParent:
@@ -25086,19 +24903,15 @@ design: (work@tnoc_vc_splitter)
                 |vpiActual:
                 \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
               |vpiActual:
-              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]), line:419:19, endln:419:27
+              \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i].vc_ready), line:419:19, endln:419:27
                 |vpiParent:
-                \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i])
-                  |vpiParent:
-                  \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
-                  |vpiName:receiver_if.vc_ready[i]
-                  |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]
+                \_hier_path: (receiver_if.vc_ready[i]), line:419:7, endln:419:30
                 |vpiName:vc_ready
-                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]
+                |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i].vc_ready
                 |vpiIndex:
                 \_ref_obj: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i].i), line:419:28, endln:419:29
                   |vpiParent:
-                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i]), line:419:19, endln:419:27
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i].vc_ready), line:419:19, endln:419:27
                   |vpiName:i
                   |vpiFullName:work@tnoc_vc_splitter.g[1].receiver_if.vc_ready[i].i
                   |vpiActual:
@@ -25143,21 +24956,17 @@ design: (work@tnoc_vc_splitter)
                     |vpiActual:
                     \_logic_net: (work@tnoc_vc_splitter.receiver_if), line:412:25, endln:412:36
                   |vpiActual:
-                  \_bit_select: (work@tnoc_vc_splitter.g[1].g.flit)
+                  \_bit_select: (work@tnoc_vc_splitter.g[1].g.receiver_if.flit[i].flit)
                     |vpiParent:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.flit)
-                      |vpiParent:
-                      \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
-                      |vpiName:flit
-                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit
+                    \_hier_path: (receiver_if.flit[i]), line:424:29, endln:424:48
                     |vpiName:flit
-                    |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit
+                    |vpiFullName:work@tnoc_vc_splitter.g[1].g.receiver_if.flit[i].flit
                     |vpiIndex:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.flit.i), line:424:46, endln:424:47
+                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.receiver_if.flit[i].i), line:424:46, endln:424:47
                       |vpiParent:
-                      \_bit_select: (work@tnoc_vc_splitter.g[1].g.flit)
+                      \_bit_select: (work@tnoc_vc_splitter.g[1].g.receiver_if.flit[i].flit)
                       |vpiName:i
-                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.flit.i
+                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.receiver_if.flit[i].i
                       |vpiActual:
                       \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
                 |vpiLhs:
@@ -25166,29 +24975,27 @@ design: (work@tnoc_vc_splitter)
                   \_assignment: , line:424:9, endln:424:48
                   |vpiName:sender_if[i].flit
                   |vpiActual:
-                  \_bit_select: (sender_if), line:424:9, endln:424:18
+                  \_bit_select: (sender_if[i]), line:424:9, endln:424:18
                     |vpiParent:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.sender_if[i])
-                      |vpiParent:
-                      \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
-                      |vpiName:sender_if[i]
-                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.sender_if[i]
+                    \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
                     |vpiName:sender_if
-                    |vpiIndex:
-                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.sender_if[i].i), line:424:19, endln:424:20
-                      |vpiParent:
-                      \_bit_select: (sender_if), line:424:9, endln:424:18
-                      |vpiName:i
-                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.sender_if[i].i
-                      |vpiActual:
-                      \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
+                    |vpiFullName:sender_if[i]
                     |vpiActual:
                     \_array_net: (work@tnoc_vc_splitter.sender_if), line:413:25, endln:413:34
+                    |vpiIndex:
+                    \_ref_obj: (work@tnoc_vc_splitter.g[1].g.sender_if[i].flit.i), line:424:19, endln:424:20
+                      |vpiParent:
+                      \_bit_select: (sender_if[i]), line:424:9, endln:424:18
+                      |vpiName:i
+                      |vpiFullName:work@tnoc_vc_splitter.g[1].g.sender_if[i].flit.i
+                      |vpiActual:
+                      \_parameter: (work@tnoc_vc_splitter.g[1].i), line:415:0
                   |vpiActual:
-                  \_ref_obj: (flit)
+                  \_ref_obj: (sender_if[i].flit)
                     |vpiParent:
                     \_hier_path: (sender_if[i].flit), line:424:9, endln:424:18
                     |vpiName:flit
+                    |vpiFullName:sender_if[i].flit
             |vpiAlwaysType:2
 ===================
 [  FATAL] : 0

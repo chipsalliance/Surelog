@@ -380,7 +380,7 @@ param_assign                                          42
 parameter                                             50
 range                                                 12
 ref_module                                             3
-ref_obj                                               50
+ref_obj                                               45
 string_typespec                                       24
 struct_typespec                                       34
 sys_func_call                                          4
@@ -412,7 +412,7 @@ param_assign                                          42
 parameter                                             50
 range                                                 12
 ref_module                                             3
-ref_obj                                               50
+ref_obj                                               45
 string_typespec                                       24
 struct_typespec                                       34
 sys_func_call                                          4
@@ -1521,16 +1521,12 @@ design: (work@testbench)
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:43:50, endln:43:74
-      |vpiParent:
-      \_ref_obj: (all_cfgs_gp)
-        |vpiName:all_cfgs_gp
       |vpiName:all_cfgs_gp
       |vpiIndex:
-      \_ref_obj: (all_cfgs_gp.bp_params_p), line:43:62, endln:43:73
+      \_ref_obj: (bp_params_p), line:43:62, endln:43:73
         |vpiParent:
         \_bit_select: (all_cfgs_gp), line:43:50, endln:43:74
         |vpiName:bp_params_p
-        |vpiFullName:all_cfgs_gp.bp_params_p
     |vpiLhs:
     \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:47
   |vpiParamAssign:
@@ -1886,10 +1882,9 @@ design: (work@testbench)
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiRhs:
     \_bit_select: (all_cfgs_gp), line:43:50, endln:43:74
-      |vpiParent:
-      \_ref_obj: (all_cfgs_gp)
-        |vpiName:all_cfgs_gp
       |vpiName:all_cfgs_gp
+      |vpiActual:
+      \_parameter: (work@testbench.all_cfgs_gp), line:13:42, endln:13:53
       |vpiIndex:
       \_constant: , line:43:62, endln:43:73
         |vpiParent:

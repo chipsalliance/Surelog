@@ -105,7 +105,7 @@ logic_net                                              1
 module_inst                                            4
 operation                                              1
 range                                                  1
-ref_obj                                                4
+ref_obj                                                3
 ref_var                                                2
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -128,7 +128,7 @@ logic_net                                              1
 module_inst                                            4
 operation                                              1
 range                                                  1
-ref_obj                                                7
+ref_obj                                                5
 ref_var                                                3
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -193,7 +193,7 @@ design: (work@dut)
           |vpiRhs:
           \_ref_obj: (work@dut.i), line:6:24, endln:6:25
             |vpiParent:
-            \_foreach_stmt: (work@dut), line:5:9, endln:5:16
+            \_assignment: , line:6:13, endln:6:25
             |vpiName:i
             |vpiFullName:work@dut.i
             |vpiActual:
@@ -201,17 +201,13 @@ design: (work@dut)
           |vpiLhs:
           \_bit_select: (work@dut.array), line:6:13, endln:6:21
             |vpiParent:
-            \_ref_obj: (work@dut.array)
-              |vpiParent:
-              \_assignment: , line:6:13, endln:6:25
-              |vpiName:array
-              |vpiFullName:work@dut.array
+            \_assignment: , line:6:13, endln:6:25
             |vpiName:array
             |vpiFullName:work@dut.array
             |vpiIndex:
             \_ref_obj: (work@dut.i), line:6:19, endln:6:20
               |vpiParent:
-              \_foreach_stmt: (work@dut), line:5:9, endln:5:16
+              \_bit_select: (work@dut.array), line:6:13, endln:6:21
               |vpiName:i
               |vpiFullName:work@dut.i
               |vpiActual:
@@ -317,25 +313,19 @@ design: (work@dut)
           |vpiLhs:
           \_bit_select: (work@dut.array), line:6:13, endln:6:21
             |vpiParent:
-            \_ref_obj: (work@dut.array)
-              |vpiParent:
-              \_assignment: , line:6:13, endln:6:25
-              |vpiName:array
-              |vpiFullName:work@dut.array
-              |vpiActual:
-              \_array_var: (work@dut.array), line:2:9, endln:2:18
+            \_assignment: , line:6:13, endln:6:25
             |vpiName:array
             |vpiFullName:work@dut.array
+            |vpiActual:
+            \_array_var: (work@dut.array), line:2:9, endln:2:18
             |vpiIndex:
-            \_ref_obj: (work@dut.array.i), line:6:19, endln:6:20
+            \_ref_obj: (work@dut.i), line:6:19, endln:6:20
               |vpiParent:
               \_bit_select: (work@dut.array), line:6:13, endln:6:21
               |vpiName:i
-              |vpiFullName:work@dut.array.i
+              |vpiFullName:work@dut.i
               |vpiActual:
               \_int_var: (i), line:5:23, endln:5:24
-            |vpiActual:
-            \_array_var: (work@dut.array), line:2:9, endln:2:18
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

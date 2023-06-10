@@ -984,7 +984,7 @@ part_select                                            2
 port                                                  13
 range                                                 13
 ref_module                                             5
-ref_obj                                               79
+ref_obj                                               65
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -1017,7 +1017,7 @@ part_select                                            3
 port                                                  18
 range                                                 13
 ref_module                                             5
-ref_obj                                               99
+ref_obj                                               80
 string_typespec                                        3
 tagged_pattern                                         3
 === UHDM Object Stats End ===
@@ -1578,7 +1578,7 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiOperand:
         \_ref_obj: (i), line:127:34, endln:127:35
           |vpiParent:
-          \_operation: , line:127:17, endln:127:45
+          \_operation: , line:127:34, endln:127:44
           |vpiName:i
           |vpiActual:
           \_logic_net: (i)
@@ -1616,13 +1616,11 @@ design: (work@divSqrtRecFNToRaw_small)
               \_hier_path: (decode_tv_r.amo_op), line:129:37, endln:129:55
               |vpiName:amo_op
           |vpiOperand:
-          \_indexed_part_select: , line:130:34, endln:130:51
+          \_indexed_part_select: atomic_result (atomic_result), line:130:34, endln:130:51
             |vpiParent:
-            \_ref_obj: atomic_result (atomic_result)
-              |vpiParent:
-              \_operation: , line:129:37, endln:131:51
-              |vpiName:atomic_result
-              |vpiDefName:atomic_result
+            \_operation: , line:129:37, endln:131:51
+            |vpiName:atomic_result
+            |vpiDefName:atomic_result
             |vpiConstantSelect:1
             |vpiIndexedPartSelectType:1
             |vpiBaseExpr:
@@ -1634,16 +1632,14 @@ design: (work@divSqrtRecFNToRaw_small)
             |vpiWidthExpr:
             \_ref_obj: (slice_width_lp), line:130:37, endln:130:51
               |vpiParent:
-              \_operation: , line:129:37, endln:131:51
+              \_indexed_part_select: atomic_result (atomic_result), line:130:34, endln:130:51
               |vpiName:slice_width_lp
           |vpiOperand:
-          \_indexed_part_select: , line:131:33, endln:131:50
+          \_indexed_part_select: st_data_tv_r (st_data_tv_r), line:131:33, endln:131:50
             |vpiParent:
-            \_ref_obj: st_data_tv_r (st_data_tv_r)
-              |vpiParent:
-              \_operation: , line:129:37, endln:131:51
-              |vpiName:st_data_tv_r
-              |vpiDefName:st_data_tv_r
+            \_operation: , line:129:37, endln:131:51
+            |vpiName:st_data_tv_r
+            |vpiDefName:st_data_tv_r
             |vpiConstantSelect:1
             |vpiIndexedPartSelectType:1
             |vpiBaseExpr:
@@ -1655,7 +1651,7 @@ design: (work@divSqrtRecFNToRaw_small)
             |vpiWidthExpr:
             \_ref_obj: (slice_width_lp), line:131:36, endln:131:50
               |vpiParent:
-              \_operation: , line:129:37, endln:131:51
+              \_indexed_part_select: st_data_tv_r (st_data_tv_r), line:131:33, endln:131:50
               |vpiName:slice_width_lp
         |vpiLhs:
         \_ref_obj: (slice_data), line:129:24, endln:129:34
@@ -1668,13 +1664,11 @@ design: (work@divSqrtRecFNToRaw_small)
       |vpiStmt:
       \_cont_assign: , line:135:24, endln:135:68
         |vpiRhs:
-        \_indexed_part_select: , line:135:50, endln:135:67
+        \_indexed_part_select: st_data_tv_r (st_data_tv_r), line:135:50, endln:135:67
           |vpiParent:
-          \_ref_obj: st_data_tv_r (st_data_tv_r)
-            |vpiParent:
-            \_cont_assign: , line:135:24, endln:135:68
-            |vpiName:st_data_tv_r
-            |vpiDefName:st_data_tv_r
+          \_cont_assign: , line:135:24, endln:135:68
+          |vpiName:st_data_tv_r
+          |vpiDefName:st_data_tv_r
           |vpiConstantSelect:1
           |vpiIndexedPartSelectType:1
           |vpiBaseExpr:
@@ -1685,6 +1679,8 @@ design: (work@divSqrtRecFNToRaw_small)
             |vpiConstType:9
           |vpiWidthExpr:
           \_ref_obj: (slice_width_lp), line:135:53, endln:135:67
+            |vpiParent:
+            \_indexed_part_select: st_data_tv_r (st_data_tv_r), line:135:50, endln:135:67
             |vpiName:slice_width_lp
         |vpiLhs:
         \_ref_obj: (slice_data), line:135:24, endln:135:34
@@ -1748,17 +1744,13 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiLhs:
         \_bit_select: (lce_req_link_lo), line:149:26, endln:149:44
           |vpiParent:
-          \_ref_obj: (lce_req_link_lo)
-            |vpiParent:
-            \_cont_assign: , line:149:26, endln:149:50
-            |vpiName:lce_req_link_lo
+          \_cont_assign: , line:149:26, endln:149:50
           |vpiName:lce_req_link_lo
           |vpiIndex:
-          \_ref_obj: (lce_req_link_lo.i), line:149:42, endln:149:43
+          \_ref_obj: (i), line:149:42, endln:149:43
             |vpiParent:
             \_bit_select: (lce_req_link_lo), line:149:26, endln:149:44
             |vpiName:i
-            |vpiFullName:lce_req_link_lo.i
       |vpiStmt:
       \_cont_assign: , line:150:27, endln:150:51
         |vpiRhs:
@@ -1772,17 +1764,13 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiLhs:
         \_bit_select: (lce_cmd_link_lo), line:150:27, endln:150:45
           |vpiParent:
-          \_ref_obj: (lce_cmd_link_lo)
-            |vpiParent:
-            \_cont_assign: , line:150:27, endln:150:51
-            |vpiName:lce_cmd_link_lo
+          \_cont_assign: , line:150:27, endln:150:51
           |vpiName:lce_cmd_link_lo
           |vpiIndex:
-          \_ref_obj: (lce_cmd_link_lo.i), line:150:43, endln:150:44
+          \_ref_obj: (i), line:150:43, endln:150:44
             |vpiParent:
             \_bit_select: (lce_cmd_link_lo), line:150:27, endln:150:45
             |vpiName:i
-            |vpiFullName:lce_cmd_link_lo.i
 |uhdmallModules:
 \_module_inst: work@e (work@e), file:${SURELOG_DIR}/tests/UhdmCoverage/dut.sv, line:99:1, endln:115:10
   |vpiParent:
@@ -1811,10 +1799,11 @@ design: (work@divSqrtRecFNToRaw_small)
             \_hier_path: (resp_concentrated_link_lo.data), line:102:51, endln:102:81
             |vpiName:resp_concentrated_link_lo
           |vpiActual:
-          \_ref_obj: (data), line:102:77, endln:102:81
+          \_ref_obj: (work@e.data), line:102:77, endln:102:81
             |vpiParent:
             \_hier_path: (resp_concentrated_link_lo.data), line:102:51, endln:102:81
             |vpiName:data
+            |vpiFullName:work@e.data
         |vpiTypespec:
         \_string_typespec: (data), line:102:35, endln:102:39
           |vpiName:data
@@ -1831,10 +1820,11 @@ design: (work@divSqrtRecFNToRaw_small)
             \_hier_path: (resp_concentrated_link_lo.v), line:103:57, endln:103:84
             |vpiName:resp_concentrated_link_lo
           |vpiActual:
-          \_ref_obj: (v), line:103:83, endln:103:84
+          \_ref_obj: (work@e.v), line:103:83, endln:103:84
             |vpiParent:
             \_hier_path: (resp_concentrated_link_lo.v), line:103:57, endln:103:84
             |vpiName:v
+            |vpiFullName:work@e.v
         |vpiTypespec:
         \_string_typespec: (v), line:103:42, endln:103:43
           |vpiName:v
@@ -1851,10 +1841,11 @@ design: (work@divSqrtRecFNToRaw_small)
             \_hier_path: (cce_lce_resp_link_lo.ready_and_rev), line:104:53, endln:104:87
             |vpiName:cce_lce_resp_link_lo
           |vpiActual:
-          \_ref_obj: (ready_and_rev), line:104:74, endln:104:87
+          \_ref_obj: (work@e.ready_and_rev), line:104:74, endln:104:87
             |vpiParent:
             \_hier_path: (cce_lce_resp_link_lo.ready_and_rev), line:104:53, endln:104:87
             |vpiName:ready_and_rev
+            |vpiFullName:work@e.ready_and_rev
         |vpiTypespec:
         \_string_typespec: (ready_and_rev), line:104:38, endln:104:51
           |vpiName:ready_and_rev
@@ -2041,24 +2032,20 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiOperand:
         \_bit_select: (work@isSigNaNRecFN.in), line:67:36, endln:67:52
           |vpiParent:
-          \_ref_obj: (work@isSigNaNRecFN.in)
-            |vpiParent:
-            \_operation: , line:67:35, endln:67:52
-            |vpiName:in
-            |vpiFullName:work@isSigNaNRecFN.in
+          \_operation: , line:67:35, endln:67:52
           |vpiName:in
           |vpiFullName:work@isSigNaNRecFN.in
           |vpiIndex:
           \_operation: , line:67:39, endln:67:51
             |vpiParent:
-            \_operation: , line:67:35, endln:67:52
+            \_bit_select: (work@isSigNaNRecFN.in), line:67:36, endln:67:52
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (work@isSigNaNRecFN.sigWidth), line:67:39, endln:67:47
+            \_ref_obj: (work@isSigNaNRecFN.in.sigWidth), line:67:39, endln:67:47
               |vpiParent:
-              \_operation: , line:67:35, endln:67:52
+              \_operation: , line:67:39, endln:67:51
               |vpiName:sigWidth
-              |vpiFullName:work@isSigNaNRecFN.sigWidth
+              |vpiFullName:work@isSigNaNRecFN.in.sigWidth
             |vpiOperand:
             \_constant: , line:67:50, endln:67:51
               |vpiParent:
@@ -2681,21 +2668,19 @@ design: (work@divSqrtRecFNToRaw_small)
       \_cont_assign: , line:65:13, endln:65:18
       |vpiOpType:14
       |vpiOperand:
-      \_part_select: , line:66:13, endln:66:68
+      \_part_select: in (work@isSigNaNRecFN.in), line:66:13, endln:66:68
         |vpiParent:
-        \_ref_obj: in (work@isSigNaNRecFN.in), line:66:13, endln:66:15
-          |vpiParent:
-          \_operation: , line:66:13, endln:66:77
-          |vpiName:in
-          |vpiFullName:work@isSigNaNRecFN.in
-          |vpiDefName:in
-          |vpiActual:
-          \_logic_net: (work@isSigNaNRecFN.in), line:62:44, endln:62:46
+        \_operation: , line:66:13, endln:66:77
+        |vpiName:in
+        |vpiFullName:work@isSigNaNRecFN.in
+        |vpiDefName:in
+        |vpiActual:
+        \_logic_net: (work@isSigNaNRecFN.in), line:62:44, endln:62:46
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:66:17, endln:66:40
           |vpiParent:
-          \_part_select: , line:66:13, endln:66:68
+          \_part_select: in (work@isSigNaNRecFN.in), line:66:13, endln:66:68
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:66:17, endln:66:40
@@ -2714,7 +2699,7 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiRightRange:
         \_operation: , line:66:43, endln:66:66
           |vpiParent:
-          \_part_select: , line:66:13, endln:66:68
+          \_part_select: in (work@isSigNaNRecFN.in), line:66:13, endln:66:68
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:66:43, endln:66:66
@@ -2763,15 +2748,11 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiOperand:
         \_bit_select: (work@isSigNaNRecFN.in), line:67:36, endln:67:52
           |vpiParent:
-          \_ref_obj: (work@isSigNaNRecFN.in)
-            |vpiParent:
-            \_operation: , line:67:35, endln:67:52
-            |vpiName:in
-            |vpiFullName:work@isSigNaNRecFN.in
-            |vpiActual:
-            \_logic_net: (work@isSigNaNRecFN.in), line:62:44, endln:62:46
+          \_operation: , line:67:35, endln:67:52
           |vpiName:in
           |vpiFullName:work@isSigNaNRecFN.in
+          |vpiActual:
+          \_logic_net: (work@isSigNaNRecFN.in), line:62:44, endln:62:46
           |vpiIndex:
           \_operation: , line:67:39, endln:67:51
             |vpiParent:
@@ -2793,8 +2774,6 @@ design: (work@divSqrtRecFNToRaw_small)
               |vpiSize:64
               |UINT:2
               |vpiConstType:9
-          |vpiActual:
-          \_logic_net: (work@isSigNaNRecFN.in), line:62:44, endln:62:46
     |vpiLhs:
     \_ref_obj: (work@isSigNaNRecFN.isSigNaN), line:67:15, endln:67:23
       |vpiParent:
@@ -3032,14 +3011,12 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiParent:
         \_gen_scope: (work@divSqrtRecFN_small.non_atomic)
         |vpiRhs:
-        \_indexed_part_select: , line:135:50, endln:135:67
+        \_indexed_part_select: st_data_tv_r (work@divSqrtRecFN_small.non_atomic.st_data_tv_r), line:135:50, endln:135:67
           |vpiParent:
-          \_ref_obj: st_data_tv_r (work@divSqrtRecFN_small.non_atomic.st_data_tv_r)
-            |vpiParent:
-            \_cont_assign: , line:135:24, endln:135:68
-            |vpiName:st_data_tv_r
-            |vpiFullName:work@divSqrtRecFN_small.non_atomic.st_data_tv_r
-            |vpiDefName:st_data_tv_r
+          \_cont_assign: , line:135:24, endln:135:68
+          |vpiName:st_data_tv_r
+          |vpiFullName:work@divSqrtRecFN_small.non_atomic.st_data_tv_r
+          |vpiDefName:st_data_tv_r
           |vpiConstantSelect:1
           |vpiIndexedPartSelectType:1
           |vpiBaseExpr:
@@ -3049,11 +3026,11 @@ design: (work@divSqrtRecFNToRaw_small)
             |UINT:0
             |vpiConstType:9
           |vpiWidthExpr:
-          \_ref_obj: (work@divSqrtRecFN_small.non_atomic.st_data_tv_r.slice_width_lp), line:135:53, endln:135:67
+          \_ref_obj: (work@divSqrtRecFN_small.non_atomic.slice_width_lp), line:135:53, endln:135:67
             |vpiParent:
-            \_indexed_part_select: , line:135:50, endln:135:67
+            \_indexed_part_select: st_data_tv_r (work@divSqrtRecFN_small.non_atomic.st_data_tv_r), line:135:50, endln:135:67
             |vpiName:slice_width_lp
-            |vpiFullName:work@divSqrtRecFN_small.non_atomic.st_data_tv_r.slice_width_lp
+            |vpiFullName:work@divSqrtRecFN_small.non_atomic.slice_width_lp
         |vpiLhs:
         \_ref_obj: (work@divSqrtRecFN_small.non_atomic.slice_data), line:135:24, endln:135:34
           |vpiParent:
@@ -3086,19 +3063,15 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiLhs:
         \_bit_select: (work@divSqrtRecFN_small.stub.lce_req_link_lo), line:149:26, endln:149:44
           |vpiParent:
-          \_ref_obj: (work@divSqrtRecFN_small.stub.lce_req_link_lo)
-            |vpiParent:
-            \_cont_assign: , line:149:26, endln:149:50
-            |vpiName:lce_req_link_lo
-            |vpiFullName:work@divSqrtRecFN_small.stub.lce_req_link_lo
+          \_cont_assign: , line:149:26, endln:149:50
           |vpiName:lce_req_link_lo
           |vpiFullName:work@divSqrtRecFN_small.stub.lce_req_link_lo
           |vpiIndex:
-          \_ref_obj: (work@divSqrtRecFN_small.stub.lce_req_link_lo.i), line:149:42, endln:149:43
+          \_ref_obj: (work@divSqrtRecFN_small.stub.i), line:149:42, endln:149:43
             |vpiParent:
             \_bit_select: (work@divSqrtRecFN_small.stub.lce_req_link_lo), line:149:26, endln:149:44
             |vpiName:i
-            |vpiFullName:work@divSqrtRecFN_small.stub.lce_req_link_lo.i
+            |vpiFullName:work@divSqrtRecFN_small.stub.i
             |vpiActual:
             \_logic_net: (i)
       |vpiContAssign:
@@ -3116,19 +3089,15 @@ design: (work@divSqrtRecFNToRaw_small)
         |vpiLhs:
         \_bit_select: (work@divSqrtRecFN_small.stub.lce_cmd_link_lo), line:150:27, endln:150:45
           |vpiParent:
-          \_ref_obj: (work@divSqrtRecFN_small.stub.lce_cmd_link_lo)
-            |vpiParent:
-            \_cont_assign: , line:150:27, endln:150:51
-            |vpiName:lce_cmd_link_lo
-            |vpiFullName:work@divSqrtRecFN_small.stub.lce_cmd_link_lo
+          \_cont_assign: , line:150:27, endln:150:51
           |vpiName:lce_cmd_link_lo
           |vpiFullName:work@divSqrtRecFN_small.stub.lce_cmd_link_lo
           |vpiIndex:
-          \_ref_obj: (work@divSqrtRecFN_small.stub.lce_cmd_link_lo.i), line:150:43, endln:150:44
+          \_ref_obj: (work@divSqrtRecFN_small.stub.i), line:150:43, endln:150:44
             |vpiParent:
             \_bit_select: (work@divSqrtRecFN_small.stub.lce_cmd_link_lo), line:150:27, endln:150:45
             |vpiName:i
-            |vpiFullName:work@divSqrtRecFN_small.stub.lce_cmd_link_lo.i
+            |vpiFullName:work@divSqrtRecFN_small.stub.i
             |vpiActual:
             \_logic_net: (i)
 ===================

@@ -200,7 +200,7 @@ module_inst                                            5
 packed_array_typespec                                  1
 packed_array_var                                       1
 range                                                  5
-ref_obj                                                6
+ref_obj                                                5
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        3
@@ -222,7 +222,7 @@ module_inst                                            5
 packed_array_typespec                                  1
 packed_array_var                                       1
 range                                                  5
-ref_obj                                               12
+ref_obj                                               10
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        3
@@ -355,30 +355,29 @@ design: (work@PreDecodeStage)
       \_cont_assign: , line:28:8, endln:28:48
       |vpiName:microOps[i][1].operand.intOp.aluCode
       |vpiActual:
-      \_bit_select: (microOps), line:28:12, endln:28:20
+      \_bit_select: (microOps[i]), line:28:12, endln:28:20
         |vpiParent:
-        \_ref_obj: (work@PreDecodeStage.microOps[i])
-          |vpiParent:
-          \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
-          |vpiName:microOps[i]
-          |vpiFullName:work@PreDecodeStage.microOps[i]
+        \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
         |vpiName:microOps
+        |vpiFullName:microOps[i]
         |vpiIndex:
         \_ref_obj: (i), line:28:21, endln:28:22
           |vpiName:i
           |vpiActual:
           \_logic_net: (i)
       |vpiActual:
-      \_bit_select: ([1]), line:28:21, endln:28:22
-        |vpiName:[1]
+      \_bit_select: (microOps[i][1]), line:28:21, endln:28:22
+        |vpiParent:
+        \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
+        |vpiFullName:microOps[i][1]
+        |vpiActual:
+        \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
         |vpiIndex:
         \_constant: , line:28:24, endln:28:25
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
-        |vpiActual:
-        \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
       |vpiActual:
       \_ref_obj: (operand), line:28:27, endln:28:34
         |vpiParent:
@@ -390,10 +389,11 @@ design: (work@PreDecodeStage)
         \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
         |vpiName:intOp
       |vpiActual:
-      \_ref_obj: (aluCode), line:28:41, endln:28:48
+      \_ref_obj: (work@PreDecodeStage.aluCode), line:28:41, endln:28:48
         |vpiParent:
         \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
         |vpiName:aluCode
+        |vpiFullName:work@PreDecodeStage.aluCode
     |vpiLhs:
     \_ref_obj: (work@PreDecodeStage.o), line:28:8, endln:28:9
       |vpiParent:
@@ -484,29 +484,26 @@ design: (work@PreDecodeStage)
       \_cont_assign: , line:28:8, endln:28:48
       |vpiName:microOps[i][1].operand.intOp.aluCode
       |vpiActual:
-      \_bit_select: (microOps), line:28:12, endln:28:20
-        |vpiParent:
-        \_ref_obj: (work@PreDecodeStage.microOps[i])
-          |vpiParent:
-          \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
-          |vpiName:microOps[i]
-          |vpiFullName:work@PreDecodeStage.microOps[i]
-        |vpiName:microOps
-        |vpiIndex:
-        \_ref_obj: (work@PreDecodeStage.microOps[i].i), line:28:21, endln:28:22
-          |vpiParent:
-          \_bit_select: (microOps), line:28:12, endln:28:20
-          |vpiName:i
-          |vpiFullName:work@PreDecodeStage.microOps[i].i
-          |vpiActual:
-          \_logic_net: (i)
-        |vpiActual:
-        \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
-      |vpiActual:
-      \_bit_select: ([1]), line:28:21, endln:28:22
+      \_bit_select: (microOps[i]), line:28:12, endln:28:20
         |vpiParent:
         \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
-        |vpiName:[1]
+        |vpiName:microOps
+        |vpiFullName:microOps[i]
+        |vpiActual:
+        \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
+        |vpiIndex:
+        \_ref_obj: (work@PreDecodeStage.microOps[i][1].operand.intOp.aluCode.i), line:28:21, endln:28:22
+          |vpiParent:
+          \_bit_select: (microOps[i]), line:28:12, endln:28:20
+          |vpiName:i
+          |vpiFullName:work@PreDecodeStage.microOps[i][1].operand.intOp.aluCode.i
+          |vpiActual:
+          \_logic_net: (i)
+      |vpiActual:
+      \_bit_select: (microOps[i][1]), line:28:21, endln:28:22
+        |vpiParent:
+        \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
+        |vpiFullName:microOps[i][1]
         |vpiIndex:
         \_constant: , line:28:24, endln:28:25
       |vpiActual:
@@ -524,10 +521,11 @@ design: (work@PreDecodeStage)
         |vpiActual:
         \_typespec_member: (intOp), line:16:27, endln:16:32
       |vpiActual:
-      \_ref_obj: (aluCode), line:28:41, endln:28:48
+      \_ref_obj: (work@PreDecodeStage.aluCode), line:28:41, endln:28:48
         |vpiParent:
         \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
         |vpiName:aluCode
+        |vpiFullName:work@PreDecodeStage.aluCode
         |vpiActual:
         \_typespec_member: (aluCode), line:11:17, endln:11:24
     |vpiLhs:

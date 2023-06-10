@@ -36,7 +36,7 @@ operation                                              2
 part_select                                            2
 port                                                   4
 range                                                  2
-ref_obj                                                7
+ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -54,7 +54,7 @@ operation                                              4
 part_select                                            4
 port                                                   6
 range                                                  2
-ref_obj                                               12
+ref_obj                                                8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectElab/slpp_unit/surelog.uhdm ...
 
@@ -152,17 +152,15 @@ design: (work@test)
           |vpiRhs:
           \_operation: , line:5:16, endln:5:29
             |vpiParent:
-            \_begin: (work@test), line:4:23, endln:6:4
+            \_assignment: , line:5:3, endln:5:29
             |vpiOpType:24
             |vpiOperand:
-            \_part_select: , line:5:16, endln:5:25
+            \_part_select: data (work@test.data), line:5:16, endln:5:25
               |vpiParent:
-              \_ref_obj: data (work@test.data), line:5:16, endln:5:20
-                |vpiParent:
-                \_operation: , line:5:16, endln:5:29
-                |vpiName:data
-                |vpiFullName:work@test.data
-                |vpiDefName:data
+              \_operation: , line:5:16, endln:5:29
+              |vpiName:data
+              |vpiFullName:work@test.data
+              |vpiDefName:data
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:5:21, endln:5:22
@@ -185,14 +183,12 @@ design: (work@test)
               |UINT:2
               |vpiConstType:9
           |vpiLhs:
-          \_part_select: , line:5:3, endln:5:12
+          \_part_select: data (work@test.data), line:5:3, endln:5:12
             |vpiParent:
-            \_ref_obj: data (work@test.data)
-              |vpiParent:
-              \_assignment: , line:5:3, endln:5:29
-              |vpiName:data
-              |vpiFullName:work@test.data
-              |vpiDefName:data
+            \_assignment: , line:5:3, endln:5:29
+            |vpiName:data
+            |vpiFullName:work@test.data
+            |vpiDefName:data
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:5:8, endln:5:9
@@ -330,16 +326,14 @@ design: (work@test)
             \_assignment: , line:5:3, endln:5:29
             |vpiOpType:24
             |vpiOperand:
-            \_part_select: , line:5:16, endln:5:25
+            \_part_select: data (work@test.data), line:5:16, endln:5:25
               |vpiParent:
-              \_ref_obj: data (work@test.data), line:5:16, endln:5:20
-                |vpiParent:
-                \_operation: , line:5:16, endln:5:29
-                |vpiName:data
-                |vpiFullName:work@test.data
-                |vpiDefName:data
-                |vpiActual:
-                \_logic_net: (work@test.data), line:2:12, endln:2:16
+              \_operation: , line:5:16, endln:5:29
+              |vpiName:data
+              |vpiFullName:work@test.data
+              |vpiDefName:data
+              |vpiActual:
+              \_logic_net: (work@test.data), line:2:12, endln:2:16
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:5:21, endln:5:22
@@ -348,16 +342,14 @@ design: (work@test)
             |vpiOperand:
             \_constant: , line:5:28, endln:5:29
           |vpiLhs:
-          \_part_select: , line:5:3, endln:5:12
+          \_part_select: data (work@test.data), line:5:3, endln:5:12
             |vpiParent:
-            \_ref_obj: data (work@test.data)
-              |vpiParent:
-              \_assignment: , line:5:3, endln:5:29
-              |vpiName:data
-              |vpiFullName:work@test.data
-              |vpiDefName:data
-              |vpiActual:
-              \_logic_net: (work@test.data), line:2:12, endln:2:16
+            \_assignment: , line:5:3, endln:5:29
+            |vpiName:data
+            |vpiFullName:work@test.data
+            |vpiDefName:data
+            |vpiActual:
+            \_logic_net: (work@test.data), line:2:12, endln:2:16
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_constant: , line:5:8, endln:5:9
@@ -372,4 +364,4 @@ design: (work@test)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PartSelectElab/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectElab/roundtrip/dut_000.sv | 2 | 8 |
+[roundtrip]: ${SURELOG_DIR}/tests/PartSelectElab/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectElab/roundtrip/dut_000.sv | 3 | 8 |

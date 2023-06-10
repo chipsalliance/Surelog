@@ -447,7 +447,7 @@ package                                                2
 parameter                                              7
 port                                                   2
 range                                                 11
-ref_obj                                               34
+ref_obj                                               19
 ref_var                                                1
 struct_net                                             1
 struct_typespec                                        8
@@ -488,7 +488,7 @@ package                                                2
 parameter                                              7
 port                                                   3
 range                                                 11
-ref_obj                                               49
+ref_obj                                               27
 ref_var                                                1
 struct_net                                             1
 struct_typespec                                        8
@@ -1119,17 +1119,13 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiIndex:
-          \_ref_obj: (var3.i), line:9:19, endln:9:20
+          \_ref_obj: (i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:var3.i
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
   |vpiName:work@dut
@@ -1196,7 +1192,7 @@ design: (work@dut)
       |vpiName:var3
       |vpiFullName:work@dut.var3
       |vpiActual:
-      \_array_net: (work@dut.var3), line:1:12, endln:1:16
+      \_struct_net: (work@dut.var3.var3), line:1:12, endln:6:26
     |vpiTypedef:
     \_struct_typespec: (struct2), line:2:11, endln:2:17
     |vpiInstance:
@@ -1284,25 +1280,19 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[0].var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (work@dut.g_fill[0].var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
-            |vpiFullName:work@dut.g_fill[0].var3
-            |vpiActual:
-            \_array_net: (work@dut.var3), line:1:12, endln:1:16
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiFullName:work@dut.g_fill[0].var3
+          |vpiActual:
+          \_array_net: (work@dut.var3), line:1:12, endln:1:16
           |vpiIndex:
-          \_ref_obj: (work@dut.g_fill[0].var3.i), line:9:19, endln:9:20
+          \_ref_obj: (work@dut.g_fill[0].i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (work@dut.g_fill[0].var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:work@dut.g_fill[0].var3.i
+            |vpiFullName:work@dut.g_fill[0].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[0].i), line:8:0
-          |vpiActual:
-          \_array_net: (work@dut.var3), line:1:12, endln:1:16
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[1]), line:8:30, endln:10:6
     |vpiParent:
@@ -1386,25 +1376,19 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[1].var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (work@dut.g_fill[1].var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
-            |vpiFullName:work@dut.g_fill[1].var3
-            |vpiActual:
-            \_array_net: (work@dut.var3), line:1:12, endln:1:16
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiFullName:work@dut.g_fill[1].var3
+          |vpiActual:
+          \_array_net: (work@dut.var3), line:1:12, endln:1:16
           |vpiIndex:
-          \_ref_obj: (work@dut.g_fill[1].var3.i), line:9:19, endln:9:20
+          \_ref_obj: (work@dut.g_fill[1].i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (work@dut.g_fill[1].var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:work@dut.g_fill[1].var3.i
+            |vpiFullName:work@dut.g_fill[1].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[1].i), line:8:0
-          |vpiActual:
-          \_array_net: (work@dut.var3), line:1:12, endln:1:16
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[2]), line:8:30, endln:10:6
     |vpiParent:
@@ -1488,25 +1472,19 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[2].var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (work@dut.g_fill[2].var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
-            |vpiFullName:work@dut.g_fill[2].var3
-            |vpiActual:
-            \_array_net: (work@dut.var3), line:1:12, endln:1:16
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiFullName:work@dut.g_fill[2].var3
+          |vpiActual:
+          \_array_net: (work@dut.var3), line:1:12, endln:1:16
           |vpiIndex:
-          \_ref_obj: (work@dut.g_fill[2].var3.i), line:9:19, endln:9:20
+          \_ref_obj: (work@dut.g_fill[2].i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (work@dut.g_fill[2].var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:work@dut.g_fill[2].var3.i
+            |vpiFullName:work@dut.g_fill[2].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[2].i), line:8:0
-          |vpiActual:
-          \_array_net: (work@dut.var3), line:1:12, endln:1:16
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[3]), line:8:30, endln:10:6
     |vpiParent:
@@ -1590,25 +1568,19 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[3].var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (work@dut.g_fill[3].var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
-            |vpiFullName:work@dut.g_fill[3].var3
-            |vpiActual:
-            \_array_net: (work@dut.var3), line:1:12, endln:1:16
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiFullName:work@dut.g_fill[3].var3
+          |vpiActual:
+          \_array_net: (work@dut.var3), line:1:12, endln:1:16
           |vpiIndex:
-          \_ref_obj: (work@dut.g_fill[3].var3.i), line:9:19, endln:9:20
+          \_ref_obj: (work@dut.g_fill[3].i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (work@dut.g_fill[3].var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:work@dut.g_fill[3].var3.i
+            |vpiFullName:work@dut.g_fill[3].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[3].i), line:8:0
-          |vpiActual:
-          \_array_net: (work@dut.var3), line:1:12, endln:1:16
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[4]), line:8:30, endln:10:6
     |vpiParent:
@@ -1692,25 +1664,19 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[4].var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (work@dut.g_fill[4].var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
-            |vpiFullName:work@dut.g_fill[4].var3
-            |vpiActual:
-            \_array_net: (work@dut.var3), line:1:12, endln:1:16
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiFullName:work@dut.g_fill[4].var3
+          |vpiActual:
+          \_array_net: (work@dut.var3), line:1:12, endln:1:16
           |vpiIndex:
-          \_ref_obj: (work@dut.g_fill[4].var3.i), line:9:19, endln:9:20
+          \_ref_obj: (work@dut.g_fill[4].i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (work@dut.g_fill[4].var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:work@dut.g_fill[4].var3.i
+            |vpiFullName:work@dut.g_fill[4].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[4].i), line:8:0
-          |vpiActual:
-          \_array_net: (work@dut.var3), line:1:12, endln:1:16
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[5]), line:8:30, endln:10:6
     |vpiParent:
@@ -1794,25 +1760,19 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[5].var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (work@dut.g_fill[5].var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
-            |vpiFullName:work@dut.g_fill[5].var3
-            |vpiActual:
-            \_array_net: (work@dut.var3), line:1:12, endln:1:16
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiFullName:work@dut.g_fill[5].var3
+          |vpiActual:
+          \_array_net: (work@dut.var3), line:1:12, endln:1:16
           |vpiIndex:
-          \_ref_obj: (work@dut.g_fill[5].var3.i), line:9:19, endln:9:20
+          \_ref_obj: (work@dut.g_fill[5].i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (work@dut.g_fill[5].var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:work@dut.g_fill[5].var3.i
+            |vpiFullName:work@dut.g_fill[5].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[5].i), line:8:0
-          |vpiActual:
-          \_array_net: (work@dut.var3), line:1:12, endln:1:16
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[6]), line:8:30, endln:10:6
     |vpiParent:
@@ -1896,25 +1856,19 @@ design: (work@dut)
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[6].var3), line:9:14, endln:9:21
           |vpiParent:
-          \_ref_obj: (work@dut.g_fill[6].var3)
-            |vpiParent:
-            \_cont_assign: , line:9:14, endln:9:37
-            |vpiName:var3
-            |vpiFullName:work@dut.g_fill[6].var3
-            |vpiActual:
-            \_array_net: (work@dut.var3), line:1:12, endln:1:16
+          \_cont_assign: , line:9:14, endln:9:37
           |vpiName:var3
           |vpiFullName:work@dut.g_fill[6].var3
+          |vpiActual:
+          \_array_net: (work@dut.var3), line:1:12, endln:1:16
           |vpiIndex:
-          \_ref_obj: (work@dut.g_fill[6].var3.i), line:9:19, endln:9:20
+          \_ref_obj: (work@dut.g_fill[6].i), line:9:19, endln:9:20
             |vpiParent:
             \_bit_select: (work@dut.g_fill[6].var3), line:9:14, endln:9:21
             |vpiName:i
-            |vpiFullName:work@dut.g_fill[6].var3.i
+            |vpiFullName:work@dut.g_fill[6].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[6].i), line:8:0
-          |vpiActual:
-          \_array_net: (work@dut.var3), line:1:12, endln:1:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

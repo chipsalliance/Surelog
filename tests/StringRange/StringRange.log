@@ -2112,7 +2112,7 @@ parameter                                           2707
 part_select                                          293
 port                                                  22
 range                                                 46
-ref_obj                                              423
+ref_obj                                              130
 ref_var                                                1
 string_typespec                                       11
 sys_func_call                                          6
@@ -2152,7 +2152,7 @@ parameter                                           2707
 part_select                                          297
 port                                                  39
 range                                                 46
-ref_obj                                              555
+ref_obj                                              258
 ref_var                                                5
 string_typespec                                       11
 sys_func_call                                          6
@@ -2265,7 +2265,7 @@ design: (work@top)
       |vpiRhs:
       \_operation: , line:8:16, endln:8:20
         |vpiParent:
-        \_function: (work@Example.flip), line:6:5, endln:9:16
+        \_assignment: , line:8:9, endln:8:20
         |vpiOpType:4
         |vpiOperand:
         \_ref_obj: (work@Example.flip.inp), line:8:17, endln:8:20
@@ -2278,7 +2278,7 @@ design: (work@top)
       |vpiLhs:
       \_ref_obj: (work@Example.flip.flip), line:8:9, endln:8:13
         |vpiParent:
-        \_function: (work@Example.flip), line:6:5, endln:9:16
+        \_assignment: , line:8:9, endln:8:20
         |vpiName:flip
         |vpiFullName:work@Example.flip.flip
         |vpiActual:
@@ -2420,8 +2420,6 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:32:16, endln:32:17
-          |vpiParent:
-          \_assignment: , line:32:9, endln:32:17
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -2429,7 +2427,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@Example.outD), line:32:9, endln:32:13
           |vpiParent:
-          \_begin: (work@Example), line:31:13, endln:36:8
+          \_assignment: , line:32:9, endln:32:17
           |vpiName:outD
           |vpiFullName:work@Example.outD
           |vpiActual:
@@ -2466,12 +2464,12 @@ design: (work@top)
           |vpiRhs:
           \_operation: , line:33:56, endln:33:61
             |vpiParent:
-            \_for_stmt: (work@Example), line:33:9, endln:33:12
+            \_assignment: , line:33:52, endln:33:61
             |vpiOpType:24
             |vpiOperand:
             \_ref_obj: (work@Example.j), line:33:56, endln:33:57
               |vpiParent:
-              \_for_stmt: (work@Example), line:33:9, endln:33:12
+              \_operation: , line:33:56, endln:33:61
               |vpiName:j
               |vpiFullName:work@Example.j
               |vpiActual:
@@ -2487,7 +2485,7 @@ design: (work@top)
           |vpiLhs:
           \_ref_obj: (work@Example.j), line:33:52, endln:33:53
             |vpiParent:
-            \_for_stmt: (work@Example), line:33:9, endln:33:12
+            \_assignment: , line:33:52, endln:33:61
             |vpiName:j
             |vpiFullName:work@Example.j
             |vpiActual:
@@ -2514,14 +2512,12 @@ design: (work@top)
               |vpiParent:
               \_func_call: (flip), line:33:26, endln:33:50
               |vpiArgument:
-              \_part_select: , line:33:36, endln:33:48
+              \_part_select: OUTPUT (work@Example.OUTPUT), line:33:36, endln:33:48
                 |vpiParent:
-                \_ref_obj: OUTPUT (work@Example.OUTPUT), line:33:36, endln:33:42
-                  |vpiParent:
-                  \_func_call: (flip), line:33:31, endln:33:49
-                  |vpiName:OUTPUT
-                  |vpiFullName:work@Example.OUTPUT
-                  |vpiDefName:OUTPUT
+                \_func_call: (flip), line:33:31, endln:33:49
+                |vpiName:OUTPUT
+                |vpiFullName:work@Example.OUTPUT
+                |vpiDefName:OUTPUT
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_constant: , line:33:43, endln:33:45
@@ -2553,12 +2549,12 @@ design: (work@top)
             |vpiOperand:
             \_operation: , line:34:17, endln:34:22
               |vpiParent:
-              \_for_stmt: (work@Example), line:33:9, endln:33:12
+              \_operation: , line:34:17, endln:34:41
               |vpiOpType:24
               |vpiOperand:
               \_ref_obj: (work@Example.j), line:34:17, endln:34:18
                 |vpiParent:
-                \_for_stmt: (work@Example), line:33:9, endln:33:12
+                \_operation: , line:34:17, endln:34:22
                 |vpiName:j
                 |vpiFullName:work@Example.j
                 |vpiActual:
@@ -2601,8 +2597,6 @@ design: (work@top)
             |vpiBlocking:1
             |vpiRhs:
             \_constant: , line:35:24, endln:35:25
-              |vpiParent:
-              \_assignment: , line:35:17, endln:35:25
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -2610,7 +2604,7 @@ design: (work@top)
             |vpiLhs:
             \_ref_obj: (work@Example.outD), line:35:17, endln:35:21
               |vpiParent:
-              \_if_stmt: , line:34:13, endln:35:26
+              \_assignment: , line:35:17, endln:35:25
               |vpiName:outD
               |vpiFullName:work@Example.outD
               |vpiActual:
@@ -2627,8 +2621,6 @@ design: (work@top)
       |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:24:24, endln:24:25
-        |vpiParent:
-        \_assignment: , line:24:17, endln:24:25
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -2636,7 +2628,7 @@ design: (work@top)
       |vpiLhs:
       \_ref_obj: (work@Example.outC), line:24:17, endln:24:21
         |vpiParent:
-        \_initial: , line:24:9, endln:24:26
+        \_assignment: , line:24:17, endln:24:25
         |vpiName:outC
         |vpiFullName:work@Example.outC
         |vpiActual:
@@ -2653,8 +2645,6 @@ design: (work@top)
       |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:24:24, endln:24:25
-        |vpiParent:
-        \_assignment: , line:24:17, endln:24:25
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -2662,7 +2652,7 @@ design: (work@top)
       |vpiLhs:
       \_ref_obj: (work@Example.outC), line:24:17, endln:24:21
         |vpiParent:
-        \_initial: , line:24:9, endln:24:26
+        \_assignment: , line:24:17, endln:24:25
         |vpiName:outC
         |vpiFullName:work@Example.outC
         |vpiActual:
@@ -2679,8 +2669,6 @@ design: (work@top)
       |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:24:24, endln:24:25
-        |vpiParent:
-        \_assignment: , line:24:17, endln:24:25
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -2688,7 +2676,7 @@ design: (work@top)
       |vpiLhs:
       \_ref_obj: (work@Example.outC), line:24:17, endln:24:21
         |vpiParent:
-        \_initial: , line:24:9, endln:24:26
+        \_assignment: , line:24:17, endln:24:25
         |vpiName:outC
         |vpiFullName:work@Example.outC
         |vpiActual:
@@ -2705,8 +2693,6 @@ design: (work@top)
       |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:24:24, endln:24:25
-        |vpiParent:
-        \_assignment: , line:24:17, endln:24:25
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -2714,7 +2700,7 @@ design: (work@top)
       |vpiLhs:
       \_ref_obj: (work@Example.outC), line:24:17, endln:24:21
         |vpiParent:
-        \_initial: , line:24:9, endln:24:26
+        \_assignment: , line:24:17, endln:24:25
         |vpiName:outC
         |vpiFullName:work@Example.outC
         |vpiActual:
@@ -2873,7 +2859,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (W), line:62:34, endln:62:35
           |vpiParent:
-          \_sys_func_call: ($floor), line:62:27, endln:62:40
+          \_operation: , line:62:34, endln:62:39
           |vpiName:W
         |vpiOperand:
         \_ref_obj: (X), line:62:38, endln:62:39
@@ -2901,7 +2887,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (W), line:63:41, endln:63:42
             |vpiParent:
-            \_sys_func_call: ($floor), line:63:34, endln:63:47
+            \_operation: , line:63:41, endln:63:46
             |vpiName:W
           |vpiOperand:
           \_ref_obj: (X), line:63:45, endln:63:46
@@ -2964,7 +2950,7 @@ design: (work@top)
       |vpiRhs:
       \_operation: , line:58:18, endln:58:22
         |vpiParent:
-        \_function: (work@top.negate), line:56:5, endln:59:16
+        \_assignment: , line:58:9, endln:58:22
         |vpiOpType:4
         |vpiOperand:
         \_ref_obj: (work@top.negate.inp), line:58:19, endln:58:22
@@ -2977,7 +2963,7 @@ design: (work@top)
       |vpiLhs:
       \_ref_obj: (work@top.negate.negate), line:58:9, endln:58:15
         |vpiParent:
-        \_function: (work@top.negate), line:56:5, endln:59:16
+        \_assignment: , line:58:9, endln:58:22
         |vpiName:negate
         |vpiFullName:work@top.negate.negate
         |vpiActual:
@@ -3193,7 +3179,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.a1), line:66:16, endln:66:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:66:16, endln:66:23
             |vpiName:a1
             |vpiFullName:work@top.a1
             |vpiActual:
@@ -3218,7 +3204,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.a2), line:67:16, endln:67:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:67:16, endln:67:23
             |vpiName:a2
             |vpiFullName:work@top.a2
             |vpiActual:
@@ -3243,7 +3229,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.a3), line:68:16, endln:68:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:68:16, endln:68:27
             |vpiName:a3
             |vpiFullName:work@top.a3
             |vpiActual:
@@ -3268,7 +3254,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.a4), line:69:16, endln:69:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:69:16, endln:69:23
             |vpiName:a4
             |vpiFullName:work@top.a4
             |vpiActual:
@@ -3293,7 +3279,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.b1), line:70:16, endln:70:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:70:16, endln:70:27
             |vpiName:b1
             |vpiFullName:work@top.b1
             |vpiActual:
@@ -3318,7 +3304,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.b2), line:71:16, endln:71:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:71:16, endln:71:27
             |vpiName:b2
             |vpiFullName:work@top.b2
             |vpiActual:
@@ -3343,7 +3329,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.b3), line:72:16, endln:72:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:72:16, endln:72:23
             |vpiName:b3
             |vpiFullName:work@top.b3
             |vpiActual:
@@ -3368,7 +3354,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.b4), line:73:16, endln:73:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:73:16, endln:73:26
             |vpiName:b4
             |vpiFullName:work@top.b4
             |vpiActual:
@@ -3393,7 +3379,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.c1), line:74:16, endln:74:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:74:16, endln:74:23
             |vpiName:c1
             |vpiFullName:work@top.c1
             |vpiActual:
@@ -3418,7 +3404,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.c2), line:75:16, endln:75:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:75:16, endln:75:23
             |vpiName:c2
             |vpiFullName:work@top.c2
             |vpiActual:
@@ -3443,7 +3429,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.c3), line:76:16, endln:76:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:76:16, endln:76:23
             |vpiName:c3
             |vpiFullName:work@top.c3
             |vpiActual:
@@ -3468,7 +3454,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.c4), line:77:16, endln:77:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:77:16, endln:77:23
             |vpiName:c4
             |vpiFullName:work@top.c4
             |vpiActual:
@@ -3493,7 +3479,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.d1), line:78:16, endln:78:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:78:16, endln:78:23
             |vpiName:d1
             |vpiFullName:work@top.d1
             |vpiActual:
@@ -3518,7 +3504,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.d2), line:79:16, endln:79:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:79:16, endln:79:23
             |vpiName:d2
             |vpiFullName:work@top.d2
             |vpiActual:
@@ -3543,7 +3529,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.d3), line:80:16, endln:80:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:80:16, endln:80:23
             |vpiName:d3
             |vpiFullName:work@top.d3
             |vpiActual:
@@ -3568,7 +3554,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.d4), line:81:16, endln:81:18
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:81:16, endln:81:23
             |vpiName:d4
             |vpiFullName:work@top.d4
             |vpiActual:
@@ -3593,7 +3579,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.Y), line:83:16, endln:83:17
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:83:16, endln:83:22
             |vpiName:Y
             |vpiFullName:work@top.Y
           |vpiOperand:
@@ -3616,7 +3602,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.Z), line:84:16, endln:84:17
             |vpiParent:
-            \_begin: (work@top), line:65:17, endln:85:8
+            \_operation: , line:84:16, endln:84:23
             |vpiName:Z
             |vpiFullName:work@top.Z
           |vpiOperand:
@@ -3941,7 +3927,7 @@ design: (work@top)
         |vpiName:negate
         |vpiFullName:work@top.negate.negate
         |vpiActual:
-        \_int_var: , line:56:14, endln:56:20
+        \_int_var: (negate), line:56:14, endln:56:20
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
   |vpiNet:
@@ -4635,7 +4621,7 @@ design: (work@top)
           |vpiName:flip
           |vpiFullName:work@top.e1.flip.flip
           |vpiActual:
-          \_logic_var: , line:6:24, endln:6:30
+          \_logic_var: (flip), line:6:24, endln:6:30
       |vpiInstance:
       \_module_inst: work@Example (work@top.e1), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:44:5, endln:44:41
     |vpiNet:
@@ -4951,16 +4937,14 @@ design: (work@top)
                 |vpiParent:
                 \_func_call: (flip), line:33:26, endln:33:50
                 |vpiArgument:
-                \_part_select: , line:33:36, endln:33:48
+                \_part_select: OUTPUT (work@top.e1.OUTPUT), line:33:36, endln:33:48
                   |vpiParent:
-                  \_ref_obj: OUTPUT (work@top.e1.OUTPUT), line:33:36, endln:33:42
-                    |vpiParent:
-                    \_func_call: (flip), line:33:31, endln:33:49
-                    |vpiName:OUTPUT
-                    |vpiFullName:work@top.e1.OUTPUT
-                    |vpiDefName:OUTPUT
-                    |vpiActual:
-                    \_parameter: (work@top.e1.OUTPUT), line:2:15, endln:2:21
+                  \_func_call: (flip), line:33:31, endln:33:49
+                  |vpiName:OUTPUT
+                  |vpiFullName:work@top.e1.OUTPUT
+                  |vpiDefName:OUTPUT
+                  |vpiActual:
+                  \_parameter: (work@top.e1.OUTPUT), line:2:15, endln:2:21
                   |vpiConstantSelect:1
                   |vpiLeftRange:
                   \_constant: , line:33:43, endln:33:45
@@ -6856,8 +6840,6 @@ design: (work@top)
                 |vpiBlocking:1
                 |vpiRhs:
                 \_constant: , line:27:32, endln:27:33
-                  |vpiParent:
-                  \_assignment: , line:27:25, endln:27:33
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
@@ -6959,7 +6941,7 @@ design: (work@top)
           |vpiName:flip
           |vpiFullName:work@top.e2.flip.flip
           |vpiActual:
-          \_logic_var: , line:6:24, endln:6:30
+          \_logic_var: (flip), line:6:24, endln:6:30
       |vpiInstance:
       \_module_inst: work@Example (work@top.e2), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:45:5, endln:45:41
     |vpiNet:
@@ -7204,7 +7186,7 @@ design: (work@top)
             |vpiName:outD
             |vpiFullName:work@top.e2.outD
             |vpiActual:
-            \_logic_net: (work@top.e2.outD), line:1:34, endln:1:38
+            \_logic_net: (work@top.e1.outD), line:1:34, endln:1:38
         |vpiStmt:
         \_for_stmt: (work@top.e2), line:33:9, endln:33:12
           |vpiParent:
@@ -7242,7 +7224,7 @@ design: (work@top)
                 |vpiName:j
                 |vpiFullName:work@top.e2.j
                 |vpiActual:
-                \_integer_var: (work@top.e2.j), line:30:13, endln:30:14
+                \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
               |vpiOperand:
               \_constant: , line:33:60, endln:33:61
             |vpiLhs:
@@ -7252,7 +7234,7 @@ design: (work@top)
               |vpiName:j
               |vpiFullName:work@top.e2.j
               |vpiActual:
-              \_integer_var: (work@top.e2.j), line:30:13, endln:30:14
+              \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
           |vpiCondition:
           \_operation: , line:33:21, endln:33:50
             |vpiParent:
@@ -7265,7 +7247,7 @@ design: (work@top)
               |vpiName:j
               |vpiFullName:work@top.e2.j
               |vpiActual:
-              \_integer_var: (work@top.e2.j), line:30:13, endln:30:14
+              \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
             |vpiOperand:
             \_func_call: (flip), line:33:26, endln:33:50
               |vpiParent:
@@ -7275,16 +7257,14 @@ design: (work@top)
                 |vpiParent:
                 \_func_call: (flip), line:33:26, endln:33:50
                 |vpiArgument:
-                \_part_select: , line:33:36, endln:33:48
+                \_part_select: OUTPUT (work@top.e2.OUTPUT), line:33:36, endln:33:48
                   |vpiParent:
-                  \_ref_obj: OUTPUT (work@top.e2.OUTPUT), line:33:36, endln:33:42
-                    |vpiParent:
-                    \_func_call: (flip), line:33:31, endln:33:49
-                    |vpiName:OUTPUT
-                    |vpiFullName:work@top.e2.OUTPUT
-                    |vpiDefName:OUTPUT
-                    |vpiActual:
-                    \_parameter: (work@top.e2.OUTPUT), line:2:15, endln:2:21
+                  \_func_call: (flip), line:33:31, endln:33:49
+                  |vpiName:OUTPUT
+                  |vpiFullName:work@top.e2.OUTPUT
+                  |vpiDefName:OUTPUT
+                  |vpiActual:
+                  \_parameter: (work@top.e2.OUTPUT), line:2:15, endln:2:21
                   |vpiConstantSelect:1
                   |vpiLeftRange:
                   \_constant: , line:33:43, endln:33:45
@@ -7317,7 +7297,7 @@ design: (work@top)
                   |vpiName:j
                   |vpiFullName:work@top.e2.j
                   |vpiActual:
-                  \_integer_var: (work@top.e2.j), line:30:13, endln:30:14
+                  \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
                 |vpiOperand:
                 \_constant: , line:34:21, endln:34:22
               |vpiOperand:
@@ -7351,7 +7331,7 @@ design: (work@top)
                 |vpiName:outD
                 |vpiFullName:work@top.e2.outD
                 |vpiActual:
-                \_logic_net: (work@top.e2.outD), line:1:34, endln:1:38
+                \_logic_net: (work@top.e1.outD), line:1:34, endln:1:38
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -7371,7 +7351,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e2.outC
           |vpiActual:
-          \_logic_net: (work@top.e2.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -7391,7 +7371,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e2.outC
           |vpiActual:
-          \_logic_net: (work@top.e2.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -7411,7 +7391,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e2.outC
           |vpiActual:
-          \_logic_net: (work@top.e2.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -7431,7 +7411,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e2.outC
           |vpiActual:
-          \_logic_net: (work@top.e2.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.e2.genblk1), line:12:9, endln:15:29
       |vpiParent:
@@ -9180,8 +9160,6 @@ design: (work@top)
                 |vpiBlocking:1
                 |vpiRhs:
                 \_constant: , line:27:32, endln:27:33
-                  |vpiParent:
-                  \_assignment: , line:27:25, endln:27:33
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
@@ -9283,7 +9261,7 @@ design: (work@top)
           |vpiName:flip
           |vpiFullName:work@top.e3.flip.flip
           |vpiActual:
-          \_logic_var: , line:6:24, endln:6:30
+          \_logic_var: (flip), line:6:24, endln:6:30
       |vpiInstance:
       \_module_inst: work@Example (work@top.e3), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:46:5, endln:46:41
     |vpiNet:
@@ -9528,7 +9506,7 @@ design: (work@top)
             |vpiName:outD
             |vpiFullName:work@top.e3.outD
             |vpiActual:
-            \_logic_net: (work@top.e3.outD), line:1:34, endln:1:38
+            \_logic_net: (work@top.e1.outD), line:1:34, endln:1:38
         |vpiStmt:
         \_for_stmt: (work@top.e3), line:33:9, endln:33:12
           |vpiParent:
@@ -9566,7 +9544,7 @@ design: (work@top)
                 |vpiName:j
                 |vpiFullName:work@top.e3.j
                 |vpiActual:
-                \_integer_var: (work@top.e3.j), line:30:13, endln:30:14
+                \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
               |vpiOperand:
               \_constant: , line:33:60, endln:33:61
             |vpiLhs:
@@ -9576,7 +9554,7 @@ design: (work@top)
               |vpiName:j
               |vpiFullName:work@top.e3.j
               |vpiActual:
-              \_integer_var: (work@top.e3.j), line:30:13, endln:30:14
+              \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
           |vpiCondition:
           \_operation: , line:33:21, endln:33:50
             |vpiParent:
@@ -9589,7 +9567,7 @@ design: (work@top)
               |vpiName:j
               |vpiFullName:work@top.e3.j
               |vpiActual:
-              \_integer_var: (work@top.e3.j), line:30:13, endln:30:14
+              \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
             |vpiOperand:
             \_func_call: (flip), line:33:26, endln:33:50
               |vpiParent:
@@ -9599,16 +9577,14 @@ design: (work@top)
                 |vpiParent:
                 \_func_call: (flip), line:33:26, endln:33:50
                 |vpiArgument:
-                \_part_select: , line:33:36, endln:33:48
+                \_part_select: OUTPUT (work@top.e3.OUTPUT), line:33:36, endln:33:48
                   |vpiParent:
-                  \_ref_obj: OUTPUT (work@top.e3.OUTPUT), line:33:36, endln:33:42
-                    |vpiParent:
-                    \_func_call: (flip), line:33:31, endln:33:49
-                    |vpiName:OUTPUT
-                    |vpiFullName:work@top.e3.OUTPUT
-                    |vpiDefName:OUTPUT
-                    |vpiActual:
-                    \_parameter: (work@top.e3.OUTPUT), line:2:15, endln:2:21
+                  \_func_call: (flip), line:33:31, endln:33:49
+                  |vpiName:OUTPUT
+                  |vpiFullName:work@top.e3.OUTPUT
+                  |vpiDefName:OUTPUT
+                  |vpiActual:
+                  \_parameter: (work@top.e3.OUTPUT), line:2:15, endln:2:21
                   |vpiConstantSelect:1
                   |vpiLeftRange:
                   \_constant: , line:33:43, endln:33:45
@@ -9641,7 +9617,7 @@ design: (work@top)
                   |vpiName:j
                   |vpiFullName:work@top.e3.j
                   |vpiActual:
-                  \_integer_var: (work@top.e3.j), line:30:13, endln:30:14
+                  \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
                 |vpiOperand:
                 \_constant: , line:34:21, endln:34:22
               |vpiOperand:
@@ -9675,7 +9651,7 @@ design: (work@top)
                 |vpiName:outD
                 |vpiFullName:work@top.e3.outD
                 |vpiActual:
-                \_logic_net: (work@top.e3.outD), line:1:34, endln:1:38
+                \_logic_net: (work@top.e1.outD), line:1:34, endln:1:38
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -9695,7 +9671,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e3.outC
           |vpiActual:
-          \_logic_net: (work@top.e3.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -9715,7 +9691,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e3.outC
           |vpiActual:
-          \_logic_net: (work@top.e3.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -9735,7 +9711,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e3.outC
           |vpiActual:
-          \_logic_net: (work@top.e3.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -9755,7 +9731,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e3.outC
           |vpiActual:
-          \_logic_net: (work@top.e3.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.e3.genblk1), line:12:9, endln:15:29
       |vpiParent:
@@ -11276,7 +11252,7 @@ design: (work@top)
           |vpiName:flip
           |vpiFullName:work@top.e4.flip.flip
           |vpiActual:
-          \_logic_var: , line:6:24, endln:6:30
+          \_logic_var: (flip), line:6:24, endln:6:30
       |vpiInstance:
       \_module_inst: work@Example (work@top.e4), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:47:5, endln:47:41
     |vpiNet:
@@ -11521,7 +11497,7 @@ design: (work@top)
             |vpiName:outD
             |vpiFullName:work@top.e4.outD
             |vpiActual:
-            \_logic_net: (work@top.e4.outD), line:1:34, endln:1:38
+            \_logic_net: (work@top.e1.outD), line:1:34, endln:1:38
         |vpiStmt:
         \_for_stmt: (work@top.e4), line:33:9, endln:33:12
           |vpiParent:
@@ -11559,7 +11535,7 @@ design: (work@top)
                 |vpiName:j
                 |vpiFullName:work@top.e4.j
                 |vpiActual:
-                \_integer_var: (work@top.e4.j), line:30:13, endln:30:14
+                \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
               |vpiOperand:
               \_constant: , line:33:60, endln:33:61
             |vpiLhs:
@@ -11569,7 +11545,7 @@ design: (work@top)
               |vpiName:j
               |vpiFullName:work@top.e4.j
               |vpiActual:
-              \_integer_var: (work@top.e4.j), line:30:13, endln:30:14
+              \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
           |vpiCondition:
           \_operation: , line:33:21, endln:33:50
             |vpiParent:
@@ -11582,7 +11558,7 @@ design: (work@top)
               |vpiName:j
               |vpiFullName:work@top.e4.j
               |vpiActual:
-              \_integer_var: (work@top.e4.j), line:30:13, endln:30:14
+              \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
             |vpiOperand:
             \_func_call: (flip), line:33:26, endln:33:50
               |vpiParent:
@@ -11592,16 +11568,14 @@ design: (work@top)
                 |vpiParent:
                 \_func_call: (flip), line:33:26, endln:33:50
                 |vpiArgument:
-                \_part_select: , line:33:36, endln:33:48
+                \_part_select: OUTPUT (work@top.e4.OUTPUT), line:33:36, endln:33:48
                   |vpiParent:
-                  \_ref_obj: OUTPUT (work@top.e4.OUTPUT), line:33:36, endln:33:42
-                    |vpiParent:
-                    \_func_call: (flip), line:33:31, endln:33:49
-                    |vpiName:OUTPUT
-                    |vpiFullName:work@top.e4.OUTPUT
-                    |vpiDefName:OUTPUT
-                    |vpiActual:
-                    \_parameter: (work@top.e4.OUTPUT), line:2:15, endln:2:21
+                  \_func_call: (flip), line:33:31, endln:33:49
+                  |vpiName:OUTPUT
+                  |vpiFullName:work@top.e4.OUTPUT
+                  |vpiDefName:OUTPUT
+                  |vpiActual:
+                  \_parameter: (work@top.e4.OUTPUT), line:2:15, endln:2:21
                   |vpiConstantSelect:1
                   |vpiLeftRange:
                   \_constant: , line:33:43, endln:33:45
@@ -11634,7 +11608,7 @@ design: (work@top)
                   |vpiName:j
                   |vpiFullName:work@top.e4.j
                   |vpiActual:
-                  \_integer_var: (work@top.e4.j), line:30:13, endln:30:14
+                  \_integer_var: (work@top.e1.j), line:30:13, endln:30:14
                 |vpiOperand:
                 \_constant: , line:34:21, endln:34:22
               |vpiOperand:
@@ -11668,7 +11642,7 @@ design: (work@top)
                 |vpiName:outD
                 |vpiFullName:work@top.e4.outD
                 |vpiActual:
-                \_logic_net: (work@top.e4.outD), line:1:34, endln:1:38
+                \_logic_net: (work@top.e1.outD), line:1:34, endln:1:38
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -11688,7 +11662,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e4.outC
           |vpiActual:
-          \_logic_net: (work@top.e4.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -11708,7 +11682,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e4.outC
           |vpiActual:
-          \_logic_net: (work@top.e4.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -11728,7 +11702,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e4.outC
           |vpiActual:
-          \_logic_net: (work@top.e4.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiProcess:
     \_initial: , line:24:9, endln:24:26
       |vpiParent:
@@ -11748,7 +11722,7 @@ design: (work@top)
           |vpiName:outC
           |vpiFullName:work@top.e4.outC
           |vpiActual:
-          \_logic_net: (work@top.e4.outC), line:1:28, endln:1:32
+          \_logic_net: (work@top.e1.outC), line:1:28, endln:1:32
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.e4.genblk1), line:12:9, endln:15:29
       |vpiParent:
@@ -13329,4 +13303,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/StringRange/dut.sv | ${SURELOG_DIR}/build/regression/StringRange/roundtrip/dut_000.sv | 33 | 86 |
+[roundtrip]: ${SURELOG_DIR}/tests/StringRange/dut.sv | ${SURELOG_DIR}/build/regression/StringRange/roundtrip/dut_000.sv | 34 | 86 |

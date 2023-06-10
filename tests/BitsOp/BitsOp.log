@@ -75,7 +75,7 @@ parameter                                             96
 part_select                                            1
 port                                                   2
 range                                                 43
-ref_obj                                               65
+ref_obj                                               64
 struct_net                                             2
 struct_typespec                                        9
 sys_func_call                                         22
@@ -112,7 +112,7 @@ parameter                                             96
 part_select                                            2
 port                                                   3
 range                                                 43
-ref_obj                                               73
+ref_obj                                               71
 struct_net                                             2
 struct_typespec                                        9
 sys_func_call                                         22
@@ -716,7 +716,7 @@ design: (work@dut)
             |vpiOperand:
             \_ref_obj: (tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_SZW), line:36:13, endln:36:22
               |vpiParent:
-              \_struct_typespec: (tlul_pkg::tl_h2d_t), line:32:11, endln:32:17
+              \_operation: , line:36:13, endln:36:30
               |vpiName:top_pkg::TL_SZW
               |vpiFullName:tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_SZW
               |vpiActual:
@@ -765,7 +765,7 @@ design: (work@dut)
             |vpiOperand:
             \_ref_obj: (tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_AIW), line:37:13, endln:37:22
               |vpiParent:
-              \_struct_typespec: (tlul_pkg::tl_h2d_t), line:32:11, endln:32:17
+              \_operation: , line:37:13, endln:37:30
               |vpiName:top_pkg::TL_AIW
               |vpiFullName:tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_AIW
               |vpiActual:
@@ -814,7 +814,7 @@ design: (work@dut)
             |vpiOperand:
             \_ref_obj: (tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_AW), line:38:14, endln:38:23
               |vpiParent:
-              \_struct_typespec: (tlul_pkg::tl_h2d_t), line:32:11, endln:32:17
+              \_operation: , line:38:14, endln:38:30
               |vpiName:top_pkg::TL_AW
               |vpiFullName:tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_AW
               |vpiActual:
@@ -863,7 +863,7 @@ design: (work@dut)
             |vpiOperand:
             \_ref_obj: (tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_DBW), line:39:13, endln:39:22
               |vpiParent:
-              \_struct_typespec: (tlul_pkg::tl_h2d_t), line:32:11, endln:32:17
+              \_operation: , line:39:13, endln:39:30
               |vpiName:top_pkg::TL_DBW
               |vpiFullName:tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_DBW
               |vpiActual:
@@ -912,7 +912,7 @@ design: (work@dut)
             |vpiOperand:
             \_ref_obj: (tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_DW), line:40:14, endln:40:23
               |vpiParent:
-              \_struct_typespec: (tlul_pkg::tl_h2d_t), line:32:11, endln:32:17
+              \_operation: , line:40:14, endln:40:30
               |vpiName:top_pkg::TL_DW
               |vpiFullName:tlul_pkg::tlul_pkg::tl_h2d_t::top_pkg::TL_DW
               |vpiActual:
@@ -2422,30 +2422,28 @@ design: (work@dut)
                 |vpiRhs:
                 \_operation: , line:121:16, endln:121:48
                   |vpiParent:
-                  \_begin: (work@dmi_jtag.p_shift), line:120:23, endln:122:10
+                  \_assignment: , line:121:9, endln:121:48
                   |vpiOpType:33
                   |vpiOperand:
                   \_ref_obj: (work@dmi_jtag.p_shift.dmi_tdi), line:121:17, endln:121:24
                     |vpiParent:
-                    \_begin: (work@dmi_jtag.p_shift), line:120:23, endln:122:10
+                    \_assignment: , line:121:9, endln:121:48
                     |vpiName:dmi_tdi
                     |vpiFullName:work@dmi_jtag.p_shift.dmi_tdi
                     |vpiActual:
                     \_logic_net: (dmi_tdi)
                   |vpiOperand:
-                  \_part_select: , line:121:26, endln:121:47
+                  \_part_select: dr_q (work@dmi_jtag.p_shift.dr_q), line:121:26, endln:121:47
                     |vpiParent:
-                    \_ref_obj: dr_q (work@dmi_jtag.p_shift.dr_q), line:121:26, endln:121:30
-                      |vpiParent:
-                      \_begin: (work@dmi_jtag.p_shift), line:120:23, endln:122:10
-                      |vpiName:dr_q
-                      |vpiFullName:work@dmi_jtag.p_shift.dr_q
-                      |vpiDefName:dr_q
+                    \_assignment: , line:121:9, endln:121:48
+                    |vpiName:dr_q
+                    |vpiFullName:work@dmi_jtag.p_shift.dr_q
+                    |vpiDefName:dr_q
                     |vpiConstantSelect:1
                     |vpiLeftRange:
                     \_operation: , line:121:31, endln:121:44
                       |vpiParent:
-                      \_begin: (work@dmi_jtag.p_shift), line:120:23, endln:122:10
+                      \_part_select: dr_q (work@dmi_jtag.p_shift.dr_q), line:121:26, endln:121:47
                       |vpiOpType:11
                       |vpiOperand:
                       \_constant: , line:121:31, endln:121:42
@@ -2472,7 +2470,7 @@ design: (work@dut)
                 |vpiLhs:
                 \_ref_obj: (work@dmi_jtag.p_shift.dr_d), line:121:9, endln:121:13
                   |vpiParent:
-                  \_begin: (work@dmi_jtag.p_shift), line:120:23, endln:122:10
+                  \_assignment: , line:121:9, endln:121:48
                   |vpiName:dr_d
                   |vpiFullName:work@dmi_jtag.p_shift.dr_d
                   |vpiActual:
@@ -2639,7 +2637,7 @@ design: (work@dut)
         |vpiOperand:
         \_ref_obj: (DataWidth), line:81:40, endln:81:49
           |vpiParent:
-          \_sys_func_call: ($clog2), line:81:33, endln:81:52
+          \_operation: , line:81:40, endln:81:51
           |vpiName:DataWidth
         |vpiOperand:
         \_constant: , line:81:50, endln:81:51
@@ -3321,21 +3319,19 @@ design: (work@dut)
                     |vpiActual:
                     \_logic_net: (dmi_tdi)
                   |vpiOperand:
-                  \_part_select: , line:121:26, endln:121:47
+                  \_part_select: dr_q (work@dmi_jtag.p_shift.dr_q), line:121:26, endln:121:47
                     |vpiParent:
-                    \_ref_obj: dr_q (work@dmi_jtag.p_shift.dr_q), line:121:26, endln:121:30
-                      |vpiParent:
-                      \_operation: , line:121:16, endln:121:48
-                      |vpiName:dr_q
-                      |vpiFullName:work@dmi_jtag.p_shift.dr_q
-                      |vpiDefName:dr_q
-                      |vpiActual:
-                      \_logic_var: (work@dmi_jtag.dr_q), line:112:34, endln:112:38
+                    \_operation: , line:121:16, endln:121:48
+                    |vpiName:dr_q
+                    |vpiFullName:work@dmi_jtag.p_shift.dr_q
+                    |vpiDefName:dr_q
+                    |vpiActual:
+                    \_logic_var: (work@dmi_jtag.dr_q), line:112:34, endln:112:38
                     |vpiConstantSelect:1
                     |vpiLeftRange:
                     \_operation: , line:121:31, endln:121:44
                       |vpiParent:
-                      \_part_select: , line:121:26, endln:121:47
+                      \_part_select: dr_q (work@dmi_jtag.p_shift.dr_q), line:121:26, endln:121:47
                       |vpiOpType:11
                       |vpiOperand:
                       \_constant: , line:121:31, endln:121:42

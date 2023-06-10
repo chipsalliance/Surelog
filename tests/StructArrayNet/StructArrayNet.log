@@ -182,7 +182,7 @@ parameter                                              4
 port                                                   5
 range                                                  2
 ref_module                                             1
-ref_obj                                                8
+ref_obj                                                6
 struct_net                                             2
 struct_typespec                                        2
 typespec_member                                        2
@@ -207,7 +207,7 @@ parameter                                              4
 port                                                   7
 range                                                  2
 ref_module                                             1
-ref_obj                                               12
+ref_obj                                                9
 struct_net                                             2
 struct_typespec                                        2
 typespec_member                                        2
@@ -390,16 +390,12 @@ design: (work@dut)
       |vpiName:struct_i
       |vpiHighConn:
       \_bit_select: (struct_array), line:12:20, endln:12:37
-        |vpiParent:
-        \_ref_obj: (struct_array)
-          |vpiName:struct_array
         |vpiName:struct_array
         |vpiIndex:
-        \_ref_obj: (struct_array.sel), line:12:33, endln:12:36
+        \_ref_obj: (sel), line:12:33, endln:12:36
           |vpiParent:
           \_bit_select: (struct_array), line:12:20, endln:12:37
           |vpiName:sel
-          |vpiFullName:struct_array.sel
           |vpiActual:
           \_int_var: (work@dut.sel), line:9:22, endln:9:25
 |uhdmallModules:
@@ -522,25 +518,19 @@ design: (work@dut)
       |vpiHighConn:
       \_bit_select: (work@dut.struct_array), line:12:20, endln:12:37
         |vpiParent:
-        \_ref_obj: (work@dut.m.struct_i.struct_array)
-          |vpiParent:
-          \_port: (struct_i), line:6:30, endln:6:38
-          |vpiName:struct_array
-          |vpiFullName:work@dut.m.struct_i.struct_array
-          |vpiActual:
-          \_packed_array_net: (work@dut.struct_array), line:10:32, endln:10:44
+        \_port: (struct_i), line:6:30, endln:6:38
         |vpiName:struct_array
         |vpiFullName:work@dut.struct_array
+        |vpiActual:
+        \_packed_array_net: (work@dut.struct_array), line:10:32, endln:10:44
         |vpiIndex:
-        \_ref_obj: (work@dut.m.struct_i.struct_array.sel), line:12:33, endln:12:36
+        \_ref_obj: (work@dut.m.sel), line:12:33, endln:12:36
           |vpiParent:
           \_bit_select: (work@dut.struct_array), line:12:20, endln:12:37
           |vpiName:sel
-          |vpiFullName:work@dut.m.struct_i.struct_array.sel
+          |vpiFullName:work@dut.m.sel
           |vpiActual:
           \_int_var: (work@dut.sel), line:9:22, endln:9:25
-        |vpiActual:
-        \_packed_array_net: (work@dut.struct_array), line:10:32, endln:10:44
       |vpiLowConn:
       \_ref_obj: (work@dut.m.struct_i), line:12:11, endln:12:19
         |vpiParent:

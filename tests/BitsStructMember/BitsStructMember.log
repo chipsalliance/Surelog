@@ -48,7 +48,7 @@ param_assign                                           4
 parameter                                              4
 port                                                   4
 range                                                  8
-ref_obj                                               21
+ref_obj                                               19
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        8
@@ -79,7 +79,7 @@ param_assign                                           4
 parameter                                              4
 port                                                   6
 range                                                  8
-ref_obj                                               32
+ref_obj                                               28
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        8
@@ -178,7 +178,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth), line:7:12, endln:7:27
               |vpiParent:
-              \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17
+              \_operation: , line:7:12, endln:7:29
               |vpiName:KmacDataIfWidth
               |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth
               |vpiActual:
@@ -227,12 +227,12 @@ design: (work@top)
             |vpiOperand:
             \_operation: , line:8:12, endln:8:29
               |vpiParent:
-              \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17
+              \_operation: , line:8:12, endln:8:31
               |vpiOpType:12
               |vpiOperand:
               \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth), line:8:12, endln:8:27
                 |vpiParent:
-                \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17
+                \_operation: , line:8:12, endln:8:29
                 |vpiName:KmacDataIfWidth
                 |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth
                 |vpiActual:
@@ -621,7 +621,7 @@ design: (work@top)
                   |vpiRhs:
                   \_operation: , line:23:33, endln:23:59
                     |vpiParent:
-                    \_begin: (work@top), line:22:63, endln:24:12
+                    \_assignment: , line:23:11, endln:23:59
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:23:34, endln:23:35
@@ -634,12 +634,12 @@ design: (work@top)
                     |vpiOperand:
                     \_operation: , line:23:35, endln:23:58
                       |vpiParent:
-                      \_begin: (work@top), line:22:63, endln:24:12
+                      \_assignment: , line:23:11, endln:23:59
                       |vpiOpType:33
                       |vpiOperand:
                       \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                         |vpiParent:
-                        \_begin: (work@top), line:22:63, endln:24:12
+                        \_assignment: , line:23:11, endln:23:59
                         |vpiName:keymgr_data_i.strb[i]
                         |vpiActual:
                         \_ref_obj: (keymgr_data_i), line:23:36, endln:23:49
@@ -649,36 +649,30 @@ design: (work@top)
                         |vpiActual:
                         \_bit_select: (work@top.strb)
                           |vpiParent:
-                          \_ref_obj: (work@top.strb)
-                            |vpiParent:
-                            \_begin: (work@top), line:22:63, endln:24:12
-                            |vpiName:strb
-                            |vpiFullName:work@top.strb
+                          \_assignment: , line:23:11, endln:23:59
                           |vpiName:strb
                           |vpiFullName:work@top.strb
                           |vpiIndex:
                           \_ref_obj: (work@top.i), line:23:55, endln:23:56
                             |vpiParent:
-                            \_begin: (work@top), line:22:63, endln:24:12
+                            \_bit_select: (work@top.strb)
                             |vpiName:i
                             |vpiFullName:work@top.i
                             |vpiActual:
                             \_int_var: (work@top.i), line:22:18, endln:22:19
                   |vpiLhs:
-                  \_indexed_part_select: , line:23:11, endln:23:30
+                  \_indexed_part_select: kmac_mask_o (work@top.kmac_mask_o), line:23:11, endln:23:30
                     |vpiParent:
-                    \_ref_obj: kmac_mask_o (work@top.kmac_mask_o)
-                      |vpiParent:
-                      \_assignment: , line:23:11, endln:23:59
-                      |vpiName:kmac_mask_o
-                      |vpiFullName:work@top.kmac_mask_o
-                      |vpiDefName:kmac_mask_o
+                    \_assignment: , line:23:11, endln:23:59
+                    |vpiName:kmac_mask_o
+                    |vpiFullName:work@top.kmac_mask_o
+                    |vpiDefName:kmac_mask_o
                     |vpiConstantSelect:1
                     |vpiIndexedPartSelectType:1
                     |vpiBaseExpr:
                     \_operation: , line:23:23, endln:23:26
                       |vpiParent:
-                      \_begin: (work@top), line:22:63, endln:24:12
+                      \_indexed_part_select: kmac_mask_o (work@top.kmac_mask_o), line:23:11, endln:23:30
                       |vpiOpType:25
                       |vpiOperand:
                       \_constant: , line:23:23, endln:23:24
@@ -689,11 +683,11 @@ design: (work@top)
                         |UINT:8
                         |vpiConstType:9
                       |vpiOperand:
-                      \_ref_obj: (work@top.i), line:23:25, endln:23:26
+                      \_ref_obj: (work@top.kmac_mask_o.i), line:23:25, endln:23:26
                         |vpiParent:
                         \_operation: , line:23:23, endln:23:26
                         |vpiName:i
-                        |vpiFullName:work@top.i
+                        |vpiFullName:work@top.kmac_mask_o.i
                         |vpiActual:
                         \_int_var: (work@top.i), line:22:18, endln:22:19
                     |vpiWidthExpr:
@@ -815,7 +809,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (work@top.kmac_mask_o.MsgWidth), line:17:16, endln:17:24
             |vpiParent:
-            \_port: (kmac_mask_o), line:17:30, endln:17:41
+            \_operation: , line:17:16, endln:17:26
             |vpiName:MsgWidth
             |vpiFullName:work@top.kmac_mask_o.MsgWidth
             |vpiActual:
@@ -962,44 +956,36 @@ design: (work@top)
                           |vpiActual:
                           \_struct_net: (work@top.keymgr_data_i), line:16:48, endln:16:61
                         |vpiActual:
-                        \_bit_select: (work@top.strb)
+                        \_bit_select: (work@top.keymgr_data_i.strb[i].strb)
                           |vpiParent:
-                          \_ref_obj: (work@top.strb)
-                            |vpiParent:
-                            \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
-                            |vpiName:strb
-                            |vpiFullName:work@top.strb
-                            |vpiActual:
-                            \_typespec_member: (strb), line:8:35, endln:8:39
+                          \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                           |vpiName:strb
-                          |vpiFullName:work@top.strb
-                          |vpiIndex:
-                          \_ref_obj: (work@top.strb.i), line:23:55, endln:23:56
-                            |vpiParent:
-                            \_bit_select: (work@top.strb)
-                            |vpiName:i
-                            |vpiFullName:work@top.strb.i
-                            |vpiActual:
-                            \_int_var: (work@top.i), line:22:18, endln:22:19
+                          |vpiFullName:work@top.keymgr_data_i.strb[i].strb
                           |vpiActual:
                           \_typespec_member: (strb), line:8:35, endln:8:39
+                          |vpiIndex:
+                          \_ref_obj: (work@top.keymgr_data_i.strb[i].i), line:23:55, endln:23:56
+                            |vpiParent:
+                            \_bit_select: (work@top.keymgr_data_i.strb[i].strb)
+                            |vpiName:i
+                            |vpiFullName:work@top.keymgr_data_i.strb[i].i
+                            |vpiActual:
+                            \_int_var: (work@top.i), line:22:18, endln:22:19
                   |vpiLhs:
-                  \_indexed_part_select: , line:23:11, endln:23:30
+                  \_indexed_part_select: kmac_mask_o (work@top.kmac_mask_o), line:23:11, endln:23:30
                     |vpiParent:
-                    \_ref_obj: kmac_mask_o (work@top.kmac_mask_o)
-                      |vpiParent:
-                      \_assignment: , line:23:11, endln:23:59
-                      |vpiName:kmac_mask_o
-                      |vpiFullName:work@top.kmac_mask_o
-                      |vpiDefName:kmac_mask_o
-                      |vpiActual:
-                      \_logic_net: (work@top.kmac_mask_o), line:17:30, endln:17:41
+                    \_assignment: , line:23:11, endln:23:59
+                    |vpiName:kmac_mask_o
+                    |vpiFullName:work@top.kmac_mask_o
+                    |vpiDefName:kmac_mask_o
+                    |vpiActual:
+                    \_logic_net: (work@top.kmac_mask_o), line:17:30, endln:17:41
                     |vpiConstantSelect:1
                     |vpiIndexedPartSelectType:1
                     |vpiBaseExpr:
                     \_operation: , line:23:23, endln:23:26
                       |vpiParent:
-                      \_indexed_part_select: , line:23:11, endln:23:30
+                      \_indexed_part_select: kmac_mask_o (work@top.kmac_mask_o), line:23:11, endln:23:30
                       |vpiOpType:25
                       |vpiOperand:
                       \_constant: , line:23:23, endln:23:24

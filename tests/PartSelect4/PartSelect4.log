@@ -304,7 +304,7 @@ param_assign                                          17
 parameter                                             25
 range                                                  5
 ref_module                                            10
-ref_obj                                               15
+ref_obj                                                5
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -329,7 +329,7 @@ param_assign                                          25
 parameter                                             25
 range                                                  5
 ref_module                                            10
-ref_obj                                               15
+ref_obj                                                5
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -550,15 +550,15 @@ design: (work@xbar_main)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelect4/dut.sv, line:16:1, endln:21:10
     |vpiRhs:
-    \_indexed_part_select: , line:19:16, endln:19:25
-      |vpiParent:
-      \_ref_obj: A (A)
-        |vpiName:A
-        |vpiDefName:A
+    \_indexed_part_select: A (A), line:19:16, endln:19:25
+      |vpiName:A
+      |vpiDefName:A
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
       \_operation: , line:19:18, endln:19:21
+        |vpiParent:
+        \_indexed_part_select: A (A), line:19:16, endln:19:25
         |vpiOpType:25
         |vpiOperand:
         \_constant: , line:19:18, endln:19:19
@@ -1227,4 +1227,4 @@ design: (work@xbar_main)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PartSelect4/dut.sv | ${SURELOG_DIR}/build/regression/PartSelect4/roundtrip/dut_000.sv | 6 | 21 |
+[roundtrip]: ${SURELOG_DIR}/tests/PartSelect4/dut.sv | ${SURELOG_DIR}/build/regression/PartSelect4/roundtrip/dut_000.sv | 7 | 21 |

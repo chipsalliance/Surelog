@@ -126,7 +126,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   2
 range                                                  2
-ref_obj                                                6
+ref_obj                                                4
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -148,7 +148,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   3
 range                                                  2
-ref_obj                                                9
+ref_obj                                                6
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -237,14 +237,11 @@ design: (work@top)
       \_cont_assign: , line:9:11, endln:9:40
       |vpiName:sram_otp_key_o[2 - 2].nonce
       |vpiActual:
-      \_bit_select: (sram_otp_key_o), line:9:11, endln:9:25
+      \_bit_select: (sram_otp_key_o[2 - 2]), line:9:11, endln:9:25
         |vpiParent:
-        \_ref_obj: (work@top.sram_otp_key_o[2 - 2])
-          |vpiParent:
-          \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
-          |vpiName:sram_otp_key_o[2 - 2]
-          |vpiFullName:work@top.sram_otp_key_o[2 - 2]
+        \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
         |vpiName:sram_otp_key_o
+        |vpiFullName:sram_otp_key_o[2 - 2]
         |vpiIndex:
         \_operation: , line:9:26, endln:9:29
           |vpiOpType:11
@@ -265,10 +262,11 @@ design: (work@top)
             |UINT:2
             |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (nonce)
+      \_ref_obj: (sram_otp_key_o[2 - 2].nonce)
         |vpiParent:
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
         |vpiName:nonce
+        |vpiFullName:sram_otp_key_o[2 - 2].nonce
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
   |vpiName:work@top
@@ -351,18 +349,17 @@ design: (work@top)
       \_cont_assign: , line:9:11, endln:9:40
       |vpiName:sram_otp_key_o[2 - 2].nonce
       |vpiActual:
-      \_bit_select: (sram_otp_key_o), line:9:11, endln:9:25
+      \_bit_select: (sram_otp_key_o[2 - 2]), line:9:11, endln:9:25
         |vpiParent:
-        \_ref_obj: (work@top.sram_otp_key_o[2 - 2])
-          |vpiParent:
-          \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
-          |vpiName:sram_otp_key_o[2 - 2]
-          |vpiFullName:work@top.sram_otp_key_o[2 - 2]
+        \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
         |vpiName:sram_otp_key_o
+        |vpiFullName:sram_otp_key_o[2 - 2]
+        |vpiActual:
+        \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
         |vpiIndex:
         \_operation: , line:9:26, endln:9:29
           |vpiParent:
-          \_bit_select: (sram_otp_key_o), line:9:11, endln:9:25
+          \_bit_select: (sram_otp_key_o[2 - 2]), line:9:11, endln:9:25
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:9:26, endln:9:27
@@ -380,13 +377,12 @@ design: (work@top)
             |vpiSize:64
             |UINT:2
             |vpiConstType:9
-        |vpiActual:
-        \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
       |vpiActual:
-      \_ref_obj: (nonce)
+      \_ref_obj: (sram_otp_key_o[2 - 2].nonce)
         |vpiParent:
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
         |vpiName:nonce
+        |vpiFullName:sram_otp_key_o[2 - 2].nonce
         |vpiActual:
         \_typespec_member: (nonce), line:4:14, endln:4:19
 ===================

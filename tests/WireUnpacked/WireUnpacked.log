@@ -110,7 +110,6 @@ logic_net                                              2
 logic_typespec                                         1
 module_inst                                            4
 range                                                  3
-ref_obj                                                2
 var_select                                             2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -125,7 +124,6 @@ logic_net                                              2
 logic_typespec                                         1
 module_inst                                            4
 range                                                  3
-ref_obj                                                3
 var_select                                             3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/WireUnpacked/slpp_all/surelog.uhdm ...
@@ -180,9 +178,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiIndex:
-      \_indexed_part_select: , line:3:20, endln:3:24
+      \_indexed_part_select: read_buf (work@dut.read_buf.read_buf), line:3:20, endln:3:24
         |vpiParent:
         \_var_select: (work@dut.read_buf), line:3:8, endln:3:25
+        |vpiName:read_buf
+        |vpiFullName:work@dut.read_buf.read_buf
+        |vpiDefName:read_buf
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:
@@ -266,6 +267,8 @@ design: (work@dut)
       \_cont_assign: , line:3:8, endln:3:32
       |vpiName:read_buf
       |vpiFullName:work@dut.read_buf
+      |vpiActual:
+      \_array_net: (work@dut.read_buf), line:2:12, endln:2:20
       |vpiIndex:
       \_constant: , line:3:17, endln:3:18
         |vpiParent:
@@ -275,21 +278,20 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiIndex:
-      \_indexed_part_select: , line:3:20, endln:3:24
+      \_indexed_part_select: read_buf (work@dut.read_buf.read_buf), line:3:20, endln:3:24
         |vpiParent:
-        \_ref_obj: (work@dut.read_buf.read_buf)
-          |vpiParent:
-          \_var_select: (work@dut.read_buf), line:3:8, endln:3:25
-          |vpiName:read_buf
-          |vpiFullName:work@dut.read_buf.read_buf
-          |vpiActual:
-          \_array_net: (work@dut.read_buf), line:2:12, endln:2:20
+        \_var_select: (work@dut.read_buf), line:3:8, endln:3:25
+        |vpiName:read_buf
+        |vpiFullName:work@dut.read_buf.read_buf
+        |vpiDefName:read_buf
+        |vpiActual:
+        \_array_net: (work@dut.read_buf), line:2:12, endln:2:20
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:
         \_constant: , line:3:20, endln:3:21
           |vpiParent:
-          \_indexed_part_select: , line:3:20, endln:3:24
+          \_indexed_part_select: read_buf (read_buf.read_buf), line:3:20, endln:3:24
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -297,7 +299,7 @@ design: (work@dut)
         |vpiWidthExpr:
         \_constant: , line:3:23, endln:3:24
           |vpiParent:
-          \_indexed_part_select: , line:3:20, endln:3:24
+          \_indexed_part_select: read_buf (read_buf.read_buf), line:3:20, endln:3:24
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2

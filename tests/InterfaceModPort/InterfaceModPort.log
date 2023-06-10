@@ -1228,7 +1228,7 @@ port                                                  16
 program                                                2
 range                                                 43
 ref_module                                             4
-ref_obj                                               46
+ref_obj                                               44
 sys_func_call                                          1
 task                                                   9
 === UHDM Object Stats End ===
@@ -1998,8 +1998,6 @@ design: (work@interface_modports)
         |vpiOpType:82
         |vpiRhs:
         \_constant: , line:102:20, endln:102:21
-          |vpiParent:
-          \_assignment: , line:102:7, endln:102:21
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -2007,7 +2005,7 @@ design: (work@interface_modports)
         |vpiLhs:
         \_hier_path: (tif.reset), line:102:7, endln:102:16
           |vpiParent:
-          \_begin: (work@interface_modports.U_test), line:101:12, endln:105:7
+          \_assignment: , line:102:7, endln:102:21
           |vpiName:tif.reset
           |vpiActual:
           \_ref_obj: (tif)
@@ -2257,10 +2255,11 @@ design: (work@interface_modports)
             \_hier_path: (mif.clk), line:69:19, endln:69:26
             |vpiName:mif
           |vpiActual:
-          \_ref_obj: (clk), line:69:23, endln:69:26
+          \_ref_obj: (work@memory_model.clk), line:69:23, endln:69:26
             |vpiParent:
             \_hier_path: (mif.clk), line:69:19, endln:69:26
             |vpiName:clk
+            |vpiFullName:work@memory_model.clk
       |vpiStmt:
       \_if_stmt: , line:70:2, endln:72:5
         |vpiParent:
@@ -2273,7 +2272,7 @@ design: (work@interface_modports)
           |vpiOperand:
           \_hier_path: (mif.ce_mem), line:70:6, endln:70:16
             |vpiParent:
-            \_event_control: , line:69:8, endln:69:27
+            \_operation: , line:70:6, endln:70:30
             |vpiName:mif.ce_mem
             |vpiActual:
             \_ref_obj: (mif), line:70:6, endln:70:9
@@ -2281,10 +2280,11 @@ design: (work@interface_modports)
               \_hier_path: (mif.ce_mem), line:70:6, endln:70:16
               |vpiName:mif
             |vpiActual:
-            \_ref_obj: (ce_mem), line:70:10, endln:70:16
+            \_ref_obj: (work@memory_model.ce_mem), line:70:10, endln:70:16
               |vpiParent:
               \_hier_path: (mif.ce_mem), line:70:6, endln:70:16
               |vpiName:ce_mem
+              |vpiFullName:work@memory_model.ce_mem
           |vpiOperand:
           \_hier_path: (mif.we_mem), line:70:20, endln:70:30
             |vpiParent:
@@ -2296,10 +2296,11 @@ design: (work@interface_modports)
               \_hier_path: (mif.we_mem), line:70:20, endln:70:30
               |vpiName:mif
             |vpiActual:
-            \_ref_obj: (we_mem), line:70:24, endln:70:30
+            \_ref_obj: (work@memory_model.we_mem), line:70:24, endln:70:30
               |vpiParent:
               \_hier_path: (mif.we_mem), line:70:20, endln:70:30
               |vpiName:we_mem
+              |vpiFullName:work@memory_model.we_mem
         |vpiStmt:
         \_begin: (work@memory_model), line:70:32, endln:72:5
           |vpiParent:
@@ -2313,7 +2314,7 @@ design: (work@interface_modports)
             |vpiRhs:
             \_hier_path: (mif.datai_mem), line:71:25, endln:71:38
               |vpiParent:
-              \_begin: (work@memory_model), line:70:32, endln:72:5
+              \_assignment: , line:71:4, endln:71:38
               |vpiName:mif.datai_mem
               |vpiActual:
               \_ref_obj: (mif), line:71:25, endln:71:28
@@ -2321,24 +2322,21 @@ design: (work@interface_modports)
                 \_hier_path: (mif.datai_mem), line:71:25, endln:71:38
                 |vpiName:mif
               |vpiActual:
-              \_ref_obj: (datai_mem), line:71:29, endln:71:38
+              \_ref_obj: (work@memory_model.datai_mem), line:71:29, endln:71:38
                 |vpiParent:
                 \_hier_path: (mif.datai_mem), line:71:25, endln:71:38
                 |vpiName:datai_mem
+                |vpiFullName:work@memory_model.datai_mem
             |vpiLhs:
             \_bit_select: (work@memory_model.mem), line:71:4, endln:71:21
               |vpiParent:
-              \_ref_obj: (work@memory_model.mem)
-                |vpiParent:
-                \_assignment: , line:71:4, endln:71:38
-                |vpiName:mem
-                |vpiFullName:work@memory_model.mem
+              \_assignment: , line:71:4, endln:71:38
               |vpiName:mem
               |vpiFullName:work@memory_model.mem
               |vpiIndex:
               \_hier_path: (mif.addr_mem), line:71:8, endln:71:20
                 |vpiParent:
-                \_begin: (work@memory_model), line:70:32, endln:72:5
+                \_bit_select: (work@memory_model.mem), line:71:4, endln:71:21
                 |vpiName:mif.addr_mem
                 |vpiActual:
                 \_ref_obj: (mif), line:71:8, endln:71:11
@@ -2346,10 +2344,11 @@ design: (work@interface_modports)
                   \_hier_path: (mif.addr_mem), line:71:8, endln:71:20
                   |vpiName:mif
                 |vpiActual:
-                \_ref_obj: (addr_mem), line:71:12, endln:71:20
+                \_ref_obj: (work@memory_model.mem.addr_mem), line:71:12, endln:71:20
                   |vpiParent:
                   \_hier_path: (mif.addr_mem), line:71:8, endln:71:20
                   |vpiName:addr_mem
+                  |vpiFullName:work@memory_model.mem.addr_mem
     |vpiAlwaysType:1
   |vpiProcess:
   \_always: , line:77:1, endln:80:5
@@ -2375,10 +2374,11 @@ design: (work@interface_modports)
             \_hier_path: (mif.clk), line:77:19, endln:77:26
             |vpiName:mif
           |vpiActual:
-          \_ref_obj: (clk), line:77:23, endln:77:26
+          \_ref_obj: (work@memory_model.clk), line:77:23, endln:77:26
             |vpiParent:
             \_hier_path: (mif.clk), line:77:19, endln:77:26
             |vpiName:clk
+            |vpiFullName:work@memory_model.clk
       |vpiStmt:
       \_if_stmt: , line:78:2, endln:80:5
         |vpiParent:
@@ -2391,7 +2391,7 @@ design: (work@interface_modports)
           |vpiOperand:
           \_hier_path: (mif.ce_mem), line:78:6, endln:78:16
             |vpiParent:
-            \_event_control: , line:77:8, endln:77:27
+            \_operation: , line:78:6, endln:78:31
             |vpiName:mif.ce_mem
             |vpiActual:
             \_ref_obj: (mif), line:78:6, endln:78:9
@@ -2399,10 +2399,11 @@ design: (work@interface_modports)
               \_hier_path: (mif.ce_mem), line:78:6, endln:78:16
               |vpiName:mif
             |vpiActual:
-            \_ref_obj: (ce_mem), line:78:10, endln:78:16
+            \_ref_obj: (work@memory_model.ce_mem), line:78:10, endln:78:16
               |vpiParent:
               \_hier_path: (mif.ce_mem), line:78:6, endln:78:16
               |vpiName:ce_mem
+              |vpiFullName:work@memory_model.ce_mem
           |vpiOperand:
           \_operation: , line:78:20, endln:78:31
             |vpiParent:
@@ -2419,10 +2420,11 @@ design: (work@interface_modports)
                 \_hier_path: (mif.we_mem), line:78:21, endln:78:31
                 |vpiName:mif
               |vpiActual:
-              \_ref_obj: (we_mem), line:78:25, endln:78:31
+              \_ref_obj: (work@memory_model.we_mem), line:78:25, endln:78:31
                 |vpiParent:
                 \_hier_path: (mif.we_mem), line:78:21, endln:78:31
                 |vpiName:we_mem
+                |vpiFullName:work@memory_model.we_mem
         |vpiStmt:
         \_begin: (work@memory_model), line:78:34, endln:80:5
           |vpiParent:
@@ -2436,17 +2438,13 @@ design: (work@interface_modports)
             |vpiRhs:
             \_bit_select: (work@memory_model.mem), line:79:21, endln:79:38
               |vpiParent:
-              \_ref_obj: (work@memory_model.mem)
-                |vpiParent:
-                \_assignment: , line:79:4, endln:79:38
-                |vpiName:mem
-                |vpiFullName:work@memory_model.mem
+              \_assignment: , line:79:4, endln:79:38
               |vpiName:mem
               |vpiFullName:work@memory_model.mem
               |vpiIndex:
               \_hier_path: (mif.addr_mem), line:79:25, endln:79:37
                 |vpiParent:
-                \_begin: (work@memory_model), line:78:34, endln:80:5
+                \_bit_select: (work@memory_model.mem), line:79:21, endln:79:38
                 |vpiName:mif.addr_mem
                 |vpiActual:
                 \_ref_obj: (mif), line:79:25, endln:79:28
@@ -2454,14 +2452,15 @@ design: (work@interface_modports)
                   \_hier_path: (mif.addr_mem), line:79:25, endln:79:37
                   |vpiName:mif
                 |vpiActual:
-                \_ref_obj: (addr_mem), line:79:29, endln:79:37
+                \_ref_obj: (work@memory_model.mem.addr_mem), line:79:29, endln:79:37
                   |vpiParent:
                   \_hier_path: (mif.addr_mem), line:79:25, endln:79:37
                   |vpiName:addr_mem
+                  |vpiFullName:work@memory_model.mem.addr_mem
             |vpiLhs:
             \_hier_path: (mif.datao_mem), line:79:4, endln:79:17
               |vpiParent:
-              \_begin: (work@memory_model), line:78:34, endln:80:5
+              \_assignment: , line:79:4, endln:79:38
               |vpiName:mif.datao_mem
               |vpiActual:
               \_ref_obj: (mif)

@@ -567,7 +567,7 @@ package                                                2
 param_assign                                          14
 parameter                                             14
 range                                                  6
-ref_obj                                                9
+ref_obj                                                8
 ref_var                                                1
 task                                                   9
 === UHDM Object Stats End ===
@@ -604,7 +604,7 @@ package                                                2
 param_assign                                          14
 parameter                                             14
 range                                                  6
-ref_obj                                               18
+ref_obj                                               16
 ref_var                                                2
 task                                                  18
 === UHDM Object Stats End ===
@@ -1212,8 +1212,6 @@ design: (work@my_opt_reduce_or)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:10:35, endln:10:36
-          |vpiParent:
-          \_assignment: , line:10:13, endln:10:36
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -1221,7 +1219,7 @@ design: (work@my_opt_reduce_or)
         |vpiLhs:
         \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits), line:10:13, endln:10:32
           |vpiParent:
-          \_begin: (work@my_opt_reduce_or.count_nonconst_bits), line:9:9, endln:14:12
+          \_assignment: , line:10:13, endln:10:36
           |vpiName:count_nonconst_bits
           |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits
           |vpiActual:
@@ -1258,12 +1256,12 @@ design: (work@my_opt_reduce_or)
           |vpiRhs:
           \_operation: , line:11:40, endln:11:43
             |vpiParent:
-            \_for_stmt: (work@my_opt_reduce_or.count_nonconst_bits), line:11:13, endln:11:16
+            \_assignment: , line:11:38, endln:11:43
             |vpiOpType:24
             |vpiOperand:
             \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.i), line:11:40, endln:11:41
               |vpiParent:
-              \_for_stmt: (work@my_opt_reduce_or.count_nonconst_bits), line:11:13, endln:11:16
+              \_operation: , line:11:40, endln:11:43
               |vpiName:i
               |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.i
               |vpiActual:
@@ -1279,7 +1277,7 @@ design: (work@my_opt_reduce_or)
           |vpiLhs:
           \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.i), line:11:38, endln:11:39
             |vpiParent:
-            \_for_stmt: (work@my_opt_reduce_or.count_nonconst_bits), line:11:13, endln:11:16
+            \_assignment: , line:11:38, endln:11:43
             |vpiName:i
             |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.i
             |vpiActual:
@@ -1315,17 +1313,13 @@ design: (work@my_opt_reduce_or)
             |vpiOperand:
             \_bit_select: (work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_), line:12:22, endln:12:45
               |vpiParent:
-              \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_)
-                |vpiParent:
-                \_operation: , line:12:21, endln:12:45
-                |vpiName:_TECHMAP_CONSTMSK_A_
-                |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_
+              \_operation: , line:12:21, endln:12:45
               |vpiName:_TECHMAP_CONSTMSK_A_
               |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_
               |vpiIndex:
               \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.i), line:12:43, endln:12:44
                 |vpiParent:
-                \_operation: , line:12:21, endln:12:45
+                \_bit_select: (work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_), line:12:22, endln:12:45
                 |vpiName:i
                 |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.i
                 |vpiActual:
@@ -1339,12 +1333,12 @@ design: (work@my_opt_reduce_or)
             |vpiRhs:
             \_operation: , line:13:43, endln:13:64
               |vpiParent:
-              \_if_stmt: , line:12:17, endln:13:65
+              \_assignment: , line:13:21, endln:13:64
               |vpiOpType:24
               |vpiOperand:
               \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits), line:13:43, endln:13:62
                 |vpiParent:
-                \_if_stmt: , line:12:17, endln:13:65
+                \_operation: , line:13:43, endln:13:64
                 |vpiName:count_nonconst_bits
                 |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits
                 |vpiActual:
@@ -1360,7 +1354,7 @@ design: (work@my_opt_reduce_or)
             |vpiLhs:
             \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits), line:13:21, endln:13:40
               |vpiParent:
-              \_if_stmt: , line:12:17, endln:13:65
+              \_assignment: , line:13:21, endln:13:64
               |vpiName:count_nonconst_bits
               |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits
               |vpiActual:
@@ -1529,7 +1523,7 @@ design: (work@my_opt_reduce_or)
           |vpiName:count_nonconst_bits
           |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits
           |vpiActual:
-          \_integer_var: , line:7:14, endln:7:21
+          \_integer_var: (count_nonconst_bits), line:7:14, endln:7:21
       |vpiStmt:
       \_for_stmt: (work@my_opt_reduce_or.count_nonconst_bits), line:11:13, endln:11:16
         |vpiParent:
@@ -1567,7 +1561,7 @@ design: (work@my_opt_reduce_or)
               |vpiName:i
               |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.i
               |vpiActual:
-              \_integer_var: (work@my_opt_reduce_or.count_nonconst_bits.i), line:8:9, endln:8:16
+              \_integer_var: (i), line:8:9, endln:8:16
             |vpiOperand:
             \_constant: , line:11:42, endln:11:43
           |vpiLhs:
@@ -1577,7 +1571,7 @@ design: (work@my_opt_reduce_or)
             |vpiName:i
             |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.i
             |vpiActual:
-            \_integer_var: (work@my_opt_reduce_or.count_nonconst_bits.i), line:8:9, endln:8:16
+            \_integer_var: (i), line:8:9, endln:8:16
         |vpiCondition:
         \_operation: , line:11:25, endln:11:36
           |vpiParent:
@@ -1590,7 +1584,7 @@ design: (work@my_opt_reduce_or)
             |vpiName:i
             |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.i
             |vpiActual:
-            \_integer_var: (work@my_opt_reduce_or.count_nonconst_bits.i), line:8:9, endln:8:16
+            \_integer_var: (i), line:8:9, endln:8:16
           |vpiOperand:
           \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.A_WIDTH), line:11:29, endln:11:36
             |vpiParent:
@@ -1611,25 +1605,19 @@ design: (work@my_opt_reduce_or)
             |vpiOperand:
             \_bit_select: (work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_), line:12:22, endln:12:45
               |vpiParent:
-              \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_)
-                |vpiParent:
-                \_operation: , line:12:21, endln:12:45
-                |vpiName:_TECHMAP_CONSTMSK_A_
-                |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_
-                |vpiActual:
-                \_parameter: (work@my_opt_reduce_or._TECHMAP_CONSTMSK_A_), line:5:32, endln:5:52
+              \_operation: , line:12:21, endln:12:45
               |vpiName:_TECHMAP_CONSTMSK_A_
               |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_
+              |vpiActual:
+              \_parameter: (work@my_opt_reduce_or._TECHMAP_CONSTMSK_A_), line:5:32, endln:5:52
               |vpiIndex:
-              \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_.i), line:12:43, endln:12:44
+              \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.i), line:12:43, endln:12:44
                 |vpiParent:
                 \_bit_select: (work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_), line:12:22, endln:12:45
                 |vpiName:i
-                |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits._TECHMAP_CONSTMSK_A_.i
+                |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.i
                 |vpiActual:
-                \_integer_var: (work@my_opt_reduce_or.count_nonconst_bits.i), line:8:9, endln:8:16
-              |vpiActual:
-              \_parameter: (work@my_opt_reduce_or._TECHMAP_CONSTMSK_A_), line:5:32, endln:5:52
+                \_integer_var: (i), line:8:9, endln:8:16
           |vpiStmt:
           \_assignment: , line:13:21, endln:13:64
             |vpiParent:
@@ -1648,7 +1636,7 @@ design: (work@my_opt_reduce_or)
                 |vpiName:count_nonconst_bits
                 |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits
                 |vpiActual:
-                \_integer_var: , line:7:14, endln:7:21
+                \_integer_var: (count_nonconst_bits), line:7:14, endln:7:21
               |vpiOperand:
               \_constant: , line:13:63, endln:13:64
             |vpiLhs:
@@ -1658,7 +1646,7 @@ design: (work@my_opt_reduce_or)
               |vpiName:count_nonconst_bits
               |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits
               |vpiActual:
-              \_integer_var: , line:7:14, endln:7:21
+              \_integer_var: (count_nonconst_bits), line:7:14, endln:7:21
     |vpiInstance:
     \_module_inst: work@my_opt_reduce_or (work@my_opt_reduce_or), file:${SURELOG_DIR}/tests/FuncNoArgs/dut.sv, line:1:1, endln:31:10
   |vpiNet:

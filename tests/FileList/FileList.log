@@ -244,7 +244,7 @@ param_assign                                           4
 parameter                                              4
 port                                                   4
 range                                                  2
-ref_obj                                               17
+ref_obj                                               16
 return_stmt                                            2
 sys_func_call                                          2
 === UHDM Object Stats End ===
@@ -275,7 +275,7 @@ param_assign                                           4
 parameter                                              4
 port                                                   6
 range                                                  2
-ref_obj                                               30
+ref_obj                                               28
 return_stmt                                            5
 sys_func_call                                          5
 === UHDM Object Stats End ===
@@ -502,12 +502,12 @@ design: (work@foo)
         |vpiOperand:
         \_operation: , line:4:13, endln:4:23
           |vpiParent:
-          \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14
+          \_operation: , line:4:12, endln:4:44
           |vpiOpType:14
           |vpiOperand:
           \_ref_obj: (prim_util_pkg::vbits::value), line:4:13, endln:4:18
             |vpiParent:
-            \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14
+            \_operation: , line:4:13, endln:4:23
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
             |vpiActual:
@@ -608,12 +608,12 @@ design: (work@foo)
           |vpiRhs:
           \_operation: , line:8:10, endln:8:18
             |vpiParent:
-            \_begin: (work@foo), line:7:23, endln:9:4
+            \_assignment: , line:8:5, endln:8:18
             |vpiOpType:24
             |vpiOperand:
             \_ref_obj: (work@foo.a), line:8:10, endln:8:11
               |vpiParent:
-              \_begin: (work@foo), line:7:23, endln:9:4
+              \_operation: , line:8:10, endln:8:18
               |vpiName:a
               |vpiFullName:work@foo.a
               |vpiActual:
@@ -629,7 +629,7 @@ design: (work@foo)
           |vpiLhs:
           \_ref_obj: (work@foo.a), line:8:5, endln:8:6
             |vpiParent:
-            \_begin: (work@foo), line:7:23, endln:9:4
+            \_assignment: , line:8:5, endln:8:18
             |vpiName:a
             |vpiFullName:work@foo.a
             |vpiActual:
@@ -642,11 +642,7 @@ design: (work@foo)
     |vpiRhs:
     \_bit_select: (work@foo.a), line:10:14, endln:10:18
       |vpiParent:
-      \_ref_obj: (work@foo.a)
-        |vpiParent:
-        \_cont_assign: , line:10:8, endln:10:18
-        |vpiName:a
-        |vpiFullName:work@foo.a
+      \_cont_assign: , line:10:8, endln:10:18
       |vpiName:a
       |vpiFullName:work@foo.a
       |vpiIndex:
@@ -891,19 +887,13 @@ design: (work@foo)
     |vpiRhs:
     \_bit_select: (work@foo.a), line:10:14, endln:10:18
       |vpiParent:
-      \_ref_obj: (work@foo.a)
-        |vpiParent:
-        \_cont_assign: , line:10:8, endln:10:18
-        |vpiName:a
-        |vpiFullName:work@foo.a
-        |vpiActual:
-        \_logic_var: (work@foo.a), line:6:22, endln:6:23
+      \_cont_assign: , line:10:8, endln:10:18
       |vpiName:a
       |vpiFullName:work@foo.a
-      |vpiIndex:
-      \_constant: , line:10:16, endln:10:17
       |vpiActual:
       \_logic_var: (work@foo.a), line:6:22, endln:6:23
+      |vpiIndex:
+      \_constant: , line:10:16, endln:10:17
     |vpiLhs:
     \_ref_obj: (work@foo.out), line:10:8, endln:10:11
       |vpiParent:

@@ -1144,7 +1144,7 @@ integer_typespec                                       2
 integer_var                                            1
 logic_net                                              8
 logic_typespec                                        12
-logic_var                                              1
+logic_var                                              2
 module_inst                                           22
 operation                                             89
 param_assign                                          43
@@ -1172,7 +1172,7 @@ integer_typespec                                       2
 integer_var                                            2
 logic_net                                              8
 logic_typespec                                        12
-logic_var                                              1
+logic_var                                              2
 module_inst                                           36
 operation                                             90
 param_assign                                          43
@@ -1808,8 +1808,6 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:48:13, endln:48:17
-          |vpiParent:
-          \_assignment: , line:48:4, endln:48:17
           |vpiDecompile:10.1
           |vpiSize:64
           |REAL:10.100000
@@ -1817,11 +1815,11 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@dut.incr_d.incr_d), line:48:4, endln:48:10
           |vpiParent:
-          \_begin: (work@dut.incr_d)
+          \_assignment: , line:48:4, endln:48:17
           |vpiName:incr_d
           |vpiFullName:work@dut.incr_d.incr_d
           |vpiActual:
-          \_integer_var: (incr_d), line:47:4, endln:47:11
+          \_logic_var: (incr_d)
       |vpiStmt:
       \_operation: , line:49:4, endln:49:12
         |vpiParent:
@@ -2135,7 +2133,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (A9), line:87:22, endln:87:24
           |vpiParent:
-          \_operation: , line:87:7, endln:87:29
+          \_operation: , line:87:22, endln:87:28
           |vpiName:A9
         |vpiOperand:
         \_constant: , line:87:27, endln:87:28
@@ -2184,7 +2182,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (A10), line:91:24, endln:91:27
           |vpiParent:
-          \_operation: , line:91:7, endln:91:35
+          \_operation: , line:91:24, endln:91:34
           |vpiName:A10
         |vpiOperand:
         \_constant: , line:91:31, endln:91:34
@@ -2259,7 +2257,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (A12), line:99:23, endln:99:26
           |vpiParent:
-          \_operation: , line:99:7, endln:99:36
+          \_operation: , line:99:23, endln:99:35
           |vpiName:A12
         |vpiOperand:
         \_constant: , line:99:29, endln:99:35
@@ -2308,7 +2306,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (A13), line:103:23, endln:103:26
           |vpiParent:
-          \_operation: , line:103:7, endln:103:36
+          \_operation: , line:103:23, endln:103:35
           |vpiName:A13
         |vpiOperand:
         \_constant: , line:103:29, endln:103:35
@@ -2357,7 +2355,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: (A15), line:107:21, endln:107:24
           |vpiParent:
-          \_operation: , line:107:6, endln:107:33
+          \_operation: , line:107:21, endln:107:32
           |vpiName:A15
         |vpiOperand:
         \_constant: , line:107:28, endln:107:32
@@ -2953,7 +2951,7 @@ design: (work@top)
             |vpiName:incr_d
             |vpiFullName:work@top.d.incr_d.incr_d
             |vpiActual:
-            \_integer_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11
+            \_logic_var: (incr_d)
         |vpiStmt:
         \_operation: , line:49:4, endln:49:12
           |vpiParent:
@@ -2966,7 +2964,7 @@ design: (work@top)
             |vpiName:incr_d
             |vpiFullName:work@top.d.incr_d.incr_d
             |vpiActual:
-            \_integer_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11
+            \_integer_var: (incr_d), line:47:4, endln:47:11
         |vpiStmt:
         \_return_stmt: , line:50:4, endln:50:10
           |vpiParent:
@@ -2978,7 +2976,7 @@ design: (work@top)
             |vpiName:incr_d
             |vpiFullName:work@top.d.incr_d.incr_d
             |vpiActual:
-            \_integer_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11
+            \_integer_var: (incr_d), line:47:4, endln:47:11
       |vpiInstance:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
     |vpiNet:

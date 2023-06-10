@@ -415,7 +415,7 @@ param_assign                                          18
 parameter                                             18
 range                                                  8
 ref_module                                             1
-ref_obj                                               21
+ref_obj                                               13
 string_typespec                                        2
 sys_task_call                                          1
 tagged_pattern                                         2
@@ -446,7 +446,7 @@ param_assign                                          18
 parameter                                             18
 range                                                  8
 ref_module                                             1
-ref_obj                                               28
+ref_obj                                               18
 string_typespec                                        2
 sys_task_call                                          2
 tagged_pattern                                         2
@@ -787,17 +787,13 @@ design: (work@main)
           |vpiRhs:
           \_bit_select: (work@top.ASSIGN_VADDR.V), line:10:28, endln:10:32
             |vpiParent:
-            \_ref_obj: (work@top.ASSIGN_VADDR.V)
-              |vpiParent:
-              \_assignment: , line:10:10, endln:10:32
-              |vpiName:V
-              |vpiFullName:work@top.ASSIGN_VADDR.V
+            \_assignment: , line:10:10, endln:10:32
             |vpiName:V
             |vpiFullName:work@top.ASSIGN_VADDR.V
             |vpiIndex:
             \_ref_obj: (work@top.ASSIGN_VADDR.i), line:10:30, endln:10:31
               |vpiParent:
-              \_begin: (work@top.ASSIGN_VADDR), line:9:35, endln:11:8
+              \_bit_select: (work@top.ASSIGN_VADDR.V), line:10:28, endln:10:32
               |vpiName:i
               |vpiFullName:work@top.ASSIGN_VADDR.i
               |vpiActual:
@@ -805,17 +801,15 @@ design: (work@main)
           |vpiLhs:
           \_bit_select: (work@top.ASSIGN_VADDR.ASSIGN_VADDR), line:10:10, endln:10:25
             |vpiParent:
-            \_ref_obj: (work@top.ASSIGN_VADDR.ASSIGN_VADDR)
-              |vpiParent:
-              \_assignment: , line:10:10, endln:10:32
-              |vpiName:ASSIGN_VADDR
-              |vpiFullName:work@top.ASSIGN_VADDR.ASSIGN_VADDR
+            \_assignment: , line:10:10, endln:10:32
             |vpiName:ASSIGN_VADDR
             |vpiFullName:work@top.ASSIGN_VADDR.ASSIGN_VADDR
+            |vpiActual:
+            \_array_var: , line:8:17, endln:8:35
             |vpiIndex:
             \_ref_obj: (work@top.ASSIGN_VADDR.i), line:10:23, endln:10:24
               |vpiParent:
-              \_begin: (work@top.ASSIGN_VADDR), line:9:35, endln:11:8
+              \_bit_select: (work@top.ASSIGN_VADDR.ASSIGN_VADDR), line:10:10, endln:10:25
               |vpiName:i
               |vpiFullName:work@top.ASSIGN_VADDR.i
               |vpiActual:
@@ -832,10 +826,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:16:5, endln:16:13
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:16:5, endln:16:18
-          |vpiName:VADDR
+        \_operation: , line:16:5, endln:16:18
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:16:11, endln:16:12
@@ -865,10 +856,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:19:5, endln:19:13
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:19:5, endln:19:18
-          |vpiName:VADDR
+        \_operation: , line:19:5, endln:19:18
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:19:11, endln:19:12
@@ -898,10 +886,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:23:5, endln:23:13
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:23:5, endln:23:18
-          |vpiName:VADDR
+        \_operation: , line:23:5, endln:23:18
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:23:11, endln:23:12
@@ -1130,7 +1115,7 @@ design: (work@main)
         |vpiExpr:
         \_constant: , line:16:5, endln:16:10
           |vpiParent:
-          \_operation: , line:16:5, endln:16:18
+          \_operation: , line:23:5, endln:23:18
           |vpiDecompile:3
           |UINT:3
           |vpiConstType:9
@@ -1231,47 +1216,35 @@ design: (work@main)
             |vpiRhs:
             \_bit_select: (work@main.top1.ASSIGN_VADDR.V), line:10:28, endln:10:32
               |vpiParent:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.V)
-                |vpiParent:
-                \_assignment: , line:10:10, endln:10:32
-                |vpiName:V
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.V
-                |vpiActual:
-                \_parameter: (work@main.top1.V), line:5:25, endln:5:26
+              \_assignment: , line:10:10, endln:10:32
               |vpiName:V
               |vpiFullName:work@main.top1.ASSIGN_VADDR.V
+              |vpiActual:
+              \_parameter: (work@main.top1.V), line:5:25, endln:5:26
               |vpiIndex:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.V.i), line:10:30, endln:10:31
+              \_ref_obj: (work@main.top1.ASSIGN_VADDR.i), line:10:30, endln:10:31
                 |vpiParent:
                 \_bit_select: (work@main.top1.ASSIGN_VADDR.V), line:10:28, endln:10:32
                 |vpiName:i
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.V.i
+                |vpiFullName:work@main.top1.ASSIGN_VADDR.i
                 |vpiActual:
                 \_int_var: (work@top.ASSIGN_VADDR.i), line:9:14, endln:9:15
-              |vpiActual:
-              \_parameter: (work@main.top1.V), line:5:25, endln:5:26
             |vpiLhs:
             \_bit_select: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR), line:10:10, endln:10:25
               |vpiParent:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR)
-                |vpiParent:
-                \_assignment: , line:10:10, endln:10:32
-                |vpiName:ASSIGN_VADDR
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR
-                |vpiActual:
-                \_array_var: , line:8:17, endln:8:35
+              \_assignment: , line:10:10, endln:10:32
               |vpiName:ASSIGN_VADDR
               |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR
+              |vpiActual:
+              \_array_var: , line:8:17, endln:8:35
               |vpiIndex:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR.i), line:10:23, endln:10:24
+              \_ref_obj: (work@main.top1.ASSIGN_VADDR.i), line:10:23, endln:10:24
                 |vpiParent:
                 \_bit_select: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR), line:10:10, endln:10:25
                 |vpiName:i
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR.i
+                |vpiFullName:work@main.top1.ASSIGN_VADDR.i
                 |vpiActual:
                 \_int_var: (work@top.ASSIGN_VADDR.i), line:9:14, endln:9:15
-              |vpiActual:
-              \_array_var: , line:8:17, endln:8:35
       |vpiInstance:
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:30:1, endln:30:16
     |vpiInstance:
