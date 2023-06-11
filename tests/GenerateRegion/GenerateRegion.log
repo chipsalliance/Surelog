@@ -1188,7 +1188,7 @@ part_select                                            8
 port                                                   9
 range                                                 27
 ref_module                                             6
-ref_obj                                               85
+ref_obj                                               65
 string_typespec                                        4
 sys_func_call                                          1
 === UHDM Object Stats End ===
@@ -1224,7 +1224,7 @@ part_select                                           12
 port                                                  12
 range                                                 27
 ref_module                                             6
-ref_obj                                              125
+ref_obj                                               92
 string_typespec                                        4
 sys_func_call                                          1
 === UHDM Object Stats End ===
@@ -1442,26 +1442,24 @@ design: (work@oh_delay)
         \_event_control: , line:12:12, endln:12:27
         |vpiOpType:82
         |vpiRhs:
-        \_part_select: , line:13:21, endln:13:30
+        \_part_select: in (work@oh_delay.in), line:13:21, endln:13:30
           |vpiParent:
-          \_ref_obj: in (work@oh_delay.in), line:13:21, endln:13:23
-            |vpiParent:
-            \_assignment: , line:13:7, endln:13:30
-            |vpiName:in
-            |vpiFullName:work@oh_delay.in
-            |vpiDefName:in
+          \_assignment: , line:13:7, endln:13:30
+          |vpiName:in
+          |vpiFullName:work@oh_delay.in
+          |vpiDefName:in
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_operation: , line:13:24, endln:13:27
             |vpiParent:
-            \_event_control: , line:12:12, endln:12:27
+            \_part_select: in (work@oh_delay.in), line:13:21, endln:13:30
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (work@oh_delay.N), line:13:24, endln:13:25
+            \_ref_obj: (work@oh_delay.in.N), line:13:24, endln:13:25
               |vpiParent:
-              \_event_control: , line:12:12, endln:12:27
+              \_operation: , line:13:24, endln:13:27
               |vpiName:N
-              |vpiFullName:work@oh_delay.N
+              |vpiFullName:work@oh_delay.in.N
             |vpiOperand:
             \_constant: , line:13:26, endln:13:27
               |vpiParent:
@@ -1479,11 +1477,7 @@ design: (work@oh_delay)
         |vpiLhs:
         \_bit_select: (work@oh_delay.sync_pipe), line:13:7, endln:13:19
           |vpiParent:
-          \_ref_obj: (work@oh_delay.sync_pipe)
-            |vpiParent:
-            \_assignment: , line:13:7, endln:13:30
-            |vpiName:sync_pipe
-            |vpiFullName:work@oh_delay.sync_pipe
+          \_assignment: , line:13:7, endln:13:30
           |vpiName:sync_pipe
           |vpiFullName:work@oh_delay.sync_pipe
           |vpiIndex:
@@ -1523,24 +1517,23 @@ design: (work@oh_delay)
             \_event_control: , line:12:12, endln:12:27
             |vpiOpType:82
             |vpiRhs:
-            \_part_select: , line:13:21, endln:13:30
+            \_part_select: in (in), line:13:21, endln:13:30
               |vpiParent:
-              \_ref_obj: in (in), line:13:21, endln:13:23
-                |vpiParent:
-                \_assignment: , line:13:7, endln:13:30
-                |vpiName:in
-                |vpiDefName:in
+              \_assignment: , line:13:7, endln:13:30
+              |vpiName:in
+              |vpiDefName:in
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_operation: , line:13:24, endln:13:27
                 |vpiParent:
-                \_event_control: , line:12:12, endln:12:27
+                \_part_select: in (in), line:13:21, endln:13:30
                 |vpiOpType:11
                 |vpiOperand:
-                \_ref_obj: (N), line:13:24, endln:13:25
+                \_ref_obj: (in.N), line:13:24, endln:13:25
                   |vpiParent:
-                  \_event_control: , line:12:12, endln:12:27
+                  \_operation: , line:13:24, endln:13:27
                   |vpiName:N
+                  |vpiFullName:in.N
                 |vpiOperand:
                 \_constant: , line:13:26, endln:13:27
                   |vpiParent:
@@ -1558,10 +1551,7 @@ design: (work@oh_delay)
             |vpiLhs:
             \_bit_select: (sync_pipe), line:13:7, endln:13:19
               |vpiParent:
-              \_ref_obj: (sync_pipe)
-                |vpiParent:
-                \_assignment: , line:13:7, endln:13:30
-                |vpiName:sync_pipe
+              \_assignment: , line:13:7, endln:13:30
               |vpiName:sync_pipe
               |vpiIndex:
               \_constant: , line:13:17, endln:13:18
@@ -1758,30 +1748,27 @@ design: (work@oh_delay)
                   |vpiOpType:82
                   |vpiRhs:
                   \_constant: , line:108:36, endln:108:39
-                    |vpiParent:
-                    \_assignment: , line:108:9, endln:108:39
                     |vpiDecompile:'b0
                     |BIN:0
                     |vpiConstType:3
                   |vpiLhs:
-                  \_part_select: , line:108:9, endln:108:32
+                  \_part_select: sync_pipe (sync_pipe), line:108:9, endln:108:32
                     |vpiParent:
-                    \_ref_obj: sync_pipe (sync_pipe)
-                      |vpiParent:
-                      \_assignment: , line:108:9, endln:108:39
-                      |vpiName:sync_pipe
-                      |vpiDefName:sync_pipe
+                    \_assignment: , line:108:9, endln:108:39
+                    |vpiName:sync_pipe
+                    |vpiDefName:sync_pipe
                     |vpiConstantSelect:1
                     |vpiLeftRange:
                     \_operation: , line:108:19, endln:108:29
                       |vpiParent:
-                      \_if_else: , line:107:7, endln:110:67
+                      \_part_select: sync_pipe (sync_pipe), line:108:9, endln:108:32
                       |vpiOpType:11
                       |vpiOperand:
-                      \_ref_obj: (SYNCPIPE), line:108:19, endln:108:27
+                      \_ref_obj: (sync_pipe.SYNCPIPE), line:108:19, endln:108:27
                         |vpiParent:
-                        \_if_else: , line:107:7, endln:110:67
+                        \_operation: , line:108:19, endln:108:29
                         |vpiName:SYNCPIPE
+                        |vpiFullName:sync_pipe.SYNCPIPE
                       |vpiOperand:
                       \_constant: , line:108:28, endln:108:29
                         |vpiParent:
@@ -1804,27 +1791,26 @@ design: (work@oh_delay)
                   |vpiRhs:
                   \_operation: , line:110:36, endln:110:66
                     |vpiParent:
-                    \_if_else: , line:107:7, endln:110:67
+                    \_assignment: , line:110:9, endln:110:66
                     |vpiOpType:33
                     |vpiOperand:
-                    \_part_select: , line:110:37, endln:110:60
+                    \_part_select: sync_pipe (sync_pipe), line:110:37, endln:110:60
                       |vpiParent:
-                      \_ref_obj: sync_pipe (sync_pipe), line:110:37, endln:110:46
-                        |vpiParent:
-                        \_if_else: , line:107:7, endln:110:67
-                        |vpiName:sync_pipe
-                        |vpiDefName:sync_pipe
+                      \_assignment: , line:110:9, endln:110:66
+                      |vpiName:sync_pipe
+                      |vpiDefName:sync_pipe
                       |vpiConstantSelect:1
                       |vpiLeftRange:
                       \_operation: , line:110:47, endln:110:57
                         |vpiParent:
-                        \_if_else: , line:107:7, endln:110:67
+                        \_part_select: sync_pipe (sync_pipe), line:110:37, endln:110:60
                         |vpiOpType:11
                         |vpiOperand:
-                        \_ref_obj: (SYNCPIPE), line:110:47, endln:110:55
+                        \_ref_obj: (sync_pipe.SYNCPIPE), line:110:47, endln:110:55
                           |vpiParent:
-                          \_if_else: , line:107:7, endln:110:67
+                          \_operation: , line:110:47, endln:110:57
                           |vpiName:SYNCPIPE
+                          |vpiFullName:sync_pipe.SYNCPIPE
                         |vpiOperand:
                         \_constant: , line:110:56, endln:110:57
                           |vpiParent:
@@ -1848,24 +1834,23 @@ design: (work@oh_delay)
                       |BIN:1
                       |vpiConstType:3
                   |vpiLhs:
-                  \_part_select: , line:110:9, endln:110:32
+                  \_part_select: sync_pipe (sync_pipe), line:110:9, endln:110:32
                     |vpiParent:
-                    \_ref_obj: sync_pipe (sync_pipe)
-                      |vpiParent:
-                      \_assignment: , line:110:9, endln:110:66
-                      |vpiName:sync_pipe
-                      |vpiDefName:sync_pipe
+                    \_assignment: , line:110:9, endln:110:66
+                    |vpiName:sync_pipe
+                    |vpiDefName:sync_pipe
                     |vpiConstantSelect:1
                     |vpiLeftRange:
                     \_operation: , line:110:19, endln:110:29
                       |vpiParent:
-                      \_if_else: , line:107:7, endln:110:67
+                      \_part_select: sync_pipe (sync_pipe), line:110:9, endln:110:32
                       |vpiOpType:11
                       |vpiOperand:
-                      \_ref_obj: (SYNCPIPE), line:110:19, endln:110:27
+                      \_ref_obj: (sync_pipe.SYNCPIPE), line:110:19, endln:110:27
                         |vpiParent:
-                        \_if_else: , line:107:7, endln:110:67
+                        \_operation: , line:110:19, endln:110:29
                         |vpiName:SYNCPIPE
+                        |vpiFullName:sync_pipe.SYNCPIPE
                       |vpiOperand:
                       \_constant: , line:110:28, endln:110:29
                         |vpiParent:
@@ -1886,10 +1871,7 @@ design: (work@oh_delay)
             |vpiRhs:
             \_bit_select: (sync_pipe), line:111:23, endln:111:44
               |vpiParent:
-              \_ref_obj: (sync_pipe)
-                |vpiParent:
-                \_cont_assign: , line:111:12, endln:111:44
-                |vpiName:sync_pipe
+              \_cont_assign: , line:111:12, endln:111:44
               |vpiName:sync_pipe
               |vpiIndex:
               \_operation: , line:111:33, endln:111:43
@@ -2208,21 +2190,19 @@ design: (work@oh_delay)
               |vpiArgument:
               \_bit_select: (a), line:36:25, endln:36:37
                 |vpiParent:
-                \_ref_obj: (a)
-                  |vpiParent:
-                  \_func_call: (fshl_s), line:36:14, endln:36:38
-                  |vpiName:a
+                \_func_call: (fshl_s), line:36:14, endln:36:38
                 |vpiName:a
                 |vpiIndex:
                 \_operation: , line:36:27, endln:36:36
                   |vpiParent:
-                  \_func_call: (fshl_s), line:36:14, endln:36:38
+                  \_bit_select: (a), line:36:25, endln:36:37
                   |vpiOpType:11
                   |vpiOperand:
-                  \_ref_obj: (width_a), line:36:27, endln:36:34
+                  \_ref_obj: (a.width_a), line:36:27, endln:36:34
                     |vpiParent:
-                    \_func_call: (fshl_s), line:36:14, endln:36:38
+                    \_operation: , line:36:27, endln:36:36
                     |vpiName:width_a
+                    |vpiFullName:a.width_a
                   |vpiOperand:
                   \_constant: , line:36:35, endln:36:36
                     |vpiParent:
@@ -2473,19 +2453,17 @@ design: (work@oh_delay)
         \_event_control: , line:12:12, endln:12:27
         |vpiOpType:82
         |vpiRhs:
-        \_part_select: , line:13:21, endln:13:30
+        \_part_select: in (work@oh_delay.in), line:13:21, endln:13:30
           |vpiParent:
-          \_ref_obj: in (work@oh_delay.in), line:13:21, endln:13:23
-            |vpiParent:
-            \_assignment: , line:13:7, endln:13:30
-            |vpiName:in
-            |vpiFullName:work@oh_delay.in
-            |vpiDefName:in
+          \_assignment: , line:13:7, endln:13:30
+          |vpiName:in
+          |vpiFullName:work@oh_delay.in
+          |vpiDefName:in
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_operation: , line:13:24, endln:13:27
             |vpiParent:
-            \_part_select: , line:13:21, endln:13:30
+            \_part_select: in (work@oh_delay.in), line:13:21, endln:13:30
             |vpiOpType:11
             |vpiOperand:
             \_ref_obj: (work@oh_delay.in.N), line:13:24, endln:13:25
@@ -2502,11 +2480,7 @@ design: (work@oh_delay)
         |vpiLhs:
         \_bit_select: (work@oh_delay.sync_pipe), line:13:7, endln:13:19
           |vpiParent:
-          \_ref_obj: (work@oh_delay.sync_pipe)
-            |vpiParent:
-            \_assignment: , line:13:7, endln:13:30
-            |vpiName:sync_pipe
-            |vpiFullName:work@oh_delay.sync_pipe
+          \_assignment: , line:13:7, endln:13:30
           |vpiName:sync_pipe
           |vpiFullName:work@oh_delay.sync_pipe
           |vpiIndex:
@@ -2562,11 +2536,7 @@ design: (work@oh_delay)
             |vpiRhs:
             \_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:24, endln:16:38
               |vpiParent:
-              \_ref_obj: (work@oh_delay.gen_pipe[1].sync_pipe)
-                |vpiParent:
-                \_assignment: , line:16:10, endln:16:38
-                |vpiName:sync_pipe
-                |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe
+              \_assignment: , line:16:10, endln:16:38
               |vpiName:sync_pipe
               |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe
               |vpiIndex:
@@ -2593,19 +2563,15 @@ design: (work@oh_delay)
             |vpiLhs:
             \_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:10, endln:16:22
               |vpiParent:
-              \_ref_obj: (work@oh_delay.gen_pipe[1].sync_pipe)
-                |vpiParent:
-                \_assignment: , line:16:10, endln:16:38
-                |vpiName:sync_pipe
-                |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe
+              \_assignment: , line:16:10, endln:16:38
               |vpiName:sync_pipe
               |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe
               |vpiIndex:
-              \_ref_obj: (work@oh_delay.gen_pipe[1].sync_pipe.i), line:16:20, endln:16:21
+              \_ref_obj: (work@oh_delay.gen_pipe[1].i), line:16:20, endln:16:21
                 |vpiParent:
                 \_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:10, endln:16:22
                 |vpiName:i
-                |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe.i
+                |vpiFullName:work@oh_delay.gen_pipe[1].i
                 |vpiActual:
                 \_parameter: (work@oh_delay.gen_pipe[1].i), line:14:0
         |vpiAlwaysType:1
@@ -2659,11 +2625,7 @@ design: (work@oh_delay)
             |vpiRhs:
             \_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:24, endln:16:38
               |vpiParent:
-              \_ref_obj: (work@oh_delay.gen_pipe[2].sync_pipe)
-                |vpiParent:
-                \_assignment: , line:16:10, endln:16:38
-                |vpiName:sync_pipe
-                |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe
+              \_assignment: , line:16:10, endln:16:38
               |vpiName:sync_pipe
               |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe
               |vpiIndex:
@@ -2690,19 +2652,15 @@ design: (work@oh_delay)
             |vpiLhs:
             \_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:10, endln:16:22
               |vpiParent:
-              \_ref_obj: (work@oh_delay.gen_pipe[2].sync_pipe)
-                |vpiParent:
-                \_assignment: , line:16:10, endln:16:38
-                |vpiName:sync_pipe
-                |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe
+              \_assignment: , line:16:10, endln:16:38
               |vpiName:sync_pipe
               |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe
               |vpiIndex:
-              \_ref_obj: (work@oh_delay.gen_pipe[2].sync_pipe.i), line:16:20, endln:16:21
+              \_ref_obj: (work@oh_delay.gen_pipe[2].i), line:16:20, endln:16:21
                 |vpiParent:
                 \_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:10, endln:16:22
                 |vpiName:i
-                |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe.i
+                |vpiFullName:work@oh_delay.gen_pipe[2].i
                 |vpiActual:
                 \_parameter: (work@oh_delay.gen_pipe[2].i), line:14:0
         |vpiAlwaysType:1
@@ -2756,11 +2714,7 @@ design: (work@oh_delay)
             |vpiRhs:
             \_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:24, endln:16:38
               |vpiParent:
-              \_ref_obj: (work@oh_delay.gen_pipe[3].sync_pipe)
-                |vpiParent:
-                \_assignment: , line:16:10, endln:16:38
-                |vpiName:sync_pipe
-                |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe
+              \_assignment: , line:16:10, endln:16:38
               |vpiName:sync_pipe
               |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe
               |vpiIndex:
@@ -2787,19 +2741,15 @@ design: (work@oh_delay)
             |vpiLhs:
             \_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:10, endln:16:22
               |vpiParent:
-              \_ref_obj: (work@oh_delay.gen_pipe[3].sync_pipe)
-                |vpiParent:
-                \_assignment: , line:16:10, endln:16:38
-                |vpiName:sync_pipe
-                |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe
+              \_assignment: , line:16:10, endln:16:38
               |vpiName:sync_pipe
               |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe
               |vpiIndex:
-              \_ref_obj: (work@oh_delay.gen_pipe[3].sync_pipe.i), line:16:20, endln:16:21
+              \_ref_obj: (work@oh_delay.gen_pipe[3].i), line:16:20, endln:16:21
                 |vpiParent:
                 \_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:10, endln:16:22
                 |vpiName:i
-                |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe.i
+                |vpiFullName:work@oh_delay.gen_pipe[3].i
                 |vpiActual:
                 \_parameter: (work@oh_delay.gen_pipe[3].i), line:14:0
         |vpiAlwaysType:1
@@ -3139,15 +3089,11 @@ design: (work@oh_delay)
           |vpiArgument:
           \_bit_select: (work@shift.a), line:36:25, endln:36:37
             |vpiParent:
-            \_ref_obj: (work@shift.SGNED.a)
-              |vpiParent:
-              \_func_call: (fshl_s), line:36:14, endln:36:38
-              |vpiName:a
-              |vpiFullName:work@shift.SGNED.a
-              |vpiActual:
-              \_logic_net: (work@shift.a), line:24:14, endln:24:15
+            \_func_call: (fshl_s), line:36:14, endln:36:38
             |vpiName:a
             |vpiFullName:work@shift.a
+            |vpiActual:
+            \_logic_net: (work@shift.a), line:24:14, endln:24:15
             |vpiIndex:
             \_operation: , line:36:27, endln:36:36
               |vpiParent:
@@ -3169,8 +3115,6 @@ design: (work@oh_delay)
                 |vpiSize:64
                 |UINT:1
                 |vpiConstType:9
-            |vpiActual:
-            \_logic_net: (work@shift.a), line:24:14, endln:24:15
           |vpiName:fshl_s
         |vpiLhs:
         \_ref_obj: (work@shift.SGNED.z), line:36:10, endln:36:11
@@ -3278,10 +3222,11 @@ design: (work@oh_delay)
                 |vpiActual:
                 \_gen_scope: (work@gen_test9.A.B)
               |vpiActual:
-              \_ref_obj: (y), line:61:38, endln:61:39
+              \_ref_obj: (work@gen_test9.A.y), line:61:38, endln:61:39
                 |vpiParent:
                 \_hier_path: (B.y), line:61:36, endln:61:39
                 |vpiName:y
+                |vpiFullName:work@gen_test9.A.y
                 |vpiActual:
                 \_logic_net: (work@gen_test9.A.B.y), line:53:44, endln:53:45
             |vpiOperand:
@@ -3305,10 +3250,11 @@ design: (work@oh_delay)
               |vpiActual:
               \_gen_scope: (work@gen_test9.A.C)
             |vpiActual:
-            \_ref_obj: (z), line:61:52, endln:61:53
+            \_ref_obj: (work@gen_test9.A.z), line:61:52, endln:61:53
               |vpiParent:
               \_hier_path: (C.z), line:61:50, endln:61:53
               |vpiName:z
+              |vpiFullName:work@gen_test9.A.z
               |vpiActual:
               \_logic_net: (work@gen_test9.A.C.z), line:58:44, endln:58:45
         |vpiLhs:
@@ -3828,27 +3774,23 @@ design: (work@oh_delay)
               |vpiOpType:82
               |vpiRhs:
               \_constant: , line:108:36, endln:108:39
-                |vpiParent:
-                \_assignment: , line:108:9, endln:108:39
                 |vpiDecompile:'b0
                 |BIN:0
                 |vpiConstType:3
               |vpiLhs:
-              \_part_select: , line:108:9, endln:108:32
+              \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:108:9, endln:108:32
                 |vpiParent:
-                \_ref_obj: sync_pipe (work@oh_rsync.genblk1.sync_pipe)
-                  |vpiParent:
-                  \_assignment: , line:108:9, endln:108:39
-                  |vpiName:sync_pipe
-                  |vpiFullName:work@oh_rsync.genblk1.sync_pipe
-                  |vpiDefName:sync_pipe
-                  |vpiActual:
-                  \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
+                \_assignment: , line:108:9, endln:108:39
+                |vpiName:sync_pipe
+                |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+                |vpiDefName:sync_pipe
+                |vpiActual:
+                \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_operation: , line:108:19, endln:108:29
                   |vpiParent:
-                  \_part_select: , line:108:9, endln:108:32
+                  \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:108:9, endln:108:32
                   |vpiOpType:11
                   |vpiOperand:
                   \_constant: , line:108:19, endln:108:27
@@ -3887,21 +3829,19 @@ design: (work@oh_delay)
                 \_assignment: , line:110:9, endln:110:66
                 |vpiOpType:33
                 |vpiOperand:
-                \_part_select: , line:110:37, endln:110:60
+                \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:37, endln:110:60
                   |vpiParent:
-                  \_ref_obj: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:37, endln:110:46
-                    |vpiParent:
-                    \_operation: , line:110:36, endln:110:66
-                    |vpiName:sync_pipe
-                    |vpiFullName:work@oh_rsync.genblk1.sync_pipe
-                    |vpiDefName:sync_pipe
-                    |vpiActual:
-                    \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
+                  \_operation: , line:110:36, endln:110:66
+                  |vpiName:sync_pipe
+                  |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+                  |vpiDefName:sync_pipe
+                  |vpiActual:
+                  \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
                   |vpiConstantSelect:1
                   |vpiLeftRange:
                   \_operation: , line:110:47, endln:110:57
                     |vpiParent:
-                    \_part_select: , line:110:37, endln:110:60
+                    \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:37, endln:110:60
                     |vpiOpType:11
                     |vpiOperand:
                     \_constant: , line:110:47, endln:110:55
@@ -3938,21 +3878,19 @@ design: (work@oh_delay)
                   |BIN:1
                   |vpiConstType:3
               |vpiLhs:
-              \_part_select: , line:110:9, endln:110:32
+              \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:9, endln:110:32
                 |vpiParent:
-                \_ref_obj: sync_pipe (work@oh_rsync.genblk1.sync_pipe)
-                  |vpiParent:
-                  \_assignment: , line:110:9, endln:110:66
-                  |vpiName:sync_pipe
-                  |vpiFullName:work@oh_rsync.genblk1.sync_pipe
-                  |vpiDefName:sync_pipe
-                  |vpiActual:
-                  \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
+                \_assignment: , line:110:9, endln:110:66
+                |vpiName:sync_pipe
+                |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+                |vpiDefName:sync_pipe
+                |vpiActual:
+                \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_operation: , line:110:19, endln:110:29
                   |vpiParent:
-                  \_part_select: , line:110:9, endln:110:32
+                  \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:9, endln:110:32
                   |vpiOpType:11
                   |vpiOperand:
                   \_constant: , line:110:19, endln:110:27
@@ -3988,15 +3926,11 @@ design: (work@oh_delay)
         |vpiRhs:
         \_bit_select: (work@oh_rsync.genblk1.sync_pipe), line:111:23, endln:111:44
           |vpiParent:
-          \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
-            |vpiParent:
-            \_cont_assign: , line:111:12, endln:111:44
-            |vpiName:sync_pipe
-            |vpiFullName:work@oh_rsync.genblk1.sync_pipe
-            |vpiActual:
-            \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
+          \_cont_assign: , line:111:12, endln:111:44
           |vpiName:sync_pipe
           |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+          |vpiActual:
+          \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
           |vpiIndex:
           \_operation: , line:111:33, endln:111:43
             |vpiParent:
@@ -4022,8 +3956,6 @@ design: (work@oh_delay)
               |vpiSize:64
               |UINT:1
               |vpiConstType:9
-          |vpiActual:
-          \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
         |vpiLhs:
         \_ref_obj: (work@oh_rsync.genblk1.nrst_out), line:111:12, endln:111:20
           |vpiParent:
@@ -4038,4 +3970,4 @@ design: (work@oh_delay)
 [   NOTE] : 11
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/GenerateRegion/dut.sv | ${SURELOG_DIR}/build/regression/GenerateRegion/roundtrip/dut_000.sv | 72 | 123 |
+[roundtrip]: ${SURELOG_DIR}/tests/GenerateRegion/dut.sv | ${SURELOG_DIR}/build/regression/GenerateRegion/roundtrip/dut_000.sv | 75 | 123 |

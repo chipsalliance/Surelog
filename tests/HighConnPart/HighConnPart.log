@@ -275,7 +275,7 @@ part_select                                            6
 port                                                  16
 range                                                 27
 ref_module                                             1
-ref_obj                                               31
+ref_obj                                               25
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -291,7 +291,7 @@ part_select                                           10
 port                                                  24
 range                                                 27
 ref_module                                             1
-ref_obj                                               51
+ref_obj                                               41
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/surelog.uhdm ...
 
@@ -404,11 +404,9 @@ design: (work@Device)
     \_port: (a), line:13:9, endln:13:30
       |vpiName:a
       |vpiHighConn:
-      \_part_select: , line:13:12, endln:13:29
-        |vpiParent:
-        \_ref_obj: doubleNibble (doubleNibble), line:13:12, endln:13:24
-          |vpiName:doubleNibble
-          |vpiDefName:doubleNibble
+      \_part_select: doubleNibble (doubleNibble), line:13:12, endln:13:29
+        |vpiName:doubleNibble
+        |vpiDefName:doubleNibble
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:13:25, endln:13:26
@@ -426,11 +424,9 @@ design: (work@Device)
     \_port: (b), line:14:9, endln:14:30
       |vpiName:b
       |vpiHighConn:
-      \_part_select: , line:14:12, endln:14:29
-        |vpiParent:
-        \_ref_obj: doubleNibble (doubleNibble), line:14:12, endln:14:24
-          |vpiName:doubleNibble
-          |vpiDefName:doubleNibble
+      \_part_select: doubleNibble (doubleNibble), line:14:12, endln:14:29
+        |vpiName:doubleNibble
+        |vpiDefName:doubleNibble
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:14:25, endln:14:26
@@ -846,16 +842,14 @@ design: (work@Device)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:9:22, endln:9:39
+      \_part_select: doubleNibble (work@Device.doubleNibble), line:9:22, endln:9:39
         |vpiParent:
-        \_ref_obj: doubleNibble (work@Device.instance1.a.doubleNibble)
-          |vpiParent:
-          \_port: (a), line:22:22, endln:22:23
-          |vpiName:doubleNibble
-          |vpiFullName:work@Device.instance1.a.doubleNibble
-          |vpiDefName:doubleNibble
-          |vpiActual:
-          \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
+        \_port: (a), line:22:22, endln:22:23
+        |vpiName:doubleNibble
+        |vpiFullName:work@Device.doubleNibble
+        |vpiDefName:doubleNibble
+        |vpiActual:
+        \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:9:35, endln:9:36
@@ -908,16 +902,14 @@ design: (work@Device)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:9:41, endln:9:58
+      \_part_select: doubleNibble (work@Device.doubleNibble), line:9:41, endln:9:58
         |vpiParent:
-        \_ref_obj: doubleNibble (work@Device.instance1.b.doubleNibble), line:9:41, endln:9:53
-          |vpiParent:
-          \_port: (b), line:22:25, endln:22:26
-          |vpiName:doubleNibble
-          |vpiFullName:work@Device.instance1.b.doubleNibble
-          |vpiDefName:doubleNibble
-          |vpiActual:
-          \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
+        \_port: (b), line:22:25, endln:22:26
+        |vpiName:doubleNibble
+        |vpiFullName:work@Device.doubleNibble
+        |vpiDefName:doubleNibble
+        |vpiActual:
+        \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:9:54, endln:9:55
@@ -1103,16 +1095,14 @@ design: (work@Device)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:13:12, endln:13:29
+      \_part_select: doubleNibble (work@Device.doubleNibble), line:13:12, endln:13:29
         |vpiParent:
-        \_ref_obj: doubleNibble (work@Device.instance2.a.doubleNibble), line:13:12, endln:13:24
-          |vpiParent:
-          \_port: (a), line:22:22, endln:22:23
-          |vpiName:doubleNibble
-          |vpiFullName:work@Device.instance2.a.doubleNibble
-          |vpiDefName:doubleNibble
-          |vpiActual:
-          \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
+        \_port: (a), line:22:22, endln:22:23
+        |vpiName:doubleNibble
+        |vpiFullName:work@Device.doubleNibble
+        |vpiDefName:doubleNibble
+        |vpiActual:
+        \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:13:25, endln:13:26
@@ -1165,16 +1155,14 @@ design: (work@Device)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_part_select: , line:14:12, endln:14:29
+      \_part_select: doubleNibble (work@Device.doubleNibble), line:14:12, endln:14:29
         |vpiParent:
-        \_ref_obj: doubleNibble (work@Device.instance2.b.doubleNibble), line:14:12, endln:14:24
-          |vpiParent:
-          \_port: (b), line:22:25, endln:22:26
-          |vpiName:doubleNibble
-          |vpiFullName:work@Device.instance2.b.doubleNibble
-          |vpiDefName:doubleNibble
-          |vpiActual:
-          \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
+        \_port: (b), line:22:25, endln:22:26
+        |vpiName:doubleNibble
+        |vpiFullName:work@Device.doubleNibble
+        |vpiDefName:doubleNibble
+        |vpiActual:
+        \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:14:25, endln:14:26
@@ -1262,7 +1250,7 @@ design: (work@Device)
           |vpiName:a
           |vpiFullName:work@Device.instance2.a
           |vpiActual:
-          \_logic_net: (work@Device.instance2.a), line:22:22, endln:22:23
+          \_logic_net: (work@Device.instance1.a), line:22:22, endln:22:23
         |vpiOperand:
         \_ref_obj: (work@Device.instance2.b), line:26:25, endln:26:26
           |vpiParent:
@@ -1270,7 +1258,7 @@ design: (work@Device)
           |vpiName:b
           |vpiFullName:work@Device.instance2.b
           |vpiActual:
-          \_logic_net: (work@Device.instance2.b), line:22:25, endln:22:26
+          \_logic_net: (work@Device.instance1.b), line:22:25, endln:22:26
       |vpiLhs:
       \_ref_obj: (work@Device.instance2.result), line:26:12, endln:26:18
         |vpiParent:

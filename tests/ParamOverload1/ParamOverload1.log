@@ -219,7 +219,7 @@ parameter                                              6
 port                                                   9
 range                                                 12
 ref_module                                             3
-ref_obj                                               18
+ref_obj                                               15
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -239,7 +239,7 @@ parameter                                              6
 port                                                  13
 range                                                 12
 ref_module                                             3
-ref_obj                                               29
+ref_obj                                               25
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverload1/slpp_all/surelog.uhdm ...
 
@@ -369,11 +369,7 @@ design: (work@top)
     |vpiRhs:
     \_bit_select: (work@dut.P), line:3:15, endln:3:19
       |vpiParent:
-      \_ref_obj: (work@dut.P)
-        |vpiParent:
-        \_cont_assign: , line:3:11, endln:3:19
-        |vpiName:P
-        |vpiFullName:work@dut.P
+      \_cont_assign: , line:3:11, endln:3:19
       |vpiName:P
       |vpiFullName:work@dut.P
       |vpiIndex:
@@ -666,19 +662,13 @@ design: (work@top)
       |vpiRhs:
       \_bit_select: (work@top.u_dut1.P), line:3:15, endln:3:19
         |vpiParent:
-        \_ref_obj: (work@top.u_dut1.P)
-          |vpiParent:
-          \_cont_assign: , line:3:11, endln:3:19
-          |vpiName:P
-          |vpiFullName:work@top.u_dut1.P
-          |vpiActual:
-          \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19
+        \_cont_assign: , line:3:11, endln:3:19
         |vpiName:P
         |vpiFullName:work@top.u_dut1.P
-        |vpiIndex:
-        \_constant: , line:3:17, endln:3:18
         |vpiActual:
         \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19
+        |vpiIndex:
+        \_constant: , line:3:17, endln:3:18
       |vpiLhs:
       \_ref_obj: (work@top.u_dut1.x), line:3:11, endln:3:12
         |vpiParent:
@@ -928,7 +918,7 @@ design: (work@top)
         |vpiName:x
         |vpiFullName:work@top.u_dut2.x
         |vpiActual:
-        \_int_var: (work@top.u_dut2.x), line:1:23, endln:1:24
+        \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24
   |vpiModule:
   \_module_inst: work@dut (work@top.u_dut3), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:9:4, endln:9:34
     |vpiParent:
@@ -1093,7 +1083,7 @@ design: (work@top)
         |vpiName:x
         |vpiFullName:work@top.u_dut3.x
         |vpiActual:
-        \_int_var: (work@top.u_dut3.x), line:1:23, endln:1:24
+        \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

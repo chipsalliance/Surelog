@@ -10429,7 +10429,7 @@ parameter                                            242
 part_select                                           31
 range                                                  3
 ref_module                                            96
-ref_obj                                              484
+ref_obj                                              421
 sys_func_call                                        213
 type_parameter                                        15
 unsupported_typespec                                  38
@@ -10459,7 +10459,7 @@ parameter                                            434
 part_select                                           31
 range                                                  3
 ref_module                                            96
-ref_obj                                             1233
+ref_obj                                             1170
 sys_func_call                                        510
 type_parameter                                        15
 unsupported_typespec                                  38
@@ -10517,7 +10517,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (P::T::E), line:11:32, endln:11:33
             |vpiParent:
-            \_type_parameter: (P::T), line:11:21, endln:11:22
+            \_operation: , line:11:32, endln:11:37
             |vpiName:E
             |vpiFullName:P::T::E
             |vpiActual:
@@ -10594,7 +10594,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (P::T::E), line:11:32, endln:11:33
             |vpiParent:
-            \_type_parameter: (P::T), line:11:21, endln:11:22
+            \_operation: , line:11:32, endln:11:37
             |vpiName:E
             |vpiFullName:P::T::E
             |vpiActual:
@@ -10674,20 +10674,23 @@ design: (work@top)
       |vpiParent:
       \_type_parameter: (work@C::T), line:6:21, endln:6:22
       |vpiExpr:
-      \_part_select: , line:6:25, endln:6:48
-        |vpiParent:
-        \_ref_obj: PARAM_T (PARAM_T)
-          |vpiName:PARAM_T
-          |vpiDefName:PARAM_T
+      \_part_select: PARAM_T (PARAM_T), line:6:25, endln:6:48
+        |vpiName:PARAM_T
+        |vpiDefName:PARAM_T
+        |vpiActual:
+        \_type_parameter: (work@C::PARAM_T), line:3:20, endln:3:27
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:6:34, endln:6:45
+          |vpiParent:
+          \_part_select: PARAM_T (PARAM_T), line:6:25, endln:6:48
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (PARAM_E), line:6:34, endln:6:41
+          \_ref_obj: (PARAM_T.PARAM_E), line:6:34, endln:6:41
             |vpiParent:
             \_operation: , line:6:34, endln:6:45
             |vpiName:PARAM_E
+            |vpiFullName:PARAM_T.PARAM_E
             |vpiActual:
             \_parameter: (work@C::PARAM_E), line:2:15, endln:2:22
           |vpiOperand:
@@ -11057,12 +11060,12 @@ design: (work@top)
           |vpiOperand:
           \_operation: , line:40:32, endln:40:37
             |vpiParent:
-            \_type_parameter: (work@top.T), line:40:21, endln:40:22
+            \_operation: , line:40:32, endln:40:41
             |vpiOpType:25
             |vpiOperand:
             \_ref_obj: (work@top.T.E), line:40:32, endln:40:33
               |vpiParent:
-              \_type_parameter: (work@top.T), line:40:21, endln:40:22
+              \_operation: , line:40:32, endln:40:37
               |vpiName:E
               |vpiFullName:work@top.T.E
               |vpiActual:

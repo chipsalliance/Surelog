@@ -224,7 +224,7 @@ named_begin                                            1
 operation                                             55
 param_assign                                           2
 parameter                                              7
-ref_obj                                               87
+ref_obj                                               51
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -247,7 +247,7 @@ named_begin                                            1
 operation                                             95
 param_assign                                           2
 parameter                                              7
-ref_obj                                              157
+ref_obj                                               91
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -366,10 +366,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
-            \_ref_obj: (bht_init_lp)
-              |vpiParent:
-              \_operation: , line:7:31, endln:7:69
-              |vpiName:bht_init_lp
+            \_operation: , line:7:31, endln:7:69
             |vpiName:bht_init_lp
             |vpiIndex:
             \_constant: , line:7:54, endln:7:55
@@ -392,17 +389,13 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (w_data_li), line:7:14, endln:7:26
           |vpiParent:
-          \_ref_obj: (w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:7:14, endln:7:69
-            |vpiName:w_data_li
+          \_cont_assign: , line:7:14, endln:7:69
           |vpiName:w_data_li
           |vpiIndex:
-          \_ref_obj: (w_data_li.i), line:7:24, endln:7:25
+          \_ref_obj: (i), line:7:24, endln:7:25
             |vpiParent:
             \_bit_select: (w_data_li), line:7:14, endln:7:26
             |vpiName:i
-            |vpiFullName:w_data_li.i
       |vpiStmt:
       \_cont_assign: , line:8:14, endln:8:95
         |vpiRhs:
@@ -418,10 +411,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
-            \_ref_obj: (bht_init_lp)
-              |vpiParent:
-              \_operation: , line:8:31, endln:8:95
-              |vpiName:bht_init_lp
+            \_operation: , line:8:31, endln:8:95
             |vpiName:bht_init_lp
             |vpiIndex:
             \_constant: , line:8:54, endln:8:55
@@ -439,21 +429,19 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (val_i), line:8:59, endln:8:69
               |vpiParent:
-              \_ref_obj: (val_i)
-                |vpiParent:
-                \_operation: , line:8:59, endln:8:95
-                |vpiName:val_i
+              \_operation: , line:8:59, endln:8:95
               |vpiName:val_i
               |vpiIndex:
               \_operation: , line:8:65, endln:8:68
                 |vpiParent:
-                \_operation: , line:8:31, endln:8:95
+                \_bit_select: (val_i), line:8:59, endln:8:69
                 |vpiOpType:24
                 |vpiOperand:
-                \_ref_obj: (i), line:8:65, endln:8:66
+                \_ref_obj: (val_i.i), line:8:65, endln:8:66
                   |vpiParent:
-                  \_operation: , line:8:31, endln:8:95
+                  \_operation: , line:8:65, endln:8:68
                   |vpiName:i
+                  |vpiFullName:val_i.i
                 |vpiOperand:
                 \_constant: , line:8:67, endln:8:68
                   |vpiParent:
@@ -470,7 +458,7 @@ design: (work@top)
               |vpiOperand:
               \_operation: , line:8:73, endln:8:83
                 |vpiParent:
-                \_operation: , line:8:59, endln:8:95
+                \_operation: , line:8:73, endln:8:94
                 |vpiOpType:4
                 |vpiOperand:
                 \_ref_obj: (correct_i), line:8:74, endln:8:83
@@ -480,23 +468,17 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (val_i), line:8:86, endln:8:94
                 |vpiParent:
-                \_ref_obj: (val_i)
-                  |vpiParent:
-                  \_operation: , line:8:73, endln:8:94
-                  |vpiName:val_i
+                \_operation: , line:8:73, endln:8:94
                 |vpiName:val_i
                 |vpiIndex:
                 \_ref_obj: (i), line:8:92, endln:8:93
                   |vpiParent:
-                  \_operation: , line:8:73, endln:8:94
+                  \_bit_select: (val_i), line:8:86, endln:8:94
                   |vpiName:i
         |vpiLhs:
         \_bit_select: (w_data_li), line:8:14, endln:8:28
           |vpiParent:
-          \_ref_obj: (w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:8:14, endln:8:95
-            |vpiName:w_data_li
+          \_cont_assign: , line:8:14, endln:8:95
           |vpiName:w_data_li
           |vpiIndex:
           \_operation: , line:8:24, endln:8:27
@@ -591,11 +573,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[0].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[0].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:7:31, endln:7:69
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[0].bht_init_lp
+            \_operation: , line:7:31, endln:7:69
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[0].bht_init_lp
             |vpiIndex:
@@ -620,19 +598,15 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.wval[0].w_data_li), line:7:14, endln:7:26
           |vpiParent:
-          \_ref_obj: (work@top.wval[0].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:7:14, endln:7:69
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[0].w_data_li
+          \_cont_assign: , line:7:14, endln:7:69
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[0].w_data_li
           |vpiIndex:
-          \_ref_obj: (work@top.wval[0].w_data_li.i), line:7:24, endln:7:25
+          \_ref_obj: (work@top.wval[0].i), line:7:24, endln:7:25
             |vpiParent:
             \_bit_select: (work@top.wval[0].w_data_li), line:7:14, endln:7:26
             |vpiName:i
-            |vpiFullName:work@top.wval[0].w_data_li.i
+            |vpiFullName:work@top.wval[0].i
             |vpiActual:
             \_parameter: (work@top.wval[0].i), line:5:0
       |vpiContAssign:
@@ -653,11 +627,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[0].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[0].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:8:31, endln:8:95
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[0].bht_init_lp
+            \_operation: , line:8:31, endln:8:95
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[0].bht_init_lp
             |vpiIndex:
@@ -676,11 +646,7 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top.wval[0].val_i), line:8:59, endln:8:69
               |vpiParent:
-              \_ref_obj: (work@top.wval[0].val_i)
-                |vpiParent:
-                \_operation: , line:8:59, endln:8:95
-                |vpiName:val_i
-                |vpiFullName:work@top.wval[0].val_i
+              \_operation: , line:8:59, endln:8:95
               |vpiName:val_i
               |vpiFullName:work@top.wval[0].val_i
               |vpiIndex:
@@ -723,29 +689,21 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (work@top.wval[0].val_i), line:8:86, endln:8:94
                 |vpiParent:
-                \_ref_obj: (work@top.wval[0].val_i)
-                  |vpiParent:
-                  \_operation: , line:8:73, endln:8:94
-                  |vpiName:val_i
-                  |vpiFullName:work@top.wval[0].val_i
+                \_operation: , line:8:73, endln:8:94
                 |vpiName:val_i
                 |vpiFullName:work@top.wval[0].val_i
                 |vpiIndex:
-                \_ref_obj: (work@top.wval[0].val_i.i), line:8:92, endln:8:93
+                \_ref_obj: (work@top.wval[0].i), line:8:92, endln:8:93
                   |vpiParent:
                   \_bit_select: (work@top.wval[0].val_i), line:8:86, endln:8:94
                   |vpiName:i
-                  |vpiFullName:work@top.wval[0].val_i.i
+                  |vpiFullName:work@top.wval[0].i
                   |vpiActual:
                   \_parameter: (work@top.wval[0].i), line:5:0
         |vpiLhs:
         \_bit_select: (work@top.wval[0].w_data_li), line:8:14, endln:8:28
           |vpiParent:
-          \_ref_obj: (work@top.wval[0].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:8:14, endln:8:95
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[0].w_data_li
+          \_cont_assign: , line:8:14, endln:8:95
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[0].w_data_li
           |vpiIndex:
@@ -808,11 +766,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[2].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[2].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:7:31, endln:7:69
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[2].bht_init_lp
+            \_operation: , line:7:31, endln:7:69
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[2].bht_init_lp
             |vpiIndex:
@@ -837,19 +791,15 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.wval[2].w_data_li), line:7:14, endln:7:26
           |vpiParent:
-          \_ref_obj: (work@top.wval[2].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:7:14, endln:7:69
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[2].w_data_li
+          \_cont_assign: , line:7:14, endln:7:69
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[2].w_data_li
           |vpiIndex:
-          \_ref_obj: (work@top.wval[2].w_data_li.i), line:7:24, endln:7:25
+          \_ref_obj: (work@top.wval[2].i), line:7:24, endln:7:25
             |vpiParent:
             \_bit_select: (work@top.wval[2].w_data_li), line:7:14, endln:7:26
             |vpiName:i
-            |vpiFullName:work@top.wval[2].w_data_li.i
+            |vpiFullName:work@top.wval[2].i
             |vpiActual:
             \_parameter: (work@top.wval[2].i), line:5:0
       |vpiContAssign:
@@ -870,11 +820,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[2].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[2].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:8:31, endln:8:95
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[2].bht_init_lp
+            \_operation: , line:8:31, endln:8:95
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[2].bht_init_lp
             |vpiIndex:
@@ -893,11 +839,7 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top.wval[2].val_i), line:8:59, endln:8:69
               |vpiParent:
-              \_ref_obj: (work@top.wval[2].val_i)
-                |vpiParent:
-                \_operation: , line:8:59, endln:8:95
-                |vpiName:val_i
-                |vpiFullName:work@top.wval[2].val_i
+              \_operation: , line:8:59, endln:8:95
               |vpiName:val_i
               |vpiFullName:work@top.wval[2].val_i
               |vpiIndex:
@@ -940,29 +882,21 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (work@top.wval[2].val_i), line:8:86, endln:8:94
                 |vpiParent:
-                \_ref_obj: (work@top.wval[2].val_i)
-                  |vpiParent:
-                  \_operation: , line:8:73, endln:8:94
-                  |vpiName:val_i
-                  |vpiFullName:work@top.wval[2].val_i
+                \_operation: , line:8:73, endln:8:94
                 |vpiName:val_i
                 |vpiFullName:work@top.wval[2].val_i
                 |vpiIndex:
-                \_ref_obj: (work@top.wval[2].val_i.i), line:8:92, endln:8:93
+                \_ref_obj: (work@top.wval[2].i), line:8:92, endln:8:93
                   |vpiParent:
                   \_bit_select: (work@top.wval[2].val_i), line:8:86, endln:8:94
                   |vpiName:i
-                  |vpiFullName:work@top.wval[2].val_i.i
+                  |vpiFullName:work@top.wval[2].i
                   |vpiActual:
                   \_parameter: (work@top.wval[2].i), line:5:0
         |vpiLhs:
         \_bit_select: (work@top.wval[2].w_data_li), line:8:14, endln:8:28
           |vpiParent:
-          \_ref_obj: (work@top.wval[2].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:8:14, endln:8:95
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[2].w_data_li
+          \_cont_assign: , line:8:14, endln:8:95
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[2].w_data_li
           |vpiIndex:
@@ -1025,11 +959,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[4].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[4].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:7:31, endln:7:69
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[4].bht_init_lp
+            \_operation: , line:7:31, endln:7:69
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[4].bht_init_lp
             |vpiIndex:
@@ -1054,19 +984,15 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.wval[4].w_data_li), line:7:14, endln:7:26
           |vpiParent:
-          \_ref_obj: (work@top.wval[4].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:7:14, endln:7:69
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[4].w_data_li
+          \_cont_assign: , line:7:14, endln:7:69
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[4].w_data_li
           |vpiIndex:
-          \_ref_obj: (work@top.wval[4].w_data_li.i), line:7:24, endln:7:25
+          \_ref_obj: (work@top.wval[4].i), line:7:24, endln:7:25
             |vpiParent:
             \_bit_select: (work@top.wval[4].w_data_li), line:7:14, endln:7:26
             |vpiName:i
-            |vpiFullName:work@top.wval[4].w_data_li.i
+            |vpiFullName:work@top.wval[4].i
             |vpiActual:
             \_parameter: (work@top.wval[4].i), line:5:0
       |vpiContAssign:
@@ -1087,11 +1013,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[4].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[4].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:8:31, endln:8:95
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[4].bht_init_lp
+            \_operation: , line:8:31, endln:8:95
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[4].bht_init_lp
             |vpiIndex:
@@ -1110,11 +1032,7 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top.wval[4].val_i), line:8:59, endln:8:69
               |vpiParent:
-              \_ref_obj: (work@top.wval[4].val_i)
-                |vpiParent:
-                \_operation: , line:8:59, endln:8:95
-                |vpiName:val_i
-                |vpiFullName:work@top.wval[4].val_i
+              \_operation: , line:8:59, endln:8:95
               |vpiName:val_i
               |vpiFullName:work@top.wval[4].val_i
               |vpiIndex:
@@ -1157,29 +1075,21 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (work@top.wval[4].val_i), line:8:86, endln:8:94
                 |vpiParent:
-                \_ref_obj: (work@top.wval[4].val_i)
-                  |vpiParent:
-                  \_operation: , line:8:73, endln:8:94
-                  |vpiName:val_i
-                  |vpiFullName:work@top.wval[4].val_i
+                \_operation: , line:8:73, endln:8:94
                 |vpiName:val_i
                 |vpiFullName:work@top.wval[4].val_i
                 |vpiIndex:
-                \_ref_obj: (work@top.wval[4].val_i.i), line:8:92, endln:8:93
+                \_ref_obj: (work@top.wval[4].i), line:8:92, endln:8:93
                   |vpiParent:
                   \_bit_select: (work@top.wval[4].val_i), line:8:86, endln:8:94
                   |vpiName:i
-                  |vpiFullName:work@top.wval[4].val_i.i
+                  |vpiFullName:work@top.wval[4].i
                   |vpiActual:
                   \_parameter: (work@top.wval[4].i), line:5:0
         |vpiLhs:
         \_bit_select: (work@top.wval[4].w_data_li), line:8:14, endln:8:28
           |vpiParent:
-          \_ref_obj: (work@top.wval[4].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:8:14, endln:8:95
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[4].w_data_li
+          \_cont_assign: , line:8:14, endln:8:95
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[4].w_data_li
           |vpiIndex:
@@ -1242,11 +1152,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[6].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[6].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:7:31, endln:7:69
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[6].bht_init_lp
+            \_operation: , line:7:31, endln:7:69
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[6].bht_init_lp
             |vpiIndex:
@@ -1271,19 +1177,15 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.wval[6].w_data_li), line:7:14, endln:7:26
           |vpiParent:
-          \_ref_obj: (work@top.wval[6].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:7:14, endln:7:69
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[6].w_data_li
+          \_cont_assign: , line:7:14, endln:7:69
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[6].w_data_li
           |vpiIndex:
-          \_ref_obj: (work@top.wval[6].w_data_li.i), line:7:24, endln:7:25
+          \_ref_obj: (work@top.wval[6].i), line:7:24, endln:7:25
             |vpiParent:
             \_bit_select: (work@top.wval[6].w_data_li), line:7:14, endln:7:26
             |vpiName:i
-            |vpiFullName:work@top.wval[6].w_data_li.i
+            |vpiFullName:work@top.wval[6].i
             |vpiActual:
             \_parameter: (work@top.wval[6].i), line:5:0
       |vpiContAssign:
@@ -1304,11 +1206,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[6].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[6].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:8:31, endln:8:95
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[6].bht_init_lp
+            \_operation: , line:8:31, endln:8:95
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[6].bht_init_lp
             |vpiIndex:
@@ -1327,11 +1225,7 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top.wval[6].val_i), line:8:59, endln:8:69
               |vpiParent:
-              \_ref_obj: (work@top.wval[6].val_i)
-                |vpiParent:
-                \_operation: , line:8:59, endln:8:95
-                |vpiName:val_i
-                |vpiFullName:work@top.wval[6].val_i
+              \_operation: , line:8:59, endln:8:95
               |vpiName:val_i
               |vpiFullName:work@top.wval[6].val_i
               |vpiIndex:
@@ -1374,29 +1268,21 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (work@top.wval[6].val_i), line:8:86, endln:8:94
                 |vpiParent:
-                \_ref_obj: (work@top.wval[6].val_i)
-                  |vpiParent:
-                  \_operation: , line:8:73, endln:8:94
-                  |vpiName:val_i
-                  |vpiFullName:work@top.wval[6].val_i
+                \_operation: , line:8:73, endln:8:94
                 |vpiName:val_i
                 |vpiFullName:work@top.wval[6].val_i
                 |vpiIndex:
-                \_ref_obj: (work@top.wval[6].val_i.i), line:8:92, endln:8:93
+                \_ref_obj: (work@top.wval[6].i), line:8:92, endln:8:93
                   |vpiParent:
                   \_bit_select: (work@top.wval[6].val_i), line:8:86, endln:8:94
                   |vpiName:i
-                  |vpiFullName:work@top.wval[6].val_i.i
+                  |vpiFullName:work@top.wval[6].i
                   |vpiActual:
                   \_parameter: (work@top.wval[6].i), line:5:0
         |vpiLhs:
         \_bit_select: (work@top.wval[6].w_data_li), line:8:14, endln:8:28
           |vpiParent:
-          \_ref_obj: (work@top.wval[6].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:8:14, endln:8:95
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[6].w_data_li
+          \_cont_assign: , line:8:14, endln:8:95
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[6].w_data_li
           |vpiIndex:
@@ -1459,11 +1345,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[8].bht_init_lp), line:7:42, endln:7:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[8].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:7:31, endln:7:69
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[8].bht_init_lp
+            \_operation: , line:7:31, endln:7:69
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[8].bht_init_lp
             |vpiIndex:
@@ -1488,19 +1370,15 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.wval[8].w_data_li), line:7:14, endln:7:26
           |vpiParent:
-          \_ref_obj: (work@top.wval[8].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:7:14, endln:7:69
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[8].w_data_li
+          \_cont_assign: , line:7:14, endln:7:69
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[8].w_data_li
           |vpiIndex:
-          \_ref_obj: (work@top.wval[8].w_data_li.i), line:7:24, endln:7:25
+          \_ref_obj: (work@top.wval[8].i), line:7:24, endln:7:25
             |vpiParent:
             \_bit_select: (work@top.wval[8].w_data_li), line:7:14, endln:7:26
             |vpiName:i
-            |vpiFullName:work@top.wval[8].w_data_li.i
+            |vpiFullName:work@top.wval[8].i
             |vpiActual:
             \_parameter: (work@top.wval[8].i), line:5:0
       |vpiContAssign:
@@ -1521,11 +1399,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.wval[8].bht_init_lp), line:8:42, endln:8:56
             |vpiParent:
-            \_ref_obj: (work@top.wval[8].bht_init_lp)
-              |vpiParent:
-              \_operation: , line:8:31, endln:8:95
-              |vpiName:bht_init_lp
-              |vpiFullName:work@top.wval[8].bht_init_lp
+            \_operation: , line:8:31, endln:8:95
             |vpiName:bht_init_lp
             |vpiFullName:work@top.wval[8].bht_init_lp
             |vpiIndex:
@@ -1544,11 +1418,7 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top.wval[8].val_i), line:8:59, endln:8:69
               |vpiParent:
-              \_ref_obj: (work@top.wval[8].val_i)
-                |vpiParent:
-                \_operation: , line:8:59, endln:8:95
-                |vpiName:val_i
-                |vpiFullName:work@top.wval[8].val_i
+              \_operation: , line:8:59, endln:8:95
               |vpiName:val_i
               |vpiFullName:work@top.wval[8].val_i
               |vpiIndex:
@@ -1591,29 +1461,21 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (work@top.wval[8].val_i), line:8:86, endln:8:94
                 |vpiParent:
-                \_ref_obj: (work@top.wval[8].val_i)
-                  |vpiParent:
-                  \_operation: , line:8:73, endln:8:94
-                  |vpiName:val_i
-                  |vpiFullName:work@top.wval[8].val_i
+                \_operation: , line:8:73, endln:8:94
                 |vpiName:val_i
                 |vpiFullName:work@top.wval[8].val_i
                 |vpiIndex:
-                \_ref_obj: (work@top.wval[8].val_i.i), line:8:92, endln:8:93
+                \_ref_obj: (work@top.wval[8].i), line:8:92, endln:8:93
                   |vpiParent:
                   \_bit_select: (work@top.wval[8].val_i), line:8:86, endln:8:94
                   |vpiName:i
-                  |vpiFullName:work@top.wval[8].val_i.i
+                  |vpiFullName:work@top.wval[8].i
                   |vpiActual:
                   \_parameter: (work@top.wval[8].i), line:5:0
         |vpiLhs:
         \_bit_select: (work@top.wval[8].w_data_li), line:8:14, endln:8:28
           |vpiParent:
-          \_ref_obj: (work@top.wval[8].w_data_li)
-            |vpiParent:
-            \_cont_assign: , line:8:14, endln:8:95
-            |vpiName:w_data_li
-            |vpiFullName:work@top.wval[8].w_data_li
+          \_cont_assign: , line:8:14, endln:8:95
           |vpiName:w_data_li
           |vpiFullName:work@top.wval[8].w_data_li
           |vpiIndex:

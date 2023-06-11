@@ -198,7 +198,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                               19
+ref_obj                                               12
 ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
@@ -226,7 +226,7 @@ packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
 range                                                  4
-ref_obj                                               26
+ref_obj                                               15
 ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
@@ -328,21 +328,20 @@ design: (work@alert_handler_reg_wrap)
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:hw2reg
           |vpiActual:
-          \_bit_select: (alert_cause), line:3:19, endln:3:30
+          \_bit_select: (alert_cause[k]), line:3:19, endln:3:30
             |vpiParent:
-            \_ref_obj: (hw2reg.alert_cause[k])
-              |vpiParent:
-              \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
-              |vpiName:hw2reg.alert_cause[k]
+            \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:alert_cause
+            |vpiFullName:alert_cause[k]
             |vpiIndex:
             \_ref_obj: (k), line:3:31, endln:3:32
               |vpiName:k
           |vpiActual:
-          \_ref_obj: (d)
+          \_ref_obj: (alert_cause[k].d)
             |vpiParent:
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:d
+            |vpiFullName:alert_cause[k].d
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
   |vpiParent:
@@ -396,14 +395,11 @@ design: (work@alert_handler_reg_wrap)
       \_cont_assign: , line:15:10, endln:15:26
       |vpiName:a[0][0].x[0]
       |vpiActual:
-      \_bit_select: (a), line:15:10, endln:15:11
+      \_bit_select: (a[0]), line:15:10, endln:15:11
         |vpiParent:
-        \_ref_obj: (work@top.a[0])
-          |vpiParent:
-          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-          |vpiName:a[0]
-          |vpiFullName:work@top.a[0]
+        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
         |vpiName:a
+        |vpiFullName:a[0]
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
           |vpiDecompile:0
@@ -411,8 +407,10 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: ([0]), line:15:12, endln:15:13
-        |vpiName:[0]
+      \_bit_select: (a[0][0]), line:15:12, endln:15:13
+        |vpiParent:
+        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+        |vpiFullName:a[0][0]
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
           |vpiDecompile:0
@@ -420,17 +418,15 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: (x)
+      \_bit_select: (a[0][0].x[0])
         |vpiParent:
-        \_ref_obj: (x)
-          |vpiParent:
-          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-          |vpiName:x
+        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
         |vpiName:x
+        |vpiFullName:a[0][0].x[0]
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
-          \_bit_select: (x)
+          \_bit_select: (a[0][0].x[0])
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -489,27 +485,25 @@ design: (work@alert_handler_reg_wrap)
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:hw2reg
           |vpiActual:
-          \_bit_select: (alert_cause), line:3:19, endln:3:30
+          \_bit_select: (alert_cause[k]), line:3:19, endln:3:30
             |vpiParent:
-            \_ref_obj: (work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k])
-              |vpiParent:
-              \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
-              |vpiName:hw2reg.alert_cause[k]
-              |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k]
+            \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:alert_cause
+            |vpiFullName:alert_cause[k]
             |vpiIndex:
-            \_ref_obj: (work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].k), line:3:31, endln:3:32
+            \_ref_obj: (work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d.k), line:3:31, endln:3:32
               |vpiParent:
-              \_bit_select: (alert_cause), line:3:19, endln:3:30
+              \_bit_select: (alert_cause[k]), line:3:19, endln:3:30
               |vpiName:k
-              |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].k
+              |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0].hw2reg.alert_cause[k].d.k
               |vpiActual:
               \_parameter: (work@alert_handler_reg_wrap.gen_alert_cause[0].k), line:2:0
           |vpiActual:
-          \_ref_obj: (d)
+          \_ref_obj: (alert_cause[k].d)
             |vpiParent:
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:d
+            |vpiFullName:alert_cause[k].d
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
   |vpiName:work@top
@@ -580,61 +574,50 @@ design: (work@alert_handler_reg_wrap)
       \_cont_assign: , line:15:10, endln:15:26
       |vpiName:a[0][0].x[0]
       |vpiActual:
-      \_bit_select: (a), line:15:10, endln:15:11
+      \_bit_select: (a[0]), line:15:10, endln:15:11
         |vpiParent:
-        \_ref_obj: (work@top.a[0])
-          |vpiParent:
-          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-          |vpiName:a[0]
-          |vpiFullName:work@top.a[0]
+        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
         |vpiName:a
+        |vpiFullName:a[0]
+        |vpiActual:
+        \_packed_array_var: (work@top.a), line:13:23, endln:13:24
         |vpiIndex:
         \_constant: , line:15:12, endln:15:13
           |vpiParent:
-          \_bit_select: (a), line:15:10, endln:15:11
+          \_bit_select: (a[0]), line:15:10, endln:15:11
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
-        |vpiActual:
-        \_packed_array_var: (work@top.a), line:13:23, endln:13:24
       |vpiActual:
-      \_bit_select: ([0]), line:15:12, endln:15:13
+      \_bit_select: (a[0][0]), line:15:12, endln:15:13
         |vpiParent:
-        \_ref_obj: (work@top.a[0][0].x[0])
-          |vpiParent:
-          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-          |vpiName:a[0][0].x[0]
-          |vpiFullName:work@top.a[0][0].x[0]
-        |vpiName:[0]
+        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
+        |vpiFullName:a[0][0]
         |vpiIndex:
         \_constant: , line:15:15, endln:15:16
           |vpiParent:
-          \_bit_select: ([0]), line:15:12, endln:15:13
+          \_bit_select: (a[0][0]), line:15:12, endln:15:13
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: (x)
+      \_bit_select: (a[0][0].x[0])
         |vpiParent:
-        \_ref_obj: (x)
-          |vpiParent:
-          \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
-          |vpiName:x
-          |vpiActual:
-          \_typespec_member: (x), line:10:9, endln:10:10
+        \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
         |vpiName:x
+        |vpiFullName:a[0][0].x[0]
+        |vpiActual:
+        \_typespec_member: (x), line:10:9, endln:10:10
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
-          \_bit_select: (x)
+          \_bit_select: (a[0][0].x[0])
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
-        |vpiActual:
-        \_typespec_member: (x), line:10:9, endln:10:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

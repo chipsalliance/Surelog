@@ -187,7 +187,7 @@ parameter                                             12
 part_select                                            2
 range                                                 14
 ref_module                                             1
-ref_obj                                                4
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -205,7 +205,7 @@ parameter                                             12
 part_select                                            2
 range                                                 14
 ref_module                                             1
-ref_obj                                                5
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LongHex/slpp_all/surelog.uhdm ...
 
@@ -486,14 +486,12 @@ design: (work@aes_core)
     |vpiParent:
     \_module_inst: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/LongHex/dut.sv, line:6:1, endln:9:10
     |vpiRhs:
-    \_part_select: , line:8:15, endln:8:43
+    \_part_select: RndCnstMaskingLfsrSeed (work@aes_cipher_core.RndCnstMaskingLfsrSeed), line:8:15, endln:8:43
       |vpiParent:
-      \_ref_obj: RndCnstMaskingLfsrSeed (work@aes_cipher_core.RndCnstMaskingLfsrSeed), line:8:15, endln:8:37
-        |vpiParent:
-        \_cont_assign: , line:8:11, endln:8:43
-        |vpiName:RndCnstMaskingLfsrSeed
-        |vpiFullName:work@aes_cipher_core.RndCnstMaskingLfsrSeed
-        |vpiDefName:RndCnstMaskingLfsrSeed
+      \_cont_assign: , line:8:11, endln:8:43
+      |vpiName:RndCnstMaskingLfsrSeed
+      |vpiFullName:work@aes_cipher_core.RndCnstMaskingLfsrSeed
+      |vpiDefName:RndCnstMaskingLfsrSeed
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_constant: , line:8:38, endln:8:40
@@ -832,4 +830,4 @@ design: (work@aes_core)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/LongHex/dut.sv | ${SURELOG_DIR}/build/regression/LongHex/roundtrip/dut_000.sv | 7 | 15 |
+[roundtrip]: ${SURELOG_DIR}/tests/LongHex/dut.sv | ${SURELOG_DIR}/build/regression/LongHex/roundtrip/dut_000.sv | 8 | 15 |

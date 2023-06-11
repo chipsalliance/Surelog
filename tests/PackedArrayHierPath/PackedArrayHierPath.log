@@ -230,7 +230,7 @@ packed_array_typespec                                  4
 param_assign                                           8
 parameter                                              8
 range                                                  4
-ref_obj                                               14
+ref_obj                                               10
 return_stmt                                            2
 struct_typespec                                        4
 typespec_member                                        8
@@ -254,7 +254,7 @@ packed_array_typespec                                  4
 param_assign                                           8
 parameter                                              8
 range                                                  4
-ref_obj                                               26
+ref_obj                                               18
 return_stmt                                            4
 struct_typespec                                        4
 typespec_member                                        8
@@ -526,29 +526,27 @@ design: (unnamed)
             \_operation: , line:18:8, endln:18:63
             |vpiName:FP_ENCODINGS[fmt].exp_bits
             |vpiActual:
-            \_bit_select: (FP_ENCODINGS), line:18:8, endln:18:20
+            \_bit_select: (FP_ENCODINGS[fmt]), line:18:8, endln:18:20
               |vpiParent:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt])
-                |vpiParent:
-                \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:18:8, endln:18:34
-                |vpiName:FP_ENCODINGS[fmt]
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]
+              \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:18:8, endln:18:34
               |vpiName:FP_ENCODINGS
-              |vpiIndex:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt]::fmt), line:18:21, endln:18:24
-                |vpiParent:
-                \_bit_select: (FP_ENCODINGS), line:18:8, endln:18:20
-                |vpiName:fmt
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]::fmt
-                |vpiActual:
-                \_io_decl: (fmt), line:17:54, endln:17:57
+              |vpiFullName:FP_ENCODINGS[fmt]
               |vpiActual:
               \_parameter: (uvm::FP_ENCODINGS), line:8:47, endln:8:59
+              |vpiIndex:
+              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt].exp_bits::fmt), line:18:21, endln:18:24
+                |vpiParent:
+                \_bit_select: (FP_ENCODINGS[fmt]), line:18:8, endln:18:20
+                |vpiName:fmt
+                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt].exp_bits::fmt
+                |vpiActual:
+                \_io_decl: (fmt), line:17:54, endln:17:57
             |vpiActual:
-            \_ref_obj: (exp_bits), line:18:26, endln:18:34
+            \_ref_obj: (uvm::fp_width::exp_bits), line:18:26, endln:18:34
               |vpiParent:
               \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:18:8, endln:18:34
               |vpiName:exp_bits
+              |vpiFullName:uvm::fp_width::exp_bits
               |vpiActual:
               \_typespec_member: (exp_bits), line:3:16, endln:3:24
           |vpiOperand:
@@ -557,29 +555,27 @@ design: (unnamed)
             \_operation: , line:18:8, endln:18:63
             |vpiName:FP_ENCODINGS[fmt].man_bits
             |vpiActual:
-            \_bit_select: (FP_ENCODINGS), line:18:37, endln:18:49
+            \_bit_select: (FP_ENCODINGS[fmt]), line:18:37, endln:18:49
               |vpiParent:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt])
-                |vpiParent:
-                \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:18:37, endln:18:63
-                |vpiName:FP_ENCODINGS[fmt]
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]
+              \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:18:37, endln:18:63
               |vpiName:FP_ENCODINGS
-              |vpiIndex:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt]::fmt), line:18:50, endln:18:53
-                |vpiParent:
-                \_bit_select: (FP_ENCODINGS), line:18:37, endln:18:49
-                |vpiName:fmt
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]::fmt
-                |vpiActual:
-                \_io_decl: (fmt), line:17:54, endln:17:57
+              |vpiFullName:FP_ENCODINGS[fmt]
               |vpiActual:
               \_parameter: (uvm::FP_ENCODINGS), line:8:47, endln:8:59
+              |vpiIndex:
+              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt].man_bits::fmt), line:18:50, endln:18:53
+                |vpiParent:
+                \_bit_select: (FP_ENCODINGS[fmt]), line:18:37, endln:18:49
+                |vpiName:fmt
+                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt].man_bits::fmt
+                |vpiActual:
+                \_io_decl: (fmt), line:17:54, endln:17:57
             |vpiActual:
-            \_ref_obj: (man_bits), line:18:55, endln:18:63
+            \_ref_obj: (uvm::fp_width::man_bits), line:18:55, endln:18:63
               |vpiParent:
               \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:18:37, endln:18:63
               |vpiName:man_bits
+              |vpiFullName:uvm::fp_width::man_bits
               |vpiActual:
               \_typespec_member: (man_bits), line:4:16, endln:4:24
         |vpiOperand:
@@ -835,29 +831,27 @@ design: (unnamed)
             \_operation: , line:18:8, endln:18:63
             |vpiName:FP_ENCODINGS[fmt].exp_bits
             |vpiActual:
-            \_bit_select: (FP_ENCODINGS), line:18:8, endln:18:20
+            \_bit_select: (FP_ENCODINGS[fmt]), line:18:8, endln:18:20
               |vpiParent:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt])
-                |vpiParent:
-                \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:18:8, endln:18:34
-                |vpiName:FP_ENCODINGS[fmt]
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]
+              \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:18:8, endln:18:34
               |vpiName:FP_ENCODINGS
-              |vpiIndex:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt]::fmt), line:18:21, endln:18:24
-                |vpiParent:
-                \_bit_select: (FP_ENCODINGS), line:18:8, endln:18:20
-                |vpiName:fmt
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]::fmt
-                |vpiActual:
-                \_io_decl: (fmt), line:17:54, endln:17:57
+              |vpiFullName:FP_ENCODINGS[fmt]
               |vpiActual:
               \_parameter: (uvm::FP_ENCODINGS), line:8:47, endln:8:59
+              |vpiIndex:
+              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt].exp_bits::fmt), line:18:21, endln:18:24
+                |vpiParent:
+                \_bit_select: (FP_ENCODINGS[fmt]), line:18:8, endln:18:20
+                |vpiName:fmt
+                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt].exp_bits::fmt
+                |vpiActual:
+                \_io_decl: (fmt), line:17:54, endln:17:57
             |vpiActual:
-            \_ref_obj: (exp_bits), line:18:26, endln:18:34
+            \_ref_obj: (uvm::fp_width::exp_bits), line:18:26, endln:18:34
               |vpiParent:
               \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:18:8, endln:18:34
               |vpiName:exp_bits
+              |vpiFullName:uvm::fp_width::exp_bits
               |vpiActual:
               \_typespec_member: (exp_bits), line:3:16, endln:3:24
           |vpiOperand:
@@ -866,29 +860,27 @@ design: (unnamed)
             \_operation: , line:18:8, endln:18:63
             |vpiName:FP_ENCODINGS[fmt].man_bits
             |vpiActual:
-            \_bit_select: (FP_ENCODINGS), line:18:37, endln:18:49
+            \_bit_select: (FP_ENCODINGS[fmt]), line:18:37, endln:18:49
               |vpiParent:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt])
-                |vpiParent:
-                \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:18:37, endln:18:63
-                |vpiName:FP_ENCODINGS[fmt]
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]
+              \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:18:37, endln:18:63
               |vpiName:FP_ENCODINGS
-              |vpiIndex:
-              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt]::fmt), line:18:50, endln:18:53
-                |vpiParent:
-                \_bit_select: (FP_ENCODINGS), line:18:37, endln:18:49
-                |vpiName:fmt
-                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt]::fmt
-                |vpiActual:
-                \_io_decl: (fmt), line:17:54, endln:17:57
+              |vpiFullName:FP_ENCODINGS[fmt]
               |vpiActual:
               \_parameter: (uvm::FP_ENCODINGS), line:8:47, endln:8:59
+              |vpiIndex:
+              \_ref_obj: (uvm::fp_width::FP_ENCODINGS[fmt].man_bits::fmt), line:18:50, endln:18:53
+                |vpiParent:
+                \_bit_select: (FP_ENCODINGS[fmt]), line:18:37, endln:18:49
+                |vpiName:fmt
+                |vpiFullName:uvm::fp_width::FP_ENCODINGS[fmt].man_bits::fmt
+                |vpiActual:
+                \_io_decl: (fmt), line:17:54, endln:17:57
             |vpiActual:
-            \_ref_obj: (man_bits), line:18:55, endln:18:63
+            \_ref_obj: (uvm::fp_width::man_bits), line:18:55, endln:18:63
               |vpiParent:
               \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:18:37, endln:18:63
               |vpiName:man_bits
+              |vpiFullName:uvm::fp_width::man_bits
               |vpiActual:
               \_typespec_member: (man_bits), line:4:16, endln:4:24
         |vpiOperand:

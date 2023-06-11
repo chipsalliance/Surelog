@@ -182,7 +182,6 @@ logic_typespec                                         3
 module_inst                                            4
 operation                                              2
 range                                                  6
-ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -197,7 +196,6 @@ logic_typespec                                         3
 module_inst                                            4
 operation                                              4
 range                                                  6
-ref_obj                                                8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexPartSel/slpp_all/surelog.uhdm ...
 
@@ -245,11 +243,7 @@ design: (work@dut)
     |vpiRhs:
     \_bit_select: (work@dut.hw2reg_wrap), line:6:33, endln:6:49
       |vpiParent:
-      \_ref_obj: (work@dut.hw2reg_wrap)
-        |vpiParent:
-        \_cont_assign: , line:6:8, endln:6:49
-        |vpiName:hw2reg_wrap
-        |vpiFullName:work@dut.hw2reg_wrap
+      \_cont_assign: , line:6:8, endln:6:49
       |vpiName:hw2reg_wrap
       |vpiFullName:work@dut.hw2reg_wrap
       |vpiIndex:
@@ -268,11 +262,7 @@ design: (work@dut)
       |vpiOperand:
       \_bit_select: (work@dut.working_bitselect), line:6:9, endln:6:29
         |vpiParent:
-        \_ref_obj: (work@dut.working_bitselect)
-          |vpiParent:
-          \_operation: , line:6:9, endln:6:29
-          |vpiName:working_bitselect
-          |vpiFullName:work@dut.working_bitselect
+        \_operation: , line:6:9, endln:6:29
         |vpiName:working_bitselect
         |vpiFullName:work@dut.working_bitselect
         |vpiIndex:
@@ -288,14 +278,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiRhs:
-    \_indexed_part_select: , line:7:63, endln:7:70
+    \_indexed_part_select: hw2reg_wrap (work@dut.hw2reg_wrap), line:7:63, endln:7:70
       |vpiParent:
-      \_ref_obj: hw2reg_wrap (work@dut.hw2reg_wrap)
-        |vpiParent:
-        \_cont_assign: , line:7:8, endln:7:71
-        |vpiName:hw2reg_wrap
-        |vpiFullName:work@dut.hw2reg_wrap
-        |vpiDefName:hw2reg_wrap
+      \_cont_assign: , line:7:8, endln:7:71
+      |vpiName:hw2reg_wrap
+      |vpiFullName:work@dut.hw2reg_wrap
+      |vpiDefName:hw2reg_wrap
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:2
       |vpiBaseExpr:
@@ -316,14 +304,12 @@ design: (work@dut)
       \_cont_assign: , line:7:8, endln:7:71
       |vpiOpType:33
       |vpiOperand:
-      \_indexed_part_select: , line:7:9, endln:7:47
+      \_indexed_part_select: notworking_indexed_part_select (work@dut.notworking_indexed_part_select), line:7:9, endln:7:47
         |vpiParent:
-        \_ref_obj: notworking_indexed_part_select (work@dut.notworking_indexed_part_select)
-          |vpiParent:
-          \_operation: , line:7:9, endln:7:47
-          |vpiName:notworking_indexed_part_select
-          |vpiFullName:work@dut.notworking_indexed_part_select
-          |vpiDefName:notworking_indexed_part_select
+        \_operation: , line:7:9, endln:7:47
+        |vpiName:notworking_indexed_part_select
+        |vpiFullName:work@dut.notworking_indexed_part_select
+        |vpiDefName:notworking_indexed_part_select
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:
@@ -432,19 +418,13 @@ design: (work@dut)
     |vpiRhs:
     \_bit_select: (work@dut.hw2reg_wrap), line:6:33, endln:6:49
       |vpiParent:
-      \_ref_obj: (work@dut.hw2reg_wrap)
-        |vpiParent:
-        \_cont_assign: , line:6:8, endln:6:49
-        |vpiName:hw2reg_wrap
-        |vpiFullName:work@dut.hw2reg_wrap
-        |vpiActual:
-        \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
+      \_cont_assign: , line:6:8, endln:6:49
       |vpiName:hw2reg_wrap
       |vpiFullName:work@dut.hw2reg_wrap
-      |vpiIndex:
-      \_constant: , line:6:45, endln:6:48
       |vpiActual:
       \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
+      |vpiIndex:
+      \_constant: , line:6:45, endln:6:48
     |vpiLhs:
     \_operation: , line:6:9, endln:6:29
       |vpiParent:
@@ -453,34 +433,26 @@ design: (work@dut)
       |vpiOperand:
       \_bit_select: (work@dut.working_bitselect), line:6:9, endln:6:29
         |vpiParent:
-        \_ref_obj: (work@dut.working_bitselect)
-          |vpiParent:
-          \_operation: , line:6:9, endln:6:29
-          |vpiName:working_bitselect
-          |vpiFullName:work@dut.working_bitselect
-          |vpiActual:
-          \_logic_net: (work@dut.working_bitselect), line:5:13, endln:5:30
+        \_operation: , line:6:9, endln:6:29
         |vpiName:working_bitselect
         |vpiFullName:work@dut.working_bitselect
-        |vpiIndex:
-        \_constant: , line:6:27, endln:6:28
         |vpiActual:
         \_logic_net: (work@dut.working_bitselect), line:5:13, endln:5:30
+        |vpiIndex:
+        \_constant: , line:6:27, endln:6:28
   |vpiContAssign:
   \_cont_assign: , line:7:8, endln:7:71
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiRhs:
-    \_indexed_part_select: , line:7:63, endln:7:70
+    \_indexed_part_select: hw2reg_wrap (work@dut.hw2reg_wrap), line:7:63, endln:7:70
       |vpiParent:
-      \_ref_obj: hw2reg_wrap (work@dut.hw2reg_wrap)
-        |vpiParent:
-        \_cont_assign: , line:7:8, endln:7:71
-        |vpiName:hw2reg_wrap
-        |vpiFullName:work@dut.hw2reg_wrap
-        |vpiDefName:hw2reg_wrap
-        |vpiActual:
-        \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
+      \_cont_assign: , line:7:8, endln:7:71
+      |vpiName:hw2reg_wrap
+      |vpiFullName:work@dut.hw2reg_wrap
+      |vpiDefName:hw2reg_wrap
+      |vpiActual:
+      \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:2
       |vpiBaseExpr:
@@ -493,16 +465,14 @@ design: (work@dut)
       \_cont_assign: , line:7:8, endln:7:71
       |vpiOpType:33
       |vpiOperand:
-      \_indexed_part_select: , line:7:9, endln:7:47
+      \_indexed_part_select: notworking_indexed_part_select (work@dut.notworking_indexed_part_select), line:7:9, endln:7:47
         |vpiParent:
-        \_ref_obj: notworking_indexed_part_select (work@dut.notworking_indexed_part_select)
-          |vpiParent:
-          \_operation: , line:7:9, endln:7:47
-          |vpiName:notworking_indexed_part_select
-          |vpiFullName:work@dut.notworking_indexed_part_select
-          |vpiDefName:notworking_indexed_part_select
-          |vpiActual:
-          \_logic_net: (work@dut.notworking_indexed_part_select), line:4:14, endln:4:44
+        \_operation: , line:7:9, endln:7:47
+        |vpiName:notworking_indexed_part_select
+        |vpiFullName:work@dut.notworking_indexed_part_select
+        |vpiDefName:notworking_indexed_part_select
+        |vpiActual:
+        \_logic_net: (work@dut.notworking_indexed_part_select), line:4:14, endln:4:44
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:

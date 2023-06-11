@@ -913,7 +913,7 @@ param_assign                                          31
 parameter                                             35
 range                                                 18
 ref_module                                             7
-ref_obj                                               25
+ref_obj                                               17
 ref_var                                                2
 sys_func_call                                          2
 task                                                   9
@@ -953,7 +953,7 @@ param_assign                                          45
 parameter                                             35
 range                                                 18
 ref_module                                             7
-ref_obj                                               31
+ref_obj                                               23
 ref_var                                                2
 sys_func_call                                          2
 task                                                  18
@@ -1579,15 +1579,15 @@ design: (work@socket_1n)
     |vpiParent:
     \_module_inst: work@all_zero (work@all_zero), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:54:1, endln:67:10
     |vpiRhs:
-    \_indexed_part_select: , line:58:28, endln:58:45
-      |vpiParent:
-      \_ref_obj: DReqDepth (DReqDepth)
-        |vpiName:DReqDepth
-        |vpiDefName:DReqDepth
+    \_indexed_part_select: DReqDepth (DReqDepth), line:58:28, endln:58:45
+      |vpiName:DReqDepth
+      |vpiDefName:DReqDepth
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
       \_operation: , line:58:38, endln:58:41
+        |vpiParent:
+        \_indexed_part_select: DReqDepth (DReqDepth), line:58:28, endln:58:45
         |vpiOpType:25
         |vpiOperand:
         \_constant: , line:58:38, endln:58:39
@@ -1802,6 +1802,8 @@ design: (work@socket_1n)
             |vpiOpType:8
             |vpiOperand:
             \_sys_func_call: ($clog2), line:18:59, endln:18:72
+              |vpiParent:
+              \_operation: , line:18:57, endln:18:72
               |vpiArgument:
               \_ref_obj: (Depth), line:18:66, endln:18:71
                 |vpiParent:
@@ -1980,15 +1982,15 @@ design: (work@socket_1n)
     |vpiParent:
     \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:38:1, endln:51:10
     |vpiRhs:
-    \_indexed_part_select: , line:42:28, endln:42:45
-      |vpiParent:
-      \_ref_obj: DReqDepth (DReqDepth)
-        |vpiName:DReqDepth
-        |vpiDefName:DReqDepth
+    \_indexed_part_select: DReqDepth (DReqDepth), line:42:28, endln:42:45
+      |vpiName:DReqDepth
+      |vpiDefName:DReqDepth
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
       \_operation: , line:42:38, endln:42:41
+        |vpiParent:
+        \_indexed_part_select: DReqDepth (DReqDepth), line:42:28, endln:42:45
         |vpiOpType:25
         |vpiOperand:
         \_constant: , line:42:38, endln:42:39
@@ -2936,4 +2938,4 @@ design: (work@socket_1n)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ElabCParam/dut.sv | ${SURELOG_DIR}/build/regression/ElabCParam/roundtrip/dut_000.sv | 26 | 67 |
+[roundtrip]: ${SURELOG_DIR}/tests/ElabCParam/dut.sv | ${SURELOG_DIR}/build/regression/ElabCParam/roundtrip/dut_000.sv | 28 | 67 |

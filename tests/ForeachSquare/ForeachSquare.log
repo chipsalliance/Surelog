@@ -245,12 +245,12 @@ design: (work@dut)
             |vpiRhs:
             \_operation: , line:8:31, endln:8:36
               |vpiParent:
-              \_foreach_stmt: (work@dut), line:7:13, endln:7:20
+              \_assignment: , line:8:17, endln:8:36
               |vpiOpType:25
               |vpiOperand:
               \_ref_obj: (work@dut.i), line:8:31, endln:8:32
                 |vpiParent:
-                \_foreach_stmt: (work@dut), line:7:13, endln:7:20
+                \_operation: , line:8:31, endln:8:36
                 |vpiName:i
                 |vpiFullName:work@dut.i
                 |vpiActual:
@@ -270,19 +270,19 @@ design: (work@dut)
               |vpiName:array
               |vpiFullName:work@dut.array
               |vpiIndex:
-              \_ref_obj: (work@dut.i), line:8:23, endln:8:24
+              \_ref_obj: (work@dut.array.i), line:8:23, endln:8:24
                 |vpiParent:
-                \_foreach_stmt: (work@dut), line:7:13, endln:7:20
+                \_var_select: (work@dut.array), line:8:17, endln:8:28
                 |vpiName:i
-                |vpiFullName:work@dut.i
+                |vpiFullName:work@dut.array.i
                 |vpiActual:
                 \_int_var: (i), line:6:23, endln:6:24
               |vpiIndex:
-              \_ref_obj: (work@dut.j), line:8:26, endln:8:27
+              \_ref_obj: (work@dut.array.j), line:8:26, endln:8:27
                 |vpiParent:
-                \_foreach_stmt: (work@dut), line:7:13, endln:7:20
+                \_var_select: (work@dut.array), line:8:17, endln:8:28
                 |vpiName:j
-                |vpiFullName:work@dut.j
+                |vpiFullName:work@dut.array.j
                 |vpiActual:
                 \_int_var: (j), line:7:30, endln:7:31
 |uhdmtopModules:
@@ -446,7 +446,7 @@ design: (work@dut)
                 |vpiName:i
                 |vpiFullName:work@dut.i
                 |vpiActual:
-                \_ref_var: (work@dut.i), line:7:27, endln:7:28
+                \_int_var: (i), line:6:23, endln:6:24
               |vpiOperand:
               \_ref_obj: (work@dut.j), line:8:35, endln:8:36
                 |vpiParent:
@@ -461,6 +461,8 @@ design: (work@dut)
               \_assignment: , line:8:17, endln:8:36
               |vpiName:array
               |vpiFullName:work@dut.array
+              |vpiActual:
+              \_array_var: (work@dut.array), line:3:9, endln:3:18
               |vpiIndex:
               \_ref_obj: (work@dut.array.i), line:8:23, endln:8:24
                 |vpiParent:
@@ -468,7 +470,7 @@ design: (work@dut)
                 |vpiName:i
                 |vpiFullName:work@dut.array.i
                 |vpiActual:
-                \_ref_var: (work@dut.i), line:7:27, endln:7:28
+                \_int_var: (i), line:6:23, endln:6:24
               |vpiIndex:
               \_ref_obj: (work@dut.array.j), line:8:26, endln:8:27
                 |vpiParent:

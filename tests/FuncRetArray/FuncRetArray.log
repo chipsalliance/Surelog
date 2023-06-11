@@ -357,7 +357,7 @@ param_assign                                          14
 parameter                                             14
 range                                                  5
 ref_module                                             1
-ref_obj                                               10
+ref_obj                                                3
 sys_task_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -386,7 +386,7 @@ param_assign                                          14
 parameter                                             14
 range                                                  5
 ref_module                                             1
-ref_obj                                               14
+ref_obj                                                6
 sys_task_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncRetArray/slpp_all/surelog.uhdm ...
@@ -636,7 +636,7 @@ design: (work@main)
           |vpiRhs:
           \_constant: , line:5:32, endln:5:33
             |vpiParent:
-            \_assignment: , line:5:14, endln:5:33
+            \_operation: , line:17:6, endln:17:19
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
@@ -644,17 +644,15 @@ design: (work@main)
           |vpiLhs:
           \_bit_select: (work@top.ASSIGN_VADDR.ASSIGN_VADDR), line:5:14, endln:5:29
             |vpiParent:
-            \_ref_obj: (work@top.ASSIGN_VADDR.ASSIGN_VADDR)
-              |vpiParent:
-              \_assignment: , line:5:14, endln:5:33
-              |vpiName:ASSIGN_VADDR
-              |vpiFullName:work@top.ASSIGN_VADDR.ASSIGN_VADDR
+            \_assignment: , line:5:14, endln:5:33
             |vpiName:ASSIGN_VADDR
             |vpiFullName:work@top.ASSIGN_VADDR.ASSIGN_VADDR
+            |vpiActual:
+            \_array_var: , line:3:21, endln:3:39
             |vpiIndex:
             \_ref_obj: (work@top.ASSIGN_VADDR.i), line:5:27, endln:5:28
               |vpiParent:
-              \_begin: (work@top.ASSIGN_VADDR), line:4:37, endln:6:12
+              \_bit_select: (work@top.ASSIGN_VADDR.ASSIGN_VADDR), line:5:14, endln:5:29
               |vpiName:i
               |vpiFullName:work@top.ASSIGN_VADDR.i
               |vpiActual:
@@ -671,10 +669,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:11:6, endln:11:14
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:11:6, endln:11:19
-          |vpiName:VADDR
+        \_operation: , line:11:6, endln:11:19
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:11:12, endln:11:13
@@ -704,10 +699,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:14:6, endln:14:14
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:14:6, endln:14:19
-          |vpiName:VADDR
+        \_operation: , line:14:6, endln:14:19
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:14:12, endln:14:13
@@ -737,10 +729,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:17:6, endln:17:14
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:17:6, endln:17:19
-          |vpiName:VADDR
+        \_operation: , line:17:6, endln:17:19
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:17:12, endln:17:13
@@ -941,25 +930,19 @@ design: (work@main)
             |vpiLhs:
             \_bit_select: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR), line:5:14, endln:5:29
               |vpiParent:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR)
-                |vpiParent:
-                \_assignment: , line:5:14, endln:5:33
-                |vpiName:ASSIGN_VADDR
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR
-                |vpiActual:
-                \_array_var: , line:3:21, endln:3:39
+              \_assignment: , line:5:14, endln:5:33
               |vpiName:ASSIGN_VADDR
               |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR
+              |vpiActual:
+              \_array_var: , line:3:21, endln:3:39
               |vpiIndex:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR.i), line:5:27, endln:5:28
+              \_ref_obj: (work@main.top1.ASSIGN_VADDR.i), line:5:27, endln:5:28
                 |vpiParent:
                 \_bit_select: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR), line:5:14, endln:5:29
                 |vpiName:i
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR.i
+                |vpiFullName:work@main.top1.ASSIGN_VADDR.i
                 |vpiActual:
                 \_int_var: (work@top.ASSIGN_VADDR.i), line:4:18, endln:4:19
-              |vpiActual:
-              \_array_var: , line:3:21, endln:3:39
       |vpiInstance:
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:23:5, endln:23:20
     |vpiInstance:

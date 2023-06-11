@@ -842,7 +842,7 @@ param_assign                                          32
 parameter                                             41
 range                                                 64
 ref_module                                             2
-ref_obj                                               39
+ref_obj                                               26
 ref_var                                                1
 string_typespec                                       46
 struct_typespec                                       16
@@ -888,7 +888,7 @@ param_assign                                          36
 parameter                                             41
 range                                                 64
 ref_module                                             2
-ref_obj                                               39
+ref_obj                                               26
 ref_var                                                1
 string_typespec                                       46
 struct_typespec                                       16
@@ -2767,13 +2767,11 @@ design: (work@top)
               \_operation: , line:62:53, endln:62:94
               |vpiName:PartInfo[k].offset
               |vpiActual:
-              \_bit_select: (PartInfo), line:62:75, endln:62:83
+              \_bit_select: (PartInfo[k]), line:62:75, endln:62:83
                 |vpiParent:
-                \_ref_obj: (PartInfo[k])
-                  |vpiParent:
-                  \_hier_path: (PartInfo[k].offset), line:62:75, endln:62:83
-                  |vpiName:PartInfo[k]
+                \_hier_path: (PartInfo[k].offset), line:62:75, endln:62:83
                 |vpiName:PartInfo
+                |vpiFullName:PartInfo[k]
                 |vpiIndex:
                 \_ref_obj: (k), line:62:84, endln:62:85
                   |vpiName:k
@@ -2811,13 +2809,11 @@ design: (work@top)
               \_operation: , line:63:53, endln:63:92
               |vpiName:PartInfo[k].size
               |vpiActual:
-              \_bit_select: (PartInfo), line:63:75, endln:63:83
+              \_bit_select: (PartInfo[k]), line:63:75, endln:63:83
                 |vpiParent:
-                \_ref_obj: (PartInfo[k])
-                  |vpiParent:
-                  \_hier_path: (PartInfo[k].size), line:63:75, endln:63:83
-                  |vpiName:PartInfo[k]
+                \_hier_path: (PartInfo[k].size), line:63:75, endln:63:83
                 |vpiName:PartInfo
+                |vpiFullName:PartInfo[k]
                 |vpiIndex:
                 \_ref_obj: (k), line:63:84, endln:63:85
                   |vpiName:k
@@ -2921,7 +2917,7 @@ design: (work@top)
         |vpiLeftRange:
         \_constant: , line:20:19, endln:20:21
           |vpiParent:
-          \_range: , line:59:9, endln:59:40
+          \_operation: , line:40:33, endln:40:47
           |vpiDecompile:56
           |vpiSize:64
           |UINT:56

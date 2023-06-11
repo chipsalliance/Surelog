@@ -708,7 +708,7 @@ parameter                                              2
 part_select                                            1
 port                                                   8
 range                                                 14
-ref_obj                                               20
+ref_obj                                               18
 sys_func_call                                          2
 task                                                   9
 === UHDM Object Stats End ===
@@ -746,7 +746,7 @@ parameter                                              2
 part_select                                            2
 port                                                  12
 range                                                 14
-ref_obj                                               35
+ref_obj                                               31
 sys_func_call                                          3
 task                                                  18
 === UHDM Object Stats End ===
@@ -1408,35 +1408,33 @@ design: (work@debug_rom)
               \_begin: (work@debug_rom), line:37:17, endln:39:9
               |vpiOpType:82
               |vpiRhs:
-              \_part_select: , line:38:18, endln:38:47
+              \_part_select: addr_i (work@debug_rom.addr_i), line:38:18, endln:38:47
                 |vpiParent:
-                \_ref_obj: addr_i (work@debug_rom.addr_i), line:38:18, endln:38:24
-                  |vpiParent:
-                  \_assignment: , line:38:8, endln:38:47
-                  |vpiName:addr_i
-                  |vpiFullName:work@debug_rom.addr_i
-                  |vpiDefName:addr_i
+                \_assignment: , line:38:8, endln:38:47
+                |vpiName:addr_i
+                |vpiFullName:work@debug_rom.addr_i
+                |vpiDefName:addr_i
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_operation: , line:38:25, endln:38:44
                   |vpiParent:
-                  \_begin: (work@debug_rom), line:37:17, endln:39:9
+                  \_part_select: addr_i (work@debug_rom.addr_i), line:38:18, endln:38:47
                   |vpiOpType:24
                   |vpiOperand:
                   \_operation: , line:38:25, endln:38:42
                     |vpiParent:
-                    \_begin: (work@debug_rom), line:37:17, endln:39:9
+                    \_operation: , line:38:25, endln:38:44
                     |vpiOpType:11
                     |vpiOperand:
                     \_sys_func_call: ($clog2), line:38:25, endln:38:40
                       |vpiParent:
                       \_operation: , line:38:25, endln:38:42
                       |vpiArgument:
-                      \_ref_obj: (work@debug_rom.RomSize), line:38:32, endln:38:39
+                      \_ref_obj: (work@debug_rom.addr_i.RomSize), line:38:32, endln:38:39
                         |vpiParent:
                         \_sys_func_call: ($clog2), line:38:25, endln:38:40
                         |vpiName:RomSize
-                        |vpiFullName:work@debug_rom.RomSize
+                        |vpiFullName:work@debug_rom.addr_i.RomSize
                       |vpiName:$clog2
                     |vpiOperand:
                     \_constant: , line:38:41, endln:38:42
@@ -1463,7 +1461,7 @@ design: (work@debug_rom)
               |vpiLhs:
               \_ref_obj: (work@debug_rom.addr_q), line:38:8, endln:38:14
                 |vpiParent:
-                \_begin: (work@debug_rom), line:37:17, endln:39:9
+                \_assignment: , line:38:8, endln:38:47
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.addr_q
                 |vpiActual:
@@ -1487,8 +1485,6 @@ design: (work@debug_rom)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:45:16, endln:45:18
-          |vpiParent:
-          \_assignment: , line:45:6, endln:45:18
           |vpiDecompile:'0
           |vpiSize:-1
           |BIN:0
@@ -1496,7 +1492,7 @@ design: (work@debug_rom)
         |vpiLhs:
         \_ref_obj: (work@debug_rom.p_outmux.rdata_o), line:45:6, endln:45:13
           |vpiParent:
-          \_named_begin: (work@debug_rom.p_outmux), line:44:16, endln:49:7
+          \_assignment: , line:45:6, endln:45:18
           |vpiName:rdata_o
           |vpiFullName:work@debug_rom.p_outmux.rdata_o
           |vpiActual:
@@ -1513,7 +1509,7 @@ design: (work@debug_rom)
           |vpiOperand:
           \_ref_obj: (work@debug_rom.p_outmux.addr_q), line:46:10, endln:46:16
             |vpiParent:
-            \_named_begin: (work@debug_rom.p_outmux), line:44:16, endln:49:7
+            \_operation: , line:46:10, endln:46:44
             |vpiName:addr_q
             |vpiFullName:work@debug_rom.p_outmux.addr_q
             |vpiActual:
@@ -1555,17 +1551,13 @@ design: (work@debug_rom)
             |vpiRhs:
             \_bit_select: (work@debug_rom.p_outmux.mem), line:47:20, endln:47:31
               |vpiParent:
-              \_ref_obj: (work@debug_rom.p_outmux.mem)
-                |vpiParent:
-                \_assignment: , line:47:10, endln:47:31
-                |vpiName:mem
-                |vpiFullName:work@debug_rom.p_outmux.mem
+              \_assignment: , line:47:10, endln:47:31
               |vpiName:mem
               |vpiFullName:work@debug_rom.p_outmux.mem
               |vpiIndex:
               \_ref_obj: (work@debug_rom.p_outmux.addr_q), line:47:24, endln:47:30
                 |vpiParent:
-                \_begin: (work@debug_rom.p_outmux), line:46:46, endln:48:9
+                \_bit_select: (work@debug_rom.p_outmux.mem), line:47:20, endln:47:31
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.p_outmux.addr_q
                 |vpiActual:
@@ -1573,7 +1565,7 @@ design: (work@debug_rom)
             |vpiLhs:
             \_ref_obj: (work@debug_rom.p_outmux.rdata_o), line:47:10, endln:47:17
               |vpiParent:
-              \_begin: (work@debug_rom.p_outmux), line:46:46, endln:48:9
+              \_assignment: , line:47:10, endln:47:31
               |vpiName:rdata_o
               |vpiFullName:work@debug_rom.p_outmux.rdata_o
               |vpiActual:
@@ -2126,21 +2118,19 @@ design: (work@debug_rom)
               \_begin: (work@debug_rom), line:37:17, endln:39:9
               |vpiOpType:82
               |vpiRhs:
-              \_part_select: , line:38:18, endln:38:47
+              \_part_select: addr_i (work@debug_rom.addr_i), line:38:18, endln:38:47
                 |vpiParent:
-                \_ref_obj: addr_i (work@debug_rom.addr_i), line:38:18, endln:38:24
-                  |vpiParent:
-                  \_assignment: , line:38:8, endln:38:47
-                  |vpiName:addr_i
-                  |vpiFullName:work@debug_rom.addr_i
-                  |vpiDefName:addr_i
-                  |vpiActual:
-                  \_logic_net: (work@debug_rom.addr_i), line:6:25, endln:6:31
+                \_assignment: , line:38:8, endln:38:47
+                |vpiName:addr_i
+                |vpiFullName:work@debug_rom.addr_i
+                |vpiDefName:addr_i
+                |vpiActual:
+                \_logic_net: (work@debug_rom.addr_i), line:6:25, endln:6:31
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_operation: , line:38:25, endln:38:44
                   |vpiParent:
-                  \_part_select: , line:38:18, endln:38:47
+                  \_part_select: addr_i (work@debug_rom.addr_i), line:38:18, endln:38:47
                   |vpiOpType:24
                   |vpiOperand:
                   \_operation: , line:38:25, endln:38:42
@@ -2253,25 +2243,19 @@ design: (work@debug_rom)
             |vpiRhs:
             \_bit_select: (work@debug_rom.p_outmux.mem), line:47:20, endln:47:31
               |vpiParent:
-              \_ref_obj: (work@debug_rom.p_outmux.mem)
-                |vpiParent:
-                \_assignment: , line:47:10, endln:47:31
-                |vpiName:mem
-                |vpiFullName:work@debug_rom.p_outmux.mem
-                |vpiActual:
-                \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
+              \_assignment: , line:47:10, endln:47:31
               |vpiName:mem
               |vpiFullName:work@debug_rom.p_outmux.mem
+              |vpiActual:
+              \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
               |vpiIndex:
-              \_ref_obj: (work@debug_rom.p_outmux.mem.addr_q), line:47:24, endln:47:30
+              \_ref_obj: (work@debug_rom.p_outmux.addr_q), line:47:24, endln:47:30
                 |vpiParent:
                 \_bit_select: (work@debug_rom.p_outmux.mem), line:47:20, endln:47:31
                 |vpiName:addr_q
-                |vpiFullName:work@debug_rom.p_outmux.mem.addr_q
+                |vpiFullName:work@debug_rom.p_outmux.addr_q
                 |vpiActual:
                 \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
-              |vpiActual:
-              \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
             |vpiLhs:
             \_ref_obj: (work@debug_rom.p_outmux.rdata_o), line:47:10, endln:47:17
               |vpiParent:
@@ -2289,4 +2273,4 @@ design: (work@debug_rom)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ClogCast/dut.sv | ${SURELOG_DIR}/build/regression/ClogCast/roundtrip/dut_000.sv | 29 | 51 |
+[roundtrip]: ${SURELOG_DIR}/tests/ClogCast/dut.sv | ${SURELOG_DIR}/build/regression/ClogCast/roundtrip/dut_000.sv | 30 | 51 |

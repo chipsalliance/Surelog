@@ -223,7 +223,7 @@ module_inst                                            3
 operation                                              3
 part_select                                            1
 range                                                  5
-ref_obj                                               12
+ref_obj                                               11
 string_typespec                                        2
 string_var                                             2
 var_select                                             1
@@ -248,7 +248,7 @@ module_inst                                            3
 operation                                              5
 part_select                                            2
 range                                                  5
-ref_obj                                               24
+ref_obj                                               22
 string_typespec                                        2
 string_var                                             2
 var_select                                             2
@@ -306,22 +306,20 @@ design: (work@top)
         |vpiRhs:
         \_operation: , line:6:12, endln:6:86
           |vpiParent:
-          \_begin: (work@top.dasm)
+          \_assignment: , line:6:5, endln:6:86
           |vpiOpType:32
           |vpiOperand:
           \_operation: , line:6:13, endln:6:33
             |vpiParent:
-            \_begin: (work@top.dasm)
+            \_operation: , line:6:12, endln:6:86
             |vpiOpType:14
             |vpiOperand:
-            \_part_select: , line:6:13, endln:6:24
+            \_part_select: opcode (work@top.dasm.opcode), line:6:13, endln:6:24
               |vpiParent:
-              \_ref_obj: opcode (work@top.dasm.opcode), line:6:13, endln:6:19
-                |vpiParent:
-                \_operation: , line:6:13, endln:6:33
-                |vpiName:opcode
-                |vpiFullName:work@top.dasm.opcode
-                |vpiDefName:opcode
+              \_operation: , line:6:13, endln:6:33
+              |vpiName:opcode
+              |vpiFullName:work@top.dasm.opcode
+              |vpiDefName:opcode
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:6:20, endln:6:21
@@ -404,7 +402,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9
           |vpiParent:
-          \_begin: (work@top.dasm)
+          \_assignment: , line:6:5, endln:6:86
           |vpiName:dasm
           |vpiFullName:work@top.dasm.dasm
           |vpiActual:
@@ -430,7 +428,7 @@ design: (work@top)
           |vpiRhs:
           \_ref_obj: (work@top.dasm.regv), line:7:31, endln:7:35
             |vpiParent:
-            \_if_stmt: , line:7:5, endln:7:36
+            \_assignment: , line:7:14, endln:7:35
             |vpiName:regv
             |vpiFullName:work@top.dasm.regv
             |vpiActual:
@@ -442,19 +440,19 @@ design: (work@top)
             |vpiName:gpr
             |vpiFullName:work@top.dasm.gpr
             |vpiIndex:
-            \_ref_obj: (work@top.dasm.tid), line:7:18, endln:7:21
+            \_ref_obj: (work@top.dasm.gpr.tid), line:7:18, endln:7:21
               |vpiParent:
-              \_if_stmt: , line:7:5, endln:7:36
+              \_var_select: (work@top.dasm.gpr), line:7:14, endln:7:28
               |vpiName:tid
-              |vpiFullName:work@top.dasm.tid
+              |vpiFullName:work@top.dasm.gpr.tid
               |vpiActual:
               \_io_decl: (tid), line:5:29, endln:5:32
             |vpiIndex:
-            \_ref_obj: (work@top.dasm.regn), line:7:23, endln:7:27
+            \_ref_obj: (work@top.dasm.gpr.regn), line:7:23, endln:7:27
               |vpiParent:
-              \_if_stmt: , line:7:5, endln:7:36
+              \_var_select: (work@top.dasm.gpr), line:7:14, endln:7:28
               |vpiName:regn
-              |vpiFullName:work@top.dasm.regn
+              |vpiFullName:work@top.dasm.gpr.regn
               |vpiActual:
               \_logic_net: (regn)
     |vpiInstance:
@@ -592,16 +590,13 @@ design: (work@top)
             \_operation: , line:6:12, endln:6:86
             |vpiOpType:14
             |vpiOperand:
-            \_part_select: , line:6:13, endln:6:24
+            \_part_select: opcode (opcode), line:6:13, endln:6:24
               |vpiParent:
-              \_ref_obj: opcode (work@top.dasm.opcode), line:6:13, endln:6:19
-                |vpiParent:
-                \_operation: , line:6:13, endln:6:33
-                |vpiName:opcode
-                |vpiFullName:work@top.dasm.opcode
-                |vpiDefName:opcode
-                |vpiActual:
-                \_logic_net: (opcode)
+              \_operation: , line:6:13, endln:6:33
+              |vpiName:opcode
+              |vpiDefName:opcode
+              |vpiActual:
+              \_logic_net: (opcode)
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:6:20, endln:6:21
@@ -674,7 +669,7 @@ design: (work@top)
           |vpiName:dasm
           |vpiFullName:work@top.dasm.dasm
           |vpiActual:
-          \_string_var: , line:5:10, endln:5:16
+          \_string_var: (dasm), line:5:10, endln:5:16
       |vpiStmt:
       \_if_stmt: , line:7:5, endln:7:36
         |vpiParent:
@@ -707,6 +702,8 @@ design: (work@top)
             \_assignment: , line:7:14, endln:7:35
             |vpiName:gpr
             |vpiFullName:work@top.dasm.gpr
+            |vpiActual:
+            \_array_var: (work@top.gpr), line:3:18, endln:3:24
             |vpiIndex:
             \_ref_obj: (work@top.dasm.gpr.tid), line:7:18, endln:7:21
               |vpiParent:

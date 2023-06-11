@@ -808,7 +808,7 @@ parameter                                             22
 port                                                   4
 range                                                 12
 ref_module                                            15
-ref_obj                                               22
+ref_obj                                               14
 ref_var                                                1
 task                                                   9
 unsupported_typespec                                   1
@@ -1421,10 +1421,7 @@ design: (work@small_test)
         |vpiRhs:
         \_bit_select: (a), line:24:21, endln:24:27
           |vpiParent:
-          \_ref_obj: (a)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:a
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:a
           |vpiIndex:
           \_operation: , line:24:23, endln:24:26
@@ -1448,17 +1445,13 @@ design: (work@small_test)
         |vpiLhs:
         \_bit_select: (b), line:24:14, endln:24:18
           |vpiParent:
-          \_ref_obj: (b)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:b
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:b
           |vpiIndex:
-          \_ref_obj: (b.i), line:24:16, endln:24:17
+          \_ref_obj: (i), line:24:16, endln:24:17
             |vpiParent:
             \_bit_select: (b), line:24:14, endln:24:18
             |vpiName:i
-            |vpiFullName:b.i
 |uhdmtopModules:
 \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/GenerateModule/top.v, line:1:1, endln:19:10
   |vpiName:work@small_test
@@ -2172,11 +2165,7 @@ design: (work@small_test)
         |vpiRhs:
         \_bit_select: (work@top.genblk1[0].a), line:24:21, endln:24:27
           |vpiParent:
-          \_ref_obj: (work@top.genblk1[0].a)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:a
-            |vpiFullName:work@top.genblk1[0].a
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:a
           |vpiFullName:work@top.genblk1[0].a
           |vpiIndex:
@@ -2201,19 +2190,15 @@ design: (work@small_test)
         |vpiLhs:
         \_bit_select: (work@top.genblk1[0].b), line:24:14, endln:24:18
           |vpiParent:
-          \_ref_obj: (work@top.genblk1[0].b)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:b
-            |vpiFullName:work@top.genblk1[0].b
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:b
           |vpiFullName:work@top.genblk1[0].b
           |vpiIndex:
-          \_ref_obj: (work@top.genblk1[0].b.i), line:24:16, endln:24:17
+          \_ref_obj: (work@top.genblk1[0].i), line:24:16, endln:24:17
             |vpiParent:
             \_bit_select: (work@top.genblk1[0].b), line:24:14, endln:24:18
             |vpiName:i
-            |vpiFullName:work@top.genblk1[0].b.i
+            |vpiFullName:work@top.genblk1[0].i
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1[1]), line:23:30, endln:25:6
     |vpiParent:
@@ -2242,11 +2227,7 @@ design: (work@small_test)
         |vpiRhs:
         \_bit_select: (work@top.genblk1[1].a), line:24:21, endln:24:27
           |vpiParent:
-          \_ref_obj: (work@top.genblk1[1].a)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:a
-            |vpiFullName:work@top.genblk1[1].a
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:a
           |vpiFullName:work@top.genblk1[1].a
           |vpiIndex:
@@ -2271,19 +2252,15 @@ design: (work@small_test)
         |vpiLhs:
         \_bit_select: (work@top.genblk1[1].b), line:24:14, endln:24:18
           |vpiParent:
-          \_ref_obj: (work@top.genblk1[1].b)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:b
-            |vpiFullName:work@top.genblk1[1].b
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:b
           |vpiFullName:work@top.genblk1[1].b
           |vpiIndex:
-          \_ref_obj: (work@top.genblk1[1].b.i), line:24:16, endln:24:17
+          \_ref_obj: (work@top.genblk1[1].i), line:24:16, endln:24:17
             |vpiParent:
             \_bit_select: (work@top.genblk1[1].b), line:24:14, endln:24:18
             |vpiName:i
-            |vpiFullName:work@top.genblk1[1].b.i
+            |vpiFullName:work@top.genblk1[1].i
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1[2]), line:23:30, endln:25:6
     |vpiParent:
@@ -2312,11 +2289,7 @@ design: (work@small_test)
         |vpiRhs:
         \_bit_select: (work@top.genblk1[2].a), line:24:21, endln:24:27
           |vpiParent:
-          \_ref_obj: (work@top.genblk1[2].a)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:a
-            |vpiFullName:work@top.genblk1[2].a
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:a
           |vpiFullName:work@top.genblk1[2].a
           |vpiIndex:
@@ -2341,19 +2314,15 @@ design: (work@small_test)
         |vpiLhs:
         \_bit_select: (work@top.genblk1[2].b), line:24:14, endln:24:18
           |vpiParent:
-          \_ref_obj: (work@top.genblk1[2].b)
-            |vpiParent:
-            \_cont_assign: , line:24:14, endln:24:27
-            |vpiName:b
-            |vpiFullName:work@top.genblk1[2].b
+          \_cont_assign: , line:24:14, endln:24:27
           |vpiName:b
           |vpiFullName:work@top.genblk1[2].b
           |vpiIndex:
-          \_ref_obj: (work@top.genblk1[2].b.i), line:24:16, endln:24:17
+          \_ref_obj: (work@top.genblk1[2].i), line:24:16, endln:24:17
             |vpiParent:
             \_bit_select: (work@top.genblk1[2].b), line:24:14, endln:24:18
             |vpiName:i
-            |vpiFullName:work@top.genblk1[2].b.i
+            |vpiFullName:work@top.genblk1[2].i
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

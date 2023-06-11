@@ -254,7 +254,7 @@ param_assign                                           6
 parameter                                              6
 part_select                                            1
 range                                                  8
-ref_obj                                                4
+ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -273,7 +273,7 @@ param_assign                                           6
 parameter                                              6
 part_select                                            2
 range                                                  8
-ref_obj                                                8
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitPartSelect/slpp_all/surelog.uhdm ...
 
@@ -397,28 +397,28 @@ design: (work@top)
     |vpiRhs:
     \_bit_select: (work@top.storage), line:9:27, endln:9:60
       |vpiParent:
-      \_ref_obj: (work@top.storage)
-        |vpiParent:
-        \_cont_assign: , line:9:11, endln:9:60
-        |vpiName:storage
-        |vpiFullName:work@top.storage
+      \_cont_assign: , line:9:11, endln:9:60
       |vpiName:storage
       |vpiFullName:work@top.storage
       |vpiIndex:
-      \_part_select: , line:9:35, endln:9:59
+      \_part_select: fifo_rptr (work@top.storage.fifo_rptr), line:9:35, endln:9:59
         |vpiParent:
-        \_ref_obj: fifo_rptr (fifo_rptr), line:9:35, endln:9:44
-          |vpiName:fifo_rptr
-          |vpiDefName:fifo_rptr
+        \_bit_select: (work@top.storage), line:9:27, endln:9:60
+        |vpiName:fifo_rptr
+        |vpiFullName:work@top.storage.fifo_rptr
+        |vpiDefName:fifo_rptr
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:9:45, endln:9:56
+          |vpiParent:
+          \_part_select: fifo_rptr (work@top.storage.fifo_rptr), line:9:35, endln:9:59
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (PTR_WIDTH), line:9:45, endln:9:54
+          \_ref_obj: (work@top.storage.fifo_rptr.PTR_WIDTH), line:9:45, endln:9:54
             |vpiParent:
             \_operation: , line:9:45, endln:9:56
             |vpiName:PTR_WIDTH
+            |vpiFullName:work@top.storage.fifo_rptr.PTR_WIDTH
           |vpiOperand:
           \_constant: , line:9:55, endln:9:56
             |vpiParent:
@@ -701,31 +701,25 @@ design: (work@top)
     |vpiRhs:
     \_bit_select: (work@top.storage), line:9:27, endln:9:60
       |vpiParent:
-      \_ref_obj: (work@top.storage)
-        |vpiParent:
-        \_cont_assign: , line:9:11, endln:9:60
-        |vpiName:storage
-        |vpiFullName:work@top.storage
-        |vpiActual:
-        \_logic_var: (work@top.storage), line:5:33, endln:5:40
+      \_cont_assign: , line:9:11, endln:9:60
       |vpiName:storage
       |vpiFullName:work@top.storage
+      |vpiActual:
+      \_logic_var: (work@top.storage), line:5:33, endln:5:40
       |vpiIndex:
-      \_part_select: , line:9:35, endln:9:59
+      \_part_select: fifo_rptr (work@top.storage.fifo_rptr), line:9:35, endln:9:59
         |vpiParent:
-        \_ref_obj: fifo_rptr (work@top.storage.fifo_rptr), line:9:35, endln:9:44
-          |vpiParent:
-          \_bit_select: (work@top.storage), line:9:27, endln:9:60
-          |vpiName:fifo_rptr
-          |vpiFullName:work@top.storage.fifo_rptr
-          |vpiDefName:fifo_rptr
-          |vpiActual:
-          \_logic_var: (work@top.fifo_rptr), line:7:25, endln:7:34
+        \_bit_select: (work@top.storage), line:9:27, endln:9:60
+        |vpiName:fifo_rptr
+        |vpiFullName:work@top.storage.fifo_rptr
+        |vpiDefName:fifo_rptr
+        |vpiActual:
+        \_logic_var: (work@top.fifo_rptr), line:7:25, endln:7:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:9:45, endln:9:56
           |vpiParent:
-          \_part_select: , line:9:35, endln:9:59
+          \_part_select: fifo_rptr (work@top.storage.fifo_rptr), line:9:35, endln:9:59
           |vpiOpType:11
           |vpiOperand:
           \_ref_obj: (work@top.storage.fifo_rptr.PTR_WIDTH), line:9:45, endln:9:54
@@ -739,8 +733,6 @@ design: (work@top)
           \_constant: , line:9:55, endln:9:56
         |vpiRightRange:
         \_constant: , line:9:57, endln:9:58
-      |vpiActual:
-      \_logic_var: (work@top.storage), line:5:33, endln:5:40
     |vpiLhs:
     \_ref_obj: (work@top.storage_rdata), line:9:11, endln:9:24
       |vpiParent:
@@ -757,4 +749,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BitPartSelect/dut.sv | ${SURELOG_DIR}/build/regression/BitPartSelect/roundtrip/dut_000.sv | 3 | 10 |
+[roundtrip]: ${SURELOG_DIR}/tests/BitPartSelect/dut.sv | ${SURELOG_DIR}/build/regression/BitPartSelect/roundtrip/dut_000.sv | 4 | 10 |

@@ -405,7 +405,7 @@ package                                                2
 part_select                                            1
 port                                                   2
 range                                                  4
-ref_obj                                                5
+ref_obj                                                4
 task                                                   9
 === UHDM Object Stats End ===
 [ERR:UH0718] ${SURELOG_DIR}/tests/CastPartSelect/dut.sv:6:9: Illegal lhs of type wire "csr_pipe_flush".
@@ -439,7 +439,7 @@ package                                                2
 part_select                                            2
 port                                                   3
 range                                                  4
-ref_obj                                                9
+ref_obj                                                7
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastPartSelect/slpp_all/surelog.uhdm ...
@@ -964,14 +964,12 @@ design: (work@top)
               |vpiSigned:1
             |vpiOpType:67
             |vpiOperand:
-            \_part_select: , line:5:14, endln:5:34
+            \_part_select: instr_rdata_i (work@top.csr_pipeline_flushes.instr_rdata_i), line:5:14, endln:5:34
               |vpiParent:
-              \_ref_obj: instr_rdata_i (work@top.csr_pipeline_flushes.instr_rdata_i), line:5:14, endln:5:27
-                |vpiParent:
-                \_operation: , line:5:9, endln:5:35
-                |vpiName:instr_rdata_i
-                |vpiFullName:work@top.csr_pipeline_flushes.instr_rdata_i
-                |vpiDefName:instr_rdata_i
+              \_operation: , line:5:9, endln:5:35
+              |vpiName:instr_rdata_i
+              |vpiFullName:work@top.csr_pipeline_flushes.instr_rdata_i
+              |vpiDefName:instr_rdata_i
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:5:28, endln:5:30
@@ -1006,8 +1004,6 @@ design: (work@top)
             |vpiBlocking:1
             |vpiRhs:
             \_constant: , line:6:26, endln:6:30
-              |vpiParent:
-              \_assignment: , line:6:9, endln:6:30
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
@@ -1015,7 +1011,7 @@ design: (work@top)
             |vpiLhs:
             \_ref_obj: (work@top.csr_pipeline_flushes.csr_pipe_flush), line:6:9, endln:6:23
               |vpiParent:
-              \_begin: (work@top.csr_pipeline_flushes), line:5:52, endln:7:10
+              \_assignment: , line:6:9, endln:6:30
               |vpiName:csr_pipe_flush
               |vpiFullName:work@top.csr_pipeline_flushes.csr_pipe_flush
               |vpiActual:
@@ -1127,16 +1123,14 @@ design: (work@top)
             \_int_typespec: , line:5:9, endln:5:12
             |vpiOpType:67
             |vpiOperand:
-            \_part_select: , line:5:14, endln:5:34
+            \_part_select: instr_rdata_i (work@top.instr_rdata_i), line:5:14, endln:5:34
               |vpiParent:
-              \_ref_obj: instr_rdata_i (work@top.csr_pipeline_flushes.instr_rdata_i), line:5:14, endln:5:27
-                |vpiParent:
-                \_operation: , line:5:9, endln:5:35
-                |vpiName:instr_rdata_i
-                |vpiFullName:work@top.csr_pipeline_flushes.instr_rdata_i
-                |vpiDefName:instr_rdata_i
-                |vpiActual:
-                \_logic_net: (work@top.instr_rdata_i), line:1:32, endln:1:45
+              \_operation: , line:5:9, endln:5:35
+              |vpiName:instr_rdata_i
+              |vpiFullName:work@top.instr_rdata_i
+              |vpiDefName:instr_rdata_i
+              |vpiActual:
+              \_logic_net: (work@top.instr_rdata_i), line:1:32, endln:1:45
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_constant: , line:5:28, endln:5:30

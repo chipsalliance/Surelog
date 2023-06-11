@@ -214,7 +214,7 @@ packed_array_var                                       2
 param_assign                                           3
 parameter                                              3
 range                                                  5
-ref_obj                                                8
+ref_obj                                                6
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -242,7 +242,7 @@ packed_array_var                                       4
 param_assign                                           3
 parameter                                              3
 range                                                  7
-ref_obj                                               14
+ref_obj                                               10
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnumVar/slpp_all/surelog.uhdm ...
@@ -426,7 +426,7 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@top.get_BA.B), line:11:16, endln:11:17
           |vpiParent:
-          \_begin: (work@top.get_BA)
+          \_assignment: , line:11:7, endln:11:17
           |vpiName:B
           |vpiFullName:work@top.get_BA.B
           |vpiActual:
@@ -434,13 +434,11 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.get_BA.out), line:11:7, endln:11:13
           |vpiParent:
-          \_ref_obj: (work@top.get_BA.out)
-            |vpiParent:
-            \_assignment: , line:11:7, endln:11:17
-            |vpiName:out
-            |vpiFullName:work@top.get_BA.out
+          \_assignment: , line:11:7, endln:11:17
           |vpiName:out
           |vpiFullName:work@top.get_BA.out
+          |vpiActual:
+          \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
           |vpiIndex:
           \_constant: , line:11:11, endln:11:12
             |vpiParent:
@@ -458,7 +456,7 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@top.get_BA.A), line:12:16, endln:12:17
           |vpiParent:
-          \_begin: (work@top.get_BA)
+          \_assignment: , line:12:7, endln:12:17
           |vpiName:A
           |vpiFullName:work@top.get_BA.A
           |vpiActual:
@@ -466,13 +464,11 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.get_BA.out), line:12:7, endln:12:13
           |vpiParent:
-          \_ref_obj: (work@top.get_BA.out)
-            |vpiParent:
-            \_assignment: , line:12:7, endln:12:17
-            |vpiName:out
-            |vpiFullName:work@top.get_BA.out
+          \_assignment: , line:12:7, endln:12:17
           |vpiName:out
           |vpiFullName:work@top.get_BA.out
+          |vpiActual:
+          \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
           |vpiIndex:
           \_constant: , line:12:11, endln:12:12
             |vpiParent:
@@ -623,19 +619,13 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.get_BA.out), line:11:7, endln:11:13
           |vpiParent:
-          \_ref_obj: (work@top.get_BA.out)
-            |vpiParent:
-            \_assignment: , line:11:7, endln:11:17
-            |vpiName:out
-            |vpiFullName:work@top.get_BA.out
-            |vpiActual:
-            \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
+          \_assignment: , line:11:7, endln:11:17
           |vpiName:out
           |vpiFullName:work@top.get_BA.out
-          |vpiIndex:
-          \_constant: , line:11:11, endln:11:12
           |vpiActual:
           \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
+          |vpiIndex:
+          \_constant: , line:11:11, endln:11:12
       |vpiStmt:
       \_assignment: , line:12:7, endln:12:17
         |vpiParent:
@@ -653,19 +643,13 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.get_BA.out), line:12:7, endln:12:13
           |vpiParent:
-          \_ref_obj: (work@top.get_BA.out)
-            |vpiParent:
-            \_assignment: , line:12:7, endln:12:17
-            |vpiName:out
-            |vpiFullName:work@top.get_BA.out
-            |vpiActual:
-            \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
+          \_assignment: , line:12:7, endln:12:17
           |vpiName:out
           |vpiFullName:work@top.get_BA.out
-          |vpiIndex:
-          \_constant: , line:12:11, endln:12:12
           |vpiActual:
           \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
+          |vpiIndex:
+          \_constant: , line:12:11, endln:12:12
       |vpiStmt:
       \_return_stmt: , line:13:7, endln:13:13
         |vpiParent:

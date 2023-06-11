@@ -1565,7 +1565,7 @@ part_select                                            7
 port                                                  15
 range                                                 54
 ref_module                                             1
-ref_obj                                              131
+ref_obj                                              120
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -1598,7 +1598,7 @@ part_select                                           14
 port                                                  21
 range                                                 54
 ref_module                                             1
-ref_obj                                              208
+ref_obj                                              187
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncIoTypespec/slpp_all/surelog.uhdm ...
@@ -1733,7 +1733,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_u_1.len), line:28:11, endln:28:14
               |vpiParent:
-              \_function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+              \_operation: , line:28:11, endln:28:16
               |vpiName:len
               |vpiFullName:work@shift.fshl_u_1.len
               |vpiActual:
@@ -1772,7 +1772,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_u_1.len), line:29:11, endln:29:14
               |vpiParent:
-              \_function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+              \_operation: , line:29:11, endln:29:16
               |vpiName:len
               |vpiFullName:work@shift.fshl_u_1.len
               |vpiActual:
@@ -1946,7 +1946,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_u_1.width_s), line:23:13, endln:23:20
               |vpiParent:
-              \_function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+              \_operation: , line:23:13, endln:23:22
               |vpiName:width_s
               |vpiFullName:work@shift.fshl_u_1.width_s
               |vpiActual:
@@ -1987,12 +1987,12 @@ design: (work@top)
         |vpiRhs:
         \_operation: , line:31:19, endln:31:32
           |vpiParent:
-          \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+          \_assignment: , line:31:8, endln:31:32
           |vpiOpType:34
           |vpiOperand:
           \_ref_obj: (work@shift.fshl_u_1.len), line:31:21, endln:31:24
             |vpiParent:
-            \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+            \_assignment: , line:31:8, endln:31:32
             |vpiName:len
             |vpiFullName:work@shift.fshl_u_1.len
             |vpiActual:
@@ -2000,12 +2000,12 @@ design: (work@top)
           |vpiOperand:
           \_operation: , line:31:25, endln:31:31
             |vpiParent:
-            \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+            \_assignment: , line:31:8, endln:31:32
             |vpiOpType:33
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_u_1.sbit), line:31:26, endln:31:30
               |vpiParent:
-              \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+              \_assignment: , line:31:8, endln:31:32
               |vpiName:sbit
               |vpiFullName:work@shift.fshl_u_1.sbit
               |vpiActual:
@@ -2013,7 +2013,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@shift.fshl_u_1.result_t), line:31:8, endln:31:16
           |vpiParent:
-          \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+          \_assignment: , line:31:8, endln:31:32
           |vpiName:result_t
           |vpiFullName:work@shift.fshl_u_1.result_t
           |vpiActual:
@@ -2027,32 +2027,32 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@shift.fshl_u_1.arg1), line:32:29, endln:32:33
           |vpiParent:
-          \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+          \_assignment: , line:32:8, endln:32:33
           |vpiName:arg1
           |vpiFullName:work@shift.fshl_u_1.arg1
           |vpiActual:
           \_io_decl: (arg1), line:22:26, endln:22:30
         |vpiLhs:
-        \_part_select: , line:32:8, endln:32:26
+        \_part_select: result_t (work@shift.fshl_u_1.result_t), line:32:8, endln:32:26
           |vpiParent:
-          \_ref_obj: result_t (work@shift.fshl_u_1.result_t)
-            |vpiParent:
-            \_assignment: , line:32:8, endln:32:33
-            |vpiName:result_t
-            |vpiFullName:work@shift.fshl_u_1.result_t
-            |vpiDefName:result_t
+          \_assignment: , line:32:8, endln:32:33
+          |vpiName:result_t
+          |vpiFullName:work@shift.fshl_u_1.result_t
+          |vpiDefName:result_t
+          |vpiActual:
+          \_logic_var: (result_t), line:29:6, endln:29:19
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_operation: , line:32:17, endln:32:23
             |vpiParent:
-            \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+            \_part_select: result_t (work@shift.fshl_u_1.result_t), line:32:8, endln:32:26
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (work@shift.fshl_u_1.ilen), line:32:17, endln:32:21
+            \_ref_obj: (work@shift.fshl_u_1.result_t.ilen), line:32:17, endln:32:21
               |vpiParent:
-              \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+              \_operation: , line:32:17, endln:32:23
               |vpiName:ilen
-              |vpiFullName:work@shift.fshl_u_1.ilen
+              |vpiFullName:work@shift.fshl_u_1.result_t.ilen
               |vpiActual:
               \_parameter: (ilen), line:26:16, endln:26:20
             |vpiOperand:
@@ -2078,12 +2078,12 @@ design: (work@top)
         |vpiRhs:
         \_operation: , line:33:17, endln:33:34
           |vpiParent:
-          \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+          \_assignment: , line:33:8, endln:33:34
           |vpiOpType:41
           |vpiOperand:
           \_ref_obj: (work@shift.fshl_u_1.result_t), line:33:17, endln:33:25
             |vpiParent:
-            \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+            \_operation: , line:33:17, endln:33:34
             |vpiName:result_t
             |vpiFullName:work@shift.fshl_u_1.result_t
             |vpiActual:
@@ -2099,7 +2099,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@shift.fshl_u_1.result), line:33:8, endln:33:14
           |vpiParent:
-          \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+          \_assignment: , line:33:8, endln:33:34
           |vpiName:result
           |vpiFullName:work@shift.fshl_u_1.result
           |vpiActual:
@@ -2111,26 +2111,26 @@ design: (work@top)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_part_select: , line:34:20, endln:34:36
+        \_part_select: result (work@shift.fshl_u_1.result), line:34:20, endln:34:36
           |vpiParent:
-          \_ref_obj: result (work@shift.fshl_u_1.result), line:34:20, endln:34:26
-            |vpiParent:
-            \_assignment: , line:34:8, endln:34:36
-            |vpiName:result
-            |vpiFullName:work@shift.fshl_u_1.result
-            |vpiDefName:result
+          \_assignment: , line:34:8, endln:34:36
+          |vpiName:result
+          |vpiFullName:work@shift.fshl_u_1.result
+          |vpiDefName:result
+          |vpiActual:
+          \_logic_var: (result), line:28:6, endln:28:19
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_operation: , line:34:27, endln:34:33
             |vpiParent:
-            \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+            \_part_select: result (work@shift.fshl_u_1.result), line:34:20, endln:34:36
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (work@shift.fshl_u_1.olen), line:34:27, endln:34:31
+            \_ref_obj: (work@shift.fshl_u_1.result.olen), line:34:27, endln:34:31
               |vpiParent:
-              \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+              \_operation: , line:34:27, endln:34:33
               |vpiName:olen
-              |vpiFullName:work@shift.fshl_u_1.olen
+              |vpiFullName:work@shift.fshl_u_1.result.olen
               |vpiActual:
               \_parameter: (olen), line:25:16, endln:25:20
             |vpiOperand:
@@ -2150,7 +2150,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@shift.fshl_u_1.fshl_u_1), line:34:8, endln:34:16
           |vpiParent:
-          \_begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+          \_assignment: , line:34:8, endln:34:36
           |vpiName:fshl_u_1
           |vpiFullName:work@shift.fshl_u_1.fshl_u_1
           |vpiActual:
@@ -2218,7 +2218,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_u.width_a), line:39:13, endln:39:20
               |vpiParent:
-              \_function: (work@shift.fshl_u), line:38:3, endln:43:14
+              \_operation: , line:39:13, endln:39:22
               |vpiName:width_a
               |vpiFullName:work@shift.fshl_u.width_a
               |vpiActual:
@@ -2259,7 +2259,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_u.width_s), line:40:13, endln:40:20
               |vpiParent:
-              \_function: (work@shift.fshl_u), line:38:3, endln:43:14
+              \_operation: , line:40:13, endln:40:22
               |vpiName:width_s
               |vpiFullName:work@shift.fshl_u.width_s
               |vpiActual:
@@ -2339,7 +2339,7 @@ design: (work@top)
       |vpiLhs:
       \_ref_obj: (work@shift.fshl_u.fshl_u), line:42:6, endln:42:12
         |vpiParent:
-        \_function: (work@shift.fshl_u), line:38:3, endln:43:14
+        \_assignment: , line:42:6, endln:42:48
         |vpiName:fshl_u
         |vpiFullName:work@shift.fshl_u.fshl_u
         |vpiActual:
@@ -2368,7 +2368,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshr_u.len), line:52:18, endln:52:21
               |vpiParent:
-              \_function: (work@shift.fshr_u), line:45:3, endln:60:14
+              \_operation: , line:52:18, endln:52:23
               |vpiName:len
               |vpiFullName:work@shift.fshr_u.len
               |vpiActual:
@@ -2408,7 +2408,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshr_u.len), line:53:18, endln:53:21
               |vpiParent:
-              \_function: (work@shift.fshr_u), line:45:3, endln:60:14
+              \_operation: , line:53:18, endln:53:23
               |vpiName:len
               |vpiFullName:work@shift.fshr_u.len
               |vpiActual:
@@ -2471,7 +2471,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (width_a), line:50:43, endln:50:50
             |vpiParent:
-            \_operation: , line:50:23, endln:50:52
+            \_operation: , line:50:43, endln:50:52
             |vpiName:width_a
           |vpiOperand:
           \_constant: , line:50:51, endln:50:52
@@ -2570,7 +2570,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshr_u.width_a), line:46:13, endln:46:20
               |vpiParent:
-              \_function: (work@shift.fshr_u), line:45:3, endln:60:14
+              \_operation: , line:46:13, endln:46:22
               |vpiName:width_a
               |vpiFullName:work@shift.fshr_u.width_a
               |vpiActual:
@@ -2611,7 +2611,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshr_u.width_s), line:47:13, endln:47:20
               |vpiParent:
-              \_function: (work@shift.fshr_u), line:45:3, endln:60:14
+              \_operation: , line:47:13, endln:47:22
               |vpiName:width_s
               |vpiFullName:work@shift.fshr_u.width_s
               |vpiActual:
@@ -2652,7 +2652,7 @@ design: (work@top)
         |vpiRhs:
         \_sys_func_call: ($signed), line:55:19, endln:55:26
           |vpiParent:
-          \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+          \_assignment: , line:55:8, endln:55:43
           |vpiArgument:
           \_operation: , line:55:28, endln:55:41
             |vpiParent:
@@ -2683,7 +2683,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@shift.fshr_u.result_t), line:55:8, endln:55:16
           |vpiParent:
-          \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+          \_assignment: , line:55:8, endln:55:43
           |vpiName:result_t
           |vpiFullName:work@shift.fshr_u.result_t
           |vpiActual:
@@ -2697,32 +2697,32 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@shift.fshr_u.arg1), line:56:32, endln:56:36
           |vpiParent:
-          \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+          \_assignment: , line:56:8, endln:56:36
           |vpiName:arg1
           |vpiFullName:work@shift.fshr_u.arg1
           |vpiActual:
           \_io_decl: (arg1), line:46:26, endln:46:30
         |vpiLhs:
-        \_part_select: , line:56:8, endln:56:29
+        \_part_select: result_t (work@shift.fshr_u.result_t), line:56:8, endln:56:29
           |vpiParent:
-          \_ref_obj: result_t (work@shift.fshr_u.result_t)
-            |vpiParent:
-            \_assignment: , line:56:8, endln:56:36
-            |vpiName:result_t
-            |vpiFullName:work@shift.fshr_u.result_t
-            |vpiDefName:result_t
+          \_assignment: , line:56:8, endln:56:36
+          |vpiName:result_t
+          |vpiFullName:work@shift.fshr_u.result_t
+          |vpiDefName:result_t
+          |vpiActual:
+          \_logic_var: (result_t), line:53:6, endln:53:26
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_operation: , line:56:17, endln:56:26
             |vpiParent:
-            \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+            \_part_select: result_t (work@shift.fshr_u.result_t), line:56:8, endln:56:29
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (work@shift.fshr_u.width_a), line:56:17, endln:56:24
+            \_ref_obj: (work@shift.fshr_u.result_t.width_a), line:56:17, endln:56:24
               |vpiParent:
-              \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+              \_operation: , line:56:17, endln:56:26
               |vpiName:width_a
-              |vpiFullName:work@shift.fshr_u.width_a
+              |vpiFullName:work@shift.fshr_u.result_t.width_a
             |vpiOperand:
             \_constant: , line:56:25, endln:56:26
               |vpiParent:
@@ -2746,12 +2746,12 @@ design: (work@top)
         |vpiRhs:
         \_operation: , line:57:17, endln:57:34
           |vpiParent:
-          \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+          \_assignment: , line:57:8, endln:57:34
           |vpiOpType:42
           |vpiOperand:
           \_ref_obj: (work@shift.fshr_u.result_t), line:57:17, endln:57:25
             |vpiParent:
-            \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+            \_operation: , line:57:17, endln:57:34
             |vpiName:result_t
             |vpiFullName:work@shift.fshr_u.result_t
             |vpiActual:
@@ -2767,7 +2767,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@shift.fshr_u.result), line:57:8, endln:57:14
           |vpiParent:
-          \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+          \_assignment: , line:57:8, endln:57:34
           |vpiName:result
           |vpiFullName:work@shift.fshr_u.result
           |vpiActual:
@@ -2779,26 +2779,26 @@ design: (work@top)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_part_select: , line:58:18, endln:58:34
+        \_part_select: result (work@shift.fshr_u.result), line:58:18, endln:58:34
           |vpiParent:
-          \_ref_obj: result (work@shift.fshr_u.result), line:58:18, endln:58:24
-            |vpiParent:
-            \_assignment: , line:58:8, endln:58:34
-            |vpiName:result
-            |vpiFullName:work@shift.fshr_u.result
-            |vpiDefName:result
+          \_assignment: , line:58:8, endln:58:34
+          |vpiName:result
+          |vpiFullName:work@shift.fshr_u.result
+          |vpiDefName:result
+          |vpiActual:
+          \_logic_var: (result), line:52:6, endln:52:26
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_operation: , line:58:25, endln:58:31
             |vpiParent:
-            \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+            \_part_select: result (work@shift.fshr_u.result), line:58:18, endln:58:34
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (work@shift.fshr_u.olen), line:58:25, endln:58:29
+            \_ref_obj: (work@shift.fshr_u.result.olen), line:58:25, endln:58:29
               |vpiParent:
-              \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+              \_operation: , line:58:25, endln:58:31
               |vpiName:olen
-              |vpiFullName:work@shift.fshr_u.olen
+              |vpiFullName:work@shift.fshr_u.result.olen
               |vpiActual:
               \_parameter: (olen), line:49:16, endln:49:20
             |vpiOperand:
@@ -2818,7 +2818,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@shift.fshr_u.fshr_u), line:58:8, endln:58:14
           |vpiParent:
-          \_begin: (work@shift.fshr_u), line:54:6, endln:59:9
+          \_assignment: , line:58:8, endln:58:34
           |vpiName:fshr_u
           |vpiFullName:work@shift.fshr_u.fshr_u
           |vpiActual:
@@ -2912,7 +2912,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_s.width_a), line:63:13, endln:63:20
               |vpiParent:
-              \_function: (work@shift.fshl_s), line:62:3, endln:80:14
+              \_operation: , line:63:13, endln:63:22
               |vpiName:width_a
               |vpiFullName:work@shift.fshl_s.width_a
               |vpiActual:
@@ -2953,7 +2953,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@shift.fshl_s.width_s), line:64:13, endln:64:20
               |vpiParent:
-              \_function: (work@shift.fshl_s), line:62:3, endln:80:14
+              \_operation: , line:64:13, endln:64:22
               |vpiName:width_s
               |vpiFullName:work@shift.fshl_s.width_s
               |vpiActual:
@@ -2997,24 +2997,22 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@shift.fshl_s.arg2), line:68:13, endln:68:28
             |vpiParent:
-            \_ref_obj: (work@shift.fshl_s.arg2)
-              |vpiParent:
-              \_operation: , line:68:13, endln:68:36
-              |vpiName:arg2
-              |vpiFullName:work@shift.fshl_s.arg2
+            \_operation: , line:68:13, endln:68:36
             |vpiName:arg2
             |vpiFullName:work@shift.fshl_s.arg2
+            |vpiActual:
+            \_io_decl: (arg2), line:64:26, endln:64:30
             |vpiIndex:
             \_operation: , line:68:18, endln:68:27
               |vpiParent:
-              \_begin: (work@shift.fshl_s), line:67:6, endln:79:9
+              \_bit_select: (work@shift.fshl_s.arg2), line:68:13, endln:68:28
               |vpiOpType:11
               |vpiOperand:
-              \_ref_obj: (work@shift.fshl_s.width_s), line:68:18, endln:68:25
+              \_ref_obj: (work@shift.fshl_s.arg2.width_s), line:68:18, endln:68:25
                 |vpiParent:
-                \_begin: (work@shift.fshl_s), line:67:6, endln:79:9
+                \_operation: , line:68:18, endln:68:27
                 |vpiName:width_s
-                |vpiFullName:work@shift.fshl_s.width_s
+                |vpiFullName:work@shift.fshl_s.arg2.width_s
               |vpiOperand:
               \_constant: , line:68:26, endln:68:27
                 |vpiParent:
@@ -3045,17 +3043,17 @@ design: (work@top)
             |vpiRhs:
             \_operation: , line:70:33, endln:70:52
               |vpiParent:
-              \_begin: (work@shift.fshl_s), line:69:8, endln:72:11
+              \_assignment: , line:70:10, endln:70:52
               |vpiOpType:34
               |vpiOperand:
               \_operation: , line:70:35, endln:70:44
                 |vpiParent:
-                \_begin: (work@shift.fshl_s), line:69:8, endln:72:11
+                \_assignment: , line:70:10, endln:70:52
                 |vpiOpType:24
                 |vpiOperand:
                 \_ref_obj: (work@shift.fshl_s.width_a), line:70:35, endln:70:42
                   |vpiParent:
-                  \_begin: (work@shift.fshl_s), line:69:8, endln:72:11
+                  \_operation: , line:70:35, endln:70:44
                   |vpiName:width_a
                   |vpiFullName:work@shift.fshl_s.width_a
                 |vpiOperand:
@@ -3069,7 +3067,7 @@ design: (work@top)
               |vpiOperand:
               \_operation: , line:70:45, endln:70:51
                 |vpiParent:
-                \_begin: (work@shift.fshl_s), line:69:8, endln:72:11
+                \_assignment: , line:70:10, endln:70:52
                 |vpiOpType:33
                 |vpiOperand:
                 \_constant: , line:70:46, endln:70:50
@@ -3078,21 +3076,21 @@ design: (work@top)
                   |BIN:0
                   |vpiConstType:3
             |vpiLhs:
-            \_part_select: , line:70:10, endln:70:30
+            \_part_select: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:70:10, endln:70:30
               |vpiParent:
-              \_ref_obj: sbit_arg1 (work@shift.fshl_s.sbit_arg1)
-                |vpiParent:
-                \_assignment: , line:70:10, endln:70:52
-                |vpiName:sbit_arg1
-                |vpiFullName:work@shift.fshl_s.sbit_arg1
-                |vpiDefName:sbit_arg1
+              \_assignment: , line:70:10, endln:70:52
+              |vpiName:sbit_arg1
+              |vpiFullName:work@shift.fshl_s.sbit_arg1
+              |vpiDefName:sbit_arg1
+              |vpiActual:
+              \_logic_var: (sbit_arg1), line:66:6, endln:66:21
               |vpiConstantSelect:1
               |vpiLeftRange:
-              \_ref_obj: (work@shift.fshl_s.width_a), line:70:20, endln:70:27
+              \_ref_obj: (work@shift.fshl_s.sbit_arg1.width_a), line:70:20, endln:70:27
                 |vpiParent:
-                \_begin: (work@shift.fshl_s), line:69:8, endln:72:11
+                \_part_select: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:70:10, endln:70:30
                 |vpiName:width_a
-                |vpiFullName:work@shift.fshl_s.width_a
+                |vpiFullName:work@shift.fshl_s.sbit_arg1.width_a
               |vpiRightRange:
               \_constant: , line:70:28, endln:70:29
                 |vpiDecompile:0
@@ -3139,7 +3137,7 @@ design: (work@top)
             |vpiLhs:
             \_ref_obj: (work@shift.fshl_s.fshl_s), line:71:10, endln:71:16
               |vpiParent:
-              \_begin: (work@shift.fshl_s), line:69:8, endln:72:11
+              \_assignment: , line:71:10, endln:71:43
               |vpiName:fshl_s
               |vpiFullName:work@shift.fshl_s.fshl_s
               |vpiActual:
@@ -3158,7 +3156,7 @@ design: (work@top)
             |vpiRhs:
             \_ref_obj: (work@shift.fshl_s.sbit), line:75:31, endln:75:35
               |vpiParent:
-              \_begin: (work@shift.fshl_s), line:74:8, endln:78:11
+              \_assignment: , line:75:10, endln:75:35
               |vpiName:sbit
               |vpiFullName:work@shift.fshl_s.sbit
               |vpiActual:
@@ -3166,17 +3164,15 @@ design: (work@top)
             |vpiLhs:
             \_bit_select: (work@shift.fshl_s.sbit_arg1), line:75:10, endln:75:28
               |vpiParent:
-              \_ref_obj: (work@shift.fshl_s.sbit_arg1)
-                |vpiParent:
-                \_assignment: , line:75:10, endln:75:35
-                |vpiName:sbit_arg1
-                |vpiFullName:work@shift.fshl_s.sbit_arg1
+              \_assignment: , line:75:10, endln:75:35
               |vpiName:sbit_arg1
               |vpiFullName:work@shift.fshl_s.sbit_arg1
+              |vpiActual:
+              \_logic_var: (sbit_arg1), line:66:6, endln:66:21
               |vpiIndex:
               \_ref_obj: (work@shift.fshl_s.width_a), line:75:20, endln:75:27
                 |vpiParent:
-                \_begin: (work@shift.fshl_s), line:74:8, endln:78:11
+                \_bit_select: (work@shift.fshl_s.sbit_arg1), line:75:10, endln:75:28
                 |vpiName:width_a
                 |vpiFullName:work@shift.fshl_s.width_a
           |vpiStmt:
@@ -3188,32 +3184,32 @@ design: (work@top)
             |vpiRhs:
             \_ref_obj: (work@shift.fshl_s.arg1), line:76:35, endln:76:39
               |vpiParent:
-              \_begin: (work@shift.fshl_s), line:74:8, endln:78:11
+              \_assignment: , line:76:10, endln:76:39
               |vpiName:arg1
               |vpiFullName:work@shift.fshl_s.arg1
               |vpiActual:
               \_io_decl: (arg1), line:63:26, endln:63:30
             |vpiLhs:
-            \_part_select: , line:76:10, endln:76:32
+            \_part_select: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:76:10, endln:76:32
               |vpiParent:
-              \_ref_obj: sbit_arg1 (work@shift.fshl_s.sbit_arg1)
-                |vpiParent:
-                \_assignment: , line:76:10, endln:76:39
-                |vpiName:sbit_arg1
-                |vpiFullName:work@shift.fshl_s.sbit_arg1
-                |vpiDefName:sbit_arg1
+              \_assignment: , line:76:10, endln:76:39
+              |vpiName:sbit_arg1
+              |vpiFullName:work@shift.fshl_s.sbit_arg1
+              |vpiDefName:sbit_arg1
+              |vpiActual:
+              \_logic_var: (sbit_arg1), line:66:6, endln:66:21
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_operation: , line:76:20, endln:76:29
                 |vpiParent:
-                \_begin: (work@shift.fshl_s), line:74:8, endln:78:11
+                \_part_select: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:76:10, endln:76:32
                 |vpiOpType:11
                 |vpiOperand:
-                \_ref_obj: (work@shift.fshl_s.width_a), line:76:20, endln:76:27
+                \_ref_obj: (work@shift.fshl_s.sbit_arg1.width_a), line:76:20, endln:76:27
                   |vpiParent:
-                  \_begin: (work@shift.fshl_s), line:74:8, endln:78:11
+                  \_operation: , line:76:20, endln:76:29
                   |vpiName:width_a
-                  |vpiFullName:work@shift.fshl_s.width_a
+                  |vpiFullName:work@shift.fshl_s.sbit_arg1.width_a
                 |vpiOperand:
                 \_constant: , line:76:28, endln:76:29
                   |vpiParent:
@@ -3239,21 +3235,21 @@ design: (work@top)
               |vpiParent:
               \_assignment: , line:77:10, endln:77:60
               |vpiArgument:
-              \_part_select: , line:77:26, endln:77:46
+              \_part_select: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:77:26, endln:77:46
                 |vpiParent:
-                \_ref_obj: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:77:26, endln:77:35
-                  |vpiParent:
-                  \_func_call: (fshr_u), line:77:19, endln:77:60
-                  |vpiName:sbit_arg1
-                  |vpiFullName:work@shift.fshl_s.sbit_arg1
-                  |vpiDefName:sbit_arg1
+                \_func_call: (fshr_u), line:77:19, endln:77:60
+                |vpiName:sbit_arg1
+                |vpiFullName:work@shift.fshl_s.sbit_arg1
+                |vpiDefName:sbit_arg1
+                |vpiActual:
+                \_logic_var: (sbit_arg1), line:66:6, endln:66:21
                 |vpiConstantSelect:1
                 |vpiLeftRange:
-                \_ref_obj: (work@shift.fshl_s.width_a), line:77:36, endln:77:43
+                \_ref_obj: (work@shift.fshl_s.sbit_arg1.width_a), line:77:36, endln:77:43
                   |vpiParent:
-                  \_func_call: (fshr_u), line:77:19, endln:77:60
+                  \_part_select: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:77:26, endln:77:46
                   |vpiName:width_a
-                  |vpiFullName:work@shift.fshl_s.width_a
+                  |vpiFullName:work@shift.fshl_s.sbit_arg1.width_a
                 |vpiRightRange:
                 \_constant: , line:77:44, endln:77:45
                   |vpiDecompile:1
@@ -3287,7 +3283,7 @@ design: (work@top)
             |vpiLhs:
             \_ref_obj: (work@shift.fshl_s.fshl_s), line:77:10, endln:77:16
               |vpiParent:
-              \_begin: (work@shift.fshl_s), line:74:8, endln:78:11
+              \_assignment: , line:77:10, endln:77:60
               |vpiName:fshl_s
               |vpiFullName:work@shift.fshl_s.fshl_s
               |vpiActual:
@@ -3465,21 +3461,19 @@ design: (work@top)
               |vpiArgument:
               \_bit_select: (a), line:13:27, endln:13:39
                 |vpiParent:
-                \_ref_obj: (a)
-                  |vpiParent:
-                  \_func_call: (fshl_s), line:13:16, endln:13:40
-                  |vpiName:a
+                \_func_call: (fshl_s), line:13:16, endln:13:40
                 |vpiName:a
                 |vpiIndex:
                 \_operation: , line:13:29, endln:13:38
                   |vpiParent:
-                  \_func_call: (fshl_s), line:13:16, endln:13:40
+                  \_bit_select: (a), line:13:27, endln:13:39
                   |vpiOpType:11
                   |vpiOperand:
-                  \_ref_obj: (width_a), line:13:29, endln:13:36
+                  \_ref_obj: (a.width_a), line:13:29, endln:13:36
                     |vpiParent:
-                    \_func_call: (fshl_s), line:13:16, endln:13:40
+                    \_operation: , line:13:29, endln:13:38
                     |vpiName:width_a
+                    |vpiFullName:a.width_a
                   |vpiOperand:
                   \_constant: , line:13:37, endln:13:38
                     |vpiParent:
@@ -4355,7 +4349,7 @@ design: (work@top)
             |vpiName:result_t
             |vpiFullName:work@top.inst.fshl_u_1.result_t
             |vpiActual:
-            \_logic_var: (work@top.inst.fshl_u_1.result_t), line:29:6, endln:29:19
+            \_logic_var: (result_t), line:29:6, endln:29:19
         |vpiStmt:
         \_assignment: , line:32:8, endln:32:33
           |vpiParent:
@@ -4371,21 +4365,19 @@ design: (work@top)
             |vpiActual:
             \_io_decl: (arg1), line:22:26, endln:22:30
           |vpiLhs:
-          \_part_select: , line:32:8, endln:32:26
+          \_part_select: result_t (work@top.inst.fshl_u_1.result_t), line:32:8, endln:32:26
             |vpiParent:
-            \_ref_obj: result_t (work@top.inst.fshl_u_1.result_t)
-              |vpiParent:
-              \_assignment: , line:32:8, endln:32:33
-              |vpiName:result_t
-              |vpiFullName:work@top.inst.fshl_u_1.result_t
-              |vpiDefName:result_t
-              |vpiActual:
-              \_logic_var: (work@top.inst.fshl_u_1.result_t), line:29:6, endln:29:19
+            \_assignment: , line:32:8, endln:32:33
+            |vpiName:result_t
+            |vpiFullName:work@top.inst.fshl_u_1.result_t
+            |vpiDefName:result_t
+            |vpiActual:
+            \_logic_var: (result_t), line:29:6, endln:29:19
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_operation: , line:32:17, endln:32:23
               |vpiParent:
-              \_part_select: , line:32:8, endln:32:26
+              \_part_select: result_t (work@top.inst.fshl_u_1.result_t), line:32:8, endln:32:26
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (work@top.inst.fshl_u_1.result_t.ilen), line:32:17, endln:32:21
@@ -4417,7 +4409,7 @@ design: (work@top)
               |vpiName:result_t
               |vpiFullName:work@top.inst.fshl_u_1.result_t
               |vpiActual:
-              \_logic_var: (work@top.inst.fshl_u_1.result_t), line:29:6, endln:29:19
+              \_logic_var: (result_t), line:29:6, endln:29:19
             |vpiOperand:
             \_ref_obj: (work@top.inst.fshl_u_1.arg2), line:33:30, endln:33:34
               |vpiParent:
@@ -4433,7 +4425,7 @@ design: (work@top)
             |vpiName:result
             |vpiFullName:work@top.inst.fshl_u_1.result
             |vpiActual:
-            \_logic_var: (work@top.inst.fshl_u_1.result), line:28:6, endln:28:19
+            \_logic_var: (result), line:28:6, endln:28:19
         |vpiStmt:
         \_assignment: , line:34:8, endln:34:36
           |vpiParent:
@@ -4441,21 +4433,19 @@ design: (work@top)
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
-          \_part_select: , line:34:20, endln:34:36
+          \_part_select: result (work@top.inst.fshl_u_1.result), line:34:20, endln:34:36
             |vpiParent:
-            \_ref_obj: result (work@top.inst.fshl_u_1.result), line:34:20, endln:34:26
-              |vpiParent:
-              \_assignment: , line:34:8, endln:34:36
-              |vpiName:result
-              |vpiFullName:work@top.inst.fshl_u_1.result
-              |vpiDefName:result
-              |vpiActual:
-              \_logic_var: (work@top.inst.fshl_u_1.result), line:28:6, endln:28:19
+            \_assignment: , line:34:8, endln:34:36
+            |vpiName:result
+            |vpiFullName:work@top.inst.fshl_u_1.result
+            |vpiDefName:result
+            |vpiActual:
+            \_logic_var: (result), line:28:6, endln:28:19
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_operation: , line:34:27, endln:34:33
               |vpiParent:
-              \_part_select: , line:34:20, endln:34:36
+              \_part_select: result (work@top.inst.fshl_u_1.result), line:34:20, endln:34:36
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (work@top.inst.fshl_u_1.result.olen), line:34:27, endln:34:31
@@ -4476,7 +4466,7 @@ design: (work@top)
             |vpiName:fshl_u_1
             |vpiFullName:work@top.inst.fshl_u_1.fshl_u_1
             |vpiActual:
-            \_logic_var: , line:21:12, endln:21:25
+            \_logic_var: (fshl_u_1), line:21:12, endln:21:25
       |vpiInstance:
       \_module_inst: work@shift (work@top.inst), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:93:3, endln:101:5
     |vpiTaskFunc:
@@ -4567,7 +4557,7 @@ design: (work@top)
           |vpiName:fshl_u
           |vpiFullName:work@top.inst.fshl_u.fshl_u
           |vpiActual:
-          \_logic_var: , line:38:12, endln:38:25
+          \_logic_var: (fshl_u), line:38:12, endln:38:25
       |vpiInstance:
       \_module_inst: work@shift (work@top.inst), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:93:3, endln:101:5
     |vpiTaskFunc:
@@ -4794,7 +4784,7 @@ design: (work@top)
             |vpiName:result_t
             |vpiFullName:work@top.inst.fshr_u.result_t
             |vpiActual:
-            \_logic_var: (work@top.inst.fshr_u.result_t), line:53:6, endln:53:26
+            \_logic_var: (result_t), line:53:6, endln:53:26
         |vpiStmt:
         \_assignment: , line:56:8, endln:56:36
           |vpiParent:
@@ -4810,21 +4800,19 @@ design: (work@top)
             |vpiActual:
             \_io_decl: (arg1), line:46:26, endln:46:30
           |vpiLhs:
-          \_part_select: , line:56:8, endln:56:29
+          \_part_select: result_t (work@top.inst.fshr_u.result_t), line:56:8, endln:56:29
             |vpiParent:
-            \_ref_obj: result_t (work@top.inst.fshr_u.result_t)
-              |vpiParent:
-              \_assignment: , line:56:8, endln:56:36
-              |vpiName:result_t
-              |vpiFullName:work@top.inst.fshr_u.result_t
-              |vpiDefName:result_t
-              |vpiActual:
-              \_logic_var: (work@top.inst.fshr_u.result_t), line:53:6, endln:53:26
+            \_assignment: , line:56:8, endln:56:36
+            |vpiName:result_t
+            |vpiFullName:work@top.inst.fshr_u.result_t
+            |vpiDefName:result_t
+            |vpiActual:
+            \_logic_var: (result_t), line:53:6, endln:53:26
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_operation: , line:56:17, endln:56:26
               |vpiParent:
-              \_part_select: , line:56:8, endln:56:29
+              \_part_select: result_t (work@top.inst.fshr_u.result_t), line:56:8, endln:56:29
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (work@top.inst.fshr_u.result_t.width_a), line:56:17, endln:56:24
@@ -4856,7 +4844,7 @@ design: (work@top)
               |vpiName:result_t
               |vpiFullName:work@top.inst.fshr_u.result_t
               |vpiActual:
-              \_logic_var: (work@top.inst.fshr_u.result_t), line:53:6, endln:53:26
+              \_logic_var: (result_t), line:53:6, endln:53:26
             |vpiOperand:
             \_ref_obj: (work@top.inst.fshr_u.arg2), line:57:30, endln:57:34
               |vpiParent:
@@ -4872,7 +4860,7 @@ design: (work@top)
             |vpiName:result
             |vpiFullName:work@top.inst.fshr_u.result
             |vpiActual:
-            \_logic_var: (work@top.inst.fshr_u.result), line:52:6, endln:52:26
+            \_logic_var: (result), line:52:6, endln:52:26
         |vpiStmt:
         \_assignment: , line:58:8, endln:58:34
           |vpiParent:
@@ -4880,21 +4868,19 @@ design: (work@top)
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
-          \_part_select: , line:58:18, endln:58:34
+          \_part_select: result (work@top.inst.fshr_u.result), line:58:18, endln:58:34
             |vpiParent:
-            \_ref_obj: result (work@top.inst.fshr_u.result), line:58:18, endln:58:24
-              |vpiParent:
-              \_assignment: , line:58:8, endln:58:34
-              |vpiName:result
-              |vpiFullName:work@top.inst.fshr_u.result
-              |vpiDefName:result
-              |vpiActual:
-              \_logic_var: (work@top.inst.fshr_u.result), line:52:6, endln:52:26
+            \_assignment: , line:58:8, endln:58:34
+            |vpiName:result
+            |vpiFullName:work@top.inst.fshr_u.result
+            |vpiDefName:result
+            |vpiActual:
+            \_logic_var: (result), line:52:6, endln:52:26
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_operation: , line:58:25, endln:58:31
               |vpiParent:
-              \_part_select: , line:58:18, endln:58:34
+              \_part_select: result (work@top.inst.fshr_u.result), line:58:18, endln:58:34
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (work@top.inst.fshr_u.result.olen), line:58:25, endln:58:29
@@ -4915,7 +4901,7 @@ design: (work@top)
             |vpiName:fshr_u
             |vpiFullName:work@top.inst.fshr_u.fshr_u
             |vpiActual:
-            \_logic_var: , line:45:12, endln:45:25
+            \_logic_var: (fshr_u), line:45:12, endln:45:25
       |vpiInstance:
       \_module_inst: work@shift (work@top.inst), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:93:3, endln:101:5
     |vpiTaskFunc:
@@ -4975,15 +4961,11 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top.inst.fshl_s.arg2), line:68:13, endln:68:28
               |vpiParent:
-              \_ref_obj: (work@top.inst.fshl_s.arg2)
-                |vpiParent:
-                \_operation: , line:68:13, endln:68:36
-                |vpiName:arg2
-                |vpiFullName:work@top.inst.fshl_s.arg2
-                |vpiActual:
-                \_io_decl: (arg2), line:64:26, endln:64:30
+              \_operation: , line:68:13, endln:68:36
               |vpiName:arg2
               |vpiFullName:work@top.inst.fshl_s.arg2
+              |vpiActual:
+              \_io_decl: (arg2), line:64:26, endln:64:30
               |vpiIndex:
               \_operation: , line:68:18, endln:68:27
                 |vpiParent:
@@ -4999,8 +4981,6 @@ design: (work@top)
                   \_parameter: (work@top.inst.width_s), line:4:16, endln:4:23
                 |vpiOperand:
                 \_constant: , line:68:26, endln:68:27
-              |vpiActual:
-              \_io_decl: (arg2), line:64:26, endln:64:30
             |vpiOperand:
             \_constant: , line:68:32, endln:68:36
           |vpiStmt:
@@ -5042,21 +5022,19 @@ design: (work@top)
                   |vpiOperand:
                   \_constant: , line:70:46, endln:70:50
               |vpiLhs:
-              \_part_select: , line:70:10, endln:70:30
+              \_part_select: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1), line:70:10, endln:70:30
                 |vpiParent:
-                \_ref_obj: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1)
-                  |vpiParent:
-                  \_assignment: , line:70:10, endln:70:52
-                  |vpiName:sbit_arg1
-                  |vpiFullName:work@top.inst.fshl_s.sbit_arg1
-                  |vpiDefName:sbit_arg1
-                  |vpiActual:
-                  \_logic_var: (work@top.inst.fshl_s.sbit_arg1), line:66:6, endln:66:21
+                \_assignment: , line:70:10, endln:70:52
+                |vpiName:sbit_arg1
+                |vpiFullName:work@top.inst.fshl_s.sbit_arg1
+                |vpiDefName:sbit_arg1
+                |vpiActual:
+                \_logic_var: (sbit_arg1), line:66:6, endln:66:21
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_ref_obj: (work@top.inst.fshl_s.sbit_arg1.width_a), line:70:20, endln:70:27
                   |vpiParent:
-                  \_part_select: , line:70:10, endln:70:30
+                  \_part_select: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1), line:70:10, endln:70:30
                   |vpiName:width_a
                   |vpiFullName:work@top.inst.fshl_s.sbit_arg1.width_a
                   |vpiActual:
@@ -5107,7 +5085,7 @@ design: (work@top)
                 |vpiName:fshl_s
                 |vpiFullName:work@top.inst.fshl_s.fshl_s
                 |vpiActual:
-                \_logic_var: , line:62:12, endln:62:25
+                \_logic_var: (fshl_s), line:62:12, endln:62:25
           |vpiElseStmt:
           \_begin: (work@top.inst.fshl_s), line:74:8, endln:78:11
             |vpiParent:
@@ -5130,25 +5108,19 @@ design: (work@top)
               |vpiLhs:
               \_bit_select: (work@top.inst.fshl_s.sbit_arg1), line:75:10, endln:75:28
                 |vpiParent:
-                \_ref_obj: (work@top.inst.fshl_s.sbit_arg1)
-                  |vpiParent:
-                  \_assignment: , line:75:10, endln:75:35
-                  |vpiName:sbit_arg1
-                  |vpiFullName:work@top.inst.fshl_s.sbit_arg1
-                  |vpiActual:
-                  \_logic_var: (work@top.inst.fshl_s.sbit_arg1), line:66:6, endln:66:21
+                \_assignment: , line:75:10, endln:75:35
                 |vpiName:sbit_arg1
                 |vpiFullName:work@top.inst.fshl_s.sbit_arg1
+                |vpiActual:
+                \_logic_var: (work@top.inst.fshl_s.sbit_arg1), line:66:6, endln:66:21
                 |vpiIndex:
-                \_ref_obj: (work@top.inst.fshl_s.sbit_arg1.width_a), line:75:20, endln:75:27
+                \_ref_obj: (work@top.inst.fshl_s.width_a), line:75:20, endln:75:27
                   |vpiParent:
                   \_bit_select: (work@top.inst.fshl_s.sbit_arg1), line:75:10, endln:75:28
                   |vpiName:width_a
-                  |vpiFullName:work@top.inst.fshl_s.sbit_arg1.width_a
+                  |vpiFullName:work@top.inst.fshl_s.width_a
                   |vpiActual:
                   \_parameter: (work@top.inst.width_a), line:2:16, endln:2:23
-                |vpiActual:
-                \_logic_var: (work@top.inst.fshl_s.sbit_arg1), line:66:6, endln:66:21
             |vpiStmt:
             \_assignment: , line:76:10, endln:76:39
               |vpiParent:
@@ -5164,21 +5136,19 @@ design: (work@top)
                 |vpiActual:
                 \_io_decl: (arg1), line:63:26, endln:63:30
               |vpiLhs:
-              \_part_select: , line:76:10, endln:76:32
+              \_part_select: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1), line:76:10, endln:76:32
                 |vpiParent:
-                \_ref_obj: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1)
-                  |vpiParent:
-                  \_assignment: , line:76:10, endln:76:39
-                  |vpiName:sbit_arg1
-                  |vpiFullName:work@top.inst.fshl_s.sbit_arg1
-                  |vpiDefName:sbit_arg1
-                  |vpiActual:
-                  \_logic_var: (work@top.inst.fshl_s.sbit_arg1), line:66:6, endln:66:21
+                \_assignment: , line:76:10, endln:76:39
+                |vpiName:sbit_arg1
+                |vpiFullName:work@top.inst.fshl_s.sbit_arg1
+                |vpiDefName:sbit_arg1
+                |vpiActual:
+                \_logic_var: (sbit_arg1), line:66:6, endln:66:21
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_operation: , line:76:20, endln:76:29
                   |vpiParent:
-                  \_part_select: , line:76:10, endln:76:32
+                  \_part_select: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1), line:76:10, endln:76:32
                   |vpiOpType:11
                   |vpiOperand:
                   \_ref_obj: (work@top.inst.fshl_s.sbit_arg1.width_a), line:76:20, endln:76:27
@@ -5203,21 +5173,19 @@ design: (work@top)
                 |vpiParent:
                 \_assignment: , line:77:10, endln:77:60
                 |vpiArgument:
-                \_part_select: , line:77:26, endln:77:46
+                \_part_select: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1), line:77:26, endln:77:46
                   |vpiParent:
-                  \_ref_obj: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1), line:77:26, endln:77:35
-                    |vpiParent:
-                    \_func_call: (fshr_u), line:77:19, endln:77:60
-                    |vpiName:sbit_arg1
-                    |vpiFullName:work@top.inst.fshl_s.sbit_arg1
-                    |vpiDefName:sbit_arg1
-                    |vpiActual:
-                    \_logic_var: (work@top.inst.fshl_s.sbit_arg1), line:66:6, endln:66:21
+                  \_func_call: (fshr_u), line:77:19, endln:77:60
+                  |vpiName:sbit_arg1
+                  |vpiFullName:work@top.inst.fshl_s.sbit_arg1
+                  |vpiDefName:sbit_arg1
+                  |vpiActual:
+                  \_logic_var: (sbit_arg1), line:66:6, endln:66:21
                   |vpiConstantSelect:1
                   |vpiLeftRange:
                   \_ref_obj: (work@top.inst.fshl_s.sbit_arg1.width_a), line:77:36, endln:77:43
                     |vpiParent:
-                    \_part_select: , line:77:26, endln:77:46
+                    \_part_select: sbit_arg1 (work@top.inst.fshl_s.sbit_arg1), line:77:26, endln:77:46
                     |vpiName:width_a
                     |vpiFullName:work@top.inst.fshl_s.sbit_arg1.width_a
                     |vpiActual:
@@ -5255,7 +5223,7 @@ design: (work@top)
                 |vpiName:fshl_s
                 |vpiFullName:work@top.inst.fshl_s.fshl_s
                 |vpiActual:
-                \_logic_var: , line:62:12, endln:62:25
+                \_logic_var: (fshl_s), line:62:12, endln:62:25
       |vpiInstance:
       \_module_inst: work@shift (work@top.inst), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:93:3, endln:101:5
     |vpiNet:
@@ -5518,15 +5486,11 @@ design: (work@top)
             |vpiArgument:
             \_bit_select: (work@top.inst.a), line:13:27, endln:13:39
               |vpiParent:
-              \_ref_obj: (work@top.inst.SGNED.a)
-                |vpiParent:
-                \_func_call: (fshl_s), line:13:16, endln:13:40
-                |vpiName:a
-                |vpiFullName:work@top.inst.SGNED.a
-                |vpiActual:
-                \_logic_net: (work@top.inst.a), line:1:14, endln:1:15
+              \_func_call: (fshl_s), line:13:16, endln:13:40
               |vpiName:a
               |vpiFullName:work@top.inst.a
+              |vpiActual:
+              \_logic_net: (work@top.inst.a), line:1:14, endln:1:15
               |vpiIndex:
               \_operation: , line:13:29, endln:13:38
                 |vpiParent:
@@ -5548,8 +5512,6 @@ design: (work@top)
                   |vpiSize:64
                   |UINT:1
                   |vpiConstType:9
-              |vpiActual:
-              \_logic_net: (work@top.inst.a), line:1:14, endln:1:15
             |vpiName:fshl_s
             |vpiFunction:
             \_function: (work@top.inst.fshl_s), line:62:3, endln:80:14
@@ -5569,4 +5531,4 @@ design: (work@top)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv | ${SURELOG_DIR}/build/regression/FuncIoTypespec/roundtrip/dut_000.sv | 48 | 102 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv | ${SURELOG_DIR}/build/regression/FuncIoTypespec/roundtrip/dut_000.sv | 54 | 102 |

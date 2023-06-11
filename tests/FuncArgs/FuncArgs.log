@@ -487,8 +487,6 @@ design: (work@dut)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:8:33, endln:8:34
-          |vpiParent:
-          \_assignment: , line:8:25, endln:8:34
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -496,7 +494,7 @@ design: (work@dut)
         |vpiLhs:
         \_ref_obj: (work@dut.pow_a.pow_a), line:8:25, endln:8:30
           |vpiParent:
-          \_begin: (work@dut.pow_a), line:7:17, endln:11:20
+          \_assignment: , line:8:25, endln:8:34
           |vpiName:pow_a
           |vpiFullName:work@dut.pow_a.pow_a
           |vpiActual:
@@ -513,7 +511,7 @@ design: (work@dut)
           |vpiOperand:
           \_ref_obj: (work@dut.pow_a.exp), line:9:29, endln:9:32
             |vpiParent:
-            \_begin: (work@dut.pow_a), line:7:17, endln:11:20
+            \_operation: , line:9:29, endln:9:36
             |vpiName:exp
             |vpiFullName:work@dut.pow_a.exp
             |vpiActual:
@@ -535,12 +533,12 @@ design: (work@dut)
           |vpiRhs:
           \_operation: , line:10:41, endln:10:68
             |vpiParent:
-            \_if_stmt: , line:9:25, endln:10:69
+            \_assignment: , line:10:33, endln:10:68
             |vpiOpType:25
             |vpiOperand:
             \_ref_obj: (work@dut.pow_a.base), line:10:41, endln:10:45
               |vpiParent:
-              \_if_stmt: , line:9:25, endln:10:69
+              \_operation: , line:10:41, endln:10:68
               |vpiName:base
               |vpiFullName:work@dut.pow_a.base
               |vpiActual:
@@ -565,7 +563,7 @@ design: (work@dut)
                 |vpiOperand:
                 \_ref_obj: (work@dut.pow_a.exp), line:10:60, endln:10:63
                   |vpiParent:
-                  \_func_call: (pow_a), line:10:48, endln:10:68
+                  \_operation: , line:10:60, endln:10:67
                   |vpiName:exp
                   |vpiFullName:work@dut.pow_a.exp
                   |vpiActual:
@@ -584,7 +582,7 @@ design: (work@dut)
           |vpiLhs:
           \_ref_obj: (work@dut.pow_a.pow_a), line:10:33, endln:10:38
             |vpiParent:
-            \_if_stmt: , line:9:25, endln:10:69
+            \_assignment: , line:10:33, endln:10:68
             |vpiName:pow_a
             |vpiFullName:work@dut.pow_a.pow_a
             |vpiActual:
@@ -670,8 +668,6 @@ design: (work@dut)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:17:33, endln:17:34
-          |vpiParent:
-          \_assignment: , line:17:25, endln:17:34
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -679,7 +675,7 @@ design: (work@dut)
         |vpiLhs:
         \_ref_obj: (work@dut.pow_b.pow_b), line:17:25, endln:17:30
           |vpiParent:
-          \_begin: (work@dut.pow_b), line:16:17, endln:20:20
+          \_assignment: , line:17:25, endln:17:34
           |vpiName:pow_b
           |vpiFullName:work@dut.pow_b.pow_b
           |vpiActual:
@@ -696,7 +692,7 @@ design: (work@dut)
           |vpiOperand:
           \_ref_obj: (work@dut.pow_b.exp), line:18:29, endln:18:32
             |vpiParent:
-            \_begin: (work@dut.pow_b), line:16:17, endln:20:20
+            \_operation: , line:18:29, endln:18:36
             |vpiName:exp
             |vpiFullName:work@dut.pow_b.exp
             |vpiActual:
@@ -718,12 +714,12 @@ design: (work@dut)
           |vpiRhs:
           \_operation: , line:19:41, endln:19:68
             |vpiParent:
-            \_if_stmt: , line:18:25, endln:19:69
+            \_assignment: , line:19:33, endln:19:68
             |vpiOpType:25
             |vpiOperand:
             \_ref_obj: (work@dut.pow_b.base), line:19:41, endln:19:45
               |vpiParent:
-              \_if_stmt: , line:18:25, endln:19:69
+              \_operation: , line:19:41, endln:19:68
               |vpiName:base
               |vpiFullName:work@dut.pow_b.base
               |vpiActual:
@@ -748,7 +744,7 @@ design: (work@dut)
                 |vpiOperand:
                 \_ref_obj: (work@dut.pow_b.exp), line:19:60, endln:19:63
                   |vpiParent:
-                  \_func_call: (pow_b), line:19:48, endln:19:68
+                  \_operation: , line:19:60, endln:19:67
                   |vpiName:exp
                   |vpiFullName:work@dut.pow_b.exp
                   |vpiActual:
@@ -767,7 +763,7 @@ design: (work@dut)
           |vpiLhs:
           \_ref_obj: (work@dut.pow_b.pow_b), line:19:33, endln:19:38
             |vpiParent:
-            \_if_stmt: , line:18:25, endln:19:69
+            \_assignment: , line:19:33, endln:19:68
             |vpiName:pow_b
             |vpiFullName:work@dut.pow_b.pow_b
             |vpiActual:
@@ -1014,7 +1010,7 @@ design: (work@dut)
           |vpiName:pow_a
           |vpiFullName:work@dut.pow_a.pow_a
           |vpiActual:
-          \_logic_var: , line:5:28, endln:5:33
+          \_logic_var: (pow_a), line:5:28, endln:5:33
       |vpiStmt:
       \_if_stmt: , line:9:25, endln:10:69
         |vpiParent:
@@ -1090,7 +1086,7 @@ design: (work@dut)
             |vpiName:pow_a
             |vpiFullName:work@dut.pow_a.pow_a
             |vpiActual:
-            \_logic_var: , line:5:28, endln:5:33
+            \_logic_var: (pow_a), line:5:28, endln:5:33
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiTaskFunc:
@@ -1139,7 +1135,7 @@ design: (work@dut)
           |vpiName:pow_b
           |vpiFullName:work@dut.pow_b.pow_b
           |vpiActual:
-          \_logic_var: , line:14:28, endln:14:33
+          \_logic_var: (pow_b), line:14:28, endln:14:33
       |vpiStmt:
       \_if_stmt: , line:18:25, endln:19:69
         |vpiParent:
@@ -1215,7 +1211,7 @@ design: (work@dut)
             |vpiName:pow_b
             |vpiFullName:work@dut.pow_b.pow_b
             |vpiActual:
-            \_logic_var: , line:14:28, endln:14:33
+            \_logic_var: (pow_b), line:14:28, endln:14:33
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiNet:

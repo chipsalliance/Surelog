@@ -204,7 +204,6 @@ logic_var                                              4
 module_inst                                            3
 part_select                                            3
 range                                                 10
-ref_obj                                                4
 var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -219,7 +218,6 @@ logic_var                                              4
 module_inst                                            3
 part_select                                            3
 range                                                 10
-ref_obj                                                4
 var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexVarSelect/slpp_all/surelog.uhdm ...
@@ -439,12 +437,17 @@ design: (work@top)
     |vpiExpr:
     \_var_select: (iccm_bank_dout_hi), line:5:20, endln:5:63
       |vpiName:iccm_bank_dout_hi
+      |vpiActual:
+      \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiIndex:
-      \_part_select: , line:5:38, endln:5:57
+      \_part_select: iccm_rw_addr_q (iccm_bank_dout_hi.iccm_rw_addr_q), line:5:38, endln:5:57
         |vpiParent:
-        \_ref_obj: iccm_rw_addr_q (iccm_rw_addr_q), line:5:38, endln:5:52
-          |vpiName:iccm_rw_addr_q
-          |vpiDefName:iccm_rw_addr_q
+        \_var_select: (iccm_bank_dout_hi), line:5:20, endln:5:63
+        |vpiName:iccm_rw_addr_q
+        |vpiFullName:iccm_bank_dout_hi.iccm_rw_addr_q
+        |vpiDefName:iccm_rw_addr_q
+        |vpiActual:
+        \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:5:53, endln:5:54
@@ -459,9 +462,14 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiIndex:
-      \_part_select: , line:5:59, endln:5:62
+      \_part_select: iccm_bank_dout_hi (iccm_bank_dout_hi.iccm_bank_dout_hi), line:5:59, endln:5:62
         |vpiParent:
         \_var_select: (iccm_bank_dout_hi), line:5:20, endln:5:63
+        |vpiName:iccm_bank_dout_hi
+        |vpiFullName:iccm_bank_dout_hi.iccm_bank_dout_hi
+        |vpiDefName:iccm_bank_dout_hi
+        |vpiActual:
+        \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:5:59, endln:5:60
@@ -522,16 +530,18 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_bit_select: (iccm_bank_dout_hi), line:6:20, endln:6:58
-      |vpiParent:
-      \_ref_obj: (iccm_bank_dout_hi)
-        |vpiName:iccm_bank_dout_hi
       |vpiName:iccm_bank_dout_hi
+      |vpiActual:
+      \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiIndex:
-      \_part_select: , line:6:38, endln:6:57
+      \_part_select: iccm_rw_addr_q (iccm_bank_dout_hi.iccm_rw_addr_q), line:6:38, endln:6:57
         |vpiParent:
-        \_ref_obj: iccm_rw_addr_q (iccm_rw_addr_q), line:6:38, endln:6:52
-          |vpiName:iccm_rw_addr_q
-          |vpiDefName:iccm_rw_addr_q
+        \_bit_select: (iccm_bank_dout_hi), line:6:20, endln:6:58
+        |vpiName:iccm_rw_addr_q
+        |vpiFullName:iccm_bank_dout_hi.iccm_rw_addr_q
+        |vpiDefName:iccm_rw_addr_q
+        |vpiActual:
+        \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:6:53, endln:6:54

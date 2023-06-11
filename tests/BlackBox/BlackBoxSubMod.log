@@ -168,7 +168,7 @@ hier_path                                              1
 logic_net                                              2
 module_inst                                            6
 ref_module                                             1
-ref_obj                                                5
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -181,7 +181,7 @@ hier_path                                              2
 logic_net                                              2
 module_inst                                            6
 ref_module                                             1
-ref_obj                                               10
+ref_obj                                                8
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/BlackBox/dut.sv:31:16: Unresolved hierarchical reference "nyuzi.core_gen[0].core.wb_writeback_en".
 
@@ -236,14 +236,11 @@ design: (work@top)
         \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:nyuzi
       |vpiActual:
-      \_bit_select: (core_gen), line:31:22, endln:31:30
+      \_bit_select: (nyuzi.core_gen[0]), line:31:22, endln:31:30
         |vpiParent:
-        \_ref_obj: (work@top.core_gen[0])
-          |vpiParent:
-          \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
-          |vpiName:core_gen[0]
-          |vpiFullName:work@top.core_gen[0]
+        \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:core_gen
+        |vpiFullName:nyuzi.core_gen[0]
         |vpiIndex:
         \_constant: , line:31:31, endln:31:32
           |vpiDecompile:0
@@ -256,10 +253,11 @@ design: (work@top)
         \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:core
       |vpiActual:
-      \_ref_obj: (wb_writeback_en), line:31:39, endln:31:54
+      \_ref_obj: (work@top.wb_writeback_en), line:31:39, endln:31:54
         |vpiParent:
         \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:wb_writeback_en
+        |vpiFullName:work@top.wb_writeback_en
     |vpiLhs:
     \_ref_obj: (work@top.o), line:31:12, endln:31:13
       |vpiParent:
@@ -314,14 +312,11 @@ design: (work@top)
         |vpiActual:
         \_module_inst: work@nyuzi (work@top.nyuzi), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:29:1, endln:29:16
       |vpiActual:
-      \_bit_select: (core_gen), line:31:22, endln:31:30
+      \_bit_select: (nyuzi.core_gen[0]), line:31:22, endln:31:30
         |vpiParent:
-        \_ref_obj: (work@top.core_gen[0])
-          |vpiParent:
-          \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
-          |vpiName:core_gen[0]
-          |vpiFullName:work@top.core_gen[0]
+        \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:core_gen
+        |vpiFullName:nyuzi.core_gen[0]
         |vpiIndex:
         \_constant: , line:31:31, endln:31:32
       |vpiActual:
@@ -330,10 +325,11 @@ design: (work@top)
         \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:core
       |vpiActual:
-      \_ref_obj: (wb_writeback_en), line:31:39, endln:31:54
+      \_ref_obj: (work@top.wb_writeback_en), line:31:39, endln:31:54
         |vpiParent:
         \_hier_path: (nyuzi.core_gen[0].core.wb_writeback_en), line:31:16, endln:31:54
         |vpiName:wb_writeback_en
+        |vpiFullName:work@top.wb_writeback_en
     |vpiLhs:
     \_ref_obj: (work@top.o), line:31:12, endln:31:13
       |vpiParent:

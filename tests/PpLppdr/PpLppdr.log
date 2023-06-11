@@ -122,7 +122,7 @@ design                                                 1
 func_call                                              2
 logic_net                                              3
 module_inst                                            2
-ref_obj                                                6
+ref_obj                                                5
 task                                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -136,7 +136,7 @@ design                                                 1
 func_call                                              4
 logic_net                                              3
 module_inst                                            2
-ref_obj                                               12
+ref_obj                                               10
 task                                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PpLppdr/slpp_all/surelog.uhdm ...
@@ -208,7 +208,7 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@top.set_refgen_en.en), line:12:49, endln:12:51
           |vpiParent:
-          \_begin: (work@top.set_refgen_en), line:19:5, endln:21:8
+          \_assignment: , line:12:36, endln:12:51
           |vpiName:en
           |vpiFullName:work@top.set_refgen_en.en
           |vpiActual:
@@ -216,11 +216,7 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top.set_refgen_en.wdata), line:12:36, endln:12:46
           |vpiParent:
-          \_ref_obj: (work@top.set_refgen_en.wdata)
-            |vpiParent:
-            \_assignment: , line:12:36, endln:12:51
-            |vpiName:wdata
-            |vpiFullName:work@top.set_refgen_en.wdata
+          \_assignment: , line:12:36, endln:12:51
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiIndex:
@@ -320,18 +316,12 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (wdata), line:12:36, endln:12:46
           |vpiParent:
-          \_ref_obj: (work@top.set_refgen_en.wdata)
-            |vpiParent:
-            \_assignment: , line:12:36, endln:12:51
-            |vpiName:wdata
-            |vpiFullName:work@top.set_refgen_en.wdata
-            |vpiActual:
-            \_logic_net: (wdata)
+          \_assignment: , line:12:36, endln:12:51
           |vpiName:wdata
-          |vpiIndex:
-          \_constant: , line:12:42, endln:12:43
           |vpiActual:
           \_logic_net: (wdata)
+          |vpiIndex:
+          \_constant: , line:12:42, endln:12:43
       |vpiStmt:
       \_func_call: (csr_write), line:13:36, endln:13:81
         |vpiParent:

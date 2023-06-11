@@ -190,7 +190,7 @@ parameter                                              2
 part_select                                            2
 port                                                   8
 range                                                  2
-ref_obj                                               14
+ref_obj                                               12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -211,7 +211,7 @@ parameter                                              6
 part_select                                            4
 port                                                  12
 range                                                  2
-ref_obj                                               24
+ref_obj                                               20
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamInFunc/slpp_all/surelog.uhdm ...
 
@@ -341,55 +341,55 @@ design: (work@func_block_top)
       |vpiOpType:82
       |vpiBlocking:1
       |vpiRhs:
-      \_part_select: , line:8:30, endln:8:38
+      \_part_select: inp (work@func_block_top.func3.inp), line:8:30, endln:8:38
         |vpiParent:
-        \_ref_obj: inp (work@func_block_top.func3.inp), line:8:30, endln:8:33
-          |vpiParent:
-          \_assignment: , line:8:17, endln:8:38
-          |vpiName:inp
-          |vpiFullName:work@func_block_top.func3.inp
-          |vpiDefName:inp
+        \_assignment: , line:8:17, endln:8:38
+        |vpiName:inp
+        |vpiFullName:work@func_block_top.func3.inp
+        |vpiDefName:inp
+        |vpiActual:
+        \_io_decl: (inp), line:7:30, endln:7:33
         |vpiConstantSelect:1
         |vpiLeftRange:
-        \_ref_obj: (work@func_block_top.func3.A), line:8:34, endln:8:35
+        \_ref_obj: (work@func_block_top.func3.inp.A), line:8:34, endln:8:35
           |vpiParent:
-          \_function: (work@func_block_top.func3), line:4:9, endln:9:20
+          \_part_select: inp (work@func_block_top.func3.inp), line:8:30, endln:8:38
           |vpiName:A
-          |vpiFullName:work@func_block_top.func3.A
+          |vpiFullName:work@func_block_top.func3.inp.A
           |vpiActual:
           \_parameter: (A), line:5:28, endln:5:29
         |vpiRightRange:
-        \_ref_obj: (work@func_block_top.func3.B), line:8:36, endln:8:37
+        \_ref_obj: (work@func_block_top.func3.inp.B), line:8:36, endln:8:37
           |vpiParent:
-          \_function: (work@func_block_top.func3), line:4:9, endln:9:20
+          \_part_select: inp (work@func_block_top.func3.inp), line:8:30, endln:8:38
           |vpiName:B
-          |vpiFullName:work@func_block_top.func3.B
+          |vpiFullName:work@func_block_top.func3.inp.B
           |vpiActual:
           \_parameter: (B), line:6:27, endln:6:28
       |vpiLhs:
-      \_part_select: , line:8:17, endln:8:27
+      \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
         |vpiParent:
-        \_ref_obj: func3 (work@func_block_top.func3.func3)
-          |vpiParent:
-          \_assignment: , line:8:17, endln:8:38
-          |vpiName:func3
-          |vpiFullName:work@func_block_top.func3.func3
-          |vpiDefName:func3
+        \_assignment: , line:8:17, endln:8:38
+        |vpiName:func3
+        |vpiFullName:work@func_block_top.func3.func3
+        |vpiDefName:func3
+        |vpiActual:
+        \_logic_var: , line:4:28, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
-        \_ref_obj: (work@func_block_top.func3.A), line:8:23, endln:8:24
+        \_ref_obj: (work@func_block_top.func3.func3.A), line:8:23, endln:8:24
           |vpiParent:
-          \_function: (work@func_block_top.func3), line:4:9, endln:9:20
+          \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
           |vpiName:A
-          |vpiFullName:work@func_block_top.func3.A
+          |vpiFullName:work@func_block_top.func3.func3.A
           |vpiActual:
           \_parameter: (A), line:5:28, endln:5:29
         |vpiRightRange:
-        \_ref_obj: (work@func_block_top.func3.B), line:8:25, endln:8:26
+        \_ref_obj: (work@func_block_top.func3.func3.B), line:8:25, endln:8:26
           |vpiParent:
-          \_function: (work@func_block_top.func3), line:4:9, endln:9:20
+          \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
           |vpiName:B
-          |vpiFullName:work@func_block_top.func3.B
+          |vpiFullName:work@func_block_top.func3.func3.B
           |vpiActual:
           \_parameter: (B), line:6:27, endln:6:28
     |vpiInstance:
@@ -539,21 +539,19 @@ design: (work@func_block_top)
       |vpiOpType:82
       |vpiBlocking:1
       |vpiRhs:
-      \_part_select: , line:8:30, endln:8:38
+      \_part_select: inp (work@func_block_top.func3.inp), line:8:30, endln:8:38
         |vpiParent:
-        \_ref_obj: inp (work@func_block_top.func3.inp), line:8:30, endln:8:33
-          |vpiParent:
-          \_assignment: , line:8:17, endln:8:38
-          |vpiName:inp
-          |vpiFullName:work@func_block_top.func3.inp
-          |vpiDefName:inp
-          |vpiActual:
-          \_io_decl: (inp), line:7:30, endln:7:33
+        \_assignment: , line:8:17, endln:8:38
+        |vpiName:inp
+        |vpiFullName:work@func_block_top.func3.inp
+        |vpiDefName:inp
+        |vpiActual:
+        \_io_decl: (inp), line:7:30, endln:7:33
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_ref_obj: (work@func_block_top.func3.inp.A), line:8:34, endln:8:35
           |vpiParent:
-          \_part_select: , line:8:30, endln:8:38
+          \_part_select: inp (work@func_block_top.func3.inp), line:8:30, endln:8:38
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.inp.A
           |vpiActual:
@@ -561,27 +559,25 @@ design: (work@func_block_top)
         |vpiRightRange:
         \_ref_obj: (work@func_block_top.func3.inp.B), line:8:36, endln:8:37
           |vpiParent:
-          \_part_select: , line:8:30, endln:8:38
+          \_part_select: inp (work@func_block_top.func3.inp), line:8:30, endln:8:38
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.inp.B
           |vpiActual:
           \_parameter: (B), line:6:27, endln:6:28
       |vpiLhs:
-      \_part_select: , line:8:17, endln:8:27
+      \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
         |vpiParent:
-        \_ref_obj: func3 (work@func_block_top.func3.func3)
-          |vpiParent:
-          \_assignment: , line:8:17, endln:8:38
-          |vpiName:func3
-          |vpiFullName:work@func_block_top.func3.func3
-          |vpiDefName:func3
-          |vpiActual:
-          \_logic_var: , line:4:28, endln:4:34
+        \_assignment: , line:8:17, endln:8:38
+        |vpiName:func3
+        |vpiFullName:work@func_block_top.func3.func3
+        |vpiDefName:func3
+        |vpiActual:
+        \_logic_var: , line:4:28, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_ref_obj: (work@func_block_top.func3.func3.A), line:8:23, endln:8:24
           |vpiParent:
-          \_part_select: , line:8:17, endln:8:27
+          \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.func3.A
           |vpiActual:
@@ -589,7 +585,7 @@ design: (work@func_block_top)
         |vpiRightRange:
         \_ref_obj: (work@func_block_top.func3.func3.B), line:8:25, endln:8:26
           |vpiParent:
-          \_part_select: , line:8:17, endln:8:27
+          \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.func3.B
           |vpiActual:
@@ -693,4 +689,4 @@ design: (work@func_block_top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ParamInFunc/dut.sv | ${SURELOG_DIR}/build/regression/ParamInFunc/roundtrip/dut_000.sv | 3 | 10 |
+[roundtrip]: ${SURELOG_DIR}/tests/ParamInFunc/dut.sv | ${SURELOG_DIR}/build/regression/ParamInFunc/roundtrip/dut_000.sv | 4 | 10 |

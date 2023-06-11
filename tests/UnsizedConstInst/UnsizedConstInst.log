@@ -180,7 +180,7 @@ parameter                                              3
 part_select                                            3
 range                                                  2
 ref_module                                             2
-ref_obj                                                9
+ref_obj                                                6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -201,7 +201,7 @@ parameter                                              3
 part_select                                            5
 range                                                  2
 ref_module                                             2
-ref_obj                                               15
+ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedConstInst/slpp_all/surelog.uhdm ...
 
@@ -261,18 +261,19 @@ design: (work@top)
       \_cont_assign: , line:5:10, endln:5:41
       |vpiOpType:14
       |vpiOperand:
-      \_part_select: , line:5:14, endln:5:35
+      \_part_select: product_exponent (work@bottom.product_exponent), line:5:14, endln:5:35
         |vpiParent:
-        \_ref_obj: product_exponent (work@bottom.product_exponent), line:5:14, endln:5:30
-          |vpiParent:
-          \_operation: , line:5:14, endln:5:41
-          |vpiName:product_exponent
-          |vpiFullName:work@bottom.product_exponent
-          |vpiDefName:product_exponent
+        \_operation: , line:5:14, endln:5:41
+        |vpiName:product_exponent
+        |vpiFullName:work@bottom.product_exponent
+        |vpiDefName:product_exponent
         |vpiConstantSelect:1
         |vpiLeftRange:
-        \_ref_obj: (P), line:5:31, endln:5:32
+        \_ref_obj: (work@bottom.product_exponent.P), line:5:31, endln:5:32
+          |vpiParent:
+          \_part_select: product_exponent (work@bottom.product_exponent), line:5:14, endln:5:35
           |vpiName:P
+          |vpiFullName:work@bottom.product_exponent.P
         |vpiRightRange:
         \_constant: , line:5:33, endln:5:34
           |vpiDecompile:0
@@ -411,21 +412,19 @@ design: (work@top)
         \_cont_assign: , line:5:10, endln:5:41
         |vpiOpType:14
         |vpiOperand:
-        \_part_select: , line:5:14, endln:5:35
+        \_part_select: product_exponent (work@top.u1.product_exponent), line:5:14, endln:5:35
           |vpiParent:
-          \_ref_obj: product_exponent (work@top.u1.product_exponent), line:5:14, endln:5:30
-            |vpiParent:
-            \_operation: , line:5:14, endln:5:41
-            |vpiName:product_exponent
-            |vpiFullName:work@top.u1.product_exponent
-            |vpiDefName:product_exponent
-            |vpiActual:
-            \_array_var: (work@top.u1.product_exponent), line:3:9, endln:3:31
+          \_operation: , line:5:14, endln:5:41
+          |vpiName:product_exponent
+          |vpiFullName:work@top.u1.product_exponent
+          |vpiDefName:product_exponent
+          |vpiActual:
+          \_array_var: (work@top.u1.product_exponent), line:3:9, endln:3:31
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_ref_obj: (work@top.u1.product_exponent.P), line:5:31, endln:5:32
             |vpiParent:
-            \_part_select: , line:5:14, endln:5:35
+            \_part_select: product_exponent (work@top.u1.product_exponent), line:5:14, endln:5:35
             |vpiName:P
             |vpiFullName:work@top.u1.product_exponent.P
             |vpiActual:
@@ -433,7 +432,7 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:5:33, endln:5:34
             |vpiParent:
-            \_part_select: , line:5:14, endln:5:35
+            \_part_select: product_exponent (product_exponent), line:5:14, endln:5:35
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -536,21 +535,19 @@ design: (work@top)
         \_cont_assign: , line:5:10, endln:5:41
         |vpiOpType:14
         |vpiOperand:
-        \_part_select: , line:5:14, endln:5:35
+        \_part_select: product_exponent (work@top.u2.product_exponent), line:5:14, endln:5:35
           |vpiParent:
-          \_ref_obj: product_exponent (work@top.u2.product_exponent), line:5:14, endln:5:30
-            |vpiParent:
-            \_operation: , line:5:14, endln:5:41
-            |vpiName:product_exponent
-            |vpiFullName:work@top.u2.product_exponent
-            |vpiDefName:product_exponent
-            |vpiActual:
-            \_array_var: (work@top.u2.product_exponent), line:3:9, endln:3:31
+          \_operation: , line:5:14, endln:5:41
+          |vpiName:product_exponent
+          |vpiFullName:work@top.u2.product_exponent
+          |vpiDefName:product_exponent
+          |vpiActual:
+          \_array_var: (work@top.u2.product_exponent), line:3:9, endln:3:31
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_ref_obj: (work@top.u2.product_exponent.P), line:5:31, endln:5:32
             |vpiParent:
-            \_part_select: , line:5:14, endln:5:35
+            \_part_select: product_exponent (work@top.u2.product_exponent), line:5:14, endln:5:35
             |vpiName:P
             |vpiFullName:work@top.u2.product_exponent.P
             |vpiActual:
@@ -558,7 +555,7 @@ design: (work@top)
           |vpiRightRange:
           \_constant: , line:5:33, endln:5:34
             |vpiParent:
-            \_part_select: , line:5:14, endln:5:35
+            \_part_select: product_exponent (product_exponent), line:5:14, endln:5:35
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -585,4 +582,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv | ${SURELOG_DIR}/build/regression/UnsizedConstInst/roundtrip/dut_000.sv | 3 | 12 |
+[roundtrip]: ${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv | ${SURELOG_DIR}/build/regression/UnsizedConstInst/roundtrip/dut_000.sv | 4 | 12 |

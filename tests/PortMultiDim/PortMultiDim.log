@@ -36,7 +36,7 @@ operation                                              3
 part_select                                            1
 port                                                   2
 range                                                  9
-ref_obj                                                4
+ref_obj                                                3
 var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -55,7 +55,7 @@ operation                                              3
 part_select                                            2
 port                                                   3
 range                                                  9
-ref_obj                                                7
+ref_obj                                                5
 var_select                                             2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortMultiDim/slpp_unit/surelog.uhdm ...
@@ -170,9 +170,12 @@ design: (work@ibex_multdiv_fast)
         |UINT:1
         |vpiConstType:9
       |vpiIndex:
-      \_part_select: , line:6:44, endln:6:48
+      \_part_select: imd_val_q_i (work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i), line:6:44, endln:6:48
         |vpiParent:
         \_var_select: (work@ibex_multdiv_fast.imd_val_q_i), line:6:29, endln:6:49
+        |vpiName:imd_val_q_i
+        |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i
+        |vpiDefName:imd_val_q_i
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:6:44, endln:6:46
@@ -352,18 +355,19 @@ design: (work@ibex_multdiv_fast)
       \_cont_assign: , line:6:10, endln:6:49
       |vpiName:imd_val_q_i
       |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
+      |vpiActual:
+      \_array_net: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
       |vpiIndex:
       \_constant: , line:6:41, endln:6:42
       |vpiIndex:
-      \_part_select: , line:6:44, endln:6:48
+      \_part_select: imd_val_q_i (work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i), line:6:44, endln:6:48
         |vpiParent:
-        \_ref_obj: (work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i)
-          |vpiParent:
-          \_var_select: (work@ibex_multdiv_fast.imd_val_q_i), line:6:29, endln:6:49
-          |vpiName:imd_val_q_i
-          |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i
-          |vpiActual:
-          \_array_net: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
+        \_var_select: (work@ibex_multdiv_fast.imd_val_q_i), line:6:29, endln:6:49
+        |vpiName:imd_val_q_i
+        |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i
+        |vpiDefName:imd_val_q_i
+        |vpiActual:
+        \_array_net: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:6:44, endln:6:46

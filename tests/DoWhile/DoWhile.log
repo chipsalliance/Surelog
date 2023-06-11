@@ -378,7 +378,7 @@ logic_var                                              1
 method_func_call                                       4
 operation                                              2
 package                                                5
-ref_obj                                               14
+ref_obj                                               12
 task                                                   9
 wait_stmt                                              2
 === UHDM Object Stats End ===
@@ -405,7 +405,7 @@ logic_var                                              1
 method_func_call                                       8
 operation                                              4
 package                                                5
-ref_obj                                               30
+ref_obj                                               26
 task                                                  18
 wait_stmt                                              4
 === UHDM Object Stats End ===
@@ -493,25 +493,23 @@ design: (unnamed)
               \_operation: , line:7:11, endln:7:49
               |vpiName:m_sync[i].m_state
               |vpiActual:
-              \_bit_select: (m_sync), line:7:11, endln:7:17
+              \_bit_select: (m_sync[i]), line:7:11, endln:7:17
                 |vpiParent:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i])
-                  |vpiParent:
-                  \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
-                  |vpiName:m_sync[i]
-                  |vpiFullName:toto::uvm_default_factory::print::m_sync[i]
+                \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                 |vpiName:m_sync
+                |vpiFullName:m_sync[i]
                 |vpiIndex:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i]::i), line:7:18, endln:7:19
+                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state::i), line:7:18, endln:7:19
                   |vpiParent:
-                  \_bit_select: (m_sync), line:7:11, endln:7:17
+                  \_bit_select: (m_sync[i]), line:7:11, endln:7:17
                   |vpiName:i
-                  |vpiFullName:toto::uvm_default_factory::print::m_sync[i]::i
+                  |vpiFullName:toto::uvm_default_factory::print::m_sync[i].m_state::i
               |vpiActual:
-              \_ref_obj: (m_state), line:7:21, endln:7:28
+              \_ref_obj: (toto::uvm_default_factory::print::m_state), line:7:21, endln:7:28
                 |vpiParent:
                 \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                 |vpiName:m_state
+                |vpiFullName:toto::uvm_default_factory::print::m_state
             |vpiOperand:
             \_ref_obj: (toto::uvm_default_factory::print::UVM_PHASE_SYNCING), line:7:32, endln:7:49
               |vpiParent:
@@ -639,25 +637,23 @@ design: (unnamed)
               \_operation: , line:7:11, endln:7:49
               |vpiName:m_sync[i].m_state
               |vpiActual:
-              \_bit_select: (m_sync), line:7:11, endln:7:17
+              \_bit_select: (m_sync[i]), line:7:11, endln:7:17
                 |vpiParent:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i])
-                  |vpiParent:
-                  \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
-                  |vpiName:m_sync[i]
-                  |vpiFullName:toto::uvm_default_factory::print::m_sync[i]
+                \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                 |vpiName:m_sync
+                |vpiFullName:m_sync[i]
                 |vpiIndex:
-                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i]::i), line:7:18, endln:7:19
+                \_ref_obj: (toto::uvm_default_factory::print::m_sync[i].m_state::i), line:7:18, endln:7:19
                   |vpiParent:
-                  \_bit_select: (m_sync), line:7:11, endln:7:17
+                  \_bit_select: (m_sync[i]), line:7:11, endln:7:17
                   |vpiName:i
-                  |vpiFullName:toto::uvm_default_factory::print::m_sync[i]::i
+                  |vpiFullName:toto::uvm_default_factory::print::m_sync[i].m_state::i
               |vpiActual:
-              \_ref_obj: (m_state), line:7:21, endln:7:28
+              \_ref_obj: (toto::uvm_default_factory::print::m_state), line:7:21, endln:7:28
                 |vpiParent:
                 \_hier_path: (m_sync[i].m_state), line:7:11, endln:7:28
                 |vpiName:m_state
+                |vpiFullName:toto::uvm_default_factory::print::m_state
             |vpiOperand:
             \_ref_obj: (toto::uvm_default_factory::print::UVM_PHASE_SYNCING), line:7:32, endln:7:49
               |vpiParent:

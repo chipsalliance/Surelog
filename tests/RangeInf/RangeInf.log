@@ -500,7 +500,7 @@ package                                                2
 part_select                                            1
 port                                                  10
 range                                                 12
-ref_obj                                               22
+ref_obj                                               20
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -529,7 +529,7 @@ package                                                2
 part_select                                            2
 port                                                  15
 range                                                 12
-ref_obj                                               35
+ref_obj                                               31
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/RangeInf/slpp_all/surelog.uhdm ...
@@ -1193,14 +1193,12 @@ design: (work@FullAdder)
     |vpiParent:
     \_module_inst: work@FullAdder (work@FullAdder), file:${SURELOG_DIR}/tests/RangeInf/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
-    \_part_select: , line:8:15, endln:8:24
+    \_part_select: temp (work@FullAdder.temp), line:8:15, endln:8:24
       |vpiParent:
-      \_ref_obj: temp (work@FullAdder.temp), line:8:15, endln:8:19
-        |vpiParent:
-        \_cont_assign: , line:8:11, endln:8:24
-        |vpiName:temp
-        |vpiFullName:work@FullAdder.temp
-        |vpiDefName:temp
+      \_cont_assign: , line:8:11, endln:8:24
+      |vpiName:temp
+      |vpiFullName:work@FullAdder.temp
+      |vpiDefName:temp
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_constant: , line:8:20, endln:8:21
@@ -1229,11 +1227,7 @@ design: (work@FullAdder)
     |vpiRhs:
     \_bit_select: (work@FullAdder.temp), line:9:16, endln:9:23
       |vpiParent:
-      \_ref_obj: (work@FullAdder.temp)
-        |vpiParent:
-        \_cont_assign: , line:9:11, endln:9:23
-        |vpiName:temp
-        |vpiFullName:work@FullAdder.temp
+      \_cont_assign: , line:9:11, endln:9:23
       |vpiName:temp
       |vpiFullName:work@FullAdder.temp
       |vpiIndex:
@@ -1544,16 +1538,14 @@ design: (work@FullAdder)
     |vpiParent:
     \_module_inst: work@FullAdder (work@FullAdder), file:${SURELOG_DIR}/tests/RangeInf/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
-    \_part_select: , line:8:15, endln:8:24
+    \_part_select: temp (work@FullAdder.temp), line:8:15, endln:8:24
       |vpiParent:
-      \_ref_obj: temp (work@FullAdder.temp), line:8:15, endln:8:19
-        |vpiParent:
-        \_cont_assign: , line:8:11, endln:8:24
-        |vpiName:temp
-        |vpiFullName:work@FullAdder.temp
-        |vpiDefName:temp
-        |vpiActual:
-        \_logic_net: (work@FullAdder.temp), line:6:14, endln:6:18
+      \_cont_assign: , line:8:11, endln:8:24
+      |vpiName:temp
+      |vpiFullName:work@FullAdder.temp
+      |vpiDefName:temp
+      |vpiActual:
+      \_logic_net: (work@FullAdder.temp), line:6:14, endln:6:18
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_constant: , line:8:20, endln:8:21
@@ -1574,19 +1566,13 @@ design: (work@FullAdder)
     |vpiRhs:
     \_bit_select: (work@FullAdder.temp), line:9:16, endln:9:23
       |vpiParent:
-      \_ref_obj: (work@FullAdder.temp)
-        |vpiParent:
-        \_cont_assign: , line:9:11, endln:9:23
-        |vpiName:temp
-        |vpiFullName:work@FullAdder.temp
-        |vpiActual:
-        \_logic_net: (work@FullAdder.temp), line:6:14, endln:6:18
+      \_cont_assign: , line:9:11, endln:9:23
       |vpiName:temp
       |vpiFullName:work@FullAdder.temp
-      |vpiIndex:
-      \_constant: , line:9:21, endln:9:22
       |vpiActual:
       \_logic_net: (work@FullAdder.temp), line:6:14, endln:6:18
+      |vpiIndex:
+      \_constant: , line:9:21, endln:9:22
     |vpiLhs:
     \_ref_obj: (work@FullAdder.Cout), line:9:11, endln:9:15
       |vpiParent:
@@ -1603,4 +1589,4 @@ design: (work@FullAdder)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/RangeInf/dut.sv | ${SURELOG_DIR}/build/regression/RangeInf/roundtrip/dut_000.sv | 5 | 10 |
+[roundtrip]: ${SURELOG_DIR}/tests/RangeInf/dut.sv | ${SURELOG_DIR}/build/regression/RangeInf/roundtrip/dut_000.sv | 6 | 10 |

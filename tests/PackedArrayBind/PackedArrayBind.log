@@ -171,7 +171,7 @@ logic_typespec                                         2
 module_inst                                            3
 packed_array_typespec                                  2
 range                                                  4
-ref_obj                                                5
+ref_obj                                                4
 struct_typespec                                        3
 struct_var                                             1
 typespec_member                                        3
@@ -189,7 +189,7 @@ logic_typespec                                         2
 module_inst                                            3
 packed_array_typespec                                  2
 range                                                  4
-ref_obj                                               10
+ref_obj                                                8
 struct_typespec                                        3
 struct_var                                             1
 typespec_member                                        3
@@ -367,14 +367,11 @@ design: (work@PreDecodeStage)
         \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
         |vpiName:replayEntryOut
       |vpiActual:
-      \_bit_select: (memData), line:24:33, endln:24:40
+      \_bit_select: (replayEntryOut.memData[0]), line:24:33, endln:24:40
         |vpiParent:
-        \_ref_obj: (work@PreDecodeStage.memData[0])
-          |vpiParent:
-          \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
-          |vpiName:memData[0]
-          |vpiFullName:work@PreDecodeStage.memData[0]
+        \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
         |vpiName:memData
+        |vpiFullName:replayEntryOut.memData[0]
         |vpiIndex:
         \_constant: , line:24:41, endln:24:42
           |vpiDecompile:0
@@ -387,10 +384,11 @@ design: (work@PreDecodeStage)
         \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
         |vpiName:memOpInfo
       |vpiActual:
-      \_ref_obj: (mshrID), line:24:54, endln:24:60
+      \_ref_obj: (work@PreDecodeStage.mshrID), line:24:54, endln:24:60
         |vpiParent:
         \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
         |vpiName:mshrID
+        |vpiFullName:work@PreDecodeStage.mshrID
     |vpiLhs:
     \_ref_obj: (work@PreDecodeStage.mshrID), line:24:9, endln:24:15
       |vpiParent:
@@ -443,20 +441,15 @@ design: (work@PreDecodeStage)
         |vpiActual:
         \_struct_var: (work@PreDecodeStage.replayEntryOut), line:22:18, endln:22:32
       |vpiActual:
-      \_bit_select: (memData), line:24:33, endln:24:40
+      \_bit_select: (replayEntryOut.memData[0]), line:24:33, endln:24:40
         |vpiParent:
-        \_ref_obj: (work@PreDecodeStage.memData[0])
-          |vpiParent:
-          \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
-          |vpiName:memData[0]
-          |vpiFullName:work@PreDecodeStage.memData[0]
-          |vpiActual:
-          \_typespec_member: (memData), line:17:36, endln:17:43
+        \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
         |vpiName:memData
-        |vpiIndex:
-        \_constant: , line:24:41, endln:24:42
+        |vpiFullName:replayEntryOut.memData[0]
         |vpiActual:
         \_typespec_member: (memData), line:17:36, endln:17:43
+        |vpiIndex:
+        \_constant: , line:24:41, endln:24:42
       |vpiActual:
       \_ref_obj: (memOpInfo), line:24:44, endln:24:53
         |vpiParent:
@@ -465,10 +458,11 @@ design: (work@PreDecodeStage)
         |vpiActual:
         \_typespec_member: (memOpInfo), line:12:15, endln:12:24
       |vpiActual:
-      \_ref_obj: (mshrID), line:24:54, endln:24:60
+      \_ref_obj: (work@PreDecodeStage.mshrID), line:24:54, endln:24:60
         |vpiParent:
         \_hier_path: (replayEntryOut.memData[0].memOpInfo.mshrID), line:24:18, endln:24:60
         |vpiName:mshrID
+        |vpiFullName:work@PreDecodeStage.mshrID
         |vpiActual:
         \_typespec_member: (mshrID), line:7:20, endln:7:26
     |vpiLhs:

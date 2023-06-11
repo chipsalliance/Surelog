@@ -288,7 +288,7 @@ part_select                                            4
 port                                                   3
 range                                                  8
 ref_module                                             2
-ref_obj                                               16
+ref_obj                                               12
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -316,7 +316,7 @@ part_select                                            4
 port                                                   4
 range                                                  8
 ref_module                                             2
-ref_obj                                               23
+ref_obj                                               19
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceModExp/slpp_all/surelog.uhdm ...
@@ -366,11 +366,9 @@ design: (work@top)
       |vpiDirection:2
       |vpiName:P
       |vpiExpr:
-      \_part_select: , line:5:22, endln:5:28
-        |vpiParent:
-        \_ref_obj: r (r), line:5:22, endln:5:23
-          |vpiName:r
-          |vpiDefName:r
+      \_part_select: r (r), line:5:22, endln:5:28
+        |vpiName:r
+        |vpiDefName:r
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:5:24, endln:5:25
@@ -407,11 +405,9 @@ design: (work@top)
       |vpiDirection:2
       |vpiName:P
       |vpiExpr:
-      \_part_select: , line:6:22, endln:6:28
-        |vpiParent:
-        \_ref_obj: r (r), line:6:22, endln:6:23
-          |vpiName:r
-          |vpiDefName:r
+      \_part_select: r (r), line:6:22, endln:6:28
+        |vpiName:r
+        |vpiDefName:r
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:6:24, endln:6:25
@@ -476,8 +472,6 @@ design: (work@top)
       |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:11:17, endln:11:24
-        |vpiParent:
-        \_assignment: , line:11:11, endln:11:24
         |vpiDecompile:4'b1010
         |vpiSize:4
         |BIN:1010
@@ -485,7 +479,7 @@ design: (work@top)
       |vpiLhs:
       \_hier_path: (I.P), line:11:11, endln:11:14
         |vpiParent:
-        \_initial: , line:11:3, endln:11:25
+        \_assignment: , line:11:11, endln:11:24
         |vpiName:I.P
         |vpiActual:
         \_ref_obj: (I)
@@ -535,10 +529,11 @@ design: (work@top)
             \_hier_path: (inst.r), line:18:32, endln:18:38
             |vpiName:inst
           |vpiActual:
-          \_ref_obj: (r), line:18:37, endln:18:38
+          \_ref_obj: (work@top.r), line:18:37, endln:18:38
             |vpiParent:
             \_hier_path: (inst.r), line:18:32, endln:18:38
             |vpiName:r
+            |vpiFullName:work@top.r
         |vpiName:$display
   |vpiRefModule:
   \_ref_module: work@I (inst), line:15:5, endln:15:9
@@ -671,11 +666,11 @@ design: (work@top)
         |vpiDirection:2
         |vpiName:P
         |vpiExpr:
-        \_part_select: , line:5:22, endln:5:28
-          |vpiParent:
-          \_ref_obj: r (r), line:5:22, endln:5:23
-            |vpiName:r
-            |vpiDefName:r
+        \_part_select: r (r), line:5:22, endln:5:28
+          |vpiName:r
+          |vpiDefName:r
+          |vpiActual:
+          \_logic_var: (work@top.inst.r), line:2:13, endln:2:14
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_constant: , line:5:24, endln:5:25
@@ -717,11 +712,11 @@ design: (work@top)
         |vpiDirection:2
         |vpiName:P
         |vpiExpr:
-        \_part_select: , line:6:22, endln:6:28
-          |vpiParent:
-          \_ref_obj: r (r), line:6:22, endln:6:23
-            |vpiName:r
-            |vpiDefName:r
+        \_part_select: r (r), line:6:22, endln:6:28
+          |vpiName:r
+          |vpiDefName:r
+          |vpiActual:
+          \_logic_var: (work@top.inst.r), line:2:13, endln:2:14
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_constant: , line:6:24, endln:6:25
@@ -783,10 +778,11 @@ design: (work@top)
             |vpiActual:
             \_interface_inst: work@I (work@top.inst), file:${SURELOG_DIR}/tests/InterfaceModExp/dut.sv, line:15:3, endln:15:12
           |vpiActual:
-          \_ref_obj: (r), line:18:37, endln:18:38
+          \_ref_obj: (work@top.r), line:18:37, endln:18:38
             |vpiParent:
             \_hier_path: (inst.r), line:18:32, endln:18:38
             |vpiName:r
+            |vpiFullName:work@top.r
             |vpiActual:
             \_logic_var: (work@top.inst.r), line:2:13, endln:2:14
         |vpiName:$display
@@ -820,10 +816,11 @@ design: (work@top)
           |vpiActual:
           \_interface_inst: work@I (work@top.inst), file:${SURELOG_DIR}/tests/InterfaceModExp/dut.sv, line:15:3, endln:15:12
         |vpiActual:
-        \_ref_obj: (A), line:16:15, endln:16:16
+        \_ref_obj: (work@top.s.I.A), line:16:15, endln:16:16
           |vpiParent:
           \_hier_path: (inst.A), line:16:10, endln:16:16
           |vpiName:A
+          |vpiFullName:work@top.s.I.A
           |vpiActual:
           \_modport: (A), line:5:9, endln:5:10
       |vpiLowConn:

@@ -809,7 +809,7 @@ param_assign                                          10
 parameter                                             10
 part_select                                            1
 range                                                 30
-ref_obj                                               27
+ref_obj                                               20
 return_stmt                                            2
 task                                                   9
 var_select                                             1
@@ -855,7 +855,7 @@ param_assign                                          10
 parameter                                             10
 part_select                                            2
 range                                                 30
-ref_obj                                               55
+ref_obj                                               40
 return_stmt                                            4
 task                                                  18
 var_select                                             2
@@ -1383,32 +1383,26 @@ design: (work@top)
             |vpiRhs:
             \_bit_select: (prim_cipher_pkg::sbox4_64bit::sbox4), line:12:29, endln:12:54
               |vpiParent:
-              \_ref_obj: (prim_cipher_pkg::sbox4_64bit::sbox4)
-                |vpiParent:
-                \_assignment: , line:12:7, endln:12:54
-                |vpiName:sbox4
-                |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4
-                |vpiActual:
-                \_io_decl: (sbox4), line:8:88, endln:8:93
+              \_assignment: , line:12:7, endln:12:54
               |vpiName:sbox4
               |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4
+              |vpiActual:
+              \_io_decl: (sbox4), line:8:88, endln:8:93
               |vpiIndex:
-              \_indexed_part_select: , line:12:44, endln:12:52
+              \_indexed_part_select: state_in (prim_cipher_pkg::sbox4_64bit::sbox4::state_in), line:12:44, endln:12:52
                 |vpiParent:
-                \_ref_obj: state_in (prim_cipher_pkg::sbox4_64bit::sbox4::state_in)
-                  |vpiParent:
-                  \_bit_select: (prim_cipher_pkg::sbox4_64bit::sbox4), line:12:29, endln:12:54
-                  |vpiName:state_in
-                  |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4::state_in
-                  |vpiDefName:state_in
-                  |vpiActual:
-                  \_io_decl: (state_in), line:8:60, endln:8:68
+                \_bit_select: (prim_cipher_pkg::sbox4_64bit::sbox4), line:12:29, endln:12:54
+                |vpiName:state_in
+                |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4::state_in
+                |vpiDefName:state_in
+                |vpiActual:
+                \_io_decl: (state_in), line:8:60, endln:8:68
                 |vpiConstantSelect:1
                 |vpiIndexedPartSelectType:1
                 |vpiBaseExpr:
                 \_operation: , line:12:44, endln:12:47
                   |vpiParent:
-                  \_indexed_part_select: , line:12:44, endln:12:52
+                  \_indexed_part_select: state_in (prim_cipher_pkg::sbox4_64bit::sbox4::state_in), line:12:44, endln:12:52
                   |vpiOpType:25
                   |vpiOperand:
                   \_ref_obj: (prim_cipher_pkg::sbox4_64bit::sbox4::state_in::k), line:12:44, endln:12:45
@@ -1432,25 +1426,21 @@ design: (work@top)
                   |vpiSize:64
                   |UINT:4
                   |vpiConstType:9
-              |vpiActual:
-              \_io_decl: (sbox4), line:8:88, endln:8:93
             |vpiLhs:
-            \_indexed_part_select: , line:12:7, endln:12:26
+            \_indexed_part_select: state_out (prim_cipher_pkg::sbox4_64bit::state_out), line:12:7, endln:12:26
               |vpiParent:
-              \_ref_obj: state_out (prim_cipher_pkg::sbox4_64bit::state_out)
-                |vpiParent:
-                \_assignment: , line:12:7, endln:12:54
-                |vpiName:state_out
-                |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
-                |vpiDefName:state_out
-                |vpiActual:
-                \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27
+              \_assignment: , line:12:7, endln:12:54
+              |vpiName:state_out
+              |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
+              |vpiDefName:state_out
+              |vpiActual:
+              \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27
               |vpiConstantSelect:1
               |vpiIndexedPartSelectType:1
               |vpiBaseExpr:
               \_operation: , line:12:17, endln:12:20
                 |vpiParent:
-                \_indexed_part_select: , line:12:7, endln:12:26
+                \_indexed_part_select: state_out (prim_cipher_pkg::sbox4_64bit::state_out), line:12:7, endln:12:26
                 |vpiOpType:25
                 |vpiOperand:
                 \_ref_obj: (prim_cipher_pkg::sbox4_64bit::state_out::k), line:12:17, endln:12:18
@@ -2031,32 +2021,26 @@ design: (work@top)
             |vpiRhs:
             \_bit_select: (prim_cipher_pkg::sbox4_64bit::sbox4), line:12:29, endln:12:54
               |vpiParent:
-              \_ref_obj: (prim_cipher_pkg::sbox4_64bit::sbox4)
-                |vpiParent:
-                \_assignment: , line:12:7, endln:12:54
-                |vpiName:sbox4
-                |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4
-                |vpiActual:
-                \_io_decl: (sbox4), line:8:88, endln:8:93
+              \_assignment: , line:12:7, endln:12:54
               |vpiName:sbox4
               |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4
+              |vpiActual:
+              \_io_decl: (sbox4), line:8:88, endln:8:93
               |vpiIndex:
-              \_indexed_part_select: , line:12:44, endln:12:52
+              \_indexed_part_select: state_in (prim_cipher_pkg::sbox4_64bit::sbox4::state_in), line:12:44, endln:12:52
                 |vpiParent:
-                \_ref_obj: state_in (prim_cipher_pkg::sbox4_64bit::sbox4::state_in)
-                  |vpiParent:
-                  \_bit_select: (prim_cipher_pkg::sbox4_64bit::sbox4), line:12:29, endln:12:54
-                  |vpiName:state_in
-                  |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4::state_in
-                  |vpiDefName:state_in
-                  |vpiActual:
-                  \_io_decl: (state_in), line:8:60, endln:8:68
+                \_bit_select: (prim_cipher_pkg::sbox4_64bit::sbox4), line:12:29, endln:12:54
+                |vpiName:state_in
+                |vpiFullName:prim_cipher_pkg::sbox4_64bit::sbox4::state_in
+                |vpiDefName:state_in
+                |vpiActual:
+                \_io_decl: (state_in), line:8:60, endln:8:68
                 |vpiConstantSelect:1
                 |vpiIndexedPartSelectType:1
                 |vpiBaseExpr:
                 \_operation: , line:12:44, endln:12:47
                   |vpiParent:
-                  \_indexed_part_select: , line:12:44, endln:12:52
+                  \_indexed_part_select: state_in (prim_cipher_pkg::sbox4_64bit::sbox4::state_in), line:12:44, endln:12:52
                   |vpiOpType:25
                   |vpiOperand:
                   \_ref_obj: (prim_cipher_pkg::sbox4_64bit::sbox4::state_in::k), line:12:44, endln:12:45
@@ -2080,25 +2064,21 @@ design: (work@top)
                   |vpiSize:64
                   |UINT:4
                   |vpiConstType:9
-              |vpiActual:
-              \_io_decl: (sbox4), line:8:88, endln:8:93
             |vpiLhs:
-            \_indexed_part_select: , line:12:7, endln:12:26
+            \_indexed_part_select: state_out (prim_cipher_pkg::sbox4_64bit::state_out), line:12:7, endln:12:26
               |vpiParent:
-              \_ref_obj: state_out (prim_cipher_pkg::sbox4_64bit::state_out)
-                |vpiParent:
-                \_assignment: , line:12:7, endln:12:54
-                |vpiName:state_out
-                |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
-                |vpiDefName:state_out
-                |vpiActual:
-                \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27
+              \_assignment: , line:12:7, endln:12:54
+              |vpiName:state_out
+              |vpiFullName:prim_cipher_pkg::sbox4_64bit::state_out
+              |vpiDefName:state_out
+              |vpiActual:
+              \_logic_var: (prim_cipher_pkg::sbox4_64bit::state_out), line:9:18, endln:9:27
               |vpiConstantSelect:1
               |vpiIndexedPartSelectType:1
               |vpiBaseExpr:
               \_operation: , line:12:17, endln:12:20
                 |vpiParent:
-                \_indexed_part_select: , line:12:7, endln:12:26
+                \_indexed_part_select: state_out (prim_cipher_pkg::sbox4_64bit::state_out), line:12:7, endln:12:26
                 |vpiOpType:25
                 |vpiOperand:
                 \_ref_obj: (prim_cipher_pkg::sbox4_64bit::state_out::k), line:12:17, endln:12:18
@@ -2555,27 +2535,23 @@ design: (work@top)
         |vpiRhs:
         \_operation: , line:32:22, endln:35:37
           |vpiParent:
-          \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+          \_assignment: , line:32:12, endln:35:37
           |vpiOpType:30
           |vpiOperand:
           \_bit_select: (work@top.p_post_round_xor.data_state), line:32:22, endln:32:51
             |vpiParent:
-            \_ref_obj: (work@top.p_post_round_xor.data_state)
-              |vpiParent:
-              \_operation: , line:32:22, endln:35:37
-              |vpiName:data_state
-              |vpiFullName:work@top.p_post_round_xor.data_state
+            \_operation: , line:32:22, endln:35:37
             |vpiName:data_state
             |vpiFullName:work@top.p_post_round_xor.data_state
             |vpiIndex:
             \_operation: , line:32:33, endln:32:50
               |vpiParent:
-              \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+              \_bit_select: (work@top.p_post_round_xor.data_state), line:32:22, endln:32:51
               |vpiOpType:24
               |vpiOperand:
               \_operation: , line:32:33, endln:32:48
                 |vpiParent:
-                \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+                \_operation: , line:32:33, endln:32:50
                 |vpiOpType:25
                 |vpiOperand:
                 \_constant: , line:32:33, endln:32:34
@@ -2586,11 +2562,11 @@ design: (work@top)
                   |UINT:2
                   |vpiConstType:9
                 |vpiOperand:
-                \_ref_obj: (work@top.p_post_round_xor.NumRoundsHalf), line:32:35, endln:32:48
+                \_ref_obj: (work@top.p_post_round_xor.data_state.NumRoundsHalf), line:32:35, endln:32:48
                   |vpiParent:
                   \_operation: , line:32:33, endln:32:48
                   |vpiName:NumRoundsHalf
-                  |vpiFullName:work@top.p_post_round_xor.NumRoundsHalf
+                  |vpiFullName:work@top.p_post_round_xor.data_state.NumRoundsHalf
                   |vpiActual:
                   \_logic_net: (NumRoundsHalf)
               |vpiOperand:
@@ -2602,32 +2578,33 @@ design: (work@top)
                 |UINT:1
                 |vpiConstType:9
           |vpiOperand:
-          \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), line:33:22, endln:35:37
+          \_var_select: (work@top.p_post_round_xor), line:33:22, endln:35:37
             |vpiParent:
-            \_parameter: (prim_cipher_pkg::PRINCE_ROUND_CONST), line:18:32, endln:18:50
-            |vpiFullName:prim_cipher_pkg::PRINCE_ROUND_CONST
+            \_operation: , line:32:22, endln:35:37
+            |vpiFullName:work@top.p_post_round_xor
             |vpiIndex:
             \_constant: , line:34:23, endln:34:25
               |vpiParent:
-              \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), line:33:22, endln:35:37
+              \_var_select: (work@top.p_post_round_xor), line:33:22, endln:35:37
               |vpiDecompile:11
               |vpiSize:64
               |UINT:11
               |vpiConstType:9
             |vpiIndex:
-            \_part_select: , line:35:23, endln:35:36
+            \_part_select: (work@top.p_post_round_xor), line:35:23, endln:35:36
               |vpiParent:
-              \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST), line:33:22, endln:35:37
+              \_var_select: (work@top.p_post_round_xor), line:33:22, endln:35:37
+              |vpiFullName:work@top.p_post_round_xor
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_operation: , line:35:23, endln:35:34
                 |vpiParent:
-                \_operation: , line:32:22, endln:35:37
+                \_part_select: (work@top.p_post_round_xor), line:35:23, endln:35:36
                 |vpiOpType:11
                 |vpiOperand:
                 \_ref_obj: (work@top.p_post_round_xor.DataWidth), line:35:23, endln:35:32
                   |vpiParent:
-                  \_operation: , line:32:22, endln:35:37
+                  \_operation: , line:35:23, endln:35:34
                   |vpiName:DataWidth
                   |vpiFullName:work@top.p_post_round_xor.DataWidth
                   |vpiActual:
@@ -2649,7 +2626,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:32:12, endln:32:18
           |vpiParent:
-          \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+          \_assignment: , line:32:12, endln:35:37
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
           |vpiActual:
@@ -2663,7 +2640,7 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@top.p_post_round_xor.k1), line:36:21, endln:36:23
           |vpiParent:
-          \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+          \_assignment: , line:36:11, endln:36:23
           |vpiName:k1
           |vpiFullName:work@top.p_post_round_xor.k1
           |vpiActual:
@@ -2671,7 +2648,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:36:11, endln:36:17
           |vpiParent:
-          \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+          \_assignment: , line:36:11, endln:36:23
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
           |vpiActual:
@@ -2685,7 +2662,7 @@ design: (work@top)
         |vpiRhs:
         \_ref_obj: (work@top.p_post_round_xor.k0_prime), line:37:22, endln:37:30
           |vpiParent:
-          \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+          \_assignment: , line:37:12, endln:37:30
           |vpiName:k0_prime
           |vpiFullName:work@top.p_post_round_xor.k0_prime
           |vpiActual:
@@ -2693,7 +2670,7 @@ design: (work@top)
         |vpiLhs:
         \_ref_obj: (work@top.p_post_round_xor.data_o), line:37:12, endln:37:18
           |vpiParent:
-          \_named_begin: (work@top.p_post_round_xor), line:31:14, endln:38:13
+          \_assignment: , line:37:12, endln:37:30
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
           |vpiActual:
@@ -2793,11 +2770,7 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top.p_post_round_xor.data_state), line:32:22, endln:32:51
             |vpiParent:
-            \_ref_obj: (work@top.p_post_round_xor.data_state)
-              |vpiParent:
-              \_operation: , line:32:22, endln:35:37
-              |vpiName:data_state
-              |vpiFullName:work@top.p_post_round_xor.data_state
+            \_operation: , line:32:22, endln:35:37
             |vpiName:data_state
             |vpiFullName:work@top.p_post_round_xor.data_state
             |vpiIndex:
@@ -2830,17 +2803,15 @@ design: (work@top)
             |vpiIndex:
             \_constant: , line:34:23, endln:34:25
             |vpiIndex:
-            \_part_select: , line:35:23, endln:35:36
+            \_part_select: (work@top.p_post_round_xor), line:35:23, endln:35:36
               |vpiParent:
-              \_ref_obj: (work@top.p_post_round_xor)
-                |vpiParent:
-                \_var_select: (work@top.p_post_round_xor), line:33:22, endln:35:37
-                |vpiFullName:work@top.p_post_round_xor
+              \_var_select: (work@top.p_post_round_xor), line:33:22, endln:35:37
+              |vpiFullName:work@top.p_post_round_xor
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_operation: , line:35:23, endln:35:34
                 |vpiParent:
-                \_part_select: , line:35:23, endln:35:36
+                \_part_select: (work@top.p_post_round_xor), line:35:23, endln:35:36
                 |vpiOpType:11
                 |vpiOperand:
                 \_ref_obj: (work@top.p_post_round_xor.DataWidth), line:35:23, endln:35:32

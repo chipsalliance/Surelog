@@ -415,7 +415,7 @@ package                                                2
 packed_array_typespec                                  1
 packed_array_var                                       1
 range                                                  7
-ref_obj                                                2
+ref_obj                                                1
 struct_typespec                                        1
 struct_var                                             1
 task                                                   9
@@ -446,7 +446,7 @@ package                                                2
 packed_array_typespec                                  1
 packed_array_var                                       1
 range                                                  7
-ref_obj                                                2
+ref_obj                                                1
 struct_typespec                                        1
 struct_var                                             1
 task                                                  18
@@ -1048,13 +1048,13 @@ design: (work@adc_ctrl_core)
     \_hier_path: (a[0][0].min_v), line:7:20, endln:7:33
       |vpiName:a[0][0].min_v
       |vpiActual:
-      \_bit_select: (a), line:7:20, endln:7:21
+      \_bit_select: (a[0]), line:7:20, endln:7:21
         |vpiParent:
-        \_ref_obj: (a[0])
-          |vpiParent:
-          \_hier_path: (a[0][0].min_v), line:7:20, endln:7:33
-          |vpiName:a[0]
+        \_hier_path: (a[0][0].min_v), line:7:20, endln:7:33
         |vpiName:a
+        |vpiFullName:a[0]
+        |vpiActual:
+        \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
         |vpiIndex:
         \_constant: , line:7:22, endln:7:23
           |vpiDecompile:0
@@ -1062,8 +1062,10 @@ design: (work@adc_ctrl_core)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: ([0]), line:7:22, endln:7:23
-        |vpiName:[0]
+      \_bit_select: (a[0][0]), line:7:22, endln:7:23
+        |vpiParent:
+        \_hier_path: (a[0][0].min_v), line:7:20, endln:7:33
+        |vpiFullName:a[0][0]
         |vpiIndex:
         \_constant: , line:7:25, endln:7:26
           |vpiDecompile:0

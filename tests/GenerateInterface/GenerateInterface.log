@@ -821,7 +821,7 @@ parameter                                             13
 port                                                   5
 range                                                 13
 ref_module                                             2
-ref_obj                                               43
+ref_obj                                               28
 ref_var                                                2
 task                                                   9
 unsupported_typespec                                   2
@@ -1700,15 +1700,12 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (clk_i), line:7:33, endln:7:41
                 |vpiParent:
-                \_ref_obj: (clk_i)
-                  |vpiParent:
-                  \_operation: , line:7:25, endln:7:41
-                  |vpiName:clk_i
+                \_operation: , line:7:25, endln:7:41
                 |vpiName:clk_i
                 |vpiIndex:
                 \_ref_obj: (i), line:7:39, endln:7:40
                   |vpiParent:
-                  \_operation: , line:7:25, endln:7:41
+                  \_bit_select: (clk_i), line:7:33, endln:7:41
                   |vpiName:i
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.intf.block[1]), line:6:34, endln:10:15
@@ -1744,15 +1741,12 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (clk_i), line:7:33, endln:7:41
                 |vpiParent:
-                \_ref_obj: (clk_i)
-                  |vpiParent:
-                  \_operation: , line:7:25, endln:7:41
-                  |vpiName:clk_i
+                \_operation: , line:7:25, endln:7:41
                 |vpiName:clk_i
                 |vpiIndex:
                 \_ref_obj: (i), line:7:39, endln:7:40
                   |vpiParent:
-                  \_operation: , line:7:25, endln:7:41
+                  \_bit_select: (clk_i), line:7:33, endln:7:41
                   |vpiName:i
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.intf.block[2]), line:6:34, endln:10:15
@@ -1788,15 +1782,12 @@ design: (work@top)
               |vpiOperand:
               \_bit_select: (clk_i), line:7:33, endln:7:41
                 |vpiParent:
-                \_ref_obj: (clk_i)
-                  |vpiParent:
-                  \_operation: , line:7:25, endln:7:41
-                  |vpiName:clk_i
+                \_operation: , line:7:25, endln:7:41
                 |vpiName:clk_i
                 |vpiIndex:
                 \_ref_obj: (i), line:7:39, endln:7:40
                   |vpiParent:
-                  \_operation: , line:7:25, endln:7:41
+                  \_bit_select: (clk_i), line:7:33, endln:7:41
                   |vpiName:i
 |uhdmtopModules:
 \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:34:1, endln:43:10
@@ -2078,33 +2069,25 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:24, endln:29:34
               |vpiParent:
-              \_ref_obj: (work@top2.intf.each_pin_intf[0].pins_oe)
-                |vpiParent:
-                \_operation: , line:29:24, endln:29:53
-                |vpiName:pins_oe
-                |vpiFullName:work@top2.intf.each_pin_intf[0].pins_oe
+              \_operation: , line:29:24, endln:29:53
               |vpiName:pins_oe
               |vpiFullName:work@top2.intf.each_pin_intf[0].pins_oe
               |vpiIndex:
-              \_ref_obj: (work@top2.intf.each_pin_intf[0].pins_oe.i), line:29:32, endln:29:33
+              \_ref_obj: (work@top2.intf.each_pin_intf[0].i), line:29:32, endln:29:33
                 |vpiParent:
                 \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:24, endln:29:34
                 |vpiName:i
-                |vpiFullName:work@top2.intf.each_pin_intf[0].pins_oe.i
+                |vpiFullName:work@top2.intf.each_pin_intf[0].i
             |vpiOperand:
             \_bit_select: (work@top2.intf.each_pin_intf[0].pins_o), line:29:37, endln:29:46
               |vpiParent:
-              \_ref_obj: (work@top2.intf.each_pin_intf[0].pins_o)
-                |vpiParent:
-                \_operation: , line:29:24, endln:29:53
-                |vpiName:pins_o
-                |vpiFullName:work@top2.intf.each_pin_intf[0].pins_o
+              \_operation: , line:29:24, endln:29:53
               |vpiName:pins_o
               |vpiFullName:work@top2.intf.each_pin_intf[0].pins_o
               |vpiIndex:
               \_ref_obj: (work@top2.intf.each_pin_intf[0].i), line:29:44, endln:29:45
                 |vpiParent:
-                \_operation: , line:29:24, endln:29:53
+                \_bit_select: (work@top2.intf.each_pin_intf[0].pins_o), line:29:37, endln:29:46
                 |vpiName:i
                 |vpiFullName:work@top2.intf.each_pin_intf[0].i
             |vpiOperand:
@@ -2118,19 +2101,15 @@ design: (work@top)
           |vpiLhs:
           \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21
             |vpiParent:
-            \_ref_obj: (work@top2.intf.each_pin_intf[0].pins)
-              |vpiParent:
-              \_cont_assign: , line:29:14, endln:29:53
-              |vpiName:pins
-              |vpiFullName:work@top2.intf.each_pin_intf[0].pins
+            \_cont_assign: , line:29:14, endln:29:53
             |vpiName:pins
             |vpiFullName:work@top2.intf.each_pin_intf[0].pins
             |vpiIndex:
-            \_ref_obj: (work@top2.intf.each_pin_intf[0].pins.i), line:29:19, endln:29:20
+            \_ref_obj: (work@top2.intf.each_pin_intf[0].i), line:29:19, endln:29:20
               |vpiParent:
               \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21
               |vpiName:i
-              |vpiFullName:work@top2.intf.each_pin_intf[0].pins.i
+              |vpiFullName:work@top2.intf.each_pin_intf[0].i
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
       |vpiParent:
@@ -2164,33 +2143,25 @@ design: (work@top)
             |vpiOperand:
             \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:24, endln:29:34
               |vpiParent:
-              \_ref_obj: (work@top2.intf.each_pin_intf[1].pins_oe)
-                |vpiParent:
-                \_operation: , line:29:24, endln:29:53
-                |vpiName:pins_oe
-                |vpiFullName:work@top2.intf.each_pin_intf[1].pins_oe
+              \_operation: , line:29:24, endln:29:53
               |vpiName:pins_oe
               |vpiFullName:work@top2.intf.each_pin_intf[1].pins_oe
               |vpiIndex:
-              \_ref_obj: (work@top2.intf.each_pin_intf[1].pins_oe.i), line:29:32, endln:29:33
+              \_ref_obj: (work@top2.intf.each_pin_intf[1].i), line:29:32, endln:29:33
                 |vpiParent:
                 \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:24, endln:29:34
                 |vpiName:i
-                |vpiFullName:work@top2.intf.each_pin_intf[1].pins_oe.i
+                |vpiFullName:work@top2.intf.each_pin_intf[1].i
             |vpiOperand:
             \_bit_select: (work@top2.intf.each_pin_intf[1].pins_o), line:29:37, endln:29:46
               |vpiParent:
-              \_ref_obj: (work@top2.intf.each_pin_intf[1].pins_o)
-                |vpiParent:
-                \_operation: , line:29:24, endln:29:53
-                |vpiName:pins_o
-                |vpiFullName:work@top2.intf.each_pin_intf[1].pins_o
+              \_operation: , line:29:24, endln:29:53
               |vpiName:pins_o
               |vpiFullName:work@top2.intf.each_pin_intf[1].pins_o
               |vpiIndex:
               \_ref_obj: (work@top2.intf.each_pin_intf[1].i), line:29:44, endln:29:45
                 |vpiParent:
-                \_operation: , line:29:24, endln:29:53
+                \_bit_select: (work@top2.intf.each_pin_intf[1].pins_o), line:29:37, endln:29:46
                 |vpiName:i
                 |vpiFullName:work@top2.intf.each_pin_intf[1].i
             |vpiOperand:
@@ -2204,19 +2175,15 @@ design: (work@top)
           |vpiLhs:
           \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21
             |vpiParent:
-            \_ref_obj: (work@top2.intf.each_pin_intf[1].pins)
-              |vpiParent:
-              \_cont_assign: , line:29:14, endln:29:53
-              |vpiName:pins
-              |vpiFullName:work@top2.intf.each_pin_intf[1].pins
+            \_cont_assign: , line:29:14, endln:29:53
             |vpiName:pins
             |vpiFullName:work@top2.intf.each_pin_intf[1].pins
             |vpiIndex:
-            \_ref_obj: (work@top2.intf.each_pin_intf[1].pins.i), line:29:19, endln:29:20
+            \_ref_obj: (work@top2.intf.each_pin_intf[1].i), line:29:19, endln:29:20
               |vpiParent:
               \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21
               |vpiName:i
-              |vpiFullName:work@top2.intf.each_pin_intf[1].pins.i
+              |vpiFullName:work@top2.intf.each_pin_intf[1].i
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top2.each_pin[0]), line:38:40, endln:40:8
     |vpiParent:
@@ -2250,33 +2217,25 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top2.each_pin[0].pins_oe), line:39:24, endln:39:34
             |vpiParent:
-            \_ref_obj: (work@top2.each_pin[0].pins_oe)
-              |vpiParent:
-              \_operation: , line:39:24, endln:39:53
-              |vpiName:pins_oe
-              |vpiFullName:work@top2.each_pin[0].pins_oe
+            \_operation: , line:39:24, endln:39:53
             |vpiName:pins_oe
             |vpiFullName:work@top2.each_pin[0].pins_oe
             |vpiIndex:
-            \_ref_obj: (work@top2.each_pin[0].pins_oe.i), line:39:32, endln:39:33
+            \_ref_obj: (work@top2.each_pin[0].i), line:39:32, endln:39:33
               |vpiParent:
               \_bit_select: (work@top2.each_pin[0].pins_oe), line:39:24, endln:39:34
               |vpiName:i
-              |vpiFullName:work@top2.each_pin[0].pins_oe.i
+              |vpiFullName:work@top2.each_pin[0].i
           |vpiOperand:
           \_bit_select: (work@top2.each_pin[0].pins_o), line:39:37, endln:39:46
             |vpiParent:
-            \_ref_obj: (work@top2.each_pin[0].pins_o)
-              |vpiParent:
-              \_operation: , line:39:24, endln:39:53
-              |vpiName:pins_o
-              |vpiFullName:work@top2.each_pin[0].pins_o
+            \_operation: , line:39:24, endln:39:53
             |vpiName:pins_o
             |vpiFullName:work@top2.each_pin[0].pins_o
             |vpiIndex:
             \_ref_obj: (work@top2.each_pin[0].i), line:39:44, endln:39:45
               |vpiParent:
-              \_operation: , line:39:24, endln:39:53
+              \_bit_select: (work@top2.each_pin[0].pins_o), line:39:37, endln:39:46
               |vpiName:i
               |vpiFullName:work@top2.each_pin[0].i
           |vpiOperand:
@@ -2290,19 +2249,15 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top2.each_pin[0].pins), line:39:14, endln:39:21
           |vpiParent:
-          \_ref_obj: (work@top2.each_pin[0].pins)
-            |vpiParent:
-            \_cont_assign: , line:39:14, endln:39:53
-            |vpiName:pins
-            |vpiFullName:work@top2.each_pin[0].pins
+          \_cont_assign: , line:39:14, endln:39:53
           |vpiName:pins
           |vpiFullName:work@top2.each_pin[0].pins
           |vpiIndex:
-          \_ref_obj: (work@top2.each_pin[0].pins.i), line:39:19, endln:39:20
+          \_ref_obj: (work@top2.each_pin[0].i), line:39:19, endln:39:20
             |vpiParent:
             \_bit_select: (work@top2.each_pin[0].pins), line:39:14, endln:39:21
             |vpiName:i
-            |vpiFullName:work@top2.each_pin[0].pins.i
+            |vpiFullName:work@top2.each_pin[0].i
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top2.each_pin[1]), line:38:40, endln:40:8
     |vpiParent:
@@ -2336,33 +2291,25 @@ design: (work@top)
           |vpiOperand:
           \_bit_select: (work@top2.each_pin[1].pins_oe), line:39:24, endln:39:34
             |vpiParent:
-            \_ref_obj: (work@top2.each_pin[1].pins_oe)
-              |vpiParent:
-              \_operation: , line:39:24, endln:39:53
-              |vpiName:pins_oe
-              |vpiFullName:work@top2.each_pin[1].pins_oe
+            \_operation: , line:39:24, endln:39:53
             |vpiName:pins_oe
             |vpiFullName:work@top2.each_pin[1].pins_oe
             |vpiIndex:
-            \_ref_obj: (work@top2.each_pin[1].pins_oe.i), line:39:32, endln:39:33
+            \_ref_obj: (work@top2.each_pin[1].i), line:39:32, endln:39:33
               |vpiParent:
               \_bit_select: (work@top2.each_pin[1].pins_oe), line:39:24, endln:39:34
               |vpiName:i
-              |vpiFullName:work@top2.each_pin[1].pins_oe.i
+              |vpiFullName:work@top2.each_pin[1].i
           |vpiOperand:
           \_bit_select: (work@top2.each_pin[1].pins_o), line:39:37, endln:39:46
             |vpiParent:
-            \_ref_obj: (work@top2.each_pin[1].pins_o)
-              |vpiParent:
-              \_operation: , line:39:24, endln:39:53
-              |vpiName:pins_o
-              |vpiFullName:work@top2.each_pin[1].pins_o
+            \_operation: , line:39:24, endln:39:53
             |vpiName:pins_o
             |vpiFullName:work@top2.each_pin[1].pins_o
             |vpiIndex:
             \_ref_obj: (work@top2.each_pin[1].i), line:39:44, endln:39:45
               |vpiParent:
-              \_operation: , line:39:24, endln:39:53
+              \_bit_select: (work@top2.each_pin[1].pins_o), line:39:37, endln:39:46
               |vpiName:i
               |vpiFullName:work@top2.each_pin[1].i
           |vpiOperand:
@@ -2376,19 +2323,15 @@ design: (work@top)
         |vpiLhs:
         \_bit_select: (work@top2.each_pin[1].pins), line:39:14, endln:39:21
           |vpiParent:
-          \_ref_obj: (work@top2.each_pin[1].pins)
-            |vpiParent:
-            \_cont_assign: , line:39:14, endln:39:53
-            |vpiName:pins
-            |vpiFullName:work@top2.each_pin[1].pins
+          \_cont_assign: , line:39:14, endln:39:53
           |vpiName:pins
           |vpiFullName:work@top2.each_pin[1].pins
           |vpiIndex:
-          \_ref_obj: (work@top2.each_pin[1].pins.i), line:39:19, endln:39:20
+          \_ref_obj: (work@top2.each_pin[1].i), line:39:19, endln:39:20
             |vpiParent:
             \_bit_select: (work@top2.each_pin[1].pins), line:39:14, endln:39:21
             |vpiName:i
-            |vpiFullName:work@top2.each_pin[1].pins.i
+            |vpiFullName:work@top2.each_pin[1].i
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -605,7 +605,7 @@ param_assign                                          32
 parameter                                             33
 range                                                 12
 ref_module                                             1
-ref_obj                                               38
+ref_obj                                               30
 sys_task_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -636,7 +636,7 @@ param_assign                                          32
 parameter                                             33
 range                                                 13
 ref_module                                             1
-ref_obj                                               56
+ref_obj                                               44
 sys_task_call                                          8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ArrayExprFunArg/slpp_all/surelog.uhdm ...
@@ -1012,17 +1012,13 @@ design: (work@main)
           |vpiRhs:
           \_bit_select: (work@top.ASSIGN_VADDR.V), line:12:20, endln:12:24
             |vpiParent:
-            \_ref_obj: (work@top.ASSIGN_VADDR.V)
-              |vpiParent:
-              \_assignment: , line:12:2, endln:12:24
-              |vpiName:V
-              |vpiFullName:work@top.ASSIGN_VADDR.V
+            \_assignment: , line:12:2, endln:12:24
             |vpiName:V
             |vpiFullName:work@top.ASSIGN_VADDR.V
             |vpiIndex:
             \_ref_obj: (work@top.ASSIGN_VADDR.i), line:12:22, endln:12:23
               |vpiParent:
-              \_begin: (work@top.ASSIGN_VADDR), line:11:34, endln:13:11
+              \_bit_select: (work@top.ASSIGN_VADDR.V), line:12:20, endln:12:24
               |vpiName:i
               |vpiFullName:work@top.ASSIGN_VADDR.i
               |vpiActual:
@@ -1030,17 +1026,15 @@ design: (work@main)
           |vpiLhs:
           \_bit_select: (work@top.ASSIGN_VADDR.ASSIGN_VADDR), line:12:2, endln:12:17
             |vpiParent:
-            \_ref_obj: (work@top.ASSIGN_VADDR.ASSIGN_VADDR)
-              |vpiParent:
-              \_assignment: , line:12:2, endln:12:24
-              |vpiName:ASSIGN_VADDR
-              |vpiFullName:work@top.ASSIGN_VADDR.ASSIGN_VADDR
+            \_assignment: , line:12:2, endln:12:24
             |vpiName:ASSIGN_VADDR
             |vpiFullName:work@top.ASSIGN_VADDR.ASSIGN_VADDR
+            |vpiActual:
+            \_array_var: , line:10:17, endln:10:35
             |vpiIndex:
             \_ref_obj: (work@top.ASSIGN_VADDR.i), line:12:15, endln:12:16
               |vpiParent:
-              \_begin: (work@top.ASSIGN_VADDR), line:11:34, endln:13:11
+              \_bit_select: (work@top.ASSIGN_VADDR.ASSIGN_VADDR), line:12:2, endln:12:17
               |vpiName:i
               |vpiFullName:work@top.ASSIGN_VADDR.i
               |vpiActual:
@@ -1106,8 +1100,6 @@ design: (work@main)
         |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:26:21, endln:26:22
-          |vpiParent:
-          \_assignment: , line:26:5, endln:26:22
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -1115,7 +1107,7 @@ design: (work@main)
         |vpiLhs:
         \_ref_obj: (work@top.MAX_VADDR_CNT.MAX_VADDR_CNT), line:26:5, endln:26:18
           |vpiParent:
-          \_begin: (work@top.MAX_VADDR_CNT)
+          \_assignment: , line:26:5, endln:26:22
           |vpiName:MAX_VADDR_CNT
           |vpiFullName:work@top.MAX_VADDR_CNT.MAX_VADDR_CNT
           |vpiActual:
@@ -1198,17 +1190,15 @@ design: (work@main)
               |vpiOperand:
               \_bit_select: (work@top.MAX_VADDR_CNT.SRC), line:28:13, endln:28:19
                 |vpiParent:
-                \_ref_obj: (work@top.MAX_VADDR_CNT.SRC)
-                  |vpiParent:
-                  \_operation: , line:28:13, endln:28:35
-                  |vpiName:SRC
-                  |vpiFullName:work@top.MAX_VADDR_CNT.SRC
+                \_operation: , line:28:13, endln:28:35
                 |vpiName:SRC
                 |vpiFullName:work@top.MAX_VADDR_CNT.SRC
+                |vpiActual:
+                \_io_decl: (SRC), line:25:57, endln:25:60
                 |vpiIndex:
                 \_ref_obj: (work@top.MAX_VADDR_CNT.i), line:28:17, endln:28:18
                   |vpiParent:
-                  \_begin: (work@top.MAX_VADDR_CNT), line:27:36, endln:31:8
+                  \_bit_select: (work@top.MAX_VADDR_CNT.SRC), line:28:13, endln:28:19
                   |vpiName:i
                   |vpiFullName:work@top.MAX_VADDR_CNT.i
                   |vpiActual:
@@ -1235,17 +1225,15 @@ design: (work@main)
                 |vpiRhs:
                 \_bit_select: (work@top.MAX_VADDR_CNT.SRC), line:29:29, endln:29:35
                   |vpiParent:
-                  \_ref_obj: (work@top.MAX_VADDR_CNT.SRC)
-                    |vpiParent:
-                    \_assignment: , line:29:13, endln:29:35
-                    |vpiName:SRC
-                    |vpiFullName:work@top.MAX_VADDR_CNT.SRC
+                  \_assignment: , line:29:13, endln:29:35
                   |vpiName:SRC
                   |vpiFullName:work@top.MAX_VADDR_CNT.SRC
+                  |vpiActual:
+                  \_io_decl: (SRC), line:25:57, endln:25:60
                   |vpiIndex:
                   \_ref_obj: (work@top.MAX_VADDR_CNT.i), line:29:33, endln:29:34
                     |vpiParent:
-                    \_begin: (work@top.MAX_VADDR_CNT), line:28:37, endln:30:12
+                    \_bit_select: (work@top.MAX_VADDR_CNT.SRC), line:29:29, endln:29:35
                     |vpiName:i
                     |vpiFullName:work@top.MAX_VADDR_CNT.i
                     |vpiActual:
@@ -1253,7 +1241,7 @@ design: (work@main)
                 |vpiLhs:
                 \_ref_obj: (work@top.MAX_VADDR_CNT.MAX_VADDR_CNT), line:29:13, endln:29:26
                   |vpiParent:
-                  \_begin: (work@top.MAX_VADDR_CNT), line:28:37, endln:30:12
+                  \_assignment: , line:29:13, endln:29:35
                   |vpiName:MAX_VADDR_CNT
                   |vpiFullName:work@top.MAX_VADDR_CNT.MAX_VADDR_CNT
                   |vpiActual:
@@ -1270,10 +1258,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:17:5, endln:17:13
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:17:5, endln:17:18
-          |vpiName:VADDR
+        \_operation: , line:17:5, endln:17:18
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:17:11, endln:17:12
@@ -1303,10 +1288,7 @@ design: (work@main)
       |vpiOperand:
       \_bit_select: (VADDR), line:20:5, endln:20:13
         |vpiParent:
-        \_ref_obj: (VADDR)
-          |vpiParent:
-          \_operation: , line:20:5, endln:20:18
-          |vpiName:VADDR
+        \_operation: , line:20:5, endln:20:18
         |vpiName:VADDR
         |vpiIndex:
         \_constant: , line:20:11, endln:20:12
@@ -1787,47 +1769,35 @@ design: (work@main)
             |vpiRhs:
             \_bit_select: (work@main.top1.ASSIGN_VADDR.V), line:12:20, endln:12:24
               |vpiParent:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.V)
-                |vpiParent:
-                \_assignment: , line:12:2, endln:12:24
-                |vpiName:V
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.V
-                |vpiActual:
-                \_parameter: (work@main.top1.V), line:7:26, endln:7:27
+              \_assignment: , line:12:2, endln:12:24
               |vpiName:V
               |vpiFullName:work@main.top1.ASSIGN_VADDR.V
+              |vpiActual:
+              \_parameter: (work@main.top1.V), line:7:26, endln:7:27
               |vpiIndex:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.V.i), line:12:22, endln:12:23
+              \_ref_obj: (work@main.top1.ASSIGN_VADDR.i), line:12:22, endln:12:23
                 |vpiParent:
                 \_bit_select: (work@main.top1.ASSIGN_VADDR.V), line:12:20, endln:12:24
                 |vpiName:i
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.V.i
+                |vpiFullName:work@main.top1.ASSIGN_VADDR.i
                 |vpiActual:
                 \_int_var: (work@top.ASSIGN_VADDR.i), line:11:13, endln:11:14
-              |vpiActual:
-              \_parameter: (work@main.top1.V), line:7:26, endln:7:27
             |vpiLhs:
             \_bit_select: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR), line:12:2, endln:12:17
               |vpiParent:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR)
-                |vpiParent:
-                \_assignment: , line:12:2, endln:12:24
-                |vpiName:ASSIGN_VADDR
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR
-                |vpiActual:
-                \_array_var: , line:10:17, endln:10:35
+              \_assignment: , line:12:2, endln:12:24
               |vpiName:ASSIGN_VADDR
               |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR
+              |vpiActual:
+              \_array_var: , line:10:17, endln:10:35
               |vpiIndex:
-              \_ref_obj: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR.i), line:12:15, endln:12:16
+              \_ref_obj: (work@main.top1.ASSIGN_VADDR.i), line:12:15, endln:12:16
                 |vpiParent:
                 \_bit_select: (work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR), line:12:2, endln:12:17
                 |vpiName:i
-                |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR.i
+                |vpiFullName:work@main.top1.ASSIGN_VADDR.i
                 |vpiActual:
                 \_int_var: (work@top.ASSIGN_VADDR.i), line:11:13, endln:11:14
-              |vpiActual:
-              \_array_var: , line:10:17, endln:10:35
       |vpiInstance:
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:47:1, endln:47:16
     |vpiTaskFunc:
@@ -1896,7 +1866,7 @@ design: (work@main)
             |vpiName:MAX_VADDR_CNT
             |vpiFullName:work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT
             |vpiActual:
-            \_int_var: , line:25:17, endln:25:29
+            \_int_var: (MAX_VADDR_CNT), line:25:17, endln:25:29
         |vpiStmt:
         \_for_stmt: (work@main.top1.MAX_VADDR_CNT), line:27:5, endln:27:8
           |vpiParent:
@@ -1968,25 +1938,19 @@ design: (work@main)
                 |vpiOperand:
                 \_bit_select: (work@main.top1.MAX_VADDR_CNT.SRC), line:28:13, endln:28:19
                   |vpiParent:
-                  \_ref_obj: (work@main.top1.MAX_VADDR_CNT.SRC)
-                    |vpiParent:
-                    \_operation: , line:28:13, endln:28:35
-                    |vpiName:SRC
-                    |vpiFullName:work@main.top1.MAX_VADDR_CNT.SRC
-                    |vpiActual:
-                    \_io_decl: (SRC), line:25:57, endln:25:60
+                  \_operation: , line:28:13, endln:28:35
                   |vpiName:SRC
                   |vpiFullName:work@main.top1.MAX_VADDR_CNT.SRC
+                  |vpiActual:
+                  \_io_decl: (SRC), line:25:57, endln:25:60
                   |vpiIndex:
-                  \_ref_obj: (work@main.top1.MAX_VADDR_CNT.SRC.i), line:28:17, endln:28:18
+                  \_ref_obj: (work@main.top1.MAX_VADDR_CNT.i), line:28:17, endln:28:18
                     |vpiParent:
                     \_bit_select: (work@main.top1.MAX_VADDR_CNT.SRC), line:28:13, endln:28:19
                     |vpiName:i
-                    |vpiFullName:work@main.top1.MAX_VADDR_CNT.SRC.i
+                    |vpiFullName:work@main.top1.MAX_VADDR_CNT.i
                     |vpiActual:
                     \_int_var: (work@top.MAX_VADDR_CNT.i), line:27:14, endln:27:15
-                  |vpiActual:
-                  \_io_decl: (SRC), line:25:57, endln:25:60
                 |vpiOperand:
                 \_ref_obj: (work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT), line:28:22, endln:28:35
                   |vpiParent:
@@ -1994,7 +1958,7 @@ design: (work@main)
                   |vpiName:MAX_VADDR_CNT
                   |vpiFullName:work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT
                   |vpiActual:
-                  \_int_var: , line:25:17, endln:25:29
+                  \_int_var: (MAX_VADDR_CNT), line:25:17, endln:25:29
               |vpiStmt:
               \_begin: (work@main.top1.MAX_VADDR_CNT), line:28:37, endln:30:12
                 |vpiParent:
@@ -2009,25 +1973,19 @@ design: (work@main)
                   |vpiRhs:
                   \_bit_select: (work@main.top1.MAX_VADDR_CNT.SRC), line:29:29, endln:29:35
                     |vpiParent:
-                    \_ref_obj: (work@main.top1.MAX_VADDR_CNT.SRC)
-                      |vpiParent:
-                      \_assignment: , line:29:13, endln:29:35
-                      |vpiName:SRC
-                      |vpiFullName:work@main.top1.MAX_VADDR_CNT.SRC
-                      |vpiActual:
-                      \_io_decl: (SRC), line:25:57, endln:25:60
+                    \_assignment: , line:29:13, endln:29:35
                     |vpiName:SRC
                     |vpiFullName:work@main.top1.MAX_VADDR_CNT.SRC
+                    |vpiActual:
+                    \_io_decl: (SRC), line:25:57, endln:25:60
                     |vpiIndex:
-                    \_ref_obj: (work@main.top1.MAX_VADDR_CNT.SRC.i), line:29:33, endln:29:34
+                    \_ref_obj: (work@main.top1.MAX_VADDR_CNT.i), line:29:33, endln:29:34
                       |vpiParent:
                       \_bit_select: (work@main.top1.MAX_VADDR_CNT.SRC), line:29:29, endln:29:35
                       |vpiName:i
-                      |vpiFullName:work@main.top1.MAX_VADDR_CNT.SRC.i
+                      |vpiFullName:work@main.top1.MAX_VADDR_CNT.i
                       |vpiActual:
                       \_int_var: (work@top.MAX_VADDR_CNT.i), line:27:14, endln:27:15
-                    |vpiActual:
-                    \_io_decl: (SRC), line:25:57, endln:25:60
                   |vpiLhs:
                   \_ref_obj: (work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT), line:29:13, endln:29:26
                     |vpiParent:
@@ -2035,7 +1993,7 @@ design: (work@main)
                     |vpiName:MAX_VADDR_CNT
                     |vpiFullName:work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT
                     |vpiActual:
-                    \_int_var: , line:25:17, endln:25:29
+                    \_int_var: (MAX_VADDR_CNT), line:25:17, endln:25:29
       |vpiInstance:
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv, line:47:1, endln:47:16
     |vpiInstance:

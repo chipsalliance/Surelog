@@ -39,7 +39,7 @@ logic_var                                              2
 module_inst                                            3
 operation                                              1
 range                                                  4
-ref_obj                                                4
+ref_obj                                                1
 struct_net                                             2
 struct_typespec                                        1
 typespec_member                                        1
@@ -59,7 +59,7 @@ logic_var                                              2
 module_inst                                            3
 operation                                              1
 range                                                  4
-ref_obj                                                4
+ref_obj                                                1
 struct_net                                             2
 struct_typespec                                        1
 typespec_member                                        1
@@ -166,13 +166,13 @@ design: (work@top)
     \_hier_path: (a[0].source[6-:2]), line:8:14, endln:8:33
       |vpiName:a[0].source[6-:2]
       |vpiActual:
-      \_bit_select: (a), line:8:14, endln:8:15
+      \_bit_select: (a[0]), line:8:14, endln:8:15
         |vpiParent:
-        \_ref_obj: (a[0])
-          |vpiParent:
-          \_hier_path: (a[0].source[6-:2]), line:8:14, endln:8:33
-          |vpiName:a[0]
+        \_hier_path: (a[0].source[6-:2]), line:8:14, endln:8:33
         |vpiName:a
+        |vpiFullName:a[0]
+        |vpiActual:
+        \_array_net: (work@top.a), line:6:13, endln:6:14
         |vpiIndex:
         \_constant: , line:8:16, endln:8:17
           |vpiDecompile:0
@@ -180,10 +180,9 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_indexed_part_select: , line:8:19, endln:8:32
-        |vpiParent:
-        \_ref_obj: (source)
-          |vpiName:source
+      \_indexed_part_select: (a[0].source[6-:2]), line:8:19, endln:8:32
+        |vpiName:source
+        |vpiFullName:a[0].source[6-:2]
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:
@@ -236,10 +235,9 @@ design: (work@top)
         |vpiActual:
         \_struct_net: (work@top.b), line:7:13, endln:7:14
       |vpiActual:
-      \_indexed_part_select: , line:9:22, endln:9:35
-        |vpiParent:
-        \_ref_obj: (source)
-          |vpiName:source
+      \_indexed_part_select: (b.source[6-:2]), line:9:22, endln:9:35
+        |vpiName:source
+        |vpiFullName:b.source[6-:2]
         |vpiConstantSelect:1
         |vpiIndexedPartSelectType:2
         |vpiBaseExpr:

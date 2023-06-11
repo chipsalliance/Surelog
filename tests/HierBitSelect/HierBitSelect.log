@@ -26,7 +26,6 @@ cont_assign                                            6
 design                                                 1
 module_inst                                            3
 part_select                                            4
-ref_obj                                                4
 var_select                                             4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -37,7 +36,6 @@ cont_assign                                            9
 design                                                 1
 module_inst                                            3
 part_select                                            6
-ref_obj                                                6
 var_select                                             6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierBitSelect/slpp_all/surelog.uhdm ...
@@ -143,9 +141,12 @@ design: (work@dut)
         |UINT:4
         |vpiConstType:9
       |vpiIndex:
-      \_part_select: , line:4:25, endln:4:28
+      \_part_select: state_d (work@dut.state_d.state_d), line:4:25, endln:4:28
         |vpiParent:
         \_var_select: (work@dut.state_d), line:4:8, endln:4:29
+        |vpiName:state_d
+        |vpiFullName:work@dut.state_d.state_d
+        |vpiDefName:state_d
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:4:25, endln:4:26
@@ -172,14 +173,12 @@ design: (work@dut)
       |BIN:10101010
       |vpiConstType:3
     |vpiLhs:
-    \_part_select: , line:5:8, endln:5:23
+    \_part_select: state_d1 (work@dut.state_d1), line:5:8, endln:5:23
       |vpiParent:
-      \_ref_obj: state_d1 (work@dut.state_d1)
-        |vpiParent:
-        \_cont_assign: , line:5:8, endln:5:37
-        |vpiName:state_d1
-        |vpiFullName:work@dut.state_d1
-        |vpiDefName:state_d1
+      \_cont_assign: , line:5:8, endln:5:37
+      |vpiName:state_d1
+      |vpiFullName:work@dut.state_d1
+      |vpiDefName:state_d1
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_constant: , line:5:17, endln:5:19
@@ -272,18 +271,17 @@ design: (work@dut)
         |UINT:4
         |vpiConstType:9
       |vpiIndex:
-      \_part_select: , line:4:25, endln:4:28
+      \_part_select: state_d (work@dut.state_d.state_d), line:4:25, endln:4:28
         |vpiParent:
-        \_ref_obj: (work@dut.state_d.state_d)
-          |vpiParent:
-          \_var_select: (work@dut.state_d), line:4:8, endln:4:29
-          |vpiName:state_d
-          |vpiFullName:work@dut.state_d.state_d
+        \_var_select: (work@dut.state_d), line:4:8, endln:4:29
+        |vpiName:state_d
+        |vpiFullName:work@dut.state_d.state_d
+        |vpiDefName:state_d
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:4:25, endln:4:26
           |vpiParent:
-          \_part_select: , line:4:25, endln:4:28
+          \_part_select: state_d (state_d.state_d), line:4:25, endln:4:28
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
@@ -291,7 +289,7 @@ design: (work@dut)
         |vpiRightRange:
         \_constant: , line:4:27, endln:4:28
           |vpiParent:
-          \_part_select: , line:4:25, endln:4:28
+          \_part_select: state_d (state_d.state_d), line:4:25, endln:4:28
           |vpiDecompile:6
           |vpiSize:64
           |UINT:6
@@ -303,19 +301,17 @@ design: (work@dut)
     |vpiRhs:
     \_constant: , line:5:26, endln:5:37
     |vpiLhs:
-    \_part_select: , line:5:8, endln:5:23
+    \_part_select: state_d1 (work@dut.state_d1), line:5:8, endln:5:23
       |vpiParent:
-      \_ref_obj: state_d1 (work@dut.state_d1)
-        |vpiParent:
-        \_cont_assign: , line:5:8, endln:5:37
-        |vpiName:state_d1
-        |vpiFullName:work@dut.state_d1
-        |vpiDefName:state_d1
+      \_cont_assign: , line:5:8, endln:5:37
+      |vpiName:state_d1
+      |vpiFullName:work@dut.state_d1
+      |vpiDefName:state_d1
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_constant: , line:5:17, endln:5:19
         |vpiParent:
-        \_part_select: , line:5:8, endln:5:23
+        \_part_select: state_d1 (state_d1), line:5:8, endln:5:23
         |vpiDecompile:10
         |vpiSize:64
         |UINT:10
@@ -323,7 +319,7 @@ design: (work@dut)
       |vpiRightRange:
       \_constant: , line:5:20, endln:5:22
         |vpiParent:
-        \_part_select: , line:5:8, endln:5:23
+        \_part_select: state_d1 (state_d1), line:5:8, endln:5:23
         |vpiDecompile:11
         |vpiSize:64
         |UINT:11
@@ -336,4 +332,4 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/HierBitSelect/dut.sv | ${SURELOG_DIR}/build/regression/HierBitSelect/roundtrip/dut_000.sv | 2 | 6 |
+[roundtrip]: ${SURELOG_DIR}/tests/HierBitSelect/dut.sv | ${SURELOG_DIR}/build/regression/HierBitSelect/roundtrip/dut_000.sv | 3 | 6 |

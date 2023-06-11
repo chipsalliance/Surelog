@@ -176,7 +176,7 @@ module_inst                                            5
 operation                                              4
 part_select                                            2
 range                                                  4
-ref_obj                                                4
+ref_obj                                                2
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        8
@@ -194,7 +194,7 @@ module_inst                                            5
 operation                                              6
 part_select                                            3
 range                                                  4
-ref_obj                                                6
+ref_obj                                                3
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        8
@@ -326,17 +326,17 @@ design: (work@dut)
       \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
       |vpiOpType:67
       |vpiOperand:
-      \_part_select: , line:11:44, endln:11:80
+      \_part_select: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:80
         |vpiParent:
-        \_ref_obj: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:57
-          |vpiParent:
-          \_operation: , line:11:32, endln:11:81
-          |vpiName:csr_wdata_int
-          |vpiFullName:work@dut.csr_wdata_int
-          |vpiDefName:csr_wdata_int
+        \_operation: , line:11:32, endln:11:81
+        |vpiName:csr_wdata_int
+        |vpiFullName:work@dut.csr_wdata_int
+        |vpiDefName:csr_wdata_int
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:11:58, endln:11:77
+          |vpiParent:
+          \_part_select: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:80
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:11:58, endln:11:75
@@ -523,21 +523,19 @@ design: (work@dut)
           |vpiRefEndColumnNo:16
       |vpiOpType:67
       |vpiOperand:
-      \_part_select: , line:11:44, endln:11:80
+      \_part_select: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:80
         |vpiParent:
-        \_ref_obj: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:57
-          |vpiParent:
-          \_operation: , line:11:32, endln:11:81
-          |vpiName:csr_wdata_int
-          |vpiFullName:work@dut.csr_wdata_int
-          |vpiDefName:csr_wdata_int
-          |vpiActual:
-          \_logic_var: (work@dut.csr_wdata_int), line:10:22, endln:10:35
+        \_operation: , line:11:32, endln:11:81
+        |vpiName:csr_wdata_int
+        |vpiFullName:work@dut.csr_wdata_int
+        |vpiDefName:csr_wdata_int
+        |vpiActual:
+        \_logic_var: (work@dut.csr_wdata_int), line:10:22, endln:10:35
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_operation: , line:11:58, endln:11:77
           |vpiParent:
-          \_part_select: , line:11:44, endln:11:80
+          \_part_select: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:80
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:11:58, endln:11:75
@@ -558,7 +556,7 @@ design: (work@dut)
         |vpiRightRange:
         \_constant: , line:11:78, endln:11:79
           |vpiParent:
-          \_part_select: , line:11:44, endln:11:80
+          \_part_select: csr_wdata_int (csr_wdata_int), line:11:44, endln:11:80
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0

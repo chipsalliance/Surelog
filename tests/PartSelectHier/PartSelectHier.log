@@ -151,7 +151,7 @@ module_inst                                            5
 package                                                3
 part_select                                            1
 range                                                  4
-ref_obj                                                3
+ref_obj                                                2
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -170,7 +170,7 @@ module_inst                                            5
 package                                                3
 part_select                                            2
 range                                                  4
-ref_obj                                                6
+ref_obj                                                4
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -325,10 +325,9 @@ design: (work@dut)
         \_hier_path: (drsp_fifo_o.d_source[8:3]), line:9:24, endln:9:49
         |vpiName:drsp_fifo_o
       |vpiActual:
-      \_part_select: , line:9:36, endln:9:48
-        |vpiParent:
-        \_ref_obj: (d_source)
-          |vpiName:d_source
+      \_part_select: (drsp_fifo_o.d_source[8:3]), line:9:36, endln:9:48
+        |vpiName:d_source
+        |vpiFullName:drsp_fifo_o.d_source[8:3]
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:9:45, endln:9:46
@@ -427,13 +426,13 @@ design: (work@dut)
         |vpiActual:
         \_struct_net: (work@dut.drsp_fifo_o), line:7:22, endln:7:33
       |vpiActual:
-      \_part_select: , line:9:36, endln:9:48
+      \_part_select: (drsp_fifo_o.d_source[8:3]), line:9:36, endln:9:48
         |vpiParent:
-        \_ref_obj: (work@dut.d_source)
-          |vpiParent:
-          \_hier_path: (drsp_fifo_o.d_source[8:3]), line:9:24, endln:9:49
-          |vpiName:d_source
-          |vpiFullName:work@dut.d_source
+        \_hier_path: (drsp_fifo_o.d_source[8:3]), line:9:24, endln:9:49
+        |vpiName:d_source
+        |vpiFullName:drsp_fifo_o.d_source[8:3]
+        |vpiActual:
+        \_typespec_member: (d_source), line:3:20, endln:3:28
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_constant: , line:9:45, endln:9:46
@@ -455,4 +454,4 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PartSelectHier/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectHier/roundtrip/dut_000.sv | 2 | 10 |
+[roundtrip]: ${SURELOG_DIR}/tests/PartSelectHier/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectHier/roundtrip/dut_000.sv | 3 | 10 |

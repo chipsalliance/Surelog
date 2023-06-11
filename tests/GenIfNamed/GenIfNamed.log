@@ -180,7 +180,7 @@ module_inst                                            4
 named_begin                                            3
 operation                                              6
 parameter                                              3
-ref_obj                                               21
+ref_obj                                               12
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -203,7 +203,7 @@ module_inst                                            4
 named_begin                                            3
 operation                                              6
 parameter                                              3
-ref_obj                                               27
+ref_obj                                               15
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -323,17 +323,13 @@ design: (work@top)
             |vpiLhs:
             \_bit_select: (tmp), line:6:16, endln:6:22
               |vpiParent:
-              \_ref_obj: (tmp)
-                |vpiParent:
-                \_cont_assign: , line:6:16, endln:6:29
-                |vpiName:tmp
+              \_cont_assign: , line:6:16, endln:6:29
               |vpiName:tmp
               |vpiIndex:
-              \_ref_obj: (tmp.i), line:6:20, endln:6:21
+              \_ref_obj: (i), line:6:20, endln:6:21
                 |vpiParent:
                 \_bit_select: (tmp), line:6:16, endln:6:22
                 |vpiName:i
-                |vpiFullName:tmp.i
         |vpiElseStmt:
         \_named_begin: (tag3)
           |vpiName:tag3
@@ -350,17 +346,13 @@ design: (work@top)
             |vpiLhs:
             \_bit_select: (tmp), line:8:16, endln:8:22
               |vpiParent:
-              \_ref_obj: (tmp)
-                |vpiParent:
-                \_cont_assign: , line:8:16, endln:8:29
-                |vpiName:tmp
+              \_cont_assign: , line:8:16, endln:8:29
               |vpiName:tmp
               |vpiIndex:
-              \_ref_obj: (tmp.i), line:8:20, endln:8:21
+              \_ref_obj: (i), line:8:20, endln:8:21
                 |vpiParent:
                 \_bit_select: (tmp), line:8:16, endln:8:22
                 |vpiName:i
-                |vpiFullName:tmp.i
           |vpiStmt:
           \_cont_assign: , line:9:16, endln:9:30
             |vpiRhs:
@@ -374,17 +366,13 @@ design: (work@top)
             |vpiLhs:
             \_bit_select: (tmp2), line:9:16, endln:9:23
               |vpiParent:
-              \_ref_obj: (tmp2)
-                |vpiParent:
-                \_cont_assign: , line:9:16, endln:9:30
-                |vpiName:tmp2
+              \_cont_assign: , line:9:16, endln:9:30
               |vpiName:tmp2
               |vpiIndex:
-              \_ref_obj: (tmp2.i), line:9:21, endln:9:22
+              \_ref_obj: (i), line:9:21, endln:9:22
                 |vpiParent:
                 \_bit_select: (tmp2), line:9:16, endln:9:23
                 |vpiName:i
-                |vpiFullName:tmp2.i
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenIfNamed/dut.sv, line:2:1, endln:13:10
   |vpiName:work@top
@@ -442,19 +430,15 @@ design: (work@top)
             |vpiLhs:
             \_bit_select: (work@top.tag1[0].tag2.tmp), line:6:16, endln:6:22
               |vpiParent:
-              \_ref_obj: (work@top.tag1[0].tag2.tmp)
-                |vpiParent:
-                \_cont_assign: , line:6:16, endln:6:29
-                |vpiName:tmp
-                |vpiFullName:work@top.tag1[0].tag2.tmp
+              \_cont_assign: , line:6:16, endln:6:29
               |vpiName:tmp
               |vpiFullName:work@top.tag1[0].tag2.tmp
               |vpiIndex:
-              \_ref_obj: (work@top.tag1[0].tag2.tmp.i), line:6:20, endln:6:21
+              \_ref_obj: (work@top.tag1[0].tag2.i), line:6:20, endln:6:21
                 |vpiParent:
                 \_bit_select: (work@top.tag1[0].tag2.tmp), line:6:16, endln:6:22
                 |vpiName:i
-                |vpiFullName:work@top.tag1[0].tag2.tmp.i
+                |vpiFullName:work@top.tag1[0].tag2.i
                 |vpiActual:
                 \_parameter: (work@top.tag1[0].i), line:4:0
   |vpiGenScopeArray:
@@ -504,19 +488,15 @@ design: (work@top)
             |vpiLhs:
             \_bit_select: (work@top.tag1[1].tag2.tmp), line:6:16, endln:6:22
               |vpiParent:
-              \_ref_obj: (work@top.tag1[1].tag2.tmp)
-                |vpiParent:
-                \_cont_assign: , line:6:16, endln:6:29
-                |vpiName:tmp
-                |vpiFullName:work@top.tag1[1].tag2.tmp
+              \_cont_assign: , line:6:16, endln:6:29
               |vpiName:tmp
               |vpiFullName:work@top.tag1[1].tag2.tmp
               |vpiIndex:
-              \_ref_obj: (work@top.tag1[1].tag2.tmp.i), line:6:20, endln:6:21
+              \_ref_obj: (work@top.tag1[1].tag2.i), line:6:20, endln:6:21
                 |vpiParent:
                 \_bit_select: (work@top.tag1[1].tag2.tmp), line:6:16, endln:6:22
                 |vpiName:i
-                |vpiFullName:work@top.tag1[1].tag2.tmp.i
+                |vpiFullName:work@top.tag1[1].tag2.i
                 |vpiActual:
                 \_parameter: (work@top.tag1[1].i), line:4:0
   |vpiGenScopeArray:
@@ -566,19 +546,15 @@ design: (work@top)
             |vpiLhs:
             \_bit_select: (work@top.tag1[2].tag2.tmp), line:6:16, endln:6:22
               |vpiParent:
-              \_ref_obj: (work@top.tag1[2].tag2.tmp)
-                |vpiParent:
-                \_cont_assign: , line:6:16, endln:6:29
-                |vpiName:tmp
-                |vpiFullName:work@top.tag1[2].tag2.tmp
+              \_cont_assign: , line:6:16, endln:6:29
               |vpiName:tmp
               |vpiFullName:work@top.tag1[2].tag2.tmp
               |vpiIndex:
-              \_ref_obj: (work@top.tag1[2].tag2.tmp.i), line:6:20, endln:6:21
+              \_ref_obj: (work@top.tag1[2].tag2.i), line:6:20, endln:6:21
                 |vpiParent:
                 \_bit_select: (work@top.tag1[2].tag2.tmp), line:6:16, endln:6:22
                 |vpiName:i
-                |vpiFullName:work@top.tag1[2].tag2.tmp.i
+                |vpiFullName:work@top.tag1[2].tag2.i
                 |vpiActual:
                 \_parameter: (work@top.tag1[2].i), line:4:0
 ===================

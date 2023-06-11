@@ -254,7 +254,7 @@ parameter                                              4
 port                                                   3
 range                                                 13
 ref_module                                             1
-ref_obj                                                9
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -277,7 +277,7 @@ parameter                                              4
 port                                                   4
 range                                                 13
 ref_module                                             1
-ref_obj                                               12
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitsArray/slpp_all/surelog.uhdm ...
 
@@ -407,8 +407,7 @@ design: (work@top)
         |vpiOperand:
         \_bit_select: (key_init_we), line:18:15, endln:18:29
           |vpiParent:
-          \_ref_obj: (key_init_we)
-            |vpiName:key_init_we
+          \_operation: , line:18:14, endln:18:46
           |vpiName:key_init_we
           |vpiIndex:
           \_constant: , line:18:27, endln:18:28
@@ -421,8 +420,7 @@ design: (work@top)
         |vpiOperand:
         \_bit_select: (key_init_we), line:18:31, endln:18:45
           |vpiParent:
-          \_ref_obj: (key_init_we)
-            |vpiName:key_init_we
+          \_operation: , line:18:14, endln:18:46
           |vpiName:key_init_we
           |vpiIndex:
           \_constant: , line:18:43, endln:18:44
@@ -653,15 +651,11 @@ design: (work@top)
         |vpiOperand:
         \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:15, endln:18:29
           |vpiParent:
-          \_ref_obj: (work@top.u_reg_status_key_init.we_i.key_init_we)
-            |vpiParent:
-            \_operation: , line:18:14, endln:18:46
-            |vpiName:key_init_we
-            |vpiFullName:work@top.u_reg_status_key_init.we_i.key_init_we
-            |vpiActual:
-            \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
+          \_operation: , line:18:14, endln:18:46
           |vpiName:key_init_we
           |vpiFullName:work@top.u_reg_status_key_init.we_i.key_init_we
+          |vpiActual:
+          \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
           |vpiIndex:
           \_constant: , line:18:27, endln:18:28
             |vpiParent:
@@ -670,20 +664,14 @@ design: (work@top)
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
-          |vpiActual:
-          \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
         |vpiOperand:
         \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:31, endln:18:45
           |vpiParent:
-          \_ref_obj: (work@top.u_reg_status_key_init.we_i.key_init_we)
-            |vpiParent:
-            \_operation: , line:18:14, endln:18:46
-            |vpiName:key_init_we
-            |vpiFullName:work@top.u_reg_status_key_init.we_i.key_init_we
-            |vpiActual:
-            \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
+          \_operation: , line:18:14, endln:18:46
           |vpiName:key_init_we
           |vpiFullName:work@top.u_reg_status_key_init.we_i.key_init_we
+          |vpiActual:
+          \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
           |vpiIndex:
           \_constant: , line:18:43, endln:18:44
             |vpiParent:
@@ -692,8 +680,6 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-          |vpiActual:
-          \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
       |vpiLowConn:
       \_ref_obj: (work@top.u_reg_status_key_init.we_i), line:18:8, endln:18:12
         |vpiParent:

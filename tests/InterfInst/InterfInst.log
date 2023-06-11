@@ -276,10 +276,11 @@ design: (work@top)
         \_hier_path: (ss_if.start_addr), line:7:15, endln:7:31
         |vpiName:ss_if
       |vpiActual:
-      \_ref_obj: (start_addr), line:7:21, endln:7:31
+      \_ref_obj: (work@dut.start_addr), line:7:21, endln:7:31
         |vpiParent:
         \_hier_path: (ss_if.start_addr), line:7:15, endln:7:31
         |vpiName:start_addr
+        |vpiFullName:work@dut.start_addr
     |vpiLhs:
     \_ref_obj: (work@dut.a), line:7:11, endln:7:12
       |vpiParent:
@@ -464,7 +465,7 @@ design: (work@top)
         |vpiName:u_sim_sram_if
         |vpiFullName:work@top.u_sim_sram_if
         |vpiActual:
-        \_interface_inst: work@sim_sram_if (work@top.u_sim_sram_if), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:11:4, endln:11:32
+        \_interface_inst: work@sim_sram_if (work@top.u_sim_sram_if), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:11:0
       |vpiLowConn:
       \_ref_obj: (work@top.u_dut.ss_if), line:13:15, endln:13:20
         |vpiParent:
@@ -530,10 +531,11 @@ design: (work@top)
           |vpiActual:
           \_interface_inst: work@sim_sram_if (work@top.u_dut.ss_if), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:13:0
         |vpiActual:
-        \_ref_obj: (start_addr), line:7:21, endln:7:31
+        \_ref_obj: (work@top.u_dut.start_addr), line:7:21, endln:7:31
           |vpiParent:
           \_hier_path: (ss_if.start_addr), line:7:15, endln:7:31
           |vpiName:start_addr
+          |vpiFullName:work@top.u_dut.start_addr
       |vpiLhs:
       \_ref_obj: (work@top.u_dut.a), line:7:11, endln:7:12
         |vpiParent:
