@@ -280,7 +280,7 @@ int_typespec                                          10
 logic_typespec                                        30
 module_inst                                           17
 operation                                              7
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                          18
 parameter                                             20
@@ -301,7 +301,7 @@ int_typespec                                          10
 logic_typespec                                        30
 module_inst                                           17
 operation                                              7
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                          18
 parameter                                             20
@@ -376,16 +376,19 @@ design: (work@top)
             \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
             |vpiRange:
             \_range: , line:3:17, endln:3:28
+              |vpiParent:
+              \_logic_typespec: (pkg::key), line:3:11, endln:3:28
               |vpiLeftRange:
               \_operation: , line:3:18, endln:3:25
                 |vpiParent:
                 \_range: , line:3:17, endln:3:28
                 |vpiOpType:11
                 |vpiOperand:
-                \_ref_obj: (Width), line:3:18, endln:3:23
+                \_ref_obj: (pkg::pkg::key::Width), line:3:18, endln:3:23
                   |vpiParent:
                   \_operation: , line:3:18, endln:3:25
                   |vpiName:Width
+                  |vpiFullName:pkg::pkg::key::Width
                   |vpiActual:
                   \_parameter: (pkg::Width), line:2:17, endln:2:22
                 |vpiOperand:
@@ -453,6 +456,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |vpiRhs:
     \_constant: , line:2:30, endln:2:32
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:32
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -467,6 +472,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |vpiRhs:
     \_constant: , line:7:35, endln:7:37
+      |vpiParent:
+      \_param_assign: , line:7:21, endln:7:37
       |vpiDecompile:18446744073709551615
       |vpiSize:64
       |UINT:18446744073709551615
@@ -533,6 +540,8 @@ design: (work@top)
             \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
             |vpiRange:
             \_range: , line:3:17, endln:3:28
+              |vpiParent:
+              \_logic_typespec: (pkg::key), line:3:11, endln:3:28
               |vpiLeftRange:
               \_constant: , line:3:18, endln:3:23
                 |vpiParent:
@@ -585,6 +594,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |vpiRhs:
     \_constant: , line:2:30, endln:2:32
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:32
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -599,6 +610,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |vpiRhs:
     \_constant: , line:7:35, endln:7:37
+      |vpiParent:
+      \_param_assign: , line:7:21, endln:7:37
       |vpiDecompile:18446744073709551615
       |vpiSize:64
       |UINT:18446744073709551615
@@ -930,6 +943,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
     |vpiRhs:
     \_constant: , line:17:53, endln:17:64
+      |vpiParent:
+      \_param_assign: , line:17:46, endln:17:64
       |vpiDecompile:18446744073709551615
       |vpiSize:64
       |UINT:18446744073709551615
@@ -969,6 +984,8 @@ design: (work@top)
       \_parameter: (work@foo.ResetValue), line:13:37, endln:13:47
       |vpiRange:
       \_range: , line:13:30, endln:13:36
+        |vpiParent:
+        \_logic_typespec: , line:13:24, endln:13:36
         |vpiLeftRange:
         \_constant: , line:13:31, endln:13:33
           |vpiParent:
@@ -993,6 +1010,8 @@ design: (work@top)
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:13:1, endln:15:10
     |vpiRhs:
     \_constant: , line:13:50, endln:13:52
+      |vpiParent:
+      \_param_assign: , line:13:37, endln:13:52
       |vpiDecompile:'0
       |vpiSize:64
       |BIN:0
@@ -1026,6 +1045,8 @@ design: (work@top)
       \_parameter: (work@foo2.ResetValue), line:10:38, endln:10:48
       |vpiRange:
       \_range: , line:10:31, endln:10:37
+        |vpiParent:
+        \_logic_typespec: , line:10:25, endln:10:37
         |vpiLeftRange:
         \_constant: , line:10:32, endln:10:34
           |vpiParent:
@@ -1050,6 +1071,8 @@ design: (work@top)
     \_module_inst: work@foo2 (work@foo2), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:10:1, endln:11:10
     |vpiRhs:
     \_constant: , line:10:51, endln:10:53
+      |vpiParent:
+      \_param_assign: , line:10:38, endln:10:53
       |vpiDecompile:'0
       |vpiSize:64
       |BIN:0
@@ -1267,6 +1290,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:22:3, endln:22:11
       |vpiRhs:
       \_constant: , line:17:53, endln:17:64
+        |vpiParent:
+        \_param_assign: , line:7:21, endln:7:37
         |vpiDecompile:18446744073709551615
         |vpiSize:64
         |UINT:18446744073709551615
@@ -1351,6 +1376,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:22:3, endln:22:11
       |vpiRhs:
       \_constant: , line:2:30, endln:2:32
+        |vpiParent:
+        \_param_assign: , line:2:17, endln:2:32
         |vpiDecompile:64
         |vpiSize:32
         |UINT:64
@@ -1426,6 +1453,8 @@ design: (work@top)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:13:50, endln:13:52
+          |vpiParent:
+          \_param_assign: , line:13:37, endln:13:52
           |vpiDecompile:18446744073709551615
           |vpiSize:64
           |UINT:18446744073709551615
@@ -1483,6 +1512,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:10:51, endln:10:53
+            |vpiParent:
+            \_param_assign: , line:10:38, endln:10:53
             |vpiDecompile:18446744073709551615
             |vpiSize:64
             |UINT:18446744073709551615

@@ -102,6 +102,8 @@ design: (work@vend)
     \_int_typespec: 
       |vpiRange:
       \_range: 
+        |vpiParent:
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
           |INT:1
@@ -116,6 +118,8 @@ design: (work@vend)
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:7:16, endln:7:21
+      |vpiParent:
+      \_param_assign: , line:7:11, endln:7:21
       |vpiDecompile:2'b00
       |vpiSize:2
       |BIN:00
@@ -132,18 +136,25 @@ design: (work@vend)
     |vpiName:fsm
     |vpiFullName:work@vend.fsm
     |vpiVariables:
-    \_logic_var: (fsm_newspaper), line:12:1, endln:12:4
+    \_logic_var: (work@vend.fsm.fsm_newspaper), line:12:1, endln:12:4
+      |vpiParent:
+      \_function: (work@vend.fsm), line:10:1, endln:26:12
       |vpiTypespec:
       \_logic_typespec: , line:12:1, endln:12:4
       |vpiName:fsm_newspaper
+      |vpiFullName:work@vend.fsm.fsm_newspaper
       |vpiAutomatic:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:10:10, endln:10:15
+    \_logic_var: (work@vend.fsm), line:10:10, endln:10:15
+      |vpiParent:
+      \_function: (work@vend.fsm), line:10:1, endln:26:12
       |vpiTypespec:
       \_logic_typespec: , line:10:10, endln:10:15
         |vpiRange:
         \_range: , line:10:10, endln:10:15
+          |vpiParent:
+          \_logic_typespec: , line:10:10, endln:10:15
           |vpiLeftRange:
           \_constant: , line:10:11, endln:10:12
             |vpiParent:
@@ -160,6 +171,7 @@ design: (work@vend)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@vend.fsm
     |vpiIODecl:
     \_io_decl: (fsm_PRES_STATE), line:11:13, endln:11:27
       |vpiParent:
@@ -171,7 +183,7 @@ design: (work@vend)
         |vpiRange:
         \_range: , line:11:7, endln:11:12
           |vpiParent:
-          \_function: (work@vend.fsm), line:10:1, endln:26:12
+          \_logic_typespec: , line:11:7, endln:11:12
           |vpiLeftRange:
           \_constant: , line:11:8, endln:11:9
             |vpiParent:
@@ -237,7 +249,7 @@ design: (work@vend)
                   |vpiName:fsm_coin
                   |vpiFullName:work@vend.fsm.fsm_coin
                   |vpiActual:
-                  \_logic_net: (fsm_coin)
+                  \_logic_net: (work@vend.fsm_coin), line:18:13, endln:18:21
                 |vpiOperand:
                 \_constant: , line:18:25, endln:18:30
                   |vpiParent:
@@ -270,7 +282,7 @@ design: (work@vend)
                     |vpiName:fsm_newspaper
                     |vpiFullName:work@vend.fsm.fsm_newspaper
                     |vpiActual:
-                    \_logic_var: (fsm_newspaper), line:12:1, endln:12:4
+                    \_logic_var: (work@vend.fsm.fsm_newspaper), line:12:1, endln:12:4
       |vpiStmt:
       \_assignment: , line:24:1, endln:24:20
         |vpiParent:
@@ -284,7 +296,7 @@ design: (work@vend)
           |vpiName:fsm_newspaper
           |vpiFullName:work@vend.fsm.fsm_newspaper
           |vpiActual:
-          \_logic_var: (fsm_newspaper), line:12:1, endln:12:4
+          \_logic_var: (work@vend.fsm.fsm_newspaper), line:12:1, endln:12:4
         |vpiLhs:
         \_ref_obj: (work@vend.fsm.fsm), line:24:1, endln:24:4
           |vpiParent:
@@ -292,7 +304,7 @@ design: (work@vend)
           |vpiName:fsm
           |vpiFullName:work@vend.fsm.fsm
           |vpiActual:
-          \_logic_var: (fsm), line:10:10, endln:10:15
+          \_logic_var: (work@vend.fsm.fsm), line:10:10, endln:10:15
     |vpiInstance:
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
   |vpiNet:
@@ -308,6 +320,20 @@ design: (work@vend)
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |vpiName:clock
     |vpiFullName:work@vend.clock
+  |vpiNet:
+  \_logic_net: (work@vend.fsm_coin), line:18:13, endln:18:21
+    |vpiParent:
+    \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
+    |vpiName:fsm_coin
+    |vpiFullName:work@vend.fsm_coin
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@vend.PRES_STATE), line:30:26, endln:30:36
+    |vpiParent:
+    \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
+    |vpiName:PRES_STATE
+    |vpiFullName:work@vend.PRES_STATE
+    |vpiNetType:1
   |vpiPort:
   \_port: (clock), line:1:13, endln:1:18
     |vpiParent:
@@ -315,7 +341,11 @@ design: (work@vend)
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@vend.clock.clock)
+      |vpiParent:
+      \_port: (clock), line:1:13, endln:1:18
+      |vpiName:clock
+      |vpiFullName:work@vend.clock.clock
       |vpiActual:
       \_logic_net: (work@vend.clock), line:1:13, endln:1:18
     |vpiTypedef:
@@ -327,7 +357,10 @@ design: (work@vend)
     |vpiName:newspaper
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@vend.newspaper)
+      |vpiParent:
+      \_port: (newspaper), line:1:20, endln:1:29
+      |vpiFullName:work@vend.newspaper
       |vpiActual:
       \_logic_net: (work@vend.newspaper), line:5:6, endln:5:15
     |vpiTypedef:
@@ -373,7 +406,7 @@ design: (work@vend)
               |vpiName:PRES_STATE
               |vpiFullName:work@vend.PRES_STATE
               |vpiActual:
-              \_logic_net: (PRES_STATE)
+              \_logic_net: (work@vend.PRES_STATE), line:30:26, endln:30:36
             |vpiName:fsm
             |vpiFunction:
             \_function: (work@vend.fsm), line:10:1, endln:26:12
@@ -420,6 +453,8 @@ design: (work@vend)
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:7:16, endln:7:21
+      |vpiParent:
+      \_param_assign: , line:7:11, endln:7:21
       |vpiDecompile:2'b00
       |vpiSize:2
       |BIN:00
@@ -447,7 +482,7 @@ design: (work@vend)
       |vpiAutomatic:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:10:10, endln:10:15
+    \_logic_var: (work@vend.fsm), line:10:10, endln:10:15
     |vpiIODecl:
     \_io_decl: (fsm_PRES_STATE), line:11:13, endln:11:27
       |vpiParent:
@@ -507,7 +542,7 @@ design: (work@vend)
                   |vpiName:fsm_coin
                   |vpiFullName:work@vend.fsm.fsm_coin
                   |vpiActual:
-                  \_logic_net: (fsm_coin)
+                  \_logic_net: (work@vend.fsm_coin), line:18:13, endln:18:21
                 |vpiOperand:
                 \_constant: , line:18:25, endln:18:30
               |vpiStmt:
@@ -530,7 +565,7 @@ design: (work@vend)
                     |vpiName:fsm_newspaper
                     |vpiFullName:work@vend.fsm.fsm_newspaper
                     |vpiActual:
-                    \_logic_var: (fsm_newspaper), line:12:1, endln:12:4
+                    \_logic_var: (work@vend.fsm.fsm_newspaper), line:12:1, endln:12:4
       |vpiStmt:
       \_assignment: , line:24:1, endln:24:20
         |vpiParent:
@@ -544,7 +579,7 @@ design: (work@vend)
           |vpiName:fsm_newspaper
           |vpiFullName:work@vend.fsm.fsm_newspaper
           |vpiActual:
-          \_logic_var: (fsm_newspaper), line:12:1, endln:12:4
+          \_logic_var: (work@vend.fsm.fsm_newspaper), line:12:1, endln:12:4
         |vpiLhs:
         \_ref_obj: (work@vend.fsm.fsm), line:24:1, endln:24:4
           |vpiParent:
@@ -552,7 +587,7 @@ design: (work@vend)
           |vpiName:fsm
           |vpiFullName:work@vend.fsm.fsm
           |vpiActual:
-          \_logic_var: (fsm), line:10:10, endln:10:15
+          \_logic_var: (work@vend.fsm.fsm), line:10:10, endln:10:15
     |vpiInstance:
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
   |vpiNet:
@@ -561,6 +596,8 @@ design: (work@vend)
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |vpiTypespec:
     \_logic_typespec: , line:5:1, endln:5:5
+      |vpiParent:
+      \_logic_net: (work@vend.newspaper), line:5:6, endln:5:15
     |vpiName:newspaper
     |vpiFullName:work@vend.newspaper
     |vpiNetType:1
@@ -570,16 +607,10 @@ design: (work@vend)
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |vpiTypespec:
     \_logic_typespec: , line:3:7, endln:3:7
+      |vpiParent:
+      \_logic_net: (work@vend.clock), line:1:13, endln:1:18
     |vpiName:clock
     |vpiFullName:work@vend.clock
-  |vpiNet:
-  \_logic_net: (fsm_coin)
-    |vpiName:fsm_coin
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (PRES_STATE)
-    |vpiName:PRES_STATE
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (clock), line:1:13, endln:1:18
@@ -658,7 +689,7 @@ design: (work@vend)
               |vpiName:PRES_STATE
               |vpiFullName:work@vend.PRES_STATE
               |vpiActual:
-              \_logic_net: (PRES_STATE)
+              \_logic_net: (work@vend.PRES_STATE), line:30:26, endln:30:36
             |vpiName:fsm
             |vpiFunction:
             \_function: (work@vend.fsm), line:10:1, endln:26:12

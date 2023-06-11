@@ -255,7 +255,7 @@ logic_net                                              2
 logic_typespec                                        15
 logic_var                                              6
 module_inst                                            8
-package                                                3
+package                                                2
 param_assign                                           6
 parameter                                              6
 port                                                   2
@@ -279,7 +279,7 @@ logic_net                                              2
 logic_typespec                                        15
 logic_var                                             10
 module_inst                                            8
-package                                                3
+package                                                2
 param_assign                                           6
 parameter                                              6
 port                                                   3
@@ -315,13 +315,17 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:2:23, endln:2:34
+    \_logic_var: (my_pkg::sbox4_8bit), line:2:23, endln:2:34
+      |vpiParent:
+      \_function: (my_pkg::sbox4_8bit), line:2:4, endln:4:28
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:34
         |vpiInstance:
-        \_package: (my_pkg)
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:2:29, endln:2:34
+          |vpiParent:
+          \_logic_typespec: , line:2:23, endln:2:34
           |vpiLeftRange:
           \_constant: , line:2:30, endln:2:31
             |vpiParent:
@@ -338,6 +342,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:my_pkg::sbox4_8bit
     |vpiIODecl:
     \_io_decl: (state_in), line:2:58, endln:2:66
       |vpiParent:
@@ -347,9 +352,11 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:2:46, endln:2:57
         |vpiInstance:
-        \_package: (my_pkg)
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:2:52, endln:2:57
+          |vpiParent:
+          \_logic_typespec: , line:2:46, endln:2:57
           |vpiLeftRange:
           \_constant: , line:2:53, endln:2:54
             |vpiParent:
@@ -393,11 +400,11 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:19
         |vpiInstance:
-        \_package: (my_pkg)
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:7:13, endln:7:19
           |vpiParent:
-          \_begin: (my_pkg::sbox4_16bit)
+          \_logic_typespec: , line:7:7, endln:7:19
           |vpiLeftRange:
           \_constant: , line:7:14, endln:7:16
             |vpiParent:
@@ -419,13 +426,17 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:6:23, endln:6:35
+    \_logic_var: (my_pkg::sbox4_16bit), line:6:23, endln:6:35
+      |vpiParent:
+      \_function: (my_pkg::sbox4_16bit), line:6:4, endln:10:29
       |vpiTypespec:
       \_logic_typespec: , line:6:23, endln:6:35
         |vpiInstance:
-        \_package: (my_pkg)
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:6:29, endln:6:35
+          |vpiParent:
+          \_logic_typespec: , line:6:23, endln:6:35
           |vpiLeftRange:
           \_constant: , line:6:30, endln:6:32
             |vpiParent:
@@ -442,6 +453,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:my_pkg::sbox4_16bit
     |vpiIODecl:
     \_io_decl: (state_in), line:6:61, endln:6:69
       |vpiParent:
@@ -451,9 +463,11 @@ design: (work@top)
       |vpiTypedef:
       \_logic_typespec: , line:6:48, endln:6:60
         |vpiInstance:
-        \_package: (my_pkg)
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:6:54, endln:6:60
+          |vpiParent:
+          \_logic_typespec: , line:6:48, endln:6:60
           |vpiLeftRange:
           \_constant: , line:6:55, endln:6:57
             |vpiParent:
@@ -573,13 +587,17 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:2:23, endln:2:34
+    \_logic_var: (my_pkg::sbox4_8bit), line:2:23, endln:2:34
+      |vpiParent:
+      \_function: (my_pkg::sbox4_8bit), line:2:4, endln:4:28
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:34
         |vpiInstance:
         \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:2:29, endln:2:34
+          |vpiParent:
+          \_logic_typespec: , line:2:23, endln:2:34
           |vpiLeftRange:
           \_constant: , line:2:30, endln:2:31
             |vpiParent:
@@ -596,6 +614,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:my_pkg::sbox4_8bit
     |vpiIODecl:
     \_io_decl: (state_in), line:2:58, endln:2:66
       |vpiParent:
@@ -608,6 +627,8 @@ design: (work@top)
         \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:2:52, endln:2:57
+          |vpiParent:
+          \_logic_typespec: , line:2:46, endln:2:57
           |vpiLeftRange:
           \_constant: , line:2:53, endln:2:54
             |vpiParent:
@@ -655,7 +676,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:13, endln:7:19
           |vpiParent:
-          \_begin: (my_pkg::sbox4_16bit)
+          \_logic_typespec: , line:7:7, endln:7:19
           |vpiLeftRange:
           \_constant: , line:7:14, endln:7:16
             |vpiParent:
@@ -677,13 +698,17 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:6:23, endln:6:35
+    \_logic_var: (my_pkg::sbox4_16bit), line:6:23, endln:6:35
+      |vpiParent:
+      \_function: (my_pkg::sbox4_16bit), line:6:4, endln:10:29
       |vpiTypespec:
       \_logic_typespec: , line:6:23, endln:6:35
         |vpiInstance:
         \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:6:29, endln:6:35
+          |vpiParent:
+          \_logic_typespec: , line:6:23, endln:6:35
           |vpiLeftRange:
           \_constant: , line:6:30, endln:6:32
             |vpiParent:
@@ -700,6 +725,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:my_pkg::sbox4_16bit
     |vpiIODecl:
     \_io_decl: (state_in), line:6:61, endln:6:69
       |vpiParent:
@@ -712,6 +738,8 @@ design: (work@top)
         \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PackFuncParent/dut.sv, line:1:1, endln:11:11
         |vpiRange:
         \_range: , line:6:54, endln:6:60
+          |vpiParent:
+          \_logic_typespec: , line:6:48, endln:6:60
           |vpiLeftRange:
           \_constant: , line:6:55, endln:6:57
             |vpiParent:
@@ -834,13 +862,19 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:13:32, endln:13:33
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:13:32, endln:13:33
     |vpiTypedef:
     \_logic_typespec: , line:13:19, endln:13:31
       |vpiRange:
       \_range: , line:13:25, endln:13:31
+        |vpiParent:
+        \_logic_typespec: , line:13:19, endln:13:31
         |vpiLeftRange:
         \_constant: , line:13:26, endln:13:28
           |vpiParent:
@@ -899,6 +933,8 @@ design: (work@top)
     \_logic_typespec: , line:13:19, endln:13:31
       |vpiRange:
       \_range: , line:13:25, endln:13:31
+        |vpiParent:
+        \_logic_typespec: , line:13:19, endln:13:31
         |vpiLeftRange:
         \_constant: , line:13:26, endln:13:28
           |vpiParent:
@@ -938,7 +974,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:13:25, endln:13:31
         |vpiParent:
-        \_port: (o), line:13:32, endln:13:33
+        \_logic_typespec: , line:13:19, endln:13:31
         |vpiLeftRange:
         \_constant: , line:13:26, endln:13:28
           |vpiParent:

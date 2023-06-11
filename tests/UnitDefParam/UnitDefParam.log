@@ -1307,13 +1307,18 @@ design: (work@top_def)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitDefParam/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -1334,10 +1339,13 @@ design: (work@top_def)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1349,6 +1357,8 @@ design: (work@top_def)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -1360,9 +1370,14 @@ design: (work@top_def)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -1375,6 +1390,8 @@ design: (work@top_def)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -1386,13 +1403,18 @@ design: (work@top_def)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -1405,6 +1427,8 @@ design: (work@top_def)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -1416,13 +1440,18 @@ design: (work@top_def)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
@@ -1437,30 +1466,40 @@ design: (work@top_def)
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
@@ -1474,11 +1513,14 @@ design: (work@top_def)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitDefParam/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1488,9 +1530,12 @@ design: (work@top_def)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1536,13 +1581,18 @@ design: (work@top_def)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitDefParam/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1564,6 +1614,8 @@ design: (work@top_def)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1585,6 +1637,8 @@ design: (work@top_def)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1605,13 +1659,18 @@ design: (work@top_def)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1643,6 +1702,8 @@ design: (work@top_def)
     \_module_inst: work@def (work@def), file:${SURELOG_DIR}/tests/UnitDefParam/def.v, line:2:1, endln:8:10
     |vpiRhs:
     \_constant: , line:3:19, endln:3:20
+      |vpiParent:
+      \_param_assign: , line:3:11, endln:3:20
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1716,6 +1777,8 @@ design: (work@top_def)
     \_module_inst: work@secret_number (work@secret_number), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:2:1, endln:12:10
     |vpiRhs:
     \_constant: , line:3:19, endln:3:20
+      |vpiParent:
+      \_param_assign: , line:3:12, endln:3:20
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -1730,7 +1793,10 @@ design: (work@top_def)
     |vpiParent:
     \_module_inst: work@secret_number (work@secret_number), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:2:1, endln:12:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@secret_number)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@secret_number
 |uhdmallModules:
 \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:11:1, endln:60:10
   |vpiParent:
@@ -1748,6 +1814,8 @@ design: (work@top_def)
       |vpiSigned:1
       |vpiRange:
       \_range: , line:14:21, endln:14:26
+        |vpiParent:
+        \_int_typespec: , line:14:14, endln:14:20
         |vpiLeftRange:
         \_constant: , line:14:22, endln:14:23
           |vpiParent:
@@ -1784,6 +1852,8 @@ design: (work@top_def)
     \_int_typespec: 
       |vpiRange:
       \_range: 
+        |vpiParent:
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
           |INT:12
@@ -1798,6 +1868,8 @@ design: (work@top_def)
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:11:1, endln:60:10
     |vpiRhs:
     \_constant: , line:14:34, endln:14:37
+      |vpiParent:
+      \_param_assign: , line:14:27, endln:14:37
       |vpiDecompile:1e1
       |vpiSize:4
       |REAL:10.000000
@@ -1812,6 +1884,8 @@ design: (work@top_def)
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:11:1, endln:60:10
     |vpiRhs:
     \_constant: , line:15:22, endln:15:23
+      |vpiParent:
+      \_param_assign: , line:15:14, endln:15:23
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
@@ -1826,6 +1900,8 @@ design: (work@top_def)
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:11:1, endln:60:10
     |vpiRhs:
     \_constant: , line:16:16, endln:16:23
+      |vpiParent:
+      \_param_assign: , line:16:11, endln:16:23
       |vpiDecompile:13'b100
       |vpiSize:13
       |BIN:100
@@ -1840,7 +1916,10 @@ design: (work@top_def)
     |vpiParent:
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:11:1, endln:60:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@small_test)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@small_test
 |uhdmallModules:
 \_module_inst: work@small_top (work@small_top), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:7:1, endln:9:10
   |vpiParent:
@@ -1899,6 +1978,8 @@ design: (work@top_def)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
+        |vpiParent:
+        \_param_assign: , line:3:11, endln:3:20
         |vpiDecompile:3
         |vpiSize:32
         |UINT:3
@@ -1999,6 +2080,8 @@ design: (work@top_def)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:14:34, endln:14:37
+        |vpiParent:
+        \_param_assign: , line:14:27, endln:14:37
         |vpiDecompile:3
         |vpiSize:4
         |UINT:3
@@ -2014,6 +2097,8 @@ design: (work@top_def)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:15:22, endln:15:23
+        |vpiParent:
+        \_param_assign: , line:15:14, endln:15:23
         |vpiDecompile:4
         |vpiSize:32
         |UINT:4
@@ -2028,6 +2113,8 @@ design: (work@top_def)
       \_module_inst: work@small_test (work@small_top.u1), file:${SURELOG_DIR}/tests/UnitDefParam/top.v, line:8:4, endln:8:29
       |vpiRhs:
       \_constant: , line:16:16, endln:16:23
+        |vpiParent:
+        \_param_assign: , line:16:11, endln:16:23
         |vpiDecompile:13'b100
         |vpiSize:13
         |BIN:100
@@ -3352,6 +3439,8 @@ design: (work@top_def)
       \_module_inst: work@secret_number (work@defparam_example.U0), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:19:3, endln:19:22
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
+        |vpiParent:
+        \_param_assign: , line:3:12, endln:3:20
         |vpiDecompile:0
         |vpiSize:32
         |UINT:0
@@ -3388,6 +3477,8 @@ design: (work@top_def)
       \_module_inst: work@secret_number (work@defparam_example.U1), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:20:3, endln:20:22
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
+        |vpiParent:
+        \_param_assign: , line:3:12, endln:3:20
         |vpiDecompile:1
         |vpiSize:32
         |UINT:1
@@ -3452,6 +3543,8 @@ design: (work@top_def)
       \_module_inst: work@secret_number (work@defparam_example.U2), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:21:3, endln:21:22
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
+        |vpiParent:
+        \_param_assign: , line:3:12, endln:3:20
         |vpiDecompile:2
         |vpiSize:32
         |UINT:2
@@ -3544,6 +3637,8 @@ design: (work@top_def)
       \_module_inst: work@secret_number (work@defparam_example.U3), file:${SURELOG_DIR}/tests/UnitDefParam/small.v, line:22:3, endln:22:22
       |vpiRhs:
       \_constant: , line:3:19, endln:3:20
+        |vpiParent:
+        \_param_assign: , line:3:12, endln:3:20
         |vpiDecompile:3
         |vpiSize:32
         |UINT:3

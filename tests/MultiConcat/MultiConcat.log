@@ -1691,7 +1691,7 @@ int_typespec                                          33
 logic_typespec                                        32
 module_inst                                            2
 operation                                           1038
-package                                                3
+package                                                2
 packed_array_typespec                                 10
 param_assign                                          36
 parameter                                             36
@@ -1709,7 +1709,7 @@ int_typespec                                          33
 logic_typespec                                        32
 module_inst                                            2
 operation                                           1038
-package                                                3
+package                                                2
 packed_array_typespec                                 10
 param_assign                                          36
 parameter                                             36
@@ -1797,16 +1797,19 @@ design: (unnamed)
         \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
         |vpiRange:
         \_range: , line:33:17, endln:33:30
+          |vpiParent:
+          \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
           |vpiLeftRange:
           \_operation: , line:33:18, endln:33:27
             |vpiParent:
             \_range: , line:33:17, endln:33:30
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (TxWidth), line:33:18, endln:33:25
+            \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t::TxWidth), line:33:18, endln:33:25
               |vpiParent:
               \_operation: , line:33:18, endln:33:27
               |vpiName:TxWidth
+              |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t::TxWidth
               |vpiActual:
               \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
             |vpiOperand:
@@ -1896,16 +1899,19 @@ design: (unnamed)
         \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
         |vpiRange:
         \_range: , line:37:17, endln:37:35
+          |vpiParent:
+          \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
           |vpiLeftRange:
           \_operation: , line:37:18, endln:37:32
             |vpiParent:
             \_range: , line:37:17, endln:37:35
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (RmaSeedWidth), line:37:18, endln:37:30
+            \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::lc_flash_rma_seed_t::RmaSeedWidth), line:37:18, endln:37:30
               |vpiParent:
               \_operation: , line:37:18, endln:37:32
               |vpiName:RmaSeedWidth
+              |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_flash_rma_seed_t::RmaSeedWidth
               |vpiActual:
               \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
             |vpiOperand:
@@ -2004,16 +2010,19 @@ design: (unnamed)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
       |vpiRange:
       \_range: , line:132:25, endln:132:42
+        |vpiParent:
+        \_packed_array_typespec: , line:132:13, endln:132:24
         |vpiLeftRange:
         \_operation: , line:132:26, endln:132:39
           |vpiParent:
           \_range: , line:132:25, endln:132:42
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (NumLcStates), line:132:26, endln:132:37
+          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:26, endln:132:37
             |vpiParent:
             \_operation: , line:132:26, endln:132:39
             |vpiName:NumLcStates
+            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
           |vpiOperand:
           \_constant: , line:132:38, endln:132:39
             |vpiParent:
@@ -2032,16 +2041,19 @@ design: (unnamed)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:132:42, endln:132:59
+        |vpiParent:
+        \_packed_array_typespec: , line:132:13, endln:132:24
         |vpiLeftRange:
         \_operation: , line:132:43, endln:132:56
           |vpiParent:
           \_range: , line:132:42, endln:132:59
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (NumLcStates), line:132:43, endln:132:54
+          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:43, endln:132:54
             |vpiParent:
             \_operation: , line:132:43, endln:132:56
             |vpiName:NumLcStates
+            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
           |vpiOperand:
           \_constant: , line:132:55, endln:132:56
             |vpiParent:
@@ -2071,6 +2083,8 @@ design: (unnamed)
           \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
           |vpiRange:
           \_range: , line:10:22, endln:10:41
+            |vpiParent:
+            \_logic_typespec: , line:10:16, endln:10:41
             |vpiLeftRange:
             \_operation: , line:10:23, endln:10:38
               |vpiParent:
@@ -2101,36 +2115,48 @@ design: (unnamed)
               |vpiConstType:9
         |vpiEnumConst:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:ZeroTokenIdx
           |HEX:0
           |vpiDecompile:3'h0
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:RawUnlockTokenIdx
           |HEX:1
           |vpiDecompile:3'h1
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:TestUnlockTokenIdx
           |HEX:2
           |vpiDecompile:3'h2
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:TestExitTokenIdx
           |HEX:3
           |vpiDecompile:3'h3
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:RmaTokenIdx
           |HEX:4
           |vpiDecompile:3'h4
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:InvalidTokenIdx
           |HEX:5
           |vpiDecompile:3'h5
@@ -2143,6 +2169,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:8:29, endln:8:30
+      |vpiParent:
+      \_param_assign: , line:8:17, endln:8:30
       |vpiDecompile:6
       |vpiSize:32
       |UINT:6
@@ -2157,6 +2185,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:9:33, endln:9:34
+      |vpiParent:
+      \_param_assign: , line:9:17, endln:9:34
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -2171,6 +2201,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:27:27, endln:27:28
+      |vpiParent:
+      \_param_assign: , line:27:17, endln:27:28
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -2185,6 +2217,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_operation: , line:34:37, endln:34:50
+      |vpiParent:
+      \_param_assign: , line:34:21, endln:34:50
       |vpiTypespec:
       \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
         |vpiName:lc_tx_t
@@ -2227,10 +2261,11 @@ design: (unnamed)
             |vpiConstType:9
       |vpiOpType:67
       |vpiOperand:
-      \_ref_obj: (Off), line:34:46, endln:34:49
+      \_ref_obj: (lc_ctrl_pkg::Off), line:34:46, endln:34:49
         |vpiParent:
         \_operation: , line:34:37, endln:34:50
         |vpiName:Off
+        |vpiFullName:lc_ctrl_pkg::Off
         |vpiActual:
         \_enum_const: (Off), line:31:5, endln:31:18
     |vpiLhs:
@@ -2241,6 +2276,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:36:32, endln:36:34
+      |vpiParent:
+      \_param_assign: , line:36:17, endln:36:34
       |vpiDecompile:32
       |vpiSize:32
       |UINT:32
@@ -2255,6 +2292,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:38:61, endln:38:63
+      |vpiParent:
+      \_param_assign: , line:38:33, endln:38:63
       |vpiDecompile:'0
       |vpiSize:32
       |BIN:0
@@ -2269,6 +2308,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:40:36, endln:40:39
+      |vpiParent:
+      \_param_assign: , line:40:17, endln:40:39
       |vpiDecompile:128
       |vpiSize:32
       |UINT:128
@@ -2283,6 +2324,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:76:34, endln:76:36
+      |vpiParent:
+      \_param_assign: , line:76:18, endln:76:36
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -2297,6 +2340,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_operation: , line:132:82, endln:170:4
+      |vpiParent:
+      \_param_assign: , line:132:60, endln:170:4
       |vpiOpType:33
       |vpiOperand:
       \_operation: , line:134:5, endln:134:26
@@ -2305,8 +2350,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:134:6, endln:134:8
-          |vpiParent:
-          \_operation: , line:134:5, endln:134:26
           |vpiDecompile:21
           |vpiSize:64
           |UINT:21
@@ -2317,15 +2360,19 @@ design: (unnamed)
           \_operation: , line:134:5, endln:134:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:134:9, endln:134:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:134:9, endln:134:24
+            |vpiParent:
+            \_operation: , line:134:8, endln:134:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:136:5, endln:136:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:136:5, endln:136:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -2335,8 +2382,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:137:6, endln:137:8
-          |vpiParent:
-          \_operation: , line:137:5, endln:137:26
           |vpiDecompile:20
           |vpiSize:64
           |UINT:20
@@ -2347,15 +2392,19 @@ design: (unnamed)
           \_operation: , line:137:5, endln:137:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:137:9, endln:137:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:137:9, endln:137:24
+            |vpiParent:
+            \_operation: , line:137:8, endln:137:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:139:5, endln:139:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:139:5, endln:139:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -2365,8 +2414,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:140:6, endln:140:8
-          |vpiParent:
-          \_operation: , line:140:5, endln:140:26
           |vpiDecompile:20
           |vpiSize:64
           |UINT:20
@@ -2377,22 +2424,27 @@ design: (unnamed)
           \_operation: , line:140:5, endln:140:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:140:9, endln:140:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:140:9, endln:140:24
+            |vpiParent:
+            \_operation: , line:140:8, endln:140:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:142:5, endln:142:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:142:5, endln:142:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (RmaTokenIdx), line:143:5, endln:143:16
+      \_ref_obj: (lc_ctrl_pkg::RmaTokenIdx), line:143:5, endln:143:16
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:RmaTokenIdx
+        |vpiFullName:lc_ctrl_pkg::RmaTokenIdx
         |vpiActual:
         \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
       |vpiOperand:
@@ -2402,8 +2454,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:144:6, endln:144:8
-          |vpiParent:
-          \_operation: , line:144:5, endln:144:26
           |vpiDecompile:19
           |vpiSize:64
           |UINT:19
@@ -2414,22 +2464,27 @@ design: (unnamed)
           \_operation: , line:144:5, endln:144:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:144:9, endln:144:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:144:9, endln:144:24
+            |vpiParent:
+            \_operation: , line:144:8, endln:144:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:146:5, endln:146:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:146:5, endln:146:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (RmaTokenIdx), line:147:5, endln:147:16
+      \_ref_obj: (lc_ctrl_pkg::RmaTokenIdx), line:147:5, endln:147:16
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:RmaTokenIdx
+        |vpiFullName:lc_ctrl_pkg::RmaTokenIdx
         |vpiActual:
         \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
       |vpiOperand:
@@ -2439,8 +2494,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:148:6, endln:148:8
-          |vpiParent:
-          \_operation: , line:148:5, endln:148:26
           |vpiDecompile:19
           |vpiSize:64
           |UINT:19
@@ -2451,8 +2504,11 @@ design: (unnamed)
           \_operation: , line:148:5, endln:148:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:148:9, endln:148:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:148:9, endln:148:24
+            |vpiParent:
+            \_operation: , line:148:8, endln:148:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -2462,8 +2518,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -2474,8 +2528,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -2485,8 +2542,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -2497,8 +2552,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -2533,13 +2591,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -2587,22 +2651,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -2612,8 +2681,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -2624,8 +2691,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -2660,13 +2730,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -2714,8 +2790,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -2725,8 +2804,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -2737,8 +2814,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -2748,8 +2828,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -2760,8 +2838,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -2796,13 +2877,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -2850,22 +2937,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -2875,8 +2967,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -2887,8 +2977,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -2923,13 +3016,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -2977,8 +3076,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -2988,8 +3090,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -3000,8 +3100,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3011,8 +3114,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3023,8 +3124,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3059,13 +3163,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3113,22 +3223,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3138,8 +3253,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3150,8 +3263,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3186,13 +3302,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3240,8 +3362,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3251,8 +3376,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -3263,8 +3386,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3274,8 +3400,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3286,8 +3410,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3322,13 +3449,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3376,22 +3509,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3401,8 +3539,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3413,8 +3549,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3449,13 +3588,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3503,8 +3648,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3514,8 +3662,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -3526,8 +3672,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3537,8 +3686,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3549,8 +3696,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3585,13 +3735,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3639,22 +3795,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3664,8 +3825,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3676,8 +3835,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3712,13 +3874,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3766,8 +3934,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3777,8 +3948,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -3789,8 +3958,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3800,8 +3972,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3812,8 +3982,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3848,13 +4021,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -3902,22 +4081,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -3927,8 +4111,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -3939,8 +4121,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -3975,13 +4160,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -4029,8 +4220,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -4040,8 +4234,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -4052,8 +4244,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -4063,8 +4258,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -4075,8 +4268,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -4111,13 +4307,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -4165,22 +4367,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -4190,8 +4397,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -4202,8 +4407,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -4238,13 +4446,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -4292,8 +4506,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -4303,8 +4520,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -4315,8 +4530,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -4326,8 +4544,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -4338,8 +4554,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -4374,13 +4593,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -4428,15 +4653,19 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:166:5, endln:166:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:166:5, endln:166:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -4446,8 +4675,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:167:6, endln:167:7
-          |vpiParent:
-          \_operation: , line:167:5, endln:167:25
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
@@ -4458,8 +4685,11 @@ design: (unnamed)
           \_operation: , line:167:5, endln:167:25
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:167:8, endln:167:23
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:167:8, endln:167:23
+            |vpiParent:
+            \_operation: , line:167:7, endln:167:24
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -4469,8 +4699,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:168:6, endln:168:7
-          |vpiParent:
-          \_operation: , line:168:5, endln:169:25
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -4481,13 +4709,19 @@ design: (unnamed)
           \_operation: , line:168:5, endln:169:25
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (RawUnlockTokenIdx), line:168:8, endln:168:25
+          \_ref_obj: (lc_ctrl_pkg::RawUnlockTokenIdx), line:168:8, endln:168:25
+            |vpiParent:
+            \_operation: , line:168:7, endln:169:24
             |vpiName:RawUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::RawUnlockTokenIdx
             |vpiActual:
             \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:169:8, endln:169:23
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:169:8, endln:169:23
+            |vpiParent:
+            \_operation: , line:168:7, endln:169:24
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
     |vpiLhs:
@@ -4505,6 +4739,8 @@ design: (unnamed)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
       |vpiRange:
       \_range: , line:77:22, endln:77:41
+        |vpiParent:
+        \_logic_typespec: , line:77:16, endln:77:41
         |vpiLeftRange:
         \_operation: , line:77:23, endln:77:38
           |vpiParent:
@@ -4535,90 +4771,120 @@ design: (unnamed)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (ResetSt), line:78:5, endln:78:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:ResetSt
       |BIN:1100000001111011
       |vpiDecompile:16'b1100000001111011
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (IdleSt), line:79:5, endln:79:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:IdleSt
       |BIN:1111011010111100
       |vpiDecompile:16'b1111011010111100
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (ClkMuxSt), line:80:5, endln:80:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:ClkMuxSt
       |BIN:0000011110101101
       |vpiDecompile:16'b0000011110101101
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (CntIncrSt), line:81:5, endln:81:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:CntIncrSt
       |BIN:1100111011001001
       |vpiDecompile:16'b1100111011001001
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (CntProgSt), line:82:5, endln:82:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:CntProgSt
       |BIN:0011001111000111
       |vpiDecompile:16'b0011001111000111
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TransCheckSt), line:83:5, endln:83:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TransCheckSt
       |BIN:0000110001010100
       |vpiDecompile:16'b0000110001010100
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TokenHashSt), line:84:5, endln:84:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TokenHashSt
       |BIN:0110111010110000
       |vpiDecompile:16'b0110111010110000
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (FlashRmaSt), line:85:5, endln:85:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:FlashRmaSt
       |BIN:1110100010001111
       |vpiDecompile:16'b1110100010001111
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TokenCheck0St), line:86:5, endln:86:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TokenCheck0St
       |BIN:0010000011000000
       |vpiDecompile:16'b0010000011000000
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TokenCheck1St), line:87:5, endln:87:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TokenCheck1St
       |BIN:1101010101101111
       |vpiDecompile:16'b1101010101101111
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TransProgSt), line:88:5, endln:88:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TransProgSt
       |BIN:1000000110101011
       |vpiDecompile:16'b1000000110101011
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (PostTransSt), line:89:5, endln:89:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:PostTransSt
       |BIN:0110110100101100
       |vpiDecompile:16'b0110110100101100
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (ScrapSt), line:90:5, endln:90:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:ScrapSt
       |BIN:1010100001010001
       |vpiDecompile:16'b1010100001010001
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (EscalateSt), line:91:5, endln:91:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:EscalateSt
       |BIN:1011110110011011
       |vpiDecompile:16'b1011110110011011
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (InvalidSt), line:92:5, endln:92:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:InvalidSt
       |BIN:0011000101001100
       |vpiDecompile:16'b0011000101001100
@@ -4634,16 +4900,19 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRange:
     \_range: , line:41:17, endln:41:39
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::lc_keymgr_div_t), line:41:11, endln:41:39
       |vpiLeftRange:
       \_operation: , line:41:18, endln:41:36
         |vpiParent:
         \_range: , line:41:17, endln:41:39
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (LcKeymgrDivWidth), line:41:18, endln:41:34
+        \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::lc_keymgr_div_t::LcKeymgrDivWidth), line:41:18, endln:41:34
           |vpiParent:
           \_operation: , line:41:18, endln:41:36
           |vpiName:LcKeymgrDivWidth
+          |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_keymgr_div_t::LcKeymgrDivWidth
           |vpiActual:
           \_parameter: (lc_ctrl_pkg::LcKeymgrDivWidth), line:40:17, endln:40:33
         |vpiOperand:
@@ -4675,6 +4944,8 @@ design: (unnamed)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
       |vpiRange:
       \_range: , line:29:22, endln:29:35
+        |vpiParent:
+        \_logic_typespec: , line:29:16, endln:29:35
         |vpiLeftRange:
         \_operation: , line:29:23, endln:29:32
           |vpiParent:
@@ -4705,12 +4976,16 @@ design: (unnamed)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (On), line:30:5, endln:30:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:29:3, endln:32:13
       |vpiName:On
       |BIN:1010
       |vpiDecompile:4'b1010
       |vpiSize:4
     |vpiEnumConst:
     \_enum_const: (Off), line:31:5, endln:31:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:29:3, endln:32:13
       |vpiName:Off
       |BIN:0101
       |vpiDecompile:4'b0101
@@ -4789,6 +5064,8 @@ design: (unnamed)
         \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
         |vpiRange:
         \_range: , line:33:17, endln:33:30
+          |vpiParent:
+          \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
           |vpiLeftRange:
           \_constant: , line:33:18, endln:33:25
             |vpiParent:
@@ -4863,6 +5140,8 @@ design: (unnamed)
         \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
         |vpiRange:
         \_range: , line:37:17, endln:37:35
+          |vpiParent:
+          \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
           |vpiLeftRange:
           \_constant: , line:37:18, endln:37:30
             |vpiParent:
@@ -4946,16 +5225,19 @@ design: (unnamed)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
       |vpiRange:
       \_range: , line:132:25, endln:132:42
+        |vpiParent:
+        \_packed_array_typespec: , line:132:13, endln:132:24
         |vpiLeftRange:
         \_operation: , line:132:26, endln:132:39
           |vpiParent:
           \_range: , line:132:25, endln:132:42
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (NumLcStates), line:132:26, endln:132:37
+          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:26, endln:132:37
             |vpiParent:
             \_operation: , line:132:26, endln:132:39
             |vpiName:NumLcStates
+            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
           |vpiOperand:
           \_constant: , line:132:38, endln:132:39
             |vpiParent:
@@ -4974,16 +5256,19 @@ design: (unnamed)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:132:42, endln:132:59
+        |vpiParent:
+        \_packed_array_typespec: , line:132:13, endln:132:24
         |vpiLeftRange:
         \_operation: , line:132:43, endln:132:56
           |vpiParent:
           \_range: , line:132:42, endln:132:59
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (NumLcStates), line:132:43, endln:132:54
+          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:43, endln:132:54
             |vpiParent:
             \_operation: , line:132:43, endln:132:56
             |vpiName:NumLcStates
+            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
           |vpiOperand:
           \_constant: , line:132:55, endln:132:56
             |vpiParent:
@@ -5013,6 +5298,8 @@ design: (unnamed)
           \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
           |vpiRange:
           \_range: , line:10:22, endln:10:41
+            |vpiParent:
+            \_logic_typespec: , line:10:16, endln:10:41
             |vpiLeftRange:
             \_constant: , line:10:23, endln:10:36
               |vpiParent:
@@ -5031,36 +5318,48 @@ design: (unnamed)
               |vpiConstType:9
         |vpiEnumConst:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:ZeroTokenIdx
           |HEX:0
           |vpiDecompile:3'h0
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:RawUnlockTokenIdx
           |HEX:1
           |vpiDecompile:3'h1
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:TestUnlockTokenIdx
           |HEX:2
           |vpiDecompile:3'h2
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:TestExitTokenIdx
           |HEX:3
           |vpiDecompile:3'h3
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:RmaTokenIdx
           |HEX:4
           |vpiDecompile:3'h4
           |vpiSize:3
         |vpiEnumConst:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
+          |vpiParent:
+          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
           |vpiName:InvalidTokenIdx
           |HEX:5
           |vpiDecompile:3'h5
@@ -5073,6 +5372,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:8:29, endln:8:30
+      |vpiParent:
+      \_param_assign: , line:8:17, endln:8:30
       |vpiDecompile:6
       |vpiSize:32
       |UINT:6
@@ -5087,6 +5388,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:9:33, endln:9:34
+      |vpiParent:
+      \_param_assign: , line:9:17, endln:9:34
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -5101,6 +5404,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:27:27, endln:27:28
+      |vpiParent:
+      \_param_assign: , line:27:17, endln:27:28
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -5115,6 +5420,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_operation: , line:34:37, endln:34:50
+      |vpiParent:
+      \_param_assign: , line:34:21, endln:34:50
       |vpiTypespec:
       \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
         |vpiName:lc_tx_t
@@ -5159,6 +5466,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:36:32, endln:36:34
+      |vpiParent:
+      \_param_assign: , line:36:17, endln:36:34
       |vpiDecompile:32
       |vpiSize:32
       |UINT:32
@@ -5173,6 +5482,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:38:61, endln:38:63
+      |vpiParent:
+      \_param_assign: , line:38:33, endln:38:63
       |vpiDecompile:'0
       |vpiSize:32
       |BIN:0
@@ -5187,6 +5498,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:40:36, endln:40:39
+      |vpiParent:
+      \_param_assign: , line:40:17, endln:40:39
       |vpiDecompile:128
       |vpiSize:32
       |UINT:128
@@ -5201,6 +5514,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_constant: , line:76:34, endln:76:36
+      |vpiParent:
+      \_param_assign: , line:76:18, endln:76:36
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -5215,6 +5530,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
     \_operation: , line:132:82, endln:170:4
+      |vpiParent:
+      \_param_assign: , line:132:60, endln:170:4
       |vpiOpType:33
       |vpiOperand:
       \_operation: , line:134:5, endln:134:26
@@ -5223,8 +5540,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:134:6, endln:134:8
-          |vpiParent:
-          \_operation: , line:134:5, endln:134:26
           |vpiDecompile:21
           |vpiSize:64
           |UINT:21
@@ -5235,15 +5550,19 @@ design: (unnamed)
           \_operation: , line:134:5, endln:134:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:134:9, endln:134:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:134:9, endln:134:24
+            |vpiParent:
+            \_operation: , line:134:8, endln:134:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:136:5, endln:136:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:136:5, endln:136:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -5253,8 +5572,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:137:6, endln:137:8
-          |vpiParent:
-          \_operation: , line:137:5, endln:137:26
           |vpiDecompile:20
           |vpiSize:64
           |UINT:20
@@ -5265,15 +5582,19 @@ design: (unnamed)
           \_operation: , line:137:5, endln:137:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:137:9, endln:137:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:137:9, endln:137:24
+            |vpiParent:
+            \_operation: , line:137:8, endln:137:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:139:5, endln:139:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:139:5, endln:139:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -5283,8 +5604,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:140:6, endln:140:8
-          |vpiParent:
-          \_operation: , line:140:5, endln:140:26
           |vpiDecompile:20
           |vpiSize:64
           |UINT:20
@@ -5295,22 +5614,27 @@ design: (unnamed)
           \_operation: , line:140:5, endln:140:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:140:9, endln:140:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:140:9, endln:140:24
+            |vpiParent:
+            \_operation: , line:140:8, endln:140:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:142:5, endln:142:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:142:5, endln:142:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (RmaTokenIdx), line:143:5, endln:143:16
+      \_ref_obj: (lc_ctrl_pkg::RmaTokenIdx), line:143:5, endln:143:16
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:RmaTokenIdx
+        |vpiFullName:lc_ctrl_pkg::RmaTokenIdx
         |vpiActual:
         \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
       |vpiOperand:
@@ -5320,8 +5644,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:144:6, endln:144:8
-          |vpiParent:
-          \_operation: , line:144:5, endln:144:26
           |vpiDecompile:19
           |vpiSize:64
           |UINT:19
@@ -5332,22 +5654,27 @@ design: (unnamed)
           \_operation: , line:144:5, endln:144:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:144:9, endln:144:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:144:9, endln:144:24
+            |vpiParent:
+            \_operation: , line:144:8, endln:144:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:146:5, endln:146:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:146:5, endln:146:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (RmaTokenIdx), line:147:5, endln:147:16
+      \_ref_obj: (lc_ctrl_pkg::RmaTokenIdx), line:147:5, endln:147:16
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:RmaTokenIdx
+        |vpiFullName:lc_ctrl_pkg::RmaTokenIdx
         |vpiActual:
         \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
       |vpiOperand:
@@ -5357,8 +5684,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:148:6, endln:148:8
-          |vpiParent:
-          \_operation: , line:148:5, endln:148:26
           |vpiDecompile:19
           |vpiSize:64
           |UINT:19
@@ -5369,8 +5694,11 @@ design: (unnamed)
           \_operation: , line:148:5, endln:148:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:148:9, endln:148:24
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:148:9, endln:148:24
+            |vpiParent:
+            \_operation: , line:148:8, endln:148:25
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -5380,8 +5708,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -5392,8 +5718,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -5403,8 +5732,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -5415,8 +5742,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -5451,13 +5781,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -5505,22 +5841,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -5530,8 +5871,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -5542,8 +5881,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -5578,13 +5920,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -5632,8 +5980,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -5643,8 +5994,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -5655,8 +6004,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -5666,8 +6018,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -5678,8 +6028,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -5714,13 +6067,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -5768,22 +6127,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -5793,8 +6157,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -5805,8 +6167,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -5841,13 +6206,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -5895,8 +6266,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -5906,8 +6280,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -5918,8 +6290,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -5929,8 +6304,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -5941,8 +6314,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -5977,13 +6353,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6031,22 +6413,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6056,8 +6443,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6068,8 +6453,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -6104,13 +6492,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6158,8 +6552,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6169,8 +6566,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -6181,8 +6576,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6192,8 +6590,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6204,8 +6600,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -6240,13 +6639,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6294,22 +6699,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6319,8 +6729,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6331,8 +6739,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -6367,13 +6778,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6421,8 +6838,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6432,8 +6852,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -6444,8 +6862,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6455,8 +6876,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6467,8 +6886,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -6503,13 +6925,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6557,22 +6985,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6582,8 +7015,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6594,8 +7025,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -6630,13 +7064,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6684,8 +7124,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6695,8 +7138,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -6707,8 +7148,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6718,8 +7162,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6730,8 +7172,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -6766,13 +7211,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6820,22 +7271,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6845,8 +7301,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6857,8 +7311,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -6893,13 +7350,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6947,8 +7410,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -6958,8 +7424,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -6970,8 +7434,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -6981,8 +7448,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -6993,8 +7458,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -7029,13 +7497,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -7083,22 +7557,27 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:122:7, endln:122:19
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:122:7, endln:122:19
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
-      \_ref_obj: (InvalidTokenIdx), line:123:7, endln:123:22
+      \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:123:7, endln:123:22
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:InvalidTokenIdx
+        |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
         |vpiActual:
         \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -7108,8 +7587,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:124:8, endln:124:9
-          |vpiParent:
-          \_operation: , line:124:7, endln:124:28
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -7120,8 +7597,11 @@ design: (unnamed)
           \_operation: , line:124:7, endln:124:28
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:124:10, endln:124:26
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:124:10, endln:124:26
+            |vpiParent:
+            \_operation: , line:124:9, endln:124:27
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -7156,13 +7636,19 @@ design: (unnamed)
           \_operation: , line:125:7, endln:126:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestUnlockTokenIdx), line:125:14, endln:125:32
+          \_ref_obj: (lc_ctrl_pkg::TestUnlockTokenIdx), line:125:14, endln:125:32
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:TestUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestUnlockTokenIdx
             |vpiActual:
             \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:126:16, endln:126:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:126:16, endln:126:31
+            |vpiParent:
+            \_operation: , line:125:13, endln:126:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -7210,8 +7696,11 @@ design: (unnamed)
           \_operation: , line:127:7, endln:127:33
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:127:16, endln:127:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:127:16, endln:127:31
+            |vpiParent:
+            \_operation: , line:127:15, endln:127:32
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -7221,8 +7710,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:107:10, endln:107:11
-          |vpiParent:
-          \_operation: , line:107:9, endln:107:26
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -7233,8 +7720,11 @@ design: (unnamed)
           \_operation: , line:107:9, endln:107:26
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:107:12, endln:107:24
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:107:12, endln:107:24
+            |vpiParent:
+            \_operation: , line:107:11, endln:107:25
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -7244,8 +7734,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:108:10, endln:108:11
-          |vpiParent:
-          \_operation: , line:108:9, endln:108:30
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -7256,8 +7744,11 @@ design: (unnamed)
           \_operation: , line:108:9, endln:108:30
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (TestExitTokenIdx), line:108:12, endln:108:28
+          \_ref_obj: (lc_ctrl_pkg::TestExitTokenIdx), line:108:12, endln:108:28
+            |vpiParent:
+            \_operation: , line:108:11, endln:108:29
             |vpiName:TestExitTokenIdx
+            |vpiFullName:lc_ctrl_pkg::TestExitTokenIdx
             |vpiActual:
             \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
       |vpiOperand:
@@ -7292,13 +7783,19 @@ design: (unnamed)
           \_operation: , line:109:9, endln:110:32
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:109:16, endln:109:31
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:109:16, endln:109:31
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
           |vpiOperand:
-          \_ref_obj: (ZeroTokenIdx), line:110:18, endln:110:30
+          \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:110:18, endln:110:30
+            |vpiParent:
+            \_operation: , line:109:15, endln:110:31
             |vpiName:ZeroTokenIdx
+            |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
             |vpiActual:
             \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -7346,15 +7843,19 @@ design: (unnamed)
           \_operation: , line:111:9, endln:111:35
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:111:18, endln:111:33
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:111:18, endln:111:33
+            |vpiParent:
+            \_operation: , line:111:17, endln:111:34
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
-      \_ref_obj: (ZeroTokenIdx), line:166:5, endln:166:17
+      \_ref_obj: (lc_ctrl_pkg::ZeroTokenIdx), line:166:5, endln:166:17
         |vpiParent:
         \_operation: , line:132:82, endln:170:4
         |vpiName:ZeroTokenIdx
+        |vpiFullName:lc_ctrl_pkg::ZeroTokenIdx
         |vpiActual:
         \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
       |vpiOperand:
@@ -7364,8 +7865,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:167:6, endln:167:7
-          |vpiParent:
-          \_operation: , line:167:5, endln:167:25
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
@@ -7376,8 +7875,11 @@ design: (unnamed)
           \_operation: , line:167:5, endln:167:25
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:167:8, endln:167:23
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:167:8, endln:167:23
+            |vpiParent:
+            \_operation: , line:167:7, endln:167:24
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
       |vpiOperand:
@@ -7387,8 +7889,6 @@ design: (unnamed)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:168:6, endln:168:7
-          |vpiParent:
-          \_operation: , line:168:5, endln:169:25
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -7399,13 +7899,19 @@ design: (unnamed)
           \_operation: , line:168:5, endln:169:25
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (RawUnlockTokenIdx), line:168:8, endln:168:25
+          \_ref_obj: (lc_ctrl_pkg::RawUnlockTokenIdx), line:168:8, endln:168:25
+            |vpiParent:
+            \_operation: , line:168:7, endln:169:24
             |vpiName:RawUnlockTokenIdx
+            |vpiFullName:lc_ctrl_pkg::RawUnlockTokenIdx
             |vpiActual:
             \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
           |vpiOperand:
-          \_ref_obj: (InvalidTokenIdx), line:169:8, endln:169:23
+          \_ref_obj: (lc_ctrl_pkg::InvalidTokenIdx), line:169:8, endln:169:23
+            |vpiParent:
+            \_operation: , line:168:7, endln:169:24
             |vpiName:InvalidTokenIdx
+            |vpiFullName:lc_ctrl_pkg::InvalidTokenIdx
             |vpiActual:
             \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
     |vpiLhs:
@@ -7423,6 +7929,8 @@ design: (unnamed)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
       |vpiRange:
       \_range: , line:77:22, endln:77:41
+        |vpiParent:
+        \_logic_typespec: , line:77:16, endln:77:41
         |vpiLeftRange:
         \_constant: , line:77:23, endln:77:36
           |vpiParent:
@@ -7441,90 +7949,120 @@ design: (unnamed)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (ResetSt), line:78:5, endln:78:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:ResetSt
       |BIN:1100000001111011
       |vpiDecompile:16'b1100000001111011
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (IdleSt), line:79:5, endln:79:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:IdleSt
       |BIN:1111011010111100
       |vpiDecompile:16'b1111011010111100
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (ClkMuxSt), line:80:5, endln:80:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:ClkMuxSt
       |BIN:0000011110101101
       |vpiDecompile:16'b0000011110101101
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (CntIncrSt), line:81:5, endln:81:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:CntIncrSt
       |BIN:1100111011001001
       |vpiDecompile:16'b1100111011001001
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (CntProgSt), line:82:5, endln:82:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:CntProgSt
       |BIN:0011001111000111
       |vpiDecompile:16'b0011001111000111
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TransCheckSt), line:83:5, endln:83:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TransCheckSt
       |BIN:0000110001010100
       |vpiDecompile:16'b0000110001010100
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TokenHashSt), line:84:5, endln:84:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TokenHashSt
       |BIN:0110111010110000
       |vpiDecompile:16'b0110111010110000
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (FlashRmaSt), line:85:5, endln:85:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:FlashRmaSt
       |BIN:1110100010001111
       |vpiDecompile:16'b1110100010001111
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TokenCheck0St), line:86:5, endln:86:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TokenCheck0St
       |BIN:0010000011000000
       |vpiDecompile:16'b0010000011000000
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TokenCheck1St), line:87:5, endln:87:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TokenCheck1St
       |BIN:1101010101101111
       |vpiDecompile:16'b1101010101101111
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (TransProgSt), line:88:5, endln:88:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:TransProgSt
       |BIN:1000000110101011
       |vpiDecompile:16'b1000000110101011
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (PostTransSt), line:89:5, endln:89:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:PostTransSt
       |BIN:0110110100101100
       |vpiDecompile:16'b0110110100101100
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (ScrapSt), line:90:5, endln:90:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:ScrapSt
       |BIN:1010100001010001
       |vpiDecompile:16'b1010100001010001
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (EscalateSt), line:91:5, endln:91:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:EscalateSt
       |BIN:1011110110011011
       |vpiDecompile:16'b1011110110011011
       |vpiSize:16
     |vpiEnumConst:
     \_enum_const: (InvalidSt), line:92:5, endln:92:41
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
       |vpiName:InvalidSt
       |BIN:0011000101001100
       |vpiDecompile:16'b0011000101001100
@@ -7540,6 +8078,8 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRange:
     \_range: , line:41:17, endln:41:39
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::lc_keymgr_div_t), line:41:11, endln:41:39
       |vpiLeftRange:
       \_constant: , line:41:18, endln:41:34
         |vpiParent:
@@ -7569,6 +8109,8 @@ design: (unnamed)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
       |vpiRange:
       \_range: , line:29:22, endln:29:35
+        |vpiParent:
+        \_logic_typespec: , line:29:16, endln:29:35
         |vpiLeftRange:
         \_constant: , line:29:23, endln:29:30
           |vpiParent:
@@ -7587,12 +8129,16 @@ design: (unnamed)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (On), line:30:5, endln:30:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:29:3, endln:32:13
       |vpiName:On
       |BIN:1010
       |vpiDecompile:4'b1010
       |vpiSize:4
     |vpiEnumConst:
     \_enum_const: (Off), line:31:5, endln:31:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:29:3, endln:32:13
       |vpiName:Off
       |BIN:0101
       |vpiDecompile:4'b0101

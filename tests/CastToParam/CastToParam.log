@@ -182,7 +182,11 @@ design: (work@top)
       |vpiParent:
       \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
       |vpiExpr:
-      \_ref_obj: 
+      \_ref_obj: (work@top.PTR_WIDTH.PTR_WIDTH)
+        |vpiParent:
+        \_int_typespec: , line:3:14, endln:3:26
+        |vpiName:PTR_WIDTH
+        |vpiFullName:work@top.PTR_WIDTH.PTR_WIDTH
         |vpiActual:
         \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
     |vpiName:PTR_WIDTH
@@ -193,6 +197,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:2:35, endln:2:36
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:36
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -207,6 +213,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:3:39, endln:3:41
+      |vpiParent:
+      \_param_assign: , line:3:27, endln:3:41
       |vpiDecompile:15
       |vpiSize:32
       |UINT:15
@@ -225,11 +233,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:8:23, endln:8:38
+    \_logic_var: (work@top.get_casted_depth), line:8:23, endln:8:38
+      |vpiParent:
+      \_function: (work@top.get_casted_depth), line:8:4, endln:10:15
       |vpiTypespec:
       \_logic_typespec: , line:8:23, endln:8:38
         |vpiRange:
         \_range: , line:8:23, endln:8:38
+          |vpiParent:
+          \_logic_typespec: , line:8:23, endln:8:38
           |vpiLeftRange:
           \_operation: , line:8:24, endln:8:35
             |vpiParent:
@@ -258,6 +270,7 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@top.get_casted_depth
     |vpiStmt:
     \_return_stmt: , line:9:7, endln:9:13
       |vpiParent:
@@ -301,7 +314,7 @@ design: (work@top)
       |vpiParent:
       \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
       |vpiExpr:
-      \_ref_obj: 
+      \_ref_obj: (work@top.PTR_WIDTH.PTR_WIDTH)
     |vpiName:PTR_WIDTH
     |vpiFullName:work@top.PTR_WIDTH
   |vpiParamAssign:
@@ -310,6 +323,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:2:35, endln:2:36
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:36
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -324,6 +339,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
     \_constant: , line:3:39, endln:3:41
+      |vpiParent:
+      \_param_assign: , line:3:27, endln:3:41
       |vpiDecompile:15
       |vpiSize:32
       |UINT:15
@@ -343,7 +360,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:8:23, endln:8:38
+    \_logic_var: (work@top.get_casted_depth), line:8:23, endln:8:38
     |vpiStmt:
     \_return_stmt: , line:9:7, endln:9:13
       |vpiParent:

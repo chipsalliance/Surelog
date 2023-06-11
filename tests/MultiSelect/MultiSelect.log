@@ -229,7 +229,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_array_var: (work@top.a), line:2:8, endln:2:15
+      \_logic_net: (work@top.a), line:2:8, endln:2:9
     |vpiLhs:
     \_ref_obj: (work@top.b), line:10:9, endln:10:10
       |vpiParent:
@@ -237,7 +237,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_array_var: (work@top.b), line:3:8, endln:3:15
+      \_logic_net: (work@top.b), line:3:8, endln:3:9
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiSelect/dut.sv, line:1:1, endln:11:10
   |vpiName:work@top
@@ -255,6 +255,8 @@ design: (work@top)
     |vpiArrayType:1
     |vpiRange:
     \_range: , line:2:10, endln:2:15
+      |vpiParent:
+      \_array_var: (work@top.a), line:2:8, endln:2:15
       |vpiLeftRange:
       \_constant: , line:2:11, endln:2:12
         |vpiParent:
@@ -273,6 +275,8 @@ design: (work@top)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:2:15, endln:2:20
+      |vpiParent:
+      \_array_var: (work@top.a), line:2:8, endln:2:15
       |vpiLeftRange:
       \_constant: , line:2:16, endln:2:17
         |vpiParent:
@@ -295,6 +299,8 @@ design: (work@top)
       \_array_var: (work@top.a), line:2:8, endln:2:15
       |vpiTypespec:
       \_logic_typespec: , line:2:2, endln:2:7
+        |vpiParent:
+        \_logic_var: (work@top.a), line:2:8, endln:2:9
       |vpiFullName:work@top.a
   |vpiVariables:
   \_array_var: (work@top.b), line:3:8, endln:3:15
@@ -310,6 +316,8 @@ design: (work@top)
     |vpiArrayType:1
     |vpiRange:
     \_range: , line:3:10, endln:3:15
+      |vpiParent:
+      \_array_var: (work@top.b), line:3:8, endln:3:15
       |vpiLeftRange:
       \_constant: , line:3:11, endln:3:12
         |vpiParent:
@@ -328,6 +336,8 @@ design: (work@top)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:3:15, endln:3:20
+      |vpiParent:
+      \_array_var: (work@top.b), line:3:8, endln:3:15
       |vpiLeftRange:
       \_constant: , line:3:16, endln:3:17
         |vpiParent:
@@ -350,6 +360,8 @@ design: (work@top)
       \_array_var: (work@top.b), line:3:8, endln:3:15
       |vpiTypespec:
       \_logic_typespec: , line:3:2, endln:3:7
+        |vpiParent:
+        \_logic_var: (work@top.b), line:3:8, endln:3:9
       |vpiFullName:work@top.b
   |vpiDefName:work@top
   |vpiTop:1
@@ -371,7 +383,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:5:11, endln:5:12
         |vpiParent:
-        \_var_select: (a), line:5:9, endln:5:16
+        \_var_select: (work@top.a), line:5:9, endln:5:16
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -379,7 +391,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:5:14, endln:5:15
         |vpiParent:
-        \_var_select: (a), line:5:9, endln:5:16
+        \_var_select: (work@top.a), line:5:9, endln:5:16
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -401,7 +413,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:6:11, endln:6:12
         |vpiParent:
-        \_var_select: (a), line:6:9, endln:6:16
+        \_var_select: (work@top.a), line:6:9, endln:6:16
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -409,7 +421,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:6:14, endln:6:15
         |vpiParent:
-        \_var_select: (a), line:6:9, endln:6:16
+        \_var_select: (work@top.a), line:6:9, endln:6:16
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -431,7 +443,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:7:11, endln:7:12
         |vpiParent:
-        \_var_select: (a), line:7:9, endln:7:16
+        \_var_select: (work@top.a), line:7:9, endln:7:16
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -439,7 +451,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:7:14, endln:7:15
         |vpiParent:
-        \_var_select: (a), line:7:9, endln:7:16
+        \_var_select: (work@top.a), line:7:9, endln:7:16
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -461,7 +473,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:8:11, endln:8:12
         |vpiParent:
-        \_var_select: (a), line:8:9, endln:8:16
+        \_var_select: (work@top.a), line:8:9, endln:8:16
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -469,7 +481,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:8:14, endln:8:15
         |vpiParent:
-        \_var_select: (a), line:8:9, endln:8:16
+        \_var_select: (work@top.a), line:8:9, endln:8:16
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -485,7 +497,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_array_var: (work@top.a), line:2:8, endln:2:15
+      \_logic_net: (work@top.a), line:2:8, endln:2:9
     |vpiLhs:
     \_ref_obj: (work@top.b), line:10:9, endln:10:10
       |vpiParent:
@@ -493,7 +505,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_array_var: (work@top.b), line:3:8, endln:3:15
+      \_logic_net: (work@top.b), line:3:8, endln:3:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

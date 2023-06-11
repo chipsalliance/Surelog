@@ -543,11 +543,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/TaggedPattern/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -572,10 +575,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -600,7 +606,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -630,10 +639,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -664,10 +676,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -734,11 +749,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/TaggedPattern/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -748,7 +766,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -756,34 +776,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -829,11 +860,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/TaggedPattern/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -904,10 +938,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -953,6 +990,8 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_tagged_pattern: (v2), line:9:8, endln:9:14
+          |vpiParent:
+          \_assignment: , line:9:3, endln:9:22
           |vpiName:v2
           |vpiPattern:
           \_constant: , line:9:19, endln:9:21
@@ -967,7 +1006,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6
+          \_logic_net: (work@top.un), line:6:4, endln:6:6
       |vpiStmt:
       \_assignment: , line:10:3, endln:10:22
         |vpiParent:
@@ -976,6 +1015,8 @@ design: (work@top)
         |vpiBlocking:1
         |vpiRhs:
         \_tagged_pattern: (v1), line:10:8, endln:10:14
+          |vpiParent:
+          \_assignment: , line:10:3, endln:10:22
           |vpiName:v1
           |vpiPattern:
           \_constant: , line:10:19, endln:10:21
@@ -990,7 +1031,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6
+          \_logic_net: (work@top.un), line:6:4, endln:6:6
       |vpiStmt:
       \_sys_func_call: ($display), line:11:3, endln:11:49
         |vpiParent:
@@ -1010,7 +1051,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6
+          \_logic_net: (work@top.un), line:6:4, endln:6:6
         |vpiName:$display
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPattern/dut.sv, line:1:1, endln:14:11
@@ -1023,6 +1064,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPattern/dut.sv, line:1:1, endln:14:11
     |vpiTypespec:
     \_union_typespec: , line:3:2, endln:3:14
+      |vpiParent:
+      \_struct_net: (work@top.un), line:6:4, endln:6:6
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (v1), line:4:13, endln:4:15
@@ -1036,7 +1079,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:4:7, endln:4:12
             |vpiParent:
-            \_union_typespec: , line:3:2, endln:3:14
+            \_bit_typespec: , line:4:3, endln:4:12
             |vpiLeftRange:
             \_constant: , line:4:8, endln:4:9
               |vpiParent:
@@ -1070,7 +1113,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:5:7, endln:5:12
             |vpiParent:
-            \_union_typespec: , line:3:2, endln:3:14
+            \_bit_typespec: , line:5:3, endln:5:12
             |vpiLeftRange:
             \_constant: , line:5:8, endln:5:9
               |vpiParent:
@@ -1119,7 +1162,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6
+          \_logic_net: (work@top.un), line:6:4, endln:6:6
       |vpiStmt:
       \_assignment: , line:10:3, endln:10:22
         |vpiParent:
@@ -1135,7 +1178,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6
+          \_logic_net: (work@top.un), line:6:4, endln:6:6
       |vpiStmt:
       \_sys_func_call: ($display), line:11:3, endln:11:49
         |vpiParent:
@@ -1149,7 +1192,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6
+          \_logic_net: (work@top.un), line:6:4, endln:6:6
         |vpiName:$display
 ===================
 [  FATAL] : 0

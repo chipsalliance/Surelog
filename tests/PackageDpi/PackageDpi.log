@@ -38,7 +38,7 @@ int_var                                                5
 io_decl                                                2
 logic_net                                              4
 module_inst                                            2
-package                                                3
+package                                                2
 range                                                  2
 ref_obj                                                2
 string_typespec                                        4
@@ -61,7 +61,7 @@ int_var                                                6
 io_decl                                                4
 logic_net                                              4
 module_inst                                            2
-package                                                3
+package                                                2
 range                                                  2
 ref_obj                                                2
 string_typespec                                        4
@@ -92,8 +92,10 @@ design: (unnamed)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
     |vpiTypespec:
     \_string_typespec: , line:5:1, endln:5:7
+      |vpiParent:
+      \_string_var: (pack::uvm_aa_string_key), line:5:8, endln:5:25
       |vpiInstance:
-      \_package: (pack)
+      \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
     |vpiName:uvm_aa_string_key
     |vpiFullName:pack::uvm_aa_string_key
     |vpiAutomatic:1
@@ -111,12 +113,16 @@ design: (unnamed)
       \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
       |vpiEnumConst:
       \_enum_const: (UVM_CORE_UNINITIALIZED), line:9:1, endln:9:23
+        |vpiParent:
+        \_enum_typespec: (pack::uvm_core_state), line:7:1, endln:12:18
         |vpiName:UVM_CORE_UNINITIALIZED
         |INT:0
         |vpiDecompile:0
         |vpiSize:64
       |vpiEnumConst:
       \_enum_const: (UVM_CORE_PRE_INIT), line:10:1, endln:10:18
+        |vpiParent:
+        \_enum_typespec: (pack::uvm_core_state), line:7:1, endln:12:18
         |vpiName:UVM_CORE_PRE_INIT
         |INT:1
         |vpiDecompile:1
@@ -125,8 +131,11 @@ design: (unnamed)
     |vpiFullName:pack::m_uvm_core_state
     |vpiVisibility:1
     |vpiExpr:
-    \_ref_obj: (UVM_CORE_UNINITIALIZED), line:14:35, endln:14:57
+    \_ref_obj: (pack::m_uvm_core_state::UVM_CORE_UNINITIALIZED), line:14:35, endln:14:57
+      |vpiParent:
+      \_enum_var: (pack::m_uvm_core_state), line:14:16, endln:14:32
       |vpiName:UVM_CORE_UNINITIALIZED
+      |vpiFullName:pack::m_uvm_core_state::UVM_CORE_UNINITIALIZED
       |vpiActual:
       \_enum_const: (UVM_CORE_UNINITIALIZED), line:9:1, endln:9:23
   |vpiVariables:
@@ -135,8 +144,10 @@ design: (unnamed)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
     |vpiTypespec:
     \_int_typespec: , line:24:14, endln:24:17
+      |vpiParent:
+      \_int_var: (pack::DO_NOT_CATCH_2), line:24:18, endln:24:40
       |vpiInstance:
-      \_package: (pack)
+      \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
       |vpiSigned:1
     |vpiName:DO_NOT_CATCH_2
     |vpiFullName:pack::DO_NOT_CATCH_2
@@ -144,6 +155,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:24:39, endln:24:40
+      |vpiParent:
+      \_int_var: (pack::DO_NOT_CATCH_2), line:24:18, endln:24:40
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -162,12 +175,15 @@ design: (unnamed)
     |vpiDPIContext:1
     |vpiDPICStr:2
     |vpiReturn:
-    \_int_var: , line:3:33, endln:3:36
+    \_int_var: (pack::uvm_hdl_check_path), line:3:33, endln:3:36
+      |vpiParent:
+      \_function: (pack::uvm_hdl_check_path), line:3:1, endln:3:69
       |vpiTypespec:
       \_int_typespec: , line:3:33, endln:3:36
         |vpiInstance:
-        \_package: (pack)
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
         |vpiSigned:1
+      |vpiFullName:pack::uvm_hdl_check_path
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (path), line:3:63, endln:3:67
@@ -178,7 +194,7 @@ design: (unnamed)
       |vpiTypedef:
       \_string_typespec: , line:3:56, endln:3:62
         |vpiInstance:
-        \_package: (pack)
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
     |vpiInstance:
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
   |vpiNet:
@@ -199,6 +215,8 @@ design: (unnamed)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
     |vpiTypespec:
     \_string_typespec: , line:5:1, endln:5:7
+      |vpiParent:
+      \_string_var: (pack::uvm_aa_string_key), line:5:8, endln:5:25
       |vpiInstance:
       \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
     |vpiName:uvm_aa_string_key
@@ -218,12 +236,16 @@ design: (unnamed)
       \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
       |vpiEnumConst:
       \_enum_const: (UVM_CORE_UNINITIALIZED), line:9:1, endln:9:23
+        |vpiParent:
+        \_enum_typespec: (pack::uvm_core_state), line:7:1, endln:12:18
         |vpiName:UVM_CORE_UNINITIALIZED
         |INT:0
         |vpiDecompile:0
         |vpiSize:64
       |vpiEnumConst:
       \_enum_const: (UVM_CORE_PRE_INIT), line:10:1, endln:10:18
+        |vpiParent:
+        \_enum_typespec: (pack::uvm_core_state), line:7:1, endln:12:18
         |vpiName:UVM_CORE_PRE_INIT
         |INT:1
         |vpiDecompile:1
@@ -232,8 +254,11 @@ design: (unnamed)
     |vpiFullName:pack::m_uvm_core_state
     |vpiVisibility:1
     |vpiExpr:
-    \_ref_obj: (UVM_CORE_UNINITIALIZED), line:14:35, endln:14:57
+    \_ref_obj: (pack::m_uvm_core_state::UVM_CORE_UNINITIALIZED), line:14:35, endln:14:57
+      |vpiParent:
+      \_enum_var: (pack::m_uvm_core_state), line:14:16, endln:14:32
       |vpiName:UVM_CORE_UNINITIALIZED
+      |vpiFullName:pack::m_uvm_core_state::UVM_CORE_UNINITIALIZED
       |vpiActual:
       \_enum_const: (UVM_CORE_UNINITIALIZED), line:9:1, endln:9:23
   |vpiVariables:
@@ -242,6 +267,8 @@ design: (unnamed)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
     |vpiTypespec:
     \_int_typespec: , line:24:14, endln:24:17
+      |vpiParent:
+      \_int_var: (pack::DO_NOT_CATCH_2), line:24:18, endln:24:40
       |vpiInstance:
       \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
       |vpiSigned:1
@@ -251,6 +278,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:24:39, endln:24:40
+      |vpiParent:
+      \_int_var: (pack::DO_NOT_CATCH_2), line:24:18, endln:24:40
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -271,6 +300,8 @@ design: (unnamed)
       \_class_defn: (pack::toto), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:20:1, endln:22:9
       |vpiTypespec:
       \_int_typespec: , line:21:14, endln:21:17
+        |vpiParent:
+        \_int_var: (pack::toto::DO_NOT_CATCH), line:21:18, endln:21:30
         |vpiSigned:1
       |vpiName:DO_NOT_CATCH
       |vpiFullName:pack::toto::DO_NOT_CATCH
@@ -278,6 +309,8 @@ design: (unnamed)
       |vpiVisibility:1
       |vpiExpr:
       \_constant: , line:21:38, endln:21:39
+        |vpiParent:
+        \_int_var: (pack::toto::DO_NOT_CATCH), line:21:18, endln:21:30
         |vpiDecompile:1
         |vpiSize:32
         |UINT:1
@@ -293,12 +326,15 @@ design: (unnamed)
     |vpiDPIContext:1
     |vpiDPICStr:2
     |vpiReturn:
-    \_int_var: , line:3:33, endln:3:36
+    \_int_var: (pack::uvm_hdl_check_path), line:3:33, endln:3:36
+      |vpiParent:
+      \_function: (pack::uvm_hdl_check_path), line:3:1, endln:3:69
       |vpiTypespec:
       \_int_typespec: , line:3:33, endln:3:36
         |vpiInstance:
         \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
         |vpiSigned:1
+      |vpiFullName:pack::uvm_hdl_check_path
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (path), line:3:63, endln:3:67

@@ -464,7 +464,7 @@ function                                               9
 int_typespec                                          11
 int_var                                                4
 io_decl                                               11
-logic_net                                             15
+logic_net                                             16
 logic_typespec                                        15
 logic_var                                              1
 module_inst                                            7
@@ -493,7 +493,7 @@ function                                              18
 int_typespec                                          11
 int_var                                                4
 io_decl                                               22
-logic_net                                             15
+logic_net                                             16
 logic_typespec                                        15
 logic_var                                              1
 module_inst                                            7
@@ -577,11 +577,14 @@ design: (work@dut)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PortWildcard/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -606,10 +609,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -634,7 +640,10 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -664,10 +673,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -698,10 +710,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -768,11 +783,14 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PortWildcard/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -782,7 +800,9 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -790,34 +810,45 @@ design: (work@dut)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -863,11 +894,14 @@ design: (work@dut)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PortWildcard/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -938,10 +972,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -971,6 +1008,41 @@ design: (work@dut)
     |vpiName:rst_l
     |vpiFullName:work@dut.rst_l
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.free_clk), line:17:40, endln:17:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
+    |vpiName:free_clk
+    |vpiFullName:work@dut.free_clk
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.rfpc_postsync_in), line:18:39, endln:18:55
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
+    |vpiName:rfpc_postsync_in
+    |vpiFullName:work@dut.rfpc_postsync_in
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.dma_mem_dccm_req), line:18:57, endln:18:73
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
+    |vpiName:dma_mem_dccm_req
+    |vpiFullName:work@dut.dma_mem_dccm_req
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.rfpc_postsync), line:19:40, endln:19:53
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
+    |vpiName:rfpc_postsync
+    |vpiFullName:work@dut.rfpc_postsync
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.dma_mem_dccm_req_f), line:19:55, endln:19:73
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
+    |vpiName:dma_mem_dccm_req_f
+    |vpiFullName:work@dut.dma_mem_dccm_req_f
+    |vpiNetType:1
   |vpiPort:
   \_port: (rst_l), line:16:31, endln:16:36
     |vpiParent:
@@ -978,7 +1050,11 @@ design: (work@dut)
     |vpiName:rst_l
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.rst_l.rst_l)
+      |vpiParent:
+      \_port: (rst_l), line:16:31, endln:16:36
+      |vpiName:rst_l
+      |vpiFullName:work@dut.rst_l.rst_l
       |vpiActual:
       \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36
     |vpiTypedef:
@@ -993,58 +1069,79 @@ design: (work@dut)
     \_module_inst: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiPort:
     \_port: , line:17:30, endln:17:32
+      |vpiParent:
+      \_ref_module: work@rvdff (freezerfpc_ff), line:17:15, endln:17:28
       |vpiHighConn:
       \_constant: , line:17:30, endln:17:32
+        |vpiParent:
+        \_port: , line:17:30, endln:17:32
         |vpiDecompile:.*
         |STRING:.*
     |vpiPort:
     \_port: (clk), line:17:35, endln:17:49
+      |vpiParent:
+      \_ref_module: work@rvdff (freezerfpc_ff), line:17:15, endln:17:28
       |vpiName:clk
       |vpiHighConn:
-      \_ref_obj: (free_clk), line:17:40, endln:17:48
+      \_ref_obj: (work@dut.freezerfpc_ff.clk.free_clk), line:17:40, endln:17:48
+        |vpiParent:
+        \_port: (clk), line:17:35, endln:17:49
         |vpiName:free_clk
+        |vpiFullName:work@dut.freezerfpc_ff.clk.free_clk
         |vpiActual:
         \_logic_net: (work@dut.free_clk), line:17:40, endln:17:48
     |vpiPort:
     \_port: (din), line:18:33, endln:18:75
+      |vpiParent:
+      \_ref_module: work@rvdff (freezerfpc_ff), line:17:15, endln:17:28
       |vpiName:din
       |vpiHighConn:
       \_operation: , line:18:38, endln:18:74
+        |vpiParent:
+        \_port: (din), line:18:33, endln:18:75
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (rfpc_postsync_in), line:18:39, endln:18:55
+        \_ref_obj: (work@dut.freezerfpc_ff.din.rfpc_postsync_in), line:18:39, endln:18:55
           |vpiParent:
           \_operation: , line:18:38, endln:18:74
           |vpiName:rfpc_postsync_in
+          |vpiFullName:work@dut.freezerfpc_ff.din.rfpc_postsync_in
           |vpiActual:
-          \_logic_net: (rfpc_postsync_in)
+          \_logic_net: (work@dut.rfpc_postsync_in), line:18:39, endln:18:55
         |vpiOperand:
-        \_ref_obj: (dma_mem_dccm_req), line:18:57, endln:18:73
+        \_ref_obj: (work@dut.freezerfpc_ff.din.dma_mem_dccm_req), line:18:57, endln:18:73
           |vpiParent:
           \_operation: , line:18:38, endln:18:74
           |vpiName:dma_mem_dccm_req
+          |vpiFullName:work@dut.freezerfpc_ff.din.dma_mem_dccm_req
           |vpiActual:
-          \_logic_net: (dma_mem_dccm_req)
+          \_logic_net: (work@dut.dma_mem_dccm_req), line:18:57, endln:18:73
     |vpiPort:
     \_port: (dout), line:19:33, endln:19:75
+      |vpiParent:
+      \_ref_module: work@rvdff (freezerfpc_ff), line:17:15, endln:17:28
       |vpiName:dout
       |vpiHighConn:
       \_operation: , line:19:39, endln:19:74
+        |vpiParent:
+        \_port: (dout), line:19:33, endln:19:75
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (rfpc_postsync), line:19:40, endln:19:53
+        \_ref_obj: (work@dut.freezerfpc_ff.dout.rfpc_postsync), line:19:40, endln:19:53
           |vpiParent:
           \_operation: , line:19:39, endln:19:74
           |vpiName:rfpc_postsync
+          |vpiFullName:work@dut.freezerfpc_ff.dout.rfpc_postsync
           |vpiActual:
-          \_logic_net: (rfpc_postsync)
+          \_logic_net: (work@dut.rfpc_postsync), line:19:40, endln:19:53
         |vpiOperand:
-        \_ref_obj: (dma_mem_dccm_req_f), line:19:55, endln:19:73
+        \_ref_obj: (work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f), line:19:55, endln:19:73
           |vpiParent:
           \_operation: , line:19:39, endln:19:74
           |vpiName:dma_mem_dccm_req_f
+          |vpiFullName:work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f
           |vpiActual:
-          \_logic_net: (dma_mem_dccm_req_f)
+          \_logic_net: (work@dut.dma_mem_dccm_req_f), line:19:55, endln:19:73
 |uhdmallModules:
 \_module_inst: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
   |vpiParent:
@@ -1065,6 +1162,8 @@ design: (work@dut)
     \_module_inst: work@rvdff (work@rvdff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:3:1, endln:13:10
     |vpiRhs:
     \_constant: , line:3:33, endln:3:34
+      |vpiParent:
+      \_param_assign: , line:3:27, endln:3:34
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -1109,13 +1208,19 @@ design: (work@dut)
     |vpiName:din
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@rvdff.din.din)
+      |vpiParent:
+      \_port: (din), line:5:30, endln:5:33
+      |vpiName:din
+      |vpiFullName:work@rvdff.din.din
       |vpiActual:
       \_logic_net: (work@rvdff.din), line:5:30, endln:5:33
     |vpiTypedef:
     \_logic_typespec: , line:5:12, endln:5:29
       |vpiRange:
       \_range: , line:5:18, endln:5:29
+        |vpiParent:
+        \_logic_typespec: , line:5:12, endln:5:29
         |vpiLeftRange:
         \_operation: , line:5:19, endln:5:26
           |vpiParent:
@@ -1149,7 +1254,11 @@ design: (work@dut)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@rvdff.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:6:28, endln:6:31
+      |vpiName:clk
+      |vpiFullName:work@rvdff.clk.clk
       |vpiActual:
       \_logic_net: (work@rvdff.clk), line:6:28, endln:6:31
     |vpiTypedef:
@@ -1161,7 +1270,11 @@ design: (work@dut)
     |vpiName:rst_l
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@rvdff.rst_l.rst_l)
+      |vpiParent:
+      \_port: (rst_l), line:7:36, endln:7:41
+      |vpiName:rst_l
+      |vpiFullName:work@rvdff.rst_l.rst_l
       |vpiActual:
       \_logic_net: (work@rvdff.rst_l), line:7:36, endln:7:41
     |vpiTypedef:
@@ -1173,13 +1286,19 @@ design: (work@dut)
     |vpiName:dout
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@rvdff.dout.dout)
+      |vpiParent:
+      \_port: (dout), line:9:31, endln:9:35
+      |vpiName:dout
+      |vpiFullName:work@rvdff.dout.dout
       |vpiActual:
       \_logic_net: (work@rvdff.dout), line:9:31, endln:9:35
     |vpiTypedef:
     \_logic_typespec: , line:9:13, endln:9:30
       |vpiRange:
       \_range: , line:9:19, endln:9:30
+        |vpiParent:
+        \_logic_typespec: , line:9:13, endln:9:30
         |vpiLeftRange:
         \_operation: , line:9:20, endln:9:27
           |vpiParent:
@@ -1217,6 +1336,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiTypespec:
     \_logic_typespec: , line:16:7, endln:16:12
+      |vpiParent:
+      \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36
     |vpiName:rst_l
     |vpiFullName:work@dut.rst_l
     |vpiNetType:36
@@ -1226,22 +1347,6 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:15:1, endln:21:10
     |vpiName:free_clk
     |vpiFullName:work@dut.free_clk
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (rfpc_postsync_in)
-    |vpiName:rfpc_postsync_in
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (dma_mem_dccm_req)
-    |vpiName:dma_mem_dccm_req
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (rfpc_postsync)
-    |vpiName:rfpc_postsync
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (dma_mem_dccm_req_f)
-    |vpiName:dma_mem_dccm_req_f
     |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
@@ -1286,6 +1391,8 @@ design: (work@dut)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:3:33, endln:3:34
+        |vpiParent:
+        \_param_assign: , line:3:27, endln:3:34
         |vpiDecompile:2
         |vpiSize:32
         |UINT:2
@@ -1303,8 +1410,12 @@ design: (work@dut)
       \_module_inst: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:5:12, endln:5:29
+        |vpiParent:
+        \_logic_net: (work@dut.freezerfpc_ff.din), line:5:30, endln:5:33
         |vpiRange:
         \_range: , line:5:18, endln:5:29
+          |vpiParent:
+          \_logic_typespec: , line:5:12, endln:5:29
           |vpiLeftRange:
           \_constant: , line:5:19, endln:5:24
             |vpiParent:
@@ -1330,6 +1441,8 @@ design: (work@dut)
       \_module_inst: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:6:12, endln:6:17
+        |vpiParent:
+        \_logic_net: (work@dut.freezerfpc_ff.clk), line:6:28, endln:6:31
       |vpiName:clk
       |vpiFullName:work@dut.freezerfpc_ff.clk
       |vpiNetType:36
@@ -1339,6 +1452,8 @@ design: (work@dut)
       \_module_inst: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:7:12, endln:7:17
+        |vpiParent:
+        \_logic_net: (work@dut.freezerfpc_ff.rst_l), line:7:36, endln:7:41
       |vpiName:rst_l
       |vpiFullName:work@dut.freezerfpc_ff.rst_l
       |vpiNetType:36
@@ -1348,8 +1463,12 @@ design: (work@dut)
       \_module_inst: work@rvdff (work@dut.freezerfpc_ff), file:${SURELOG_DIR}/tests/PortWildcard/dut.sv, line:17:3, endln:19:77
       |vpiTypespec:
       \_logic_typespec: , line:9:13, endln:9:30
+        |vpiParent:
+        \_logic_net: (work@dut.freezerfpc_ff.dout), line:9:31, endln:9:35
         |vpiRange:
         \_range: , line:9:19, endln:9:30
+          |vpiParent:
+          \_logic_typespec: , line:9:13, endln:9:30
           |vpiLeftRange:
           \_constant: , line:9:20, endln:9:25
             |vpiParent:
@@ -1389,7 +1508,7 @@ design: (work@dut)
           |vpiName:rfpc_postsync_in
           |vpiFullName:work@dut.freezerfpc_ff.din.rfpc_postsync_in
           |vpiActual:
-          \_logic_net: (rfpc_postsync_in)
+          \_logic_net: (work@dut.rfpc_postsync_in), line:18:39, endln:18:55
         |vpiOperand:
         \_ref_obj: (work@dut.freezerfpc_ff.din.dma_mem_dccm_req), line:18:57, endln:18:73
           |vpiParent:
@@ -1397,7 +1516,7 @@ design: (work@dut)
           |vpiName:dma_mem_dccm_req
           |vpiFullName:work@dut.freezerfpc_ff.din.dma_mem_dccm_req
           |vpiActual:
-          \_logic_net: (dma_mem_dccm_req)
+          \_logic_net: (work@dut.dma_mem_dccm_req), line:18:57, endln:18:73
       |vpiLowConn:
       \_ref_obj: (work@dut.freezerfpc_ff.din), line:18:34, endln:18:37
         |vpiParent:
@@ -1411,7 +1530,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:5:18, endln:5:29
           |vpiParent:
-          \_port: (din), line:5:30, endln:5:33
+          \_logic_typespec: , line:5:12, endln:5:29
           |vpiLeftRange:
           \_constant: , line:5:19, endln:5:24
             |vpiParent:
@@ -1500,7 +1619,7 @@ design: (work@dut)
           |vpiName:rfpc_postsync
           |vpiFullName:work@dut.freezerfpc_ff.dout.rfpc_postsync
           |vpiActual:
-          \_logic_net: (rfpc_postsync)
+          \_logic_net: (work@dut.rfpc_postsync), line:19:40, endln:19:53
         |vpiOperand:
         \_ref_obj: (work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f), line:19:55, endln:19:73
           |vpiParent:
@@ -1508,7 +1627,7 @@ design: (work@dut)
           |vpiName:dma_mem_dccm_req_f
           |vpiFullName:work@dut.freezerfpc_ff.dout.dma_mem_dccm_req_f
           |vpiActual:
-          \_logic_net: (dma_mem_dccm_req_f)
+          \_logic_net: (work@dut.dma_mem_dccm_req_f), line:19:55, endln:19:73
       |vpiLowConn:
       \_ref_obj: (work@dut.freezerfpc_ff.dout), line:19:34, endln:19:38
         |vpiParent:
@@ -1522,7 +1641,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:9:19, endln:9:30
           |vpiParent:
-          \_port: (dout), line:9:31, endln:9:35
+          \_logic_typespec: , line:9:13, endln:9:30
           |vpiLeftRange:
           \_constant: , line:9:20, endln:9:25
             |vpiParent:

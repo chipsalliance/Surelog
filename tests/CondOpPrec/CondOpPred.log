@@ -247,6 +247,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiRhs:
     \_constant: , line:6:26, endln:6:28
+      |vpiParent:
+      \_param_assign: , line:6:18, endln:6:28
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -261,6 +263,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiRhs:
     \_operation: , line:10:29, endln:11:51
+      |vpiParent:
+      \_param_assign: , line:10:18, endln:11:51
       |vpiOpType:32
       |vpiOperand:
       \_operation: , line:10:30, endln:10:42
@@ -268,10 +272,11 @@ design: (work@top)
         \_operation: , line:10:29, endln:11:51
         |vpiOpType:21
         |vpiOperand:
-        \_ref_obj: (Width), line:10:30, endln:10:35
+        \_ref_obj: (work@top.Width), line:10:30, endln:10:35
           |vpiParent:
           \_operation: , line:10:30, endln:10:42
           |vpiName:Width
+          |vpiFullName:work@top.Width
         |vpiOperand:
         \_constant: , line:10:40, endln:10:42
           |vpiParent:
@@ -299,10 +304,11 @@ design: (work@top)
           \_operation: , line:11:29, endln:11:51
           |vpiOpType:21
           |vpiOperand:
-          \_ref_obj: (Width), line:11:30, endln:11:35
+          \_ref_obj: (work@top.Width), line:11:30, endln:11:35
             |vpiParent:
             \_operation: , line:11:30, endln:11:42
             |vpiName:Width
+            |vpiFullName:work@top.Width
           |vpiOperand:
           \_constant: , line:11:39, endln:11:42
             |vpiParent:
@@ -344,7 +350,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:8:17, endln:8:18
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:8:17, endln:8:18
     |vpiTypedef:
@@ -355,12 +365,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiCondition:
     \_operation: , line:13:7, endln:13:20
+      |vpiParent:
+      \_gen_if: , line:13:3, endln:13:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (ParWidth), line:13:7, endln:13:15
+      \_ref_obj: (work@top.ParWidth), line:13:7, endln:13:15
         |vpiParent:
         \_operation: , line:13:7, endln:13:20
         |vpiName:ParWidth
+        |vpiFullName:work@top.ParWidth
       |vpiOperand:
       \_constant: , line:13:19, endln:13:20
         |vpiParent:
@@ -370,9 +383,14 @@ design: (work@top)
         |UINT:6
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:13:3, endln:13:5
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:14:11, endln:14:15
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD
 |uhdmtopModules:
@@ -410,6 +428,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiRhs:
     \_constant: , line:6:26, endln:6:28
+      |vpiParent:
+      \_param_assign: , line:6:18, endln:6:28
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -424,6 +444,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiRhs:
     \_constant: , line:10:29, endln:11:51
+      |vpiParent:
+      \_param_assign: , line:10:18, endln:11:51
       |vpiDecompile:6
       |vpiSize:32
       |UINT:6
@@ -440,6 +462,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiTypespec:
     \_logic_typespec: , line:8:11, endln:8:16
+      |vpiParent:
+      \_logic_net: (work@top.o), line:8:17, endln:8:18
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36

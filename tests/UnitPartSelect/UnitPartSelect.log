@@ -972,11 +972,14 @@ design: (work@toto)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPartSelect/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -1001,10 +1004,13 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1029,7 +1035,10 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -1059,10 +1068,13 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1093,10 +1105,13 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1163,11 +1178,14 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPartSelect/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1177,7 +1195,9 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1185,34 +1205,45 @@ design: (work@toto)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1258,11 +1289,14 @@ design: (work@toto)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPartSelect/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1333,10 +1367,13 @@ design: (work@toto)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1380,13 +1417,18 @@ design: (work@toto)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:21:13, endln:21:14
+      |vpiFullName:work@dut.a
       |vpiActual:
       \_logic_net: (work@dut.a), line:24:16, endln:24:17
     |vpiTypedef:
     \_logic_typespec: , line:22:11, endln:22:16
       |vpiRange:
       \_range: , line:22:11, endln:22:16
+        |vpiParent:
+        \_logic_typespec: , line:22:11, endln:22:16
         |vpiLeftRange:
         \_constant: , line:22:12, endln:22:13
           |vpiParent:
@@ -1410,13 +1452,18 @@ design: (work@toto)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:21:16, endln:21:17
+      |vpiFullName:work@dut.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:25:15, endln:25:16
     |vpiTypedef:
     \_logic_typespec: , line:23:12, endln:23:17
       |vpiRange:
       \_range: , line:23:12, endln:23:17
+        |vpiParent:
+        \_logic_typespec: , line:23:12, endln:23:17
         |vpiLeftRange:
         \_constant: , line:23:13, endln:23:14
           |vpiParent:
@@ -1490,13 +1537,19 @@ design: (work@toto)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_no_decl.a.a)
+      |vpiParent:
+      \_port: (a), line:38:32, endln:38:33
+      |vpiName:a
+      |vpiFullName:work@dut_no_decl.a.a
       |vpiActual:
       \_logic_net: (work@dut_no_decl.a), line:38:32, endln:38:33
     |vpiTypedef:
     \_logic_typespec: , line:38:26, endln:38:31
       |vpiRange:
       \_range: , line:38:26, endln:38:31
+        |vpiParent:
+        \_logic_typespec: , line:38:26, endln:38:31
         |vpiLeftRange:
         \_constant: , line:38:27, endln:38:28
           |vpiParent:
@@ -1520,13 +1573,19 @@ design: (work@toto)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_no_decl.b.b)
+      |vpiParent:
+      \_port: (b), line:38:48, endln:38:49
+      |vpiName:b
+      |vpiFullName:work@dut_no_decl.b.b
       |vpiActual:
       \_logic_net: (work@dut_no_decl.b), line:38:48, endln:38:49
     |vpiTypedef:
     \_logic_typespec: , line:38:42, endln:38:47
       |vpiRange:
       \_range: , line:38:42, endln:38:47
+        |vpiParent:
+        \_logic_typespec: , line:38:42, endln:38:47
         |vpiLeftRange:
         \_constant: , line:38:43, endln:38:44
           |vpiParent:
@@ -1658,13 +1717,18 @@ design: (work@toto)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_part_select.a)
+      |vpiParent:
+      \_port: (a), line:30:36, endln:30:37
+      |vpiFullName:work@dut_part_select.a
       |vpiActual:
       \_logic_net: (work@dut_part_select.a), line:31:14, endln:31:15
     |vpiTypedef:
     \_logic_typespec: , line:30:30, endln:30:35
       |vpiRange:
       \_range: , line:30:30, endln:30:35
+        |vpiParent:
+        \_logic_typespec: , line:30:30, endln:30:35
         |vpiLeftRange:
         \_constant: , line:30:31, endln:30:32
           |vpiParent:
@@ -1688,13 +1752,18 @@ design: (work@toto)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_part_select.b)
+      |vpiParent:
+      \_port: (b), line:30:52, endln:30:53
+      |vpiFullName:work@dut_part_select.b
       |vpiActual:
       \_logic_net: (work@dut_part_select.b), line:32:13, endln:32:14
     |vpiTypedef:
     \_logic_typespec: , line:30:46, endln:30:51
       |vpiRange:
       \_range: , line:30:46, endln:30:51
+        |vpiParent:
+        \_logic_typespec: , line:30:46, endln:30:51
         |vpiLeftRange:
         \_constant: , line:30:47, endln:30:48
           |vpiParent:
@@ -1807,6 +1876,8 @@ design: (work@toto)
     \_module_inst: work@toto (work@toto), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:1:1, endln:19:10
     |vpiRhs:
     \_constant: , line:3:20, endln:3:21
+      |vpiParent:
+      \_param_assign: , line:3:13, endln:3:21
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -1830,6 +1901,20 @@ design: (work@toto)
     |vpiName:next
     |vpiFullName:work@toto.next
     |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@toto.clk), line:7:20, endln:7:23
+    |vpiParent:
+    \_module_inst: work@toto (work@toto), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:1:1, endln:19:10
+    |vpiName:clk
+    |vpiFullName:work@toto.clk
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@toto.ESTABLISHED), line:14:31, endln:14:42
+    |vpiParent:
+    \_module_inst: work@toto (work@toto), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:1:1, endln:19:10
+    |vpiName:ESTABLISHED
+    |vpiFullName:work@toto.ESTABLISHED
+    |vpiNetType:1
   |vpiProcess:
   \_always: , line:7:3, endln:17:6
     |vpiParent:
@@ -1850,7 +1935,7 @@ design: (work@toto)
           |vpiName:clk
           |vpiFullName:work@toto.clk
           |vpiActual:
-          \_logic_net: (clk)
+          \_logic_net: (work@toto.clk), line:7:20, endln:7:23
       |vpiStmt:
       \_begin: (work@toto), line:7:26, endln:17:6
         |vpiParent:
@@ -1951,7 +2036,7 @@ design: (work@toto)
               |vpiName:ESTABLISHED
               |vpiFullName:work@toto.ESTABLISHED
               |vpiActual:
-              \_logic_net: (ESTABLISHED)
+              \_logic_net: (work@toto.ESTABLISHED), line:14:31, endln:14:42
           |vpiStmt:
           \_begin: (work@toto), line:14:44, endln:15:8
             |vpiParent:
@@ -1978,6 +2063,8 @@ design: (work@toto)
     \_module_inst: work@toto (work@toto), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:1:1, endln:19:10
     |vpiRhs:
     \_constant: , line:3:20, endln:3:21
+      |vpiParent:
+      \_param_assign: , line:3:13, endln:3:21
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -1994,8 +2081,12 @@ design: (work@toto)
     \_module_inst: work@toto (work@toto), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:1:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:5:3, endln:5:12
+      |vpiParent:
+      \_logic_net: (work@toto.next), line:5:20, endln:5:24
       |vpiRange:
       \_range: , line:5:7, endln:5:12
+        |vpiParent:
+        \_logic_typespec: , line:5:3, endln:5:12
         |vpiLeftRange:
         \_constant: , line:5:8, endln:5:9
           |vpiParent:
@@ -2024,14 +2115,6 @@ design: (work@toto)
     |vpiName:next
     |vpiFullName:work@toto.next
     |vpiNetType:48
-  |vpiNet:
-  \_logic_net: (clk)
-    |vpiName:clk
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (ESTABLISHED)
-    |vpiName:ESTABLISHED
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_always: , line:7:3, endln:17:6
@@ -2053,7 +2136,7 @@ design: (work@toto)
           |vpiName:clk
           |vpiFullName:work@toto.clk
           |vpiActual:
-          \_logic_net: (clk)
+          \_logic_net: (work@toto.clk), line:7:20, endln:7:23
       |vpiStmt:
       \_begin: (work@toto), line:7:26, endln:17:6
         |vpiParent:
@@ -2134,7 +2217,7 @@ design: (work@toto)
               |vpiName:ESTABLISHED
               |vpiFullName:work@toto.ESTABLISHED
               |vpiActual:
-              \_logic_net: (ESTABLISHED)
+              \_logic_net: (work@toto.ESTABLISHED), line:14:31, endln:14:42
           |vpiStmt:
           \_begin: (work@toto), line:14:44, endln:15:8
             |vpiParent:
@@ -2152,8 +2235,12 @@ design: (work@toto)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:21:1, endln:27:10
     |vpiTypespec:
     \_logic_typespec: , line:24:5, endln:24:15
+      |vpiParent:
+      \_logic_net: (work@dut.a), line:24:16, endln:24:17
       |vpiRange:
       \_range: , line:24:10, endln:24:15
+        |vpiParent:
+        \_logic_typespec: , line:24:5, endln:24:15
         |vpiLeftRange:
         \_constant: , line:24:11, endln:24:12
           |vpiParent:
@@ -2181,6 +2268,8 @@ design: (work@toto)
     \_logic_typespec: , line:25:5, endln:25:14
       |vpiRange:
       \_range: , line:25:9, endln:25:14
+        |vpiParent:
+        \_logic_typespec: , line:25:5, endln:25:14
         |vpiLeftRange:
         \_constant: , line:25:10, endln:25:11
           |vpiParent:
@@ -2220,7 +2309,7 @@ design: (work@toto)
       |vpiRange:
       \_range: , line:22:11, endln:22:16
         |vpiParent:
-        \_port: (a), line:21:13, endln:21:14
+        \_logic_typespec: , line:22:11, endln:22:16
         |vpiLeftRange:
         \_constant: , line:22:12, endln:22:13
           |vpiParent:
@@ -2258,7 +2347,7 @@ design: (work@toto)
       |vpiRange:
       \_range: , line:23:12, endln:23:17
         |vpiParent:
-        \_port: (o), line:21:16, endln:21:17
+        \_logic_typespec: , line:23:12, endln:23:17
         |vpiLeftRange:
         \_constant: , line:23:13, endln:23:14
           |vpiParent:
@@ -2314,8 +2403,12 @@ design: (work@toto)
     \_module_inst: work@dut_part_select (work@dut_part_select), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:30:1, endln:35:10
     |vpiTypespec:
     \_logic_typespec: , line:30:30, endln:30:35
+      |vpiParent:
+      \_logic_net: (work@dut_part_select.a), line:30:36, endln:30:37
       |vpiRange:
       \_range: , line:30:30, endln:30:35
+        |vpiParent:
+        \_logic_typespec: , line:30:30, endln:30:35
         |vpiLeftRange:
         \_constant: , line:30:31, endln:30:32
           |vpiParent:
@@ -2340,8 +2433,12 @@ design: (work@toto)
     \_module_inst: work@dut_part_select (work@dut_part_select), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:30:1, endln:35:10
     |vpiTypespec:
     \_logic_typespec: , line:30:46, endln:30:51
+      |vpiParent:
+      \_logic_net: (work@dut_part_select.b), line:30:52, endln:30:53
       |vpiRange:
       \_range: , line:30:46, endln:30:51
+        |vpiParent:
+        \_logic_typespec: , line:30:46, endln:30:51
         |vpiLeftRange:
         \_constant: , line:30:47, endln:30:48
           |vpiParent:
@@ -2366,8 +2463,12 @@ design: (work@toto)
     \_module_inst: work@dut_part_select (work@dut_part_select), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:30:1, endln:35:10
     |vpiTypespec:
     \_logic_typespec: , line:31:3, endln:31:13
+      |vpiParent:
+      \_logic_net: (work@dut_part_select.a), line:31:14, endln:31:15
       |vpiRange:
       \_range: , line:31:8, endln:31:13
+        |vpiParent:
+        \_logic_typespec: , line:31:3, endln:31:13
         |vpiLeftRange:
         \_constant: , line:31:9, endln:31:10
           |vpiParent:
@@ -2393,8 +2494,12 @@ design: (work@toto)
     \_module_inst: work@dut_part_select (work@dut_part_select), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:30:1, endln:35:10
     |vpiTypespec:
     \_logic_typespec: , line:32:3, endln:32:12
+      |vpiParent:
+      \_logic_net: (work@dut_part_select.b), line:32:13, endln:32:14
       |vpiRange:
       \_range: , line:32:7, endln:32:12
+        |vpiParent:
+        \_logic_typespec: , line:32:3, endln:32:12
         |vpiLeftRange:
         \_constant: , line:32:8, endln:32:9
           |vpiParent:
@@ -2434,7 +2539,7 @@ design: (work@toto)
       |vpiRange:
       \_range: , line:30:30, endln:30:35
         |vpiParent:
-        \_port: (a), line:30:36, endln:30:37
+        \_logic_typespec: , line:30:30, endln:30:35
         |vpiLeftRange:
         \_constant: , line:30:31, endln:30:32
           |vpiParent:
@@ -2472,7 +2577,7 @@ design: (work@toto)
       |vpiRange:
       \_range: , line:30:46, endln:30:51
         |vpiParent:
-        \_port: (b), line:30:52, endln:30:53
+        \_logic_typespec: , line:30:46, endln:30:51
         |vpiLeftRange:
         \_constant: , line:30:47, endln:30:48
           |vpiParent:
@@ -2558,8 +2663,12 @@ design: (work@toto)
     \_module_inst: work@dut_no_decl (work@dut_no_decl), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:38:1, endln:41:10
     |vpiTypespec:
     \_logic_typespec: , line:38:26, endln:38:31
+      |vpiParent:
+      \_logic_net: (work@dut_no_decl.a), line:38:32, endln:38:33
       |vpiRange:
       \_range: , line:38:26, endln:38:31
+        |vpiParent:
+        \_logic_typespec: , line:38:26, endln:38:31
         |vpiLeftRange:
         \_constant: , line:38:27, endln:38:28
           |vpiParent:
@@ -2584,8 +2693,12 @@ design: (work@toto)
     \_module_inst: work@dut_no_decl (work@dut_no_decl), file:${SURELOG_DIR}/tests/UnitPartSelect/top.sv, line:38:1, endln:41:10
     |vpiTypespec:
     \_logic_typespec: , line:38:42, endln:38:47
+      |vpiParent:
+      \_logic_net: (work@dut_no_decl.b), line:38:48, endln:38:49
       |vpiRange:
       \_range: , line:38:42, endln:38:47
+        |vpiParent:
+        \_logic_typespec: , line:38:42, endln:38:47
         |vpiLeftRange:
         \_constant: , line:38:43, endln:38:44
           |vpiParent:
@@ -2624,7 +2737,7 @@ design: (work@toto)
       |vpiRange:
       \_range: , line:38:26, endln:38:31
         |vpiParent:
-        \_port: (a), line:38:32, endln:38:33
+        \_logic_typespec: , line:38:26, endln:38:31
         |vpiLeftRange:
         \_constant: , line:38:27, endln:38:28
           |vpiParent:
@@ -2662,7 +2775,7 @@ design: (work@toto)
       |vpiRange:
       \_range: , line:38:42, endln:38:47
         |vpiParent:
-        \_port: (b), line:38:48, endln:38:49
+        \_logic_typespec: , line:38:42, endln:38:47
         |vpiLeftRange:
         \_constant: , line:38:43, endln:38:44
           |vpiParent:

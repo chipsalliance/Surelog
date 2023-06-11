@@ -196,7 +196,7 @@ logic_net                                              4
 logic_typespec                                        13
 module_inst                                            4
 operation                                              1
-package                                                3
+package                                                2
 port                                                   6
 range                                                  4
 ref_obj                                               11
@@ -218,7 +218,7 @@ logic_net                                              4
 logic_typespec                                        13
 module_inst                                            4
 operation                                              2
-package                                                3
+package                                                2
 port                                                   9
 range                                                  4
 ref_obj                                               17
@@ -267,7 +267,7 @@ design: (work@module_a)
         |vpiRange:
         \_range: , line:3:11, endln:3:18
           |vpiParent:
-          \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
+          \_logic_typespec: , line:3:5, endln:3:18
           |vpiLeftRange:
           \_constant: , line:3:12, endln:3:15
             |vpiParent:
@@ -303,7 +303,7 @@ design: (work@module_a)
         |vpiRange:
         \_range: , line:4:11, endln:4:16
           |vpiParent:
-          \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
+          \_logic_typespec: , line:4:5, endln:4:16
           |vpiLeftRange:
           \_constant: , line:4:12, endln:4:13
             |vpiParent:
@@ -402,7 +402,7 @@ design: (work@module_a)
         |vpiRange:
         \_range: , line:3:11, endln:3:18
           |vpiParent:
-          \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
+          \_logic_typespec: , line:3:5, endln:3:18
           |vpiLeftRange:
           \_constant: , line:3:12, endln:3:15
             |vpiParent:
@@ -438,7 +438,7 @@ design: (work@module_a)
         |vpiRange:
         \_range: , line:4:11, endln:4:16
           |vpiParent:
-          \_struct_typespec: (new_package::zzz), line:2:9, endln:2:15
+          \_logic_typespec: , line:4:5, endln:4:16
           |vpiLeftRange:
           \_constant: , line:4:12, endln:4:13
             |vpiParent:
@@ -549,7 +549,11 @@ design: (work@module_a)
     |vpiName:input_struct
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@module_a.input_struct.input_struct)
+      |vpiParent:
+      \_port: (input_struct), line:17:25, endln:17:37
+      |vpiName:input_struct
+      |vpiFullName:work@module_a.input_struct.input_struct
       |vpiActual:
       \_logic_net: (work@module_a.input_struct), line:17:25, endln:17:37
     |vpiTypedef:
@@ -561,7 +565,11 @@ design: (work@module_a)
     |vpiName:output_struct
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@module_a.output_struct.output_struct)
+      |vpiParent:
+      \_port: (output_struct), line:18:26, endln:18:39
+      |vpiName:output_struct
+      |vpiFullName:work@module_a.output_struct.output_struct
       |vpiActual:
       \_logic_net: (work@module_a.output_struct), line:18:26, endln:18:39
     |vpiTypedef:
@@ -573,7 +581,11 @@ design: (work@module_a)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@module_a.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:19:10, endln:19:13
+      |vpiName:clk
+      |vpiFullName:work@module_a.clk.clk
       |vpiActual:
       \_logic_net: (work@module_a.clk), line:19:10, endln:19:13
     |vpiTypedef:
@@ -616,7 +628,7 @@ design: (work@module_a)
             |vpiName:input_struct
             |vpiFullName:work@module_a.input_struct
             |vpiActual:
-            \_struct_net: (work@module_a.input_struct), line:17:25, endln:17:37
+            \_logic_net: (work@module_a.input_struct), line:17:25, endln:17:37
           |vpiLhs:
           \_ref_obj: (work@module_a.output_struct), line:24:5, endln:24:18
             |vpiParent:
@@ -624,7 +636,7 @@ design: (work@module_a)
             |vpiName:output_struct
             |vpiFullName:work@module_a.output_struct
             |vpiActual:
-            \_struct_net: (work@module_a.output_struct), line:18:26, endln:18:39
+            \_logic_net: (work@module_a.output_struct), line:18:26, endln:18:39
     |vpiAlwaysType:3
 |uhdmtopModules:
 \_module_inst: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
@@ -655,6 +667,8 @@ design: (work@module_a)
     \_module_inst: work@module_a (work@module_a), file:${SURELOG_DIR}/tests/PackageTypeParam/dut.sv, line:12:1, endln:28:21
     |vpiTypespec:
     \_logic_typespec: , line:19:10, endln:19:10
+      |vpiParent:
+      \_logic_net: (work@module_a.clk), line:19:10, endln:19:13
     |vpiName:clk
     |vpiFullName:work@module_a.clk
   |vpiTopModule:1
@@ -750,7 +764,7 @@ design: (work@module_a)
             |vpiName:input_struct
             |vpiFullName:work@module_a.input_struct
             |vpiActual:
-            \_struct_net: (work@module_a.input_struct), line:17:25, endln:17:37
+            \_logic_net: (work@module_a.input_struct), line:17:25, endln:17:37
           |vpiLhs:
           \_ref_obj: (work@module_a.output_struct), line:24:5, endln:24:18
             |vpiParent:
@@ -758,7 +772,7 @@ design: (work@module_a)
             |vpiName:output_struct
             |vpiFullName:work@module_a.output_struct
             |vpiActual:
-            \_struct_net: (work@module_a.output_struct), line:18:26, endln:18:39
+            \_logic_net: (work@module_a.output_struct), line:18:26, endln:18:39
     |vpiAlwaysType:3
 ===================
 [  FATAL] : 0

@@ -205,6 +205,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_param_assign: , line:2:20, endln:2:25
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -228,7 +230,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.a.a)
+      |vpiParent:
+      \_port: (a), line:1:25, endln:1:26
+      |vpiName:a
+      |vpiFullName:work@dut.a.a
       |vpiActual:
       \_logic_net: (work@dut.a), line:1:25, endln:1:26
     |vpiTypedef:
@@ -250,7 +256,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@dut.a
       |vpiActual:
-      \_logic_net: (work@top.u_dut.a), line:1:25, endln:1:26
+      \_logic_net: (work@dut.a), line:1:25, endln:1:26
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
   |vpiParent:
@@ -273,6 +279,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
     |vpiRhs:
     \_constant: , line:7:24, endln:7:25
+      |vpiParent:
+      \_param_assign: , line:7:20, endln:7:25
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -296,7 +304,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:6:25, endln:6:26
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:6:25, endln:6:26
     |vpiTypedef:
@@ -311,10 +323,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
     |vpiPort:
     \_port: (a), line:11:7, endln:11:12
+      |vpiParent:
+      \_ref_module: work@dut (u_dut), line:10:6, endln:10:11
       |vpiName:a
       |vpiHighConn:
-      \_ref_obj: (o), line:11:10, endln:11:11
+      \_ref_obj: (work@top.u_dut.a.o), line:11:10, endln:11:11
+        |vpiParent:
+        \_port: (a), line:11:7, endln:11:12
         |vpiName:o
+        |vpiFullName:work@top.u_dut.a.o
         |vpiActual:
         \_logic_net: (work@top.o), line:6:25, endln:6:26
 |uhdmtopModules:
@@ -337,6 +354,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
     |vpiRhs:
     \_constant: , line:7:24, endln:7:25
+      |vpiParent:
+      \_param_assign: , line:7:20, endln:7:25
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -353,6 +372,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
     |vpiTypespec:
     \_logic_typespec: , line:6:19, endln:6:24
+      |vpiParent:
+      \_logic_net: (work@top.o), line:6:25, endln:6:26
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -399,6 +420,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:24, endln:2:25
+        |vpiParent:
+        \_param_assign: , line:2:20, endln:2:25
         |vpiDecompile:1
         |vpiSize:1
         |UINT:1
@@ -470,7 +493,7 @@ design: (work@top)
         |vpiName:a
         |vpiFullName:work@top.u_dut.a
         |vpiActual:
-        \_logic_net: (work@top.u_dut.a), line:1:25, endln:1:26
+        \_logic_net: (work@dut.a), line:1:25, endln:1:26
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

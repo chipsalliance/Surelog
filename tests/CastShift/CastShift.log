@@ -750,11 +750,14 @@ design: (work@dut)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -779,10 +782,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -807,7 +813,10 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -837,10 +846,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -871,10 +883,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -941,11 +956,14 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CastShift/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -955,7 +973,9 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -963,34 +983,45 @@ design: (work@dut)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1036,11 +1067,14 @@ design: (work@dut)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CastShift/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1111,10 +1145,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1147,6 +1184,8 @@ design: (work@dut)
       \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36
       |vpiRange:
       \_range: , line:2:17, endln:2:22
+        |vpiParent:
+        \_logic_typespec: , line:2:11, endln:2:22
         |vpiLeftRange:
         \_constant: , line:2:18, endln:2:19
           |vpiParent:
@@ -1197,6 +1236,8 @@ design: (work@dut)
       \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35
       |vpiRange:
       \_range: , line:5:18, endln:5:24
+        |vpiParent:
+        \_logic_typespec: , line:5:12, endln:5:24
         |vpiLeftRange:
         \_constant: , line:5:19, endln:5:21
           |vpiParent:
@@ -1222,6 +1263,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_constant: , line:2:39, endln:2:43
+      |vpiParent:
+      \_param_assign: , line:2:24, endln:2:43
       |vpiDecompile:2'd1
       |vpiSize:2
       |DEC:1
@@ -1236,6 +1279,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_constant: , line:3:30, endln:3:31
+      |vpiParent:
+      \_param_assign: , line:3:15, endln:3:31
       |vpiDecompile:1
       |vpiSize:1
       |UINT:1
@@ -1250,6 +1295,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_constant: , line:4:30, endln:4:31
+      |vpiParent:
+      \_param_assign: , line:4:15, endln:4:31
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -1264,6 +1311,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_operation: , line:6:3, endln:17:28
+      |vpiParent:
+      \_param_assign: , line:5:25, endln:17:28
       |vpiOpType:29
       |vpiOperand:
       \_operation: , line:6:3, endln:16:12
@@ -1392,10 +1441,11 @@ design: (work@dut)
                             |INT:32
                           |vpiOpType:67
                           |vpiOperand:
-                          \_ref_obj: (RV32E), line:9:8, endln:9:13
+                          \_ref_obj: (work@dut.RV32E), line:9:8, endln:9:13
                             |vpiParent:
                             \_operation: , line:9:4, endln:9:14
                             |vpiName:RV32E
+                            |vpiFullName:work@dut.RV32E
                         |vpiOperand:
                         \_constant: , line:9:26, endln:9:27
                           |vpiParent:
@@ -1444,10 +1494,11 @@ design: (work@dut)
                         \_operation: , line:11:4, endln:11:15
                         |vpiOpType:3
                         |vpiOperand:
-                        \_ref_obj: (RV32E), line:11:9, endln:11:14
+                        \_ref_obj: (work@dut.RV32E), line:11:9, endln:11:14
                           |vpiParent:
                           \_operation: , line:11:8, endln:11:14
                           |vpiName:RV32E
+                          |vpiFullName:work@dut.RV32E
                     |vpiOperand:
                     \_constant: , line:11:26, endln:11:27
                       |vpiParent:
@@ -1470,10 +1521,11 @@ design: (work@dut)
                       |INT:32
                     |vpiOpType:67
                     |vpiOperand:
-                    \_ref_obj: (RV32M), line:12:8, endln:12:13
+                    \_ref_obj: (work@dut.RV32M), line:12:8, endln:12:13
                       |vpiParent:
                       \_operation: , line:12:4, endln:12:14
                       |vpiName:RV32M
+                      |vpiFullName:work@dut.RV32M
                   |vpiOperand:
                   \_constant: , line:12:25, endln:12:27
                     |vpiParent:
@@ -1580,10 +1632,11 @@ design: (work@dut)
             |INT:32
           |vpiOpType:67
           |vpiOperand:
-          \_ref_obj: (CSR_MISA_MXL), line:17:8, endln:17:20
+          \_ref_obj: (work@dut.CSR_MISA_MXL), line:17:8, endln:17:20
             |vpiParent:
             \_operation: , line:17:4, endln:17:21
             |vpiName:CSR_MISA_MXL
+            |vpiFullName:work@dut.CSR_MISA_MXL
         |vpiOperand:
         \_constant: , line:17:25, endln:17:27
           |vpiParent:
@@ -1601,12 +1654,15 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiCondition:
     \_operation: , line:19:5, endln:19:29
+      |vpiParent:
+      \_gen_if: , line:19:1, endln:19:3
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (MISA_VALUE), line:19:5, endln:19:15
+      \_ref_obj: (work@dut.MISA_VALUE), line:19:5, endln:19:15
         |vpiParent:
         \_operation: , line:19:5, endln:19:29
         |vpiName:MISA_VALUE
+        |vpiFullName:work@dut.MISA_VALUE
       |vpiOperand:
       \_constant: , line:19:19, endln:19:29
         |vpiParent:
@@ -1616,9 +1672,14 @@ design: (work@dut)
         |UINT:1074794756
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:19:1, endln:19:3
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@OK (ok), line:20:6, endln:20:8
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:ok
         |vpiDefName:work@OK
 |uhdmtopModules:
@@ -1714,6 +1775,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_constant: , line:2:39, endln:2:43
+      |vpiParent:
+      \_param_assign: , line:2:24, endln:2:43
       |vpiDecompile:1
       |vpiSize:2
       |INT:1
@@ -1728,6 +1791,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_constant: , line:3:30, endln:3:31
+      |vpiParent:
+      \_param_assign: , line:3:15, endln:3:31
       |vpiDecompile:1
       |vpiSize:1
       |UINT:1
@@ -1742,6 +1807,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_constant: , line:4:30, endln:4:31
+      |vpiParent:
+      \_param_assign: , line:4:15, endln:4:31
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -1756,6 +1823,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiRhs:
     \_constant: , line:6:3, endln:17:28
+      |vpiParent:
+      \_param_assign: , line:5:25, endln:17:28
       |vpiDecompile:1074794756
       |vpiSize:32
       |UINT:1074794756

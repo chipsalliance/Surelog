@@ -548,11 +548,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamConcat/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -577,10 +580,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -605,7 +611,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -635,10 +644,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -669,10 +681,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -739,11 +754,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ParamConcat/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -753,7 +771,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -761,34 +781,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -834,11 +865,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ParamConcat/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -909,10 +943,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -945,6 +982,8 @@ design: (work@top)
       \_parameter: (work@ibex_csr.ResetValue), line:2:25, endln:2:35
       |vpiRange:
       \_range: , line:2:19, endln:2:24
+        |vpiParent:
+        \_bit_typespec: , line:2:15, endln:2:24
         |vpiLeftRange:
         \_constant: , line:2:20, endln:2:21
           |vpiParent:
@@ -969,6 +1008,8 @@ design: (work@top)
     \_module_inst: work@ibex_csr (work@ibex_csr), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:2:38, endln:2:40
+      |vpiParent:
+      \_param_assign: , line:2:25, endln:2:40
       |vpiDecompile:'0
       |vpiSize:2
       |BIN:0
@@ -1032,9 +1073,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConcat/dut.sv, line:6:1, endln:19:10
     |vpiRhs:
     \_operation: , line:14:41, endln:15:53
+      |vpiParent:
+      \_param_assign: , line:14:23, endln:15:53
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:14:50, endln:14:54
+        |vpiParent:
+        \_operation: , line:14:41, endln:15:53
         |vpiPattern:
         \_constant: , line:14:50, endln:14:54
           |vpiDecompile:1'b1
@@ -1043,9 +1088,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mpie), line:14:43, endln:14:47
+          |vpiParent:
+          \_tagged_pattern: , line:14:50, endln:14:54
           |vpiName:mpie
       |vpiOperand:
       \_tagged_pattern: , line:15:48, endln:15:52
+        |vpiParent:
+        \_operation: , line:14:41, endln:15:53
         |vpiPattern:
         \_constant: , line:15:48, endln:15:52
           |vpiDecompile:1'b0
@@ -1054,6 +1103,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mie), line:15:43, endln:15:46
+          |vpiParent:
+          \_tagged_pattern: , line:15:48, endln:15:52
           |vpiName:mie
     |vpiLhs:
     \_parameter: (work@top.MSTATUS_RST_VAL), line:14:23, endln:14:38
@@ -1160,7 +1211,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:15:48, endln:15:52
         |vpiParent:
-        \_tagged_pattern: , line:15:48, endln:15:52
+        \_operation: , line:14:41, endln:15:53
         |vpiDecompile:1'b0
         |vpiSize:1
         |BIN:0
@@ -1168,7 +1219,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:14:50, endln:14:54
         |vpiParent:
-        \_tagged_pattern: , line:14:50, endln:14:54
+        \_operation: , line:14:41, endln:15:53
         |vpiDecompile:1'b1
         |vpiSize:1
         |BIN:1
@@ -1224,11 +1275,13 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:17:18, endln:17:35
+        |vpiParent:
+        \_param_assign: , line:2:25, endln:2:40
         |vpiOpType:33
         |vpiOperand:
         \_operation: , line:17:19, endln:17:34
           |vpiParent:
-          \_operation: , line:17:18, endln:17:35
+          \_param_assign: , line:14:23, endln:15:53
           |vpiTypespec:
           \_struct_typespec: (status_t), line:9:11, endln:9:17
             |vpiParent:

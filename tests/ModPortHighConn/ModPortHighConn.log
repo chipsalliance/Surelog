@@ -95,7 +95,11 @@ design: (work@top)
     |vpiName:port0
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@moduleA.port0.port0)
+      |vpiParent:
+      \_port: (port0), line:2:23, endln:2:28
+      |vpiName:port0
+      |vpiFullName:work@moduleA.port0.port0
       |vpiActual:
       \_logic_net: (work@moduleA.port0), line:2:23, endln:2:28
     |vpiTypedef:
@@ -107,7 +111,11 @@ design: (work@top)
     |vpiName:port1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@moduleA.port1.port1)
+      |vpiParent:
+      \_port: (port1), line:2:30, endln:2:35
+      |vpiName:port1
+      |vpiFullName:work@moduleA.port1.port1
       |vpiActual:
       \_logic_net: (work@moduleA.port1), line:2:30, endln:2:35
     |vpiTypedef:
@@ -142,28 +150,38 @@ design: (work@top)
     \_module_inst: work@moduleA (work@moduleA), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:2:1, endln:3:10
     |vpiPort:
     \_port: (port0), line:7:23, endln:7:38
+      |vpiParent:
+      \_ref_module: work@moduleA (instanceA), line:7:13, endln:7:22
       |vpiName:port0
       |vpiHighConn:
-      \_bit_select: (topA), line:7:30, endln:7:37
+      \_bit_select: (work@top.instanceA.topA), line:7:30, endln:7:37
+        |vpiParent:
+        \_port: (port0), line:7:23, endln:7:38
         |vpiName:topA
+        |vpiFullName:work@top.instanceA.topA
         |vpiIndex:
         \_constant: , line:7:35, endln:7:36
           |vpiParent:
-          \_bit_select: (topA), line:7:30, endln:7:37
+          \_bit_select: (work@top.instanceA.topA), line:7:30, endln:7:37
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
     |vpiPort:
     \_port: (port1), line:7:40, endln:7:55
+      |vpiParent:
+      \_ref_module: work@moduleA (instanceA), line:7:13, endln:7:22
       |vpiName:port1
       |vpiHighConn:
-      \_bit_select: (topB), line:7:47, endln:7:54
+      \_bit_select: (work@top.instanceA.topB), line:7:47, endln:7:54
+        |vpiParent:
+        \_port: (port1), line:7:40, endln:7:55
         |vpiName:topB
+        |vpiFullName:work@top.instanceA.topB
         |vpiIndex:
         \_constant: , line:7:52, endln:7:53
           |vpiParent:
-          \_bit_select: (topB), line:7:47, endln:7:54
+          \_bit_select: (work@top.instanceA.topB), line:7:47, endln:7:54
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -178,44 +196,55 @@ design: (work@top)
     \_module_inst: work@moduleA (work@moduleA), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:2:1, endln:3:10
     |vpiPort:
     \_port: , line:10:23, endln:10:39
+      |vpiParent:
+      \_ref_module: work@moduleA (instanceD), line:10:13, endln:10:22
       |vpiHighConn:
       \_operation: , line:10:23, endln:10:39
+        |vpiParent:
+        \_port: , line:10:23, endln:10:39
         |vpiOpType:27
         |vpiOperand:
-        \_bit_select: (topA), line:10:23, endln:10:30
+        \_bit_select: (work@top.instanceD.topA), line:10:23, endln:10:30
           |vpiParent:
           \_operation: , line:10:23, endln:10:39
           |vpiName:topA
+          |vpiFullName:work@top.instanceD.topA
           |vpiIndex:
           \_constant: , line:10:28, endln:10:29
             |vpiParent:
-            \_bit_select: (topA), line:10:23, endln:10:30
+            \_bit_select: (work@top.instanceD.topA), line:10:23, endln:10:30
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
         |vpiOperand:
-        \_bit_select: (topA), line:10:32, endln:10:39
+        \_bit_select: (work@top.instanceD.topA), line:10:32, endln:10:39
           |vpiParent:
           \_operation: , line:10:23, endln:10:39
           |vpiName:topA
+          |vpiFullName:work@top.instanceD.topA
           |vpiIndex:
           \_constant: , line:10:37, endln:10:38
             |vpiParent:
-            \_bit_select: (topA), line:10:32, endln:10:39
+            \_bit_select: (work@top.instanceD.topA), line:10:32, endln:10:39
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
     |vpiPort:
     \_port: , line:10:41, endln:10:48
+      |vpiParent:
+      \_ref_module: work@moduleA (instanceD), line:10:13, endln:10:22
       |vpiHighConn:
-      \_bit_select: (topB), line:10:41, endln:10:48
+      \_bit_select: (work@top.instanceD.topB), line:10:41, endln:10:48
+        |vpiParent:
+        \_port: , line:10:41, endln:10:48
         |vpiName:topB
+        |vpiFullName:work@top.instanceD.topB
         |vpiIndex:
         \_constant: , line:10:46, endln:10:47
           |vpiParent:
-          \_bit_select: (topB), line:10:41, endln:10:48
+          \_bit_select: (work@top.instanceD.topB), line:10:41, endln:10:48
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -231,8 +260,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:5:1, endln:11:10
     |vpiTypespec:
     \_logic_typespec: , line:6:5, endln:6:15
+      |vpiParent:
+      \_logic_net: (work@top.topB), line:6:22, endln:6:26
       |vpiRange:
       \_range: , line:6:10, endln:6:15
+        |vpiParent:
+        \_logic_typespec: , line:6:5, endln:6:15
         |vpiLeftRange:
         \_constant: , line:6:11, endln:6:12
           |vpiParent:
@@ -277,6 +310,8 @@ design: (work@top)
       \_module_inst: work@moduleA (work@top.instanceA), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:7:5, endln:7:57
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:23
+        |vpiParent:
+        \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35
       |vpiName:port0
       |vpiFullName:work@top.instanceA.port0
     |vpiNet:
@@ -296,18 +331,23 @@ design: (work@top)
       |vpiName:port0
       |vpiDirection:3
       |vpiHighConn:
-      \_bit_select: (topA), line:7:30, endln:7:37
+      \_bit_select: (work@top.instanceA.topA), line:7:30, endln:7:37
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiName:topA
+        |vpiFullName:work@top.instanceA.topA
         |vpiIndex:
         \_constant: , line:7:35, endln:7:36
           |vpiParent:
-          \_bit_select: (topA), line:7:30, endln:7:37
+          \_bit_select: (work@top.instanceA.topA), line:7:30, endln:7:37
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceA.port0), line:7:24, endln:7:29
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiName:port0
         |vpiFullName:work@top.instanceA.port0
         |vpiActual:
@@ -321,18 +361,23 @@ design: (work@top)
       |vpiName:port1
       |vpiDirection:3
       |vpiHighConn:
-      \_bit_select: (topB), line:7:47, endln:7:54
+      \_bit_select: (work@top.instanceA.topB), line:7:47, endln:7:54
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiName:topB
+        |vpiFullName:work@top.instanceA.topB
         |vpiIndex:
         \_constant: , line:7:52, endln:7:53
           |vpiParent:
-          \_bit_select: (topB), line:7:47, endln:7:54
+          \_bit_select: (work@top.instanceA.topB), line:7:47, endln:7:54
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceA.port1), line:7:41, endln:7:46
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiName:port1
         |vpiFullName:work@top.instanceA.port1
         |vpiActual:
@@ -354,6 +399,8 @@ design: (work@top)
       \_module_inst: work@moduleA (work@top.instanceB), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:8:5, endln:8:41
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:23
+        |vpiParent:
+        \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35
       |vpiName:port0
       |vpiFullName:work@top.instanceB.port0
     |vpiNet:
@@ -373,18 +420,23 @@ design: (work@top)
       |vpiName:port0
       |vpiDirection:3
       |vpiHighConn:
-      \_bit_select: (topA), line:8:23, endln:8:30
+      \_bit_select: (work@top.instanceB.topA), line:8:23, endln:8:30
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiName:topA
+        |vpiFullName:work@top.instanceB.topA
         |vpiIndex:
         \_constant: , line:8:28, endln:8:29
           |vpiParent:
-          \_bit_select: (topA), line:8:23, endln:8:30
+          \_bit_select: (work@top.instanceB.topA), line:8:23, endln:8:30
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceB.port0), line:2:23, endln:2:28
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiName:port0
         |vpiFullName:work@top.instanceB.port0
         |vpiActual:
@@ -398,18 +450,23 @@ design: (work@top)
       |vpiName:port1
       |vpiDirection:3
       |vpiHighConn:
-      \_bit_select: (topB), line:8:32, endln:8:39
+      \_bit_select: (work@top.instanceB.topB), line:8:32, endln:8:39
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiName:topB
+        |vpiFullName:work@top.instanceB.topB
         |vpiIndex:
         \_constant: , line:8:37, endln:8:38
           |vpiParent:
-          \_bit_select: (topB), line:8:32, endln:8:39
+          \_bit_select: (work@top.instanceB.topB), line:8:32, endln:8:39
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceB.port1), line:2:30, endln:2:35
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiName:port1
         |vpiFullName:work@top.instanceB.port1
         |vpiActual:
@@ -431,6 +488,8 @@ design: (work@top)
       \_module_inst: work@moduleA (work@top.instanceC), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:9:5, endln:9:50
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:23
+        |vpiParent:
+        \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35
       |vpiName:port0
       |vpiFullName:work@top.instanceC.port0
     |vpiNet:
@@ -450,18 +509,23 @@ design: (work@top)
       |vpiName:port0
       |vpiDirection:3
       |vpiHighConn:
-      \_bit_select: (topA), line:9:23, endln:9:30
+      \_bit_select: (work@top.instanceC.topA), line:9:23, endln:9:30
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiName:topA
+        |vpiFullName:work@top.instanceC.topA
         |vpiIndex:
         \_constant: , line:9:28, endln:9:29
           |vpiParent:
-          \_bit_select: (topA), line:9:23, endln:9:30
+          \_bit_select: (work@top.instanceC.topA), line:9:23, endln:9:30
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceC.port0), line:2:23, endln:2:28
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiName:port0
         |vpiFullName:work@top.instanceC.port0
         |vpiActual:
@@ -476,35 +540,41 @@ design: (work@top)
       |vpiDirection:3
       |vpiHighConn:
       \_operation: , line:9:32, endln:9:48
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiOpType:27
         |vpiOperand:
-        \_bit_select: (topB), line:9:32, endln:9:39
+        \_bit_select: (work@top.instanceC.port1.topB), line:9:32, endln:9:39
           |vpiParent:
           \_operation: , line:9:32, endln:9:48
           |vpiName:topB
+          |vpiFullName:work@top.instanceC.port1.topB
           |vpiIndex:
           \_constant: , line:9:37, endln:9:38
             |vpiParent:
-            \_bit_select: (topB), line:9:32, endln:9:39
+            \_bit_select: (work@top.instanceC.port1.topB), line:9:32, endln:9:39
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
         |vpiOperand:
-        \_bit_select: (topB), line:9:41, endln:9:48
+        \_bit_select: (work@top.instanceC.port1.topB), line:9:41, endln:9:48
           |vpiParent:
           \_operation: , line:9:32, endln:9:48
           |vpiName:topB
+          |vpiFullName:work@top.instanceC.port1.topB
           |vpiIndex:
           \_constant: , line:9:46, endln:9:47
             |vpiParent:
-            \_bit_select: (topB), line:9:41, endln:9:48
+            \_bit_select: (work@top.instanceC.port1.topB), line:9:41, endln:9:48
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceC.port1), line:2:30, endln:2:35
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiName:port1
         |vpiFullName:work@top.instanceC.port1
         |vpiActual:
@@ -526,6 +596,8 @@ design: (work@top)
       \_module_inst: work@moduleA (work@top.instanceD), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:10:5, endln:10:50
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:23
+        |vpiParent:
+        \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35
       |vpiName:port0
       |vpiFullName:work@top.instanceD.port0
     |vpiNet:
@@ -546,35 +618,41 @@ design: (work@top)
       |vpiDirection:3
       |vpiHighConn:
       \_operation: , line:10:23, endln:10:39
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiOpType:27
         |vpiOperand:
-        \_bit_select: (topA), line:10:23, endln:10:30
+        \_bit_select: (work@top.instanceD.port0.topA), line:10:23, endln:10:30
           |vpiParent:
           \_operation: , line:10:23, endln:10:39
           |vpiName:topA
+          |vpiFullName:work@top.instanceD.port0.topA
           |vpiIndex:
           \_constant: , line:10:28, endln:10:29
             |vpiParent:
-            \_bit_select: (topA), line:10:23, endln:10:30
+            \_bit_select: (work@top.instanceD.port0.topA), line:10:23, endln:10:30
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
         |vpiOperand:
-        \_bit_select: (topA), line:10:32, endln:10:39
+        \_bit_select: (work@top.instanceD.port0.topA), line:10:32, endln:10:39
           |vpiParent:
           \_operation: , line:10:23, endln:10:39
           |vpiName:topA
+          |vpiFullName:work@top.instanceD.port0.topA
           |vpiIndex:
           \_constant: , line:10:37, endln:10:38
             |vpiParent:
-            \_bit_select: (topA), line:10:32, endln:10:39
+            \_bit_select: (work@top.instanceD.port0.topA), line:10:32, endln:10:39
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceD.port0), line:10:23, endln:10:39
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
         |vpiName:port0
         |vpiFullName:work@top.instanceD.port0
         |vpiActual:
@@ -588,18 +666,23 @@ design: (work@top)
       |vpiName:port1
       |vpiDirection:3
       |vpiHighConn:
-      \_bit_select: (topB), line:10:41, endln:10:48
+      \_bit_select: (work@top.instanceD.topB), line:10:41, endln:10:48
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiName:topB
+        |vpiFullName:work@top.instanceD.topB
         |vpiIndex:
         \_constant: , line:10:46, endln:10:47
           |vpiParent:
-          \_bit_select: (topB), line:10:41, endln:10:48
+          \_bit_select: (work@top.instanceD.topB), line:10:41, endln:10:48
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
       |vpiLowConn:
       \_ref_obj: (work@top.instanceD.port1), line:10:41, endln:10:48
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
         |vpiName:port1
         |vpiFullName:work@top.instanceD.port1
         |vpiActual:

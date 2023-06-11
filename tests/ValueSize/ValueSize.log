@@ -31,7 +31,7 @@ design                                                 1
 logic_typespec                                         4
 module_inst                                            2
 operation                                             12
-package                                                3
+package                                                2
 param_assign                                           8
 parameter                                              8
 range                                                 14
@@ -49,7 +49,7 @@ design                                                 1
 logic_typespec                                         4
 module_inst                                            2
 operation                                             12
-package                                                3
+package                                                2
 param_assign                                           8
 parameter                                              8
 range                                                 14
@@ -89,6 +89,8 @@ design: (unnamed)
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
       |vpiRange:
       \_range: , line:7:18, endln:7:23
+        |vpiParent:
+        \_bit_typespec: , line:7:14, endln:7:23
         |vpiLeftRange:
         \_constant: , line:7:19, endln:7:20
           |vpiParent:
@@ -133,7 +135,7 @@ design: (unnamed)
           |vpiRange:
           \_range: , line:4:12, endln:4:17
             |vpiParent:
-            \_struct_typespec: (flash_ctrl_pkg::page_addr_t), line:3:11, endln:3:17
+            \_logic_typespec: , line:4:6, endln:4:17
             |vpiLeftRange:
             \_constant: , line:4:13, endln:4:14
               |vpiParent:
@@ -163,6 +165,8 @@ design: (unnamed)
     \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_constant: , line:7:35, endln:7:36
+      |vpiParent:
+      \_param_assign: , line:7:24, endln:7:36
       |vpiDecompile:0
       |vpiSize:2
       |UINT:0
@@ -177,9 +181,13 @@ design: (unnamed)
     \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_operation: , line:8:44, endln:10:5
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:10:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:9:13, endln:9:30
+        |vpiParent:
+        \_operation: , line:8:44, endln:10:5
         |vpiPattern:
         \_constant: , line:9:13, endln:9:30
           |vpiSize:4
@@ -187,6 +195,8 @@ design: (unnamed)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (addr), line:9:7, endln:9:11
+          |vpiParent:
+          \_tagged_pattern: , line:9:13, endln:9:30
           |vpiName:addr
     |vpiLhs:
     \_parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:8:41
@@ -212,6 +222,8 @@ design: (unnamed)
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
       |vpiRange:
       \_range: , line:7:18, endln:7:23
+        |vpiParent:
+        \_bit_typespec: , line:7:14, endln:7:23
         |vpiLeftRange:
         \_constant: , line:7:19, endln:7:20
           |vpiParent:
@@ -256,7 +268,7 @@ design: (unnamed)
           |vpiRange:
           \_range: , line:4:12, endln:4:17
             |vpiParent:
-            \_struct_typespec: (flash_ctrl_pkg::page_addr_t), line:3:11, endln:3:17
+            \_logic_typespec: , line:4:6, endln:4:17
             |vpiLeftRange:
             \_constant: , line:4:13, endln:4:14
               |vpiParent:
@@ -286,6 +298,8 @@ design: (unnamed)
     \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_constant: , line:7:35, endln:7:36
+      |vpiParent:
+      \_param_assign: , line:7:24, endln:7:36
       |vpiDecompile:0
       |vpiSize:2
       |UINT:0
@@ -300,9 +314,13 @@ design: (unnamed)
     \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_operation: , line:8:44, endln:10:5
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:10:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:9:13, endln:9:30
+        |vpiParent:
+        \_operation: , line:8:44, endln:10:5
         |vpiPattern:
         \_constant: , line:9:13, endln:9:30
           |vpiSize:4
@@ -310,6 +328,8 @@ design: (unnamed)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (addr), line:9:7, endln:9:11
+          |vpiParent:
+          \_tagged_pattern: , line:9:13, endln:9:30
           |vpiName:addr
     |vpiLhs:
     \_parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:8:41

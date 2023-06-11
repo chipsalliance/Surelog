@@ -315,6 +315,8 @@ design: (work@top)
     \_module_inst: work@aes_reg_status (work@aes_reg_status), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:2:1, endln:7:10
     |vpiRhs:
     \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:27
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -338,13 +340,19 @@ design: (work@top)
     |vpiName:we_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@aes_reg_status.we_i.we_i)
+      |vpiParent:
+      \_port: (we_i), line:5:28, endln:5:32
+      |vpiName:we_i
+      |vpiFullName:work@aes_reg_status.we_i.we_i
       |vpiActual:
       \_logic_net: (work@aes_reg_status.we_i), line:5:28, endln:5:32
     |vpiTypedef:
     \_logic_typespec: , line:5:10, endln:5:27
       |vpiRange:
       \_range: , line:5:16, endln:5:27
+        |vpiParent:
+        \_logic_typespec: , line:5:10, endln:5:27
         |vpiLeftRange:
         \_operation: , line:5:17, endln:5:24
           |vpiParent:
@@ -400,32 +408,38 @@ design: (work@top)
     \_module_inst: work@aes_reg_status (work@aes_reg_status), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:2:1, endln:7:10
     |vpiPort:
     \_port: (we_i), line:18:7, endln:18:48
+      |vpiParent:
+      \_ref_module: work@aes_reg_status (u_reg_status_key_init), line:17:6, endln:17:27
       |vpiName:we_i
       |vpiHighConn:
       \_operation: , line:18:14, endln:18:46
+        |vpiParent:
+        \_port: (we_i), line:18:7, endln:18:48
         |vpiOpType:33
         |vpiOperand:
-        \_bit_select: (key_init_we), line:18:15, endln:18:29
+        \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:15, endln:18:29
           |vpiParent:
           \_operation: , line:18:14, endln:18:46
           |vpiName:key_init_we
+          |vpiFullName:work@top.u_reg_status_key_init.we_i.key_init_we
           |vpiIndex:
           \_constant: , line:18:27, endln:18:28
             |vpiParent:
-            \_bit_select: (key_init_we), line:18:15, endln:18:29
+            \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:15, endln:18:29
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
         |vpiOperand:
-        \_bit_select: (key_init_we), line:18:31, endln:18:45
+        \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:31, endln:18:45
           |vpiParent:
           \_operation: , line:18:14, endln:18:46
           |vpiName:key_init_we
+          |vpiFullName:work@top.u_reg_status_key_init.we_i.key_init_we
           |vpiIndex:
           \_constant: , line:18:43, endln:18:44
             |vpiParent:
-            \_bit_select: (key_init_we), line:18:31, endln:18:45
+            \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:31, endln:18:45
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -450,6 +464,8 @@ design: (work@top)
     \_module_inst: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |vpiRhs:
     \_constant: , line:27:18, endln:27:52
+      |vpiParent:
+      \_param_assign: , line:27:14, endln:27:52
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -486,6 +502,8 @@ design: (work@top)
       \_array_var: (work@top.fcoe_reserved_before_sof), line:11:8, endln:11:34
       |vpiTypespec:
       \_bit_typespec: , line:11:4, endln:11:7
+        |vpiParent:
+        \_bit_var: (work@top.fcoe_reserved_before_sof), line:11:8, endln:11:32
       |vpiFullName:work@top.fcoe_reserved_before_sof
   |vpiVariables:
   \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
@@ -501,8 +519,10 @@ design: (work@top)
     |vpiArrayType:1
     |vpiRange:
     \_range: , line:13:29, endln:13:30
+      |vpiParent:
+      \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
       |vpiLeftRange:
-      \_constant: , line:13:29, endln:13:30
+      \_constant: 
         |vpiParent:
         \_range: , line:13:29, endln:13:30
         |vpiDecompile:0
@@ -516,6 +536,8 @@ design: (work@top)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:13:29, endln:13:30
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -531,8 +553,12 @@ design: (work@top)
       \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
       |vpiTypespec:
       \_logic_typespec: , line:13:4, endln:13:15
+        |vpiParent:
+        \_logic_var: (work@top.key_init_we), line:13:16, endln:13:27
         |vpiRange:
         \_range: , line:13:10, endln:13:15
+          |vpiParent:
+          \_logic_typespec: , line:13:4, endln:13:15
           |vpiLeftRange:
           \_constant: , line:13:11, endln:13:12
             |vpiParent:
@@ -552,6 +578,8 @@ design: (work@top)
       |vpiFullName:work@top.key_init_we
       |vpiRange:
       \_range: , line:13:10, endln:13:15
+        |vpiParent:
+        \_array_var: (work@top.key_init_we), line:13:16, endln:13:31
         |vpiLeftRange:
         \_constant: , line:13:11, endln:13:12
           |vpiParent:
@@ -597,6 +625,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:3:26, endln:3:27
+        |vpiParent:
+        \_param_assign: , line:3:18, endln:3:27
         |vpiDecompile:16
         |vpiSize:32
         |UINT:16
@@ -614,8 +644,12 @@ design: (work@top)
       \_module_inst: work@aes_reg_status (work@top.u_reg_status_key_init), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:15:4, endln:19:6
       |vpiTypespec:
       \_logic_typespec: , line:5:10, endln:5:27
+        |vpiParent:
+        \_logic_net: (work@top.u_reg_status_key_init.we_i), line:5:28, endln:5:32
         |vpiRange:
         \_range: , line:5:16, endln:5:27
+          |vpiParent:
+          \_logic_typespec: , line:5:10, endln:5:27
           |vpiLeftRange:
           \_constant: , line:5:17, endln:5:22
             |vpiParent:
@@ -659,7 +693,7 @@ design: (work@top)
           |vpiIndex:
           \_constant: , line:18:27, endln:18:28
             |vpiParent:
-            \_bit_select: (key_init_we), line:18:15, endln:18:29
+            \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:15, endln:18:29
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
@@ -675,7 +709,7 @@ design: (work@top)
           |vpiIndex:
           \_constant: , line:18:43, endln:18:44
             |vpiParent:
-            \_bit_select: (key_init_we), line:18:31, endln:18:45
+            \_bit_select: (work@top.u_reg_status_key_init.we_i.key_init_we), line:18:31, endln:18:45
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -693,7 +727,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:5:16, endln:5:27
           |vpiParent:
-          \_port: (we_i), line:5:28, endln:5:32
+          \_logic_typespec: , line:5:10, endln:5:27
           |vpiLeftRange:
           \_constant: , line:5:17, endln:5:22
             |vpiParent:
@@ -733,6 +767,8 @@ design: (work@top)
       \_array_var: (work@toto.fcoe_reserved_before_sof), line:25:6, endln:25:32
       |vpiTypespec:
       \_bit_typespec: , line:25:2, endln:25:5
+        |vpiParent:
+        \_bit_var: (work@toto.fcoe_reserved_before_sof), line:25:6, endln:25:30
       |vpiFullName:work@toto.fcoe_reserved_before_sof
   |vpiParameter:
   \_parameter: (work@toto.a), line:27:14, endln:27:15
@@ -751,6 +787,8 @@ design: (work@top)
     \_module_inst: work@toto (work@toto), file:${SURELOG_DIR}/tests/BitsArray/dut.sv, line:23:1, endln:30:10
     |vpiRhs:
     \_constant: , line:27:18, endln:27:52
+      |vpiParent:
+      \_param_assign: , line:27:14, endln:27:52
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1

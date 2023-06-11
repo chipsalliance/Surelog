@@ -150,7 +150,7 @@ int_typespec                                           1
 logic_typespec                                         7
 module_inst                                            7
 operation                                              9
-package                                                3
+package                                                2
 param_assign                                           6
 parameter                                              7
 range                                                  7
@@ -170,7 +170,7 @@ int_typespec                                           1
 logic_typespec                                         7
 module_inst                                            7
 operation                                              9
-package                                                3
+package                                                2
 param_assign                                           6
 parameter                                              7
 range                                                  7
@@ -225,7 +225,7 @@ design: (work@dut)
           |vpiRange:
           \_range: , line:7:9, endln:7:14
             |vpiParent:
-            \_struct_typespec: (pkg::pwr_ast_rsp_t), line:6:9, endln:6:15
+            \_logic_typespec: , line:7:3, endln:7:14
             |vpiLeftRange:
             \_constant: , line:7:10, endln:7:11
               |vpiParent:
@@ -255,9 +255,13 @@ design: (work@dut)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:5:1, endln:12:11
     |vpiRhs:
     \_operation: , line:9:47, endln:11:2
+      |vpiParent:
+      \_param_assign: , line:9:25, endln:11:2
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:10:17, endln:10:22
+        |vpiParent:
+        \_operation: , line:9:47, endln:11:2
         |vpiPattern:
         \_constant: , line:10:17, endln:10:22
           |vpiDecompile:2'b10
@@ -266,6 +270,8 @@ design: (work@dut)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (slow_clk_val), line:10:3, endln:10:15
+          |vpiParent:
+          \_tagged_pattern: , line:10:17, endln:10:22
           |vpiName:slow_clk_val
     |vpiLhs:
     \_parameter: (pkg::PWR_AST_RSP_DEFAULT), line:9:25, endln:9:44
@@ -304,7 +310,7 @@ design: (work@dut)
           |vpiRange:
           \_range: , line:7:9, endln:7:14
             |vpiParent:
-            \_struct_typespec: (pkg::pwr_ast_rsp_t), line:6:9, endln:6:15
+            \_logic_typespec: , line:7:3, endln:7:14
             |vpiLeftRange:
             \_constant: , line:7:10, endln:7:11
               |vpiParent:
@@ -334,9 +340,13 @@ design: (work@dut)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:5:1, endln:12:11
     |vpiRhs:
     \_operation: , line:9:47, endln:11:2
+      |vpiParent:
+      \_param_assign: , line:9:25, endln:11:2
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:10:17, endln:10:22
+        |vpiParent:
+        \_operation: , line:9:47, endln:11:2
         |vpiPattern:
         \_constant: , line:10:17, endln:10:22
           |vpiDecompile:2'b10
@@ -345,6 +355,8 @@ design: (work@dut)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (slow_clk_val), line:10:3, endln:10:15
+          |vpiParent:
+          \_tagged_pattern: , line:10:17, endln:10:22
           |vpiName:slow_clk_val
     |vpiLhs:
     \_parameter: (pkg::PWR_AST_RSP_DEFAULT), line:9:25, endln:9:44
@@ -384,6 +396,8 @@ design: (work@dut)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:1:40, endln:1:42
+      |vpiParent:
+      \_param_assign: , line:1:26, endln:1:42
       |vpiDecompile:'0
       |vpiSize:-1
       |BIN:0

@@ -214,6 +214,8 @@ design: (work@top)
       \_parameter: (work@dut.A), line:2:26, endln:2:27
       |vpiRange:
       \_range: , line:2:20, endln:2:25
+        |vpiParent:
+        \_logic_typespec: , line:2:14, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -268,7 +270,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:8:13, endln:8:18
             |vpiParent:
-            \_struct_typespec: (struct_1), line:7:12, endln:7:18
+            \_logic_typespec: , line:8:7, endln:8:18
             |vpiLeftRange:
             \_constant: , line:8:14, endln:8:15
               |vpiParent:
@@ -298,9 +300,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamNoDefault/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
     \_operation: , line:14:27, endln:14:42
+      |vpiParent:
+      \_param_assign: , line:14:23, endln:14:42
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:14:32, endln:14:34
+        |vpiParent:
+        \_operation: , line:14:27, endln:14:42
         |vpiPattern:
         \_constant: , line:14:32, endln:14:34
           |vpiDecompile:'1
@@ -309,9 +315,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (a), line:14:29, endln:14:30
+          |vpiParent:
+          \_tagged_pattern: , line:14:32, endln:14:34
           |vpiName:a
       |vpiOperand:
       \_tagged_pattern: , line:14:39, endln:14:41
+        |vpiParent:
+        \_operation: , line:14:27, endln:14:42
         |vpiPattern:
         \_constant: , line:14:39, endln:14:41
           |vpiDecompile:'0
@@ -320,6 +330,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (b), line:14:36, endln:14:37
+          |vpiParent:
+          \_tagged_pattern: , line:14:39, endln:14:41
           |vpiName:b
     |vpiLhs:
     \_parameter: (work@top.X), line:14:23, endln:14:24

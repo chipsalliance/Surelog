@@ -149,7 +149,7 @@ logic_typespec                                         6
 logic_var                                              1
 module_inst                                            5
 operation                                              1
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                          12
 parameter                                             14
@@ -171,7 +171,7 @@ logic_typespec                                         6
 logic_var                                              1
 module_inst                                            5
 operation                                              2
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                          12
 parameter                                             14
@@ -221,6 +221,8 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_param_assign: , line:3:12, endln:3:18
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -235,6 +237,8 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
+      |vpiParent:
+      \_param_assign: , line:4:12, endln:4:18
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -252,6 +256,8 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiRange:
     \_range: , line:6:15, endln:6:20
+      |vpiParent:
+      \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
       |vpiLeftRange:
       \_constant: , line:6:16, endln:6:17
         |vpiParent:
@@ -306,6 +312,8 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_param_assign: , line:3:12, endln:3:18
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -320,6 +328,8 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
+      |vpiParent:
+      \_param_assign: , line:4:12, endln:4:18
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -337,6 +347,8 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiRange:
     \_range: , line:6:15, endln:6:20
+      |vpiParent:
+      \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
       |vpiLeftRange:
       \_constant: , line:6:16, endln:6:17
         |vpiParent:
@@ -512,7 +524,7 @@ design: (work@test)
           |vpiName:v
           |vpiFullName:work@test.v
           |vpiActual:
-          \_logic_var: (work@test.v), line:8:6, endln:8:7
+          \_logic_net: (work@test.v), line:8:6, endln:8:7
 |uhdmtopModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
   |vpiName:work@test
@@ -579,6 +591,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiRhs:
     \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_param_assign: , line:3:12, endln:3:18
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -593,6 +607,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiRhs:
     \_constant: , line:4:17, endln:4:18
+      |vpiParent:
+      \_param_assign: , line:4:12, endln:4:18
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -639,7 +655,7 @@ design: (work@test)
           |vpiName:v
           |vpiFullName:work@test.v
           |vpiActual:
-          \_logic_var: (work@test.v), line:8:6, endln:8:7
+          \_logic_net: (work@test.v), line:8:6, endln:8:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

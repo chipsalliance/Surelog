@@ -112,6 +112,8 @@ design: (work@fsm_using_function)
     \_logic_typespec: , line:11:14, endln:11:25
       |vpiRange:
       \_range: , line:11:20, endln:11:25
+        |vpiParent:
+        \_logic_typespec: , line:11:14, endln:11:25
         |vpiLeftRange:
         \_constant: , line:11:21, endln:11:22
           |vpiParent:
@@ -130,18 +132,24 @@ design: (work@fsm_using_function)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (IDLE), line:11:27, endln:11:35
+      |vpiParent:
+      \_enum_typespec: (state), line:11:1, endln:11:61
       |vpiName:IDLE
       |UINT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (GNT0), line:11:36, endln:11:44
+      |vpiParent:
+      \_enum_typespec: (state), line:11:1, endln:11:61
       |vpiName:GNT0
       |UINT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (GNT1), line:11:45, endln:11:53
+      |vpiParent:
+      \_enum_typespec: (state), line:11:1, endln:11:61
       |vpiName:GNT1
       |UINT:3
       |vpiDecompile:3
@@ -155,15 +163,22 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@fsm_using_function.fsm_function)
+      |vpiParent:
+      \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12
+      |vpiFullName:work@fsm_using_function.fsm_function
     |vpiIODecl:
     \_io_decl: (state), line:21:41, endln:21:46
+      |vpiParent:
+      \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12
       |vpiDirection:1
       |vpiName:state
       |vpiTypedef:
       \_logic_typespec: , line:21:29, endln:21:40
         |vpiRange:
         \_range: , line:21:35, endln:21:40
+          |vpiParent:
+          \_logic_typespec: , line:21:29, endln:21:40
           |vpiLeftRange:
           \_constant: , line:21:36, endln:21:37
             |vpiParent:
@@ -182,24 +197,32 @@ design: (work@fsm_using_function)
             |vpiConstType:9
     |vpiIODecl:
     \_io_decl: (req_0), line:21:58, endln:21:63
+      |vpiParent:
+      \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12
       |vpiDirection:1
       |vpiName:req_0
       |vpiTypedef:
       \_bit_typespec: , line:21:54, endln:21:57
     |vpiIODecl:
     \_io_decl: (req_1), line:21:74, endln:21:79
+      |vpiParent:
+      \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12
       |vpiDirection:1
       |vpiName:req_1
       |vpiTypedef:
       \_bit_typespec: , line:21:70, endln:21:73
     |vpiIODecl:
     \_io_decl: (future_state), line:21:100, endln:21:112
+      |vpiParent:
+      \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12
       |vpiDirection:2
       |vpiName:future_state
       |vpiTypedef:
       \_logic_typespec: , line:21:88, endln:21:99
         |vpiRange:
         \_range: , line:21:94, endln:21:99
+          |vpiParent:
+          \_logic_typespec: , line:21:88, endln:21:99
           |vpiLeftRange:
           \_constant: , line:21:95, endln:21:96
             |vpiParent:
@@ -637,7 +660,11 @@ design: (work@fsm_using_function)
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.clock.clock)
+      |vpiParent:
+      \_port: (clock), line:2:11, endln:2:16
+      |vpiName:clock
+      |vpiFullName:work@fsm_using_function.clock.clock
       |vpiActual:
       \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
     |vpiTypedef:
@@ -649,7 +676,11 @@ design: (work@fsm_using_function)
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.reset.reset)
+      |vpiParent:
+      \_port: (reset), line:3:11, endln:3:16
+      |vpiName:reset
+      |vpiFullName:work@fsm_using_function.reset.reset
       |vpiActual:
       \_logic_net: (work@fsm_using_function.reset), line:3:11, endln:3:16
     |vpiTypedef:
@@ -661,7 +692,11 @@ design: (work@fsm_using_function)
     |vpiName:req_0
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.req_0.req_0)
+      |vpiParent:
+      \_port: (req_0), line:4:11, endln:4:16
+      |vpiName:req_0
+      |vpiFullName:work@fsm_using_function.req_0.req_0
       |vpiActual:
       \_logic_net: (work@fsm_using_function.req_0), line:4:11, endln:4:16
     |vpiTypedef:
@@ -673,7 +708,11 @@ design: (work@fsm_using_function)
     |vpiName:req_1
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.req_1.req_1)
+      |vpiParent:
+      \_port: (req_1), line:5:11, endln:5:16
+      |vpiName:req_1
+      |vpiFullName:work@fsm_using_function.req_1.req_1
       |vpiActual:
       \_logic_net: (work@fsm_using_function.req_1), line:5:11, endln:5:16
     |vpiTypedef:
@@ -685,7 +724,11 @@ design: (work@fsm_using_function)
     |vpiName:gnt_0
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.gnt_0.gnt_0)
+      |vpiParent:
+      \_port: (gnt_0), line:6:12, endln:6:17
+      |vpiName:gnt_0
+      |vpiFullName:work@fsm_using_function.gnt_0.gnt_0
       |vpiActual:
       \_logic_net: (work@fsm_using_function.gnt_0), line:6:12, endln:6:17
     |vpiTypedef:
@@ -697,7 +740,11 @@ design: (work@fsm_using_function)
     |vpiName:gnt_1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.gnt_1.gnt_1)
+      |vpiParent:
+      \_port: (gnt_1), line:7:12, endln:7:17
+      |vpiName:gnt_1
+      |vpiFullName:work@fsm_using_function.gnt_1.gnt_1
       |vpiActual:
       \_logic_net: (work@fsm_using_function.gnt_1), line:7:12, endln:7:17
     |vpiTypedef:
@@ -722,7 +769,7 @@ design: (work@fsm_using_function)
           |vpiName:clock
           |vpiFullName:work@fsm_using_function.clock
           |vpiActual:
-          \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16
+          \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
       \_named_begin: (work@fsm_using_function.FUN), line:16:1, endln:18:4
         |vpiParent:
@@ -744,7 +791,7 @@ design: (work@fsm_using_function)
               |vpiName:curr_state
               |vpiFullName:work@fsm_using_function.FUN.curr_state
               |vpiActual:
-              \_enum_var: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
+              \_logic_net: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.req_0), line:17:47, endln:17:52
               |vpiParent:
@@ -752,7 +799,7 @@ design: (work@fsm_using_function)
               |vpiName:req_0
               |vpiFullName:work@fsm_using_function.FUN.req_0
               |vpiActual:
-              \_bit_var: (work@fsm_using_function.req_0), line:4:11, endln:4:16
+              \_logic_net: (work@fsm_using_function.req_0), line:4:11, endln:4:16
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.req_1), line:17:54, endln:17:59
               |vpiParent:
@@ -760,7 +807,7 @@ design: (work@fsm_using_function)
               |vpiName:req_1
               |vpiFullName:work@fsm_using_function.FUN.req_1
               |vpiActual:
-              \_bit_var: (work@fsm_using_function.req_1), line:5:11, endln:5:16
+              \_logic_net: (work@fsm_using_function.req_1), line:5:11, endln:5:16
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.next_state), line:17:61, endln:17:71
               |vpiParent:
@@ -768,7 +815,7 @@ design: (work@fsm_using_function)
               |vpiName:next_state
               |vpiFullName:work@fsm_using_function.FUN.next_state
               |vpiActual:
-              \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29
+              \_logic_net: (work@fsm_using_function.next_state), line:12:19, endln:12:29
             |vpiName:fsm_function
             |vpiFunction:
             \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12
@@ -779,7 +826,7 @@ design: (work@fsm_using_function)
             |vpiName:next_state
             |vpiFullName:work@fsm_using_function.FUN.next_state
             |vpiActual:
-            \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29
+            \_logic_net: (work@fsm_using_function.next_state), line:12:19, endln:12:29
     |vpiAlwaysType:1
   |vpiProcess:
   \_always: , line:45:1, endln:52:4
@@ -801,7 +848,7 @@ design: (work@fsm_using_function)
           |vpiName:clock
           |vpiFullName:work@fsm_using_function.clock
           |vpiActual:
-          \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16
+          \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
       \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:1, endln:52:4
         |vpiParent:
@@ -824,7 +871,7 @@ design: (work@fsm_using_function)
               |vpiName:reset
               |vpiFullName:work@fsm_using_function.FSM_SEQ.reset
               |vpiActual:
-              \_bit_var: (work@fsm_using_function.reset), line:3:11, endln:3:16
+              \_logic_net: (work@fsm_using_function.reset), line:3:11, endln:3:16
             |vpiOperand:
             \_constant: , line:47:15, endln:47:19
               |vpiParent:
@@ -858,7 +905,7 @@ design: (work@fsm_using_function)
                 |vpiName:curr_state
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.curr_state
                 |vpiActual:
-                \_enum_var: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
+                \_logic_net: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
               |vpiDelayControl:
               \_delay_control: , line:48:19, endln:48:21
                 |vpiParent:
@@ -881,7 +928,7 @@ design: (work@fsm_using_function)
                 |vpiName:next_state
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
                 |vpiActual:
-                \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29
+                \_logic_net: (work@fsm_using_function.next_state), line:12:19, endln:12:29
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.curr_state), line:50:5, endln:50:15
                 |vpiParent:
@@ -889,7 +936,7 @@ design: (work@fsm_using_function)
                 |vpiName:curr_state
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.curr_state
                 |vpiActual:
-                \_enum_var: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
+                \_logic_net: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
               |vpiDelayControl:
               \_delay_control: , line:50:19, endln:50:21
                 |vpiParent:
@@ -905,6 +952,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
     |vpiTypespec:
     \_bit_typespec: , line:2:7, endln:2:10
+      |vpiParent:
+      \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16
     |vpiName:clock
     |vpiFullName:work@fsm_using_function.clock
     |vpiVisibility:1
@@ -914,6 +963,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
     |vpiTypespec:
     \_bit_typespec: , line:3:7, endln:3:10
+      |vpiParent:
+      \_bit_var: (work@fsm_using_function.reset), line:3:11, endln:3:16
     |vpiName:reset
     |vpiFullName:work@fsm_using_function.reset
     |vpiVisibility:1
@@ -923,6 +974,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
     |vpiTypespec:
     \_bit_typespec: , line:4:7, endln:4:10
+      |vpiParent:
+      \_bit_var: (work@fsm_using_function.req_0), line:4:11, endln:4:16
     |vpiName:req_0
     |vpiFullName:work@fsm_using_function.req_0
     |vpiVisibility:1
@@ -932,6 +985,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
     |vpiTypespec:
     \_bit_typespec: , line:5:7, endln:5:10
+      |vpiParent:
+      \_bit_var: (work@fsm_using_function.req_1), line:5:11, endln:5:16
     |vpiName:req_1
     |vpiFullName:work@fsm_using_function.req_1
     |vpiVisibility:1
@@ -941,6 +996,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
     |vpiTypespec:
     \_bit_typespec: , line:6:8, endln:6:11
+      |vpiParent:
+      \_bit_var: (work@fsm_using_function.gnt_0), line:6:12, endln:6:17
     |vpiName:gnt_0
     |vpiFullName:work@fsm_using_function.gnt_0
     |vpiVisibility:1
@@ -950,6 +1007,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
     |vpiTypespec:
     \_bit_typespec: , line:7:8, endln:7:11
+      |vpiParent:
+      \_bit_var: (work@fsm_using_function.gnt_1), line:7:12, endln:7:17
     |vpiName:gnt_1
     |vpiFullName:work@fsm_using_function.gnt_1
     |vpiVisibility:1
@@ -983,7 +1042,7 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@fsm_using_function.fsm_function)
     |vpiIODecl:
     \_io_decl: (state), line:21:41, endln:21:46
       |vpiParent:
@@ -1487,7 +1546,7 @@ design: (work@fsm_using_function)
           |vpiName:clock
           |vpiFullName:work@fsm_using_function.clock
           |vpiActual:
-          \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16
+          \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
       \_named_begin: (work@fsm_using_function.FUN), line:16:1, endln:18:4
         |vpiParent:
@@ -1509,7 +1568,7 @@ design: (work@fsm_using_function)
               |vpiName:curr_state
               |vpiFullName:work@fsm_using_function.FUN.curr_state
               |vpiActual:
-              \_enum_var: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
+              \_logic_net: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.req_0), line:17:47, endln:17:52
               |vpiParent:
@@ -1517,7 +1576,7 @@ design: (work@fsm_using_function)
               |vpiName:req_0
               |vpiFullName:work@fsm_using_function.FUN.req_0
               |vpiActual:
-              \_bit_var: (work@fsm_using_function.req_0), line:4:11, endln:4:16
+              \_logic_net: (work@fsm_using_function.req_0), line:4:11, endln:4:16
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.req_1), line:17:54, endln:17:59
               |vpiParent:
@@ -1525,7 +1584,7 @@ design: (work@fsm_using_function)
               |vpiName:req_1
               |vpiFullName:work@fsm_using_function.FUN.req_1
               |vpiActual:
-              \_bit_var: (work@fsm_using_function.req_1), line:5:11, endln:5:16
+              \_logic_net: (work@fsm_using_function.req_1), line:5:11, endln:5:16
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.next_state), line:17:61, endln:17:71
               |vpiParent:
@@ -1533,7 +1592,7 @@ design: (work@fsm_using_function)
               |vpiName:next_state
               |vpiFullName:work@fsm_using_function.FUN.next_state
               |vpiActual:
-              \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29
+              \_logic_net: (work@fsm_using_function.next_state), line:12:19, endln:12:29
             |vpiName:fsm_function
             |vpiFunction:
             \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12
@@ -1544,7 +1603,7 @@ design: (work@fsm_using_function)
             |vpiName:next_state
             |vpiFullName:work@fsm_using_function.FUN.next_state
             |vpiActual:
-            \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29
+            \_logic_net: (work@fsm_using_function.next_state), line:12:19, endln:12:29
     |vpiAlwaysType:1
   |vpiProcess:
   \_always: , line:45:1, endln:52:4
@@ -1566,7 +1625,7 @@ design: (work@fsm_using_function)
           |vpiName:clock
           |vpiFullName:work@fsm_using_function.clock
           |vpiActual:
-          \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16
+          \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
       \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:1, endln:52:4
         |vpiParent:
@@ -1589,7 +1648,7 @@ design: (work@fsm_using_function)
               |vpiName:reset
               |vpiFullName:work@fsm_using_function.FSM_SEQ.reset
               |vpiActual:
-              \_bit_var: (work@fsm_using_function.reset), line:3:11, endln:3:16
+              \_logic_net: (work@fsm_using_function.reset), line:3:11, endln:3:16
             |vpiOperand:
             \_constant: , line:47:15, endln:47:19
           |vpiStmt:
@@ -1617,7 +1676,7 @@ design: (work@fsm_using_function)
                 |vpiName:curr_state
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.curr_state
                 |vpiActual:
-                \_enum_var: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
+                \_logic_net: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
               |vpiDelayControl:
               \_delay_control: , line:48:19, endln:48:21
                 |vpiParent:
@@ -1640,7 +1699,7 @@ design: (work@fsm_using_function)
                 |vpiName:next_state
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
                 |vpiActual:
-                \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29
+                \_logic_net: (work@fsm_using_function.next_state), line:12:19, endln:12:29
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.curr_state), line:50:5, endln:50:15
                 |vpiParent:
@@ -1648,7 +1707,7 @@ design: (work@fsm_using_function)
                 |vpiName:curr_state
                 |vpiFullName:work@fsm_using_function.FSM_SEQ.curr_state
                 |vpiActual:
-                \_enum_var: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
+                \_logic_net: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
               |vpiDelayControl:
               \_delay_control: , line:50:19, endln:50:21
                 |vpiParent:

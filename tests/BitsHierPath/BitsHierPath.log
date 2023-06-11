@@ -276,7 +276,7 @@ int_typespec                                           7
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                           16
-package                                                3
+package                                                2
 param_assign                                           7
 parameter                                              7
 port                                                   2
@@ -296,7 +296,7 @@ int_typespec                                           7
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                           16
-package                                                3
+package                                                2
 param_assign                                           7
 parameter                                              7
 port                                                   3
@@ -347,7 +347,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:10, endln:3:15
           |vpiParent:
-          \_struct_typespec: (pkg::struct_t), line:2:11, endln:2:17
+          \_logic_typespec: , line:3:5, endln:3:15
           |vpiLeftRange:
           \_constant: , line:3:11, endln:3:12
             |vpiParent:
@@ -414,7 +414,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:10, endln:3:15
           |vpiParent:
-          \_struct_typespec: (pkg::struct_t), line:2:11, endln:2:17
+          \_logic_typespec: , line:3:5, endln:3:15
           |vpiLeftRange:
           \_constant: , line:3:11, endln:3:12
             |vpiParent:
@@ -478,6 +478,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/BitsHierPath/dut.sv, line:8:1, endln:9:10
     |vpiRhs:
     \_constant: , line:8:36, endln:8:37
+      |vpiParent:
+      \_param_assign: , line:8:28, endln:8:37
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -512,6 +514,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsHierPath/dut.sv, line:11:1, endln:17:10
     |vpiRhs:
     \_constant: , line:12:31, endln:12:47
+      |vpiParent:
+      \_param_assign: , line:12:19, endln:12:47
       |vpiDecompile:17
       |vpiSize:32
       |UINT:17
@@ -535,7 +539,11 @@ design: (work@top)
     |vpiName:in
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.in.in)
+      |vpiParent:
+      \_port: (in), line:11:33, endln:11:35
+      |vpiName:in
+      |vpiFullName:work@top.in.in
       |vpiActual:
       \_logic_net: (work@top.in), line:11:33, endln:11:35
     |vpiTypedef:
@@ -595,6 +603,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsHierPath/dut.sv, line:11:1, endln:17:10
     |vpiRhs:
     \_constant: , line:12:31, endln:12:47
+      |vpiParent:
+      \_param_assign: , line:12:19, endln:12:47
       |vpiDecompile:17
       |vpiSize:32
       |UINT:17
@@ -659,6 +669,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:36, endln:8:37
+        |vpiParent:
+        \_param_assign: , line:8:28, endln:8:37
         |vpiDecompile:8
         |vpiSize:32
         |UINT:8
@@ -698,6 +710,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:36, endln:8:37
+        |vpiParent:
+        \_param_assign: , line:8:28, endln:8:37
         |vpiDecompile:9
         |vpiSize:32
         |UINT:9
@@ -737,6 +751,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:36, endln:8:37
+        |vpiParent:
+        \_param_assign: , line:8:28, endln:8:37
         |vpiDecompile:9
         |vpiSize:32
         |UINT:9
@@ -776,6 +792,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:36, endln:8:37
+        |vpiParent:
+        \_param_assign: , line:8:28, endln:8:37
         |vpiDecompile:17
         |vpiSize:32
         |UINT:17

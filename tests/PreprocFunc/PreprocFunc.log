@@ -739,6 +739,8 @@ design: (work@asym_ram)
 |vpiName:work@asym_ram
 |vpiIncludeFileInfo:
 \_include_file_info: , file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:2:10, endln:2:17
+  |vpiParent:
+  \_design: (work@asym_ram)
   |vpiIncludedFile:${SURELOG_DIR}/tests/PreprocFunc/inc.h
 |uhdmallPackages:
 \_package: builtin (builtin::)
@@ -798,11 +800,14 @@ design: (work@asym_ram)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PreprocFunc/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -827,10 +832,13 @@ design: (work@asym_ram)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -855,7 +863,10 @@ design: (work@asym_ram)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -885,10 +896,13 @@ design: (work@asym_ram)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -919,10 +933,13 @@ design: (work@asym_ram)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -989,11 +1006,14 @@ design: (work@asym_ram)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PreprocFunc/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1003,7 +1023,9 @@ design: (work@asym_ram)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1011,34 +1033,45 @@ design: (work@asym_ram)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1084,11 +1117,14 @@ design: (work@asym_ram)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PreprocFunc/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1159,10 +1195,13 @@ design: (work@asym_ram)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1236,6 +1275,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:6:20, endln:6:21
+      |vpiParent:
+      \_param_assign: , line:6:11, endln:6:21
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1250,6 +1291,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:7:20, endln:7:21
+      |vpiParent:
+      \_param_assign: , line:7:11, endln:7:21
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1264,6 +1307,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_operation: , line:30:23, endln:30:66
+      |vpiParent:
+      \_param_assign: , line:30:12, endln:30:66
       |vpiOpType:33
       |vpiOperand:
       \_operation: , line:30:24, endln:30:65
@@ -1276,25 +1321,29 @@ design: (work@asym_ram)
           \_operation: , line:30:24, endln:30:65
           |vpiOpType:18
           |vpiOperand:
-          \_ref_obj: (WIDTHA), line:30:25, endln:30:31
+          \_ref_obj: (work@asym_ram.WIDTHA), line:30:25, endln:30:31
             |vpiParent:
             \_operation: , line:30:24, endln:30:43
             |vpiName:WIDTHA
+            |vpiFullName:work@asym_ram.WIDTHA
           |vpiOperand:
-          \_ref_obj: (WIDTHB), line:30:36, endln:30:42
+          \_ref_obj: (work@asym_ram.WIDTHB), line:30:36, endln:30:42
             |vpiParent:
             \_operation: , line:30:24, endln:30:43
             |vpiName:WIDTHB
+            |vpiFullName:work@asym_ram.WIDTHB
         |vpiOperand:
-        \_ref_obj: (WIDTHA), line:30:47, endln:30:53
+        \_ref_obj: (work@asym_ram.WIDTHA), line:30:47, endln:30:53
           |vpiParent:
           \_operation: , line:30:24, endln:30:65
           |vpiName:WIDTHA
+          |vpiFullName:work@asym_ram.WIDTHA
         |vpiOperand:
-        \_ref_obj: (WIDTHB), line:30:58, endln:30:64
+        \_ref_obj: (work@asym_ram.WIDTHB), line:30:58, endln:30:64
           |vpiParent:
           \_operation: , line:30:24, endln:30:65
           |vpiName:WIDTHB
+          |vpiFullName:work@asym_ram.WIDTHB
     |vpiLhs:
     \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:20
   |vpiParamAssign:
@@ -1303,6 +1352,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_operation: , line:35:23, endln:35:66
+      |vpiParent:
+      \_param_assign: , line:35:12, endln:35:66
       |vpiOpType:33
       |vpiOperand:
       \_operation: , line:35:24, endln:35:65
@@ -1315,25 +1366,29 @@ design: (work@asym_ram)
           \_operation: , line:35:24, endln:35:65
           |vpiOpType:20
           |vpiOperand:
-          \_ref_obj: (WIDTHA), line:35:25, endln:35:31
+          \_ref_obj: (work@asym_ram.WIDTHA), line:35:25, endln:35:31
             |vpiParent:
             \_operation: , line:35:24, endln:35:43
             |vpiName:WIDTHA
+            |vpiFullName:work@asym_ram.WIDTHA
           |vpiOperand:
-          \_ref_obj: (WIDTHB), line:35:36, endln:35:42
+          \_ref_obj: (work@asym_ram.WIDTHB), line:35:36, endln:35:42
             |vpiParent:
             \_operation: , line:35:24, endln:35:43
             |vpiName:WIDTHB
+            |vpiFullName:work@asym_ram.WIDTHB
         |vpiOperand:
-        \_ref_obj: (WIDTHA), line:35:47, endln:35:53
+        \_ref_obj: (work@asym_ram.WIDTHA), line:35:47, endln:35:53
           |vpiParent:
           \_operation: , line:35:24, endln:35:65
           |vpiName:WIDTHA
+          |vpiFullName:work@asym_ram.WIDTHA
         |vpiOperand:
-        \_ref_obj: (WIDTHB), line:35:58, endln:35:64
+        \_ref_obj: (work@asym_ram.WIDTHB), line:35:58, endln:35:64
           |vpiParent:
           \_operation: , line:35:24, endln:35:65
           |vpiName:WIDTHB
+          |vpiFullName:work@asym_ram.WIDTHB
     |vpiLhs:
     \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:20
   |vpiParamAssign:
@@ -1342,17 +1397,21 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_operation: , line:39:20, endln:39:39
+      |vpiParent:
+      \_param_assign: , line:39:12, endln:39:39
       |vpiOpType:12
       |vpiOperand:
-      \_ref_obj: (maxWIDTH), line:39:20, endln:39:28
+      \_ref_obj: (work@asym_ram.maxWIDTH), line:39:20, endln:39:28
         |vpiParent:
         \_operation: , line:39:20, endln:39:39
         |vpiName:maxWIDTH
+        |vpiFullName:work@asym_ram.maxWIDTH
       |vpiOperand:
-      \_ref_obj: (minWIDTH), line:39:31, endln:39:39
+      \_ref_obj: (work@asym_ram.minWIDTH), line:39:31, endln:39:39
         |vpiParent:
         \_operation: , line:39:20, endln:39:39
         |vpiName:minWIDTH
+        |vpiFullName:work@asym_ram.minWIDTH
     |vpiLhs:
     \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:17
   |vpiParamAssign:
@@ -1361,11 +1420,14 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_func_call: (log2), line:42:24, endln:42:28
+      |vpiParent:
+      \_param_assign: , line:42:12, endln:42:35
       |vpiArgument:
-      \_ref_obj: (RATIO), line:42:29, endln:42:34
+      \_ref_obj: (work@asym_ram.RATIO), line:42:29, endln:42:34
         |vpiParent:
         \_func_call: (log2), line:42:24, endln:42:28
         |vpiName:RATIO
+        |vpiFullName:work@asym_ram.RATIO
       |vpiName:log2
       |vpiFunction:
       \_function: (work@asym_ram.log2), line:13:1, endln:28:12
@@ -1379,13 +1441,15 @@ design: (work@asym_ram)
     |vpiName:log2
     |vpiFullName:work@asym_ram.log2
     |vpiVariables:
-    \_logic_var: (shifted), line:15:1, endln:15:11
+    \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
+      |vpiParent:
+      \_function: (work@asym_ram.log2), line:13:1, endln:28:12
       |vpiTypespec:
       \_logic_typespec: , line:15:1, endln:15:11
         |vpiRange:
         \_range: , line:15:5, endln:15:11
           |vpiParent:
-          \_function: (work@asym_ram.log2), line:13:1, endln:28:12
+          \_logic_typespec: , line:15:1, endln:15:11
           |vpiLeftRange:
           \_constant: , line:15:6, endln:15:8
             |vpiParent:
@@ -1403,21 +1467,28 @@ design: (work@asym_ram)
             |UINT:0
             |vpiConstType:9
       |vpiName:shifted
+      |vpiFullName:work@asym_ram.log2.shifted
       |vpiAutomatic:1
     |vpiVariables:
-    \_integer_var: (res), line:16:1, endln:16:8
+    \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8
+      |vpiParent:
+      \_function: (work@asym_ram.log2), line:13:1, endln:28:12
       |vpiTypespec:
       \_integer_typespec: , line:16:1, endln:16:8
         |vpiSigned:1
       |vpiName:res
+      |vpiFullName:work@asym_ram.log2.res
       |vpiSigned:1
       |vpiAutomatic:1
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:13:10, endln:13:17
+    \_integer_var: (work@asym_ram.log2), line:13:10, endln:13:17
+      |vpiParent:
+      \_function: (work@asym_ram.log2), line:13:1, endln:28:12
       |vpiTypespec:
       \_integer_typespec: , line:13:10, endln:13:17
         |vpiSigned:1
+      |vpiFullName:work@asym_ram.log2
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:14:15, endln:14:20
@@ -1479,7 +1550,7 @@ design: (work@asym_ram)
             |vpiName:log2
             |vpiFullName:work@asym_ram.log2.log2
             |vpiActual:
-            \_integer_var: (log2), line:13:10, endln:13:17
+            \_integer_var: (work@asym_ram.log2.log2), line:13:10, endln:13:17
         |vpiElseStmt:
         \_begin: (work@asym_ram.log2), line:21:2, endln:26:5
           |vpiParent:
@@ -1519,7 +1590,7 @@ design: (work@asym_ram)
               |vpiName:shifted
               |vpiFullName:work@asym_ram.log2.shifted
               |vpiActual:
-              \_logic_var: (shifted), line:15:1, endln:15:11
+              \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
           |vpiStmt:
           \_for_stmt: (work@asym_ram.log2), line:23:3, endln:23:6
             |vpiParent:
@@ -1561,7 +1632,7 @@ design: (work@asym_ram)
                   |vpiName:res
                   |vpiFullName:work@asym_ram.log2.res
                   |vpiActual:
-                  \_integer_var: (res), line:16:1, endln:16:8
+                  \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8
                 |vpiOperand:
                 \_constant: , line:23:34, endln:23:35
                   |vpiParent:
@@ -1577,7 +1648,7 @@ design: (work@asym_ram)
                 |vpiName:res
                 |vpiFullName:work@asym_ram.log2.res
                 |vpiActual:
-                \_integer_var: (res), line:16:1, endln:16:8
+                \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8
             |vpiCondition:
             \_operation: , line:23:15, endln:23:24
               |vpiParent:
@@ -1590,7 +1661,7 @@ design: (work@asym_ram)
                 |vpiName:shifted
                 |vpiFullName:work@asym_ram.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:15:1, endln:15:11
+                \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
               |vpiOperand:
               \_constant: , line:23:23, endln:23:24
                 |vpiParent:
@@ -1617,7 +1688,7 @@ design: (work@asym_ram)
                   |vpiName:shifted
                   |vpiFullName:work@asym_ram.log2.shifted
                   |vpiActual:
-                  \_logic_var: (shifted), line:15:1, endln:15:11
+                  \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
                 |vpiOperand:
                 \_constant: , line:24:23, endln:24:24
                   |vpiParent:
@@ -1633,7 +1704,7 @@ design: (work@asym_ram)
                 |vpiName:shifted
                 |vpiFullName:work@asym_ram.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:15:1, endln:15:11
+                \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
           |vpiStmt:
           \_assignment: , line:25:3, endln:25:13
             |vpiParent:
@@ -1647,7 +1718,7 @@ design: (work@asym_ram)
               |vpiName:res
               |vpiFullName:work@asym_ram.log2.res
               |vpiActual:
-              \_integer_var: (res), line:16:1, endln:16:8
+              \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8
             |vpiLhs:
             \_ref_obj: (work@asym_ram.log2.log2), line:25:3, endln:25:7
               |vpiParent:
@@ -1655,7 +1726,7 @@ design: (work@asym_ram)
               |vpiName:log2
               |vpiFullName:work@asym_ram.log2.log2
               |vpiActual:
-              \_integer_var: (log2), line:13:10, endln:13:17
+              \_integer_var: (work@asym_ram.log2.log2), line:13:10, endln:13:17
     |vpiInstance:
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
 |uhdmtopModules:
@@ -1717,6 +1788,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:6:20, endln:6:21
+      |vpiParent:
+      \_param_assign: , line:6:11, endln:6:21
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1731,6 +1804,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:7:20, endln:7:21
+      |vpiParent:
+      \_param_assign: , line:7:11, endln:7:21
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1745,6 +1820,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:30:23, endln:30:66
+      |vpiParent:
+      \_param_assign: , line:30:12, endln:30:66
       |vpiDecompile:32'b00000000000000000000000000000100
       |vpiSize:32
       |BIN:00000000000000000000000000000100
@@ -1757,6 +1834,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:35:23, endln:35:66
+      |vpiParent:
+      \_param_assign: , line:35:12, endln:35:66
       |vpiDecompile:32'b00000000000000000000000000000100
       |vpiSize:32
       |BIN:00000000000000000000000000000100
@@ -1769,6 +1848,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:39:20, endln:39:39
+      |vpiParent:
+      \_param_assign: , line:39:12, endln:39:39
       |vpiDecompile:1
       |vpiSize:64
       |INT:1
@@ -1781,6 +1862,8 @@ design: (work@asym_ram)
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
     |vpiRhs:
     \_constant: , line:42:24, endln:42:35
+      |vpiParent:
+      \_param_assign: , line:42:12, endln:42:35
       |vpiDecompile:1
       |vpiSize:32
       |INT:1
@@ -1818,7 +1901,7 @@ design: (work@asym_ram)
       |vpiAutomatic:1
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:13:10, endln:13:17
+    \_integer_var: (work@asym_ram.log2), line:13:10, endln:13:17
     |vpiIODecl:
     \_io_decl: (value), line:14:15, endln:14:20
       |vpiParent:
@@ -1872,7 +1955,7 @@ design: (work@asym_ram)
             |vpiName:log2
             |vpiFullName:work@asym_ram.log2.log2
             |vpiActual:
-            \_integer_var: (log2), line:13:10, endln:13:17
+            \_integer_var: (work@asym_ram.log2.log2), line:13:10, endln:13:17
         |vpiElseStmt:
         \_begin: (work@asym_ram.log2), line:21:2, endln:26:5
           |vpiParent:
@@ -1906,7 +1989,7 @@ design: (work@asym_ram)
               |vpiName:shifted
               |vpiFullName:work@asym_ram.log2.shifted
               |vpiActual:
-              \_logic_var: (shifted), line:15:1, endln:15:11
+              \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
           |vpiStmt:
           \_for_stmt: (work@asym_ram.log2), line:23:3, endln:23:6
             |vpiParent:
@@ -1944,7 +2027,7 @@ design: (work@asym_ram)
                   |vpiName:res
                   |vpiFullName:work@asym_ram.log2.res
                   |vpiActual:
-                  \_integer_var: (res), line:16:1, endln:16:8
+                  \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8
                 |vpiOperand:
                 \_constant: , line:23:34, endln:23:35
               |vpiLhs:
@@ -1954,7 +2037,7 @@ design: (work@asym_ram)
                 |vpiName:res
                 |vpiFullName:work@asym_ram.log2.res
                 |vpiActual:
-                \_integer_var: (res), line:16:1, endln:16:8
+                \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8
             |vpiCondition:
             \_operation: , line:23:15, endln:23:24
               |vpiParent:
@@ -1967,7 +2050,7 @@ design: (work@asym_ram)
                 |vpiName:shifted
                 |vpiFullName:work@asym_ram.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:15:1, endln:15:11
+                \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
               |vpiOperand:
               \_constant: , line:23:23, endln:23:24
             |vpiStmt:
@@ -1988,7 +2071,7 @@ design: (work@asym_ram)
                   |vpiName:shifted
                   |vpiFullName:work@asym_ram.log2.shifted
                   |vpiActual:
-                  \_logic_var: (shifted), line:15:1, endln:15:11
+                  \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
                 |vpiOperand:
                 \_constant: , line:24:23, endln:24:24
               |vpiLhs:
@@ -1998,7 +2081,7 @@ design: (work@asym_ram)
                 |vpiName:shifted
                 |vpiFullName:work@asym_ram.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:15:1, endln:15:11
+                \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:11
           |vpiStmt:
           \_assignment: , line:25:3, endln:25:13
             |vpiParent:
@@ -2012,7 +2095,7 @@ design: (work@asym_ram)
               |vpiName:res
               |vpiFullName:work@asym_ram.log2.res
               |vpiActual:
-              \_integer_var: (res), line:16:1, endln:16:8
+              \_integer_var: (work@asym_ram.log2.res), line:16:1, endln:16:8
             |vpiLhs:
             \_ref_obj: (work@asym_ram.log2.log2), line:25:3, endln:25:7
               |vpiParent:
@@ -2020,7 +2103,7 @@ design: (work@asym_ram)
               |vpiName:log2
               |vpiFullName:work@asym_ram.log2.log2
               |vpiActual:
-              \_integer_var: (log2), line:13:10, endln:13:17
+              \_integer_var: (work@asym_ram.log2.log2), line:13:10, endln:13:17
     |vpiInstance:
     \_module_inst: work@asym_ram (work@asym_ram), file:${SURELOG_DIR}/tests/PreprocFunc/dut.sv, line:5:1, endln:45:10
   |vpiTopModule:1

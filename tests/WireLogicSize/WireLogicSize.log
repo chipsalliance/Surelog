@@ -171,7 +171,11 @@ design: (work@TestFunction)
     |vpiName:O1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TestFunction.O1.O1)
+      |vpiParent:
+      \_port: (O1), line:2:17, endln:2:19
+      |vpiName:O1
+      |vpiFullName:work@TestFunction.O1.O1
       |vpiActual:
       \_logic_net: (work@TestFunction.O1), line:2:17, endln:2:19
     |vpiTypedef:
@@ -183,7 +187,11 @@ design: (work@TestFunction)
     |vpiName:O2
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TestFunction.O2.O2)
+      |vpiParent:
+      \_port: (O2), line:2:21, endln:2:23
+      |vpiName:O2
+      |vpiFullName:work@TestFunction.O2.O2
       |vpiActual:
       \_logic_net: (work@TestFunction.O2), line:2:21, endln:2:23
     |vpiTypedef:
@@ -195,7 +203,11 @@ design: (work@TestFunction)
     |vpiName:O3
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TestFunction.O3.O3)
+      |vpiParent:
+      \_port: (O3), line:2:25, endln:2:27
+      |vpiName:O3
+      |vpiFullName:work@TestFunction.O3.O3
       |vpiActual:
       \_logic_net: (work@TestFunction.O3), line:2:25, endln:2:27
     |vpiTypedef:
@@ -207,7 +219,11 @@ design: (work@TestFunction)
     |vpiName:O4
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TestFunction.O4.O4)
+      |vpiParent:
+      \_port: (O4), line:2:29, endln:2:31
+      |vpiName:O4
+      |vpiFullName:work@TestFunction.O4.O4
       |vpiActual:
       \_logic_net: (work@TestFunction.O4), line:2:29, endln:2:31
     |vpiTypedef:
@@ -219,13 +235,19 @@ design: (work@TestFunction)
     |vpiName:sw
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TestFunction.sw.sw)
+      |vpiParent:
+      \_port: (sw), line:3:27, endln:3:29
+      |vpiName:sw
+      |vpiFullName:work@TestFunction.sw.sw
       |vpiActual:
       \_logic_net: (work@TestFunction.sw), line:3:27, endln:3:29
     |vpiTypedef:
     \_logic_typespec: , line:3:16, endln:3:26
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -249,13 +271,19 @@ design: (work@TestFunction)
     |vpiName:sw2
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TestFunction.sw2.sw2)
+      |vpiParent:
+      \_port: (sw2), line:3:32, endln:3:35
+      |vpiName:sw2
+      |vpiFullName:work@TestFunction.sw2.sw2
       |vpiActual:
       \_logic_net: (work@TestFunction.sw2), line:3:32, endln:3:35
     |vpiTypedef:
     \_logic_typespec: , line:3:16, endln:3:26
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -283,6 +311,8 @@ design: (work@TestFunction)
     \_module_inst: work@TestFunction (work@TestFunction), file:${SURELOG_DIR}/tests/WireLogicSize/dut.sv, line:1:1, endln:23:10
     |vpiTypespec:
     \_logic_typespec: , line:2:11, endln:2:16
+      |vpiParent:
+      \_logic_net: (work@TestFunction.O4), line:2:29, endln:2:31
     |vpiName:O1
     |vpiFullName:work@TestFunction.O1
     |vpiNetType:36
@@ -319,8 +349,12 @@ design: (work@TestFunction)
     \_module_inst: work@TestFunction (work@TestFunction), file:${SURELOG_DIR}/tests/WireLogicSize/dut.sv, line:1:1, endln:23:10
     |vpiTypespec:
     \_logic_typespec: , line:3:16, endln:3:26
+      |vpiParent:
+      \_logic_net: (work@TestFunction.sw2), line:3:32, endln:3:35
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -441,7 +475,7 @@ design: (work@TestFunction)
       |vpiRange:
       \_range: , line:3:21, endln:3:26
         |vpiParent:
-        \_port: (sw), line:3:27, endln:3:29
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:

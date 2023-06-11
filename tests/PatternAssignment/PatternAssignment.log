@@ -195,8 +195,6 @@ design: (work@dut)
   |vpiFullName:work@dut
   |vpiTypedef:
   \_struct_typespec: (typedef_struct), line:3:9, endln:3:15
-    |vpiParent:
-    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PatternAssignment/dut.sv, line:1:1, endln:15:10
     |vpiName:typedef_struct
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PatternAssignment/dut.sv, line:1:1, endln:15:10
@@ -254,6 +252,8 @@ design: (work@dut)
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:11:7, endln:11:33
+        |vpiParent:
+        \_operation: , line:10:12, endln:13:2
         |vpiPattern:
         \_operation: , line:11:7, endln:11:33
           |vpiParent:
@@ -271,7 +271,7 @@ design: (work@dut)
               |vpiName:test
               |vpiFullName:work@dut.test
               |vpiActual:
-              \_logic_var: (work@dut.test), line:9:7, endln:9:18
+              \_logic_net: (work@dut.test), line:9:7, endln:9:11
             |vpiOperand:
             \_constant: , line:11:15, endln:11:19
               |vpiParent:
@@ -298,9 +298,13 @@ design: (work@dut)
             |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (a), line:11:3, endln:11:4
+          |vpiParent:
+          \_tagged_pattern: , line:11:7, endln:11:33
           |vpiName:a
       |vpiOperand:
       \_tagged_pattern: , line:12:7, endln:12:25
+        |vpiParent:
+        \_operation: , line:10:12, endln:13:2
         |vpiPattern:
         \_operation: , line:12:7, endln:12:25
           |vpiParent:
@@ -332,6 +336,8 @@ design: (work@dut)
             |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (b), line:12:3, endln:12:4
+          |vpiParent:
+          \_tagged_pattern: , line:12:7, endln:12:25
           |vpiName:b
     |vpiLhs:
     \_ref_obj: (work@dut.c), line:10:8, endln:10:9
@@ -340,7 +346,7 @@ design: (work@dut)
       |vpiName:c
       |vpiFullName:work@dut.c
       |vpiActual:
-      \_struct_net: (work@dut.c), line:8:16, endln:8:17
+      \_logic_net: (work@dut.c), line:8:16, endln:8:17
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PatternAssignment/dut.sv, line:1:1, endln:15:10
   |vpiName:work@dut
@@ -350,11 +356,15 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PatternAssignment/dut.sv, line:1:1, endln:15:10
     |vpiTypespec:
     \_logic_typespec: , line:9:1, endln:9:6
+      |vpiParent:
+      \_logic_var: (work@dut.test), line:9:7, endln:9:18
     |vpiName:test
     |vpiFullName:work@dut.test
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:9:14, endln:9:18
+      |vpiParent:
+      \_logic_var: (work@dut.test), line:9:7, endln:9:18
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -399,7 +409,7 @@ design: (work@dut)
             |vpiName:test
             |vpiFullName:work@dut.test
             |vpiActual:
-            \_logic_var: (work@dut.test), line:9:7, endln:9:18
+            \_logic_net: (work@dut.test), line:9:7, endln:9:11
           |vpiOperand:
           \_constant: , line:11:15, endln:11:19
             |vpiParent:

@@ -145,7 +145,7 @@ logic_net                                              3
 logic_typespec                                         8
 module_inst                                            6
 operation                                              2
-package                                                3
+package                                                2
 port                                                   4
 range                                                  9
 ref_obj                                                8
@@ -163,7 +163,7 @@ logic_net                                              3
 logic_typespec                                         8
 module_inst                                            6
 operation                                              3
-package                                                3
+package                                                2
 port                                                   6
 range                                                  9
 ref_obj                                               12
@@ -199,6 +199,8 @@ design: (work@prim_lc_sender)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
       |vpiRange:
       \_range: , line:2:22, endln:2:27
+        |vpiParent:
+        \_logic_typespec: , line:2:16, endln:2:27
         |vpiLeftRange:
         \_constant: , line:2:23, endln:2:24
           |vpiParent:
@@ -217,12 +219,16 @@ design: (work@prim_lc_sender)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (On), line:3:5, endln:3:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
       |vpiName:On
       |BIN:1010
       |vpiDecompile:4'b1010
       |vpiSize:4
     |vpiEnumConst:
     \_enum_const: (Off), line:4:5, endln:4:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
       |vpiName:Off
       |BIN:0101
       |vpiDecompile:4'b0101
@@ -247,6 +253,8 @@ design: (work@prim_lc_sender)
       \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
       |vpiRange:
       \_range: , line:2:22, endln:2:27
+        |vpiParent:
+        \_logic_typespec: , line:2:16, endln:2:27
         |vpiLeftRange:
         \_constant: , line:2:23, endln:2:24
           |vpiParent:
@@ -265,20 +273,22 @@ design: (work@prim_lc_sender)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (On), line:3:5, endln:3:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
       |vpiName:On
       |BIN:1010
       |vpiDecompile:4'b1010
       |vpiSize:4
     |vpiEnumConst:
     \_enum_const: (Off), line:4:5, endln:4:18
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
       |vpiName:Off
       |BIN:0101
       |vpiDecompile:4'b0101
       |vpiSize:4
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:2:3, endln:5:13
-    |vpiParent:
-    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
     |vpiName:lc_ctrl_pkg::lc_tx_t
     |vpiTypedefAlias:
     \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
@@ -353,13 +363,19 @@ design: (work@prim_lc_sender)
     |vpiName:lc_en_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_lc_sender.lc_en_i.lc_en_i)
+      |vpiParent:
+      \_port: (lc_en_i), line:11:16, endln:11:23
+      |vpiName:lc_en_i
+      |vpiFullName:work@prim_lc_sender.lc_en_i.lc_en_i
       |vpiActual:
       \_logic_net: (work@prim_lc_sender.lc_en_i), line:11:16, endln:11:23
     |vpiTypedef:
     \_logic_typespec: , line:11:10, endln:11:15
       |vpiRange:
       \_range: , line:11:10, endln:11:15
+        |vpiParent:
+        \_logic_typespec: , line:11:10, endln:11:15
         |vpiLeftRange:
         \_constant: , line:11:11, endln:11:12
           |vpiParent:
@@ -383,7 +399,11 @@ design: (work@prim_lc_sender)
     |vpiName:lc_en_o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_lc_sender.lc_en_o.lc_en_o)
+      |vpiParent:
+      \_port: (lc_en_o), line:12:31, endln:12:38
+      |vpiName:lc_en_o
+      |vpiFullName:work@prim_lc_sender.lc_en_o.lc_en_o
       |vpiActual:
       \_logic_net: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
     |vpiTypedef:
@@ -414,7 +434,7 @@ design: (work@prim_lc_sender)
       |vpiName:lc_en_o
       |vpiFullName:work@prim_lc_sender.lc_en_o
       |vpiActual:
-      \_enum_var: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
+      \_logic_net: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
 |uhdmtopModules:
 \_module_inst: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
   |vpiName:work@prim_lc_sender
@@ -435,8 +455,12 @@ design: (work@prim_lc_sender)
     \_module_inst: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
     |vpiTypespec:
     \_logic_typespec: , line:11:10, endln:11:15
+      |vpiParent:
+      \_logic_net: (work@prim_lc_sender.lc_en_i), line:11:16, endln:11:23
       |vpiRange:
       \_range: , line:11:10, endln:11:15
+        |vpiParent:
+        \_logic_typespec: , line:11:10, endln:11:15
         |vpiLeftRange:
         \_constant: , line:11:11, endln:11:12
           |vpiParent:
@@ -475,7 +499,7 @@ design: (work@prim_lc_sender)
       |vpiRange:
       \_range: , line:11:10, endln:11:15
         |vpiParent:
-        \_port: (lc_en_i), line:11:16, endln:11:23
+        \_logic_typespec: , line:11:10, endln:11:15
         |vpiLeftRange:
         \_constant: , line:11:11, endln:11:12
           |vpiParent:

@@ -261,6 +261,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
     \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_param_assign: , line:3:11, endln:3:16
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -275,12 +277,15 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
     \_operation: , line:4:20, endln:4:32
+      |vpiParent:
+      \_param_assign: , line:4:11, endln:4:32
       |vpiOpType:34
       |vpiOperand:
-      \_ref_obj: (FOO), line:4:21, endln:4:24
+      \_ref_obj: (work@test.FOO), line:4:21, endln:4:24
         |vpiParent:
         \_operation: , line:4:20, endln:4:32
         |vpiName:FOO
+        |vpiFullName:work@test.FOO
       |vpiOperand:
       \_operation: , line:4:24, endln:4:31
         |vpiParent:
@@ -299,8 +304,11 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
-    \_indexed_part_select: FOO_REPL (FOO_REPL), line:6:19, endln:6:34
+    \_indexed_part_select: FOO_REPL (work@test.FOO_REPL), line:6:19, endln:6:34
+      |vpiParent:
+      \_param_assign: , line:6:11, endln:6:34
       |vpiName:FOO_REPL
+      |vpiFullName:work@test.FOO_REPL
       |vpiDefName:FOO_REPL
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
@@ -324,7 +332,10 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@test)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@test
 |uhdmtopModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
   |vpiName:work@test
@@ -357,6 +368,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
     \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_param_assign: , line:3:11, endln:3:16
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -371,6 +384,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
     \_constant: , line:4:20, endln:4:32
+      |vpiParent:
+      \_param_assign: , line:4:11, endln:4:32
       |vpiDecompile:96'b000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000100
       |vpiSize:96
       |BIN:000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000100
@@ -386,6 +401,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
     \_constant: , line:6:19, endln:6:34
+      |vpiParent:
+      \_param_assign: , line:6:11, endln:6:34
       |vpiDecompile:32'b00000000000000000000000000000100
       |vpiSize:32
       |BIN:00000000000000000000000000000100

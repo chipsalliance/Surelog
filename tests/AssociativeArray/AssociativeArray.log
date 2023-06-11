@@ -240,6 +240,8 @@ design: (work@top)
       \_array_var: (work@top.a), line:2:8, endln:2:15
       |vpiTypespec:
       \_int_typespec: , line:2:4, endln:2:7
+        |vpiParent:
+        \_int_var: (work@top.a), line:2:8, endln:2:9
         |vpiSigned:1
       |vpiFullName:work@top.a
   |vpiVariables:
@@ -262,6 +264,8 @@ design: (work@top)
       \_array_var: (work@top.b), line:5:8, endln:5:18
       |vpiTypespec:
       \_int_typespec: , line:5:4, endln:5:7
+        |vpiParent:
+        \_int_var: (work@top.b), line:5:8, endln:5:9
         |vpiSigned:1
       |vpiFullName:work@top.b
   |vpiDefName:work@top
@@ -284,7 +288,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:3:13, endln:3:14
         |vpiParent:
-        \_bit_select: (a), line:3:11, endln:3:15
+        \_bit_select: (work@top.a), line:3:11, endln:3:15
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
@@ -306,7 +310,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:6:13, endln:6:19
         |vpiParent:
-        \_bit_select: (b), line:6:11, endln:6:20
+        \_bit_select: (work@top.b), line:6:11, endln:6:20
         |vpiDecompile:"HERE"
         |vpiSize:32
         |STRING:HERE

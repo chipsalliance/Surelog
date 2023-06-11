@@ -242,7 +242,7 @@ import_typespec                                        1
 int_typespec                                          18
 module_inst                                           18
 operation                                             13
-package                                                3
+package                                                2
 param_assign                                          14
 parameter                                             16
 ref_module                                             3
@@ -259,7 +259,7 @@ import_typespec                                        1
 int_typespec                                          18
 module_inst                                           18
 operation                                             13
-package                                                3
+package                                                2
 param_assign                                          14
 parameter                                             16
 ref_module                                             3
@@ -305,9 +305,13 @@ design: (work@top)
     \_package: foo_pkg (foo_pkg::), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_operation: , line:2:30, endln:2:43
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:43
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:2:41, endln:2:42
+        |vpiParent:
+        \_operation: , line:2:30, endln:2:43
         |vpiPattern:
         \_constant: , line:2:41, endln:2:42
           |vpiDecompile:1
@@ -316,6 +320,8 @@ design: (work@top)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:2:32, endln:2:39
+          |vpiParent:
+          \_tagged_pattern: , line:2:41, endln:2:42
           |vpiName:default
     |vpiLhs:
     \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:27
@@ -346,9 +352,13 @@ design: (work@top)
     \_package: foo_pkg (foo_pkg::), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_operation: , line:2:30, endln:2:43
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:43
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:2:41, endln:2:42
+        |vpiParent:
+        \_operation: , line:2:30, endln:2:43
         |vpiPattern:
         \_constant: , line:2:41, endln:2:42
           |vpiDecompile:1
@@ -357,6 +367,8 @@ design: (work@top)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:2:32, endln:2:39
+          |vpiParent:
+          \_tagged_pattern: , line:2:41, endln:2:42
           |vpiName:default
     |vpiLhs:
     \_parameter: (foo_pkg::VALUE_TEMP), line:2:17, endln:2:27
@@ -386,6 +398,8 @@ design: (work@top)
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:5:1, endln:7:10
     |vpiRhs:
     \_constant: , line:6:25, endln:6:26
+      |vpiParent:
+      \_param_assign: , line:6:17, endln:6:26
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -474,12 +488,15 @@ design: (work@top)
     \_module_inst: work@lower (work@lower), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:9:1, endln:15:10
     |vpiRhs:
     \_operation: , line:11:25, endln:11:39
+      |vpiParent:
+      \_param_assign: , line:11:17, endln:11:39
       |vpiOpType:24
       |vpiOperand:
-      \_ref_obj: (VALUE_TEMP), line:11:25, endln:11:35
+      \_ref_obj: (work@lower.VALUE_TEMP), line:11:25, endln:11:35
         |vpiParent:
         \_operation: , line:11:25, endln:11:39
         |vpiName:VALUE_TEMP
+        |vpiFullName:work@lower.VALUE_TEMP
       |vpiOperand:
       \_constant: , line:11:38, endln:11:39
         |vpiParent:
@@ -525,6 +542,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:22:1, endln:25:10
     |vpiRhs:
     \_constant: , line:23:25, endln:23:26
+      |vpiParent:
+      \_param_assign: , line:23:17, endln:23:26
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
@@ -566,6 +585,8 @@ design: (work@top)
     \_module_inst: work@upper (work@upper), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:17:1, endln:20:10
     |vpiRhs:
     \_constant: , line:18:25, endln:18:26
+      |vpiParent:
+      \_param_assign: , line:18:17, endln:18:26
       |vpiDecompile:7
       |vpiSize:32
       |UINT:7
@@ -605,6 +626,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:22:1, endln:25:10
     |vpiRhs:
     \_constant: , line:23:25, endln:23:26
+      |vpiParent:
+      \_param_assign: , line:23:17, endln:23:26
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
@@ -641,6 +664,8 @@ design: (work@top)
       \_module_inst: work@upper (work@top.upper_u), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:24:3, endln:24:20
       |vpiRhs:
       \_constant: , line:18:25, endln:18:26
+        |vpiParent:
+        \_param_assign: , line:18:17, endln:18:26
         |vpiDecompile:7
         |vpiSize:32
         |UINT:7
@@ -721,6 +746,8 @@ design: (work@top)
         \_module_inst: work@lower (work@top.upper_u.lower_u), file:${SURELOG_DIR}/tests/ParamScope/dut.sv, line:19:3, endln:19:20
         |vpiRhs:
         \_operation: , line:11:25, endln:11:39
+          |vpiParent:
+          \_param_assign: , line:11:17, endln:11:39
           |vpiTypespec:
           \_int_typespec: , line:11:13, endln:11:16
           |vpiOpType:24
@@ -791,6 +818,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_operation: , line:13:12, endln:13:17
+            |vpiParent:
+            \_param_assign: , line:11:17, endln:11:39
             |vpiTypespec:
             \_int_typespec: , line:11:13, endln:11:16
               |vpiParent:

@@ -156,6 +156,8 @@ design: (work@top)
       |vpiSigned:1
       |vpiRange:
       \_range: , line:3:22, endln:3:28
+        |vpiParent:
+        \_int_typespec: , line:3:15, endln:3:21
         |vpiLeftRange:
         \_constant: , line:3:23, endln:3:25
           |vpiParent:
@@ -181,6 +183,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:2:28, endln:2:30
+      |vpiParent:
+      \_param_assign: , line:2:24, endln:2:30
       |vpiDecompile:15
       |vpiSize:32
       |UINT:15
@@ -195,6 +199,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:3:33, endln:3:46
+      |vpiParent:
+      \_param_assign: , line:3:29, endln:3:46
       |vpiDecompile:32'h8000_0000
       |vpiSize:64
       |HEX:80000000
@@ -217,7 +223,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -232,6 +242,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
     \_int_typespec: , line:1:19, endln:1:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:1:23, endln:1:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -288,6 +300,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:2:28, endln:2:30
+      |vpiParent:
+      \_param_assign: , line:2:24, endln:2:30
       |vpiDecompile:15
       |vpiSize:32
       |UINT:15
@@ -302,6 +316,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_constant: , line:3:33, endln:3:46
+      |vpiParent:
+      \_param_assign: , line:3:29, endln:3:46
       |vpiDecompile:64'h80000000
       |vpiSize:64
       |HEX:80000000

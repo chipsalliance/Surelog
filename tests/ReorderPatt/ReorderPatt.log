@@ -216,6 +216,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ReorderPatt/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:2:28, endln:2:37
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:37
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:2:30, endln:2:32
@@ -236,12 +238,15 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ReorderPatt/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
-    \_bit_select: (x), line:3:18, endln:3:22
+    \_bit_select: (work@top.x), line:3:18, endln:3:22
+      |vpiParent:
+      \_param_assign: , line:3:14, endln:3:22
       |vpiName:x
+      |vpiFullName:work@top.x
       |vpiIndex:
       \_constant: , line:3:20, endln:3:21
         |vpiParent:
-        \_bit_select: (x), line:3:18, endln:3:22
+        \_bit_select: (work@top.x), line:3:18, endln:3:22
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -249,6 +254,13 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.a), line:3:14, endln:3:15
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.b), line:4:11, endln:4:12
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ReorderPatt/dut.sv, line:1:1, endln:5:10
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:4:11, endln:4:19
     |vpiParent:
@@ -274,7 +286,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b)
+      \_logic_net: (work@top.b), line:4:11, endln:4:12
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ReorderPatt/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top
@@ -404,6 +416,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ReorderPatt/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:3:18, endln:3:22
+      |vpiParent:
+      \_param_assign: , line:3:14, endln:3:22
       |vpiDecompile:11
       |vpiSize:32
       |UINT:11
@@ -412,10 +426,6 @@ design: (work@top)
     \_parameter: (work@top.a), line:3:14, endln:3:15
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (b)
-    |vpiName:b
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:4:11, endln:4:19
@@ -436,7 +446,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b)
+      \_logic_net: (work@top.b), line:4:11, endln:4:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

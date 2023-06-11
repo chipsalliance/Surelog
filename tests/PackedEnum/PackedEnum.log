@@ -163,12 +163,16 @@ design: (work@dut)
     \_logic_typespec: , line:2:17, endln:2:22
     |vpiEnumConst:
     \_enum_const: (c), line:2:24, endln:2:29
+      |vpiParent:
+      \_enum_typespec: (cstate_e), line:2:4, endln:2:47
       |vpiName:c
       |UINT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (d), line:2:31, endln:2:36
+      |vpiParent:
+      \_enum_typespec: (cstate_e), line:2:4, endln:2:47
       |vpiName:d
       |UINT:1
       |vpiDecompile:1
@@ -189,6 +193,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_struct_typespec: , line:4:4, endln:4:10
+      |vpiParent:
+      \_struct_var: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (class_esc_state), line:5:22, endln:5:37
@@ -202,7 +208,7 @@ design: (work@dut)
           |vpiRange:
           \_range: , line:5:16, endln:5:21
             |vpiParent:
-            \_struct_typespec: , line:4:4, endln:4:10
+            \_packed_array_typespec: , line:5:7, endln:5:15
             |vpiLeftRange:
             \_constant: , line:5:17, endln:5:18
               |vpiParent:
@@ -238,7 +244,7 @@ design: (work@dut)
           |vpiRange:
           \_range: , line:6:13, endln:6:18
             |vpiParent:
-            \_struct_typespec: , line:4:4, endln:4:10
+            \_logic_typespec: , line:6:7, endln:6:18
             |vpiLeftRange:
             \_constant: , line:6:14, endln:6:15
               |vpiParent:

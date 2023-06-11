@@ -182,6 +182,8 @@ design: (work@dut)
     \_logic_typespec: , line:7:14, endln:7:25
       |vpiRange:
       \_range: , line:7:20, endln:7:25
+        |vpiParent:
+        \_logic_typespec: , line:7:14, endln:7:25
         |vpiLeftRange:
         \_constant: , line:7:21, endln:7:22
           |vpiParent:
@@ -200,6 +202,8 @@ design: (work@dut)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:8:3, endln:8:47
+      |vpiParent:
+      \_enum_typespec: (exc_cause_e), line:7:1, endln:9:15
       |vpiName:EXC_CAUSE_IRQ_SOFTWARE_M
       |BIN:100011
       |vpiDecompile:{1'b1,5'd03}
@@ -211,12 +215,15 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumConcat/dut.sv, line:6:1, endln:15:10
     |vpiCondition:
     \_operation: , line:11:7, endln:11:44
+      |vpiParent:
+      \_gen_if: , line:11:3, endln:11:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (EXC_CAUSE_IRQ_SOFTWARE_M), line:11:7, endln:11:31
+      \_ref_obj: (work@dut.EXC_CAUSE_IRQ_SOFTWARE_M), line:11:7, endln:11:31
         |vpiParent:
         \_operation: , line:11:7, endln:11:44
         |vpiName:EXC_CAUSE_IRQ_SOFTWARE_M
+        |vpiFullName:work@dut.EXC_CAUSE_IRQ_SOFTWARE_M
         |vpiActual:
         \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:8:3, endln:8:47
       |vpiOperand:
@@ -228,9 +235,14 @@ design: (work@dut)
         |BIN:100011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:11:3, endln:11:5
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:12:10, endln:12:14
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good
         |vpiDefName:work@GOOD
 |uhdmtopModules:

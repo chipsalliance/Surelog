@@ -81,7 +81,7 @@ enum_const                                             2
 enum_typespec                                          2
 int_typespec                                           8
 module_inst                                            4
-package                                                6
+package                                                4
 param_assign                                           4
 parameter                                              4
 ref_obj                                                2
@@ -95,7 +95,7 @@ enum_const                                             2
 enum_typespec                                          2
 int_typespec                                           8
 module_inst                                            4
-package                                                6
+package                                                4
 param_assign                                           4
 parameter                                              4
 ref_obj                                                2
@@ -137,6 +137,8 @@ design: (unnamed)
     \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:40, endln:2:42
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:42
       |vpiDecompile:24
       |vpiSize:32
       |UINT:24
@@ -165,6 +167,8 @@ design: (unnamed)
       \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
     |vpiEnumConst:
     \_enum_const: (CmdInfoReserveEnd), line:7:7, endln:7:57
+      |vpiParent:
+      \_enum_typespec: (spi_device_pkg::cmd_info_index_e), line:6:4, endln:8:23
       |vpiName:CmdInfoReserveEnd
       |UINT:24
       |vpiDecompile:spi_device_reg_pkg::NumCmdInfo
@@ -195,6 +199,8 @@ design: (unnamed)
     \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:40, endln:2:42
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:42
       |vpiDecompile:24
       |vpiSize:32
       |UINT:24
@@ -224,6 +230,8 @@ design: (unnamed)
       \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
     |vpiEnumConst:
     \_enum_const: (CmdInfoReserveEnd), line:7:7, endln:7:57
+      |vpiParent:
+      \_enum_typespec: (spi_device_pkg::cmd_info_index_e), line:6:4, endln:8:23
       |vpiName:CmdInfoReserveEnd
       |UINT:24
       |vpiDecompile:24

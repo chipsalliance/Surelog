@@ -175,7 +175,7 @@ hier_path                                              3
 logic_net                                              3
 logic_typespec                                         5
 module_inst                                            4
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 port                                                   2
 range                                                  2
@@ -198,7 +198,7 @@ hier_path                                              5
 logic_net                                              3
 logic_typespec                                         5
 module_inst                                            4
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 port                                                   3
 range                                                  2
@@ -247,7 +247,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:17, endln:7:22
           |vpiParent:
-          \_struct_typespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:6:18
+          \_packed_array_typespec: , line:7:7, endln:7:16
           |vpiLeftRange:
           \_constant: , line:7:18, endln:7:19
             |vpiParent:
@@ -324,7 +324,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:17, endln:7:22
           |vpiParent:
-          \_struct_typespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:6:18
+          \_packed_array_typespec: , line:7:7, endln:7:16
           |vpiLeftRange:
           \_constant: , line:7:18, endln:7:19
             |vpiParent:
@@ -399,7 +399,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:11:19, endln:11:20
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:11:19, endln:11:20
     |vpiTypedef:

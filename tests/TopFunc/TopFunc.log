@@ -145,7 +145,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:5:23, endln:5:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:5:23, endln:5:24
     |vpiTypedef:
@@ -169,7 +173,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:5:23, endln:5:24
+      \_logic_net: (work@top.o), line:5:23, endln:5:24
 |vpiTaskFunc:
 \_function: (get_1), line:1:1, endln:3:12
   |vpiParent:
@@ -179,10 +183,13 @@ design: (work@top)
   |vpiVisibility:1
   |vpiAutomatic:1
   |vpiReturn:
-  \_int_var: , line:1:20, endln:1:23
+  \_int_var: (get_1), line:1:20, endln:1:23
+    |vpiParent:
+    \_function: (get_1), line:1:1, endln:3:12
     |vpiTypespec:
     \_int_typespec: , line:1:20, endln:1:23
       |vpiSigned:1
+    |vpiFullName:get_1
     |vpiSigned:1
   |vpiStmt:
   \_return_stmt: , line:2:4, endln:2:10
@@ -190,8 +197,6 @@ design: (work@top)
     \_function: (get_1), line:1:1, endln:3:12
     |vpiCondition:
     \_constant: , line:2:11, endln:2:12
-      |vpiParent:
-      \_return_stmt: , line:2:4, endln:2:10
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
@@ -251,7 +256,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:5:23, endln:5:24
+      \_logic_net: (work@top.o), line:5:23, endln:5:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

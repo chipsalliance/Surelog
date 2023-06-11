@@ -154,7 +154,7 @@ logic_typespec                                         1
 logic_var                                              3
 module_inst                                            2
 operation                                              7
-package                                                3
+package                                                2
 range                                                  1
 ref_obj                                               16
 ref_var                                                2
@@ -181,7 +181,7 @@ logic_typespec                                         1
 logic_var                                              4
 module_inst                                            2
 operation                                             14
-package                                                3
+package                                                2
 range                                                  2
 ref_obj                                               32
 ref_var                                                3
@@ -224,7 +224,10 @@ design: (unnamed)
       |vpiFullName:uvm::f1::top_map
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (uvm::f1)
+      |vpiParent:
+      \_function: (uvm::f1), line:8:3, endln:15:14
+      |vpiFullName:uvm::f1
     |vpiStmt:
     \_begin: (uvm::f1)
       |vpiParent:
@@ -400,7 +403,7 @@ design: (unnamed)
         |vpiParent:
         \_array_var: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
         |vpiLeftRange:
-        \_constant: , line:4:34, endln:4:35
+        \_constant: 
           |vpiParent:
           \_range: , line:4:34, endln:4:36
           |vpiDecompile:0
@@ -414,6 +417,8 @@ design: (unnamed)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:4:34, endln:4:36
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:10
             |vpiSize:64
             |UINT:10
@@ -429,6 +434,8 @@ design: (unnamed)
         \_array_var: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
         |vpiTypespec:
         \_logic_typespec: , line:4:11, endln:4:16
+          |vpiParent:
+          \_logic_var: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
         |vpiFullName:uvm::uvm_reg_map::m_mems_by_offset
   |vpiTaskFunc:
   \_function: (uvm::f1), line:8:3, endln:15:14
@@ -448,7 +455,10 @@ design: (unnamed)
       |vpiFullName:uvm::f1::top_map
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (uvm::f1)
+      |vpiParent:
+      \_function: (uvm::f1), line:8:3, endln:15:14
+      |vpiFullName:uvm::f1
     |vpiStmt:
     \_begin: (uvm::f1)
       |vpiParent:
@@ -538,7 +548,7 @@ design: (unnamed)
                     \_hier_path: (range.min), line:12:23, endln:12:32
                     |vpiName:range
                     |vpiActual:
-                    \_array_var: (range), line:11:39, endln:11:44
+                    \_array_var: (uvm::f1::range), line:11:39, endln:11:44
                   |vpiActual:
                   \_ref_obj: (uvm::f1::min), line:12:29, endln:12:32
                     |vpiParent:
@@ -575,7 +585,7 @@ design: (unnamed)
                     \_hier_path: (range.max), line:12:48, endln:12:57
                     |vpiName:range
                     |vpiActual:
-                    \_array_var: (range), line:11:39, endln:11:44
+                    \_array_var: (uvm::f1::range), line:11:39, endln:11:44
                   |vpiActual:
                   \_ref_obj: (uvm::f1::max), line:12:54, endln:12:57
                     |vpiParent:

@@ -165,7 +165,7 @@ logic_typespec                                         8
 logic_var                                              2
 module_inst                                            1
 operation                                              6
-package                                                6
+package                                                4
 range                                                 10
 ref_obj                                               10
 struct_typespec                                        4
@@ -187,7 +187,7 @@ logic_typespec                                         8
 logic_var                                              4
 module_inst                                            1
 operation                                              6
-package                                                6
+package                                                4
 range                                                 10
 ref_obj                                               14
 struct_typespec                                        4
@@ -236,7 +236,7 @@ design: (unnamed)
         |vpiRange:
         \_range: , line:3:11, endln:3:17
           |vpiParent:
-          \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
+          \_logic_typespec: , line:3:5, endln:3:17
           |vpiLeftRange:
           \_constant: , line:3:12, endln:3:14
             |vpiParent:
@@ -298,7 +298,7 @@ design: (unnamed)
             |vpiRange:
             \_range: , line:3:11, endln:3:17
               |vpiParent:
-              \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
+              \_logic_typespec: , line:3:5, endln:3:17
               |vpiLeftRange:
               \_constant: , line:3:12, endln:3:14
                 |vpiParent:
@@ -330,11 +330,11 @@ design: (unnamed)
       |vpiTypespec:
       \_logic_typespec: , line:15:5, endln:15:23
         |vpiInstance:
-        \_package: (aa)
+        \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
         |vpiRange:
         \_range: , line:15:9, endln:15:23
           |vpiParent:
-          \_function: (aa::foo_bar), line:10:3, endln:21:14
+          \_logic_typespec: , line:15:5, endln:15:23
           |vpiLeftRange:
           \_operation: , line:15:10, endln:15:20
             |vpiParent:
@@ -345,11 +345,10 @@ design: (unnamed)
               |vpiParent:
               \_operation: , line:15:10, endln:15:20
               |vpiArgument:
-              \_ref_obj: (aa::foo_bar::a), line:15:16, endln:15:17
+              \_ref_obj: (a), line:15:16, endln:15:17
                 |vpiParent:
                 \_sys_func_call: ($bits), line:15:10, endln:15:18
                 |vpiName:a
-                |vpiFullName:aa::foo_bar::a
                 |vpiActual:
                 \_io_decl: (a), line:12:24, endln:12:25
               |vpiName:$bits
@@ -375,9 +374,12 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_struct_var: , line:10:22, endln:10:34
+    \_struct_var: (aa::foo_bar), line:10:22, endln:10:34
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
+      |vpiFullName:aa::foo_bar
     |vpiIODecl:
     \_io_decl: (a), line:12:24, endln:12:25
       |vpiParent:
@@ -404,7 +406,7 @@ design: (unnamed)
           |vpiName:y
           |vpiFullName:aa::foo_bar::y
           |vpiActual:
-          \_struct_var: (y), line:14:5, endln:14:17
+          \_struct_var: (aa::foo_bar::y), line:14:5, endln:14:17
         |vpiLhs:
         \_ref_obj: (aa::foo_bar::foo_bar), line:18:7, endln:18:14
           |vpiParent:
@@ -412,7 +414,7 @@ design: (unnamed)
           |vpiName:foo_bar
           |vpiFullName:aa::foo_bar::foo_bar
           |vpiActual:
-          \_struct_var: (foo_bar), line:10:22, endln:10:34
+          \_struct_var: (aa::foo_bar::foo_bar), line:10:22, endln:10:34
     |vpiInstance:
     \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
 |uhdmtopPackages:
@@ -459,7 +461,7 @@ design: (unnamed)
         |vpiRange:
         \_range: , line:15:9, endln:15:23
           |vpiParent:
-          \_function: (aa::foo_bar), line:10:3, endln:21:14
+          \_logic_typespec: , line:15:5, endln:15:23
           |vpiLeftRange:
           \_operation: , line:15:10, endln:15:20
             |vpiParent:
@@ -470,11 +472,10 @@ design: (unnamed)
               |vpiParent:
               \_operation: , line:15:10, endln:15:20
               |vpiArgument:
-              \_ref_obj: (aa::foo_bar::a), line:15:16, endln:15:17
+              \_ref_obj: (a), line:15:16, endln:15:17
                 |vpiParent:
                 \_sys_func_call: ($bits), line:15:10, endln:15:18
                 |vpiName:a
-                |vpiFullName:aa::foo_bar::a
                 |vpiActual:
                 \_io_decl: (a), line:12:24, endln:12:25
               |vpiName:$bits
@@ -500,9 +501,12 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_struct_var: , line:10:22, endln:10:34
+    \_struct_var: (aa::foo_bar), line:10:22, endln:10:34
+      |vpiParent:
+      \_function: (aa::foo_bar), line:10:3, endln:21:14
       |vpiTypespec:
       \_struct_typespec: (b::foo_bar_t), line:2:11, endln:2:17
+      |vpiFullName:aa::foo_bar
     |vpiIODecl:
     \_io_decl: (a), line:12:24, endln:12:25
       |vpiParent:
@@ -529,7 +533,7 @@ design: (unnamed)
           |vpiName:y
           |vpiFullName:aa::foo_bar::y
           |vpiActual:
-          \_struct_var: (y), line:14:5, endln:14:17
+          \_struct_var: (aa::foo_bar::y), line:14:5, endln:14:17
         |vpiLhs:
         \_ref_obj: (aa::foo_bar::foo_bar), line:18:7, endln:18:14
           |vpiParent:
@@ -537,7 +541,7 @@ design: (unnamed)
           |vpiName:foo_bar
           |vpiFullName:aa::foo_bar::foo_bar
           |vpiActual:
-          \_struct_var: (foo_bar), line:10:22, endln:10:34
+          \_struct_var: (aa::foo_bar::foo_bar), line:10:22, endln:10:34
     |vpiInstance:
     \_package: aa (aa::), file:${SURELOG_DIR}/tests/PackFunc/dut.sv, line:8:1, endln:22:11
 ===================

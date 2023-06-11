@@ -503,11 +503,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ContAssign/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -532,10 +535,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -560,7 +566,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -590,10 +599,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -624,10 +636,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -694,11 +709,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ContAssign/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -708,7 +726,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -716,34 +736,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -789,11 +820,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ContAssign/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -864,10 +898,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -918,6 +955,34 @@ design: (work@top)
     |vpiName:toto
     |vpiFullName:work@top.toto
     |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.a), line:11:10, endln:11:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ContAssign/dut.sv, line:1:1, endln:14:10
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.b), line:11:14, endln:11:15
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ContAssign/dut.sv, line:1:1, endln:14:10
+    |vpiName:b
+    |vpiFullName:work@top.b
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.clkcnt), line:5:16, endln:5:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ContAssign/dut.sv, line:1:1, endln:14:10
+    |vpiName:clkcnt
+    |vpiFullName:work@top.clkcnt
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.debug_req_ready), line:7:33, endln:7:48
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ContAssign/dut.sv, line:1:1, endln:14:10
+    |vpiName:debug_req_ready
+    |vpiFullName:work@top.debug_req_ready
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:11:10, endln:11:15
     |vpiParent:
@@ -929,7 +994,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b)
+      \_logic_net: (work@top.b), line:11:14, endln:11:15
     |vpiLhs:
     \_ref_obj: (work@top.a), line:11:10, endln:11:11
       |vpiParent:
@@ -937,7 +1002,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_logic_net: (a)
+      \_logic_net: (work@top.a), line:11:10, endln:11:11
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ContAssign/dut.sv, line:1:1, endln:14:10
   |vpiName:work@top
@@ -949,6 +1014,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ContAssign/dut.sv, line:1:1, endln:14:10
     |vpiTypespec:
     \_logic_typespec: , line:5:3, endln:5:7
+      |vpiParent:
+      \_logic_net: (work@top.ena), line:5:8, endln:5:11
     |vpiName:ena
     |vpiFullName:work@top.ena
     |vpiNetType:1
@@ -967,24 +1034,10 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ContAssign/dut.sv, line:1:1, endln:14:10
     |vpiTypespec:
     \_logic_typespec: , line:9:3, endln:9:7
+      |vpiParent:
+      \_logic_net: (work@top.toto), line:9:8, endln:9:12
     |vpiName:toto
     |vpiFullName:work@top.toto
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (a)
-    |vpiName:a
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (b)
-    |vpiName:b
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (clkcnt)
-    |vpiName:clkcnt
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (debug_req_ready)
-    |vpiName:debug_req_ready
     |vpiNetType:1
   |vpiArrayNet:
   \_array_net: (work@top.intf2), line:3:13, endln:3:18
@@ -995,8 +1048,10 @@ design: (work@top)
     |vpiFullName:work@top.intf2
     |vpiRange:
     \_range: , line:3:21, endln:3:22
+      |vpiParent:
+      \_array_net: (work@top.intf2), line:3:13, endln:3:18
       |vpiLeftRange:
-      \_constant: , line:3:21, endln:3:22
+      \_constant: 
         |vpiParent:
         \_range: , line:3:21, endln:3:22
         |vpiDecompile:0
@@ -1010,6 +1065,8 @@ design: (work@top)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:3:21, endln:3:22
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -1025,6 +1082,8 @@ design: (work@top)
       \_array_net: (work@top.intf2), line:3:13, endln:3:18
       |vpiTypespec:
       \_unsupported_typespec: (intf), line:3:8, endln:3:12
+        |vpiParent:
+        \_logic_net: (work@top.intf2), line:3:13, endln:3:18
         |vpiName:intf
       |vpiFullName:work@top.intf2
       |vpiNetType:1
@@ -1046,7 +1105,7 @@ design: (work@top)
         |vpiName:clkcnt
         |vpiFullName:work@top.clkcnt
         |vpiActual:
-        \_logic_net: (clkcnt)
+        \_logic_net: (work@top.clkcnt), line:5:16, endln:5:22
     |vpiLhs:
     \_logic_net: (work@top.ena), line:5:8, endln:5:11
   |vpiContAssign:
@@ -1067,7 +1126,7 @@ design: (work@top)
       |vpiName:debug_req_ready
       |vpiFullName:work@top.debug_req_ready
       |vpiActual:
-      \_logic_net: (debug_req_ready)
+      \_logic_net: (work@top.debug_req_ready), line:7:33, endln:7:48
     |vpiLhs:
     \_logic_net: (work@top.__debug_req_ready), line:7:13, endln:7:30
   |vpiContAssign:
@@ -1081,7 +1140,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b)
+      \_logic_net: (work@top.b), line:11:14, endln:11:15
     |vpiLhs:
     \_ref_obj: (work@top.a), line:11:10, endln:11:11
       |vpiParent:
@@ -1089,7 +1148,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_logic_net: (a)
+      \_logic_net: (work@top.a), line:11:10, endln:11:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

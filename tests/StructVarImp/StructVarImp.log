@@ -511,7 +511,7 @@ logic_net                                              2
 logic_typespec                                        12
 logic_var                                              1
 module_inst                                            5
-package                                                5
+package                                                4
 packed_array_typespec                                  1
 packed_array_var                                       1
 param_assign                                          12
@@ -543,7 +543,7 @@ logic_net                                              2
 logic_typespec                                        12
 logic_var                                              1
 module_inst                                            5
-package                                                5
+package                                                4
 packed_array_typespec                                  1
 packed_array_var                                       1
 param_assign                                          12
@@ -616,6 +616,8 @@ design: (work@top)
     \_package: flash_ctrl_reg_pkg (flash_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:1:1, endln:29:11
     |vpiRhs:
     \_constant: , line:4:26, endln:4:27
+      |vpiParent:
+      \_param_assign: , line:4:17, endln:4:27
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -630,6 +632,8 @@ design: (work@top)
     \_package: flash_ctrl_reg_pkg (flash_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:1:1, endln:29:11
     |vpiRhs:
     \_constant: , line:5:30, endln:5:31
+      |vpiParent:
+      \_param_assign: , line:5:17, endln:5:31
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -804,7 +808,7 @@ design: (work@top)
             |vpiRange:
             \_range: , line:21:13, endln:21:18
               |vpiParent:
-              \_struct_typespec: , line:20:5, endln:20:11
+              \_logic_typespec: , line:21:7, endln:21:18
               |vpiLeftRange:
               \_constant: , line:21:14, endln:21:15
                 |vpiParent:
@@ -857,7 +861,7 @@ design: (work@top)
             |vpiRange:
             \_range: , line:24:13, endln:24:18
               |vpiParent:
-              \_struct_typespec: , line:23:5, endln:23:11
+              \_logic_typespec: , line:24:7, endln:24:18
               |vpiLeftRange:
               \_constant: , line:24:14, endln:24:15
                 |vpiParent:
@@ -965,6 +969,8 @@ design: (work@top)
     \_package: flash_ctrl_reg_pkg (flash_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:1:1, endln:29:11
     |vpiRhs:
     \_constant: , line:4:26, endln:4:27
+      |vpiParent:
+      \_param_assign: , line:4:17, endln:4:27
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -979,6 +985,8 @@ design: (work@top)
     \_package: flash_ctrl_reg_pkg (flash_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:1:1, endln:29:11
     |vpiRhs:
     \_constant: , line:5:30, endln:5:31
+      |vpiParent:
+      \_param_assign: , line:5:17, endln:5:31
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -1153,7 +1161,7 @@ design: (work@top)
             |vpiRange:
             \_range: , line:21:13, endln:21:18
               |vpiParent:
-              \_struct_typespec: , line:20:5, endln:20:11
+              \_logic_typespec: , line:21:7, endln:21:18
               |vpiLeftRange:
               \_constant: , line:21:14, endln:21:15
                 |vpiParent:
@@ -1206,7 +1214,7 @@ design: (work@top)
             |vpiRange:
             \_range: , line:24:13, endln:24:18
               |vpiParent:
-              \_struct_typespec: , line:23:5, endln:23:11
+              \_logic_typespec: , line:24:7, endln:24:18
               |vpiLeftRange:
               \_constant: , line:24:14, endln:24:15
                 |vpiParent:
@@ -1248,11 +1256,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructVarImp/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -1277,10 +1288,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1305,7 +1319,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -1335,10 +1352,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1369,10 +1389,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1439,11 +1462,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructVarImp/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1453,7 +1479,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1461,34 +1489,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1534,11 +1573,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/StructVarImp/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1609,10 +1651,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1747,6 +1792,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:33:1, endln:38:10
     |vpiName:region_cfgs
     |vpiFullName:work@top.region_cfgs
+  |vpiNet:
+  \_logic_net: (work@top.MpRegions), line:36:43, endln:36:52
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:33:1, endln:38:10
+    |vpiName:MpRegions
+    |vpiFullName:work@top.MpRegions
+    |vpiNetType:1
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:33:1, endln:38:10
   |vpiName:work@top
@@ -1759,13 +1811,16 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:36:42, endln:36:55
+      |vpiParent:
+      \_packed_array_var: (work@top.region_cfgs), line:36:56, endln:36:67
       |vpiLeftRange:
-      \_ref_obj: (MpRegions), line:36:43, endln:36:52
+      \_ref_obj: (work@top.region_cfgs.MpRegions), line:36:43, endln:36:52
         |vpiParent:
         \_range: , line:36:42, endln:36:55
         |vpiName:MpRegions
+        |vpiFullName:work@top.region_cfgs.MpRegions
         |vpiActual:
-        \_logic_net: (MpRegions)
+        \_logic_net: (work@top.MpRegions), line:36:43, endln:36:52
       |vpiRightRange:
       \_constant: , line:36:53, endln:36:54
         |vpiParent:
@@ -1819,6 +1874,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:33:1, endln:38:10
     |vpiRhs:
     \_constant: , line:4:26, endln:4:27
+      |vpiParent:
+      \_param_assign: , line:4:17, endln:4:27
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1833,6 +1890,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:33:1, endln:38:10
     |vpiRhs:
     \_constant: , line:5:30, endln:5:31
+      |vpiParent:
+      \_param_assign: , line:5:17, endln:5:31
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -1847,10 +1906,6 @@ design: (work@top)
   \_import_typespec: (flash_ctrl_reg_pkg), line:34:10, endln:34:31
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (MpRegions)
-    |vpiName:MpRegions
-    |vpiNetType:1
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

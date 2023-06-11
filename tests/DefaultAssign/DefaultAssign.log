@@ -234,6 +234,8 @@ design: (work@dut)
       \_parameter: (work@dut.data), line:8:24, endln:8:28
       |vpiRange:
       \_range: , line:8:17, endln:8:23
+        |vpiParent:
+        \_logic_typespec: , line:8:11, endln:8:23
         |vpiLeftRange:
         \_constant: , line:8:18, endln:8:20
           |vpiParent:
@@ -258,9 +260,13 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DefaultAssign/dut.sv, line:4:1, endln:14:10
     |vpiRhs:
     \_operation: , line:8:31, endln:8:46
+      |vpiParent:
+      \_param_assign: , line:8:24, endln:8:46
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:8:43, endln:8:44
+        |vpiParent:
+        \_operation: , line:8:31, endln:8:46
         |vpiPattern:
         \_constant: , line:8:43, endln:8:44
           |vpiDecompile:1
@@ -269,6 +275,8 @@ design: (work@dut)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:8:34, endln:8:41
+          |vpiParent:
+          \_tagged_pattern: , line:8:43, endln:8:44
           |vpiName:default
     |vpiLhs:
     \_parameter: (work@dut.data), line:8:24, endln:8:28
@@ -291,6 +299,8 @@ design: (work@dut)
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:10:27, endln:10:28
+        |vpiParent:
+        \_operation: , line:10:15, endln:10:30
         |vpiPattern:
         \_constant: , line:10:27, endln:10:28
           |vpiDecompile:1
@@ -299,6 +309,8 @@ design: (work@dut)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:10:18, endln:10:25
+          |vpiParent:
+          \_tagged_pattern: , line:10:27, endln:10:28
           |vpiName:default
     |vpiLhs:
     \_ref_obj: (work@dut.data), line:10:8, endln:10:12
@@ -307,7 +319,7 @@ design: (work@dut)
       |vpiName:data
       |vpiFullName:work@dut.data
       |vpiActual:
-      \_logic_var: (work@dut.data), line:6:14, endln:6:18
+      \_logic_net: (work@dut.data), line:6:14, endln:6:18
   |vpiRefModule:
   \_ref_module: work@foo (f), line:12:5, endln:12:6
     |vpiParent:
@@ -318,12 +330,18 @@ design: (work@dut)
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/DefaultAssign/dut.sv, line:1:1, endln:2:10
     |vpiPort:
     \_port: (data), line:12:7, endln:12:29
+      |vpiParent:
+      \_ref_module: work@foo (f), line:12:5, endln:12:6
       |vpiName:data
       |vpiHighConn:
       \_operation: , line:12:13, endln:12:28
+        |vpiParent:
+        \_port: (data), line:12:7, endln:12:29
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:12:25, endln:12:26
+          |vpiParent:
+          \_operation: , line:12:13, endln:12:28
           |vpiPattern:
           \_constant: , line:12:25, endln:12:26
             |vpiDecompile:1
@@ -332,6 +350,8 @@ design: (work@dut)
             |vpiConstType:9
           |vpiTypespec:
           \_string_typespec: (default), line:12:16, endln:12:23
+            |vpiParent:
+            \_tagged_pattern: , line:12:25, endln:12:26
             |vpiName:default
 |uhdmallModules:
 \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/DefaultAssign/dut.sv, line:1:1, endln:2:10
@@ -353,13 +373,19 @@ design: (work@dut)
     |vpiName:data
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@foo.data.data)
+      |vpiParent:
+      \_port: (data), line:1:31, endln:1:35
+      |vpiName:data
+      |vpiFullName:work@foo.data.data
       |vpiActual:
       \_logic_net: (work@foo.data), line:1:31, endln:1:35
     |vpiTypedef:
     \_logic_typespec: , line:1:18, endln:1:30
       |vpiRange:
       \_range: , line:1:24, endln:1:30
+        |vpiParent:
+        \_logic_typespec: , line:1:18, endln:1:30
         |vpiLeftRange:
         \_constant: , line:1:25, endln:1:27
           |vpiParent:
@@ -387,6 +413,8 @@ design: (work@dut)
     \_logic_typespec: , line:6:1, endln:6:13
       |vpiRange:
       \_range: , line:6:7, endln:6:13
+        |vpiParent:
+        \_logic_typespec: , line:6:1, endln:6:13
         |vpiLeftRange:
         \_constant: , line:6:8, endln:6:10
           |vpiParent:
@@ -408,6 +436,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:6:7, endln:6:13
+      |vpiParent:
+      \_logic_var: (work@dut.data), line:6:14, endln:6:18
       |vpiLeftRange:
       \_constant: , line:6:8, endln:6:10
         |vpiParent:
@@ -460,6 +490,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DefaultAssign/dut.sv, line:4:1, endln:14:10
     |vpiRhs:
     \_constant: , line:8:31, endln:8:46
+      |vpiParent:
+      \_param_assign: , line:8:24, endln:8:46
       |vpiDecompile:32'd4294967295
       |vpiSize:32
       |UINT:4294967295
@@ -483,8 +515,12 @@ design: (work@dut)
       \_module_inst: work@foo (work@dut.f), file:${SURELOG_DIR}/tests/DefaultAssign/dut.sv, line:12:1, endln:12:31
       |vpiTypespec:
       \_logic_typespec: , line:1:18, endln:1:30
+        |vpiParent:
+        \_logic_net: (work@dut.f.data), line:1:31, endln:1:35
         |vpiRange:
         \_range: , line:1:24, endln:1:30
+          |vpiParent:
+          \_logic_typespec: , line:1:18, endln:1:30
           |vpiLeftRange:
           \_constant: , line:1:25, endln:1:27
             |vpiParent:
@@ -514,6 +550,8 @@ design: (work@dut)
       |vpiDirection:1
       |vpiHighConn:
       \_constant: , line:12:13, endln:12:28
+        |vpiParent:
+        \_port: (data), line:1:31, endln:1:35
         |vpiDecompile:32'd4294967295
         |vpiSize:32
         |UINT:4294967295
@@ -530,7 +568,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:1:24, endln:1:30
           |vpiParent:
-          \_port: (data), line:1:31, endln:1:35
+          \_logic_typespec: , line:1:18, endln:1:30
           |vpiLeftRange:
           \_constant: , line:1:25, endln:1:27
             |vpiParent:

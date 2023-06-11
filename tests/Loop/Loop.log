@@ -237,6 +237,8 @@ design: (work@top)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
     |vpiRhs:
     \_constant: , line:12:32, endln:12:34
+      |vpiParent:
+      \_param_assign: , line:12:14, endln:12:34
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -251,12 +253,20 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
     |vpiCondition:
-    \_ref_obj: (bht_row_width_p), line:13:8, endln:13:23
+    \_ref_obj: (work@test.bht_row_width_p), line:13:8, endln:13:23
+      |vpiParent:
+      \_gen_if: , line:13:4, endln:13:6
       |vpiName:bht_row_width_p
+      |vpiFullName:work@test.bht_row_width_p
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@test)
+      |vpiParent:
+      \_gen_if: , line:13:4, endln:13:6
+      |vpiFullName:work@test
       |vpiStmt:
       \_ref_module: work@test (u), line:14:50, endln:14:51
+        |vpiParent:
+        \_begin: (work@test)
         |vpiName:u
         |vpiDefName:work@test
 |uhdmallModules:
@@ -310,6 +320,8 @@ design: (work@top)
       \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
       |vpiRhs:
       \_constant: , line:12:32, endln:12:34
+        |vpiParent:
+        \_param_assign: , line:12:14, endln:12:34
         |vpiDecompile:10
         |vpiSize:32
         |UINT:10
@@ -358,6 +370,8 @@ design: (work@top)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:12:32, endln:12:34
+              |vpiParent:
+              \_param_assign: , line:12:14, endln:12:34
               |vpiDecompile:8
               |vpiSize:32
               |INT:8
@@ -404,6 +418,8 @@ design: (work@top)
                   |vpiOverriden:1
                   |vpiRhs:
                   \_constant: , line:12:32, endln:12:34
+                    |vpiParent:
+                    \_param_assign: , line:12:14, endln:12:34
                     |vpiDecompile:6
                     |vpiSize:32
                     |INT:6
@@ -450,6 +466,8 @@ design: (work@top)
                         |vpiOverriden:1
                         |vpiRhs:
                         \_constant: , line:12:32, endln:12:34
+                          |vpiParent:
+                          \_param_assign: , line:12:14, endln:12:34
                           |vpiDecompile:4
                           |vpiSize:32
                           |INT:4
@@ -496,6 +514,8 @@ design: (work@top)
                               |vpiOverriden:1
                               |vpiRhs:
                               \_constant: , line:12:32, endln:12:34
+                                |vpiParent:
+                                \_param_assign: , line:12:14, endln:12:34
                                 |vpiDecompile:2
                                 |vpiSize:32
                                 |INT:2
@@ -542,6 +562,8 @@ design: (work@top)
                                     |vpiOverriden:1
                                     |vpiRhs:
                                     \_constant: , line:12:32, endln:12:34
+                                      |vpiParent:
+                                      \_param_assign: , line:12:14, endln:12:34
                                       |vpiDecompile:0
                                       |vpiSize:32
                                       |INT:0

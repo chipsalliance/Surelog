@@ -275,6 +275,8 @@ design: (work@Mod2)
       \_parameter: (work@Mod1.PARAM), line:1:38, endln:1:43
       |vpiRange:
       \_range: , line:1:31, endln:1:37
+        |vpiParent:
+        \_logic_typespec: , line:1:25, endln:1:37
         |vpiLeftRange:
         \_constant: , line:1:32, endln:1:34
           |vpiParent:
@@ -299,6 +301,8 @@ design: (work@Mod2)
     \_module_inst: work@Mod1 (work@Mod1), file:${SURELOG_DIR}/tests/TypespecExpr/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:1:46, endln:1:48
+      |vpiParent:
+      \_param_assign: , line:1:38, endln:1:48
       |vpiDecompile:'0
       |vpiSize:32
       |BIN:0
@@ -322,13 +326,19 @@ design: (work@Mod2)
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Mod1.x.x)
+      |vpiParent:
+      \_port: (x), line:1:71, endln:1:72
+      |vpiName:x
+      |vpiFullName:work@Mod1.x.x
       |vpiActual:
       \_logic_net: (work@Mod1.x), line:1:71, endln:1:72
     |vpiTypedef:
     \_logic_typespec: , line:1:58, endln:1:70
       |vpiRange:
       \_range: , line:1:64, endln:1:70
+        |vpiParent:
+        \_logic_typespec: , line:1:58, endln:1:70
         |vpiLeftRange:
         \_constant: , line:1:65, endln:1:67
           |vpiParent:
@@ -362,7 +372,7 @@ design: (work@Mod2)
       |vpiName:x
       |vpiFullName:work@Mod1.x
       |vpiActual:
-      \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72
+      \_logic_net: (work@Mod1.x), line:1:71, endln:1:72
 |uhdmallModules:
 \_module_inst: work@Mod2 (work@Mod2), file:${SURELOG_DIR}/tests/TypespecExpr/dut.sv, line:5:1, endln:10:10
   |vpiParent:
@@ -392,7 +402,7 @@ design: (work@Mod2)
           |vpiRange:
           \_range: , line:6:33, endln:6:39
             |vpiParent:
-            \_struct_typespec: (Struct), line:6:12, endln:6:18
+            \_logic_typespec: , line:6:28, endln:6:39
             |vpiLeftRange:
             \_constant: , line:6:34, endln:6:36
               |vpiParent:
@@ -422,9 +432,13 @@ design: (work@Mod2)
     \_module_inst: work@Mod2 (work@Mod2), file:${SURELOG_DIR}/tests/TypespecExpr/dut.sv, line:5:1, endln:10:10
     |vpiRhs:
     \_operation: , line:7:30, endln:7:40
+      |vpiParent:
+      \_param_assign: , line:7:21, endln:7:40
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:7:36, endln:7:38
+        |vpiParent:
+        \_operation: , line:7:30, endln:7:40
         |vpiPattern:
         \_constant: , line:7:36, endln:7:38
           |vpiDecompile:'0
@@ -433,6 +447,8 @@ design: (work@Mod2)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (x), line:7:33, endln:7:34
+          |vpiParent:
+          \_tagged_pattern: , line:7:36, endln:7:38
           |vpiName:x
     |vpiLhs:
     \_parameter: (work@Mod2.STRUCT), line:7:21, endln:7:27
@@ -456,12 +472,17 @@ design: (work@Mod2)
     \_module_inst: work@Mod1 (work@Mod1), file:${SURELOG_DIR}/tests/TypespecExpr/dut.sv, line:1:1, endln:3:10
     |vpiPort:
     \_port: (x), line:9:32, endln:9:37
+      |vpiParent:
+      \_ref_module: work@Mod1 (mod1), line:9:27, endln:9:31
       |vpiName:x
       |vpiHighConn:
-      \_ref_obj: (x), line:9:35, endln:9:36
+      \_ref_obj: (work@Mod2.mod1.x.x), line:9:35, endln:9:36
+        |vpiParent:
+        \_port: (x), line:9:32, endln:9:37
         |vpiName:x
+        |vpiFullName:work@Mod2.mod1.x.x
         |vpiActual:
-        \_logic_var: (work@Mod2.x), line:8:16, endln:8:17
+        \_logic_net: (work@Mod2.x), line:8:16, endln:8:17
 |uhdmtopModules:
 \_module_inst: work@Mod2 (work@Mod2), file:${SURELOG_DIR}/tests/TypespecExpr/dut.sv, line:5:1, endln:10:10
   |vpiName:work@Mod2
@@ -471,8 +492,12 @@ design: (work@Mod2)
     \_module_inst: work@Mod2 (work@Mod2), file:${SURELOG_DIR}/tests/TypespecExpr/dut.sv, line:5:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:8:4, endln:8:15
+      |vpiParent:
+      \_logic_var: (work@Mod2.x), line:8:16, endln:8:17
       |vpiRange:
       \_range: , line:8:9, endln:8:15
+        |vpiParent:
+        \_logic_typespec: , line:8:4, endln:8:15
         |vpiLeftRange:
         \_constant: , line:8:10, endln:8:12
           |vpiParent:
@@ -494,6 +519,8 @@ design: (work@Mod2)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:8:9, endln:8:15
+      |vpiParent:
+      \_logic_var: (work@Mod2.x), line:8:16, endln:8:17
       |vpiLeftRange:
       \_constant: , line:8:10, endln:8:12
         |vpiParent:
@@ -610,7 +637,7 @@ design: (work@Mod2)
       |vpiOperand:
       \_constant: , line:7:36, endln:7:38
         |vpiParent:
-        \_tagged_pattern: , line:7:36, endln:7:38
+        \_operation: , line:7:30, endln:7:40
         |vpiDecompile:0
         |vpiSize:32
         |UINT:0
@@ -682,6 +709,8 @@ design: (work@Mod2)
       \_logic_typespec: , line:1:58, endln:1:70
         |vpiRange:
         \_range: , line:1:64, endln:1:70
+          |vpiParent:
+          \_logic_typespec: , line:1:58, endln:1:70
           |vpiLeftRange:
           \_constant: , line:1:65, endln:1:67
             |vpiParent:
@@ -730,7 +759,7 @@ design: (work@Mod2)
         |vpiRange:
         \_range: , line:1:64, endln:1:70
           |vpiParent:
-          \_port: (x), line:1:71, endln:1:72
+          \_logic_typespec: , line:1:58, endln:1:70
           |vpiLeftRange:
           \_constant: , line:1:65, endln:1:67
             |vpiParent:
@@ -768,7 +797,7 @@ design: (work@Mod2)
         |vpiName:x
         |vpiFullName:work@Mod2.mod1.x
         |vpiActual:
-        \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72
+        \_logic_net: (work@Mod1.x), line:1:71, endln:1:72
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

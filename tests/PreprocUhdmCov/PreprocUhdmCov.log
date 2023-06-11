@@ -528,7 +528,7 @@ include_file_info                                      1
 int_typespec                                           9
 int_var                                                4
 io_decl                                               13
-logic_net                                              5
+logic_net                                              6
 logic_typespec                                        10
 logic_var                                              2
 module_inst                                            6
@@ -561,7 +561,7 @@ include_file_info                                      1
 int_typespec                                           9
 int_var                                                4
 io_decl                                               26
-logic_net                                              5
+logic_net                                              6
 logic_typespec                                        10
 logic_var                                              2
 module_inst                                            6
@@ -590,6 +590,8 @@ design: (work@top)
 |vpiName:work@top
 |vpiIncludeFileInfo:
 \_include_file_info: , file:${SURELOG_DIR}/tests/PreprocUhdmCov/dut.sv, line:2:10, endln:2:26
+  |vpiParent:
+  \_design: (work@top)
   |vpiIncludedFile:${SURELOG_DIR}/tests/PreprocUhdmCov/prim_assert.sv
 |uhdmallPackages:
 \_package: builtin (builtin::)
@@ -649,11 +651,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PreprocUhdmCov/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -678,10 +683,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -706,7 +714,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -736,10 +747,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -770,10 +784,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -840,11 +857,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PreprocUhdmCov/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -854,7 +874,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -862,34 +884,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -935,11 +968,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PreprocUhdmCov/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1010,10 +1046,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1082,11 +1121,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:45:23, endln:45:35
+    \_logic_var: (work@top.prince_shiftrows_32bit), line:45:23, endln:45:35
+      |vpiParent:
+      \_function: (work@top.prince_shiftrows_32bit), line:45:4, endln:48:40
       |vpiTypespec:
       \_logic_typespec: , line:45:23, endln:45:35
         |vpiRange:
         \_range: , line:45:29, endln:45:35
+          |vpiParent:
+          \_logic_typespec: , line:45:23, endln:45:35
           |vpiLeftRange:
           \_constant: , line:45:30, endln:45:32
             |vpiParent:
@@ -1103,14 +1146,19 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@top.prince_shiftrows_32bit
     |vpiIODecl:
     \_io_decl: (state_in), line:45:77, endln:45:85
+      |vpiParent:
+      \_function: (work@top.prince_shiftrows_32bit), line:45:4, endln:48:40
       |vpiDirection:1
       |vpiName:state_in
       |vpiTypedef:
       \_logic_typespec: , line:45:59, endln:45:71
         |vpiRange:
         \_range: , line:45:65, endln:45:71
+          |vpiParent:
+          \_logic_typespec: , line:45:59, endln:45:71
           |vpiLeftRange:
           \_constant: , line:45:66, endln:45:68
             |vpiParent:
@@ -1129,12 +1177,16 @@ design: (work@top)
             |vpiConstType:9
     |vpiIODecl:
     \_io_decl: (shifts), line:46:82, endln:46:88
+      |vpiParent:
+      \_function: (work@top.prince_shiftrows_32bit), line:45:4, endln:48:40
       |vpiDirection:1
       |vpiName:shifts
       |vpiTypedef:
       \_logic_typespec: , line:46:64, endln:46:81
         |vpiRange:
         \_range: , line:46:70, endln:46:76
+          |vpiParent:
+          \_logic_typespec: , line:46:64, endln:46:81
           |vpiLeftRange:
           \_constant: , line:46:71, endln:46:73
             |vpiParent:
@@ -1153,6 +1205,8 @@ design: (work@top)
             |vpiConstType:9
         |vpiRange:
         \_range: , line:46:76, endln:46:81
+          |vpiParent:
+          \_logic_typespec: , line:46:64, endln:46:81
           |vpiLeftRange:
           \_constant: , line:46:77, endln:46:78
             |vpiParent:
@@ -1190,6 +1244,13 @@ design: (work@top)
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.clk_i), line:33:14, endln:33:19
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PreprocUhdmCov/dut.sv, line:4:1, endln:50:17
+    |vpiName:clk_i
+    |vpiFullName:work@top.clk_i
+    |vpiNetType:1
   |vpiPort:
   \_port: (b), line:4:25, endln:4:26
     |vpiParent:
@@ -1197,7 +1258,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.b.b)
+      |vpiParent:
+      \_port: (b), line:4:25, endln:4:26
+      |vpiName:b
+      |vpiFullName:work@top.b.b
       |vpiActual:
       \_logic_net: (work@top.b), line:4:25, endln:4:26
     |vpiTypedef:
@@ -1209,7 +1274,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.a.a)
+      |vpiParent:
+      \_port: (a), line:4:41, endln:4:42
+      |vpiName:a
+      |vpiFullName:work@top.a.a
       |vpiActual:
       \_logic_net: (work@top.a), line:4:41, endln:4:42
     |vpiTypedef:
@@ -1302,10 +1371,15 @@ design: (work@top)
     |vpiDefName:work@prim_subreg
     |vpiPort:
     \_port: (clk_i), line:33:4, endln:33:24
+      |vpiParent:
+      \_ref_module: work@prim_subreg (u_ip0_p7), line:32:5, endln:32:13
       |vpiName:clk_i
       |vpiHighConn:
-      \_ref_obj: (clk_i), line:33:14, endln:33:19
+      \_ref_obj: (work@top.u_ip0_p7.clk_i.clk_i), line:33:14, endln:33:19
+        |vpiParent:
+        \_port: (clk_i), line:33:4, endln:33:24
         |vpiName:clk_i
+        |vpiFullName:work@top.u_ip0_p7.clk_i.clk_i
         |vpiActual:
         \_logic_net: (work@top.clk_i), line:33:14, endln:33:19
 |uhdmtopModules:
@@ -1324,7 +1398,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:45:23, endln:45:35
+    \_logic_var: (work@top.prince_shiftrows_32bit), line:45:23, endln:45:35
     |vpiIODecl:
     \_io_decl: (state_in), line:45:77, endln:45:85
       |vpiParent:
@@ -1354,6 +1428,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PreprocUhdmCov/dut.sv, line:4:1, endln:50:17
     |vpiTypespec:
     \_logic_typespec: , line:4:19, endln:4:24
+      |vpiParent:
+      \_logic_net: (work@top.b), line:4:25, endln:4:26
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
@@ -1428,8 +1504,11 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiLhs:
-      \_parameter: (DW)
+      \_parameter: (work@top.u_ip0_p7.DW)
+        |vpiParent:
+        \_param_assign: 
         |vpiName:DW
+        |vpiFullName:work@top.u_ip0_p7.DW
     |vpiDefName:work@top::prim_subreg
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PreprocUhdmCov/dut.sv, line:4:1, endln:50:17
@@ -1440,6 +1519,8 @@ design: (work@top)
       |vpiName:clk_i
       |vpiHighConn:
       \_ref_obj: (work@top.clk_i), line:33:14, endln:33:19
+        |vpiParent:
+        \_port: (clk_i), line:33:5, endln:33:10
         |vpiName:clk_i
         |vpiFullName:work@top.clk_i
         |vpiActual:

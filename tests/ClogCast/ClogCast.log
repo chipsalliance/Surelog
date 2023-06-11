@@ -820,11 +820,14 @@ design: (work@debug_rom)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -849,10 +852,13 @@ design: (work@debug_rom)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -877,7 +883,10 @@ design: (work@debug_rom)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -907,10 +916,13 @@ design: (work@debug_rom)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -941,10 +953,13 @@ design: (work@debug_rom)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1011,11 +1026,14 @@ design: (work@debug_rom)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1025,7 +1043,9 @@ design: (work@debug_rom)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1033,34 +1053,45 @@ design: (work@debug_rom)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1106,11 +1137,14 @@ design: (work@debug_rom)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1181,10 +1215,13 @@ design: (work@debug_rom)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1224,6 +1261,8 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiRhs:
     \_constant: , line:10:38, endln:10:40
+      |vpiParent:
+      \_param_assign: , line:10:28, endln:10:40
       |vpiDecompile:19
       |vpiSize:32
       |UINT:19
@@ -1282,7 +1321,11 @@ design: (work@debug_rom)
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.clk_i.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:4:25, endln:4:30
+      |vpiName:clk_i
+      |vpiFullName:work@debug_rom.clk_i.clk_i
       |vpiActual:
       \_logic_net: (work@debug_rom.clk_i), line:4:25, endln:4:30
     |vpiTypedef:
@@ -1294,7 +1337,11 @@ design: (work@debug_rom)
     |vpiName:req_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.req_i.req_i)
+      |vpiParent:
+      \_port: (req_i), line:5:25, endln:5:30
+      |vpiName:req_i
+      |vpiFullName:work@debug_rom.req_i.req_i
       |vpiActual:
       \_logic_net: (work@debug_rom.req_i), line:5:25, endln:5:30
     |vpiTypedef:
@@ -1306,13 +1353,19 @@ design: (work@debug_rom)
     |vpiName:addr_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.addr_i.addr_i)
+      |vpiParent:
+      \_port: (addr_i), line:6:25, endln:6:31
+      |vpiName:addr_i
+      |vpiFullName:work@debug_rom.addr_i.addr_i
       |vpiActual:
       \_logic_net: (work@debug_rom.addr_i), line:6:25, endln:6:31
     |vpiTypedef:
     \_logic_typespec: , line:6:11, endln:6:23
       |vpiRange:
       \_range: , line:6:17, endln:6:23
+        |vpiParent:
+        \_logic_typespec: , line:6:11, endln:6:23
         |vpiLeftRange:
         \_constant: , line:6:18, endln:6:20
           |vpiParent:
@@ -1336,13 +1389,19 @@ design: (work@debug_rom)
     |vpiName:rdata_o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.rdata_o.rdata_o)
+      |vpiParent:
+      \_port: (rdata_o), line:7:25, endln:7:32
+      |vpiName:rdata_o
+      |vpiFullName:work@debug_rom.rdata_o.rdata_o
       |vpiActual:
       \_logic_net: (work@debug_rom.rdata_o), line:7:25, endln:7:32
     |vpiTypedef:
     \_logic_typespec: , line:7:11, endln:7:23
       |vpiRange:
       \_range: , line:7:17, endln:7:23
+        |vpiParent:
+        \_logic_typespec: , line:7:11, endln:7:23
         |vpiLeftRange:
         \_constant: , line:7:18, endln:7:20
           |vpiParent:
@@ -1465,7 +1524,7 @@ design: (work@debug_rom)
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.addr_q
                 |vpiActual:
-                \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
+                \_logic_net: (work@debug_rom.addr_q), line:34:32, endln:34:38
     |vpiAlwaysType:3
   |vpiProcess:
   \_always: , line:44:4, endln:49:7
@@ -1513,7 +1572,7 @@ design: (work@debug_rom)
             |vpiName:addr_q
             |vpiFullName:work@debug_rom.p_outmux.addr_q
             |vpiActual:
-            \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
+            \_logic_net: (work@debug_rom.addr_q), line:34:32, endln:34:38
           |vpiOperand:
           \_operation: , line:46:19, endln:46:44
             |vpiParent:
@@ -1522,11 +1581,14 @@ design: (work@debug_rom)
             \_integer_typespec: , line:46:19, endln:46:34
               |vpiExpr:
               \_sys_func_call: ($clog2), line:46:19, endln:46:25
+                |vpiParent:
+                \_operation: , line:46:19, endln:46:44
                 |vpiArgument:
-                \_ref_obj: (RomSize), line:46:26, endln:46:33
+                \_ref_obj: (work@debug_rom.p_outmux.RomSize), line:46:26, endln:46:33
                   |vpiParent:
                   \_sys_func_call: ($clog2), line:46:19, endln:46:25
                   |vpiName:RomSize
+                  |vpiFullName:work@debug_rom.p_outmux.RomSize
                   |vpiActual:
                   \_parameter: (work@debug_rom.RomSize), line:10:28, endln:10:35
                 |vpiName:$clog2
@@ -1561,7 +1623,7 @@ design: (work@debug_rom)
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.p_outmux.addr_q
                 |vpiActual:
-                \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
+                \_logic_net: (work@debug_rom.addr_q), line:34:32, endln:34:38
             |vpiLhs:
             \_ref_obj: (work@debug_rom.p_outmux.rdata_o), line:47:10, endln:47:17
               |vpiParent:
@@ -1580,8 +1642,12 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiTypespec:
     \_logic_typespec: , line:12:10, endln:12:35
+      |vpiParent:
+      \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
       |vpiRange:
       \_range: , line:12:16, endln:12:29
+        |vpiParent:
+        \_logic_typespec: , line:12:10, endln:12:35
         |vpiLeftRange:
         \_constant: , line:12:17, endln:12:24
           |vpiParent:
@@ -1600,6 +1666,8 @@ design: (work@debug_rom)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:12:29, endln:12:35
+        |vpiParent:
+        \_logic_typespec: , line:12:10, endln:12:35
         |vpiLeftRange:
         \_constant: , line:12:30, endln:12:32
           |vpiParent:
@@ -1622,161 +1690,127 @@ design: (work@debug_rom)
     |vpiVisibility:1
     |vpiExpr:
     \_operation: , line:12:42, endln:32:5
+      |vpiParent:
+      \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
       |vpiOpType:33
       |vpiOperand:
       \_constant: , line:13:6, endln:13:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h00000000_7b200073
         |vpiSize:64
         |HEX:000000007b200073
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:14:6, endln:14:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h7b302573_7b202473
         |vpiSize:64
         |HEX:7b3025737b202473
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:15:6, endln:15:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h10852423_f1402473
         |vpiSize:64
         |HEX:10852423f1402473
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:16:6, endln:16:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'ha85ff06f_7b302573
         |vpiSize:64
         |HEX:a85ff06f7b302573
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:17:6, endln:17:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h7b202473_10052223
         |vpiSize:64
         |HEX:7b20247310052223
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:18:6, endln:18:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h00100073_7b302573
         |vpiSize:64
         |HEX:001000737b302573
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:19:6, endln:19:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h7b202473_10052623
         |vpiSize:64
         |HEX:7b20247310052623
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:20:6, endln:20:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h00c51513_00c55513
         |vpiSize:64
         |HEX:00c5151300c55513
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:21:6, endln:21:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h00000517_fd5ff06f
         |vpiSize:64
         |HEX:00000517fd5ff06f
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:22:6, endln:22:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'hfa041ce3_00247413
         |vpiSize:64
         |HEX:fa041ce300247413
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:23:6, endln:23:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h40044403_00a40433
         |vpiSize:64
         |HEX:4004440300a40433
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:24:6, endln:24:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'hf1402473_02041c63
         |vpiSize:64
         |HEX:f140247302041c63
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:25:6, endln:25:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h00147413_40044403
         |vpiSize:64
         |HEX:0014741340044403
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:26:6, endln:26:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h00a40433_10852023
         |vpiSize:64
         |HEX:00a4043310852023
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:27:6, endln:27:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'hf1402473_00c51513
         |vpiSize:64
         |HEX:f140247300c51513
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:28:6, endln:28:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h00c55513_00000517
         |vpiSize:64
         |HEX:00c5551300000517
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:29:6, endln:29:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h7b351073_7b241073
         |vpiSize:64
         |HEX:7b3510737b241073
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:30:6, endln:30:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h0ff0000f_04c0006f
         |vpiSize:64
         |HEX:0ff0000f04c0006f
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:31:6, endln:31:27
-        |vpiParent:
-        \_operation: , line:12:42, endln:32:5
         |vpiDecompile:64'h07c0006f_00c0006f
         |vpiSize:64
         |HEX:07c0006f00c0006f
         |vpiConstType:5
     |vpiRange:
     \_range: , line:12:16, endln:12:29
+      |vpiParent:
+      \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
       |vpiLeftRange:
       \_constant: , line:12:17, endln:12:24
         |vpiParent:
@@ -1795,6 +1829,8 @@ design: (work@debug_rom)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:12:29, endln:12:35
+      |vpiParent:
+      \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
       |vpiLeftRange:
       \_constant: , line:12:30, endln:12:32
         |vpiParent:
@@ -1817,8 +1853,12 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiTypespec:
     \_logic_typespec: , line:34:4, endln:34:31
+      |vpiParent:
+      \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
       |vpiRange:
       \_range: , line:34:10, endln:34:31
+        |vpiParent:
+        \_logic_typespec: , line:34:4, endln:34:31
         |vpiLeftRange:
         \_constant: , line:34:11, endln:34:26
           |vpiParent:
@@ -1840,6 +1880,8 @@ design: (work@debug_rom)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:34:10, endln:34:31
+      |vpiParent:
+      \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
       |vpiLeftRange:
       \_constant: , line:34:11, endln:34:26
         |vpiParent:
@@ -1874,6 +1916,8 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiRhs:
     \_constant: , line:10:38, endln:10:40
+      |vpiParent:
+      \_param_assign: , line:10:28, endln:10:40
       |vpiDecompile:19
       |vpiSize:32
       |UINT:19
@@ -1890,6 +1934,8 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiTypespec:
     \_logic_typespec: , line:4:11, endln:4:16
+      |vpiParent:
+      \_logic_net: (work@debug_rom.clk_i), line:4:25, endln:4:30
     |vpiName:clk_i
     |vpiFullName:work@debug_rom.clk_i
     |vpiNetType:36
@@ -1899,6 +1945,8 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiTypespec:
     \_logic_typespec: , line:5:11, endln:5:16
+      |vpiParent:
+      \_logic_net: (work@debug_rom.req_i), line:5:25, endln:5:30
     |vpiName:req_i
     |vpiFullName:work@debug_rom.req_i
     |vpiNetType:36
@@ -1908,8 +1956,12 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiTypespec:
     \_logic_typespec: , line:6:11, endln:6:23
+      |vpiParent:
+      \_logic_net: (work@debug_rom.addr_i), line:6:25, endln:6:31
       |vpiRange:
       \_range: , line:6:17, endln:6:23
+        |vpiParent:
+        \_logic_typespec: , line:6:11, endln:6:23
         |vpiLeftRange:
         \_constant: , line:6:18, endln:6:20
           |vpiParent:
@@ -1935,8 +1987,12 @@ design: (work@debug_rom)
     \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:51:11
     |vpiTypespec:
     \_logic_typespec: , line:7:11, endln:7:23
+      |vpiParent:
+      \_logic_net: (work@debug_rom.rdata_o), line:7:25, endln:7:32
       |vpiRange:
       \_range: , line:7:17, endln:7:23
+        |vpiParent:
+        \_logic_typespec: , line:7:11, endln:7:23
         |vpiLeftRange:
         \_constant: , line:7:18, endln:7:20
           |vpiParent:
@@ -2012,7 +2068,7 @@ design: (work@debug_rom)
       |vpiRange:
       \_range: , line:6:17, endln:6:23
         |vpiParent:
-        \_port: (addr_i), line:6:25, endln:6:31
+        \_logic_typespec: , line:6:11, endln:6:23
         |vpiLeftRange:
         \_constant: , line:6:18, endln:6:20
           |vpiParent:
@@ -2050,7 +2106,7 @@ design: (work@debug_rom)
       |vpiRange:
       \_range: , line:7:17, endln:7:23
         |vpiParent:
-        \_port: (rdata_o), line:7:25, endln:7:32
+        \_logic_typespec: , line:7:11, endln:7:23
         |vpiLeftRange:
         \_constant: , line:7:18, endln:7:20
           |vpiParent:
@@ -2163,7 +2219,7 @@ design: (work@debug_rom)
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.addr_q
                 |vpiActual:
-                \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
+                \_logic_net: (work@debug_rom.addr_q), line:34:32, endln:34:38
     |vpiAlwaysType:3
   |vpiProcess:
   \_always: , line:44:4, endln:49:7
@@ -2213,7 +2269,7 @@ design: (work@debug_rom)
             |vpiName:addr_q
             |vpiFullName:work@debug_rom.p_outmux.addr_q
             |vpiActual:
-            \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
+            \_logic_net: (work@debug_rom.addr_q), line:34:32, endln:34:38
           |vpiOperand:
           \_operation: , line:46:19, endln:46:44
             |vpiParent:
@@ -2255,7 +2311,7 @@ design: (work@debug_rom)
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.p_outmux.addr_q
                 |vpiActual:
-                \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
+                \_logic_net: (work@debug_rom.addr_q), line:34:32, endln:34:38
             |vpiLhs:
             \_ref_obj: (work@debug_rom.p_outmux.rdata_o), line:47:10, endln:47:17
               |vpiParent:

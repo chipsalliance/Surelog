@@ -116,7 +116,7 @@ enum_var                                               2
 logic_net                                              2
 logic_typespec                                         3
 module_inst                                            4
-package                                                3
+package                                                2
 range                                                  3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -130,7 +130,7 @@ enum_var                                               2
 logic_net                                              2
 logic_typespec                                         3
 module_inst                                            4
-package                                                3
+package                                                2
 range                                                  3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumVar/slpp_all/surelog.uhdm ...
@@ -164,6 +164,8 @@ design: (work@dut)
       \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
       |vpiRange:
       \_range: , line:2:21, endln:2:26
+        |vpiParent:
+        \_logic_typespec: , line:2:16, endln:2:26
         |vpiLeftRange:
         \_constant: , line:2:22, endln:2:23
           |vpiParent:
@@ -182,18 +184,24 @@ design: (work@dut)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (ONE), line:3:5, endln:3:8
+      |vpiParent:
+      \_enum_typespec: (pkg::enum_t), line:2:3, endln:6:12
       |vpiName:ONE
       |INT:0
       |vpiDecompile:0
       |vpiSize:8
     |vpiEnumConst:
     \_enum_const: (TWO), line:4:5, endln:4:8
+      |vpiParent:
+      \_enum_typespec: (pkg::enum_t), line:2:3, endln:6:12
       |vpiName:TWO
       |INT:1
       |vpiDecompile:1
       |vpiSize:8
     |vpiEnumConst:
     \_enum_const: (THREE), line:5:5, endln:5:10
+      |vpiParent:
+      \_enum_typespec: (pkg::enum_t), line:2:3, endln:6:12
       |vpiName:THREE
       |INT:2
       |vpiDecompile:2
@@ -223,6 +231,8 @@ design: (work@dut)
         \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
         |vpiRange:
         \_range: , line:2:21, endln:2:26
+          |vpiParent:
+          \_logic_typespec: , line:2:16, endln:2:26
           |vpiLeftRange:
           \_constant: , line:2:22, endln:2:23
             |vpiParent:
@@ -241,18 +251,24 @@ design: (work@dut)
             |vpiConstType:9
       |vpiEnumConst:
       \_enum_const: (ONE), line:3:5, endln:3:8
+        |vpiParent:
+        \_enum_typespec: (pkg::enum_t), line:2:3, endln:6:12
         |vpiName:ONE
         |INT:0
         |vpiDecompile:0
         |vpiSize:8
       |vpiEnumConst:
       \_enum_const: (TWO), line:4:5, endln:4:8
+        |vpiParent:
+        \_enum_typespec: (pkg::enum_t), line:2:3, endln:6:12
         |vpiName:TWO
         |INT:1
         |vpiDecompile:1
         |vpiSize:8
       |vpiEnumConst:
       \_enum_const: (THREE), line:5:5, endln:5:10
+        |vpiParent:
+        \_enum_typespec: (pkg::enum_t), line:2:3, endln:6:12
         |vpiName:THREE
         |INT:2
         |vpiDecompile:2

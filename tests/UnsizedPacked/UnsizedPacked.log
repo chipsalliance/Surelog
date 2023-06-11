@@ -130,8 +130,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnsizedPacked/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:5:1, endln:5:7
+      |vpiParent:
+      \_logic_net: (work@test.illegal), line:5:8, endln:5:15
       |vpiRange:
       \_range: , line:5:5, endln:5:7
+        |vpiParent:
+        \_logic_typespec: , line:5:1, endln:5:7
         |vpiLeftRange:
         \_constant: , line:5:5, endln:5:6
           |vpiParent:
@@ -159,6 +163,8 @@ design: (work@test)
     |vpiFullName:work@test.legal
     |vpiRange:
     \_range: , line:3:11, endln:3:13
+      |vpiParent:
+      \_array_net: (work@test.legal), line:3:5, endln:3:10
       |vpiLeftRange:
       \_constant: , line:3:11, endln:3:12
         |vpiParent:
@@ -180,6 +186,8 @@ design: (work@test)
       \_array_net: (work@test.legal), line:3:5, endln:3:10
       |vpiTypespec:
       \_logic_typespec: , line:3:1, endln:3:4
+        |vpiParent:
+        \_logic_net: (work@test.legal), line:3:5, endln:3:10
       |vpiFullName:work@test.legal
       |vpiNetType:48
   |vpiTopModule:1

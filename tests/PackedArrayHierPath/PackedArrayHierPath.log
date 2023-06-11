@@ -225,7 +225,7 @@ int_var                                                2
 io_decl                                                2
 module_inst                                            2
 operation                                             43
-package                                                3
+package                                                2
 packed_array_typespec                                  4
 param_assign                                           8
 parameter                                              8
@@ -249,7 +249,7 @@ int_var                                                2
 io_decl                                                4
 module_inst                                            2
 operation                                             47
-package                                                3
+package                                                2
 packed_array_typespec                                  4
 param_assign                                           8
 parameter                                              8
@@ -299,6 +299,8 @@ design: (unnamed)
       \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
       |vpiRange:
       \_range: , line:8:26, endln:8:46
+        |vpiParent:
+        \_packed_array_typespec: , line:8:12, endln:8:25
         |vpiLeftRange:
         \_constant: , line:8:27, endln:8:28
           |vpiParent:
@@ -313,10 +315,11 @@ design: (unnamed)
           \_range: , line:8:26, endln:8:46
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (NUM_FP_FORMATS), line:8:29, endln:8:43
+          \_ref_obj: (uvm::FP_ENCODINGS::NUM_FP_FORMATS), line:8:29, endln:8:43
             |vpiParent:
             \_operation: , line:8:29, endln:8:45
             |vpiName:NUM_FP_FORMATS
+            |vpiFullName:uvm::FP_ENCODINGS::NUM_FP_FORMATS
             |vpiActual:
             \_parameter: (uvm::NUM_FP_FORMATS), line:6:11, endln:6:25
           |vpiOperand:
@@ -376,6 +379,8 @@ design: (unnamed)
     \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
     |vpiRhs:
     \_constant: , line:6:28, endln:6:29
+      |vpiParent:
+      \_param_assign: , line:6:11, endln:6:29
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -390,6 +395,8 @@ design: (unnamed)
     \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
     |vpiRhs:
     \_operation: , line:8:63, endln:15:2
+      |vpiParent:
+      \_param_assign: , line:8:47, endln:15:2
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:9:3, endln:9:12
@@ -490,11 +497,14 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:17:20, endln:17:32
+    \_int_var: (uvm::fp_width), line:17:20, endln:17:32
+      |vpiParent:
+      \_function: (uvm::fp_width), line:17:1, endln:19:12
       |vpiTypespec:
       \_int_typespec: , line:17:20, endln:17:32
         |vpiInstance:
-        \_package: (uvm)
+        \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
+      |vpiFullName:uvm::fp_width
     |vpiIODecl:
     \_io_decl: (fmt), line:17:54, endln:17:57
       |vpiParent:
@@ -505,7 +515,7 @@ design: (unnamed)
       \_unsupported_typespec: (fp_format_e), line:17:42, endln:17:53
         |vpiName:fp_format_e
         |vpiInstance:
-        \_package: (uvm)
+        \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
     |vpiStmt:
     \_return_stmt: , line:18:1, endln:18:7
       |vpiParent:
@@ -615,6 +625,8 @@ design: (unnamed)
       \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
       |vpiRange:
       \_range: , line:8:26, endln:8:46
+        |vpiParent:
+        \_packed_array_typespec: , line:8:12, endln:8:25
         |vpiLeftRange:
         \_constant: , line:8:27, endln:8:28
           |vpiParent:
@@ -680,6 +692,8 @@ design: (unnamed)
     \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
     |vpiRhs:
     \_constant: , line:6:28, endln:6:29
+      |vpiParent:
+      \_param_assign: , line:6:11, endln:6:29
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -694,6 +708,8 @@ design: (unnamed)
     \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
     |vpiRhs:
     \_operation: , line:8:63, endln:15:2
+      |vpiParent:
+      \_param_assign: , line:8:47, endln:15:2
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:9:3, endln:9:12
@@ -795,11 +811,14 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:17:20, endln:17:32
+    \_int_var: (uvm::fp_width), line:17:20, endln:17:32
+      |vpiParent:
+      \_function: (uvm::fp_width), line:17:1, endln:19:12
       |vpiTypespec:
       \_int_typespec: , line:17:20, endln:17:32
         |vpiInstance:
         \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/PackedArrayHierPath/dut.sv, line:1:1, endln:21:11
+      |vpiFullName:uvm::fp_width
     |vpiIODecl:
     \_io_decl: (fmt), line:17:54, endln:17:57
       |vpiParent:

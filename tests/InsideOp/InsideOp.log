@@ -335,7 +335,7 @@ logic_net                                              1
 module_inst                                            9
 named_begin                                            5
 operation                                              7
-package                                                3
+package                                                2
 param_assign                                           2
 parameter                                              2
 port                                                   2
@@ -361,7 +361,7 @@ logic_net                                              1
 module_inst                                           10
 named_begin                                            5
 operation                                              7
-package                                                3
+package                                                2
 param_assign                                           2
 parameter                                              2
 port                                                   3
@@ -400,36 +400,48 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (Get0), line:4:5, endln:4:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get0
       |UINT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get1), line:5:5, endln:5:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get1
       |UINT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get2), line:6:5, endln:6:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get2
       |UINT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get3), line:7:5, endln:7:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get3
       |UINT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get4), line:8:5, endln:8:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get4
       |UINT:4
       |vpiDecompile:4
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (GetDefault), line:9:5, endln:9:21
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:GetDefault
       |UINT:100
       |vpiDecompile:100
@@ -455,36 +467,48 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (Get0), line:4:5, endln:4:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get0
       |UINT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get1), line:5:5, endln:5:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get1
       |UINT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get2), line:6:5, endln:6:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get2
       |UINT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get3), line:7:5, endln:7:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get3
       |UINT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (Get4), line:8:5, endln:8:13
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:Get4
       |UINT:4
       |vpiDecompile:4
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (GetDefault), line:9:5, endln:9:21
+      |vpiParent:
+      \_enum_typespec: (my_pkg::get_e), line:3:3, endln:10:11
       |vpiName:GetDefault
       |UINT:100
       |vpiDecompile:100
@@ -515,8 +539,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
     |vpiRhs:
-    \_ref_obj: (Get3), line:20:31, endln:20:35
+    \_ref_obj: (work@top.Get3), line:20:31, endln:20:35
+      |vpiParent:
+      \_param_assign: , line:20:21, endln:20:35
       |vpiName:Get3
+      |vpiFullName:work@top.Get3
       |vpiActual:
       \_enum_const: (Get3), line:7:5, endln:7:13
     |vpiLhs:
@@ -539,7 +566,11 @@ design: (work@top)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.out.out)
+      |vpiParent:
+      \_port: (out), line:22:16, endln:22:19
+      |vpiName:out
+      |vpiFullName:work@top.out.out
       |vpiActual:
       \_logic_net: (work@top.out), line:22:16, endln:22:19
     |vpiTypedef:
@@ -551,27 +582,41 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
     |vpiCondition:
     \_operation: , line:25:7, endln:25:14
+      |vpiParent:
+      \_gen_if_else: 
       |vpiOpType:95
       |vpiOperand:
-      \_ref_obj: (GetWhat), line:25:7, endln:25:14
+      \_ref_obj: (work@top.GetWhat), line:25:7, endln:25:14
         |vpiParent:
         \_operation: , line:25:7, endln:25:14
         |vpiName:GetWhat
+        |vpiFullName:work@top.GetWhat
       |vpiOperand:
-      \_ref_obj: (Get0), line:25:23, endln:25:27
+      \_ref_obj: (work@top.Get0), line:25:23, endln:25:27
+        |vpiParent:
+        \_operation: , line:25:7, endln:25:14
         |vpiName:Get0
+        |vpiFullName:work@top.Get0
         |vpiActual:
         \_enum_const: (Get0), line:4:5, endln:4:13
       |vpiOperand:
-      \_ref_obj: (GetDefault), line:25:29, endln:25:39
+      \_ref_obj: (work@top.GetDefault), line:25:29, endln:25:39
+        |vpiParent:
+        \_operation: , line:25:7, endln:25:14
         |vpiName:GetDefault
+        |vpiFullName:work@top.GetDefault
         |vpiActual:
         \_enum_const: (GetDefault), line:9:5, endln:9:21
     |vpiStmt:
-    \_named_begin: (gen_zero)
+    \_named_begin: (work@top.gen_zero)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_zero
+      |vpiFullName:work@top.gen_zero
       |vpiStmt:
       \_cont_assign: , line:26:12, endln:26:19
+        |vpiParent:
+        \_named_begin: (work@top.gen_zero)
         |vpiRhs:
         \_constant: , line:26:18, endln:26:19
           |vpiParent:
@@ -581,32 +626,47 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (out), line:26:12, endln:26:15
+        \_ref_obj: (work@top.gen_zero.out), line:26:12, endln:26:15
           |vpiParent:
           \_cont_assign: , line:26:12, endln:26:19
           |vpiName:out
+          |vpiFullName:work@top.gen_zero.out
     |vpiElseStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@top
       |vpiStmt:
       \_gen_if_else: , line:27:12, endln:36:6
+        |vpiParent:
+        \_begin: (work@top)
         |vpiCondition:
         \_operation: , line:27:16, endln:27:31
+          |vpiParent:
+          \_gen_if_else: , line:27:12, endln:36:6
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (GetWhat), line:27:16, endln:27:23
+          \_ref_obj: (work@top.GetWhat), line:27:16, endln:27:23
             |vpiParent:
             \_operation: , line:27:16, endln:27:31
             |vpiName:GetWhat
+            |vpiFullName:work@top.GetWhat
           |vpiOperand:
-          \_ref_obj: (Get1), line:27:27, endln:27:31
+          \_ref_obj: (work@top.Get1), line:27:27, endln:27:31
             |vpiParent:
             \_operation: , line:27:16, endln:27:31
             |vpiName:Get1
+            |vpiFullName:work@top.Get1
         |vpiStmt:
-        \_named_begin: (gen_one)
+        \_named_begin: (work@top.gen_one)
+          |vpiParent:
+          \_gen_if_else: , line:27:12, endln:36:6
           |vpiName:gen_one
+          |vpiFullName:work@top.gen_one
           |vpiStmt:
           \_cont_assign: , line:28:12, endln:28:19
+            |vpiParent:
+            \_named_begin: (work@top.gen_one)
             |vpiRhs:
             \_constant: , line:28:18, endln:28:19
               |vpiParent:
@@ -616,33 +676,53 @@ design: (work@top)
               |UINT:1
               |vpiConstType:9
             |vpiLhs:
-            \_ref_obj: (out), line:28:12, endln:28:15
+            \_ref_obj: (work@top.gen_one.out), line:28:12, endln:28:15
               |vpiParent:
               \_cont_assign: , line:28:12, endln:28:19
               |vpiName:out
+              |vpiFullName:work@top.gen_one.out
         |vpiElseStmt:
-        \_begin: 
+        \_begin: (work@top)
+          |vpiParent:
+          \_gen_if_else: , line:27:12, endln:36:6
+          |vpiFullName:work@top
           |vpiStmt:
           \_gen_if_else: , line:29:12, endln:36:6
+            |vpiParent:
+            \_begin: (work@top)
             |vpiCondition:
             \_operation: , line:29:16, endln:29:23
+              |vpiParent:
+              \_gen_if_else: , line:29:12, endln:36:6
               |vpiOpType:95
               |vpiOperand:
-              \_ref_obj: (GetWhat), line:29:16, endln:29:23
+              \_ref_obj: (work@top.GetWhat), line:29:16, endln:29:23
                 |vpiParent:
                 \_operation: , line:29:16, endln:29:23
                 |vpiName:GetWhat
+                |vpiFullName:work@top.GetWhat
               |vpiOperand:
-              \_ref_obj: (Get2), line:29:32, endln:29:36
+              \_ref_obj: (work@top.Get2), line:29:32, endln:29:36
+                |vpiParent:
+                \_operation: , line:29:16, endln:29:23
                 |vpiName:Get2
+                |vpiFullName:work@top.Get2
               |vpiOperand:
-              \_ref_obj: (Get3), line:29:38, endln:29:42
+              \_ref_obj: (work@top.Get3), line:29:38, endln:29:42
+                |vpiParent:
+                \_operation: , line:29:16, endln:29:23
                 |vpiName:Get3
+                |vpiFullName:work@top.Get3
             |vpiStmt:
-            \_named_begin: (gen_two)
+            \_named_begin: (work@top.gen_two)
+              |vpiParent:
+              \_gen_if_else: , line:29:12, endln:36:6
               |vpiName:gen_two
+              |vpiFullName:work@top.gen_two
               |vpiStmt:
               \_cont_assign: , line:30:12, endln:30:19
+                |vpiParent:
+                \_named_begin: (work@top.gen_two)
                 |vpiRhs:
                 \_constant: , line:30:18, endln:30:19
                   |vpiParent:
@@ -652,36 +732,53 @@ design: (work@top)
                   |UINT:2
                   |vpiConstType:9
                 |vpiLhs:
-                \_ref_obj: (out), line:30:12, endln:30:15
+                \_ref_obj: (work@top.gen_two.out), line:30:12, endln:30:15
                   |vpiParent:
                   \_cont_assign: , line:30:12, endln:30:19
                   |vpiName:out
+                  |vpiFullName:work@top.gen_two.out
               |vpiStmt:
               \_ref_module: work@GOOD (good), line:31:10, endln:31:14
+                |vpiParent:
+                \_named_begin: (work@top.gen_two)
                 |vpiName:good
                 |vpiDefName:work@GOOD
             |vpiElseStmt:
-            \_begin: 
+            \_begin: (work@top)
+              |vpiParent:
+              \_gen_if_else: , line:29:12, endln:36:6
+              |vpiFullName:work@top
               |vpiStmt:
               \_gen_if_else: , line:32:12, endln:36:6
+                |vpiParent:
+                \_begin: (work@top)
                 |vpiCondition:
                 \_operation: , line:32:16, endln:32:31
+                  |vpiParent:
+                  \_gen_if_else: , line:32:12, endln:36:6
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (GetWhat), line:32:16, endln:32:23
+                  \_ref_obj: (work@top.GetWhat), line:32:16, endln:32:23
                     |vpiParent:
                     \_operation: , line:32:16, endln:32:31
                     |vpiName:GetWhat
+                    |vpiFullName:work@top.GetWhat
                   |vpiOperand:
-                  \_ref_obj: (Get4), line:32:27, endln:32:31
+                  \_ref_obj: (work@top.Get4), line:32:27, endln:32:31
                     |vpiParent:
                     \_operation: , line:32:16, endln:32:31
                     |vpiName:Get4
+                    |vpiFullName:work@top.Get4
                 |vpiStmt:
-                \_named_begin: (gen_three)
+                \_named_begin: (work@top.gen_three)
+                  |vpiParent:
+                  \_gen_if_else: , line:32:12, endln:36:6
                   |vpiName:gen_three
+                  |vpiFullName:work@top.gen_three
                   |vpiStmt:
                   \_cont_assign: , line:33:12, endln:33:19
+                    |vpiParent:
+                    \_named_begin: (work@top.gen_three)
                     |vpiRhs:
                     \_constant: , line:33:18, endln:33:19
                       |vpiParent:
@@ -691,15 +788,21 @@ design: (work@top)
                       |UINT:3
                       |vpiConstType:9
                     |vpiLhs:
-                    \_ref_obj: (out), line:33:12, endln:33:15
+                    \_ref_obj: (work@top.gen_three.out), line:33:12, endln:33:15
                       |vpiParent:
                       \_cont_assign: , line:33:12, endln:33:19
                       |vpiName:out
+                      |vpiFullName:work@top.gen_three.out
                 |vpiElseStmt:
-                \_named_begin: (gen_invalid)
+                \_named_begin: (work@top.gen_invalid)
+                  |vpiParent:
+                  \_gen_if_else: , line:32:12, endln:36:6
                   |vpiName:gen_invalid
+                  |vpiFullName:work@top.gen_invalid
                   |vpiStmt:
                   \_cont_assign: , line:35:12, endln:35:21
+                    |vpiParent:
+                    \_named_begin: (work@top.gen_invalid)
                     |vpiRhs:
                     \_constant: , line:35:18, endln:35:21
                       |vpiParent:
@@ -709,10 +812,11 @@ design: (work@top)
                       |UINT:255
                       |vpiConstType:9
                     |vpiLhs:
-                    \_ref_obj: (out), line:35:12, endln:35:15
+                    \_ref_obj: (work@top.gen_invalid.out), line:35:12, endln:35:15
                       |vpiParent:
                       \_cont_assign: , line:35:12, endln:35:21
                       |vpiName:out
+                      |vpiFullName:work@top.gen_invalid.out
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
   |vpiName:work@top
@@ -801,6 +905,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InsideOp/dut.sv, line:17:1, endln:38:10
     |vpiRhs:
     \_constant: , line:20:31, endln:20:35
+      |vpiParent:
+      \_param_assign: , line:20:21, endln:20:35
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3

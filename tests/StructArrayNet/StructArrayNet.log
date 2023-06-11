@@ -174,7 +174,7 @@ logic_net                                              3
 logic_typespec                                         2
 module_inst                                            8
 operation                                              2
-package                                                3
+package                                                2
 packed_array_net                                       1
 packed_array_typespec                                  1
 param_assign                                           4
@@ -199,7 +199,7 @@ logic_net                                              3
 logic_typespec                                         2
 module_inst                                            8
 operation                                              2
-package                                                3
+package                                                2
 packed_array_net                                       1
 packed_array_typespec                                  1
 param_assign                                           4
@@ -251,6 +251,8 @@ design: (work@dut)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:21
       |vpiDecompile:32
       |vpiSize:32
       |UINT:32
@@ -311,6 +313,8 @@ design: (work@dut)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:21
       |vpiDecompile:32
       |vpiSize:32
       |UINT:32
@@ -371,7 +375,11 @@ design: (work@dut)
     |vpiName:sel
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.sel.sel)
+      |vpiParent:
+      \_port: (sel), line:9:22, endln:9:25
+      |vpiName:sel
+      |vpiFullName:work@dut.sel.sel
       |vpiActual:
       \_logic_net: (work@dut.sel), line:9:22, endln:9:25
     |vpiTypedef:
@@ -387,17 +395,23 @@ design: (work@dut)
     \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
     |vpiPort:
     \_port: (struct_i), line:12:10, endln:12:38
+      |vpiParent:
+      \_ref_module: work@mod (m), line:12:8, endln:12:9
       |vpiName:struct_i
       |vpiHighConn:
-      \_bit_select: (struct_array), line:12:20, endln:12:37
+      \_bit_select: (work@dut.m.struct_array), line:12:20, endln:12:37
+        |vpiParent:
+        \_port: (struct_i), line:12:10, endln:12:38
         |vpiName:struct_array
+        |vpiFullName:work@dut.m.struct_array
         |vpiIndex:
-        \_ref_obj: (sel), line:12:33, endln:12:36
+        \_ref_obj: (work@dut.m.sel), line:12:33, endln:12:36
           |vpiParent:
-          \_bit_select: (struct_array), line:12:20, endln:12:37
+          \_bit_select: (work@dut.m.struct_array), line:12:20, endln:12:37
           |vpiName:sel
+          |vpiFullName:work@dut.m.sel
           |vpiActual:
-          \_int_var: (work@dut.sel), line:9:22, endln:9:25
+          \_logic_net: (work@dut.sel), line:9:22, endln:9:25
 |uhdmallModules:
 \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:6:1, endln:7:10
   |vpiParent:
@@ -418,7 +432,11 @@ design: (work@dut)
     |vpiName:struct_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@mod.struct_i.struct_i)
+      |vpiParent:
+      \_port: (struct_i), line:6:30, endln:6:38
+      |vpiName:struct_i
+      |vpiFullName:work@mod.struct_i.struct_i
       |vpiActual:
       \_logic_net: (work@mod.struct_i), line:6:30, endln:6:38
     |vpiTypedef:
@@ -432,6 +450,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructArrayNet/dut.sv, line:9:1, endln:13:10
     |vpiTypespec:
     \_int_typespec: , line:9:18, endln:9:21
+      |vpiParent:
+      \_int_var: (work@dut.sel), line:9:22, endln:9:25
       |vpiSigned:1
     |vpiName:sel
     |vpiFullName:work@dut.sel
@@ -448,6 +468,8 @@ design: (work@dut)
     |vpiNetType:1
     |vpiRange:
     \_range: , line:10:16, endln:10:28
+      |vpiParent:
+      \_packed_array_net: (work@dut.struct_array), line:10:32, endln:10:44
       |vpiLeftRange:
       \_constant: , line:10:17, endln:10:23
         |vpiParent:
@@ -465,10 +487,13 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
     |vpiElement:
-    \_struct_net: (struct_array)
+    \_struct_net: (work@dut.struct_array.struct_array)
+      |vpiParent:
+      \_packed_array_net: (work@dut.struct_array), line:10:32, endln:10:44
       |vpiTypespec:
       \_struct_typespec: (pkg::Struct), line:3:12, endln:3:18
       |vpiName:struct_array
+      |vpiFullName:work@dut.struct_array.struct_array
   |vpiTopModule:1
   |vpiPort:
   \_port: (sel), line:9:22, endln:9:25

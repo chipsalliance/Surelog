@@ -186,7 +186,7 @@ logic_net                                              1
 logic_typespec                                        14
 module_inst                                            4
 operation                                              4
-package                                                3
+package                                                2
 param_assign                                           2
 parameter                                              3
 ref_obj                                                4
@@ -206,7 +206,7 @@ logic_net                                              1
 logic_typespec                                        14
 module_inst                                            4
 operation                                              4
-package                                                3
+package                                                2
 param_assign                                           2
 parameter                                              3
 ref_obj                                                4
@@ -343,9 +343,13 @@ design: (work@top3)
     \_module_inst: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
     |vpiRhs:
     \_operation: , line:21:40, endln:25:54
+      |vpiParent:
+      \_param_assign: , line:21:22, endln:25:54
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:21:48, endln:21:52
+        |vpiParent:
+        \_operation: , line:21:40, endln:25:54
         |vpiPattern:
         \_constant: , line:21:48, endln:21:52
           |vpiDecompile:1'b0
@@ -354,9 +358,13 @@ design: (work@top3)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mie), line:21:42, endln:21:45
+          |vpiParent:
+          \_tagged_pattern: , line:21:48, endln:21:52
           |vpiName:mie
       |vpiOperand:
       \_tagged_pattern: , line:22:49, endln:22:53
+        |vpiParent:
+        \_operation: , line:21:40, endln:25:54
         |vpiPattern:
         \_constant: , line:22:49, endln:22:53
           |vpiDecompile:1'b1
@@ -365,21 +373,30 @@ design: (work@top3)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mpie), line:22:43, endln:22:47
+          |vpiParent:
+          \_tagged_pattern: , line:22:49, endln:22:53
           |vpiName:mpie
       |vpiOperand:
       \_tagged_pattern: , line:23:49, endln:23:59
+        |vpiParent:
+        \_operation: , line:21:40, endln:25:54
         |vpiPattern:
-        \_ref_obj: (PRIV_LVL_U), line:23:49, endln:23:59
+        \_ref_obj: (work@top3.PRIV_LVL_U), line:23:49, endln:23:59
           |vpiParent:
           \_operation: , line:21:40, endln:25:54
           |vpiName:PRIV_LVL_U
+          |vpiFullName:work@top3.PRIV_LVL_U
           |vpiActual:
-          \_logic_net: (PRIV_LVL_U)
+          \_logic_net: (work@top3.PRIV_LVL_U), line:23:49, endln:23:59
         |vpiTypespec:
         \_string_typespec: (mpp), line:23:43, endln:23:46
+          |vpiParent:
+          \_tagged_pattern: , line:23:49, endln:23:59
           |vpiName:mpp
       |vpiOperand:
       \_tagged_pattern: , line:24:49, endln:24:53
+        |vpiParent:
+        \_operation: , line:21:40, endln:25:54
         |vpiPattern:
         \_constant: , line:24:49, endln:24:53
           |vpiDecompile:1'b0
@@ -388,9 +405,13 @@ design: (work@top3)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (mprv), line:24:43, endln:24:47
+          |vpiParent:
+          \_tagged_pattern: , line:24:49, endln:24:53
           |vpiName:mprv
       |vpiOperand:
       \_tagged_pattern: , line:25:49, endln:25:53
+        |vpiParent:
+        \_operation: , line:21:40, endln:25:54
         |vpiPattern:
         \_constant: , line:25:49, endln:25:53
           |vpiDecompile:1'b0
@@ -399,6 +420,8 @@ design: (work@top3)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (tw), line:25:43, endln:25:45
+          |vpiParent:
+          \_tagged_pattern: , line:25:49, endln:25:53
           |vpiName:tw
     |vpiLhs:
     \_parameter: (work@top3.MSTATUS_RST_VAL), line:21:22, endln:21:37
@@ -407,6 +430,13 @@ design: (work@top3)
   |vpiTypedef:
   \_import_typespec: (pack), line:13:8, endln:13:15
   |vpiDefName:work@top3
+  |vpiNet:
+  \_logic_net: (work@top3.PRIV_LVL_U), line:23:49, endln:23:59
+    |vpiParent:
+    \_module_inst: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
+    |vpiName:PRIV_LVL_U
+    |vpiFullName:work@top3.PRIV_LVL_U
+    |vpiNetType:1
 |uhdmtopModules:
 \_module_inst: work@top3 (work@top3), file:${SURELOG_DIR}/tests/BadScope/dut.sv, line:12:1, endln:26:10
   |vpiName:work@top3
@@ -550,8 +580,6 @@ design: (work@top3)
           \_tagged_pattern: , line:23:49, endln:23:59
           |vpiName:PRIV_LVL_U
           |vpiFullName:work@top3.PRIV_LVL_U
-          |vpiActual:
-          \_logic_net: (PRIV_LVL_U)
         |vpiTypespec:
         \_string_typespec: (mpp), line:23:43, endln:23:46
           |vpiParent:
@@ -599,10 +627,6 @@ design: (work@top3)
   \_import_typespec: (pack), line:13:8, endln:13:15
   |vpiDefName:work@top3
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (PRIV_LVL_U)
-    |vpiName:PRIV_LVL_U
-    |vpiNetType:1
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

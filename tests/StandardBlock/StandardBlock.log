@@ -367,6 +367,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |vpiRhs:
     \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_param_assign: , line:2:11, endln:2:22
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -376,64 +378,101 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.genblk2), line:2:11, endln:2:18
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.i), line:13:13, endln:13:14
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+    |vpiName:i
+    |vpiFullName:work@top.i
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |vpiCondition:
-    \_ref_obj: (genblk2), line:5:5, endln:5:12
+    \_ref_obj: (work@top.genblk2), line:5:5, endln:5:12
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:genblk2
+      |vpiFullName:work@top.genblk2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@top
       |vpiStmt:
       \_assign_stmt: , line:5:20, endln:5:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiLhs:
-        \_logic_var: (a), line:5:20, endln:5:21
+        \_logic_var: (work@top.a), line:5:20, endln:5:21
           |vpiParent:
           \_assign_stmt: , line:5:20, endln:5:21
           |vpiTypespec:
           \_logic_typespec: , line:5:14, endln:5:19
           |vpiName:a
+          |vpiFullName:work@top.a
     |vpiElseStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@top
       |vpiStmt:
       \_assign_stmt: , line:6:12, endln:6:13
+        |vpiParent:
+        \_begin: (work@top)
         |vpiLhs:
-        \_logic_var: (b), line:6:12, endln:6:13
+        \_logic_var: (work@top.b), line:6:12, endln:6:13
           |vpiParent:
           \_assign_stmt: , line:6:12, endln:6:13
           |vpiTypespec:
           \_logic_typespec: , line:6:6, endln:6:11
           |vpiName:b
+          |vpiFullName:work@top.b
   |vpiGenStmt:
   \_gen_if_else: 
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |vpiCondition:
-    \_ref_obj: (genblk2), line:9:5, endln:9:12
+    \_ref_obj: (work@top.genblk2), line:9:5, endln:9:12
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:genblk2
+      |vpiFullName:work@top.genblk2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@top
       |vpiStmt:
       \_assign_stmt: , line:9:20, endln:9:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiLhs:
-        \_logic_var: (a), line:9:20, endln:9:21
+        \_logic_var: (work@top.a), line:9:20, endln:9:21
           |vpiParent:
           \_assign_stmt: , line:9:20, endln:9:21
           |vpiTypespec:
           \_logic_typespec: , line:9:14, endln:9:19
           |vpiName:a
+          |vpiFullName:work@top.a
     |vpiElseStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@top
       |vpiStmt:
       \_assign_stmt: , line:10:12, endln:10:13
+        |vpiParent:
+        \_begin: (work@top)
         |vpiLhs:
-        \_logic_var: (b), line:10:12, endln:10:13
+        \_logic_var: (work@top.b), line:10:12, endln:10:13
           |vpiParent:
           \_assign_stmt: , line:10:12, endln:10:13
           |vpiTypespec:
           \_logic_typespec: , line:10:6, endln:10:11
           |vpiName:b
+          |vpiFullName:work@top.b
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -444,8 +483,6 @@ design: (work@top)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:13:10, endln:13:11
-        |vpiParent:
-        \_assign_stmt: , line:13:6, endln:13:11
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -454,21 +491,21 @@ design: (work@top)
       \_ref_var: (work@top.i), line:13:6, endln:13:7
         |vpiParent:
         \_assign_stmt: , line:13:6, endln:13:11
-        |vpiTypespec:
-        \_unsupported_typespec: (i), line:13:6, endln:13:7
-          |vpiName:i
         |vpiName:i
         |vpiFullName:work@top.i
     |vpiCondition:
     \_operation: , line:13:13, endln:13:18
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (i), line:13:13, endln:13:14
+      \_ref_obj: (work@top.i), line:13:13, endln:13:14
         |vpiParent:
         \_operation: , line:13:13, endln:13:18
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:13:13, endln:13:14
       |vpiOperand:
       \_constant: , line:13:17, endln:13:18
         |vpiParent:
@@ -484,14 +521,17 @@ design: (work@top)
       |vpiOpType:82
       |vpiRhs:
       \_operation: , line:13:24, endln:13:29
+        |vpiParent:
+        \_assignment: , line:13:20, endln:13:29
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (i), line:13:24, endln:13:25
+        \_ref_obj: (work@top.i), line:13:24, endln:13:25
           |vpiParent:
           \_operation: , line:13:24, endln:13:29
           |vpiName:i
+          |vpiFullName:work@top.i
           |vpiActual:
-          \_logic_net: (i)
+          \_logic_net: (work@top.i), line:13:13, endln:13:14
         |vpiOperand:
         \_constant: , line:13:28, endln:13:29
           |vpiParent:
@@ -501,32 +541,48 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
       |vpiLhs:
-      \_ref_obj: (i), line:13:20, endln:13:21
+      \_ref_obj: (work@top.i), line:13:20, endln:13:21
+        |vpiParent:
+        \_assignment: , line:13:20, endln:13:29
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:13:13, endln:13:14
     |vpiStmt:
-    \_named_begin: (g1)
+    \_named_begin: (work@top.g1)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:g1
+      |vpiFullName:work@top.g1
       |vpiStmt:
       \_gen_if: , line:16:1, endln:16:3
+        |vpiParent:
+        \_named_begin: (work@top.g1)
         |vpiCondition:
         \_constant: , line:16:5, endln:16:6
+          |vpiParent:
+          \_gen_if: , line:16:1, endln:16:3
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_begin: 
+        \_begin: (work@top.g1)
+          |vpiParent:
+          \_gen_if: , line:16:1, endln:16:3
+          |vpiFullName:work@top.g1
           |vpiStmt:
           \_assign_stmt: , line:16:14, endln:16:15
+            |vpiParent:
+            \_begin: (work@top.g1)
             |vpiLhs:
-            \_logic_var: (a), line:16:14, endln:16:15
+            \_logic_var: (work@top.g1.a), line:16:14, endln:16:15
               |vpiParent:
               \_assign_stmt: , line:16:14, endln:16:15
               |vpiTypespec:
               \_logic_typespec: , line:16:8, endln:16:13
               |vpiName:a
+              |vpiFullName:work@top.g1.a
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -537,8 +593,6 @@ design: (work@top)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:22:10, endln:22:11
-        |vpiParent:
-        \_assign_stmt: , line:22:6, endln:22:11
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -547,21 +601,21 @@ design: (work@top)
       \_ref_var: (work@top.i), line:22:6, endln:22:7
         |vpiParent:
         \_assign_stmt: , line:22:6, endln:22:11
-        |vpiTypespec:
-        \_unsupported_typespec: (i), line:22:6, endln:22:7
-          |vpiName:i
         |vpiName:i
         |vpiFullName:work@top.i
     |vpiCondition:
     \_operation: , line:22:13, endln:22:18
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (i), line:22:13, endln:22:14
+      \_ref_obj: (work@top.i), line:22:13, endln:22:14
         |vpiParent:
         \_operation: , line:22:13, endln:22:18
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:13:13, endln:13:14
       |vpiOperand:
       \_constant: , line:22:17, endln:22:18
         |vpiParent:
@@ -577,14 +631,17 @@ design: (work@top)
       |vpiOpType:82
       |vpiRhs:
       \_operation: , line:22:24, endln:22:29
+        |vpiParent:
+        \_assignment: , line:22:20, endln:22:29
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (i), line:22:24, endln:22:25
+        \_ref_obj: (work@top.i), line:22:24, endln:22:25
           |vpiParent:
           \_operation: , line:22:24, endln:22:29
           |vpiName:i
+          |vpiFullName:work@top.i
           |vpiActual:
-          \_logic_net: (i)
+          \_logic_net: (work@top.i), line:13:13, endln:13:14
         |vpiOperand:
         \_constant: , line:22:28, endln:22:29
           |vpiParent:
@@ -594,52 +651,76 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
       |vpiLhs:
-      \_ref_obj: (i), line:22:20, endln:22:21
+      \_ref_obj: (work@top.i), line:22:20, endln:22:21
+        |vpiParent:
+        \_assignment: , line:22:20, endln:22:29
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:13:13, endln:13:14
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_for: 
+      |vpiFullName:work@top
       |vpiStmt:
       \_gen_if: , line:25:1, endln:25:3
+        |vpiParent:
+        \_begin: (work@top)
         |vpiCondition:
         \_constant: , line:25:5, endln:25:6
+          |vpiParent:
+          \_gen_if: , line:25:1, endln:25:3
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_begin: 
+        \_begin: (work@top)
+          |vpiParent:
+          \_gen_if: , line:25:1, endln:25:3
+          |vpiFullName:work@top
           |vpiStmt:
           \_assign_stmt: , line:25:14, endln:25:15
+            |vpiParent:
+            \_begin: (work@top)
             |vpiLhs:
-            \_logic_var: (a), line:25:14, endln:25:15
+            \_logic_var: (work@top.a), line:25:14, endln:25:15
               |vpiParent:
               \_assign_stmt: , line:25:14, endln:25:15
               |vpiTypespec:
               \_logic_typespec: , line:25:8, endln:25:13
               |vpiName:a
+              |vpiFullName:work@top.a
   |vpiGenStmt:
   \_gen_if: , line:27:1, endln:27:3
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |vpiCondition:
     \_constant: , line:27:5, endln:27:6
+      |vpiParent:
+      \_gen_if: , line:27:1, endln:27:3
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:1, endln:27:3
+      |vpiFullName:work@top
       |vpiStmt:
       \_assign_stmt: , line:27:14, endln:27:15
+        |vpiParent:
+        \_begin: (work@top)
         |vpiLhs:
-        \_logic_var: (a), line:27:14, endln:27:15
+        \_logic_var: (work@top.a), line:27:14, endln:27:15
           |vpiParent:
           \_assign_stmt: , line:27:14, endln:27:15
           |vpiTypespec:
           \_logic_typespec: , line:27:8, endln:27:13
           |vpiName:a
+          |vpiFullName:work@top.a
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
   |vpiName:work@top
@@ -660,6 +741,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |vpiRhs:
     \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_param_assign: , line:2:11, endln:2:22
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -670,10 +753,6 @@ design: (work@top)
     \_parameter: (work@top.genblk2), line:2:11, endln:2:18
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (i)
-    |vpiName:i
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1), line:5:1, endln:6:14
@@ -692,6 +771,8 @@ design: (work@top)
         \_gen_scope: (work@top.genblk1)
         |vpiTypespec:
         \_logic_typespec: , line:6:6, endln:6:11
+          |vpiParent:
+          \_logic_var: (work@top.genblk1.b), line:6:12, endln:6:13
         |vpiName:b
         |vpiFullName:work@top.genblk1.b
         |vpiVisibility:1
@@ -712,6 +793,8 @@ design: (work@top)
         \_gen_scope: (work@top.genblk02)
         |vpiTypespec:
         \_logic_typespec: , line:10:6, endln:10:11
+          |vpiParent:
+          \_logic_var: (work@top.genblk02.b), line:10:12, endln:10:13
         |vpiName:b
         |vpiFullName:work@top.genblk02.b
         |vpiVisibility:1
@@ -753,6 +836,8 @@ design: (work@top)
             \_gen_scope: (work@top.g1[0].genblk1)
             |vpiTypespec:
             \_logic_typespec: , line:16:8, endln:16:13
+              |vpiParent:
+              \_logic_var: (work@top.g1[0].genblk1.a), line:16:14, endln:16:15
             |vpiName:a
             |vpiFullName:work@top.g1[0].genblk1.a
             |vpiVisibility:1
@@ -794,6 +879,8 @@ design: (work@top)
             \_gen_scope: (work@top.genblk4[0].genblk1)
             |vpiTypespec:
             \_logic_typespec: , line:25:8, endln:25:13
+              |vpiParent:
+              \_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
             |vpiName:a
             |vpiFullName:work@top.genblk4[0].genblk1.a
             |vpiVisibility:1
@@ -814,6 +901,8 @@ design: (work@top)
         \_gen_scope: (work@top.genblk5)
         |vpiTypespec:
         \_logic_typespec: , line:27:8, endln:27:13
+          |vpiParent:
+          \_logic_var: (work@top.genblk5.a), line:27:14, endln:27:15
         |vpiName:a
         |vpiFullName:work@top.genblk5.a
         |vpiVisibility:1

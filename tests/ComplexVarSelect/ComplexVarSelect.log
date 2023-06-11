@@ -275,8 +275,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:2:4, endln:2:20
+      |vpiParent:
+      \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiRange:
       \_range: , line:2:10, endln:2:15
+        |vpiParent:
+        \_logic_typespec: , line:2:4, endln:2:20
         |vpiLeftRange:
         \_constant: , line:2:11, endln:2:12
           |vpiParent:
@@ -295,6 +299,8 @@ design: (work@top)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:2:15, endln:2:20
+        |vpiParent:
+        \_logic_typespec: , line:2:4, endln:2:20
         |vpiLeftRange:
         \_constant: , line:2:16, endln:2:17
           |vpiParent:
@@ -316,12 +322,16 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:2:41, endln:2:48
+      |vpiParent:
+      \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiDecompile:12'hABC
       |vpiSize:12
       |HEX:ABC
       |vpiConstType:5
     |vpiRange:
     \_range: , line:2:10, endln:2:15
+      |vpiParent:
+      \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiLeftRange:
       \_constant: , line:2:11, endln:2:12
         |vpiParent:
@@ -340,6 +350,8 @@ design: (work@top)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:2:15, endln:2:20
+      |vpiParent:
+      \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiLeftRange:
       \_constant: , line:2:16, endln:2:17
         |vpiParent:
@@ -362,8 +374,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:3:4, endln:3:15
+      |vpiParent:
+      \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
       |vpiRange:
       \_range: , line:3:10, endln:3:15
+        |vpiParent:
+        \_logic_typespec: , line:3:4, endln:3:15
         |vpiLeftRange:
         \_constant: , line:3:11, endln:3:12
           |vpiParent:
@@ -385,12 +401,16 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:3:33, endln:3:38
+      |vpiParent:
+      \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
       |vpiDecompile:2'b10
       |vpiSize:2
       |BIN:10
       |vpiConstType:3
     |vpiRange:
     \_range: , line:3:10, endln:3:15
+      |vpiParent:
+      \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
       |vpiLeftRange:
       \_constant: , line:3:11, endln:3:12
         |vpiParent:
@@ -413,8 +433,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:5:4, endln:5:15
+      |vpiParent:
+      \_logic_var: (work@top.x), line:5:16, endln:5:63
       |vpiRange:
       \_range: , line:5:10, endln:5:15
+        |vpiParent:
+        \_logic_typespec: , line:5:4, endln:5:15
         |vpiLeftRange:
         \_constant: , line:5:11, endln:5:12
           |vpiParent:
@@ -435,16 +459,19 @@ design: (work@top)
     |vpiFullName:work@top.x
     |vpiVisibility:1
     |vpiExpr:
-    \_var_select: (iccm_bank_dout_hi), line:5:20, endln:5:63
+    \_var_select: (work@top.x.iccm_bank_dout_hi), line:5:20, endln:5:63
+      |vpiParent:
+      \_logic_var: (work@top.x), line:5:16, endln:5:63
       |vpiName:iccm_bank_dout_hi
+      |vpiFullName:work@top.x.iccm_bank_dout_hi
       |vpiActual:
       \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiIndex:
-      \_part_select: iccm_rw_addr_q (iccm_bank_dout_hi.iccm_rw_addr_q), line:5:38, endln:5:57
+      \_part_select: iccm_rw_addr_q (work@top.x.iccm_bank_dout_hi.iccm_rw_addr_q), line:5:38, endln:5:57
         |vpiParent:
-        \_var_select: (iccm_bank_dout_hi), line:5:20, endln:5:63
+        \_var_select: (work@top.x.iccm_bank_dout_hi), line:5:20, endln:5:63
         |vpiName:iccm_rw_addr_q
-        |vpiFullName:iccm_bank_dout_hi.iccm_rw_addr_q
+        |vpiFullName:work@top.x.iccm_bank_dout_hi.iccm_rw_addr_q
         |vpiDefName:iccm_rw_addr_q
         |vpiActual:
         \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
@@ -462,11 +489,11 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiIndex:
-      \_part_select: iccm_bank_dout_hi (iccm_bank_dout_hi.iccm_bank_dout_hi), line:5:59, endln:5:62
+      \_part_select: iccm_bank_dout_hi (work@top.x.iccm_bank_dout_hi.iccm_bank_dout_hi), line:5:59, endln:5:62
         |vpiParent:
-        \_var_select: (iccm_bank_dout_hi), line:5:20, endln:5:63
+        \_var_select: (work@top.x.iccm_bank_dout_hi), line:5:20, endln:5:63
         |vpiName:iccm_bank_dout_hi
-        |vpiFullName:iccm_bank_dout_hi.iccm_bank_dout_hi
+        |vpiFullName:work@top.x.iccm_bank_dout_hi.iccm_bank_dout_hi
         |vpiDefName:iccm_bank_dout_hi
         |vpiActual:
         \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
@@ -485,6 +512,8 @@ design: (work@top)
           |vpiConstType:9
     |vpiRange:
     \_range: , line:5:10, endln:5:15
+      |vpiParent:
+      \_logic_var: (work@top.x), line:5:16, endln:5:63
       |vpiLeftRange:
       \_constant: , line:5:11, endln:5:12
         |vpiParent:
@@ -507,8 +536,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:6:4, endln:6:15
+      |vpiParent:
+      \_logic_var: (work@top.y), line:6:16, endln:6:58
       |vpiRange:
       \_range: , line:6:10, endln:6:15
+        |vpiParent:
+        \_logic_typespec: , line:6:4, endln:6:15
         |vpiLeftRange:
         \_constant: , line:6:11, endln:6:12
           |vpiParent:
@@ -529,16 +562,19 @@ design: (work@top)
     |vpiFullName:work@top.y
     |vpiVisibility:1
     |vpiExpr:
-    \_bit_select: (iccm_bank_dout_hi), line:6:20, endln:6:58
+    \_bit_select: (work@top.y.iccm_bank_dout_hi), line:6:20, endln:6:58
+      |vpiParent:
+      \_logic_var: (work@top.y), line:6:16, endln:6:58
       |vpiName:iccm_bank_dout_hi
+      |vpiFullName:work@top.y.iccm_bank_dout_hi
       |vpiActual:
       \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
       |vpiIndex:
-      \_part_select: iccm_rw_addr_q (iccm_bank_dout_hi.iccm_rw_addr_q), line:6:38, endln:6:57
+      \_part_select: iccm_rw_addr_q (work@top.y.iccm_bank_dout_hi.iccm_rw_addr_q), line:6:38, endln:6:57
         |vpiParent:
-        \_bit_select: (iccm_bank_dout_hi), line:6:20, endln:6:58
+        \_bit_select: (work@top.y.iccm_bank_dout_hi), line:6:20, endln:6:58
         |vpiName:iccm_rw_addr_q
-        |vpiFullName:iccm_bank_dout_hi.iccm_rw_addr_q
+        |vpiFullName:work@top.y.iccm_bank_dout_hi.iccm_rw_addr_q
         |vpiDefName:iccm_rw_addr_q
         |vpiActual:
         \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
@@ -557,6 +593,8 @@ design: (work@top)
           |vpiConstType:9
     |vpiRange:
     \_range: , line:6:10, endln:6:15
+      |vpiParent:
+      \_logic_var: (work@top.y), line:6:16, endln:6:58
       |vpiLeftRange:
       \_constant: , line:6:11, endln:6:12
         |vpiParent:

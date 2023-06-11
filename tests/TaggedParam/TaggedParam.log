@@ -164,7 +164,7 @@ int_typespec                                          13
 logic_typespec                                        13
 module_inst                                            7
 operation                                             11
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              6
 ref_module                                             1
@@ -183,7 +183,7 @@ int_typespec                                          13
 logic_typespec                                        13
 module_inst                                            7
 operation                                             11
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              6
 ref_module                                             1
@@ -318,8 +318,11 @@ design: (work@fpu_wrap)
     |vpiParent:
     \_module_inst: work@fpnew_top (work@fpnew_top), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:10:2, endln:14:11
     |vpiRhs:
-    \_ref_obj: (fpnew_pkg::RV64D_Xsflt), line:12:62, endln:12:73
+    \_ref_obj: (work@fpnew_top.fpnew_pkg::RV64D_Xsflt), line:12:62, endln:12:84
+      |vpiParent:
+      \_param_assign: , line:12:45, endln:12:84
       |vpiName:fpnew_pkg::RV64D_Xsflt
+      |vpiFullName:work@fpnew_top.fpnew_pkg::RV64D_Xsflt
     |vpiLhs:
     \_parameter: (work@fpnew_top.Features), line:12:45, endln:12:53
   |vpiDefName:work@fpnew_top
@@ -343,9 +346,13 @@ design: (work@fpu_wrap)
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:16:1, endln:27:10
     |vpiRhs:
     \_operation: , line:18:53, endln:21:6
+      |vpiParent:
+      \_param_assign: , line:18:38, endln:21:6
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:19:22, endln:19:24
+        |vpiParent:
+        \_operation: , line:18:53, endln:21:6
         |vpiPattern:
         \_constant: , line:19:22, endln:19:24
           |vpiDecompile:64
@@ -354,9 +361,13 @@ design: (work@fpu_wrap)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (Width), line:19:7, endln:19:12
+          |vpiParent:
+          \_tagged_pattern: , line:19:22, endln:19:24
           |vpiName:Width
       |vpiOperand:
       \_tagged_pattern: , line:20:22, endln:20:26
+        |vpiParent:
+        \_operation: , line:18:53, endln:21:6
         |vpiPattern:
         \_constant: , line:20:22, endln:20:26
           |vpiDecompile:1'b1
@@ -365,6 +376,8 @@ design: (work@fpu_wrap)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (EnableNanBox), line:20:7, endln:20:19
+          |vpiParent:
+          \_tagged_pattern: , line:20:22, endln:20:26
           |vpiName:EnableNanBox
     |vpiLhs:
     \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:18:50
@@ -479,7 +492,7 @@ design: (work@fpu_wrap)
       |vpiOperand:
       \_constant: , line:19:22, endln:19:24
         |vpiParent:
-        \_tagged_pattern: , line:19:22, endln:19:24
+        \_operation: , line:18:53, endln:21:6
         |vpiDecompile:64
         |vpiSize:32
         |UINT:64
@@ -487,7 +500,7 @@ design: (work@fpu_wrap)
       |vpiOperand:
       \_constant: , line:20:22, endln:20:26
         |vpiParent:
-        \_tagged_pattern: , line:20:22, endln:20:26
+        \_operation: , line:18:53, endln:21:6
         |vpiDecompile:1'b1
         |vpiSize:1
         |BIN:1

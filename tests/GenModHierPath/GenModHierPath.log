@@ -245,20 +245,32 @@ design: (work@InitializedBlockRAM)
     |vpiParent:
     \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@InitializedBlockRAM)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@InitializedBlockRAM
       |vpiStmt:
       \_gen_if: , line:11:5, endln:11:7
+        |vpiParent:
+        \_begin: (work@InitializedBlockRAM)
         |vpiCondition:
         \_constant: , line:11:9, endln:11:10
+          |vpiParent:
+          \_gen_if: , line:11:5, endln:11:7
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (body)
+        \_named_begin: (work@InitializedBlockRAM.body)
+          |vpiParent:
+          \_gen_if: , line:11:5, endln:11:7
           |vpiName:body
+          |vpiFullName:work@InitializedBlockRAM.body
           |vpiStmt:
           \_ref_module: work@ForNarrowRequest (ram), line:12:26, endln:12:29
+            |vpiParent:
+            \_named_begin: (work@InitializedBlockRAM.body)
             |vpiName:ram
             |vpiDefName:work@ForNarrowRequest
 |uhdmtopModules:
@@ -345,7 +357,7 @@ design: (work@InitializedBlockRAM)
             |vpiParent:
             \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:16
             |vpiLeftRange:
-            \_constant: , line:3:13, endln:3:14
+            \_constant: 
               |vpiParent:
               \_range: , line:3:13, endln:3:15
               |vpiDecompile:0
@@ -359,6 +371,8 @@ design: (work@InitializedBlockRAM)
               |vpiOpType:11
               |vpiOperand:
               \_constant: , line:3:13, endln:3:15
+                |vpiParent:
+                \_operation: 
                 |vpiDecompile:10
                 |vpiSize:64
                 |UINT:10
@@ -374,6 +388,8 @@ design: (work@InitializedBlockRAM)
             \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:16
             |vpiTypespec:
             \_int_typespec: , line:3:3, endln:3:6
+              |vpiParent:
+              \_int_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
               |vpiSigned:1
             |vpiFullName:work@InitializedBlockRAM.body.ram.array
         |vpiDefName:work@ForNarrowRequest

@@ -417,11 +417,15 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:5:28, endln:5:33
+    \_logic_var: (work@dut.pow_a), line:5:28, endln:5:33
+      |vpiParent:
+      \_function: (work@dut.pow_a), line:5:9, endln:12:20
       |vpiTypespec:
       \_logic_typespec: , line:5:28, endln:5:33
         |vpiRange:
         \_range: , line:5:28, endln:5:33
+          |vpiParent:
+          \_logic_typespec: , line:5:28, endln:5:33
           |vpiLeftRange:
           \_constant: , line:5:29, endln:5:30
             |vpiParent:
@@ -438,6 +442,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@dut.pow_a
     |vpiIODecl:
     \_io_decl: (base), line:6:29, endln:6:33
       |vpiParent:
@@ -449,7 +454,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:6:23, endln:6:28
           |vpiParent:
-          \_function: (work@dut.pow_a), line:5:9, endln:12:20
+          \_logic_typespec: , line:6:23, endln:6:28
           |vpiLeftRange:
           \_constant: , line:6:24, endln:6:25
             |vpiParent:
@@ -498,7 +503,7 @@ design: (work@dut)
           |vpiName:pow_a
           |vpiFullName:work@dut.pow_a.pow_a
           |vpiActual:
-          \_logic_var: (pow_a), line:5:28, endln:5:33
+          \_logic_var: (work@dut.pow_a.pow_a), line:5:28, endln:5:33
       |vpiStmt:
       \_if_stmt: , line:9:25, endln:10:69
         |vpiParent:
@@ -586,7 +591,7 @@ design: (work@dut)
             |vpiName:pow_a
             |vpiFullName:work@dut.pow_a.pow_a
             |vpiActual:
-            \_logic_var: (pow_a), line:5:28, endln:5:33
+            \_logic_var: (work@dut.pow_a.pow_a), line:5:28, endln:5:33
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiTaskFunc:
@@ -598,11 +603,15 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:14:28, endln:14:33
+    \_logic_var: (work@dut.pow_b), line:14:28, endln:14:33
+      |vpiParent:
+      \_function: (work@dut.pow_b), line:14:9, endln:21:20
       |vpiTypespec:
       \_logic_typespec: , line:14:28, endln:14:33
         |vpiRange:
         \_range: , line:14:28, endln:14:33
+          |vpiParent:
+          \_logic_typespec: , line:14:28, endln:14:33
           |vpiLeftRange:
           \_constant: , line:14:29, endln:14:30
             |vpiParent:
@@ -619,6 +628,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@dut.pow_b
     |vpiIODecl:
     \_io_decl: (base), line:15:29, endln:15:33
       |vpiParent:
@@ -630,7 +640,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:15:23, endln:15:28
           |vpiParent:
-          \_function: (work@dut.pow_b), line:14:9, endln:21:20
+          \_logic_typespec: , line:15:23, endln:15:28
           |vpiLeftRange:
           \_constant: , line:15:24, endln:15:25
             |vpiParent:
@@ -679,7 +689,7 @@ design: (work@dut)
           |vpiName:pow_b
           |vpiFullName:work@dut.pow_b.pow_b
           |vpiActual:
-          \_logic_var: (pow_b), line:14:28, endln:14:33
+          \_logic_var: (work@dut.pow_b.pow_b), line:14:28, endln:14:33
       |vpiStmt:
       \_if_stmt: , line:18:25, endln:19:69
         |vpiParent:
@@ -767,7 +777,7 @@ design: (work@dut)
             |vpiName:pow_b
             |vpiFullName:work@dut.pow_b.pow_b
             |vpiActual:
-            \_logic_var: (pow_b), line:14:28, endln:14:33
+            \_logic_var: (work@dut.pow_b.pow_b), line:14:28, endln:14:33
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiNet:
@@ -798,13 +808,19 @@ design: (work@dut)
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.inp.inp)
+      |vpiParent:
+      \_port: (inp), line:2:26, endln:2:29
+      |vpiName:inp
+      |vpiFullName:work@dut.inp.inp
       |vpiActual:
       \_logic_net: (work@dut.inp), line:2:26, endln:2:29
     |vpiTypedef:
     \_logic_typespec: , line:2:15, endln:2:25
       |vpiRange:
       \_range: , line:2:20, endln:2:25
+        |vpiParent:
+        \_logic_typespec: , line:2:15, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -828,13 +844,19 @@ design: (work@dut)
     |vpiName:out1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.out1.out1)
+      |vpiParent:
+      \_port: (out1), line:3:27, endln:3:31
+      |vpiName:out1
+      |vpiFullName:work@dut.out1.out1
       |vpiActual:
       \_logic_net: (work@dut.out1), line:3:27, endln:3:31
     |vpiTypedef:
     \_logic_typespec: , line:3:16, endln:3:26
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -858,13 +880,19 @@ design: (work@dut)
     |vpiName:out2
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.out2.out2)
+      |vpiParent:
+      \_port: (out2), line:3:33, endln:3:37
+      |vpiName:out2
+      |vpiFullName:work@dut.out2.out2
       |vpiActual:
       \_logic_net: (work@dut.out2), line:3:33, endln:3:37
     |vpiTypedef:
     \_logic_typespec: , line:3:16, endln:3:26
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -973,7 +1001,7 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:5:28, endln:5:33
+    \_logic_var: (work@dut.pow_a), line:5:28, endln:5:33
     |vpiIODecl:
     \_io_decl: (base), line:6:29, endln:6:33
       |vpiParent:
@@ -1010,7 +1038,7 @@ design: (work@dut)
           |vpiName:pow_a
           |vpiFullName:work@dut.pow_a.pow_a
           |vpiActual:
-          \_logic_var: (pow_a), line:5:28, endln:5:33
+          \_logic_var: (work@dut.pow_a.pow_a), line:5:28, endln:5:33
       |vpiStmt:
       \_if_stmt: , line:9:25, endln:10:69
         |vpiParent:
@@ -1086,7 +1114,7 @@ design: (work@dut)
             |vpiName:pow_a
             |vpiFullName:work@dut.pow_a.pow_a
             |vpiActual:
-            \_logic_var: (pow_a), line:5:28, endln:5:33
+            \_logic_var: (work@dut.pow_a.pow_a), line:5:28, endln:5:33
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiTaskFunc:
@@ -1098,7 +1126,7 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:14:28, endln:14:33
+    \_logic_var: (work@dut.pow_b), line:14:28, endln:14:33
     |vpiIODecl:
     \_io_decl: (base), line:15:29, endln:15:33
       |vpiParent:
@@ -1135,7 +1163,7 @@ design: (work@dut)
           |vpiName:pow_b
           |vpiFullName:work@dut.pow_b.pow_b
           |vpiActual:
-          \_logic_var: (pow_b), line:14:28, endln:14:33
+          \_logic_var: (work@dut.pow_b.pow_b), line:14:28, endln:14:33
       |vpiStmt:
       \_if_stmt: , line:18:25, endln:19:69
         |vpiParent:
@@ -1211,7 +1239,7 @@ design: (work@dut)
             |vpiName:pow_b
             |vpiFullName:work@dut.pow_b.pow_b
             |vpiActual:
-            \_logic_var: (pow_b), line:14:28, endln:14:33
+            \_logic_var: (work@dut.pow_b.pow_b), line:14:28, endln:14:33
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
   |vpiNet:
@@ -1220,8 +1248,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncArgs/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
     \_logic_typespec: , line:2:15, endln:2:25
+      |vpiParent:
+      \_logic_net: (work@dut.inp), line:2:26, endln:2:29
       |vpiRange:
       \_range: , line:2:20, endln:2:25
+        |vpiParent:
+        \_logic_typespec: , line:2:15, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -1249,6 +1281,8 @@ design: (work@dut)
     \_logic_typespec: , line:3:16, endln:3:26
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -1297,7 +1331,7 @@ design: (work@dut)
       |vpiRange:
       \_range: , line:2:20, endln:2:25
         |vpiParent:
-        \_port: (inp), line:2:26, endln:2:29
+        \_logic_typespec: , line:2:15, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -1335,7 +1369,7 @@ design: (work@dut)
       |vpiRange:
       \_range: , line:3:21, endln:3:26
         |vpiParent:
-        \_port: (out1), line:3:27, endln:3:31
+        \_logic_typespec: , line:3:16, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:

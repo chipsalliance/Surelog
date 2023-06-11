@@ -220,6 +220,8 @@ design: (work@PreDecodeStage)
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/PackedArrayBind/dut.sv, line:1:1, endln:26:10
     |vpiRange:
     \_range: , line:3:15, endln:3:20
+      |vpiParent:
+      \_logic_typespec: (MSHR_IndexPath), line:3:9, endln:3:20
       |vpiLeftRange:
       \_constant: , line:3:16, endln:3:17
         |vpiParent:
@@ -321,7 +323,7 @@ design: (work@PreDecodeStage)
         |vpiRange:
         \_range: , line:17:28, endln:17:35
           |vpiParent:
-          \_struct_typespec: (ReplayQueueEntry), line:15:9, endln:15:15
+          \_packed_array_typespec: , line:17:9, endln:17:27
           |vpiLeftRange:
           \_constant: , line:17:29, endln:17:30
             |vpiParent:
@@ -352,6 +354,13 @@ design: (work@PreDecodeStage)
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/PackedArrayBind/dut.sv, line:1:1, endln:26:10
     |vpiName:replayEntryOut
     |vpiFullName:work@PreDecodeStage.replayEntryOut
+  |vpiNet:
+  \_logic_net: (work@PreDecodeStage.mshrID), line:24:9, endln:24:15
+    |vpiParent:
+    \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/PackedArrayBind/dut.sv, line:1:1, endln:26:10
+    |vpiName:mshrID
+    |vpiFullName:work@PreDecodeStage.mshrID
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:24:9, endln:24:60
     |vpiParent:
@@ -396,7 +405,7 @@ design: (work@PreDecodeStage)
       |vpiName:mshrID
       |vpiFullName:work@PreDecodeStage.mshrID
       |vpiActual:
-      \_logic_net: (mshrID)
+      \_logic_net: (work@PreDecodeStage.mshrID), line:24:9, endln:24:15
 |uhdmtopModules:
 \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/PackedArrayBind/dut.sv, line:1:1, endln:26:10
   |vpiName:work@PreDecodeStage
@@ -419,10 +428,6 @@ design: (work@PreDecodeStage)
   \_struct_typespec: (ReplayQueueEntry), line:15:9, endln:15:15
   |vpiDefName:work@PreDecodeStage
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (mshrID)
-    |vpiName:mshrID
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:24:9, endln:24:60
@@ -472,7 +477,7 @@ design: (work@PreDecodeStage)
       |vpiName:mshrID
       |vpiFullName:work@PreDecodeStage.mshrID
       |vpiActual:
-      \_logic_net: (mshrID)
+      \_logic_net: (work@PreDecodeStage.mshrID), line:24:9, endln:24:15
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

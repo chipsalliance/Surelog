@@ -10423,7 +10423,7 @@ interface_inst                                        49
 logic_typespec                                         4
 module_inst                                           49
 operation                                            134
-package                                                3
+package                                                2
 param_assign                                         242
 parameter                                            242
 part_select                                           31
@@ -10453,7 +10453,7 @@ interface_inst                                        73
 logic_typespec                                         4
 module_inst                                           73
 operation                                            151
-package                                                3
+package                                                2
 param_assign                                         444
 parameter                                            434
 part_select                                           31
@@ -10504,11 +10504,11 @@ design: (work@top)
       |vpiParent:
       \_type_parameter: (P::T), line:11:21, endln:11:22
       |vpiInstance:
-      \_package: (P)
+      \_package: P (P::), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:9:1, endln:12:11
       |vpiRange:
       \_range: , line:11:31, endln:11:40
         |vpiParent:
-        \_type_parameter: (P::T), line:11:21, endln:11:22
+        \_logic_typespec: , line:11:25, endln:11:40
         |vpiLeftRange:
         \_operation: , line:11:32, endln:11:37
           |vpiParent:
@@ -10544,6 +10544,8 @@ design: (work@top)
     \_package: P (P::), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:9:1, endln:12:11
     |vpiRhs:
     \_constant: , line:10:20, endln:10:21
+      |vpiParent:
+      \_param_assign: , line:10:16, endln:10:21
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -10585,7 +10587,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:11:31, endln:11:40
         |vpiParent:
-        \_type_parameter: (P::T), line:11:21, endln:11:22
+        \_logic_typespec: , line:11:25, endln:11:40
         |vpiLeftRange:
         \_operation: , line:11:32, endln:11:37
           |vpiParent:
@@ -10621,6 +10623,8 @@ design: (work@top)
     \_package: P (P::), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:9:1, endln:12:11
     |vpiRhs:
     \_constant: , line:10:20, endln:10:21
+      |vpiParent:
+      \_param_assign: , line:10:16, endln:10:21
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -10674,8 +10678,11 @@ design: (work@top)
       |vpiParent:
       \_type_parameter: (work@C::T), line:6:21, endln:6:22
       |vpiExpr:
-      \_part_select: PARAM_T (PARAM_T), line:6:25, endln:6:48
+      \_part_select: PARAM_T (work@C::T::PARAM_T), line:6:25, endln:6:48
+        |vpiParent:
+        \_type_parameter: (work@C::T), line:6:21, endln:6:22
         |vpiName:PARAM_T
+        |vpiFullName:work@C::T::PARAM_T
         |vpiDefName:PARAM_T
         |vpiActual:
         \_type_parameter: (work@C::PARAM_T), line:3:20, endln:3:27
@@ -10683,14 +10690,14 @@ design: (work@top)
         |vpiLeftRange:
         \_operation: , line:6:34, endln:6:45
           |vpiParent:
-          \_part_select: PARAM_T (PARAM_T), line:6:25, endln:6:48
+          \_part_select: PARAM_T (work@C::T::PARAM_T), line:6:25, endln:6:48
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (PARAM_T.PARAM_E), line:6:34, endln:6:41
+          \_ref_obj: (work@C::T::PARAM_T::PARAM_E), line:6:34, endln:6:41
             |vpiParent:
             \_operation: , line:6:34, endln:6:45
             |vpiName:PARAM_E
-            |vpiFullName:PARAM_T.PARAM_E
+            |vpiFullName:work@C::T::PARAM_T::PARAM_E
             |vpiActual:
             \_parameter: (work@C::PARAM_E), line:2:15, endln:2:22
           |vpiOperand:
@@ -10713,6 +10720,8 @@ design: (work@top)
     \_class_defn: (work@C), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:1:1, endln:7:9
     |vpiRhs:
     \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:26
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -11051,7 +11060,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:40:31, endln:40:44
         |vpiParent:
-        \_type_parameter: (work@top.T), line:40:21, endln:40:22
+        \_logic_typespec: , line:40:25, endln:40:44
         |vpiLeftRange:
         \_operation: , line:40:32, endln:40:41
           |vpiParent:
@@ -11100,6 +11109,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiRhs:
     \_constant: , line:37:22, endln:37:23
+      |vpiParent:
+      \_param_assign: , line:37:15, endln:37:23
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -11114,6 +11125,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiRhs:
     \_constant: , line:39:20, endln:39:21
+      |vpiParent:
+      \_param_assign: , line:39:16, endln:39:21
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -11128,46 +11141,72 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:36
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (E), line:44:35, endln:44:36
+        \_ref_obj: (work@top.E), line:44:35, endln:44:36
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:36
           |vpiName:E
+          |vpiFullName:work@top.E
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:36
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:36
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:36
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:41
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (T), line:45:40, endln:45:41
+        \_ref_obj: (work@top.T), line:45:40, endln:45:41
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:41
           |vpiName:T
+          |vpiFullName:work@top.T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:41
+        \_parameter: (work@top.the_type), line:45:29, endln:45:41
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:41
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:53
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:39
               |vpiParent:
@@ -11177,20 +11216,22 @@ design: (work@top)
               |STRING:E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:41, endln:48:49
+            \_ref_obj: (work@top.the_expr), line:48:41, endln:48:49
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:53
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
-            \_ref_obj: (E), line:48:51, endln:48:52
+            \_ref_obj: (work@top.E), line:48:51, endln:48:52
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:53
               |vpiName:E
+              |vpiFullName:work@top.E
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:74
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:46
               |vpiParent:
@@ -11204,26 +11245,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:74
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:54, endln:49:62
+              \_ref_obj: (work@top.the_expr), line:49:54, endln:49:62
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:48, endln:49:63
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:65, endln:49:73
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:74
               |vpiArgument:
-              \_ref_obj: (E), line:49:71, endln:49:72
+              \_ref_obj: (work@top.E), line:49:71, endln:49:72
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:65, endln:49:73
                 |vpiName:E
+                |vpiFullName:work@top.E
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:74
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:46
               |vpiParent:
@@ -11237,26 +11280,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:74
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:54, endln:50:62
+              \_ref_obj: (work@top.the_type), line:50:54, endln:50:62
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:48, endln:50:63
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:65, endln:50:73
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:74
               |vpiArgument:
-              \_ref_obj: (T), line:50:71, endln:50:72
+              \_ref_obj: (work@top.T), line:50:71, endln:50:72
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:65, endln:50:73
                 |vpiName:T
+                |vpiFullName:work@top.T
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:53
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:42
               |vpiParent:
@@ -11270,16 +11315,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:53
               |vpiArgument:
-              \_ref_obj: (E), line:51:50, endln:51:51
+              \_ref_obj: (work@top.E), line:51:50, endln:51:51
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:44, endln:51:52
                 |vpiName:E
+                |vpiFullName:work@top.E
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:53
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:42
               |vpiParent:
@@ -11293,16 +11339,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:53
               |vpiArgument:
-              \_ref_obj: (T), line:52:50, endln:52:51
+              \_ref_obj: (work@top.T), line:52:50, endln:52:51
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:44, endln:52:52
                 |vpiName:T
+                |vpiFullName:work@top.T
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:48
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:39
               |vpiParent:
@@ -11331,7 +11378,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:48
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:39
               |vpiParent:
@@ -11359,26 +11406,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:39, endln:56:41
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:39, endln:57:41
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:48, endln:58:50
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:48, endln:59:50
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:54, endln:60:56
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:54, endln:61:56
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
   |vpiGenStmt:
@@ -11386,14 +11445,24 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:39
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
         \_constant: , line:44:35, endln:44:38
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:39
           |vpiDecompile:2
           |vpiSize:32
           |UINT:2
@@ -11403,36 +11472,51 @@ design: (work@top)
             \_constant: , line:44:35, endln:44:38
           |vpiConstType:9
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:39
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:39
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:39
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:44
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (P::T), line:45:40, endln:45:43
+        \_ref_obj: (work@top.P::T), line:45:40, endln:45:44
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:44
           |vpiName:P::T
+          |vpiFullName:work@top.P::T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:44
+        \_parameter: (work@top.the_type), line:45:29, endln:45:44
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:44
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:59
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:42
               |vpiParent:
@@ -11442,10 +11526,11 @@ design: (work@top)
               |STRING:P::E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:44, endln:48:52
+            \_ref_obj: (work@top.the_expr), line:48:44, endln:48:52
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:59
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
             \_constant: , line:48:54, endln:48:58
               |vpiParent:
@@ -11458,7 +11543,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:80
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:49
               |vpiParent:
@@ -11472,10 +11557,11 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:80
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:57, endln:49:65
+              \_ref_obj: (work@top.the_expr), line:49:57, endln:49:65
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:51, endln:49:66
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:68, endln:49:79
@@ -11494,7 +11580,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:80
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:49
               |vpiParent:
@@ -11508,10 +11594,11 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:80
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:57, endln:50:65
+              \_ref_obj: (work@top.the_type), line:50:57, endln:50:65
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:51, endln:50:66
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:68, endln:50:79
@@ -11529,7 +11616,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:59
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:45
               |vpiParent:
@@ -11555,7 +11642,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:59
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:45
               |vpiParent:
@@ -11580,7 +11667,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:54
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:42
               |vpiParent:
@@ -11609,7 +11696,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:54
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:42
               |vpiParent:
@@ -11637,26 +11724,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:48, endln:56:50
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:48, endln:57:50
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:57, endln:58:59
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:57, endln:59:59
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:63, endln:60:65
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:63, endln:61:65
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
   |vpiGenStmt:
@@ -11664,46 +11763,72 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:42
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::E), line:44:35, endln:44:41
+        \_ref_obj: (work@top.C::E), line:44:35, endln:44:41
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:42
           |vpiName:C::E
+          |vpiFullName:work@top.C::E
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:42
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:42
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:42
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:47
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::T), line:45:40, endln:45:46
+        \_ref_obj: (work@top.C::T), line:45:40, endln:45:46
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:47
           |vpiName:C::T
+          |vpiFullName:work@top.C::T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:47
+        \_parameter: (work@top.the_type), line:45:29, endln:45:47
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:47
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:65
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:45
               |vpiParent:
@@ -11713,20 +11838,22 @@ design: (work@top)
               |STRING:C#()::E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:47, endln:48:55
+            \_ref_obj: (work@top.the_expr), line:48:47, endln:48:55
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:65
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
-            \_ref_obj: (C::E), line:48:57, endln:48:61
+            \_ref_obj: (work@top.C::E), line:48:57, endln:48:63
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:65
               |vpiName:C::E
+              |vpiFullName:work@top.C::E
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:86
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:52
               |vpiParent:
@@ -11740,26 +11867,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:86
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:60, endln:49:68
+              \_ref_obj: (work@top.the_expr), line:49:60, endln:49:68
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:54, endln:49:69
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:71, endln:49:85
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:86
               |vpiArgument:
-              \_ref_obj: (C::E), line:49:77, endln:49:81
+              \_ref_obj: (work@top.C::E), line:49:77, endln:49:83
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:71, endln:49:85
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:86
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:52
               |vpiParent:
@@ -11773,26 +11902,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:86
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:60, endln:50:68
+              \_ref_obj: (work@top.the_type), line:50:60, endln:50:68
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:54, endln:50:69
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:71, endln:50:85
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:86
               |vpiArgument:
-              \_ref_obj: (C::T), line:50:77, endln:50:81
+              \_ref_obj: (work@top.C::T), line:50:77, endln:50:83
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:71, endln:50:85
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:65
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:48
               |vpiParent:
@@ -11806,16 +11937,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:65
               |vpiArgument:
-              \_ref_obj: (C::E), line:51:56, endln:51:60
+              \_ref_obj: (work@top.C::E), line:51:56, endln:51:62
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:50, endln:51:64
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:65
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:48
               |vpiParent:
@@ -11829,16 +11961,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:65
               |vpiArgument:
-              \_ref_obj: (C::T), line:52:56, endln:52:60
+              \_ref_obj: (work@top.C::T), line:52:56, endln:52:62
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:50, endln:52:64
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:60
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:45
               |vpiParent:
@@ -11867,7 +12000,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:60
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:45
               |vpiParent:
@@ -11895,26 +12028,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:57, endln:56:59
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:57, endln:57:59
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:66, endln:58:68
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:66, endln:59:68
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:72, endln:60:74
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:72, endln:61:74
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
   |vpiGenStmt:
@@ -11922,46 +12067,72 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:46
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::E), line:44:35, endln:44:45
+        \_ref_obj: (work@top.C::E), line:44:35, endln:44:45
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:46
           |vpiName:C::E
+          |vpiFullName:work@top.C::E
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:46
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:46
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:46
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:51
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::T), line:45:40, endln:45:50
+        \_ref_obj: (work@top.C::T), line:45:40, endln:45:50
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:51
           |vpiName:C::T
+          |vpiFullName:work@top.C::T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:51
+        \_parameter: (work@top.the_type), line:45:29, endln:45:51
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:51
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:73
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:49
               |vpiParent:
@@ -11971,20 +12142,22 @@ design: (work@top)
               |STRING:C#(E, T)::E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:51, endln:48:59
+            \_ref_obj: (work@top.the_expr), line:48:51, endln:48:59
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:73
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
-            \_ref_obj: (C::E), line:48:61, endln:48:69
+            \_ref_obj: (work@top.C::E), line:48:61, endln:48:71
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:73
               |vpiName:C::E
+              |vpiFullName:work@top.C::E
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:94
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:56
               |vpiParent:
@@ -11998,26 +12171,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:94
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:64, endln:49:72
+              \_ref_obj: (work@top.the_expr), line:49:64, endln:49:72
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:58, endln:49:73
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:75, endln:49:93
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:94
               |vpiArgument:
-              \_ref_obj: (C::E), line:49:81, endln:49:89
+              \_ref_obj: (work@top.C::E), line:49:81, endln:49:91
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:75, endln:49:93
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:94
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:56
               |vpiParent:
@@ -12031,26 +12206,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:94
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:64, endln:50:72
+              \_ref_obj: (work@top.the_type), line:50:64, endln:50:72
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:58, endln:50:73
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:75, endln:50:93
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:94
               |vpiArgument:
-              \_ref_obj: (C::T), line:50:81, endln:50:89
+              \_ref_obj: (work@top.C::T), line:50:81, endln:50:91
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:75, endln:50:93
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:73
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:52
               |vpiParent:
@@ -12064,16 +12241,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:73
               |vpiArgument:
-              \_ref_obj: (C::E), line:51:60, endln:51:68
+              \_ref_obj: (work@top.C::E), line:51:60, endln:51:70
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:54, endln:51:72
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:73
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:52
               |vpiParent:
@@ -12087,16 +12265,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:73
               |vpiArgument:
-              \_ref_obj: (C::T), line:52:60, endln:52:68
+              \_ref_obj: (work@top.C::T), line:52:60, endln:52:70
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:54, endln:52:72
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:68
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:49
               |vpiParent:
@@ -12125,7 +12304,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:68
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:49
               |vpiParent:
@@ -12153,26 +12332,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:69, endln:56:71
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:69, endln:57:71
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:78, endln:58:80
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:78, endln:59:80
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:84, endln:60:86
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:84, endln:61:86
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
   |vpiGenStmt:
@@ -12180,46 +12371,72 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:52
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::E), line:44:35, endln:44:51
+        \_ref_obj: (work@top.C::E), line:44:35, endln:44:51
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:52
           |vpiName:C::E
+          |vpiFullName:work@top.C::E
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:52
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:52
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:52
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:57
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::T), line:45:40, endln:45:56
+        \_ref_obj: (work@top.C::T), line:45:40, endln:45:56
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:57
           |vpiName:C::T
+          |vpiFullName:work@top.C::T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:57
+        \_parameter: (work@top.the_type), line:45:29, endln:45:57
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:57
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:85
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:55
               |vpiParent:
@@ -12229,20 +12446,22 @@ design: (work@top)
               |STRING:C#(P::E, P::T)::E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:57, endln:48:65
+            \_ref_obj: (work@top.the_expr), line:48:57, endln:48:65
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:85
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
-            \_ref_obj: (C::E), line:48:67, endln:48:81
+            \_ref_obj: (work@top.C::E), line:48:67, endln:48:83
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:85
               |vpiName:C::E
+              |vpiFullName:work@top.C::E
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:106
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:62
               |vpiParent:
@@ -12256,26 +12475,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:106
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:70, endln:49:78
+              \_ref_obj: (work@top.the_expr), line:49:70, endln:49:78
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:64, endln:49:79
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:81, endln:49:105
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:106
               |vpiArgument:
-              \_ref_obj: (C::E), line:49:87, endln:49:101
+              \_ref_obj: (work@top.C::E), line:49:87, endln:49:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:81, endln:49:105
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:106
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:62
               |vpiParent:
@@ -12289,26 +12510,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:106
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:70, endln:50:78
+              \_ref_obj: (work@top.the_type), line:50:70, endln:50:78
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:64, endln:50:79
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:81, endln:50:105
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:106
               |vpiArgument:
-              \_ref_obj: (C::T), line:50:87, endln:50:101
+              \_ref_obj: (work@top.C::T), line:50:87, endln:50:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:81, endln:50:105
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:85
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:58
               |vpiParent:
@@ -12322,16 +12545,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:85
               |vpiArgument:
-              \_ref_obj: (C::E), line:51:66, endln:51:80
+              \_ref_obj: (work@top.C::E), line:51:66, endln:51:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:60, endln:51:84
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:85
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:58
               |vpiParent:
@@ -12345,16 +12569,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:85
               |vpiArgument:
-              \_ref_obj: (C::T), line:52:66, endln:52:80
+              \_ref_obj: (work@top.C::T), line:52:66, endln:52:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:60, endln:52:84
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:80
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:55
               |vpiParent:
@@ -12383,7 +12608,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:80
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:55
               |vpiParent:
@@ -12411,26 +12636,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:87, endln:56:89
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:87, endln:57:89
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:96, endln:58:98
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:96, endln:59:98
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:102, endln:60:104
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:102, endln:61:104
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
   |vpiGenStmt:
@@ -12438,46 +12675,72 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:66
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::E), line:44:35, endln:44:65
+        \_ref_obj: (work@top.C::E), line:44:35, endln:44:65
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:66
           |vpiName:C::E
+          |vpiFullName:work@top.C::E
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:66
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:66
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:66
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:71
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::T), line:45:40, endln:45:70
+        \_ref_obj: (work@top.C::T), line:45:40, endln:45:70
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:71
           |vpiName:C::T
+          |vpiFullName:work@top.C::T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:71
+        \_parameter: (work@top.the_type), line:45:29, endln:45:71
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:71
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:113
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:69
               |vpiParent:
@@ -12487,20 +12750,22 @@ design: (work@top)
               |STRING:C#(C#(E, T)::E, C#(E, T)::T)::E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:71, endln:48:79
+            \_ref_obj: (work@top.the_expr), line:48:71, endln:48:79
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:113
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
-            \_ref_obj: (C::E), line:48:81, endln:48:109
+            \_ref_obj: (work@top.C::E), line:48:81, endln:48:111
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:113
               |vpiName:C::E
+              |vpiFullName:work@top.C::E
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:134
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:76
               |vpiParent:
@@ -12514,26 +12779,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:134
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:84, endln:49:92
+              \_ref_obj: (work@top.the_expr), line:49:84, endln:49:92
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:78, endln:49:93
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:95, endln:49:133
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:134
               |vpiArgument:
-              \_ref_obj: (C::E), line:49:101, endln:49:129
+              \_ref_obj: (work@top.C::E), line:49:101, endln:49:131
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:95, endln:49:133
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:134
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:76
               |vpiParent:
@@ -12547,26 +12814,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:134
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:84, endln:50:92
+              \_ref_obj: (work@top.the_type), line:50:84, endln:50:92
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:78, endln:50:93
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:95, endln:50:133
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:134
               |vpiArgument:
-              \_ref_obj: (C::T), line:50:101, endln:50:129
+              \_ref_obj: (work@top.C::T), line:50:101, endln:50:131
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:95, endln:50:133
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:113
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:72
               |vpiParent:
@@ -12580,16 +12849,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:113
               |vpiArgument:
-              \_ref_obj: (C::E), line:51:80, endln:51:108
+              \_ref_obj: (work@top.C::E), line:51:80, endln:51:110
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:74, endln:51:112
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:113
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:72
               |vpiParent:
@@ -12603,16 +12873,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:113
               |vpiArgument:
-              \_ref_obj: (C::T), line:52:80, endln:52:108
+              \_ref_obj: (work@top.C::T), line:52:80, endln:52:110
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:74, endln:52:112
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:108
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:69
               |vpiParent:
@@ -12641,7 +12912,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:108
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:69
               |vpiParent:
@@ -12669,26 +12940,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:129, endln:56:131
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:129, endln:57:131
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:138, endln:58:140
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:138, endln:59:140
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:144, endln:60:146
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:144, endln:61:146
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
   |vpiGenStmt:
@@ -12696,46 +12979,72 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:52
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::E), line:44:35, endln:44:51
+        \_ref_obj: (work@top.C::E), line:44:35, endln:44:51
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:52
           |vpiName:C::E
+          |vpiFullName:work@top.C::E
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:52
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:52
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:52
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:57
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::T), line:45:40, endln:45:56
+        \_ref_obj: (work@top.C::T), line:45:40, endln:45:56
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:57
           |vpiName:C::T
+          |vpiFullName:work@top.C::T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:57
+        \_parameter: (work@top.the_type), line:45:29, endln:45:57
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:57
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:85
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:55
               |vpiParent:
@@ -12745,20 +13054,22 @@ design: (work@top)
               |STRING:C#(E[1], T[2])::E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:57, endln:48:65
+            \_ref_obj: (work@top.the_expr), line:48:57, endln:48:65
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:85
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
-            \_ref_obj: (C::E), line:48:67, endln:48:81
+            \_ref_obj: (work@top.C::E), line:48:67, endln:48:83
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:85
               |vpiName:C::E
+              |vpiFullName:work@top.C::E
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:106
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:62
               |vpiParent:
@@ -12772,26 +13083,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:106
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:70, endln:49:78
+              \_ref_obj: (work@top.the_expr), line:49:70, endln:49:78
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:64, endln:49:79
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:81, endln:49:105
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:106
               |vpiArgument:
-              \_ref_obj: (C::E), line:49:87, endln:49:101
+              \_ref_obj: (work@top.C::E), line:49:87, endln:49:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:81, endln:49:105
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:106
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:62
               |vpiParent:
@@ -12805,26 +13118,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:106
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:70, endln:50:78
+              \_ref_obj: (work@top.the_type), line:50:70, endln:50:78
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:64, endln:50:79
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:81, endln:50:105
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:106
               |vpiArgument:
-              \_ref_obj: (C::T), line:50:87, endln:50:101
+              \_ref_obj: (work@top.C::T), line:50:87, endln:50:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:81, endln:50:105
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:85
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:58
               |vpiParent:
@@ -12838,16 +13153,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:85
               |vpiArgument:
-              \_ref_obj: (C::E), line:51:66, endln:51:80
+              \_ref_obj: (work@top.C::E), line:51:66, endln:51:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:60, endln:51:84
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:85
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:58
               |vpiParent:
@@ -12861,16 +13177,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:85
               |vpiArgument:
-              \_ref_obj: (C::T), line:52:66, endln:52:80
+              \_ref_obj: (work@top.C::T), line:52:66, endln:52:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:60, endln:52:84
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:80
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:55
               |vpiParent:
@@ -12899,7 +13216,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:80
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:55
               |vpiParent:
@@ -12927,26 +13244,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:87, endln:56:89
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:87, endln:57:89
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:96, endln:58:98
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:96, endln:59:98
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:102, endln:60:104
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:102, endln:61:104
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
   |vpiGenStmt:
@@ -12954,46 +13283,72 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiCondition:
-    \_ref_obj: (FLAG), line:43:13, endln:43:17
+    \_ref_obj: (work@top.FLAG), line:43:13, endln:43:17
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
       |vpiName:FLAG
+      |vpiFullName:work@top.FLAG
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:43:9, endln:43:11
+      |vpiFullName:work@top
       |vpiStmt:
       \_param_assign: , line:44:24, endln:44:56
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::E), line:44:35, endln:44:55
+        \_ref_obj: (work@top.C::E), line:44:35, endln:44:55
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:56
           |vpiName:C::E
+          |vpiFullName:work@top.C::E
         |vpiLhs:
-        \_parameter: (the_expr), line:44:24, endln:44:56
+        \_parameter: (work@top.the_expr), line:44:24, endln:44:56
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:56
           |vpiLocalParam:1
           |vpiName:the_expr
+          |vpiFullName:work@top.the_expr
       |vpiStmt:
       \_param_assign: , line:45:29, endln:45:61
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
-        \_ref_obj: (C::T), line:45:40, endln:45:60
+        \_ref_obj: (work@top.C::T), line:45:40, endln:45:60
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:61
           |vpiName:C::T
+          |vpiFullName:work@top.C::T
         |vpiLhs:
-        \_parameter: (the_type), line:45:29, endln:45:61
+        \_parameter: (work@top.the_type), line:45:29, endln:45:61
+          |vpiParent:
+          \_param_assign: , line:45:29, endln:45:61
           |vpiLocalParam:1
           |vpiName:the_type
+          |vpiFullName:work@top.the_type
       |vpiStmt:
       \_initial: , line:46:13, endln:55:16
+        |vpiParent:
+        \_begin: (work@top)
         |vpiStmt:
-        \_begin: , line:46:21, endln:55:16
+        \_begin: (work@top), line:46:21, endln:55:16
           |vpiParent:
           \_initial: , line:46:13, endln:55:16
+          |vpiFullName:work@top
           |vpiStmt:
           \_delay_control: , line:47:17, endln:47:26
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiDelay:
-            \_ref_obj: 
+            \_ref_obj: (work@top)
               |vpiParent:
-              \_begin: , line:46:21, endln:55:16
+              \_begin: (work@top), line:46:21, endln:55:16
+              |vpiFullName:work@top
           |vpiStmt:
           \_sys_func_call: ($display), line:48:17, endln:48:93
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:48:26, endln:48:59
               |vpiParent:
@@ -13003,20 +13358,22 @@ design: (work@top)
               |STRING:C#(E[2:0], T[2:0])::E = %0d %0d
               |vpiConstType:6
             |vpiArgument:
-            \_ref_obj: (the_expr), line:48:61, endln:48:69
+            \_ref_obj: (work@top.the_expr), line:48:61, endln:48:69
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:93
               |vpiName:the_expr
+              |vpiFullName:work@top.the_expr
             |vpiArgument:
-            \_ref_obj: (C::E), line:48:71, endln:48:89
+            \_ref_obj: (work@top.C::E), line:48:71, endln:48:91
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:93
               |vpiName:C::E
+              |vpiFullName:work@top.C::E
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:49:17, endln:49:114
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:49:26, endln:49:66
               |vpiParent:
@@ -13030,26 +13387,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:114
               |vpiArgument:
-              \_ref_obj: (the_expr), line:49:74, endln:49:82
+              \_ref_obj: (work@top.the_expr), line:49:74, endln:49:82
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:68, endln:49:83
                 |vpiName:the_expr
+                |vpiFullName:work@top.the_expr
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:49:85, endln:49:113
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:114
               |vpiArgument:
-              \_ref_obj: (C::E), line:49:91, endln:49:109
+              \_ref_obj: (work@top.C::E), line:49:91, endln:49:111
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:85, endln:49:113
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:50:17, endln:50:114
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:50:26, endln:50:66
               |vpiParent:
@@ -13063,26 +13422,28 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:114
               |vpiArgument:
-              \_ref_obj: (the_type), line:50:74, endln:50:82
+              \_ref_obj: (work@top.the_type), line:50:74, endln:50:82
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:68, endln:50:83
                 |vpiName:the_type
+                |vpiFullName:work@top.the_type
               |vpiName:$bits
             |vpiArgument:
             \_sys_func_call: ($bits), line:50:85, endln:50:113
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:114
               |vpiArgument:
-              \_ref_obj: (C::T), line:50:91, endln:50:109
+              \_ref_obj: (work@top.C::T), line:50:91, endln:50:111
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:85, endln:50:113
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$bits
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:51:17, endln:51:93
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:51:26, endln:51:62
               |vpiParent:
@@ -13096,16 +13457,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:93
               |vpiArgument:
-              \_ref_obj: (C::E), line:51:70, endln:51:88
+              \_ref_obj: (work@top.C::E), line:51:70, endln:51:90
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:64, endln:51:92
                 |vpiName:C::E
+                |vpiFullName:work@top.C::E
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:52:17, endln:52:93
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:52:26, endln:52:62
               |vpiParent:
@@ -13119,16 +13481,17 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:93
               |vpiArgument:
-              \_ref_obj: (C::T), line:52:70, endln:52:88
+              \_ref_obj: (work@top.C::T), line:52:70, endln:52:90
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:64, endln:52:92
                 |vpiName:C::T
+                |vpiFullName:work@top.C::T
               |vpiName:$left
             |vpiName:$display
           |vpiStmt:
           \_sys_func_call: ($display), line:53:17, endln:53:88
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:53:26, endln:53:59
               |vpiParent:
@@ -13157,7 +13520,7 @@ design: (work@top)
           |vpiStmt:
           \_sys_func_call: ($display), line:54:17, endln:54:88
             |vpiParent:
-            \_begin: , line:46:21, endln:55:16
+            \_begin: (work@top), line:46:21, endln:55:16
             |vpiArgument:
             \_constant: , line:54:26, endln:54:59
               |vpiParent:
@@ -13185,26 +13548,38 @@ design: (work@top)
             |vpiName:$display
       |vpiStmt:
       \_ref_module: work@I (i1), line:56:99, endln:56:101
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i1
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m1), line:57:99, endln:57:101
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m1
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i2), line:58:108, endln:58:110
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i2
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m2), line:59:108, endln:59:110
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m2
         |vpiDefName:work@M
       |vpiStmt:
       \_ref_module: work@I (i3), line:60:114, endln:60:116
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:i3
         |vpiDefName:work@I
       |vpiStmt:
       \_ref_module: work@M (m3), line:61:114, endln:61:116
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:m3
         |vpiDefName:work@M
 |uhdmtopModules:
@@ -13241,6 +13616,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiRhs:
     \_constant: , line:37:22, endln:37:23
+      |vpiParent:
+      \_param_assign: , line:37:15, endln:37:23
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -13255,6 +13632,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:36:1, endln:74:10
     |vpiRhs:
     \_constant: , line:39:20, endln:39:21
+      |vpiParent:
+      \_param_assign: , line:39:16, endln:39:21
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -13307,6 +13686,8 @@ design: (work@top)
         \_gen_scope: (work@top.genblk1)
         |vpiRhs:
         \_constant: , line:44:35, endln:44:36
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:36
           |vpiDecompile:3
           |vpiSize:32
           |UINT:3
@@ -13587,6 +13968,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:2
             |vpiSize:64
             |INT:2
@@ -13600,6 +13983,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -13611,6 +13996,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -13622,6 +14009,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:18:15, endln:18:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -13746,6 +14135,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:4
             |vpiSize:64
             |INT:4
@@ -13759,6 +14150,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -13770,6 +14163,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -13783,6 +14178,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:18:15, endln:18:16
             |vpiDecompile:1'b0
             |vpiSize:1
             |BIN:0
@@ -13907,6 +14304,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:6
             |vpiSize:64
             |INT:6
@@ -13920,6 +14319,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -13931,6 +14332,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -13944,6 +14347,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:18:15, endln:18:16
             |vpiDecompile:7'b0000011
             |vpiSize:7
             |BIN:0000011
@@ -14068,6 +14473,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
@@ -14085,6 +14492,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -14100,6 +14509,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -14115,6 +14526,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -14243,6 +14656,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:3
             |vpiSize:64
             |INT:3
@@ -14260,6 +14675,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -14275,6 +14692,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -14292,6 +14711,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -14420,6 +14841,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:5
             |vpiSize:64
             |INT:5
@@ -14437,6 +14860,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -14452,6 +14877,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -14469,6 +14896,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -14599,6 +15028,8 @@ design: (work@top)
         \_gen_scope: (work@top.genblk2)
         |vpiRhs:
         \_constant: , line:44:35, endln:44:39
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:39
           |vpiDecompile:2
           |vpiSize:32
           |UINT:2
@@ -14881,6 +15312,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:12
             |vpiSize:64
             |INT:12
@@ -14894,6 +15327,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:P::
             |vpiSize:24
             |STRING:P::
@@ -14907,6 +15342,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -14918,6 +15355,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:18:15, endln:18:16
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -15042,6 +15481,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:14
             |vpiSize:64
             |INT:14
@@ -15055,6 +15496,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:P::
             |vpiSize:24
             |STRING:P::
@@ -15068,6 +15511,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -15198,6 +15643,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:16
             |vpiSize:64
             |INT:16
@@ -15211,6 +15658,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:P::
             |vpiSize:24
             |STRING:P::
@@ -15224,6 +15673,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -15237,6 +15688,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:18:15, endln:18:16
             |vpiDecompile:7'b0000010
             |vpiSize:7
             |BIN:0000010
@@ -15361,6 +15814,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:11
             |vpiSize:64
             |INT:11
@@ -15378,6 +15833,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:P::
             |vpiSize:24
             |STRING:P::
@@ -15395,6 +15852,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -15410,6 +15869,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -15538,6 +15999,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:13
             |vpiSize:64
             |INT:13
@@ -15555,6 +16018,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:P::
             |vpiSize:24
             |STRING:P::
@@ -15572,6 +16037,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -15588,6 +16055,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk2.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:62
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -15716,6 +16185,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:15
             |vpiSize:64
             |INT:15
@@ -15733,6 +16204,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:P::
             |vpiSize:24
             |STRING:P::
@@ -15750,6 +16223,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -15767,6 +16242,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -15937,7 +16414,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (work@top.genblk3.the_expr), line:44:24, endln:44:32
             |vpiArgument:
-            \_ref_obj: (work@top.genblk3.C::E), line:48:57, endln:48:61
+            \_ref_obj: (work@top.genblk3.C::E), line:48:57, endln:48:63
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:65
               |vpiName:C::E
@@ -15973,7 +16450,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:86
               |vpiArgument:
-              \_ref_obj: (work@top.genblk3.C::E), line:49:77, endln:49:81
+              \_ref_obj: (work@top.genblk3.C::E), line:49:77, endln:49:83
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:71, endln:49:85
                 |vpiName:C::E
@@ -16010,7 +16487,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:86
               |vpiArgument:
-              \_ref_obj: (work@top.genblk3.C::T), line:50:77, endln:50:81
+              \_ref_obj: (work@top.genblk3.C::T), line:50:77, endln:50:83
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:71, endln:50:85
                 |vpiName:C::T
@@ -16034,7 +16511,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:65
               |vpiArgument:
-              \_ref_obj: (work@top.genblk3.C::E), line:51:56, endln:51:60
+              \_ref_obj: (work@top.genblk3.C::E), line:51:56, endln:51:62
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:50, endln:51:64
                 |vpiName:C::E
@@ -16058,7 +16535,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:65
               |vpiArgument:
-              \_ref_obj: (work@top.genblk3.C::T), line:52:56, endln:52:60
+              \_ref_obj: (work@top.genblk3.C::T), line:52:56, endln:52:62
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:50, endln:52:64
                 |vpiName:C::T
@@ -16162,6 +16639,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:22
             |vpiSize:64
             |INT:22
@@ -16175,6 +16654,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#()::
             |vpiSize:48
             |STRING:C#()::
@@ -16188,6 +16669,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -16316,6 +16799,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:24
             |vpiSize:64
             |INT:24
@@ -16329,6 +16814,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#()::
             |vpiSize:48
             |STRING:C#()::
@@ -16342,6 +16829,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -16472,6 +16961,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:26
             |vpiSize:64
             |INT:26
@@ -16485,6 +16976,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#()::
             |vpiSize:48
             |STRING:C#()::
@@ -16498,6 +16991,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -16628,6 +17123,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:21
             |vpiSize:64
             |INT:21
@@ -16645,6 +17142,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#()::
             |vpiSize:48
             |STRING:C#()::
@@ -16662,6 +17161,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -16676,6 +17177,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk3.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:62
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -16804,6 +17307,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:23
             |vpiSize:64
             |INT:23
@@ -16821,6 +17326,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#()::
             |vpiSize:48
             |STRING:C#()::
@@ -16838,6 +17345,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -16854,6 +17363,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk3.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:71
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -16982,6 +17493,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:25
             |vpiSize:64
             |INT:25
@@ -16999,6 +17512,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#()::
             |vpiSize:48
             |STRING:C#()::
@@ -17016,6 +17531,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -17032,6 +17549,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk3.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:77
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -17202,7 +17721,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (work@top.genblk4.the_expr), line:44:24, endln:44:32
             |vpiArgument:
-            \_ref_obj: (work@top.genblk4.C::E), line:48:61, endln:48:69
+            \_ref_obj: (work@top.genblk4.C::E), line:48:61, endln:48:71
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:73
               |vpiName:C::E
@@ -17238,7 +17757,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:94
               |vpiArgument:
-              \_ref_obj: (work@top.genblk4.C::E), line:49:81, endln:49:89
+              \_ref_obj: (work@top.genblk4.C::E), line:49:81, endln:49:91
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:75, endln:49:93
                 |vpiName:C::E
@@ -17275,7 +17794,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:94
               |vpiArgument:
-              \_ref_obj: (work@top.genblk4.C::T), line:50:81, endln:50:89
+              \_ref_obj: (work@top.genblk4.C::T), line:50:81, endln:50:91
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:75, endln:50:93
                 |vpiName:C::T
@@ -17299,7 +17818,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:73
               |vpiArgument:
-              \_ref_obj: (work@top.genblk4.C::E), line:51:60, endln:51:68
+              \_ref_obj: (work@top.genblk4.C::E), line:51:60, endln:51:70
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:54, endln:51:72
                 |vpiName:C::E
@@ -17323,7 +17842,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:73
               |vpiArgument:
-              \_ref_obj: (work@top.genblk4.C::T), line:52:60, endln:52:68
+              \_ref_obj: (work@top.genblk4.C::T), line:52:60, endln:52:70
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:54, endln:52:72
                 |vpiName:C::T
@@ -17427,6 +17946,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:32
             |vpiSize:64
             |INT:32
@@ -17440,6 +17961,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E, T)::
             |vpiSize:80
             |STRING:C#(E, T)::
@@ -17453,6 +17976,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -17581,6 +18106,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:34
             |vpiSize:64
             |INT:34
@@ -17594,6 +18121,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E, T)::
             |vpiSize:80
             |STRING:C#(E, T)::
@@ -17607,6 +18136,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -17737,6 +18268,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:36
             |vpiSize:64
             |INT:36
@@ -17750,6 +18283,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E, T)::
             |vpiSize:80
             |STRING:C#(E, T)::
@@ -17763,6 +18298,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -17893,6 +18430,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:31
             |vpiSize:64
             |INT:31
@@ -17910,6 +18449,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E, T)::
             |vpiSize:80
             |STRING:C#(E, T)::
@@ -17927,6 +18468,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -17941,6 +18484,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk4.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:74
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -18069,6 +18614,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:33
             |vpiSize:64
             |INT:33
@@ -18086,6 +18633,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E, T)::
             |vpiSize:80
             |STRING:C#(E, T)::
@@ -18103,6 +18652,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -18119,6 +18670,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk4.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:83
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -18247,6 +18800,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:35
             |vpiSize:64
             |INT:35
@@ -18264,6 +18819,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E, T)::
             |vpiSize:80
             |STRING:C#(E, T)::
@@ -18281,6 +18838,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -18297,6 +18856,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk4.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:89
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -18467,7 +19028,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (work@top.genblk5.the_expr), line:44:24, endln:44:32
             |vpiArgument:
-            \_ref_obj: (work@top.genblk5.C::E), line:48:67, endln:48:81
+            \_ref_obj: (work@top.genblk5.C::E), line:48:67, endln:48:83
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:85
               |vpiName:C::E
@@ -18503,7 +19064,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:106
               |vpiArgument:
-              \_ref_obj: (work@top.genblk5.C::E), line:49:87, endln:49:101
+              \_ref_obj: (work@top.genblk5.C::E), line:49:87, endln:49:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:81, endln:49:105
                 |vpiName:C::E
@@ -18540,7 +19101,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:106
               |vpiArgument:
-              \_ref_obj: (work@top.genblk5.C::T), line:50:87, endln:50:101
+              \_ref_obj: (work@top.genblk5.C::T), line:50:87, endln:50:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:81, endln:50:105
                 |vpiName:C::T
@@ -18564,7 +19125,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:85
               |vpiArgument:
-              \_ref_obj: (work@top.genblk5.C::E), line:51:66, endln:51:80
+              \_ref_obj: (work@top.genblk5.C::E), line:51:66, endln:51:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:60, endln:51:84
                 |vpiName:C::E
@@ -18588,7 +19149,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:85
               |vpiArgument:
-              \_ref_obj: (work@top.genblk5.C::T), line:52:66, endln:52:80
+              \_ref_obj: (work@top.genblk5.C::T), line:52:66, endln:52:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:60, endln:52:84
                 |vpiName:C::T
@@ -18692,6 +19253,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:42
             |vpiSize:64
             |INT:42
@@ -18705,6 +19268,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(P::E, P::T)::
             |vpiSize:128
             |STRING:C#(P::E, P::T)::
@@ -18718,6 +19283,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -18846,6 +19413,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:44
             |vpiSize:64
             |INT:44
@@ -18859,6 +19428,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(P::E, P::T)::
             |vpiSize:128
             |STRING:C#(P::E, P::T)::
@@ -18872,6 +19443,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -19002,6 +19575,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:46
             |vpiSize:64
             |INT:46
@@ -19015,6 +19590,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(P::E, P::T)::
             |vpiSize:128
             |STRING:C#(P::E, P::T)::
@@ -19028,6 +19605,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -19158,6 +19737,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:41
             |vpiSize:64
             |INT:41
@@ -19175,6 +19756,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(P::E, P::T)::
             |vpiSize:128
             |STRING:C#(P::E, P::T)::
@@ -19192,6 +19775,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -19206,6 +19791,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk5.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:92
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -19334,6 +19921,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:43
             |vpiSize:64
             |INT:43
@@ -19351,6 +19940,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(P::E, P::T)::
             |vpiSize:128
             |STRING:C#(P::E, P::T)::
@@ -19368,6 +19959,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -19384,6 +19977,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk5.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:101
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -19512,6 +20107,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:45
             |vpiSize:64
             |INT:45
@@ -19529,6 +20126,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(P::E, P::T)::
             |vpiSize:128
             |STRING:C#(P::E, P::T)::
@@ -19546,6 +20145,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -19562,6 +20163,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk5.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:107
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -19732,7 +20335,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (work@top.genblk6.the_expr), line:44:24, endln:44:32
             |vpiArgument:
-            \_ref_obj: (work@top.genblk6.C::E), line:48:81, endln:48:109
+            \_ref_obj: (work@top.genblk6.C::E), line:48:81, endln:48:111
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:113
               |vpiName:C::E
@@ -19768,7 +20371,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:134
               |vpiArgument:
-              \_ref_obj: (work@top.genblk6.C::E), line:49:101, endln:49:129
+              \_ref_obj: (work@top.genblk6.C::E), line:49:101, endln:49:131
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:95, endln:49:133
                 |vpiName:C::E
@@ -19805,7 +20408,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:134
               |vpiArgument:
-              \_ref_obj: (work@top.genblk6.C::T), line:50:101, endln:50:129
+              \_ref_obj: (work@top.genblk6.C::T), line:50:101, endln:50:131
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:95, endln:50:133
                 |vpiName:C::T
@@ -19829,7 +20432,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:113
               |vpiArgument:
-              \_ref_obj: (work@top.genblk6.C::E), line:51:80, endln:51:108
+              \_ref_obj: (work@top.genblk6.C::E), line:51:80, endln:51:110
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:74, endln:51:112
                 |vpiName:C::E
@@ -19853,7 +20456,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:113
               |vpiArgument:
-              \_ref_obj: (work@top.genblk6.C::T), line:52:80, endln:52:108
+              \_ref_obj: (work@top.genblk6.C::T), line:52:80, endln:52:110
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:74, endln:52:112
                 |vpiName:C::T
@@ -19957,6 +20560,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:52
             |vpiSize:64
             |INT:52
@@ -19970,6 +20575,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(C#(E, T)::E, C#(E, T)::T)::
             |vpiSize:240
             |STRING:C#(C#(E, T)::E, C#(E, T)::T)::
@@ -19983,6 +20590,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -20111,6 +20720,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:54
             |vpiSize:64
             |INT:54
@@ -20124,6 +20735,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(C#(E, T)::E, C#(E, T)::T)::
             |vpiSize:240
             |STRING:C#(C#(E, T)::E, C#(E, T)::T)::
@@ -20137,6 +20750,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -20267,6 +20882,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:56
             |vpiSize:64
             |INT:56
@@ -20280,6 +20897,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(C#(E, T)::E, C#(E, T)::T)::
             |vpiSize:240
             |STRING:C#(C#(E, T)::E, C#(E, T)::T)::
@@ -20293,6 +20912,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -20423,6 +21044,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:51
             |vpiSize:64
             |INT:51
@@ -20440,6 +21063,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(C#(E, T)::E, C#(E, T)::T)::
             |vpiSize:240
             |STRING:C#(C#(E, T)::E, C#(E, T)::T)::
@@ -20457,6 +21082,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -20471,6 +21098,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk6.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:134
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -20599,6 +21228,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:53
             |vpiSize:64
             |INT:53
@@ -20616,6 +21247,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(C#(E, T)::E, C#(E, T)::T)::
             |vpiSize:240
             |STRING:C#(C#(E, T)::E, C#(E, T)::T)::
@@ -20633,6 +21266,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -20649,6 +21284,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk6.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:143
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -20777,6 +21414,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:55
             |vpiSize:64
             |INT:55
@@ -20794,6 +21433,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(C#(E, T)::E, C#(E, T)::T)::
             |vpiSize:240
             |STRING:C#(C#(E, T)::E, C#(E, T)::T)::
@@ -20811,6 +21452,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -20827,6 +21470,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk6.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:149
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -20997,7 +21642,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (work@top.genblk7.the_expr), line:44:24, endln:44:32
             |vpiArgument:
-            \_ref_obj: (work@top.genblk7.C::E), line:48:67, endln:48:81
+            \_ref_obj: (work@top.genblk7.C::E), line:48:67, endln:48:83
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:85
               |vpiName:C::E
@@ -21033,7 +21678,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:106
               |vpiArgument:
-              \_ref_obj: (work@top.genblk7.C::E), line:49:87, endln:49:101
+              \_ref_obj: (work@top.genblk7.C::E), line:49:87, endln:49:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:81, endln:49:105
                 |vpiName:C::E
@@ -21070,7 +21715,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:106
               |vpiArgument:
-              \_ref_obj: (work@top.genblk7.C::T), line:50:87, endln:50:101
+              \_ref_obj: (work@top.genblk7.C::T), line:50:87, endln:50:103
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:81, endln:50:105
                 |vpiName:C::T
@@ -21094,7 +21739,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:85
               |vpiArgument:
-              \_ref_obj: (work@top.genblk7.C::E), line:51:66, endln:51:80
+              \_ref_obj: (work@top.genblk7.C::E), line:51:66, endln:51:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:60, endln:51:84
                 |vpiName:C::E
@@ -21118,7 +21763,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:85
               |vpiArgument:
-              \_ref_obj: (work@top.genblk7.C::T), line:52:66, endln:52:80
+              \_ref_obj: (work@top.genblk7.C::T), line:52:66, endln:52:82
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:60, endln:52:84
                 |vpiName:C::T
@@ -21222,6 +21867,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:62
             |vpiSize:64
             |INT:62
@@ -21235,6 +21882,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E[1], T[2])::
             |vpiSize:128
             |STRING:C#(E[1], T[2])::
@@ -21248,6 +21897,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -21376,6 +22027,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:64
             |vpiSize:64
             |INT:64
@@ -21389,6 +22042,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E[1], T[2])::
             |vpiSize:128
             |STRING:C#(E[1], T[2])::
@@ -21402,6 +22057,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -21532,6 +22189,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:66
             |vpiSize:64
             |INT:66
@@ -21545,6 +22204,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E[1], T[2])::
             |vpiSize:128
             |STRING:C#(E[1], T[2])::
@@ -21558,6 +22219,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -21688,6 +22351,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:61
             |vpiSize:64
             |INT:61
@@ -21705,6 +22370,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E[1], T[2])::
             |vpiSize:128
             |STRING:C#(E[1], T[2])::
@@ -21722,6 +22389,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -21736,6 +22405,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk7.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:92
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -21864,6 +22535,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:63
             |vpiSize:64
             |INT:63
@@ -21881,6 +22554,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E[1], T[2])::
             |vpiSize:128
             |STRING:C#(E[1], T[2])::
@@ -21898,6 +22573,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -21914,6 +22591,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk7.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:101
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -22042,6 +22721,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:65
             |vpiSize:64
             |INT:65
@@ -22059,6 +22740,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E[1], T[2])::
             |vpiSize:128
             |STRING:C#(E[1], T[2])::
@@ -22076,6 +22759,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -22092,6 +22777,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk7.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:107
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -22262,7 +22949,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (work@top.genblk8.the_expr), line:44:24, endln:44:32
             |vpiArgument:
-            \_ref_obj: (work@top.genblk8.C::E), line:48:71, endln:48:89
+            \_ref_obj: (work@top.genblk8.C::E), line:48:71, endln:48:91
               |vpiParent:
               \_sys_func_call: ($display), line:48:17, endln:48:93
               |vpiName:C::E
@@ -22298,7 +22985,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:49:17, endln:49:114
               |vpiArgument:
-              \_ref_obj: (work@top.genblk8.C::E), line:49:91, endln:49:109
+              \_ref_obj: (work@top.genblk8.C::E), line:49:91, endln:49:111
                 |vpiParent:
                 \_sys_func_call: ($bits), line:49:85, endln:49:113
                 |vpiName:C::E
@@ -22335,7 +23022,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:50:17, endln:50:114
               |vpiArgument:
-              \_ref_obj: (work@top.genblk8.C::T), line:50:91, endln:50:109
+              \_ref_obj: (work@top.genblk8.C::T), line:50:91, endln:50:111
                 |vpiParent:
                 \_sys_func_call: ($bits), line:50:85, endln:50:113
                 |vpiName:C::T
@@ -22359,7 +23046,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:51:17, endln:51:93
               |vpiArgument:
-              \_ref_obj: (work@top.genblk8.C::E), line:51:70, endln:51:88
+              \_ref_obj: (work@top.genblk8.C::E), line:51:70, endln:51:90
                 |vpiParent:
                 \_sys_func_call: ($left), line:51:64, endln:51:92
                 |vpiName:C::E
@@ -22383,7 +23070,7 @@ design: (work@top)
               |vpiParent:
               \_sys_func_call: ($display), line:52:17, endln:52:93
               |vpiArgument:
-              \_ref_obj: (work@top.genblk8.C::T), line:52:70, endln:52:88
+              \_ref_obj: (work@top.genblk8.C::T), line:52:70, endln:52:90
                 |vpiParent:
                 \_sys_func_call: ($left), line:52:64, endln:52:92
                 |vpiName:C::T
@@ -22487,6 +23174,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:72
             |vpiSize:64
             |INT:72
@@ -22500,6 +23189,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E[2:0], T[2:0])::
             |vpiSize:160
             |STRING:C#(E[2:0], T[2:0])::
@@ -22513,6 +23204,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -22641,6 +23334,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:74
             |vpiSize:64
             |INT:74
@@ -22654,6 +23349,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E[2:0], T[2:0])::
             |vpiSize:160
             |STRING:C#(E[2:0], T[2:0])::
@@ -22667,6 +23364,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -22797,6 +23496,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:15:15, endln:15:20
             |vpiDecompile:76
             |vpiSize:64
             |INT:76
@@ -22810,6 +23511,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:16:15, endln:16:21
             |vpiDecompile:C#(E[2:0], T[2:0])::
             |vpiSize:160
             |STRING:C#(E[2:0], T[2:0])::
@@ -22823,6 +23526,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:17:15, endln:17:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -22953,6 +23658,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:71
             |vpiSize:64
             |INT:71
@@ -22970,6 +23677,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E[2:0], T[2:0])::
             |vpiSize:160
             |STRING:C#(E[2:0], T[2:0])::
@@ -22987,6 +23696,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |STRING:
             |vpiConstType:6
           |vpiLhs:
@@ -23001,6 +23712,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk8.i1), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:56:13, endln:56:104
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -23129,6 +23842,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:73
             |vpiSize:64
             |INT:73
@@ -23146,6 +23861,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E[2:0], T[2:0])::
             |vpiSize:160
             |STRING:C#(E[2:0], T[2:0])::
@@ -23163,6 +23880,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6]
             |vpiSize:24
             |STRING:[6]
@@ -23179,6 +23898,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk8.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:113
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3
@@ -23307,6 +24028,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:26:15, endln:26:20
             |vpiDecompile:75
             |vpiSize:64
             |INT:75
@@ -23324,6 +24047,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:27:15, endln:27:21
             |vpiDecompile:C#(E[2:0], T[2:0])::
             |vpiSize:160
             |STRING:C#(E[2:0], T[2:0])::
@@ -23341,6 +24066,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:28:15, endln:28:21
             |vpiDecompile:[6:0]
             |vpiSize:40
             |STRING:[6:0]
@@ -23357,6 +24084,8 @@ design: (work@top)
           \_interface_inst: work@I (work@top.genblk8.i3), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:60:13, endln:60:119
           |vpiRhs:
           \_constant: 
+            |vpiParent:
+            \_param_assign: , line:29:15, endln:29:16
             |vpiDecompile:3
             |vpiSize:32
             |UINT:3

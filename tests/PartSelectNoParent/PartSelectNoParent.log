@@ -266,7 +266,7 @@ logic_typespec                                         3
 module_inst                                            6
 named_begin                                            1
 operation                                              6
-package                                                3
+package                                                2
 param_assign                                          18
 parameter                                             21
 part_select                                            1
@@ -298,7 +298,7 @@ logic_typespec                                         3
 module_inst                                            6
 named_begin                                            2
 operation                                              8
-package                                                3
+package                                                2
 param_assign                                          18
 parameter                                             21
 part_select                                            2
@@ -379,6 +379,8 @@ design: (work@top)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -393,6 +395,8 @@ design: (work@top)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:3:29, endln:3:32
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32
       |vpiDecompile:256
       |vpiSize:32
       |UINT:256
@@ -407,6 +411,8 @@ design: (work@top)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -437,18 +443,18 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:13, endln:7:25
           |vpiParent:
-          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+          \_logic_typespec: , line:7:7, endln:7:39
           |vpiLeftRange:
           \_operation: , line:7:14, endln:7:22
             |vpiParent:
             \_range: , line:7:13, endln:7:25
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::Shares), line:7:14, endln:7:20
+            \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::key::Shares), line:7:14, endln:7:20
               |vpiParent:
               \_operation: , line:7:14, endln:7:22
               |vpiName:Shares
-              |vpiFullName:my_pkg::my_pkg::hw_key_req_t::Shares
+              |vpiFullName:my_pkg::my_pkg::hw_key_req_t::key::Shares
               |vpiActual:
               \_parameter: (my_pkg::Shares), line:2:18, endln:2:24
             |vpiOperand:
@@ -470,18 +476,18 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:25, endln:7:39
           |vpiParent:
-          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+          \_logic_typespec: , line:7:7, endln:7:39
           |vpiLeftRange:
           \_operation: , line:7:26, endln:7:36
             |vpiParent:
             \_range: , line:7:25, endln:7:39
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::KeyWidth), line:7:26, endln:7:34
+            \_ref_obj: (my_pkg::my_pkg::hw_key_req_t::key::KeyWidth), line:7:26, endln:7:34
               |vpiParent:
               \_operation: , line:7:26, endln:7:36
               |vpiName:KeyWidth
-              |vpiFullName:my_pkg::my_pkg::hw_key_req_t::KeyWidth
+              |vpiFullName:my_pkg::my_pkg::hw_key_req_t::key::KeyWidth
               |vpiActual:
               \_parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26
             |vpiOperand:
@@ -563,6 +569,8 @@ design: (work@top)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -577,6 +585,8 @@ design: (work@top)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:3:29, endln:3:32
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32
       |vpiDecompile:256
       |vpiSize:32
       |UINT:256
@@ -591,6 +601,8 @@ design: (work@top)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -601,8 +613,6 @@ design: (work@top)
     \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28
   |vpiTypedef:
   \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiName:my_pkg::hw_key_req_t
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
@@ -621,7 +631,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:13, endln:7:25
           |vpiParent:
-          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+          \_logic_typespec: , line:7:7, endln:7:39
           |vpiLeftRange:
           \_constant: , line:7:14, endln:7:20
             |vpiParent:
@@ -641,7 +651,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:25, endln:7:39
           |vpiParent:
-          \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+          \_logic_typespec: , line:7:7, endln:7:39
           |vpiLeftRange:
           \_constant: , line:7:26, endln:7:34
             |vpiParent:
@@ -847,7 +857,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:11:23, endln:11:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:11:23, endln:11:24
     |vpiTypedef:
@@ -953,25 +967,25 @@ design: (work@top)
                 \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                 |vpiName:keymgr_key_i
               |vpiActual:
-              \_var_select: (work@top.key_sideload_get.key), line:16:27, endln:16:41
+              \_var_select: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:27, endln:16:41
                 |vpiParent:
-                \_assignment: , line:16:10, endln:16:41
+                \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                 |vpiName:key
-                |vpiFullName:work@top.key_sideload_get.key
+                |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key
                 |vpiIndex:
                 \_constant: , line:16:31, endln:16:32
                   |vpiParent:
-                  \_var_select: (work@top.key_sideload_get.key), line:16:27, endln:16:41
+                  \_var_select: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:27, endln:16:41
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
                   |vpiConstType:9
                 |vpiIndex:
-                \_part_select: key (work@top.key_sideload_get.key.key), line:16:34, endln:16:40
+                \_part_select: key (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key.key), line:16:34, endln:16:40
                   |vpiParent:
-                  \_var_select: (work@top.key_sideload_get.key), line:16:27, endln:16:41
+                  \_var_select: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:27, endln:16:41
                   |vpiName:key
-                  |vpiFullName:work@top.key_sideload_get.key.key
+                  |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key.key
                   |vpiDefName:key
                   |vpiConstantSelect:1
                   |vpiLeftRange:
@@ -993,7 +1007,7 @@ design: (work@top)
               |vpiName:o
               |vpiFullName:work@top.key_sideload_get.o
               |vpiActual:
-              \_int_var: (work@top.o), line:11:23, endln:11:24
+              \_logic_net: (work@top.o), line:11:23, endln:11:24
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
@@ -1004,6 +1018,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiTypespec:
     \_int_typespec: , line:11:19, endln:11:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:11:23, endln:11:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -1063,6 +1079,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:28
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1077,6 +1095,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiRhs:
     \_constant: , line:3:29, endln:3:32
+      |vpiParent:
+      \_param_assign: , line:3:18, endln:3:32
       |vpiDecompile:256
       |vpiSize:32
       |UINT:256
@@ -1091,6 +1111,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:32
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -1243,7 +1265,7 @@ design: (work@top)
               |vpiName:o
               |vpiFullName:work@top.key_sideload_get.o
               |vpiActual:
-              \_int_var: (work@top.o), line:11:23, endln:11:24
+              \_logic_net: (work@top.o), line:11:23, endln:11:24
     |vpiAlwaysType:2
   |vpiContAssign:
   \_cont_assign: , line:13:17, endln:13:29

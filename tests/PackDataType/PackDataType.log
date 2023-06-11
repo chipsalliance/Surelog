@@ -502,7 +502,7 @@ logic_typespec                                         7
 logic_var                                              2
 module_inst                                            9
 operation                                              7
-package                                                5
+package                                                4
 param_assign                                           6
 parameter                                              6
 port                                                   2
@@ -541,7 +541,7 @@ logic_typespec                                         7
 logic_var                                              2
 module_inst                                           10
 operation                                              7
-package                                                5
+package                                                4
 param_assign                                           6
 parameter                                              6
 port                                                   3
@@ -599,6 +599,8 @@ design: (work@kmac_keymgr)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiRhs:
     \_constant: , line:3:27, endln:3:30
+      |vpiParent:
+      \_param_assign: , line:3:16, endln:3:30
       |vpiDecompile:256
       |vpiSize:32
       |UINT:256
@@ -661,18 +663,18 @@ design: (work@kmac_keymgr)
         |vpiRange:
         \_range: , line:8:11, endln:8:26
           |vpiParent:
-          \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
+          \_logic_typespec: , line:8:5, endln:8:26
           |vpiLeftRange:
           \_operation: , line:8:12, endln:8:23
             |vpiParent:
             \_range: , line:8:11, endln:8:26
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_rsp_t::KeyWidth), line:8:12, endln:8:20
+            \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_rsp_t::digest_share0::KeyWidth), line:8:12, endln:8:20
               |vpiParent:
               \_operation: , line:8:12, endln:8:23
               |vpiName:KeyWidth
-              |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_rsp_t::KeyWidth
+              |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_rsp_t::digest_share0::KeyWidth
               |vpiActual:
               \_parameter: (keymgr_pkg::KeyWidth), line:3:16, endln:3:24
             |vpiOperand:
@@ -762,6 +764,8 @@ design: (work@kmac_keymgr)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:1:1, endln:11:11
     |vpiRhs:
     \_constant: , line:3:27, endln:3:30
+      |vpiParent:
+      \_param_assign: , line:3:16, endln:3:30
       |vpiDecompile:256
       |vpiSize:32
       |UINT:256
@@ -824,7 +828,7 @@ design: (work@kmac_keymgr)
         |vpiRange:
         \_range: , line:8:11, endln:8:26
           |vpiParent:
-          \_struct_typespec: (keymgr_pkg::kmac_data_rsp_t), line:5:10, endln:5:16
+          \_logic_typespec: , line:8:5, endln:8:26
           |vpiLeftRange:
           \_constant: , line:8:12, endln:8:20
             |vpiParent:
@@ -861,11 +865,14 @@ design: (work@kmac_keymgr)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackDataType/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -890,10 +897,13 @@ design: (work@kmac_keymgr)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -918,7 +928,10 @@ design: (work@kmac_keymgr)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -948,10 +961,13 @@ design: (work@kmac_keymgr)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -982,10 +998,13 @@ design: (work@kmac_keymgr)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1052,11 +1071,14 @@ design: (work@kmac_keymgr)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackDataType/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1066,7 +1088,9 @@ design: (work@kmac_keymgr)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1074,34 +1098,45 @@ design: (work@kmac_keymgr)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1147,11 +1182,14 @@ design: (work@kmac_keymgr)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackDataType/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1222,10 +1260,13 @@ design: (work@kmac_keymgr)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1273,6 +1314,8 @@ design: (work@kmac_keymgr)
     \_module_inst: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiRhs:
     \_constant: , line:18:33, endln:18:67
+      |vpiParent:
+      \_param_assign: , line:18:17, endln:18:67
       |vpiDecompile:247
       |vpiSize:32
       |UINT:247
@@ -1303,7 +1346,11 @@ design: (work@kmac_keymgr)
     |vpiName:keymgr_data_o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@kmac_keymgr.keymgr_data_o.keymgr_data_o)
+      |vpiParent:
+      \_port: (keymgr_data_o), line:16:55, endln:16:68
+      |vpiName:keymgr_data_o
+      |vpiFullName:work@kmac_keymgr.keymgr_data_o.keymgr_data_o
       |vpiActual:
       \_logic_net: (work@kmac_keymgr.keymgr_data_o), line:16:55, endln:16:68
     |vpiTypedef:
@@ -1314,12 +1361,15 @@ design: (work@kmac_keymgr)
     \_module_inst: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiCondition:
     \_operation: , line:19:6, endln:19:26
+      |vpiParent:
+      \_gen_if: , line:19:2, endln:19:4
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (KeyMgrDigestW), line:19:6, endln:19:19
+      \_ref_obj: (work@kmac_keymgr.KeyMgrDigestW), line:19:6, endln:19:19
         |vpiParent:
         \_operation: , line:19:6, endln:19:26
         |vpiName:KeyMgrDigestW
+        |vpiFullName:work@kmac_keymgr.KeyMgrDigestW
       |vpiOperand:
       \_constant: , line:19:23, endln:19:26
         |vpiParent:
@@ -1329,9 +1379,14 @@ design: (work@kmac_keymgr)
         |UINT:247
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@kmac_keymgr)
+      |vpiParent:
+      \_gen_if: , line:19:2, endln:19:4
+      |vpiFullName:work@kmac_keymgr
       |vpiStmt:
       \_ref_module: work@OK (ok), line:20:7, endln:20:9
+        |vpiParent:
+        \_begin: (work@kmac_keymgr)
         |vpiName:ok
         |vpiDefName:work@OK
 |uhdmtopModules:
@@ -1351,8 +1406,10 @@ design: (work@kmac_keymgr)
     |vpiArrayType:1
     |vpiRange:
     \_range: , line:22:43, endln:22:44
+      |vpiParent:
+      \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45
       |vpiLeftRange:
-      \_constant: , line:22:43, endln:22:44
+      \_constant: 
         |vpiParent:
         \_range: , line:22:43, endln:22:44
         |vpiDecompile:0
@@ -1366,6 +1423,8 @@ design: (work@kmac_keymgr)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:22:43, endln:22:44
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -1381,8 +1440,12 @@ design: (work@kmac_keymgr)
       \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45
       |vpiTypespec:
       \_logic_typespec: , line:22:2, endln:22:27
+        |vpiParent:
+        \_logic_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:41
         |vpiRange:
         \_range: , line:22:8, endln:22:27
+          |vpiParent:
+          \_logic_typespec: , line:22:2, endln:22:27
           |vpiLeftRange:
           \_constant: , line:22:9, endln:22:22
             |vpiParent:
@@ -1402,6 +1465,8 @@ design: (work@kmac_keymgr)
       |vpiFullName:work@kmac_keymgr.keymgr_digest
       |vpiRange:
       \_range: , line:22:8, endln:22:27
+        |vpiParent:
+        \_array_var: (work@kmac_keymgr.keymgr_digest), line:22:28, endln:22:45
         |vpiLeftRange:
         \_constant: , line:22:9, endln:22:22
           |vpiParent:
@@ -1438,6 +1503,8 @@ design: (work@kmac_keymgr)
     \_module_inst: work@kmac_keymgr (work@kmac_keymgr), file:${SURELOG_DIR}/tests/PackDataType/dut.sv, line:16:1, endln:24:10
     |vpiRhs:
     \_constant: , line:18:33, endln:18:67
+      |vpiParent:
+      \_param_assign: , line:18:17, endln:18:67
       |vpiDecompile:247
       |vpiSize:32
       |UINT:247

@@ -969,11 +969,14 @@ design: (work@carry_rtl)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CarryTrans/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -998,10 +1001,13 @@ design: (work@carry_rtl)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1026,7 +1032,10 @@ design: (work@carry_rtl)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -1056,10 +1065,13 @@ design: (work@carry_rtl)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1090,10 +1102,13 @@ design: (work@carry_rtl)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1160,11 +1175,14 @@ design: (work@carry_rtl)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CarryTrans/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1174,7 +1192,9 @@ design: (work@carry_rtl)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1182,34 +1202,45 @@ design: (work@carry_rtl)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1255,11 +1286,14 @@ design: (work@carry_rtl)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CarryTrans/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1330,10 +1364,13 @@ design: (work@carry_rtl)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1408,7 +1445,11 @@ design: (work@carry_rtl)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_gate.a.a)
+      |vpiParent:
+      \_port: (a), line:8:25, endln:8:26
+      |vpiName:a
+      |vpiFullName:work@carry_gate.a.a
       |vpiActual:
       \_logic_net: (work@carry_gate.a), line:8:25, endln:8:26
     |vpiTypedef:
@@ -1420,7 +1461,11 @@ design: (work@carry_rtl)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_gate.b.b)
+      |vpiParent:
+      \_port: (b), line:8:28, endln:8:29
+      |vpiName:b
+      |vpiFullName:work@carry_gate.b.b
       |vpiActual:
       \_logic_net: (work@carry_gate.b), line:8:28, endln:8:29
     |vpiTypedef:
@@ -1432,7 +1477,11 @@ design: (work@carry_rtl)
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_gate.c.c)
+      |vpiParent:
+      \_port: (c), line:8:31, endln:8:32
+      |vpiName:c
+      |vpiFullName:work@carry_gate.c.c
       |vpiActual:
       \_logic_net: (work@carry_gate.c), line:8:31, endln:8:32
     |vpiTypedef:
@@ -1444,7 +1493,11 @@ design: (work@carry_rtl)
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_gate.cout.cout)
+      |vpiParent:
+      \_port: (cout), line:9:12, endln:9:16
+      |vpiName:cout
+      |vpiFullName:work@carry_gate.cout.cout
       |vpiActual:
       \_logic_net: (work@carry_gate.cout), line:9:12, endln:9:16
     |vpiTypedef:
@@ -1696,7 +1749,11 @@ design: (work@carry_rtl)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_rtl.a.a)
+      |vpiParent:
+      \_port: (a), line:1:24, endln:1:25
+      |vpiName:a
+      |vpiFullName:work@carry_rtl.a.a
       |vpiActual:
       \_logic_net: (work@carry_rtl.a), line:1:24, endln:1:25
     |vpiTypedef:
@@ -1708,7 +1765,11 @@ design: (work@carry_rtl)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_rtl.b.b)
+      |vpiParent:
+      \_port: (b), line:1:27, endln:1:28
+      |vpiName:b
+      |vpiFullName:work@carry_rtl.b.b
       |vpiActual:
       \_logic_net: (work@carry_rtl.b), line:1:27, endln:1:28
     |vpiTypedef:
@@ -1720,7 +1781,11 @@ design: (work@carry_rtl)
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_rtl.c.c)
+      |vpiParent:
+      \_port: (c), line:1:30, endln:1:31
+      |vpiName:c
+      |vpiFullName:work@carry_rtl.c.c
       |vpiActual:
       \_logic_net: (work@carry_rtl.c), line:1:30, endln:1:31
     |vpiTypedef:
@@ -1732,7 +1797,11 @@ design: (work@carry_rtl)
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_rtl.cout.cout)
+      |vpiParent:
+      \_port: (cout), line:2:11, endln:2:15
+      |vpiName:cout
+      |vpiFullName:work@carry_rtl.cout.cout
       |vpiActual:
       \_logic_net: (work@carry_rtl.cout), line:2:11, endln:2:15
     |vpiTypedef:
@@ -1908,7 +1977,11 @@ design: (work@carry_rtl)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_trans.a.a)
+      |vpiParent:
+      \_port: (a), line:18:26, endln:18:27
+      |vpiName:a
+      |vpiFullName:work@carry_trans.a.a
       |vpiActual:
       \_logic_net: (work@carry_trans.a), line:18:26, endln:18:27
     |vpiTypedef:
@@ -1920,7 +1993,11 @@ design: (work@carry_rtl)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_trans.b.b)
+      |vpiParent:
+      \_port: (b), line:18:29, endln:18:30
+      |vpiName:b
+      |vpiFullName:work@carry_trans.b.b
       |vpiActual:
       \_logic_net: (work@carry_trans.b), line:18:29, endln:18:30
     |vpiTypedef:
@@ -1932,7 +2009,11 @@ design: (work@carry_rtl)
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_trans.c.c)
+      |vpiParent:
+      \_port: (c), line:18:32, endln:18:33
+      |vpiName:c
+      |vpiFullName:work@carry_trans.c.c
       |vpiActual:
       \_logic_net: (work@carry_trans.c), line:18:32, endln:18:33
     |vpiTypedef:
@@ -1944,7 +2025,11 @@ design: (work@carry_rtl)
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@carry_trans.cout.cout)
+      |vpiParent:
+      \_port: (cout), line:18:42, endln:18:46
+      |vpiName:cout
+      |vpiFullName:work@carry_trans.cout.cout
       |vpiActual:
       \_logic_net: (work@carry_trans.cout), line:18:42, endln:18:46
     |vpiTypedef:
@@ -1960,6 +2045,8 @@ design: (work@carry_rtl)
     \_module_inst: work@carry_rtl (work@carry_rtl), file:${SURELOG_DIR}/tests/CarryTrans/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:1:24, endln:1:24
+      |vpiParent:
+      \_logic_net: (work@carry_rtl.c), line:1:30, endln:1:31
     |vpiName:a
     |vpiFullName:work@carry_rtl.a
   |vpiNet:
@@ -2155,6 +2242,8 @@ design: (work@carry_rtl)
     \_module_inst: work@carry_gate (work@carry_gate), file:${SURELOG_DIR}/tests/CarryTrans/dut.sv, line:8:1, endln:16:10
     |vpiTypespec:
     \_logic_typespec: , line:8:25, endln:8:25
+      |vpiParent:
+      \_logic_net: (work@carry_gate.c), line:8:31, endln:8:32
     |vpiName:a
     |vpiFullName:work@carry_gate.a
   |vpiNet:
@@ -2179,6 +2268,8 @@ design: (work@carry_rtl)
     \_module_inst: work@carry_gate (work@carry_gate), file:${SURELOG_DIR}/tests/CarryTrans/dut.sv, line:8:1, endln:16:10
     |vpiTypespec:
     \_logic_typespec: , line:9:12, endln:9:12
+      |vpiParent:
+      \_logic_net: (work@carry_gate.cout), line:9:12, endln:9:16
     |vpiName:cout
     |vpiFullName:work@carry_gate.cout
   |vpiNet:
@@ -2187,6 +2278,8 @@ design: (work@carry_rtl)
     \_module_inst: work@carry_gate (work@carry_gate), file:${SURELOG_DIR}/tests/CarryTrans/dut.sv, line:8:1, endln:16:10
     |vpiTypespec:
     \_logic_typespec: , line:11:1, endln:11:5
+      |vpiParent:
+      \_logic_net: (work@carry_gate.z), line:11:12, endln:11:13
     |vpiName:x
     |vpiFullName:work@carry_gate.x
     |vpiNetType:1
@@ -2502,6 +2595,8 @@ design: (work@carry_rtl)
     \_module_inst: work@carry_trans (work@carry_trans), file:${SURELOG_DIR}/tests/CarryTrans/dut.sv, line:18:1, endln:37:10
     |vpiTypespec:
     \_logic_typespec: , line:18:26, endln:18:26
+      |vpiParent:
+      \_logic_net: (work@carry_trans.c), line:18:32, endln:18:33
     |vpiName:a
     |vpiFullName:work@carry_trans.a
   |vpiNet:
@@ -2526,6 +2621,8 @@ design: (work@carry_rtl)
     \_module_inst: work@carry_trans (work@carry_trans), file:${SURELOG_DIR}/tests/CarryTrans/dut.sv, line:18:1, endln:37:10
     |vpiTypespec:
     \_logic_typespec: , line:18:42, endln:18:42
+      |vpiParent:
+      \_logic_net: (work@carry_trans.cout), line:18:42, endln:18:46
     |vpiName:cout
     |vpiFullName:work@carry_trans.cout
   |vpiNet:
@@ -2534,6 +2631,8 @@ design: (work@carry_rtl)
     \_module_inst: work@carry_trans (work@carry_trans), file:${SURELOG_DIR}/tests/CarryTrans/dut.sv, line:18:1, endln:37:10
     |vpiTypespec:
     \_logic_typespec: , line:20:1, endln:20:5
+      |vpiParent:
+      \_logic_net: (work@carry_trans.cn), line:20:22, endln:20:24
     |vpiName:i1
     |vpiFullName:work@carry_trans.i1
     |vpiNetType:1

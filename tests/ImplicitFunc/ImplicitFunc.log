@@ -110,11 +110,15 @@ design: (work@dut)
     |vpiFullName:work@dut.foo
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:3:13, endln:3:18
+    \_logic_var: (work@dut.foo), line:3:13, endln:3:18
+      |vpiParent:
+      \_function: (work@dut.foo), line:3:4, endln:5:15
       |vpiTypespec:
       \_logic_typespec: , line:3:13, endln:3:18
         |vpiRange:
         \_range: , line:3:13, endln:3:18
+          |vpiParent:
+          \_logic_typespec: , line:3:13, endln:3:18
           |vpiLeftRange:
           \_constant: , line:3:14, endln:3:15
             |vpiParent:
@@ -131,6 +135,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@dut.foo
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
   |vpiTaskFunc:
@@ -141,7 +146,10 @@ design: (work@dut)
     |vpiFullName:work@dut.bar
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@dut.bar)
+      |vpiParent:
+      \_function: (work@dut.bar), line:7:4, endln:9:15
+      |vpiFullName:work@dut.bar
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
 |uhdmtopModules:
@@ -157,7 +165,7 @@ design: (work@dut)
     |vpiFullName:work@dut.foo
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:3:13, endln:3:18
+    \_logic_var: (work@dut.foo), line:3:13, endln:3:18
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
   |vpiTaskFunc:
@@ -168,7 +176,7 @@ design: (work@dut)
     |vpiFullName:work@dut.bar
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@dut.bar)
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
   |vpiTopModule:1

@@ -101,7 +101,7 @@ int_typespec                                           2
 logic_net                                              2
 logic_typespec                                         2
 module_inst                                            3
-package                                                3
+package                                                2
 port                                                   4
 range                                                  2
 ref_obj                                                4
@@ -119,7 +119,7 @@ int_typespec                                           2
 logic_net                                              2
 logic_typespec                                         2
 module_inst                                            3
-package                                                3
+package                                                2
 port                                                   6
 range                                                  2
 ref_obj                                                6
@@ -166,7 +166,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:14, endln:3:19
           |vpiParent:
-          \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
+          \_logic_typespec: , line:3:9, endln:3:19
           |vpiLeftRange:
           \_constant: , line:3:15, endln:3:16
             |vpiParent:
@@ -233,7 +233,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:14, endln:3:19
           |vpiParent:
-          \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:2:19
+          \_logic_typespec: , line:3:9, endln:3:19
           |vpiLeftRange:
           \_constant: , line:3:15, endln:3:16
             |vpiParent:
@@ -303,7 +303,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.a.a)
+      |vpiParent:
+      \_port: (a), line:9:25, endln:9:26
+      |vpiName:a
+      |vpiFullName:work@top.a.a
       |vpiActual:
       \_logic_net: (work@top.a), line:9:25, endln:9:26
     |vpiTypedef:
@@ -315,7 +319,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.b.b)
+      |vpiParent:
+      \_port: (b), line:9:28, endln:9:29
+      |vpiName:b
+      |vpiFullName:work@top.b.b
       |vpiActual:
       \_logic_net: (work@top.b), line:9:28, endln:9:29
     |vpiTypedef:

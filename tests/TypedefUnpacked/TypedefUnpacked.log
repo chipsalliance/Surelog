@@ -48,7 +48,7 @@ hier_path                                              3
 logic_net                                              3
 logic_typespec                                         6
 module_inst                                            4
-package                                                3
+package                                                2
 port                                                   2
 range                                                  2
 ref_obj                                                6
@@ -136,6 +136,8 @@ design: (work@dut)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
     |vpiRange:
     \_range: , line:5:15, endln:5:20
+      |vpiParent:
+      \_array_typespec: (pkg::b)
       |vpiLeftRange:
       \_constant: , line:5:16, endln:5:17
         |vpiParent:
@@ -203,7 +205,11 @@ design: (work@dut)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o.o)
+      |vpiParent:
+      \_port: (o), line:8:19, endln:8:20
+      |vpiName:o
+      |vpiFullName:work@dut.o.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:8:19, endln:8:20
     |vpiTypedef:
@@ -309,6 +315,8 @@ design: (work@dut)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@dut.o), line:8:19, endln:8:20
+      |vpiParent:
+      \_port: (o), line:8:19, endln:8:20
       |vpiName:o
       |vpiFullName:work@dut.o
       |vpiActual:
@@ -317,6 +325,8 @@ design: (work@dut)
     \_logic_typespec: , line:8:19, endln:8:19
   |vpiContAssign:
   \_cont_assign: , line:10:11, endln:10:21
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:8:1, endln:12:10
     |vpiRhs:
     \_constant: , line:10:20, endln:10:21
     |vpiLhs:

@@ -218,8 +218,6 @@ design: (work@dut)
   |vpiFullName:work@dut
   |vpiTypedef:
   \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
-    |vpiParent:
-    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantBits/dut.sv, line:1:1, endln:12:10
     |vpiName:cpu_ctrl_t
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantBits/dut.sv, line:1:1, endln:12:10
@@ -236,7 +234,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:4:17, endln:4:22
           |vpiParent:
-          \_struct_typespec: (cpu_ctrl_t), line:3:17, endln:3:23
+          \_logic_typespec: , line:4:11, endln:4:22
           |vpiLeftRange:
           \_constant: , line:4:18, endln:4:19
             |vpiParent:
@@ -367,7 +365,7 @@ design: (work@dut)
       |vpiName:cpuctrl_wdata
       |vpiFullName:work@dut.cpuctrl_wdata
       |vpiActual:
-      \_struct_net: (work@dut.cpuctrl_wdata), line:9:22, endln:9:35
+      \_logic_net: (work@dut.cpuctrl_wdata), line:9:22, endln:9:35
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantBits/dut.sv, line:1:1, endln:12:10
   |vpiName:work@dut
@@ -377,8 +375,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantBits/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_logic_typespec: , line:10:9, endln:10:21
+      |vpiParent:
+      \_logic_var: (work@dut.csr_wdata_int), line:10:22, endln:10:35
       |vpiRange:
       \_range: , line:10:15, endln:10:21
+        |vpiParent:
+        \_logic_typespec: , line:10:9, endln:10:21
         |vpiLeftRange:
         \_constant: , line:10:16, endln:10:18
           |vpiParent:
@@ -400,6 +402,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:10:15, endln:10:21
+      |vpiParent:
+      \_logic_var: (work@dut.csr_wdata_int), line:10:22, endln:10:35
       |vpiLeftRange:
       \_constant: , line:10:16, endln:10:18
         |vpiParent:
@@ -556,7 +560,7 @@ design: (work@dut)
         |vpiRightRange:
         \_constant: , line:11:78, endln:11:79
           |vpiParent:
-          \_part_select: csr_wdata_int (csr_wdata_int), line:11:44, endln:11:80
+          \_part_select: csr_wdata_int (work@dut.csr_wdata_int), line:11:44, endln:11:80
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0

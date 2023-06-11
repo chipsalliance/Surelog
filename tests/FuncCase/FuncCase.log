@@ -67,7 +67,7 @@ io_decl                                                2
 logic_typespec                                         2
 module_inst                                            8
 operation                                              2
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              4
 range                                                  2
@@ -105,6 +105,8 @@ design: (work@top)
       \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
       |vpiRange:
       \_range: , line:2:20, endln:2:25
+        |vpiParent:
+        \_logic_typespec: , line:2:14, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -123,24 +125,32 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (ADDMUL), line:3:5, endln:3:11
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:ADDMUL
       |INT:0
       |vpiDecompile:0
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (DIVSQRT), line:3:13, endln:3:20
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:DIVSQRT
       |INT:1
       |vpiDecompile:1
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (NONCOMP), line:3:22, endln:3:29
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:NONCOMP
       |INT:2
       |vpiDecompile:2
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (CONV), line:3:31, endln:3:35
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:CONV
       |INT:3
       |vpiDecompile:3
@@ -155,13 +165,18 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:7:20, endln:7:32
+    \_int_var: (fpnew_pkg::num_operands), line:7:20, endln:7:32
+      |vpiParent:
+      \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14
       |vpiTypespec:
       \_int_typespec: , line:7:20, endln:7:32
         |vpiInstance:
-        \_package: (fpnew_pkg)
+        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
+      |vpiFullName:fpnew_pkg::num_operands
     |vpiIODecl:
     \_io_decl: (grp), line:7:56, endln:7:59
+      |vpiParent:
+      \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14
       |vpiDirection:1
       |vpiName:grp
       |vpiTypedef:
@@ -198,8 +213,6 @@ design: (work@top)
           \_case_item: , line:9:7, endln:9:25
           |vpiCondition:
           \_constant: , line:9:23, endln:9:24
-            |vpiParent:
-            \_return_stmt: , line:9:16, endln:9:22
             |vpiDecompile:3
             |vpiSize:64
             |UINT:3
@@ -222,8 +235,6 @@ design: (work@top)
           \_case_item: , line:10:7, endln:10:25
           |vpiCondition:
           \_constant: , line:10:23, endln:10:24
-            |vpiParent:
-            \_return_stmt: , line:10:16, endln:10:22
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -246,8 +257,6 @@ design: (work@top)
           \_case_item: , line:11:7, endln:11:25
           |vpiCondition:
           \_constant: , line:11:23, endln:11:24
-            |vpiParent:
-            \_return_stmt: , line:11:16, endln:11:22
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -270,8 +279,6 @@ design: (work@top)
           \_case_item: , line:12:7, endln:12:25
           |vpiCondition:
           \_constant: , line:12:23, endln:12:24
-            |vpiParent:
-            \_return_stmt: , line:12:16, endln:12:22
             |vpiDecompile:3
             |vpiSize:64
             |UINT:3
@@ -286,8 +293,6 @@ design: (work@top)
           \_case_item: , line:13:7, endln:13:25
           |vpiCondition:
           \_constant: , line:13:23, endln:13:24
-            |vpiParent:
-            \_return_stmt: , line:13:16, endln:13:22
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -313,6 +318,8 @@ design: (work@top)
       \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
       |vpiRange:
       \_range: , line:2:20, endln:2:25
+        |vpiParent:
+        \_logic_typespec: , line:2:14, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -331,24 +338,32 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (ADDMUL), line:3:5, endln:3:11
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:ADDMUL
       |INT:0
       |vpiDecompile:0
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (DIVSQRT), line:3:13, endln:3:20
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:DIVSQRT
       |INT:1
       |vpiDecompile:1
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (NONCOMP), line:3:22, endln:3:29
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:NONCOMP
       |INT:2
       |vpiDecompile:2
       |vpiSize:2
     |vpiEnumConst:
     \_enum_const: (CONV), line:3:31, endln:3:35
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:2:1, endln:4:15
       |vpiName:CONV
       |INT:3
       |vpiDecompile:3
@@ -364,13 +379,18 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:7:20, endln:7:32
+    \_int_var: (fpnew_pkg::num_operands), line:7:20, endln:7:32
+      |vpiParent:
+      \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14
       |vpiTypespec:
       \_int_typespec: , line:7:20, endln:7:32
         |vpiInstance:
         \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
+      |vpiFullName:fpnew_pkg::num_operands
     |vpiIODecl:
     \_io_decl: (grp), line:7:56, endln:7:59
+      |vpiParent:
+      \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14
       |vpiDirection:1
       |vpiName:grp
       |vpiTypedef:
@@ -407,8 +427,6 @@ design: (work@top)
           \_case_item: , line:9:7, endln:9:25
           |vpiCondition:
           \_constant: , line:9:23, endln:9:24
-            |vpiParent:
-            \_return_stmt: , line:9:16, endln:9:22
             |vpiDecompile:3
             |vpiSize:64
             |UINT:3
@@ -431,8 +449,6 @@ design: (work@top)
           \_case_item: , line:10:7, endln:10:25
           |vpiCondition:
           \_constant: , line:10:23, endln:10:24
-            |vpiParent:
-            \_return_stmt: , line:10:16, endln:10:22
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -455,8 +471,6 @@ design: (work@top)
           \_case_item: , line:11:7, endln:11:25
           |vpiCondition:
           \_constant: , line:11:23, endln:11:24
-            |vpiParent:
-            \_return_stmt: , line:11:16, endln:11:22
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -479,8 +493,6 @@ design: (work@top)
           \_case_item: , line:12:7, endln:12:25
           |vpiCondition:
           \_constant: , line:12:23, endln:12:24
-            |vpiParent:
-            \_return_stmt: , line:12:16, endln:12:22
             |vpiDecompile:3
             |vpiSize:64
             |UINT:3
@@ -495,8 +507,6 @@ design: (work@top)
           \_case_item: , line:13:7, endln:13:25
           |vpiCondition:
           \_constant: , line:13:23, endln:13:24
-            |vpiParent:
-            \_return_stmt: , line:13:16, endln:13:22
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -526,11 +536,14 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:22:1, endln:30:10
     |vpiRhs:
     \_func_call: (num_operands), line:25:18, endln:25:30
+      |vpiParent:
+      \_param_assign: , line:25:14, endln:25:39
       |vpiArgument:
-      \_ref_obj: (DIVSQRT), line:25:31, endln:25:38
+      \_ref_obj: (work@top.DIVSQRT), line:25:31, endln:25:38
         |vpiParent:
         \_func_call: (num_operands), line:25:18, endln:25:30
         |vpiName:DIVSQRT
+        |vpiFullName:work@top.DIVSQRT
         |vpiActual:
         \_enum_const: (DIVSQRT), line:3:13, endln:3:20
       |vpiName:num_operands
@@ -551,12 +564,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:22:1, endln:30:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:14
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:14
         |vpiParent:
@@ -566,9 +582,14 @@ design: (work@top)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:28:11, endln:28:15
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD
 |uhdmtopModules:
@@ -586,6 +607,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:22:1, endln:30:10
     |vpiRhs:
     \_constant: , line:25:18, endln:25:39
+      |vpiParent:
+      \_param_assign: , line:25:14, endln:25:39
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2

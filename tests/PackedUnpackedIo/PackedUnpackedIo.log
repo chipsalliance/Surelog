@@ -188,7 +188,7 @@ io_decl                                               12
 logic_typespec                                        22
 logic_var                                              2
 module_inst                                            1
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 range                                                 32
 === UHDM Object Stats End ===
@@ -202,7 +202,7 @@ io_decl                                               24
 logic_typespec                                        22
 logic_var                                              2
 module_inst                                            1
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 range                                                 40
 === UHDM Object Stats End ===
@@ -233,6 +233,8 @@ design: (unnamed)
     \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
     |vpiRange:
     \_range: , line:2:15, endln:2:21
+      |vpiParent:
+      \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
       |vpiLeftRange:
       \_constant: , line:2:16, endln:2:18
         |vpiParent:
@@ -259,18 +261,20 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:3:20, endln:3:36
+    \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+      |vpiParent:
+      \_function: (hmac_pkg::compress), line:3:1, endln:12:12
       |vpiTypespec:
       \_logic_typespec: , line:3:20, endln:3:30
         |vpiInstance:
-        \_package: (hmac_pkg)
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
         |vpiElemTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
           |vpiName:sha_word_t
           |vpiTypedefAlias:
           \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
           |vpiInstance:
-          \_package: (hmac_pkg)
+          \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:2:15, endln:2:21
             |vpiParent:
@@ -293,6 +297,8 @@ design: (unnamed)
               |vpiConstType:9
         |vpiRange:
         \_range: , line:3:31, endln:3:36
+          |vpiParent:
+          \_logic_typespec: , line:3:20, endln:3:30
           |vpiLeftRange:
           \_constant: , line:3:32, endln:3:33
             |vpiParent:
@@ -309,6 +315,7 @@ design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:hmac_pkg::compress
     |vpiIODecl:
     \_io_decl: (w), line:5:64, endln:5:65
       |vpiParent:
@@ -321,7 +328,7 @@ design: (unnamed)
         |vpiTypedefAlias:
         \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
         |vpiInstance:
-        \_package: (hmac_pkg)
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
         |vpiRange:
         \_range: , line:2:15, endln:2:21
           |vpiParent:
@@ -374,7 +381,7 @@ design: (unnamed)
         |vpiTypedefAlias:
         \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
         |vpiInstance:
-        \_package: (hmac_pkg)
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
         |vpiRange:
         \_range: , line:2:15, endln:2:21
           |vpiParent:
@@ -404,14 +411,14 @@ design: (unnamed)
       |vpiTypedef:
       \_logic_typespec: , line:7:53, endln:7:63
         |vpiInstance:
-        \_package: (hmac_pkg)
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
         |vpiElemTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
           |vpiName:sha_word_t
           |vpiTypedefAlias:
           \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
           |vpiInstance:
-          \_package: (hmac_pkg)
+          \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:2:15, endln:2:21
             |vpiParent:
@@ -434,6 +441,8 @@ design: (unnamed)
               |vpiConstType:9
         |vpiRange:
         \_range: , line:7:64, endln:7:69
+          |vpiParent:
+          \_logic_typespec: , line:7:53, endln:7:63
           |vpiLeftRange:
           \_constant: , line:7:65, endln:7:66
             |vpiParent:
@@ -479,14 +488,14 @@ design: (unnamed)
       |vpiTypedef:
       \_logic_typespec: , line:8:53, endln:8:63
         |vpiInstance:
-        \_package: (hmac_pkg)
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
         |vpiElemTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
           |vpiName:sha_word_t
           |vpiTypedefAlias:
           \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
           |vpiInstance:
-          \_package: (hmac_pkg)
+          \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
           |vpiRange:
           \_range: , line:2:15, endln:2:21
             |vpiParent:
@@ -509,6 +518,8 @@ design: (unnamed)
               |vpiConstType:9
         |vpiRange:
         \_range: , line:8:64, endln:8:69
+          |vpiParent:
+          \_logic_typespec: , line:8:53, endln:8:63
           |vpiLeftRange:
           \_constant: , line:8:65, endln:8:66
             |vpiParent:
@@ -554,7 +565,7 @@ design: (unnamed)
       |vpiTypedef:
       \_logic_typespec: , line:9:53, endln:9:58
         |vpiInstance:
-        \_package: (hmac_pkg)
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
     |vpiIODecl:
     \_io_decl: (ii), line:10:65, endln:10:67
       |vpiParent:
@@ -584,9 +595,11 @@ design: (unnamed)
       |vpiTypedef:
       \_logic_typespec: , line:10:53, endln:10:64
         |vpiInstance:
-        \_package: (hmac_pkg)
+        \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
         |vpiRange:
         \_range: , line:10:59, endln:10:64
+          |vpiParent:
+          \_logic_typespec: , line:10:53, endln:10:64
           |vpiLeftRange:
           \_constant: , line:10:60, endln:10:61
             |vpiParent:
@@ -620,6 +633,8 @@ design: (unnamed)
     \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
     |vpiRange:
     \_range: , line:2:15, endln:2:21
+      |vpiParent:
+      \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
       |vpiLeftRange:
       \_constant: , line:2:16, endln:2:18
         |vpiParent:
@@ -647,7 +662,9 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:3:20, endln:3:36
+    \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+      |vpiParent:
+      \_function: (hmac_pkg::compress), line:3:1, endln:12:12
       |vpiTypespec:
       \_logic_typespec: , line:3:20, endln:3:30
         |vpiInstance:
@@ -681,6 +698,8 @@ design: (unnamed)
               |vpiConstType:9
         |vpiRange:
         \_range: , line:3:31, endln:3:36
+          |vpiParent:
+          \_logic_typespec: , line:3:20, endln:3:30
           |vpiLeftRange:
           \_constant: , line:3:32, endln:3:33
             |vpiParent:
@@ -697,6 +716,7 @@ design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:hmac_pkg::compress
     |vpiIODecl:
     \_io_decl: (w), line:5:64, endln:5:65
       |vpiParent:
@@ -822,6 +842,8 @@ design: (unnamed)
               |vpiConstType:9
         |vpiRange:
         \_range: , line:7:64, endln:7:69
+          |vpiParent:
+          \_logic_typespec: , line:7:53, endln:7:63
           |vpiLeftRange:
           \_constant: , line:7:65, endln:7:66
             |vpiParent:
@@ -897,6 +919,8 @@ design: (unnamed)
               |vpiConstType:9
         |vpiRange:
         \_range: , line:8:64, endln:8:69
+          |vpiParent:
+          \_logic_typespec: , line:8:53, endln:8:63
           |vpiLeftRange:
           \_constant: , line:8:65, endln:8:66
             |vpiParent:
@@ -975,6 +999,8 @@ design: (unnamed)
         \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/PackedUnpackedIo/dut.sv, line:1:1, endln:13:11
         |vpiRange:
         \_range: , line:10:59, endln:10:64
+          |vpiParent:
+          \_logic_typespec: , line:10:53, endln:10:64
           |vpiLeftRange:
           \_constant: , line:10:60, endln:10:61
             |vpiParent:

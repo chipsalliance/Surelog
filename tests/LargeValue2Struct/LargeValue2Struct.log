@@ -287,7 +287,7 @@ int_typespec                                          21
 logic_typespec                                        50
 module_inst                                           11
 operation                                             16
-package                                                3
+package                                                2
 packed_array_typespec                                  4
 param_assign                                          20
 parameter                                             22
@@ -308,7 +308,7 @@ int_typespec                                          21
 logic_typespec                                        50
 module_inst                                           11
 operation                                             16
-package                                                3
+package                                                2
 packed_array_typespec                                  4
 param_assign                                          20
 parameter                                             22
@@ -383,16 +383,19 @@ design: (work@top)
             \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
             |vpiRange:
             \_range: , line:4:17, endln:4:35
+              |vpiParent:
+              \_logic_typespec: (pack::sram_key_t), line:4:11, endln:4:35
               |vpiLeftRange:
               \_operation: , line:4:18, endln:4:32
                 |vpiParent:
                 \_range: , line:4:17, endln:4:35
                 |vpiOpType:11
                 |vpiOperand:
-                \_ref_obj: (SramKeyWidth), line:4:18, endln:4:30
+                \_ref_obj: (pack::pack::sram_key_t::SramKeyWidth), line:4:18, endln:4:30
                   |vpiParent:
                   \_operation: , line:4:18, endln:4:32
                   |vpiName:SramKeyWidth
+                  |vpiFullName:pack::pack::sram_key_t::SramKeyWidth
                   |vpiActual:
                   \_parameter: (pack::SramKeyWidth), line:2:17, endln:2:29
                 |vpiOperand:
@@ -470,16 +473,19 @@ design: (work@top)
             \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
             |vpiRange:
             \_range: , line:5:17, endln:5:35
+              |vpiParent:
+              \_logic_typespec: (pack::sram_nonce_t), line:5:11, endln:5:35
               |vpiLeftRange:
               \_operation: , line:5:18, endln:5:32
                 |vpiParent:
                 \_range: , line:5:17, endln:5:35
                 |vpiOpType:11
                 |vpiOperand:
-                \_ref_obj: (SramKeyWidth), line:5:18, endln:5:30
+                \_ref_obj: (pack::pack::sram_nonce_t::SramKeyWidth), line:5:18, endln:5:30
                   |vpiParent:
                   \_operation: , line:5:18, endln:5:32
                   |vpiName:SramKeyWidth
+                  |vpiFullName:pack::pack::sram_nonce_t::SramKeyWidth
                   |vpiActual:
                   \_parameter: (pack::SramKeyWidth), line:2:17, endln:2:29
                 |vpiOperand:
@@ -547,6 +553,8 @@ design: (work@top)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:2:37, endln:2:40
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:40
       |vpiDecompile:128
       |vpiSize:32
       |UINT:128
@@ -561,6 +569,8 @@ design: (work@top)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:13:7, endln:13:76
+      |vpiParent:
+      \_param_assign: , line:12:30, endln:13:76
       |vpiDecompile:256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
       |vpiSize:256
       |HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
@@ -629,6 +639,8 @@ design: (work@top)
             \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
             |vpiRange:
             \_range: , line:4:17, endln:4:35
+              |vpiParent:
+              \_logic_typespec: (pack::sram_key_t), line:4:11, endln:4:35
               |vpiLeftRange:
               \_constant: , line:4:18, endln:4:30
                 |vpiParent:
@@ -691,6 +703,8 @@ design: (work@top)
             \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
             |vpiRange:
             \_range: , line:5:17, endln:5:35
+              |vpiParent:
+              \_logic_typespec: (pack::sram_nonce_t), line:5:11, endln:5:35
               |vpiLeftRange:
               \_constant: , line:5:18, endln:5:30
                 |vpiParent:
@@ -743,6 +757,8 @@ design: (work@top)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:2:37, endln:2:40
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:40
       |vpiDecompile:128
       |vpiSize:32
       |UINT:128
@@ -757,6 +773,8 @@ design: (work@top)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:13:7, endln:13:76
+      |vpiParent:
+      \_param_assign: , line:12:30, endln:13:76
       |vpiDecompile:256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
       |vpiSize:256
       |HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
@@ -802,16 +820,19 @@ design: (work@top)
       \_parameter: (work@prim_sec_anchor_flop.ResetValue), line:18:31, endln:18:41
       |vpiRange:
       \_range: , line:18:19, endln:18:30
+        |vpiParent:
+        \_logic_typespec: , line:18:13, endln:18:30
         |vpiLeftRange:
         \_operation: , line:18:20, endln:18:27
           |vpiParent:
           \_range: , line:18:19, endln:18:30
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (Width), line:18:20, endln:18:25
+          \_ref_obj: (work@prim_sec_anchor_flop.ResetValue.Width), line:18:20, endln:18:25
             |vpiParent:
             \_operation: , line:18:20, endln:18:27
             |vpiName:Width
+            |vpiFullName:work@prim_sec_anchor_flop.ResetValue.Width
             |vpiActual:
             \_parameter: (work@top.u_key_out_anchor.Width), line:17:31, endln:17:36
           |vpiOperand:
@@ -838,6 +859,8 @@ design: (work@top)
     \_module_inst: work@prim_sec_anchor_flop (work@prim_sec_anchor_flop), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:16:1, endln:19:10
     |vpiRhs:
     \_constant: , line:17:44, endln:17:45
+      |vpiParent:
+      \_param_assign: , line:17:31, endln:17:45
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -852,6 +875,8 @@ design: (work@top)
     \_module_inst: work@prim_sec_anchor_flop (work@prim_sec_anchor_flop), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:16:1, endln:19:10
     |vpiRhs:
     \_constant: , line:18:44, endln:18:45
+      |vpiParent:
+      \_param_assign: , line:18:31, endln:18:45
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -1379,6 +1404,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:21:1, endln:30:10
     |vpiRhs:
     \_constant: , line:23:52, endln:23:79
+      |vpiParent:
+      \_param_assign: , line:23:29, endln:23:79
       |vpiDecompile:256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
       |vpiSize:256
       |HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
@@ -1393,6 +1420,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:21:1, endln:30:10
     |vpiRhs:
     \_constant: , line:24:19, endln:24:31
+      |vpiParent:
+      \_param_assign: , line:24:11, endln:24:31
       |vpiDecompile:128
       |vpiSize:32
       |UINT:128
@@ -1742,6 +1771,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:21:1, endln:30:10
     |vpiRhs:
     \_constant: , line:2:37, endln:2:40
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:40
       |vpiDecompile:128
       |vpiSize:32
       |UINT:128
@@ -1768,6 +1799,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:21:1, endln:30:10
     |vpiRhs:
     \_constant: , line:23:52, endln:23:79
+      |vpiParent:
+      \_param_assign: , line:12:30, endln:13:76
       |vpiDecompile:256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
       |vpiSize:256
       |HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
@@ -1782,6 +1815,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:21:1, endln:30:10
     |vpiRhs:
     \_constant: , line:24:19, endln:24:31
+      |vpiParent:
+      \_param_assign: , line:24:11, endln:24:31
       |vpiDecompile:128
       |vpiSize:32
       |UINT:128
@@ -1871,6 +1906,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:17:44, endln:17:45
+        |vpiParent:
+        \_param_assign: , line:17:31, endln:17:45
         |vpiDecompile:128
         |vpiSize:32
         |UINT:128
@@ -1886,6 +1923,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:18:44, endln:18:45
+        |vpiParent:
+        \_param_assign: , line:18:31, endln:18:45
         |vpiDecompile:128'b11001110101111101011100101101111111111100000111011001110110101111001010111111000101100101100111111100010001111000001111001010001
         |vpiSize:128
         |BIN:11001110101111101011100101101111111111100000111011001110110101111001010111111000101100101100111111100010001111000001111001010001

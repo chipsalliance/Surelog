@@ -151,7 +151,7 @@ design                                                 1
 func_call                                              2
 function                                               2
 int_typespec                                           5
-int_var                                                6
+int_var                                                7
 logic_net                                              1
 module_inst                                            4
 operation                                              3
@@ -194,8 +194,10 @@ design: (work@top)
       \_array_typespec: , line:5:14, endln:5:15
         |vpiRange:
         \_range: , line:5:14, endln:5:15
+          |vpiParent:
+          \_array_typespec: , line:5:14, endln:5:15
           |vpiLeftRange:
-          \_constant: , line:5:14, endln:5:15
+          \_constant: 
             |vpiParent:
             \_range: , line:5:14, endln:5:15
             |vpiDecompile:0
@@ -209,6 +211,8 @@ design: (work@top)
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:5:14, endln:5:15
+              |vpiParent:
+              \_operation: 
               |vpiDecompile:2
               |vpiSize:64
               |UINT:2
@@ -225,23 +229,31 @@ design: (work@top)
       |vpiFullName:work@top.get_a1.a
       |vpiArrayType:1
       |vpiReg:
-      \_int_var: , line:5:11, endln:5:12
+      \_int_var: (work@top.get_a1.a), line:5:11, endln:5:12
+        |vpiParent:
+        \_array_var: (work@top.get_a1.a), line:5:11, endln:5:12
         |vpiTypespec:
         \_int_typespec: , line:5:7, endln:5:10
+        |vpiFullName:work@top.get_a1.a
         |vpiSigned:1
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:4:23, endln:4:26
+    \_int_var: (work@top.get_a1), line:4:23, endln:4:26
+      |vpiParent:
+      \_function: (work@top.get_a1), line:4:4, endln:7:15
       |vpiTypespec:
       \_int_typespec: , line:4:23, endln:4:26
         |vpiSigned:1
+      |vpiFullName:work@top.get_a1
       |vpiSigned:1
     |vpiStmt:
     \_begin: (work@top.get_a1)
       |vpiParent:
       \_function: (work@top.get_a1), line:4:4, endln:7:15
       |vpiFullName:work@top.get_a1
+      |vpiVariables:
+      \_int_var: (work@top.get_a1.a), line:5:11, endln:5:12
       |vpiVariables:
       \_array_var: (work@top.get_a1.a), line:5:11, endln:5:12
       |vpiStmt:
@@ -302,7 +314,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -326,7 +342,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:1:23, endln:1:24
+      \_logic_net: (work@top.o), line:1:23, endln:1:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayVarName/dut.sv, line:1:1, endln:8:10
   |vpiName:work@top
@@ -369,12 +385,20 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:4:23, endln:4:26
+    \_int_var: (work@top.get_a1), line:4:23, endln:4:26
     |vpiStmt:
     \_begin: (work@top.get_a1)
       |vpiParent:
       \_function: (work@top.get_a1), line:4:4, endln:7:15
       |vpiFullName:work@top.get_a1
+      |vpiVariables:
+      \_int_var: (work@top.get_a1), line:5:11, endln:5:12
+        |vpiParent:
+        \_begin: (work@top.get_a1)
+        |vpiTypespec:
+        \_int_typespec: , line:5:7, endln:5:10
+        |vpiFullName:work@top.get_a1
+        |vpiSigned:1
       |vpiVariables:
       \_array_var: (work@top.get_a1.a), line:5:11, endln:5:12
         |vpiParent:
@@ -477,7 +501,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:1:23, endln:1:24
+      \_logic_net: (work@top.o), line:1:23, endln:1:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

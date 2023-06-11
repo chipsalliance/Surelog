@@ -187,7 +187,7 @@ io_decl                                                2
 logic_net                                              1
 module_inst                                            6
 operation                                              6
-package                                                3
+package                                                2
 param_assign                                           9
 parameter                                              9
 port                                                   2
@@ -213,7 +213,7 @@ io_decl                                                4
 logic_net                                              1
 module_inst                                            6
 operation                                             12
-package                                                3
+package                                                2
 param_assign                                           9
 parameter                                              9
 port                                                   3
@@ -253,7 +253,7 @@ design: (work@top)
       |vpiTypespec:
       \_integer_typespec: , line:3:7, endln:3:14
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PackageBind/dut.sv, line:1:1, endln:10:11
         |vpiSigned:1
       |vpiName:result
       |vpiFullName:prim_util_pkg::_clog2::result
@@ -261,12 +261,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:2:23, endln:2:30
+    \_integer_var: (prim_util_pkg::_clog2), line:2:23, endln:2:30
+      |vpiParent:
+      \_function: (prim_util_pkg::_clog2), line:2:4, endln:9:15
       |vpiTypespec:
       \_integer_typespec: , line:2:23, endln:2:30
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PackageBind/dut.sv, line:1:1, endln:10:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::_clog2
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:2:46, endln:2:51
@@ -277,7 +280,7 @@ design: (work@top)
       |vpiTypedef:
       \_integer_typespec: , line:2:38, endln:2:45
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PackageBind/dut.sv, line:1:1, endln:10:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (prim_util_pkg::_clog2)
@@ -435,12 +438,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:2:23, endln:2:30
+    \_integer_var: (prim_util_pkg::_clog2), line:2:23, endln:2:30
+      |vpiParent:
+      \_function: (prim_util_pkg::_clog2), line:2:4, endln:9:15
       |vpiTypespec:
       \_integer_typespec: , line:2:23, endln:2:30
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PackageBind/dut.sv, line:1:1, endln:10:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::_clog2
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:2:46, endln:2:51
@@ -599,7 +605,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:12:27, endln:12:28
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:12:27, endln:12:28
     |vpiTypedef:
@@ -633,7 +643,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_integer_var: (work@top.o), line:12:27, endln:12:28
+      \_logic_net: (work@top.o), line:12:27, endln:12:28
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackageBind/dut.sv, line:12:1, endln:14:10
   |vpiName:work@top
@@ -689,7 +699,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_integer_var: (work@top.o), line:12:27, endln:12:28
+      \_logic_net: (work@top.o), line:12:27, endln:12:28
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

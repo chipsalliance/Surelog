@@ -214,7 +214,7 @@ logic_net                                              3
 logic_typespec                                        26
 module_inst                                            8
 operation                                             19
-package                                                3
+package                                                2
 packed_array_typespec                                  3
 packed_array_var                                       1
 param_assign                                           6
@@ -242,7 +242,7 @@ logic_net                                              3
 logic_typespec                                        26
 module_inst                                            8
 operation                                             23
-package                                                3
+package                                                2
 packed_array_typespec                                  3
 packed_array_var                                       1
 param_assign                                           6
@@ -327,9 +327,13 @@ design: (work@top)
     \_package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
     |vpiRhs:
     \_operation: , line:7:39, endln:8:54
+      |vpiParent:
+      \_param_assign: , line:7:22, endln:8:54
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:7:49, endln:7:53
+        |vpiParent:
+        \_operation: , line:7:39, endln:8:54
         |vpiPattern:
         \_constant: , line:7:49, endln:7:53
           |vpiDecompile:1'b0
@@ -338,9 +342,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (esc_p), line:7:41, endln:7:46
+          |vpiParent:
+          \_tagged_pattern: , line:7:49, endln:7:53
           |vpiName:esc_p
       |vpiOperand:
       \_tagged_pattern: , line:8:49, endln:8:53
+        |vpiParent:
+        \_operation: , line:7:39, endln:8:54
         |vpiPattern:
         \_constant: , line:8:49, endln:8:53
           |vpiDecompile:1'b1
@@ -349,6 +357,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (esc_n), line:8:41, endln:8:46
+          |vpiParent:
+          \_tagged_pattern: , line:8:49, endln:8:53
           |vpiName:esc_n
     |vpiLhs:
     \_parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:7:36
@@ -413,9 +423,13 @@ design: (work@top)
     \_package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
     |vpiRhs:
     \_operation: , line:7:39, endln:8:54
+      |vpiParent:
+      \_param_assign: , line:7:22, endln:8:54
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:7:49, endln:7:53
+        |vpiParent:
+        \_operation: , line:7:39, endln:8:54
         |vpiPattern:
         \_constant: , line:7:49, endln:7:53
           |vpiDecompile:1'b0
@@ -424,9 +438,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (esc_p), line:7:41, endln:7:46
+          |vpiParent:
+          \_tagged_pattern: , line:7:49, endln:7:53
           |vpiName:esc_p
       |vpiOperand:
       \_tagged_pattern: , line:8:49, endln:8:53
+        |vpiParent:
+        \_operation: , line:7:39, endln:8:54
         |vpiPattern:
         \_constant: , line:8:49, endln:8:53
           |vpiDecompile:1'b1
@@ -435,6 +453,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (esc_n), line:8:41, endln:8:46
+          |vpiParent:
+          \_tagged_pattern: , line:8:49, endln:8:53
           |vpiName:esc_n
     |vpiLhs:
     \_parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:7:36
@@ -608,13 +628,19 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@nmi_gen.a.a)
+      |vpiParent:
+      \_port: (a), line:15:25, endln:15:26
+      |vpiName:a
+      |vpiFullName:work@nmi_gen.a.a
       |vpiActual:
       \_logic_net: (work@nmi_gen.a), line:15:25, endln:15:26
     |vpiTypedef:
     \_packed_array_typespec: , line:15:10, endln:15:18
       |vpiRange:
       \_range: , line:15:19, endln:15:24
+        |vpiParent:
+        \_packed_array_typespec: , line:15:10, endln:15:18
         |vpiLeftRange:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
@@ -640,7 +666,11 @@ design: (work@top)
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@nmi_gen.x.x)
+      |vpiParent:
+      \_port: (x), line:16:15, endln:16:16
+      |vpiName:x
+      |vpiFullName:work@nmi_gen.x.x
       |vpiActual:
       \_logic_net: (work@nmi_gen.x), line:16:15, endln:16:16
     |vpiTypedef:
@@ -665,7 +695,7 @@ design: (work@top)
         |vpiName:a
         |vpiFullName:work@nmi_gen.a
         |vpiActual:
-        \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
+        \_logic_net: (work@nmi_gen.a), line:15:25, endln:15:26
     |vpiLhs:
     \_ref_obj: (work@nmi_gen.x), line:18:11, endln:18:12
       |vpiParent:
@@ -673,7 +703,7 @@ design: (work@top)
       |vpiName:x
       |vpiFullName:work@nmi_gen.x
       |vpiActual:
-      \_int_var: (work@top.u_nmi_gen.x), line:16:15, endln:16:16
+      \_logic_net: (work@nmi_gen.x), line:16:15, endln:16:16
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
   |vpiParent:
@@ -693,7 +723,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:21:23, endln:21:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:21:23, endln:21:24
     |vpiTypedef:
@@ -709,14 +743,16 @@ design: (work@top)
     \_module_inst: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
     |vpiPort:
     \_port: (a), line:23:7, endln:23:44
+      |vpiParent:
+      \_ref_module: work@nmi_gen (u_nmi_gen), line:22:12, endln:22:21
       |vpiName:a
       |vpiHighConn:
       \_operation: , line:23:10, endln:23:43
+        |vpiParent:
+        \_port: (a), line:23:7, endln:23:44
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:23:11, endln:23:12
-          |vpiParent:
-          \_operation: , line:23:10, endln:23:43
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -728,17 +764,24 @@ design: (work@top)
           |vpiOpType:33
           |vpiOperand:
           \_ref_obj: (prim_esc_pkg::ESC_TX_DEFAULT), line:23:13, endln:23:27
+            |vpiParent:
+            \_operation: , line:23:12, endln:23:42
             |vpiName:prim_esc_pkg::ESC_TX_DEFAULT
             |vpiActual:
             \_parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:7:36
     |vpiPort:
     \_port: (x), line:24:7, endln:24:12
+      |vpiParent:
+      \_ref_module: work@nmi_gen (u_nmi_gen), line:22:12, endln:22:21
       |vpiName:x
       |vpiHighConn:
-      \_ref_obj: (o), line:24:10, endln:24:11
+      \_ref_obj: (work@top.u_nmi_gen.x.o), line:24:10, endln:24:11
+        |vpiParent:
+        \_port: (x), line:24:7, endln:24:12
         |vpiName:o
+        |vpiFullName:work@top.u_nmi_gen.x.o
         |vpiActual:
-        \_int_var: (work@top.o), line:21:23, endln:21:24
+        \_logic_net: (work@top.o), line:21:23, endln:21:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
   |vpiName:work@top
@@ -748,6 +791,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
     |vpiTypespec:
     \_int_typespec: , line:21:19, endln:21:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:21:23, endln:21:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -790,6 +835,8 @@ design: (work@top)
       |vpiVisibility:1
       |vpiRange:
       \_range: , line:15:19, endln:15:24
+        |vpiParent:
+        \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
         |vpiLeftRange:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
@@ -923,7 +970,7 @@ design: (work@top)
         |vpiOperand:
         \_constant: , line:7:49, endln:7:53
           |vpiParent:
-          \_tagged_pattern: , line:7:49, endln:7:53
+          \_operation: , line:7:39, endln:8:54
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -931,7 +978,7 @@ design: (work@top)
         |vpiOperand:
         \_constant: , line:8:49, endln:8:53
           |vpiParent:
-          \_tagged_pattern: , line:8:49, endln:8:53
+          \_operation: , line:7:39, endln:8:54
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
@@ -960,8 +1007,6 @@ design: (work@top)
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:23:11, endln:23:12
-          |vpiParent:
-          \_operation: , line:23:10, endln:23:43
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -980,12 +1025,16 @@ design: (work@top)
             |vpiOpType:75
             |vpiOperand:
             \_constant: , line:7:49, endln:7:53
+              |vpiParent:
+              \_operation: , line:7:39, endln:8:54
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
               |vpiConstType:3
             |vpiOperand:
             \_constant: , line:8:49, endln:8:53
+              |vpiParent:
+              \_operation: , line:7:39, endln:8:54
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
@@ -1003,7 +1052,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:15:19, endln:15:24
           |vpiParent:
-          \_port: (a), line:15:25, endln:15:26
+          \_packed_array_typespec: , line:15:10, endln:15:18
           |vpiLeftRange:
           \_constant: , line:15:20, endln:15:21
             |vpiParent:
@@ -1072,7 +1121,7 @@ design: (work@top)
           |vpiName:a
           |vpiFullName:work@top.u_nmi_gen.a
           |vpiActual:
-          \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
+          \_logic_net: (work@nmi_gen.a), line:15:25, endln:15:26
       |vpiLhs:
       \_ref_obj: (work@top.u_nmi_gen.x), line:18:11, endln:18:12
         |vpiParent:

@@ -194,7 +194,7 @@ logic_net                                              1
 logic_typespec                                         2
 module_inst                                           10
 operation                                              6
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                           6
 parameter                                              6
@@ -219,7 +219,7 @@ logic_net                                              1
 logic_typespec                                         2
 module_inst                                           11
 operation                                              6
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                           6
 parameter                                              6
@@ -266,6 +266,8 @@ design: (work@top)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
     |vpiRhs:
     \_constant: , line:5:28, endln:5:29
+      |vpiParent:
+      \_param_assign: , line:5:18, endln:5:29
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -283,16 +285,19 @@ design: (work@top)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
     |vpiRange:
     \_range: , line:6:18, endln:6:31
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::unused_type_t), line:6:12, endln:6:31
       |vpiLeftRange:
       \_operation: , line:6:19, endln:6:28
         |vpiParent:
         \_range: , line:6:18, endln:6:31
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (TxWidth), line:6:19, endln:6:26
+        \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::unused_type_t::TxWidth), line:6:19, endln:6:26
           |vpiParent:
           \_operation: , line:6:19, endln:6:28
           |vpiName:TxWidth
+          |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::unused_type_t::TxWidth
           |vpiActual:
           \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25
         |vpiOperand:
@@ -339,6 +344,8 @@ design: (work@top)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
     |vpiRhs:
     \_constant: , line:5:28, endln:5:29
+      |vpiParent:
+      \_param_assign: , line:5:18, endln:5:29
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -356,6 +363,8 @@ design: (work@top)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
     |vpiRange:
     \_range: , line:6:18, endln:6:31
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::unused_type_t), line:6:12, endln:6:31
       |vpiLeftRange:
       \_constant: , line:6:19, endln:6:26
         |vpiParent:
@@ -404,6 +413,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |vpiRhs:
     \_constant: , line:11:28, endln:11:29
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:29
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -440,19 +451,22 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:18, endln:12:19
+      \_logic_net: (work@top.o), line:12:18, endln:12:19
   |vpiGenStmt:
   \_gen_if: , line:15:3, endln:15:5
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |vpiCondition:
     \_operation: , line:15:7, endln:15:19
+      |vpiParent:
+      \_gen_if: , line:15:3, endln:15:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (TxWidth), line:15:7, endln:15:14
+      \_ref_obj: (work@top.TxWidth), line:15:7, endln:15:14
         |vpiParent:
         \_operation: , line:15:7, endln:15:19
         |vpiName:TxWidth
+        |vpiFullName:work@top.TxWidth
       |vpiOperand:
       \_constant: , line:15:18, endln:15:19
         |vpiParent:
@@ -462,9 +476,14 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:3, endln:15:5
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:16:11, endln:16:15
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD
 |uhdmtopModules:
@@ -499,6 +518,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |vpiRhs:
     \_constant: , line:11:28, endln:11:29
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:29
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -558,7 +579,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:12:18, endln:12:19
+      \_logic_net: (work@top.o), line:12:18, endln:12:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

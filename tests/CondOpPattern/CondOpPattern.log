@@ -190,8 +190,6 @@ design: (work@Example)
   |vpiFullName:work@Example
   |vpiTypedef:
   \_struct_typespec: (T), line:2:9, endln:2:15
-    |vpiParent:
-    \_module_inst: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
     |vpiName:T
     |vpiInstance:
     \_module_inst: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
@@ -245,7 +243,11 @@ design: (work@Example)
     |vpiName:flag
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Example.flag.flag)
+      |vpiParent:
+      \_port: (flag), line:1:16, endln:1:20
+      |vpiName:flag
+      |vpiFullName:work@Example.flag.flag
       |vpiActual:
       \_logic_net: (work@Example.flag), line:1:16, endln:1:20
     |vpiTypedef:
@@ -257,7 +259,11 @@ design: (work@Example)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Example.out.out)
+      |vpiParent:
+      \_port: (out), line:1:22, endln:1:25
+      |vpiName:out
+      |vpiFullName:work@Example.out.out
       |vpiActual:
       \_logic_net: (work@Example.out), line:1:22, endln:1:25
     |vpiTypedef:
@@ -286,6 +292,8 @@ design: (work@Example)
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:9:13, endln:9:17
+          |vpiParent:
+          \_operation: , line:9:7, endln:9:28
           |vpiPattern:
           \_constant: , line:9:13, endln:9:17
             |vpiDecompile:1'b1
@@ -294,9 +302,13 @@ design: (work@Example)
             |vpiConstType:3
           |vpiTypespec:
           \_string_typespec: (a), line:9:10, endln:9:11
+            |vpiParent:
+            \_tagged_pattern: , line:9:13, endln:9:17
             |vpiName:a
         |vpiOperand:
         \_tagged_pattern: , line:9:22, endln:9:26
+          |vpiParent:
+          \_operation: , line:9:7, endln:9:28
           |vpiPattern:
           \_constant: , line:9:22, endln:9:26
             |vpiDecompile:1'b0
@@ -305,6 +317,8 @@ design: (work@Example)
             |vpiConstType:3
           |vpiTypespec:
           \_string_typespec: (b), line:9:19, endln:9:20
+            |vpiParent:
+            \_tagged_pattern: , line:9:22, endln:9:26
             |vpiName:b
       |vpiOperand:
       \_operation: , line:10:7, endln:10:28
@@ -313,6 +327,8 @@ design: (work@Example)
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:10:13, endln:10:17
+          |vpiParent:
+          \_operation: , line:10:7, endln:10:28
           |vpiPattern:
           \_constant: , line:10:13, endln:10:17
             |vpiDecompile:1'b1
@@ -321,9 +337,13 @@ design: (work@Example)
             |vpiConstType:3
           |vpiTypespec:
           \_string_typespec: (a), line:10:10, endln:10:11
+            |vpiParent:
+            \_tagged_pattern: , line:10:13, endln:10:17
             |vpiName:a
         |vpiOperand:
         \_tagged_pattern: , line:10:22, endln:10:26
+          |vpiParent:
+          \_operation: , line:10:7, endln:10:28
           |vpiPattern:
           \_constant: , line:10:22, endln:10:26
             |vpiDecompile:1'b1
@@ -332,6 +352,8 @@ design: (work@Example)
             |vpiConstType:3
           |vpiTypespec:
           \_string_typespec: (b), line:10:19, endln:10:20
+            |vpiParent:
+            \_tagged_pattern: , line:10:22, endln:10:26
             |vpiName:b
     |vpiLhs:
     \_ref_obj: (work@Example.out), line:7:8, endln:7:11
@@ -340,7 +362,7 @@ design: (work@Example)
       |vpiName:out
       |vpiFullName:work@Example.out
       |vpiActual:
-      \_struct_net: (work@Example.out), line:1:22, endln:1:25
+      \_logic_net: (work@Example.out), line:1:22, endln:1:25
 |uhdmtopModules:
 \_module_inst: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
   |vpiName:work@Example
@@ -354,6 +376,8 @@ design: (work@Example)
     \_module_inst: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_logic_typespec: , line:6:7, endln:6:12
+      |vpiParent:
+      \_logic_net: (work@Example.flag), line:1:16, endln:1:20
     |vpiName:flag
     |vpiFullName:work@Example.flag
     |vpiNetType:36
@@ -427,7 +451,7 @@ design: (work@Example)
         |vpiOperand:
         \_constant: , line:9:13, endln:9:17
           |vpiParent:
-          \_tagged_pattern: , line:9:13, endln:9:17
+          \_operation: , line:9:7, endln:9:28
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
@@ -435,7 +459,7 @@ design: (work@Example)
         |vpiOperand:
         \_constant: , line:9:22, endln:9:26
           |vpiParent:
-          \_tagged_pattern: , line:9:22, endln:9:26
+          \_operation: , line:9:7, endln:9:28
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -448,7 +472,7 @@ design: (work@Example)
         |vpiOperand:
         \_constant: , line:10:13, endln:10:17
           |vpiParent:
-          \_tagged_pattern: , line:10:13, endln:10:17
+          \_operation: , line:10:7, endln:10:28
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
@@ -456,7 +480,7 @@ design: (work@Example)
         |vpiOperand:
         \_constant: , line:10:22, endln:10:26
           |vpiParent:
-          \_tagged_pattern: , line:10:22, endln:10:26
+          \_operation: , line:10:7, endln:10:28
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1

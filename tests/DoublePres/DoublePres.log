@@ -1144,7 +1144,7 @@ integer_typespec                                       2
 integer_var                                            1
 logic_net                                              8
 logic_typespec                                        12
-logic_var                                              2
+logic_var                                              3
 module_inst                                           22
 operation                                             89
 param_assign                                          43
@@ -1172,7 +1172,7 @@ integer_typespec                                       2
 integer_var                                            2
 logic_net                                              8
 logic_typespec                                        12
-logic_var                                              2
+logic_var                                              3
 module_inst                                           36
 operation                                             90
 param_assign                                          43
@@ -1337,6 +1337,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_constant: , line:9:35, endln:9:43
+      |vpiParent:
+      \_param_assign: , line:9:18, endln:9:43
       |vpiDecompile:1142.500
       |vpiSize:32
       |REAL:1142.500000
@@ -1351,12 +1353,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:12:19, endln:12:37
+      |vpiParent:
+      \_param_assign: , line:12:13, endln:12:37
       |vpiOpType:12
       |vpiOperand:
-      \_ref_obj: (CLKFBOUT_PHASE), line:12:19, endln:12:33
+      \_ref_obj: (work@dut.CLKFBOUT_PHASE), line:12:19, endln:12:33
         |vpiParent:
         \_operation: , line:12:19, endln:12:37
         |vpiName:CLKFBOUT_PHASE
+        |vpiFullName:work@dut.CLKFBOUT_PHASE
       |vpiOperand:
       \_constant: , line:12:36, endln:12:37
         |vpiParent:
@@ -1373,6 +1378,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_constant: , line:14:15, endln:14:16
+      |vpiParent:
+      \_param_assign: , line:14:11, endln:14:16
       |vpiDecompile:9
       |vpiSize:32
       |UINT:9
@@ -1387,6 +1394,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_constant: , line:15:15, endln:15:18
+      |vpiParent:
+      \_param_assign: , line:15:11, endln:15:18
       |vpiDecompile:5.7
       |vpiSize:32
       |REAL:5.700000
@@ -1401,6 +1410,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:16:27, endln:16:36
+      |vpiParent:
+      \_param_assign: , line:16:11, endln:16:36
       |vpiOpType:12
       |vpiOperand:
       \_operation: , line:16:28, endln:16:33
@@ -1408,15 +1419,17 @@ design: (work@top)
         \_operation: , line:16:27, endln:16:36
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (r), line:16:28, endln:16:29
+        \_ref_obj: (work@dut.r), line:16:28, endln:16:29
           |vpiParent:
           \_operation: , line:16:28, endln:16:33
           |vpiName:r
+          |vpiFullName:work@dut.r
         |vpiOperand:
-        \_ref_obj: (f), line:16:32, endln:16:33
+        \_ref_obj: (work@dut.f), line:16:32, endln:16:33
           |vpiParent:
           \_operation: , line:16:28, endln:16:33
           |vpiName:f
+          |vpiFullName:work@dut.f
       |vpiOperand:
       \_constant: , line:16:35, endln:16:36
         |vpiParent:
@@ -1433,6 +1446,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:18:16, endln:18:25
+      |vpiParent:
+      \_param_assign: , line:18:11, endln:18:25
       |vpiOpType:25
       |vpiOperand:
       \_constant: , line:18:16, endln:18:19
@@ -1458,6 +1473,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:20:16, endln:20:25
+      |vpiParent:
+      \_param_assign: , line:20:11, endln:20:25
       |vpiOpType:11
       |vpiOperand:
       \_constant: , line:20:16, endln:20:19
@@ -1483,6 +1500,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:22:16, endln:22:21
+      |vpiParent:
+      \_param_assign: , line:22:11, endln:22:21
       |vpiOpType:1
       |vpiOperand:
       \_constant: , line:22:18, endln:22:21
@@ -1498,6 +1517,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:24:16, endln:24:21
+      |vpiParent:
+      \_param_assign: , line:24:11, endln:24:21
       |vpiOpType:24
       |vpiOperand:
       \_constant: , line:24:16, endln:24:17
@@ -1523,6 +1544,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:26:16, endln:26:21
+      |vpiParent:
+      \_param_assign: , line:26:11, endln:26:21
       |vpiOpType:11
       |vpiOperand:
       \_constant: , line:26:16, endln:26:17
@@ -1548,6 +1571,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:28:16, endln:28:21
+      |vpiParent:
+      \_param_assign: , line:28:11, endln:28:21
       |vpiOpType:25
       |vpiOperand:
       \_constant: , line:28:16, endln:28:17
@@ -1573,6 +1598,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:30:16, endln:30:21
+      |vpiParent:
+      \_param_assign: , line:30:11, endln:30:21
       |vpiOpType:12
       |vpiOperand:
       \_constant: , line:30:16, endln:30:17
@@ -1598,6 +1625,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:32:16, endln:32:22
+      |vpiParent:
+      \_param_assign: , line:32:11, endln:32:22
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:32:16, endln:32:18
@@ -1623,6 +1652,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:34:16, endln:34:26
+      |vpiParent:
+      \_param_assign: , line:34:11, endln:34:26
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:34:16, endln:34:20
@@ -1648,6 +1679,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:36:17, endln:36:25
+      |vpiParent:
+      \_param_assign: , line:36:11, endln:36:25
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:36:17, endln:36:21
@@ -1673,6 +1706,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:38:17, endln:38:23
+      |vpiParent:
+      \_param_assign: , line:38:11, endln:38:23
       |vpiOpType:43
       |vpiOperand:
       \_constant: , line:38:17, endln:38:18
@@ -1698,6 +1733,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:40:17, endln:40:25
+      |vpiParent:
+      \_param_assign: , line:40:11, endln:40:25
       |vpiOpType:43
       |vpiOperand:
       \_constant: , line:40:17, endln:40:20
@@ -1723,22 +1760,27 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:42:18, endln:42:32
+      |vpiParent:
+      \_param_assign: , line:42:11, endln:42:32
       |vpiOpType:32
       |vpiOperand:
-      \_ref_obj: (A8), line:42:18, endln:42:20
+      \_ref_obj: (work@dut.A8), line:42:18, endln:42:20
         |vpiParent:
         \_operation: , line:42:18, endln:42:32
         |vpiName:A8
+        |vpiFullName:work@dut.A8
       |vpiOperand:
-      \_ref_obj: (A12), line:42:23, endln:42:26
+      \_ref_obj: (work@dut.A12), line:42:23, endln:42:26
         |vpiParent:
         \_operation: , line:42:18, endln:42:32
         |vpiName:A12
+        |vpiFullName:work@dut.A12
       |vpiOperand:
-      \_ref_obj: (A11), line:42:29, endln:42:32
+      \_ref_obj: (work@dut.A11), line:42:29, endln:42:32
         |vpiParent:
         \_operation: , line:42:18, endln:42:32
         |vpiName:A11
+        |vpiFullName:work@dut.A11
     |vpiLhs:
     \_parameter: (work@dut.A13), line:42:11, endln:42:14
   |vpiParamAssign:
@@ -1747,6 +1789,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_operation: , line:44:17, endln:44:23
+      |vpiParent:
+      \_param_assign: , line:44:11, endln:44:23
       |vpiOpType:13
       |vpiOperand:
       \_constant: , line:44:17, endln:44:19
@@ -1772,6 +1816,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiRhs:
     \_func_call: (incr_d), line:53:17, endln:53:23
+      |vpiParent:
+      \_param_assign: , line:53:11, endln:53:25
       |vpiName:incr_d
       |vpiFunction:
       \_function: (work@dut.incr_d), line:46:1, endln:51:12
@@ -1785,16 +1831,22 @@ design: (work@top)
     |vpiName:incr_d
     |vpiFullName:work@dut.incr_d
     |vpiVariables:
-    \_integer_var: (incr_d), line:47:4, endln:47:11
+    \_integer_var: (work@dut.incr_d.incr_d), line:47:4, endln:47:11
+      |vpiParent:
+      \_function: (work@dut.incr_d), line:46:1, endln:51:12
       |vpiTypespec:
       \_integer_typespec: , line:47:4, endln:47:11
         |vpiSigned:1
       |vpiName:incr_d
+      |vpiFullName:work@dut.incr_d.incr_d
       |vpiSigned:1
       |vpiAutomatic:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@dut.incr_d)
+      |vpiParent:
+      \_function: (work@dut.incr_d), line:46:1, endln:51:12
+      |vpiFullName:work@dut.incr_d
     |vpiStmt:
     \_begin: (work@dut.incr_d)
       |vpiParent:
@@ -1819,7 +1871,7 @@ design: (work@top)
           |vpiName:incr_d
           |vpiFullName:work@dut.incr_d.incr_d
           |vpiActual:
-          \_logic_var: (incr_d)
+          \_logic_var: (work@dut.incr_d.incr_d)
       |vpiStmt:
       \_operation: , line:49:4, endln:49:12
         |vpiParent:
@@ -1832,7 +1884,7 @@ design: (work@top)
           |vpiName:incr_d
           |vpiFullName:work@dut.incr_d.incr_d
           |vpiActual:
-          \_integer_var: (incr_d), line:47:4, endln:47:11
+          \_integer_var: (work@dut.incr_d.incr_d), line:47:4, endln:47:11
       |vpiStmt:
       \_return_stmt: , line:50:4, endln:50:10
         |vpiParent:
@@ -1844,7 +1896,7 @@ design: (work@top)
           |vpiName:incr_d
           |vpiFullName:work@dut.incr_d.incr_d
           |vpiActual:
-          \_integer_var: (incr_d), line:47:4, endln:47:11
+          \_logic_var: (work@dut.incr_d.incr_d)
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
   |vpiNet:
@@ -1866,7 +1918,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.a.a)
+      |vpiParent:
+      \_port: (a), line:10:10, endln:10:11
+      |vpiName:a
+      |vpiFullName:work@dut.a.a
       |vpiActual:
       \_logic_net: (work@dut.a), line:10:10, endln:10:11
     |vpiTypedef:
@@ -1878,7 +1934,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.b.b)
+      |vpiParent:
+      \_port: (b), line:10:20, endln:10:21
+      |vpiName:b
+      |vpiFullName:work@dut.b.b
       |vpiActual:
       \_logic_net: (work@dut.b), line:10:20, endln:10:21
     |vpiTypedef:
@@ -1889,12 +1949,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:55:8, endln:55:18
+      |vpiParent:
+      \_gen_if: , line:55:4, endln:55:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A1), line:55:8, endln:55:10
+      \_ref_obj: (work@dut.A1), line:55:8, endln:55:10
         |vpiParent:
         \_operation: , line:55:8, endln:55:18
         |vpiName:A1
+        |vpiFullName:work@dut.A1
       |vpiOperand:
       \_constant: , line:55:14, endln:55:18
         |vpiParent:
@@ -1904,9 +1967,14 @@ design: (work@top)
         |REAL:0.050000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:55:4, endln:55:6
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good1), line:56:12, endln:56:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good1
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -1915,12 +1983,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:59:8, endln:59:18
+      |vpiParent:
+      \_gen_if: , line:59:4, endln:59:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A2), line:59:8, endln:59:10
+      \_ref_obj: (work@dut.A2), line:59:8, endln:59:10
         |vpiParent:
         \_operation: , line:59:8, endln:59:18
         |vpiName:A2
+        |vpiFullName:work@dut.A2
       |vpiOperand:
       \_operation: , line:59:14, endln:59:18
         |vpiParent:
@@ -1933,9 +2004,14 @@ design: (work@top)
           |REAL:0.400000
           |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:59:4, endln:59:6
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good2), line:60:12, endln:60:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good2
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -1944,12 +2020,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:63:8, endln:63:18
+      |vpiParent:
+      \_gen_if: , line:63:4, endln:63:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A3), line:63:8, endln:63:10
+      \_ref_obj: (work@dut.A3), line:63:8, endln:63:10
         |vpiParent:
         \_operation: , line:63:8, endln:63:18
         |vpiName:A3
+        |vpiFullName:work@dut.A3
       |vpiOperand:
       \_operation: , line:63:14, endln:63:18
         |vpiParent:
@@ -1962,9 +2041,14 @@ design: (work@top)
           |REAL:0.600000
           |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:63:4, endln:63:6
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good3), line:64:12, endln:64:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good3
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -1973,12 +2057,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:67:8, endln:67:15
+      |vpiParent:
+      \_gen_if: , line:67:4, endln:67:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A4), line:67:8, endln:67:10
+      \_ref_obj: (work@dut.A4), line:67:8, endln:67:10
         |vpiParent:
         \_operation: , line:67:8, endln:67:15
         |vpiName:A4
+        |vpiFullName:work@dut.A4
       |vpiOperand:
       \_constant: , line:67:14, endln:67:15
         |vpiParent:
@@ -1988,9 +2075,14 @@ design: (work@top)
         |UINT:6
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:67:4, endln:67:6
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good4), line:68:12, endln:68:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good4
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -1999,12 +2091,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:71:8, endln:71:16
+      |vpiParent:
+      \_gen_if: , line:71:4, endln:71:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A5), line:71:8, endln:71:10
+      \_ref_obj: (work@dut.A5), line:71:8, endln:71:10
         |vpiParent:
         \_operation: , line:71:8, endln:71:16
         |vpiName:A5
+        |vpiFullName:work@dut.A5
       |vpiOperand:
       \_operation: , line:71:14, endln:71:16
         |vpiParent:
@@ -2017,9 +2112,14 @@ design: (work@top)
           |UINT:4
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:71:4, endln:71:6
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good5), line:72:12, endln:72:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good5
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2028,12 +2128,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:75:8, endln:75:16
+      |vpiParent:
+      \_gen_if: , line:75:4, endln:75:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A6), line:75:8, endln:75:10
+      \_ref_obj: (work@dut.A6), line:75:8, endln:75:10
         |vpiParent:
         \_operation: , line:75:8, endln:75:16
         |vpiName:A6
+        |vpiFullName:work@dut.A6
       |vpiOperand:
       \_constant: , line:75:14, endln:75:16
         |vpiParent:
@@ -2043,9 +2146,14 @@ design: (work@top)
         |UINT:10
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:75:4, endln:75:6
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good6), line:76:12, endln:76:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good6
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2054,12 +2162,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:79:8, endln:79:15
+      |vpiParent:
+      \_gen_if: , line:79:4, endln:79:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A7), line:79:8, endln:79:10
+      \_ref_obj: (work@dut.A7), line:79:8, endln:79:10
         |vpiParent:
         \_operation: , line:79:8, endln:79:15
         |vpiName:A7
+        |vpiFullName:work@dut.A7
       |vpiOperand:
       \_constant: , line:79:14, endln:79:15
         |vpiParent:
@@ -2069,9 +2180,14 @@ design: (work@top)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:79:4, endln:79:6
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good7), line:80:12, endln:80:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good7
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2080,12 +2196,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:83:6, endln:83:13
+      |vpiParent:
+      \_gen_if: , line:83:2, endln:83:4
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A8), line:83:6, endln:83:8
+      \_ref_obj: (work@dut.A8), line:83:6, endln:83:8
         |vpiParent:
         \_operation: , line:83:6, endln:83:13
         |vpiName:A8
+        |vpiFullName:work@dut.A8
       |vpiOperand:
       \_constant: , line:83:12, endln:83:13
         |vpiParent:
@@ -2095,9 +2214,14 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:83:2, endln:83:4
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good8), line:84:12, endln:84:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good8
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2106,6 +2230,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:87:7, endln:87:29
+      |vpiParent:
+      \_gen_if: , line:87:3, endln:87:5
       |vpiOpType:26
       |vpiOperand:
       \_operation: , line:87:8, endln:87:16
@@ -2113,10 +2239,11 @@ design: (work@top)
         \_operation: , line:87:7, endln:87:29
         |vpiOpType:18
         |vpiOperand:
-        \_ref_obj: (A9), line:87:8, endln:87:10
+        \_ref_obj: (work@dut.A9), line:87:8, endln:87:10
           |vpiParent:
           \_operation: , line:87:8, endln:87:16
           |vpiName:A9
+          |vpiFullName:work@dut.A9
         |vpiOperand:
         \_constant: , line:87:13, endln:87:16
           |vpiParent:
@@ -2131,10 +2258,11 @@ design: (work@top)
         \_operation: , line:87:7, endln:87:29
         |vpiOpType:20
         |vpiOperand:
-        \_ref_obj: (A9), line:87:22, endln:87:24
+        \_ref_obj: (work@dut.A9), line:87:22, endln:87:24
           |vpiParent:
           \_operation: , line:87:22, endln:87:28
           |vpiName:A9
+          |vpiFullName:work@dut.A9
         |vpiOperand:
         \_constant: , line:87:27, endln:87:28
           |vpiParent:
@@ -2144,9 +2272,14 @@ design: (work@top)
           |UINT:2
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:87:3, endln:87:5
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good9), line:88:11, endln:88:16
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good9
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2155,6 +2288,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:91:7, endln:91:35
+      |vpiParent:
+      \_gen_if: , line:91:3, endln:91:5
       |vpiOpType:26
       |vpiOperand:
       \_operation: , line:91:8, endln:91:18
@@ -2162,10 +2297,11 @@ design: (work@top)
         \_operation: , line:91:7, endln:91:35
         |vpiOpType:19
         |vpiOperand:
-        \_ref_obj: (A10), line:91:8, endln:91:11
+        \_ref_obj: (work@dut.A10), line:91:8, endln:91:11
           |vpiParent:
           \_operation: , line:91:8, endln:91:18
           |vpiName:A10
+          |vpiFullName:work@dut.A10
         |vpiOperand:
         \_constant: , line:91:15, endln:91:18
           |vpiParent:
@@ -2180,10 +2316,11 @@ design: (work@top)
         \_operation: , line:91:7, endln:91:35
         |vpiOpType:21
         |vpiOperand:
-        \_ref_obj: (A10), line:91:24, endln:91:27
+        \_ref_obj: (work@dut.A10), line:91:24, endln:91:27
           |vpiParent:
           \_operation: , line:91:24, endln:91:34
           |vpiName:A10
+          |vpiFullName:work@dut.A10
         |vpiOperand:
         \_constant: , line:91:31, endln:91:34
           |vpiParent:
@@ -2193,9 +2330,14 @@ design: (work@top)
           |REAL:0.300000
           |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:91:3, endln:91:5
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good10), line:92:11, endln:92:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good10
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2204,12 +2346,15 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:95:7, endln:95:17
+      |vpiParent:
+      \_gen_if: , line:95:3, endln:95:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (A11), line:95:7, endln:95:10
+      \_ref_obj: (work@dut.A11), line:95:7, endln:95:10
         |vpiParent:
         \_operation: , line:95:7, endln:95:17
         |vpiName:A11
+        |vpiFullName:work@dut.A11
       |vpiOperand:
       \_constant: , line:95:14, endln:95:17
         |vpiParent:
@@ -2219,9 +2364,14 @@ design: (work@top)
         |UINT:256
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:95:3, endln:95:5
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good11), line:96:11, endln:96:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good11
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2230,6 +2380,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:99:7, endln:99:36
+      |vpiParent:
+      \_gen_if: , line:99:3, endln:99:5
       |vpiOpType:26
       |vpiOperand:
       \_operation: , line:99:8, endln:99:17
@@ -2237,10 +2389,11 @@ design: (work@top)
         \_operation: , line:99:7, endln:99:36
         |vpiOpType:18
         |vpiOperand:
-        \_ref_obj: (A12), line:99:8, endln:99:11
+        \_ref_obj: (work@dut.A12), line:99:8, endln:99:11
           |vpiParent:
           \_operation: , line:99:8, endln:99:17
           |vpiName:A12
+          |vpiFullName:work@dut.A12
         |vpiOperand:
         \_constant: , line:99:14, endln:99:17
           |vpiParent:
@@ -2255,10 +2408,11 @@ design: (work@top)
         \_operation: , line:99:7, endln:99:36
         |vpiOpType:20
         |vpiOperand:
-        \_ref_obj: (A12), line:99:23, endln:99:26
+        \_ref_obj: (work@dut.A12), line:99:23, endln:99:26
           |vpiParent:
           \_operation: , line:99:23, endln:99:35
           |vpiName:A12
+          |vpiFullName:work@dut.A12
         |vpiOperand:
         \_constant: , line:99:29, endln:99:35
           |vpiParent:
@@ -2268,9 +2422,14 @@ design: (work@top)
           |REAL:378.230000
           |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:99:3, endln:99:5
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good12), line:100:11, endln:100:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good12
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2279,6 +2438,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:103:7, endln:103:36
+      |vpiParent:
+      \_gen_if: , line:103:3, endln:103:5
       |vpiOpType:26
       |vpiOperand:
       \_operation: , line:103:8, endln:103:17
@@ -2286,10 +2447,11 @@ design: (work@top)
         \_operation: , line:103:7, endln:103:36
         |vpiOpType:18
         |vpiOperand:
-        \_ref_obj: (A13), line:103:8, endln:103:11
+        \_ref_obj: (work@dut.A13), line:103:8, endln:103:11
           |vpiParent:
           \_operation: , line:103:8, endln:103:17
           |vpiName:A13
+          |vpiFullName:work@dut.A13
         |vpiOperand:
         \_constant: , line:103:14, endln:103:17
           |vpiParent:
@@ -2304,10 +2466,11 @@ design: (work@top)
         \_operation: , line:103:7, endln:103:36
         |vpiOpType:20
         |vpiOperand:
-        \_ref_obj: (A13), line:103:23, endln:103:26
+        \_ref_obj: (work@dut.A13), line:103:23, endln:103:26
           |vpiParent:
           \_operation: , line:103:23, endln:103:35
           |vpiName:A13
+          |vpiFullName:work@dut.A13
         |vpiOperand:
         \_constant: , line:103:29, endln:103:35
           |vpiParent:
@@ -2317,9 +2480,14 @@ design: (work@top)
           |REAL:378.230000
           |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:103:3, endln:103:5
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good13), line:104:11, endln:104:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good13
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -2328,6 +2496,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiCondition:
     \_operation: , line:107:6, endln:107:33
+      |vpiParent:
+      \_gen_if: , line:107:2, endln:107:4
       |vpiOpType:26
       |vpiOperand:
       \_operation: , line:107:7, endln:107:15
@@ -2335,10 +2505,11 @@ design: (work@top)
         \_operation: , line:107:6, endln:107:33
         |vpiOpType:18
         |vpiOperand:
-        \_ref_obj: (A15), line:107:7, endln:107:10
+        \_ref_obj: (work@dut.A15), line:107:7, endln:107:10
           |vpiParent:
           \_operation: , line:107:7, endln:107:15
           |vpiName:A15
+          |vpiFullName:work@dut.A15
         |vpiOperand:
         \_constant: , line:107:13, endln:107:15
           |vpiParent:
@@ -2353,10 +2524,11 @@ design: (work@top)
         \_operation: , line:107:6, endln:107:33
         |vpiOpType:21
         |vpiOperand:
-        \_ref_obj: (A15), line:107:21, endln:107:24
+        \_ref_obj: (work@dut.A15), line:107:21, endln:107:24
           |vpiParent:
           \_operation: , line:107:21, endln:107:32
           |vpiName:A15
+          |vpiFullName:work@dut.A15
         |vpiOperand:
         \_constant: , line:107:28, endln:107:32
           |vpiParent:
@@ -2366,9 +2538,14 @@ design: (work@top)
           |REAL:11.100000
           |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if: , line:107:2, endln:107:4
+      |vpiFullName:work@dut
       |vpiStmt:
       \_ref_module: work@GOOD (good15), line:108:11, endln:108:17
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiName:good15
         |vpiDefName:work@GOOD
 |uhdmallModules:
@@ -2396,7 +2573,11 @@ design: (work@top)
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.clk_i.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:1:18, endln:1:23
+      |vpiName:clk_i
+      |vpiFullName:work@top.clk_i.clk_i
       |vpiActual:
       \_logic_net: (work@top.clk_i), line:1:18, endln:1:23
     |vpiTypedef:
@@ -2408,7 +2589,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.b.b)
+      |vpiParent:
+      \_port: (b), line:1:32, endln:1:33
+      |vpiName:b
+      |vpiFullName:work@top.b.b
       |vpiActual:
       \_logic_net: (work@top.b), line:1:32, endln:1:33
     |vpiTypedef:
@@ -2423,18 +2608,28 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |vpiPort:
     \_port: (a), line:4:3, endln:4:12
+      |vpiParent:
+      \_ref_module: work@dut (d), line:3:37, endln:3:38
       |vpiName:a
       |vpiHighConn:
-      \_ref_obj: (clk_i), line:4:6, endln:4:11
+      \_ref_obj: (work@top.d.a.clk_i), line:4:6, endln:4:11
+        |vpiParent:
+        \_port: (a), line:4:3, endln:4:12
         |vpiName:clk_i
+        |vpiFullName:work@top.d.a.clk_i
         |vpiActual:
         \_logic_net: (work@top.clk_i), line:1:18, endln:1:23
     |vpiPort:
     \_port: (b), line:5:3, endln:5:8
+      |vpiParent:
+      \_ref_module: work@dut (d), line:3:37, endln:3:38
       |vpiName:b
       |vpiHighConn:
-      \_ref_obj: (b), line:5:6, endln:5:7
+      \_ref_obj: (work@top.d.b.b), line:5:6, endln:5:7
+        |vpiParent:
+        \_port: (b), line:5:3, endln:5:8
         |vpiName:b
+        |vpiFullName:work@top.d.b.b
         |vpiActual:
         \_logic_net: (work@top.b), line:1:32, endln:1:33
 |uhdmtopModules:
@@ -2448,6 +2643,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_logic_typespec: , line:1:18, endln:1:18
+      |vpiParent:
+      \_logic_net: (work@top.clk_i), line:1:18, endln:1:23
     |vpiName:clk_i
     |vpiFullName:work@top.clk_i
   |vpiNet:
@@ -2456,6 +2653,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_logic_typespec: , line:1:32, endln:1:32
+      |vpiParent:
+      \_logic_net: (work@top.b), line:1:32, endln:1:33
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiTopModule:1
@@ -2643,6 +2842,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:35, endln:9:43
+        |vpiParent:
+        \_param_assign: , line:9:18, endln:9:43
         |vpiDecompile:4.166667
         |vpiSize:64
         |REAL:4.166667
@@ -2657,6 +2858,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_operation: , line:12:19, endln:12:37
+        |vpiParent:
+        \_param_assign: , line:12:13, endln:12:37
         |vpiOpType:12
         |vpiOperand:
         \_constant: , line:12:19, endln:12:33
@@ -2682,6 +2885,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:14:15, endln:14:16
+        |vpiParent:
+        \_param_assign: , line:14:11, endln:14:16
         |vpiDecompile:9
         |vpiSize:32
         |UINT:9
@@ -2696,6 +2901,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:15:15, endln:15:18
+        |vpiParent:
+        \_param_assign: , line:15:11, endln:15:18
         |vpiDecompile:5.700000
         |vpiSize:64
         |REAL:5.700000
@@ -2710,6 +2917,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:16:27, endln:16:36
+        |vpiParent:
+        \_param_assign: , line:16:11, endln:16:36
         |vpiDecompile:7.350000
         |vpiSize:64
         |REAL:7.350000
@@ -2722,6 +2931,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:18:16, endln:18:25
+        |vpiParent:
+        \_param_assign: , line:18:11, endln:18:25
         |vpiDecompile:0.050000
         |vpiSize:64
         |REAL:0.050000
@@ -2734,6 +2945,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:20:16, endln:20:25
+        |vpiParent:
+        \_param_assign: , line:20:11, endln:20:25
         |vpiDecompile:-0.400000
         |vpiSize:64
         |REAL:-0.400000
@@ -2746,6 +2959,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:22:16, endln:22:21
+        |vpiParent:
+        \_param_assign: , line:22:11, endln:22:21
         |vpiDecompile:-0.600000
         |vpiSize:64
         |REAL:-0.600000
@@ -2758,6 +2973,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:24:16, endln:24:21
+        |vpiParent:
+        \_param_assign: , line:24:11, endln:24:21
         |vpiDecompile:6
         |vpiSize:64
         |UINT:6
@@ -2770,6 +2987,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:26:16, endln:26:21
+        |vpiParent:
+        \_param_assign: , line:26:11, endln:26:21
         |vpiDecompile:-4
         |vpiSize:64
         |INT:-4
@@ -2782,6 +3001,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:28:16, endln:28:21
+        |vpiParent:
+        \_param_assign: , line:28:11, endln:28:21
         |vpiDecompile:10
         |vpiSize:64
         |INT:10
@@ -2794,6 +3015,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:30:16, endln:30:21
+        |vpiParent:
+        \_param_assign: , line:30:11, endln:30:21
         |vpiDecompile:2
         |vpiSize:64
         |INT:2
@@ -2806,6 +3029,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:32:16, endln:32:22
+        |vpiParent:
+        \_param_assign: , line:32:11, endln:32:22
         |vpiDecompile:1
         |vpiSize:64
         |INT:1
@@ -2818,6 +3043,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:34:16, endln:34:26
+        |vpiParent:
+        \_param_assign: , line:34:11, endln:34:26
         |vpiDecompile:1.900000
         |vpiSize:64
         |REAL:1.900000
@@ -2830,6 +3057,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:36:17, endln:36:25
+        |vpiParent:
+        \_param_assign: , line:36:11, endln:36:25
         |vpiDecompile:0.300000
         |vpiSize:64
         |REAL:0.300000
@@ -2842,6 +3071,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:38:17, endln:38:23
+        |vpiParent:
+        \_param_assign: , line:38:11, endln:38:23
         |vpiDecompile:256
         |vpiSize:64
         |INT:256
@@ -2854,6 +3085,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:40:17, endln:40:25
+        |vpiParent:
+        \_param_assign: , line:40:11, endln:40:25
         |vpiDecompile:378.228594
         |vpiSize:64
         |REAL:378.228594
@@ -2866,6 +3099,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:42:18, endln:42:32
+        |vpiParent:
+        \_param_assign: , line:42:11, endln:42:32
         |vpiDecompile:378.228594
         |vpiSize:64
         |REAL:378.228594
@@ -2878,6 +3113,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_operation: , line:44:17, endln:44:23
+        |vpiParent:
+        \_param_assign: , line:44:11, endln:44:23
         |vpiOpType:13
         |vpiOperand:
         \_constant: , line:44:17, endln:44:19
@@ -2903,6 +3140,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiRhs:
       \_constant: , line:53:17, endln:53:25
+        |vpiParent:
+        \_param_assign: , line:53:11, endln:53:25
         |vpiDecompile:11.100000
         |vpiSize:64
         |REAL:11.100000
@@ -2930,7 +3169,7 @@ design: (work@top)
         |vpiAutomatic:1
       |vpiVisibility:1
       |vpiReturn:
-      \_logic_var: 
+      \_logic_var: (work@dut.incr_d)
       |vpiStmt:
       \_begin: (work@top.d.incr_d)
         |vpiParent:
@@ -2951,7 +3190,7 @@ design: (work@top)
             |vpiName:incr_d
             |vpiFullName:work@top.d.incr_d.incr_d
             |vpiActual:
-            \_logic_var: (incr_d)
+            \_logic_var: (work@dut.incr_d.incr_d)
         |vpiStmt:
         \_operation: , line:49:4, endln:49:12
           |vpiParent:
@@ -2964,7 +3203,7 @@ design: (work@top)
             |vpiName:incr_d
             |vpiFullName:work@top.d.incr_d.incr_d
             |vpiActual:
-            \_integer_var: (incr_d), line:47:4, endln:47:11
+            \_integer_var: (work@dut.incr_d.incr_d), line:47:4, endln:47:11
         |vpiStmt:
         \_return_stmt: , line:50:4, endln:50:10
           |vpiParent:
@@ -2976,7 +3215,7 @@ design: (work@top)
             |vpiName:incr_d
             |vpiFullName:work@top.d.incr_d.incr_d
             |vpiActual:
-            \_integer_var: (incr_d), line:47:4, endln:47:11
+            \_logic_var: (work@dut.incr_d.incr_d)
       |vpiInstance:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
     |vpiNet:
@@ -2985,6 +3224,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiTypespec:
       \_logic_typespec: , line:10:10, endln:10:10
+        |vpiParent:
+        \_logic_net: (work@top.d.a), line:10:10, endln:10:11
       |vpiName:a
       |vpiFullName:work@top.d.a
     |vpiNet:
@@ -2993,6 +3234,8 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiTypespec:
       \_logic_typespec: , line:10:20, endln:10:20
+        |vpiParent:
+        \_logic_net: (work@top.d.b), line:10:20, endln:10:21
       |vpiName:b
       |vpiFullName:work@top.d.b
     |vpiInstance:

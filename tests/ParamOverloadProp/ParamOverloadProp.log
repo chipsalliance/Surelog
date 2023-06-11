@@ -183,16 +183,19 @@ design: (work@top)
       \_parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
       |vpiRange:
       \_range: , line:9:20, endln:9:31
+        |vpiParent:
+        \_logic_typespec: , line:9:14, endln:9:31
         |vpiLeftRange:
         \_operation: , line:9:21, endln:9:28
           |vpiParent:
           \_range: , line:9:20, endln:9:31
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (Width), line:9:21, endln:9:26
+          \_ref_obj: (work@prim_flop.ResetValue.Width), line:9:21, endln:9:26
             |vpiParent:
             \_operation: , line:9:21, endln:9:28
             |vpiName:Width
+            |vpiFullName:work@prim_flop.ResetValue.Width
             |vpiActual:
             \_parameter: (work@top.u_prim_flop.Width), line:8:18, endln:8:23
           |vpiOperand:
@@ -219,6 +222,8 @@ design: (work@top)
     \_module_inst: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |vpiRhs:
     \_constant: , line:8:26, endln:8:27
+      |vpiParent:
+      \_param_assign: , line:8:18, endln:8:27
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -232,8 +237,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |vpiRhs:
-    \_ref_obj: (Width), line:9:45, endln:9:50
+    \_ref_obj: (work@prim_flop.Width), line:9:45, endln:9:50
+      |vpiParent:
+      \_param_assign: , line:9:32, endln:9:50
       |vpiName:Width
+      |vpiFullName:work@prim_flop.Width
     |vpiLhs:
     \_parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
   |vpiDefName:work@prim_flop
@@ -326,6 +334,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:26, endln:8:27
+        |vpiParent:
+        \_param_assign: , line:8:18, endln:8:27
         |vpiDecompile:22
         |vpiSize:32
         |UINT:22
@@ -341,6 +351,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:45, endln:9:50
+        |vpiParent:
+        \_param_assign: , line:9:32, endln:9:50
         |vpiDecompile:22
         |vpiSize:22
         |UINT:22

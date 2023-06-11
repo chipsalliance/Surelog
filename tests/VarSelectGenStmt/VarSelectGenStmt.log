@@ -294,13 +294,19 @@ design: (work@aes_sub_bytes)
     |vpiName:data_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@aes_sbox.data_i.data_i)
+      |vpiParent:
+      \_port: (data_i), line:3:32, endln:3:38
+      |vpiName:data_i
+      |vpiFullName:work@aes_sbox.data_i.data_i
       |vpiActual:
       \_logic_net: (work@aes_sbox.data_i), line:3:32, endln:3:38
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:31
       |vpiRange:
       \_range: , line:3:16, endln:3:21
+        |vpiParent:
+        \_logic_typespec: , line:3:10, endln:3:31
         |vpiLeftRange:
         \_constant: , line:3:17, endln:3:18
           |vpiParent:
@@ -319,6 +325,8 @@ design: (work@aes_sub_bytes)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:10, endln:3:31
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -337,6 +345,8 @@ design: (work@aes_sub_bytes)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:3:26, endln:3:31
+        |vpiParent:
+        \_logic_typespec: , line:3:10, endln:3:31
         |vpiLeftRange:
         \_constant: , line:3:27, endln:3:28
           |vpiParent:
@@ -366,6 +376,13 @@ design: (work@aes_sub_bytes)
     |vpiName:data_i
     |vpiFullName:work@aes_sub_bytes.data_i
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@aes_sub_bytes.j), line:14:22, endln:14:23
+    |vpiParent:
+    \_module_inst: work@aes_sub_bytes (work@aes_sub_bytes), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:8:1, endln:23:10
+    |vpiName:j
+    |vpiFullName:work@aes_sub_bytes.j
+    |vpiNetType:1
   |vpiPort:
   \_port: (data_i), line:10:32, endln:10:38
     |vpiParent:
@@ -373,13 +390,19 @@ design: (work@aes_sub_bytes)
     |vpiName:data_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@aes_sub_bytes.data_i.data_i)
+      |vpiParent:
+      \_port: (data_i), line:10:32, endln:10:38
+      |vpiName:data_i
+      |vpiFullName:work@aes_sub_bytes.data_i.data_i
       |vpiActual:
       \_logic_net: (work@aes_sub_bytes.data_i), line:10:32, endln:10:38
     |vpiTypedef:
     \_logic_typespec: , line:10:10, endln:10:31
       |vpiRange:
       \_range: , line:10:16, endln:10:21
+        |vpiParent:
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:17, endln:10:18
           |vpiParent:
@@ -398,6 +421,8 @@ design: (work@aes_sub_bytes)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:10:21, endln:10:26
+        |vpiParent:
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:22, endln:10:23
           |vpiParent:
@@ -416,6 +441,8 @@ design: (work@aes_sub_bytes)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:10:26, endln:10:31
+        |vpiParent:
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:27, endln:10:28
           |vpiParent:
@@ -442,8 +469,6 @@ design: (work@aes_sub_bytes)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:14:19, endln:14:20
-        |vpiParent:
-        \_assign_stmt: , line:14:8, endln:14:20
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -452,21 +477,21 @@ design: (work@aes_sub_bytes)
       \_ref_var: (work@aes_sub_bytes.j), line:14:15, endln:14:16
         |vpiParent:
         \_assign_stmt: , line:14:8, endln:14:20
-        |vpiTypespec:
-        \_unsupported_typespec: (j), line:14:15, endln:14:16
-          |vpiName:j
         |vpiName:j
         |vpiFullName:work@aes_sub_bytes.j
     |vpiCondition:
     \_operation: , line:14:22, endln:14:27
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (j), line:14:22, endln:14:23
+      \_ref_obj: (work@aes_sub_bytes.j), line:14:22, endln:14:23
         |vpiParent:
         \_operation: , line:14:22, endln:14:27
         |vpiName:j
+        |vpiFullName:work@aes_sub_bytes.j
         |vpiActual:
-        \_logic_net: (j)
+        \_logic_net: (work@aes_sub_bytes.j), line:14:22, endln:14:23
       |vpiOperand:
       \_constant: , line:14:26, endln:14:27
         |vpiParent:
@@ -477,15 +502,23 @@ design: (work@aes_sub_bytes)
         |vpiConstType:9
     |vpiForIncStmt:
     \_operation: , line:14:29, endln:14:30
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:62
       |vpiOperand:
-      \_ref_obj: (j)
+      \_ref_obj: (work@aes_sub_bytes.j)
+        |vpiParent:
+        \_gen_for: 
         |vpiName:j
+        |vpiFullName:work@aes_sub_bytes.j
         |vpiActual:
-        \_logic_net: (j)
+        \_logic_net: (work@aes_sub_bytes.j), line:14:22, endln:14:23
     |vpiStmt:
-    \_named_begin: (gen_sbox_j)
+    \_named_begin: (work@aes_sub_bytes.gen_sbox_j)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:gen_sbox_j
+      |vpiFullName:work@aes_sub_bytes.gen_sbox_j
 |uhdmtopModules:
 \_module_inst: work@aes_sub_bytes (work@aes_sub_bytes), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:8:1, endln:23:10
   |vpiName:work@aes_sub_bytes
@@ -497,8 +530,12 @@ design: (work@aes_sub_bytes)
     \_module_inst: work@aes_sub_bytes (work@aes_sub_bytes), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:8:1, endln:23:10
     |vpiTypespec:
     \_logic_typespec: , line:10:10, endln:10:31
+      |vpiParent:
+      \_logic_net: (work@aes_sub_bytes.data_i), line:10:32, endln:10:38
       |vpiRange:
       \_range: , line:10:16, endln:10:21
+        |vpiParent:
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:17, endln:10:18
           |vpiParent:
@@ -517,6 +554,8 @@ design: (work@aes_sub_bytes)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:10:21, endln:10:26
+        |vpiParent:
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:22, endln:10:23
           |vpiParent:
@@ -535,6 +574,8 @@ design: (work@aes_sub_bytes)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:10:26, endln:10:31
+        |vpiParent:
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:27, endln:10:28
           |vpiParent:
@@ -554,10 +595,6 @@ design: (work@aes_sub_bytes)
     |vpiName:data_i
     |vpiFullName:work@aes_sub_bytes.data_i
     |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (j)
-    |vpiName:j
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (data_i), line:10:32, endln:10:38
@@ -578,7 +615,7 @@ design: (work@aes_sub_bytes)
       |vpiRange:
       \_range: , line:10:16, endln:10:21
         |vpiParent:
-        \_port: (data_i), line:10:32, endln:10:38
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:17, endln:10:18
           |vpiParent:
@@ -598,7 +635,7 @@ design: (work@aes_sub_bytes)
       |vpiRange:
       \_range: , line:10:21, endln:10:26
         |vpiParent:
-        \_port: (data_i), line:10:32, endln:10:38
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:22, endln:10:23
           |vpiParent:
@@ -618,7 +655,7 @@ design: (work@aes_sub_bytes)
       |vpiRange:
       \_range: , line:10:26, endln:10:31
         |vpiParent:
-        \_port: (data_i), line:10:32, endln:10:38
+        \_logic_typespec: , line:10:10, endln:10:31
         |vpiLeftRange:
         \_constant: , line:10:27, endln:10:28
           |vpiParent:
@@ -694,8 +731,12 @@ design: (work@aes_sub_bytes)
               \_module_inst: work@aes_sbox (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[0].aes_sbox_ij), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:16:7, endln:19:9
               |vpiTypespec:
               \_logic_typespec: , line:3:10, endln:3:31
+                |vpiParent:
+                \_logic_net: (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[0].aes_sbox_ij.data_i), line:3:32, endln:3:38
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -714,6 +755,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -732,6 +775,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:
@@ -768,7 +813,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:26, endln:18:27
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[0].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -776,7 +821,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:29, endln:18:30
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[0].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -794,7 +839,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -814,7 +859,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -834,7 +879,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:
@@ -889,8 +934,12 @@ design: (work@aes_sub_bytes)
               \_module_inst: work@aes_sbox (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[1].aes_sbox_ij), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:16:7, endln:19:9
               |vpiTypespec:
               \_logic_typespec: , line:3:10, endln:3:31
+                |vpiParent:
+                \_logic_net: (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[1].aes_sbox_ij.data_i), line:3:32, endln:3:38
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -909,6 +958,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -927,6 +978,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:
@@ -963,7 +1016,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:26, endln:18:27
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[1].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
@@ -971,7 +1024,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:29, endln:18:30
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[0].gen_sbox_i[1].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -989,7 +1042,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -1009,7 +1062,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -1029,7 +1082,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:
@@ -1105,8 +1158,12 @@ design: (work@aes_sub_bytes)
               \_module_inst: work@aes_sbox (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[0].aes_sbox_ij), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:16:7, endln:19:9
               |vpiTypespec:
               \_logic_typespec: , line:3:10, endln:3:31
+                |vpiParent:
+                \_logic_net: (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[0].aes_sbox_ij.data_i), line:3:32, endln:3:38
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -1125,6 +1182,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -1143,6 +1202,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:
@@ -1179,7 +1240,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:26, endln:18:27
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[0].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -1187,7 +1248,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:29, endln:18:30
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[0].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
@@ -1205,7 +1266,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -1225,7 +1286,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -1245,7 +1306,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:
@@ -1300,8 +1361,12 @@ design: (work@aes_sub_bytes)
               \_module_inst: work@aes_sbox (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[1].aes_sbox_ij), file:${SURELOG_DIR}/tests/VarSelectGenStmt/dut.sv, line:16:7, endln:19:9
               |vpiTypespec:
               \_logic_typespec: , line:3:10, endln:3:31
+                |vpiParent:
+                \_logic_net: (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[1].aes_sbox_ij.data_i), line:3:32, endln:3:38
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -1320,6 +1385,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -1338,6 +1405,8 @@ design: (work@aes_sub_bytes)
                     |vpiConstType:9
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
+                  |vpiParent:
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:
@@ -1374,7 +1443,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:26, endln:18:27
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[1].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
@@ -1382,7 +1451,7 @@ design: (work@aes_sub_bytes)
                 |vpiIndex:
                 \_constant: , line:18:29, endln:18:30
                   |vpiParent:
-                  \_var_select: (data_i), line:18:19, endln:18:31
+                  \_var_select: (work@aes_sub_bytes.gen_sbox_j[1].gen_sbox_i[1].aes_sbox_ij.data_i.data_i), line:18:19, endln:18:31
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
@@ -1400,7 +1469,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:16, endln:3:21
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:17, endln:3:18
                     |vpiParent:
@@ -1420,7 +1489,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:21, endln:3:26
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:22, endln:3:23
                     |vpiParent:
@@ -1440,7 +1509,7 @@ design: (work@aes_sub_bytes)
                 |vpiRange:
                 \_range: , line:3:26, endln:3:31
                   |vpiParent:
-                  \_port: (data_i), line:3:32, endln:3:38
+                  \_logic_typespec: , line:3:10, endln:3:31
                   |vpiLeftRange:
                   \_constant: , line:3:27, endln:3:28
                     |vpiParent:

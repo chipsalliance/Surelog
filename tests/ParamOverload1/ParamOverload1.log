@@ -272,7 +272,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@dut.P), line:2:18, endln:2:19
         |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
+        \_constant: 
           |vpiParent:
           \_range: , line:2:21, endln:2:22
           |vpiDecompile:0
@@ -286,6 +286,8 @@ design: (work@top)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:2:21, endln:2:22
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
@@ -309,6 +311,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
     \_operation: , line:2:26, endln:2:42
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:42
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:2:28, endln:2:29
@@ -356,7 +360,11 @@ design: (work@top)
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.x.x)
+      |vpiParent:
+      \_port: (x), line:1:23, endln:1:24
+      |vpiName:x
+      |vpiFullName:work@dut.x.x
       |vpiActual:
       \_logic_net: (work@dut.x), line:1:23, endln:1:24
     |vpiTypedef:
@@ -387,7 +395,7 @@ design: (work@top)
       |vpiName:x
       |vpiFullName:work@dut.x
       |vpiActual:
-      \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24
+      \_logic_net: (work@dut.x), line:1:23, endln:1:24
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
   |vpiParent:
@@ -407,7 +415,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:6:23, endln:6:24
     |vpiTypedef:
@@ -423,12 +435,17 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiPort:
     \_port: (x), line:7:36, endln:7:41
+      |vpiParent:
+      \_ref_module: work@dut (u_dut1), line:7:29, endln:7:35
       |vpiName:x
       |vpiHighConn:
-      \_ref_obj: (o), line:7:39, endln:7:40
+      \_ref_obj: (work@top.u_dut1.x.o), line:7:39, endln:7:40
+        |vpiParent:
+        \_port: (x), line:7:36, endln:7:41
         |vpiName:o
+        |vpiFullName:work@top.u_dut1.x.o
         |vpiActual:
-        \_int_var: (work@top.o), line:6:23, endln:6:24
+        \_logic_net: (work@top.o), line:6:23, endln:6:24
   |vpiRefModule:
   \_ref_module: work@dut (u_dut2), line:8:8, endln:8:14
     |vpiParent:
@@ -439,12 +456,17 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiPort:
     \_port: (x), line:8:15, endln:8:20
+      |vpiParent:
+      \_ref_module: work@dut (u_dut2), line:8:8, endln:8:14
       |vpiName:x
       |vpiHighConn:
-      \_ref_obj: (o), line:8:18, endln:8:19
+      \_ref_obj: (work@top.u_dut2.x.o), line:8:18, endln:8:19
+        |vpiParent:
+        \_port: (x), line:8:15, endln:8:20
         |vpiName:o
+        |vpiFullName:work@top.u_dut2.x.o
         |vpiActual:
-        \_int_var: (work@top.o), line:6:23, endln:6:24
+        \_logic_net: (work@top.o), line:6:23, endln:6:24
   |vpiRefModule:
   \_ref_module: work@dut (u_dut3), line:9:20, endln:9:26
     |vpiParent:
@@ -455,12 +477,17 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiPort:
     \_port: (x), line:9:27, endln:9:32
+      |vpiParent:
+      \_ref_module: work@dut (u_dut3), line:9:20, endln:9:26
       |vpiName:x
       |vpiHighConn:
-      \_ref_obj: (o), line:9:30, endln:9:31
+      \_ref_obj: (work@top.u_dut3.x.o), line:9:30, endln:9:31
+        |vpiParent:
+        \_port: (x), line:9:27, endln:9:32
         |vpiName:o
+        |vpiFullName:work@top.u_dut3.x.o
         |vpiActual:
-        \_int_var: (work@top.o), line:6:23, endln:6:24
+        \_logic_net: (work@top.o), line:6:23, endln:6:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
   |vpiName:work@top
@@ -470,6 +497,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
     \_int_typespec: , line:6:19, endln:6:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:6:23, endln:6:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -528,7 +557,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:2:21, endln:2:22
+          \_constant: 
             |vpiParent:
             \_range: , line:2:21, endln:2:22
             |vpiDecompile:0
@@ -566,7 +595,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.u_dut1.P), line:2:18, endln:2:19
         |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
+        \_constant: 
           |vpiParent:
           \_range: , line:2:21, endln:2:22
           |vpiDecompile:0
@@ -676,7 +705,7 @@ design: (work@top)
         |vpiName:x
         |vpiFullName:work@top.u_dut1.x
         |vpiActual:
-        \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24
+        \_logic_net: (work@dut.x), line:1:23, endln:1:24
   |vpiModule:
   \_module_inst: work@dut (work@top.u_dut2), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:8:4, endln:8:22
     |vpiParent:
@@ -708,7 +737,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:2:21, endln:2:22
+          \_constant: 
             |vpiParent:
             \_range: , line:2:21, endln:2:22
             |vpiDecompile:0
@@ -746,7 +775,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.u_dut2.P), line:2:18, endln:2:19
         |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
+        \_constant: 
           |vpiParent:
           \_range: , line:2:21, endln:2:22
           |vpiDecompile:0
@@ -792,7 +821,7 @@ design: (work@top)
             |vpiParent:
             \_array_typespec: 
             |vpiLeftRange:
-            \_constant: , line:2:21, endln:2:22
+            \_constant: 
               |vpiParent:
               \_range: , line:2:21, endln:2:22
               |vpiDecompile:0
@@ -918,7 +947,7 @@ design: (work@top)
         |vpiName:x
         |vpiFullName:work@top.u_dut2.x
         |vpiActual:
-        \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24
+        \_logic_net: (work@dut.x), line:1:23, endln:1:24
   |vpiModule:
   \_module_inst: work@dut (work@top.u_dut3), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:9:4, endln:9:34
     |vpiParent:
@@ -950,7 +979,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:2:21, endln:2:22
+          \_constant: 
             |vpiParent:
             \_range: , line:2:21, endln:2:22
             |vpiDecompile:0
@@ -988,7 +1017,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.u_dut3.P), line:2:18, endln:2:19
         |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
+        \_constant: 
           |vpiParent:
           \_range: , line:2:21, endln:2:22
           |vpiDecompile:0
@@ -1083,7 +1112,7 @@ design: (work@top)
         |vpiName:x
         |vpiFullName:work@top.u_dut3.x
         |vpiActual:
-        \_int_var: (work@top.u_dut1.x), line:1:23, endln:1:24
+        \_logic_net: (work@dut.x), line:1:23, endln:1:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

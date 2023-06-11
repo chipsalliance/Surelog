@@ -300,6 +300,8 @@ design: (work@top)
     \_module_inst: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
     |vpiRhs:
     \_constant: , line:2:27, endln:2:30
+      |vpiParent:
+      \_param_assign: , line:2:19, endln:2:30
       |vpiDecompile:999
       |vpiSize:32
       |UINT:999
@@ -314,11 +316,14 @@ design: (work@top)
     \_module_inst: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
     |vpiRhs:
     \_sys_func_call: ($clog2), line:3:24, endln:3:37
+      |vpiParent:
+      \_param_assign: , line:3:19, endln:3:37
       |vpiArgument:
-      \_ref_obj: (Depth), line:3:31, endln:3:36
+      \_ref_obj: (work@otp_ctrl_ecc_reg.Depth), line:3:31, endln:3:36
         |vpiParent:
         \_sys_func_call: ($clog2), line:3:24, endln:3:37
         |vpiName:Depth
+        |vpiFullName:work@otp_ctrl_ecc_reg.Depth
       |vpiName:$clog2
     |vpiLhs:
     \_parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:21
@@ -336,7 +341,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@otp_ctrl_ecc_reg.a.a)
+      |vpiParent:
+      \_port: (a), line:1:36, endln:1:37
+      |vpiName:a
+      |vpiFullName:work@otp_ctrl_ecc_reg.a.a
       |vpiActual:
       \_logic_net: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
     |vpiTypedef:
@@ -359,7 +368,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@otp_ctrl_ecc_reg.a
       |vpiActual:
-      \_int_var: (work@top.u_otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
+      \_logic_net: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
   |vpiParent:
@@ -413,6 +422,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiRhs:
     \_operation: , line:12:33, endln:12:49
+      |vpiParent:
+      \_param_assign: , line:12:26, endln:12:49
       |vpiTypespec:
       \_struct_typespec: (part_info_t), line:8:12, endln:8:18
       |vpiOpType:67
@@ -432,6 +443,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiRhs:
     \_hier_path: (Info.x), line:13:37, endln:13:43
+      |vpiParent:
+      \_param_assign: , line:13:19, endln:13:43
       |vpiName:Info.x
       |vpiActual:
       \_ref_obj: (Info)
@@ -461,7 +474,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:7:23, endln:7:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:7:23, endln:7:24
     |vpiTypedef:
@@ -477,12 +494,17 @@ design: (work@top)
     \_module_inst: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
     |vpiPort:
     \_port: (a), line:18:7, endln:18:12
+      |vpiParent:
+      \_ref_module: work@otp_ctrl_ecc_reg (u_otp_ctrl_ecc_reg), line:17:6, endln:17:24
       |vpiName:a
       |vpiHighConn:
-      \_ref_obj: (o), line:18:10, endln:18:11
+      \_ref_obj: (work@top.u_otp_ctrl_ecc_reg.a.o), line:18:10, endln:18:11
+        |vpiParent:
+        \_port: (a), line:18:7, endln:18:12
         |vpiName:o
+        |vpiFullName:work@top.u_otp_ctrl_ecc_reg.a.o
         |vpiActual:
-        \_int_var: (work@top.o), line:7:23, endln:7:24
+        \_logic_net: (work@top.o), line:7:23, endln:7:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
   |vpiName:work@top
@@ -492,6 +514,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiTypespec:
     \_int_typespec: , line:7:19, endln:7:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:7:23, endln:7:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -545,6 +569,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiRhs:
     \_operation: , line:12:33, endln:12:49
+      |vpiParent:
+      \_param_assign: , line:12:26, endln:12:49
       |vpiTypespec:
       \_struct_typespec: (part_info_t), line:8:12, endln:8:18
       |vpiOpType:67
@@ -564,6 +590,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiRhs:
     \_hier_path: (Info.x), line:13:37, endln:13:43
+      |vpiParent:
+      \_param_assign: , line:13:19, endln:13:43
       |vpiName:Info.x
       |vpiActual:
       \_ref_obj: (Info)
@@ -654,7 +682,7 @@ design: (work@top)
       |vpiRhs:
       \_hier_path: (Info.x), line:16:15, endln:16:30
         |vpiParent:
-        \_sys_func_call: ($clog2), line:3:24, endln:3:37
+        \_param_assign: , line:13:19, endln:13:43
         |vpiTypespec:
         \_int_typespec: , line:13:15, endln:13:18
         |vpiName:Info.x
@@ -678,10 +706,12 @@ design: (work@top)
       \_module_inst: work@otp_ctrl_ecc_reg (work@top.u_otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:15:4, endln:18:14
       |vpiRhs:
       \_sys_func_call: ($clog2), line:3:24, endln:3:37
+        |vpiParent:
+        \_param_assign: , line:3:19, endln:3:37
         |vpiArgument:
         \_hier_path: (Info.x), line:3:31, endln:3:36
           |vpiParent:
-          \_sys_func_call: ($clog2), line:3:24, endln:3:37
+          \_param_assign: , line:2:19, endln:2:30
           |vpiTypespec:
           \_int_typespec: , line:13:15, endln:13:18
             |vpiParent:
@@ -754,7 +784,7 @@ design: (work@top)
         |vpiName:a
         |vpiFullName:work@top.u_otp_ctrl_ecc_reg.a
         |vpiActual:
-        \_int_var: (work@top.u_otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
+        \_logic_net: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

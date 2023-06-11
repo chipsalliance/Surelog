@@ -101,7 +101,7 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              2
 module_inst                                            2
-package                                                3
+package                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -112,7 +112,7 @@ logic_net                                              2
 logic_typespec                                         4
 logic_var                                              2
 module_inst                                            2
-package                                                3
+package                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
 
@@ -128,6 +128,8 @@ design: (work@top)
 |vpiName:work@top
 |vpiIncludeFileInfo:
 \_include_file_info: , file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:2:10, endln:2:25
+  |vpiParent:
+  \_design: (work@top)
   |vpiIncludedFile:${SURELOG_DIR}/tests/LowMemPkg/pack_incl.svh
 |uhdmallPackages:
 \_package: wddr_pkg (wddr_pkg::), file:${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv, line:19:1, endln:22:11
@@ -198,6 +200,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:6:4, endln:6:9
+      |vpiParent:
+      \_logic_var: (work@top.b), line:6:10, endln:6:11
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiVisibility:1

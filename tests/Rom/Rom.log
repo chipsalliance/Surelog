@@ -569,11 +569,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Rom/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -598,10 +601,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -626,7 +632,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -656,10 +665,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -690,10 +702,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -760,11 +775,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Rom/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -774,7 +792,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -782,34 +802,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -855,11 +886,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/Rom/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -930,10 +964,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -969,7 +1006,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.RhoOffset), line:13:18, endln:13:27
         |vpiLeftRange:
-        \_constant: , line:13:29, endln:13:30
+        \_constant: 
           |vpiParent:
           \_range: , line:13:29, endln:13:30
           |vpiDecompile:0
@@ -983,6 +1020,8 @@ design: (work@top)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:13:29, endln:13:30
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
@@ -997,7 +1036,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.RhoOffset), line:13:18, endln:13:27
         |vpiLeftRange:
-        \_constant: , line:13:32, endln:13:33
+        \_constant: 
           |vpiParent:
           \_range: , line:13:32, endln:13:33
           |vpiDecompile:0
@@ -1011,6 +1050,8 @@ design: (work@top)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:13:32, endln:13:33
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:5
             |vpiSize:64
             |UINT:5
@@ -1037,6 +1078,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Rom/dut.sv, line:1:1, endln:20:10
     |vpiRhs:
     \_operation: , line:13:38, endln:17:7
+      |vpiParent:
+      \_param_assign: , line:13:18, endln:17:7
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:15:8, endln:15:20
@@ -1089,6 +1132,13 @@ design: (work@top)
     |vpiName:sbox_enc
     |vpiFullName:work@top.sbox_enc
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.RomSize), line:3:14, endln:3:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Rom/dut.sv, line:1:1, endln:20:10
+    |vpiName:RomSize
+    |vpiFullName:work@top.RomSize
+    |vpiNetType:1
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Rom/dut.sv, line:1:1, endln:20:10
   |vpiName:work@top
@@ -1098,20 +1148,25 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Rom/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:3:7, endln:3:32
+      |vpiParent:
+      \_logic_var: (work@top.mem), line:3:33, endln:6:7
       |vpiRange:
       \_range: , line:3:13, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:7, endln:3:32
         |vpiLeftRange:
         \_operation: , line:3:14, endln:3:23
           |vpiParent:
           \_range: , line:3:13, endln:3:26
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (RomSize), line:3:14, endln:3:21
+          \_ref_obj: (work@top.mem.RomSize), line:3:14, endln:3:21
             |vpiParent:
             \_operation: , line:3:14, endln:3:23
             |vpiName:RomSize
+            |vpiFullName:work@top.mem.RomSize
             |vpiActual:
-            \_logic_net: (RomSize)
+            \_logic_net: (work@top.RomSize), line:3:14, endln:3:21
           |vpiOperand:
           \_constant: , line:3:22, endln:3:23
             |vpiParent:
@@ -1130,6 +1185,8 @@ design: (work@top)
           |vpiConstType:9
       |vpiRange:
       \_range: , line:3:26, endln:3:32
+        |vpiParent:
+        \_logic_typespec: , line:3:7, endln:3:32
         |vpiLeftRange:
         \_constant: , line:3:27, endln:3:29
           |vpiParent:
@@ -1152,37 +1209,38 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_operation: , line:3:39, endln:6:7
+      |vpiParent:
+      \_logic_var: (work@top.mem), line:3:33, endln:6:7
       |vpiOpType:33
       |vpiOperand:
       \_constant: , line:4:8, endln:4:29
-        |vpiParent:
-        \_operation: , line:3:39, endln:6:7
         |vpiDecompile:64'h00000000_7b200073
         |vpiSize:64
         |HEX:000000007b200073
         |vpiConstType:5
       |vpiOperand:
       \_constant: , line:5:8, endln:5:29
-        |vpiParent:
-        \_operation: , line:3:39, endln:6:7
         |vpiDecompile:64'h7b302573_7b202473
         |vpiSize:64
         |HEX:7b3025737b202473
         |vpiConstType:5
     |vpiRange:
     \_range: , line:3:13, endln:3:26
+      |vpiParent:
+      \_logic_var: (work@top.mem), line:3:33, endln:6:7
       |vpiLeftRange:
       \_operation: , line:3:14, endln:3:23
         |vpiParent:
         \_range: , line:3:13, endln:3:26
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (RomSize), line:3:14, endln:3:21
+        \_ref_obj: (work@top.mem.RomSize), line:3:14, endln:3:21
           |vpiParent:
           \_operation: , line:3:14, endln:3:23
           |vpiName:RomSize
+          |vpiFullName:work@top.mem.RomSize
           |vpiActual:
-          \_logic_net: (RomSize)
+          \_logic_net: (work@top.RomSize), line:3:14, endln:3:21
         |vpiOperand:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -1201,6 +1259,8 @@ design: (work@top)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:3:26, endln:3:32
+      |vpiParent:
+      \_logic_var: (work@top.mem), line:3:33, endln:6:7
       |vpiLeftRange:
       \_constant: , line:3:27, endln:3:29
         |vpiParent:
@@ -1231,6 +1291,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_operation: , line:8:37, endln:11:4
+      |vpiParent:
+      \_logic_var: (work@top.sbox_enc), line:8:20, endln:8:28
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:9:7, endln:9:12
@@ -1247,8 +1309,10 @@ design: (work@top)
     |vpiArrayType:1
     |vpiRange:
     \_range: , line:8:30, endln:8:33
+      |vpiParent:
+      \_array_var: (work@top.sbox_enc), line:8:20, endln:8:34
       |vpiLeftRange:
-      \_constant: , line:8:30, endln:8:31
+      \_constant: 
         |vpiParent:
         \_range: , line:8:30, endln:8:33
         |vpiDecompile:0
@@ -1262,6 +1326,8 @@ design: (work@top)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:8:30, endln:8:33
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:256
           |vpiSize:64
           |UINT:256
@@ -1277,8 +1343,12 @@ design: (work@top)
       \_array_var: (work@top.sbox_enc), line:8:20, endln:8:34
       |vpiTypespec:
       \_logic_typespec: , line:8:8, endln:8:19
+        |vpiParent:
+        \_logic_var: (work@top.sbox_enc), line:8:20, endln:8:28
         |vpiRange:
         \_range: , line:8:14, endln:8:19
+          |vpiParent:
+          \_logic_typespec: , line:8:8, endln:8:19
           |vpiLeftRange:
           \_constant: , line:8:15, endln:8:16
             |vpiParent:
@@ -1300,6 +1370,8 @@ design: (work@top)
       \_operation: , line:8:37, endln:11:4
       |vpiRange:
       \_range: , line:8:14, endln:8:19
+        |vpiParent:
+        \_array_var: (work@top.sbox_enc), line:8:20, endln:8:34
         |vpiLeftRange:
         \_constant: , line:8:15, endln:8:16
           |vpiParent:
@@ -1330,7 +1402,7 @@ design: (work@top)
         |vpiParent:
         \_array_typespec: 
         |vpiLeftRange:
-        \_constant: , line:13:29, endln:13:30
+        \_constant: 
           |vpiParent:
           \_range: , line:13:29, endln:13:30
           |vpiDecompile:0
@@ -1362,7 +1434,7 @@ design: (work@top)
         |vpiParent:
         \_array_typespec: 
         |vpiLeftRange:
-        \_constant: , line:13:32, endln:13:33
+        \_constant: 
           |vpiParent:
           \_range: , line:13:32, endln:13:33
           |vpiDecompile:0
@@ -1400,7 +1472,7 @@ design: (work@top)
       |vpiParent:
       \_parameter: (work@top.RhoOffset), line:13:18, endln:13:27
       |vpiLeftRange:
-      \_constant: , line:13:29, endln:13:30
+      \_constant: 
         |vpiParent:
         \_range: , line:13:29, endln:13:30
         |vpiDecompile:0
@@ -1432,7 +1504,7 @@ design: (work@top)
       |vpiParent:
       \_parameter: (work@top.RhoOffset), line:13:18, endln:13:27
       |vpiLeftRange:
-      \_constant: , line:13:32, endln:13:33
+      \_constant: 
         |vpiParent:
         \_range: , line:13:32, endln:13:33
         |vpiDecompile:0
@@ -1479,7 +1551,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:13:29, endln:13:30
+          \_constant: 
             |vpiParent:
             \_range: , line:13:29, endln:13:30
             |vpiDecompile:0
@@ -1511,7 +1583,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:13:32, endln:13:33
+          \_constant: 
             |vpiParent:
             \_range: , line:13:32, endln:13:33
             |vpiDecompile:0
@@ -1591,10 +1663,6 @@ design: (work@top)
     \_parameter: (work@top.RhoOffset), line:13:18, endln:13:27
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (RomSize)
-    |vpiName:RomSize
-    |vpiNetType:1
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

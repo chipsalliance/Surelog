@@ -198,7 +198,7 @@ int_var                                                1
 logic_net                                              1
 method_func_call                                       1
 module_inst                                            2
-package                                                3
+package                                                2
 range                                                  2
 ref_obj                                                5
 type_parameter                                         2
@@ -212,7 +212,7 @@ assignment                                             2
 begin                                                  2
 class_defn                                             3
 class_typespec                                         4
-class_var                                             11
+class_var                                             13
 constant                                               4
 design                                                 1
 function                                               2
@@ -222,7 +222,7 @@ int_var                                                2
 logic_net                                              1
 method_func_call                                       2
 module_inst                                            2
-package                                                3
+package                                                2
 range                                                  2
 ref_obj                                               10
 type_parameter                                         2
@@ -266,6 +266,8 @@ design: (work@top)
       \_class_defn: (pkg::uvm_callback), file:${SURELOG_DIR}/tests/ArrayMethodIterator/dut.sv, line:6:3, endln:8:11
       |vpiTypespec:
       \_int_typespec: , line:7:4, endln:7:7
+        |vpiParent:
+        \_int_var: (pkg::uvm_callback::get_inst_id), line:7:8, endln:7:19
         |vpiSigned:1
       |vpiName:get_inst_id
       |vpiFullName:pkg::uvm_callback::get_inst_id
@@ -325,8 +327,10 @@ design: (work@top)
         \_array_typespec: , line:15:26, endln:15:27
           |vpiRange:
           \_range: , line:15:26, endln:15:27
+            |vpiParent:
+            \_array_typespec: , line:15:26, endln:15:27
             |vpiLeftRange:
-            \_constant: , line:15:26, endln:15:27
+            \_constant: 
               |vpiParent:
               \_range: , line:15:26, endln:15:27
               |vpiDecompile:0
@@ -361,8 +365,10 @@ design: (work@top)
         \_array_typespec: , line:16:33, endln:16:34
           |vpiRange:
           \_range: , line:16:33, endln:16:34
+            |vpiParent:
+            \_array_typespec: , line:16:33, endln:16:34
             |vpiLeftRange:
-            \_constant: , line:16:33, endln:16:34
+            \_constant: 
               |vpiParent:
               \_range: , line:16:33, endln:16:34
               |vpiDecompile:0
@@ -405,6 +411,13 @@ design: (work@top)
           |vpiName:cb
           |vpiFullName:pkg::uvm_callbacks::get_all::cb
         |vpiVariables:
+        \_class_var: (pkg::uvm_callbacks::get_all), line:15:6, endln:15:25
+          |vpiParent:
+          \_begin: (pkg::uvm_callbacks::get_all)
+          |vpiTypespec:
+          \_class_typespec: (uvm_callback), line:10:50, endln:10:62
+          |vpiFullName:pkg::uvm_callbacks::get_all
+        |vpiVariables:
         \_array_var: (pkg::uvm_callbacks::get_all::callbacks_to_append), line:15:6, endln:15:25
           |vpiParent:
           \_begin: (pkg::uvm_callbacks::get_all)
@@ -420,6 +433,13 @@ design: (work@top)
             |vpiTypespec:
             \_class_typespec: (uvm_callback), line:10:50, endln:10:62
             |vpiFullName:pkg::uvm_callbacks::get_all::callbacks_to_append
+        |vpiVariables:
+        \_class_var: (pkg::uvm_callbacks::get_all), line:16:6, endln:16:32
+          |vpiParent:
+          \_begin: (pkg::uvm_callbacks::get_all)
+          |vpiTypespec:
+          \_class_typespec: (uvm_callback), line:10:50, endln:10:62
+          |vpiFullName:pkg::uvm_callbacks::get_all
         |vpiVariables:
         \_array_var: (pkg::uvm_callbacks::get_all::unique_callbacks_to_append), line:16:6, endln:16:32
           |vpiParent:
@@ -466,7 +486,7 @@ design: (work@top)
                 |vpiName:cb_
                 |vpiFullName:pkg::uvm_callbacks::get_all::callbacks_to_append::cb_
                 |vpiActual:
-                \_class_var: (cb_), line:15:6, endln:15:25
+                \_class_var: (pkg::uvm_callbacks::get_all::callbacks_to_append::cb_), line:15:6, endln:15:25
               |vpiName:unique
               |vpiWith:
               \_hier_path: (cb_.get_inst_id), line:19:73, endln:19:88
@@ -479,7 +499,7 @@ design: (work@top)
                   \_hier_path: (cb_.get_inst_id), line:19:73, endln:19:88
                   |vpiName:cb_
                   |vpiActual:
-                  \_class_var: (cb_), line:15:6, endln:15:25
+                  \_class_var: (pkg::uvm_callbacks::get_all::callbacks_to_append::cb_), line:15:6, endln:15:25
                 |vpiActual:
                 \_ref_obj: (pkg::uvm_callbacks::get_all::callbacks_to_append::get_inst_id), line:19:77, endln:19:88
                   |vpiParent:

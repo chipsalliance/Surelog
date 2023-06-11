@@ -231,7 +231,7 @@ logic_net                                              1
 logic_typespec                                        21
 module_inst                                           14
 operation                                             15
-package                                                3
+package                                                2
 param_assign                                          10
 parameter                                             13
 range                                                 21
@@ -252,7 +252,7 @@ logic_net                                              1
 logic_typespec                                        21
 module_inst                                           14
 operation                                             15
-package                                                3
+package                                                2
 param_assign                                          10
 parameter                                             13
 range                                                 21
@@ -307,7 +307,7 @@ design: (work@aes_core)
           |vpiRange:
           \_range: , line:3:8, endln:3:14
             |vpiParent:
-            \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15
+            \_logic_typespec: , line:3:3, endln:3:14
             |vpiLeftRange:
             \_constant: , line:3:9, endln:3:11
               |vpiParent:
@@ -337,9 +337,13 @@ design: (work@aes_core)
     \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_operation: , line:6:35, endln:8:2
+      |vpiParent:
+      \_param_assign: , line:6:22, endln:8:2
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:7:21, endln:7:23
+        |vpiParent:
+        \_operation: , line:6:35, endln:8:2
         |vpiPattern:
         \_constant: , line:7:21, endln:7:23
           |vpiDecompile:'0
@@ -348,6 +352,8 @@ design: (work@aes_core)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (manual_operation), line:7:3, endln:7:19
+          |vpiParent:
+          \_tagged_pattern: , line:7:21, endln:7:23
           |vpiName:manual_operation
     |vpiLhs:
     \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:6:32
@@ -386,7 +392,7 @@ design: (work@aes_core)
           |vpiRange:
           \_range: , line:3:8, endln:3:14
             |vpiParent:
-            \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15
+            \_logic_typespec: , line:3:3, endln:3:14
             |vpiLeftRange:
             \_constant: , line:3:9, endln:3:11
               |vpiParent:
@@ -416,9 +422,13 @@ design: (work@aes_core)
     \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_operation: , line:6:35, endln:8:2
+      |vpiParent:
+      \_param_assign: , line:6:22, endln:8:2
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:7:21, endln:7:23
+        |vpiParent:
+        \_operation: , line:6:35, endln:8:2
         |vpiPattern:
         \_constant: , line:7:21, endln:7:23
           |vpiDecompile:'0
@@ -427,6 +437,8 @@ design: (work@aes_core)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (manual_operation), line:7:3, endln:7:19
+          |vpiParent:
+          \_tagged_pattern: , line:7:21, endln:7:23
           |vpiName:manual_operation
     |vpiLhs:
     \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:6:32
@@ -602,6 +614,8 @@ design: (work@aes_core)
       \_parameter: (work@shadow.RESVAL), line:17:26, endln:17:32
       |vpiRange:
       \_range: , line:17:19, endln:17:25
+        |vpiParent:
+        \_logic_typespec: , line:17:13, endln:17:25
         |vpiLeftRange:
         \_constant: , line:17:20, endln:17:22
           |vpiParent:
@@ -626,6 +640,8 @@ design: (work@aes_core)
     \_module_inst: work@shadow (work@shadow), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:16:1, endln:20:10
     |vpiRhs:
     \_constant: , line:17:35, endln:17:37
+      |vpiParent:
+      \_param_assign: , line:17:26, endln:17:37
       |vpiDecompile:'0
       |vpiSize:32
       |BIN:0
@@ -659,6 +675,8 @@ design: (work@aes_core)
       \_parameter: (work@subreg.RESVAL), line:12:26, endln:12:32
       |vpiRange:
       \_range: , line:12:19, endln:12:25
+        |vpiParent:
+        \_logic_typespec: , line:12:13, endln:12:25
         |vpiLeftRange:
         \_constant: , line:12:20, endln:12:22
           |vpiParent:
@@ -683,6 +701,8 @@ design: (work@aes_core)
     \_module_inst: work@subreg (work@subreg), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:11:1, endln:14:10
     |vpiRhs:
     \_constant: , line:12:35, endln:12:37
+      |vpiParent:
+      \_param_assign: , line:12:26, endln:12:37
       |vpiDecompile:'0
       |vpiSize:32
       |BIN:0
@@ -802,7 +822,7 @@ design: (work@aes_core)
       |vpiOperand:
       \_constant: , line:7:21, endln:7:23
         |vpiParent:
-        \_tagged_pattern: , line:7:21, endln:7:23
+        \_operation: , line:6:35, endln:8:2
         |vpiDecompile:0
         |vpiSize:32
         |UINT:0
@@ -922,6 +942,8 @@ design: (work@aes_core)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:12:35, endln:12:37
+          |vpiParent:
+          \_param_assign: , line:12:26, endln:12:37
           |vpiDecompile:0
           |vpiSize:32
           |UINT:0

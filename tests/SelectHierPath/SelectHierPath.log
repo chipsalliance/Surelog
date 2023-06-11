@@ -167,6 +167,13 @@ design: (work@IntegerRegisterWriteStage)
     \_module_inst: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
     |vpiName:pipeReg
     |vpiFullName:work@IntegerRegisterWriteStage.pipeReg
+  |vpiNet:
+  \_logic_net: (work@IntegerRegisterWriteStage.o), line:14:8, endln:14:9
+    |vpiParent:
+    \_module_inst: work@IntegerRegisterWriteStage (work@IntegerRegisterWriteStage), file:${SURELOG_DIR}/tests/SelectHierPath/dut.sv, line:10:1, endln:16:10
+    |vpiName:o
+    |vpiFullName:work@IntegerRegisterWriteStage.o
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:14:8, endln:14:40
     |vpiParent:
@@ -206,7 +213,7 @@ design: (work@IntegerRegisterWriteStage)
       |vpiName:o
       |vpiFullName:work@IntegerRegisterWriteStage.o
       |vpiActual:
-      \_logic_net: (o)
+      \_logic_net: (work@IntegerRegisterWriteStage.o), line:14:8, endln:14:9
 |vpiTypedef:
 \_struct_typespec: (BranchResult), line:1:9, endln:1:15
   |vpiParent:
@@ -255,10 +262,6 @@ design: (work@IntegerRegisterWriteStage)
   |vpiName:work@IntegerRegisterWriteStage
   |vpiDefName:work@IntegerRegisterWriteStage
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (o)
-    |vpiName:o
-    |vpiNetType:1
   |vpiArrayNet:
   \_array_net: (work@IntegerRegisterWriteStage.pipeReg), line:12:34, endln:12:41
     |vpiParent:
@@ -268,8 +271,10 @@ design: (work@IntegerRegisterWriteStage)
     |vpiFullName:work@IntegerRegisterWriteStage.pipeReg
     |vpiRange:
     \_range: , line:12:43, endln:12:44
+      |vpiParent:
+      \_array_net: (work@IntegerRegisterWriteStage.pipeReg), line:12:34, endln:12:41
       |vpiLeftRange:
-      \_constant: , line:12:43, endln:12:44
+      \_constant: 
         |vpiParent:
         \_range: , line:12:43, endln:12:44
         |vpiDecompile:0
@@ -283,6 +288,8 @@ design: (work@IntegerRegisterWriteStage)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:12:43, endln:12:44
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -342,7 +349,7 @@ design: (work@IntegerRegisterWriteStage)
       |vpiName:o
       |vpiFullName:work@IntegerRegisterWriteStage.o
       |vpiActual:
-      \_logic_net: (o)
+      \_logic_net: (work@IntegerRegisterWriteStage.o), line:14:8, endln:14:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -188,13 +188,19 @@ design: (work@or_ex)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@or_ex.a.a)
+      |vpiParent:
+      \_port: (a), line:9:22, endln:9:23
+      |vpiName:a
+      |vpiFullName:work@or_ex.a.a
       |vpiActual:
       \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
     |vpiTypedef:
     \_logic_typespec: , line:9:11, endln:9:21
       |vpiRange:
       \_range: , line:9:16, endln:9:21
+        |vpiParent:
+        \_logic_typespec: , line:9:11, endln:9:21
         |vpiLeftRange:
         \_constant: , line:9:17, endln:9:18
           |vpiParent:
@@ -257,8 +263,12 @@ design: (work@or_ex)
     \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiTypespec:
     \_logic_typespec: , line:9:11, endln:9:21
+      |vpiParent:
+      \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
       |vpiRange:
       \_range: , line:9:16, endln:9:21
+        |vpiParent:
+        \_logic_typespec: , line:9:11, endln:9:21
         |vpiLeftRange:
         \_constant: , line:9:17, endln:9:18
           |vpiParent:
@@ -298,7 +308,7 @@ design: (work@or_ex)
       |vpiRange:
       \_range: , line:9:16, endln:9:21
         |vpiParent:
-        \_port: (a), line:9:22, endln:9:23
+        \_logic_typespec: , line:9:11, endln:9:21
         |vpiLeftRange:
         \_constant: , line:9:17, endln:9:18
           |vpiParent:
@@ -329,8 +339,12 @@ design: (work@or_ex)
       \_interface_inst: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
       |vpiTypespec:
       \_logic_typespec: , line:3:1, endln:3:11
+        |vpiParent:
+        \_logic_var: (work@or_ex.lg.a), line:3:12, endln:3:13
         |vpiRange:
         \_range: , line:3:6, endln:3:11
+          |vpiParent:
+          \_logic_typespec: , line:3:1, endln:3:11
           |vpiLeftRange:
           \_constant: , line:3:7, endln:3:8
             |vpiParent:
@@ -352,6 +366,8 @@ design: (work@or_ex)
       |vpiVisibility:1
       |vpiRange:
       \_range: , line:3:6, endln:3:11
+        |vpiParent:
+        \_logic_var: (work@or_ex.lg.a), line:3:12, endln:3:13
         |vpiLeftRange:
         \_constant: , line:3:7, endln:3:8
           |vpiParent:

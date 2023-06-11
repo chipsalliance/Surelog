@@ -156,7 +156,7 @@ extends                                                1
 function                                               2
 hier_path                                              2
 module_inst                                            1
-package                                                3
+package                                                2
 ref_obj                                                4
 type_parameter                                         3
 unsupported_typespec                                   2
@@ -176,7 +176,7 @@ extends                                                3
 function                                               4
 hier_path                                              4
 module_inst                                            1
-package                                                3
+package                                                2
 ref_obj                                                8
 type_parameter                                         3
 unsupported_typespec                                   2
@@ -208,9 +208,12 @@ design: (unnamed)
     |vpiFullName:pkg::uvm_sequencer_param_base::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (pkg::uvm_sequencer_param_base::new)
+      |vpiParent:
+      \_function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:23:12
       |vpiTypespec:
       \_class_typespec: 
+      |vpiFullName:pkg::uvm_sequencer_param_base::new
     |vpiStmt:
     \_assignment: , line:21:3, endln:21:42
       |vpiParent:
@@ -324,11 +327,14 @@ design: (unnamed)
       |vpiFullName:pkg::uvm_sequencer_param_base::new
       |vpiMethod:1
       |vpiReturn:
-      \_class_var: 
+      \_class_var: (pkg::uvm_sequencer_param_base::new)
+        |vpiParent:
+        \_function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:23:12
         |vpiTypespec:
         \_class_typespec: 
           |vpiClassDefn:
           \_class_defn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
+        |vpiFullName:pkg::uvm_sequencer_param_base::new
       |vpiStmt:
       \_assignment: , line:21:3, endln:21:42
         |vpiParent:
@@ -374,12 +380,16 @@ design: (unnamed)
       \_class_defn: (pkg::uvm_tlm_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:3:1, endln:7:9
       |vpiTypespec:
       \_bit_typespec: , line:5:2, endln:5:5
+        |vpiParent:
+        \_bit_var: (pkg::uvm_tlm_fifo::print_enabled), line:5:6, endln:5:19
       |vpiName:print_enabled
       |vpiFullName:pkg::uvm_tlm_fifo::print_enabled
       |vpiAutomatic:1
       |vpiVisibility:1
       |vpiExpr:
       \_constant: , line:5:22, endln:5:23
+        |vpiParent:
+        \_bit_var: (pkg::uvm_tlm_fifo::print_enabled), line:5:6, endln:5:19
         |vpiDecompile:1
         |vpiSize:1
         |UINT:1

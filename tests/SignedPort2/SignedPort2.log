@@ -154,7 +154,11 @@ design: (work@wire_top)
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@wire_top.inp.inp)
+      |vpiParent:
+      \_port: (inp), line:1:17, endln:1:20
+      |vpiName:inp
+      |vpiFullName:work@wire_top.inp.inp
       |vpiActual:
       \_logic_net: (work@wire_top.inp), line:1:17, endln:1:20
     |vpiTypedef:
@@ -166,13 +170,19 @@ design: (work@wire_top)
     |vpiName:xn
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@wire_top.xn.xn)
+      |vpiParent:
+      \_port: (xn), line:1:22, endln:1:24
+      |vpiName:xn
+      |vpiFullName:work@wire_top.xn.xn
       |vpiActual:
       \_logic_net: (work@wire_top.xn), line:1:22, endln:1:24
     |vpiTypedef:
     \_logic_typespec: , line:3:12, endln:3:21
       |vpiRange:
       \_range: , line:3:16, endln:3:21
+        |vpiParent:
+        \_logic_typespec: , line:3:12, endln:3:21
         |vpiLeftRange:
         \_constant: , line:3:17, endln:3:18
           |vpiParent:
@@ -220,6 +230,8 @@ design: (work@wire_top)
     \_module_inst: work@wire_top (work@wire_top), file:${SURELOG_DIR}/tests/SignedPort2/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_logic_typespec: , line:2:11, endln:2:15
+      |vpiParent:
+      \_logic_net: (work@wire_top.inp), line:1:17, endln:1:20
     |vpiName:inp
     |vpiFullName:work@wire_top.inp
     |vpiNetType:1
@@ -232,6 +244,8 @@ design: (work@wire_top)
     \_logic_typespec: , line:3:12, endln:3:21
       |vpiRange:
       \_range: , line:3:16, endln:3:21
+        |vpiParent:
+        \_logic_typespec: , line:3:12, endln:3:21
         |vpiLeftRange:
         \_constant: , line:3:17, endln:3:18
           |vpiParent:
@@ -289,7 +303,7 @@ design: (work@wire_top)
       |vpiRange:
       \_range: , line:3:16, endln:3:21
         |vpiParent:
-        \_port: (xn), line:1:22, endln:1:24
+        \_logic_typespec: , line:3:12, endln:3:21
         |vpiLeftRange:
         \_constant: , line:3:17, endln:3:18
           |vpiParent:

@@ -49,7 +49,7 @@ logic_net                                              4
 logic_typespec                                        12
 module_inst                                            6
 operation                                             12
-package                                                6
+package                                                4
 param_assign                                           4
 parameter                                              4
 port                                                   4
@@ -86,6 +86,8 @@ design: (work@top)
       \_package: ibex_pkg (ibex_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:3:1, endln:9:11
       |vpiRange:
       \_range: , line:5:20, endln:5:25
+        |vpiParent:
+        \_logic_typespec: , line:5:14, endln:5:25
         |vpiLeftRange:
         \_constant: , line:5:21, endln:5:22
           |vpiParent:
@@ -104,12 +106,16 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:6:3, endln:6:26
+      |vpiParent:
+      \_enum_typespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
       |vpiName:OPCODE_LOAD
       |HEX:03
       |vpiDecompile:7'h03
       |vpiSize:7
     |vpiEnumConst:
     \_enum_const: (OPCODE_LUI), line:7:3, endln:7:26
+      |vpiParent:
+      \_enum_typespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
       |vpiName:OPCODE_LUI
       |HEX:37
       |vpiDecompile:7'h37
@@ -133,6 +139,8 @@ design: (work@top)
       \_package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
       |vpiRange:
       \_range: , line:13:17, endln:13:23
+        |vpiParent:
+        \_logic_typespec: , line:13:11, endln:13:23
         |vpiLeftRange:
         \_constant: , line:13:18, endln:13:20
           |vpiParent:
@@ -157,11 +165,11 @@ design: (work@top)
     \_package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
     |vpiRhs:
     \_operation: , line:13:35, endln:13:59
+      |vpiParent:
+      \_param_assign: , line:13:24, endln:13:59
       |vpiOpType:33
       |vpiOperand:
       \_constant: , line:13:37, endln:13:42
-        |vpiParent:
-        \_operation: , line:13:35, endln:13:59
         |vpiDecompile:25'h?
         |vpiSize:25
         |HEX:?
@@ -172,10 +180,11 @@ design: (work@top)
         \_operation: , line:13:35, endln:13:59
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (OPCODE_LUI), line:13:45, endln:13:55
+        \_ref_obj: (ibex_tracer_pkg::OPCODE_LUI), line:13:45, endln:13:55
           |vpiParent:
           \_operation: , line:13:44, endln:13:58
           |vpiName:OPCODE_LUI
+          |vpiFullName:ibex_tracer_pkg::OPCODE_LUI
           |vpiActual:
           \_enum_const: (OPCODE_LUI), line:7:3, endln:7:26
     |vpiLhs:
@@ -193,6 +202,8 @@ design: (work@top)
       \_package: ibex_pkg (ibex_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:3:1, endln:9:11
       |vpiRange:
       \_range: , line:5:20, endln:5:25
+        |vpiParent:
+        \_logic_typespec: , line:5:14, endln:5:25
         |vpiLeftRange:
         \_constant: , line:5:21, endln:5:22
           |vpiParent:
@@ -211,12 +222,16 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:6:3, endln:6:26
+      |vpiParent:
+      \_enum_typespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
       |vpiName:OPCODE_LOAD
       |HEX:03
       |vpiDecompile:7'h03
       |vpiSize:7
     |vpiEnumConst:
     \_enum_const: (OPCODE_LUI), line:7:3, endln:7:26
+      |vpiParent:
+      \_enum_typespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
       |vpiName:OPCODE_LUI
       |HEX:37
       |vpiDecompile:7'h37
@@ -252,6 +267,8 @@ design: (work@top)
       \_package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
       |vpiRange:
       \_range: , line:13:17, endln:13:23
+        |vpiParent:
+        \_logic_typespec: , line:13:11, endln:13:23
         |vpiLeftRange:
         \_constant: , line:13:18, endln:13:20
           |vpiParent:
@@ -276,11 +293,11 @@ design: (work@top)
     \_package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
     |vpiRhs:
     \_operation: , line:13:35, endln:13:59
+      |vpiParent:
+      \_param_assign: , line:13:24, endln:13:59
       |vpiOpType:33
       |vpiOperand:
       \_constant: , line:13:37, endln:13:42
-        |vpiParent:
-        \_operation: , line:13:35, endln:13:59
         |vpiDecompile:25'h?
         |vpiSize:25
         |HEX:?
@@ -291,10 +308,11 @@ design: (work@top)
         \_operation: , line:13:35, endln:13:59
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (OPCODE_LUI), line:13:45, endln:13:55
+        \_ref_obj: (ibex_tracer_pkg::OPCODE_LUI), line:13:45, endln:13:55
           |vpiParent:
           \_operation: , line:13:44, endln:13:58
           |vpiName:OPCODE_LUI
+          |vpiFullName:ibex_tracer_pkg::OPCODE_LUI
           |vpiActual:
           \_enum_const: (OPCODE_LUI), line:7:3, endln:7:26
     |vpiLhs:
@@ -335,7 +353,11 @@ design: (work@top)
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.clk_i.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:18:18, endln:18:23
+      |vpiName:clk_i
+      |vpiFullName:work@top.clk_i.clk_i
       |vpiActual:
       \_logic_net: (work@top.clk_i), line:18:18, endln:18:23
     |vpiTypedef:
@@ -347,13 +369,19 @@ design: (work@top)
     |vpiName:o1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o1.o1)
+      |vpiParent:
+      \_port: (o1), line:18:45, endln:18:47
+      |vpiName:o1
+      |vpiFullName:work@top.o1.o1
       |vpiActual:
       \_logic_net: (work@top.o1), line:18:45, endln:18:47
     |vpiTypedef:
     \_logic_typespec: , line:18:32, endln:18:44
       |vpiRange:
       \_range: , line:18:38, endln:18:44
+        |vpiParent:
+        \_logic_typespec: , line:18:32, endln:18:44
         |vpiLeftRange:
         \_constant: , line:18:39, endln:18:41
           |vpiParent:
@@ -385,6 +413,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:18:18, endln:18:18
+      |vpiParent:
+      \_logic_net: (work@top.clk_i), line:18:18, endln:18:23
     |vpiName:clk_i
     |vpiFullName:work@top.clk_i
   |vpiNet:
@@ -393,8 +423,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:18:32, endln:18:44
+      |vpiParent:
+      \_logic_net: (work@top.o1), line:18:45, endln:18:47
       |vpiRange:
       \_range: , line:18:38, endln:18:44
+        |vpiParent:
+        \_logic_typespec: , line:18:32, endln:18:44
         |vpiLeftRange:
         \_constant: , line:18:39, endln:18:41
           |vpiParent:
@@ -423,6 +457,8 @@ design: (work@top)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@top.clk_i), line:18:18, endln:18:23
+      |vpiParent:
+      \_port: (clk_i), line:18:18, endln:18:23
       |vpiName:clk_i
       |vpiFullName:work@top.clk_i
       |vpiActual:
@@ -437,6 +473,8 @@ design: (work@top)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.o1), line:18:45, endln:18:47
+      |vpiParent:
+      \_port: (o1), line:18:45, endln:18:47
       |vpiName:o1
       |vpiFullName:work@top.o1
       |vpiActual:
@@ -446,7 +484,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:18:38, endln:18:44
         |vpiParent:
-        \_port: (o1), line:18:45, endln:18:47
+        \_logic_typespec: , line:18:32, endln:18:44
         |vpiLeftRange:
         \_constant: , line:18:39, endln:18:41
           |vpiParent:

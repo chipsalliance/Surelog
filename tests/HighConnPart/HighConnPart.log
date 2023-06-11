@@ -339,13 +339,19 @@ design: (work@Device)
     |vpiName:doubleNibble
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Device.doubleNibble.doubleNibble)
+      |vpiParent:
+      \_port: (doubleNibble), line:4:22, endln:4:34
+      |vpiName:doubleNibble
+      |vpiFullName:work@Device.doubleNibble.doubleNibble
       |vpiActual:
       \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
     |vpiTypedef:
     \_logic_typespec: , line:4:11, endln:4:21
       |vpiRange:
       \_range: , line:4:16, endln:4:21
+        |vpiParent:
+        \_logic_typespec: , line:4:11, endln:4:21
         |vpiLeftRange:
         \_constant: , line:4:17, endln:4:18
           |vpiParent:
@@ -369,13 +375,19 @@ design: (work@Device)
     |vpiName:sum
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Device.sum.sum)
+      |vpiParent:
+      \_port: (sum), line:5:23, endln:5:26
+      |vpiName:sum
+      |vpiFullName:work@Device.sum.sum
       |vpiActual:
       \_logic_net: (work@Device.sum), line:5:23, endln:5:26
     |vpiTypedef:
     \_logic_typespec: , line:5:12, endln:5:22
       |vpiRange:
       \_range: , line:5:17, endln:5:22
+        |vpiParent:
+        \_logic_typespec: , line:5:12, endln:5:22
         |vpiLeftRange:
         \_constant: , line:5:18, endln:5:19
           |vpiParent:
@@ -402,10 +414,15 @@ design: (work@Device)
     \_module_inst: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiPort:
     \_port: (a), line:13:9, endln:13:30
+      |vpiParent:
+      \_ref_module: work@Helper (instance2), line:12:12, endln:12:21
       |vpiName:a
       |vpiHighConn:
-      \_part_select: doubleNibble (doubleNibble), line:13:12, endln:13:29
+      \_part_select: doubleNibble (work@Device.instance2.a.doubleNibble), line:13:12, endln:13:29
+        |vpiParent:
+        \_port: (a), line:13:9, endln:13:30
         |vpiName:doubleNibble
+        |vpiFullName:work@Device.instance2.a.doubleNibble
         |vpiDefName:doubleNibble
         |vpiConstantSelect:1
         |vpiLeftRange:
@@ -422,10 +439,15 @@ design: (work@Device)
           |vpiConstType:9
     |vpiPort:
     \_port: (b), line:14:9, endln:14:30
+      |vpiParent:
+      \_ref_module: work@Helper (instance2), line:12:12, endln:12:21
       |vpiName:b
       |vpiHighConn:
-      \_part_select: doubleNibble (doubleNibble), line:14:12, endln:14:29
+      \_part_select: doubleNibble (work@Device.instance2.b.doubleNibble), line:14:12, endln:14:29
+        |vpiParent:
+        \_port: (b), line:14:9, endln:14:30
         |vpiName:doubleNibble
+        |vpiFullName:work@Device.instance2.b.doubleNibble
         |vpiDefName:doubleNibble
         |vpiConstantSelect:1
         |vpiLeftRange:
@@ -442,10 +464,15 @@ design: (work@Device)
           |vpiConstType:9
     |vpiPort:
     \_port: (result), line:15:9, endln:15:25
+      |vpiParent:
+      \_ref_module: work@Helper (instance2), line:12:12, endln:12:21
       |vpiName:result
       |vpiHighConn:
-      \_ref_obj: (ignored), line:15:17, endln:15:24
+      \_ref_obj: (work@Device.instance2.result.ignored), line:15:17, endln:15:24
+        |vpiParent:
+        \_port: (result), line:15:9, endln:15:25
         |vpiName:ignored
+        |vpiFullName:work@Device.instance2.result.ignored
         |vpiActual:
         \_logic_net: (work@Device.ignored), line:11:16, endln:11:23
 |uhdmallModules:
@@ -482,13 +509,19 @@ design: (work@Device)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Helper.a.a)
+      |vpiParent:
+      \_port: (a), line:22:22, endln:22:23
+      |vpiName:a
+      |vpiFullName:work@Helper.a.a
       |vpiActual:
       \_logic_net: (work@Helper.a), line:22:22, endln:22:23
     |vpiTypedef:
     \_logic_typespec: , line:22:11, endln:22:21
       |vpiRange:
       \_range: , line:22:16, endln:22:21
+        |vpiParent:
+        \_logic_typespec: , line:22:11, endln:22:21
         |vpiLeftRange:
         \_constant: , line:22:17, endln:22:18
           |vpiParent:
@@ -512,13 +545,19 @@ design: (work@Device)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Helper.b.b)
+      |vpiParent:
+      \_port: (b), line:22:25, endln:22:26
+      |vpiName:b
+      |vpiFullName:work@Helper.b.b
       |vpiActual:
       \_logic_net: (work@Helper.b), line:22:25, endln:22:26
     |vpiTypedef:
     \_logic_typespec: , line:22:11, endln:22:21
       |vpiRange:
       \_range: , line:22:16, endln:22:21
+        |vpiParent:
+        \_logic_typespec: , line:22:11, endln:22:21
         |vpiLeftRange:
         \_constant: , line:22:17, endln:22:18
           |vpiParent:
@@ -542,13 +581,19 @@ design: (work@Device)
     |vpiName:result
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@Helper.result.result)
+      |vpiParent:
+      \_port: (result), line:23:23, endln:23:29
+      |vpiName:result
+      |vpiFullName:work@Helper.result.result
       |vpiActual:
       \_logic_net: (work@Helper.result), line:23:23, endln:23:29
     |vpiTypedef:
     \_logic_typespec: , line:23:12, endln:23:22
       |vpiRange:
       \_range: , line:23:17, endln:23:22
+        |vpiParent:
+        \_logic_typespec: , line:23:12, endln:23:22
         |vpiLeftRange:
         \_constant: , line:23:18, endln:23:19
           |vpiParent:
@@ -581,7 +626,7 @@ design: (work@Device)
         |vpiName:a
         |vpiFullName:work@Helper.a
         |vpiActual:
-        \_logic_net: (work@Device.instance1.a), line:22:22, endln:22:23
+        \_logic_net: (work@Helper.a), line:22:22, endln:22:23
       |vpiOperand:
       \_ref_obj: (work@Helper.b), line:26:25, endln:26:26
         |vpiParent:
@@ -589,7 +634,7 @@ design: (work@Device)
         |vpiName:b
         |vpiFullName:work@Helper.b
         |vpiActual:
-        \_logic_net: (work@Device.instance1.b), line:22:25, endln:22:26
+        \_logic_net: (work@Helper.b), line:22:25, endln:22:26
     |vpiLhs:
     \_ref_obj: (work@Helper.result), line:26:12, endln:26:18
       |vpiParent:
@@ -597,7 +642,7 @@ design: (work@Device)
       |vpiName:result
       |vpiFullName:work@Helper.result
       |vpiActual:
-      \_logic_net: (work@Device.instance1.result), line:23:23, endln:23:29
+      \_logic_net: (work@Helper.result), line:23:23, endln:23:29
 |uhdmtopModules:
 \_module_inst: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
   |vpiName:work@Device
@@ -609,8 +654,12 @@ design: (work@Device)
     \_module_inst: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:4:11, endln:4:21
+      |vpiParent:
+      \_logic_net: (work@Device.doubleNibble), line:4:22, endln:4:34
       |vpiRange:
       \_range: , line:4:16, endln:4:21
+        |vpiParent:
+        \_logic_typespec: , line:4:11, endln:4:21
         |vpiLeftRange:
         \_constant: , line:4:17, endln:4:18
           |vpiParent:
@@ -636,8 +685,12 @@ design: (work@Device)
     \_module_inst: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:5:12, endln:5:22
+      |vpiParent:
+      \_logic_net: (work@Device.sum), line:5:23, endln:5:26
       |vpiRange:
       \_range: , line:5:17, endln:5:22
+        |vpiParent:
+        \_logic_typespec: , line:5:12, endln:5:22
         |vpiLeftRange:
         \_constant: , line:5:18, endln:5:19
           |vpiParent:
@@ -663,8 +716,12 @@ design: (work@Device)
     \_module_inst: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiTypespec:
     \_logic_typespec: , line:11:5, endln:11:15
+      |vpiParent:
+      \_logic_net: (work@Device.ignored), line:11:16, endln:11:23
       |vpiRange:
       \_range: , line:11:10, endln:11:15
+        |vpiParent:
+        \_logic_typespec: , line:11:5, endln:11:15
         |vpiLeftRange:
         \_constant: , line:11:11, endln:11:12
           |vpiParent:
@@ -704,7 +761,7 @@ design: (work@Device)
       |vpiRange:
       \_range: , line:4:16, endln:4:21
         |vpiParent:
-        \_port: (doubleNibble), line:4:22, endln:4:34
+        \_logic_typespec: , line:4:11, endln:4:21
         |vpiLeftRange:
         \_constant: , line:4:17, endln:4:18
           |vpiParent:
@@ -742,7 +799,7 @@ design: (work@Device)
       |vpiRange:
       \_range: , line:5:17, endln:5:22
         |vpiParent:
-        \_port: (sum), line:5:23, endln:5:26
+        \_logic_typespec: , line:5:12, endln:5:22
         |vpiLeftRange:
         \_constant: , line:5:18, endln:5:19
           |vpiParent:
@@ -776,8 +833,12 @@ design: (work@Device)
       \_module_inst: work@Helper (work@Device.instance1), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:9:5, endln:9:65
       |vpiTypespec:
       \_logic_typespec: , line:22:11, endln:22:21
+        |vpiParent:
+        \_logic_net: (work@Device.instance1.b), line:22:25, endln:22:26
         |vpiRange:
         \_range: , line:22:16, endln:22:21
+          |vpiParent:
+          \_logic_typespec: , line:22:11, endln:22:21
           |vpiLeftRange:
           \_constant: , line:22:17, endln:22:18
             |vpiParent:
@@ -814,6 +875,8 @@ design: (work@Device)
       \_logic_typespec: , line:23:12, endln:23:22
         |vpiRange:
         \_range: , line:23:17, endln:23:22
+          |vpiParent:
+          \_logic_typespec: , line:23:12, endln:23:22
           |vpiLeftRange:
           \_constant: , line:23:18, endln:23:19
             |vpiParent:
@@ -876,7 +939,7 @@ design: (work@Device)
         |vpiRange:
         \_range: , line:22:16, endln:22:21
           |vpiParent:
-          \_port: (a), line:22:22, endln:22:23
+          \_logic_typespec: , line:22:11, endln:22:21
           |vpiLeftRange:
           \_constant: , line:22:17, endln:22:18
             |vpiParent:
@@ -962,7 +1025,7 @@ design: (work@Device)
         |vpiRange:
         \_range: , line:23:17, endln:23:22
           |vpiParent:
-          \_port: (result), line:23:23, endln:23:29
+          \_logic_typespec: , line:23:12, endln:23:22
           |vpiLeftRange:
           \_constant: , line:23:18, endln:23:19
             |vpiParent:
@@ -997,7 +1060,7 @@ design: (work@Device)
           |vpiName:a
           |vpiFullName:work@Device.instance1.a
           |vpiActual:
-          \_logic_net: (work@Device.instance1.a), line:22:22, endln:22:23
+          \_logic_net: (work@Helper.a), line:22:22, endln:22:23
         |vpiOperand:
         \_ref_obj: (work@Device.instance1.b), line:26:25, endln:26:26
           |vpiParent:
@@ -1005,7 +1068,7 @@ design: (work@Device)
           |vpiName:b
           |vpiFullName:work@Device.instance1.b
           |vpiActual:
-          \_logic_net: (work@Device.instance1.b), line:22:25, endln:22:26
+          \_logic_net: (work@Helper.b), line:22:25, endln:22:26
       |vpiLhs:
       \_ref_obj: (work@Device.instance1.result), line:26:12, endln:26:18
         |vpiParent:
@@ -1029,8 +1092,12 @@ design: (work@Device)
       \_module_inst: work@Helper (work@Device.instance2), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:12:5, endln:16:7
       |vpiTypespec:
       \_logic_typespec: , line:22:11, endln:22:21
+        |vpiParent:
+        \_logic_net: (work@Device.instance2.b), line:22:25, endln:22:26
         |vpiRange:
         \_range: , line:22:16, endln:22:21
+          |vpiParent:
+          \_logic_typespec: , line:22:11, endln:22:21
           |vpiLeftRange:
           \_constant: , line:22:17, endln:22:18
             |vpiParent:
@@ -1067,6 +1134,8 @@ design: (work@Device)
       \_logic_typespec: , line:23:12, endln:23:22
         |vpiRange:
         \_range: , line:23:17, endln:23:22
+          |vpiParent:
+          \_logic_typespec: , line:23:12, endln:23:22
           |vpiLeftRange:
           \_constant: , line:23:18, endln:23:19
             |vpiParent:
@@ -1129,7 +1198,7 @@ design: (work@Device)
         |vpiRange:
         \_range: , line:22:16, endln:22:21
           |vpiParent:
-          \_port: (a), line:22:22, endln:22:23
+          \_logic_typespec: , line:22:11, endln:22:21
           |vpiLeftRange:
           \_constant: , line:22:17, endln:22:18
             |vpiParent:
@@ -1215,7 +1284,7 @@ design: (work@Device)
         |vpiRange:
         \_range: , line:23:17, endln:23:22
           |vpiParent:
-          \_port: (result), line:23:23, endln:23:29
+          \_logic_typespec: , line:23:12, endln:23:22
           |vpiLeftRange:
           \_constant: , line:23:18, endln:23:19
             |vpiParent:
@@ -1250,7 +1319,7 @@ design: (work@Device)
           |vpiName:a
           |vpiFullName:work@Device.instance2.a
           |vpiActual:
-          \_logic_net: (work@Device.instance1.a), line:22:22, endln:22:23
+          \_logic_net: (work@Helper.a), line:22:22, endln:22:23
         |vpiOperand:
         \_ref_obj: (work@Device.instance2.b), line:26:25, endln:26:26
           |vpiParent:
@@ -1258,7 +1327,7 @@ design: (work@Device)
           |vpiName:b
           |vpiFullName:work@Device.instance2.b
           |vpiActual:
-          \_logic_net: (work@Device.instance1.b), line:22:25, endln:22:26
+          \_logic_net: (work@Helper.b), line:22:25, endln:22:26
       |vpiLhs:
       \_ref_obj: (work@Device.instance2.result), line:26:12, endln:26:18
         |vpiParent:

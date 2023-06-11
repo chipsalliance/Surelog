@@ -333,7 +333,7 @@ logic_typespec                                         8
 module_inst                                           17
 named_begin                                            3
 operation                                              2
-package                                                6
+package                                                4
 param_assign                                           6
 parameter                                              6
 ref_module                                             5
@@ -358,7 +358,7 @@ logic_typespec                                         8
 module_inst                                           21
 named_begin                                            3
 operation                                              2
-package                                                6
+package                                                4
 param_assign                                           7
 parameter                                              6
 ref_module                                             5
@@ -397,6 +397,8 @@ design: (work@top)
       \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:1:1, endln:5:34
     |vpiEnumConst:
     \_enum_const: (BidirStd), line:3:7, endln:3:22
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:4:17
       |vpiName:BidirStd
       |HEX:1
       |vpiDecompile:1'h1
@@ -421,6 +423,8 @@ design: (work@top)
       \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:1:1, endln:5:34
     |vpiEnumConst:
     \_enum_const: (BidirStd), line:3:7, endln:3:22
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:4:17
       |vpiName:BidirStd
       |HEX:1
       |vpiDecompile:1'h1
@@ -548,6 +552,8 @@ design: (work@top)
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:19:1, endln:30:34
     |vpiRhs:
     \_constant: , line:21:44, endln:21:45
+      |vpiParent:
+      \_param_assign: , line:21:25, endln:21:45
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -567,12 +573,15 @@ design: (work@top)
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:19:1, endln:30:34
     |vpiCondition:
     \_operation: , line:22:8, endln:22:29
+      |vpiParent:
+      \_gen_if_else: 
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (PadTypeInGeneric), line:22:8, endln:22:24
+      \_ref_obj: (work@prim_generic_pad_attr.PadTypeInGeneric), line:22:8, endln:22:24
         |vpiParent:
         \_operation: , line:22:8, endln:22:29
         |vpiName:PadTypeInGeneric
+        |vpiFullName:work@prim_generic_pad_attr.PadTypeInGeneric
       |vpiOperand:
       \_constant: , line:22:28, endln:22:29
         |vpiParent:
@@ -582,15 +591,23 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (gen_inner_if_true)
+    \_named_begin: (work@prim_generic_pad_attr.gen_inner_if_true)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_inner_if_true
+      |vpiFullName:work@prim_generic_pad_attr.gen_inner_if_true
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:24:14, endln:24:18
+        |vpiParent:
+        \_named_begin: (work@prim_generic_pad_attr.gen_inner_if_true)
         |vpiName:good
         |vpiDefName:work@GOOD
     |vpiElseStmt:
-    \_named_begin: (gen_inner_if_false)
+    \_named_begin: (work@prim_generic_pad_attr.gen_inner_if_false)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_inner_if_false
+      |vpiFullName:work@prim_generic_pad_attr.gen_inner_if_false
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:33:1, endln:44:10
   |vpiParent:
@@ -611,6 +628,8 @@ design: (work@top)
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:33:1, endln:44:10
     |vpiRhs:
     \_constant: , line:35:35, endln:35:36
+      |vpiParent:
+      \_param_assign: , line:35:25, endln:35:36
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -630,15 +649,22 @@ design: (work@top)
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:33:1, endln:44:10
     |vpiCondition:
     \_constant: , line:37:8, endln:37:9
+      |vpiParent:
+      \_gen_if: , line:37:4, endln:37:6
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (gen_outer_if)
+    \_named_begin: (work@prim_pad_attr.gen_outer_if)
+      |vpiParent:
+      \_gen_if: , line:37:4, endln:37:6
       |vpiName:gen_outer_if
+      |vpiFullName:work@prim_pad_attr.gen_outer_if
       |vpiStmt:
       \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:40:10, endln:40:24
+        |vpiParent:
+        \_named_begin: (work@prim_pad_attr.gen_outer_if)
         |vpiName:u_impl_generic
         |vpiDefName:work@prim_generic_pad_attr
 |uhdmallModules:
@@ -661,6 +687,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:46:1, endln:55:10
     |vpiRhs:
     \_constant: , line:48:39, endln:48:40
+      |vpiParent:
+      \_param_assign: , line:48:27, endln:48:40
       |vpiDecompile:2
       |vpiSize:2
       |UINT:2
@@ -811,6 +839,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:35:35, endln:35:36
+        |vpiParent:
+        \_param_assign: , line:35:25, endln:35:36
         |vpiDecompile:1
         |vpiSize:1
         |UINT:1
@@ -880,6 +910,8 @@ design: (work@top)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:21:44, endln:21:45
+              |vpiParent:
+              \_param_assign: , line:21:25, endln:21:45
               |vpiDecompile:1
               |vpiSize:1
               |UINT:1

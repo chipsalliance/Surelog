@@ -253,6 +253,13 @@ design: (work@alert_handler_reg_wrap)
   \_design: (work@alert_handler_reg_wrap)
   |vpiFullName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
+  |vpiNet:
+  \_logic_net: (work@alert_handler_reg_wrap.k), line:2:22, endln:2:23
+    |vpiParent:
+    \_module_inst: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:1:1, endln:5:10
+    |vpiName:k
+    |vpiFullName:work@alert_handler_reg_wrap.k
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -263,8 +270,6 @@ design: (work@alert_handler_reg_wrap)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:2:19, endln:2:20
-        |vpiParent:
-        \_assign_stmt: , line:2:8, endln:2:20
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -273,21 +278,21 @@ design: (work@alert_handler_reg_wrap)
       \_ref_var: (work@alert_handler_reg_wrap.k), line:2:15, endln:2:16
         |vpiParent:
         \_assign_stmt: , line:2:8, endln:2:20
-        |vpiTypespec:
-        \_unsupported_typespec: (k), line:2:15, endln:2:16
-          |vpiName:k
         |vpiName:k
         |vpiFullName:work@alert_handler_reg_wrap.k
     |vpiCondition:
     \_operation: , line:2:22, endln:2:27
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (k), line:2:22, endln:2:23
+      \_ref_obj: (work@alert_handler_reg_wrap.k), line:2:22, endln:2:23
         |vpiParent:
         \_operation: , line:2:22, endln:2:27
         |vpiName:k
+        |vpiFullName:work@alert_handler_reg_wrap.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@alert_handler_reg_wrap.k), line:2:22, endln:2:23
       |vpiOperand:
       \_constant: , line:2:26, endln:2:27
         |vpiParent:
@@ -298,17 +303,27 @@ design: (work@alert_handler_reg_wrap)
         |vpiConstType:9
     |vpiForIncStmt:
     \_operation: , line:2:29, endln:2:30
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:62
       |vpiOperand:
-      \_ref_obj: (k)
+      \_ref_obj: (work@alert_handler_reg_wrap.k)
+        |vpiParent:
+        \_gen_for: 
         |vpiName:k
+        |vpiFullName:work@alert_handler_reg_wrap.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@alert_handler_reg_wrap.k), line:2:22, endln:2:23
     |vpiStmt:
-    \_named_begin: (gen_alert_cause)
+    \_named_begin: (work@alert_handler_reg_wrap.gen_alert_cause)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:gen_alert_cause
+      |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause
       |vpiStmt:
       \_cont_assign: , line:3:12, endln:3:43
+        |vpiParent:
+        \_named_begin: (work@alert_handler_reg_wrap.gen_alert_cause)
         |vpiRhs:
         \_constant: , line:3:39, endln:3:43
           |vpiParent:
@@ -335,6 +350,8 @@ design: (work@alert_handler_reg_wrap)
             |vpiFullName:alert_cause[k]
             |vpiIndex:
             \_ref_obj: (k), line:3:31, endln:3:32
+              |vpiParent:
+              \_hier_path: (alert_cause[k].d), line:3:19, endln:3:30
               |vpiName:k
           |vpiActual:
           \_ref_obj: (alert_cause[k].d)
@@ -436,10 +453,6 @@ design: (work@alert_handler_reg_wrap)
   |vpiName:work@alert_handler_reg_wrap
   |vpiDefName:work@alert_handler_reg_wrap
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (k)
-    |vpiName:k
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
@@ -516,6 +529,8 @@ design: (work@alert_handler_reg_wrap)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:13:12, endln:13:17
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:13:23, endln:13:24
       |vpiLeftRange:
       \_constant: , line:13:13, endln:13:14
         |vpiParent:
@@ -534,6 +549,8 @@ design: (work@alert_handler_reg_wrap)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:13:17, endln:13:22
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:13:23, endln:13:24
       |vpiLeftRange:
       \_constant: , line:13:18, endln:13:19
         |vpiParent:

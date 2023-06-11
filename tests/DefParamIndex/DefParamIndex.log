@@ -381,7 +381,10 @@ design: (work@hierdefparam_top)
     |vpiParent:
     \_module_inst: work@hierdefparam_a (work@hierdefparam_a), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:12:1, endln:20:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@hierdefparam_a)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@hierdefparam_a
 |uhdmallModules:
 \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
   |vpiParent:
@@ -398,6 +401,8 @@ design: (work@hierdefparam_top)
       \_parameter: (work@hierdefparam_b.addvalue), line:23:19, endln:23:27
       |vpiRange:
       \_range: , line:23:13, endln:23:18
+        |vpiParent:
+        \_int_typespec: , line:23:13, endln:23:18
         |vpiLeftRange:
         \_constant: , line:23:14, endln:23:15
           |vpiParent:
@@ -422,6 +427,8 @@ design: (work@hierdefparam_top)
     \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
     |vpiRhs:
     \_constant: , line:23:30, endln:23:32
+      |vpiParent:
+      \_param_assign: , line:23:19, endln:23:32
       |vpiDecompile:44
       |vpiSize:8
       |UINT:44
@@ -437,12 +444,15 @@ design: (work@hierdefparam_top)
     \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:7, endln:24:21
+      |vpiParent:
+      \_gen_if: , line:24:3, endln:24:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (addvalue), line:24:7, endln:24:15
+      \_ref_obj: (work@hierdefparam_b.addvalue), line:24:7, endln:24:15
         |vpiParent:
         \_operation: , line:24:7, endln:24:21
         |vpiName:addvalue
+        |vpiFullName:work@hierdefparam_b.addvalue
       |vpiOperand:
       \_constant: , line:24:19, endln:24:21
         |vpiParent:
@@ -452,9 +462,14 @@ design: (work@hierdefparam_top)
         |UINT:42
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@hierdefparam_b)
+      |vpiParent:
+      \_gen_if: , line:24:3, endln:24:5
+      |vpiFullName:work@hierdefparam_b
       |vpiStmt:
       \_ref_module: work@GOOD (good0), line:25:7, endln:25:12
+        |vpiParent:
+        \_begin: (work@hierdefparam_b)
         |vpiName:good0
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -463,12 +478,15 @@ design: (work@hierdefparam_top)
     \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:7, endln:27:21
+      |vpiParent:
+      \_gen_if: , line:27:3, endln:27:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (addvalue), line:27:7, endln:27:15
+      \_ref_obj: (work@hierdefparam_b.addvalue), line:27:7, endln:27:15
         |vpiParent:
         \_operation: , line:27:7, endln:27:21
         |vpiName:addvalue
+        |vpiFullName:work@hierdefparam_b.addvalue
       |vpiOperand:
       \_constant: , line:27:19, endln:27:21
         |vpiParent:
@@ -478,9 +496,14 @@ design: (work@hierdefparam_top)
         |UINT:43
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@hierdefparam_b)
+      |vpiParent:
+      \_gen_if: , line:27:3, endln:27:5
+      |vpiFullName:work@hierdefparam_b
       |vpiStmt:
       \_ref_module: work@GOOD (good1), line:28:11, endln:28:16
+        |vpiParent:
+        \_begin: (work@hierdefparam_b)
         |vpiName:good1
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -489,12 +512,15 @@ design: (work@hierdefparam_top)
     \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:7, endln:30:21
+      |vpiParent:
+      \_gen_if: , line:30:3, endln:30:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (addvalue), line:30:7, endln:30:15
+      \_ref_obj: (work@hierdefparam_b.addvalue), line:30:7, endln:30:15
         |vpiParent:
         \_operation: , line:30:7, endln:30:21
         |vpiName:addvalue
+        |vpiFullName:work@hierdefparam_b.addvalue
       |vpiOperand:
       \_constant: , line:30:19, endln:30:21
         |vpiParent:
@@ -504,9 +530,14 @@ design: (work@hierdefparam_top)
         |UINT:44
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@hierdefparam_b)
+      |vpiParent:
+      \_gen_if: , line:30:3, endln:30:5
+      |vpiFullName:work@hierdefparam_b
       |vpiStmt:
       \_ref_module: work@BAD (bad), line:31:6, endln:31:9
+        |vpiParent:
+        \_begin: (work@hierdefparam_b)
         |vpiName:bad
         |vpiDefName:work@BAD
 |uhdmallModules:
@@ -520,10 +551,15 @@ design: (work@hierdefparam_top)
     |vpiParent:
     \_module_inst: work@hierdefparam_top (work@hierdefparam_top), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:4:1, endln:10:10
     |vpiStmt:
-    \_named_begin: (foo)
+    \_named_begin: (work@hierdefparam_top.foo)
+      |vpiParent:
+      \_gen_region: 
       |vpiName:foo
+      |vpiFullName:work@hierdefparam_top.foo
       |vpiStmt:
       \_ref_module: work@hierdefparam_a (mod_a), line:6:20, endln:6:25
+        |vpiParent:
+        \_named_begin: (work@hierdefparam_top.foo)
         |vpiName:mod_a
         |vpiDefName:work@hierdefparam_a
 |uhdmtopModules:
@@ -616,6 +652,8 @@ design: (work@hierdefparam_top)
                 \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[0].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
                 |vpiRhs:
                 \_constant: , line:23:30, endln:23:32
+                  |vpiParent:
+                  \_param_assign: , line:23:19, endln:23:32
                   |vpiDecompile:42
                   |vpiSize:8
                   |UINT:42
@@ -711,6 +749,8 @@ design: (work@hierdefparam_top)
                 \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[1].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
                 |vpiRhs:
                 \_constant: , line:23:30, endln:23:32
+                  |vpiParent:
+                  \_param_assign: , line:23:19, endln:23:32
                   |vpiDecompile:43
                   |vpiSize:8
                   |UINT:43

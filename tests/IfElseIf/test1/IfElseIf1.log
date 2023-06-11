@@ -243,6 +243,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test1/dut.sv, line:4:1, endln:21:10
     |vpiRhs:
     \_constant: , line:6:19, endln:6:20
+      |vpiParent:
+      \_param_assign: , line:6:15, endln:6:20
       |vpiDecompile:6
       |vpiSize:32
       |UINT:6
@@ -257,6 +259,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test1/dut.sv, line:4:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:34
+      |vpiParent:
+      \_param_assign: , line:7:15, endln:7:34
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
@@ -271,17 +275,25 @@ design: (work@axi)
     |vpiParent:
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test1/dut.sv, line:4:1, endln:21:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@axi)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@axi
       |vpiStmt:
       \_gen_if_else: , line:11:7, endln:18:14
+        |vpiParent:
+        \_begin: (work@axi)
         |vpiCondition:
         \_operation: , line:11:11, endln:11:17
+          |vpiParent:
+          \_gen_if_else: , line:11:7, endln:18:14
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (j), line:11:11, endln:11:12
+          \_ref_obj: (work@axi.j), line:11:11, endln:11:12
             |vpiParent:
             \_operation: , line:11:11, endln:11:17
             |vpiName:j
+            |vpiFullName:work@axi.j
           |vpiOperand:
           \_constant: , line:11:16, endln:11:17
             |vpiParent:
@@ -291,30 +303,42 @@ design: (work@axi)
             |UINT:0
             |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (LAST_NODE)
+        \_named_begin: (work@axi.LAST_NODE)
+          |vpiParent:
+          \_gen_if_else: , line:11:7, endln:18:14
           |vpiName:LAST_NODE
+          |vpiFullName:work@axi.LAST_NODE
         |vpiElseStmt:
-        \_begin: 
+        \_begin: (work@axi)
+          |vpiParent:
+          \_gen_if_else: , line:11:7, endln:18:14
+          |vpiFullName:work@axi
           |vpiStmt:
           \_gen_if_else: , line:13:16, endln:18:14
+            |vpiParent:
+            \_begin: (work@axi)
             |vpiCondition:
             \_operation: , line:13:21, endln:13:39
+              |vpiParent:
+              \_gen_if_else: , line:13:16, endln:18:14
               |vpiOpType:20
               |vpiOperand:
-              \_ref_obj: (j), line:13:21, endln:13:22
+              \_ref_obj: (work@axi.j), line:13:21, endln:13:22
                 |vpiParent:
                 \_operation: , line:13:21, endln:13:39
                 |vpiName:j
+                |vpiFullName:work@axi.j
               |vpiOperand:
               \_operation: , line:13:25, endln:13:39
                 |vpiParent:
                 \_operation: , line:13:21, endln:13:39
                 |vpiOpType:11
                 |vpiOperand:
-                \_ref_obj: (LOG_MASTER), line:13:25, endln:13:35
+                \_ref_obj: (work@axi.LOG_MASTER), line:13:25, endln:13:35
                   |vpiParent:
                   \_operation: , line:13:25, endln:13:39
                   |vpiName:LOG_MASTER
+                  |vpiFullName:work@axi.LOG_MASTER
                 |vpiOperand:
                 \_constant: , line:13:38, endln:13:39
                   |vpiParent:
@@ -324,13 +348,21 @@ design: (work@axi)
                   |UINT:1
                   |vpiConstType:9
             |vpiStmt:
-            \_named_begin: (MIDDLE_NODES)
+            \_named_begin: (work@axi.MIDDLE_NODES)
+              |vpiParent:
+              \_gen_if_else: , line:13:16, endln:18:14
               |vpiName:MIDDLE_NODES
+              |vpiFullName:work@axi.MIDDLE_NODES
             |vpiElseStmt:
-            \_named_begin: (LEAF_NODES)
+            \_named_begin: (work@axi.LEAF_NODES)
+              |vpiParent:
+              \_gen_if_else: , line:13:16, endln:18:14
               |vpiName:LEAF_NODES
+              |vpiFullName:work@axi.LEAF_NODES
               |vpiStmt:
               \_ref_module: work@GOOD (good), line:17:19, endln:17:23
+                |vpiParent:
+                \_named_begin: (work@axi.LEAF_NODES)
                 |vpiName:good
                 |vpiDefName:work@GOOD
 |uhdmtopModules:
@@ -364,6 +396,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test1/dut.sv, line:4:1, endln:21:10
     |vpiRhs:
     \_constant: , line:6:19, endln:6:20
+      |vpiParent:
+      \_param_assign: , line:6:15, endln:6:20
       |vpiDecompile:6
       |vpiSize:32
       |UINT:6
@@ -378,6 +412,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test1/dut.sv, line:4:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:34
+      |vpiParent:
+      \_param_assign: , line:7:15, endln:7:34
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5

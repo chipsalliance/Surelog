@@ -290,7 +290,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -349,6 +353,8 @@ design: (work@top)
                 |vpiName:operation_i
               |vpiActual:
               \_indexed_part_select: (operation_i.operand_a[0+:32]), line:11:29, endln:11:44
+                |vpiParent:
+                \_hier_path: (operation_i.operand_a[0+:32]), line:11:17, endln:11:45
                 |vpiName:operand_a
                 |vpiFullName:operation_i.operand_a[0+:32]
                 |vpiConstantSelect:1
@@ -372,7 +378,7 @@ design: (work@top)
               |vpiName:o
               |vpiFullName:work@top.o
               |vpiActual:
-              \_int_var: (work@top.o), line:1:23, endln:1:24
+              \_logic_net: (work@top.o), line:1:23, endln:1:24
         |vpiCaseItem:
         \_case_item: , line:12:10, endln:12:26
           |vpiParent:
@@ -396,7 +402,7 @@ design: (work@top)
               |vpiName:o
               |vpiFullName:work@top.o
               |vpiActual:
-              \_int_var: (work@top.o), line:1:23, endln:1:24
+              \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
@@ -407,6 +413,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
     |vpiTypespec:
     \_int_typespec: , line:1:19, endln:1:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:1:23, endln:1:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -423,9 +431,13 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_operation: , line:7:41, endln:7:70
+      |vpiParent:
+      \_struct_var: (work@top.operation_i), line:7:27, endln:7:38
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:7:54, endln:7:56
+        |vpiParent:
+        \_operation: , line:7:41, endln:7:70
         |vpiDecompile:4294967295
         |vpiSize:32
         |UINT:4294967295
@@ -433,7 +445,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:7:67, endln:7:69
         |vpiParent:
-        \_tagged_pattern: , line:7:67, endln:7:69
+        \_operation: , line:7:41, endln:7:70
         |vpiDecompile:0
         |vpiSize:32
         |UINT:0
@@ -524,7 +536,7 @@ design: (work@top)
               |vpiName:o
               |vpiFullName:work@top.o
               |vpiActual:
-              \_int_var: (work@top.o), line:1:23, endln:1:24
+              \_logic_net: (work@top.o), line:1:23, endln:1:24
         |vpiCaseItem:
         \_case_item: , line:12:10, endln:12:26
           |vpiParent:
@@ -550,7 +562,7 @@ design: (work@top)
               |vpiName:o
               |vpiFullName:work@top.o
               |vpiActual:
-              \_int_var: (work@top.o), line:1:23, endln:1:24
+              \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiAlwaysType:2
 ===================
 [  FATAL] : 0

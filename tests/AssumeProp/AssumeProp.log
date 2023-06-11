@@ -155,6 +155,27 @@ design: (work@dut)
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.slv_aw_select_i), line:7:35, endln:7:50
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssumeProp/dut.sv, line:1:1, endln:10:10
+    |vpiName:slv_aw_select_i
+    |vpiFullName:work@dut.slv_aw_select_i
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.NoMstPorts), line:7:52, endln:7:62
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssumeProp/dut.sv, line:1:1, endln:10:10
+    |vpiName:NoMstPorts
+    |vpiFullName:work@dut.NoMstPorts
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.clk_i), line:4:43, endln:4:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssumeProp/dut.sv, line:1:1, endln:10:10
+    |vpiName:clk_i
+    |vpiFullName:work@dut.clk_i
+    |vpiNetType:1
   |vpiAssertion:
   \_assume: (work@dut.aw_select), line:4:5, endln:7:64
     |vpiParent:
@@ -163,6 +184,8 @@ design: (work@dut)
     |vpiFullName:work@dut.aw_select
     |vpiStmt:
     \_sys_func_call: ($fatal), line:6:7, endln:7:63
+      |vpiParent:
+      \_assume: (work@dut.aw_select), line:4:5, endln:7:64
       |vpiArgument:
       \_constant: , line:6:14, endln:6:15
         |vpiParent:
@@ -182,104 +205,13 @@ design: (work@dut)
                  NoMstPorts: %d
         |vpiConstType:6
       |vpiArgument:
-      \_ref_obj: (slv_aw_select_i), line:7:35, endln:7:50
-        |vpiParent:
-        \_sys_func_call: ($fatal), line:6:7, endln:7:63
-        |vpiName:slv_aw_select_i
-        |vpiActual:
-        \_logic_net: (slv_aw_select_i)
-      |vpiArgument:
-      \_ref_obj: (NoMstPorts), line:7:52, endln:7:62
-        |vpiParent:
-        \_sys_func_call: ($fatal), line:6:7, endln:7:63
-        |vpiName:NoMstPorts
-        |vpiActual:
-        \_logic_net: (NoMstPorts)
-      |vpiName:$fatal
-    |vpiProperty:
-    \_property_spec: , line:4:33, endln:5:81
-      |vpiClockingEvent:
-      \_operation: , line:4:35, endln:4:48
-        |vpiOpType:39
-        |vpiOperand:
-        \_ref_obj: (clk_i), line:4:43, endln:4:48
-          |vpiParent:
-          \_operation: , line:4:35, endln:4:48
-          |vpiName:clk_i
-          |vpiActual:
-          \_logic_net: (clk_i)
-      |vpiPropertyExpr:
-      \_operation: , line:4:51, endln:4:69
-        |vpiOpType:52
-        |vpiOperand:
-        \_hier_path: (slv_req_i.aw_valid), line:4:51, endln:4:69
-          |vpiName:slv_req_i.aw_valid
-          |vpiActual:
-          \_ref_obj: (slv_req_i), line:4:51, endln:4:60
-            |vpiParent:
-            \_hier_path: (slv_req_i.aw_valid), line:4:51, endln:4:69
-            |vpiName:slv_req_i
-          |vpiActual:
-          \_ref_obj: (aw_valid), line:4:61, endln:4:69
-            |vpiParent:
-            \_hier_path: (slv_req_i.aw_valid), line:4:51, endln:4:69
-            |vpiName:aw_valid
-        |vpiOperand:
-        \_operation: , line:5:51, endln:5:79
-          |vpiOpType:20
-          |vpiOperand:
-          \_ref_obj: (slv_aw_select_i), line:5:51, endln:5:66
-            |vpiParent:
-            \_operation: , line:5:51, endln:5:79
-            |vpiName:slv_aw_select_i
-            |vpiActual:
-            \_logic_net: (slv_aw_select_i)
-          |vpiOperand:
-          \_ref_obj: (NoMstPorts), line:5:69, endln:5:79
-            |vpiParent:
-            \_operation: , line:5:51, endln:5:79
-            |vpiName:NoMstPorts
-            |vpiActual:
-            \_logic_net: (NoMstPorts)
-|uhdmtopModules:
-\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssumeProp/dut.sv, line:1:1, endln:10:10
-  |vpiName:work@dut
-  |vpiDefName:work@dut
-  |vpiTop:1
-  |vpiNet:
-  \_logic_net: (slv_aw_select_i)
-    |vpiName:slv_aw_select_i
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (NoMstPorts)
-    |vpiName:NoMstPorts
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (clk_i)
-    |vpiName:clk_i
-    |vpiNetType:1
-  |vpiAssertion:
-  \_assume: (work@dut.aw_select), line:4:5, endln:7:64
-    |vpiParent:
-    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssumeProp/dut.sv, line:1:1, endln:10:10
-    |vpiName:aw_select
-    |vpiFullName:work@dut.aw_select
-    |vpiStmt:
-    \_sys_func_call: ($fatal), line:6:7, endln:7:63
-      |vpiParent:
-      \_assume: (work@dut.aw_select), line:4:5, endln:7:64
-      |vpiArgument:
-      \_constant: , line:6:14, endln:6:15
-      |vpiArgument:
-      \_constant: , line:6:17, endln:6:119
-      |vpiArgument:
       \_ref_obj: (work@dut.aw_select.slv_aw_select_i), line:7:35, endln:7:50
         |vpiParent:
         \_sys_func_call: ($fatal), line:6:7, endln:7:63
         |vpiName:slv_aw_select_i
         |vpiFullName:work@dut.aw_select.slv_aw_select_i
         |vpiActual:
-        \_logic_net: (slv_aw_select_i)
+        \_logic_net: (work@dut.slv_aw_select_i), line:7:35, endln:7:50
       |vpiArgument:
       \_ref_obj: (work@dut.aw_select.NoMstPorts), line:7:52, endln:7:62
         |vpiParent:
@@ -287,7 +219,7 @@ design: (work@dut)
         |vpiName:NoMstPorts
         |vpiFullName:work@dut.aw_select.NoMstPorts
         |vpiActual:
-        \_logic_net: (NoMstPorts)
+        \_logic_net: (work@dut.NoMstPorts), line:7:52, endln:7:62
       |vpiName:$fatal
     |vpiProperty:
     \_property_spec: , line:4:33, endln:5:81
@@ -305,7 +237,7 @@ design: (work@dut)
           |vpiName:clk_i
           |vpiFullName:work@dut.aw_select.clk_i
           |vpiActual:
-          \_logic_net: (clk_i)
+          \_logic_net: (work@dut.clk_i), line:4:43, endln:4:48
       |vpiPropertyExpr:
       \_operation: , line:4:51, endln:4:69
         |vpiParent:
@@ -339,7 +271,7 @@ design: (work@dut)
             |vpiName:slv_aw_select_i
             |vpiFullName:work@dut.aw_select.slv_aw_select_i
             |vpiActual:
-            \_logic_net: (slv_aw_select_i)
+            \_logic_net: (work@dut.slv_aw_select_i), line:7:35, endln:7:50
           |vpiOperand:
           \_ref_obj: (work@dut.aw_select.NoMstPorts), line:5:69, endln:5:79
             |vpiParent:
@@ -347,7 +279,102 @@ design: (work@dut)
             |vpiName:NoMstPorts
             |vpiFullName:work@dut.aw_select.NoMstPorts
             |vpiActual:
-            \_logic_net: (NoMstPorts)
+            \_logic_net: (work@dut.NoMstPorts), line:7:52, endln:7:62
+|uhdmtopModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssumeProp/dut.sv, line:1:1, endln:10:10
+  |vpiName:work@dut
+  |vpiDefName:work@dut
+  |vpiTop:1
+  |vpiAssertion:
+  \_assume: (work@dut.aw_select), line:4:5, endln:7:64
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssumeProp/dut.sv, line:1:1, endln:10:10
+    |vpiName:aw_select
+    |vpiFullName:work@dut.aw_select
+    |vpiStmt:
+    \_sys_func_call: ($fatal), line:6:7, endln:7:63
+      |vpiParent:
+      \_assume: (work@dut.aw_select), line:4:5, endln:7:64
+      |vpiArgument:
+      \_constant: , line:6:14, endln:6:15
+      |vpiArgument:
+      \_constant: , line:6:17, endln:6:119
+      |vpiArgument:
+      \_ref_obj: (work@dut.aw_select.slv_aw_select_i), line:7:35, endln:7:50
+        |vpiParent:
+        \_sys_func_call: ($fatal), line:6:7, endln:7:63
+        |vpiName:slv_aw_select_i
+        |vpiFullName:work@dut.aw_select.slv_aw_select_i
+        |vpiActual:
+        \_logic_net: (work@dut.slv_aw_select_i), line:7:35, endln:7:50
+      |vpiArgument:
+      \_ref_obj: (work@dut.aw_select.NoMstPorts), line:7:52, endln:7:62
+        |vpiParent:
+        \_sys_func_call: ($fatal), line:6:7, endln:7:63
+        |vpiName:NoMstPorts
+        |vpiFullName:work@dut.aw_select.NoMstPorts
+        |vpiActual:
+        \_logic_net: (work@dut.NoMstPorts), line:7:52, endln:7:62
+      |vpiName:$fatal
+    |vpiProperty:
+    \_property_spec: , line:4:33, endln:5:81
+      |vpiParent:
+      \_assume: (work@dut.aw_select), line:4:5, endln:7:64
+      |vpiClockingEvent:
+      \_operation: , line:4:35, endln:4:48
+        |vpiParent:
+        \_property_spec: , line:4:33, endln:5:81
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (work@dut.aw_select.clk_i), line:4:43, endln:4:48
+          |vpiParent:
+          \_operation: , line:4:35, endln:4:48
+          |vpiName:clk_i
+          |vpiFullName:work@dut.aw_select.clk_i
+          |vpiActual:
+          \_logic_net: (work@dut.clk_i), line:4:43, endln:4:48
+      |vpiPropertyExpr:
+      \_operation: , line:4:51, endln:4:69
+        |vpiParent:
+        \_property_spec: , line:4:33, endln:5:81
+        |vpiOpType:52
+        |vpiOperand:
+        \_hier_path: (slv_req_i.aw_valid), line:4:51, endln:4:69
+          |vpiParent:
+          \_operation: , line:4:51, endln:4:69
+          |vpiName:slv_req_i.aw_valid
+          |vpiActual:
+          \_ref_obj: (slv_req_i), line:4:51, endln:4:60
+            |vpiParent:
+            \_hier_path: (slv_req_i.aw_valid), line:4:51, endln:4:69
+            |vpiName:slv_req_i
+          |vpiActual:
+          \_ref_obj: (work@dut.aw_select.aw_valid), line:4:61, endln:4:69
+            |vpiParent:
+            \_hier_path: (slv_req_i.aw_valid), line:4:51, endln:4:69
+            |vpiName:aw_valid
+            |vpiFullName:work@dut.aw_select.aw_valid
+        |vpiOperand:
+        \_operation: , line:5:51, endln:5:79
+          |vpiParent:
+          \_operation: , line:4:51, endln:4:69
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (work@dut.aw_select.slv_aw_select_i), line:5:51, endln:5:66
+            |vpiParent:
+            \_operation: , line:5:51, endln:5:79
+            |vpiName:slv_aw_select_i
+            |vpiFullName:work@dut.aw_select.slv_aw_select_i
+            |vpiActual:
+            \_logic_net: (work@dut.slv_aw_select_i), line:7:35, endln:7:50
+          |vpiOperand:
+          \_ref_obj: (work@dut.aw_select.NoMstPorts), line:5:69, endln:5:79
+            |vpiParent:
+            \_operation: , line:5:51, endln:5:79
+            |vpiName:NoMstPorts
+            |vpiFullName:work@dut.aw_select.NoMstPorts
+            |vpiActual:
+            \_logic_net: (work@dut.NoMstPorts), line:7:52, endln:7:62
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

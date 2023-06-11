@@ -158,6 +158,41 @@ design: (work@dut)
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.z), line:2:10, endln:2:11
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StreamingOp/dut.sv, line:1:1, endln:5:10
+    |vpiName:z
+    |vpiFullName:work@dut.z
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.x), line:2:22, endln:2:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StreamingOp/dut.sv, line:1:1, endln:5:10
+    |vpiName:x
+    |vpiFullName:work@dut.x
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.y), line:2:25, endln:2:26
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StreamingOp/dut.sv, line:1:1, endln:5:10
+    |vpiName:y
+    |vpiFullName:work@dut.y
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.conv_data), line:4:10, endln:4:19
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StreamingOp/dut.sv, line:1:1, endln:5:10
+    |vpiName:conv_data
+    |vpiFullName:work@dut.conv_data
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.v), line:4:30, endln:4:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StreamingOp/dut.sv, line:1:1, endln:5:10
+    |vpiName:v
+    |vpiFullName:work@dut.v
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:2:10, endln:2:29
     |vpiParent:
@@ -179,15 +214,21 @@ design: (work@dut)
         \_operation: , line:2:21, endln:2:27
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (x), line:2:22, endln:2:23
+        \_ref_obj: (work@dut.x), line:2:22, endln:2:23
+          |vpiParent:
+          \_operation: , line:2:14, endln:2:29
           |vpiName:x
+          |vpiFullName:work@dut.x
           |vpiActual:
-          \_logic_net: (x)
+          \_logic_net: (work@dut.x), line:2:22, endln:2:23
         |vpiOperand:
-        \_ref_obj: (y), line:2:25, endln:2:26
+        \_ref_obj: (work@dut.y), line:2:25, endln:2:26
+          |vpiParent:
+          \_operation: , line:2:14, endln:2:29
           |vpiName:y
+          |vpiFullName:work@dut.y
           |vpiActual:
-          \_logic_net: (y)
+          \_logic_net: (work@dut.y), line:2:25, endln:2:26
     |vpiLhs:
     \_ref_obj: (work@dut.z), line:2:10, endln:2:11
       |vpiParent:
@@ -195,7 +236,7 @@ design: (work@dut)
       |vpiName:z
       |vpiFullName:work@dut.z
       |vpiActual:
-      \_logic_net: (z)
+      \_logic_net: (work@dut.z), line:2:10, endln:2:11
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:36
     |vpiParent:
@@ -217,10 +258,13 @@ design: (work@dut)
           |DEC:123456
           |vpiConstType:1
         |vpiOperand:
-        \_ref_obj: (x), line:3:32, endln:3:33
+        \_ref_obj: (work@dut.x), line:3:32, endln:3:33
+          |vpiParent:
+          \_operation: , line:3:14, endln:3:36
           |vpiName:x
+          |vpiFullName:work@dut.x
           |vpiActual:
-          \_logic_net: (x)
+          \_logic_net: (work@dut.x), line:2:22, endln:2:23
     |vpiLhs:
     \_ref_obj: (work@dut.y), line:3:10, endln:3:11
       |vpiParent:
@@ -228,7 +272,7 @@ design: (work@dut)
       |vpiName:y
       |vpiFullName:work@dut.y
       |vpiActual:
-      \_logic_net: (y)
+      \_logic_net: (work@dut.y), line:2:25, endln:2:26
   |vpiContAssign:
   \_cont_assign: , line:4:10, endln:4:33
     |vpiParent:
@@ -250,10 +294,13 @@ design: (work@dut)
         \_operation: , line:4:29, endln:4:32
         |vpiOpType:33
         |vpiOperand:
-        \_ref_obj: (v), line:4:30, endln:4:31
+        \_ref_obj: (work@dut.v), line:4:30, endln:4:31
+          |vpiParent:
+          \_operation: , line:4:22, endln:4:33
           |vpiName:v
+          |vpiFullName:work@dut.v
           |vpiActual:
-          \_logic_net: (v)
+          \_logic_net: (work@dut.v), line:4:30, endln:4:31
     |vpiLhs:
     \_ref_obj: (work@dut.conv_data), line:4:10, endln:4:19
       |vpiParent:
@@ -261,32 +308,12 @@ design: (work@dut)
       |vpiName:conv_data
       |vpiFullName:work@dut.conv_data
       |vpiActual:
-      \_logic_net: (conv_data)
+      \_logic_net: (work@dut.conv_data), line:4:10, endln:4:19
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StreamingOp/dut.sv, line:1:1, endln:5:10
   |vpiName:work@dut
   |vpiDefName:work@dut
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (z)
-    |vpiName:z
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (x)
-    |vpiName:x
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (y)
-    |vpiName:y
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (conv_data)
-    |vpiName:conv_data
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (v)
-    |vpiName:v
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:2:10, endln:2:29
@@ -311,7 +338,7 @@ design: (work@dut)
           |vpiName:x
           |vpiFullName:work@dut.x
           |vpiActual:
-          \_logic_net: (x)
+          \_logic_net: (work@dut.x), line:2:22, endln:2:23
         |vpiOperand:
         \_ref_obj: (work@dut.y), line:2:25, endln:2:26
           |vpiParent:
@@ -319,7 +346,7 @@ design: (work@dut)
           |vpiName:y
           |vpiFullName:work@dut.y
           |vpiActual:
-          \_logic_net: (y)
+          \_logic_net: (work@dut.y), line:2:25, endln:2:26
     |vpiLhs:
     \_ref_obj: (work@dut.z), line:2:10, endln:2:11
       |vpiParent:
@@ -327,7 +354,7 @@ design: (work@dut)
       |vpiName:z
       |vpiFullName:work@dut.z
       |vpiActual:
-      \_logic_net: (z)
+      \_logic_net: (work@dut.z), line:2:10, endln:2:11
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:36
     |vpiParent:
@@ -351,7 +378,7 @@ design: (work@dut)
           |vpiName:x
           |vpiFullName:work@dut.x
           |vpiActual:
-          \_logic_net: (x)
+          \_logic_net: (work@dut.x), line:2:22, endln:2:23
     |vpiLhs:
     \_ref_obj: (work@dut.y), line:3:10, endln:3:11
       |vpiParent:
@@ -359,7 +386,7 @@ design: (work@dut)
       |vpiName:y
       |vpiFullName:work@dut.y
       |vpiActual:
-      \_logic_net: (y)
+      \_logic_net: (work@dut.y), line:2:25, endln:2:26
   |vpiContAssign:
   \_cont_assign: , line:4:10, endln:4:33
     |vpiParent:
@@ -383,7 +410,7 @@ design: (work@dut)
           |vpiName:v
           |vpiFullName:work@dut.v
           |vpiActual:
-          \_logic_net: (v)
+          \_logic_net: (work@dut.v), line:4:30, endln:4:31
     |vpiLhs:
     \_ref_obj: (work@dut.conv_data), line:4:10, endln:4:19
       |vpiParent:
@@ -391,7 +418,7 @@ design: (work@dut)
       |vpiName:conv_data
       |vpiFullName:work@dut.conv_data
       |vpiActual:
-      \_logic_net: (conv_data)
+      \_logic_net: (work@dut.conv_data), line:4:10, endln:4:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

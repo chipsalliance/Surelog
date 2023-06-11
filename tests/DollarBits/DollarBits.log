@@ -279,13 +279,19 @@ design: (work@dut)
     |vpiName:in
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.in.in)
+      |vpiParent:
+      \_port: (in), line:7:30, endln:7:32
+      |vpiName:in
+      |vpiFullName:work@dut.in.in
       |vpiActual:
       \_logic_net: (work@dut.in), line:7:30, endln:7:32
     |vpiTypedef:
     \_logic_typespec: , line:7:19, endln:7:29
       |vpiRange:
       \_range: , line:7:24, endln:7:29
+        |vpiParent:
+        \_logic_typespec: , line:7:19, endln:7:29
         |vpiLeftRange:
         \_constant: , line:7:25, endln:7:26
           |vpiParent:
@@ -309,13 +315,19 @@ design: (work@dut)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.out.out)
+      |vpiParent:
+      \_port: (out), line:7:52, endln:7:55
+      |vpiName:out
+      |vpiFullName:work@dut.out.out
       |vpiActual:
       \_logic_net: (work@dut.out), line:7:52, endln:7:55
     |vpiTypedef:
     \_logic_typespec: , line:7:41, endln:7:51
       |vpiRange:
       \_range: , line:7:46, endln:7:51
+        |vpiParent:
+        \_logic_typespec: , line:7:41, endln:7:51
         |vpiLeftRange:
         \_constant: , line:7:47, endln:7:48
           |vpiParent:
@@ -342,18 +354,28 @@ design: (work@dut)
     \_module_inst: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiPort:
     \_port: (in), line:8:37, endln:8:44
+      |vpiParent:
+      \_ref_module: work@other (oth), line:8:33, endln:8:36
       |vpiName:in
       |vpiHighConn:
-      \_ref_obj: (in), line:8:41, endln:8:43
+      \_ref_obj: (work@dut.oth.in.in), line:8:41, endln:8:43
+        |vpiParent:
+        \_port: (in), line:8:37, endln:8:44
         |vpiName:in
+        |vpiFullName:work@dut.oth.in.in
         |vpiActual:
         \_logic_net: (work@dut.in), line:7:30, endln:7:32
     |vpiPort:
     \_port: (out), line:8:46, endln:8:55
+      |vpiParent:
+      \_ref_module: work@other (oth), line:8:33, endln:8:36
       |vpiName:out
       |vpiHighConn:
-      \_ref_obj: (out), line:8:51, endln:8:54
+      \_ref_obj: (work@dut.oth.out.out), line:8:51, endln:8:54
+        |vpiParent:
+        \_port: (out), line:8:46, endln:8:55
         |vpiName:out
+        |vpiFullName:work@dut.oth.out.out
         |vpiActual:
         \_logic_net: (work@dut.out), line:7:52, endln:7:55
 |uhdmallModules:
@@ -380,6 +402,8 @@ design: (work@dut)
     \_module_inst: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_param_assign: , line:2:19, endln:2:28
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -410,13 +434,19 @@ design: (work@dut)
     |vpiName:in
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@other.in.in)
+      |vpiParent:
+      \_port: (in), line:3:27, endln:3:29
+      |vpiName:in
+      |vpiFullName:work@other.in.in
       |vpiActual:
       \_logic_net: (work@other.in), line:3:27, endln:3:29
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:26
       |vpiRange:
       \_range: , line:3:15, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:10, endln:3:26
         |vpiLeftRange:
         \_operation: , line:3:16, endln:3:23
           |vpiParent:
@@ -450,13 +480,19 @@ design: (work@dut)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@other.out.out)
+      |vpiParent:
+      \_port: (out), line:3:55, endln:3:58
+      |vpiName:out
+      |vpiFullName:work@other.out.out
       |vpiActual:
       \_logic_net: (work@other.out), line:3:55, endln:3:58
     |vpiTypedef:
     \_logic_typespec: , line:3:38, endln:3:54
       |vpiRange:
       \_range: , line:3:43, endln:3:54
+        |vpiParent:
+        \_logic_typespec: , line:3:38, endln:3:54
         |vpiLeftRange:
         \_operation: , line:3:44, endln:3:51
           |vpiParent:
@@ -494,7 +530,7 @@ design: (work@dut)
       |vpiName:in
       |vpiFullName:work@other.in
       |vpiActual:
-      \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29
+      \_logic_net: (work@other.in), line:3:27, endln:3:29
     |vpiLhs:
     \_ref_obj: (work@other.out), line:4:11, endln:4:14
       |vpiParent:
@@ -502,7 +538,7 @@ design: (work@dut)
       |vpiName:out
       |vpiFullName:work@other.out
       |vpiActual:
-      \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58
+      \_logic_net: (work@other.out), line:3:55, endln:3:58
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
   |vpiName:work@dut
@@ -514,8 +550,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiTypespec:
     \_logic_typespec: , line:7:19, endln:7:29
+      |vpiParent:
+      \_logic_net: (work@dut.in), line:7:30, endln:7:32
       |vpiRange:
       \_range: , line:7:24, endln:7:29
+        |vpiParent:
+        \_logic_typespec: , line:7:19, endln:7:29
         |vpiLeftRange:
         \_constant: , line:7:25, endln:7:26
           |vpiParent:
@@ -541,8 +581,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiTypespec:
     \_logic_typespec: , line:7:41, endln:7:51
+      |vpiParent:
+      \_logic_net: (work@dut.out), line:7:52, endln:7:55
       |vpiRange:
       \_range: , line:7:46, endln:7:51
+        |vpiParent:
+        \_logic_typespec: , line:7:41, endln:7:51
         |vpiLeftRange:
         \_constant: , line:7:47, endln:7:48
           |vpiParent:
@@ -582,7 +626,7 @@ design: (work@dut)
       |vpiRange:
       \_range: , line:7:24, endln:7:29
         |vpiParent:
-        \_port: (in), line:7:30, endln:7:32
+        \_logic_typespec: , line:7:19, endln:7:29
         |vpiLeftRange:
         \_constant: , line:7:25, endln:7:26
           |vpiParent:
@@ -620,7 +664,7 @@ design: (work@dut)
       |vpiRange:
       \_range: , line:7:46, endln:7:51
         |vpiParent:
-        \_port: (out), line:7:52, endln:7:55
+        \_logic_typespec: , line:7:41, endln:7:51
         |vpiLeftRange:
         \_constant: , line:7:47, endln:7:48
           |vpiParent:
@@ -665,6 +709,8 @@ design: (work@dut)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:27, endln:2:28
+        |vpiParent:
+        \_param_assign: , line:2:19, endln:2:28
         |vpiDecompile:8
         |vpiSize:32
         |UINT:8
@@ -682,8 +728,12 @@ design: (work@dut)
       \_module_inst: work@other (work@dut.oth), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:8:4, endln:8:57
       |vpiTypespec:
       \_logic_typespec: , line:3:10, endln:3:26
+        |vpiParent:
+        \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29
         |vpiRange:
         \_range: , line:3:15, endln:3:26
+          |vpiParent:
+          \_logic_typespec: , line:3:10, endln:3:26
           |vpiLeftRange:
           \_constant: , line:3:16, endln:3:21
             |vpiParent:
@@ -711,6 +761,8 @@ design: (work@dut)
       \_logic_typespec: , line:3:38, endln:3:54
         |vpiRange:
         \_range: , line:3:43, endln:3:54
+          |vpiParent:
+          \_logic_typespec: , line:3:38, endln:3:54
           |vpiLeftRange:
           \_constant: , line:3:44, endln:3:49
             |vpiParent:
@@ -759,7 +811,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:15, endln:3:26
           |vpiParent:
-          \_port: (in), line:3:27, endln:3:29
+          \_logic_typespec: , line:3:10, endln:3:26
           |vpiLeftRange:
           \_constant: , line:3:16, endln:3:21
             |vpiParent:
@@ -805,7 +857,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:43, endln:3:54
           |vpiParent:
-          \_port: (out), line:3:55, endln:3:58
+          \_logic_typespec: , line:3:38, endln:3:54
           |vpiLeftRange:
           \_constant: , line:3:44, endln:3:49
             |vpiParent:
@@ -835,7 +887,7 @@ design: (work@dut)
         |vpiName:in
         |vpiFullName:work@dut.oth.in
         |vpiActual:
-        \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29
+        \_logic_net: (work@other.in), line:3:27, endln:3:29
       |vpiLhs:
       \_ref_obj: (work@dut.oth.out), line:4:11, endln:4:14
         |vpiParent:
@@ -843,7 +895,7 @@ design: (work@dut)
         |vpiName:out
         |vpiFullName:work@dut.oth.out
         |vpiActual:
-        \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58
+        \_logic_net: (work@other.out), line:3:55, endln:3:58
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

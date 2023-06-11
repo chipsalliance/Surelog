@@ -517,6 +517,8 @@ design: (work@testbench)
     \_module_inst: work@bp_lce (work@bp_lce), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:1:36, endln:1:41
+      |vpiParent:
+      \_param_assign: , line:1:27, endln:1:41
       |vpiDecompile:"inv"
       |vpiSize:24
       |STRING:inv
@@ -540,6 +542,20 @@ design: (work@testbench)
     |vpiName:b
     |vpiFullName:work@bp_lce.b
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@bp_lce.c), line:2:8, endln:2:9
+    |vpiParent:
+    \_module_inst: work@bp_lce (work@bp_lce), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:1:1, endln:3:10
+    |vpiName:c
+    |vpiFullName:work@bp_lce.c
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@bp_lce.d), line:2:11, endln:2:12
+    |vpiParent:
+    \_module_inst: work@bp_lce (work@bp_lce), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:1:1, endln:3:10
+    |vpiName:d
+    |vpiFullName:work@bp_lce.d
+    |vpiNetType:1
   |vpiPort:
   \_port: (a), line:1:55, endln:1:56
     |vpiParent:
@@ -547,7 +563,11 @@ design: (work@testbench)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bp_lce.a.a)
+      |vpiParent:
+      \_port: (a), line:1:55, endln:1:56
+      |vpiName:a
+      |vpiFullName:work@bp_lce.a.a
       |vpiActual:
       \_logic_net: (work@bp_lce.a), line:1:55, endln:1:56
     |vpiTypedef:
@@ -559,7 +579,11 @@ design: (work@testbench)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bp_lce.b.b)
+      |vpiParent:
+      \_port: (b), line:1:71, endln:1:72
+      |vpiName:b
+      |vpiFullName:work@bp_lce.b.b
       |vpiActual:
       \_logic_net: (work@bp_lce.b), line:1:71, endln:1:72
     |vpiTypedef:
@@ -575,7 +599,7 @@ design: (work@testbench)
       |vpiName:d
       |vpiFullName:work@bp_lce.d
       |vpiActual:
-      \_logic_net: (d)
+      \_logic_net: (work@bp_lce.d), line:2:11, endln:2:12
     |vpiLhs:
     \_ref_obj: (work@bp_lce.c), line:2:8, endln:2:9
       |vpiParent:
@@ -583,7 +607,7 @@ design: (work@testbench)
       |vpiName:c
       |vpiFullName:work@bp_lce.c
       |vpiActual:
-      \_logic_net: (c)
+      \_logic_net: (work@bp_lce.c), line:2:8, endln:2:9
 |uhdmallModules:
 \_module_inst: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:8:1, endln:11:10
   |vpiParent:
@@ -604,6 +628,8 @@ design: (work@testbench)
     \_module_inst: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:8:1, endln:11:10
     |vpiRhs:
     \_constant: , line:8:55, endln:8:60
+      |vpiParent:
+      \_param_assign: , line:8:46, endln:8:60
       |vpiDecompile:"inv"
       |vpiSize:24
       |STRING:inv
@@ -627,6 +653,20 @@ design: (work@testbench)
     |vpiName:d
     |vpiFullName:work@bp_me_nonsynth_lce_tracer.d
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@bp_me_nonsynth_lce_tracer.a), line:9:10, endln:9:11
+    |vpiParent:
+    \_module_inst: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:8:1, endln:11:10
+    |vpiName:a
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@bp_me_nonsynth_lce_tracer.b), line:9:13, endln:9:14
+    |vpiParent:
+    \_module_inst: work@bp_me_nonsynth_lce_tracer (work@bp_me_nonsynth_lce_tracer), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:8:1, endln:11:10
+    |vpiName:b
+    |vpiFullName:work@bp_me_nonsynth_lce_tracer.b
+    |vpiNetType:1
   |vpiPort:
   \_port: (c), line:8:74, endln:8:75
     |vpiParent:
@@ -634,7 +674,11 @@ design: (work@testbench)
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bp_me_nonsynth_lce_tracer.c.c)
+      |vpiParent:
+      \_port: (c), line:8:74, endln:8:75
+      |vpiName:c
+      |vpiFullName:work@bp_me_nonsynth_lce_tracer.c.c
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer.c), line:8:74, endln:8:75
     |vpiTypedef:
@@ -646,7 +690,11 @@ design: (work@testbench)
     |vpiName:d
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bp_me_nonsynth_lce_tracer.d.d)
+      |vpiParent:
+      \_port: (d), line:8:90, endln:8:91
+      |vpiName:d
+      |vpiFullName:work@bp_me_nonsynth_lce_tracer.d.d
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer.d), line:8:90, endln:8:91
     |vpiTypedef:
@@ -662,7 +710,7 @@ design: (work@testbench)
       |vpiName:b
       |vpiFullName:work@bp_me_nonsynth_lce_tracer.b
       |vpiActual:
-      \_logic_net: (b)
+      \_logic_net: (work@bp_me_nonsynth_lce_tracer.b), line:9:13, endln:9:14
     |vpiLhs:
     \_ref_obj: (work@bp_me_nonsynth_lce_tracer.a), line:9:10, endln:9:11
       |vpiParent:
@@ -670,7 +718,7 @@ design: (work@testbench)
       |vpiName:a
       |vpiFullName:work@bp_me_nonsynth_lce_tracer.a
       |vpiActual:
-      \_logic_net: (a)
+      \_logic_net: (work@bp_me_nonsynth_lce_tracer.a), line:9:10, endln:9:11
   |vpiRefModule:
   \_ref_module: work@sub (sub1), line:10:7, endln:10:11
     |vpiParent:
@@ -699,6 +747,8 @@ design: (work@testbench)
     \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@bp_me_nonsynth_lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:13:1, endln:16:10
     |vpiRhs:
     \_constant: , line:13:56, endln:13:61
+      |vpiParent:
+      \_param_assign: , line:13:47, endln:13:61
       |vpiDecompile:"inv"
       |vpiSize:24
       |STRING:inv
@@ -736,7 +786,11 @@ design: (work@testbench)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bp_me_nonsynth_lce_tracer2.a.a)
+      |vpiParent:
+      \_port: (a), line:13:75, endln:13:76
+      |vpiName:a
+      |vpiFullName:work@bp_me_nonsynth_lce_tracer2.a.a
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer2.a), line:13:75, endln:13:76
     |vpiTypedef:
@@ -748,7 +802,11 @@ design: (work@testbench)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bp_me_nonsynth_lce_tracer2.b.b)
+      |vpiParent:
+      \_port: (b), line:13:91, endln:13:92
+      |vpiName:b
+      |vpiFullName:work@bp_me_nonsynth_lce_tracer2.b.b
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer2.b), line:13:91, endln:13:92
     |vpiTypedef:
@@ -760,7 +818,11 @@ design: (work@testbench)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bp_me_nonsynth_lce_tracer2.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:13:106, endln:13:109
+      |vpiName:clk
+      |vpiFullName:work@bp_me_nonsynth_lce_tracer2.clk.clk
       |vpiActual:
       \_logic_net: (work@bp_me_nonsynth_lce_tracer2.clk), line:13:106, endln:13:109
     |vpiTypedef:
@@ -776,7 +838,7 @@ design: (work@testbench)
       |vpiName:b
       |vpiFullName:work@bp_me_nonsynth_lce_tracer2.b
       |vpiActual:
-      \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92
+      \_logic_net: (work@bp_me_nonsynth_lce_tracer2.b), line:13:91, endln:13:92
     |vpiLhs:
     \_ref_obj: (work@bp_me_nonsynth_lce_tracer2.a), line:14:10, endln:14:11
       |vpiParent:
@@ -784,7 +846,7 @@ design: (work@testbench)
       |vpiName:a
       |vpiFullName:work@bp_me_nonsynth_lce_tracer2.a
       |vpiActual:
-      \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76
+      \_logic_net: (work@bp_me_nonsynth_lce_tracer2.a), line:13:75, endln:13:76
   |vpiRefModule:
   \_ref_module: work@sub (sub1), line:15:7, endln:15:11
     |vpiParent:
@@ -833,6 +895,8 @@ design: (work@testbench)
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
     |vpiRhs:
     \_constant: , line:30:17, endln:30:18
+      |vpiParent:
+      \_param_assign: , line:30:13, endln:30:18
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -856,7 +920,11 @@ design: (work@testbench)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@testbench.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:25:31, endln:25:34
+      |vpiName:clk
+      |vpiFullName:work@testbench.clk.clk
       |vpiActual:
       \_logic_net: (work@testbench.clk), line:25:31, endln:25:34
     |vpiTypedef:
@@ -883,12 +951,15 @@ design: (work@testbench)
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
     |vpiCondition:
     \_operation: , line:31:7, endln:31:13
+      |vpiParent:
+      \_gen_if: , line:31:3, endln:31:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:31:7, endln:31:8
+      \_ref_obj: (work@testbench.p), line:31:7, endln:31:8
         |vpiParent:
         \_operation: , line:31:7, endln:31:13
         |vpiName:p
+        |vpiFullName:work@testbench.p
       |vpiOperand:
       \_constant: , line:31:12, endln:31:13
         |vpiParent:
@@ -898,8 +969,11 @@ design: (work@testbench)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (do_bind)
+    \_named_begin: (work@testbench.do_bind)
+      |vpiParent:
+      \_gen_if: , line:31:3, endln:31:5
       |vpiName:do_bind
+      |vpiFullName:work@testbench.do_bind
 |uhdmtopModules:
 \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
   |vpiName:work@testbench
@@ -920,6 +994,8 @@ design: (work@testbench)
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
     |vpiRhs:
     \_constant: , line:30:17, endln:30:18
+      |vpiParent:
+      \_param_assign: , line:30:13, endln:30:18
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -936,6 +1012,8 @@ design: (work@testbench)
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
     |vpiTypespec:
     \_logic_typespec: , line:25:25, endln:25:30
+      |vpiParent:
+      \_logic_net: (work@testbench.clk), line:25:31, endln:25:34
     |vpiName:clk
     |vpiFullName:work@testbench.clk
     |vpiNetType:36
@@ -982,6 +1060,8 @@ design: (work@testbench)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:1:36, endln:1:41
+        |vpiParent:
+        \_param_assign: , line:1:27, endln:1:41
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -1008,17 +1088,11 @@ design: (work@testbench)
       \_module_inst: work@bp_lce (work@testbench.u1), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:27:3, endln:27:30
       |vpiTypespec:
       \_logic_typespec: , line:1:65, endln:1:70
+        |vpiParent:
+        \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72
       |vpiName:b
       |vpiFullName:work@testbench.u1.b
       |vpiNetType:36
-    |vpiNet:
-    \_logic_net: (c)
-      |vpiName:c
-      |vpiNetType:1
-    |vpiNet:
-    \_logic_net: (d)
-      |vpiName:d
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:25:1, endln:52:10
     |vpiPort:
@@ -1081,6 +1155,8 @@ design: (work@testbench)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:8:55, endln:8:60
+          |vpiParent:
+          \_param_assign: , line:8:46, endln:8:60
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -1098,6 +1174,8 @@ design: (work@testbench)
         \_module_inst: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:34:13, endln:36:41
         |vpiTypespec:
         \_logic_typespec: , line:8:68, endln:8:73
+          |vpiParent:
+          \_logic_net: (work@testbench.u1.lce_tracer1.c), line:8:74, endln:8:75
         |vpiName:c
         |vpiFullName:work@testbench.u1.lce_tracer1.c
         |vpiNetType:36
@@ -1107,17 +1185,11 @@ design: (work@testbench)
         \_module_inst: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:34:13, endln:36:41
         |vpiTypespec:
         \_logic_typespec: , line:8:84, endln:8:89
+          |vpiParent:
+          \_logic_net: (work@testbench.u1.lce_tracer1.d), line:8:90, endln:8:91
         |vpiName:d
         |vpiFullName:work@testbench.u1.lce_tracer1.d
         |vpiNetType:36
-      |vpiNet:
-      \_logic_net: (a)
-        |vpiName:a
-        |vpiNetType:1
-      |vpiNet:
-      \_logic_net: (b)
-        |vpiName:b
-        |vpiNetType:1
       |vpiInstance:
       \_module_inst: work@bp_lce (work@testbench.u1), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:27:3, endln:27:30
       |vpiPort:
@@ -1194,7 +1266,7 @@ design: (work@testbench)
           |vpiName:b
           |vpiFullName:work@testbench.u1.lce_tracer1.b
           |vpiActual:
-          \_logic_net: (b)
+          \_logic_net: (work@bp_me_nonsynth_lce_tracer.b), line:9:13, endln:9:14
         |vpiLhs:
         \_ref_obj: (work@testbench.u1.lce_tracer1.a), line:9:10, endln:9:11
           |vpiParent:
@@ -1202,7 +1274,7 @@ design: (work@testbench)
           |vpiName:a
           |vpiFullName:work@testbench.u1.lce_tracer1.a
           |vpiActual:
-          \_logic_net: (a)
+          \_logic_net: (work@bp_me_nonsynth_lce_tracer.a), line:9:10, endln:9:11
     |vpiModule:
     \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:40:13, endln:42:31
       |vpiParent:
@@ -1227,6 +1299,8 @@ design: (work@testbench)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:13:56, endln:13:61
+          |vpiParent:
+          \_param_assign: , line:13:47, endln:13:61
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -1253,6 +1327,8 @@ design: (work@testbench)
         \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:40:13, endln:42:31
         |vpiTypespec:
         \_logic_typespec: , line:13:85, endln:13:90
+          |vpiParent:
+          \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92
         |vpiName:b
         |vpiFullName:work@testbench.u1.lce_tracer2.b
         |vpiNetType:36
@@ -1262,6 +1338,8 @@ design: (work@testbench)
         \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:40:13, endln:42:31
         |vpiTypespec:
         \_logic_typespec: , line:13:100, endln:13:105
+          |vpiParent:
+          \_logic_net: (work@testbench.u1.lce_tracer2.clk), line:13:106, endln:13:109
         |vpiName:clk
         |vpiFullName:work@testbench.u1.lce_tracer2.clk
         |vpiNetType:36
@@ -1367,7 +1445,7 @@ design: (work@testbench)
           |vpiName:b
           |vpiFullName:work@testbench.u1.lce_tracer2.b
           |vpiActual:
-          \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92
+          \_logic_net: (work@bp_me_nonsynth_lce_tracer2.b), line:13:91, endln:13:92
         |vpiLhs:
         \_ref_obj: (work@testbench.u1.lce_tracer2.a), line:14:10, endln:14:11
           |vpiParent:
@@ -1375,7 +1453,7 @@ design: (work@testbench)
           |vpiName:a
           |vpiFullName:work@testbench.u1.lce_tracer2.a
           |vpiActual:
-          \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76
+          \_logic_net: (work@bp_me_nonsynth_lce_tracer2.a), line:13:75, endln:13:76
     |vpiContAssign:
     \_cont_assign: , line:2:8, endln:2:12
       |vpiParent:
@@ -1387,7 +1465,7 @@ design: (work@testbench)
         |vpiName:d
         |vpiFullName:work@testbench.u1.d
         |vpiActual:
-        \_logic_net: (d)
+        \_logic_net: (work@bp_lce.d), line:2:11, endln:2:12
       |vpiLhs:
       \_ref_obj: (work@testbench.u1.c), line:2:8, endln:2:9
         |vpiParent:
@@ -1395,7 +1473,7 @@ design: (work@testbench)
         |vpiName:c
         |vpiFullName:work@testbench.u1.c
         |vpiActual:
-        \_logic_net: (c)
+        \_logic_net: (work@bp_lce.c), line:2:8, endln:2:9
   |vpiModule:
   \_module_inst: work@inter (work@testbench.tt), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:28:3, endln:28:15
     |vpiParent:
@@ -1438,6 +1516,8 @@ design: (work@testbench)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:1:36, endln:1:41
+          |vpiParent:
+          \_param_assign: , line:1:27, endln:1:41
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -1464,6 +1544,8 @@ design: (work@testbench)
         \_module_inst: work@bp_lce (work@testbench.tt.u1), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:21:2, endln:21:29
         |vpiTypespec:
         \_logic_typespec: , line:1:65, endln:1:70
+          |vpiParent:
+          \_logic_net: (work@testbench.tt.u1.b), line:1:71, endln:1:72
         |vpiName:b
         |vpiFullName:work@testbench.tt.u1.b
         |vpiNetType:36
@@ -1529,6 +1611,8 @@ design: (work@testbench)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:8:55, endln:8:60
+            |vpiParent:
+            \_param_assign: , line:8:46, endln:8:60
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -1546,6 +1630,8 @@ design: (work@testbench)
           \_module_inst: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:34:13, endln:36:41
           |vpiTypespec:
           \_logic_typespec: , line:8:68, endln:8:73
+            |vpiParent:
+            \_logic_net: (work@testbench.tt.u1.lce_tracer1.c), line:8:74, endln:8:75
           |vpiName:c
           |vpiFullName:work@testbench.tt.u1.lce_tracer1.c
           |vpiNetType:36
@@ -1555,6 +1641,8 @@ design: (work@testbench)
           \_module_inst: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:34:13, endln:36:41
           |vpiTypespec:
           \_logic_typespec: , line:8:84, endln:8:89
+            |vpiParent:
+            \_logic_net: (work@testbench.tt.u1.lce_tracer1.d), line:8:90, endln:8:91
           |vpiName:d
           |vpiFullName:work@testbench.tt.u1.lce_tracer1.d
           |vpiNetType:36
@@ -1634,7 +1722,7 @@ design: (work@testbench)
             |vpiName:b
             |vpiFullName:work@testbench.tt.u1.lce_tracer1.b
             |vpiActual:
-            \_logic_net: (b)
+            \_logic_net: (work@bp_me_nonsynth_lce_tracer.b), line:9:13, endln:9:14
           |vpiLhs:
           \_ref_obj: (work@testbench.tt.u1.lce_tracer1.a), line:9:10, endln:9:11
             |vpiParent:
@@ -1642,7 +1730,7 @@ design: (work@testbench)
             |vpiName:a
             |vpiFullName:work@testbench.tt.u1.lce_tracer1.a
             |vpiActual:
-            \_logic_net: (a)
+            \_logic_net: (work@bp_me_nonsynth_lce_tracer.a), line:9:10, endln:9:11
       |vpiModule:
       \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:40:13, endln:42:31
         |vpiParent:
@@ -1667,6 +1755,8 @@ design: (work@testbench)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:13:56, endln:13:61
+            |vpiParent:
+            \_param_assign: , line:13:47, endln:13:61
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
@@ -1693,6 +1783,8 @@ design: (work@testbench)
           \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:40:13, endln:42:31
           |vpiTypespec:
           \_logic_typespec: , line:13:85, endln:13:90
+            |vpiParent:
+            \_logic_net: (work@testbench.tt.u1.lce_tracer2.b), line:13:91, endln:13:92
           |vpiName:b
           |vpiFullName:work@testbench.tt.u1.lce_tracer2.b
           |vpiNetType:36
@@ -1702,6 +1794,8 @@ design: (work@testbench)
           \_module_inst: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2), file:${SURELOG_DIR}/tests/BindStmt/dut.sv, line:40:13, endln:42:31
           |vpiTypespec:
           \_logic_typespec: , line:13:100, endln:13:105
+            |vpiParent:
+            \_logic_net: (work@testbench.tt.u1.lce_tracer2.clk), line:13:106, endln:13:109
           |vpiName:clk
           |vpiFullName:work@testbench.tt.u1.lce_tracer2.clk
           |vpiNetType:36
@@ -1807,7 +1901,7 @@ design: (work@testbench)
             |vpiName:b
             |vpiFullName:work@testbench.tt.u1.lce_tracer2.b
             |vpiActual:
-            \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92
+            \_logic_net: (work@bp_me_nonsynth_lce_tracer2.b), line:13:91, endln:13:92
           |vpiLhs:
           \_ref_obj: (work@testbench.tt.u1.lce_tracer2.a), line:14:10, endln:14:11
             |vpiParent:
@@ -1815,7 +1909,7 @@ design: (work@testbench)
             |vpiName:a
             |vpiFullName:work@testbench.tt.u1.lce_tracer2.a
             |vpiActual:
-            \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76
+            \_logic_net: (work@bp_me_nonsynth_lce_tracer2.a), line:13:75, endln:13:76
       |vpiContAssign:
       \_cont_assign: , line:2:8, endln:2:12
         |vpiParent:
@@ -1827,7 +1921,7 @@ design: (work@testbench)
           |vpiName:d
           |vpiFullName:work@testbench.tt.u1.d
           |vpiActual:
-          \_logic_net: (d)
+          \_logic_net: (work@bp_lce.d), line:2:11, endln:2:12
         |vpiLhs:
         \_ref_obj: (work@testbench.tt.u1.c), line:2:8, endln:2:9
           |vpiParent:
@@ -1835,7 +1929,7 @@ design: (work@testbench)
           |vpiName:c
           |vpiFullName:work@testbench.tt.u1.c
           |vpiActual:
-          \_logic_net: (c)
+          \_logic_net: (work@bp_lce.c), line:2:8, endln:2:9
   |vpiGenScopeArray:
   \_gen_scope_array: (work@testbench.do_bind), line:31:3, endln:49:6
     |vpiParent:

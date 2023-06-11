@@ -256,6 +256,8 @@ design: (work@PreDecodeStage)
     \_logic_typespec: , line:4:14, endln:4:25
       |vpiRange:
       \_range: , line:4:20, endln:4:25
+        |vpiParent:
+        \_logic_typespec: , line:4:14, endln:4:25
         |vpiLeftRange:
         \_constant: , line:4:21, endln:4:22
           |vpiParent:
@@ -274,6 +276,8 @@ design: (work@PreDecodeStage)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (AC_ADD), line:6:5, endln:6:22
+      |vpiParent:
+      \_enum_typespec: (IntALU_Code), line:4:1, endln:7:15
       |vpiName:AC_ADD
       |BIN:0000
       |vpiDecompile:4'b0000
@@ -345,6 +349,20 @@ design: (work@PreDecodeStage)
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
     |vpiName:microOps
     |vpiFullName:work@PreDecodeStage.microOps
+  |vpiNet:
+  \_logic_net: (work@PreDecodeStage.o), line:28:8, endln:28:9
+    |vpiParent:
+    \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
+    |vpiName:o
+    |vpiFullName:work@PreDecodeStage.o
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@PreDecodeStage.i), line:28:21, endln:28:22
+    |vpiParent:
+    \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
+    |vpiName:i
+    |vpiFullName:work@PreDecodeStage.i
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:28:8, endln:28:48
     |vpiParent:
@@ -361,10 +379,13 @@ design: (work@PreDecodeStage)
         |vpiName:microOps
         |vpiFullName:microOps[i]
         |vpiIndex:
-        \_ref_obj: (i), line:28:21, endln:28:22
+        \_ref_obj: (work@PreDecodeStage.i), line:28:21, endln:28:22
+          |vpiParent:
+          \_hier_path: (microOps[i][1].operand.intOp.aluCode), line:28:12, endln:28:48
           |vpiName:i
+          |vpiFullName:work@PreDecodeStage.i
           |vpiActual:
-          \_logic_net: (i)
+          \_logic_net: (work@PreDecodeStage.i), line:28:21, endln:28:22
       |vpiActual:
       \_bit_select: (microOps[i][1]), line:28:21, endln:28:22
         |vpiParent:
@@ -401,7 +422,7 @@ design: (work@PreDecodeStage)
       |vpiName:o
       |vpiFullName:work@PreDecodeStage.o
       |vpiActual:
-      \_logic_net: (o)
+      \_logic_net: (work@PreDecodeStage.o), line:28:8, endln:28:9
 |uhdmtopModules:
 \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
   |vpiName:work@PreDecodeStage
@@ -414,6 +435,8 @@ design: (work@PreDecodeStage)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:26:8, endln:26:13
+      |vpiParent:
+      \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
       |vpiLeftRange:
       \_constant: , line:26:9, endln:26:10
         |vpiParent:
@@ -432,6 +455,8 @@ design: (work@PreDecodeStage)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:26:13, endln:26:18
+      |vpiParent:
+      \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
       |vpiLeftRange:
       \_constant: , line:26:14, endln:26:15
         |vpiParent:
@@ -465,14 +490,6 @@ design: (work@PreDecodeStage)
   \_struct_typespec: (OpInfo), line:19:9, endln:19:15
   |vpiDefName:work@PreDecodeStage
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (o)
-    |vpiName:o
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (i)
-    |vpiName:i
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:28:8, endln:28:48
@@ -498,7 +515,7 @@ design: (work@PreDecodeStage)
           |vpiName:i
           |vpiFullName:work@PreDecodeStage.microOps[i][1].operand.intOp.aluCode.i
           |vpiActual:
-          \_logic_net: (i)
+          \_logic_net: (work@PreDecodeStage.i), line:28:21, endln:28:22
       |vpiActual:
       \_bit_select: (microOps[i][1]), line:28:21, endln:28:22
         |vpiParent:
@@ -535,7 +552,7 @@ design: (work@PreDecodeStage)
       |vpiName:o
       |vpiFullName:work@PreDecodeStage.o
       |vpiActual:
-      \_logic_net: (o)
+      \_logic_net: (work@PreDecodeStage.o), line:28:8, endln:28:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

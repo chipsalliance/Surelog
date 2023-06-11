@@ -208,7 +208,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:4:13, endln:4:18
           |vpiParent:
-          \_struct_typespec: (filter_ctl_t), line:3:12, endln:3:18
+          \_logic_typespec: , line:4:7, endln:4:18
           |vpiLeftRange:
           \_constant: , line:4:14, endln:4:15
             |vpiParent:
@@ -250,7 +250,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:2:23, endln:2:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:2:23, endln:2:24
     |vpiTypedef:
@@ -311,6 +315,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
     |vpiTypespec:
     \_int_typespec: , line:2:19, endln:2:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:2:23, endln:2:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -325,6 +331,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:7:17, endln:7:22
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:7:28, endln:7:29
       |vpiLeftRange:
       \_constant: , line:7:18, endln:7:19
         |vpiParent:
@@ -343,6 +351,8 @@ design: (work@top)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:7:22, endln:7:27
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:7:28, endln:7:29
       |vpiLeftRange:
       \_constant: , line:7:23, endln:7:24
         |vpiParent:

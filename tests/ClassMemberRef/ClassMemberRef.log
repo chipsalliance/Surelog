@@ -195,7 +195,7 @@ io_decl                                                3
 logic_net                                              2
 method_func_call                                       2
 module_inst                                            3
-package                                                3
+package                                                2
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -217,7 +217,7 @@ io_decl                                                6
 logic_net                                              2
 method_func_call                                       4
 module_inst                                            3
-package                                                3
+package                                                2
 ref_obj                                               19
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassMemberRef/slpp_all/surelog.uhdm ...
@@ -255,7 +255,7 @@ design: (work@top)
       |vpiTypedef:
       \_bit_typespec: , line:16:46, endln:16:49
         |vpiInstance:
-        \_package: (pkg)
+        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberRef/dut.sv, line:1:1, endln:20:11
     |vpiStmt:
     \_assignment: , line:17:1, endln:17:27
       |vpiParent:
@@ -307,12 +307,16 @@ design: (work@top)
       \_class_defn: (pkg::m_uvm_printer_knobs), file:${SURELOG_DIR}/tests/ClassMemberRef/dut.sv, line:3:1, endln:7:9
       |vpiTypespec:
       \_bit_typespec: , line:5:3, endln:5:6
+        |vpiParent:
+        \_bit_var: (pkg::m_uvm_printer_knobs::identifier), line:5:7, endln:5:17
       |vpiName:identifier
       |vpiFullName:pkg::m_uvm_printer_knobs::identifier
       |vpiAutomatic:1
       |vpiVisibility:1
       |vpiExpr:
       \_constant: , line:5:20, endln:5:21
+        |vpiParent:
+        \_bit_var: (pkg::m_uvm_printer_knobs::identifier), line:5:7, endln:5:17
         |vpiDecompile:1
         |vpiSize:1
         |UINT:1
@@ -420,6 +424,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassMemberRef/dut.sv, line:22:1, endln:29:10
     |vpiName:printer
     |vpiFullName:work@top.printer
+  |vpiNet:
+  \_logic_net: (work@top.en), line:27:27, endln:27:29
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassMemberRef/dut.sv, line:22:1, endln:29:10
+    |vpiName:en
+    |vpiFullName:work@top.en
+    |vpiNetType:1
   |vpiProcess:
   \_initial: , line:25:1, endln:28:4
     |vpiParent:
@@ -457,7 +468,7 @@ design: (work@top)
           |vpiName:en
           |vpiFullName:work@top.en
           |vpiActual:
-          \_logic_net: (en)
+          \_logic_net: (work@top.en), line:27:27, endln:27:29
         |vpiName:set_name_enabled
         |vpiPrefix:
         \_ref_obj: (work@top.printer), line:27:1, endln:27:8
@@ -484,10 +495,6 @@ design: (work@top)
     |vpiVisibility:1
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (en)
-    |vpiName:en
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiProcess:
   \_initial: , line:25:1, endln:28:4
@@ -528,7 +535,7 @@ design: (work@top)
           |vpiName:en
           |vpiFullName:work@top.en
           |vpiActual:
-          \_logic_net: (en)
+          \_logic_net: (work@top.en), line:27:27, endln:27:29
         |vpiName:set_name_enabled
         |vpiPrefix:
         \_ref_obj: (work@top.printer), line:27:1, endln:27:8

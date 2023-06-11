@@ -101,7 +101,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:13, endln:3:18
           |vpiParent:
-          \_struct_typespec: (tl_h2d_t), line:2:12, endln:2:18
+          \_logic_typespec: , line:3:7, endln:3:18
           |vpiLeftRange:
           \_constant: , line:3:14, endln:3:15
             |vpiParent:
@@ -159,11 +159,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
     \_logic_typespec: , line:8:4, endln:8:9
+      |vpiParent:
+      \_logic_var: (work@top.c), line:8:10, endln:8:33
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiVisibility:1
     |vpiExpr:
     \_hier_path: (a[0].source[6-:2]), line:8:14, endln:8:33
+      |vpiParent:
+      \_logic_var: (work@top.c), line:8:10, endln:8:33
       |vpiName:a[0].source[6-:2]
       |vpiActual:
       \_bit_select: (a[0]), line:8:14, endln:8:15
@@ -181,6 +185,8 @@ design: (work@top)
           |vpiConstType:9
       |vpiActual:
       \_indexed_part_select: (a[0].source[6-:2]), line:8:19, endln:8:32
+        |vpiParent:
+        \_hier_path: (a[0].source[6-:2]), line:8:14, endln:8:33
         |vpiName:source
         |vpiFullName:a[0].source[6-:2]
         |vpiConstantSelect:1
@@ -203,8 +209,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
     \_logic_typespec: , line:9:4, endln:9:15
+      |vpiParent:
+      \_logic_var: (work@top.d), line:9:16, endln:9:36
       |vpiRange:
       \_range: , line:9:10, endln:9:15
+        |vpiParent:
+        \_logic_typespec: , line:9:4, endln:9:15
         |vpiLeftRange:
         \_constant: , line:9:11, endln:9:12
           |vpiParent:
@@ -226,6 +236,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_hier_path: (b.source[6-:2]), line:9:20, endln:9:36
+      |vpiParent:
+      \_logic_var: (work@top.d), line:9:16, endln:9:36
       |vpiName:b.source[6-:2]
       |vpiActual:
       \_ref_obj: (b), line:9:20, endln:9:21
@@ -236,6 +248,8 @@ design: (work@top)
         \_struct_net: (work@top.b), line:7:13, endln:7:14
       |vpiActual:
       \_indexed_part_select: (b.source[6-:2]), line:9:22, endln:9:35
+        |vpiParent:
+        \_hier_path: (b.source[6-:2]), line:9:20, endln:9:36
         |vpiName:source
         |vpiFullName:b.source[6-:2]
         |vpiConstantSelect:1
@@ -254,6 +268,8 @@ design: (work@top)
           |vpiConstType:9
     |vpiRange:
     \_range: , line:9:10, endln:9:15
+      |vpiParent:
+      \_logic_var: (work@top.d), line:9:16, endln:9:36
       |vpiLeftRange:
       \_constant: , line:9:11, endln:9:12
         |vpiParent:
@@ -291,8 +307,10 @@ design: (work@top)
     |vpiFullName:work@top.a
     |vpiRange:
     \_range: , line:6:15, endln:6:16
+      |vpiParent:
+      \_array_net: (work@top.a), line:6:13, endln:6:14
       |vpiLeftRange:
-      \_constant: , line:6:15, endln:6:16
+      \_constant: 
         |vpiParent:
         \_range: , line:6:15, endln:6:16
         |vpiDecompile:0
@@ -306,6 +324,8 @@ design: (work@top)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:6:15, endln:6:16
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4

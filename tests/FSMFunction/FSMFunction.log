@@ -1312,11 +1312,14 @@ design: (work@fsm_using_function)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FSMFunction/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -1341,10 +1344,13 @@ design: (work@fsm_using_function)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1369,7 +1375,10 @@ design: (work@fsm_using_function)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -1399,10 +1408,13 @@ design: (work@fsm_using_function)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1433,10 +1445,13 @@ design: (work@fsm_using_function)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1503,11 +1518,14 @@ design: (work@fsm_using_function)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/FSMFunction/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1517,7 +1535,9 @@ design: (work@fsm_using_function)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1525,34 +1545,45 @@ design: (work@fsm_using_function)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1598,11 +1629,14 @@ design: (work@fsm_using_function)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/FSMFunction/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1673,10 +1707,13 @@ design: (work@fsm_using_function)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1716,6 +1753,8 @@ design: (work@fsm_using_function)
     \_int_typespec: 
       |vpiRange:
       \_range: 
+        |vpiParent:
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
           |INT:2
@@ -1733,6 +1772,8 @@ design: (work@fsm_using_function)
     \_int_typespec: 
       |vpiRange:
       \_range: 
+        |vpiParent:
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
           |INT:2
@@ -1750,6 +1791,8 @@ design: (work@fsm_using_function)
     \_int_typespec: 
       |vpiRange:
       \_range: 
+        |vpiParent:
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
           |INT:2
@@ -1764,6 +1807,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:23:18, endln:23:19
+      |vpiParent:
+      \_param_assign: , line:23:11, endln:23:19
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -1778,6 +1823,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:24:19, endln:24:25
+      |vpiParent:
+      \_param_assign: , line:24:11, endln:24:25
       |vpiDecompile:3'b001
       |vpiSize:3
       |BIN:001
@@ -1792,6 +1839,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:24:33, endln:24:39
+      |vpiParent:
+      \_param_assign: , line:24:26, endln:24:39
       |vpiDecompile:3'b010
       |vpiSize:3
       |BIN:010
@@ -1806,6 +1855,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:24:47, endln:24:53
+      |vpiParent:
+      \_param_assign: , line:24:40, endln:24:53
       |vpiDecompile:3'b100
       |vpiSize:3
       |BIN:100
@@ -1823,11 +1874,15 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:31:10, endln:31:20
+    \_logic_var: (work@fsm_using_function.fsm_function), line:31:10, endln:31:20
+      |vpiParent:
+      \_function: (work@fsm_using_function.fsm_function), line:31:1, endln:55:12
       |vpiTypespec:
       \_logic_typespec: , line:31:10, endln:31:20
         |vpiRange:
         \_range: , line:31:10, endln:31:20
+          |vpiParent:
+          \_logic_typespec: , line:31:10, endln:31:20
           |vpiLeftRange:
           \_operation: , line:31:11, endln:31:17
             |vpiParent:
@@ -1856,6 +1911,7 @@ design: (work@fsm_using_function)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@fsm_using_function.fsm_function
     |vpiIODecl:
     \_io_decl: (state), line:32:22, endln:32:27
       |vpiParent:
@@ -1867,18 +1923,17 @@ design: (work@fsm_using_function)
         |vpiRange:
         \_range: , line:32:10, endln:32:20
           |vpiParent:
-          \_function: (work@fsm_using_function.fsm_function), line:31:1, endln:55:12
+          \_logic_typespec: , line:32:10, endln:32:20
           |vpiLeftRange:
           \_operation: , line:32:11, endln:32:17
             |vpiParent:
             \_range: , line:32:10, endln:32:20
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (work@fsm_using_function.fsm_function.SIZE), line:32:11, endln:32:15
+            \_ref_obj: (SIZE), line:32:11, endln:32:15
               |vpiParent:
               \_operation: , line:32:11, endln:32:17
               |vpiName:SIZE
-              |vpiFullName:work@fsm_using_function.fsm_function.SIZE
               |vpiActual:
               \_parameter: (work@fsm_using_function.SIZE), line:23:11, endln:23:15
             |vpiOperand:
@@ -1981,7 +2036,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
           |vpiElseStmt:
           \_if_else: , line:38:24, endln:42:18
             |vpiParent:
@@ -2031,7 +2086,7 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
             |vpiElseStmt:
             \_begin: (work@fsm_using_function.fsm_function), line:40:24, endln:42:18
               |vpiParent:
@@ -2056,7 +2111,7 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:43:4, endln:47:18
         |vpiParent:
@@ -2116,7 +2171,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:45:24, endln:47:18
             |vpiParent:
@@ -2141,7 +2196,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:48:4, endln:52:18
         |vpiParent:
@@ -2201,7 +2256,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:50:20, endln:52:18
             |vpiParent:
@@ -2226,7 +2281,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:53:4, endln:53:34
         |vpiParent:
@@ -2250,7 +2305,7 @@ design: (work@fsm_using_function)
             |vpiName:fsm_function
             |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
             |vpiActual:
-            \_logic_var: (fsm_function), line:31:10, endln:31:20
+            \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
     |vpiInstance:
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
   |vpiNet:
@@ -2316,7 +2371,10 @@ design: (work@fsm_using_function)
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.clock)
+      |vpiParent:
+      \_port: (clock), line:7:1, endln:7:6
+      |vpiFullName:work@fsm_using_function.clock
       |vpiActual:
       \_logic_net: (work@fsm_using_function.clock), line:19:9, endln:19:14
     |vpiTypedef:
@@ -2328,7 +2386,10 @@ design: (work@fsm_using_function)
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.reset)
+      |vpiParent:
+      \_port: (reset), line:8:1, endln:8:6
+      |vpiFullName:work@fsm_using_function.reset
       |vpiActual:
       \_logic_net: (work@fsm_using_function.reset), line:19:15, endln:19:20
     |vpiTypedef:
@@ -2340,7 +2401,10 @@ design: (work@fsm_using_function)
     |vpiName:req_0
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.req_0)
+      |vpiParent:
+      \_port: (req_0), line:9:1, endln:9:6
+      |vpiFullName:work@fsm_using_function.req_0
       |vpiActual:
       \_logic_net: (work@fsm_using_function.req_0), line:19:21, endln:19:26
     |vpiTypedef:
@@ -2352,7 +2416,10 @@ design: (work@fsm_using_function)
     |vpiName:req_1
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.req_1)
+      |vpiParent:
+      \_port: (req_1), line:10:1, endln:10:6
+      |vpiFullName:work@fsm_using_function.req_1
       |vpiActual:
       \_logic_net: (work@fsm_using_function.req_1), line:19:27, endln:19:32
     |vpiTypedef:
@@ -2364,7 +2431,10 @@ design: (work@fsm_using_function)
     |vpiName:gnt_0
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.gnt_0)
+      |vpiParent:
+      \_port: (gnt_0), line:11:1, endln:11:6
+      |vpiFullName:work@fsm_using_function.gnt_0
       |vpiActual:
       \_logic_net: (work@fsm_using_function.gnt_0), line:21:9, endln:21:14
     |vpiTypedef:
@@ -2376,7 +2446,10 @@ design: (work@fsm_using_function)
     |vpiName:gnt_1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@fsm_using_function.gnt_1)
+      |vpiParent:
+      \_port: (gnt_1), line:12:1, endln:12:6
+      |vpiFullName:work@fsm_using_function.gnt_1
       |vpiActual:
       \_logic_net: (work@fsm_using_function.gnt_1), line:21:15, endln:21:20
     |vpiTypedef:
@@ -3004,6 +3077,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:23:18, endln:23:19
+      |vpiParent:
+      \_param_assign: , line:23:11, endln:23:19
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -3018,6 +3093,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:24:19, endln:24:25
+      |vpiParent:
+      \_param_assign: , line:24:11, endln:24:25
       |vpiDecompile:3'b001
       |vpiSize:3
       |BIN:001
@@ -3032,6 +3109,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:24:33, endln:24:39
+      |vpiParent:
+      \_param_assign: , line:24:26, endln:24:39
       |vpiDecompile:3'b010
       |vpiSize:3
       |BIN:010
@@ -3046,6 +3125,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiRhs:
     \_constant: , line:24:47, endln:24:53
+      |vpiParent:
+      \_param_assign: , line:24:40, endln:24:53
       |vpiDecompile:3'b100
       |vpiSize:3
       |BIN:100
@@ -3064,7 +3145,7 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: , line:31:10, endln:31:20
+    \_logic_var: (work@fsm_using_function.fsm_function), line:31:10, endln:31:20
     |vpiIODecl:
     \_io_decl: (state), line:32:22, endln:32:27
       |vpiParent:
@@ -3155,7 +3236,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
           |vpiElseStmt:
           \_if_else: , line:38:24, endln:42:18
             |vpiParent:
@@ -3201,7 +3282,7 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
             |vpiElseStmt:
             \_begin: (work@fsm_using_function.fsm_function), line:40:24, endln:42:18
               |vpiParent:
@@ -3228,7 +3309,7 @@ design: (work@fsm_using_function)
                   |vpiName:fsm_function
                   |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                   |vpiActual:
-                  \_logic_var: (fsm_function), line:31:10, endln:31:20
+                  \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:43:4, endln:47:18
         |vpiParent:
@@ -3286,7 +3367,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:45:24, endln:47:18
             |vpiParent:
@@ -3313,7 +3394,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:48:4, endln:52:18
         |vpiParent:
@@ -3371,7 +3452,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:50:20, endln:52:18
             |vpiParent:
@@ -3398,7 +3479,7 @@ design: (work@fsm_using_function)
                 |vpiName:fsm_function
                 |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiActual:
-                \_logic_var: (fsm_function), line:31:10, endln:31:20
+                \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
       |vpiCaseItem:
       \_case_item: , line:53:4, endln:53:34
         |vpiParent:
@@ -3424,7 +3505,7 @@ design: (work@fsm_using_function)
             |vpiName:fsm_function
             |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
             |vpiActual:
-            \_logic_var: (fsm_function), line:31:10, endln:31:20
+            \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:31:10, endln:31:20
     |vpiInstance:
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
   |vpiNet:
@@ -3433,6 +3514,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiTypespec:
     \_logic_typespec: , line:19:1, endln:19:5
+      |vpiParent:
+      \_logic_net: (work@fsm_using_function.req_1), line:19:27, endln:19:32
     |vpiName:clock
     |vpiFullName:work@fsm_using_function.clock
     |vpiNetType:1
@@ -3469,6 +3552,8 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiTypespec:
     \_logic_typespec: , line:21:1, endln:21:4
+      |vpiParent:
+      \_logic_net: (work@fsm_using_function.gnt_1), line:21:15, endln:21:20
     |vpiName:gnt_0
     |vpiFullName:work@fsm_using_function.gnt_0
     |vpiNetType:48
@@ -3487,8 +3572,12 @@ design: (work@fsm_using_function)
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
     |vpiTypespec:
     \_logic_typespec: , line:26:1, endln:26:17
+      |vpiParent:
+      \_logic_net: (work@fsm_using_function.state), line:26:27, endln:26:32
       |vpiRange:
       \_range: , line:26:7, endln:26:17
+        |vpiParent:
+        \_logic_typespec: , line:26:1, endln:26:17
         |vpiLeftRange:
         \_constant: , line:26:8, endln:26:12
           |vpiParent:
@@ -3516,6 +3605,8 @@ design: (work@fsm_using_function)
     \_logic_typespec: , line:27:1, endln:27:17
       |vpiRange:
       \_range: , line:27:7, endln:27:17
+        |vpiParent:
+        \_logic_typespec: , line:27:1, endln:27:17
         |vpiLeftRange:
         \_constant: , line:27:8, endln:27:12
           |vpiParent:

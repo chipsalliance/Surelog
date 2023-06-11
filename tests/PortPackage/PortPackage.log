@@ -34,7 +34,7 @@ logic_net                                              1
 logic_typespec                                         4
 module_inst                                            6
 operation                                              3
-package                                                3
+package                                                2
 packed_array_typespec                                  3
 param_assign                                           2
 parameter                                              2
@@ -55,7 +55,7 @@ logic_net                                              1
 logic_typespec                                         4
 module_inst                                            6
 operation                                              3
-package                                                3
+package                                                2
 packed_array_typespec                                  3
 param_assign                                           2
 parameter                                              2
@@ -106,7 +106,7 @@ design: (work@dm_top)
         |vpiRange:
         \_range: , line:4:15, endln:4:22
           |vpiParent:
-          \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:3:16
+          \_logic_typespec: , line:4:9, endln:4:22
           |vpiLeftRange:
           \_constant: , line:4:16, endln:4:18
             |vpiParent:
@@ -173,7 +173,7 @@ design: (work@dm_top)
         |vpiRange:
         \_range: , line:4:15, endln:4:22
           |vpiParent:
-          \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:3:16
+          \_logic_typespec: , line:4:9, endln:4:22
           |vpiLeftRange:
           \_constant: , line:4:16, endln:4:18
             |vpiParent:
@@ -237,6 +237,8 @@ design: (work@dm_top)
     \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
     |vpiRhs:
     \_constant: , line:11:54, endln:11:55
+      |vpiParent:
+      \_param_assign: , line:11:35, endln:11:55
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -260,13 +262,19 @@ design: (work@dm_top)
     |vpiName:hartinfo_i
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dm_top.hartinfo_i.hartinfo_i)
+      |vpiParent:
+      \_port: (hartinfo_i), line:13:35, endln:13:45
+      |vpiName:hartinfo_i
+      |vpiFullName:work@dm_top.hartinfo_i.hartinfo_i
       |vpiActual:
       \_logic_net: (work@dm_top.hartinfo_i), line:13:35, endln:13:45
     |vpiTypedef:
     \_packed_array_typespec: 
       |vpiRange:
       \_range: , line:13:20, endln:13:33
+        |vpiParent:
+        \_packed_array_typespec: 
         |vpiLeftRange:
         \_operation: , line:13:21, endln:13:30
           |vpiParent:
@@ -317,6 +325,8 @@ design: (work@dm_top)
     \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
     |vpiRhs:
     \_constant: , line:11:54, endln:11:55
+      |vpiParent:
+      \_param_assign: , line:11:35, endln:11:55
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -356,7 +366,7 @@ design: (work@dm_top)
       |vpiRange:
       \_range: , line:13:20, endln:13:33
         |vpiParent:
-        \_port: (hartinfo_i), line:13:35, endln:13:45
+        \_packed_array_typespec: 
         |vpiLeftRange:
         \_constant: , line:13:21, endln:13:28
           |vpiParent:

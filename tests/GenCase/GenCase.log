@@ -291,6 +291,8 @@ design: (work@top)
       \_parameter: (work@top.x_2sb11), line:9:32, endln:9:39
       |vpiRange:
       \_range: , line:9:26, endln:9:31
+        |vpiParent:
+        \_logic_typespec: , line:9:13, endln:9:31
         |vpiLeftRange:
         \_constant: , line:9:27, endln:9:28
           |vpiParent:
@@ -317,6 +319,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:6:34, endln:6:38
+      |vpiParent:
+      \_param_assign: , line:6:26, endln:6:38
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -331,6 +335,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:38
+      |vpiParent:
+      \_param_assign: , line:7:24, endln:7:38
       |vpiDecompile:1'sb0
       |vpiSize:1
       |BIN:0
@@ -345,6 +351,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:8:33, endln:8:38
+      |vpiParent:
+      \_param_assign: , line:8:24, endln:8:38
       |vpiDecompile:-1
       |vpiSize:1
       |INT:-1
@@ -359,6 +367,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:9:42, endln:9:48
+      |vpiParent:
+      \_param_assign: , line:9:32, endln:9:48
       |vpiDecompile:-1
       |vpiSize:2
       |INT:-1
@@ -373,26 +383,39 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiCondition:
-    \_ref_obj: (x_2sb11), line:11:9, endln:11:16
+    \_ref_obj: (work@top.x_2sb11), line:11:9, endln:11:16
+      |vpiParent:
+      \_gen_case: 
       |vpiName:x_2sb11
+      |vpiFullName:work@top.x_2sb11
     |vpiCaseItem:
     \_case_item: 
       |vpiExpr:
       \_ref_obj: (x_1sb1), line:12:5, endln:12:11
+        |vpiParent:
+        \_case_item: 
         |vpiName:x_1sb1
       |vpiStmt:
       \_named_begin: (tag1)
+        |vpiParent:
+        \_case_item: 
         |vpiName:tag1
         |vpiStmt:
         \_ref_module: work@GOOD (u2), line:13:12, endln:13:14
+          |vpiParent:
+          \_named_begin: (tag1)
           |vpiName:u2
           |vpiDefName:work@GOOD
     |vpiCaseItem:
     \_case_item: 
       |vpiStmt:
       \_begin: 
+        |vpiParent:
+        \_case_item: 
         |vpiStmt:
         \_ref_module: work@BAD (u3), line:15:18, endln:15:20
+          |vpiParent:
+          \_begin: 
           |vpiName:u3
           |vpiDefName:work@BAD
 |uhdmtopModules:
@@ -474,6 +497,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:6:34, endln:6:38
+      |vpiParent:
+      \_param_assign: , line:6:26, endln:6:38
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -488,6 +513,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:38
+      |vpiParent:
+      \_param_assign: , line:7:24, endln:7:38
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -503,6 +530,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:8:33, endln:8:38
+      |vpiParent:
+      \_param_assign: , line:8:24, endln:8:38
       |vpiDecompile:-1
       |vpiSize:1
       |INT:-1
@@ -518,6 +547,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenCase/dut.sv, line:5:1, endln:19:10
     |vpiRhs:
     \_constant: , line:9:42, endln:9:48
+      |vpiParent:
+      \_param_assign: , line:9:32, endln:9:48
       |vpiDecompile:-1
       |vpiSize:2
       |INT:-1

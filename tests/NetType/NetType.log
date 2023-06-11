@@ -363,9 +363,12 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_bit_var: , line:3:20, endln:3:23
+    \_bit_var: (my_function), line:3:20, endln:3:23
+      |vpiParent:
+      \_function: (my_function), line:3:1, endln:4:12
       |vpiTypespec:
       \_bit_typespec: , line:3:20, endln:3:23
+      |vpiFullName:my_function
 |vpiTypedef:
 \_struct_typespec: (wT), line:22:9, endln:22:15
   |vpiParent:
@@ -449,15 +452,22 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_struct_var: , line:28:20, endln:28:21
+    \_struct_var: (Tsum), line:28:20, endln:28:21
+      |vpiParent:
+      \_function: (Tsum), line:28:1, endln:32:12
       |vpiTypespec:
       \_struct_typespec: (T), line:22:9, endln:22:15
+      |vpiFullName:Tsum
     |vpiIODecl:
     \_io_decl: (driver), line:28:36, endln:28:42
+      |vpiParent:
+      \_function: (Tsum), line:28:1, endln:32:12
       |vpiDirection:1
       |vpiName:driver
       |vpiRange:
       \_range: , line:28:42, endln:28:44
+        |vpiParent:
+        \_io_decl: (driver), line:28:36, endln:28:42
         |vpiLeftRange:
         \_constant: , line:28:42, endln:28:43
           |vpiParent:
@@ -503,7 +513,7 @@ design: (work@dut)
             \_hier_path: (Tsum.field1), line:29:3, endln:29:14
             |vpiName:Tsum
             |vpiActual:
-            \_struct_var: , line:28:20, endln:28:21
+            \_struct_var: (Tsum), line:28:20, endln:28:21
           |vpiActual:
           \_ref_obj: (field1)
             |vpiParent:
@@ -555,7 +565,7 @@ design: (work@dut)
               |vpiIndex:
               \_ref_obj: (Tsum.i), line:31:27, endln:31:28
                 |vpiParent:
-                \_assignment: , line:31:5, endln:31:36
+                \_hier_path: (driver[i].field1), line:31:20, endln:31:36
                 |vpiName:i
                 |vpiFullName:Tsum.i
                 |vpiActual:
@@ -577,7 +587,7 @@ design: (work@dut)
               \_hier_path: (Tsum.field1), line:31:5, endln:31:16
               |vpiName:Tsum
               |vpiActual:
-              \_struct_var: , line:28:20, endln:28:21
+              \_struct_var: (Tsum), line:28:20, endln:28:21
             |vpiActual:
             \_ref_obj: (field1)
               |vpiParent:
@@ -596,15 +606,22 @@ design: (work@dut)
   |vpiVisibility:1
   |vpiAutomatic:1
   |vpiReturn:
-  \_real_var: , line:41:20, endln:41:24
+  \_real_var: (my_function2), line:41:20, endln:41:24
+    |vpiParent:
+    \_function: (my_function2), line:41:1, endln:42:12
     |vpiTypespec:
     \_real_typespec: , line:41:20, endln:41:24
+    |vpiFullName:my_function2
   |vpiIODecl:
   \_io_decl: (driver), line:41:49, endln:41:55
+    |vpiParent:
+    \_function: (my_function2), line:41:1, endln:42:12
     |vpiDirection:1
     |vpiName:driver
     |vpiRange:
     \_range: , line:41:56, endln:41:58
+      |vpiParent:
+      \_io_decl: (driver), line:41:49, endln:41:55
       |vpiLeftRange:
       \_constant: , line:41:56, endln:41:57
         |vpiParent:

@@ -4907,6 +4907,62 @@ design: (work@int_execute_stage)
     |vpiName:valid_instruction
     |vpiFullName:work@int_execute_stage.valid_instruction
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.PIPE_INT_ARITH), line:279:43, endln:279:57
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:PIPE_INT_ARITH
+    |vpiFullName:work@int_execute_stage.PIPE_INT_ARITH
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.BRANCH_ERET), line:282:42, endln:282:53
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:BRANCH_ERET
+    |vpiFullName:work@int_execute_stage.BRANCH_ERET
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.BRANCH_ZERO), line:295:17, endln:295:28
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:BRANCH_ZERO
+    |vpiFullName:work@int_execute_stage.BRANCH_ZERO
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.BRANCH_NOT_ZERO), line:301:17, endln:301:32
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:BRANCH_NOT_ZERO
+    |vpiFullName:work@int_execute_stage.BRANCH_NOT_ZERO
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.BRANCH_ALWAYS), line:307:17, endln:307:30
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:BRANCH_ALWAYS
+    |vpiFullName:work@int_execute_stage.BRANCH_ALWAYS
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.BRANCH_CALL_OFFSET), line:308:17, endln:308:35
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:BRANCH_CALL_OFFSET
+    |vpiFullName:work@int_execute_stage.BRANCH_CALL_OFFSET
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.BRANCH_CALL_REGISTER), line:309:17, endln:309:37
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:BRANCH_CALL_REGISTER
+    |vpiFullName:work@int_execute_stage.BRANCH_CALL_REGISTER
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@int_execute_stage.BRANCH_REGISTER), line:310:17, endln:310:32
+    |vpiParent:
+    \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiName:BRANCH_REGISTER
+    |vpiFullName:work@int_execute_stage.BRANCH_REGISTER
+    |vpiNetType:1
   |vpiPort:
   \_port: (clk), line:54:39, endln:54:42
     |vpiParent:
@@ -4914,7 +4970,11 @@ design: (work@int_execute_stage)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:54:39, endln:54:42
+      |vpiName:clk
+      |vpiFullName:work@int_execute_stage.clk.clk
       |vpiActual:
       \_logic_net: (work@int_execute_stage.clk), line:54:39, endln:54:42
     |vpiTypedef:
@@ -4926,7 +4986,11 @@ design: (work@int_execute_stage)
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.reset.reset)
+      |vpiParent:
+      \_port: (reset), line:55:39, endln:55:44
+      |vpiName:reset
+      |vpiFullName:work@int_execute_stage.reset.reset
       |vpiActual:
       \_logic_net: (work@int_execute_stage.reset), line:55:39, endln:55:44
     |vpiTypedef:
@@ -4938,7 +5002,11 @@ design: (work@int_execute_stage)
     |vpiName:of_operand1
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.of_operand1.of_operand1)
+      |vpiParent:
+      \_port: (of_operand1), line:58:39, endln:58:50
+      |vpiName:of_operand1
+      |vpiFullName:work@int_execute_stage.of_operand1.of_operand1
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_operand1), line:58:39, endln:58:50
     |vpiTypedef:
@@ -4964,6 +5032,8 @@ design: (work@int_execute_stage)
               \_design: (work@int_execute_stage)
               |vpiRange:
               \_range: , line:50:14, endln:50:20
+                |vpiParent:
+                \_logic_typespec: (scalar_t), line:50:9, endln:50:20
                 |vpiLeftRange:
                 \_constant: , line:50:15, endln:50:17
                   |vpiParent:
@@ -5002,6 +5072,8 @@ design: (work@int_execute_stage)
                 |vpiConstType:9
           |vpiRange:
           \_range: , line:51:17, endln:51:41
+            |vpiParent:
+            \_logic_typespec: , line:51:9, endln:51:17
             |vpiLeftRange:
             \_operation: , line:51:18, endln:51:38
               |vpiParent:
@@ -5110,6 +5182,8 @@ design: (work@int_execute_stage)
             |vpiConstType:9
       |vpiRange:
       \_range: , line:51:17, endln:51:41
+        |vpiParent:
+        \_packed_array_typespec: 
         |vpiLeftRange:
         \_operation: , line:51:18, endln:51:38
           |vpiParent:
@@ -5143,7 +5217,11 @@ design: (work@int_execute_stage)
     |vpiName:of_operand2
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.of_operand2.of_operand2)
+      |vpiParent:
+      \_port: (of_operand2), line:59:39, endln:59:50
+      |vpiName:of_operand2
+      |vpiFullName:work@int_execute_stage.of_operand2.of_operand2
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_operand2), line:59:39, endln:59:50
     |vpiTypedef:
@@ -5155,7 +5233,11 @@ design: (work@int_execute_stage)
     |vpiName:of_mask_value
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.of_mask_value.of_mask_value)
+      |vpiParent:
+      \_port: (of_mask_value), line:60:39, endln:60:52
+      |vpiName:of_mask_value
+      |vpiFullName:work@int_execute_stage.of_mask_value.of_mask_value
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_mask_value), line:60:39, endln:60:52
     |vpiTypedef:
@@ -5168,7 +5250,11 @@ design: (work@int_execute_stage)
     |vpiName:of_instruction_valid
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.of_instruction_valid.of_instruction_valid)
+      |vpiParent:
+      \_port: (of_instruction_valid), line:61:39, endln:61:59
+      |vpiName:of_instruction_valid
+      |vpiFullName:work@int_execute_stage.of_instruction_valid.of_instruction_valid
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_instruction_valid), line:61:39, endln:61:59
     |vpiTypedef:
@@ -5180,7 +5266,11 @@ design: (work@int_execute_stage)
     |vpiName:of_instruction
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.of_instruction.of_instruction)
+      |vpiParent:
+      \_port: (of_instruction), line:62:39, endln:62:53
+      |vpiName:of_instruction
+      |vpiFullName:work@int_execute_stage.of_instruction.of_instruction
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
     |vpiTypedef:
@@ -5678,7 +5768,11 @@ design: (work@int_execute_stage)
     |vpiName:of_thread_idx
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.of_thread_idx.of_thread_idx)
+      |vpiParent:
+      \_port: (of_thread_idx), line:63:39, endln:63:52
+      |vpiName:of_thread_idx
+      |vpiFullName:work@int_execute_stage.of_thread_idx.of_thread_idx
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
     |vpiTypedef:
@@ -5691,7 +5785,11 @@ design: (work@int_execute_stage)
     |vpiName:of_subcycle
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.of_subcycle.of_subcycle)
+      |vpiParent:
+      \_port: (of_subcycle), line:64:39, endln:64:50
+      |vpiName:of_subcycle
+      |vpiFullName:work@int_execute_stage.of_subcycle.of_subcycle
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_subcycle), line:64:39, endln:64:50
     |vpiTypedef:
@@ -5704,7 +5802,11 @@ design: (work@int_execute_stage)
     |vpiName:wb_rollback_en
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.wb_rollback_en.wb_rollback_en)
+      |vpiParent:
+      \_port: (wb_rollback_en), line:67:39, endln:67:53
+      |vpiName:wb_rollback_en
+      |vpiFullName:work@int_execute_stage.wb_rollback_en.wb_rollback_en
       |vpiActual:
       \_logic_net: (work@int_execute_stage.wb_rollback_en), line:67:39, endln:67:53
     |vpiTypedef:
@@ -5716,7 +5818,11 @@ design: (work@int_execute_stage)
     |vpiName:wb_rollback_thread_idx
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.wb_rollback_thread_idx.wb_rollback_thread_idx)
+      |vpiParent:
+      \_port: (wb_rollback_thread_idx), line:68:39, endln:68:61
+      |vpiName:wb_rollback_thread_idx
+      |vpiFullName:work@int_execute_stage.wb_rollback_thread_idx.wb_rollback_thread_idx
       |vpiActual:
       \_logic_net: (work@int_execute_stage.wb_rollback_thread_idx), line:68:39, endln:68:61
     |vpiTypedef:
@@ -5729,7 +5835,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_instruction_valid
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_instruction_valid.ix_instruction_valid)
+      |vpiParent:
+      \_port: (ix_instruction_valid), line:71:39, endln:71:59
+      |vpiName:ix_instruction_valid
+      |vpiFullName:work@int_execute_stage.ix_instruction_valid.ix_instruction_valid
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_instruction_valid), line:71:39, endln:71:59
     |vpiTypedef:
@@ -5741,7 +5851,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_instruction
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_instruction.ix_instruction)
+      |vpiParent:
+      \_port: (ix_instruction), line:72:39, endln:72:53
+      |vpiName:ix_instruction
+      |vpiFullName:work@int_execute_stage.ix_instruction.ix_instruction
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
     |vpiTypedef:
@@ -5753,7 +5867,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_result
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_result.ix_result)
+      |vpiParent:
+      \_port: (ix_result), line:73:39, endln:73:48
+      |vpiName:ix_result
+      |vpiFullName:work@int_execute_stage.ix_result.ix_result
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_result), line:73:39, endln:73:48
     |vpiTypedef:
@@ -5765,7 +5883,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_mask_value
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_mask_value.ix_mask_value)
+      |vpiParent:
+      \_port: (ix_mask_value), line:74:39, endln:74:52
+      |vpiName:ix_mask_value
+      |vpiFullName:work@int_execute_stage.ix_mask_value.ix_mask_value
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_mask_value), line:74:39, endln:74:52
     |vpiTypedef:
@@ -5778,7 +5900,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_thread_idx
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_thread_idx.ix_thread_idx)
+      |vpiParent:
+      \_port: (ix_thread_idx), line:75:39, endln:75:52
+      |vpiName:ix_thread_idx
+      |vpiFullName:work@int_execute_stage.ix_thread_idx.ix_thread_idx
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_thread_idx), line:75:39, endln:75:52
     |vpiTypedef:
@@ -5791,7 +5917,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_rollback_en
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_rollback_en.ix_rollback_en)
+      |vpiParent:
+      \_port: (ix_rollback_en), line:76:39, endln:76:53
+      |vpiName:ix_rollback_en
+      |vpiFullName:work@int_execute_stage.ix_rollback_en.ix_rollback_en
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_rollback_en), line:76:39, endln:76:53
     |vpiTypedef:
@@ -5803,7 +5933,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_rollback_pc
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_rollback_pc.ix_rollback_pc)
+      |vpiParent:
+      \_port: (ix_rollback_pc), line:77:39, endln:77:53
+      |vpiName:ix_rollback_pc
+      |vpiFullName:work@int_execute_stage.ix_rollback_pc.ix_rollback_pc
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_rollback_pc), line:77:39, endln:77:53
     |vpiTypedef:
@@ -5840,7 +5974,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_subcycle
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_subcycle.ix_subcycle)
+      |vpiParent:
+      \_port: (ix_subcycle), line:78:39, endln:78:50
+      |vpiName:ix_subcycle
+      |vpiFullName:work@int_execute_stage.ix_subcycle.ix_subcycle
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_subcycle), line:78:39, endln:78:50
     |vpiTypedef:
@@ -5853,7 +5991,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_privileged_op_fault
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_privileged_op_fault.ix_privileged_op_fault)
+      |vpiParent:
+      \_port: (ix_privileged_op_fault), line:79:39, endln:79:61
+      |vpiName:ix_privileged_op_fault
+      |vpiFullName:work@int_execute_stage.ix_privileged_op_fault.ix_privileged_op_fault
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_privileged_op_fault), line:79:39, endln:79:61
     |vpiTypedef:
@@ -5865,7 +6007,11 @@ design: (work@int_execute_stage)
     |vpiName:cr_eret_address
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.cr_eret_address.cr_eret_address)
+      |vpiParent:
+      \_port: (cr_eret_address), line:82:39, endln:82:54
+      |vpiName:cr_eret_address
+      |vpiFullName:work@int_execute_stage.cr_eret_address.cr_eret_address
       |vpiActual:
       \_logic_net: (work@int_execute_stage.cr_eret_address), line:82:39, endln:82:54
     |vpiTypedef:
@@ -5875,8 +6021,10 @@ design: (work@int_execute_stage)
       |vpiArrayType:1
       |vpiRange:
       \_range: , line:82:55, endln:82:56
+        |vpiParent:
+        \_array_typespec: , line:82:11, endln:82:56
         |vpiLeftRange:
-        \_constant: , line:82:55, endln:82:56
+        \_constant: 
           |vpiParent:
           \_range: , line:82:55, endln:82:56
           |vpiDecompile:0
@@ -5890,6 +6038,8 @@ design: (work@int_execute_stage)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:82:55, endln:82:56
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:8
             |vpiSize:64
             |UINT:8
@@ -5933,7 +6083,11 @@ design: (work@int_execute_stage)
     |vpiName:cr_supervisor_en
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.cr_supervisor_en.cr_supervisor_en)
+      |vpiParent:
+      \_port: (cr_supervisor_en), line:83:39, endln:83:55
+      |vpiName:cr_supervisor_en
+      |vpiFullName:work@int_execute_stage.cr_supervisor_en.cr_supervisor_en
       |vpiActual:
       \_logic_net: (work@int_execute_stage.cr_supervisor_en), line:83:39, endln:83:55
     |vpiTypedef:
@@ -5943,8 +6097,10 @@ design: (work@int_execute_stage)
       |vpiArrayType:1
       |vpiRange:
       \_range: , line:83:56, endln:83:57
+        |vpiParent:
+        \_array_typespec: , line:83:39, endln:83:57
         |vpiLeftRange:
-        \_constant: , line:83:56, endln:83:57
+        \_constant: 
           |vpiParent:
           \_range: , line:83:56, endln:83:57
           |vpiDecompile:0
@@ -5958,6 +6114,8 @@ design: (work@int_execute_stage)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:83:56, endln:83:57
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:8
             |vpiSize:64
             |UINT:8
@@ -5976,7 +6134,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_perf_uncond_branch
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_perf_uncond_branch.ix_perf_uncond_branch)
+      |vpiParent:
+      \_port: (ix_perf_uncond_branch), line:86:39, endln:86:60
+      |vpiName:ix_perf_uncond_branch
+      |vpiFullName:work@int_execute_stage.ix_perf_uncond_branch.ix_perf_uncond_branch
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_perf_uncond_branch), line:86:39, endln:86:60
     |vpiTypedef:
@@ -5988,7 +6150,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_perf_cond_branch_taken
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_taken.ix_perf_cond_branch_taken)
+      |vpiParent:
+      \_port: (ix_perf_cond_branch_taken), line:87:39, endln:87:64
+      |vpiName:ix_perf_cond_branch_taken
+      |vpiFullName:work@int_execute_stage.ix_perf_cond_branch_taken.ix_perf_cond_branch_taken
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_perf_cond_branch_taken), line:87:39, endln:87:64
     |vpiTypedef:
@@ -6000,7 +6166,11 @@ design: (work@int_execute_stage)
     |vpiName:ix_perf_cond_branch_not_taken
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_not_taken.ix_perf_cond_branch_not_taken)
+      |vpiParent:
+      \_port: (ix_perf_cond_branch_not_taken), line:88:39, endln:88:68
+      |vpiName:ix_perf_cond_branch_not_taken
+      |vpiFullName:work@int_execute_stage.ix_perf_cond_branch_not_taken.ix_perf_cond_branch_not_taken
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_perf_cond_branch_not_taken), line:88:39, endln:88:68
     |vpiTypedef:
@@ -6033,7 +6203,7 @@ design: (work@int_execute_stage)
           |vpiName:branch_taken
           |vpiFullName:work@int_execute_stage.branch_taken
           |vpiActual:
-          \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+          \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
       |vpiStmt:
       \_assignment: , line:288:9, endln:288:31
         |vpiParent:
@@ -6053,7 +6223,7 @@ design: (work@int_execute_stage)
           |vpiName:conditional_branch
           |vpiFullName:work@int_execute_stage.conditional_branch
           |vpiActual:
-          \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+          \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
       |vpiStmt:
       \_if_stmt: , line:290:9, endln:319:12
         |vpiParent:
@@ -6075,7 +6245,7 @@ design: (work@int_execute_stage)
               |vpiName:valid_instruction
               |vpiFullName:work@int_execute_stage.valid_instruction
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
+              \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
             |vpiOperand:
             \_hier_path: (of_instruction.branch), line:291:16, endln:291:37
               |vpiParent:
@@ -6104,7 +6274,7 @@ design: (work@int_execute_stage)
               |vpiName:privileged_op_fault
               |vpiFullName:work@int_execute_stage.privileged_op_fault
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
+              \_logic_net: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
         |vpiStmt:
         \_begin: (work@int_execute_stage), line:293:9, endln:319:12
           |vpiParent:
@@ -6143,7 +6313,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_ZERO
                 |vpiFullName:work@int_execute_stage.BRANCH_ZERO
                 |vpiActual:
-                \_logic_net: (BRANCH_ZERO)
+                \_logic_net: (work@int_execute_stage.BRANCH_ZERO), line:295:17, endln:295:28
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:296:17, endln:299:20
                 |vpiParent:
@@ -6189,7 +6359,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
                 |vpiStmt:
                 \_assignment: , line:298:21, endln:298:43
                   |vpiParent:
@@ -6209,7 +6379,7 @@ design: (work@int_execute_stage)
                     |vpiName:conditional_branch
                     |vpiFullName:work@int_execute_stage.conditional_branch
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                    \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
             |vpiCaseItem:
             \_case_item: , line:301:17, endln:305:20
               |vpiParent:
@@ -6221,7 +6391,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_NOT_ZERO
                 |vpiFullName:work@int_execute_stage.BRANCH_NOT_ZERO
                 |vpiActual:
-                \_logic_net: (BRANCH_NOT_ZERO)
+                \_logic_net: (work@int_execute_stage.BRANCH_NOT_ZERO), line:301:17, endln:301:32
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:302:17, endln:305:20
                 |vpiParent:
@@ -6267,7 +6437,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
                 |vpiStmt:
                 \_assignment: , line:304:21, endln:304:43
                   |vpiParent:
@@ -6287,7 +6457,7 @@ design: (work@int_execute_stage)
                     |vpiName:conditional_branch
                     |vpiFullName:work@int_execute_stage.conditional_branch
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                    \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
             |vpiCaseItem:
             \_case_item: , line:307:17, endln:314:20
               |vpiParent:
@@ -6299,7 +6469,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_ALWAYS
                 |vpiFullName:work@int_execute_stage.BRANCH_ALWAYS
                 |vpiActual:
-                \_logic_net: (BRANCH_ALWAYS)
+                \_logic_net: (work@int_execute_stage.BRANCH_ALWAYS), line:307:17, endln:307:30
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_CALL_OFFSET), line:308:17, endln:308:35
                 |vpiParent:
@@ -6307,7 +6477,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_CALL_OFFSET
                 |vpiFullName:work@int_execute_stage.BRANCH_CALL_OFFSET
                 |vpiActual:
-                \_logic_net: (BRANCH_CALL_OFFSET)
+                \_logic_net: (work@int_execute_stage.BRANCH_CALL_OFFSET), line:308:17, endln:308:35
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_CALL_REGISTER), line:309:17, endln:309:37
                 |vpiParent:
@@ -6315,7 +6485,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_CALL_REGISTER
                 |vpiFullName:work@int_execute_stage.BRANCH_CALL_REGISTER
                 |vpiActual:
-                \_logic_net: (BRANCH_CALL_REGISTER)
+                \_logic_net: (work@int_execute_stage.BRANCH_CALL_REGISTER), line:309:17, endln:309:37
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_REGISTER), line:310:17, endln:310:32
                 |vpiParent:
@@ -6323,7 +6493,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_REGISTER
                 |vpiFullName:work@int_execute_stage.BRANCH_REGISTER
                 |vpiActual:
-                \_logic_net: (BRANCH_REGISTER)
+                \_logic_net: (work@int_execute_stage.BRANCH_REGISTER), line:310:17, endln:310:32
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_ERET), line:311:17, endln:311:28
                 |vpiParent:
@@ -6331,7 +6501,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_ERET
                 |vpiFullName:work@int_execute_stage.BRANCH_ERET
                 |vpiActual:
-                \_logic_net: (BRANCH_ERET)
+                \_logic_net: (work@int_execute_stage.BRANCH_ERET), line:282:42, endln:282:53
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:312:17, endln:314:20
                 |vpiParent:
@@ -6356,7 +6526,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
             |vpiCaseItem:
             \_case_item: , line:316:17, endln:317:22
               |vpiParent:
@@ -6400,7 +6570,7 @@ design: (work@int_execute_stage)
             |vpiName:of_instruction
             |vpiFullName:work@int_execute_stage.of_instruction
             |vpiActual:
-            \_struct_var: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
+            \_logic_net: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_instruction), line:325:9, endln:325:23
             |vpiParent:
@@ -6408,7 +6578,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_instruction
             |vpiFullName:work@int_execute_stage.ix_instruction
             |vpiActual:
-            \_struct_var: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
+            \_logic_net: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
         |vpiStmt:
         \_assignment: , line:326:9, endln:326:35
           |vpiParent:
@@ -6421,7 +6591,7 @@ design: (work@int_execute_stage)
             |vpiName:vector_result
             |vpiFullName:work@int_execute_stage.vector_result
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.vector_result), line:90:14, endln:90:27
+            \_logic_net: (work@int_execute_stage.vector_result), line:90:14, endln:90:27
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_result), line:326:9, endln:326:18
             |vpiParent:
@@ -6429,7 +6599,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_result
             |vpiFullName:work@int_execute_stage.ix_result
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_result), line:73:39, endln:73:48
+            \_logic_net: (work@int_execute_stage.ix_result), line:73:39, endln:73:48
         |vpiStmt:
         \_assignment: , line:327:9, endln:327:39
           |vpiParent:
@@ -6442,7 +6612,7 @@ design: (work@int_execute_stage)
             |vpiName:of_mask_value
             |vpiFullName:work@int_execute_stage.of_mask_value
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_mask_value), line:60:39, endln:60:52
+            \_logic_net: (work@int_execute_stage.of_mask_value), line:60:39, endln:60:52
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_mask_value), line:327:9, endln:327:22
             |vpiParent:
@@ -6450,7 +6620,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_mask_value
             |vpiFullName:work@int_execute_stage.ix_mask_value
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_mask_value), line:74:39, endln:74:52
+            \_logic_net: (work@int_execute_stage.ix_mask_value), line:74:39, endln:74:52
         |vpiStmt:
         \_assignment: , line:328:9, endln:328:39
           |vpiParent:
@@ -6463,7 +6633,7 @@ design: (work@int_execute_stage)
             |vpiName:of_thread_idx
             |vpiFullName:work@int_execute_stage.of_thread_idx
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+            \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_thread_idx), line:328:9, endln:328:22
             |vpiParent:
@@ -6471,7 +6641,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_thread_idx
             |vpiFullName:work@int_execute_stage.ix_thread_idx
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_thread_idx), line:75:39, endln:75:52
+            \_logic_net: (work@int_execute_stage.ix_thread_idx), line:75:39, endln:75:52
         |vpiStmt:
         \_assignment: , line:329:9, endln:329:35
           |vpiParent:
@@ -6484,7 +6654,7 @@ design: (work@int_execute_stage)
             |vpiName:of_subcycle
             |vpiFullName:work@int_execute_stage.of_subcycle
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_subcycle), line:64:39, endln:64:50
+            \_logic_net: (work@int_execute_stage.of_subcycle), line:64:39, endln:64:50
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_subcycle), line:329:9, endln:329:20
             |vpiParent:
@@ -6492,7 +6662,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_subcycle
             |vpiFullName:work@int_execute_stage.ix_subcycle
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_subcycle), line:78:39, endln:78:50
+            \_logic_net: (work@int_execute_stage.ix_subcycle), line:78:39, endln:78:50
         |vpiStmt:
         \_case_stmt: , line:332:9, endln:338:16
           |vpiParent:
@@ -6526,7 +6696,7 @@ design: (work@int_execute_stage)
               |vpiName:BRANCH_CALL_REGISTER
               |vpiFullName:work@int_execute_stage.BRANCH_CALL_REGISTER
               |vpiActual:
-              \_logic_net: (BRANCH_CALL_REGISTER)
+              \_logic_net: (work@int_execute_stage.BRANCH_CALL_REGISTER), line:309:17, endln:309:37
             |vpiExpr:
             \_ref_obj: (work@int_execute_stage.BRANCH_REGISTER), line:334:13, endln:334:28
               |vpiParent:
@@ -6534,7 +6704,7 @@ design: (work@int_execute_stage)
               |vpiName:BRANCH_REGISTER
               |vpiFullName:work@int_execute_stage.BRANCH_REGISTER
               |vpiActual:
-              \_logic_net: (BRANCH_REGISTER)
+              \_logic_net: (work@int_execute_stage.BRANCH_REGISTER), line:310:17, endln:310:32
             |vpiStmt:
             \_assignment: , line:334:30, endln:334:62
               |vpiParent:
@@ -6573,7 +6743,7 @@ design: (work@int_execute_stage)
               |vpiName:BRANCH_ERET
               |vpiFullName:work@int_execute_stage.BRANCH_ERET
               |vpiActual:
-              \_logic_net: (BRANCH_ERET)
+              \_logic_net: (work@int_execute_stage.BRANCH_ERET), line:282:42, endln:282:53
             |vpiStmt:
             \_assignment: , line:335:26, endln:335:74
               |vpiParent:
@@ -6592,7 +6762,7 @@ design: (work@int_execute_stage)
                   |vpiName:of_thread_idx
                   |vpiFullName:work@int_execute_stage.of_thread_idx
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+                  \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_rollback_pc), line:335:26, endln:335:40
                 |vpiParent:
@@ -6671,22 +6841,28 @@ design: (work@int_execute_stage)
         |vpiOpType:37
         |vpiOperand:
         \_operation: , line:341:17, endln:341:28
+          |vpiParent:
+          \_operation: , line:341:17, endln:341:43
           |vpiOpType:39
           |vpiOperand:
-          \_ref_obj: (clk), line:341:25, endln:341:28
+          \_ref_obj: (work@int_execute_stage.clk), line:341:25, endln:341:28
             |vpiParent:
             \_operation: , line:341:17, endln:341:28
             |vpiName:clk
+            |vpiFullName:work@int_execute_stage.clk
             |vpiActual:
             \_logic_net: (work@int_execute_stage.clk), line:54:39, endln:54:42
         |vpiOperand:
         \_operation: , line:341:30, endln:341:43
+          |vpiParent:
+          \_operation: , line:341:17, endln:341:43
           |vpiOpType:39
           |vpiOperand:
-          \_ref_obj: (reset), line:341:38, endln:341:43
+          \_ref_obj: (work@int_execute_stage.reset), line:341:38, endln:341:43
             |vpiParent:
             \_operation: , line:341:30, endln:341:43
             |vpiName:reset
+            |vpiFullName:work@int_execute_stage.reset
             |vpiActual:
             \_logic_net: (work@int_execute_stage.reset), line:55:39, endln:55:44
       |vpiStmt:
@@ -6841,7 +7017,7 @@ design: (work@int_execute_stage)
                 |vpiName:valid_instruction
                 |vpiFullName:work@int_execute_stage.valid_instruction
                 |vpiActual:
-                \_logic_var: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
+                \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:358:13, endln:362:16
                 |vpiParent:
@@ -6878,7 +7054,7 @@ design: (work@int_execute_stage)
                     |vpiName:privileged_op_fault
                     |vpiFullName:work@int_execute_stage.privileged_op_fault
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
+                    \_logic_net: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
                   |vpiLhs:
                   \_ref_obj: (work@int_execute_stage.ix_privileged_op_fault), line:360:17, endln:360:39
                     |vpiParent:
@@ -6899,7 +7075,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
                   |vpiLhs:
                   \_ref_obj: (work@int_execute_stage.ix_rollback_en), line:361:17, endln:361:31
                     |vpiParent:
@@ -6973,7 +7149,7 @@ design: (work@int_execute_stage)
                     |vpiName:conditional_branch
                     |vpiFullName:work@int_execute_stage.conditional_branch
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                    \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
                 |vpiOperand:
                 \_ref_obj: (work@int_execute_stage.branch_taken), line:369:61, endln:369:73
                   |vpiParent:
@@ -6981,7 +7157,7 @@ design: (work@int_execute_stage)
                   |vpiName:branch_taken
                   |vpiFullName:work@int_execute_stage.branch_taken
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                  \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_perf_uncond_branch), line:369:13, endln:369:34
                 |vpiParent:
@@ -7007,7 +7183,7 @@ design: (work@int_execute_stage)
                   |vpiName:conditional_branch
                   |vpiFullName:work@int_execute_stage.conditional_branch
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                  \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
                 |vpiOperand:
                 \_ref_obj: (work@int_execute_stage.branch_taken), line:370:64, endln:370:76
                   |vpiParent:
@@ -7015,7 +7191,7 @@ design: (work@int_execute_stage)
                   |vpiName:branch_taken
                   |vpiFullName:work@int_execute_stage.branch_taken
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                  \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_taken), line:370:13, endln:370:38
                 |vpiParent:
@@ -7041,7 +7217,7 @@ design: (work@int_execute_stage)
                   |vpiName:conditional_branch
                   |vpiFullName:work@int_execute_stage.conditional_branch
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                  \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
                 |vpiOperand:
                 \_operation: , line:371:68, endln:371:81
                   |vpiParent:
@@ -7054,7 +7230,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_not_taken), line:371:13, endln:371:42
                 |vpiParent:
@@ -7116,7 +7292,7 @@ design: (work@int_execute_stage)
               |vpiName:wb_rollback_thread_idx
               |vpiFullName:work@int_execute_stage.wb_rollback_thread_idx
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.wb_rollback_thread_idx), line:68:39, endln:68:61
+              \_logic_net: (work@int_execute_stage.wb_rollback_thread_idx), line:68:39, endln:68:61
             |vpiOperand:
             \_ref_obj: (work@int_execute_stage.of_thread_idx), line:278:58, endln:278:71
               |vpiParent:
@@ -7124,7 +7300,7 @@ design: (work@int_execute_stage)
               |vpiName:of_thread_idx
               |vpiFullName:work@int_execute_stage.of_thread_idx
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+              \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
       |vpiOperand:
       \_operation: , line:279:12, endln:279:57
         |vpiParent:
@@ -7153,7 +7329,7 @@ design: (work@int_execute_stage)
           |vpiName:PIPE_INT_ARITH
           |vpiFullName:work@int_execute_stage.PIPE_INT_ARITH
           |vpiActual:
-          \_logic_net: (PIPE_INT_ARITH)
+          \_logic_net: (work@int_execute_stage.PIPE_INT_ARITH), line:279:43, endln:279:57
     |vpiLhs:
     \_ref_obj: (work@int_execute_stage.valid_instruction), line:277:12, endln:277:29
       |vpiParent:
@@ -7161,7 +7337,7 @@ design: (work@int_execute_stage)
       |vpiName:valid_instruction
       |vpiFullName:work@int_execute_stage.valid_instruction
       |vpiActual:
-      \_logic_var: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
+      \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
   |vpiContAssign:
   \_cont_assign: , line:280:12, endln:282:53
     |vpiParent:
@@ -7183,7 +7359,7 @@ design: (work@int_execute_stage)
           |vpiName:valid_instruction
           |vpiFullName:work@int_execute_stage.valid_instruction
           |vpiActual:
-          \_logic_var: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
+          \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
         |vpiOperand:
         \_hier_path: (of_instruction.branch), line:281:12, endln:281:33
           |vpiParent:
@@ -7228,7 +7404,7 @@ design: (work@int_execute_stage)
           |vpiName:BRANCH_ERET
           |vpiFullName:work@int_execute_stage.BRANCH_ERET
           |vpiActual:
-          \_logic_net: (BRANCH_ERET)
+          \_logic_net: (work@int_execute_stage.BRANCH_ERET), line:282:42, endln:282:53
     |vpiLhs:
     \_ref_obj: (work@int_execute_stage.eret), line:280:12, endln:280:16
       |vpiParent:
@@ -7236,7 +7412,7 @@ design: (work@int_execute_stage)
       |vpiName:eret
       |vpiFullName:work@int_execute_stage.eret
       |vpiActual:
-      \_logic_var: (work@int_execute_stage.eret), line:91:11, endln:91:15
+      \_logic_net: (work@int_execute_stage.eret), line:91:11, endln:91:15
   |vpiContAssign:
   \_cont_assign: , line:283:12, endln:283:74
     |vpiParent:
@@ -7253,7 +7429,7 @@ design: (work@int_execute_stage)
         |vpiName:eret
         |vpiFullName:work@int_execute_stage.eret
         |vpiActual:
-        \_logic_var: (work@int_execute_stage.eret), line:91:11, endln:91:15
+        \_logic_net: (work@int_execute_stage.eret), line:91:11, endln:91:15
       |vpiOperand:
       \_operation: , line:283:42, endln:283:74
         |vpiParent:
@@ -7272,7 +7448,7 @@ design: (work@int_execute_stage)
             |vpiName:of_thread_idx
             |vpiFullName:work@int_execute_stage.of_thread_idx
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+            \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
     |vpiLhs:
     \_ref_obj: (work@int_execute_stage.privileged_op_fault), line:283:12, endln:283:31
       |vpiParent:
@@ -7280,13 +7456,16 @@ design: (work@int_execute_stage)
       |vpiName:privileged_op_fault
       |vpiFullName:work@int_execute_stage.privileged_op_fault
       |vpiActual:
-      \_logic_var: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
+      \_logic_net: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
   |vpiGenStmt:
   \_gen_region: 
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@int_execute_stage)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@int_execute_stage
 |vpiTypedef:
 \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
 |vpiTypedef:
@@ -7323,18 +7502,18 @@ design: (work@int_execute_stage)
       |vpiRange:
       \_range: , line:4:8, endln:4:33
         |vpiParent:
-        \_struct_typespec: (float32_t), line:2:9, endln:2:15
+        \_logic_typespec: , line:4:3, endln:4:33
         |vpiLeftRange:
         \_operation: , line:4:9, endln:4:30
           |vpiParent:
           \_range: , line:4:8, endln:4:33
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (float32_t.FLOAT32_EXP_WIDTH), line:4:9, endln:4:26
+          \_ref_obj: (float32_t.exponent.FLOAT32_EXP_WIDTH), line:4:9, endln:4:26
             |vpiParent:
             \_operation: , line:4:9, endln:4:30
             |vpiName:FLOAT32_EXP_WIDTH
-            |vpiFullName:float32_t.FLOAT32_EXP_WIDTH
+            |vpiFullName:float32_t.exponent.FLOAT32_EXP_WIDTH
           |vpiOperand:
           \_constant: , line:4:29, endln:4:30
             |vpiParent:
@@ -7368,18 +7547,18 @@ design: (work@int_execute_stage)
       |vpiRange:
       \_range: , line:5:8, endln:5:33
         |vpiParent:
-        \_struct_typespec: (float32_t), line:2:9, endln:2:15
+        \_logic_typespec: , line:5:3, endln:5:33
         |vpiLeftRange:
         \_operation: , line:5:9, endln:5:30
           |vpiParent:
           \_range: , line:5:8, endln:5:33
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (float32_t.FLOAT32_SIG_WIDTH), line:5:9, endln:5:26
+          \_ref_obj: (float32_t.significand.FLOAT32_SIG_WIDTH), line:5:9, endln:5:26
             |vpiParent:
             \_operation: , line:5:9, endln:5:30
             |vpiName:FLOAT32_SIG_WIDTH
-            |vpiFullName:float32_t.FLOAT32_SIG_WIDTH
+            |vpiFullName:float32_t.significand.FLOAT32_SIG_WIDTH
           |vpiOperand:
           \_constant: , line:5:29, endln:5:30
             |vpiParent:
@@ -7535,6 +7714,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:93:5, endln:93:10
+      |vpiParent:
+      \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
     |vpiName:branch_taken
     |vpiFullName:work@int_execute_stage.branch_taken
     |vpiVisibility:1
@@ -7544,6 +7725,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:94:5, endln:94:10
+      |vpiParent:
+      \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
     |vpiName:conditional_branch
     |vpiFullName:work@int_execute_stage.conditional_branch
     |vpiVisibility:1
@@ -7564,6 +7747,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:54:39, endln:54:39
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.clk), line:54:39, endln:54:42
     |vpiName:clk
     |vpiFullName:work@int_execute_stage.clk
   |vpiNet:
@@ -7572,6 +7757,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:55:39, endln:55:39
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.reset), line:55:39, endln:55:44
     |vpiName:reset
     |vpiFullName:work@int_execute_stage.reset
   |vpiNet:
@@ -7580,6 +7767,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:61:39, endln:61:39
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.of_instruction_valid), line:61:39, endln:61:59
     |vpiName:of_instruction_valid
     |vpiFullName:work@int_execute_stage.of_instruction_valid
   |vpiNet:
@@ -7588,6 +7777,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:67:11, endln:67:16
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.wb_rollback_en), line:67:39, endln:67:53
     |vpiName:wb_rollback_en
     |vpiFullName:work@int_execute_stage.wb_rollback_en
     |vpiNetType:36
@@ -7597,6 +7788,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:71:12, endln:71:17
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.ix_instruction_valid), line:71:39, endln:71:59
     |vpiName:ix_instruction_valid
     |vpiFullName:work@int_execute_stage.ix_instruction_valid
     |vpiNetType:36
@@ -7606,6 +7799,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:76:12, endln:76:17
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.ix_rollback_en), line:76:39, endln:76:53
     |vpiName:ix_rollback_en
     |vpiFullName:work@int_execute_stage.ix_rollback_en
     |vpiNetType:36
@@ -7624,6 +7819,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:79:12, endln:79:17
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.ix_privileged_op_fault), line:79:39, endln:79:61
     |vpiName:ix_privileged_op_fault
     |vpiFullName:work@int_execute_stage.ix_privileged_op_fault
     |vpiNetType:36
@@ -7633,6 +7830,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:86:12, endln:86:17
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.ix_perf_uncond_branch), line:86:39, endln:86:60
     |vpiName:ix_perf_uncond_branch
     |vpiFullName:work@int_execute_stage.ix_perf_uncond_branch
     |vpiNetType:36
@@ -7642,6 +7841,8 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:87:12, endln:87:17
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.ix_perf_cond_branch_taken), line:87:39, endln:87:64
     |vpiName:ix_perf_cond_branch_taken
     |vpiFullName:work@int_execute_stage.ix_perf_cond_branch_taken
     |vpiNetType:36
@@ -7651,41 +7852,11 @@ design: (work@int_execute_stage)
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
     \_logic_typespec: , line:88:12, endln:88:17
+      |vpiParent:
+      \_logic_net: (work@int_execute_stage.ix_perf_cond_branch_not_taken), line:88:39, endln:88:68
     |vpiName:ix_perf_cond_branch_not_taken
     |vpiFullName:work@int_execute_stage.ix_perf_cond_branch_not_taken
     |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (PIPE_INT_ARITH)
-    |vpiName:PIPE_INT_ARITH
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (BRANCH_ERET)
-    |vpiName:BRANCH_ERET
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (BRANCH_ZERO)
-    |vpiName:BRANCH_ZERO
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (BRANCH_NOT_ZERO)
-    |vpiName:BRANCH_NOT_ZERO
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (BRANCH_ALWAYS)
-    |vpiName:BRANCH_ALWAYS
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (BRANCH_CALL_OFFSET)
-    |vpiName:BRANCH_CALL_OFFSET
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (BRANCH_CALL_REGISTER)
-    |vpiName:BRANCH_CALL_REGISTER
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (BRANCH_REGISTER)
-    |vpiName:BRANCH_REGISTER
-    |vpiNetType:1
   |vpiArrayNet:
   \_array_net: (work@int_execute_stage.cr_eret_address), line:82:39, endln:82:54
     |vpiParent:
@@ -7695,8 +7866,10 @@ design: (work@int_execute_stage)
     |vpiFullName:work@int_execute_stage.cr_eret_address
     |vpiRange:
     \_range: , line:82:55, endln:82:56
+      |vpiParent:
+      \_array_net: (work@int_execute_stage.cr_eret_address), line:82:39, endln:82:54
       |vpiLeftRange:
-      \_constant: , line:82:55, endln:82:56
+      \_constant: 
         |vpiParent:
         \_range: , line:82:55, endln:82:56
         |vpiDecompile:0
@@ -7710,6 +7883,8 @@ design: (work@int_execute_stage)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:82:55, endln:82:56
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -7737,8 +7912,10 @@ design: (work@int_execute_stage)
     |vpiFullName:work@int_execute_stage.cr_supervisor_en
     |vpiRange:
     \_range: , line:83:56, endln:83:57
+      |vpiParent:
+      \_array_net: (work@int_execute_stage.cr_supervisor_en), line:83:39, endln:83:55
       |vpiLeftRange:
-      \_constant: , line:83:56, endln:83:57
+      \_constant: 
         |vpiParent:
         \_range: , line:83:56, endln:83:57
         |vpiDecompile:0
@@ -7752,6 +7929,8 @@ design: (work@int_execute_stage)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:83:56, endln:83:57
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -7767,6 +7946,8 @@ design: (work@int_execute_stage)
       \_array_net: (work@int_execute_stage.cr_supervisor_en), line:83:39, endln:83:55
       |vpiTypespec:
       \_logic_typespec: , line:83:39, endln:83:39
+        |vpiParent:
+        \_logic_net: (work@int_execute_stage.cr_supervisor_en), line:83:39, endln:83:55
       |vpiFullName:work@int_execute_stage.cr_supervisor_en
   |vpiTopModule:1
   |vpiPort:
@@ -8296,7 +8477,7 @@ design: (work@int_execute_stage)
           |vpiName:branch_taken
           |vpiFullName:work@int_execute_stage.branch_taken
           |vpiActual:
-          \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+          \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
       |vpiStmt:
       \_assignment: , line:288:9, endln:288:31
         |vpiParent:
@@ -8312,7 +8493,7 @@ design: (work@int_execute_stage)
           |vpiName:conditional_branch
           |vpiFullName:work@int_execute_stage.conditional_branch
           |vpiActual:
-          \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+          \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
       |vpiStmt:
       \_if_stmt: , line:290:9, endln:319:12
         |vpiParent:
@@ -8334,7 +8515,7 @@ design: (work@int_execute_stage)
               |vpiName:valid_instruction
               |vpiFullName:work@int_execute_stage.valid_instruction
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
+              \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
             |vpiOperand:
             \_hier_path: (of_instruction.branch), line:291:16, endln:291:37
               |vpiParent:
@@ -8367,7 +8548,7 @@ design: (work@int_execute_stage)
               |vpiName:privileged_op_fault
               |vpiFullName:work@int_execute_stage.privileged_op_fault
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
+              \_logic_net: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
         |vpiStmt:
         \_begin: (work@int_execute_stage), line:293:9, endln:319:12
           |vpiParent:
@@ -8410,7 +8591,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_ZERO
                 |vpiFullName:work@int_execute_stage.BRANCH_ZERO
                 |vpiActual:
-                \_logic_net: (BRANCH_ZERO)
+                \_logic_net: (work@int_execute_stage.BRANCH_ZERO), line:295:17, endln:295:28
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:296:17, endln:299:20
                 |vpiParent:
@@ -8446,7 +8627,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
                 |vpiStmt:
                 \_assignment: , line:298:21, endln:298:43
                   |vpiParent:
@@ -8462,7 +8643,7 @@ design: (work@int_execute_stage)
                     |vpiName:conditional_branch
                     |vpiFullName:work@int_execute_stage.conditional_branch
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                    \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
             |vpiCaseItem:
             \_case_item: , line:301:17, endln:305:20
               |vpiParent:
@@ -8474,7 +8655,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_NOT_ZERO
                 |vpiFullName:work@int_execute_stage.BRANCH_NOT_ZERO
                 |vpiActual:
-                \_logic_net: (BRANCH_NOT_ZERO)
+                \_logic_net: (work@int_execute_stage.BRANCH_NOT_ZERO), line:301:17, endln:301:32
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:302:17, endln:305:20
                 |vpiParent:
@@ -8510,7 +8691,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
                 |vpiStmt:
                 \_assignment: , line:304:21, endln:304:43
                   |vpiParent:
@@ -8526,7 +8707,7 @@ design: (work@int_execute_stage)
                     |vpiName:conditional_branch
                     |vpiFullName:work@int_execute_stage.conditional_branch
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                    \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
             |vpiCaseItem:
             \_case_item: , line:307:17, endln:314:20
               |vpiParent:
@@ -8538,7 +8719,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_ALWAYS
                 |vpiFullName:work@int_execute_stage.BRANCH_ALWAYS
                 |vpiActual:
-                \_logic_net: (BRANCH_ALWAYS)
+                \_logic_net: (work@int_execute_stage.BRANCH_ALWAYS), line:307:17, endln:307:30
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_CALL_OFFSET), line:308:17, endln:308:35
                 |vpiParent:
@@ -8546,7 +8727,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_CALL_OFFSET
                 |vpiFullName:work@int_execute_stage.BRANCH_CALL_OFFSET
                 |vpiActual:
-                \_logic_net: (BRANCH_CALL_OFFSET)
+                \_logic_net: (work@int_execute_stage.BRANCH_CALL_OFFSET), line:308:17, endln:308:35
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_CALL_REGISTER), line:309:17, endln:309:37
                 |vpiParent:
@@ -8554,7 +8735,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_CALL_REGISTER
                 |vpiFullName:work@int_execute_stage.BRANCH_CALL_REGISTER
                 |vpiActual:
-                \_logic_net: (BRANCH_CALL_REGISTER)
+                \_logic_net: (work@int_execute_stage.BRANCH_CALL_REGISTER), line:309:17, endln:309:37
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_REGISTER), line:310:17, endln:310:32
                 |vpiParent:
@@ -8562,7 +8743,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_REGISTER
                 |vpiFullName:work@int_execute_stage.BRANCH_REGISTER
                 |vpiActual:
-                \_logic_net: (BRANCH_REGISTER)
+                \_logic_net: (work@int_execute_stage.BRANCH_REGISTER), line:310:17, endln:310:32
               |vpiExpr:
               \_ref_obj: (work@int_execute_stage.BRANCH_ERET), line:311:17, endln:311:28
                 |vpiParent:
@@ -8570,7 +8751,7 @@ design: (work@int_execute_stage)
                 |vpiName:BRANCH_ERET
                 |vpiFullName:work@int_execute_stage.BRANCH_ERET
                 |vpiActual:
-                \_logic_net: (BRANCH_ERET)
+                \_logic_net: (work@int_execute_stage.BRANCH_ERET), line:282:42, endln:282:53
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:312:17, endln:314:20
                 |vpiParent:
@@ -8591,7 +8772,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
             |vpiCaseItem:
             \_case_item: , line:316:17, endln:317:22
               |vpiParent:
@@ -8635,7 +8816,7 @@ design: (work@int_execute_stage)
             |vpiName:of_instruction
             |vpiFullName:work@int_execute_stage.of_instruction
             |vpiActual:
-            \_struct_var: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
+            \_logic_net: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_instruction), line:325:9, endln:325:23
             |vpiParent:
@@ -8643,7 +8824,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_instruction
             |vpiFullName:work@int_execute_stage.ix_instruction
             |vpiActual:
-            \_struct_var: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
+            \_logic_net: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
         |vpiStmt:
         \_assignment: , line:326:9, endln:326:35
           |vpiParent:
@@ -8656,7 +8837,7 @@ design: (work@int_execute_stage)
             |vpiName:vector_result
             |vpiFullName:work@int_execute_stage.vector_result
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.vector_result), line:90:14, endln:90:27
+            \_logic_net: (work@int_execute_stage.vector_result), line:90:14, endln:90:27
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_result), line:326:9, endln:326:18
             |vpiParent:
@@ -8664,7 +8845,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_result
             |vpiFullName:work@int_execute_stage.ix_result
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_result), line:73:39, endln:73:48
+            \_logic_net: (work@int_execute_stage.ix_result), line:73:39, endln:73:48
         |vpiStmt:
         \_assignment: , line:327:9, endln:327:39
           |vpiParent:
@@ -8677,7 +8858,7 @@ design: (work@int_execute_stage)
             |vpiName:of_mask_value
             |vpiFullName:work@int_execute_stage.of_mask_value
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_mask_value), line:60:39, endln:60:52
+            \_logic_net: (work@int_execute_stage.of_mask_value), line:60:39, endln:60:52
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_mask_value), line:327:9, endln:327:22
             |vpiParent:
@@ -8685,7 +8866,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_mask_value
             |vpiFullName:work@int_execute_stage.ix_mask_value
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_mask_value), line:74:39, endln:74:52
+            \_logic_net: (work@int_execute_stage.ix_mask_value), line:74:39, endln:74:52
         |vpiStmt:
         \_assignment: , line:328:9, endln:328:39
           |vpiParent:
@@ -8698,7 +8879,7 @@ design: (work@int_execute_stage)
             |vpiName:of_thread_idx
             |vpiFullName:work@int_execute_stage.of_thread_idx
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+            \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_thread_idx), line:328:9, endln:328:22
             |vpiParent:
@@ -8706,7 +8887,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_thread_idx
             |vpiFullName:work@int_execute_stage.ix_thread_idx
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_thread_idx), line:75:39, endln:75:52
+            \_logic_net: (work@int_execute_stage.ix_thread_idx), line:75:39, endln:75:52
         |vpiStmt:
         \_assignment: , line:329:9, endln:329:35
           |vpiParent:
@@ -8719,7 +8900,7 @@ design: (work@int_execute_stage)
             |vpiName:of_subcycle
             |vpiFullName:work@int_execute_stage.of_subcycle
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_subcycle), line:64:39, endln:64:50
+            \_logic_net: (work@int_execute_stage.of_subcycle), line:64:39, endln:64:50
           |vpiLhs:
           \_ref_obj: (work@int_execute_stage.ix_subcycle), line:329:9, endln:329:20
             |vpiParent:
@@ -8727,7 +8908,7 @@ design: (work@int_execute_stage)
             |vpiName:ix_subcycle
             |vpiFullName:work@int_execute_stage.ix_subcycle
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.ix_subcycle), line:78:39, endln:78:50
+            \_logic_net: (work@int_execute_stage.ix_subcycle), line:78:39, endln:78:50
         |vpiStmt:
         \_case_stmt: , line:332:9, endln:338:16
           |vpiParent:
@@ -8765,7 +8946,7 @@ design: (work@int_execute_stage)
               |vpiName:BRANCH_CALL_REGISTER
               |vpiFullName:work@int_execute_stage.BRANCH_CALL_REGISTER
               |vpiActual:
-              \_logic_net: (BRANCH_CALL_REGISTER)
+              \_logic_net: (work@int_execute_stage.BRANCH_CALL_REGISTER), line:309:17, endln:309:37
             |vpiExpr:
             \_ref_obj: (work@int_execute_stage.BRANCH_REGISTER), line:334:13, endln:334:28
               |vpiParent:
@@ -8773,7 +8954,7 @@ design: (work@int_execute_stage)
               |vpiName:BRANCH_REGISTER
               |vpiFullName:work@int_execute_stage.BRANCH_REGISTER
               |vpiActual:
-              \_logic_net: (BRANCH_REGISTER)
+              \_logic_net: (work@int_execute_stage.BRANCH_REGISTER), line:310:17, endln:310:32
             |vpiStmt:
             \_assignment: , line:334:30, endln:334:62
               |vpiParent:
@@ -8808,7 +8989,7 @@ design: (work@int_execute_stage)
               |vpiName:BRANCH_ERET
               |vpiFullName:work@int_execute_stage.BRANCH_ERET
               |vpiActual:
-              \_logic_net: (BRANCH_ERET)
+              \_logic_net: (work@int_execute_stage.BRANCH_ERET), line:282:42, endln:282:53
             |vpiStmt:
             \_assignment: , line:335:26, endln:335:74
               |vpiParent:
@@ -8829,7 +9010,7 @@ design: (work@int_execute_stage)
                   |vpiName:of_thread_idx
                   |vpiFullName:work@int_execute_stage.of_thread_idx
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+                  \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_rollback_pc), line:335:26, endln:335:40
                 |vpiParent:
@@ -9104,7 +9285,7 @@ design: (work@int_execute_stage)
                 |vpiName:valid_instruction
                 |vpiFullName:work@int_execute_stage.valid_instruction
                 |vpiActual:
-                \_logic_var: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
+                \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
               |vpiStmt:
               \_begin: (work@int_execute_stage), line:358:13, endln:362:16
                 |vpiParent:
@@ -9137,7 +9318,7 @@ design: (work@int_execute_stage)
                     |vpiName:privileged_op_fault
                     |vpiFullName:work@int_execute_stage.privileged_op_fault
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
+                    \_logic_net: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
                   |vpiLhs:
                   \_ref_obj: (work@int_execute_stage.ix_privileged_op_fault), line:360:17, endln:360:39
                     |vpiParent:
@@ -9158,7 +9339,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
                   |vpiLhs:
                   \_ref_obj: (work@int_execute_stage.ix_rollback_en), line:361:17, endln:361:31
                     |vpiParent:
@@ -9224,7 +9405,7 @@ design: (work@int_execute_stage)
                     |vpiName:conditional_branch
                     |vpiFullName:work@int_execute_stage.conditional_branch
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                    \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
                 |vpiOperand:
                 \_ref_obj: (work@int_execute_stage.branch_taken), line:369:61, endln:369:73
                   |vpiParent:
@@ -9232,7 +9413,7 @@ design: (work@int_execute_stage)
                   |vpiName:branch_taken
                   |vpiFullName:work@int_execute_stage.branch_taken
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                  \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_perf_uncond_branch), line:369:13, endln:369:34
                 |vpiParent:
@@ -9258,7 +9439,7 @@ design: (work@int_execute_stage)
                   |vpiName:conditional_branch
                   |vpiFullName:work@int_execute_stage.conditional_branch
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                  \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
                 |vpiOperand:
                 \_ref_obj: (work@int_execute_stage.branch_taken), line:370:64, endln:370:76
                   |vpiParent:
@@ -9266,7 +9447,7 @@ design: (work@int_execute_stage)
                   |vpiName:branch_taken
                   |vpiFullName:work@int_execute_stage.branch_taken
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                  \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_taken), line:370:13, endln:370:38
                 |vpiParent:
@@ -9292,7 +9473,7 @@ design: (work@int_execute_stage)
                   |vpiName:conditional_branch
                   |vpiFullName:work@int_execute_stage.conditional_branch
                   |vpiActual:
-                  \_logic_var: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
+                  \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
                 |vpiOperand:
                 \_operation: , line:371:68, endln:371:81
                   |vpiParent:
@@ -9305,7 +9486,7 @@ design: (work@int_execute_stage)
                     |vpiName:branch_taken
                     |vpiFullName:work@int_execute_stage.branch_taken
                     |vpiActual:
-                    \_logic_var: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
+                    \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
               |vpiLhs:
               \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_not_taken), line:371:13, endln:371:42
                 |vpiParent:
@@ -9452,6 +9633,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:105:13, endln:105:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].borrow), line:105:19, endln:105:25
         |vpiName:borrow
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].borrow
         |vpiVisibility:1
@@ -9461,6 +9644,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:106:13, endln:106:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].negative), line:106:19, endln:106:27
         |vpiName:negative
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].negative
         |vpiVisibility:1
@@ -9470,6 +9655,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:107:13, endln:107:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].overflow), line:107:19, endln:107:27
         |vpiName:overflow
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].overflow
         |vpiVisibility:1
@@ -9479,6 +9666,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:108:13, endln:108:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].zero), line:108:19, endln:108:23
         |vpiName:zero
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].zero
         |vpiVisibility:1
@@ -9488,6 +9677,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:109:13, endln:109:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].signed_gtr), line:109:19, endln:109:29
         |vpiName:signed_gtr
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].signed_gtr
         |vpiVisibility:1
@@ -9497,8 +9688,12 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:110:13, endln:110:23
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].lz), line:110:24, endln:110:26
           |vpiRange:
           \_range: , line:110:18, endln:110:23
+            |vpiParent:
+            \_logic_typespec: , line:110:13, endln:110:23
             |vpiLeftRange:
             \_constant: , line:110:19, endln:110:20
               |vpiParent:
@@ -9544,8 +9739,12 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:111:13, endln:111:23
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].tz), line:111:24, endln:111:26
           |vpiRange:
           \_range: , line:111:18, endln:111:23
+            |vpiParent:
+            \_logic_typespec: , line:111:13, endln:111:23
             |vpiLeftRange:
             \_constant: , line:111:19, endln:111:20
               |vpiParent:
@@ -9621,8 +9820,12 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:114:13, endln:114:23
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].reciprocal_estimate), line:114:24, endln:114:43
           |vpiRange:
           \_range: , line:114:18, endln:114:23
+            |vpiParent:
+            \_logic_typespec: , line:114:13, endln:114:23
             |vpiLeftRange:
             \_constant: , line:114:19, endln:114:20
               |vpiParent:
@@ -9668,6 +9871,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
         |vpiTypespec:
         \_logic_typespec: , line:115:13, endln:115:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[0].shift_in_sign), line:115:19, endln:115:32
         |vpiName:shift_in_sign
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].shift_in_sign
         |vpiVisibility:1
@@ -12011,16 +12216,12 @@ design: (work@int_execute_stage)
                       \_typespec_member: (sign), line:3:9, endln:3:13
                   |vpiOperand:
                   \_constant: , line:224:52, endln:224:57
-                    |vpiParent:
-                    \_operation: , line:224:34, endln:224:65
                     |vpiDecompile:8'hff
                     |vpiSize:8
                     |HEX:ff
                     |vpiConstType:5
                   |vpiOperand:
                   \_constant: , line:224:59, endln:224:64
-                    |vpiParent:
-                    \_operation: , line:224:34, endln:224:65
                     |vpiDecompile:23'd0
                     |vpiSize:23
                     |DEC:0
@@ -12125,24 +12326,18 @@ design: (work@int_execute_stage)
                       |vpiOpType:33
                       |vpiOperand:
                       \_constant: , line:229:39, endln:229:43
-                        |vpiParent:
-                        \_operation: , line:229:38, endln:229:63
                         |vpiDecompile:1'b0
                         |vpiSize:1
                         |BIN:0
                         |vpiConstType:3
                       |vpiOperand:
                       \_constant: , line:229:45, endln:229:50
-                        |vpiParent:
-                        \_operation: , line:229:38, endln:229:63
                         |vpiDecompile:8'hff
                         |vpiSize:8
                         |HEX:ff
                         |vpiConstType:5
                       |vpiOperand:
                       \_constant: , line:229:52, endln:229:62
-                        |vpiParent:
-                        \_operation: , line:229:38, endln:229:63
                         |vpiDecompile:23'h7fffff
                         |vpiSize:23
                         |HEX:7fffff
@@ -12188,16 +12383,12 @@ design: (work@int_execute_stage)
                           \_typespec_member: (sign), line:3:9, endln:3:13
                       |vpiOperand:
                       \_constant: , line:231:56, endln:231:61
-                        |vpiParent:
-                        \_operation: , line:231:38, endln:231:74
                         |vpiDecompile:8'h00
                         |vpiSize:8
                         |HEX:00
                         |vpiConstType:5
                       |vpiOperand:
                       \_constant: , line:231:63, endln:231:73
-                        |vpiParent:
-                        \_operation: , line:231:38, endln:231:74
                         |vpiDecompile:23'h000000
                         |vpiSize:23
                         |HEX:000000
@@ -12353,8 +12544,6 @@ design: (work@int_execute_stage)
                       |vpiOpType:34
                       |vpiOperand:
                       \_constant: , line:236:47, endln:236:49
-                        |vpiParent:
-                        \_operation: , line:236:46, endln:236:56
                         |vpiDecompile:17
                         |vpiSize:64
                         |UINT:17
@@ -12907,8 +13096,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:254:49, endln:254:51
-                      |vpiParent:
-                      \_operation: , line:254:48, endln:254:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -12968,8 +13155,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:255:49, endln:255:51
-                      |vpiParent:
-                      \_operation: , line:255:48, endln:255:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13034,8 +13219,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:256:49, endln:256:51
-                      |vpiParent:
-                      \_operation: , line:256:48, endln:256:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13113,8 +13296,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:257:49, endln:257:51
-                      |vpiParent:
-                      \_operation: , line:257:48, endln:257:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13187,8 +13368,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:258:49, endln:258:51
-                      |vpiParent:
-                      \_operation: , line:258:48, endln:258:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13271,8 +13450,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:259:49, endln:259:51
-                      |vpiParent:
-                      \_operation: , line:259:48, endln:259:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13350,8 +13527,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:260:49, endln:260:51
-                      |vpiParent:
-                      \_operation: , line:260:48, endln:260:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13434,8 +13609,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:261:49, endln:261:51
-                      |vpiParent:
-                      \_operation: , line:261:48, endln:261:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13513,8 +13686,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:262:49, endln:262:51
-                      |vpiParent:
-                      \_operation: , line:262:48, endln:262:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13592,8 +13763,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:263:49, endln:263:51
-                      |vpiParent:
-                      \_operation: , line:263:48, endln:263:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -13980,8 +14149,6 @@ design: (work@int_execute_stage)
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:120:44, endln:120:48
-              |vpiParent:
-              \_operation: , line:120:43, endln:120:64
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
@@ -14001,8 +14168,6 @@ design: (work@int_execute_stage)
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:120:68, endln:120:72
-              |vpiParent:
-              \_operation: , line:120:67, endln:120:88
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
@@ -14363,8 +14528,6 @@ design: (work@int_execute_stage)
                 |vpiOpType:34
                 |vpiOperand:
                 \_constant: , line:210:41, endln:210:43
-                  |vpiParent:
-                  \_operation: , line:210:40, endln:210:59
                   |vpiDecompile:32
                   |vpiSize:64
                   |UINT:32
@@ -14673,6 +14836,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:105:13, endln:105:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].borrow), line:105:19, endln:105:25
         |vpiName:borrow
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].borrow
         |vpiVisibility:1
@@ -14682,6 +14847,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:106:13, endln:106:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].negative), line:106:19, endln:106:27
         |vpiName:negative
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].negative
         |vpiVisibility:1
@@ -14691,6 +14858,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:107:13, endln:107:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].overflow), line:107:19, endln:107:27
         |vpiName:overflow
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].overflow
         |vpiVisibility:1
@@ -14700,6 +14869,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:108:13, endln:108:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].zero), line:108:19, endln:108:23
         |vpiName:zero
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].zero
         |vpiVisibility:1
@@ -14709,6 +14880,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:109:13, endln:109:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].signed_gtr), line:109:19, endln:109:29
         |vpiName:signed_gtr
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].signed_gtr
         |vpiVisibility:1
@@ -14718,8 +14891,12 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:110:13, endln:110:23
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].lz), line:110:24, endln:110:26
           |vpiRange:
           \_range: , line:110:18, endln:110:23
+            |vpiParent:
+            \_logic_typespec: , line:110:13, endln:110:23
             |vpiLeftRange:
             \_constant: , line:110:19, endln:110:20
               |vpiParent:
@@ -14765,8 +14942,12 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:111:13, endln:111:23
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].tz), line:111:24, endln:111:26
           |vpiRange:
           \_range: , line:111:18, endln:111:23
+            |vpiParent:
+            \_logic_typespec: , line:111:13, endln:111:23
             |vpiLeftRange:
             \_constant: , line:111:19, endln:111:20
               |vpiParent:
@@ -14842,8 +15023,12 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:114:13, endln:114:23
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].reciprocal_estimate), line:114:24, endln:114:43
           |vpiRange:
           \_range: , line:114:18, endln:114:23
+            |vpiParent:
+            \_logic_typespec: , line:114:13, endln:114:23
             |vpiLeftRange:
             \_constant: , line:114:19, endln:114:20
               |vpiParent:
@@ -14889,6 +15074,8 @@ design: (work@int_execute_stage)
         \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
         |vpiTypespec:
         \_logic_typespec: , line:115:13, endln:115:18
+          |vpiParent:
+          \_logic_var: (work@int_execute_stage.lane_alu_gen[1].shift_in_sign), line:115:19, endln:115:32
         |vpiName:shift_in_sign
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].shift_in_sign
         |vpiVisibility:1
@@ -17232,16 +17419,12 @@ design: (work@int_execute_stage)
                       \_typespec_member: (sign), line:3:9, endln:3:13
                   |vpiOperand:
                   \_constant: , line:224:52, endln:224:57
-                    |vpiParent:
-                    \_operation: , line:224:34, endln:224:65
                     |vpiDecompile:8'hff
                     |vpiSize:8
                     |HEX:ff
                     |vpiConstType:5
                   |vpiOperand:
                   \_constant: , line:224:59, endln:224:64
-                    |vpiParent:
-                    \_operation: , line:224:34, endln:224:65
                     |vpiDecompile:23'd0
                     |vpiSize:23
                     |DEC:0
@@ -17346,24 +17529,18 @@ design: (work@int_execute_stage)
                       |vpiOpType:33
                       |vpiOperand:
                       \_constant: , line:229:39, endln:229:43
-                        |vpiParent:
-                        \_operation: , line:229:38, endln:229:63
                         |vpiDecompile:1'b0
                         |vpiSize:1
                         |BIN:0
                         |vpiConstType:3
                       |vpiOperand:
                       \_constant: , line:229:45, endln:229:50
-                        |vpiParent:
-                        \_operation: , line:229:38, endln:229:63
                         |vpiDecompile:8'hff
                         |vpiSize:8
                         |HEX:ff
                         |vpiConstType:5
                       |vpiOperand:
                       \_constant: , line:229:52, endln:229:62
-                        |vpiParent:
-                        \_operation: , line:229:38, endln:229:63
                         |vpiDecompile:23'h7fffff
                         |vpiSize:23
                         |HEX:7fffff
@@ -17409,16 +17586,12 @@ design: (work@int_execute_stage)
                           \_typespec_member: (sign), line:3:9, endln:3:13
                       |vpiOperand:
                       \_constant: , line:231:56, endln:231:61
-                        |vpiParent:
-                        \_operation: , line:231:38, endln:231:74
                         |vpiDecompile:8'h00
                         |vpiSize:8
                         |HEX:00
                         |vpiConstType:5
                       |vpiOperand:
                       \_constant: , line:231:63, endln:231:73
-                        |vpiParent:
-                        \_operation: , line:231:38, endln:231:74
                         |vpiDecompile:23'h000000
                         |vpiSize:23
                         |HEX:000000
@@ -17574,8 +17747,6 @@ design: (work@int_execute_stage)
                       |vpiOpType:34
                       |vpiOperand:
                       \_constant: , line:236:47, endln:236:49
-                        |vpiParent:
-                        \_operation: , line:236:46, endln:236:56
                         |vpiDecompile:17
                         |vpiSize:64
                         |UINT:17
@@ -18128,8 +18299,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:254:49, endln:254:51
-                      |vpiParent:
-                      \_operation: , line:254:48, endln:254:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18189,8 +18358,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:255:49, endln:255:51
-                      |vpiParent:
-                      \_operation: , line:255:48, endln:255:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18255,8 +18422,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:256:49, endln:256:51
-                      |vpiParent:
-                      \_operation: , line:256:48, endln:256:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18334,8 +18499,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:257:49, endln:257:51
-                      |vpiParent:
-                      \_operation: , line:257:48, endln:257:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18408,8 +18571,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:258:49, endln:258:51
-                      |vpiParent:
-                      \_operation: , line:258:48, endln:258:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18492,8 +18653,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:259:49, endln:259:51
-                      |vpiParent:
-                      \_operation: , line:259:48, endln:259:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18571,8 +18730,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:260:49, endln:260:51
-                      |vpiParent:
-                      \_operation: , line:260:48, endln:260:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18655,8 +18812,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:261:49, endln:261:51
-                      |vpiParent:
-                      \_operation: , line:261:48, endln:261:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18734,8 +18889,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:262:49, endln:262:51
-                      |vpiParent:
-                      \_operation: , line:262:48, endln:262:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -18813,8 +18966,6 @@ design: (work@int_execute_stage)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:263:49, endln:263:51
-                      |vpiParent:
-                      \_operation: , line:263:48, endln:263:58
                       |vpiDecompile:31
                       |vpiSize:64
                       |UINT:31
@@ -19201,8 +19352,6 @@ design: (work@int_execute_stage)
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:120:44, endln:120:48
-              |vpiParent:
-              \_operation: , line:120:43, endln:120:64
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
@@ -19222,8 +19371,6 @@ design: (work@int_execute_stage)
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:120:68, endln:120:72
-              |vpiParent:
-              \_operation: , line:120:67, endln:120:88
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
@@ -19584,8 +19731,6 @@ design: (work@int_execute_stage)
                 |vpiOpType:34
                 |vpiOperand:
                 \_constant: , line:210:41, endln:210:43
-                  |vpiParent:
-                  \_operation: , line:210:40, endln:210:59
                   |vpiDecompile:32
                   |vpiSize:64
                   |UINT:32
@@ -19809,7 +19954,7 @@ design: (work@int_execute_stage)
               |vpiName:wb_rollback_thread_idx
               |vpiFullName:work@int_execute_stage.wb_rollback_thread_idx
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.wb_rollback_thread_idx), line:68:39, endln:68:61
+              \_logic_net: (work@int_execute_stage.wb_rollback_thread_idx), line:68:39, endln:68:61
             |vpiOperand:
             \_ref_obj: (work@int_execute_stage.of_thread_idx), line:278:58, endln:278:71
               |vpiParent:
@@ -19817,7 +19962,7 @@ design: (work@int_execute_stage)
               |vpiName:of_thread_idx
               |vpiFullName:work@int_execute_stage.of_thread_idx
               |vpiActual:
-              \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+              \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
       |vpiOperand:
       \_operation: , line:279:12, endln:279:57
         |vpiParent:
@@ -19850,7 +19995,7 @@ design: (work@int_execute_stage)
           |vpiName:PIPE_INT_ARITH
           |vpiFullName:work@int_execute_stage.PIPE_INT_ARITH
           |vpiActual:
-          \_logic_net: (PIPE_INT_ARITH)
+          \_logic_net: (work@int_execute_stage.PIPE_INT_ARITH), line:279:43, endln:279:57
     |vpiLhs:
     \_ref_obj: (work@int_execute_stage.valid_instruction), line:277:12, endln:277:29
       |vpiParent:
@@ -19880,7 +20025,7 @@ design: (work@int_execute_stage)
           |vpiName:valid_instruction
           |vpiFullName:work@int_execute_stage.valid_instruction
           |vpiActual:
-          \_logic_var: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
+          \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
         |vpiOperand:
         \_hier_path: (of_instruction.branch), line:281:12, endln:281:33
           |vpiParent:
@@ -19933,7 +20078,7 @@ design: (work@int_execute_stage)
           |vpiName:BRANCH_ERET
           |vpiFullName:work@int_execute_stage.BRANCH_ERET
           |vpiActual:
-          \_logic_net: (BRANCH_ERET)
+          \_logic_net: (work@int_execute_stage.BRANCH_ERET), line:282:42, endln:282:53
     |vpiLhs:
     \_ref_obj: (work@int_execute_stage.eret), line:280:12, endln:280:16
       |vpiParent:
@@ -19958,7 +20103,7 @@ design: (work@int_execute_stage)
         |vpiName:eret
         |vpiFullName:work@int_execute_stage.eret
         |vpiActual:
-        \_logic_var: (work@int_execute_stage.eret), line:91:11, endln:91:15
+        \_logic_net: (work@int_execute_stage.eret), line:91:11, endln:91:15
       |vpiOperand:
       \_operation: , line:283:42, endln:283:74
         |vpiParent:
@@ -19979,7 +20124,7 @@ design: (work@int_execute_stage)
             |vpiName:of_thread_idx
             |vpiFullName:work@int_execute_stage.of_thread_idx
             |vpiActual:
-            \_logic_var: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
+            \_logic_net: (work@int_execute_stage.of_thread_idx), line:63:39, endln:63:52
     |vpiLhs:
     \_ref_obj: (work@int_execute_stage.privileged_op_fault), line:283:12, endln:283:31
       |vpiParent:

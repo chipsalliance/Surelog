@@ -329,6 +329,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiRhs:
     \_constant: , line:4:34, endln:4:36
+      |vpiParent:
+      \_param_assign: , line:4:26, endln:4:36
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -343,11 +345,14 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiRhs:
     \_sys_func_call: ($clog2), line:9:31, endln:9:44
+      |vpiParent:
+      \_param_assign: , line:9:18, endln:9:44
       |vpiArgument:
-      \_ref_obj: (WIDTH), line:9:38, endln:9:43
+      \_ref_obj: (work@lzc.WIDTH), line:9:38, endln:9:43
         |vpiParent:
         \_sys_func_call: ($clog2), line:9:31, endln:9:44
         |vpiName:WIDTH
+        |vpiFullName:work@lzc.WIDTH
       |vpiName:$clog2
     |vpiLhs:
     \_parameter: (work@lzc.NUM_LEVELS), line:9:18, endln:9:28
@@ -357,6 +362,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiRhs:
     \_constant: , line:10:27, endln:10:28
+      |vpiParent:
+      \_param_assign: , line:10:19, endln:10:28
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -372,22 +379,26 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiCondition:
     \_operation: , line:12:7, endln:12:28
+      |vpiParent:
+      \_gen_if_else: 
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (level), line:12:7, endln:12:12
+      \_ref_obj: (work@lzc.level), line:12:7, endln:12:12
         |vpiParent:
         \_operation: , line:12:7, endln:12:28
         |vpiName:level
+        |vpiFullName:work@lzc.level
       |vpiOperand:
       \_operation: , line:12:16, endln:12:28
         |vpiParent:
         \_operation: , line:12:7, endln:12:28
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (NUM_LEVELS), line:12:16, endln:12:26
+        \_ref_obj: (work@lzc.NUM_LEVELS), line:12:16, endln:12:26
           |vpiParent:
           \_operation: , line:12:16, endln:12:28
           |vpiName:NUM_LEVELS
+          |vpiFullName:work@lzc.NUM_LEVELS
         |vpiOperand:
         \_constant: , line:12:27, endln:12:28
           |vpiParent:
@@ -397,25 +408,42 @@ design: (work@lzc)
           |UINT:1
           |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (g_last_level)
+    \_named_begin: (work@lzc.g_last_level)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:g_last_level
+      |vpiFullName:work@lzc.g_last_level
     |vpiElseStmt:
-    \_begin: 
+    \_begin: (work@lzc)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@lzc
       |vpiStmt:
       \_gen_if: , line:14:5, endln:14:7
+        |vpiParent:
+        \_begin: (work@lzc)
         |vpiCondition:
         \_constant: , line:14:9, endln:14:10
+          |vpiParent:
+          \_gen_if: , line:14:5, endln:14:7
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (all_true)
+        \_named_begin: (work@lzc.all_true)
+          |vpiParent:
+          \_gen_if: , line:14:5, endln:14:7
           |vpiName:all_true
+          |vpiFullName:work@lzc.all_true
           |vpiStmt:
           \_param_assign: , line:15:22, endln:15:39
+            |vpiParent:
+            \_named_begin: (work@lzc.all_true)
             |vpiRhs:
             \_operation: , line:15:31, endln:15:39
+              |vpiParent:
+              \_param_assign: , line:15:22, endln:15:39
               |vpiOpType:43
               |vpiOperand:
               \_constant: , line:15:31, endln:15:32
@@ -426,17 +454,21 @@ design: (work@lzc)
                 |UINT:2
                 |vpiConstType:9
               |vpiOperand:
-              \_ref_obj: (level), line:15:34, endln:15:39
+              \_ref_obj: (work@lzc.all_true.level), line:15:34, endln:15:39
                 |vpiParent:
                 \_operation: , line:15:31, endln:15:39
                 |vpiName:level
+                |vpiFullName:work@lzc.all_true.level
             |vpiLhs:
-            \_parameter: (POWER), line:15:22, endln:15:39
+            \_parameter: (work@lzc.all_true.POWER), line:15:22, endln:15:39
+              |vpiParent:
+              \_param_assign: , line:15:22, endln:15:39
               |vpiTypespec:
               \_int_typespec: , line:15:18, endln:15:21
                 |vpiSigned:1
               |vpiLocalParam:1
               |vpiName:POWER
+              |vpiFullName:work@lzc.all_true.POWER
 |uhdmtopModules:
 \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
   |vpiName:work@lzc
@@ -484,6 +516,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiRhs:
     \_constant: , line:4:34, endln:4:36
+      |vpiParent:
+      \_param_assign: , line:4:26, endln:4:36
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -498,6 +532,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiRhs:
     \_constant: , line:9:31, endln:9:44
+      |vpiParent:
+      \_param_assign: , line:9:18, endln:9:44
       |vpiDecompile:6
       |vpiSize:32
       |UINT:6
@@ -512,6 +548,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test3/dut3.sv, line:3:1, endln:21:16
     |vpiRhs:
     \_constant: , line:10:27, endln:10:28
+      |vpiParent:
+      \_param_assign: , line:10:19, endln:10:28
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -554,6 +592,8 @@ design: (work@lzc)
         \_gen_scope: (work@lzc.all_true)
         |vpiRhs:
         \_constant: , line:15:31, endln:15:39
+          |vpiParent:
+          \_param_assign: , line:15:22, endln:15:39
           |vpiDecompile:16
           |vpiSize:32
           |INT:16

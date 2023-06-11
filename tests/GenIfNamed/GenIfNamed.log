@@ -225,6 +225,13 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.i), line:4:15, endln:4:16
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenIfNamed/dut.sv, line:2:1, endln:13:10
+    |vpiName:i
+    |vpiFullName:work@top.i
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -235,8 +242,6 @@ design: (work@top)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:4:12, endln:4:13
-        |vpiParent:
-        \_assign_stmt: , line:4:8, endln:4:13
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -245,21 +250,21 @@ design: (work@top)
       \_ref_var: (work@top.i), line:4:8, endln:4:9
         |vpiParent:
         \_assign_stmt: , line:4:8, endln:4:13
-        |vpiTypespec:
-        \_unsupported_typespec: (i), line:4:8, endln:4:9
-          |vpiName:i
         |vpiName:i
         |vpiFullName:work@top.i
     |vpiCondition:
     \_operation: , line:4:15, endln:4:20
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (i), line:4:15, endln:4:16
+      \_ref_obj: (work@top.i), line:4:15, endln:4:16
         |vpiParent:
         \_operation: , line:4:15, endln:4:20
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:4:15, endln:4:16
       |vpiOperand:
       \_constant: , line:4:19, endln:4:20
         |vpiParent:
@@ -275,14 +280,17 @@ design: (work@top)
       |vpiOpType:82
       |vpiRhs:
       \_operation: , line:4:27, endln:4:32
+        |vpiParent:
+        \_assignment: , line:4:23, endln:4:32
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (i), line:4:27, endln:4:28
+        \_ref_obj: (work@top.i), line:4:27, endln:4:28
           |vpiParent:
           \_operation: , line:4:27, endln:4:32
           |vpiName:i
+          |vpiFullName:work@top.i
           |vpiActual:
-          \_logic_net: (i)
+          \_logic_net: (work@top.i), line:4:15, endln:4:16
         |vpiOperand:
         \_constant: , line:4:31, endln:4:32
           |vpiParent:
@@ -292,26 +300,41 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
       |vpiLhs:
-      \_ref_obj: (i), line:4:23, endln:4:24
+      \_ref_obj: (work@top.i), line:4:23, endln:4:24
+        |vpiParent:
+        \_assignment: , line:4:23, endln:4:32
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:4:15, endln:4:16
     |vpiStmt:
-    \_named_begin: (tag1)
+    \_named_begin: (work@top.tag1)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:tag1
+      |vpiFullName:work@top.tag1
       |vpiStmt:
       \_gen_if_else: , line:5:6, endln:10:9
+        |vpiParent:
+        \_named_begin: (work@top.tag1)
         |vpiCondition:
         \_constant: , line:5:10, endln:5:11
+          |vpiParent:
+          \_gen_if_else: , line:5:6, endln:10:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (tag2)
+        \_named_begin: (work@top.tag1.tag2)
+          |vpiParent:
+          \_gen_if_else: , line:5:6, endln:10:9
           |vpiName:tag2
+          |vpiFullName:work@top.tag1.tag2
           |vpiStmt:
           \_cont_assign: , line:6:16, endln:6:29
+            |vpiParent:
+            \_named_begin: (work@top.tag1.tag2)
             |vpiRhs:
             \_constant: , line:6:25, endln:6:29
               |vpiParent:
@@ -321,20 +344,27 @@ design: (work@top)
               |BIN:1
               |vpiConstType:3
             |vpiLhs:
-            \_bit_select: (tmp), line:6:16, endln:6:22
+            \_bit_select: (work@top.tag1.tag2.tmp), line:6:16, endln:6:22
               |vpiParent:
               \_cont_assign: , line:6:16, endln:6:29
               |vpiName:tmp
+              |vpiFullName:work@top.tag1.tag2.tmp
               |vpiIndex:
-              \_ref_obj: (i), line:6:20, endln:6:21
+              \_ref_obj: (work@top.tag1.tag2.i), line:6:20, endln:6:21
                 |vpiParent:
-                \_bit_select: (tmp), line:6:16, endln:6:22
+                \_bit_select: (work@top.tag1.tag2.tmp), line:6:16, endln:6:22
                 |vpiName:i
+                |vpiFullName:work@top.tag1.tag2.i
         |vpiElseStmt:
-        \_named_begin: (tag3)
+        \_named_begin: (work@top.tag1.tag3)
+          |vpiParent:
+          \_gen_if_else: , line:5:6, endln:10:9
           |vpiName:tag3
+          |vpiFullName:work@top.tag1.tag3
           |vpiStmt:
           \_cont_assign: , line:8:16, endln:8:29
+            |vpiParent:
+            \_named_begin: (work@top.tag1.tag3)
             |vpiRhs:
             \_constant: , line:8:25, endln:8:29
               |vpiParent:
@@ -344,17 +374,21 @@ design: (work@top)
               |BIN:0
               |vpiConstType:3
             |vpiLhs:
-            \_bit_select: (tmp), line:8:16, endln:8:22
+            \_bit_select: (work@top.tag1.tag3.tmp), line:8:16, endln:8:22
               |vpiParent:
               \_cont_assign: , line:8:16, endln:8:29
               |vpiName:tmp
+              |vpiFullName:work@top.tag1.tag3.tmp
               |vpiIndex:
-              \_ref_obj: (i), line:8:20, endln:8:21
+              \_ref_obj: (work@top.tag1.tag3.i), line:8:20, endln:8:21
                 |vpiParent:
-                \_bit_select: (tmp), line:8:16, endln:8:22
+                \_bit_select: (work@top.tag1.tag3.tmp), line:8:16, endln:8:22
                 |vpiName:i
+                |vpiFullName:work@top.tag1.tag3.i
           |vpiStmt:
           \_cont_assign: , line:9:16, endln:9:30
+            |vpiParent:
+            \_named_begin: (work@top.tag1.tag3)
             |vpiRhs:
             \_constant: , line:9:26, endln:9:30
               |vpiParent:
@@ -364,24 +398,22 @@ design: (work@top)
               |BIN:1
               |vpiConstType:3
             |vpiLhs:
-            \_bit_select: (tmp2), line:9:16, endln:9:23
+            \_bit_select: (work@top.tag1.tag3.tmp2), line:9:16, endln:9:23
               |vpiParent:
               \_cont_assign: , line:9:16, endln:9:30
               |vpiName:tmp2
+              |vpiFullName:work@top.tag1.tag3.tmp2
               |vpiIndex:
-              \_ref_obj: (i), line:9:21, endln:9:22
+              \_ref_obj: (work@top.tag1.tag3.i), line:9:21, endln:9:22
                 |vpiParent:
-                \_bit_select: (tmp2), line:9:16, endln:9:23
+                \_bit_select: (work@top.tag1.tag3.tmp2), line:9:16, endln:9:23
                 |vpiName:i
+                |vpiFullName:work@top.tag1.tag3.i
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenIfNamed/dut.sv, line:2:1, endln:13:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (i)
-    |vpiName:i
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.tag1[0]), line:4:34, endln:11:6
