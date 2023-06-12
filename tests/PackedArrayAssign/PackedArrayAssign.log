@@ -139,7 +139,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             1
-constant                                              17
+constant                                              19
 cont_assign                                            1
 design                                                 1
 logic_net                                              3
@@ -149,17 +149,18 @@ operation                                              1
 packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   2
-range                                                  7
+range                                                  8
 ref_obj                                                3
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             2
-constant                                              17
+constant                                              19
 cont_assign                                            2
 design                                                 1
 logic_net                                              3
@@ -169,11 +170,12 @@ operation                                              1
 packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   3
-range                                                  7
+range                                                  8
 ref_obj                                                5
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedArrayAssign/slpp_all/surelog.uhdm ...
 
@@ -193,7 +195,7 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
-  \_struct_typespec: (filter_ctl_t), line:2:12, endln:2:18
+  \_struct_typespec: (filter_ctl_t), line:2:12, endln:4:5
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayAssign/dut.sv, line:1:1, endln:8:10
     |vpiName:filter_ctl_t
@@ -203,7 +205,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (min_v), line:3:19, endln:3:24
       |vpiParent:
-      \_struct_typespec: (filter_ctl_t), line:2:12, endln:2:18
+      \_struct_typespec: (filter_ctl_t), line:2:12, endln:4:5
       |vpiName:min_v
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:18
@@ -246,6 +248,9 @@ design: (work@top)
   \_logic_net: (work@top.a), line:6:23, endln:6:24
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayAssign/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_unsupported_typespec: (filter_ctl_t), line:6:4, endln:6:43
+      |vpiName:filter_ctl_t
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiPort:
@@ -255,7 +260,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:1:31, endln:1:32
       |vpiParent:
       \_port: (o), line:1:31, endln:1:32
       |vpiName:o
@@ -289,7 +294,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayAssign/dut.sv, line:1:1, endln:8:10
     |vpiRhs:
-    \_bit_select: (work@top.a), line:7:15, endln:7:19
+    \_bit_select: (work@top.a), line:7:17, endln:7:18
       |vpiParent:
       \_cont_assign: , line:7:11, endln:7:19
       |vpiName:a
@@ -297,7 +302,7 @@ design: (work@top)
       |vpiIndex:
       \_constant: , line:7:17, endln:7:18
         |vpiParent:
-        \_bit_select: (work@top.a), line:7:15, endln:7:19
+        \_bit_select: (work@top.a), line:7:17, endln:7:18
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
@@ -362,12 +367,12 @@ design: (work@top)
       |vpiParent:
       \_packed_array_var: (work@top.a), line:6:23, endln:6:43
       |vpiTypespec:
-      \_struct_typespec: (filter_ctl_t), line:2:12, endln:2:18
+      \_struct_typespec: (filter_ctl_t), line:2:12, endln:4:5
       |vpiFullName:work@top.a
       |vpiExpr:
       \_operation: , line:6:27, endln:6:43
   |vpiTypedef:
-  \_struct_typespec: (filter_ctl_t), line:2:12, endln:2:18
+  \_struct_typespec: (filter_ctl_t), line:2:12, endln:4:5
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
@@ -443,7 +448,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayAssign/dut.sv, line:1:1, endln:8:10
     |vpiRhs:
-    \_bit_select: (work@top.a), line:7:15, endln:7:19
+    \_bit_select: (work@top.a), line:7:17, endln:7:18
       |vpiParent:
       \_cont_assign: , line:7:11, endln:7:19
       |vpiName:a
@@ -466,6 +471,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/PackedArrayAssign/dut.sv | ${SURELOG_DIR}/build/regression/PackedArrayAssign/roundtrip/dut_000.sv | 2 | 8 |

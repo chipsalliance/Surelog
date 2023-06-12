@@ -346,7 +346,7 @@ parameter                                              1
 port                                                   9
 range                                                  2
 ref_obj                                               11
-unsupported_typespec                                   1
+unsupported_typespec                                   6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortTest/slpp_unit/surelog.uhdm ...
 
@@ -419,12 +419,18 @@ design: (work@dff0_test)
   \_logic_net: (work@AXI_BUS.aw_id), line:14:15, endln:14:20
     |vpiParent:
     \_interface_inst: work@AXI_BUS (work@AXI_BUS), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:8:1, endln:26:13
+    |vpiTypespec:
+    \_unsupported_typespec: (id_t1), line:14:3, endln:14:8
+      |vpiName:id_t1
     |vpiName:aw_id
     |vpiFullName:work@AXI_BUS.aw_id
   |vpiNet:
   \_logic_net: (work@AXI_BUS.rw_id), line:20:14, endln:20:19
     |vpiParent:
     \_interface_inst: work@AXI_BUS (work@AXI_BUS), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:8:1, endln:26:13
+    |vpiTypespec:
+    \_unsupported_typespec: (id_t), line:20:3, endln:20:7
+      |vpiName:id_t
     |vpiName:rw_id
     |vpiFullName:work@AXI_BUS.rw_id
   |vpiModport:
@@ -491,7 +497,7 @@ design: (work@dff0_test)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@mem_if.clk.clk)
+    \_ref_obj: (work@mem_if.clk.clk), line:29:30, endln:29:33
       |vpiParent:
       \_port: (clk), line:29:30, endln:29:33
       |vpiName:clk
@@ -518,7 +524,7 @@ design: (work@dff0_test)
     |vpiName:n1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dff0_test.n1)
+    \_ref_obj: (work@dff0_test.n1), line:1:18, endln:1:20
       |vpiParent:
       \_port: (n1), line:1:18, endln:1:20
       |vpiFullName:work@dff0_test.n1
@@ -581,6 +587,9 @@ design: (work@dff0_test)
   \_logic_net: (work@memory_ctrl1.state), line:40:7, endln:40:12
     |vpiParent:
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:36:1, endln:43:10
+    |vpiTypespec:
+    \_unsupported_typespec: (fsm_t), line:40:1, endln:40:6
+      |vpiName:fsm_t
     |vpiName:state
     |vpiFullName:work@memory_ctrl1.state
   |vpiNet:
@@ -596,7 +605,7 @@ design: (work@dff0_test)
     |vpiName:sif
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@memory_ctrl1.sif.sif)
+    \_ref_obj: (work@memory_ctrl1.sif.sif), line:36:37, endln:36:40
       |vpiParent:
       \_port: (sif), line:36:37, endln:36:40
       |vpiName:sif
@@ -655,12 +664,18 @@ design: (work@dff0_test)
   \_logic_net: (work@memory_ctrl2.state), line:49:7, endln:49:12
     |vpiParent:
     \_module_inst: work@memory_ctrl2 (work@memory_ctrl2), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:45:1, endln:53:10
+    |vpiTypespec:
+    \_unsupported_typespec: (fsm_t), line:49:1, endln:49:6
+      |vpiName:fsm_t
     |vpiName:state
     |vpiFullName:work@memory_ctrl2.state
   |vpiNet:
   \_logic_net: (work@memory_ctrl2.t), line:51:4, endln:51:5
     |vpiParent:
     \_module_inst: work@memory_ctrl2 (work@memory_ctrl2), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:45:1, endln:53:10
+    |vpiTypespec:
+    \_unsupported_typespec: (DD), line:51:1, endln:51:3
+      |vpiName:DD
     |vpiName:t
     |vpiFullName:work@memory_ctrl2.t
   |vpiNet:
@@ -676,7 +691,7 @@ design: (work@dff0_test)
     |vpiName:sif
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@memory_ctrl2.sif.sif)
+    \_ref_obj: (work@memory_ctrl2.sif.sif), line:45:36, endln:45:39
       |vpiParent:
       \_port: (sif), line:45:36, endln:45:39
       |vpiName:sif
@@ -887,4 +902,4 @@ design: (work@dff0_test)
 [   NOTE] : 9
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ModPortTest/top.v | ${SURELOG_DIR}/build/regression/ModPortTest/roundtrip/top_000.v | 19 | 53 |
+[roundtrip]: ${SURELOG_DIR}/tests/ModPortTest/top.v | ${SURELOG_DIR}/build/regression/ModPortTest/roundtrip/top_000.v | 14 | 53 |

@@ -447,19 +447,19 @@ assign_stmt                                           67
 assignment                                          2074
 begin                                               1309
 bit_select                                           628
-bit_typespec                                         247
+bit_typespec                                         251
 bit_var                                                7
 case_item                                            499
 case_stmt                                            107
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                           11409
+constant                                           12165
 cont_assign                                          604
 delay_control                                          8
 design                                                 1
-enum_const                                           248
-enum_typespec                                         44
+enum_const                                           297
+enum_typespec                                         50
 enum_var                                             137
 event_control                                        133
 for_stmt                                              25
@@ -475,18 +475,18 @@ if_stmt                                              310
 include_file_info                                    105
 indexed_part_select                                   26
 initial                                                3
-int_typespec                                         724
+int_typespec                                         734
 int_var                                               40
-integer_typespec                                      57
+integer_typespec                                      59
 integer_var                                            3
 io_decl                                               27
 logic_net                                           2985
-logic_typespec                                      3425
+logic_typespec                                      4187
 logic_var                                            822
 method_func_call                                       5
 module_inst                                          148
 named_begin                                           15
-operation                                           4781
+operation                                           4976
 package                                                2
 packed_array_typespec                                  9
 packed_array_var                                       6
@@ -495,20 +495,20 @@ parameter                                            873
 part_select                                          318
 port                                                2564
 property_spec                                         38
-range                                               2552
+range                                               2892
 ref_module                                            42
-ref_obj                                            12149
+ref_obj                                            12268
 return_stmt                                            8
-string_typespec                                       13
+string_typespec                                       19
 string_var                                            10
 struct_net                                            28
 struct_typespec                                       23
 struct_var                                            31
-sys_func_call                                        214
+sys_func_call                                        217
 task                                                  11
 task_call                                              3
 typespec_member                                      126
-unsupported_typespec                                   5
+unsupported_typespec                                 100
 var_select                                             1
 while_stmt                                             1
 === UHDM Object Stats End ===
@@ -519,47 +519,3 @@ while_stmt                                             1
 [  ERROR] : 0
 [WARNING] : 36
 [   NOTE] : 51
-
-
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/primitives/scr1_cg.sv           | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_cg_000.sv                  | 1 | 6 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/primitives/scr1_reset_cells.sv  | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_reset_cells_000.sv         | 73 | 166 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_clk_ctrl.sv                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_clk_ctrl_000.sv            | 1 | 6 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_core_top.sv                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_core_top_000.sv            | 397 | 540 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_dm.sv                      | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_dm_000.sv                  | 362 | 1255 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_dmi.sv                     | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_dmi_000.sv                 | 46 | 160 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_scu.sv                     | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_scu_000.sv                 | 156 | 415 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_tapc.sv                    | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_tapc_000.sv                | 141 | 423 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_tapc_shift_reg.sv          | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_tapc_shift_reg_000.sv      | 45 | 112 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/core/scr1_tapc_synchronizer.sv       | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_tapc_synchronizer_000.sv   | 55 | 180 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_arch_description.svh   | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_arch_description_000.svh   | 93 | 163 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_arch_types.svh         | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_arch_types_000.svh         | 11 | 45 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_csr.svh                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_csr_000.svh                | 91 | 190 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_dm.svh                 | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_dm_000.svh                 | 8 | 131 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_hdu.svh                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_hdu_000.svh                | 40 | 145 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_ipic.svh               | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_ipic_000.svh               | 10 | 49 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_memif.svh              | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_memif_000.svh              | 6 | 37 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_riscv_isa_decoding.svh | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_riscv_isa_decoding_000.svh | 46 | 178 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_search_ms1.svh         | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_search_ms1_000.svh         | 40 | 91 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_tapc.svh               | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_tapc_000.svh               | 7 | 56 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/includes/scr1_tdu.svh                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_tdu_000.svh                | 46 | 119 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_ipic.sv                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_ipic_000.sv                | 108 | 452 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_csr.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_csr_000.sv            | 420 | 1010 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_exu.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_exu_000.sv            | 420 | 814 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_hdu.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_hdu_000.sv            | 267 | 893 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_ialu.sv           | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_ialu_000.sv           | 271 | 602 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_idu.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_idu_000.sv            | 448 | 864 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_ifu.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_ifu_000.sv            | 254 | 625 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_lsu.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_lsu_000.sv            | 123 | 303 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_mprf.sv           | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_mprf_000.sv           | 41 | 83 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_tdu.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_tdu_000.sv            | 209 | 477 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_pipe_top.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_pipe_top_000.sv            | 584 | 746 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/pipeline/scr1_tracelog.sv            | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_tracelog_000.sv            | 214 | 422 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/tb/scr1_memory_tb_axi.sv             | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_memory_tb_axi_000.sv       | 231 | 348 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_top_tb_axi_000.sv          | 401 | 611 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/top/scr1_dmem_router.sv              | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_dmem_router_000.sv         | 82 | 259 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/top/scr1_dp_memory.sv                | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_dp_memory_000.sv           | 50 | 102 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/top/scr1_imem_router.sv              | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_imem_router_000.sv         | 54 | 177 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/top/scr1_mem_axi.sv                  | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_mem_axi_000.sv             | 163 | 362 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/top/scr1_tcm.sv                      | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_tcm_000.sv                 | 61 | 129 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/top/scr1_timer.sv                    | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_timer_000.sv               | 68 | 271 |
-[roundtrip]: ${SURELOG_DIR}/third_party/tests/Scr1/src/top/scr1_top_axi.sv                  | ${SURELOG_DIR}/build/regression/Scr1/roundtrip/scr1_top_axi_000.sv             | 531 | 652 |

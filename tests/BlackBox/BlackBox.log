@@ -169,7 +169,7 @@ gen_region                                             1
 gen_scope                                              2
 gen_scope_array                                        2
 hier_path                                              1
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                1
 logic_net                                              2
 module_inst                                            8
@@ -190,7 +190,7 @@ gen_region                                             1
 gen_scope                                              3
 gen_scope_array                                        3
 hier_path                                              2
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                2
 logic_net                                              2
 module_inst                                            9
@@ -221,6 +221,9 @@ design: (work@top)
   \_logic_net: (work@core.wb_writeback_en), line:7:5, endln:7:20
     |vpiParent:
     \_module_inst: work@core (work@core), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:5:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:7:1, endln:7:4
+      |vpiSigned:1
     |vpiName:wb_writeback_en
     |vpiFullName:work@core.wb_writeback_en
 |uhdmallModules:
@@ -328,14 +331,14 @@ design: (work@top)
       |vpiName:core_gen[0]
       |vpiFullName:work@top.nyuzi.core_gen[0]
       |vpiGenScope:
-      \_gen_scope: (work@top.nyuzi.core_gen[0])
+      \_gen_scope: (work@top.nyuzi.core_gen[0]), line:17:9, endln:19:12
         |vpiParent:
         \_gen_scope_array: (work@top.nyuzi.core_gen[0]), line:17:9, endln:19:12
         |vpiFullName:work@top.nyuzi.core_gen[0]
         |vpiParameter:
         \_parameter: (work@top.nyuzi.core_gen[0].core_idx), line:16:0
           |vpiParent:
-          \_gen_scope: (work@top.nyuzi.core_gen[0])
+          \_gen_scope: (work@top.nyuzi.core_gen[0]), line:17:9, endln:19:12
           |UINT:0
           |vpiTypespec:
           \_int_typespec: 
@@ -345,7 +348,7 @@ design: (work@top)
         |vpiModule:
         \_module_inst: work@core (work@top.nyuzi.core_gen[0].core), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:18:13, endln:18:26
           |vpiParent:
-          \_gen_scope: (work@top.nyuzi.core_gen[0])
+          \_gen_scope: (work@top.nyuzi.core_gen[0]), line:17:9, endln:19:12
           |vpiName:core
           |vpiFullName:work@top.nyuzi.core_gen[0].core
           |vpiVariables:
@@ -388,7 +391,7 @@ design: (work@top)
         |vpiName:core_gen
         |vpiFullName:nyuzi.core_gen[0]
         |vpiActual:
-        \_gen_scope: (work@top.nyuzi.core_gen[0])
+        \_gen_scope: (work@top.nyuzi.core_gen[0]), line:17:9, endln:19:12
         |vpiIndex:
         \_constant: , line:31:31, endln:31:32
       |vpiActual:
@@ -422,4 +425,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BlackBox/dut.sv | ${SURELOG_DIR}/build/regression/BlackBox/roundtrip/dut_000.sv | 11 | 34 |
+[roundtrip]: ${SURELOG_DIR}/tests/BlackBox/dut.sv | ${SURELOG_DIR}/build/regression/BlackBox/roundtrip/dut_000.sv | 10 | 34 |

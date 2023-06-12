@@ -321,38 +321,40 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              33
+constant                                              34
 design                                                 1
 int_typespec                                          15
 int_var                                                8
 logic_net                                              6
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              6
 module_inst                                           15
 param_assign                                          10
 parameter                                             10
-range                                                  8
+range                                                  9
 ref_module                                             5
-ref_obj                                                3
+ref_obj                                                4
 type_parameter                                         7
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              33
+constant                                              34
 design                                                 1
 int_typespec                                          15
 int_var                                                8
 logic_net                                              6
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              6
 module_inst                                           15
 param_assign                                          10
 parameter                                             10
-range                                                  8
+range                                                  9
 ref_module                                             5
-ref_obj                                                3
+ref_obj                                                4
 type_parameter                                         7
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamIndex/slpp_all/surelog.uhdm ...
 
@@ -387,7 +389,7 @@ design: (work@top)
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:19:1, endln:23:10
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:19:45, endln:19:62
     |vpiName:SIZE
     |vpiFullName:work@bottom.SIZE
   |vpiParameter:
@@ -426,7 +428,7 @@ design: (work@top)
       |vpiSize:32
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:19:45, endln:19:62
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@bottom.SIZE), line:19:55, endln:19:59
@@ -451,12 +453,34 @@ design: (work@top)
   \_logic_net: (work@bottom.DATA1), line:20:9, endln:20:14
     |vpiParent:
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:19:1, endln:23:10
+    |vpiTypespec:
+    \_unsupported_typespec: (TP1), line:20:5, endln:20:8
+      |vpiName:TP1
     |vpiName:DATA1
     |vpiFullName:work@bottom.DATA1
   |vpiNet:
   \_logic_net: (work@bottom.a), line:21:20, endln:21:21
     |vpiParent:
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:19:1, endln:23:10
+    |vpiTypespec:
+    \_logic_typespec: , line:21:5, endln:21:19
+      |vpiRange:
+      \_range: , line:21:11, endln:21:19
+        |vpiParent:
+        \_logic_typespec: , line:21:5, endln:21:19
+        |vpiLeftRange:
+        \_ref_obj: (SIZE), line:21:12, endln:21:16
+          |vpiParent:
+          \_range: , line:21:11, endln:21:19
+          |vpiName:SIZE
+        |vpiRightRange:
+        \_constant: , line:21:17, endln:21:18
+          |vpiParent:
+          \_range: , line:21:11, endln:21:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:a
     |vpiFullName:work@bottom.a
     |vpiNetType:36
@@ -464,6 +488,9 @@ design: (work@top)
   \_logic_net: (work@bottom.DATA2), line:22:9, endln:22:14
     |vpiParent:
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:19:1, endln:23:10
+    |vpiTypespec:
+    \_unsupported_typespec: (TP2), line:22:5, endln:22:8
+      |vpiName:TP2
     |vpiName:DATA2
     |vpiFullName:work@bottom.DATA2
 |uhdmallModules:
@@ -698,7 +725,7 @@ design: (work@top)
         \_module_inst: work@bottom (work@top.u0.u1), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:13:2, endln:13:27
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:19:45, endln:19:62
           |vpiParent:
           \_parameter: (work@top.u0.u1.SIZE), line:19:55, endln:19:59
         |vpiName:SIZE
@@ -730,7 +757,7 @@ design: (work@top)
           |vpiSize:32
           |UINT:10
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:19:45, endln:19:62
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.u0.u1.SIZE), line:19:55, endln:19:59
@@ -847,7 +874,7 @@ design: (work@top)
         \_module_inst: work@bottom (work@top.u0.u2), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:14:2, endln:14:38
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:19:45, endln:19:62
           |vpiParent:
           \_parameter: (work@top.u0.u2.SIZE), line:19:55, endln:19:59
         |vpiName:SIZE
@@ -880,7 +907,7 @@ design: (work@top)
           |vpiSize:32
           |UINT:20
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:19:45, endln:19:62
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.u0.u2.SIZE), line:19:55, endln:19:59
@@ -988,7 +1015,7 @@ design: (work@top)
         \_module_inst: work@bottom (work@top.u0.u3), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:15:2, endln:15:38
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:19:45, endln:19:62
           |vpiParent:
           \_parameter: (work@top.u0.u3.SIZE), line:19:55, endln:19:59
         |vpiName:SIZE
@@ -1021,7 +1048,7 @@ design: (work@top)
           |vpiSize:32
           |UINT:1120
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:19:45, endln:19:62
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.u0.u3.SIZE), line:19:55, endln:19:59
@@ -1130,7 +1157,7 @@ design: (work@top)
         \_module_inst: work@bottom (work@top.u0.u4), file:${SURELOG_DIR}/tests/ParamIndex/dut.sv, line:16:2, endln:16:39
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:19:45, endln:19:62
           |vpiParent:
           \_parameter: (work@top.u0.u4.SIZE), line:19:55, endln:19:59
         |vpiName:SIZE
@@ -1163,7 +1190,7 @@ design: (work@top)
           |vpiSize:32
           |UINT:1140
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:19:45, endln:19:62
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.u0.u4.SIZE), line:19:55, endln:19:59
@@ -1196,4 +1223,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ParamIndex/dut.sv | ${SURELOG_DIR}/build/regression/ParamIndex/roundtrip/dut_000.sv | 13 | 23 |
+[roundtrip]: ${SURELOG_DIR}/tests/ParamIndex/dut.sv | ${SURELOG_DIR}/build/regression/ParamIndex/roundtrip/dut_000.sv | 10 | 23 |

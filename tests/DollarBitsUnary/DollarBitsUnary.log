@@ -158,39 +158,39 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              20
+constant                                              22
 cont_assign                                            1
 design                                                 1
 logic_net                                              3
-logic_typespec                                         5
+logic_typespec                                         6
 logic_var                                              1
 module_inst                                            4
-operation                                              4
+operation                                              5
 part_select                                            1
 port                                                   2
-range                                                  7
-ref_obj                                                4
+range                                                  8
+ref_obj                                                5
 struct_typespec                                        1
-sys_func_call                                          1
+sys_func_call                                          2
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              20
+constant                                              22
 cont_assign                                            2
 design                                                 1
 logic_net                                              3
-logic_typespec                                         5
+logic_typespec                                         6
 logic_var                                              1
 module_inst                                            4
-operation                                              6
+operation                                              7
 part_select                                            2
 port                                                   3
-range                                                  7
-ref_obj                                                7
+range                                                  8
+ref_obj                                                8
 struct_typespec                                        1
-sys_func_call                                          2
+sys_func_call                                          3
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DollarBitsUnary/slpp_all/surelog.uhdm ...
@@ -211,7 +211,7 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
-  \_struct_typespec: (dmi_t), line:2:12, endln:2:18
+  \_struct_typespec: (dmi_t), line:2:12, endln:4:5
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
     |vpiName:dmi_t
@@ -221,7 +221,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (data), line:3:20, endln:3:24
       |vpiParent:
-      \_struct_typespec: (dmi_t), line:2:12, endln:2:18
+      \_struct_typespec: (dmi_t), line:2:12, endln:4:5
       |vpiName:data
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:19
@@ -264,6 +264,43 @@ design: (work@top)
   \_logic_net: (work@top.dr_q), line:6:28, endln:6:32
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:3, endln:6:27
+      |vpiRange:
+      \_range: , line:6:9, endln:6:27
+        |vpiParent:
+        \_logic_typespec: , line:6:3, endln:6:27
+        |vpiLeftRange:
+        \_operation: , line:6:10, endln:6:24
+          |vpiParent:
+          \_range: , line:6:9, endln:6:27
+          |vpiOpType:11
+          |vpiOperand:
+          \_sys_func_call: ($bits), line:6:10, endln:6:22
+            |vpiParent:
+            \_operation: , line:6:10, endln:6:24
+            |vpiArgument:
+            \_ref_obj: (dmi_t), line:6:16, endln:6:21
+              |vpiParent:
+              \_sys_func_call: ($bits), line:6:10, endln:6:22
+              |vpiName:dmi_t
+            |vpiName:$bits
+          |vpiOperand:
+          \_constant: , line:6:23, endln:6:24
+            |vpiParent:
+            \_operation: , line:6:10, endln:6:24
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:25, endln:6:26
+          |vpiParent:
+          \_range: , line:6:9, endln:6:27
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:dr_q
     |vpiFullName:work@top.dr_q
     |vpiNetType:36
@@ -274,7 +311,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:1:32, endln:1:33
       |vpiParent:
       \_port: (o), line:1:32, endln:1:33
       |vpiName:o
@@ -415,7 +452,7 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
   |vpiTypedef:
-  \_struct_typespec: (dmi_t), line:2:12, endln:2:18
+  \_struct_typespec: (dmi_t), line:2:12, endln:4:5
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
@@ -541,4 +578,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv | ${SURELOG_DIR}/build/regression/DollarBitsUnary/roundtrip/dut_000.sv | 3 | 9 |
+[roundtrip]: ${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv | ${SURELOG_DIR}/build/regression/DollarBitsUnary/roundtrip/dut_000.sv | 2 | 9 |

@@ -151,20 +151,21 @@ always                                                 1
 assignment                                             2
 begin                                                  1
 bit_select                                             2
-constant                                               7
+constant                                               9
 design                                                 1
 hier_path                                              2
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                1
 logic_net                                              2
 module_inst                                            3
 packed_array_typespec                                  1
 packed_array_var                                       1
-range                                                  2
+range                                                  3
 ref_obj                                                3
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -173,20 +174,21 @@ always                                                 2
 assignment                                             4
 begin                                                  2
 bit_select                                             4
-constant                                               7
+constant                                               9
 design                                                 1
 hier_path                                              4
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                1
 logic_net                                              2
 module_inst                                            3
 packed_array_typespec                                  1
 packed_array_var                                       1
-range                                                  2
+range                                                  3
 ref_obj                                                6
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.uhdm ...
 
@@ -206,7 +208,7 @@ design: (work@t)
   \_design: (work@t)
   |vpiFullName:work@t
   |vpiTypedef:
-  \_struct_typespec: (S), line:2:12, endln:2:18
+  \_struct_typespec: (S), line:2:12, endln:2:29
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiName:S
@@ -215,7 +217,7 @@ design: (work@t)
     |vpiTypespecMember:
     \_typespec_member: (x), line:2:25, endln:2:26
       |vpiParent:
-      \_struct_typespec: (S), line:2:12, endln:2:18
+      \_struct_typespec: (S), line:2:12, endln:2:29
       |vpiName:x
       |vpiTypespec:
       \_int_typespec: , line:2:21, endln:2:24
@@ -232,12 +234,18 @@ design: (work@t)
   \_logic_net: (work@t.s), line:3:11, endln:3:12
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_unsupported_typespec: (S), line:3:4, endln:3:10
+      |vpiName:S
     |vpiName:s
     |vpiFullName:work@t.s
   |vpiNet:
   \_logic_net: (work@t.y), line:4:8, endln:4:9
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_int_typespec: , line:4:4, endln:4:7
+      |vpiSigned:1
     |vpiName:y
     |vpiFullName:work@t.y
   |vpiProcess:
@@ -316,7 +324,7 @@ design: (work@t)
               |UINT:1
               |vpiConstType:9
           |vpiActual:
-          \_ref_obj: (s[1].x)
+          \_ref_obj: (s[1].x), line:8:11, endln:8:12
             |vpiParent:
             \_hier_path: (s[1].x), line:8:6, endln:8:7
             |vpiName:x
@@ -357,7 +365,7 @@ design: (work@t)
       |vpiParent:
       \_packed_array_var: (work@t.s), line:3:11, endln:3:12
       |vpiTypespec:
-      \_struct_typespec: (S), line:2:12, endln:2:18
+      \_struct_typespec: (S), line:2:12, endln:2:29
       |vpiFullName:work@t.s
   |vpiVariables:
   \_int_var: (work@t.y), line:4:8, endln:4:9
@@ -372,7 +380,7 @@ design: (work@t)
     |vpiFullName:work@t.y
     |vpiVisibility:1
   |vpiTypedef:
-  \_struct_typespec: (S), line:2:12, endln:2:18
+  \_struct_typespec: (S), line:2:12, endln:2:29
   |vpiDefName:work@t
   |vpiTop:1
   |vpiTopModule:1
@@ -446,7 +454,7 @@ design: (work@t)
             |vpiIndex:
             \_constant: , line:8:8, endln:8:9
           |vpiActual:
-          \_ref_obj: (s[1].x)
+          \_ref_obj: (s[1].x), line:8:11, endln:8:12
             |vpiParent:
             \_hier_path: (s[1].x), line:8:6, endln:8:7
             |vpiName:x
@@ -462,4 +470,4 @@ design: (work@t)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/NetLValue/dut.sv | ${SURELOG_DIR}/build/regression/NetLValue/roundtrip/dut_000.sv | 4 | 10 |
+[roundtrip]: ${SURELOG_DIR}/tests/NetLValue/dut.sv | ${SURELOG_DIR}/build/regression/NetLValue/roundtrip/dut_000.sv | 2 | 10 |

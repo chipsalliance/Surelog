@@ -114,29 +114,29 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              22
+constant                                              28
 cont_assign                                            2
 design                                                 1
 logic_net                                              1
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            4
 part_select                                            2
-range                                                  6
+range                                                  9
 var_select                                             2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              22
+constant                                              28
 cont_assign                                            3
 design                                                 1
 logic_net                                              1
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            4
 part_select                                            3
-range                                                  6
+range                                                  9
 var_select                                             3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelect3/slpp_all/surelog.uhdm ...
@@ -161,6 +161,68 @@ design: (work@t)
   \_logic_net: (work@t.state_d), line:2:23, endln:2:30
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/PartSelect3/dut.sv, line:1:1, endln:4:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:12
+      |vpiRange:
+      \_range: , line:2:7, endln:2:12
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:12
+        |vpiLeftRange:
+        \_constant: , line:2:8, endln:2:9
+          |vpiParent:
+          \_range: , line:2:7, endln:2:12
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:10, endln:2:11
+          |vpiParent:
+          \_range: , line:2:7, endln:2:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:2:12, endln:2:17
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:12
+        |vpiLeftRange:
+        \_constant: , line:2:13, endln:2:14
+          |vpiParent:
+          \_range: , line:2:12, endln:2:17
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:15, endln:2:16
+          |vpiParent:
+          \_range: , line:2:12, endln:2:17
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:2:17, endln:2:22
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:12
+        |vpiLeftRange:
+        \_constant: , line:2:18, endln:2:19
+          |vpiParent:
+          \_range: , line:2:17, endln:2:22
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:20, endln:2:21
+          |vpiParent:
+          \_range: , line:2:17, endln:2:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:state_d
     |vpiFullName:work@t.state_d
     |vpiNetType:36
@@ -419,4 +481,4 @@ design: (work@t)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PartSelect3/dut.sv | ${SURELOG_DIR}/build/regression/PartSelect3/roundtrip/dut_000.sv | 2 | 4 |
+[roundtrip]: ${SURELOG_DIR}/tests/PartSelect3/dut.sv | ${SURELOG_DIR}/build/regression/PartSelect3/roundtrip/dut_000.sv | 1 | 4 |

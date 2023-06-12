@@ -276,6 +276,7 @@ ref_obj                                                8
 struct_net                                             2
 struct_typespec                                        3
 typespec_member                                        3
+unsupported_typespec                                   1
 var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -308,6 +309,7 @@ ref_obj                                               13
 struct_net                                             2
 struct_typespec                                        3
 typespec_member                                        3
+unsupported_typespec                                   1
 var_select                                             2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectNoParent/slpp_all/surelog.uhdm ...
@@ -422,7 +424,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
     |vpiParent:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiName:my_pkg::hw_key_req_t
@@ -432,7 +434,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (key), line:7:40, endln:7:43
       |vpiParent:
-      \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+      \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
       |vpiName:key
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:39
@@ -612,7 +614,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
     |vpiName:my_pkg::hw_key_req_t
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
@@ -620,7 +622,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (key), line:7:40, endln:7:43
       |vpiParent:
-      \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+      \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
       |vpiName:key
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:39
@@ -834,7 +836,7 @@ design: (work@top)
       |vpiFullName:work@top.NumRegsKey
       |vpiImported:my_pkg
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
   |vpiTypedef:
   \_import_typespec: (my_pkg), line:12:11, endln:12:20
   |vpiDefName:work@top
@@ -848,6 +850,9 @@ design: (work@top)
   \_logic_net: (work@top.keymgr_key_i), line:13:17, endln:13:29
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
+    |vpiTypespec:
+    \_unsupported_typespec: (hw_key_req_t), line:13:4, endln:13:16
+      |vpiName:hw_key_req_t
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
   |vpiPort:
@@ -857,7 +862,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:11:23, endln:11:24
       |vpiParent:
       \_port: (o), line:11:23, endln:11:24
       |vpiName:o
@@ -872,7 +877,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiStmt:
-    \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+    \_named_begin: (work@top.key_sideload_get), line:14:24, endln:14:40
       |vpiParent:
       \_always: , line:14:4, endln:18:7
       |vpiName:key_sideload_get
@@ -880,7 +885,7 @@ design: (work@top)
       |vpiStmt:
       \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10
         |vpiParent:
-        \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+        \_named_begin: (work@top.key_sideload_get), line:14:24, endln:14:40
         |vpiFullName:work@top.key_sideload_get
         |vpiForInitStmt:
         \_assign_stmt: , line:15:12, endln:15:21
@@ -1122,7 +1127,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
   |vpiTypedef:
-  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+  \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
   |vpiTypedef:
   \_import_typespec: (my_pkg), line:12:11, endln:12:20
   |vpiDefName:work@top
@@ -1132,7 +1137,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiTypespec:
-    \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:6:18
+    \_struct_typespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
   |vpiTopModule:1
@@ -1160,7 +1165,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiStmt:
-    \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+    \_named_begin: (work@top.key_sideload_get), line:14:24, endln:14:40
       |vpiParent:
       \_always: , line:14:4, endln:18:7
       |vpiName:key_sideload_get
@@ -1168,7 +1173,7 @@ design: (work@top)
       |vpiStmt:
       \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10
         |vpiParent:
-        \_named_begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+        \_named_begin: (work@top.key_sideload_get), line:14:24, endln:14:40
         |vpiFullName:work@top.key_sideload_get
         |vpiForInitStmt:
         \_assign_stmt: , line:15:12, endln:15:21
@@ -1290,4 +1295,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectNoParent/roundtrip/dut_000.sv | 5 | 19 |
+[roundtrip]: ${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectNoParent/roundtrip/dut_000.sv | 7 | 19 |

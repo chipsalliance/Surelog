@@ -155,6 +155,7 @@ param_assign                                          12
 parameter                                             14
 range                                                  8
 ref_obj                                                1
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -177,6 +178,7 @@ param_assign                                          12
 parameter                                             14
 range                                                  8
 ref_obj                                                2
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageNet/slpp_all/surelog.uhdm ...
 
@@ -202,7 +204,7 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:3:1, endln:3:18
     |vpiName:p1
     |vpiFullName:my_package1::p1
   |vpiParameter:
@@ -211,7 +213,7 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:1, endln:4:18
     |vpiLocalParam:1
     |vpiName:p2
     |vpiFullName:my_package1::p2
@@ -227,7 +229,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:3:1, endln:3:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_package1::p1), line:3:12, endln:3:14
@@ -243,7 +245,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:1, endln:4:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_package1::p2), line:4:12, endln:4:14
@@ -279,6 +281,9 @@ design: (work@test)
   \_logic_net: (my_package1::v), line:8:6, endln:8:7
     |vpiParent:
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
+    |vpiTypespec:
+    \_unsupported_typespec: (word), line:8:1, endln:8:5
+      |vpiName:word
     |vpiName:v
     |vpiFullName:my_package1::v
 |uhdmtopPackages:
@@ -293,7 +298,7 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:3:1, endln:3:18
     |vpiName:p1
     |vpiFullName:my_package1::p1
   |vpiParameter:
@@ -302,7 +307,7 @@ design: (work@test)
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:1, endln:4:18
     |vpiLocalParam:1
     |vpiName:p2
     |vpiFullName:my_package1::p2
@@ -318,7 +323,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:3:1, endln:3:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_package1::p1), line:3:12, endln:3:14
@@ -334,7 +339,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:1, endln:4:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_package1::p2), line:4:12, endln:4:14
@@ -371,6 +376,9 @@ design: (work@test)
   \_logic_net: (my_package1::v), line:8:6, endln:8:7
     |vpiParent:
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
+    |vpiTypespec:
+    \_unsupported_typespec: (word), line:8:1, endln:8:5
+      |vpiName:word
     |vpiName:v
     |vpiFullName:my_package1::v
     |vpiNetType:36
@@ -385,7 +393,7 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:3:1, endln:3:18
       |vpiParent:
       \_parameter: (work@test.p1), line:3:12, endln:3:14
     |vpiName:p1
@@ -397,7 +405,7 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:1, endln:4:18
       |vpiParent:
       \_parameter: (work@test.p2), line:4:12, endln:4:14
     |vpiLocalParam:1
@@ -416,7 +424,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:3:1, endln:3:18
         |vpiParent:
         \_constant: , line:3:17, endln:3:18
       |vpiConstType:9
@@ -426,7 +434,7 @@ design: (work@test)
       \_param_assign: , line:3:12, endln:3:18
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:3:1, endln:3:18
         |vpiParent:
         \_parameter: (work@test.p1), line:3:12, endln:3:14
       |vpiName:p1
@@ -444,7 +452,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:1, endln:4:18
         |vpiParent:
         \_constant: , line:4:17, endln:4:18
       |vpiConstType:9
@@ -454,7 +462,7 @@ design: (work@test)
       \_param_assign: , line:4:12, endln:4:18
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:1, endln:4:18
         |vpiParent:
         \_parameter: (work@test.p2), line:4:12, endln:4:14
       |vpiLocalParam:1
@@ -470,6 +478,9 @@ design: (work@test)
   \_logic_net: (work@test.v), line:8:6, endln:8:7
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
+    |vpiTypespec:
+    \_unsupported_typespec: (word), line:8:1, endln:8:5
+      |vpiName:word
     |vpiName:v
     |vpiFullName:work@test.v
     |vpiNetType:36
@@ -501,7 +512,7 @@ design: (work@test)
             |vpiSize:32
             |UINT:1
             |vpiTypespec:
-            \_int_typespec: 
+            \_int_typespec: , line:3:1, endln:3:18
               |vpiParent:
               \_constant: , line:18:7, endln:18:9
             |vpiConstType:9
@@ -513,7 +524,7 @@ design: (work@test)
             |vpiSize:32
             |UINT:2
             |vpiTypespec:
-            \_int_typespec: 
+            \_int_typespec: , line:4:1, endln:4:18
               |vpiParent:
               \_constant: , line:18:12, endln:18:14
             |vpiConstType:9
@@ -566,7 +577,7 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:3:1, endln:3:18
       |vpiParent:
       \_parameter: (work@test.p1), line:3:12, endln:3:14
     |vpiName:p1
@@ -578,7 +589,7 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:1, endln:4:18
       |vpiParent:
       \_parameter: (work@test.p2), line:4:12, endln:4:14
     |vpiLocalParam:1
@@ -597,7 +608,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:3:1, endln:3:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.p1), line:3:12, endln:3:14
@@ -613,7 +624,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:1, endln:4:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.p2), line:4:12, endln:4:14
@@ -662,6 +673,3 @@ design: (work@test)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/PackageNet/dut.sv | ${SURELOG_DIR}/build/regression/PackageNet/roundtrip/dut_000.sv | 2 | 21 |

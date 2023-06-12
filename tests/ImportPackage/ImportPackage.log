@@ -188,7 +188,7 @@ gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 import_typespec                                        1
-int_typespec                                          11
+int_typespec                                          12
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         2
@@ -213,7 +213,7 @@ gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 import_typespec                                        1
-int_typespec                                          11
+int_typespec                                          12
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         2
@@ -432,6 +432,9 @@ design: (work@top)
   \_logic_net: (work@top.o), line:12:18, endln:12:19
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
+    |vpiTypespec:
+    \_int_typespec: , line:12:4, endln:12:7
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiContAssign:
@@ -542,14 +545,14 @@ design: (work@top)
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1)
+    \_gen_scope: (work@top.genblk1), line:15:3, endln:17:6
       |vpiParent:
       \_gen_scope_array: (work@top.genblk1), line:15:3, endln:17:6
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@top.genblk1.good), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:16:6, endln:16:18
         |vpiParent:
-        \_gen_scope: (work@top.genblk1)
+        \_gen_scope: (work@top.genblk1), line:15:3, endln:17:6
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
         |vpiDefName:work@GOOD
@@ -588,4 +591,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ImportPackage/dut.sv | ${SURELOG_DIR}/build/regression/ImportPackage/roundtrip/dut_000.sv | 6 | 19 |
+[roundtrip]: ${SURELOG_DIR}/tests/ImportPackage/dut.sv | ${SURELOG_DIR}/build/regression/ImportPackage/roundtrip/dut_000.sv | 5 | 19 |

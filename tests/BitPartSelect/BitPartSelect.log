@@ -241,39 +241,39 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             1
-constant                                              43
+constant                                              51
 cont_assign                                            1
 design                                                 1
 int_typespec                                           6
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         6
 logic_var                                              3
 module_inst                                            6
-operation                                              9
+operation                                             13
 param_assign                                           6
 parameter                                              6
 part_select                                            1
-range                                                  8
-ref_obj                                                2
+range                                                 12
+ref_obj                                                6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             2
-constant                                              43
+constant                                              51
 cont_assign                                            2
 design                                                 1
 int_typespec                                           6
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         6
 logic_var                                              3
 module_inst                                            6
-operation                                             10
+operation                                             14
 param_assign                                           6
 parameter                                              6
 part_select                                            2
-range                                                  8
-ref_obj                                                4
+range                                                 12
+ref_obj                                                8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitPartSelect/slpp_all/surelog.uhdm ...
 
@@ -379,6 +379,68 @@ design: (work@top)
   \_logic_net: (work@top.storage), line:5:33, endln:5:40
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_logic_typespec: , line:5:4, endln:5:21
+      |vpiRange:
+      \_range: , line:5:10, endln:5:21
+        |vpiParent:
+        \_logic_typespec: , line:5:4, endln:5:21
+        |vpiLeftRange:
+        \_operation: , line:5:11, endln:5:18
+          |vpiParent:
+          \_range: , line:5:10, endln:5:21
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (Depth), line:5:11, endln:5:16
+            |vpiParent:
+            \_operation: , line:5:11, endln:5:18
+            |vpiName:Depth
+          |vpiOperand:
+          \_constant: , line:5:17, endln:5:18
+            |vpiParent:
+            \_operation: , line:5:11, endln:5:18
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:19, endln:5:20
+          |vpiParent:
+          \_range: , line:5:10, endln:5:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:5:21, endln:5:32
+        |vpiParent:
+        \_logic_typespec: , line:5:4, endln:5:21
+        |vpiLeftRange:
+        \_operation: , line:5:22, endln:5:29
+          |vpiParent:
+          \_range: , line:5:21, endln:5:32
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (Width), line:5:22, endln:5:27
+            |vpiParent:
+            \_operation: , line:5:22, endln:5:29
+            |vpiName:Width
+          |vpiOperand:
+          \_constant: , line:5:28, endln:5:29
+            |vpiParent:
+            \_operation: , line:5:22, endln:5:29
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:30, endln:5:31
+          |vpiParent:
+          \_range: , line:5:21, endln:5:32
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:storage
     |vpiFullName:work@top.storage
     |vpiNetType:36
@@ -386,6 +448,40 @@ design: (work@top)
   \_logic_net: (work@top.storage_rdata), line:6:22, endln:6:35
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:4, endln:6:21
+      |vpiRange:
+      \_range: , line:6:10, endln:6:21
+        |vpiParent:
+        \_logic_typespec: , line:6:4, endln:6:21
+        |vpiLeftRange:
+        \_operation: , line:6:11, endln:6:18
+          |vpiParent:
+          \_range: , line:6:10, endln:6:21
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (Width), line:6:11, endln:6:16
+            |vpiParent:
+            \_operation: , line:6:11, endln:6:18
+            |vpiName:Width
+            |vpiActual:
+            \_parameter: (work@top.Width), line:2:27, endln:2:32
+          |vpiOperand:
+          \_constant: , line:6:17, endln:6:18
+            |vpiParent:
+            \_operation: , line:6:11, endln:6:18
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:19, endln:6:20
+          |vpiParent:
+          \_range: , line:6:10, endln:6:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:storage_rdata
     |vpiFullName:work@top.storage_rdata
     |vpiNetType:36
@@ -393,6 +489,38 @@ design: (work@top)
   \_logic_net: (work@top.fifo_rptr), line:7:25, endln:7:34
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_logic_typespec: , line:7:3, endln:7:24
+      |vpiRange:
+      \_range: , line:7:9, endln:7:24
+        |vpiParent:
+        \_logic_typespec: , line:7:3, endln:7:24
+        |vpiLeftRange:
+        \_operation: , line:7:10, endln:7:21
+          |vpiParent:
+          \_range: , line:7:9, endln:7:24
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (PTR_WIDTH), line:7:10, endln:7:19
+            |vpiParent:
+            \_operation: , line:7:10, endln:7:21
+            |vpiName:PTR_WIDTH
+          |vpiOperand:
+          \_constant: , line:7:20, endln:7:21
+            |vpiParent:
+            \_operation: , line:7:10, endln:7:21
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:7:22, endln:7:23
+          |vpiParent:
+          \_range: , line:7:9, endln:7:24
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:fifo_rptr
     |vpiFullName:work@top.fifo_rptr
     |vpiNetType:36
@@ -401,7 +529,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
-    \_bit_select: (work@top.storage), line:9:27, endln:9:60
+    \_bit_select: (work@top.storage), line:9:35, endln:9:59
       |vpiParent:
       \_cont_assign: , line:9:11, endln:9:60
       |vpiName:storage
@@ -409,7 +537,7 @@ design: (work@top)
       |vpiIndex:
       \_part_select: fifo_rptr (work@top.storage.fifo_rptr), line:9:35, endln:9:59
         |vpiParent:
-        \_bit_select: (work@top.storage), line:9:27, endln:9:60
+        \_bit_select: (work@top.storage), line:9:35, endln:9:59
         |vpiName:fifo_rptr
         |vpiFullName:work@top.storage.fifo_rptr
         |vpiDefName:fifo_rptr
@@ -731,7 +859,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
-    \_bit_select: (work@top.storage), line:9:27, endln:9:60
+    \_bit_select: (work@top.storage), line:9:35, endln:9:59
       |vpiParent:
       \_cont_assign: , line:9:11, endln:9:60
       |vpiName:storage
@@ -741,7 +869,7 @@ design: (work@top)
       |vpiIndex:
       \_part_select: fifo_rptr (work@top.storage.fifo_rptr), line:9:35, endln:9:59
         |vpiParent:
-        \_bit_select: (work@top.storage), line:9:27, endln:9:60
+        \_bit_select: (work@top.storage), line:9:35, endln:9:59
         |vpiName:fifo_rptr
         |vpiFullName:work@top.storage.fifo_rptr
         |vpiDefName:fifo_rptr
@@ -781,4 +909,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BitPartSelect/dut.sv | ${SURELOG_DIR}/build/regression/BitPartSelect/roundtrip/dut_000.sv | 4 | 10 |
+[roundtrip]: ${SURELOG_DIR}/tests/BitPartSelect/dut.sv | ${SURELOG_DIR}/build/regression/BitPartSelect/roundtrip/dut_000.sv | 1 | 10 |

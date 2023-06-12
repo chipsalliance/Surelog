@@ -164,7 +164,7 @@ constant                                               2
 cont_assign                                            3
 design                                                 1
 hier_path                                              3
-int_typespec                                           8
+int_typespec                                           9
 int_var                                                4
 interface_inst                                         4
 interface_typespec                                     3
@@ -181,7 +181,7 @@ constant                                               2
 cont_assign                                            5
 design                                                 1
 hier_path                                              5
-int_typespec                                           8
+int_typespec                                           9
 int_var                                                4
 interface_inst                                         4
 interface_typespec                                     3
@@ -215,6 +215,9 @@ design: (work@top)
   \_logic_net: (work@sim_sram_if.start_addr), line:3:8, endln:3:18
     |vpiParent:
     \_interface_inst: work@sim_sram_if (work@sim_sram_if), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:2:1, endln:4:13
+    |vpiTypespec:
+    \_int_typespec: , line:3:4, endln:3:7
+      |vpiSigned:1
     |vpiName:start_addr
     |vpiFullName:work@sim_sram_if.start_addr
 |uhdmallModules:
@@ -242,7 +245,7 @@ design: (work@top)
     |vpiName:ss_if
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@dut.ss_if.ss_if)
+    \_ref_obj: (work@dut.ss_if.ss_if), line:6:24, endln:6:29
       |vpiParent:
       \_port: (ss_if), line:6:24, endln:6:29
       |vpiName:ss_if
@@ -259,7 +262,7 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dut.a.a)
+    \_ref_obj: (work@dut.a.a), line:6:42, endln:6:43
       |vpiParent:
       \_port: (a), line:6:42, endln:6:43
       |vpiName:a
@@ -323,7 +326,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:10:23, endln:10:24
       |vpiParent:
       \_port: (o), line:10:23, endln:10:24
       |vpiName:o
@@ -351,12 +354,12 @@ design: (work@top)
       \_cont_assign: , line:12:11, endln:12:46
       |vpiName:u_sim_sram_if.start_addr
       |vpiActual:
-      \_ref_obj: (u_sim_sram_if)
+      \_ref_obj: (u_sim_sram_if), line:12:25, endln:12:35
         |vpiParent:
         \_hier_path: (u_sim_sram_if.start_addr), line:12:11, endln:12:35
         |vpiName:u_sim_sram_if
       |vpiActual:
-      \_ref_obj: (start_addr)
+      \_ref_obj: (start_addr), line:12:25, endln:12:35
         |vpiParent:
         \_hier_path: (u_sim_sram_if.start_addr), line:12:11, endln:12:35
         |vpiName:start_addr
@@ -589,14 +592,14 @@ design: (work@top)
       \_cont_assign: , line:12:11, endln:12:46
       |vpiName:u_sim_sram_if.start_addr
       |vpiActual:
-      \_ref_obj: (u_sim_sram_if)
+      \_ref_obj: (u_sim_sram_if), line:12:25, endln:12:35
         |vpiParent:
         \_hier_path: (u_sim_sram_if.start_addr), line:12:11, endln:12:35
         |vpiName:u_sim_sram_if
         |vpiActual:
         \_interface_inst: work@sim_sram_if (work@top.u_sim_sram_if), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:11:4, endln:11:32
       |vpiActual:
-      \_ref_obj: (start_addr)
+      \_ref_obj: (start_addr), line:12:25, endln:12:35
         |vpiParent:
         \_hier_path: (u_sim_sram_if.start_addr), line:12:11, endln:12:35
         |vpiName:start_addr
@@ -610,4 +613,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InterfInst/dut.sv | ${SURELOG_DIR}/build/regression/InterfInst/roundtrip/dut_000.sv | 6 | 14 |
+[roundtrip]: ${SURELOG_DIR}/tests/InterfInst/dut.sv | ${SURELOG_DIR}/build/regression/InterfInst/roundtrip/dut_000.sv | 5 | 14 |

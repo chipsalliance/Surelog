@@ -47,7 +47,7 @@
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             2
 begin                                                  1
-constant                                             198
+constant                                             202
 cont_assign                                            1
 delay_control                                          4
 design                                                 1
@@ -58,16 +58,16 @@ int_typespec                                          12
 interface_inst                                         6
 interface_typespec                                     3
 logic_net                                             26
-logic_typespec                                        30
+logic_typespec                                        32
 module_inst                                           23
-operation                                             46
+operation                                             48
 param_assign                                          13
 parameter                                             13
 port                                                  33
 program                                                2
-range                                                 44
+range                                                 46
 ref_module                                             6
-ref_obj                                               70
+ref_obj                                               72
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetRange/slpp_unit/surelog.uhdm ...
@@ -92,7 +92,7 @@ design: (work@TOP)
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:8:1, endln:9:13
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:8:23, endln:8:42
     |vpiName:width
     |vpiFullName:work@ConnectTB.width
   |vpiParamAssign:
@@ -107,7 +107,7 @@ design: (work@TOP)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:8:23, endln:8:42
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ConnectTB.width), line:8:33, endln:8:38
@@ -133,7 +133,7 @@ design: (work@TOP)
     |vpiName:con_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@ConnectTB.con_i.con_i)
+    \_ref_obj: (work@ConnectTB.con_i.con_i), line:8:68, endln:8:73
       |vpiParent:
       \_port: (con_i), line:8:68, endln:8:73
       |vpiName:con_i
@@ -147,7 +147,7 @@ design: (work@TOP)
     |vpiName:con_o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@ConnectTB.con_o.con_o)
+    \_ref_obj: (work@ConnectTB.con_o.con_o), line:8:98, endln:8:103
       |vpiParent:
       \_port: (con_o), line:8:98, endln:8:103
       |vpiName:con_o
@@ -165,7 +165,7 @@ design: (work@TOP)
     \_program: work@TESTBENCH (work@TESTBENCH), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:1:1, endln:13:11
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:1:21, endln:1:40
     |vpiName:width
     |vpiFullName:work@TESTBENCH.width
   |vpiParamAssign:
@@ -180,7 +180,7 @@ design: (work@TOP)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:1:21, endln:1:40
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@TESTBENCH.width), line:1:31, endln:1:36
@@ -450,7 +450,7 @@ design: (work@TOP)
     |vpiName:observe
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@TESTBENCH.observe.observe)
+    \_ref_obj: (work@TESTBENCH.observe.observe), line:1:66, endln:1:73
       |vpiParent:
       \_port: (observe), line:1:66, endln:1:73
       |vpiName:observe
@@ -464,7 +464,7 @@ design: (work@TOP)
     |vpiName:drive
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@TESTBENCH.drive.drive)
+    \_ref_obj: (work@TESTBENCH.drive.drive), line:1:98, endln:1:103
       |vpiParent:
       \_port: (drive), line:1:98, endln:1:103
       |vpiName:drive
@@ -482,7 +482,7 @@ design: (work@TOP)
     \_module_inst: work@SUB (work@SUB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:15:1, endln:17:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:15:14, endln:15:33
     |vpiName:width
     |vpiFullName:work@SUB.width
   |vpiParamAssign:
@@ -497,7 +497,7 @@ design: (work@TOP)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:15:14, endln:15:33
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@SUB.width), line:15:24, endln:15:29
@@ -523,7 +523,7 @@ design: (work@TOP)
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@SUB.inp.inp)
+    \_ref_obj: (work@SUB.inp.inp), line:15:59, endln:15:62
       |vpiParent:
       \_port: (inp), line:15:59, endln:15:62
       |vpiName:inp
@@ -569,7 +569,7 @@ design: (work@TOP)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@SUB.out.out)
+    \_ref_obj: (work@SUB.out.out), line:15:87, endln:15:90
       |vpiParent:
       \_port: (out), line:15:87, endln:15:90
       |vpiName:out
@@ -639,7 +639,7 @@ design: (work@TOP)
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:17:3, endln:17:23
     |vpiName:width
     |vpiFullName:work@TOP.width
   |vpiParamAssign:
@@ -654,7 +654,7 @@ design: (work@TOP)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:17:3, endln:17:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@TOP.width), line:17:13, endln:17:18
@@ -663,6 +663,38 @@ design: (work@TOP)
   \_logic_net: (work@TOP.i), line:18:20, endln:18:21
     |vpiParent:
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
+    |vpiTypespec:
+    \_logic_typespec: , line:18:3, endln:18:19
+      |vpiRange:
+      \_range: , line:18:8, endln:18:19
+        |vpiParent:
+        \_logic_typespec: , line:18:3, endln:18:19
+        |vpiLeftRange:
+        \_operation: , line:18:9, endln:18:16
+          |vpiParent:
+          \_range: , line:18:8, endln:18:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (width), line:18:9, endln:18:14
+            |vpiParent:
+            \_operation: , line:18:9, endln:18:16
+            |vpiName:width
+          |vpiOperand:
+          \_constant: , line:18:15, endln:18:16
+            |vpiParent:
+            \_operation: , line:18:9, endln:18:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:18:17, endln:18:18
+          |vpiParent:
+          \_range: , line:18:8, endln:18:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:i
     |vpiFullName:work@TOP.i
     |vpiNetType:1
@@ -670,6 +702,38 @@ design: (work@TOP)
   \_logic_net: (work@TOP.o), line:19:20, endln:19:21
     |vpiParent:
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
+    |vpiTypespec:
+    \_logic_typespec: , line:19:3, endln:19:19
+      |vpiRange:
+      \_range: , line:19:8, endln:19:19
+        |vpiParent:
+        \_logic_typespec: , line:19:3, endln:19:19
+        |vpiLeftRange:
+        \_operation: , line:19:9, endln:19:16
+          |vpiParent:
+          \_range: , line:19:8, endln:19:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (width), line:19:9, endln:19:14
+            |vpiParent:
+            \_operation: , line:19:9, endln:19:16
+            |vpiName:width
+          |vpiOperand:
+          \_constant: , line:19:15, endln:19:16
+            |vpiParent:
+            \_operation: , line:19:9, endln:19:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:19:17, endln:19:18
+          |vpiParent:
+          \_range: , line:19:8, endln:19:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:o
     |vpiFullName:work@TOP.o
     |vpiNetType:1
@@ -818,7 +882,7 @@ design: (work@TOP)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:2:1, endln:5:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:2:14, endln:2:33
     |vpiName:width
     |vpiFullName:work@dut.width
   |vpiParamAssign:
@@ -833,7 +897,7 @@ design: (work@TOP)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:14, endln:2:33
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.width), line:2:24, endln:2:29
@@ -866,7 +930,7 @@ design: (work@TOP)
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@dut.i.i)
+    \_ref_obj: (work@dut.i.i), line:2:59, endln:2:60
       |vpiParent:
       \_port: (i), line:2:59, endln:2:60
       |vpiName:i
@@ -912,7 +976,7 @@ design: (work@TOP)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dut.o.o)
+    \_ref_obj: (work@dut.o.o), line:2:85, endln:2:86
       |vpiParent:
       \_port: (o), line:2:85, endln:2:86
       |vpiName:o
@@ -1016,7 +1080,7 @@ design: (work@TOP)
     \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:11:1, endln:13:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:11:17, endln:11:36
     |vpiName:width
     |vpiFullName:work@middle.width
   |vpiParamAssign:
@@ -1031,7 +1095,7 @@ design: (work@TOP)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:11:17, endln:11:36
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@middle.width), line:11:27, endln:11:32
@@ -1049,7 +1113,7 @@ design: (work@TOP)
     |vpiName:conn
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@middle.conn.conn)
+    \_ref_obj: (work@middle.conn.conn), line:11:49, endln:11:53
       |vpiParent:
       \_port: (conn), line:11:49, endln:11:53
       |vpiName:conn
@@ -1118,7 +1182,7 @@ design: (work@TOP)
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:17:3, endln:17:23
       |vpiParent:
       \_parameter: (work@TOP.width), line:17:13, endln:17:18
     |vpiName:width
@@ -1135,7 +1199,7 @@ design: (work@TOP)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:17:3, endln:17:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@TOP.width), line:17:13, endln:17:18
@@ -1395,7 +1459,7 @@ design: (work@TOP)
       \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:20:3, endln:20:50
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:8:23, endln:8:42
         |vpiParent:
         \_parameter: (work@TOP.conntb.width), line:8:33, endln:8:38
       |vpiName:width
@@ -1413,7 +1477,7 @@ design: (work@TOP)
         |vpiSize:32
         |UINT:16
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:8:23, endln:8:42
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@TOP.conntb.width), line:8:33, endln:8:38
@@ -1584,7 +1648,7 @@ design: (work@TOP)
       \_module_inst: work@dut (work@TOP.dut1), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:21:3, endln:21:57
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:14, endln:2:33
         |vpiParent:
         \_parameter: (work@TOP.dut1.width), line:2:24, endln:2:29
       |vpiName:width
@@ -1602,7 +1666,7 @@ design: (work@TOP)
         |vpiSize:32
         |UINT:16
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:2:14, endln:2:33
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@TOP.dut1.width), line:2:24, endln:2:29
@@ -1789,7 +1853,7 @@ design: (work@TOP)
         \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:3:3, endln:3:58
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:8:23, endln:8:42
           |vpiParent:
           \_parameter: (work@TOP.dut1.conntb.width), line:8:33, endln:8:38
         |vpiName:width
@@ -1807,7 +1871,7 @@ design: (work@TOP)
           |vpiSize:32
           |UINT:16
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:8:23, endln:8:42
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@TOP.dut1.conntb.width), line:8:33, endln:8:38
@@ -1978,7 +2042,7 @@ design: (work@TOP)
         \_module_inst: work@middle (work@TOP.dut1.middle1), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:4:3, endln:4:43
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:11:17, endln:11:36
           |vpiParent:
           \_parameter: (work@TOP.dut1.middle1.width), line:11:27, endln:11:32
         |vpiName:width
@@ -1996,7 +2060,7 @@ design: (work@TOP)
           |vpiSize:32
           |UINT:16
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:11:17, endln:11:36
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@TOP.dut1.middle1.width), line:11:27, endln:11:32
@@ -2048,7 +2112,7 @@ design: (work@TOP)
           \_module_inst: work@SUB (work@TOP.dut1.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:12:3, endln:12:64
           |UINT:1
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:15:14, endln:15:33
             |vpiParent:
             \_parameter: (work@TOP.dut1.middle1.sub1.width), line:15:24, endln:15:29
           |vpiName:width
@@ -2066,7 +2130,7 @@ design: (work@TOP)
             |vpiSize:32
             |UINT:16
             |vpiTypespec:
-            \_int_typespec: 
+            \_int_typespec: , line:15:14, endln:15:33
             |vpiConstType:9
           |vpiLhs:
           \_parameter: (work@TOP.dut1.middle1.sub1.width), line:15:24, endln:15:29
@@ -2255,7 +2319,3 @@ design: (work@TOP)
 [  ERROR] : 0
 [WARNING] : 7
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/OneNetRange/dut.v | ${SURELOG_DIR}/build/regression/OneNetRange/roundtrip/dut_000.v | 7 | 17 |
-[roundtrip]: ${SURELOG_DIR}/tests/OneNetRange/tb.v  | ${SURELOG_DIR}/build/regression/OneNetRange/roundtrip/tb_000.v  | 9 | 23 |

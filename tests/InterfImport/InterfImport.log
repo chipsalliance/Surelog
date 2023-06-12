@@ -292,7 +292,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               9
+constant                                              19
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
@@ -300,18 +300,21 @@ int_typespec                                           7
 interface_inst                                         1
 io_decl                                               10
 logic_net                                              5
+logic_typespec                                         5
 modport                                                2
 module_inst                                            3
+operation                                              5
 package                                                2
 param_assign                                           7
 parameter                                              8
-ref_obj                                                2
+range                                                  5
+ref_obj                                                7
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               9
+constant                                              19
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
@@ -319,12 +322,15 @@ int_typespec                                           7
 interface_inst                                         1
 io_decl                                               10
 logic_net                                              5
+logic_typespec                                         5
 modport                                                2
 module_inst                                            3
+operation                                              5
 package                                                2
 param_assign                                           7
 parameter                                              8
-ref_obj                                                2
+range                                                  5
+ref_obj                                                7
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfImport/slpp_all/surelog.uhdm ...
@@ -351,7 +357,7 @@ design: (unnamed)
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:2:4, endln:2:46
     |vpiLocalParam:1
     |vpiName:TNOC_DEFAULT_PACKET_CONFIG
     |vpiFullName:tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG
@@ -367,7 +373,7 @@ design: (unnamed)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:4, endln:2:46
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
@@ -384,7 +390,7 @@ design: (unnamed)
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:2:4, endln:2:46
     |vpiLocalParam:1
     |vpiName:TNOC_DEFAULT_PACKET_CONFIG
     |vpiFullName:tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG
@@ -400,7 +406,7 @@ design: (unnamed)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:4, endln:2:46
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
@@ -417,7 +423,7 @@ design: (unnamed)
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:2:4, endln:2:46
       |vpiParent:
       \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
     |vpiLocalParam:1
@@ -461,7 +467,7 @@ design: (unnamed)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:4, endln:2:46
         |vpiParent:
         \_constant: , line:2:45, endln:2:46
       |vpiConstType:9
@@ -471,7 +477,7 @@ design: (unnamed)
       \_param_assign: , line:2:15, endln:2:46
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:4, endln:2:46
         |vpiParent:
         \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
       |vpiLocalParam:1
@@ -504,12 +510,12 @@ design: (unnamed)
       \_param_assign: , line:11:19, endln:11:61
       |vpiName:PACKET_CONFIG.virtual_channels
       |vpiActual:
-      \_ref_obj: (PACKET_CONFIG)
+      \_ref_obj: (PACKET_CONFIG), line:11:45, endln:11:61
         |vpiParent:
         \_hier_path: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
         |vpiName:PACKET_CONFIG
       |vpiActual:
-      \_ref_obj: (virtual_channels)
+      \_ref_obj: (virtual_channels), line:11:45, endln:11:61
         |vpiParent:
         \_hier_path: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
         |vpiName:virtual_channels
@@ -522,6 +528,38 @@ design: (unnamed)
   \_logic_net: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
     |vpiParent:
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_logic_typespec: , line:13:3, endln:13:23
+      |vpiRange:
+      \_range: , line:13:9, endln:13:23
+        |vpiParent:
+        \_logic_typespec: , line:13:3, endln:13:23
+        |vpiLeftRange:
+        \_operation: , line:13:10, endln:13:20
+          |vpiParent:
+          \_range: , line:13:9, endln:13:23
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (CHANNELS), line:13:10, endln:13:18
+            |vpiParent:
+            \_operation: , line:13:10, endln:13:20
+            |vpiName:CHANNELS
+          |vpiOperand:
+          \_constant: , line:13:19, endln:13:20
+            |vpiParent:
+            \_operation: , line:13:10, endln:13:20
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:13:21, endln:13:22
+          |vpiParent:
+          \_range: , line:13:9, endln:13:23
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:request
     |vpiFullName:work@tnoc_port_control_if.request
     |vpiNetType:36
@@ -529,6 +567,38 @@ design: (unnamed)
   \_logic_net: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
     |vpiParent:
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_logic_typespec: , line:14:3, endln:14:23
+      |vpiRange:
+      \_range: , line:14:9, endln:14:23
+        |vpiParent:
+        \_logic_typespec: , line:14:3, endln:14:23
+        |vpiLeftRange:
+        \_operation: , line:14:10, endln:14:20
+          |vpiParent:
+          \_range: , line:14:9, endln:14:23
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (CHANNELS), line:14:10, endln:14:18
+            |vpiParent:
+            \_operation: , line:14:10, endln:14:20
+            |vpiName:CHANNELS
+          |vpiOperand:
+          \_constant: , line:14:19, endln:14:20
+            |vpiParent:
+            \_operation: , line:14:10, endln:14:20
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:14:21, endln:14:22
+          |vpiParent:
+          \_range: , line:14:9, endln:14:23
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:grant
     |vpiFullName:work@tnoc_port_control_if.grant
     |vpiNetType:36
@@ -536,6 +606,38 @@ design: (unnamed)
   \_logic_net: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
     |vpiParent:
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_logic_typespec: , line:15:3, endln:15:23
+      |vpiRange:
+      \_range: , line:15:9, endln:15:23
+        |vpiParent:
+        \_logic_typespec: , line:15:3, endln:15:23
+        |vpiLeftRange:
+        \_operation: , line:15:10, endln:15:20
+          |vpiParent:
+          \_range: , line:15:9, endln:15:23
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (CHANNELS), line:15:10, endln:15:18
+            |vpiParent:
+            \_operation: , line:15:10, endln:15:20
+            |vpiName:CHANNELS
+          |vpiOperand:
+          \_constant: , line:15:19, endln:15:20
+            |vpiParent:
+            \_operation: , line:15:10, endln:15:20
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:15:21, endln:15:22
+          |vpiParent:
+          \_range: , line:15:9, endln:15:23
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:free
     |vpiFullName:work@tnoc_port_control_if.free
     |vpiNetType:36
@@ -543,6 +645,38 @@ design: (unnamed)
   \_logic_net: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
     |vpiParent:
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_logic_typespec: , line:16:3, endln:16:23
+      |vpiRange:
+      \_range: , line:16:9, endln:16:23
+        |vpiParent:
+        \_logic_typespec: , line:16:3, endln:16:23
+        |vpiLeftRange:
+        \_operation: , line:16:10, endln:16:20
+          |vpiParent:
+          \_range: , line:16:9, endln:16:23
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (CHANNELS), line:16:10, endln:16:18
+            |vpiParent:
+            \_operation: , line:16:10, endln:16:20
+            |vpiName:CHANNELS
+          |vpiOperand:
+          \_constant: , line:16:19, endln:16:20
+            |vpiParent:
+            \_operation: , line:16:10, endln:16:20
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:16:21, endln:16:22
+          |vpiParent:
+          \_range: , line:16:9, endln:16:23
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:start_of_packet
     |vpiFullName:work@tnoc_port_control_if.start_of_packet
     |vpiNetType:36
@@ -550,6 +684,38 @@ design: (unnamed)
   \_logic_net: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
     |vpiParent:
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_logic_typespec: , line:17:3, endln:17:23
+      |vpiRange:
+      \_range: , line:17:9, endln:17:23
+        |vpiParent:
+        \_logic_typespec: , line:17:3, endln:17:23
+        |vpiLeftRange:
+        \_operation: , line:17:10, endln:17:20
+          |vpiParent:
+          \_range: , line:17:9, endln:17:23
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (CHANNELS), line:17:10, endln:17:18
+            |vpiParent:
+            \_operation: , line:17:10, endln:17:20
+            |vpiName:CHANNELS
+          |vpiOperand:
+          \_constant: , line:17:19, endln:17:20
+            |vpiParent:
+            \_operation: , line:17:10, endln:17:20
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:17:21, endln:17:22
+          |vpiParent:
+          \_range: , line:17:9, endln:17:23
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:end_of_packet
     |vpiFullName:work@tnoc_port_control_if.end_of_packet
     |vpiNetType:36
@@ -629,6 +795,3 @@ design: (unnamed)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 4
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/InterfImport/dut.sv | ${SURELOG_DIR}/build/regression/InterfImport/roundtrip/dut_000.sv | 17 | 34 |

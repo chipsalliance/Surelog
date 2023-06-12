@@ -158,7 +158,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         1
 array_var                                              1
-byte_typespec                                          5
+byte_typespec                                         10
 byte_var                                               5
 constant                                               5
 design                                                 1
@@ -175,7 +175,7 @@ ref_obj                                                4
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         1
 array_var                                              1
-byte_typespec                                          5
+byte_typespec                                         10
 byte_var                                               5
 constant                                               5
 design                                                 1
@@ -209,37 +209,52 @@ design: (work@top)
   \_logic_net: (work@top.b), line:2:10, endln:2:11
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_byte_typespec: , line:2:5, endln:2:13
+      |vpiSigned:1
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
   \_logic_net: (work@top.o), line:3:10, endln:3:11
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_byte_typespec: , line:3:5, endln:3:19
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
   \_logic_net: (work@top.o), line:4:10, endln:4:11
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_byte_typespec: , line:4:5, endln:4:18
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
   \_logic_net: (work@top.o), line:5:10, endln:5:11
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_byte_typespec: , line:5:5, endln:5:19
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
   \_logic_net: (work@top.o), line:6:10, endln:6:11
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_byte_typespec: , line:6:5, endln:6:22
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
   |vpiName:work@top
   |vpiVariables:
-  \_array_var: (work@top.b), line:2:10, endln:2:13
+  \_array_var: (work@top.b), line:2:10, endln:2:11
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiSize:1
@@ -276,7 +291,7 @@ design: (work@top)
     |vpiReg:
     \_byte_var: (work@top.b), line:2:10, endln:2:11
       |vpiParent:
-      \_array_var: (work@top.b), line:2:10, endln:2:13
+      \_array_var: (work@top.b), line:2:10, endln:2:11
       |vpiTypespec:
       \_byte_typespec: , line:2:5, endln:2:9
         |vpiParent:
@@ -309,7 +324,7 @@ design: (work@top)
         |vpiName:b
         |vpiFullName:work@top.o.b
         |vpiActual:
-        \_array_var: (work@top.b), line:2:10, endln:2:13
+        \_array_var: (work@top.b), line:2:10, endln:2:11
       |vpiActual:
       \_method_func_call: (and), line:3:16, endln:3:19
         |vpiParent:
@@ -339,7 +354,7 @@ design: (work@top)
         |vpiName:b
         |vpiFullName:work@top.o.b
         |vpiActual:
-        \_array_var: (work@top.b), line:2:10, endln:2:13
+        \_array_var: (work@top.b), line:2:10, endln:2:11
       |vpiActual:
       \_method_func_call: (or), line:4:16, endln:4:18
         |vpiParent:
@@ -369,7 +384,7 @@ design: (work@top)
         |vpiName:b
         |vpiFullName:work@top.o.b
         |vpiActual:
-        \_array_var: (work@top.b), line:2:10, endln:2:13
+        \_array_var: (work@top.b), line:2:10, endln:2:11
       |vpiActual:
       \_method_func_call: (xor), line:5:16, endln:5:19
         |vpiParent:
@@ -399,7 +414,7 @@ design: (work@top)
         |vpiName:b
         |vpiFullName:work@top.o.b
         |vpiActual:
-        \_array_var: (work@top.b), line:2:10, endln:2:13
+        \_array_var: (work@top.b), line:2:10, endln:2:11
       |vpiActual:
       \_method_func_call: (unique), line:6:16, endln:6:22
         |vpiParent:

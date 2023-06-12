@@ -549,7 +549,7 @@ event_control                                          2
 func_call                                              2
 if_else                                                1
 logic_net                                              8
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              8
 module_inst                                            2
 operation                                             15
@@ -573,7 +573,7 @@ event_control                                          4
 func_call                                              2
 if_else                                                2
 logic_net                                              8
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              8
 module_inst                                            2
 operation                                             30
@@ -647,6 +647,8 @@ design: (work@m)
   \_logic_net: (work@m.rst), line:3:9, endln:3:12
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:3, endln:3:8
     |vpiName:rst
     |vpiFullName:work@m.rst
     |vpiNetType:36
@@ -901,7 +903,7 @@ design: (work@m)
     |vpiName:a
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@m.a.a)
+    \_ref_obj: (work@m.a.a), line:1:16, endln:1:17
       |vpiParent:
       \_port: (a), line:1:16, endln:1:17
       |vpiName:a
@@ -915,7 +917,7 @@ design: (work@m)
     |vpiName:b
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@m.b.b)
+    \_ref_obj: (work@m.b.b), line:1:19, endln:1:20
       |vpiParent:
       \_port: (b), line:1:19, endln:1:20
       |vpiName:b
@@ -929,7 +931,7 @@ design: (work@m)
     |vpiName:c
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@m.c.c)
+    \_ref_obj: (work@m.c.c), line:1:22, endln:1:23
       |vpiParent:
       \_port: (c), line:1:22, endln:1:23
       |vpiName:c
@@ -943,7 +945,7 @@ design: (work@m)
     |vpiName:d
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@m.d.d)
+    \_ref_obj: (work@m.d.d), line:1:25, endln:1:26
       |vpiParent:
       \_port: (d), line:1:25, endln:1:26
       |vpiName:d
@@ -957,7 +959,7 @@ design: (work@m)
     |vpiName:rst1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@m.rst1.rst1)
+    \_ref_obj: (work@m.rst1.rst1), line:1:28, endln:1:32
       |vpiParent:
       \_port: (rst1), line:1:28, endln:1:32
       |vpiName:rst1
@@ -971,7 +973,7 @@ design: (work@m)
     |vpiName:clk1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@m.clk1.clk1)
+    \_ref_obj: (work@m.clk1.clk1), line:1:34, endln:1:38
       |vpiParent:
       \_port: (clk1), line:1:34, endln:1:38
       |vpiName:clk1
@@ -985,7 +987,7 @@ design: (work@m)
     |vpiName:clk2
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@m.clk2.clk2)
+    \_ref_obj: (work@m.clk2.clk2), line:1:40, endln:1:44
       |vpiParent:
       \_port: (clk2), line:1:40, endln:1:44
       |vpiName:clk2
@@ -1635,4 +1637,4 @@ design: (work@m)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv | ${SURELOG_DIR}/build/regression/SequenceInst/roundtrip/dut_000.sv | 12 | 30 |
+[roundtrip]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv | ${SURELOG_DIR}/build/regression/SequenceInst/roundtrip/dut_000.sv | 11 | 30 |

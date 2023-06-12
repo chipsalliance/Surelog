@@ -189,6 +189,7 @@ struct_typespec                                        1
 struct_var                                             1
 tagged_pattern                                         5
 typespec_member                                        2
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -214,6 +215,7 @@ struct_typespec                                        1
 struct_var                                             1
 tagged_pattern                                         5
 typespec_member                                        2
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstExpand/slpp_all/surelog.uhdm ...
 
@@ -233,7 +235,7 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
-  \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:2:18
+  \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:5:5
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
     |vpiName:mac_bignum_operation_t
@@ -243,7 +245,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (operand_a), line:3:11, endln:3:20
       |vpiParent:
-      \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:2:18
+      \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:5:5
       |vpiName:operand_a
       |vpiTypespec:
       \_int_typespec: , line:3:7, endln:3:10
@@ -258,7 +260,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (unused), line:4:11, endln:4:17
       |vpiParent:
-      \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:2:18
+      \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:5:5
       |vpiName:unused
       |vpiTypespec:
       \_int_typespec: , line:4:7, endln:4:10
@@ -281,6 +283,9 @@ design: (work@top)
   \_logic_net: (work@top.operation_i), line:7:27, endln:7:38
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
+    |vpiTypespec:
+    \_unsupported_typespec: (mac_bignum_operation_t), line:7:4, endln:7:26
+      |vpiName:mac_bignum_operation_t
     |vpiName:operation_i
     |vpiFullName:work@top.operation_i
   |vpiPort:
@@ -290,7 +295,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:1:23, endln:1:24
       |vpiParent:
       \_port: (o), line:1:23, endln:1:24
       |vpiName:o
@@ -425,7 +430,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
     |vpiTypespec:
-    \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:2:18
+    \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:5:5
     |vpiName:operation_i
     |vpiFullName:work@top.operation_i
     |vpiVisibility:1
@@ -451,7 +456,7 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
   |vpiTypedef:
-  \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:2:18
+  \_struct_typespec: (mac_bignum_operation_t), line:2:12, endln:5:5
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1

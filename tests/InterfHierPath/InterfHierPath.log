@@ -112,34 +112,34 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              12
+constant                                              14
 cont_assign                                            1
 design                                                 1
 hier_path                                              1
 interface_inst                                         3
 logic_net                                              3
-logic_typespec                                         4
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            5
 port                                                   2
-range                                                  6
+range                                                  7
 ref_module                                             1
 ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              12
+constant                                              14
 cont_assign                                            2
 design                                                 1
 hier_path                                              2
 interface_inst                                         3
 logic_net                                              3
-logic_typespec                                         4
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            5
 port                                                   3
-range                                                  6
+range                                                  7
 ref_module                                             1
 ref_obj                                                9
 === UHDM Object Stats End ===
@@ -165,6 +165,28 @@ design: (work@or_ex)
   \_logic_net: (work@logic_gate_if.a), line:3:12, endln:3:13
     |vpiParent:
     \_interface_inst: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:11
+      |vpiRange:
+      \_range: , line:3:6, endln:3:11
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:11
+        |vpiLeftRange:
+        \_constant: , line:3:7, endln:3:8
+          |vpiParent:
+          \_range: , line:3:6, endln:3:11
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:9, endln:3:10
+          |vpiParent:
+          \_range: , line:3:6, endln:3:11
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:a
     |vpiFullName:work@logic_gate_if.a
     |vpiNetType:36
@@ -188,7 +210,7 @@ design: (work@or_ex)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@or_ex.a.a)
+    \_ref_obj: (work@or_ex.a.a), line:9:22, endln:9:23
       |vpiParent:
       \_port: (a), line:9:22, endln:9:23
       |vpiName:a
@@ -235,12 +257,12 @@ design: (work@or_ex)
       \_cont_assign: , line:14:10, endln:14:18
       |vpiName:lg.a
       |vpiActual:
-      \_ref_obj: (lg)
+      \_ref_obj: (lg), line:14:13, endln:14:14
         |vpiParent:
         \_hier_path: (lg.a), line:14:10, endln:14:14
         |vpiName:lg
       |vpiActual:
-      \_ref_obj: (a)
+      \_ref_obj: (a), line:14:13, endln:14:14
         |vpiParent:
         \_hier_path: (lg.a), line:14:10, endln:14:14
         |vpiName:a
@@ -407,14 +429,14 @@ design: (work@or_ex)
       \_cont_assign: , line:14:10, endln:14:18
       |vpiName:lg.a
       |vpiActual:
-      \_ref_obj: (lg)
+      \_ref_obj: (lg), line:14:13, endln:14:14
         |vpiParent:
         \_hier_path: (lg.a), line:14:10, endln:14:14
         |vpiName:lg
         |vpiActual:
         \_interface_inst: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
       |vpiActual:
-      \_ref_obj: (a)
+      \_ref_obj: (a), line:14:13, endln:14:14
         |vpiParent:
         \_hier_path: (lg.a), line:14:10, endln:14:14
         |vpiName:a
@@ -428,4 +450,4 @@ design: (work@or_ex)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InterfHierPath/dut.sv | ${SURELOG_DIR}/build/regression/InterfHierPath/roundtrip/dut_000.sv | 5 | 16 |
+[roundtrip]: ${SURELOG_DIR}/tests/InterfHierPath/dut.sv | ${SURELOG_DIR}/build/regression/InterfHierPath/roundtrip/dut_000.sv | 4 | 16 |

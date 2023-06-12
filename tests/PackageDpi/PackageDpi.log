@@ -43,7 +43,7 @@ range                                                  2
 ref_obj                                                2
 string_typespec                                        4
 string_var                                             2
-unsupported_typespec                                   2
+unsupported_typespec                                   4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -66,7 +66,7 @@ range                                                  2
 ref_obj                                                2
 string_typespec                                        4
 string_var                                             2
-unsupported_typespec                                   2
+unsupported_typespec                                   4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageDpi/slpp_unit/surelog.uhdm ...
 
@@ -201,6 +201,9 @@ design: (unnamed)
   \_logic_net: (pack::uvm_deferred_init), line:17:20, endln:17:37
     |vpiParent:
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
+    |vpiTypespec:
+    \_unsupported_typespec: (uvm_object_wrapper), line:17:1, endln:17:40
+      |vpiName:uvm_object_wrapper
     |vpiName:uvm_deferred_init
     |vpiFullName:pack::uvm_deferred_init
 |uhdmtopPackages:
@@ -352,6 +355,9 @@ design: (unnamed)
   \_logic_net: (pack::uvm_deferred_init), line:17:20, endln:17:37
     |vpiParent:
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageDpi/dut.sv, line:1:1, endln:27:11
+    |vpiTypespec:
+    \_unsupported_typespec: (uvm_object_wrapper), line:17:1, endln:17:40
+      |vpiName:uvm_object_wrapper
     |vpiName:uvm_deferred_init
     |vpiFullName:pack::uvm_deferred_init
 ===================
@@ -362,4 +368,4 @@ design: (unnamed)
 [   NOTE] : 4
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PackageDpi/dut.sv | ${SURELOG_DIR}/build/regression/PackageDpi/roundtrip/dut_000.sv | 8 | 27 |
+[roundtrip]: ${SURELOG_DIR}/tests/PackageDpi/dut.sv | ${SURELOG_DIR}/build/regression/PackageDpi/roundtrip/dut_000.sv | 7 | 27 |

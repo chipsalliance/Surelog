@@ -206,7 +206,7 @@ interface_inst                                         3
 interface_typespec                                     7
 io_decl                                                3
 logic_net                                              2
-logic_typespec                                         2
+logic_typespec                                         3
 logic_var                                              2
 modport                                                3
 module_inst                                            6
@@ -236,7 +236,7 @@ interface_inst                                         3
 interface_typespec                                     7
 io_decl                                                3
 logic_net                                              2
-logic_typespec                                         2
+logic_typespec                                         3
 logic_var                                              2
 modport                                                3
 module_inst                                            6
@@ -269,6 +269,8 @@ design: (work@r5p_bus_dec)
   \_logic_net: (work@r5p_bus_if.vld), line:4:17, endln:4:20
     |vpiParent:
     \_interface_inst: work@r5p_bus_if (work@r5p_bus_if), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:2:1, endln:10:25
+    |vpiTypespec:
+    \_logic_typespec: , line:4:2, endln:4:7
     |vpiName:vld
     |vpiFullName:work@r5p_bus_if.vld
     |vpiNetType:36
@@ -329,7 +331,7 @@ design: (work@r5p_bus_dec)
     |vpiName:m
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@r5p_bus_dec.m.m)
+    \_ref_obj: (work@r5p_bus_dec.m.m), line:15:18, endln:15:19
       |vpiParent:
       \_port: (m), line:15:18, endln:15:19
       |vpiName:m
@@ -579,14 +581,14 @@ design: (work@r5p_bus_dec)
     |vpiName:gen_loop[0]
     |vpiFullName:work@r5p_bus_dec.gen_loop[0]
     |vpiGenScope:
-    \_gen_scope: (work@r5p_bus_dec.gen_loop[0])
+    \_gen_scope: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
       |vpiParent:
       \_gen_scope_array: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
       |vpiFullName:work@r5p_bus_dec.gen_loop[0]
       |vpiParameter:
       \_parameter: (work@r5p_bus_dec.gen_loop[0].i), line:21:0
         |vpiParent:
-        \_gen_scope: (work@r5p_bus_dec.gen_loop[0])
+        \_gen_scope: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -596,14 +598,14 @@ design: (work@r5p_bus_dec)
       |vpiContAssign:
       \_cont_assign: , line:23:10, endln:23:38
         |vpiParent:
-        \_gen_scope: (work@r5p_bus_dec.gen_loop[0])
+        \_gen_scope: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
         |vpiRhs:
         \_operation: , line:23:21, endln:23:38
           |vpiParent:
           \_cont_assign: , line:23:10, endln:23:38
           |vpiOpType:32
           |vpiOperand:
-          \_bit_select: (work@r5p_bus_dec.gen_loop[0].s_dec), line:23:21, endln:23:29
+          \_bit_select: (work@r5p_bus_dec.gen_loop[0].s_dec), line:23:27, endln:23:28
             |vpiParent:
             \_operation: , line:23:21, endln:23:38
             |vpiName:s_dec
@@ -611,7 +613,7 @@ design: (work@r5p_bus_dec)
             |vpiIndex:
             \_ref_obj: (work@r5p_bus_dec.gen_loop[0].i), line:23:27, endln:23:28
               |vpiParent:
-              \_bit_select: (work@r5p_bus_dec.gen_loop[0].s_dec), line:23:21, endln:23:29
+              \_bit_select: (work@r5p_bus_dec.gen_loop[0].s_dec), line:23:27, endln:23:28
               |vpiName:i
               |vpiFullName:work@r5p_bus_dec.gen_loop[0].i
               |vpiActual:
@@ -652,7 +654,7 @@ design: (work@r5p_bus_dec)
               |vpiActual:
               \_parameter: (work@r5p_bus_dec.gen_loop[0].i), line:21:0
           |vpiActual:
-          \_ref_obj: (m[i].vld)
+          \_ref_obj: (m[i].vld), line:23:15, endln:23:18
             |vpiParent:
             \_hier_path: (m[i].vld), line:23:10, endln:23:11
             |vpiName:vld
@@ -666,14 +668,14 @@ design: (work@r5p_bus_dec)
     |vpiName:gen_loop[1]
     |vpiFullName:work@r5p_bus_dec.gen_loop[1]
     |vpiGenScope:
-    \_gen_scope: (work@r5p_bus_dec.gen_loop[1])
+    \_gen_scope: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
       |vpiParent:
       \_gen_scope_array: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
       |vpiFullName:work@r5p_bus_dec.gen_loop[1]
       |vpiParameter:
       \_parameter: (work@r5p_bus_dec.gen_loop[1].i), line:21:0
         |vpiParent:
-        \_gen_scope: (work@r5p_bus_dec.gen_loop[1])
+        \_gen_scope: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
         |UINT:1
         |vpiTypespec:
         \_int_typespec: 
@@ -683,14 +685,14 @@ design: (work@r5p_bus_dec)
       |vpiContAssign:
       \_cont_assign: , line:23:10, endln:23:38
         |vpiParent:
-        \_gen_scope: (work@r5p_bus_dec.gen_loop[1])
+        \_gen_scope: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
         |vpiRhs:
         \_operation: , line:23:21, endln:23:38
           |vpiParent:
           \_cont_assign: , line:23:10, endln:23:38
           |vpiOpType:32
           |vpiOperand:
-          \_bit_select: (work@r5p_bus_dec.gen_loop[1].s_dec), line:23:21, endln:23:29
+          \_bit_select: (work@r5p_bus_dec.gen_loop[1].s_dec), line:23:27, endln:23:28
             |vpiParent:
             \_operation: , line:23:21, endln:23:38
             |vpiName:s_dec
@@ -698,7 +700,7 @@ design: (work@r5p_bus_dec)
             |vpiIndex:
             \_ref_obj: (work@r5p_bus_dec.gen_loop[1].i), line:23:27, endln:23:28
               |vpiParent:
-              \_bit_select: (work@r5p_bus_dec.gen_loop[1].s_dec), line:23:21, endln:23:29
+              \_bit_select: (work@r5p_bus_dec.gen_loop[1].s_dec), line:23:27, endln:23:28
               |vpiName:i
               |vpiFullName:work@r5p_bus_dec.gen_loop[1].i
               |vpiActual:
@@ -739,7 +741,7 @@ design: (work@r5p_bus_dec)
               |vpiActual:
               \_parameter: (work@r5p_bus_dec.gen_loop[1].i), line:21:0
           |vpiActual:
-          \_ref_obj: (m[i].vld)
+          \_ref_obj: (m[i].vld), line:23:15, endln:23:18
             |vpiParent:
             \_hier_path: (m[i].vld), line:23:10, endln:23:11
             |vpiName:vld

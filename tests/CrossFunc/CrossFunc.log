@@ -359,7 +359,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
-constant                                              17
+constant                                              21
 design                                                 1
 for_stmt                                               2
 func_call                                              2
@@ -368,21 +368,21 @@ int_typespec                                           2
 int_var                                                1
 io_decl                                                2
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              4
 method_func_call                                       3
 module_inst                                            4
 operation                                              8
-range                                                  6
+range                                                  8
 ref_obj                                               12
 ref_var                                                2
-unsupported_typespec                                   3
+unsupported_typespec                                   4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            4
-constant                                              17
+constant                                              21
 design                                                 1
 for_stmt                                               4
 func_call                                              4
@@ -391,15 +391,15 @@ int_typespec                                           2
 int_var                                                2
 io_decl                                                4
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              5
 method_func_call                                       3
 module_inst                                            4
 operation                                             16
-range                                                  6
+range                                                  8
 ref_obj                                               22
 ref_var                                                2
-unsupported_typespec                                   3
+unsupported_typespec                                   4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CrossFunc/slpp_all/surelog.uhdm ...
 
@@ -556,11 +556,11 @@ design: (work@mod_m)
       |vpiDirection:1
       |vpiName:f_lim
       |vpiTypedef:
-      \_logic_typespec: , line:17:35, endln:17:47
+      \_logic_typespec: , line:17:35, endln:17:40
         |vpiRange:
         \_range: , line:17:41, endln:17:47
           |vpiParent:
-          \_logic_typespec: , line:17:35, endln:17:47
+          \_logic_typespec: , line:17:35, endln:17:40
           |vpiLeftRange:
           \_constant: , line:17:42, endln:17:44
             |vpiParent:
@@ -716,6 +716,28 @@ design: (work@mod_m)
   \_logic_net: (work@mod_m.a), line:2:15, endln:2:16
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:2, endln:2:14
+      |vpiRange:
+      \_range: , line:2:8, endln:2:14
+        |vpiParent:
+        \_logic_typespec: , line:2:2, endln:2:14
+        |vpiLeftRange:
+        \_constant: , line:2:9, endln:2:11
+          |vpiParent:
+          \_range: , line:2:8, endln:2:14
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:12, endln:2:13
+          |vpiParent:
+          \_range: , line:2:8, endln:2:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:a
     |vpiFullName:work@mod_m.a
     |vpiNetType:36
@@ -723,6 +745,28 @@ design: (work@mod_m)
   \_logic_net: (work@mod_m.b), line:2:18, endln:2:19
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:2, endln:2:14
+      |vpiRange:
+      \_range: , line:2:8, endln:2:14
+        |vpiParent:
+        \_logic_typespec: , line:2:2, endln:2:14
+        |vpiLeftRange:
+        \_constant: , line:2:9, endln:2:11
+          |vpiParent:
+          \_range: , line:2:8, endln:2:14
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:12, endln:2:13
+          |vpiParent:
+          \_range: , line:2:8, endln:2:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:b
     |vpiFullName:work@mod_m.b
     |vpiNetType:36
@@ -730,6 +774,9 @@ design: (work@mod_m)
   \_logic_net: (work@mod_m.cg_inst), line:24:5, endln:24:12
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
+    |vpiTypespec:
+    \_unsupported_typespec: (cg), line:24:2, endln:24:21
+      |vpiName:cg
     |vpiName:cg_inst
     |vpiFullName:work@mod_m.cg_inst
 |uhdmtopModules:
@@ -952,7 +999,7 @@ design: (work@mod_m)
       |vpiDirection:1
       |vpiName:f_lim
       |vpiTypedef:
-      \_logic_typespec: , line:17:35, endln:17:47
+      \_logic_typespec: , line:17:35, endln:17:40
     |vpiStmt:
     \_for_stmt: (work@mod_m.myFunc2), line:18:4, endln:18:7
       |vpiParent:

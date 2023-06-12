@@ -363,7 +363,7 @@ AST_DEBUG_END
 assignment                                             1
 attribute                                              6
 begin                                                  1
-bit_typespec                                           1
+bit_typespec                                           2
 bit_var                                                1
 class_defn                                             1
 constant                                               9
@@ -375,7 +375,7 @@ if_stmt                                                1
 initial                                                3
 interface_inst                                         4
 logic_net                                              4
-logic_typespec                                         2
+logic_typespec                                         3
 module_inst                                            8
 named_begin                                            1
 named_fork                                             3
@@ -390,7 +390,7 @@ sys_func_call                                          1
 assignment                                             2
 attribute                                              6
 begin                                                  2
-bit_typespec                                           1
+bit_typespec                                           2
 bit_var                                                1
 class_defn                                             1
 constant                                               9
@@ -402,7 +402,7 @@ if_stmt                                                2
 initial                                                6
 interface_inst                                         4
 logic_net                                              4
-logic_typespec                                         2
+logic_typespec                                         3
 module_inst                                            8
 named_begin                                            2
 named_fork                                             6
@@ -492,6 +492,8 @@ design: (work@test)
   \_logic_net: (work@block_tb.a), line:61:6, endln:61:7
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:60:1, endln:66:10
+    |vpiTypespec:
+    \_logic_typespec: , line:61:2, endln:61:11
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:48
@@ -535,6 +537,8 @@ design: (work@test)
   \_logic_net: (work@test.err), line:27:8, endln:27:11
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:23:1, endln:57:21
+    |vpiTypespec:
+    \_bit_typespec: , line:27:4, endln:27:15
     |vpiName:err
     |vpiFullName:work@test.err
   |vpiProcess:
@@ -542,7 +546,7 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:23:1, endln:57:21
     |vpiStmt:
-    \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
+    \_named_begin: (work@test.dummy_label), line:30:12, endln:30:23
       |vpiParent:
       \_initial: , line:29:4, endln:32:25
       |vpiName:dummy_label
@@ -550,11 +554,11 @@ design: (work@test)
       |vpiStmt:
       \_if_stmt: , line:31:7, endln:31:36
         |vpiParent:
-        \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
+        \_named_begin: (work@test.dummy_label), line:30:12, endln:30:23
         |vpiCondition:
         \_operation: , line:31:11, endln:31:15
           |vpiParent:
-          \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
+          \_named_begin: (work@test.dummy_label), line:30:12, endln:30:23
           |vpiOpType:3
           |vpiOperand:
           \_ref_obj: (work@test.dummy_label.err), line:31:12, endln:31:15
@@ -681,7 +685,7 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:23:1, endln:57:21
     |vpiStmt:
-    \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
+    \_named_begin: (work@test.dummy_label), line:30:12, endln:30:23
       |vpiParent:
       \_initial: , line:29:4, endln:32:25
       |vpiName:dummy_label
@@ -689,7 +693,7 @@ design: (work@test)
       |vpiStmt:
       \_if_stmt: , line:31:7, endln:31:36
         |vpiParent:
-        \_named_begin: (work@test.dummy_label), line:30:4, endln:32:25
+        \_named_begin: (work@test.dummy_label), line:30:12, endln:30:23
         |vpiCondition:
         \_operation: , line:31:11, endln:31:15
           |vpiParent:
@@ -821,4 +825,4 @@ design: (work@test)
 [   NOTE] : 7
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BadLabel/dut.sv | ${SURELOG_DIR}/build/regression/BadLabel/roundtrip/dut_000.sv | 15 | 66 |
+[roundtrip]: ${SURELOG_DIR}/tests/BadLabel/dut.sv | ${SURELOG_DIR}/build/regression/BadLabel/roundtrip/dut_000.sv | 16 | 66 |

@@ -64,7 +64,7 @@ array_net                                              1
 constant                                               3
 design                                                 1
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 module_inst                                            3
 operation                                              1
 range                                                  1
@@ -76,7 +76,7 @@ array_net                                              1
 constant                                               3
 design                                                 1
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 module_inst                                            3
 operation                                              1
 range                                                  1
@@ -103,6 +103,8 @@ design: (work@test)
   \_logic_net: (work@test.illegal), line:3:5, endln:3:12
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IllegalZeroValue/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:15
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
@@ -130,14 +132,14 @@ design: (work@test)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:3:13, endln:3:14
         |vpiParent:
         \_range: , line:3:13, endln:3:14
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:3:13, endln:3:14
           |vpiParent:
-          \_operation: 
+          \_operation: , line:3:13, endln:3:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0

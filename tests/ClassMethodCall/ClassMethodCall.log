@@ -40,7 +40,7 @@
 assignment                                             2
 begin                                                  2
 class_defn                                             3
-class_typespec                                         4
+class_typespec                                         5
 class_var                                              3
 constant                                               9
 design                                                 1
@@ -71,7 +71,7 @@ task                                                   2
 assignment                                             5
 begin                                                  5
 class_defn                                             3
-class_typespec                                         7
+class_typespec                                         8
 class_var                                              3
 constant                                               9
 design                                                 1
@@ -198,11 +198,11 @@ design: (work@door_mod)
       \_param_assign: , line:9:15, endln:9:32
       |BIN:00
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:9:5, endln:11:25
         |vpiRange:
         \_range: 
           |vpiParent:
-          \_int_typespec: 
+          \_int_typespec: , line:9:5, endln:11:25
           |vpiLeftRange:
           \_constant: 
             |INT:1
@@ -217,11 +217,11 @@ design: (work@door_mod)
       \_param_assign: , line:10:8, endln:10:25
       |BIN:01
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:9:5, endln:11:25
         |vpiRange:
         \_range: 
           |vpiParent:
-          \_int_typespec: 
+          \_int_typespec: , line:9:5, endln:11:25
           |vpiLeftRange:
           \_constant: 
             |INT:1
@@ -236,11 +236,11 @@ design: (work@door_mod)
       \_param_assign: , line:11:8, endln:11:25
       |BIN:10
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:9:5, endln:11:25
         |vpiRange:
         \_range: 
           |vpiParent:
-          \_int_typespec: 
+          \_int_typespec: , line:9:5, endln:11:25
           |vpiLeftRange:
           \_constant: 
             |INT:1
@@ -261,7 +261,7 @@ design: (work@door_mod)
         |vpiSize:2
         |BIN:00
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:9:5, endln:11:25
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (pack::door::OPENED), line:9:15, endln:9:21
@@ -277,7 +277,7 @@ design: (work@door_mod)
         |vpiSize:2
         |BIN:01
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:9:5, endln:11:25
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (pack::door::CLOSED), line:10:8, endln:10:14
@@ -293,7 +293,7 @@ design: (work@door_mod)
         |vpiSize:2
         |BIN:10
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:9:5, endln:11:25
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (pack::door::LOCKED), line:11:8, endln:11:14
@@ -401,7 +401,7 @@ design: (work@door_mod)
         |vpiFullName:pack::doorOpen::new
         |vpiMethod:1
         |vpiReturn:
-        \_class_var: (pack::doorOpen::new)
+        \_class_var: (pack::doorOpen::new), line:29:23, endln:29:24
           |vpiParent:
           \_function: (pack::doorOpen::new), line:29:5, endln:32:16
           |vpiTypespec:
@@ -492,6 +492,11 @@ design: (work@door_mod)
   \_logic_net: (work@door_mod.open), line:45:20, endln:45:24
     |vpiParent:
     \_module_inst: work@door_mod (work@door_mod), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:43:1, endln:51:10
+    |vpiTypespec:
+    \_class_typespec: (pack::doorOpen), line:45:5, endln:45:11
+      |vpiName:pack::doorOpen
+      |vpiClassDefn:
+      \_class_defn: (pack::doorOpen), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:21:1, endln:38:9
     |vpiName:open
     |vpiFullName:work@door_mod.open
   |vpiProcess:

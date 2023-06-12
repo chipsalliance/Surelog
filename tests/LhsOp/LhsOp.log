@@ -166,6 +166,7 @@ ref_obj                                               10
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -187,6 +188,7 @@ ref_obj                                               16
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LhsOp/slpp_all/surelog.uhdm ...
 
@@ -231,7 +233,7 @@ design: (work@top)
       |vpiDecompile:1
       |vpiSize:64
   |vpiTypedef:
-  \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:5:18
+  \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
     |vpiName:hw2reg_wrap_t
@@ -241,16 +243,16 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (class_esc_state), line:6:22, endln:6:37
       |vpiParent:
-      \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:5:18
+      \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
       |vpiName:class_esc_state
       |vpiTypespec:
-      \_packed_array_typespec: , line:6:7, endln:6:15
+      \_packed_array_typespec: , line:6:7, endln:6:21
         |vpiParent:
         \_typespec_member: (class_esc_state), line:6:22, endln:6:37
         |vpiRange:
         \_range: , line:6:16, endln:6:21
           |vpiParent:
-          \_packed_array_typespec: , line:6:7, endln:6:15
+          \_packed_array_typespec: , line:6:7, endln:6:21
           |vpiLeftRange:
           \_constant: , line:6:17, endln:6:18
             |vpiParent:
@@ -293,6 +295,9 @@ design: (work@top)
   \_logic_net: (work@top.hw2reg_wrap), line:9:18, endln:9:29
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
+    |vpiTypespec:
+    \_unsupported_typespec: (hw2reg_wrap_t), line:9:4, endln:9:17
+      |vpiName:hw2reg_wrap_t
     |vpiName:hw2reg_wrap
     |vpiFullName:work@top.hw2reg_wrap
   |vpiPort:
@@ -302,7 +307,7 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.a.a)
+    \_ref_obj: (work@top.a.a), line:2:25, endln:2:26
       |vpiParent:
       \_port: (a), line:2:25, endln:2:26
       |vpiName:a
@@ -318,7 +323,7 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.b.b)
+    \_ref_obj: (work@top.b.b), line:2:41, endln:2:42
       |vpiParent:
       \_port: (b), line:2:41, endln:2:42
       |vpiName:b
@@ -376,7 +381,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
     |vpiTypespec:
-    \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:5:18
+    \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
     |vpiName:hw2reg_wrap
     |vpiFullName:work@top.hw2reg_wrap
     |vpiVisibility:1
@@ -404,7 +409,7 @@ design: (work@top)
   |vpiTypedef:
   \_enum_typespec: (cstate_e), line:3:3, endln:3:46
   |vpiTypedef:
-  \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:5:18
+  \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:

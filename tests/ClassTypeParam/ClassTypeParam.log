@@ -46,7 +46,7 @@ param_assign                                           4
 ref_obj                                                3
 string_typespec                                        3
 type_parameter                                         8
-unsupported_typespec                                   1
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -66,7 +66,7 @@ param_assign                                          16
 ref_obj                                                3
 string_typespec                                        3
 type_parameter                                        20
-unsupported_typespec                                   1
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassTypeParam/slpp_unit/surelog.uhdm ...
 
@@ -309,12 +309,18 @@ design: (work@top)
   \_logic_net: (work@top.misc1), line:24:25, endln:24:30
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassTypeParam/dut.sv, line:22:1, endln:27:10
+    |vpiTypespec:
+    \_unsupported_typespec: (m_uvm_config_obj_misc), line:24:3, endln:24:36
+      |vpiName:m_uvm_config_obj_misc
     |vpiName:misc1
     |vpiFullName:work@top.misc1
   |vpiNet:
   \_logic_net: (work@top.misc2), line:26:38, endln:26:43
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassTypeParam/dut.sv, line:22:1, endln:27:10
+    |vpiTypespec:
+    \_unsupported_typespec: (uvm_config_db), line:26:3, endln:26:49
+      |vpiName:uvm_config_db
     |vpiName:misc2
     |vpiFullName:work@top.misc2
   |vpiNet:

@@ -224,26 +224,26 @@ always                                                 1
 assignment                                             1
 begin                                                  1
 bit_select                                             1
-constant                                              21
+constant                                              24
 cont_assign                                            1
 design                                                 1
 event_control                                          1
-func_call                                              2
+func_call                                              3
 function                                               2
 import_typespec                                        1
 integer_typespec                                       4
 integer_var                                            2
 io_decl                                                2
 logic_net                                              5
-logic_typespec                                         7
+logic_typespec                                         8
 logic_var                                              1
 module_inst                                            8
-operation                                              8
+operation                                              9
 package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   4
-range                                                  2
+range                                                  3
 ref_obj                                               16
 return_stmt                                            2
 sys_func_call                                          2
@@ -255,26 +255,26 @@ always                                                 2
 assignment                                             2
 begin                                                  2
 bit_select                                             2
-constant                                              21
+constant                                              24
 cont_assign                                            2
 design                                                 1
 event_control                                          2
-func_call                                              2
+func_call                                              3
 function                                               5
 import_typespec                                        1
 integer_typespec                                       4
 integer_var                                            2
 io_decl                                                5
 logic_net                                              5
-logic_typespec                                         7
+logic_typespec                                         8
 logic_var                                              1
 module_inst                                            8
-operation                                             16
+operation                                             17
 package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   6
-range                                                  2
+range                                                  3
 ref_obj                                               28
 return_stmt                                            5
 sys_func_call                                          5
@@ -555,6 +555,46 @@ design: (work@foo)
   \_logic_net: (work@foo.a), line:6:22, endln:6:23
     |vpiParent:
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/FileList/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:1, endln:6:21
+      |vpiRange:
+      \_range: , line:6:7, endln:6:21
+        |vpiParent:
+        \_logic_typespec: , line:6:1, endln:6:21
+        |vpiLeftRange:
+        \_operation: , line:6:8, endln:6:18
+          |vpiParent:
+          \_range: , line:6:7, endln:6:21
+          |vpiOpType:11
+          |vpiOperand:
+          \_func_call: (vbits), line:6:8, endln:6:13
+            |vpiParent:
+            \_operation: , line:6:8, endln:6:18
+            |vpiArgument:
+            \_constant: , line:6:14, endln:6:15
+              |vpiParent:
+              \_func_call: (vbits), line:6:8, endln:6:13
+              |vpiDecompile:4
+              |vpiSize:64
+              |UINT:4
+              |vpiConstType:9
+            |vpiName:vbits
+          |vpiOperand:
+          \_constant: , line:6:17, endln:6:18
+            |vpiParent:
+            \_operation: , line:6:8, endln:6:18
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:19, endln:6:20
+          |vpiParent:
+          \_range: , line:6:7, endln:6:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:a
     |vpiFullName:work@foo.a
     |vpiNetType:36
@@ -565,7 +605,7 @@ design: (work@foo)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@foo.clk.clk)
+    \_ref_obj: (work@foo.clk.clk), line:2:11, endln:2:14
       |vpiParent:
       \_port: (clk), line:2:11, endln:2:14
       |vpiName:clk
@@ -581,7 +621,7 @@ design: (work@foo)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@foo.out.out)
+    \_ref_obj: (work@foo.out.out), line:3:12, endln:3:15
       |vpiParent:
       \_port: (out), line:3:12, endln:3:15
       |vpiName:out
@@ -656,7 +696,7 @@ design: (work@foo)
     |vpiParent:
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/FileList/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
-    \_bit_select: (work@foo.a), line:10:14, endln:10:18
+    \_bit_select: (work@foo.a), line:10:16, endln:10:17
       |vpiParent:
       \_cont_assign: , line:10:8, endln:10:18
       |vpiName:a
@@ -664,7 +704,7 @@ design: (work@foo)
       |vpiIndex:
       \_constant: , line:10:16, endln:10:17
         |vpiParent:
-        \_bit_select: (work@foo.a), line:10:14, endln:10:18
+        \_bit_select: (work@foo.a), line:10:16, endln:10:17
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -909,7 +949,7 @@ design: (work@foo)
     |vpiParent:
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/FileList/dut.sv, line:1:1, endln:11:10
     |vpiRhs:
-    \_bit_select: (work@foo.a), line:10:14, endln:10:18
+    \_bit_select: (work@foo.a), line:10:16, endln:10:17
       |vpiParent:
       \_cont_assign: , line:10:8, endln:10:18
       |vpiName:a
@@ -932,7 +972,3 @@ design: (work@foo)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 6
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/FileList/dut.sv  | ${SURELOG_DIR}/build/regression/FileList/roundtrip/dut_000.sv  | 4 | 11 |
-[roundtrip]: ${SURELOG_DIR}/tests/FileList/pack.sv | ${SURELOG_DIR}/build/regression/FileList/roundtrip/pack_000.sv | 1 | 7 |

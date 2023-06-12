@@ -210,9 +210,9 @@ array_typespec                                         1
 array_var                                              1
 assignment                                             2
 begin                                                  1
-bit_typespec                                           1
+bit_typespec                                           2
 bit_var                                                1
-constant                                              15
+constant                                              19
 design                                                 1
 func_call                                              2
 function                                               1
@@ -222,7 +222,7 @@ logic_net                                              5
 module_inst                                            3
 operation                                              3
 part_select                                            1
-range                                                  5
+range                                                  7
 ref_obj                                               11
 string_typespec                                        2
 string_var                                             2
@@ -235,9 +235,9 @@ array_typespec                                         1
 array_var                                              1
 assignment                                             4
 begin                                                  2
-bit_typespec                                           1
+bit_typespec                                           2
 bit_var                                                1
-constant                                              15
+constant                                              19
 design                                                 1
 func_call                                              4
 function                                               2
@@ -247,7 +247,7 @@ logic_net                                              5
 module_inst                                            3
 operation                                              5
 part_select                                            2
-range                                                  5
+range                                                  7
 ref_obj                                               22
 string_typespec                                        2
 string_var                                             2
@@ -298,14 +298,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: (work@top.dasm)
+    \_begin: (work@top.dasm), line:7:5, endln:7:36
       |vpiParent:
       \_function: (work@top.dasm), line:5:1, endln:8:12
       |vpiFullName:work@top.dasm
       |vpiStmt:
       \_assignment: , line:6:5, endln:6:86
         |vpiParent:
-        \_begin: (work@top.dasm)
+        \_begin: (work@top.dasm), line:7:5, endln:7:36
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -415,11 +415,11 @@ design: (work@top)
       |vpiStmt:
       \_if_stmt: , line:7:5, endln:7:36
         |vpiParent:
-        \_begin: (work@top.dasm)
+        \_begin: (work@top.dasm), line:7:5, endln:7:36
         |vpiCondition:
         \_ref_obj: (work@top.dasm.regn), line:7:8, endln:7:12
           |vpiParent:
-          \_begin: (work@top.dasm)
+          \_begin: (work@top.dasm), line:7:5, endln:7:36
           |vpiName:regn
           |vpiFullName:work@top.dasm.regn
           |vpiActual:
@@ -466,6 +466,48 @@ design: (work@top)
   \_logic_net: (work@top.gpr), line:3:18, endln:3:21
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_bit_typespec: , line:3:1, endln:3:24
+      |vpiRange:
+      \_range: , line:3:4, endln:3:10
+        |vpiParent:
+        \_bit_typespec: , line:3:1, endln:3:24
+        |vpiLeftRange:
+        \_constant: , line:3:5, endln:3:7
+          |vpiParent:
+          \_range: , line:3:4, endln:3:10
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:8, endln:3:9
+          |vpiParent:
+          \_range: , line:3:4, endln:3:10
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:3:11, endln:3:17
+        |vpiParent:
+        \_bit_typespec: , line:3:1, endln:3:24
+        |vpiLeftRange:
+        \_constant: , line:3:12, endln:3:14
+          |vpiParent:
+          \_range: , line:3:11, endln:3:17
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:15, endln:3:16
+          |vpiParent:
+          \_range: , line:3:11, endln:3:17
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:gpr
     |vpiFullName:work@top.gpr
   |vpiNet:
@@ -500,7 +542,7 @@ design: (work@top)
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv, line:1:1, endln:10:10
   |vpiName:work@top
   |vpiVariables:
-  \_array_var: (work@top.gpr), line:3:18, endln:3:24
+  \_array_var: (work@top.gpr), line:3:18, endln:3:21
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv, line:1:1, endln:10:10
     |vpiSize:2
@@ -514,7 +556,7 @@ design: (work@top)
     |vpiRange:
     \_range: , line:3:22, endln:3:23
       |vpiParent:
-      \_array_var: (work@top.gpr), line:3:18, endln:3:24
+      \_array_var: (work@top.gpr), line:3:18, endln:3:21
       |vpiLeftRange:
       \_constant: 
         |vpiParent:
@@ -524,14 +566,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:3:22, endln:3:23
         |vpiParent:
         \_range: , line:3:22, endln:3:23
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
-          \_operation: 
+          \_operation: , line:3:22, endln:3:23
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -544,7 +586,7 @@ design: (work@top)
     |vpiReg:
     \_bit_var: (work@top.gpr), line:3:18, endln:3:21
       |vpiParent:
-      \_array_var: (work@top.gpr), line:3:18, endln:3:24
+      \_array_var: (work@top.gpr), line:3:18, endln:3:21
       |vpiTypespec:
       \_bit_typespec: , line:3:1, endln:3:17
         |vpiParent:
@@ -612,14 +654,14 @@ design: (work@top)
       |vpiExpr:
       \_constant: , line:5:33, endln:5:34
     |vpiStmt:
-    \_begin: (work@top.dasm)
+    \_begin: (work@top.dasm), line:7:5, endln:7:36
       |vpiParent:
       \_function: (work@top.dasm), line:5:1, endln:8:12
       |vpiFullName:work@top.dasm
       |vpiStmt:
       \_assignment: , line:6:5, endln:6:86
         |vpiParent:
-        \_begin: (work@top.dasm)
+        \_begin: (work@top.dasm), line:7:5, endln:7:36
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -715,7 +757,7 @@ design: (work@top)
       |vpiStmt:
       \_if_stmt: , line:7:5, endln:7:36
         |vpiParent:
-        \_begin: (work@top.dasm)
+        \_begin: (work@top.dasm), line:7:5, endln:7:36
         |vpiCondition:
         \_ref_obj: (work@top.dasm.regn), line:7:8, endln:7:12
           |vpiParent:
@@ -745,7 +787,7 @@ design: (work@top)
             |vpiName:gpr
             |vpiFullName:work@top.dasm.gpr
             |vpiActual:
-            \_array_var: (work@top.gpr), line:3:18, endln:3:24
+            \_array_var: (work@top.gpr), line:3:18, endln:3:21
             |vpiIndex:
             \_ref_obj: (work@top.dasm.gpr.tid), line:7:18, endln:7:21
               |vpiParent:

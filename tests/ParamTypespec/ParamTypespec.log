@@ -188,7 +188,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              45
+constant                                              48
 cont_assign                                            2
 design                                                 1
 import_typespec                                        1
@@ -196,21 +196,22 @@ int_typespec                                           5
 int_var                                                1
 integer_typespec                                      16
 logic_net                                              2
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              1
 module_inst                                            6
-operation                                             38
+operation                                             40
 package                                                2
 param_assign                                           8
 parameter                                              9
 port                                                   2
-range                                                  9
-ref_obj                                                7
+range                                                 10
+ref_obj                                                8
+sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              45
+constant                                              48
 cont_assign                                            3
 design                                                 1
 import_typespec                                        1
@@ -218,16 +219,17 @@ int_typespec                                           5
 int_var                                                1
 integer_typespec                                      16
 logic_net                                              2
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              1
 module_inst                                            6
-operation                                             39
+operation                                             41
 package                                                2
 param_assign                                           8
 parameter                                              9
 port                                                   3
-range                                                  9
-ref_obj                                               10
+range                                                 10
+ref_obj                                               11
+sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamTypespec/slpp_all/surelog.uhdm ...
 
@@ -552,6 +554,39 @@ design: (work@top)
   \_logic_net: (work@top.part_buf_data), line:14:40, endln:14:53
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:9:1, endln:16:10
+    |vpiTypespec:
+    \_logic_typespec: , line:14:4, endln:14:58
+      |vpiRange:
+      \_range: , line:14:10, endln:14:39
+        |vpiParent:
+        \_logic_typespec: , line:14:4, endln:14:58
+        |vpiLeftRange:
+        \_operation: , line:14:11, endln:14:36
+          |vpiParent:
+          \_range: , line:14:10, endln:14:39
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:14:11, endln:14:36
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
+            |vpiConstType:7
+          |vpiOperand:
+          \_constant: , line:14:35, endln:14:36
+            |vpiParent:
+            \_operation: , line:14:11, endln:14:36
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:14:37, endln:14:38
+          |vpiParent:
+          \_range: , line:14:10, endln:14:39
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:part_buf_data
     |vpiFullName:work@top.part_buf_data
     |vpiNetType:36
@@ -562,7 +597,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:9:23, endln:9:24
       |vpiParent:
       \_port: (o), line:9:23, endln:9:24
       |vpiName:o

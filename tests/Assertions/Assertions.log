@@ -466,18 +466,18 @@ AST_DEBUG_END
 always                                                 1
 assert_stmt                                            1
 bit_typespec                                           3
-constant                                              14
+constant                                              18
 design                                                 1
 immediate_assert                                       1
 logic_net                                              6
-logic_typespec                                         5
+logic_typespec                                         9
 logic_var                                              4
 module_inst                                            3
 operation                                              4
 packed_array_typespec                                  1
 port                                                   2
 property_spec                                          1
-range                                                  7
+range                                                  9
 ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -486,18 +486,18 @@ ref_obj                                                5
 always                                                 2
 assert_stmt                                            2
 bit_typespec                                           3
-constant                                              14
+constant                                              18
 design                                                 1
 immediate_assert                                       2
 logic_net                                              6
-logic_typespec                                         5
+logic_typespec                                         9
 logic_var                                              4
 module_inst                                            3
 operation                                              8
 packed_array_typespec                                  1
 port                                                   3
 property_spec                                          2
-range                                                  7
+range                                                  9
 ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Assertions/slpp_all/surelog.uhdm ...
@@ -555,6 +555,28 @@ design: (work@m)
   \_logic_net: (work@m.a), line:2:14, endln:2:15
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:13
+      |vpiRange:
+      \_range: , line:2:7, endln:2:13
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:13
+        |vpiLeftRange:
+        \_constant: , line:2:8, endln:2:10
+          |vpiParent:
+          \_range: , line:2:7, endln:2:13
+          |vpiDecompile:15
+          |vpiSize:64
+          |UINT:15
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:11, endln:2:12
+          |vpiParent:
+          \_range: , line:2:7, endln:2:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:a
     |vpiFullName:work@m.a
     |vpiNetType:36
@@ -562,6 +584,28 @@ design: (work@m)
   \_logic_net: (work@m.b), line:2:17, endln:2:18
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:13
+      |vpiRange:
+      \_range: , line:2:7, endln:2:13
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:13
+        |vpiLeftRange:
+        \_constant: , line:2:8, endln:2:10
+          |vpiParent:
+          \_range: , line:2:7, endln:2:13
+          |vpiDecompile:15
+          |vpiSize:64
+          |UINT:15
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:11, endln:2:12
+          |vpiParent:
+          \_range: , line:2:7, endln:2:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:b
     |vpiFullName:work@m.b
     |vpiNetType:36
@@ -569,6 +613,8 @@ design: (work@m)
   \_logic_net: (work@m.c), line:3:7, endln:3:8
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:c
     |vpiFullName:work@m.c
     |vpiNetType:36
@@ -576,6 +622,8 @@ design: (work@m)
   \_logic_net: (work@m.d), line:3:10, endln:3:11
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:d
     |vpiFullName:work@m.d
     |vpiNetType:36
@@ -609,7 +657,7 @@ design: (work@m)
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@m.clock.clock)
+    \_ref_obj: (work@m.clock.clock), line:1:16, endln:1:21
       |vpiParent:
       \_port: (clock), line:1:16, endln:1:21
       |vpiName:clock

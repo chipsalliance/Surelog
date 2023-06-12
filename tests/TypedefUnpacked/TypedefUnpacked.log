@@ -73,7 +73,7 @@ design: (work@dut)
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
-  \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+  \_struct_typespec: (pkg::a), line:2:12, endln:4:5
     |vpiParent:
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::a
@@ -83,7 +83,7 @@ design: (work@dut)
     |vpiTypespecMember:
     \_typespec_member: (x), line:3:16, endln:3:17
       |vpiParent:
-      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+      \_struct_typespec: (pkg::a), line:2:12, endln:4:5
       |vpiName:x
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -104,7 +104,7 @@ design: (work@dut)
   |vpiName:pkg
   |vpiFullName:pkg::
   |vpiTypedef:
-  \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+  \_struct_typespec: (pkg::a), line:2:12, endln:4:5
     |vpiParent:
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::a
@@ -114,7 +114,7 @@ design: (work@dut)
     |vpiTypespecMember:
     \_typespec_member: (x), line:3:16, endln:3:17
       |vpiParent:
-      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+      \_struct_typespec: (pkg::a), line:2:12, endln:4:5
       |vpiName:x
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -128,7 +128,7 @@ design: (work@dut)
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:12
   |vpiTypedef:
-  \_array_typespec: (pkg::b)
+  \_array_typespec: (pkg::b), line:5:12, endln:5:20
     |vpiParent:
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
     |vpiName:pkg::b
@@ -137,7 +137,7 @@ design: (work@dut)
     |vpiRange:
     \_range: , line:5:15, endln:5:20
       |vpiParent:
-      \_array_typespec: (pkg::b)
+      \_array_typespec: (pkg::b), line:5:12, endln:5:20
       |vpiLeftRange:
       \_constant: , line:5:16, endln:5:17
         |vpiParent:
@@ -155,17 +155,17 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+    \_struct_typespec: (pkg::a), line:2:12, endln:4:5
       |vpiName:pkg::a
       |vpiTypedefAlias:
-      \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+      \_struct_typespec: (pkg::a), line:2:12, endln:4:5
       |vpiInstance:
       \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
       |vpiPacked:1
       |vpiTypespecMember:
       \_typespec_member: (x), line:3:16, endln:3:17
         |vpiParent:
-        \_struct_typespec: (pkg::a), line:2:12, endln:2:18
+        \_struct_typespec: (pkg::a), line:2:12, endln:4:5
         |vpiName:x
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12
@@ -196,6 +196,8 @@ design: (work@dut)
   \_logic_net: (work@dut.c), line:9:11, endln:9:12
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:8:1, endln:12:10
+    |vpiTypespec:
+    \_array_typespec: (pkg::b), line:5:12, endln:5:20
     |vpiName:c
     |vpiFullName:work@dut.c
   |vpiPort:
@@ -205,7 +207,7 @@ design: (work@dut)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dut.o.o)
+    \_ref_obj: (work@dut.o.o), line:8:19, endln:8:20
       |vpiParent:
       \_port: (o), line:8:19, endln:8:20
       |vpiName:o
@@ -244,7 +246,7 @@ design: (work@dut)
           |UINT:1
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (c[1].x)
+      \_ref_obj: (c[1].x), line:10:16, endln:10:17
         |vpiParent:
         \_hier_path: (c[1].x), line:10:11, endln:10:12
         |vpiName:x
@@ -292,7 +294,7 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:8:1, endln:12:10
     |vpiTypespec:
-    \_array_typespec: (pkg::b)
+    \_array_typespec: (pkg::b), line:5:12, endln:5:20
     |vpiName:c
     |vpiFullName:work@dut.c
     |vpiVisibility:1
@@ -349,7 +351,7 @@ design: (work@dut)
           |UINT:1
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (c[1].x)
+      \_ref_obj: (c[1].x), line:10:16, endln:10:17
         |vpiParent:
         \_hier_path: (c[1].x), line:10:11, endln:10:12
         |vpiName:x

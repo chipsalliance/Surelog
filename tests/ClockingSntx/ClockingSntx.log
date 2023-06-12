@@ -266,7 +266,7 @@ AST_DEBUG_END
 begin                                                  1
 clocking_block                                         3
 clocking_io_decl                                       6
-constant                                              24
+constant                                              26
 cont_assign                                            2
 delay_control                                          2
 design                                                 1
@@ -274,12 +274,12 @@ event_control                                          3
 hier_path                                              1
 initial                                                1
 logic_net                                             17
-logic_typespec                                        19
+logic_typespec                                        20
 module_inst                                            4
 operation                                              5
 part_select                                            1
 port                                                  12
-range                                                 10
+range                                                 11
 ref_obj                                               26
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -288,7 +288,7 @@ ref_obj                                               26
 begin                                                  2
 clocking_block                                         6
 clocking_io_decl                                      12
-constant                                              25
+constant                                              27
 cont_assign                                            3
 delay_control                                          4
 design                                                 1
@@ -296,12 +296,12 @@ event_control                                          6
 hier_path                                              2
 initial                                                2
 logic_net                                             17
-logic_typespec                                        19
+logic_typespec                                        20
 module_inst                                            4
 operation                                              9
 part_select                                            2
 port                                                  18
-range                                                 10
+range                                                 11
 ref_obj                                               43
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/ClockingSntx/dut.sv:15:17: Unresolved hierarchical reference "top.cpu1.state".
@@ -365,6 +365,28 @@ design: (work@top)
   \_logic_net: (work@top.cmd_reg), line:11:12, endln:11:19
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+    |vpiTypespec:
+    \_logic_typespec: , line:11:2, endln:11:11
+      |vpiRange:
+      \_range: , line:11:6, endln:11:11
+        |vpiParent:
+        \_logic_typespec: , line:11:2, endln:11:11
+        |vpiLeftRange:
+        \_constant: , line:11:7, endln:11:8
+          |vpiParent:
+          \_range: , line:11:6, endln:11:11
+          |vpiDecompile:8
+          |vpiSize:64
+          |UINT:8
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:11:9, endln:11:10
+          |vpiParent:
+          \_range: , line:11:6, endln:11:11
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
     |vpiName:cmd_reg
     |vpiFullName:work@top.cmd_reg
     |vpiNetType:48
@@ -396,7 +418,7 @@ design: (work@top)
     |vpiName:phi1
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@top.phi1.phi1)
+    \_ref_obj: (work@top.phi1.phi1), line:8:9, endln:8:13
       |vpiParent:
       \_port: (phi1), line:8:9, endln:8:13
       |vpiName:phi1
@@ -412,7 +434,7 @@ design: (work@top)
     |vpiName:data
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@top.data.data)
+    \_ref_obj: (work@top.data.data), line:8:28, endln:8:32
       |vpiParent:
       \_port: (data), line:8:28, endln:8:32
       |vpiName:data
@@ -448,7 +470,7 @@ design: (work@top)
     |vpiName:write
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.write.write)
+    \_ref_obj: (work@top.write.write), line:8:47, endln:8:52
       |vpiParent:
       \_port: (write), line:8:47, endln:8:52
       |vpiName:write
@@ -464,7 +486,7 @@ design: (work@top)
     |vpiName:phi2
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@top.phi2.phi2)
+    \_ref_obj: (work@top.phi2.phi2), line:9:9, endln:9:13
       |vpiParent:
       \_port: (phi2), line:9:9, endln:9:13
       |vpiName:phi2
@@ -480,7 +502,7 @@ design: (work@top)
     |vpiName:cmd
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@top.cmd.cmd)
+    \_ref_obj: (work@top.cmd.cmd), line:9:27, endln:9:30
       |vpiParent:
       \_port: (cmd), line:9:27, endln:9:30
       |vpiName:cmd
@@ -516,7 +538,7 @@ design: (work@top)
     |vpiName:enable
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@top.enable.enable)
+    \_ref_obj: (work@top.enable.enable), line:9:38, endln:9:44
       |vpiParent:
       \_port: (enable), line:9:38, endln:9:44
       |vpiName:enable

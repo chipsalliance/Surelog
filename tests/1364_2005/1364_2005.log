@@ -115,22 +115,22 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              10
+constant                                              16
 design                                                 1
 logic_net                                             16
-logic_typespec                                         4
+logic_typespec                                        12
 module_inst                                            3
-range                                                  5
+range                                                  8
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              10
+constant                                              16
 design                                                 1
 logic_net                                             16
-logic_typespec                                         4
+logic_typespec                                        12
 module_inst                                            3
-range                                                  5
+range                                                  8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/1364_2005/slpp_all/surelog.uhdm ...
 
@@ -154,6 +154,28 @@ design: (work@main)
   \_logic_net: (work@main.foo), line:5:14, endln:5:17
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:5:4, endln:5:13
+      |vpiRange:
+      \_range: , line:5:8, endln:5:13
+        |vpiParent:
+        \_logic_typespec: , line:5:4, endln:5:13
+        |vpiLeftRange:
+        \_constant: , line:5:9, endln:5:10
+          |vpiParent:
+          \_range: , line:5:8, endln:5:13
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:11, endln:5:12
+          |vpiParent:
+          \_range: , line:5:8, endln:5:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:foo
     |vpiFullName:work@main.foo
     |vpiNetType:48
@@ -161,6 +183,28 @@ design: (work@main)
   \_logic_net: (work@main.bar), line:5:19, endln:5:22
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:5:4, endln:5:13
+      |vpiRange:
+      \_range: , line:5:8, endln:5:13
+        |vpiParent:
+        \_logic_typespec: , line:5:4, endln:5:13
+        |vpiLeftRange:
+        \_constant: , line:5:9, endln:5:10
+          |vpiParent:
+          \_range: , line:5:8, endln:5:13
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:11, endln:5:12
+          |vpiParent:
+          \_range: , line:5:8, endln:5:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:bar
     |vpiFullName:work@main.bar
     |vpiNetType:48
@@ -168,6 +212,28 @@ design: (work@main)
   \_logic_net: (work@main.adr), line:6:14, endln:6:17
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:4, endln:6:13
+      |vpiRange:
+      \_range: , line:6:8, endln:6:13
+        |vpiParent:
+        \_logic_typespec: , line:6:4, endln:6:13
+        |vpiLeftRange:
+        \_constant: , line:6:9, endln:6:10
+          |vpiParent:
+          \_range: , line:6:8, endln:6:13
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:11, endln:6:12
+          |vpiParent:
+          \_range: , line:6:8, endln:6:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:adr
     |vpiFullName:work@main.adr
     |vpiNetType:48
@@ -175,6 +241,8 @@ design: (work@main)
   \_logic_net: (work@main.bit), line:8:13, endln:8:16
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:bit
     |vpiFullName:work@main.bit
     |vpiNetType:48
@@ -182,6 +250,8 @@ design: (work@main)
   \_logic_net: (work@main.rst), line:8:18, endln:8:21
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:rst
     |vpiFullName:work@main.rst
     |vpiNetType:48
@@ -189,6 +259,8 @@ design: (work@main)
   \_logic_net: (work@main.clk), line:8:23, endln:8:26
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:clk
     |vpiFullName:work@main.clk
     |vpiNetType:48
@@ -196,6 +268,8 @@ design: (work@main)
   \_logic_net: (work@main.load_enable), line:9:13, endln:9:24
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:9:4, endln:9:7
     |vpiName:load_enable
     |vpiFullName:work@main.load_enable
     |vpiNetType:48
@@ -203,6 +277,8 @@ design: (work@main)
   \_logic_net: (work@main.write_enable), line:9:26, endln:9:38
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:9:4, endln:9:7
     |vpiName:write_enable
     |vpiFullName:work@main.write_enable
     |vpiNetType:48

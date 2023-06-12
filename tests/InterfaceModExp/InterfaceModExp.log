@@ -267,26 +267,26 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             1
-bit_typespec                                           2
+bit_typespec                                           3
 bit_var                                                2
-constant                                              30
+constant                                              32
 delay_control                                          1
 design                                                 1
 hier_path                                              4
 initial                                                2
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                2
 interface_inst                                         4
 interface_typespec                                     3
 io_decl                                               24
 logic_net                                              4
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              2
 modport                                                8
 module_inst                                            7
 part_select                                            4
 port                                                   3
-range                                                  8
+range                                                  9
 ref_module                                             2
 ref_obj                                               12
 sys_func_call                                          1
@@ -295,26 +295,26 @@ sys_func_call                                          1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             2
-bit_typespec                                           2
+bit_typespec                                           3
 bit_var                                                2
-constant                                              30
+constant                                              32
 delay_control                                          2
 design                                                 1
 hier_path                                              7
 initial                                                4
-int_typespec                                           2
+int_typespec                                           3
 int_var                                                2
 interface_inst                                         4
 interface_typespec                                     3
 io_decl                                               24
 logic_net                                              4
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              2
 modport                                                8
 module_inst                                            7
 part_select                                            4
 port                                                   4
-range                                                  8
+range                                                  9
 ref_module                                             2
 ref_obj                                               19
 sys_func_call                                          2
@@ -341,6 +341,28 @@ design: (work@top)
   \_logic_net: (work@I.r), line:2:13, endln:2:14
     |vpiParent:
     \_interface_inst: work@I (work@I), file:${SURELOG_DIR}/tests/InterfaceModExp/dut.sv, line:1:1, endln:7:13
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:12
+      |vpiRange:
+      \_range: , line:2:7, endln:2:12
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:12
+        |vpiLeftRange:
+        \_constant: , line:2:8, endln:2:9
+          |vpiParent:
+          \_range: , line:2:7, endln:2:12
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:10, endln:2:11
+          |vpiParent:
+          \_range: , line:2:7, endln:2:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:r
     |vpiFullName:work@I.r
     |vpiNetType:36
@@ -348,12 +370,17 @@ design: (work@top)
   \_logic_net: (work@I.x), line:3:11, endln:3:12
     |vpiParent:
     \_interface_inst: work@I (work@I), file:${SURELOG_DIR}/tests/InterfaceModExp/dut.sv, line:1:1, endln:7:13
+    |vpiTypespec:
+    \_int_typespec: , line:3:7, endln:3:14
+      |vpiSigned:1
     |vpiName:x
     |vpiFullName:work@I.x
   |vpiNet:
   \_logic_net: (work@I.R), line:4:5, endln:4:6
     |vpiParent:
     \_interface_inst: work@I (work@I), file:${SURELOG_DIR}/tests/InterfaceModExp/dut.sv, line:1:1, endln:7:13
+    |vpiTypespec:
+    \_bit_typespec: , line:4:1, endln:4:4
     |vpiName:R
     |vpiFullName:work@I.R
   |vpiModport:
@@ -475,7 +502,7 @@ design: (work@top)
     |vpiName:I
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@sub.I.I)
+    \_ref_obj: (work@sub.I.I), line:9:23, endln:9:24
       |vpiParent:
       \_port: (I), line:9:23, endln:9:24
       |vpiName:I
@@ -507,12 +534,12 @@ design: (work@top)
         \_assignment: , line:11:11, endln:11:24
         |vpiName:I.P
         |vpiActual:
-        \_ref_obj: (I)
+        \_ref_obj: (I), line:11:13, endln:11:14
           |vpiParent:
           \_hier_path: (I.P), line:11:11, endln:11:14
           |vpiName:I
         |vpiActual:
-        \_ref_obj: (P)
+        \_ref_obj: (P), line:11:13, endln:11:14
           |vpiParent:
           \_hier_path: (I.P), line:11:11, endln:11:14
           |vpiName:P
@@ -973,14 +1000,14 @@ design: (work@top)
           \_assignment: , line:11:11, endln:11:24
           |vpiName:I.P
           |vpiActual:
-          \_ref_obj: (I)
+          \_ref_obj: (I), line:11:13, endln:11:14
             |vpiParent:
             \_hier_path: (I.P), line:11:11, endln:11:14
             |vpiName:I
             |vpiActual:
             \_interface_inst: work@I (work@top.s.I), file:${SURELOG_DIR}/tests/InterfaceModExp/dut.sv, line:16:0
           |vpiActual:
-          \_ref_obj: (P)
+          \_ref_obj: (P), line:11:13, endln:11:14
             |vpiParent:
             \_hier_path: (I.P), line:11:11, endln:11:14
             |vpiName:P
@@ -994,4 +1021,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InterfaceModExp/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceModExp/roundtrip/dut_000.sv | 9 | 20 |
+[roundtrip]: ${SURELOG_DIR}/tests/InterfaceModExp/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceModExp/roundtrip/dut_000.sv | 7 | 20 |

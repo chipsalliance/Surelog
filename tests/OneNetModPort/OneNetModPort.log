@@ -58,7 +58,7 @@ interface_inst                                         7
 interface_typespec                                     8
 io_decl                                               24
 logic_net                                             13
-logic_typespec                                        20
+logic_typespec                                        22
 logic_var                                              8
 modport                                               12
 module_inst                                           13
@@ -90,6 +90,8 @@ design: (work@TOP)
   \_logic_net: (work@ConnectTB.drive), line:10:9, endln:10:14
     |vpiParent:
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:9:1, endln:20:13
+    |vpiTypespec:
+    \_logic_typespec: , line:10:3, endln:10:14
     |vpiName:drive
     |vpiFullName:work@ConnectTB.drive
     |vpiNetType:36
@@ -97,6 +99,8 @@ design: (work@TOP)
   \_logic_net: (work@ConnectTB.observe), line:11:9, endln:11:16
     |vpiParent:
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:9:1, endln:20:13
+    |vpiTypespec:
+    \_logic_typespec: , line:11:3, endln:11:16
     |vpiName:observe
     |vpiFullName:work@ConnectTB.observe
     |vpiNetType:36
@@ -235,12 +239,12 @@ design: (work@TOP)
           \_assignment: , line:6:5, endln:6:19
           |vpiName:intf.drive
           |vpiActual:
-          \_ref_obj: (intf)
+          \_ref_obj: (intf), line:6:10, endln:6:15
             |vpiParent:
             \_hier_path: (intf.drive), line:6:5, endln:6:15
             |vpiName:intf
           |vpiActual:
-          \_ref_obj: (drive)
+          \_ref_obj: (drive), line:6:10, endln:6:15
             |vpiParent:
             \_hier_path: (intf.drive), line:6:5, endln:6:15
             |vpiName:drive
@@ -347,12 +351,12 @@ design: (work@TOP)
             \_assignment: , line:8:10, endln:8:24
             |vpiName:intf.drive
             |vpiActual:
-            \_ref_obj: (intf)
+            \_ref_obj: (intf), line:8:15, endln:8:20
               |vpiParent:
               \_hier_path: (intf.drive), line:8:10, endln:8:20
               |vpiName:intf
             |vpiActual:
-            \_ref_obj: (drive)
+            \_ref_obj: (drive), line:8:15, endln:8:20
               |vpiParent:
               \_hier_path: (intf.drive), line:8:10, endln:8:20
               |vpiName:drive
@@ -485,7 +489,7 @@ design: (work@TOP)
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@SUB.inp.inp)
+    \_ref_obj: (work@SUB.inp.inp), line:26:24, endln:26:27
       |vpiParent:
       \_port: (inp), line:26:24, endln:26:27
       |vpiName:inp
@@ -501,7 +505,7 @@ design: (work@TOP)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@SUB.out.out)
+    \_ref_obj: (work@SUB.out.out), line:26:40, endln:26:43
       |vpiParent:
       \_port: (out), line:26:40, endln:26:43
       |vpiName:out
@@ -605,7 +609,7 @@ design: (work@TOP)
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@dut.i.i)
+    \_ref_obj: (work@dut.i.i), line:2:24, endln:2:25
       |vpiParent:
       \_port: (i), line:2:24, endln:2:25
       |vpiName:i
@@ -621,7 +625,7 @@ design: (work@TOP)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dut.o.o)
+    \_ref_obj: (work@dut.o.o), line:2:38, endln:2:39
       |vpiParent:
       \_port: (o), line:2:38, endln:2:39
       |vpiName:o
@@ -648,12 +652,12 @@ design: (work@TOP)
       \_cont_assign: , line:3:10, endln:3:26
       |vpiName:conntb.drive
       |vpiActual:
-      \_ref_obj: (conntb)
+      \_ref_obj: (conntb), line:3:17, endln:3:22
         |vpiParent:
         \_hier_path: (conntb.drive), line:3:10, endln:3:22
         |vpiName:conntb
       |vpiActual:
-      \_ref_obj: (drive)
+      \_ref_obj: (drive), line:3:17, endln:3:22
         |vpiParent:
         \_hier_path: (conntb.drive), line:3:10, endln:3:22
         |vpiName:drive
@@ -732,7 +736,7 @@ design: (work@TOP)
     |vpiName:intf
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@middle.intf.intf)
+    \_ref_obj: (work@middle.intf.intf), line:22:30, endln:22:34
       |vpiParent:
       \_port: (intf), line:22:30, endln:22:34
       |vpiName:intf
@@ -955,12 +959,12 @@ design: (work@TOP)
         \_port: (i), line:2:24, endln:2:25
         |vpiName:conntb.drive
         |vpiActual:
-        \_ref_obj: (conntb)
+        \_ref_obj: (conntb), line:17:19, endln:17:24
           |vpiParent:
           \_hier_path: (conntb.drive), line:17:12, endln:17:24
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (drive)
+        \_ref_obj: (drive), line:17:19, endln:17:24
           |vpiParent:
           \_hier_path: (conntb.drive), line:17:12, endln:17:24
           |vpiName:drive
@@ -1280,5 +1284,5 @@ design: (work@TOP)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/OneNetModPort/dut.v | ${SURELOG_DIR}/build/regression/OneNetModPort/roundtrip/dut_000.v | 14 | 28 |
+[roundtrip]: ${SURELOG_DIR}/tests/OneNetModPort/dut.v | ${SURELOG_DIR}/build/regression/OneNetModPort/roundtrip/dut_000.v | 12 | 28 |
 [roundtrip]: ${SURELOG_DIR}/tests/OneNetModPort/tb.v  | ${SURELOG_DIR}/build/regression/OneNetModPort/roundtrip/tb_000.v  | 9 | 19 |

@@ -124,34 +124,34 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                              13
 design                                                 1
-int_typespec                                           3
+int_typespec                                           4
 logic_net                                              1
-logic_typespec                                         2
+logic_typespec                                         4
 module_inst                                            3
 operation                                              8
-real_typespec                                          2
+real_typespec                                          4
 string_typespec                                        9
-struct_typespec                                        3
+struct_typespec                                        6
 struct_var                                             1
 tagged_pattern                                        11
-typespec_member                                        7
+typespec_member                                       14
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                              13
 design                                                 1
-int_typespec                                           3
+int_typespec                                           4
 logic_net                                              1
-logic_typespec                                         2
+logic_typespec                                         4
 module_inst                                            3
 operation                                              8
-real_typespec                                          2
+real_typespec                                          4
 string_typespec                                        9
-struct_typespec                                        3
+struct_typespec                                        6
 struct_var                                             1
 tagged_pattern                                        11
-typespec_member                                        7
+typespec_member                                       14
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PatternOrder/slpp_all/surelog.uhdm ...
 
@@ -175,6 +175,107 @@ design: (work@top)
   \_logic_net: (work@top.ABC), line:8:3, endln:8:6
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatternOrder/dut.sv, line:1:1, endln:10:16
+    |vpiTypespec:
+    \_struct_typespec: , line:2:4, endln:8:57
+      |vpiTypespecMember:
+      \_typespec_member: (A), line:3:7, endln:3:8
+        |vpiParent:
+        \_struct_typespec: , line:2:4, endln:8:57
+        |vpiName:A
+        |vpiTypespec:
+        \_int_typespec: , line:3:3, endln:3:6
+          |vpiParent:
+          \_typespec_member: (A), line:3:7, endln:3:8
+          |vpiSigned:1
+        |vpiRefFile:${SURELOG_DIR}/tests/PatternOrder/dut.sv
+        |vpiRefLineNo:3
+        |vpiRefColumnNo:3
+        |vpiRefEndLineNo:3
+        |vpiRefEndColumnNo:6
+      |vpiTypespecMember:
+      \_typespec_member: (BC1), line:7:5, endln:7:8
+        |vpiParent:
+        \_struct_typespec: , line:2:4, endln:8:57
+        |vpiName:BC1
+        |vpiTypespec:
+        \_struct_typespec: , line:4:3, endln:4:9
+          |vpiParent:
+          \_typespec_member: (BC1), line:7:5, endln:7:8
+          |vpiTypespecMember:
+          \_typespec_member: (B), line:5:11, endln:5:12
+            |vpiParent:
+            \_struct_typespec: , line:4:3, endln:4:9
+            |vpiName:B
+            |vpiTypespec:
+            \_logic_typespec: , line:5:5, endln:5:10
+              |vpiParent:
+              \_typespec_member: (B), line:5:11, endln:5:12
+            |vpiRefFile:${SURELOG_DIR}/tests/PatternOrder/dut.sv
+            |vpiRefLineNo:5
+            |vpiRefColumnNo:5
+            |vpiRefEndLineNo:5
+            |vpiRefEndColumnNo:10
+          |vpiTypespecMember:
+          \_typespec_member: (C), line:6:10, endln:6:11
+            |vpiParent:
+            \_struct_typespec: , line:4:3, endln:4:9
+            |vpiName:C
+            |vpiTypespec:
+            \_real_typespec: , line:6:5, endln:6:9
+              |vpiParent:
+              \_typespec_member: (C), line:6:10, endln:6:11
+            |vpiRefFile:${SURELOG_DIR}/tests/PatternOrder/dut.sv
+            |vpiRefLineNo:6
+            |vpiRefColumnNo:5
+            |vpiRefEndLineNo:6
+            |vpiRefEndColumnNo:9
+        |vpiRefFile:${SURELOG_DIR}/tests/PatternOrder/dut.sv
+        |vpiRefLineNo:4
+        |vpiRefColumnNo:3
+        |vpiRefEndLineNo:7
+        |vpiRefEndColumnNo:4
+      |vpiTypespecMember:
+      \_typespec_member: (BC2), line:7:10, endln:7:13
+        |vpiParent:
+        \_struct_typespec: , line:2:4, endln:8:57
+        |vpiName:BC2
+        |vpiTypespec:
+        \_struct_typespec: , line:4:3, endln:4:9
+          |vpiParent:
+          \_typespec_member: (BC2), line:7:10, endln:7:13
+          |vpiTypespecMember:
+          \_typespec_member: (B), line:5:11, endln:5:12
+            |vpiParent:
+            \_struct_typespec: , line:4:3, endln:4:9
+            |vpiName:B
+            |vpiTypespec:
+            \_logic_typespec: , line:5:5, endln:5:10
+              |vpiParent:
+              \_typespec_member: (B), line:5:11, endln:5:12
+            |vpiRefFile:${SURELOG_DIR}/tests/PatternOrder/dut.sv
+            |vpiRefLineNo:5
+            |vpiRefColumnNo:5
+            |vpiRefEndLineNo:5
+            |vpiRefEndColumnNo:10
+          |vpiTypespecMember:
+          \_typespec_member: (C), line:6:10, endln:6:11
+            |vpiParent:
+            \_struct_typespec: , line:4:3, endln:4:9
+            |vpiName:C
+            |vpiTypespec:
+            \_real_typespec: , line:6:5, endln:6:9
+              |vpiParent:
+              \_typespec_member: (C), line:6:10, endln:6:11
+            |vpiRefFile:${SURELOG_DIR}/tests/PatternOrder/dut.sv
+            |vpiRefLineNo:6
+            |vpiRefColumnNo:5
+            |vpiRefEndLineNo:6
+            |vpiRefEndColumnNo:9
+        |vpiRefFile:${SURELOG_DIR}/tests/PatternOrder/dut.sv
+        |vpiRefLineNo:4
+        |vpiRefColumnNo:3
+        |vpiRefEndLineNo:7
+        |vpiRefEndColumnNo:4
     |vpiName:ABC
     |vpiFullName:work@top.ABC
 |uhdmtopModules:
@@ -354,6 +455,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/PatternOrder/dut.sv | ${SURELOG_DIR}/build/regression/PatternOrder/roundtrip/dut_000.sv | 8 | 10 |

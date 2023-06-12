@@ -348,20 +348,20 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
-constant                                              69
+constant                                              75
 design                                                 1
 gen_if                                                 1
 int_typespec                                          31
 logic_net                                              3
-logic_typespec                                         2
+logic_typespec                                         5
 logic_var                                              3
 module_inst                                            9
-operation                                             21
+operation                                             24
 param_assign                                          18
 parameter                                             19
-range                                                  9
+range                                                 12
 ref_module                                             1
-ref_obj                                                9
+ref_obj                                               12
 string_typespec                                        4
 sys_func_call                                          3
 tagged_pattern                                         4
@@ -371,20 +371,20 @@ unsupported_typespec                                   3
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  1
-constant                                              69
+constant                                              75
 design                                                 1
 gen_if                                                 1
 int_typespec                                          31
 logic_net                                              3
-logic_typespec                                         2
+logic_typespec                                         5
 logic_var                                              3
 module_inst                                            9
-operation                                             21
+operation                                             24
 param_assign                                          18
 parameter                                             19
-range                                                  9
+range                                                 12
 ref_module                                             1
-ref_obj                                                9
+ref_obj                                               12
 string_typespec                                        4
 sys_func_call                                          3
 tagged_pattern                                         4
@@ -665,6 +665,38 @@ design: (work@top)
   \_logic_net: (work@prim_packer.pos), line:22:29, endln:22:32
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
+    |vpiTypespec:
+    \_logic_typespec: , line:22:3, endln:22:19
+      |vpiRange:
+      \_range: , line:22:9, endln:22:19
+        |vpiParent:
+        \_logic_typespec: , line:22:3, endln:22:19
+        |vpiLeftRange:
+        \_operation: , line:22:10, endln:22:16
+          |vpiParent:
+          \_range: , line:22:9, endln:22:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (PtrW), line:22:10, endln:22:14
+            |vpiParent:
+            \_operation: , line:22:10, endln:22:16
+            |vpiName:PtrW
+          |vpiOperand:
+          \_constant: , line:22:15, endln:22:16
+            |vpiParent:
+            \_operation: , line:22:10, endln:22:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:22:17, endln:22:18
+          |vpiParent:
+          \_range: , line:22:9, endln:22:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:pos
     |vpiFullName:work@prim_packer.pos
     |vpiNetType:36
@@ -672,6 +704,38 @@ design: (work@top)
   \_logic_net: (work@prim_packer.pos_next), line:22:34, endln:22:42
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
+    |vpiTypespec:
+    \_logic_typespec: , line:22:3, endln:22:19
+      |vpiRange:
+      \_range: , line:22:9, endln:22:19
+        |vpiParent:
+        \_logic_typespec: , line:22:3, endln:22:19
+        |vpiLeftRange:
+        \_operation: , line:22:10, endln:22:16
+          |vpiParent:
+          \_range: , line:22:9, endln:22:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (PtrW), line:22:10, endln:22:14
+            |vpiParent:
+            \_operation: , line:22:10, endln:22:16
+            |vpiName:PtrW
+          |vpiOperand:
+          \_constant: , line:22:15, endln:22:16
+            |vpiParent:
+            \_operation: , line:22:10, endln:22:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:22:17, endln:22:18
+          |vpiParent:
+          \_range: , line:22:9, endln:22:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:pos_next
     |vpiFullName:work@prim_packer.pos_next
     |vpiNetType:36
@@ -679,6 +743,38 @@ design: (work@top)
   \_logic_net: (work@prim_packer.lod_idx), line:23:29, endln:23:36
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
+    |vpiTypespec:
+    \_logic_typespec: , line:23:3, endln:23:19
+      |vpiRange:
+      \_range: , line:23:9, endln:23:19
+        |vpiParent:
+        \_logic_typespec: , line:23:3, endln:23:19
+        |vpiLeftRange:
+        \_operation: , line:23:10, endln:23:16
+          |vpiParent:
+          \_range: , line:23:9, endln:23:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (IdxW), line:23:10, endln:23:14
+            |vpiParent:
+            \_operation: , line:23:10, endln:23:16
+            |vpiName:IdxW
+          |vpiOperand:
+          \_constant: , line:23:15, endln:23:16
+            |vpiParent:
+            \_operation: , line:23:10, endln:23:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:23:17, endln:23:18
+          |vpiParent:
+          \_range: , line:23:9, endln:23:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:lod_idx
     |vpiFullName:work@prim_packer.lod_idx
     |vpiNetType:36
@@ -727,11 +823,11 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:1:1, endln:9:10
     |HEX:0080000000
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:2:2, endln:2:57
       |vpiRange:
       \_range: 
         |vpiParent:
-        \_int_typespec: 
+        \_int_typespec: , line:2:2, endln:2:57
         |vpiLeftRange:
         \_constant: 
           |INT:39
@@ -765,7 +861,7 @@ design: (work@top)
       |vpiSize:40
       |HEX:0080000000
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:2, endln:2:57
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@top.dram_base_addr_gp), line:2:13, endln:2:30
@@ -790,13 +886,13 @@ design: (work@top)
           |vpiSize:40
           |HEX:0080000000
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:2:2, endln:2:57
             |vpiParent:
             \_constant: , line:2:41, endln:2:57
             |vpiRange:
             \_range: 
               |vpiParent:
-              \_int_typespec: 
+              \_int_typespec: , line:2:2, endln:2:57
               |vpiLeftRange:
               \_constant: 
                 |vpiParent:
@@ -825,13 +921,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:1:1, endln:9:10
     |HEX:0080000000
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:2:2, endln:2:57
       |vpiParent:
       \_parameter: (work@top.dram_base_addr_gp), line:2:13, endln:2:30
       |vpiRange:
       \_range: 
         |vpiParent:
-        \_int_typespec: 
+        \_int_typespec: , line:2:2, endln:2:57
         |vpiLeftRange:
         \_constant: 
           |vpiParent:
@@ -869,7 +965,7 @@ design: (work@top)
       |vpiSize:40
       |HEX:0080000000
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:2:2, endln:2:57
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@top.dram_base_addr_gp), line:2:13, endln:2:30
@@ -1250,6 +1346,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 7
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/NegParam/dut.sv | ${SURELOG_DIR}/build/regression/NegParam/roundtrip/dut_000.sv | 13 | 31 |

@@ -24,37 +24,37 @@
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             2
-constant                                              15
+constant                                              17
 cont_assign                                            2
 design                                                 1
 int_typespec                                           2
 logic_net                                              1
-logic_typespec                                         1
-logic_var                                              1
-module_inst                                            6
-operation                                              4
-param_assign                                           2
-parameter                                              2
-range                                                  2
-ref_obj                                                2
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-
-=== UHDM Object Stats Begin (Elaborated Model) ===
-bit_select                                             3
-constant                                              16
-cont_assign                                            3
-design                                                 1
-int_typespec                                           2
-logic_net                                              1
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            6
 operation                                              5
 param_assign                                           2
 parameter                                              2
-range                                                  2
+range                                                  3
 ref_obj                                                3
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+bit_select                                             3
+constant                                              18
+cont_assign                                            3
+design                                                 1
+int_typespec                                           2
+logic_net                                              1
+logic_typespec                                         2
+logic_var                                              1
+module_inst                                            6
+operation                                              6
+param_assign                                           2
+parameter                                              2
+range                                                  3
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexAssign/slpp_unit/surelog.uhdm ...
 
@@ -106,6 +106,38 @@ design: (work@t)
   \_logic_net: (work@t.sig), line:3:17, endln:3:20
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/IndexAssign/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:3, endln:3:16
+      |vpiRange:
+      \_range: , line:3:9, endln:3:16
+        |vpiParent:
+        \_logic_typespec: , line:3:3, endln:3:16
+        |vpiLeftRange:
+        \_operation: , line:3:10, endln:3:13
+          |vpiParent:
+          \_range: , line:3:9, endln:3:16
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (I), line:3:10, endln:3:11
+            |vpiParent:
+            \_operation: , line:3:10, endln:3:13
+            |vpiName:I
+          |vpiOperand:
+          \_constant: , line:3:12, endln:3:13
+            |vpiParent:
+            \_operation: , line:3:10, endln:3:13
+            |vpiDecompile:4
+            |vpiSize:64
+            |UINT:4
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:14, endln:3:15
+          |vpiParent:
+          \_range: , line:3:9, endln:3:16
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:sig
     |vpiFullName:work@t.sig
     |vpiNetType:36
@@ -274,4 +306,4 @@ design: (work@t)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/IndexAssign/dut.sv | ${SURELOG_DIR}/build/regression/IndexAssign/roundtrip/dut_000.sv | 1 | 5 |
+[roundtrip]: ${SURELOG_DIR}/tests/IndexAssign/dut.sv | ${SURELOG_DIR}/build/regression/IndexAssign/roundtrip/dut_000.sv | 0 | 5 |

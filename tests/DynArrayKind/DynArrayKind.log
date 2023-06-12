@@ -186,7 +186,7 @@ array_typespec                                         9
 array_var                                              7
 constant                                              22
 design                                                 1
-int_typespec                                          10
+int_typespec                                          17
 int_var                                                7
 logic_net                                              7
 module_inst                                            3
@@ -200,7 +200,7 @@ array_typespec                                         9
 array_var                                              7
 constant                                              22
 design                                                 1
-int_typespec                                          10
+int_typespec                                          17
 int_var                                                7
 logic_net                                              7
 module_inst                                            3
@@ -229,49 +229,70 @@ design: (work@top)
   \_logic_net: (work@top.dynamic1), line:2:8, endln:2:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:2:4, endln:2:19
+      |vpiSigned:1
     |vpiName:dynamic1
     |vpiFullName:work@top.dynamic1
   |vpiNet:
   \_logic_net: (work@top.dynamic2), line:3:8, endln:3:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:3:4, endln:3:19
+      |vpiSigned:1
     |vpiName:dynamic2
     |vpiFullName:work@top.dynamic2
   |vpiNet:
   \_logic_net: (work@top.dynamic3), line:4:8, endln:4:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:4:4, endln:4:22
+      |vpiSigned:1
     |vpiName:dynamic3
     |vpiFullName:work@top.dynamic3
   |vpiNet:
   \_logic_net: (work@top.dynamic4), line:5:8, endln:5:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:5:4, endln:5:22
+      |vpiSigned:1
     |vpiName:dynamic4
     |vpiFullName:work@top.dynamic4
   |vpiNet:
   \_logic_net: (work@top.assoc), line:6:8, endln:6:13
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:6:4, endln:6:19
+      |vpiSigned:1
     |vpiName:assoc
     |vpiFullName:work@top.assoc
   |vpiNet:
   \_logic_net: (work@top.assoc_string), line:7:8, endln:7:20
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:7:4, endln:7:29
+      |vpiSigned:1
     |vpiName:assoc_string
     |vpiFullName:work@top.assoc_string
   |vpiNet:
   \_logic_net: (work@top.queue), line:8:8, endln:8:13
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:8:4, endln:8:17
+      |vpiSigned:1
     |vpiName:queue
     |vpiFullName:work@top.queue
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
   |vpiName:work@top
   |vpiVariables:
-  \_array_var: (work@top.dynamic1), line:2:8, endln:2:19
+  \_array_var: (work@top.dynamic1), line:2:8, endln:2:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiSize:1
@@ -285,7 +306,7 @@ design: (work@top)
     |vpiReg:
     \_int_var: (work@top.dynamic1), line:2:8, endln:2:16
       |vpiParent:
-      \_array_var: (work@top.dynamic1), line:2:8, endln:2:19
+      \_array_var: (work@top.dynamic1), line:2:8, endln:2:16
       |vpiTypespec:
       \_int_typespec: , line:2:4, endln:2:7
         |vpiParent:
@@ -293,7 +314,7 @@ design: (work@top)
         |vpiSigned:1
       |vpiFullName:work@top.dynamic1
   |vpiVariables:
-  \_array_var: (work@top.dynamic2), line:3:8, endln:3:19
+  \_array_var: (work@top.dynamic2), line:3:8, endln:3:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiSize:2
@@ -307,7 +328,7 @@ design: (work@top)
     |vpiRange:
     \_range: , line:3:19, endln:3:24
       |vpiParent:
-      \_array_var: (work@top.dynamic2), line:3:8, endln:3:19
+      \_array_var: (work@top.dynamic2), line:3:8, endln:3:16
       |vpiLeftRange:
       \_constant: , line:3:20, endln:3:21
         |vpiParent:
@@ -327,7 +348,7 @@ design: (work@top)
     |vpiReg:
     \_int_var: (work@top.dynamic2), line:3:8, endln:3:16
       |vpiParent:
-      \_array_var: (work@top.dynamic2), line:3:8, endln:3:19
+      \_array_var: (work@top.dynamic2), line:3:8, endln:3:16
       |vpiTypespec:
       \_int_typespec: , line:3:4, endln:3:7
         |vpiParent:
@@ -335,7 +356,7 @@ design: (work@top)
         |vpiSigned:1
       |vpiFullName:work@top.dynamic2
   |vpiVariables:
-  \_array_var: (work@top.dynamic3), line:4:8, endln:4:22
+  \_array_var: (work@top.dynamic3), line:4:8, endln:4:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiSize:2
@@ -347,7 +368,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:4:17, endln:4:22
           |vpiParent:
-          \_array_var: (work@top.dynamic3), line:4:8, endln:4:22
+          \_array_var: (work@top.dynamic3), line:4:8, endln:4:16
           |vpiLeftRange:
           \_constant: , line:4:18, endln:4:19
             |vpiParent:
@@ -372,7 +393,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiArrayType:2
   |vpiVariables:
-  \_array_var: (work@top.dynamic4), line:5:8, endln:5:22
+  \_array_var: (work@top.dynamic4), line:5:8, endln:5:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiSize:6
@@ -384,7 +405,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:5:17, endln:5:22
           |vpiParent:
-          \_array_var: (work@top.dynamic4), line:5:8, endln:5:22
+          \_array_var: (work@top.dynamic4), line:5:8, endln:5:16
           |vpiLeftRange:
           \_constant: , line:5:18, endln:5:19
             |vpiParent:
@@ -404,7 +425,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:5:24, endln:5:29
           |vpiParent:
-          \_array_var: (work@top.dynamic4), line:5:8, endln:5:22
+          \_array_var: (work@top.dynamic4), line:5:8, endln:5:16
           |vpiLeftRange:
           \_constant: , line:5:25, endln:5:26
             |vpiParent:
@@ -429,7 +450,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiArrayType:2
   |vpiVariables:
-  \_array_var: (work@top.assoc), line:6:8, endln:6:19
+  \_array_var: (work@top.assoc), line:6:8, endln:6:13
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiSize:1
@@ -446,7 +467,7 @@ design: (work@top)
     |vpiReg:
     \_int_var: (work@top.assoc), line:6:8, endln:6:13
       |vpiParent:
-      \_array_var: (work@top.assoc), line:6:8, endln:6:19
+      \_array_var: (work@top.assoc), line:6:8, endln:6:13
       |vpiTypespec:
       \_int_typespec: , line:6:4, endln:6:7
         |vpiParent:
@@ -454,7 +475,7 @@ design: (work@top)
         |vpiSigned:1
       |vpiFullName:work@top.assoc
   |vpiVariables:
-  \_array_var: (work@top.assoc_string), line:7:8, endln:7:29
+  \_array_var: (work@top.assoc_string), line:7:8, endln:7:20
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiSize:1
@@ -470,7 +491,7 @@ design: (work@top)
     |vpiReg:
     \_int_var: (work@top.assoc_string), line:7:8, endln:7:20
       |vpiParent:
-      \_array_var: (work@top.assoc_string), line:7:8, endln:7:29
+      \_array_var: (work@top.assoc_string), line:7:8, endln:7:20
       |vpiTypespec:
       \_int_typespec: , line:7:4, endln:7:7
         |vpiParent:
@@ -478,7 +499,7 @@ design: (work@top)
         |vpiSigned:1
       |vpiFullName:work@top.assoc_string
   |vpiVariables:
-  \_array_var: (work@top.queue), line:8:8, endln:8:17
+  \_array_var: (work@top.queue), line:8:8, endln:8:13
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiSize:1
@@ -492,7 +513,7 @@ design: (work@top)
     |vpiReg:
     \_int_var: (work@top.queue), line:8:8, endln:8:13
       |vpiParent:
-      \_array_var: (work@top.queue), line:8:8, endln:8:17
+      \_array_var: (work@top.queue), line:8:8, endln:8:13
       |vpiTypespec:
       \_int_typespec: , line:8:4, endln:8:7
         |vpiParent:

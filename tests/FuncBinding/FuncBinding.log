@@ -51,6 +51,7 @@ operation                                              7
 port                                                  12
 range                                                  3
 ref_obj                                               48
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -83,6 +84,7 @@ operation                                             14
 port                                                  18
 range                                                  3
 ref_obj                                               90
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncBinding/slpp_unit/surelog.uhdm ...
 
@@ -645,12 +647,18 @@ design: (work@fsm_using_function)
   \_logic_net: (work@fsm_using_function.curr_state), line:12:7, endln:12:17
     |vpiParent:
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
+    |vpiTypespec:
+    \_unsupported_typespec: (state), line:12:1, endln:12:6
+      |vpiName:state
     |vpiName:curr_state
     |vpiFullName:work@fsm_using_function.curr_state
   |vpiNet:
   \_logic_net: (work@fsm_using_function.next_state), line:12:19, endln:12:29
     |vpiParent:
     \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FuncBinding/dut.sv, line:1:1, endln:53:10
+    |vpiTypespec:
+    \_unsupported_typespec: (state), line:12:1, endln:12:6
+      |vpiName:state
     |vpiName:next_state
     |vpiFullName:work@fsm_using_function.next_state
   |vpiPort:
@@ -660,7 +668,7 @@ design: (work@fsm_using_function)
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.clock.clock)
+    \_ref_obj: (work@fsm_using_function.clock.clock), line:2:11, endln:2:16
       |vpiParent:
       \_port: (clock), line:2:11, endln:2:16
       |vpiName:clock
@@ -676,7 +684,7 @@ design: (work@fsm_using_function)
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.reset.reset)
+    \_ref_obj: (work@fsm_using_function.reset.reset), line:3:11, endln:3:16
       |vpiParent:
       \_port: (reset), line:3:11, endln:3:16
       |vpiName:reset
@@ -692,7 +700,7 @@ design: (work@fsm_using_function)
     |vpiName:req_0
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.req_0.req_0)
+    \_ref_obj: (work@fsm_using_function.req_0.req_0), line:4:11, endln:4:16
       |vpiParent:
       \_port: (req_0), line:4:11, endln:4:16
       |vpiName:req_0
@@ -708,7 +716,7 @@ design: (work@fsm_using_function)
     |vpiName:req_1
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.req_1.req_1)
+    \_ref_obj: (work@fsm_using_function.req_1.req_1), line:5:11, endln:5:16
       |vpiParent:
       \_port: (req_1), line:5:11, endln:5:16
       |vpiName:req_1
@@ -724,7 +732,7 @@ design: (work@fsm_using_function)
     |vpiName:gnt_0
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.gnt_0.gnt_0)
+    \_ref_obj: (work@fsm_using_function.gnt_0.gnt_0), line:6:12, endln:6:17
       |vpiParent:
       \_port: (gnt_0), line:6:12, endln:6:17
       |vpiName:gnt_0
@@ -740,7 +748,7 @@ design: (work@fsm_using_function)
     |vpiName:gnt_1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.gnt_1.gnt_1)
+    \_ref_obj: (work@fsm_using_function.gnt_1.gnt_1), line:7:12, endln:7:17
       |vpiParent:
       \_port: (gnt_1), line:7:12, endln:7:17
       |vpiName:gnt_1
@@ -771,7 +779,7 @@ design: (work@fsm_using_function)
           |vpiActual:
           \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
-      \_named_begin: (work@fsm_using_function.FUN), line:16:1, endln:18:4
+      \_named_begin: (work@fsm_using_function.FUN), line:16:9, endln:16:12
         |vpiParent:
         \_event_control: , line:15:8, endln:15:25
         |vpiName:FUN
@@ -779,7 +787,7 @@ design: (work@fsm_using_function)
         |vpiStmt:
         \_assign_stmt: , line:17:2, endln:17:72
           |vpiParent:
-          \_named_begin: (work@fsm_using_function.FUN), line:16:1, endln:18:4
+          \_named_begin: (work@fsm_using_function.FUN), line:16:9, endln:16:12
           |vpiRhs:
           \_func_call: (fsm_function), line:17:22, endln:17:72
             |vpiParent:
@@ -850,7 +858,7 @@ design: (work@fsm_using_function)
           |vpiActual:
           \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
-      \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:1, endln:52:4
+      \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:9, endln:46:16
         |vpiParent:
         \_event_control: , line:45:8, endln:45:25
         |vpiName:FSM_SEQ
@@ -858,11 +866,11 @@ design: (work@fsm_using_function)
         |vpiStmt:
         \_if_else: , line:47:2, endln:51:5
           |vpiParent:
-          \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:1, endln:52:4
+          \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:9, endln:46:16
           |vpiCondition:
           \_operation: , line:47:6, endln:47:19
             |vpiParent:
-            \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:1, endln:52:4
+            \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:9, endln:46:16
             |vpiOpType:14
             |vpiOperand:
             \_ref_obj: (work@fsm_using_function.FSM_SEQ.reset), line:47:6, endln:47:11
@@ -1548,7 +1556,7 @@ design: (work@fsm_using_function)
           |vpiActual:
           \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
-      \_named_begin: (work@fsm_using_function.FUN), line:16:1, endln:18:4
+      \_named_begin: (work@fsm_using_function.FUN), line:16:9, endln:16:12
         |vpiParent:
         \_event_control: , line:15:8, endln:15:25
         |vpiName:FUN
@@ -1556,7 +1564,7 @@ design: (work@fsm_using_function)
         |vpiStmt:
         \_assign_stmt: , line:17:2, endln:17:72
           |vpiParent:
-          \_named_begin: (work@fsm_using_function.FUN), line:16:1, endln:18:4
+          \_named_begin: (work@fsm_using_function.FUN), line:16:9, endln:16:12
           |vpiRhs:
           \_func_call: (fsm_function), line:17:22, endln:17:72
             |vpiParent:
@@ -1627,7 +1635,7 @@ design: (work@fsm_using_function)
           |vpiActual:
           \_logic_net: (work@fsm_using_function.clock), line:2:11, endln:2:16
       |vpiStmt:
-      \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:1, endln:52:4
+      \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:9, endln:46:16
         |vpiParent:
         \_event_control: , line:45:8, endln:45:25
         |vpiName:FSM_SEQ
@@ -1635,7 +1643,7 @@ design: (work@fsm_using_function)
         |vpiStmt:
         \_if_else: , line:47:2, endln:51:5
           |vpiParent:
-          \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:1, endln:52:4
+          \_named_begin: (work@fsm_using_function.FSM_SEQ), line:46:9, endln:46:16
           |vpiCondition:
           \_operation: , line:47:6, endln:47:19
             |vpiParent:
@@ -1722,4 +1730,4 @@ design: (work@fsm_using_function)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/FuncBinding/dut.sv | ${SURELOG_DIR}/build/regression/FuncBinding/roundtrip/dut_000.sv | 10 | 53 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncBinding/dut.sv | ${SURELOG_DIR}/build/regression/FuncBinding/roundtrip/dut_000.sv | 14 | 53 |

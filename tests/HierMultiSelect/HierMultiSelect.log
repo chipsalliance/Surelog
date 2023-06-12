@@ -233,7 +233,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             4
-byte_typespec                                          1
+byte_typespec                                          2
 byte_var                                               1
 constant                                              18
 cont_assign                                            5
@@ -241,7 +241,7 @@ design                                                 1
 hier_path                                              8
 indexed_part_select                                    3
 logic_net                                              3
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 method_func_call                                       1
 module_inst                                            3
@@ -253,7 +253,7 @@ var_select                                             1
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             6
-byte_typespec                                          1
+byte_typespec                                          2
 byte_var                                               1
 constant                                              19
 cont_assign                                            9
@@ -261,7 +261,7 @@ design                                                 1
 hier_path                                             13
 indexed_part_select                                    5
 logic_net                                              3
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 method_func_call                                       1
 module_inst                                            3
@@ -301,6 +301,8 @@ design: (work@dm_csrs)
   \_logic_net: (work@dm_csrs.c), line:6:9, endln:6:10
     |vpiParent:
     \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:3, endln:6:32
     |vpiName:c
     |vpiFullName:work@dm_csrs.c
     |vpiNetType:36
@@ -308,6 +310,9 @@ design: (work@dm_csrs)
   \_logic_net: (work@dm_csrs.o), line:7:8, endln:7:9
     |vpiParent:
     \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_byte_typespec: , line:7:3, endln:7:17
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@dm_csrs.o
   |vpiNet:
@@ -343,12 +348,12 @@ design: (work@dm_csrs)
       \_cont_assign: , line:2:10, endln:2:43
       |vpiName:dmi_req_i.addr1
       |vpiActual:
-      \_ref_obj: (dmi_req_i)
+      \_ref_obj: (dmi_req_i), line:2:20, endln:2:25
         |vpiParent:
         \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
         |vpiName:dmi_req_i
       |vpiActual:
-      \_ref_obj: (addr1)
+      \_ref_obj: (addr1), line:2:20, endln:2:25
         |vpiParent:
         \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
         |vpiName:addr1
@@ -383,7 +388,7 @@ design: (work@dm_csrs)
             \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
             |vpiName:keymgr_data_i
           |vpiActual:
-          \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb)
+          \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb), line:3:54, endln:3:55
             |vpiParent:
             \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
             |vpiName:strb
@@ -391,7 +396,7 @@ design: (work@dm_csrs)
             |vpiIndex:
             \_ref_obj: (work@dm_csrs.keymgr_data_i.strb[i].i), line:3:54, endln:3:55
               |vpiParent:
-              \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb)
+              \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb), line:3:54, endln:3:55
               |vpiName:i
               |vpiFullName:work@dm_csrs.keymgr_data_i.strb[i].i
               |vpiActual:
@@ -549,7 +554,7 @@ design: (work@dm_csrs)
             |UINT:2
             |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (sram_otp_key_o[2 - 2].nonce)
+      \_ref_obj: (sram_otp_key_o[2 - 2].nonce), line:5:30, endln:5:35
         |vpiParent:
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
         |vpiName:nonce
@@ -660,12 +665,12 @@ design: (work@dm_csrs)
       \_cont_assign: , line:2:10, endln:2:43
       |vpiName:dmi_req_i.addr1
       |vpiActual:
-      \_ref_obj: (dmi_req_i)
+      \_ref_obj: (dmi_req_i), line:2:20, endln:2:25
         |vpiParent:
         \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
         |vpiName:dmi_req_i
       |vpiActual:
-      \_ref_obj: (addr1)
+      \_ref_obj: (addr1), line:2:20, endln:2:25
         |vpiParent:
         \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
         |vpiName:addr1
@@ -696,7 +701,7 @@ design: (work@dm_csrs)
             \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
             |vpiName:keymgr_data_i
           |vpiActual:
-          \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb)
+          \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb), line:3:54, endln:3:55
             |vpiParent:
             \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
             |vpiName:strb
@@ -704,7 +709,7 @@ design: (work@dm_csrs)
             |vpiIndex:
             \_ref_obj: (work@dm_csrs.keymgr_data_i.strb[i].i), line:3:54, endln:3:55
               |vpiParent:
-              \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb)
+              \_bit_select: (work@dm_csrs.keymgr_data_i.strb[i].strb), line:3:54, endln:3:55
               |vpiName:i
               |vpiFullName:work@dm_csrs.keymgr_data_i.strb[i].i
               |vpiActual:
@@ -824,7 +829,7 @@ design: (work@dm_csrs)
             |UINT:2
             |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (sram_otp_key_o[2 - 2].nonce)
+      \_ref_obj: (sram_otp_key_o[2 - 2].nonce), line:5:30, endln:5:35
         |vpiParent:
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
         |vpiName:nonce
@@ -835,6 +840,3 @@ design: (work@dm_csrs)
 [  ERROR] : 5
 [WARNING] : 1
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/HierMultiSelect/dut.sv | ${SURELOG_DIR}/build/regression/HierMultiSelect/roundtrip/dut_000.sv | 6 | 8 |

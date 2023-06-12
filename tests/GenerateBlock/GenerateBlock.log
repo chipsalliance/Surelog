@@ -194,7 +194,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              30
+constant                                              32
 cont_assign                                            8
 design                                                 1
 gen_region                                             3
@@ -202,17 +202,17 @@ gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              4
 logic_net                                              8
-logic_typespec                                         7
+logic_typespec                                         8
 module_inst                                            7
 named_begin                                            3
 operation                                              4
-range                                                 11
+range                                                 12
 ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              30
+constant                                              32
 cont_assign                                           12
 design                                                 1
 gen_region                                             3
@@ -220,11 +220,11 @@ gen_scope                                              9
 gen_scope_array                                        9
 hier_path                                              6
 logic_net                                              8
-logic_typespec                                         7
+logic_typespec                                         8
 module_inst                                            7
 named_begin                                            3
 operation                                              6
-range                                                 11
+range                                                 12
 ref_obj                                               15
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateBlock/slpp_all/surelog.uhdm ...
@@ -249,6 +249,28 @@ design: (work@gen_test9)
   \_logic_net: (work@gen_test9.w), line:2:20, endln:2:21
     |vpiParent:
     \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:9, endln:2:19
+      |vpiRange:
+      \_range: , line:2:14, endln:2:19
+        |vpiParent:
+        \_logic_typespec: , line:2:9, endln:2:19
+        |vpiLeftRange:
+        \_constant: , line:2:15, endln:2:16
+          |vpiParent:
+          \_range: , line:2:14, endln:2:19
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:17, endln:2:18
+          |vpiParent:
+          \_range: , line:2:14, endln:2:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:w
     |vpiFullName:work@gen_test9.w
     |vpiNetType:1
@@ -388,14 +410,14 @@ design: (work@gen_test9)
     |vpiName:A
     |vpiFullName:work@gen_test9.A
     |vpiGenScope:
-    \_gen_scope: (work@gen_test9.A)
+    \_gen_scope: (work@gen_test9.A), line:3:9, endln:18:20
       |vpiParent:
       \_gen_scope_array: (work@gen_test9.A), line:3:9, endln:18:20
       |vpiFullName:work@gen_test9.A
       |vpiNet:
       \_logic_net: (work@gen_test9.A.x), line:5:36, endln:5:37
         |vpiParent:
-        \_gen_scope: (work@gen_test9.A)
+        \_gen_scope: (work@gen_test9.A), line:3:9, endln:18:20
         |vpiTypespec:
         \_logic_typespec: , line:5:25, endln:5:35
           |vpiParent:
@@ -426,7 +448,7 @@ design: (work@gen_test9)
       |vpiContAssign:
       \_cont_assign: , line:16:32, endln:16:53
         |vpiParent:
-        \_gen_scope: (work@gen_test9.A)
+        \_gen_scope: (work@gen_test9.A), line:3:9, endln:18:20
         |vpiRhs:
         \_operation: , line:16:36, endln:16:53
           |vpiParent:
@@ -448,7 +470,7 @@ design: (work@gen_test9)
                 \_hier_path: (B.y), line:16:36, endln:16:39
                 |vpiName:B
                 |vpiActual:
-                \_gen_scope: (work@gen_test9.A.B)
+                \_gen_scope: (work@gen_test9.A.B), line:6:25, endln:10:36
               |vpiActual:
               \_ref_obj: (work@gen_test9.A.y), line:16:38, endln:16:39
                 |vpiParent:
@@ -476,7 +498,7 @@ design: (work@gen_test9)
               \_hier_path: (C.z), line:16:50, endln:16:53
               |vpiName:C
               |vpiActual:
-              \_gen_scope: (work@gen_test9.A.C)
+              \_gen_scope: (work@gen_test9.A.C), line:11:25, endln:15:36
             |vpiActual:
             \_ref_obj: (work@gen_test9.A.z), line:16:52, endln:16:53
               |vpiParent:
@@ -496,18 +518,18 @@ design: (work@gen_test9)
       |vpiGenScopeArray:
       \_gen_scope_array: (work@gen_test9.A.B), line:6:25, endln:10:36
         |vpiParent:
-        \_gen_scope: (work@gen_test9.A)
+        \_gen_scope: (work@gen_test9.A), line:3:9, endln:18:20
         |vpiName:B
         |vpiFullName:work@gen_test9.A.B
         |vpiGenScope:
-        \_gen_scope: (work@gen_test9.A.B)
+        \_gen_scope: (work@gen_test9.A.B), line:6:25, endln:10:36
           |vpiParent:
           \_gen_scope_array: (work@gen_test9.A.B), line:6:25, endln:10:36
           |vpiFullName:work@gen_test9.A.B
           |vpiNet:
           \_logic_net: (work@gen_test9.A.B.y), line:8:44, endln:8:45
             |vpiParent:
-            \_gen_scope: (work@gen_test9.A.B)
+            \_gen_scope: (work@gen_test9.A.B), line:6:25, endln:10:36
             |vpiTypespec:
             \_logic_typespec: , line:8:33, endln:8:43
               |vpiRange:
@@ -536,7 +558,7 @@ design: (work@gen_test9)
           |vpiContAssign:
           \_cont_assign: , line:8:44, endln:8:45
             |vpiParent:
-            \_gen_scope: (work@gen_test9.A.B)
+            \_gen_scope: (work@gen_test9.A.B), line:6:25, endln:10:36
             |vpiNetDeclAssign:1
             |vpiRhs:
             \_constant: , line:8:48, endln:8:53
@@ -551,18 +573,18 @@ design: (work@gen_test9)
       |vpiGenScopeArray:
       \_gen_scope_array: (work@gen_test9.A.C), line:11:25, endln:15:36
         |vpiParent:
-        \_gen_scope: (work@gen_test9.A)
+        \_gen_scope: (work@gen_test9.A), line:3:9, endln:18:20
         |vpiName:C
         |vpiFullName:work@gen_test9.A.C
         |vpiGenScope:
-        \_gen_scope: (work@gen_test9.A.C)
+        \_gen_scope: (work@gen_test9.A.C), line:11:25, endln:15:36
           |vpiParent:
           \_gen_scope_array: (work@gen_test9.A.C), line:11:25, endln:15:36
           |vpiFullName:work@gen_test9.A.C
           |vpiNet:
           \_logic_net: (work@gen_test9.A.C.z), line:13:44, endln:13:45
             |vpiParent:
-            \_gen_scope: (work@gen_test9.A.C)
+            \_gen_scope: (work@gen_test9.A.C), line:11:25, endln:15:36
             |vpiTypespec:
             \_logic_typespec: , line:13:33, endln:13:43
               |vpiRange:
@@ -591,7 +613,7 @@ design: (work@gen_test9)
           |vpiContAssign:
           \_cont_assign: , line:13:44, endln:13:45
             |vpiParent:
-            \_gen_scope: (work@gen_test9.A.C)
+            \_gen_scope: (work@gen_test9.A.C), line:11:25, endln:15:36
             |vpiNetDeclAssign:1
             |vpiRhs:
             \_constant: , line:13:48, endln:13:53

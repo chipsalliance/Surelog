@@ -431,20 +431,20 @@ there are 1 more instances of this message.
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              62
+constant                                              68
 design                                                 1
 int_typespec                                          10
 io_decl                                                2
 logic_net                                             20
-logic_typespec                                         3
+logic_typespec                                         6
 module_inst                                           14
-operation                                             15
+operation                                             18
 param_assign                                          16
 parameter                                             16
 port                                                  10
 prim_term                                              2
-range                                                  6
-ref_obj                                               17
+range                                                  9
+ref_obj                                               20
 sys_func_call                                          3
 table_entry                                            2
 udp                                                    2
@@ -453,20 +453,20 @@ udp_defn                                               1
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              62
+constant                                              68
 design                                                 1
 int_typespec                                          10
 io_decl                                                2
 logic_net                                             20
-logic_typespec                                         3
+logic_typespec                                         6
 module_inst                                           14
-operation                                             15
+operation                                             18
 param_assign                                          16
 parameter                                             16
 port                                                  14
 prim_term                                              4
-range                                                  6
-ref_obj                                               27
+range                                                  9
+ref_obj                                               30
 sys_func_call                                          3
 table_entry                                            2
 udp                                                    3
@@ -536,7 +536,7 @@ design: (work@iNToRecFN)
     \_module_inst: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:1:19, endln:1:41
     |vpiName:intWidth
     |vpiFullName:work@iNToRawFN.intWidth
   |vpiParameter:
@@ -558,7 +558,7 @@ design: (work@iNToRecFN)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:1:19, endln:1:41
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRawFN.intWidth), line:1:29, endln:1:37
@@ -597,6 +597,38 @@ design: (work@iNToRecFN)
   \_logic_net: (work@iNToRawFN.adjustedNormDist), line:3:29, endln:3:45
     |vpiParent:
     \_module_inst: work@iNToRawFN (work@iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:1:1, endln:4:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:5, endln:3:28
+      |vpiRange:
+      \_range: , line:3:10, endln:3:28
+        |vpiParent:
+        \_logic_typespec: , line:3:5, endln:3:28
+        |vpiLeftRange:
+        \_operation: , line:3:12, endln:3:24
+          |vpiParent:
+          \_range: , line:3:10, endln:3:28
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (expWidth), line:3:12, endln:3:20
+            |vpiParent:
+            \_operation: , line:3:12, endln:3:24
+            |vpiName:expWidth
+          |vpiOperand:
+          \_constant: , line:3:23, endln:3:24
+            |vpiParent:
+            \_operation: , line:3:12, endln:3:24
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:26, endln:3:27
+          |vpiParent:
+          \_range: , line:3:10, endln:3:28
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:adjustedNormDist
     |vpiFullName:work@iNToRawFN.adjustedNormDist
     |vpiNetType:1
@@ -619,7 +651,7 @@ design: (work@iNToRecFN)
     |vpiName:signedIn
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@iNToRawFN.signedIn.signedIn)
+    \_ref_obj: (work@iNToRawFN.signedIn.signedIn), line:1:44, endln:1:52
       |vpiParent:
       \_port: (signedIn), line:1:44, endln:1:52
       |vpiName:signedIn
@@ -633,7 +665,7 @@ design: (work@iNToRecFN)
     |vpiName:sExp
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@iNToRawFN.sExp.sExp)
+    \_ref_obj: (work@iNToRawFN.sExp.sExp), line:1:54, endln:1:58
       |vpiParent:
       \_port: (sExp), line:1:54, endln:1:58
       |vpiName:sExp
@@ -651,7 +683,7 @@ design: (work@iNToRecFN)
     \_module_inst: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:6:20, endln:6:42
     |vpiName:intWidth
     |vpiFullName:work@iNToRawFN3.intWidth
   |vpiParameter:
@@ -660,7 +692,7 @@ design: (work@iNToRecFN)
     \_module_inst: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:6:44, endln:6:67
     |vpiName:intWidth2
     |vpiFullName:work@iNToRawFN3.intWidth2
   |vpiParameter:
@@ -689,7 +721,7 @@ design: (work@iNToRecFN)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:6:20, endln:6:42
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRawFN3.intWidth), line:6:30, endln:6:38
@@ -705,7 +737,7 @@ design: (work@iNToRecFN)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:6:44, endln:6:67
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRawFN3.intWidth2), line:6:54, endln:6:63
@@ -774,6 +806,38 @@ design: (work@iNToRecFN)
   \_logic_net: (work@iNToRawFN3.adjustedNormDist), line:9:29, endln:9:45
     |vpiParent:
     \_module_inst: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:9:5, endln:9:28
+      |vpiRange:
+      \_range: , line:9:10, endln:9:28
+        |vpiParent:
+        \_logic_typespec: , line:9:5, endln:9:28
+        |vpiLeftRange:
+        \_operation: , line:9:12, endln:9:24
+          |vpiParent:
+          \_range: , line:9:10, endln:9:28
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (expWidth), line:9:12, endln:9:20
+            |vpiParent:
+            \_operation: , line:9:12, endln:9:24
+            |vpiName:expWidth
+          |vpiOperand:
+          \_constant: , line:9:23, endln:9:24
+            |vpiParent:
+            \_operation: , line:9:12, endln:9:24
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:9:26, endln:9:27
+          |vpiParent:
+          \_range: , line:9:10, endln:9:28
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:adjustedNormDist
     |vpiFullName:work@iNToRawFN3.adjustedNormDist
     |vpiNetType:1
@@ -781,6 +845,38 @@ design: (work@iNToRecFN)
   \_logic_net: (work@iNToRawFN3.adjustedNormDist2), line:10:30, endln:10:47
     |vpiParent:
     \_module_inst: work@iNToRawFN3 (work@iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:6:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:10:5, endln:10:29
+      |vpiRange:
+      \_range: , line:10:10, endln:10:29
+        |vpiParent:
+        \_logic_typespec: , line:10:5, endln:10:29
+        |vpiLeftRange:
+        \_operation: , line:10:12, endln:10:25
+          |vpiParent:
+          \_range: , line:10:10, endln:10:29
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (expWidth2), line:10:12, endln:10:21
+            |vpiParent:
+            \_operation: , line:10:12, endln:10:25
+            |vpiName:expWidth2
+          |vpiOperand:
+          \_constant: , line:10:24, endln:10:25
+            |vpiParent:
+            \_operation: , line:10:12, endln:10:25
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:10:27, endln:10:28
+          |vpiParent:
+          \_range: , line:10:10, endln:10:29
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:adjustedNormDist2
     |vpiFullName:work@iNToRawFN3.adjustedNormDist2
     |vpiNetType:1
@@ -803,7 +899,7 @@ design: (work@iNToRecFN)
     |vpiName:signedIn
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@iNToRawFN3.signedIn.signedIn)
+    \_ref_obj: (work@iNToRawFN3.signedIn.signedIn), line:6:70, endln:6:78
       |vpiParent:
       \_port: (signedIn), line:6:70, endln:6:78
       |vpiName:signedIn
@@ -817,7 +913,7 @@ design: (work@iNToRecFN)
     |vpiName:sExp
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@iNToRawFN3.sExp.sExp)
+    \_ref_obj: (work@iNToRawFN3.sExp.sExp), line:6:80, endln:6:84
       |vpiParent:
       \_port: (sExp), line:6:80, endln:6:84
       |vpiName:sExp
@@ -835,7 +931,7 @@ design: (work@iNToRecFN)
     \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:23:20, endln:23:43
     |vpiName:intWidth
     |vpiFullName:work@iNToRecFN.intWidth
   |vpiParameter:
@@ -844,7 +940,7 @@ design: (work@iNToRecFN)
     \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:23:45, endln:23:69
     |vpiName:intWidth2
     |vpiFullName:work@iNToRecFN.intWidth2
   |vpiParamAssign:
@@ -859,7 +955,7 @@ design: (work@iNToRecFN)
       |vpiSize:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:23:20, endln:23:43
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:38
@@ -875,7 +971,7 @@ design: (work@iNToRecFN)
       |vpiSize:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:23:45, endln:23:69
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:64
@@ -895,7 +991,7 @@ design: (work@iNToRecFN)
     \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:23:20, endln:23:43
       |vpiParent:
       \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:38
     |vpiName:intWidth
@@ -906,7 +1002,7 @@ design: (work@iNToRecFN)
     \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |UINT:64
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:23:45, endln:23:69
       |vpiParent:
       \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:64
     |vpiName:intWidth2
@@ -923,7 +1019,7 @@ design: (work@iNToRecFN)
       |vpiSize:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:23:20, endln:23:43
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRecFN.intWidth), line:23:30, endln:23:38
@@ -939,7 +1035,7 @@ design: (work@iNToRecFN)
       |vpiSize:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:23:45, endln:23:69
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:64
@@ -986,7 +1082,7 @@ design: (work@iNToRecFN)
       \_module_inst: work@iNToRawFN (work@iNToRecFN.iNToRawFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:24:2, endln:24:49
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:1:19, endln:1:41
         |vpiParent:
         \_parameter: (work@iNToRecFN.iNToRawFN.intWidth), line:1:29, endln:1:37
       |vpiName:intWidth
@@ -1011,7 +1107,7 @@ design: (work@iNToRecFN)
         |vpiSize:32
         |UINT:64
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:1:19, endln:1:41
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@iNToRecFN.iNToRawFN.intWidth), line:1:29, endln:1:37
@@ -1137,7 +1233,7 @@ design: (work@iNToRecFN)
       \_module_inst: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:6:20, endln:6:42
         |vpiParent:
         \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth), line:6:30, endln:6:38
       |vpiName:intWidth
@@ -1148,7 +1244,7 @@ design: (work@iNToRecFN)
       \_module_inst: work@iNToRawFN3 (work@iNToRecFN.iNToRawFN3), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:25:2, endln:25:62
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:6:44, endln:6:67
         |vpiParent:
         \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth2), line:6:54, endln:6:63
       |vpiName:intWidth2
@@ -1180,7 +1276,7 @@ design: (work@iNToRecFN)
         |vpiSize:32
         |UINT:64
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:6:20, endln:6:42
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth), line:6:30, endln:6:38
@@ -1197,7 +1293,7 @@ design: (work@iNToRecFN)
         |vpiSize:32
         |UINT:64
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:6:44, endln:6:67
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@iNToRecFN.iNToRawFN3.intWidth2), line:6:54, endln:6:63
