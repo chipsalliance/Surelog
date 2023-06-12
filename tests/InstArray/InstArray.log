@@ -161,7 +161,11 @@ design: (work@top)
       |BIN:1
       |vpiConstType:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bus_conn.datain.datain)
+      |vpiParent:
+      \_port: (datain), line:7:7, endln:7:13
+      |vpiName:datain
+      |vpiFullName:work@bus_conn.datain.datain
       |vpiActual:
       \_logic_net: (work@bus_conn.datain), line:7:7, endln:7:13
     |vpiTypedef:
@@ -185,13 +189,19 @@ design: (work@top)
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.inp.inp)
+      |vpiParent:
+      \_port: (inp), line:2:24, endln:2:27
+      |vpiName:inp
+      |vpiFullName:work@top.inp.inp
       |vpiActual:
       \_logic_net: (work@top.inp), line:2:24, endln:2:27
     |vpiTypedef:
     \_logic_typespec: , line:2:18, endln:2:23
       |vpiRange:
       \_range: , line:2:18, endln:2:23
+        |vpiParent:
+        \_logic_typespec: , line:2:18, endln:2:23
         |vpiLeftRange:
         \_constant: , line:2:19, endln:2:20
           |vpiParent:
@@ -216,6 +226,8 @@ design: (work@top)
     |vpiFullName:work@bus_conn
     |vpiRange:
     \_range: , line:3:16, endln:3:21
+      |vpiParent:
+      \_module_array: (work@bus_conn), line:3:13, endln:3:15
       |vpiLeftRange:
       \_constant: , line:3:17, endln:3:18
         |vpiParent:
@@ -234,13 +246,20 @@ design: (work@top)
         |vpiConstType:9
     |vpiElemTypespec:
     \_module_typespec: (bus_conn), line:3:3, endln:3:11
+      |vpiParent:
+      \_module_array: (work@bus_conn), line:3:13, endln:3:15
       |vpiName:bus_conn
     |vpiPort:
     \_port: (datain), line:3:23, endln:3:35
+      |vpiParent:
+      \_module_array: (work@bus_conn), line:3:13, endln:3:15
       |vpiName:datain
       |vpiHighConn:
-      \_ref_obj: (inp), line:3:31, endln:3:34
+      \_ref_obj: (work@top.u1.datain.inp), line:3:31, endln:3:34
+        |vpiParent:
+        \_port: (datain), line:3:23, endln:3:35
         |vpiName:inp
+        |vpiFullName:work@top.u1.datain.inp
         |vpiActual:
         \_logic_net: (work@top.inp), line:2:24, endln:2:27
 |uhdmtopModules:
@@ -254,8 +273,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
     |vpiTypespec:
     \_logic_typespec: , line:2:18, endln:2:23
+      |vpiParent:
+      \_logic_net: (work@top.inp), line:2:24, endln:2:27
       |vpiRange:
       \_range: , line:2:18, endln:2:23
+        |vpiParent:
+        \_logic_typespec: , line:2:18, endln:2:23
         |vpiLeftRange:
         \_constant: , line:2:19, endln:2:20
           |vpiParent:
@@ -294,7 +317,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:2:18, endln:2:23
         |vpiParent:
-        \_port: (inp), line:2:24, endln:2:27
+        \_logic_typespec: , line:2:18, endln:2:23
         |vpiLeftRange:
         \_constant: , line:2:19, endln:2:20
           |vpiParent:
@@ -328,6 +351,8 @@ design: (work@top)
       \_module_inst: work@bus_conn (work@top.u1[0]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:7
+        |vpiParent:
+        \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
       |vpiName:datain
       |vpiFullName:work@top.u1[0].datain
     |vpiInstance:
@@ -373,6 +398,8 @@ design: (work@top)
       \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
       |vpiTypespec:
       \_logic_typespec: , line:7:7, endln:7:7
+        |vpiParent:
+        \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
       |vpiName:datain
       |vpiFullName:work@top.u1[1].datain
     |vpiInstance:

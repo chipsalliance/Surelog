@@ -231,6 +231,8 @@ design: (work@top)
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:2:17, endln:2:19
+      |vpiParent:
+      \_param_assign: , line:2:12, endln:2:19
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -245,17 +247,21 @@ design: (work@top)
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:3:17, endln:3:24
+      |vpiParent:
+      \_param_assign: , line:3:12, endln:3:24
       |vpiOpType:24
       |vpiOperand:
-      \_ref_obj: (P1), line:3:17, endln:3:19
+      \_ref_obj: (work@Foo.P1), line:3:17, endln:3:19
         |vpiParent:
         \_operation: , line:3:17, endln:3:24
         |vpiName:P1
+        |vpiFullName:work@Foo.P1
       |vpiOperand:
-      \_ref_obj: (P2), line:3:22, endln:3:24
+      \_ref_obj: (work@Foo.P2), line:3:22, endln:3:24
         |vpiParent:
         \_operation: , line:3:17, endln:3:24
         |vpiName:P2
+        |vpiFullName:work@Foo.P2
     |vpiLhs:
     \_parameter: (work@Foo.P2), line:3:12, endln:3:14
   |vpiDefName:work@Foo
@@ -287,8 +293,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P1), line:9:18, endln:9:20
+    \_ref_obj: (work@top.P1), line:9:18, endln:9:20
+      |vpiParent:
+      \_param_assign: , line:9:13, endln:9:20
       |vpiName:P1
+      |vpiFullName:work@top.P1
     |vpiLhs:
     \_parameter: (work@top.P3), line:9:13, endln:9:15
   |vpiParamAssign:
@@ -296,8 +305,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P3), line:10:18, endln:10:20
+    \_ref_obj: (work@top.P3), line:10:18, endln:10:20
+      |vpiParent:
+      \_param_assign: , line:10:13, endln:10:20
       |vpiName:P3
+      |vpiFullName:work@top.P3
     |vpiLhs:
     \_parameter: (work@top.P2), line:10:13, endln:10:15
   |vpiParamAssign:
@@ -305,8 +317,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P2), line:11:18, endln:11:20
+    \_ref_obj: (work@top.P2), line:11:18, endln:11:20
+      |vpiParent:
+      \_param_assign: , line:11:13, endln:11:20
       |vpiName:P2
+      |vpiFullName:work@top.P2
     |vpiLhs:
     \_parameter: (work@top.P1), line:11:13, endln:11:15
   |vpiDefName:work@top
@@ -344,8 +359,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P2), line:9:18, endln:9:20
+    \_ref_obj: (work@top.P2), line:9:18, endln:9:20
+      |vpiParent:
+      \_param_assign: , line:11:13, endln:11:20
       |vpiName:P2
+      |vpiFullName:work@top.P2
       |vpiActual:
       \_parameter: (work@top.P2), line:10:13, endln:10:15
     |vpiLhs:
@@ -355,10 +373,13 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P2), line:10:18, endln:10:20
+    \_ref_obj: (work@top.P2), line:10:18, endln:10:20
+      |vpiParent:
+      \_param_assign: , line:9:13, endln:9:20
       |vpiTypespec:
       \_int_typespec: 
       |vpiName:P2
+      |vpiFullName:work@top.P2
       |vpiActual:
       \_parameter: (work@top.P2), line:10:13, endln:10:15
     |vpiLhs:
@@ -368,7 +389,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:8:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (P2), line:10:18, endln:10:20
+    \_ref_obj: (work@top.P2), line:10:18, endln:10:20
     |vpiLhs:
     \_parameter: (work@top.P1), line:11:13, endln:11:15
   |vpiDefName:work@top
@@ -403,7 +424,7 @@ design: (work@top)
       \_module_inst: work@Foo (work@top.sub), file:${SURELOG_DIR}\tests\LoopParamOver\dut.sv, line:12:1, endln:12:22
       |vpiOverriden:1
       |vpiRhs:
-      \_ref_obj: (P2), line:10:18, endln:10:20
+      \_ref_obj: (work@top.P2), line:10:18, endln:10:20
       |vpiLhs:
       \_parameter: (work@top.sub.P1), line:2:12, endln:2:14
     |vpiParamAssign:
@@ -413,16 +434,19 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_operation: , line:3:17, endln:3:24
+        |vpiParent:
+        \_param_assign: , line:3:12, endln:3:24
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (P2), line:10:18, endln:10:20
+        \_ref_obj: (work@top.sub.P2), line:10:18, endln:10:20
           |vpiParent:
           \_operation: , line:3:17, endln:3:24
           |vpiTypespec:
           \_int_typespec: 
             |vpiParent:
-            \_ref_obj: (P2), line:10:18, endln:10:20
+            \_ref_obj: (work@top.sub.P2), line:10:18, endln:10:20
           |vpiName:P2
+          |vpiFullName:work@top.sub.P2
           |vpiActual:
           \_parameter: (work@top.P2), line:10:13, endln:10:15
         |vpiOperand:
@@ -431,17 +455,19 @@ design: (work@top)
           \_operation: , line:3:17, endln:3:24
           |vpiOpType:24
           |vpiOperand:
-          \_ref_obj: (P1), line:3:17, endln:3:19
+          \_ref_obj: (work@top.sub.P1), line:3:17, endln:3:19
             |vpiParent:
             \_operation: , line:3:22, endln:3:24
             |vpiName:P1
+            |vpiFullName:work@top.sub.P1
             |vpiActual:
             \_parameter: (work@top.sub.P1), line:2:12, endln:2:14
           |vpiOperand:
-          \_ref_obj: (P2), line:3:22, endln:3:24
+          \_ref_obj: (work@top.sub.P2), line:3:22, endln:3:24
             |vpiParent:
             \_operation: , line:3:22, endln:3:24
             |vpiName:P2
+            |vpiFullName:work@top.sub.P2
             |vpiActual:
             \_parameter: (work@top.sub.P2), line:3:12, endln:3:14
       |vpiLhs:

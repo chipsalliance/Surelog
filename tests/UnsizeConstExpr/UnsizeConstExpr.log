@@ -146,6 +146,13 @@ design: (work@top)
     |vpiName:product_exponent
     |vpiFullName:work@top.product_exponent
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.p), line:5:8, endln:5:9
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizeConstExpr/dut.sv, line:1:1, endln:7:10
+    |vpiName:p
+    |vpiFullName:work@top.p
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:5:8, endln:5:39
     |vpiParent:
@@ -190,7 +197,7 @@ design: (work@top)
       |vpiName:p
       |vpiFullName:work@top.p
       |vpiActual:
-      \_logic_net: (p)
+      \_logic_net: (work@top.p), line:5:8, endln:5:9
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizeConstExpr/dut.sv, line:1:1, endln:7:10
   |vpiName:work@top
@@ -200,8 +207,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizeConstExpr/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:3:1, endln:3:13
+      |vpiParent:
+      \_logic_var: (work@top.product_exponent), line:3:14, endln:3:30
       |vpiRange:
       \_range: , line:3:7, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
         |vpiLeftRange:
         \_constant: , line:3:8, endln:3:10
           |vpiParent:
@@ -223,6 +234,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:3:7, endln:3:13
+      |vpiParent:
+      \_logic_var: (work@top.product_exponent), line:3:14, endln:3:30
       |vpiLeftRange:
       \_constant: , line:3:8, endln:3:10
         |vpiParent:
@@ -241,10 +254,6 @@ design: (work@top)
         |vpiConstType:9
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (p)
-    |vpiName:p
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:5:8, endln:5:39
@@ -268,7 +277,7 @@ design: (work@top)
         |vpiLeftRange:
         \_constant: , line:5:29, endln:5:30
           |vpiParent:
-          \_part_select: product_exponent (product_exponent), line:5:12, endln:5:33
+          \_part_select: product_exponent (work@top.product_exponent), line:5:12, endln:5:33
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
@@ -276,7 +285,7 @@ design: (work@top)
         |vpiRightRange:
         \_constant: , line:5:31, endln:5:32
           |vpiParent:
-          \_part_select: product_exponent (product_exponent), line:5:12, endln:5:33
+          \_part_select: product_exponent (work@top.product_exponent), line:5:12, endln:5:33
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -294,7 +303,7 @@ design: (work@top)
       |vpiName:p
       |vpiFullName:work@top.p
       |vpiActual:
-      \_logic_net: (p)
+      \_logic_net: (work@top.p), line:5:8, endln:5:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

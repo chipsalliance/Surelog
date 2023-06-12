@@ -158,6 +158,13 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.i), line:4:16, endln:4:17
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenFor/dut.sv, line:2:1, endln:8:10
+    |vpiName:i
+    |vpiFullName:work@top.i
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -168,8 +175,6 @@ design: (work@top)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:4:13, endln:4:14
-        |vpiParent:
-        \_assign_stmt: , line:4:9, endln:4:14
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -178,21 +183,21 @@ design: (work@top)
       \_ref_var: (work@top.i), line:4:9, endln:4:10
         |vpiParent:
         \_assign_stmt: , line:4:9, endln:4:14
-        |vpiTypespec:
-        \_unsupported_typespec: (i), line:4:9, endln:4:10
-          |vpiName:i
         |vpiName:i
         |vpiFullName:work@top.i
     |vpiCondition:
     \_operation: , line:4:16, endln:4:21
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (i), line:4:16, endln:4:17
+      \_ref_obj: (work@top.i), line:4:16, endln:4:17
         |vpiParent:
         \_operation: , line:4:16, endln:4:21
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:4:16, endln:4:17
       |vpiOperand:
       \_constant: , line:4:20, endln:4:21
         |vpiParent:
@@ -208,14 +213,17 @@ design: (work@top)
       |vpiOpType:82
       |vpiRhs:
       \_operation: , line:4:28, endln:4:33
+        |vpiParent:
+        \_assignment: , line:4:24, endln:4:33
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (i), line:4:28, endln:4:29
+        \_ref_obj: (work@top.i), line:4:28, endln:4:29
           |vpiParent:
           \_operation: , line:4:28, endln:4:33
           |vpiName:i
+          |vpiFullName:work@top.i
           |vpiActual:
-          \_logic_net: (i)
+          \_logic_net: (work@top.i), line:4:16, endln:4:17
         |vpiOperand:
         \_constant: , line:4:32, endln:4:33
           |vpiParent:
@@ -225,14 +233,22 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
       |vpiLhs:
-      \_ref_obj: (i), line:4:24, endln:4:25
+      \_ref_obj: (work@top.i), line:4:24, endln:4:25
+        |vpiParent:
+        \_assignment: , line:4:24, endln:4:33
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@top.i), line:4:16, endln:4:17
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_for: 
+      |vpiFullName:work@top
       |vpiStmt:
       \_cont_assign: , line:5:14, endln:5:27
+        |vpiParent:
+        \_begin: (work@top)
         |vpiRhs:
         \_constant: , line:5:23, endln:5:27
           |vpiParent:
@@ -242,24 +258,22 @@ design: (work@top)
           |BIN:1
           |vpiConstType:3
         |vpiLhs:
-        \_bit_select: (tmp), line:5:14, endln:5:20
+        \_bit_select: (work@top.tmp), line:5:14, endln:5:20
           |vpiParent:
           \_cont_assign: , line:5:14, endln:5:27
           |vpiName:tmp
+          |vpiFullName:work@top.tmp
           |vpiIndex:
-          \_ref_obj: (i), line:5:18, endln:5:19
+          \_ref_obj: (work@top.i), line:5:18, endln:5:19
             |vpiParent:
-            \_bit_select: (tmp), line:5:14, endln:5:20
+            \_bit_select: (work@top.tmp), line:5:14, endln:5:20
             |vpiName:i
+            |vpiFullName:work@top.i
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenFor/dut.sv, line:2:1, endln:8:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (i)
-    |vpiName:i
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk1[0]), line:4:35, endln:6:7

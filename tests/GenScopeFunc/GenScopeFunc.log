@@ -207,6 +207,20 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@mod
   |vpiDefName:work@mod
+  |vpiNet:
+  \_logic_net: (work@mod.foo), line:11:10, endln:11:13
+    |vpiParent:
+    \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv, line:1:1, endln:12:10
+    |vpiName:foo
+    |vpiFullName:work@mod.foo
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@mod.counter), line:11:38, endln:11:45
+    |vpiParent:
+    \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv, line:1:1, endln:12:10
+    |vpiName:counter
+    |vpiFullName:work@mod.counter
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:11:10, endln:11:46
     |vpiParent:
@@ -223,13 +237,16 @@ design: (work@top)
         |vpiName:cscope
       |vpiActual:
       \_method_func_call: (local_function), line:11:23, endln:11:37
+        |vpiParent:
+        \_hier_path: (cscope.local_function), line:11:16, endln:11:46
         |vpiArgument:
-        \_ref_obj: (counter), line:11:38, endln:11:45
+        \_ref_obj: (work@mod.cscope.local_function.counter), line:11:38, endln:11:45
           |vpiParent:
           \_method_func_call: (local_function), line:11:23, endln:11:37
           |vpiName:counter
+          |vpiFullName:work@mod.cscope.local_function.counter
           |vpiActual:
-          \_logic_net: (counter)
+          \_logic_net: (work@mod.counter), line:11:38, endln:11:45
         |vpiName:local_function
     |vpiLhs:
     \_ref_obj: (work@mod.foo), line:11:10, endln:11:13
@@ -238,24 +255,34 @@ design: (work@top)
       |vpiName:foo
       |vpiFullName:work@mod.foo
       |vpiActual:
-      \_logic_net: (foo)
+      \_logic_net: (work@mod.foo), line:11:10, endln:11:13
   |vpiGenStmt:
   \_gen_region: 
     |vpiParent:
     \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv, line:1:1, endln:12:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@mod)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@mod
       |vpiStmt:
       \_gen_if: , line:4:5, endln:4:7
+        |vpiParent:
+        \_begin: (work@mod)
         |vpiCondition:
         \_constant: , line:4:9, endln:4:10
+          |vpiParent:
+          \_gen_if: , line:4:5, endln:4:7
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (cscope)
+        \_named_begin: (work@mod.cscope)
+          |vpiParent:
+          \_gen_if: , line:4:5, endln:4:7
           |vpiName:cscope
+          |vpiFullName:work@mod.cscope
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv, line:14:1, endln:16:10
   |vpiParent:
@@ -285,14 +312,6 @@ design: (work@top)
     |vpiDefName:work@mod
     |vpiDefFile:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv
     |vpiDefLineNo:1
-    |vpiNet:
-    \_logic_net: (foo)
-      |vpiName:foo
-      |vpiNetType:1
-    |vpiNet:
-    \_logic_net: (counter)
-      |vpiName:counter
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeFunc/dut.sv, line:14:1, endln:16:10
     |vpiGenScopeArray:
@@ -315,9 +334,12 @@ design: (work@top)
           |vpiVisibility:1
           |vpiAutomatic:1
           |vpiReturn:
-          \_logic_var: , line:5:26, endln:5:31
+          \_logic_var: (work@top.c.cscope.local_function), line:5:26, endln:5:31
+            |vpiParent:
+            \_function: (work@top.c.cscope.local_function), line:5:7, endln:7:18
             |vpiTypespec:
             \_logic_typespec: , line:5:26, endln:5:31
+            |vpiFullName:work@top.c.cscope.local_function
           |vpiIODecl:
           \_io_decl: (x), line:5:54, endln:5:55
             |vpiParent:
@@ -358,7 +380,7 @@ design: (work@top)
               |vpiName:local_function
               |vpiFullName:work@top.c.cscope.local_function.local_function
               |vpiActual:
-              \_logic_var: (local_function), line:5:26, endln:5:31
+              \_logic_var: (work@top.c.cscope.local_function.local_function), line:5:26, endln:5:31
     |vpiContAssign:
     \_cont_assign: , line:11:10, endln:11:46
       |vpiParent:
@@ -397,7 +419,7 @@ design: (work@top)
         |vpiName:foo
         |vpiFullName:work@top.c.foo
         |vpiActual:
-        \_logic_net: (foo)
+        \_logic_net: (work@mod.foo), line:11:10, endln:11:13
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

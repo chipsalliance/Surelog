@@ -93,7 +93,7 @@ class UhdmWriter final {
   bool writeElabModule(UHDM::Serializer& s, ModuleInstance* instance,
                        UHDM::module_inst* m, ExprBuilder& exprBuilder);
   bool writeElabProgram(UHDM::Serializer& s, ModuleInstance* instance,
-                        UHDM::program* m);
+                        UHDM::program* m, ModPortMap& modPortMap);
   bool writeElabGenScope(UHDM::Serializer& s, ModuleInstance* instance,
                          UHDM::gen_scope* m, ExprBuilder& exprBuilder);
   void writePackage(Package* pack, UHDM::package* p, UHDM::Serializer& s,

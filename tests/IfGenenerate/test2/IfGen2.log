@@ -312,6 +312,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
     |vpiRhs:
     \_constant: , line:2:34, endln:2:36
+      |vpiParent:
+      \_param_assign: , line:2:26, endln:2:36
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -326,11 +328,14 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
     |vpiRhs:
     \_sys_func_call: ($clog2), line:7:31, endln:7:44
+      |vpiParent:
+      \_param_assign: , line:7:18, endln:7:44
       |vpiArgument:
-      \_ref_obj: (WIDTH), line:7:38, endln:7:43
+      \_ref_obj: (work@lzc.WIDTH), line:7:38, endln:7:43
         |vpiParent:
         \_sys_func_call: ($clog2), line:7:31, endln:7:44
         |vpiName:WIDTH
+        |vpiFullName:work@lzc.WIDTH
       |vpiName:$clog2
     |vpiLhs:
     \_parameter: (work@lzc.NUM_LEVELS), line:7:18, endln:7:28
@@ -340,6 +345,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
     |vpiRhs:
     \_constant: , line:8:27, endln:8:28
+      |vpiParent:
+      \_param_assign: , line:8:19, endln:8:28
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -355,22 +362,26 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
     |vpiCondition:
     \_operation: , line:10:9, endln:10:30
+      |vpiParent:
+      \_gen_if_else: 
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (level), line:10:9, endln:10:14
+      \_ref_obj: (work@lzc.level), line:10:9, endln:10:14
         |vpiParent:
         \_operation: , line:10:9, endln:10:30
         |vpiName:level
+        |vpiFullName:work@lzc.level
       |vpiOperand:
       \_operation: , line:10:18, endln:10:30
         |vpiParent:
         \_operation: , line:10:9, endln:10:30
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (NUM_LEVELS), line:10:18, endln:10:28
+        \_ref_obj: (work@lzc.NUM_LEVELS), line:10:18, endln:10:28
           |vpiParent:
           \_operation: , line:10:18, endln:10:30
           |vpiName:NUM_LEVELS
+          |vpiFullName:work@lzc.NUM_LEVELS
         |vpiOperand:
         \_constant: , line:10:29, endln:10:30
           |vpiParent:
@@ -380,15 +391,25 @@ design: (work@lzc)
           |UINT:1
           |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (g_last_level)
+    \_named_begin: (work@lzc.g_last_level)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:g_last_level
+      |vpiFullName:work@lzc.g_last_level
     |vpiElseStmt:
-    \_named_begin: (else_level)
+    \_named_begin: (work@lzc.else_level)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:else_level
+      |vpiFullName:work@lzc.else_level
       |vpiStmt:
       \_param_assign: , line:12:25, endln:12:42
+        |vpiParent:
+        \_named_begin: (work@lzc.else_level)
         |vpiRhs:
         \_operation: , line:12:34, endln:12:42
+          |vpiParent:
+          \_param_assign: , line:12:25, endln:12:42
           |vpiOpType:43
           |vpiOperand:
           \_constant: , line:12:34, endln:12:35
@@ -399,17 +420,21 @@ design: (work@lzc)
             |UINT:2
             |vpiConstType:9
           |vpiOperand:
-          \_ref_obj: (level), line:12:37, endln:12:42
+          \_ref_obj: (work@lzc.else_level.level), line:12:37, endln:12:42
             |vpiParent:
             \_operation: , line:12:34, endln:12:42
             |vpiName:level
+            |vpiFullName:work@lzc.else_level.level
         |vpiLhs:
-        \_parameter: (POWER), line:12:25, endln:12:42
+        \_parameter: (work@lzc.else_level.POWER), line:12:25, endln:12:42
+          |vpiParent:
+          \_param_assign: , line:12:25, endln:12:42
           |vpiTypespec:
           \_int_typespec: , line:12:21, endln:12:24
             |vpiSigned:1
           |vpiLocalParam:1
           |vpiName:POWER
+          |vpiFullName:work@lzc.else_level.POWER
 |uhdmtopModules:
 \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
   |vpiName:work@lzc
@@ -457,6 +482,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
     |vpiRhs:
     \_constant: , line:2:34, endln:2:36
+      |vpiParent:
+      \_param_assign: , line:2:26, endln:2:36
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -471,6 +498,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
     |vpiRhs:
     \_constant: , line:7:31, endln:7:44
+      |vpiParent:
+      \_param_assign: , line:7:18, endln:7:44
       |vpiDecompile:6
       |vpiSize:32
       |UINT:6
@@ -485,6 +514,8 @@ design: (work@lzc)
     \_module_inst: work@lzc (work@lzc), file:${SURELOG_DIR}/tests/IfGenenerate/test2/dut2.sv, line:1:1, endln:17:16
     |vpiRhs:
     \_constant: , line:8:27, endln:8:28
+      |vpiParent:
+      \_param_assign: , line:8:19, endln:8:28
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -527,6 +558,8 @@ design: (work@lzc)
         \_gen_scope: (work@lzc.else_level)
         |vpiRhs:
         \_constant: , line:12:34, endln:12:42
+          |vpiParent:
+          \_param_assign: , line:12:25, endln:12:42
           |vpiDecompile:16
           |vpiSize:32
           |INT:16

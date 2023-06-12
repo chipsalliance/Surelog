@@ -271,6 +271,8 @@ design: (work@dut1)
     \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
     |vpiRhs:
     \_constant: , line:8:42, endln:8:46
+      |vpiParent:
+      \_param_assign: , line:8:25, endln:8:46
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -285,20 +287,33 @@ design: (work@dut1)
     |vpiParent:
     \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
     |vpiCondition:
-    \_ref_obj: (HasSndScratch), line:9:5, endln:9:18
+    \_ref_obj: (work@dut1.HasSndScratch), line:9:5, endln:9:18
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:HasSndScratch
+      |vpiFullName:work@dut1.HasSndScratch
     |vpiStmt:
-    \_named_begin: (gen_rom_snd_scratch)
+    \_named_begin: (work@dut1.gen_rom_snd_scratch)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_rom_snd_scratch
+      |vpiFullName:work@dut1.gen_rom_snd_scratch
       |vpiStmt:
       \_ref_module: work@GOOD1 (cond_module), line:10:9, endln:10:20
+        |vpiParent:
+        \_named_begin: (work@dut1.gen_rom_snd_scratch)
         |vpiName:cond_module
         |vpiDefName:work@GOOD1
     |vpiElseStmt:
-    \_named_begin: (gen_rom_one_scratch)
+    \_named_begin: (work@dut1.gen_rom_one_scratch)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_rom_one_scratch
+      |vpiFullName:work@dut1.gen_rom_one_scratch
       |vpiStmt:
       \_ref_module: work@BAD1 (cond_module), line:12:8, endln:12:19
+        |vpiParent:
+        \_named_begin: (work@dut1.gen_rom_one_scratch)
         |vpiName:cond_module
         |vpiDefName:work@BAD1
 |uhdmallModules:
@@ -324,6 +339,8 @@ design: (work@dut1)
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
     |vpiRhs:
     \_constant: , line:18:42, endln:18:46
+      |vpiParent:
+      \_param_assign: , line:18:25, endln:18:46
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -338,20 +355,33 @@ design: (work@dut1)
     |vpiParent:
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
     |vpiCondition:
-    \_ref_obj: (HasSndScratch), line:19:5, endln:19:18
+    \_ref_obj: (work@dut2.HasSndScratch), line:19:5, endln:19:18
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:HasSndScratch
+      |vpiFullName:work@dut2.HasSndScratch
     |vpiStmt:
-    \_named_begin: (gen_rom_snd_scratch)
+    \_named_begin: (work@dut2.gen_rom_snd_scratch)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_rom_snd_scratch
+      |vpiFullName:work@dut2.gen_rom_snd_scratch
       |vpiStmt:
       \_ref_module: work@BAD2 (cond_module), line:20:8, endln:20:19
+        |vpiParent:
+        \_named_begin: (work@dut2.gen_rom_snd_scratch)
         |vpiName:cond_module
         |vpiDefName:work@BAD2
     |vpiElseStmt:
-    \_named_begin: (gen_rom_one_scratch)
+    \_named_begin: (work@dut2.gen_rom_one_scratch)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_rom_one_scratch
+      |vpiFullName:work@dut2.gen_rom_one_scratch
       |vpiStmt:
       \_ref_module: work@GOOD2 (cond_module), line:22:9, endln:22:20
+        |vpiParent:
+        \_named_begin: (work@dut2.gen_rom_one_scratch)
         |vpiName:cond_module
         |vpiDefName:work@GOOD2
 |uhdmtopModules:
@@ -375,6 +405,8 @@ design: (work@dut1)
     \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
     |vpiRhs:
     \_constant: , line:8:42, endln:8:46
+      |vpiParent:
+      \_param_assign: , line:8:25, endln:8:46
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -427,6 +459,8 @@ design: (work@dut1)
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
     |vpiRhs:
     \_constant: , line:18:42, endln:18:46
+      |vpiParent:
+      \_param_assign: , line:18:25, endln:18:46
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0

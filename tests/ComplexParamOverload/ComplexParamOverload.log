@@ -437,7 +437,7 @@ import_typespec                                        3
 int_typespec                                          16
 logic_net                                              1
 module_inst                                           24
-package                                                3
+package                                                2
 param_assign                                          12
 parameter                                             12
 ref_module                                             4
@@ -458,7 +458,7 @@ import_typespec                                        3
 int_typespec                                          16
 logic_net                                              1
 module_inst                                           24
-package                                                3
+package                                                2
 param_assign                                          12
 parameter                                             12
 ref_module                                             4
@@ -498,6 +498,8 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (A), line:3:7, endln:3:12
+      |vpiParent:
+      \_enum_typespec: (pinmux_pkg::enum1_e), line:2:4, endln:4:14
       |vpiName:A
       |UINT:1
       |vpiDecompile:1
@@ -516,6 +518,8 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (B), line:11:7, endln:11:12
+      |vpiParent:
+      \_enum_typespec: (pinmux_pkg::enum2_e), line:10:4, endln:12:14
       |vpiName:B
       |UINT:2
       |vpiDecompile:2
@@ -534,6 +538,8 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (C), line:19:7, endln:19:12
+      |vpiParent:
+      \_enum_typespec: (pinmux_pkg::enum3_e), line:18:4, endln:20:14
       |vpiName:C
       |UINT:3
       |vpiDecompile:3
@@ -619,6 +625,8 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (A), line:3:7, endln:3:12
+      |vpiParent:
+      \_enum_typespec: (pinmux_pkg::enum1_e), line:2:4, endln:4:14
       |vpiName:A
       |UINT:1
       |vpiDecompile:1
@@ -637,6 +645,8 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (B), line:11:7, endln:11:12
+      |vpiParent:
+      \_enum_typespec: (pinmux_pkg::enum2_e), line:10:4, endln:12:14
       |vpiName:B
       |UINT:2
       |vpiDecompile:2
@@ -655,6 +665,8 @@ design: (work@top)
       |vpiSigned:1
     |vpiEnumConst:
     \_enum_const: (C), line:19:7, endln:19:12
+      |vpiParent:
+      \_enum_typespec: (pinmux_pkg::enum3_e), line:18:4, endln:20:14
       |vpiName:C
       |UINT:3
       |vpiDecompile:3
@@ -741,6 +753,8 @@ design: (work@top)
     \_module_inst: work@almost_top (work@almost_top), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:54:1, endln:63:10
     |vpiRhs:
     \_constant: , line:56:36, endln:56:37
+      |vpiParent:
+      \_param_assign: , line:56:24, endln:56:37
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -796,6 +810,8 @@ design: (work@top)
     \_module_inst: work@prim_generic (work@prim_generic), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:27:1, endln:30:10
     |vpiRhs:
     \_constant: , line:28:37, endln:28:38
+      |vpiParent:
+      \_param_assign: , line:28:18, endln:28:38
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -805,6 +821,13 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@prim_generic.PadTypeInGeneric), line:28:18, endln:28:34
   |vpiDefName:work@prim_generic
+  |vpiNet:
+  \_logic_net: (work@prim_generic.o), line:29:11, endln:29:12
+    |vpiParent:
+    \_module_inst: work@prim_generic (work@prim_generic), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:27:1, endln:30:10
+    |vpiName:o
+    |vpiFullName:work@prim_generic.o
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:29:11, endln:29:31
     |vpiParent:
@@ -822,7 +845,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@prim_generic.o
       |vpiActual:
-      \_logic_net: (o)
+      \_logic_net: (work@prim_generic.o), line:29:11, endln:29:12
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:42:1, endln:52:10
   |vpiParent:
@@ -856,6 +879,8 @@ design: (work@top)
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:42:1, endln:52:10
     |vpiRhs:
     \_constant: , line:44:36, endln:44:38
+      |vpiParent:
+      \_param_assign: , line:44:24, endln:44:38
       |vpiDecompile:77
       |vpiSize:32
       |UINT:77
@@ -870,6 +895,8 @@ design: (work@top)
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:42:1, endln:52:10
     |vpiRhs:
     \_constant: , line:45:28, endln:45:29
+      |vpiParent:
+      \_param_assign: , line:45:18, endln:45:29
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -925,6 +952,8 @@ design: (work@top)
     \_module_inst: work@prim_submodule (work@prim_submodule), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:32:1, endln:40:10
     |vpiRhs:
     \_constant: , line:33:28, endln:33:29
+      |vpiParent:
+      \_param_assign: , line:33:18, endln:33:29
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -962,6 +991,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:65:1, endln:74:10
     |vpiRhs:
     \_constant: , line:67:36, endln:67:38
+      |vpiParent:
+      \_param_assign: , line:67:24, endln:67:38
       |vpiDecompile:20
       |vpiSize:32
       |UINT:20
@@ -1244,6 +1275,8 @@ design: (work@top)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:45:28, endln:45:29
+          |vpiParent:
+          \_param_assign: , line:45:18, endln:45:29
           |vpiDecompile:20
           |vpiSize:32
           |UINT:20
@@ -1297,6 +1330,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:33:28, endln:33:29
+            |vpiParent:
+            \_param_assign: , line:33:18, endln:33:29
             |vpiDecompile:20
             |vpiSize:32
             |UINT:20
@@ -1349,10 +1384,6 @@ design: (work@top)
           |vpiDefName:work@prim_generic
           |vpiDefFile:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv
           |vpiDefLineNo:27
-          |vpiNet:
-          \_logic_net: (o)
-            |vpiName:o
-            |vpiNetType:1
           |vpiInstance:
           \_module_inst: work@prim_submodule (work@top.u_top.u_prim_pad_attr.u_submodule), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:47:4, endln:51:6
           |vpiContAssign:
@@ -1368,7 +1399,7 @@ design: (work@top)
               |vpiName:o
               |vpiFullName:work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o
               |vpiActual:
-              \_logic_net: (o)
+              \_logic_net: (work@prim_generic.o), line:29:11, endln:29:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

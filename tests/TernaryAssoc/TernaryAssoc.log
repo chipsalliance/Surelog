@@ -124,7 +124,7 @@ design: (work@top)
         |vpiName:first_condition
         |vpiFullName:work@top.first_condition
         |vpiActual:
-        \_logic_var: (work@top.first_condition), line:2:14, endln:2:29
+        \_logic_net: (work@top.first_condition), line:2:14, endln:2:29
       |vpiOperand:
       \_ref_obj: (work@top.first_condition_true), line:4:41, endln:4:61
         |vpiParent:
@@ -132,7 +132,7 @@ design: (work@top)
         |vpiName:first_condition_true
         |vpiFullName:work@top.first_condition_true
         |vpiActual:
-        \_logic_var: (work@top.first_condition_true), line:3:14, endln:3:34
+        \_logic_net: (work@top.first_condition_true), line:3:14, endln:3:34
       |vpiOperand:
       \_operation: , line:5:17, endln:6:63
         |vpiParent:
@@ -145,7 +145,7 @@ design: (work@top)
           |vpiName:first_condition_false
           |vpiFullName:work@top.first_condition_false
           |vpiActual:
-          \_logic_var: (work@top.first_condition_false), line:2:31, endln:2:52
+          \_logic_net: (work@top.first_condition_false), line:2:31, endln:2:52
         |vpiOperand:
         \_ref_obj: (work@top.second_condition_true), line:5:41, endln:5:62
           |vpiParent:
@@ -153,7 +153,7 @@ design: (work@top)
           |vpiName:second_condition_true
           |vpiFullName:work@top.second_condition_true
           |vpiActual:
-          \_logic_var: (work@top.second_condition_true), line:3:35, endln:3:56
+          \_logic_net: (work@top.second_condition_true), line:3:35, endln:3:56
         |vpiOperand:
         \_ref_obj: (work@top.second_condition_false), line:6:41, endln:6:63
           |vpiParent:
@@ -161,7 +161,7 @@ design: (work@top)
           |vpiName:second_condition_false
           |vpiFullName:work@top.second_condition_false
           |vpiActual:
-          \_logic_var: (work@top.second_condition_false), line:3:58, endln:3:80
+          \_logic_net: (work@top.second_condition_false), line:3:58, endln:3:80
     |vpiLhs:
     \_ref_obj: (work@top.result), line:4:8, endln:4:14
       |vpiParent:
@@ -169,7 +169,7 @@ design: (work@top)
       |vpiName:result
       |vpiFullName:work@top.result
       |vpiActual:
-      \_logic_var: (work@top.result), line:3:82, endln:3:88
+      \_logic_net: (work@top.result), line:3:82, endln:3:88
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
   |vpiName:work@top
@@ -179,6 +179,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_logic_typespec: , line:2:1, endln:2:6
+      |vpiParent:
+      \_logic_var: (work@top.first_condition_false), line:2:31, endln:2:52
     |vpiName:first_condition
     |vpiFullName:work@top.first_condition
     |vpiVisibility:1
@@ -199,6 +201,8 @@ design: (work@top)
     \_logic_typespec: , line:3:1, endln:3:13
       |vpiRange:
       \_range: , line:3:7, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
         |vpiLeftRange:
         \_constant: , line:3:8, endln:3:10
           |vpiParent:
@@ -220,6 +224,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:3:7, endln:3:13
+      |vpiParent:
+      \_logic_var: (work@top.first_condition_true), line:3:14, endln:3:34
       |vpiLeftRange:
       \_constant: , line:3:8, endln:3:10
         |vpiParent:
@@ -247,6 +253,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:3:7, endln:3:13
+      |vpiParent:
+      \_logic_var: (work@top.second_condition_true), line:3:35, endln:3:56
       |vpiLeftRange:
       \_constant: , line:3:8, endln:3:10
         |vpiParent:
@@ -274,6 +282,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:3:7, endln:3:13
+      |vpiParent:
+      \_logic_var: (work@top.second_condition_false), line:3:58, endln:3:80
       |vpiLeftRange:
       \_constant: , line:3:8, endln:3:10
         |vpiParent:
@@ -301,6 +311,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:3:7, endln:3:13
+      |vpiParent:
+      \_logic_var: (work@top.result), line:3:82, endln:3:88
       |vpiLeftRange:
       \_constant: , line:3:8, endln:3:10
         |vpiParent:
@@ -336,7 +348,7 @@ design: (work@top)
         |vpiName:first_condition
         |vpiFullName:work@top.first_condition
         |vpiActual:
-        \_logic_var: (work@top.first_condition), line:2:14, endln:2:29
+        \_logic_net: (work@top.first_condition), line:2:14, endln:2:29
       |vpiOperand:
       \_ref_obj: (work@top.first_condition_true), line:4:41, endln:4:61
         |vpiParent:
@@ -344,7 +356,7 @@ design: (work@top)
         |vpiName:first_condition_true
         |vpiFullName:work@top.first_condition_true
         |vpiActual:
-        \_logic_var: (work@top.first_condition_true), line:3:14, endln:3:34
+        \_logic_net: (work@top.first_condition_true), line:3:14, endln:3:34
       |vpiOperand:
       \_operation: , line:5:17, endln:6:63
         |vpiParent:
@@ -357,7 +369,7 @@ design: (work@top)
           |vpiName:first_condition_false
           |vpiFullName:work@top.first_condition_false
           |vpiActual:
-          \_logic_var: (work@top.first_condition_false), line:2:31, endln:2:52
+          \_logic_net: (work@top.first_condition_false), line:2:31, endln:2:52
         |vpiOperand:
         \_ref_obj: (work@top.second_condition_true), line:5:41, endln:5:62
           |vpiParent:
@@ -365,7 +377,7 @@ design: (work@top)
           |vpiName:second_condition_true
           |vpiFullName:work@top.second_condition_true
           |vpiActual:
-          \_logic_var: (work@top.second_condition_true), line:3:35, endln:3:56
+          \_logic_net: (work@top.second_condition_true), line:3:35, endln:3:56
         |vpiOperand:
         \_ref_obj: (work@top.second_condition_false), line:6:41, endln:6:63
           |vpiParent:
@@ -373,7 +385,7 @@ design: (work@top)
           |vpiName:second_condition_false
           |vpiFullName:work@top.second_condition_false
           |vpiActual:
-          \_logic_var: (work@top.second_condition_false), line:3:58, endln:3:80
+          \_logic_net: (work@top.second_condition_false), line:3:58, endln:3:80
     |vpiLhs:
     \_ref_obj: (work@top.result), line:4:8, endln:4:14
       |vpiParent:

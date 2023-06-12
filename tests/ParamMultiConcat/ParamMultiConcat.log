@@ -271,13 +271,19 @@ design: (work@top)
     |vpiName:wmask_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.wmask_i.wmask_i)
+      |vpiParent:
+      \_port: (wmask_i), line:5:22, endln:5:29
+      |vpiName:wmask_i
+      |vpiFullName:work@dut.wmask_i.wmask_i
       |vpiActual:
       \_logic_net: (work@dut.wmask_i), line:5:22, endln:5:29
     |vpiTypedef:
     \_logic_typespec: , line:5:10, endln:5:21
       |vpiRange:
       \_range: , line:5:10, endln:5:21
+        |vpiParent:
+        \_logic_typespec: , line:5:10, endln:5:21
         |vpiLeftRange:
         \_operation: , line:5:11, endln:5:18
           |vpiParent:
@@ -353,6 +359,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:26, endln:10:28
+      |vpiParent:
+      \_param_assign: , line:10:18, endln:10:28
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -367,6 +375,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:30
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -381,6 +391,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_operation: , line:12:21, endln:12:43
+      |vpiParent:
+      \_param_assign: , line:12:15, endln:12:43
       |vpiOpType:34
       |vpiOperand:
       \_operation: , line:12:22, endln:12:36
@@ -388,15 +400,17 @@ design: (work@top)
         \_operation: , line:12:21, endln:12:43
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (Width), line:12:22, endln:12:27
+        \_ref_obj: (work@top.Width), line:12:22, endln:12:27
           |vpiParent:
           \_operation: , line:12:22, endln:12:36
           |vpiName:Width
+          |vpiFullName:work@top.Width
         |vpiOperand:
-        \_ref_obj: (EccWidth), line:12:28, endln:12:36
+        \_ref_obj: (work@top.EccWidth), line:12:28, endln:12:36
           |vpiParent:
           \_operation: , line:12:22, endln:12:36
           |vpiName:EccWidth
+          |vpiFullName:work@top.EccWidth
       |vpiOperand:
       \_operation: , line:12:36, endln:12:42
         |vpiParent:
@@ -421,9 +435,13 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:1:1, endln:7:10
     |vpiPort:
     \_port: (wmask_i), line:16:7, endln:16:41
+      |vpiParent:
+      \_ref_module: work@dut (u_dut), line:15:6, endln:15:11
       |vpiName:wmask_i
       |vpiHighConn:
       \_operation: , line:16:16, endln:16:40
+        |vpiParent:
+        \_port: (wmask_i), line:16:7, endln:16:41
         |vpiOpType:34
         |vpiOperand:
         \_operation: , line:16:17, endln:16:33
@@ -431,15 +449,17 @@ design: (work@top)
           \_operation: , line:16:16, endln:16:40
           |vpiOpType:24
           |vpiOperand:
-          \_ref_obj: (Width), line:16:17, endln:16:22
+          \_ref_obj: (work@top.u_dut.wmask_i.Width), line:16:17, endln:16:22
             |vpiParent:
             \_operation: , line:16:17, endln:16:33
             |vpiName:Width
+            |vpiFullName:work@top.u_dut.wmask_i.Width
           |vpiOperand:
-          \_ref_obj: (EccWidth), line:16:25, endln:16:33
+          \_ref_obj: (work@top.u_dut.wmask_i.EccWidth), line:16:25, endln:16:33
             |vpiParent:
             \_operation: , line:16:17, endln:16:33
             |vpiName:EccWidth
+            |vpiFullName:work@top.u_dut.wmask_i.EccWidth
         |vpiOperand:
         \_operation: , line:16:33, endln:16:39
           |vpiParent:
@@ -498,6 +518,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:10:26, endln:10:28
+      |vpiParent:
+      \_param_assign: , line:10:18, endln:10:28
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -512,6 +534,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:30
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -526,6 +550,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:9:1, endln:18:10
     |vpiRhs:
     \_constant: , line:12:21, endln:12:43
+      |vpiParent:
+      \_param_assign: , line:12:15, endln:12:43
       |vpiDecompile:19'b1111111111111111111
       |vpiSize:19
       |BIN:1111111111111111111
@@ -563,6 +589,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: 
+        |vpiParent:
+        \_param_assign: , line:3:18, endln:3:23
         |vpiDecompile:19
         |vpiSize:32
         |UINT:19
@@ -580,8 +608,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/ParamMultiConcat/dut.sv, line:13:4, endln:17:6
       |vpiTypespec:
       \_logic_typespec: , line:5:10, endln:5:21
+        |vpiParent:
+        \_logic_net: (work@top.u_dut.wmask_i), line:5:22, endln:5:29
         |vpiRange:
         \_range: , line:5:10, endln:5:21
+          |vpiParent:
+          \_logic_typespec: , line:5:10, endln:5:21
           |vpiLeftRange:
           \_constant: , line:5:11, endln:5:16
             |vpiParent:
@@ -610,6 +642,8 @@ design: (work@top)
       |vpiDirection:1
       |vpiHighConn:
       \_constant: , line:16:16, endln:16:40
+        |vpiParent:
+        \_port: (wmask_i), line:5:22, endln:5:29
         |vpiDecompile:1111111111111111111
         |vpiSize:19
         |BIN:1111111111111111111
@@ -630,7 +664,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:5:10, endln:5:21
           |vpiParent:
-          \_port: (wmask_i), line:5:22, endln:5:29
+          \_logic_typespec: , line:5:10, endln:5:21
           |vpiLeftRange:
           \_constant: , line:5:11, endln:5:16
             |vpiParent:

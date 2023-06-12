@@ -195,7 +195,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
     return m_scheduledParamExprEval;
   }
   void setDesignElement(const DesignElement* elem) { m_designElement = elem; }
-  const DesignElement* getDesignElement() { return m_designElement; }
+  const DesignElement* getDesignElement() const { return m_designElement; }
 
   void insertLetStmt(std::string_view name, LetStmt* decl);
   LetStmt* getLetStmt(std::string_view name);

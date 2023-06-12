@@ -207,7 +207,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o.o)
+      |vpiParent:
+      \_port: (o), line:1:26, endln:1:27
+      |vpiName:o
+      |vpiFullName:work@dut.o.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:1:26, endln:1:27
     |vpiTypedef:
@@ -231,7 +235,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@dut.o
       |vpiActual:
-      \_logic_net: (work@top.d.o), line:1:26, endln:1:27
+      \_logic_net: (work@dut.o), line:1:26, endln:1:27
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
   |vpiParent:
@@ -280,7 +284,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:5:26, endln:5:27
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:5:26, endln:5:27
     |vpiTypedef:
@@ -323,9 +331,13 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
     |vpiPort:
     \_port: (o), line:12:10, endln:12:31
+      |vpiParent:
+      \_ref_module: work@dut (d), line:12:8, endln:12:9
       |vpiName:o
       |vpiHighConn:
       \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
+        |vpiParent:
+        \_port: (o), line:12:10, endln:12:31
         |vpiName:alert_rx_i.ping_p
         |vpiActual:
         \_ref_obj: (alert_rx_i), line:12:13, endln:12:23
@@ -333,10 +345,11 @@ design: (work@top)
           \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
           |vpiName:alert_rx_i
         |vpiActual:
-        \_ref_obj: (ping_p), line:12:24, endln:12:30
+        \_ref_obj: (work@top.d.o.ping_p), line:12:24, endln:12:30
           |vpiParent:
           \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
           |vpiName:ping_p
+          |vpiFullName:work@top.d.o.ping_p
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
   |vpiName:work@top
@@ -457,7 +470,7 @@ design: (work@top)
         |vpiName:o
         |vpiFullName:work@top.d.o
         |vpiActual:
-        \_logic_net: (work@top.d.o), line:1:26, endln:1:27
+        \_logic_net: (work@dut.o), line:1:26, endln:1:27
   |vpiContAssign:
   \_cont_assign: , line:14:11, endln:14:32
     |vpiParent:

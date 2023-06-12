@@ -508,7 +508,7 @@ design: (work@main)
         |vpiParent:
         \_parameter: (work@top.V), line:5:25, endln:5:26
         |vpiLeftRange:
-        \_constant: , line:5:27, endln:5:28
+        \_constant: 
           |vpiParent:
           \_range: , line:5:27, endln:5:30
           |vpiDecompile:0
@@ -523,7 +523,7 @@ design: (work@main)
           |vpiOperand:
           \_ref_obj: (work@top.V.CNT), line:5:27, endln:5:30
             |vpiParent:
-            \_parameter: (work@top.V), line:5:25, endln:5:26
+            \_operation: 
             |vpiName:CNT
             |vpiFullName:work@top.V.CNT
             |vpiActual:
@@ -554,7 +554,7 @@ design: (work@main)
         |vpiParent:
         \_parameter: (work@top.VADDR), line:14:25, endln:14:30
         |vpiLeftRange:
-        \_constant: , line:14:31, endln:14:32
+        \_constant: 
           |vpiParent:
           \_range: , line:14:31, endln:14:34
           |vpiDecompile:0
@@ -569,7 +569,7 @@ design: (work@main)
           |vpiOperand:
           \_ref_obj: (work@top.VADDR.CNT), line:14:31, endln:14:34
             |vpiParent:
-            \_parameter: (work@top.VADDR), line:14:25, endln:14:30
+            \_operation: 
             |vpiName:CNT
             |vpiFullName:work@top.VADDR.CNT
           |vpiOperand:
@@ -590,6 +590,8 @@ design: (work@main)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:1:1, endln:27:10
     |vpiRhs:
     \_constant: , line:4:31, endln:4:32
+      |vpiParent:
+      \_param_assign: , line:4:25, endln:4:32
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -604,9 +606,13 @@ design: (work@main)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:1:1, endln:27:10
     |vpiRhs:
     \_operation: , line:5:34, endln:5:47
+      |vpiParent:
+      \_param_assign: , line:5:25, endln:5:47
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:5:45, endln:5:46
+        |vpiParent:
+        \_operation: , line:5:34, endln:5:47
         |vpiPattern:
         \_constant: , line:5:45, endln:5:46
           |vpiDecompile:3
@@ -615,6 +621,8 @@ design: (work@main)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:5:36, endln:5:43
+          |vpiParent:
+          \_tagged_pattern: , line:5:45, endln:5:46
           |vpiName:default
     |vpiLhs:
     \_parameter: (work@top.V), line:5:25, endln:5:26
@@ -624,6 +632,8 @@ design: (work@main)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:1:1, endln:27:10
     |vpiRhs:
     \_func_call: (ASSIGN_VADDR), line:14:38, endln:14:50
+      |vpiParent:
+      \_param_assign: , line:14:25, endln:14:52
       |vpiName:ASSIGN_VADDR
       |vpiFunction:
       \_function: (work@top.ASSIGN_VADDR), line:8:1, endln:12:12
@@ -638,8 +648,10 @@ design: (work@main)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:1:1, endln:27:10
     |vpiRange:
     \_range: , line:7:41, endln:7:44
+      |vpiParent:
+      \_array_typespec: (ASSIGN_VADDR_RET_T)
       |vpiLeftRange:
-      \_constant: , line:7:41, endln:7:42
+      \_constant: 
         |vpiParent:
         \_range: , line:7:41, endln:7:44
         |vpiDecompile:0
@@ -652,8 +664,11 @@ design: (work@main)
         \_range: , line:7:41, endln:7:44
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (CNT), line:7:41, endln:7:44
+        \_ref_obj: (work@top.ASSIGN_VADDR_RET_T.CNT), line:7:41, endln:7:44
+          |vpiParent:
+          \_operation: 
           |vpiName:CNT
+          |vpiFullName:work@top.ASSIGN_VADDR_RET_T.CNT
           |vpiActual:
           \_parameter: (work@main.top1.CNT), line:4:25, endln:4:28
         |vpiOperand:
@@ -672,7 +687,9 @@ design: (work@main)
     |vpiFullName:work@top.ASSIGN_VADDR
     |vpiVisibility:1
     |vpiReturn:
-    \_array_var: , line:8:17, endln:8:35
+    \_array_var: (work@top.ASSIGN_VADDR), line:8:17, endln:8:35
+      |vpiParent:
+      \_function: (work@top.ASSIGN_VADDR), line:8:1, endln:12:12
       |vpiTypespec:
       \_array_typespec: (ASSIGN_VADDR_RET_T), line:8:17, endln:8:35
         |vpiName:ASSIGN_VADDR_RET_T
@@ -683,7 +700,7 @@ design: (work@main)
           |vpiParent:
           \_array_typespec: (ASSIGN_VADDR_RET_T), line:8:17, endln:8:35
           |vpiLeftRange:
-          \_constant: , line:7:41, endln:7:42
+          \_constant: 
             |vpiParent:
             \_range: , line:7:41, endln:7:44
             |vpiDecompile:0
@@ -714,6 +731,7 @@ design: (work@main)
         \_int_typespec: , line:7:9, endln:7:21
           |vpiParent:
           \_array_typespec: (ASSIGN_VADDR_RET_T), line:8:17, endln:8:35
+      |vpiFullName:work@top.ASSIGN_VADDR
     |vpiStmt:
     \_for_stmt: (work@top.ASSIGN_VADDR), line:9:5, endln:9:8
       |vpiParent:
@@ -805,7 +823,7 @@ design: (work@main)
             |vpiName:ASSIGN_VADDR
             |vpiFullName:work@top.ASSIGN_VADDR.ASSIGN_VADDR
             |vpiActual:
-            \_array_var: , line:8:17, endln:8:35
+            \_array_var: (work@top.ASSIGN_VADDR), line:8:17, endln:8:35
             |vpiIndex:
             \_ref_obj: (work@top.ASSIGN_VADDR.i), line:10:23, endln:10:24
               |vpiParent:
@@ -822,16 +840,19 @@ design: (work@main)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:1:1, endln:27:10
     |vpiCondition:
     \_operation: , line:16:5, endln:16:18
+      |vpiParent:
+      \_gen_if: , line:16:1, endln:16:3
       |vpiOpType:15
       |vpiOperand:
-      \_bit_select: (VADDR), line:16:5, endln:16:13
+      \_bit_select: (work@top.VADDR), line:16:5, endln:16:13
         |vpiParent:
         \_operation: , line:16:5, endln:16:18
         |vpiName:VADDR
+        |vpiFullName:work@top.VADDR
         |vpiIndex:
         \_constant: , line:16:11, endln:16:12
           |vpiParent:
-          \_bit_select: (VADDR), line:16:5, endln:16:13
+          \_bit_select: (work@top.VADDR), line:16:5, endln:16:13
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -845,23 +866,29 @@ design: (work@main)
         |UINT:3
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:16:1, endln:16:3
+      |vpiFullName:work@top
   |vpiGenStmt:
   \_gen_if: , line:19:1, endln:19:3
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:1:1, endln:27:10
     |vpiCondition:
     \_operation: , line:19:5, endln:19:18
+      |vpiParent:
+      \_gen_if: , line:19:1, endln:19:3
       |vpiOpType:15
       |vpiOperand:
-      \_bit_select: (VADDR), line:19:5, endln:19:13
+      \_bit_select: (work@top.VADDR), line:19:5, endln:19:13
         |vpiParent:
         \_operation: , line:19:5, endln:19:18
         |vpiName:VADDR
+        |vpiFullName:work@top.VADDR
         |vpiIndex:
         \_constant: , line:19:11, endln:19:12
           |vpiParent:
-          \_bit_select: (VADDR), line:19:5, endln:19:13
+          \_bit_select: (work@top.VADDR), line:19:5, endln:19:13
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -875,23 +902,29 @@ design: (work@main)
         |UINT:3
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:19:1, endln:19:3
+      |vpiFullName:work@top
   |vpiGenStmt:
   \_gen_if: , line:23:1, endln:23:3
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:1:1, endln:27:10
     |vpiCondition:
     \_operation: , line:23:5, endln:23:18
+      |vpiParent:
+      \_gen_if: , line:23:1, endln:23:3
       |vpiOpType:14
       |vpiOperand:
-      \_bit_select: (VADDR), line:23:5, endln:23:13
+      \_bit_select: (work@top.VADDR), line:23:5, endln:23:13
         |vpiParent:
         \_operation: , line:23:5, endln:23:18
         |vpiName:VADDR
+        |vpiFullName:work@top.VADDR
         |vpiIndex:
         \_constant: , line:23:11, endln:23:12
           |vpiParent:
-          \_bit_select: (VADDR), line:23:5, endln:23:13
+          \_bit_select: (work@top.VADDR), line:23:5, endln:23:13
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -905,7 +938,10 @@ design: (work@main)
         |UINT:3
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:23:1, endln:23:3
+      |vpiFullName:work@top
 |uhdmtopModules:
 \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:29:1, endln:31:10
   |vpiName:work@main
@@ -944,7 +980,7 @@ design: (work@main)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:5:27, endln:5:28
+          \_constant: 
             |vpiParent:
             \_range: , line:5:27, endln:5:30
             |vpiDecompile:0
@@ -980,7 +1016,7 @@ design: (work@main)
         |vpiParent:
         \_parameter: (work@main.top1.V), line:5:25, endln:5:26
         |vpiLeftRange:
-        \_constant: , line:5:27, endln:5:28
+        \_constant: 
           |vpiParent:
           \_range: , line:5:27, endln:5:30
           |vpiDecompile:0
@@ -1024,7 +1060,7 @@ design: (work@main)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:14:31, endln:14:32
+          \_constant: 
             |vpiParent:
             \_range: , line:14:31, endln:14:34
             |vpiDecompile:0
@@ -1060,7 +1096,7 @@ design: (work@main)
         |vpiParent:
         \_parameter: (work@main.top1.VADDR), line:14:25, endln:14:30
         |vpiLeftRange:
-        \_constant: , line:14:31, endln:14:32
+        \_constant: 
           |vpiParent:
           \_range: , line:14:31, endln:14:34
           |vpiDecompile:0
@@ -1096,6 +1132,8 @@ design: (work@main)
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:30:1, endln:30:16
       |vpiRhs:
       \_constant: , line:4:31, endln:4:32
+        |vpiParent:
+        \_param_assign: , line:4:25, endln:4:32
         |vpiDecompile:2
         |vpiSize:32
         |UINT:2
@@ -1110,6 +1148,8 @@ design: (work@main)
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:30:1, endln:30:16
       |vpiRhs:
       \_array_expr: 
+        |vpiParent:
+        \_param_assign: , line:5:25, endln:5:47
         |vpiTypespec:
         \_array_typespec: 
         |vpiExpr:
@@ -1129,6 +1169,8 @@ design: (work@main)
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/DefaultPatternModule/dut.sv, line:30:1, endln:30:16
       |vpiRhs:
       \_func_call: (ASSIGN_VADDR), line:14:38, endln:14:50
+        |vpiParent:
+        \_param_assign: , line:14:25, endln:14:52
         |vpiName:ASSIGN_VADDR
         |vpiFunction:
         \_function: (work@top.ASSIGN_VADDR), line:8:1, endln:12:12
@@ -1147,7 +1189,7 @@ design: (work@main)
       |vpiFullName:work@main.top1.ASSIGN_VADDR
       |vpiVisibility:1
       |vpiReturn:
-      \_array_var: , line:8:17, endln:8:35
+      \_array_var: (work@top.ASSIGN_VADDR), line:8:17, endln:8:35
       |vpiStmt:
       \_for_stmt: (work@main.top1.ASSIGN_VADDR), line:9:5, endln:9:8
         |vpiParent:
@@ -1236,7 +1278,7 @@ design: (work@main)
               |vpiName:ASSIGN_VADDR
               |vpiFullName:work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR
               |vpiActual:
-              \_array_var: , line:8:17, endln:8:35
+              \_array_var: (work@top.ASSIGN_VADDR), line:8:17, endln:8:35
               |vpiIndex:
               \_ref_obj: (work@main.top1.ASSIGN_VADDR.i), line:10:23, endln:10:24
                 |vpiParent:

@@ -169,6 +169,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
     |vpiRange:
     \_range: , line:4:6, endln:4:12
+      |vpiParent:
+      \_packed_array_typespec: (struct_array_t), line:5:4, endln:5:18
       |vpiLeftRange:
       \_constant: , line:4:7, endln:4:9
         |vpiParent:
@@ -223,13 +225,19 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:32, endln:1:33
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, endln:1:33
     |vpiTypedef:
     \_logic_typespec: , line:1:19, endln:1:31
       |vpiRange:
       \_range: , line:1:25, endln:1:31
+        |vpiParent:
+        \_logic_typespec: , line:1:19, endln:1:31
         |vpiLeftRange:
         \_constant: , line:1:26, endln:1:28
           |vpiParent:
@@ -257,7 +265,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_struct_var: (work@top.a), line:5:19, endln:5:20
+      \_logic_net: (work@top.a), line:5:19, endln:5:20
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
       |vpiParent:
@@ -280,6 +288,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:5:23, endln:5:25
+      |vpiParent:
+      \_struct_var: (work@top.a), line:5:19, endln:5:20
       |vpiDecompile:4294967295
       |vpiSize:32
       |UINT:4294967295
@@ -296,6 +306,8 @@ design: (work@top)
     \_logic_typespec: , line:1:19, endln:1:31
       |vpiRange:
       \_range: , line:1:25, endln:1:31
+        |vpiParent:
+        \_logic_typespec: , line:1:19, endln:1:31
         |vpiLeftRange:
         \_constant: , line:1:26, endln:1:28
           |vpiParent:
@@ -335,7 +347,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:1:25, endln:1:31
         |vpiParent:
-        \_port: (o), line:1:32, endln:1:33
+        \_logic_typespec: , line:1:19, endln:1:31
         |vpiLeftRange:
         \_constant: , line:1:26, endln:1:28
           |vpiParent:
@@ -365,7 +377,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_struct_var: (work@top.a), line:5:19, endln:5:20
+      \_logic_net: (work@top.a), line:5:19, endln:5:20
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
       |vpiParent:

@@ -35,7 +35,7 @@ int_typespec                                           2
 io_decl                                                1
 module_inst                                            1
 operation                                              1
-package                                                3
+package                                                2
 param_assign                                           2
 parameter                                              2
 ref_obj                                                1
@@ -53,7 +53,7 @@ int_typespec                                           2
 io_decl                                                4
 module_inst                                            1
 operation                                              2
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              2
 ref_obj                                                2
@@ -113,6 +113,8 @@ design: (unnamed)
       \_class_defn: (pack::uvm_port_base), file:${SURELOG_DIR}/tests/ClassParam/dut.sv, line:3:1, endln:12:9
       |vpiRhs:
       \_constant: , line:4:16, endln:4:18
+        |vpiParent:
+        \_param_assign: , line:4:11, endln:4:18
         |vpiDecompile:10
         |vpiSize:32
         |UINT:10
@@ -162,12 +164,15 @@ design: (unnamed)
         |vpiFullName:pack::uvm_port_base::embedded::new
         |vpiMethod:1
         |vpiReturn:
-        \_class_var: 
+        \_class_var: (pack::uvm_port_base::embedded::new)
+          |vpiParent:
+          \_function: (pack::uvm_port_base::embedded::new), line:8:6, endln:9:17
           |vpiTypespec:
           \_class_typespec: (embedded)
             |vpiName:embedded
             |vpiClassDefn:
             \_class_defn: (pack::uvm_port_base::embedded), file:${SURELOG_DIR}/tests/ClassParam/dut.sv, line:7:4, endln:10:12
+          |vpiFullName:pack::uvm_port_base::embedded::new
         |vpiIODecl:
         \_io_decl: (bound), line:8:24, endln:8:29
           |vpiParent:

@@ -657,11 +657,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -686,10 +689,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -714,7 +720,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -744,10 +753,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -778,10 +790,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -848,11 +863,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -862,7 +880,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -870,34 +890,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -943,11 +974,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1018,10 +1052,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1045,8 +1082,6 @@ design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
   \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiName:pmp_cfg_enum
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
@@ -1054,6 +1089,8 @@ design: (work@top)
     \_logic_typespec: , line:3:15, endln:3:26
       |vpiRange:
       \_range: , line:3:21, endln:3:26
+        |vpiParent:
+        \_logic_typespec: , line:3:15, endln:3:26
         |vpiLeftRange:
         \_constant: , line:3:22, endln:3:23
           |vpiParent:
@@ -1072,6 +1109,8 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (PMP_MODE_OFF), line:4:4, endln:4:26
+      |vpiParent:
+      \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
       |vpiName:PMP_MODE_OFF
       |BIN:00
       |vpiDecompile:2'b00
@@ -1195,7 +1234,7 @@ design: (work@top)
       |vpiName:enum_test
       |vpiFullName:work@top.enum_test
       |vpiActual:
-      \_enum_var: (work@top.enum_test), line:18:15, endln:18:24
+      \_logic_net: (work@top.enum_test), line:18:15, endln:18:24
   |vpiContAssign:
   \_cont_assign: , line:28:9, endln:28:43
     |vpiParent:
@@ -1240,8 +1279,10 @@ design: (work@top)
     |vpiArrayType:1
     |vpiRange:
     \_range: , line:16:33, endln:16:34
+      |vpiParent:
+      \_array_var: (work@top.csr_pmp_cfg_i), line:16:17, endln:16:35
       |vpiLeftRange:
-      \_constant: , line:16:33, endln:16:34
+      \_constant: 
         |vpiParent:
         \_range: , line:16:33, endln:16:34
         |vpiDecompile:0
@@ -1255,6 +1296,8 @@ design: (work@top)
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:16:33, endln:16:34
+          |vpiParent:
+          \_operation: 
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
@@ -1295,18 +1338,23 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
     \_logic_typespec: , line:22:2, endln:22:7
+      |vpiParent:
+      \_logic_var: (work@top.t), line:22:8, endln:22:24
     |vpiName:t
     |vpiFullName:work@top.t
     |vpiVisibility:1
     |vpiExpr:
-    \_bit_select: (enum_test), line:22:12, endln:22:24
+    \_bit_select: (work@top.t.enum_test), line:22:12, endln:22:24
+      |vpiParent:
+      \_logic_var: (work@top.t), line:22:8, endln:22:24
       |vpiName:enum_test
+      |vpiFullName:work@top.t.enum_test
       |vpiActual:
       \_enum_var: (work@top.enum_test), line:18:15, endln:18:24
       |vpiIndex:
       \_constant: , line:22:22, endln:22:23
         |vpiParent:
-        \_bit_select: (enum_test), line:22:12, endln:22:24
+        \_bit_select: (work@top.t.enum_test), line:22:12, endln:22:24
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -1322,6 +1370,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_hier_path: (csr_pmp_cfg_i[0].mode), line:24:23, endln:24:44
+      |vpiParent:
+      \_enum_var: (work@top.first), line:24:15, endln:24:20
       |vpiName:csr_pmp_cfg_i[0].mode
       |vpiActual:
       \_bit_select: (csr_pmp_cfg_i[0]), line:24:23, endln:24:36
@@ -1338,21 +1388,26 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (mode), line:24:40, endln:24:44
+      \_ref_obj: (work@top.first.mode), line:24:40, endln:24:44
         |vpiParent:
         \_hier_path: (csr_pmp_cfg_i[0].mode), line:24:23, endln:24:44
         |vpiName:mode
+        |vpiFullName:work@top.first.mode
   |vpiVariables:
   \_logic_var: (work@top.second), line:25:8, endln:25:39
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
     \_logic_typespec: , line:25:2, endln:25:7
+      |vpiParent:
+      \_logic_var: (work@top.second), line:25:8, endln:25:39
     |vpiName:second
     |vpiFullName:work@top.second
     |vpiVisibility:1
     |vpiExpr:
     \_hier_path: (csr_pmp_cfg_ie.mode[0]), line:25:17, endln:25:39
+      |vpiParent:
+      \_logic_var: (work@top.second), line:25:8, endln:25:39
       |vpiName:csr_pmp_cfg_ie.mode[0]
       |vpiActual:
       \_ref_obj: (csr_pmp_cfg_ie), line:25:17, endln:25:31
@@ -1362,12 +1417,15 @@ design: (work@top)
         |vpiActual:
         \_struct_var: (work@top.csr_pmp_cfg_ie), line:17:17, endln:17:31
       |vpiActual:
-      \_bit_select: (mode)
+      \_bit_select: (work@top.second.csr_pmp_cfg_ie.mode[0].mode)
+        |vpiParent:
+        \_hier_path: (csr_pmp_cfg_ie.mode[0]), line:25:17, endln:25:39
         |vpiName:mode
+        |vpiFullName:work@top.second.csr_pmp_cfg_ie.mode[0].mode
         |vpiIndex:
         \_constant: , line:25:37, endln:25:38
           |vpiParent:
-          \_bit_select: (mode)
+          \_bit_select: (work@top.second.csr_pmp_cfg_ie.mode[0].mode)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -1378,11 +1436,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
     \_logic_typespec: , line:26:2, endln:26:7
+      |vpiParent:
+      \_logic_var: (work@top.third), line:26:8, endln:26:43
     |vpiName:third
     |vpiFullName:work@top.third
     |vpiVisibility:1
     |vpiExpr:
     \_hier_path: (csr_pmp_cfg_ie.struct_var.a), line:26:16, endln:26:43
+      |vpiParent:
+      \_logic_var: (work@top.third), line:26:8, endln:26:43
       |vpiName:csr_pmp_cfg_ie.struct_var.a
       |vpiActual:
       \_ref_obj: (csr_pmp_cfg_ie), line:26:16, endln:26:30
@@ -1397,10 +1459,11 @@ design: (work@top)
         \_hier_path: (csr_pmp_cfg_ie.struct_var.a), line:26:16, endln:26:43
         |vpiName:struct_var
       |vpiActual:
-      \_ref_obj: (a), line:26:42, endln:26:43
+      \_ref_obj: (work@top.third.a), line:26:42, endln:26:43
         |vpiParent:
         \_hier_path: (csr_pmp_cfg_ie.struct_var.a), line:26:16, endln:26:43
         |vpiName:a
+        |vpiFullName:work@top.third.a
   |vpiTypedef:
   \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
   |vpiTypedef:
@@ -1429,7 +1492,7 @@ design: (work@top)
       |vpiName:enum_test
       |vpiFullName:work@top.enum_test
       |vpiActual:
-      \_enum_var: (work@top.enum_test), line:18:15, endln:18:24
+      \_logic_net: (work@top.enum_test), line:18:15, endln:18:24
   |vpiContAssign:
   \_cont_assign: , line:28:9, endln:28:43
     |vpiParent:

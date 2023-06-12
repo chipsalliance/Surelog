@@ -250,7 +250,7 @@ if_stmt                                                2
 io_decl                                                3
 method_func_call                                       4
 operation                                              2
-package                                                3
+package                                                2
 ref_obj                                               24
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -271,7 +271,7 @@ if_stmt                                                4
 io_decl                                                6
 method_func_call                                       8
 operation                                              4
-package                                                3
+package                                                2
 ref_obj                                               48
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageVar/slpp_all/surelog.uhdm ...
@@ -302,15 +302,18 @@ design: (unnamed)
       \_class_var: (pack::ovm_auto_options_object), line:11:23, endln:11:46
       |vpiName:ovm_options_container
       |vpiInstance:
-      \_package: (pack)
+      \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
       |vpiClassDefn:
       \_class_defn: (pack::ovm_options_container), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:6:1, endln:8:9
     |vpiName:ovm_auto_options_object
     |vpiFullName:pack::ovm_auto_options_object
     |vpiVisibility:1
     |vpiExpr:
-    \_ref_obj: (ovm_options_container::init), line:11:49, endln:11:70
+    \_ref_obj: (pack::ovm_auto_options_object::ovm_options_container::init), line:11:49, endln:11:72
+      |vpiParent:
+      \_class_var: (pack::ovm_auto_options_object), line:11:23, endln:11:46
       |vpiName:ovm_options_container::init
+      |vpiFullName:pack::ovm_auto_options_object::ovm_options_container::init
   |vpiDefName:pack
   |vpiTaskFunc:
   \_function: (pack::ovm_object::print), line:23:1, endln:39:12
@@ -329,7 +332,7 @@ design: (unnamed)
       \_class_typespec: (ovm_printer), line:23:33, endln:23:44
         |vpiName:ovm_printer
         |vpiInstance:
-        \_package: (pack)
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:1:1, endln:42:11
         |vpiClassDefn:
         \_class_defn: (pack::ovm_printer), file:${SURELOG_DIR}/tests/PackageVar/dut.sv, line:3:1, endln:4:9
     |vpiStmt:
@@ -536,8 +539,11 @@ design: (unnamed)
     |vpiFullName:pack::ovm_auto_options_object
     |vpiVisibility:1
     |vpiExpr:
-    \_ref_obj: (ovm_options_container::init), line:11:49, endln:11:70
+    \_ref_obj: (pack::ovm_auto_options_object::ovm_options_container::init), line:11:49, endln:11:72
+      |vpiParent:
+      \_class_var: (pack::ovm_auto_options_object), line:11:23, endln:11:46
       |vpiName:ovm_options_container::init
+      |vpiFullName:pack::ovm_auto_options_object::ovm_options_container::init
   |vpiDefName:pack
   |vpiTop:1
   |vpiClassDefn:

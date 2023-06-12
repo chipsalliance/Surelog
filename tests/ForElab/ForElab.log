@@ -93,7 +93,7 @@ logic_var                                              2
 module_inst                                           17
 named_begin                                            5
 operation                                             48
-package                                                3
+package                                                2
 param_assign                                          25
 parameter                                             28
 port                                                  17
@@ -136,6 +136,8 @@ design: (work@tlul_socket_m1)
     \_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/ForElab/top.v, line:1:1, endln:13:11
     |vpiRhs:
     \_constant: , line:9:27, endln:9:36
+      |vpiParent:
+      \_param_assign: , line:9:13, endln:9:36
       |vpiDecompile:"BINTREE"
       |vpiSize:56
       |STRING:BINTREE
@@ -166,6 +168,8 @@ design: (work@tlul_socket_m1)
     \_package: tlul_pkg (tlul_pkg::), file:${SURELOG_DIR}/tests/ForElab/top.v, line:1:1, endln:13:11
     |vpiRhs:
     \_constant: , line:9:27, endln:9:36
+      |vpiParent:
+      \_param_assign: , line:9:13, endln:9:36
       |vpiDecompile:"BINTREE"
       |vpiSize:56
       |STRING:BINTREE
@@ -220,6 +224,8 @@ design: (work@tlul_socket_m1)
     \_module_inst: work@prim_arbiter_tree (work@prim_arbiter_tree), file:${SURELOG_DIR}/tests/ForElab/top.v, line:16:1, endln:47:10
     |vpiRhs:
     \_constant: , line:17:31, endln:17:32
+      |vpiParent:
+      \_param_assign: , line:17:26, endln:17:32
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -234,6 +240,8 @@ design: (work@tlul_socket_m1)
     \_module_inst: work@prim_arbiter_tree (work@prim_arbiter_tree), file:${SURELOG_DIR}/tests/ForElab/top.v, line:16:1, endln:47:10
     |vpiRhs:
     \_constant: , line:18:31, endln:18:33
+      |vpiParent:
+      \_param_assign: , line:18:26, endln:18:33
       |vpiDecompile:32
       |vpiSize:32
       |UINT:32
@@ -248,6 +256,8 @@ design: (work@tlul_socket_m1)
     \_module_inst: work@prim_arbiter_tree (work@prim_arbiter_tree), file:${SURELOG_DIR}/tests/ForElab/top.v, line:16:1, endln:47:10
     |vpiRhs:
     \_constant: , line:19:29, endln:19:33
+      |vpiParent:
+      \_param_assign: , line:19:17, endln:19:33
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -276,7 +286,11 @@ design: (work@tlul_socket_m1)
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_arbiter_tree.clk_i.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:21:9, endln:21:14
+      |vpiName:clk_i
+      |vpiFullName:work@prim_arbiter_tree.clk_i.clk_i
       |vpiActual:
       \_logic_net: (work@prim_arbiter_tree.clk_i), line:21:9, endln:21:14
     |vpiTypedef:
@@ -288,7 +302,11 @@ design: (work@tlul_socket_m1)
     |vpiName:rst_ni
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_arbiter_tree.rst_ni.rst_ni)
+      |vpiParent:
+      \_port: (rst_ni), line:22:9, endln:22:15
+      |vpiName:rst_ni
+      |vpiFullName:work@prim_arbiter_tree.rst_ni.rst_ni
       |vpiActual:
       \_logic_net: (work@prim_arbiter_tree.rst_ni), line:22:9, endln:22:15
     |vpiTypedef:
@@ -299,12 +317,15 @@ design: (work@tlul_socket_m1)
     \_module_inst: work@prim_arbiter_tree (work@prim_arbiter_tree), file:${SURELOG_DIR}/tests/ForElab/top.v, line:16:1, endln:47:10
     |vpiCondition:
     \_operation: , line:28:7, endln:28:13
+      |vpiParent:
+      \_gen_if_else: 
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (N), line:28:7, endln:28:8
+      \_ref_obj: (work@prim_arbiter_tree.N), line:28:7, endln:28:8
         |vpiParent:
         \_operation: , line:28:7, endln:28:13
         |vpiName:N
+        |vpiFullName:work@prim_arbiter_tree.N
       |vpiOperand:
       \_constant: , line:28:12, endln:28:13
         |vpiParent:
@@ -314,57 +335,79 @@ design: (work@tlul_socket_m1)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (gen_degenerate_case)
+    \_named_begin: (work@prim_arbiter_tree.gen_degenerate_case)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_degenerate_case
+      |vpiFullName:work@prim_arbiter_tree.gen_degenerate_case
       |vpiStmt:
       \_cont_assign: , line:30:12, endln:30:31
+        |vpiParent:
+        \_named_begin: (work@prim_arbiter_tree.gen_degenerate_case)
         |vpiRhs:
-        \_bit_select: (req_i), line:30:23, endln:30:31
+        \_bit_select: (work@prim_arbiter_tree.gen_degenerate_case.req_i), line:30:23, endln:30:31
           |vpiParent:
           \_cont_assign: , line:30:12, endln:30:31
           |vpiName:req_i
+          |vpiFullName:work@prim_arbiter_tree.gen_degenerate_case.req_i
           |vpiIndex:
           \_constant: , line:30:29, endln:30:30
             |vpiParent:
-            \_bit_select: (req_i), line:30:23, endln:30:31
+            \_bit_select: (work@prim_arbiter_tree.gen_degenerate_case.req_i), line:30:23, endln:30:31
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (valid_o), line:30:12, endln:30:19
+        \_ref_obj: (work@prim_arbiter_tree.gen_degenerate_case.valid_o), line:30:12, endln:30:19
           |vpiParent:
           \_cont_assign: , line:30:12, endln:30:31
           |vpiName:valid_o
+          |vpiFullName:work@prim_arbiter_tree.gen_degenerate_case.valid_o
     |vpiElseStmt:
-    \_named_begin: (gen_normal_case)
+    \_named_begin: (work@prim_arbiter_tree.gen_normal_case)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_normal_case
+      |vpiFullName:work@prim_arbiter_tree.gen_normal_case
       |vpiStmt:
       \_param_assign: , line:34:29, endln:34:49
+        |vpiParent:
+        \_named_begin: (work@prim_arbiter_tree.gen_normal_case)
         |vpiRhs:
         \_sys_func_call: ($clog2), line:34:40, endln:34:49
+          |vpiParent:
+          \_param_assign: , line:34:29, endln:34:49
           |vpiArgument:
-          \_ref_obj: (N), line:34:47, endln:34:48
+          \_ref_obj: (work@prim_arbiter_tree.gen_normal_case.N), line:34:47, endln:34:48
             |vpiParent:
             \_sys_func_call: ($clog2), line:34:40, endln:34:49
             |vpiName:N
+            |vpiFullName:work@prim_arbiter_tree.gen_normal_case.N
           |vpiName:$clog2
         |vpiLhs:
-        \_parameter: (N_LEVELS), line:34:29, endln:34:49
+        \_parameter: (work@prim_arbiter_tree.gen_normal_case.N_LEVELS), line:34:29, endln:34:49
+          |vpiParent:
+          \_param_assign: , line:34:29, endln:34:49
           |vpiTypespec:
           \_int_typespec: , line:34:16, endln:34:28
           |vpiLocalParam:1
           |vpiName:N_LEVELS
+          |vpiFullName:work@prim_arbiter_tree.gen_normal_case.N_LEVELS
       |vpiStmt:
       \_assign_stmt: , line:35:47, endln:35:50
+        |vpiParent:
+        \_named_begin: (work@prim_arbiter_tree.gen_normal_case)
         |vpiLhs:
-        \_logic_var: (req), line:35:47, endln:35:50
+        \_logic_var: (work@prim_arbiter_tree.gen_normal_case.req), line:35:47, endln:35:50
           |vpiParent:
           \_assign_stmt: , line:35:47, endln:35:50
           |vpiTypespec:
           \_logic_typespec: , line:35:5, endln:35:18
             |vpiRange:
             \_range: , line:35:11, endln:35:18
+              |vpiParent:
+              \_logic_typespec: , line:35:5, endln:35:18
               |vpiLeftRange:
               \_operation: , line:35:12, endln:35:15
                 |vpiParent:
@@ -392,6 +435,7 @@ design: (work@tlul_socket_m1)
                 |UINT:0
                 |vpiConstType:9
           |vpiName:req
+          |vpiFullName:work@prim_arbiter_tree.gen_normal_case.req
 |uhdmallModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
   |vpiParent:
@@ -404,6 +448,8 @@ design: (work@tlul_socket_m1)
     \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
     |vpiCondition:
     \_operation: , line:52:7, endln:52:37
+      |vpiParent:
+      \_gen_if_else: 
       |vpiOpType:14
       |vpiOperand:
       \_constant: , line:52:7, endln:52:17
@@ -426,14 +472,24 @@ design: (work@tlul_socket_m1)
         |STRING:PPC
         |vpiConstType:6
     |vpiStmt:
-    \_named_begin: (gen_arb_ppc)
+    \_named_begin: (work@tlul_socket_m1.gen_arb_ppc)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:gen_arb_ppc
+      |vpiFullName:work@tlul_socket_m1.gen_arb_ppc
     |vpiElseStmt:
-    \_begin: 
+    \_begin: (work@tlul_socket_m1)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@tlul_socket_m1
       |vpiStmt:
       \_gen_if_else: , line:54:12, endln:64:6
+        |vpiParent:
+        \_begin: (work@tlul_socket_m1)
         |vpiCondition:
         \_operation: , line:54:16, endln:54:50
+          |vpiParent:
+          \_gen_if_else: , line:54:12, endln:64:6
           |vpiOpType:14
           |vpiOperand:
           \_constant: , line:54:16, endln:54:26
@@ -456,21 +512,33 @@ design: (work@tlul_socket_m1)
             |STRING:BINTREE
             |vpiConstType:6
         |vpiStmt:
-        \_named_begin: (gen_tree_arb)
+        \_named_begin: (work@tlul_socket_m1.gen_tree_arb)
+          |vpiParent:
+          \_gen_if_else: , line:54:12, endln:64:6
           |vpiName:gen_tree_arb
+          |vpiFullName:work@tlul_socket_m1.gen_tree_arb
           |vpiStmt:
           \_ref_module: work@prim_arbiter_tree (u_reqarb), line:58:7, endln:58:15
+            |vpiParent:
+            \_named_begin: (work@tlul_socket_m1.gen_tree_arb)
             |vpiName:u_reqarb
             |vpiDefName:work@prim_arbiter_tree
             |vpiPort:
             \_port: (clk_i), line:59:7, endln:59:13
+              |vpiParent:
+              \_ref_module: work@prim_arbiter_tree (u_reqarb), line:58:7, endln:58:15
               |vpiName:clk_i
             |vpiPort:
             \_port: (rst_ni), line:60:7, endln:60:14
+              |vpiParent:
+              \_ref_module: work@prim_arbiter_tree (u_reqarb), line:58:7, endln:58:15
               |vpiName:rst_ni
         |vpiElseStmt:
-        \_named_begin: (gen_unknown)
+        \_named_begin: (work@tlul_socket_m1.gen_unknown)
+          |vpiParent:
+          \_gen_if_else: , line:54:12, endln:64:6
           |vpiName:gen_unknown
+          |vpiFullName:work@tlul_socket_m1.gen_unknown
 |uhdmtopModules:
 \_module_inst: work@tlul_socket_m1 (work@tlul_socket_m1), file:${SURELOG_DIR}/tests/ForElab/top.v, line:49:1, endln:68:10
   |vpiName:work@tlul_socket_m1
@@ -548,6 +616,8 @@ design: (work@tlul_socket_m1)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:17:31, endln:17:32
+            |vpiParent:
+            \_param_assign: , line:17:26, endln:17:32
             |vpiDecompile:4
             |vpiSize:32
             |UINT:4
@@ -563,6 +633,8 @@ design: (work@tlul_socket_m1)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:18:31, endln:18:33
+            |vpiParent:
+            \_param_assign: , line:18:26, endln:18:33
             |vpiDecompile:0
             |vpiSize:32
             |UINT:0
@@ -577,6 +649,8 @@ design: (work@tlul_socket_m1)
           \_module_inst: work@prim_arbiter_tree (work@tlul_socket_m1.gen_tree_arb.u_reqarb), file:${SURELOG_DIR}/tests/ForElab/top.v, line:55:5, endln:61:7
           |vpiRhs:
           \_constant: , line:19:29, endln:19:33
+            |vpiParent:
+            \_param_assign: , line:19:17, endln:19:33
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
@@ -594,6 +668,8 @@ design: (work@tlul_socket_m1)
           \_module_inst: work@prim_arbiter_tree (work@tlul_socket_m1.gen_tree_arb.u_reqarb), file:${SURELOG_DIR}/tests/ForElab/top.v, line:55:5, endln:61:7
           |vpiTypespec:
           \_logic_typespec: , line:21:9, endln:21:9
+            |vpiParent:
+            \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.clk_i), line:21:9, endln:21:14
           |vpiName:clk_i
           |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.clk_i
         |vpiNet:
@@ -602,6 +678,8 @@ design: (work@tlul_socket_m1)
           \_module_inst: work@prim_arbiter_tree (work@tlul_socket_m1.gen_tree_arb.u_reqarb), file:${SURELOG_DIR}/tests/ForElab/top.v, line:55:5, endln:61:7
           |vpiTypespec:
           \_logic_typespec: , line:22:9, endln:22:9
+            |vpiParent:
+            \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.rst_ni), line:22:9, endln:22:15
           |vpiName:rst_ni
           |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.rst_ni
         |vpiPort:
@@ -612,12 +690,16 @@ design: (work@tlul_socket_m1)
           |vpiDirection:1
           |vpiHighConn:
           \_ref_obj: (work@tlul_socket_m1.gen_tree_arb.clk_i), line:59:8, endln:59:13
+            |vpiParent:
+            \_port: (clk_i), line:21:9, endln:21:14
             |vpiName:clk_i
             |vpiFullName:work@tlul_socket_m1.gen_tree_arb.clk_i
             |vpiActual:
             \_logic_net: (work@tlul_socket_m1.gen_tree_arb.clk_i), line:59:8, endln:59:13
           |vpiLowConn:
           \_ref_obj: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.clk_i), line:59:8, endln:59:13
+            |vpiParent:
+            \_port: (clk_i), line:21:9, endln:21:14
             |vpiName:clk_i
             |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.clk_i
             |vpiActual:
@@ -632,12 +714,16 @@ design: (work@tlul_socket_m1)
           |vpiDirection:1
           |vpiHighConn:
           \_ref_obj: (work@tlul_socket_m1.gen_tree_arb.rst_ni), line:60:8, endln:60:14
+            |vpiParent:
+            \_port: (rst_ni), line:22:9, endln:22:15
             |vpiName:rst_ni
             |vpiFullName:work@tlul_socket_m1.gen_tree_arb.rst_ni
             |vpiActual:
             \_logic_net: (work@tlul_socket_m1.gen_tree_arb.rst_ni), line:60:8, endln:60:14
           |vpiLowConn:
           \_ref_obj: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.rst_ni), line:60:8, endln:60:14
+            |vpiParent:
+            \_port: (rst_ni), line:22:9, endln:22:15
             |vpiName:rst_ni
             |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.rst_ni
             |vpiActual:
@@ -661,8 +747,12 @@ design: (work@tlul_socket_m1)
               \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case)
               |vpiTypespec:
               \_logic_typespec: , line:35:5, endln:35:18
+                |vpiParent:
+                \_logic_var: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.req), line:35:47, endln:35:50
                 |vpiRange:
                 \_range: , line:35:11, endln:35:18
+                  |vpiParent:
+                  \_logic_typespec: , line:35:5, endln:35:18
                   |vpiLeftRange:
                   \_constant: , line:35:12, endln:35:13
                     |vpiParent:
@@ -684,6 +774,8 @@ design: (work@tlul_socket_m1)
               |vpiVisibility:1
               |vpiRange:
               \_range: , line:35:11, endln:35:18
+                |vpiParent:
+                \_logic_var: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.req), line:35:47, endln:35:50
                 |vpiLeftRange:
                 \_constant: , line:35:12, endln:35:13
                   |vpiParent:
@@ -718,6 +810,8 @@ design: (work@tlul_socket_m1)
               \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case)
               |vpiRhs:
               \_constant: , line:34:40, endln:34:49
+                |vpiParent:
+                \_param_assign: , line:34:29, endln:34:49
                 |vpiDecompile:2
                 |vpiSize:32
                 |UINT:2
@@ -779,6 +873,8 @@ design: (work@tlul_socket_m1)
                   \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0])
                   |vpiRhs:
                   \_constant: , line:39:39, endln:39:51
+                    |vpiParent:
+                    \_param_assign: , line:39:31, endln:39:51
                     |vpiDecompile:0
                     |vpiSize:32
                     |INT:0
@@ -795,6 +891,8 @@ design: (work@tlul_socket_m1)
                   \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0])
                   |vpiRhs:
                   \_constant: , line:40:39, endln:40:55
+                    |vpiParent:
+                    \_param_assign: , line:40:31, endln:40:55
                     |vpiDecompile:1
                     |vpiSize:32
                     |INT:1
@@ -926,6 +1024,8 @@ design: (work@tlul_socket_m1)
                   \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1])
                   |vpiRhs:
                   \_constant: , line:39:39, endln:39:51
+                    |vpiParent:
+                    \_param_assign: , line:39:31, endln:39:51
                     |vpiDecompile:1
                     |vpiSize:32
                     |INT:1
@@ -942,6 +1042,8 @@ design: (work@tlul_socket_m1)
                   \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1])
                   |vpiRhs:
                   \_constant: , line:40:39, endln:40:55
+                    |vpiParent:
+                    \_param_assign: , line:40:31, endln:40:55
                     |vpiDecompile:3
                     |vpiSize:32
                     |INT:3
@@ -1073,6 +1175,8 @@ design: (work@tlul_socket_m1)
                   \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2])
                   |vpiRhs:
                   \_constant: , line:39:39, endln:39:51
+                    |vpiParent:
+                    \_param_assign: , line:39:31, endln:39:51
                     |vpiDecompile:3
                     |vpiSize:32
                     |INT:3
@@ -1089,6 +1193,8 @@ design: (work@tlul_socket_m1)
                   \_gen_scope: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2])
                   |vpiRhs:
                   \_constant: , line:40:39, endln:40:55
+                    |vpiParent:
+                    \_param_assign: , line:40:31, endln:40:55
                     |vpiDecompile:7
                     |vpiSize:32
                     |INT:7

@@ -556,7 +556,7 @@ operation                                             15
 port                                                  14
 property_inst                                          2
 property_spec                                          4
-ref_obj                                               34
+ref_obj                                               40
 sequence_inst                                          2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -580,7 +580,7 @@ operation                                             30
 port                                                  21
 property_inst                                          4
 property_spec                                          8
-ref_obj                                               61
+ref_obj                                               67
 sequence_inst                                          4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SequenceInst/slpp_all/surelog.uhdm ...
@@ -665,29 +665,34 @@ design: (work@m)
     |vpiFullName:work@m.a1
     |vpiProperty:
     \_property_spec: , line:16:24, endln:16:43
+      |vpiParent:
+      \_assert_stmt: (work@m.a1), line:16:3, endln:16:45
       |vpiPropertyExpr:
       \_property_inst: (p_triggers), line:16:24, endln:16:43
         |vpiArgument:
-        \_ref_obj: (a), line:16:35, endln:16:36
+        \_ref_obj: (p_triggers.a), line:16:35, endln:16:36
           |vpiParent:
-          \_func_call: (p_triggers), line:16:24, endln:16:43
+          \_property_inst: (p_triggers), line:16:24, endln:16:43
           |vpiName:a
+          |vpiFullName:p_triggers.a
           |vpiActual:
-          \_logic_var: (work@m.a), line:1:16, endln:1:17
+          \_logic_net: (work@m.a), line:1:16, endln:1:17
         |vpiArgument:
-        \_ref_obj: (b), line:16:38, endln:16:39
+        \_ref_obj: (p_triggers.b), line:16:38, endln:16:39
           |vpiParent:
-          \_func_call: (p_triggers), line:16:24, endln:16:43
+          \_property_inst: (p_triggers), line:16:24, endln:16:43
           |vpiName:b
+          |vpiFullName:p_triggers.b
           |vpiActual:
-          \_logic_var: (work@m.b), line:1:19, endln:1:20
+          \_logic_net: (work@m.b), line:1:19, endln:1:20
         |vpiArgument:
-        \_ref_obj: (c), line:16:41, endln:16:42
+        \_ref_obj: (p_triggers.c), line:16:41, endln:16:42
           |vpiParent:
-          \_func_call: (p_triggers), line:16:24, endln:16:43
+          \_property_inst: (p_triggers), line:16:24, endln:16:43
           |vpiName:c
+          |vpiFullName:p_triggers.c
           |vpiActual:
-          \_logic_var: (work@m.c), line:1:22, endln:1:23
+          \_logic_net: (work@m.c), line:1:22, endln:1:23
         |vpiName:p_triggers
   |vpiAssertion:
   \_assert_stmt: (work@m.a2), line:18:3, endln:18:66
@@ -697,57 +702,69 @@ design: (work@m)
     |vpiFullName:work@m.a2
     |vpiProperty:
     \_property_spec: , line:18:24, endln:18:63
+      |vpiParent:
+      \_assert_stmt: (work@m.a2), line:18:3, endln:18:66
       |vpiPropertyExpr:
       \_sequence_inst: (p_triggers), line:18:24, endln:18:63
+        |vpiParent:
+        \_property_spec: , line:18:24, endln:18:63
         |vpiArgument:
         \_operation: , line:18:35, endln:18:62
+          |vpiParent:
+          \_sequence_inst: (p_triggers), line:18:24, endln:18:63
           |vpiOpType:37
           |vpiOperand:
           \_operation: , line:18:35, endln:18:56
+            |vpiParent:
+            \_operation: , line:18:35, endln:18:62
             |vpiOpType:37
             |vpiOperand:
             \_operation: , line:18:35, endln:18:42
+              |vpiParent:
+              \_operation: , line:18:35, endln:18:56
               |vpiOpType:37
               |vpiOperand:
               \_operation: , line:18:35, endln:18:39
+                |vpiParent:
+                \_operation: , line:18:35, endln:18:42
                 |vpiOpType:37
                 |vpiOperand:
-                \_ref_obj: (p_triggers.a), line:18:35, endln:18:36
+                \_ref_obj: (work@m.a2.p_triggers.a), line:18:35, endln:18:36
                   |vpiParent:
-                  \_sequence_inst: (p_triggers), line:18:24, endln:18:63
+                  \_operation: , line:18:35, endln:18:39
                   |vpiName:a
-                  |vpiFullName:p_triggers.a
+                  |vpiFullName:work@m.a2.p_triggers.a
                   |vpiActual:
-                  \_logic_var: (work@m.a), line:1:16, endln:1:17
+                  \_logic_net: (work@m.a), line:1:16, endln:1:17
                 |vpiOperand:
-                \_ref_obj: (p_triggers.b), line:18:38, endln:18:39
+                \_ref_obj: (work@m.a2.p_triggers.b), line:18:38, endln:18:39
                   |vpiParent:
-                  \_sequence_inst: (p_triggers), line:18:24, endln:18:63
+                  \_operation: , line:18:35, endln:18:39
                   |vpiName:b
-                  |vpiFullName:p_triggers.b
+                  |vpiFullName:work@m.a2.p_triggers.b
                   |vpiActual:
-                  \_logic_var: (work@m.b), line:1:19, endln:1:20
+                  \_logic_net: (work@m.b), line:1:19, endln:1:20
               |vpiOperand:
-              \_ref_obj: (p_triggers.c), line:18:41, endln:18:42
+              \_ref_obj: (work@m.a2.p_triggers.c), line:18:41, endln:18:42
                 |vpiParent:
-                \_sequence_inst: (p_triggers), line:18:24, endln:18:63
+                \_operation: , line:18:35, endln:18:42
                 |vpiName:c
-                |vpiFullName:p_triggers.c
+                |vpiFullName:work@m.a2.p_triggers.c
                 |vpiActual:
-                \_logic_var: (work@m.c), line:1:22, endln:1:23
+                \_logic_net: (work@m.c), line:1:22, endln:1:23
             |vpiOperand:
             \_operation: , line:18:44, endln:18:56
               |vpiParent:
-              \_sequence_inst: (p_triggers), line:18:24, endln:18:63
+              \_operation: , line:18:35, endln:18:56
               |vpiOpType:39
               |vpiOperand:
-              \_ref_obj: (p_triggers.clk1), line:18:52, endln:18:56
+              \_ref_obj: (work@m.a2.p_triggers.clk1), line:18:52, endln:18:56
                 |vpiParent:
                 \_operation: , line:18:44, endln:18:56
                 |vpiName:clk1
-                |vpiFullName:p_triggers.clk1
+                |vpiFullName:work@m.a2.p_triggers.clk1
                 |vpiActual:
-                \_logic_var: (work@m.clk1), line:1:34, endln:1:38
+                \_logic_net: (work@m.clk1), line:1:34, endln:1:38
           |vpiOperand:
           \_constant: , line:18:58, endln:18:62
             |vpiDecompile:1'b0
@@ -763,21 +780,25 @@ design: (work@m)
     |vpiFullName:work@m.a4
     |vpiProperty:
     \_property_spec: , line:28:23, endln:28:76
+      |vpiParent:
+      \_assert_stmt: (work@m.a4), line:28:3, endln:28:79
       |vpiPropertyExpr:
       \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
+        |vpiParent:
+        \_property_spec: , line:28:23, endln:28:76
         |vpiArgument:
         \_operation: , line:28:36, endln:28:48
           |vpiParent:
           \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
           |vpiOpType:40
           |vpiOperand:
-          \_ref_obj: (p_multiclock.clk2), line:28:44, endln:28:48
+          \_ref_obj: (work@m.a4.p_multiclock.clk2), line:28:44, endln:28:48
             |vpiParent:
             \_operation: , line:28:36, endln:28:48
             |vpiName:clk2
-            |vpiFullName:p_multiclock.clk2
+            |vpiFullName:work@m.a4.p_multiclock.clk2
             |vpiActual:
-            \_logic_var: (work@m.clk2), line:1:40, endln:1:44
+            \_logic_net: (work@m.clk2), line:1:40, endln:1:44
         |vpiArgument:
         \_constant: , line:28:50, endln:28:50
           |vpiDecompile:0
@@ -786,79 +807,93 @@ design: (work@m)
           |vpiConstType:7
         |vpiArgument:
         \_operation: , line:28:52, endln:28:75
+          |vpiParent:
+          \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
           |vpiOpType:37
           |vpiOperand:
           \_operation: , line:28:52, endln:28:72
+            |vpiParent:
+            \_operation: , line:28:52, endln:28:75
             |vpiOpType:37
             |vpiOperand:
             \_operation: , line:28:52, endln:28:69
+              |vpiParent:
+              \_operation: , line:28:52, endln:28:72
               |vpiOpType:37
               |vpiOperand:
               \_operation: , line:28:52, endln:28:66
+                |vpiParent:
+                \_operation: , line:28:52, endln:28:69
                 |vpiOpType:37
                 |vpiOperand:
                 \_operation: , line:28:52, endln:28:64
                   |vpiParent:
-                  \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
+                  \_operation: , line:28:52, endln:28:66
                   |vpiOpType:39
                   |vpiOperand:
-                  \_ref_obj: (p_multiclock.clk1), line:28:60, endln:28:64
+                  \_ref_obj: (work@m.a4.p_multiclock.clk1), line:28:60, endln:28:64
                     |vpiParent:
                     \_operation: , line:28:52, endln:28:64
                     |vpiName:clk1
-                    |vpiFullName:p_multiclock.clk1
+                    |vpiFullName:work@m.a4.p_multiclock.clk1
                     |vpiActual:
-                    \_logic_var: (work@m.clk1), line:1:34, endln:1:38
+                    \_logic_net: (work@m.clk1), line:1:34, endln:1:38
                 |vpiOperand:
-                \_ref_obj: (p_multiclock.a), line:28:65, endln:28:66
+                \_ref_obj: (work@m.a4.p_multiclock.a), line:28:65, endln:28:66
                   |vpiParent:
-                  \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
+                  \_operation: , line:28:52, endln:28:66
                   |vpiName:a
-                  |vpiFullName:p_multiclock.a
+                  |vpiFullName:work@m.a4.p_multiclock.a
                   |vpiActual:
-                  \_logic_var: (work@m.a), line:1:16, endln:1:17
+                  \_logic_net: (work@m.a), line:1:16, endln:1:17
               |vpiOperand:
-              \_ref_obj: (p_multiclock.b), line:28:68, endln:28:69
+              \_ref_obj: (work@m.a4.p_multiclock.b), line:28:68, endln:28:69
                 |vpiParent:
-                \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
+                \_operation: , line:28:52, endln:28:69
                 |vpiName:b
-                |vpiFullName:p_multiclock.b
+                |vpiFullName:work@m.a4.p_multiclock.b
                 |vpiActual:
-                \_logic_var: (work@m.b), line:1:19, endln:1:20
+                \_logic_net: (work@m.b), line:1:19, endln:1:20
             |vpiOperand:
-            \_ref_obj: (p_multiclock.c), line:28:71, endln:28:72
+            \_ref_obj: (work@m.a4.p_multiclock.c), line:28:71, endln:28:72
               |vpiParent:
-              \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
+              \_operation: , line:28:52, endln:28:72
               |vpiName:c
-              |vpiFullName:p_multiclock.c
+              |vpiFullName:work@m.a4.p_multiclock.c
               |vpiActual:
-              \_logic_var: (work@m.c), line:1:22, endln:1:23
+              \_logic_net: (work@m.c), line:1:22, endln:1:23
           |vpiOperand:
-          \_ref_obj: (p_multiclock.d), line:28:74, endln:28:75
+          \_ref_obj: (work@m.a4.p_multiclock.d), line:28:74, endln:28:75
             |vpiParent:
-            \_sequence_inst: (p_multiclock), line:28:23, endln:28:76
+            \_operation: , line:28:52, endln:28:75
             |vpiName:d
-            |vpiFullName:p_multiclock.d
+            |vpiFullName:work@m.a4.p_multiclock.d
             |vpiActual:
-            \_logic_var: (work@m.d), line:1:25, endln:1:26
+            \_logic_net: (work@m.d), line:1:25, endln:1:26
         |vpiName:p_multiclock
   |vpiDefaultClocking:
-  \_clocking_block: (unnamed_clocking_block), line:4:3, endln:4:48
+  \_clocking_block: (work@m.unnamed_clocking_block), line:4:3, endln:4:48
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
     |vpiName:unnamed_clocking_block
+    |vpiFullName:work@m.unnamed_clocking_block
     |vpiClockingEvent:
     \_event_control: , line:4:20, endln:4:35
+      |vpiParent:
+      \_clocking_block: (work@m.unnamed_clocking_block), line:4:3, endln:4:48
       |vpiCondition:
       \_operation: , line:4:22, endln:4:34
         |vpiParent:
         \_event_control: , line:4:20, endln:4:35
         |vpiOpType:40
         |vpiOperand:
-        \_ref_obj: (clk1), line:4:30, endln:4:34
+        \_ref_obj: (work@m.unnamed_clocking_block.clk1), line:4:30, endln:4:34
           |vpiParent:
           \_operation: , line:4:22, endln:4:34
           |vpiName:clk1
+          |vpiFullName:work@m.unnamed_clocking_block.clk1
           |vpiActual:
-          \_logic_var: (work@m.clk1), line:1:34, endln:1:38
+          \_logic_net: (work@m.clk1), line:1:34, endln:1:38
   |vpiPort:
   \_port: (a), line:1:16, endln:1:17
     |vpiParent:
@@ -866,7 +901,11 @@ design: (work@m)
     |vpiName:a
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.a.a)
+      |vpiParent:
+      \_port: (a), line:1:16, endln:1:17
+      |vpiName:a
+      |vpiFullName:work@m.a.a
       |vpiActual:
       \_logic_net: (work@m.a), line:1:16, endln:1:17
   |vpiPort:
@@ -876,7 +915,11 @@ design: (work@m)
     |vpiName:b
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.b.b)
+      |vpiParent:
+      \_port: (b), line:1:19, endln:1:20
+      |vpiName:b
+      |vpiFullName:work@m.b.b
       |vpiActual:
       \_logic_net: (work@m.b), line:1:19, endln:1:20
   |vpiPort:
@@ -886,7 +929,11 @@ design: (work@m)
     |vpiName:c
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.c.c)
+      |vpiParent:
+      \_port: (c), line:1:22, endln:1:23
+      |vpiName:c
+      |vpiFullName:work@m.c.c
       |vpiActual:
       \_logic_net: (work@m.c), line:1:22, endln:1:23
   |vpiPort:
@@ -896,7 +943,11 @@ design: (work@m)
     |vpiName:d
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.d.d)
+      |vpiParent:
+      \_port: (d), line:1:25, endln:1:26
+      |vpiName:d
+      |vpiFullName:work@m.d.d
       |vpiActual:
       \_logic_net: (work@m.d), line:1:25, endln:1:26
   |vpiPort:
@@ -906,7 +957,11 @@ design: (work@m)
     |vpiName:rst1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.rst1.rst1)
+      |vpiParent:
+      \_port: (rst1), line:1:28, endln:1:32
+      |vpiName:rst1
+      |vpiFullName:work@m.rst1.rst1
       |vpiActual:
       \_logic_net: (work@m.rst1), line:1:28, endln:1:32
   |vpiPort:
@@ -916,7 +971,11 @@ design: (work@m)
     |vpiName:clk1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.clk1.clk1)
+      |vpiParent:
+      \_port: (clk1), line:1:34, endln:1:38
+      |vpiName:clk1
+      |vpiFullName:work@m.clk1.clk1
       |vpiActual:
       \_logic_net: (work@m.clk1), line:1:34, endln:1:38
   |vpiPort:
@@ -926,7 +985,11 @@ design: (work@m)
     |vpiName:clk2
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.clk2.clk2)
+      |vpiParent:
+      \_port: (clk2), line:1:40, endln:1:44
+      |vpiName:clk2
+      |vpiFullName:work@m.clk2.clk2
       |vpiActual:
       \_logic_net: (work@m.clk2), line:1:40, endln:1:44
   |vpiProcess:
@@ -944,24 +1007,30 @@ design: (work@m)
         |vpiOpType:35
         |vpiOperand:
         \_operation: , line:20:12, endln:20:24
+          |vpiParent:
+          \_operation: , line:20:12, endln:20:39
           |vpiOpType:39
           |vpiOperand:
-          \_ref_obj: (clk2), line:20:20, endln:20:24
+          \_ref_obj: (work@m.clk2), line:20:20, endln:20:24
             |vpiParent:
             \_operation: , line:20:12, endln:20:24
             |vpiName:clk2
+            |vpiFullName:work@m.clk2
             |vpiActual:
-            \_logic_var: (work@m.clk2), line:1:40, endln:1:44
+            \_logic_net: (work@m.clk2), line:1:40, endln:1:44
         |vpiOperand:
         \_operation: , line:20:28, endln:20:39
+          |vpiParent:
+          \_operation: , line:20:12, endln:20:39
           |vpiOpType:39
           |vpiOperand:
-          \_ref_obj: (rst), line:20:36, endln:20:39
+          \_ref_obj: (work@m.rst), line:20:36, endln:20:39
             |vpiParent:
             \_operation: , line:20:28, endln:20:39
             |vpiName:rst
+            |vpiFullName:work@m.rst
             |vpiActual:
-            \_logic_var: (work@m.rst), line:3:9, endln:3:12
+            \_logic_net: (work@m.rst), line:3:9, endln:3:12
       |vpiStmt:
       \_begin: (work@m), line:20:41, endln:26:6
         |vpiParent:
@@ -978,7 +1047,7 @@ design: (work@m)
             |vpiName:rst
             |vpiFullName:work@m.rst
             |vpiActual:
-            \_logic_var: (work@m.rst), line:3:9, endln:3:12
+            \_logic_net: (work@m.rst), line:3:9, endln:3:12
           |vpiStmt:
           \_delay_control: , line:22:7, endln:22:9
             |vpiParent:
@@ -997,29 +1066,34 @@ design: (work@m)
               |vpiFullName:work@m.a3
               |vpiProperty:
               \_property_spec: , line:24:28, endln:24:47
+                |vpiParent:
+                \_assert_stmt: (work@m.a3), line:24:7, endln:24:49
                 |vpiPropertyExpr:
                 \_property_inst: (p_triggers), line:24:28, endln:24:47
                   |vpiArgument:
-                  \_ref_obj: (a), line:24:39, endln:24:40
+                  \_ref_obj: (p_triggers.a), line:24:39, endln:24:40
                     |vpiParent:
-                    \_func_call: (p_triggers), line:24:28, endln:24:47
+                    \_property_inst: (p_triggers), line:24:28, endln:24:47
                     |vpiName:a
+                    |vpiFullName:p_triggers.a
                     |vpiActual:
-                    \_logic_var: (work@m.a), line:1:16, endln:1:17
+                    \_logic_net: (work@m.a), line:1:16, endln:1:17
                   |vpiArgument:
-                  \_ref_obj: (b), line:24:42, endln:24:43
+                  \_ref_obj: (p_triggers.b), line:24:42, endln:24:43
                     |vpiParent:
-                    \_func_call: (p_triggers), line:24:28, endln:24:47
+                    \_property_inst: (p_triggers), line:24:28, endln:24:47
                     |vpiName:b
+                    |vpiFullName:p_triggers.b
                     |vpiActual:
-                    \_logic_var: (work@m.b), line:1:19, endln:1:20
+                    \_logic_net: (work@m.b), line:1:19, endln:1:20
                   |vpiArgument:
-                  \_ref_obj: (c), line:24:45, endln:24:46
+                  \_ref_obj: (p_triggers.c), line:24:45, endln:24:46
                     |vpiParent:
-                    \_func_call: (p_triggers), line:24:28, endln:24:47
+                    \_property_inst: (p_triggers), line:24:28, endln:24:47
                     |vpiName:c
+                    |vpiFullName:p_triggers.c
                     |vpiActual:
-                    \_logic_var: (work@m.c), line:1:22, endln:1:23
+                    \_logic_net: (work@m.c), line:1:22, endln:1:23
                   |vpiName:p_triggers
     |vpiAlwaysType:1
 |uhdmtopModules:
@@ -1085,6 +1159,8 @@ design: (work@m)
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
     \_logic_typespec: , line:3:3, endln:3:8
+      |vpiParent:
+      \_logic_var: (work@m.rst), line:3:9, endln:3:12
     |vpiName:rst
     |vpiFullName:work@m.rst
     |vpiVisibility:1
@@ -1120,7 +1196,7 @@ design: (work@m)
           |vpiName:a
           |vpiFullName:work@m.a1.p_triggers.a
           |vpiActual:
-          \_logic_var: (work@m.a), line:1:16, endln:1:17
+          \_logic_net: (work@m.a), line:1:16, endln:1:17
         |vpiArgument:
         \_ref_obj: (work@m.a1.p_triggers.b), line:16:38, endln:16:39
           |vpiParent:
@@ -1128,7 +1204,7 @@ design: (work@m)
           |vpiName:b
           |vpiFullName:work@m.a1.p_triggers.b
           |vpiActual:
-          \_logic_var: (work@m.b), line:1:19, endln:1:20
+          \_logic_net: (work@m.b), line:1:19, endln:1:20
         |vpiArgument:
         \_ref_obj: (work@m.a1.p_triggers.c), line:16:41, endln:16:42
           |vpiParent:
@@ -1136,7 +1212,7 @@ design: (work@m)
           |vpiName:c
           |vpiFullName:work@m.a1.p_triggers.c
           |vpiActual:
-          \_logic_var: (work@m.c), line:1:22, endln:1:23
+          \_logic_net: (work@m.c), line:1:22, endln:1:23
         |vpiName:p_triggers
   |vpiAssertion:
   \_assert_stmt: (work@m.a2), line:18:3, endln:18:66
@@ -1179,7 +1255,7 @@ design: (work@m)
                   |vpiName:a
                   |vpiFullName:work@m.a2.p_triggers.a
                   |vpiActual:
-                  \_logic_var: (work@m.a), line:1:16, endln:1:17
+                  \_logic_net: (work@m.a), line:1:16, endln:1:17
                 |vpiOperand:
                 \_ref_obj: (work@m.a2.p_triggers.b), line:18:38, endln:18:39
                   |vpiParent:
@@ -1187,7 +1263,7 @@ design: (work@m)
                   |vpiName:b
                   |vpiFullName:work@m.a2.p_triggers.b
                   |vpiActual:
-                  \_logic_var: (work@m.b), line:1:19, endln:1:20
+                  \_logic_net: (work@m.b), line:1:19, endln:1:20
               |vpiOperand:
               \_ref_obj: (work@m.a2.p_triggers.c), line:18:41, endln:18:42
                 |vpiParent:
@@ -1195,7 +1271,7 @@ design: (work@m)
                 |vpiName:c
                 |vpiFullName:work@m.a2.p_triggers.c
                 |vpiActual:
-                \_logic_var: (work@m.c), line:1:22, endln:1:23
+                \_logic_net: (work@m.c), line:1:22, endln:1:23
             |vpiOperand:
             \_operation: , line:18:44, endln:18:56
               |vpiParent:
@@ -1208,7 +1284,7 @@ design: (work@m)
                 |vpiName:clk1
                 |vpiFullName:work@m.a2.p_triggers.clk1
                 |vpiActual:
-                \_logic_var: (work@m.clk1), line:1:34, endln:1:38
+                \_logic_net: (work@m.clk1), line:1:34, endln:1:38
           |vpiOperand:
           \_constant: , line:18:58, endln:18:62
         |vpiName:p_triggers
@@ -1238,7 +1314,7 @@ design: (work@m)
             |vpiName:clk2
             |vpiFullName:work@m.a4.p_multiclock.clk2
             |vpiActual:
-            \_logic_var: (work@m.clk2), line:1:40, endln:1:44
+            \_logic_net: (work@m.clk2), line:1:40, endln:1:44
         |vpiArgument:
         \_constant: , line:28:50, endln:28:50
         |vpiArgument:
@@ -1273,7 +1349,7 @@ design: (work@m)
                     |vpiName:clk1
                     |vpiFullName:work@m.a4.p_multiclock.clk1
                     |vpiActual:
-                    \_logic_var: (work@m.clk1), line:1:34, endln:1:38
+                    \_logic_net: (work@m.clk1), line:1:34, endln:1:38
                 |vpiOperand:
                 \_ref_obj: (work@m.a4.p_multiclock.a), line:28:65, endln:28:66
                   |vpiParent:
@@ -1281,7 +1357,7 @@ design: (work@m)
                   |vpiName:a
                   |vpiFullName:work@m.a4.p_multiclock.a
                   |vpiActual:
-                  \_logic_var: (work@m.a), line:1:16, endln:1:17
+                  \_logic_net: (work@m.a), line:1:16, endln:1:17
               |vpiOperand:
               \_ref_obj: (work@m.a4.p_multiclock.b), line:28:68, endln:28:69
                 |vpiParent:
@@ -1289,7 +1365,7 @@ design: (work@m)
                 |vpiName:b
                 |vpiFullName:work@m.a4.p_multiclock.b
                 |vpiActual:
-                \_logic_var: (work@m.b), line:1:19, endln:1:20
+                \_logic_net: (work@m.b), line:1:19, endln:1:20
             |vpiOperand:
             \_ref_obj: (work@m.a4.p_multiclock.c), line:28:71, endln:28:72
               |vpiParent:
@@ -1297,7 +1373,7 @@ design: (work@m)
               |vpiName:c
               |vpiFullName:work@m.a4.p_multiclock.c
               |vpiActual:
-              \_logic_var: (work@m.c), line:1:22, endln:1:23
+              \_logic_net: (work@m.c), line:1:22, endln:1:23
           |vpiOperand:
           \_ref_obj: (work@m.a4.p_multiclock.d), line:28:74, endln:28:75
             |vpiParent:
@@ -1305,7 +1381,7 @@ design: (work@m)
             |vpiName:d
             |vpiFullName:work@m.a4.p_multiclock.d
             |vpiActual:
-            \_logic_var: (work@m.d), line:1:25, endln:1:26
+            \_logic_net: (work@m.d), line:1:25, endln:1:26
         |vpiName:p_multiclock
   |vpiTopModule:1
   |vpiDefaultClocking:
@@ -1330,7 +1406,7 @@ design: (work@m)
           |vpiName:clk1
           |vpiFullName:work@m.unnamed_clocking_block.clk1
           |vpiActual:
-          \_logic_var: (work@m.clk1), line:1:34, endln:1:38
+          \_logic_net: (work@m.clk1), line:1:34, endln:1:38
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiPort:
@@ -1470,7 +1546,7 @@ design: (work@m)
             |vpiName:clk2
             |vpiFullName:work@m.clk2
             |vpiActual:
-            \_logic_var: (work@m.clk2), line:1:40, endln:1:44
+            \_logic_net: (work@m.clk2), line:1:40, endln:1:44
         |vpiOperand:
         \_operation: , line:20:28, endln:20:39
           |vpiParent:
@@ -1483,7 +1559,7 @@ design: (work@m)
             |vpiName:rst
             |vpiFullName:work@m.rst
             |vpiActual:
-            \_logic_var: (work@m.rst), line:3:9, endln:3:12
+            \_logic_net: (work@m.rst), line:3:9, endln:3:12
       |vpiStmt:
       \_begin: (work@m), line:20:41, endln:26:6
         |vpiParent:
@@ -1500,7 +1576,7 @@ design: (work@m)
             |vpiName:rst
             |vpiFullName:work@m.rst
             |vpiActual:
-            \_logic_var: (work@m.rst), line:3:9, endln:3:12
+            \_logic_net: (work@m.rst), line:3:9, endln:3:12
           |vpiStmt:
           \_delay_control: , line:22:7, endln:22:9
             |vpiParent:
@@ -1532,7 +1608,7 @@ design: (work@m)
                     |vpiName:a
                     |vpiFullName:work@m.a3.p_triggers.a
                     |vpiActual:
-                    \_logic_var: (work@m.a), line:1:16, endln:1:17
+                    \_logic_net: (work@m.a), line:1:16, endln:1:17
                   |vpiArgument:
                   \_ref_obj: (work@m.a3.p_triggers.b), line:24:42, endln:24:43
                     |vpiParent:
@@ -1540,7 +1616,7 @@ design: (work@m)
                     |vpiName:b
                     |vpiFullName:work@m.a3.p_triggers.b
                     |vpiActual:
-                    \_logic_var: (work@m.b), line:1:19, endln:1:20
+                    \_logic_net: (work@m.b), line:1:19, endln:1:20
                   |vpiArgument:
                   \_ref_obj: (work@m.a3.p_triggers.c), line:24:45, endln:24:46
                     |vpiParent:
@@ -1548,7 +1624,7 @@ design: (work@m)
                     |vpiName:c
                     |vpiFullName:work@m.a3.p_triggers.c
                     |vpiActual:
-                    \_logic_var: (work@m.c), line:1:22, endln:1:23
+                    \_logic_net: (work@m.c), line:1:22, endln:1:23
                   |vpiName:p_triggers
     |vpiAlwaysType:1
 ===================

@@ -242,7 +242,7 @@ gen_scope_array                                        4
 hier_path                                              6
 int_typespec                                           4
 interface_inst                                         5
-logic_net                                              2
+logic_net                                              3
 logic_typespec                                         3
 logic_var                                              2
 module_array                                           1
@@ -271,7 +271,7 @@ gen_scope_array                                        6
 hier_path                                              9
 int_typespec                                           4
 interface_inst                                         5
-logic_net                                              2
+logic_net                                              3
 logic_typespec                                         3
 logic_var                                              2
 module_array                                           1
@@ -329,6 +329,8 @@ design: (work@soc_tb)
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |vpiRhs:
     \_constant: , line:8:34, endln:8:35
+      |vpiParent:
+      \_param_assign: , line:8:16, endln:8:35
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -344,6 +346,13 @@ design: (work@soc_tb)
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |vpiName:io_bus_source
     |vpiFullName:work@soc_tb.io_bus_source
+  |vpiNet:
+  \_logic_net: (work@soc_tb.IO_ONES), line:16:30, endln:16:37
+    |vpiParent:
+    \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
+    |vpiName:IO_ONES
+    |vpiFullName:work@soc_tb.IO_ONES
+    |vpiNetType:1
   |vpiModuleArray:
   \_module_array: (work@io_bus_interface), line:14:22, endln:14:39
     |vpiParent:
@@ -352,16 +361,19 @@ design: (work@soc_tb)
     |vpiFullName:work@io_bus_interface
     |vpiRange:
     \_range: , line:14:39, endln:14:62
+      |vpiParent:
+      \_module_array: (work@io_bus_interface), line:14:22, endln:14:39
       |vpiLeftRange:
       \_operation: , line:14:40, endln:14:59
         |vpiParent:
         \_range: , line:14:39, endln:14:62
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (NUM_PERIPHERALS), line:14:40, endln:14:55
+        \_ref_obj: (work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS), line:14:40, endln:14:55
           |vpiParent:
           \_operation: , line:14:40, endln:14:59
           |vpiName:NUM_PERIPHERALS
+          |vpiFullName:work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS
         |vpiOperand:
         \_constant: , line:14:58, endln:14:59
           |vpiParent:
@@ -380,6 +392,8 @@ design: (work@soc_tb)
         |vpiConstType:9
     |vpiElemTypespec:
     \_module_typespec: (io_bus_interface), line:14:5, endln:14:21
+      |vpiParent:
+      \_module_array: (work@io_bus_interface), line:14:22, endln:14:39
       |vpiName:io_bus_interface
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:16:62
@@ -405,10 +419,13 @@ design: (work@soc_tb)
         |vpiName:peripheral_io_bus
         |vpiFullName:peripheral_io_bus[IO_ONES]
         |vpiIndex:
-        \_ref_obj: (IO_ONES), line:16:30, endln:16:37
+        \_ref_obj: (work@soc_tb.IO_ONES), line:16:30, endln:16:37
+          |vpiParent:
+          \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
           |vpiName:IO_ONES
+          |vpiFullName:work@soc_tb.IO_ONES
           |vpiActual:
-          \_enum_const: (IO_ONES), line:11:7, endln:11:14
+          \_logic_net: (work@soc_tb.IO_ONES), line:16:30, endln:16:37
       |vpiActual:
       \_ref_obj: (peripheral_io_bus[IO_ONES].write_en)
         |vpiParent:
@@ -420,7 +437,10 @@ design: (work@soc_tb)
     |vpiParent:
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@soc_tb)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@soc_tb
 |uhdmtopModules:
 \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
   |vpiName:work@soc_tb
@@ -430,10 +450,14 @@ design: (work@soc_tb)
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |vpiTypespec:
     \_enum_typespec: 
+      |vpiParent:
+      \_enum_var: (work@soc_tb.io_bus_source), line:12:7, endln:12:20
       |vpiBaseTypespec:
       \_logic_typespec: , line:10:10, endln:10:46
         |vpiRange:
         \_range: , line:10:15, endln:10:46
+          |vpiParent:
+          \_logic_typespec: , line:10:10, endln:10:46
           |vpiLeftRange:
           \_constant: , line:10:16, endln:10:39
             |vpiParent:
@@ -479,6 +503,8 @@ design: (work@soc_tb)
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |vpiRhs:
     \_constant: , line:8:34, endln:8:35
+      |vpiParent:
+      \_param_assign: , line:8:16, endln:8:35
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -502,6 +528,8 @@ design: (work@soc_tb)
       \_interface_inst: work@io_bus_interface (work@soc_tb.peripheral_io_bus[0]), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:14:5, endln:14:65
       |vpiTypespec:
       \_logic_typespec: , line:2:5, endln:2:10
+        |vpiParent:
+        \_logic_var: (work@soc_tb.peripheral_io_bus[0].write_en), line:2:11, endln:2:19
       |vpiName:write_en
       |vpiFullName:work@soc_tb.peripheral_io_bus[0].write_en
       |vpiVisibility:1
@@ -522,6 +550,8 @@ design: (work@soc_tb)
       \_interface_inst: work@io_bus_interface (work@soc_tb.peripheral_io_bus[1]), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:14:5, endln:14:65
       |vpiTypespec:
       \_logic_typespec: , line:2:5, endln:2:10
+        |vpiParent:
+        \_logic_var: (work@soc_tb.peripheral_io_bus[1].write_en), line:2:11, endln:2:19
       |vpiName:write_en
       |vpiFullName:work@soc_tb.peripheral_io_bus[1].write_en
       |vpiVisibility:1
@@ -680,7 +710,7 @@ design: (work@soc_tb)
           |vpiName:IO_ONES
           |vpiFullName:work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES
           |vpiActual:
-          \_enum_const: (IO_ONES), line:11:7, endln:11:14
+          \_logic_net: (work@soc_tb.IO_ONES), line:16:30, endln:16:37
       |vpiActual:
       \_ref_obj: (peripheral_io_bus[IO_ONES].write_en)
         |vpiParent:

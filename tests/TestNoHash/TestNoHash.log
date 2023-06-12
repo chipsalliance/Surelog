@@ -76,6 +76,8 @@ design: (unnamed)
     \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
     |vpiEnumConst:
     \_enum_const: (HERE), line:4:5, endln:4:9
+      |vpiParent:
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
       |vpiName:HERE
       |INT:0
       |vpiDecompile:0
@@ -105,6 +107,8 @@ design: (unnamed)
         \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
         |vpiEnumConst:
         \_enum_const: (HERE), line:4:5, endln:4:9
+          |vpiParent:
+          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
           |vpiName:HERE
           |INT:0
           |vpiDecompile:0
@@ -126,8 +130,11 @@ design: (unnamed)
     |vpiParent:
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
     |vpiRhs:
-    \_ref_obj: (pkg1::HERE), line:4:23, endln:4:29
+    \_ref_obj: (pkg2::pkg1::HERE), line:4:23, endln:4:33
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:33
       |vpiName:pkg1::HERE
+      |vpiFullName:pkg2::pkg1::HERE
     |vpiLhs:
     \_parameter: (pkg2::P1), line:4:18, endln:4:20
   |vpiDefName:pkg2
@@ -162,6 +169,8 @@ design: (unnamed)
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
     |vpiRhs:
     \_constant: , line:4:23, endln:4:29
+      |vpiParent:
+      \_param_assign: , line:4:18, endln:4:33
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:

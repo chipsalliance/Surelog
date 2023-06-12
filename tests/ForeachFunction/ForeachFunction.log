@@ -114,7 +114,7 @@ foreach_stmt                                           2
 function                                               2
 hier_path                                              1
 int_typespec                                           3
-int_var                                                4
+int_var                                                5
 io_decl                                                2
 module_inst                                            3
 operation                                              1
@@ -155,8 +155,10 @@ design: (work@dut)
       \_array_typespec: , line:4:37, endln:4:39
         |vpiRange:
         \_range: , line:4:37, endln:4:39
+          |vpiParent:
+          \_array_typespec: , line:4:37, endln:4:39
           |vpiLeftRange:
-          \_constant: , line:4:37, endln:4:38
+          \_constant: 
             |vpiParent:
             \_range: , line:4:37, endln:4:39
             |vpiDecompile:0
@@ -170,6 +172,8 @@ design: (work@dut)
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:4:37, endln:4:39
+              |vpiParent:
+              \_operation: 
               |vpiDecompile:10
               |vpiSize:64
               |UINT:10
@@ -186,20 +190,28 @@ design: (work@dut)
       |vpiFullName:work@dut.get_expected_command.write_command_queue_slave
       |vpiArrayType:1
       |vpiReg:
-      \_int_var: , line:4:10, endln:4:35
+      \_int_var: (work@dut.get_expected_command.write_command_queue_slave), line:4:10, endln:4:35
+        |vpiParent:
+        \_array_var: (work@dut.get_expected_command.write_command_queue_slave), line:4:10, endln:4:35
         |vpiTypespec:
         \_int_typespec: , line:4:6, endln:4:9
+        |vpiFullName:work@dut.get_expected_command.write_command_queue_slave
         |vpiSigned:1
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:3:22, endln:3:25
+    \_int_var: (work@dut.get_expected_command), line:3:22, endln:3:25
+      |vpiParent:
+      \_function: (work@dut.get_expected_command), line:3:3, endln:8:13
       |vpiTypespec:
       \_int_typespec: , line:3:22, endln:3:25
         |vpiSigned:1
+      |vpiFullName:work@dut.get_expected_command
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (slave_id), line:3:52, endln:3:60
+      |vpiParent:
+      \_function: (work@dut.get_expected_command), line:3:3, endln:8:13
       |vpiDirection:1
       |vpiName:slave_id
       |vpiTypedef:
@@ -210,6 +222,8 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@dut.get_expected_command), line:3:3, endln:8:13
       |vpiFullName:work@dut.get_expected_command
+      |vpiVariables:
+      \_int_var: (work@dut.get_expected_command.write_command_queue_slave), line:4:10, endln:4:35
       |vpiVariables:
       \_array_var: (work@dut.get_expected_command.write_command_queue_slave), line:4:10, endln:4:35
       |vpiStmt:
@@ -234,10 +248,13 @@ design: (work@dut)
           |vpiName:slave_id
           |vpiFullName:work@dut.get_expected_command.slave_id
         |vpiLoopVars:
-        \_array_var: (i), line:6:50, endln:6:51
+        \_array_var: (work@dut.get_expected_command.i), line:6:50, endln:6:51
+          |vpiParent:
+          \_foreach_stmt: (work@dut.get_expected_command), line:6:6, endln:6:13
           |vpiTypespec:
           \_array_typespec: , line:4:37, endln:4:39
           |vpiName:i
+          |vpiFullName:work@dut.get_expected_command.i
         |vpiStmt:
         \_begin: (work@dut.get_expected_command), line:6:54, endln:7:9
           |vpiParent:
@@ -276,7 +293,7 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:3:22, endln:3:25
+    \_int_var: (work@dut.get_expected_command), line:3:22, endln:3:25
     |vpiIODecl:
     \_io_decl: (slave_id), line:3:52, endln:3:60
       |vpiParent:
@@ -290,6 +307,14 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@dut.get_expected_command), line:3:3, endln:8:13
       |vpiFullName:work@dut.get_expected_command
+      |vpiVariables:
+      \_int_var: (work@dut.get_expected_command), line:4:10, endln:4:35
+        |vpiParent:
+        \_begin: (work@dut.get_expected_command)
+        |vpiTypespec:
+        \_int_typespec: , line:4:6, endln:4:9
+        |vpiFullName:work@dut.get_expected_command
+        |vpiSigned:1
       |vpiVariables:
       \_array_var: (work@dut.get_expected_command.write_command_queue_slave), line:4:10, endln:4:35
         |vpiParent:

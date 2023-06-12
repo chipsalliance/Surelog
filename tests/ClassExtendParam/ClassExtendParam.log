@@ -199,7 +199,7 @@ func_call                                              1
 function                                               2
 hier_path                                              1
 method_func_call                                       1
-package                                                3
+package                                                2
 ref_obj                                                1
 string_typespec                                        2
 string_var                                             2
@@ -219,7 +219,7 @@ func_call                                              2
 function                                               4
 hier_path                                              2
 method_func_call                                       2
-package                                                3
+package                                                2
 ref_obj                                                2
 string_typespec                                        2
 string_var                                             2
@@ -271,9 +271,12 @@ design: (unnamed)
       |vpiVisibility:1
       |vpiVirtual:1
       |vpiReturn:
-      \_string_var: , line:16:25, endln:16:31
+      \_string_var: (uvm::uvm_component::get_full_name), line:16:25, endln:16:31
+        |vpiParent:
+        \_function: (uvm::uvm_component::get_full_name), line:16:1, endln:16:7
         |vpiTypespec:
         \_string_typespec: , line:16:25, endln:16:31
+        |vpiFullName:uvm::uvm_component::get_full_name
     |vpiDerivedClasses:
     \_class_defn: (uvm::uvm_sequencer_base), file:${SURELOG_DIR}/tests/ClassExtendParam/dut.sv, line:19:1, endln:20:9
       |vpiParent:
@@ -357,7 +360,7 @@ design: (unnamed)
               \_hier_path: (m_sequencer.get_full_name), line:10:24, endln:10:51
               |vpiName:get_full_name
               |vpiFunction:
-              \_function: (uvm::uvm_component::get_full_name), line:16:1, endln:16:7
+              \_function: (uvm::uvm_sequence_item::get_full_name), line:28:1, endln:29:12
           |vpiName:uvm_report_warning
   |vpiClassDefn:
   \_class_defn: (uvm::uvm_sequence), file:${SURELOG_DIR}/tests/ClassExtendParam/dut.sv, line:3:9, endln:5:9
@@ -463,9 +466,12 @@ design: (unnamed)
       |vpiMethod:1
       |vpiVisibility:1
       |vpiReturn:
-      \_string_var: , line:28:10, endln:28:16
+      \_string_var: (uvm::uvm_sequence_item::get_full_name), line:28:10, endln:28:16
+        |vpiParent:
+        \_function: (uvm::uvm_sequence_item::get_full_name), line:28:1, endln:29:12
         |vpiTypespec:
         \_string_typespec: , line:28:10, endln:28:16
+        |vpiFullName:uvm::uvm_sequence_item::get_full_name
     |vpiDerivedClasses:
     \_class_defn: (uvm::uvm_sequence_base), file:${SURELOG_DIR}/tests/ClassExtendParam/dut.sv, line:22:9, endln:23:9
   |vpiClassDefn:

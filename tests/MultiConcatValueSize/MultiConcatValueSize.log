@@ -816,7 +816,7 @@ logic_var                                              1
 module_inst                                           18
 named_begin                                            3
 operation                                             50
-package                                                8
+package                                                6
 packed_array_typespec                                 23
 param_assign                                          20
 parameter                                             26
@@ -862,7 +862,7 @@ logic_var                                              1
 module_inst                                           22
 named_begin                                            3
 operation                                             50
-package                                                8
+package                                                6
 packed_array_typespec                                 23
 param_assign                                          24
 parameter                                             26
@@ -916,6 +916,8 @@ design: (work@top)
       \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:1:1, endln:6:34
       |vpiRange:
       \_range: , line:2:24, endln:2:29
+        |vpiParent:
+        \_logic_typespec: , line:2:18, endln:2:29
         |vpiLeftRange:
         \_constant: , line:2:25, endln:2:26
           |vpiParent:
@@ -934,12 +936,16 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (A), line:3:7, endln:3:15
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
       |vpiName:A
       |HEX:0
       |vpiDecompile:3'h0
       |vpiSize:3
     |vpiEnumConst:
     \_enum_const: (B), line:4:7, endln:4:15
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
       |vpiName:B
       |HEX:1
       |vpiDecompile:3'h1
@@ -992,18 +998,18 @@ design: (work@top)
           |vpiRange:
           \_range: , line:14:18, endln:14:32
             |vpiParent:
-            \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18
+            \_packed_array_typespec: , line:14:7, endln:14:17
             |vpiLeftRange:
             \_operation: , line:14:19, endln:14:29
               |vpiParent:
               \_range: , line:14:18, endln:14:32
               |vpiOpType:11
               |vpiOperand:
-              \_ref_obj: (pinmux_pkg::pinmux_pkg::target_cfg_t::NDioPads), line:14:19, endln:14:27
+              \_ref_obj: (pinmux_pkg::pinmux_pkg::target_cfg_t::dio_pad_type::NDioPads), line:14:19, endln:14:27
                 |vpiParent:
                 \_operation: , line:14:19, endln:14:29
                 |vpiName:NDioPads
-                |vpiFullName:pinmux_pkg::pinmux_pkg::target_cfg_t::NDioPads
+                |vpiFullName:pinmux_pkg::pinmux_pkg::target_cfg_t::dio_pad_type::NDioPads
                 |vpiActual:
                 \_parameter: (pinmux_pkg::NDioPads), line:11:18, endln:11:26
               |vpiOperand:
@@ -1035,6 +1041,8 @@ design: (work@top)
               \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:1:1, endln:6:34
               |vpiRange:
               \_range: , line:2:24, endln:2:29
+                |vpiParent:
+                \_logic_typespec: , line:2:18, endln:2:29
                 |vpiLeftRange:
                 \_constant: , line:2:25, endln:2:26
                   |vpiParent:
@@ -1053,12 +1061,16 @@ design: (work@top)
                   |vpiConstType:9
             |vpiEnumConst:
             \_enum_const: (A), line:3:7, endln:3:15
+              |vpiParent:
+              \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
               |vpiName:A
               |HEX:0
               |vpiDecompile:3'h0
               |vpiSize:3
             |vpiEnumConst:
             \_enum_const: (B), line:4:7, endln:4:15
+              |vpiParent:
+              \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
               |vpiName:B
               |HEX:1
               |vpiDecompile:3'h1
@@ -1076,6 +1088,8 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:30
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -1090,9 +1104,13 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_operation: , line:17:46, endln:19:5
+      |vpiParent:
+      \_param_assign: , line:17:27, endln:19:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:18:21, endln:18:34
+        |vpiParent:
+        \_operation: , line:17:46, endln:19:5
         |vpiPattern:
         \_constant: , line:18:21, endln:18:34
           |vpiDecompile:000
@@ -1104,6 +1122,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:18:7, endln:18:19
+          |vpiParent:
+          \_tagged_pattern: , line:18:21, endln:18:34
           |vpiName:dio_pad_type
     |vpiLhs:
     \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43
@@ -1209,7 +1229,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:14:18, endln:14:32
             |vpiParent:
-            \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18
+            \_packed_array_typespec: , line:14:7, endln:14:17
             |vpiLeftRange:
             \_constant: , line:14:19, endln:14:27
               |vpiParent:
@@ -1241,6 +1261,8 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:30
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -1255,9 +1277,13 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_operation: , line:17:46, endln:19:5
+      |vpiParent:
+      \_param_assign: , line:17:27, endln:19:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:18:21, endln:18:34
+        |vpiParent:
+        \_operation: , line:17:46, endln:19:5
         |vpiPattern:
         \_constant: , line:18:21, endln:18:34
           |vpiDecompile:000
@@ -1269,6 +1295,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:18:7, endln:18:19
+          |vpiParent:
+          \_tagged_pattern: , line:18:21, endln:18:34
           |vpiName:dio_pad_type
     |vpiLhs:
     \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43
@@ -1293,11 +1321,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/MultiConcatValueSize/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -1322,10 +1353,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1350,7 +1384,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -1380,10 +1417,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1414,10 +1454,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1484,11 +1527,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/MultiConcatValueSize/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1498,7 +1544,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1506,34 +1554,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1579,11 +1638,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/MultiConcatValueSize/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1654,10 +1716,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1692,8 +1757,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:22:1, endln:28:34
     |vpiRhs:
-    \_ref_obj: (A), line:24:35, endln:24:36
+    \_ref_obj: (work@prim_generic_pad_attr.A), line:24:35, endln:24:36
+      |vpiParent:
+      \_param_assign: , line:24:25, endln:24:36
       |vpiName:A
+      |vpiFullName:work@prim_generic_pad_attr.A
       |vpiActual:
       \_enum_const: (A), line:3:7, endln:3:15
     |vpiLhs:
@@ -1716,7 +1784,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_generic_pad_attr.a.a)
+      |vpiParent:
+      \_port: (a), line:22:41, endln:22:42
+      |vpiName:a
+      |vpiFullName:work@prim_generic_pad_attr.a.a
       |vpiActual:
       \_logic_net: (work@prim_generic_pad_attr.a), line:22:41, endln:22:42
     |vpiTypedef:
@@ -1728,24 +1800,33 @@ design: (work@top)
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:22:1, endln:28:34
     |vpiCondition:
     \_operation: , line:25:8, endln:25:20
+      |vpiParent:
+      \_gen_if: , line:25:4, endln:25:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (PadType), line:25:8, endln:25:15
+      \_ref_obj: (work@prim_generic_pad_attr.PadType), line:25:8, endln:25:15
         |vpiParent:
         \_operation: , line:25:8, endln:25:20
         |vpiName:PadType
+        |vpiFullName:work@prim_generic_pad_attr.PadType
       |vpiOperand:
-      \_ref_obj: (B), line:25:19, endln:25:20
+      \_ref_obj: (work@prim_generic_pad_attr.B), line:25:19, endln:25:20
         |vpiParent:
         \_operation: , line:25:8, endln:25:20
         |vpiName:B
+        |vpiFullName:work@prim_generic_pad_attr.B
         |vpiActual:
         \_enum_const: (B), line:4:7, endln:4:15
     |vpiStmt:
-    \_named_begin: (gen_assign)
+    \_named_begin: (work@prim_generic_pad_attr.gen_assign)
+      |vpiParent:
+      \_gen_if: , line:25:4, endln:25:6
       |vpiName:gen_assign
+      |vpiFullName:work@prim_generic_pad_attr.gen_assign
       |vpiStmt:
       \_cont_assign: , line:26:14, endln:26:19
+        |vpiParent:
+        \_named_begin: (work@prim_generic_pad_attr.gen_assign)
         |vpiRhs:
         \_constant: , line:26:18, endln:26:19
           |vpiParent:
@@ -1755,10 +1836,11 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (a), line:26:14, endln:26:15
+        \_ref_obj: (work@prim_generic_pad_attr.gen_assign.a), line:26:14, endln:26:15
           |vpiParent:
           \_cont_assign: , line:26:14, endln:26:19
           |vpiName:a
+          |vpiFullName:work@prim_generic_pad_attr.gen_assign.a
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:30:1, endln:39:10
   |vpiParent:
@@ -1777,8 +1859,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:30:1, endln:39:10
     |vpiRhs:
-    \_ref_obj: (A), line:32:35, endln:32:36
+    \_ref_obj: (work@prim_pad_attr.A), line:32:35, endln:32:36
+      |vpiParent:
+      \_param_assign: , line:32:25, endln:32:36
       |vpiName:A
+      |vpiFullName:work@prim_pad_attr.A
       |vpiActual:
       \_enum_const: (A), line:3:7, endln:3:15
     |vpiLhs:
@@ -1801,7 +1886,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_pad_attr.b.b)
+      |vpiParent:
+      \_port: (b), line:30:33, endln:30:34
+      |vpiName:b
+      |vpiFullName:work@prim_pad_attr.b.b
       |vpiActual:
       \_logic_net: (work@prim_pad_attr.b), line:30:33, endln:30:34
     |vpiTypedef:
@@ -1813,23 +1902,35 @@ design: (work@top)
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:30:1, endln:39:10
     |vpiCondition:
     \_constant: , line:34:8, endln:34:9
+      |vpiParent:
+      \_gen_if: , line:34:4, endln:34:6
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (gen_generic)
+    \_named_begin: (work@prim_pad_attr.gen_generic)
+      |vpiParent:
+      \_gen_if: , line:34:4, endln:34:6
       |vpiName:gen_generic
+      |vpiFullName:work@prim_pad_attr.gen_generic
       |vpiStmt:
       \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:37:9, endln:37:23
+        |vpiParent:
+        \_named_begin: (work@prim_pad_attr.gen_generic)
         |vpiName:u_impl_generic
         |vpiDefName:work@prim_generic_pad_attr
         |vpiPort:
         \_port: (a), line:37:24, endln:37:29
+          |vpiParent:
+          \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:37:9, endln:37:23
           |vpiName:a
           |vpiHighConn:
-          \_ref_obj: (b), line:37:27, endln:37:28
+          \_ref_obj: (work@prim_pad_attr.gen_generic.u_impl_generic.a.b), line:37:27, endln:37:28
+            |vpiParent:
+            \_port: (a), line:37:24, endln:37:29
             |vpiName:b
+            |vpiFullName:work@prim_pad_attr.gen_generic.u_impl_generic.a.b
 |uhdmallModules:
 \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
   |vpiParent:
@@ -2130,8 +2231,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
     |vpiRhs:
-    \_ref_obj: (DefaultTargetCfg), line:43:39, endln:43:55
+    \_ref_obj: (work@sub_top.DefaultTargetCfg), line:43:39, endln:43:55
+      |vpiParent:
+      \_param_assign: , line:43:27, endln:43:55
       |vpiName:DefaultTargetCfg
+      |vpiFullName:work@sub_top.DefaultTargetCfg
     |vpiLhs:
     \_parameter: (work@sub_top.TargetCfg), line:43:27, endln:43:36
   |vpiTypedef:
@@ -2147,6 +2251,13 @@ design: (work@top)
     \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
     |vpiName:c
     |vpiFullName:work@sub_top.c
+  |vpiNet:
+  \_logic_net: (work@sub_top.k), line:45:22, endln:45:23
+    |vpiParent:
+    \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
+    |vpiName:k
+    |vpiFullName:work@sub_top.k
+    |vpiNetType:1
   |vpiPort:
   \_port: (c), line:41:27, endln:41:28
     |vpiParent:
@@ -2154,7 +2265,11 @@ design: (work@top)
     |vpiName:c
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@sub_top.c.c)
+      |vpiParent:
+      \_port: (c), line:41:27, endln:41:28
+      |vpiName:c
+      |vpiFullName:work@sub_top.c.c
       |vpiActual:
       \_logic_net: (work@sub_top.c), line:41:27, endln:41:28
     |vpiTypedef:
@@ -2170,8 +2285,6 @@ design: (work@top)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:45:19, endln:45:20
-        |vpiParent:
-        \_assign_stmt: , line:45:8, endln:45:20
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -2180,21 +2293,21 @@ design: (work@top)
       \_ref_var: (work@sub_top.k), line:45:15, endln:45:16
         |vpiParent:
         \_assign_stmt: , line:45:8, endln:45:20
-        |vpiTypespec:
-        \_unsupported_typespec: (k), line:45:15, endln:45:16
-          |vpiName:k
         |vpiName:k
         |vpiFullName:work@sub_top.k
     |vpiCondition:
     \_operation: , line:45:22, endln:45:34
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (k), line:45:22, endln:45:23
+      \_ref_obj: (work@sub_top.k), line:45:22, endln:45:23
         |vpiParent:
         \_operation: , line:45:22, endln:45:34
         |vpiName:k
+        |vpiFullName:work@sub_top.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@sub_top.k), line:45:22, endln:45:23
       |vpiOperand:
       \_constant: , line:45:26, endln:45:34
         |vpiParent:
@@ -2212,25 +2325,40 @@ design: (work@top)
         |vpiConstType:9
     |vpiForIncStmt:
     \_operation: , line:45:36, endln:45:37
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:62
       |vpiOperand:
-      \_ref_obj: (k)
+      \_ref_obj: (work@sub_top.k)
+        |vpiParent:
+        \_gen_for: 
         |vpiName:k
+        |vpiFullName:work@sub_top.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@sub_top.k), line:45:22, endln:45:23
     |vpiStmt:
-    \_named_begin: (gen_dio_attr)
+    \_named_begin: (work@sub_top.gen_dio_attr)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:gen_dio_attr
+      |vpiFullName:work@sub_top.gen_dio_attr
       |vpiStmt:
       \_ref_module: work@prim_pad_attr (u_prim_pad_attr), line:48:8, endln:48:23
+        |vpiParent:
+        \_named_begin: (work@sub_top.gen_dio_attr)
         |vpiName:u_prim_pad_attr
         |vpiDefName:work@prim_pad_attr
         |vpiPort:
         \_port: (b), line:48:24, endln:48:29
+          |vpiParent:
+          \_ref_module: work@prim_pad_attr (u_prim_pad_attr), line:48:8, endln:48:23
           |vpiName:b
           |vpiHighConn:
-          \_ref_obj: (c), line:48:27, endln:48:28
+          \_ref_obj: (work@sub_top.gen_dio_attr.u_prim_pad_attr.b.c), line:48:27, endln:48:28
+            |vpiParent:
+            \_port: (b), line:48:24, endln:48:29
             |vpiName:c
+            |vpiFullName:work@sub_top.gen_dio_attr.u_prim_pad_attr.b.c
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:52:1, endln:60:10
   |vpiParent:
@@ -2251,9 +2379,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:52:1, endln:60:10
     |vpiRhs:
     \_operation: , line:53:58, endln:55:5
+      |vpiParent:
+      \_param_assign: , line:53:40, endln:55:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:54:21, endln:54:68
+        |vpiParent:
+        \_operation: , line:53:58, endln:55:5
         |vpiPattern:
         \_operation: , line:54:21, endln:54:68
           |vpiParent:
@@ -2261,8 +2393,6 @@ design: (work@top)
           |vpiOpType:34
           |vpiOperand:
           \_constant: , line:54:22, endln:54:42
-            |vpiParent:
-            \_operation: , line:54:21, endln:54:68
             |vpiDecompile:1
             |vpiSize:32
             |UINT:1
@@ -2270,7 +2400,7 @@ design: (work@top)
           |vpiOperand:
           \_operation: , line:54:42, endln:54:67
             |vpiParent:
-            \_operation: , line:53:58, endln:55:5
+            \_operation: , line:54:21, endln:54:68
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:54:43, endln:54:66
@@ -2280,6 +2410,8 @@ design: (work@top)
               |vpiConstType:5
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:54:7, endln:54:19
+          |vpiParent:
+          \_tagged_pattern: , line:54:21, endln:54:68
           |vpiName:dio_pad_type
     |vpiLhs:
     \_parameter: (work@top.PinmuxTargetCfg), line:53:40, endln:53:55
@@ -2297,7 +2429,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:52:23, endln:52:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:52:23, endln:52:24
     |vpiTypedef:
@@ -2313,12 +2449,17 @@ design: (work@top)
     \_module_inst: work@sub_top (work@sub_top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:41:1, endln:50:10
     |vpiPort:
     \_port: (c), line:59:12, endln:59:17
+      |vpiParent:
+      \_ref_module: work@sub_top (u_sub), line:59:6, endln:59:11
       |vpiName:c
       |vpiHighConn:
-      \_ref_obj: (o), line:59:15, endln:59:16
+      \_ref_obj: (work@top.u_sub.c.o), line:59:15, endln:59:16
+        |vpiParent:
+        \_port: (c), line:59:12, endln:59:17
         |vpiName:o
+        |vpiFullName:work@top.u_sub.c.o
         |vpiActual:
-        \_int_var: (work@top.o), line:52:23, endln:52:24
+        \_logic_net: (work@top.o), line:52:23, endln:52:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:52:1, endln:60:10
   |vpiName:work@top
@@ -2328,6 +2469,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:52:1, endln:60:10
     |vpiTypespec:
     \_int_typespec: , line:52:19, endln:52:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:52:23, endln:52:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -2538,7 +2681,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:54:21, endln:54:68
         |vpiParent:
-        \_tagged_pattern: , line:54:21, endln:54:68
+        \_operation: , line:53:58, endln:55:5
         |vpiDecompile:001
         |vpiSize:3
         |BIN:001
@@ -2584,6 +2727,8 @@ design: (work@top)
       \_module_inst: work@sub_top (work@top.u_sub), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:57:4, endln:59:19
       |vpiTypespec:
       \_int_typespec: , line:41:23, endln:41:26
+        |vpiParent:
+        \_int_var: (work@top.u_sub.c), line:41:27, endln:41:28
         |vpiSigned:1
       |vpiName:c
       |vpiFullName:work@top.u_sub.c
@@ -2810,6 +2955,8 @@ design: (work@top)
       \_module_inst: work@sub_top (work@top.u_sub), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:57:4, endln:59:19
       |vpiRhs:
       \_constant: , line:11:29, endln:11:30
+        |vpiParent:
+        \_param_assign: , line:11:18, endln:11:30
         |vpiDecompile:1
         |vpiSize:32
         |UINT:1
@@ -2923,7 +3070,7 @@ design: (work@top)
         |vpiOperand:
         \_constant: , line:18:21, endln:18:34
           |vpiParent:
-          \_tagged_pattern: , line:18:21, endln:18:34
+          \_operation: , line:17:46, endln:19:5
           |vpiDecompile:000
           |vpiSize:3
           |BIN:000
@@ -3062,10 +3209,6 @@ design: (work@top)
     |vpiDefName:work@sub_top
     |vpiDefFile:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv
     |vpiDefLineNo:41
-    |vpiNet:
-    \_logic_net: (k)
-      |vpiName:k
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:52:1, endln:60:10
     |vpiPort:
@@ -3128,6 +3271,8 @@ design: (work@top)
             \_module_inst: work@prim_pad_attr (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr), file:${SURELOG_DIR}/tests/MultiConcatValueSize/dut.sv, line:46:6, endln:48:31
             |vpiTypespec:
             \_int_typespec: , line:30:29, endln:30:32
+              |vpiParent:
+              \_int_var: (work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.b), line:30:33, endln:30:34
               |vpiSigned:1
             |vpiName:b
             |vpiFullName:work@top.u_sub.gen_dio_attr[0].u_prim_pad_attr.b
@@ -3197,6 +3342,8 @@ design: (work@top)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:32:35, endln:32:36
+              |vpiParent:
+              \_param_assign: , line:32:25, endln:32:36
               |vpiDecompile:3'b001
               |vpiSize:3
               |BIN:001
@@ -3331,6 +3478,8 @@ design: (work@top)
                   |vpiOverriden:1
                   |vpiRhs:
                   \_constant: , line:24:35, endln:24:36
+                    |vpiParent:
+                    \_param_assign: , line:24:25, endln:24:36
                     |vpiDecompile:3'b001
                     |vpiSize:3
                     |BIN:001

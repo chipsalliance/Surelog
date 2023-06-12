@@ -107,7 +107,7 @@ design                                                 1
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
-logic_net                                              1
+logic_net                                              2
 modport                                                4
 module_inst                                            5
 port                                                   3
@@ -121,7 +121,7 @@ design                                                 1
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
-logic_net                                              1
+logic_net                                              2
 modport                                                4
 module_inst                                            5
 port                                                   4
@@ -153,6 +153,8 @@ design: (work@Core)
     |vpiName:CSR
     |vpiIODecl:
     \_io_decl: (perfCounter), line:4:9, endln:4:20
+      |vpiParent:
+      \_modport: (CSR), line:2:13, endln:2:16
       |vpiDirection:1
       |vpiName:perfCounter
 |uhdmallModules:
@@ -174,7 +176,11 @@ design: (work@Core)
     |vpiName:perfCounter
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@CSR_Unit.perfCounter.perfCounter)
+      |vpiParent:
+      \_port: (perfCounter), line:9:30, endln:9:41
+      |vpiName:perfCounter
+      |vpiFullName:work@CSR_Unit.perfCounter.perfCounter
       |vpiActual:
       \_modport: (CSR), line:2:13, endln:2:16
     |vpiTypedef:
@@ -189,6 +195,13 @@ design: (work@Core)
   \_design: (work@Core)
   |vpiFullName:work@Core
   |vpiDefName:work@Core
+  |vpiNet:
+  \_logic_net: (work@Core.perfCounterIF), line:16:19, endln:16:32
+    |vpiParent:
+    \_module_inst: work@Core (work@Core), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:13:1, endln:17:10
+    |vpiName:perfCounterIF
+    |vpiFullName:work@Core.perfCounterIF
+    |vpiNetType:1
   |vpiRefModule:
   \_ref_module: work@PerformanceCounterIF (perfCounterIF), line:14:23, endln:14:36
     |vpiParent:
@@ -207,11 +220,16 @@ design: (work@Core)
     \_module_inst: work@CSR_Unit (work@CSR_Unit), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:8:1, endln:11:10
     |vpiPort:
     \_port: , line:16:19, endln:16:32
+      |vpiParent:
+      \_ref_module: work@CSR_Unit (csrUnit), line:16:11, endln:16:18
       |vpiHighConn:
-      \_ref_obj: (perfCounterIF), line:16:19, endln:16:32
+      \_ref_obj: (work@Core.csrUnit.perfCounterIF), line:16:19, endln:16:32
+        |vpiParent:
+        \_port: , line:16:19, endln:16:32
         |vpiName:perfCounterIF
+        |vpiFullName:work@Core.csrUnit.perfCounterIF
         |vpiActual:
-        \_interface_inst: work@PerformanceCounterIF (work@Core.perfCounterIF), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:14:2, endln:14:40
+        \_logic_net: (work@Core.perfCounterIF), line:16:19, endln:16:32
 |uhdmtopModules:
 \_module_inst: work@Core (work@Core), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:13:1, endln:17:10
   |vpiName:work@Core
@@ -296,6 +314,8 @@ design: (work@Core)
         |vpiName:CSR
         |vpiIODecl:
         \_io_decl: (perfCounter), line:4:9, endln:4:20
+          |vpiParent:
+          \_modport: (CSR), line:2:13, endln:2:16
           |vpiDirection:1
           |vpiName:perfCounter
           |vpiExpr:

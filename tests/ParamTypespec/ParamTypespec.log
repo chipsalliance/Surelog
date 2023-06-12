@@ -200,7 +200,7 @@ logic_typespec                                         8
 logic_var                                              1
 module_inst                                            6
 operation                                             38
-package                                                3
+package                                                2
 param_assign                                           8
 parameter                                              9
 port                                                   2
@@ -222,7 +222,7 @@ logic_typespec                                         8
 logic_var                                              1
 module_inst                                            6
 operation                                             39
-package                                                3
+package                                                2
 param_assign                                           8
 parameter                                              9
 port                                                   3
@@ -259,6 +259,8 @@ design: (work@top)
       \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:1:1, endln:7:31
       |vpiRange:
       \_range: , line:2:20, endln:2:25
+        |vpiParent:
+        \_logic_typespec: , line:2:14, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -283,6 +285,8 @@ design: (work@top)
     \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:1:1, endln:7:31
     |vpiRhs:
     \_operation: , line:2:43, endln:6:49
+      |vpiParent:
+      \_param_assign: , line:2:26, endln:6:49
       |vpiTypespec:
       \_integer_typespec: , line:2:43, endln:2:44
         |vpiInstance:
@@ -311,8 +315,6 @@ design: (work@top)
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:4:51, endln:4:55
-              |vpiParent:
-              \_operation: , line:3:50, endln:5:52
               |vpiDecompile:3'h1
               |vpiSize:3
               |HEX:1
@@ -338,6 +340,8 @@ design: (work@top)
       \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:1:1, endln:7:31
       |vpiRange:
       \_range: , line:2:20, endln:2:25
+        |vpiParent:
+        \_logic_typespec: , line:2:14, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:21, endln:2:22
           |vpiParent:
@@ -362,6 +366,8 @@ design: (work@top)
     \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:1:1, endln:7:31
     |vpiRhs:
     \_operation: , line:2:43, endln:6:49
+      |vpiParent:
+      \_param_assign: , line:2:26, endln:6:49
       |vpiTypespec:
       \_integer_typespec: , line:2:43, endln:2:44
         |vpiInstance:
@@ -390,8 +396,6 @@ design: (work@top)
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:4:51, endln:4:55
-              |vpiParent:
-              \_operation: , line:3:50, endln:5:52
               |vpiDecompile:3'h1
               |vpiSize:3
               |HEX:1
@@ -528,8 +532,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:9:1, endln:16:10
     |vpiRhs:
-    \_ref_obj: (PartInvDefault), line:12:18, endln:12:32
+    \_ref_obj: (work@top.PartInvDefault), line:12:18, endln:12:32
+      |vpiParent:
+      \_param_assign: , line:12:14, endln:12:32
       |vpiName:PartInvDefault
+      |vpiFullName:work@top.PartInvDefault
     |vpiLhs:
     \_parameter: (work@top.P), line:12:14, endln:12:15
   |vpiTypedef:
@@ -555,7 +562,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:9:23, endln:9:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:9:23, endln:9:24
     |vpiTypedef:
@@ -580,7 +591,7 @@ design: (work@top)
         |vpiName:part_buf_data
         |vpiFullName:work@top.part_buf_data
         |vpiActual:
-        \_logic_var: (work@top.part_buf_data), line:14:40, endln:14:58
+        \_logic_net: (work@top.part_buf_data), line:14:40, endln:14:53
     |vpiLhs:
     \_ref_obj: (work@top.o), line:15:11, endln:15:12
       |vpiParent:
@@ -588,7 +599,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:9:23, endln:9:24
+      \_logic_net: (work@top.o), line:9:23, endln:9:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:9:1, endln:16:10
   |vpiName:work@top
@@ -609,8 +620,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:9:1, endln:16:10
     |vpiTypespec:
     \_logic_typespec: , line:14:4, endln:14:39
+      |vpiParent:
+      \_logic_var: (work@top.part_buf_data), line:14:40, endln:14:58
       |vpiRange:
       \_range: , line:14:10, endln:14:39
+        |vpiParent:
+        \_logic_typespec: , line:14:4, endln:14:39
         |vpiLeftRange:
         \_constant: , line:14:11, endln:14:34
           |vpiParent:
@@ -632,12 +647,16 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:14:56, endln:14:58
+      |vpiParent:
+      \_logic_var: (work@top.part_buf_data), line:14:40, endln:14:58
       |vpiDecompile:7
       |vpiSize:3
       |UINT:7
       |vpiConstType:9
     |vpiRange:
     \_range: , line:14:10, endln:14:39
+      |vpiParent:
+      \_logic_var: (work@top.part_buf_data), line:14:40, endln:14:58
       |vpiLeftRange:
       \_constant: , line:14:11, endln:14:34
         |vpiParent:
@@ -699,6 +718,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:9:1, endln:16:10
     |vpiRhs:
     \_constant: 
+      |vpiParent:
+      \_param_assign: , line:2:26, endln:6:49
       |vpiDecompile:1
       |vpiSize:3
       |UINT:1
@@ -711,6 +732,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec/dut.sv, line:9:1, endln:16:10
     |vpiRhs:
     \_constant: , line:12:18, endln:12:32
+      |vpiParent:
+      \_param_assign: , line:12:14, endln:12:32
       |vpiDecompile:1
       |vpiSize:3
       |UINT:1
@@ -762,7 +785,7 @@ design: (work@top)
         |vpiName:part_buf_data
         |vpiFullName:work@top.part_buf_data
         |vpiActual:
-        \_logic_var: (work@top.part_buf_data), line:14:40, endln:14:58
+        \_logic_net: (work@top.part_buf_data), line:14:40, endln:14:53
     |vpiLhs:
     \_ref_obj: (work@top.o), line:15:11, endln:15:12
       |vpiParent:

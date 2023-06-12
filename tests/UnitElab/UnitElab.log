@@ -13691,13 +13691,18 @@ design: (work@bottom1)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitElab/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -13718,10 +13723,13 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -13733,6 +13741,8 @@ design: (work@bottom1)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -13744,9 +13754,14 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -13759,6 +13774,8 @@ design: (work@bottom1)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -13770,13 +13787,18 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -13789,6 +13811,8 @@ design: (work@bottom1)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -13800,13 +13824,18 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
@@ -13821,30 +13850,40 @@ design: (work@bottom1)
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
@@ -13858,11 +13897,14 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitElab/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -13872,9 +13914,12 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -13920,13 +13965,18 @@ design: (work@bottom1)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitElab/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -13948,6 +13998,8 @@ design: (work@bottom1)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -13969,6 +14021,8 @@ design: (work@bottom1)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -13989,13 +14043,18 @@ design: (work@bottom1)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -14032,7 +14091,11 @@ design: (work@bottom1)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom1.a.a)
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24
+      |vpiName:a
+      |vpiFullName:work@bottom1.a.a
       |vpiActual:
       \_logic_net: (work@bottom1.a), line:1:23, endln:1:24
     |vpiTypedef:
@@ -14044,7 +14107,11 @@ design: (work@bottom1)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom1.b.b)
+      |vpiParent:
+      \_port: (b), line:1:32, endln:1:33
+      |vpiName:b
+      |vpiFullName:work@bottom1.b.b
       |vpiActual:
       \_logic_net: (work@bottom1.b), line:1:32, endln:1:33
     |vpiTypedef:
@@ -14108,7 +14175,11 @@ design: (work@bottom1)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom2.a.a)
+      |vpiParent:
+      \_port: (a), line:6:23, endln:6:24
+      |vpiName:a
+      |vpiFullName:work@bottom2.a.a
       |vpiActual:
       \_logic_net: (work@bottom2.a), line:6:23, endln:6:24
     |vpiTypedef:
@@ -14120,7 +14191,11 @@ design: (work@bottom1)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom2.b.b)
+      |vpiParent:
+      \_port: (b), line:6:32, endln:6:33
+      |vpiName:b
+      |vpiFullName:work@bottom2.b.b
       |vpiActual:
       \_logic_net: (work@bottom2.b), line:6:32, endln:6:33
     |vpiTypedef:
@@ -14150,7 +14225,11 @@ design: (work@bottom1)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom4.a.a)
+      |vpiParent:
+      \_port: (a), line:11:23, endln:11:24
+      |vpiName:a
+      |vpiFullName:work@bottom4.a.a
       |vpiActual:
       \_logic_net: (work@bottom4.a), line:11:23, endln:11:24
     |vpiTypedef:
@@ -14162,7 +14241,11 @@ design: (work@bottom1)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom4.b.b)
+      |vpiParent:
+      \_port: (b), line:11:32, endln:11:33
+      |vpiName:b
+      |vpiFullName:work@bottom4.b.b
       |vpiActual:
       \_logic_net: (work@bottom4.b), line:11:32, endln:11:33
     |vpiTypedef:
@@ -14192,7 +14275,11 @@ design: (work@bottom1)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom5.a.a)
+      |vpiParent:
+      \_port: (a), line:16:23, endln:16:24
+      |vpiName:a
+      |vpiFullName:work@bottom5.a.a
       |vpiActual:
       \_logic_net: (work@bottom5.a), line:16:23, endln:16:24
     |vpiTypedef:
@@ -14204,7 +14291,11 @@ design: (work@bottom1)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@bottom5.b.b)
+      |vpiParent:
+      \_port: (b), line:16:32, endln:16:33
+      |vpiName:b
+      |vpiFullName:work@bottom5.b.b
       |vpiActual:
       \_logic_net: (work@bottom5.b), line:16:32, endln:16:33
     |vpiTypedef:
@@ -14240,7 +14331,11 @@ design: (work@bottom1)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@my_module.a.a)
+      |vpiParent:
+      \_port: (a), line:20:19, endln:20:20
+      |vpiName:a
+      |vpiFullName:work@my_module.a.a
       |vpiActual:
       \_logic_net: (work@my_module.a), line:20:19, endln:20:20
     |vpiTypedef:
@@ -14252,7 +14347,11 @@ design: (work@bottom1)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@my_module.b.b)
+      |vpiParent:
+      \_port: (b), line:20:22, endln:20:23
+      |vpiName:b
+      |vpiFullName:work@my_module.b.b
       |vpiActual:
       \_logic_net: (work@my_module.b), line:20:22, endln:20:23
     |vpiTypedef:
@@ -14264,7 +14363,11 @@ design: (work@bottom1)
     |vpiName:c
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@my_module.c.c)
+      |vpiParent:
+      \_port: (c), line:20:25, endln:20:26
+      |vpiName:c
+      |vpiFullName:work@my_module.c.c
       |vpiActual:
       \_logic_net: (work@my_module.c), line:20:25, endln:20:26
     |vpiTypedef:
@@ -14285,7 +14388,7 @@ design: (work@bottom1)
         |vpiName:a
         |vpiFullName:work@my_module.a
         |vpiActual:
-        \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+        \_logic_net: (work@my_module.a), line:20:19, endln:20:20
       |vpiOperand:
       \_ref_obj: (work@my_module.b), line:23:18, endln:23:19
         |vpiParent:
@@ -14293,7 +14396,7 @@ design: (work@bottom1)
         |vpiName:b
         |vpiFullName:work@my_module.b
         |vpiActual:
-        \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+        \_logic_net: (work@my_module.b), line:20:22, endln:20:23
     |vpiLhs:
     \_ref_obj: (work@my_module.c), line:23:10, endln:23:11
       |vpiParent:
@@ -14301,7 +14404,7 @@ design: (work@bottom1)
       |vpiName:c
       |vpiFullName:work@my_module.c
       |vpiActual:
-      \_logic_net: (work@top.inst[0][0][0].c), line:20:25, endln:20:26
+      \_logic_net: (work@my_module.c), line:20:25, endln:20:26
 |uhdmallModules:
 \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:5:1, endln:54:10
   |vpiParent:
@@ -14319,6 +14422,8 @@ design: (work@bottom1)
       |vpiSigned:1
       |vpiRange:
       \_range: , line:8:21, endln:8:26
+        |vpiParent:
+        \_int_typespec: , line:8:14, endln:8:20
         |vpiLeftRange:
         \_constant: , line:8:22, endln:8:23
           |vpiParent:
@@ -14355,6 +14460,8 @@ design: (work@bottom1)
     \_int_typespec: 
       |vpiRange:
       \_range: 
+        |vpiParent:
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
           |INT:12
@@ -14369,6 +14476,8 @@ design: (work@bottom1)
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:5:1, endln:54:10
     |vpiRhs:
     \_constant: , line:8:34, endln:8:37
+      |vpiParent:
+      \_param_assign: , line:8:27, endln:8:37
       |vpiDecompile:1e1
       |vpiSize:4
       |REAL:10.000000
@@ -14383,6 +14492,8 @@ design: (work@bottom1)
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:5:1, endln:54:10
     |vpiRhs:
     \_constant: , line:9:22, endln:9:23
+      |vpiParent:
+      \_param_assign: , line:9:14, endln:9:23
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
@@ -14397,6 +14508,8 @@ design: (work@bottom1)
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:5:1, endln:54:10
     |vpiRhs:
     \_constant: , line:10:16, endln:10:23
+      |vpiParent:
+      \_param_assign: , line:10:11, endln:10:23
       |vpiDecompile:13'b100
       |vpiSize:13
       |BIN:100
@@ -14411,7 +14524,10 @@ design: (work@bottom1)
     |vpiParent:
     \_module_inst: work@small_test (work@small_test), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:5:1, endln:54:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@small_test)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@small_test
 |uhdmallModules:
 \_module_inst: work@small_top (work@small_top), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:1:1, endln:3:10
   |vpiParent:
@@ -14455,6 +14571,8 @@ design: (work@bottom1)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
     |vpiRhs:
     \_constant: , line:37:22, endln:37:23
+      |vpiParent:
+      \_param_assign: , line:37:13, endln:37:23
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -14469,6 +14587,8 @@ design: (work@bottom1)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
     |vpiRhs:
     \_constant: , line:38:22, endln:38:23
+      |vpiParent:
+      \_param_assign: , line:38:13, endln:38:23
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -14497,7 +14617,11 @@ design: (work@bottom1)
     |vpiName:a
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@test.a.a)
+      |vpiParent:
+      \_port: (a), line:35:13, endln:35:14
+      |vpiName:a
+      |vpiFullName:work@test.a.a
       |vpiActual:
       \_logic_net: (work@test.a), line:35:13, endln:35:14
   |vpiPort:
@@ -14507,7 +14631,11 @@ design: (work@bottom1)
     |vpiName:b
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@test.b.b)
+      |vpiParent:
+      \_port: (b), line:35:16, endln:35:17
+      |vpiName:b
+      |vpiFullName:work@test.b.b
       |vpiActual:
       \_logic_net: (work@test.b), line:35:16, endln:35:17
   |vpiPrimitive:
@@ -14585,17 +14713,25 @@ design: (work@bottom1)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@test)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@test
       |vpiStmt:
       \_gen_if_else: , line:41:2, endln:47:8
+        |vpiParent:
+        \_begin: (work@test)
         |vpiCondition:
         \_operation: , line:41:6, endln:41:16
+          |vpiParent:
+          \_gen_if_else: , line:41:2, endln:47:8
           |vpiOpType:18
           |vpiOperand:
-          \_ref_obj: (POWER1), line:41:6, endln:41:12
+          \_ref_obj: (work@test.POWER1), line:41:6, endln:41:12
             |vpiParent:
             \_operation: , line:41:6, endln:41:16
             |vpiName:POWER1
+            |vpiFullName:work@test.POWER1
           |vpiOperand:
           \_constant: , line:41:15, endln:41:16
             |vpiParent:
@@ -14605,20 +14741,31 @@ design: (work@bottom1)
             |UINT:2
             |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (g1)
+        \_named_begin: (work@test.g1)
+          |vpiParent:
+          \_gen_if_else: , line:41:2, endln:47:8
           |vpiName:g1
+          |vpiFullName:work@test.g1
         |vpiElseStmt:
-        \_begin: 
+        \_begin: (work@test)
+          |vpiParent:
+          \_gen_if_else: , line:41:2, endln:47:8
+          |vpiFullName:work@test
           |vpiStmt:
           \_gen_if_else: , line:43:14, endln:47:8
+            |vpiParent:
+            \_begin: (work@test)
             |vpiCondition:
             \_operation: , line:43:18, endln:43:29
+              |vpiParent:
+              \_gen_if_else: , line:43:14, endln:47:8
               |vpiOpType:14
               |vpiOperand:
-              \_ref_obj: (POWER2), line:43:18, endln:43:24
+              \_ref_obj: (work@test.POWER2), line:43:18, endln:43:24
                 |vpiParent:
                 \_operation: , line:43:18, endln:43:29
                 |vpiName:POWER2
+                |vpiFullName:work@test.POWER2
               |vpiOperand:
               \_constant: , line:43:28, endln:43:29
                 |vpiParent:
@@ -14628,20 +14775,31 @@ design: (work@bottom1)
                 |UINT:1
                 |vpiConstType:9
             |vpiStmt:
-            \_named_begin: (g1)
+            \_named_begin: (work@test.g1)
+              |vpiParent:
+              \_gen_if_else: , line:43:14, endln:47:8
               |vpiName:g1
+              |vpiFullName:work@test.g1
             |vpiElseStmt:
-            \_begin: 
+            \_begin: (work@test)
+              |vpiParent:
+              \_gen_if_else: , line:43:14, endln:47:8
+              |vpiFullName:work@test
               |vpiStmt:
               \_gen_if: , line:45:14, endln:45:16
+                |vpiParent:
+                \_begin: (work@test)
                 |vpiCondition:
                 \_operation: , line:45:18, endln:45:28
+                  |vpiParent:
+                  \_gen_if: , line:45:14, endln:45:16
                   |vpiOpType:18
                   |vpiOperand:
-                  \_ref_obj: (POWER2), line:45:18, endln:45:24
+                  \_ref_obj: (work@test.POWER2), line:45:18, endln:45:24
                     |vpiParent:
                     \_operation: , line:45:18, endln:45:28
                     |vpiName:POWER2
+                    |vpiFullName:work@test.POWER2
                   |vpiOperand:
                   \_constant: , line:45:27, endln:45:28
                     |vpiParent:
@@ -14651,24 +14809,35 @@ design: (work@bottom1)
                     |UINT:0
                     |vpiConstType:9
                 |vpiStmt:
-                \_named_begin: (g1)
+                \_named_begin: (work@test.g1)
+                  |vpiParent:
+                  \_gen_if: , line:45:14, endln:45:16
                   |vpiName:g1
+                  |vpiFullName:work@test.g1
   |vpiGenStmt:
   \_gen_region: 
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@test)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@test
       |vpiStmt:
       \_gen_if: , line:51:5, endln:51:7
+        |vpiParent:
+        \_begin: (work@test)
         |vpiCondition:
         \_operation: , line:51:9, endln:51:19
+          |vpiParent:
+          \_gen_if: , line:51:5, endln:51:7
           |vpiOpType:18
           |vpiOperand:
-          \_ref_obj: (POWER1), line:51:9, endln:51:15
+          \_ref_obj: (work@test.POWER1), line:51:9, endln:51:15
             |vpiParent:
             \_operation: , line:51:9, endln:51:19
             |vpiName:POWER1
+            |vpiFullName:work@test.POWER1
           |vpiOperand:
           \_constant: , line:51:18, endln:51:19
             |vpiParent:
@@ -14678,18 +14847,26 @@ design: (work@bottom1)
             |UINT:0
             |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (g1)
+        \_named_begin: (work@test.g1)
+          |vpiParent:
+          \_gen_if: , line:51:5, endln:51:7
           |vpiName:g1
+          |vpiFullName:work@test.g1
           |vpiStmt:
           \_gen_if: , line:52:8, endln:52:10
+            |vpiParent:
+            \_named_begin: (work@test.g1)
             |vpiCondition:
             \_operation: , line:52:12, endln:52:23
+              |vpiParent:
+              \_gen_if: , line:52:8, endln:52:10
               |vpiOpType:19
               |vpiOperand:
-              \_ref_obj: (POWER2), line:52:12, endln:52:18
+              \_ref_obj: (work@test.g1.POWER2), line:52:12, endln:52:18
                 |vpiParent:
                 \_operation: , line:52:12, endln:52:23
                 |vpiName:POWER2
+                |vpiFullName:work@test.g1.POWER2
               |vpiOperand:
               \_constant: , line:52:22, endln:52:23
                 |vpiParent:
@@ -14699,40 +14876,56 @@ design: (work@bottom1)
                 |UINT:1
                 |vpiConstType:9
             |vpiStmt:
-            \_named_begin: (g1)
+            \_named_begin: (work@test.g1.g1)
+              |vpiParent:
+              \_gen_if: , line:52:8, endln:52:10
               |vpiName:g1
+              |vpiFullName:work@test.g1.g1
   |vpiGenStmt:
   \_gen_case: 
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
     |vpiCondition:
-    \_ref_obj: (POWER1), line:62:12, endln:62:18
+    \_ref_obj: (work@test.POWER1), line:62:12, endln:62:18
+      |vpiParent:
+      \_gen_case: 
       |vpiName:POWER1
+      |vpiFullName:work@test.POWER1
     |vpiCaseItem:
     \_case_item: 
       |vpiExpr:
       \_constant: , line:63:9, endln:63:10
+        |vpiParent:
+        \_case_item: 
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
       |vpiStmt:
       \_begin: 
+        |vpiParent:
+        \_case_item: 
     |vpiCaseItem:
     \_case_item: 
       |vpiExpr:
       \_constant: , line:66:9, endln:66:10
+        |vpiParent:
+        \_case_item: 
         |vpiDecompile:3
         |vpiSize:64
         |UINT:3
         |vpiConstType:9
       |vpiStmt:
       \_named_begin: (u1)
+        |vpiParent:
+        \_case_item: 
         |vpiName:u1
     |vpiCaseItem:
     \_case_item: 
       |vpiStmt:
       \_named_begin: (u1)
+        |vpiParent:
+        \_case_item: 
         |vpiName:u1
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:26:1, endln:31:10
@@ -14765,13 +14958,19 @@ design: (work@bottom1)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.a.a)
+      |vpiParent:
+      \_port: (a), line:26:13, endln:26:14
+      |vpiName:a
+      |vpiFullName:work@top.a.a
       |vpiActual:
       \_logic_net: (work@top.a), line:26:13, endln:26:14
     |vpiTypedef:
     \_logic_typespec: , line:27:7, endln:27:12
       |vpiRange:
       \_range: , line:27:7, endln:27:12
+        |vpiParent:
+        \_logic_typespec: , line:27:7, endln:27:12
         |vpiLeftRange:
         \_constant: , line:27:8, endln:27:9
           |vpiParent:
@@ -14795,13 +14994,19 @@ design: (work@bottom1)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.b.b)
+      |vpiParent:
+      \_port: (b), line:26:16, endln:26:17
+      |vpiName:b
+      |vpiFullName:work@top.b.b
       |vpiActual:
       \_logic_net: (work@top.b), line:26:16, endln:26:17
     |vpiTypedef:
     \_logic_typespec: , line:27:7, endln:27:12
       |vpiRange:
       \_range: , line:27:7, endln:27:12
+        |vpiParent:
+        \_logic_typespec: , line:27:7, endln:27:12
         |vpiLeftRange:
         \_constant: , line:27:8, endln:27:9
           |vpiParent:
@@ -14825,13 +15030,19 @@ design: (work@bottom1)
     |vpiName:c
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.c.c)
+      |vpiParent:
+      \_port: (c), line:26:19, endln:26:20
+      |vpiName:c
+      |vpiFullName:work@top.c.c
       |vpiActual:
       \_logic_net: (work@top.c), line:26:19, endln:26:20
     |vpiTypedef:
     \_logic_typespec: , line:28:8, endln:28:13
       |vpiRange:
       \_range: , line:28:8, endln:28:13
+        |vpiParent:
+        \_logic_typespec: , line:28:8, endln:28:13
         |vpiLeftRange:
         \_constant: , line:28:9, endln:28:10
           |vpiParent:
@@ -14859,6 +15070,8 @@ design: (work@bottom1)
     \_module_inst: work@bottom1 (work@bottom1), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:1:1, endln:4:10
     |vpiTypespec:
     \_logic_typespec: , line:1:23, endln:1:23
+      |vpiParent:
+      \_logic_net: (work@bottom1.a), line:1:23, endln:1:24
     |vpiName:a
     |vpiFullName:work@bottom1.a
   |vpiNet:
@@ -14867,6 +15080,8 @@ design: (work@bottom1)
     \_module_inst: work@bottom1 (work@bottom1), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:1:1, endln:4:10
     |vpiTypespec:
     \_logic_typespec: , line:1:32, endln:1:32
+      |vpiParent:
+      \_logic_net: (work@bottom1.b), line:1:32, endln:1:33
     |vpiName:b
     |vpiFullName:work@bottom1.b
   |vpiTopModule:1
@@ -14878,6 +15093,8 @@ design: (work@bottom1)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@bottom1.a), line:1:23, endln:1:24
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24
       |vpiName:a
       |vpiFullName:work@bottom1.a
       |vpiActual:
@@ -14892,6 +15109,8 @@ design: (work@bottom1)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@bottom1.b), line:1:32, endln:1:33
+      |vpiParent:
+      \_port: (b), line:1:32, endln:1:33
       |vpiName:b
       |vpiFullName:work@bottom1.b
       |vpiActual:
@@ -14913,6 +15132,8 @@ design: (work@bottom1)
       \_module_inst: work@bottom2 (work@bottom1.u1), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:2:2, endln:2:20
       |vpiTypespec:
       \_logic_typespec: , line:6:23, endln:6:23
+        |vpiParent:
+        \_logic_net: (work@bottom1.u1.a), line:6:23, endln:6:24
       |vpiName:a
       |vpiFullName:work@bottom1.u1.a
     |vpiNet:
@@ -14921,6 +15142,8 @@ design: (work@bottom1)
       \_module_inst: work@bottom2 (work@bottom1.u1), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:2:2, endln:2:20
       |vpiTypespec:
       \_logic_typespec: , line:6:32, endln:6:32
+        |vpiParent:
+        \_logic_net: (work@bottom1.u1.b), line:6:32, endln:6:33
       |vpiName:b
       |vpiFullName:work@bottom1.u1.b
     |vpiInstance:
@@ -14933,12 +15156,16 @@ design: (work@bottom1)
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (work@bottom1.a), line:2:14, endln:2:15
+        |vpiParent:
+        \_port: (a), line:6:23, endln:6:24
         |vpiName:a
         |vpiFullName:work@bottom1.a
         |vpiActual:
         \_logic_net: (work@bottom1.a), line:1:23, endln:1:24
       |vpiLowConn:
       \_ref_obj: (work@bottom1.u1.a), line:6:23, endln:6:24
+        |vpiParent:
+        \_port: (a), line:6:23, endln:6:24
         |vpiName:a
         |vpiFullName:work@bottom1.u1.a
         |vpiActual:
@@ -14953,12 +15180,16 @@ design: (work@bottom1)
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (work@bottom1.b), line:2:17, endln:2:18
+        |vpiParent:
+        \_port: (b), line:6:32, endln:6:33
         |vpiName:b
         |vpiFullName:work@bottom1.b
         |vpiActual:
         \_logic_net: (work@bottom1.b), line:1:32, endln:1:33
       |vpiLowConn:
       \_ref_obj: (work@bottom1.u1.b), line:6:32, endln:6:33
+        |vpiParent:
+        \_port: (b), line:6:32, endln:6:33
         |vpiName:b
         |vpiFullName:work@bottom1.u1.b
         |vpiActual:
@@ -14980,6 +15211,8 @@ design: (work@bottom1)
         \_module_inst: work@bottom4 (work@bottom1.u1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:7:2, endln:7:20
         |vpiTypespec:
         \_logic_typespec: , line:11:23, endln:11:23
+          |vpiParent:
+          \_logic_net: (work@bottom1.u1.u2.a), line:11:23, endln:11:24
         |vpiName:a
         |vpiFullName:work@bottom1.u1.u2.a
       |vpiNet:
@@ -14988,6 +15221,8 @@ design: (work@bottom1)
         \_module_inst: work@bottom4 (work@bottom1.u1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:7:2, endln:7:20
         |vpiTypespec:
         \_logic_typespec: , line:11:32, endln:11:32
+          |vpiParent:
+          \_logic_net: (work@bottom1.u1.u2.b), line:11:32, endln:11:33
         |vpiName:b
         |vpiFullName:work@bottom1.u1.u2.b
       |vpiInstance:
@@ -15000,12 +15235,16 @@ design: (work@bottom1)
         |vpiDirection:1
         |vpiHighConn:
         \_ref_obj: (work@bottom1.u1.a), line:7:14, endln:7:15
+          |vpiParent:
+          \_port: (a), line:11:23, endln:11:24
           |vpiName:a
           |vpiFullName:work@bottom1.u1.a
           |vpiActual:
           \_logic_net: (work@bottom1.u1.a), line:6:23, endln:6:24
         |vpiLowConn:
         \_ref_obj: (work@bottom1.u1.u2.a), line:11:23, endln:11:24
+          |vpiParent:
+          \_port: (a), line:11:23, endln:11:24
           |vpiName:a
           |vpiFullName:work@bottom1.u1.u2.a
           |vpiActual:
@@ -15020,12 +15259,16 @@ design: (work@bottom1)
         |vpiDirection:1
         |vpiHighConn:
         \_ref_obj: (work@bottom1.u1.b), line:7:17, endln:7:18
+          |vpiParent:
+          \_port: (b), line:11:32, endln:11:33
           |vpiName:b
           |vpiFullName:work@bottom1.u1.b
           |vpiActual:
           \_logic_net: (work@bottom1.u1.b), line:6:32, endln:6:33
         |vpiLowConn:
         \_ref_obj: (work@bottom1.u1.u2.b), line:11:32, endln:11:33
+          |vpiParent:
+          \_port: (b), line:11:32, endln:11:33
           |vpiName:b
           |vpiFullName:work@bottom1.u1.u2.b
           |vpiActual:
@@ -15058,6 +15301,8 @@ design: (work@bottom1)
       \_module_inst: work@bottom1::bottom3 (work@bottom1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:3:2, endln:3:20
       |vpiHighConn:
       \_ref_obj: (work@bottom1.a), line:3:14, endln:3:15
+        |vpiParent:
+        \_port: , line:3:14, endln:3:15
         |vpiName:a
         |vpiFullName:work@bottom1.a
         |vpiActual:
@@ -15068,6 +15313,8 @@ design: (work@bottom1)
       \_module_inst: work@bottom1::bottom3 (work@bottom1.u2), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:3:2, endln:3:20
       |vpiHighConn:
       \_ref_obj: (work@bottom1.b), line:3:17, endln:3:18
+        |vpiParent:
+        \_port: , line:3:17, endln:3:18
         |vpiName:b
         |vpiFullName:work@bottom1.b
         |vpiActual:
@@ -15083,6 +15330,8 @@ design: (work@bottom1)
     \_module_inst: work@bottom5 (work@bottom5), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:16:1, endln:17:10
     |vpiTypespec:
     \_logic_typespec: , line:16:23, endln:16:23
+      |vpiParent:
+      \_logic_net: (work@bottom5.a), line:16:23, endln:16:24
     |vpiName:a
     |vpiFullName:work@bottom5.a
   |vpiNet:
@@ -15091,6 +15340,8 @@ design: (work@bottom1)
     \_module_inst: work@bottom5 (work@bottom5), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:16:1, endln:17:10
     |vpiTypespec:
     \_logic_typespec: , line:16:32, endln:16:32
+      |vpiParent:
+      \_logic_net: (work@bottom5.b), line:16:32, endln:16:33
     |vpiName:b
     |vpiFullName:work@bottom5.b
   |vpiTopModule:1
@@ -15102,6 +15353,8 @@ design: (work@bottom1)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@bottom5.a), line:16:23, endln:16:24
+      |vpiParent:
+      \_port: (a), line:16:23, endln:16:24
       |vpiName:a
       |vpiFullName:work@bottom5.a
       |vpiActual:
@@ -15116,6 +15369,8 @@ design: (work@bottom1)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@bottom5.b), line:16:32, endln:16:33
+      |vpiParent:
+      \_port: (b), line:16:32, endln:16:33
       |vpiName:b
       |vpiFullName:work@bottom5.b
       |vpiActual:
@@ -15133,8 +15388,12 @@ design: (work@bottom1)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:26:1, endln:31:10
     |vpiTypespec:
     \_logic_typespec: , line:27:7, endln:27:12
+      |vpiParent:
+      \_logic_net: (work@top.b), line:26:16, endln:26:17
       |vpiRange:
       \_range: , line:27:7, endln:27:12
+        |vpiParent:
+        \_logic_typespec: , line:27:7, endln:27:12
         |vpiLeftRange:
         \_constant: , line:27:8, endln:27:9
           |vpiParent:
@@ -15167,8 +15426,12 @@ design: (work@bottom1)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:26:1, endln:31:10
     |vpiTypespec:
     \_logic_typespec: , line:28:8, endln:28:13
+      |vpiParent:
+      \_logic_net: (work@top.c), line:26:19, endln:26:20
       |vpiRange:
       \_range: , line:28:8, endln:28:13
+        |vpiParent:
+        \_logic_typespec: , line:28:8, endln:28:13
         |vpiLeftRange:
         \_constant: , line:28:9, endln:28:10
           |vpiParent:
@@ -15196,6 +15459,8 @@ design: (work@bottom1)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@top.a), line:26:13, endln:26:14
+      |vpiParent:
+      \_port: (a), line:26:13, endln:26:14
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
@@ -15205,7 +15470,7 @@ design: (work@bottom1)
       |vpiRange:
       \_range: , line:27:7, endln:27:12
         |vpiParent:
-        \_port: (a), line:26:13, endln:26:14
+        \_logic_typespec: , line:27:7, endln:27:12
         |vpiLeftRange:
         \_constant: , line:27:8, endln:27:9
           |vpiParent:
@@ -15230,6 +15495,8 @@ design: (work@bottom1)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@top.b), line:26:16, endln:26:17
+      |vpiParent:
+      \_port: (b), line:26:16, endln:26:17
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
@@ -15244,6 +15511,8 @@ design: (work@bottom1)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.c), line:26:19, endln:26:20
+      |vpiParent:
+      \_port: (c), line:26:19, endln:26:20
       |vpiName:c
       |vpiFullName:work@top.c
       |vpiActual:
@@ -15253,7 +15522,7 @@ design: (work@bottom1)
       |vpiRange:
       \_range: , line:28:8, endln:28:13
         |vpiParent:
-        \_port: (c), line:26:19, endln:26:20
+        \_logic_typespec: , line:28:8, endln:28:13
         |vpiLeftRange:
         \_constant: , line:28:9, endln:28:10
           |vpiParent:
@@ -15285,6 +15554,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[0][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[0][0][0].a
     |vpiNet:
@@ -15312,8 +15583,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[0][0][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[0][0][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -15323,6 +15597,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[0][0][0].a
         |vpiActual:
@@ -15336,8 +15612,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[0][0][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[0][0][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -15347,6 +15626,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[0][0][0].b
         |vpiActual:
@@ -15360,8 +15641,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[0][0][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[0][0][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -15371,6 +15655,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][0][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[0][0][0].c
         |vpiActual:
@@ -15379,26 +15665,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[0][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[0][0][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[0][0][0].a
+          |vpiActual:
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[0][0][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[0][0][0].b
+          |vpiActual:
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[0][0][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[0][0][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[0][0][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -15416,6 +15711,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[0][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[0][0][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[0][0][1].a
     |vpiNet:
@@ -15443,8 +15740,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[0][0][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[0][0][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -15454,6 +15754,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][0][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[0][0][1].a
         |vpiActual:
@@ -15467,8 +15769,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[0][0][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[0][0][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -15478,6 +15783,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][0][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[0][0][1].b
         |vpiActual:
@@ -15491,8 +15798,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[0][0][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[0][0][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -15502,6 +15812,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][0][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[0][0][1].c
         |vpiActual:
@@ -15510,30 +15822,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[0][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[0][0][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[0][0][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[0][0][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[0][0][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[0][0][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[0][0][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[0][0][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -15551,6 +15868,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[0][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[0][1][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[0][1][0].a
     |vpiNet:
@@ -15578,8 +15897,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[0][1][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[0][1][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -15589,6 +15911,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][1][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[0][1][0].a
         |vpiActual:
@@ -15602,8 +15926,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[0][1][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[0][1][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -15613,6 +15940,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][1][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[0][1][0].b
         |vpiActual:
@@ -15626,8 +15955,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[0][1][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[0][1][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -15637,6 +15969,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][1][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[0][1][0].c
         |vpiActual:
@@ -15645,30 +15979,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[0][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[0][1][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[0][1][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[0][1][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[0][1][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[0][1][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[0][1][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[0][1][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -15686,6 +16025,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[0][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[0][1][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[0][1][1].a
     |vpiNet:
@@ -15713,8 +16054,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[0][1][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[0][1][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -15724,6 +16068,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][1][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[0][1][1].a
         |vpiActual:
@@ -15737,8 +16083,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[0][1][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[0][1][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -15748,6 +16097,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][1][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[0][1][1].b
         |vpiActual:
@@ -15761,8 +16112,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[0][1][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[0][1][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -15772,6 +16126,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][1][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[0][1][1].c
         |vpiActual:
@@ -15780,30 +16136,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[0][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[0][1][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[0][1][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[0][1][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[0][1][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[0][1][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[0][1][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[0][1][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -15821,6 +16182,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[0][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[0][2][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[0][2][0].a
     |vpiNet:
@@ -15848,8 +16211,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[0][2][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[0][2][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -15859,6 +16225,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][2][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[0][2][0].a
         |vpiActual:
@@ -15872,8 +16240,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[0][2][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[0][2][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -15883,6 +16254,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][2][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[0][2][0].b
         |vpiActual:
@@ -15896,8 +16269,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[0][2][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[0][2][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -15907,6 +16283,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][2][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[0][2][0].c
         |vpiActual:
@@ -15915,30 +16293,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[0][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[0][2][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[0][2][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[0][2][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[0][2][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[0][2][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[0][2][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[0][2][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -15956,6 +16339,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[0][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[0][2][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[0][2][1].a
     |vpiNet:
@@ -15983,8 +16368,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[0][2][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[0][2][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -15994,6 +16382,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][2][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[0][2][1].a
         |vpiActual:
@@ -16007,8 +16397,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[0][2][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[0][2][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16018,6 +16411,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][2][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[0][2][1].b
         |vpiActual:
@@ -16031,8 +16426,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[0][2][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[0][2][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16042,6 +16440,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[0][2][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[0][2][1].c
         |vpiActual:
@@ -16050,30 +16450,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[0][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[0][2][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[0][2][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[0][2][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[0][2][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[0][2][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[0][2][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[0][2][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -16091,6 +16496,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[1][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[1][0][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[1][0][0].a
     |vpiNet:
@@ -16118,8 +16525,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[1][0][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[1][0][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -16129,6 +16539,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][0][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[1][0][0].a
         |vpiActual:
@@ -16142,8 +16554,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[1][0][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[1][0][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16153,6 +16568,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][0][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[1][0][0].b
         |vpiActual:
@@ -16166,8 +16583,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[1][0][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[1][0][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16177,6 +16597,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][0][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[1][0][0].c
         |vpiActual:
@@ -16185,30 +16607,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[1][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[1][0][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[1][0][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[1][0][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[1][0][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[1][0][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[1][0][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[1][0][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -16226,6 +16653,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[1][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[1][0][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[1][0][1].a
     |vpiNet:
@@ -16253,8 +16682,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[1][0][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[1][0][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -16264,6 +16696,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][0][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[1][0][1].a
         |vpiActual:
@@ -16277,8 +16711,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[1][0][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[1][0][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16288,6 +16725,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][0][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[1][0][1].b
         |vpiActual:
@@ -16301,8 +16740,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[1][0][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[1][0][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16312,6 +16754,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][0][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[1][0][1].c
         |vpiActual:
@@ -16320,30 +16764,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[1][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[1][0][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[1][0][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[1][0][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[1][0][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[1][0][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[1][0][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[1][0][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -16361,6 +16810,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[1][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[1][1][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[1][1][0].a
     |vpiNet:
@@ -16388,8 +16839,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[1][1][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[1][1][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -16399,6 +16853,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][1][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[1][1][0].a
         |vpiActual:
@@ -16412,8 +16868,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[1][1][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[1][1][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16423,6 +16882,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][1][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[1][1][0].b
         |vpiActual:
@@ -16436,8 +16897,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[1][1][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[1][1][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16447,6 +16911,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][1][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[1][1][0].c
         |vpiActual:
@@ -16455,30 +16921,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[1][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[1][1][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[1][1][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[1][1][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[1][1][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[1][1][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[1][1][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[1][1][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -16496,6 +16967,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[1][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[1][1][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[1][1][1].a
     |vpiNet:
@@ -16523,8 +16996,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[1][1][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[1][1][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -16534,6 +17010,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][1][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[1][1][1].a
         |vpiActual:
@@ -16547,8 +17025,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[1][1][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[1][1][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16558,6 +17039,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][1][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[1][1][1].b
         |vpiActual:
@@ -16571,8 +17054,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[1][1][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[1][1][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16582,6 +17068,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][1][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[1][1][1].c
         |vpiActual:
@@ -16590,30 +17078,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[1][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[1][1][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[1][1][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[1][1][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[1][1][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[1][1][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[1][1][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[1][1][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -16631,6 +17124,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[1][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[1][2][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[1][2][0].a
     |vpiNet:
@@ -16658,8 +17153,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[1][2][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[1][2][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -16669,6 +17167,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][2][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[1][2][0].a
         |vpiActual:
@@ -16682,8 +17182,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[1][2][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[1][2][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16693,6 +17196,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][2][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[1][2][0].b
         |vpiActual:
@@ -16706,8 +17211,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[1][2][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[1][2][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16717,6 +17225,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][2][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[1][2][0].c
         |vpiActual:
@@ -16725,30 +17235,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[1][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[1][2][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[1][2][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[1][2][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[1][2][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[1][2][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[1][2][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[1][2][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -16766,6 +17281,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[1][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[1][2][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[1][2][1].a
     |vpiNet:
@@ -16793,8 +17310,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[1][2][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[1][2][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -16804,6 +17324,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][2][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[1][2][1].a
         |vpiActual:
@@ -16817,8 +17339,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[1][2][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[1][2][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16828,6 +17353,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][2][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[1][2][1].b
         |vpiActual:
@@ -16841,8 +17368,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[1][2][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[1][2][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16852,6 +17382,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[1][2][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[1][2][1].c
         |vpiActual:
@@ -16860,30 +17392,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[1][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[1][2][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[1][2][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[1][2][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[1][2][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[1][2][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[1][2][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[1][2][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -16901,6 +17438,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[2][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[2][0][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[2][0][0].a
     |vpiNet:
@@ -16928,8 +17467,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[2][0][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[2][0][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -16939,6 +17481,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][0][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[2][0][0].a
         |vpiActual:
@@ -16952,8 +17496,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[2][0][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[2][0][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -16963,6 +17510,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][0][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[2][0][0].b
         |vpiActual:
@@ -16976,8 +17525,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[2][0][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[2][0][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -16987,6 +17539,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][0][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[2][0][0].c
         |vpiActual:
@@ -16995,30 +17549,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[2][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[2][0][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[2][0][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[2][0][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[2][0][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[2][0][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[2][0][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[2][0][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17036,6 +17595,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[2][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[2][0][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[2][0][1].a
     |vpiNet:
@@ -17063,8 +17624,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[2][0][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[2][0][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -17074,6 +17638,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][0][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[2][0][1].a
         |vpiActual:
@@ -17087,8 +17653,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[2][0][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[2][0][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -17098,6 +17667,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][0][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[2][0][1].b
         |vpiActual:
@@ -17111,8 +17682,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[2][0][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[2][0][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -17122,6 +17696,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][0][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[2][0][1].c
         |vpiActual:
@@ -17130,30 +17706,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[2][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[2][0][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[2][0][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[2][0][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[2][0][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[2][0][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[2][0][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[2][0][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17171,6 +17752,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[2][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[2][1][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[2][1][0].a
     |vpiNet:
@@ -17198,8 +17781,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[2][1][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[2][1][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -17209,6 +17795,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][1][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[2][1][0].a
         |vpiActual:
@@ -17222,8 +17810,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[2][1][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[2][1][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -17233,6 +17824,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][1][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[2][1][0].b
         |vpiActual:
@@ -17246,8 +17839,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[2][1][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[2][1][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -17257,6 +17853,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][1][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[2][1][0].c
         |vpiActual:
@@ -17265,30 +17863,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[2][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[2][1][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[2][1][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[2][1][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[2][1][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[2][1][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[2][1][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[2][1][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17306,6 +17909,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[2][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[2][1][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[2][1][1].a
     |vpiNet:
@@ -17333,8 +17938,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[2][1][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[2][1][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -17344,6 +17952,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][1][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[2][1][1].a
         |vpiActual:
@@ -17357,8 +17967,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[2][1][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[2][1][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -17368,6 +17981,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][1][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[2][1][1].b
         |vpiActual:
@@ -17381,8 +17996,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[2][1][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[2][1][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -17392,6 +18010,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][1][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[2][1][1].c
         |vpiActual:
@@ -17400,30 +18020,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[2][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[2][1][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[2][1][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[2][1][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[2][1][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[2][1][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[2][1][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[2][1][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17441,6 +18066,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[2][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[2][2][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[2][2][0].a
     |vpiNet:
@@ -17468,8 +18095,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[2][2][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[2][2][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -17479,6 +18109,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][2][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[2][2][0].a
         |vpiActual:
@@ -17492,8 +18124,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[2][2][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[2][2][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -17503,6 +18138,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][2][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[2][2][0].b
         |vpiActual:
@@ -17516,8 +18153,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[2][2][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[2][2][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -17527,6 +18167,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][2][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[2][2][0].c
         |vpiActual:
@@ -17535,30 +18177,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[2][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[2][2][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[2][2][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[2][2][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[2][2][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[2][2][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[2][2][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[2][2][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17576,6 +18223,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[2][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[2][2][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[2][2][1].a
     |vpiNet:
@@ -17603,8 +18252,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[2][2][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[2][2][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -17614,6 +18266,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][2][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[2][2][1].a
         |vpiActual:
@@ -17627,8 +18281,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[2][2][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[2][2][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -17638,6 +18295,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][2][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[2][2][1].b
         |vpiActual:
@@ -17651,8 +18310,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[2][2][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[2][2][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -17662,6 +18324,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[2][2][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[2][2][1].c
         |vpiActual:
@@ -17670,30 +18334,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[2][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[2][2][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[2][2][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[2][2][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[2][2][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[2][2][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[2][2][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[2][2][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17711,6 +18380,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[3][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[3][0][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[3][0][0].a
     |vpiNet:
@@ -17738,8 +18409,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[3][0][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[3][0][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -17749,6 +18423,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][0][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[3][0][0].a
         |vpiActual:
@@ -17762,8 +18438,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[3][0][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[3][0][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -17773,6 +18452,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][0][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[3][0][0].b
         |vpiActual:
@@ -17786,8 +18467,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[3][0][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[3][0][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -17797,6 +18481,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][0][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[3][0][0].c
         |vpiActual:
@@ -17805,30 +18491,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[3][0][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[3][0][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[3][0][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[3][0][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[3][0][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[3][0][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[3][0][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[3][0][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17846,6 +18537,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[3][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[3][0][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[3][0][1].a
     |vpiNet:
@@ -17873,8 +18566,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[3][0][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[3][0][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -17884,6 +18580,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][0][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[3][0][1].a
         |vpiActual:
@@ -17897,8 +18595,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[3][0][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[3][0][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -17908,6 +18609,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][0][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[3][0][1].b
         |vpiActual:
@@ -17921,8 +18624,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[3][0][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[3][0][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -17932,6 +18638,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][0][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[3][0][1].c
         |vpiActual:
@@ -17940,30 +18648,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[3][0][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[3][0][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[3][0][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[3][0][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[3][0][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[3][0][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[3][0][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[3][0][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -17981,6 +18694,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[3][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[3][1][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[3][1][0].a
     |vpiNet:
@@ -18008,8 +18723,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[3][1][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[3][1][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -18019,6 +18737,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][1][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[3][1][0].a
         |vpiActual:
@@ -18032,8 +18752,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[3][1][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[3][1][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -18043,6 +18766,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][1][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[3][1][0].b
         |vpiActual:
@@ -18056,8 +18781,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[3][1][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[3][1][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -18067,6 +18795,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][1][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[3][1][0].c
         |vpiActual:
@@ -18075,30 +18805,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[3][1][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[3][1][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[3][1][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[3][1][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[3][1][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[3][1][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[3][1][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[3][1][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -18116,6 +18851,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[3][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[3][1][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[3][1][1].a
     |vpiNet:
@@ -18143,8 +18880,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[3][1][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[3][1][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -18154,6 +18894,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][1][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[3][1][1].a
         |vpiActual:
@@ -18167,8 +18909,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[3][1][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[3][1][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -18178,6 +18923,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][1][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[3][1][1].b
         |vpiActual:
@@ -18191,8 +18938,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[3][1][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[3][1][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -18202,6 +18952,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][1][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[3][1][1].c
         |vpiActual:
@@ -18210,30 +18962,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[3][1][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[3][1][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[3][1][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[3][1][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[3][1][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[3][1][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[3][1][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[3][1][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -18251,6 +19008,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[3][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[3][2][0].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[3][2][0].a
     |vpiNet:
@@ -18278,8 +19037,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[3][2][0].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[3][2][0].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -18289,6 +19051,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][2][0].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[3][2][0].a
         |vpiActual:
@@ -18302,8 +19066,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[3][2][0].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[3][2][0].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -18313,6 +19080,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][2][0].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[3][2][0].b
         |vpiActual:
@@ -18326,8 +19095,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[3][2][0].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[3][2][0].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -18337,6 +19109,8 @@ design: (work@bottom1)
           |UINT:0
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][2][0].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[3][2][0].c
         |vpiActual:
@@ -18345,30 +19119,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[3][2][0]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[3][2][0].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[3][2][0].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[3][2][0].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[3][2][0].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[3][2][0].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[3][2][0].c
         |vpiActual:
         \_logic_net: (work@top.inst[3][2][0].c), line:20:25, endln:20:26
   |vpiModule:
@@ -18386,6 +19165,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst[3][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst[3][2][1].b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst[3][2][1].a
     |vpiNet:
@@ -18413,8 +19194,11 @@ design: (work@bottom1)
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (a), line:29:35, endln:29:36
+      \_bit_select: (work@top.inst[3][2][1].a), line:29:35, endln:29:36
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
+        |vpiFullName:work@top.inst[3][2][1].a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
         |vpiIndex:
@@ -18424,6 +19208,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][2][1].a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst[3][2][1].a
         |vpiActual:
@@ -18437,8 +19223,11 @@ design: (work@bottom1)
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_bit_select: (b), line:29:38, endln:29:39
+      \_bit_select: (work@top.inst[3][2][1].b), line:29:38, endln:29:39
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
+        |vpiFullName:work@top.inst[3][2][1].b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
         |vpiIndex:
@@ -18448,6 +19237,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][2][1].b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst[3][2][1].b
         |vpiActual:
@@ -18461,8 +19252,11 @@ design: (work@bottom1)
       |vpiName:c
       |vpiDirection:2
       |vpiHighConn:
-      \_bit_select: (c), line:29:41, endln:29:42
+      \_bit_select: (work@top.inst[3][2][1].c), line:29:41, endln:29:42
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
+        |vpiFullName:work@top.inst[3][2][1].c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
         |vpiIndex:
@@ -18472,6 +19266,8 @@ design: (work@bottom1)
           |UINT:1
       |vpiLowConn:
       \_ref_obj: (work@top.inst[3][2][1].c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst[3][2][1].c
         |vpiActual:
@@ -18480,30 +19276,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst[3][2][1]), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:29:3, endln:29:44
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst[3][2][1].a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst[3][2][1].a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst[3][2][1].b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst[3][2][1].b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst[3][2][1].c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst[3][2][1].c
         |vpiActual:
         \_logic_net: (work@top.inst[3][2][1].c), line:20:25, endln:20:26
   |vpiModule:
@@ -18521,6 +19322,8 @@ design: (work@bottom1)
       \_module_inst: work@my_module (work@top.inst1), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:30:3, endln:30:30
       |vpiTypespec:
       \_logic_typespec: , line:21:7, endln:21:7
+        |vpiParent:
+        \_logic_net: (work@top.inst1.b), line:20:22, endln:20:23
       |vpiName:a
       |vpiFullName:work@top.inst1.a
     |vpiNet:
@@ -18549,12 +19352,16 @@ design: (work@bottom1)
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (work@top.a), line:30:21, endln:30:22
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiActual:
         \_logic_net: (work@top.a), line:26:13, endln:26:14
       |vpiLowConn:
       \_ref_obj: (work@top.inst1.a), line:20:19, endln:20:20
+        |vpiParent:
+        \_port: (a), line:20:19, endln:20:20
         |vpiName:a
         |vpiFullName:work@top.inst1.a
         |vpiActual:
@@ -18569,12 +19376,16 @@ design: (work@bottom1)
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (work@top.b), line:30:24, endln:30:25
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiActual:
         \_logic_net: (work@top.b), line:26:16, endln:26:17
       |vpiLowConn:
       \_ref_obj: (work@top.inst1.b), line:20:22, endln:20:23
+        |vpiParent:
+        \_port: (b), line:20:22, endln:20:23
         |vpiName:b
         |vpiFullName:work@top.inst1.b
         |vpiActual:
@@ -18589,12 +19400,16 @@ design: (work@bottom1)
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@top.c), line:30:27, endln:30:28
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.c
         |vpiActual:
         \_logic_net: (work@top.c), line:26:19, endln:26:20
       |vpiLowConn:
       \_ref_obj: (work@top.inst1.c), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (c), line:20:25, endln:20:26
         |vpiName:c
         |vpiFullName:work@top.inst1.c
         |vpiActual:
@@ -18603,30 +19418,35 @@ design: (work@bottom1)
       \_logic_typespec: , line:22:8, endln:22:8
     |vpiContAssign:
     \_cont_assign: , line:23:10, endln:23:19
+      |vpiParent:
+      \_module_inst: work@my_module (work@top.inst1), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:30:3, endln:30:30
       |vpiRhs:
       \_operation: , line:23:14, endln:23:19
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (a), line:23:14, endln:23:15
+        \_ref_obj: (work@top.inst1.a), line:23:14, endln:23:15
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:a
+          |vpiFullName:work@top.inst1.a
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].a), line:20:19, endln:20:20
+          \_logic_net: (work@my_module.a), line:20:19, endln:20:20
         |vpiOperand:
-        \_ref_obj: (b), line:23:18, endln:23:19
+        \_ref_obj: (work@top.inst1.b), line:23:18, endln:23:19
           |vpiParent:
           \_operation: , line:23:14, endln:23:19
           |vpiName:b
+          |vpiFullName:work@top.inst1.b
           |vpiActual:
-          \_logic_net: (work@top.inst[0][0][0].b), line:20:22, endln:20:23
+          \_logic_net: (work@my_module.b), line:20:22, endln:20:23
       |vpiLhs:
-      \_ref_obj: (c), line:23:10, endln:23:11
+      \_ref_obj: (work@top.inst1.c), line:23:10, endln:23:11
         |vpiParent:
         \_cont_assign: , line:23:10, endln:23:19
         |vpiName:c
+        |vpiFullName:work@top.inst1.c
         |vpiActual:
         \_logic_net: (work@top.inst1.c), line:20:25, endln:20:26
   |vpiModuleArray:
@@ -18771,6 +19591,8 @@ design: (work@bottom1)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
     |vpiRhs:
     \_constant: , line:37:22, endln:37:23
+      |vpiParent:
+      \_param_assign: , line:37:13, endln:37:23
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -18785,6 +19607,8 @@ design: (work@bottom1)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnitElab/top.v, line:35:1, endln:76:10
     |vpiRhs:
     \_constant: , line:38:22, endln:38:23
+      |vpiParent:
+      \_param_assign: , line:38:13, endln:38:23
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -18816,6 +19640,8 @@ design: (work@bottom1)
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: (work@test.a), line:35:13, endln:35:14
+      |vpiParent:
+      \_port: (a), line:35:13, endln:35:14
       |vpiName:a
       |vpiFullName:work@test.a
       |vpiActual:
@@ -18828,6 +19654,8 @@ design: (work@bottom1)
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: (work@test.b), line:35:16, endln:35:17
+      |vpiParent:
+      \_port: (b), line:35:16, endln:35:17
       |vpiName:b
       |vpiFullName:work@test.b
       |vpiActual:
@@ -19159,6 +19987,8 @@ design: (work@bottom1)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:34, endln:8:37
+        |vpiParent:
+        \_param_assign: , line:8:27, endln:8:37
         |vpiDecompile:10
         |vpiSize:4
         |UINT:10
@@ -19174,6 +20004,8 @@ design: (work@bottom1)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:9:22, endln:9:23
+        |vpiParent:
+        \_param_assign: , line:9:14, endln:9:23
         |vpiDecompile:2
         |vpiSize:32
         |UINT:2
@@ -19188,6 +20020,8 @@ design: (work@bottom1)
       \_module_inst: work@small_test (work@small_top.u1), file:${SURELOG_DIR}/tests/UnitElab/small.v, line:2:4, endln:2:29
       |vpiRhs:
       \_constant: , line:10:16, endln:10:23
+        |vpiParent:
+        \_param_assign: , line:10:11, endln:10:23
         |vpiDecompile:13'b100
         |vpiSize:13
         |BIN:100

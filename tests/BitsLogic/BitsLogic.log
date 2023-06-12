@@ -210,7 +210,7 @@ logic_typespec                                         6
 logic_var                                              1
 module_inst                                            5
 operation                                              2
-package                                                3
+package                                                2
 packed_array_typespec                                  1
 param_assign                                           2
 parameter                                              2
@@ -229,7 +229,7 @@ logic_typespec                                         6
 logic_var                                              1
 module_inst                                            5
 operation                                              2
-package                                                3
+package                                                2
 packed_array_typespec                                  1
 param_assign                                           2
 parameter                                              2
@@ -310,6 +310,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiRhs:
     \_constant: , line:24:15, endln:24:38
+      |vpiParent:
+      \_param_assign: , line:24:11, endln:24:38
       |vpiDecompile:12
       |vpiSize:32
       |UINT:12
@@ -340,7 +342,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:16:15, endln:16:22
           |vpiParent:
-          \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+          \_logic_typespec: , line:16:9, endln:16:22
           |vpiLeftRange:
           \_constant: , line:16:16, endln:16:17
             |vpiParent:
@@ -374,7 +376,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:17:28, endln:17:35
           |vpiParent:
-          \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+          \_packed_array_typespec: , line:17:9, endln:17:27
           |vpiLeftRange:
           \_constant: , line:17:29, endln:17:30
             |vpiParent:
@@ -410,7 +412,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:20:15, endln:20:22
           |vpiParent:
-          \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+          \_logic_typespec: , line:20:9, endln:20:22
           |vpiLeftRange:
           \_constant: , line:20:16, endln:20:17
             |vpiParent:
@@ -444,7 +446,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:21:15, endln:21:21
           |vpiParent:
-          \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+          \_logic_typespec: , line:21:9, endln:21:21
           |vpiLeftRange:
           \_constant: , line:21:16, endln:21:17
             |vpiParent:
@@ -483,8 +485,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiTypespec:
     \_logic_typespec: , line:26:1, endln:26:14
+      |vpiParent:
+      \_logic_var: (work@top.b), line:26:15, endln:26:16
       |vpiRange:
       \_range: , line:26:7, endln:26:14
+        |vpiParent:
+        \_logic_typespec: , line:26:1, endln:26:14
         |vpiLeftRange:
         \_constant: , line:26:8, endln:26:9
           |vpiParent:
@@ -506,6 +512,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:26:7, endln:26:14
+      |vpiParent:
+      \_logic_var: (work@top.b), line:26:15, endln:26:16
       |vpiLeftRange:
       \_constant: , line:26:8, endln:26:9
         |vpiParent:
@@ -539,6 +547,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiRhs:
     \_constant: , line:24:15, endln:24:38
+      |vpiParent:
+      \_param_assign: , line:24:11, endln:24:38
       |vpiDecompile:12
       |vpiSize:32
       |UINT:12

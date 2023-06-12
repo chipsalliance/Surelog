@@ -246,7 +246,7 @@ design: (work@dut)
         |vpiParent:
         \_parameter: (work@dut.pmp_cfg_rst), line:14:22, endln:14:33
         |vpiLeftRange:
-        \_constant: , line:14:34, endln:14:35
+        \_constant: 
           |vpiParent:
           \_range: , line:14:34, endln:14:35
           |vpiDecompile:0
@@ -260,6 +260,8 @@ design: (work@dut)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:14:34, endln:14:35
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
@@ -316,6 +318,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OpTypespec/dut.sv, line:8:1, endln:21:10
     |vpiRhs:
     \_operation: , line:14:39, endln:16:2
+      |vpiParent:
+      \_param_assign: , line:14:22, endln:16:2
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:15:3, endln:15:28
@@ -324,6 +328,8 @@ design: (work@dut)
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:15:11, endln:15:15
+          |vpiParent:
+          \_operation: , line:15:3, endln:15:28
           |vpiPattern:
           \_constant: , line:15:11, endln:15:15
             |vpiDecompile:1'b0
@@ -332,9 +338,13 @@ design: (work@dut)
             |vpiConstType:3
           |vpiTypespec:
           \_string_typespec: (lock), line:15:5, endln:15:9
+            |vpiParent:
+            \_tagged_pattern: , line:15:11, endln:15:15
             |vpiName:lock
         |vpiOperand:
         \_tagged_pattern: , line:15:23, endln:15:27
+          |vpiParent:
+          \_operation: , line:15:3, endln:15:28
           |vpiPattern:
           \_constant: , line:15:23, endln:15:27
             |vpiDecompile:1'b0
@@ -343,6 +353,8 @@ design: (work@dut)
             |vpiConstType:3
           |vpiTypespec:
           \_string_typespec: (read), line:15:17, endln:15:21
+            |vpiParent:
+            \_tagged_pattern: , line:15:23, endln:15:27
             |vpiName:read
     |vpiLhs:
     \_parameter: (work@dut.pmp_cfg_rst), line:14:22, endln:14:33
@@ -373,18 +385,21 @@ design: (work@dut)
       \_parameter: (work@ibex_csr.ResetValue), line:2:27, endln:2:37
       |vpiRange:
       \_range: , line:2:15, endln:2:26
+        |vpiParent:
+        \_bit_typespec: , line:2:11, endln:2:26
         |vpiLeftRange:
         \_operation: , line:2:16, endln:2:23
           |vpiParent:
           \_range: , line:2:15, endln:2:26
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (Width), line:2:16, endln:2:21
+          \_ref_obj: (work@ibex_csr.ResetValue.Width), line:2:16, endln:2:21
             |vpiParent:
             \_operation: , line:2:16, endln:2:23
             |vpiName:Width
+            |vpiFullName:work@ibex_csr.ResetValue.Width
             |vpiActual:
-            \_logic_net: (Width)
+            \_logic_net: (work@ibex_csr.Width), line:2:16, endln:2:21
           |vpiOperand:
           \_constant: , line:2:22, endln:2:23
             |vpiParent:
@@ -409,6 +424,8 @@ design: (work@dut)
     \_module_inst: work@ibex_csr (work@ibex_csr), file:${SURELOG_DIR}/tests/OpTypespec/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:2:40, endln:2:42
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:42
       |vpiDecompile:'0
       |vpiSize:1
       |BIN:0
@@ -418,6 +435,13 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@ibex_csr.ResetValue), line:2:27, endln:2:37
   |vpiDefName:work@ibex_csr
+  |vpiNet:
+  \_logic_net: (work@ibex_csr.Width), line:2:16, endln:2:21
+    |vpiParent:
+    \_module_inst: work@ibex_csr (work@ibex_csr), file:${SURELOG_DIR}/tests/OpTypespec/dut.sv, line:1:1, endln:6:10
+    |vpiName:Width
+    |vpiFullName:work@ibex_csr.Width
+    |vpiNetType:1
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OpTypespec/dut.sv, line:8:1, endln:21:10
   |vpiName:work@dut
@@ -435,7 +459,7 @@ design: (work@dut)
         |vpiParent:
         \_array_typespec: 
         |vpiLeftRange:
-        \_constant: , line:14:34, endln:14:35
+        \_constant: 
           |vpiParent:
           \_range: , line:14:34, endln:14:35
           |vpiDecompile:0
@@ -503,7 +527,7 @@ design: (work@dut)
       |vpiParent:
       \_parameter: (work@dut.pmp_cfg_rst), line:14:22, endln:14:33
       |vpiLeftRange:
-      \_constant: , line:14:34, endln:14:35
+      \_constant: 
         |vpiParent:
         \_range: , line:14:34, endln:14:35
         |vpiDecompile:0
@@ -550,7 +574,7 @@ design: (work@dut)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:14:34, endln:14:35
+          \_constant: 
             |vpiParent:
             \_range: , line:14:34, endln:14:35
             |vpiDecompile:0
@@ -615,7 +639,7 @@ design: (work@dut)
       |vpiOperand:
       \_constant: , line:15:11, endln:15:15
         |vpiParent:
-        \_tagged_pattern: , line:15:11, endln:15:15
+        \_operation: , line:15:3, endln:15:28
         |vpiDecompile:1'b0
         |vpiSize:2
         |BIN:0
@@ -623,7 +647,7 @@ design: (work@dut)
       |vpiOperand:
       \_constant: , line:15:23, endln:15:27
         |vpiParent:
-        \_tagged_pattern: , line:15:23, endln:15:27
+        \_operation: , line:15:3, endln:15:28
         |vpiDecompile:1'b0
         |vpiSize:2
         |BIN:0
@@ -666,7 +690,7 @@ design: (work@dut)
               |vpiName:Width
               |vpiFullName:work@dut.u_pmp_cfg_csr.ResetValue.Width
               |vpiActual:
-              \_logic_net: (Width)
+              \_logic_net: (work@ibex_csr.Width), line:2:16, endln:2:21
             |vpiOperand:
             \_constant: , line:2:22, endln:2:23
               |vpiParent:
@@ -732,7 +756,7 @@ design: (work@dut)
         |vpiOperand:
         \_constant: , line:15:11, endln:15:15
           |vpiParent:
-          \_tagged_pattern: , line:15:11, endln:15:15
+          \_operation: , line:15:3, endln:15:28
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -740,7 +764,7 @@ design: (work@dut)
         |vpiOperand:
         \_constant: , line:15:23, endln:15:27
           |vpiParent:
-          \_tagged_pattern: , line:15:23, endln:15:27
+          \_operation: , line:15:3, endln:15:28
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -750,10 +774,6 @@ design: (work@dut)
     |vpiDefName:work@ibex_csr
     |vpiDefFile:${SURELOG_DIR}/tests/OpTypespec/dut.sv
     |vpiDefLineNo:1
-    |vpiNet:
-    \_logic_net: (Width)
-      |vpiName:Width
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OpTypespec/dut.sv, line:8:1, endln:21:10
 ===================

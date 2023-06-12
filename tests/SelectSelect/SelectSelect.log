@@ -522,11 +522,14 @@ design: (work@adc_ctrl_core)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/SelectSelect/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -551,10 +554,13 @@ design: (work@adc_ctrl_core)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -579,7 +585,10 @@ design: (work@adc_ctrl_core)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -609,10 +618,13 @@ design: (work@adc_ctrl_core)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -643,10 +655,13 @@ design: (work@adc_ctrl_core)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -713,11 +728,14 @@ design: (work@adc_ctrl_core)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/SelectSelect/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -727,7 +745,9 @@ design: (work@adc_ctrl_core)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -735,34 +755,45 @@ design: (work@adc_ctrl_core)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -808,11 +839,14 @@ design: (work@adc_ctrl_core)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/SelectSelect/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -883,10 +917,13 @@ design: (work@adc_ctrl_core)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -928,7 +965,7 @@ design: (work@adc_ctrl_core)
         |vpiRange:
         \_range: , line:3:13, endln:3:18
           |vpiParent:
-          \_struct_typespec: (filter_ctl_t), line:2:12, endln:2:18
+          \_logic_typespec: , line:3:7, endln:3:18
           |vpiLeftRange:
           \_constant: , line:3:14, endln:3:15
             |vpiParent:
@@ -976,6 +1013,8 @@ design: (work@adc_ctrl_core)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:6:17, endln:6:22
+      |vpiParent:
+      \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
       |vpiLeftRange:
       \_constant: , line:6:18, endln:6:19
         |vpiParent:
@@ -994,6 +1033,8 @@ design: (work@adc_ctrl_core)
         |vpiConstType:9
     |vpiRange:
     \_range: , line:6:22, endln:6:27
+      |vpiParent:
+      \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
       |vpiLeftRange:
       \_constant: , line:6:23, endln:6:24
         |vpiParent:
@@ -1023,8 +1064,12 @@ design: (work@adc_ctrl_core)
     \_module_inst: work@adc_ctrl_core (work@adc_ctrl_core), file:${SURELOG_DIR}/tests/SelectSelect/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:7:4, endln:7:15
+      |vpiParent:
+      \_logic_var: (work@adc_ctrl_core.x), line:7:16, endln:7:33
       |vpiRange:
       \_range: , line:7:10, endln:7:15
+        |vpiParent:
+        \_logic_typespec: , line:7:4, endln:7:15
         |vpiLeftRange:
         \_constant: , line:7:11, endln:7:12
           |vpiParent:
@@ -1046,6 +1091,8 @@ design: (work@adc_ctrl_core)
     |vpiVisibility:1
     |vpiExpr:
     \_hier_path: (a[0][0].min_v), line:7:20, endln:7:33
+      |vpiParent:
+      \_logic_var: (work@adc_ctrl_core.x), line:7:16, endln:7:33
       |vpiName:a[0][0].min_v
       |vpiActual:
       \_bit_select: (a[0]), line:7:20, endln:7:21
@@ -1073,12 +1120,15 @@ design: (work@adc_ctrl_core)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (min_v), line:7:28, endln:7:33
+      \_ref_obj: (work@adc_ctrl_core.x.min_v), line:7:28, endln:7:33
         |vpiParent:
         \_hier_path: (a[0][0].min_v), line:7:20, endln:7:33
         |vpiName:min_v
+        |vpiFullName:work@adc_ctrl_core.x.min_v
     |vpiRange:
     \_range: , line:7:10, endln:7:15
+      |vpiParent:
+      \_logic_var: (work@adc_ctrl_core.x), line:7:16, endln:7:33
       |vpiLeftRange:
       \_constant: , line:7:11, endln:7:12
         |vpiParent:

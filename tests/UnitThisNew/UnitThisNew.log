@@ -601,9 +601,9 @@ logic_var                                              1
 method_func_call                                      10
 module_inst                                            2
 operation                                              4
-package                                                5
+package                                                4
 range                                                  2
-ref_obj                                               28
+ref_obj                                               26
 ref_var                                                6
 return_stmt                                            4
 string_typespec                                        4
@@ -639,13 +639,13 @@ logic_var                                              1
 method_func_call                                      20
 module_inst                                            2
 operation                                              8
-package                                                5
+package                                                4
 range                                                  2
-ref_obj                                               56
+ref_obj                                               54
 ref_var                                               10
 return_stmt                                            8
 string_typespec                                        4
-string_var                                             6
+string_var                                             8
 task                                                  18
 unsupported_typespec                                  12
 === UHDM Object Stats End ===
@@ -686,6 +686,15 @@ design: (unnamed)
     |vpiName:uvm_string_to_action
     |vpiFullName:toto::uvm_string_to_action
     |vpiVariables:
+    \_string_var: (toto::uvm_string_to_action), line:4:14, endln:4:21
+      |vpiParent:
+      \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
+      |vpiTypespec:
+      \_string_typespec: , line:4:7, endln:4:13
+        |vpiInstance:
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_string_to_action
+    |vpiVariables:
     \_array_var: (toto::uvm_string_to_action::actions), line:4:14, endln:4:21
       |vpiParent:
       \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
@@ -693,8 +702,10 @@ design: (unnamed)
       \_array_typespec: , line:4:22, endln:4:23
         |vpiRange:
         \_range: , line:4:22, endln:4:23
+          |vpiParent:
+          \_array_typespec: , line:4:22, endln:4:23
           |vpiLeftRange:
-          \_constant: , line:4:22, endln:4:23
+          \_constant: 
             |vpiParent:
             \_range: , line:4:22, endln:4:23
             |vpiDecompile:0
@@ -711,8 +722,6 @@ design: (unnamed)
             |vpiConstType:10
         |vpiElemTypespec:
         \_string_typespec: , line:4:7, endln:4:13
-          |vpiInstance:
-          \_package: (toto)
       |vpiName:actions
       |vpiFullName:toto::uvm_string_to_action::actions
       |vpiArrayType:4
@@ -742,11 +751,14 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_bit_var: , line:3:23, endln:3:26
+    \_bit_var: (toto::uvm_string_to_action), line:3:23, endln:3:26
+      |vpiParent:
+      \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
       |vpiTypespec:
       \_bit_typespec: , line:3:23, endln:3:26
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_string_to_action
     |vpiIODecl:
     \_io_decl: (action_str), line:3:56, endln:3:66
       |vpiParent:
@@ -756,7 +768,7 @@ design: (unnamed)
       |vpiTypedef:
       \_string_typespec: , line:3:49, endln:3:55
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiIODecl:
     \_io_decl: (action), line:3:86, endln:3:92
       |vpiParent:
@@ -767,7 +779,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_action), line:3:75, endln:3:85
         |vpiName:uvm_action
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiInstance:
     \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
   |vpiTaskFunc:
@@ -778,12 +790,15 @@ design: (unnamed)
     |vpiFullName:toto::uvm_object::clone
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: , line:7:14, endln:7:24
+    \_ref_var: (toto::uvm_object::clone), line:7:14, endln:7:24
+      |vpiParent:
+      \_function: (toto::uvm_object::clone), line:7:5, endln:13:16
       |vpiTypespec:
       \_unsupported_typespec: (uvm_object), line:7:14, endln:7:24
         |vpiName:uvm_object
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_object::clone
     |vpiStmt:
     \_begin: (toto::uvm_object::clone)
       |vpiParent:
@@ -846,12 +861,15 @@ design: (unnamed)
     |vpiFullName:toto::m_initialize
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: , line:16:10, endln:16:19
+    \_ref_var: (toto::m_initialize), line:16:10, endln:16:19
+      |vpiParent:
+      \_function: (toto::m_initialize), line:16:1, endln:22:13
       |vpiTypespec:
       \_unsupported_typespec: (this_type), line:16:10, endln:16:19
         |vpiName:this_type
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::m_initialize
     |vpiStmt:
     \_begin: (toto::m_initialize)
       |vpiParent:
@@ -956,7 +974,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_reg_field), line:25:34, endln:25:47
         |vpiName:uvm_reg_field
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_if_stmt: , line:27:4, endln:28:7
       |vpiParent:
@@ -996,11 +1014,14 @@ design: (unnamed)
     |vpiFullName:toto::uvm_transaction::is_recording_enabled
     |vpiVisibility:1
     |vpiReturn:
-    \_bit_var: , line:32:10, endln:32:13
+    \_bit_var: (toto::uvm_transaction::is_recording_enabled), line:32:10, endln:32:13
+      |vpiParent:
+      \_function: (toto::uvm_transaction::is_recording_enabled), line:32:1, endln:34:12
       |vpiTypespec:
       \_bit_typespec: , line:32:10, endln:32:13
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_transaction::is_recording_enabled
     |vpiStmt:
     \_return_stmt: , line:33:3, endln:33:9
       |vpiParent:
@@ -1049,7 +1070,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_reg), line:37:7, endln:37:14
         |vpiName:uvm_reg
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
       |vpiName:rg
       |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
       |vpiActual:
@@ -1065,7 +1086,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_object), line:36:53, endln:36:63
         |vpiName:uvm_object
         |vpiInstance:
-        \_package: (toto)
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
     |vpiStmt:
     \_begin: (toto::uvm_reg_backdoor::start_update_thread)
       |vpiParent:
@@ -1169,6 +1190,15 @@ design: (unnamed)
     |vpiName:uvm_string_to_action
     |vpiFullName:toto::uvm_string_to_action
     |vpiVariables:
+    \_string_var: (toto::uvm_string_to_action), line:4:14, endln:4:21
+      |vpiParent:
+      \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
+      |vpiTypespec:
+      \_string_typespec: , line:4:7, endln:4:13
+        |vpiInstance:
+        \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_string_to_action
+    |vpiVariables:
     \_array_var: (toto::uvm_string_to_action::actions), line:4:14, endln:4:21
       |vpiParent:
       \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
@@ -1176,8 +1206,10 @@ design: (unnamed)
       \_array_typespec: , line:4:22, endln:4:23
         |vpiRange:
         \_range: , line:4:22, endln:4:23
+          |vpiParent:
+          \_array_typespec: , line:4:22, endln:4:23
           |vpiLeftRange:
-          \_constant: , line:4:22, endln:4:23
+          \_constant: 
             |vpiParent:
             \_range: , line:4:22, endln:4:23
             |vpiDecompile:0
@@ -1194,8 +1226,6 @@ design: (unnamed)
             |vpiConstType:10
         |vpiElemTypespec:
         \_string_typespec: , line:4:7, endln:4:13
-          |vpiInstance:
-          \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
       |vpiName:actions
       |vpiFullName:toto::uvm_string_to_action::actions
       |vpiArrayType:4
@@ -1225,11 +1255,14 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_bit_var: , line:3:23, endln:3:26
+    \_bit_var: (toto::uvm_string_to_action), line:3:23, endln:3:26
+      |vpiParent:
+      \_function: (toto::uvm_string_to_action), line:3:4, endln:5:16
       |vpiTypespec:
       \_bit_typespec: , line:3:23, endln:3:26
         |vpiInstance:
         \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_string_to_action
     |vpiIODecl:
     \_io_decl: (action_str), line:3:56, endln:3:66
       |vpiParent:
@@ -1261,12 +1294,15 @@ design: (unnamed)
     |vpiFullName:toto::uvm_object::clone
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: , line:7:14, endln:7:24
+    \_ref_var: (toto::uvm_object::clone), line:7:14, endln:7:24
+      |vpiParent:
+      \_function: (toto::uvm_object::clone), line:7:5, endln:13:16
       |vpiTypespec:
       \_unsupported_typespec: (uvm_object), line:7:14, endln:7:24
         |vpiName:uvm_object
         |vpiInstance:
         \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_object::clone
     |vpiStmt:
     \_begin: (toto::uvm_object::clone)
       |vpiParent:
@@ -1329,12 +1365,15 @@ design: (unnamed)
     |vpiFullName:toto::m_initialize
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: , line:16:10, endln:16:19
+    \_ref_var: (toto::m_initialize), line:16:10, endln:16:19
+      |vpiParent:
+      \_function: (toto::m_initialize), line:16:1, endln:22:13
       |vpiTypespec:
       \_unsupported_typespec: (this_type), line:16:10, endln:16:19
         |vpiName:this_type
         |vpiInstance:
         \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::m_initialize
     |vpiStmt:
     \_begin: (toto::m_initialize)
       |vpiParent:
@@ -1479,11 +1518,14 @@ design: (unnamed)
     |vpiFullName:toto::uvm_transaction::is_recording_enabled
     |vpiVisibility:1
     |vpiReturn:
-    \_bit_var: , line:32:10, endln:32:13
+    \_bit_var: (toto::uvm_transaction::is_recording_enabled), line:32:10, endln:32:13
+      |vpiParent:
+      \_function: (toto::uvm_transaction::is_recording_enabled), line:32:1, endln:34:12
       |vpiTypespec:
       \_bit_typespec: , line:32:10, endln:32:13
         |vpiInstance:
         \_package: toto (toto::), file:${SURELOG_DIR}/tests/UnitThisNew/dut.sv, line:1:1, endln:44:11
+      |vpiFullName:toto::uvm_transaction::is_recording_enabled
     |vpiStmt:
     \_return_stmt: , line:33:3, endln:33:9
       |vpiParent:
@@ -1612,11 +1654,14 @@ design: (unnamed)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitThisNew/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -1641,10 +1686,13 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1669,7 +1717,10 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -1699,10 +1750,13 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1733,10 +1787,13 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -1803,11 +1860,14 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitThisNew/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1817,7 +1877,9 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -1825,34 +1887,45 @@ design: (unnamed)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1898,11 +1971,14 @@ design: (unnamed)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitThisNew/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1973,10 +2049,13 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)

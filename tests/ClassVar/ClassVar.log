@@ -161,7 +161,7 @@ design                                                 1
 foreach_stmt                                           1
 function                                               1
 hier_path                                              1
-package                                                3
+package                                                2
 range                                                  2
 ref_obj                                                3
 ref_var                                                2
@@ -182,13 +182,13 @@ begin                                                  4
 bit_select                                             4
 class_defn                                             2
 class_typespec                                         4
-class_var                                              6
+class_var                                              7
 constant                                               5
 design                                                 1
 foreach_stmt                                           2
 function                                               2
 hier_path                                              2
-package                                                3
+package                                                2
 range                                                  2
 ref_obj                                                6
 ref_var                                                4
@@ -318,8 +318,10 @@ design: (unnamed)
         \_array_typespec: , line:14:29, endln:14:30
           |vpiRange:
           \_range: , line:14:29, endln:14:30
+            |vpiParent:
+            \_array_typespec: , line:14:29, endln:14:30
             |vpiLeftRange:
-            \_constant: , line:14:29, endln:14:30
+            \_constant: 
               |vpiParent:
               \_range: , line:14:29, endln:14:30
               |vpiDecompile:0
@@ -356,6 +358,13 @@ design: (unnamed)
         |vpiParent:
         \_function: (pack::uvm_mem_mam::check_reg), line:13:1, endln:13:10
         |vpiFullName:pack::uvm_mem_mam::check_reg
+        |vpiVariables:
+        \_class_var: (pack::uvm_mem_mam::check_reg), line:14:23, endln:14:28
+          |vpiParent:
+          \_begin: (pack::uvm_mem_mam::check_reg)
+          |vpiTypespec:
+          \_class_typespec: 
+          |vpiFullName:pack::uvm_mem_mam::check_reg
         |vpiVariables:
         \_array_var: (pack::uvm_mem_mam::check_reg::paths), line:14:23, endln:14:28
           |vpiParent:

@@ -178,7 +178,7 @@ enum_typespec                                          2
 logic_net                                              2
 logic_typespec                                         4
 module_inst                                            5
-package                                                6
+package                                                4
 port                                                   4
 range                                                  2
 ref_obj                                                6
@@ -199,7 +199,7 @@ enum_typespec                                          2
 logic_net                                              2
 logic_typespec                                         4
 module_inst                                            5
-package                                                6
+package                                                4
 port                                                   6
 range                                                  2
 ref_obj                                               10
@@ -271,6 +271,8 @@ design: (work@top)
       \_package: fooes (fooes::), file:${SURELOG_DIR}/tests/FileTypespec/dut.sv, line:8:1, endln:14:19
       |vpiRange:
       \_range: , line:10:22, endln:10:27
+        |vpiParent:
+        \_logic_typespec: , line:10:16, endln:10:27
         |vpiLeftRange:
         \_constant: , line:10:23, endln:10:24
           |vpiParent:
@@ -289,6 +291,8 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (a), line:11:5, endln:11:6
+      |vpiParent:
+      \_enum_typespec: (fooes::classes), line:10:3, endln:12:13
       |vpiName:a
       |INT:0
       |vpiDecompile:0
@@ -345,6 +349,8 @@ design: (work@top)
       \_package: fooes (fooes::), file:${SURELOG_DIR}/tests/FileTypespec/dut.sv, line:8:1, endln:14:19
       |vpiRange:
       \_range: , line:10:22, endln:10:27
+        |vpiParent:
+        \_logic_typespec: , line:10:16, endln:10:27
         |vpiLeftRange:
         \_constant: , line:10:23, endln:10:24
           |vpiParent:
@@ -363,6 +369,8 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (a), line:11:5, endln:11:6
+      |vpiParent:
+      \_enum_typespec: (fooes::classes), line:10:3, endln:12:13
       |vpiName:a
       |INT:0
       |vpiDecompile:0
@@ -394,13 +402,15 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.a.a)
+      |vpiParent:
+      \_port: (a), line:25:29, endln:25:30
+      |vpiName:a
+      |vpiFullName:work@top.a.a
       |vpiActual:
       \_logic_net: (work@top.a), line:25:29, endln:25:30
     |vpiTypedef:
     \_union_typespec: (top_flag_t), line:20:9, endln:20:14
-      |vpiParent:
-      \_design: (work@top)
       |vpiName:top_flag_t
       |vpiInstance:
       \_design: (work@top)
@@ -454,7 +464,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.b.b)
+      |vpiParent:
+      \_port: (b), line:25:51, endln:25:52
+      |vpiName:b
+      |vpiFullName:work@top.b.b
       |vpiActual:
       \_logic_net: (work@top.b), line:25:51, endln:25:52
     |vpiTypedef:
@@ -470,7 +484,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_union_var: (work@top.a), line:25:29, endln:25:30
+      \_logic_net: (work@top.a), line:25:29, endln:25:30
     |vpiLhs:
     \_ref_obj: (work@top.b), line:26:10, endln:26:11
       |vpiParent:
@@ -478,7 +492,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_union_var: (work@top.b), line:25:51, endln:25:52
+      \_logic_net: (work@top.b), line:25:51, endln:25:52
 |vpiTypedef:
 \_struct_typespec: (padded_fooes_t), line:16:9, endln:16:15
 |vpiTypedef:
@@ -554,7 +568,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_union_var: (work@top.a), line:25:29, endln:25:30
+      \_logic_net: (work@top.a), line:25:29, endln:25:30
     |vpiLhs:
     \_ref_obj: (work@top.b), line:26:10, endln:26:11
       |vpiParent:
@@ -562,7 +576,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_union_var: (work@top.b), line:25:51, endln:25:52
+      \_logic_net: (work@top.b), line:25:51, endln:25:52
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

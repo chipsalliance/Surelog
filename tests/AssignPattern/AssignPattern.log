@@ -127,6 +127,20 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.oo), line:2:11, endln:2:13
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPattern/dut.sv, line:1:1, endln:4:10
+    |vpiName:oo
+    |vpiFullName:work@top.oo
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.uu), line:3:11, endln:3:13
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPattern/dut.sv, line:1:1, endln:4:10
+    |vpiName:uu
+    |vpiFullName:work@top.uu
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:22
     |vpiParent:
@@ -138,6 +152,8 @@ design: (work@top)
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:2:20, endln:2:21
+        |vpiParent:
+        \_operation: , line:2:16, endln:2:22
         |vpiPattern:
         \_constant: , line:2:20, endln:2:21
           |vpiDecompile:1
@@ -154,7 +170,7 @@ design: (work@top)
       |vpiName:oo
       |vpiFullName:work@top.oo
       |vpiActual:
-      \_logic_net: (oo)
+      \_logic_net: (work@top.oo), line:2:11, endln:2:13
   |vpiContAssign:
   \_cont_assign: , line:3:11, endln:3:23
     |vpiParent:
@@ -177,8 +193,6 @@ design: (work@top)
         |vpiOpType:33
         |vpiOperand:
         \_constant: , line:3:20, endln:3:21
-          |vpiParent:
-          \_operation: , line:3:20, endln:3:21
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -190,20 +204,12 @@ design: (work@top)
       |vpiName:uu
       |vpiFullName:work@top.uu
       |vpiActual:
-      \_logic_net: (uu)
+      \_logic_net: (work@top.uu), line:3:11, endln:3:13
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPattern/dut.sv, line:1:1, endln:4:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (oo)
-    |vpiName:oo
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (uu)
-    |vpiName:uu
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:22
@@ -223,7 +229,7 @@ design: (work@top)
       |vpiName:oo
       |vpiFullName:work@top.oo
       |vpiActual:
-      \_logic_net: (oo)
+      \_logic_net: (work@top.oo), line:2:11, endln:2:13
   |vpiContAssign:
   \_cont_assign: , line:3:11, endln:3:23
     |vpiParent:
@@ -249,7 +255,7 @@ design: (work@top)
       |vpiName:uu
       |vpiFullName:work@top.uu
       |vpiActual:
-      \_logic_net: (uu)
+      \_logic_net: (work@top.uu), line:3:11, endln:3:13
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

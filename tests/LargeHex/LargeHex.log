@@ -669,11 +669,14 @@ design: (work@tlul_socket_1n)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/LargeHex/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -698,10 +701,13 @@ design: (work@tlul_socket_1n)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -726,7 +732,10 @@ design: (work@tlul_socket_1n)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -756,10 +765,13 @@ design: (work@tlul_socket_1n)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -790,10 +802,13 @@ design: (work@tlul_socket_1n)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -860,11 +875,14 @@ design: (work@tlul_socket_1n)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/LargeHex/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -874,7 +892,9 @@ design: (work@tlul_socket_1n)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -882,34 +902,45 @@ design: (work@tlul_socket_1n)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -955,11 +986,14 @@ design: (work@tlul_socket_1n)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/LargeHex/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1030,10 +1064,13 @@ design: (work@tlul_socket_1n)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1072,6 +1109,8 @@ design: (work@tlul_socket_1n)
     \_module_inst: work@tlul_fifo_sync (work@tlul_fifo_sync), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: , line:1:59, endln:1:60
+      |vpiParent:
+      \_param_assign: , line:1:48, endln:1:60
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1104,6 +1143,8 @@ design: (work@tlul_socket_1n)
       \_parameter: (work@tlul_socket_1n.DReqDepth), line:7:27, endln:7:36
       |vpiRange:
       \_range: , line:7:20, endln:7:26
+        |vpiParent:
+        \_bit_typespec: , line:7:16, endln:7:26
         |vpiLeftRange:
         \_constant: , line:7:21, endln:7:23
           |vpiParent:
@@ -1148,6 +1189,8 @@ design: (work@tlul_socket_1n)
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
     \_constant: , line:7:39, endln:7:60
+      |vpiParent:
+      \_param_assign: , line:7:27, endln:7:60
       |vpiDecompile:76'h2000000000000000F
       |vpiSize:76
       |HEX:2000000000000000F
@@ -1161,15 +1204,18 @@ design: (work@tlul_socket_1n)
     |vpiParent:
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
-    \_indexed_part_select: DReqDepth (DReqDepth), line:8:42, endln:8:59
+    \_indexed_part_select: DReqDepth (work@tlul_socket_1n.DReqDepth), line:8:42, endln:8:59
+      |vpiParent:
+      \_param_assign: , line:8:29, endln:8:59
       |vpiName:DReqDepth
+      |vpiFullName:work@tlul_socket_1n.DReqDepth
       |vpiDefName:DReqDepth
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
       \_operation: , line:8:52, endln:8:55
         |vpiParent:
-        \_indexed_part_select: DReqDepth (DReqDepth), line:8:42, endln:8:59
+        \_indexed_part_select: DReqDepth (work@tlul_socket_1n.DReqDepth), line:8:42, endln:8:59
         |vpiOpType:25
         |vpiOperand:
         \_constant: , line:8:52, endln:8:53
@@ -1200,8 +1246,11 @@ design: (work@tlul_socket_1n)
     |vpiParent:
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
-    \_indexed_part_select: DReqDepth (DReqDepth), line:11:42, endln:11:57
+    \_indexed_part_select: DReqDepth (work@tlul_socket_1n.DReqDepth), line:11:42, endln:11:57
+      |vpiParent:
+      \_param_assign: , line:11:29, endln:11:57
       |vpiName:DReqDepth
+      |vpiFullName:work@tlul_socket_1n.DReqDepth
       |vpiDefName:DReqDepth
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
@@ -1251,8 +1300,12 @@ design: (work@tlul_socket_1n)
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiTypespec:
     \_logic_typespec: , line:9:6, endln:9:28
+      |vpiParent:
+      \_logic_var: (work@tlul_socket_1n.storageKO), line:9:29, endln:9:38
       |vpiRange:
       \_range: , line:9:12, endln:9:28
+        |vpiParent:
+        \_logic_typespec: , line:9:6, endln:9:28
         |vpiLeftRange:
         \_constant: , line:9:13, endln:9:23
           |vpiParent:
@@ -1274,6 +1327,8 @@ design: (work@tlul_socket_1n)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:9:12, endln:9:28
+      |vpiParent:
+      \_logic_var: (work@tlul_socket_1n.storageKO), line:9:29, endln:9:38
       |vpiLeftRange:
       \_constant: , line:9:13, endln:9:23
         |vpiParent:
@@ -1296,8 +1351,12 @@ design: (work@tlul_socket_1n)
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiTypespec:
     \_logic_typespec: , line:12:6, endln:12:28
+      |vpiParent:
+      \_logic_var: (work@tlul_socket_1n.storageOK), line:12:29, endln:12:38
       |vpiRange:
       \_range: , line:12:12, endln:12:28
+        |vpiParent:
+        \_logic_typespec: , line:12:6, endln:12:28
         |vpiLeftRange:
         \_constant: , line:12:13, endln:12:23
           |vpiParent:
@@ -1319,6 +1378,8 @@ design: (work@tlul_socket_1n)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:12:12, endln:12:28
+      |vpiParent:
+      \_logic_var: (work@tlul_socket_1n.storageOK), line:12:29, endln:12:38
       |vpiLeftRange:
       \_constant: , line:12:13, endln:12:23
         |vpiParent:
@@ -1392,6 +1453,8 @@ design: (work@tlul_socket_1n)
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
     \_constant: , line:7:39, endln:7:60
+      |vpiParent:
+      \_param_assign: , line:7:27, endln:7:60
       |vpiDecompile:76'h2000000000000000F
       |vpiSize:76
       |HEX:2000000000000000F
@@ -1399,6 +1462,8 @@ design: (work@tlul_socket_1n)
       \_logic_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_logic_typespec: 
           |vpiLeftRange:
           \_constant: 
             |UINT:75
@@ -1414,6 +1479,8 @@ design: (work@tlul_socket_1n)
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
     \_constant: , line:8:42, endln:8:59
+      |vpiParent:
+      \_param_assign: , line:8:29, endln:8:59
       |vpiDecompile:4'b0000
       |vpiSize:4
       |BIN:0000
@@ -1428,6 +1495,8 @@ design: (work@tlul_socket_1n)
     \_module_inst: work@tlul_socket_1n (work@tlul_socket_1n), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:6:1, endln:18:10
     |vpiRhs:
     \_constant: , line:11:42, endln:11:57
+      |vpiParent:
+      \_param_assign: , line:11:29, endln:11:57
       |vpiDecompile:4'b1111
       |vpiSize:4
       |BIN:1111
@@ -1451,8 +1520,12 @@ design: (work@tlul_socket_1n)
       \_module_inst: work@tlul_fifo_sync (work@tlul_socket_1n.fifo_d), file:${SURELOG_DIR}/tests/LargeHex/dut.sv, line:14:5, endln:16:17
       |vpiTypespec:
       \_logic_typespec: , line:2:4, endln:2:24
+        |vpiParent:
+        \_logic_var: (work@tlul_socket_1n.fifo_d.storage), line:2:25, endln:2:32
         |vpiRange:
         \_range: , line:2:10, endln:2:24
+          |vpiParent:
+          \_logic_typespec: , line:2:4, endln:2:24
           |vpiLeftRange:
           \_constant: , line:2:11, endln:2:19
             |vpiParent:
@@ -1474,6 +1547,8 @@ design: (work@tlul_socket_1n)
       |vpiVisibility:1
       |vpiRange:
       \_range: , line:2:10, endln:2:24
+        |vpiParent:
+        \_logic_var: (work@tlul_socket_1n.fifo_d.storage), line:2:25, endln:2:32
         |vpiLeftRange:
         \_constant: , line:2:11, endln:2:19
           |vpiParent:
@@ -1508,6 +1583,8 @@ design: (work@tlul_socket_1n)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:1:59, endln:1:60
+        |vpiParent:
+        \_param_assign: , line:1:48, endln:1:60
         |vpiDecompile:4'b1111
         |vpiSize:4
         |BIN:1111

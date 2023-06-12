@@ -552,11 +552,14 @@ design: (work@bp_be_rec_to_fp)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BiasValue/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -581,10 +584,13 @@ design: (work@bp_be_rec_to_fp)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -609,7 +615,10 @@ design: (work@bp_be_rec_to_fp)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -639,10 +648,13 @@ design: (work@bp_be_rec_to_fp)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -673,10 +685,13 @@ design: (work@bp_be_rec_to_fp)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -743,11 +758,14 @@ design: (work@bp_be_rec_to_fp)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BiasValue/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -757,7 +775,9 @@ design: (work@bp_be_rec_to_fp)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -765,34 +785,45 @@ design: (work@bp_be_rec_to_fp)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -838,11 +869,14 @@ design: (work@bp_be_rec_to_fp)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/BiasValue/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -913,10 +947,13 @@ design: (work@bp_be_rec_to_fp)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -971,6 +1008,8 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:34, endln:2:35
+      |vpiParent:
+      \_param_assign: , line:2:14, endln:2:35
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -985,6 +1024,8 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:3:34, endln:3:36
+      |vpiParent:
+      \_param_assign: , line:3:14, endln:3:36
       |vpiDecompile:11
       |vpiSize:32
       |UINT:11
@@ -999,6 +1040,8 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_operation: , line:4:28, endln:4:75
+      |vpiParent:
+      \_param_assign: , line:4:14, endln:4:75
       |vpiOpType:11
       |vpiOperand:
       \_operation: , line:4:29, endln:4:49
@@ -1014,10 +1057,11 @@ design: (work@bp_be_rec_to_fp)
           |UINT:1
           |vpiConstType:9
         |vpiOperand:
-        \_ref_obj: (sp_exp_width_gp), line:4:34, endln:4:49
+        \_ref_obj: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:4:34, endln:4:49
           |vpiParent:
           \_operation: , line:4:29, endln:4:49
           |vpiName:sp_exp_width_gp
+          |vpiFullName:work@bp_be_rec_to_fp.sp_exp_width_gp
       |vpiOperand:
       \_operation: , line:4:54, endln:4:74
         |vpiParent:
@@ -1032,10 +1076,11 @@ design: (work@bp_be_rec_to_fp)
           |UINT:1
           |vpiConstType:9
         |vpiOperand:
-        \_ref_obj: (dp_exp_width_gp), line:4:59, endln:4:74
+        \_ref_obj: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:4:59, endln:4:74
           |vpiParent:
           \_operation: , line:4:54, endln:4:74
           |vpiName:dp_exp_width_gp
+          |vpiFullName:work@bp_be_rec_to_fp.dp_exp_width_gp
     |vpiLhs:
     \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:25
   |vpiDefName:work@bp_be_rec_to_fp
@@ -1062,8 +1107,12 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:8:3, endln:8:25
+      |vpiParent:
+      \_logic_var: (work@bp_be_rec_to_fp.wrong_range), line:8:26, endln:8:37
       |vpiRange:
       \_range: , line:8:9, endln:8:25
+        |vpiParent:
+        \_logic_typespec: , line:8:3, endln:8:25
         |vpiLeftRange:
         \_constant: , line:8:10, endln:8:21
           |vpiParent:
@@ -1085,6 +1134,8 @@ design: (work@bp_be_rec_to_fp)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:8:9, endln:8:25
+      |vpiParent:
+      \_logic_var: (work@bp_be_rec_to_fp.wrong_range), line:8:26, endln:8:37
       |vpiLeftRange:
       \_constant: , line:8:10, endln:8:21
         |vpiParent:
@@ -1138,6 +1189,8 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:34, endln:2:35
+      |vpiParent:
+      \_param_assign: , line:2:14, endln:2:35
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -1152,6 +1205,8 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:3:34, endln:3:36
+      |vpiParent:
+      \_param_assign: , line:3:14, endln:3:36
       |vpiDecompile:11
       |vpiSize:32
       |UINT:11
@@ -1166,6 +1221,8 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiRhs:
     \_constant: , line:4:28, endln:4:75
+      |vpiParent:
+      \_param_assign: , line:4:14, endln:4:75
       |vpiDecompile:-1792
       |vpiSize:64
       |INT:-1792
@@ -1180,8 +1237,12 @@ design: (work@bp_be_rec_to_fp)
     \_module_inst: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp), file:${SURELOG_DIR}/tests/BiasValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:6:3, endln:6:27
+      |vpiParent:
+      \_logic_net: (work@bp_be_rec_to_fp.adjusted_exp), line:6:28, endln:6:40
       |vpiRange:
       \_range: , line:6:8, endln:6:27
+        |vpiParent:
+        \_logic_typespec: , line:6:3, endln:6:27
         |vpiLeftRange:
         \_constant: , line:6:9, endln:6:24
           |vpiParent:

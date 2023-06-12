@@ -219,7 +219,7 @@ function                                               5
 hier_path                                              2
 io_decl                                                3
 module_inst                                            1
-package                                                3
+package                                                2
 range                                                  9
 ref_obj                                                8
 ref_var                                                3
@@ -242,7 +242,7 @@ function                                              12
 hier_path                                              5
 io_decl                                                8
 module_inst                                            1
-package                                                3
+package                                                2
 range                                                  9
 ref_obj                                               20
 ref_var                                                3
@@ -275,12 +275,15 @@ design: (unnamed)
     |vpiFullName:pack::uvm_mem_mam::reconfigure
     |vpiVisibility:1
     |vpiReturn:
-    \_ref_var: , line:41:10, endln:41:25
+    \_ref_var: (pack::uvm_mem_mam::reconfigure), line:41:10, endln:41:25
+      |vpiParent:
+      \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
       |vpiTypespec:
       \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
         |vpiName:uvm_mem_mam_cfg
         |vpiInstance:
-        \_package: (pack)
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+      |vpiFullName:pack::uvm_mem_mam::reconfigure
     |vpiIODecl:
     \_io_decl: (cfg), line:41:67, endln:41:70
       |vpiParent:
@@ -291,7 +294,7 @@ design: (unnamed)
       \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
         |vpiName:uvm_mem_mam_cfg
         |vpiInstance:
-        \_package: (pack)
+        \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
     |vpiStmt:
     \_assignment: , line:43:4, endln:43:43
       |vpiParent:
@@ -375,10 +378,13 @@ design: (unnamed)
       |vpiAccessType:2
       |vpiVisibility:1
       |vpiReturn:
-      \_ref_var: , line:37:17, endln:37:32
+      \_ref_var: (pack::uvm_mem_mam::reconfigure), line:37:17, endln:37:32
+        |vpiParent:
+        \_function: (pack::uvm_mem_mam::reconfigure), line:37:1, endln:37:7
         |vpiTypespec:
         \_unsupported_typespec: (uvm_mem_mam_cfg), line:37:17, endln:37:32
           |vpiName:uvm_mem_mam_cfg
+        |vpiFullName:pack::uvm_mem_mam::reconfigure
       |vpiIODecl:
       \_io_decl: (cfg), line:37:61, endln:37:64
         |vpiParent:
@@ -396,12 +402,15 @@ design: (unnamed)
       |vpiFullName:pack::uvm_mem_mam::reconfigure
       |vpiVisibility:1
       |vpiReturn:
-      \_ref_var: , line:41:10, endln:41:25
+      \_ref_var: (pack::uvm_mem_mam::reconfigure), line:41:10, endln:41:25
+        |vpiParent:
+        \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
         |vpiTypespec:
         \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
           |vpiName:uvm_mem_mam_cfg
           |vpiInstance:
           \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+        |vpiFullName:pack::uvm_mem_mam::reconfigure
       |vpiIODecl:
       \_io_decl: (cfg), line:41:67, endln:41:70
         |vpiParent:
@@ -465,8 +474,12 @@ design: (unnamed)
       \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
       |vpiTypespec:
       \_bit_typespec: , line:5:14, endln:5:24
+        |vpiParent:
+        \_bit_var: (pack::uvm_mem_region::Xstart_offsetX), line:5:25, endln:5:39
         |vpiRange:
         \_range: , line:5:18, endln:5:24
+          |vpiParent:
+          \_bit_typespec: , line:5:14, endln:5:24
           |vpiLeftRange:
           \_constant: , line:5:19, endln:5:21
             |vpiParent:
@@ -493,8 +506,12 @@ design: (unnamed)
       \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
       |vpiTypespec:
       \_bit_typespec: , line:6:14, endln:6:24
+        |vpiParent:
+        \_bit_var: (pack::uvm_mem_region::Xend_offsetX), line:6:25, endln:6:37
         |vpiRange:
         \_range: , line:6:18, endln:6:24
+          |vpiParent:
+          \_bit_typespec: , line:6:14, endln:6:24
           |vpiLeftRange:
           \_constant: , line:6:19, endln:6:21
             |vpiParent:
@@ -525,11 +542,15 @@ design: (unnamed)
       |vpiAccessType:2
       |vpiVisibility:1
       |vpiReturn:
-      \_bit_var: , line:16:20, endln:16:30
+      \_bit_var: (pack::uvm_mem_region::get_start_offset), line:16:20, endln:16:30
+        |vpiParent:
+        \_function: (pack::uvm_mem_region::get_start_offset), line:16:4, endln:16:10
         |vpiTypespec:
         \_bit_typespec: , line:16:20, endln:16:30
           |vpiRange:
           \_range: , line:16:24, endln:16:30
+            |vpiParent:
+            \_bit_typespec: , line:16:20, endln:16:30
             |vpiLeftRange:
             \_constant: , line:16:25, endln:16:27
               |vpiParent:
@@ -546,6 +567,7 @@ design: (unnamed)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
+        |vpiFullName:pack::uvm_mem_region::get_start_offset
     |vpiMethod:
     \_function: (pack::uvm_mem_region::get_end_offset), line:26:4, endln:26:10
       |vpiParent:
@@ -556,11 +578,15 @@ design: (unnamed)
       |vpiAccessType:2
       |vpiVisibility:1
       |vpiReturn:
-      \_bit_var: , line:26:20, endln:26:30
+      \_bit_var: (pack::uvm_mem_region::get_end_offset), line:26:20, endln:26:30
+        |vpiParent:
+        \_function: (pack::uvm_mem_region::get_end_offset), line:26:4, endln:26:10
         |vpiTypespec:
         \_bit_typespec: , line:26:20, endln:26:30
           |vpiRange:
           \_range: , line:26:24, endln:26:30
+            |vpiParent:
+            \_bit_typespec: , line:26:20, endln:26:30
             |vpiLeftRange:
             \_constant: , line:26:25, endln:26:27
               |vpiParent:
@@ -577,6 +603,7 @@ design: (unnamed)
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
+        |vpiFullName:pack::uvm_mem_region::get_end_offset
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

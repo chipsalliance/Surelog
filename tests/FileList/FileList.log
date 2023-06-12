@@ -239,7 +239,7 @@ logic_typespec                                         7
 logic_var                                              1
 module_inst                                            8
 operation                                              8
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   4
@@ -270,7 +270,7 @@ logic_typespec                                         7
 logic_var                                              1
 module_inst                                            8
 operation                                             16
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   6
@@ -307,12 +307,15 @@ design: (work@foo)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:3:21, endln:3:28
+    \_integer_var: (prim_util_pkg::vbits), line:3:21, endln:3:28
+      |vpiParent:
+      \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14
       |vpiTypespec:
       \_integer_typespec: , line:3:21, endln:3:28
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/FileList/pack.sv, line:1:1, endln:7:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::vbits
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:3:43, endln:3:48
@@ -323,7 +326,7 @@ design: (work@foo)
       |vpiTypedef:
       \_integer_typespec: , line:3:35, endln:3:42
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/FileList/pack.sv, line:1:1, endln:7:11
         |vpiSigned:1
     |vpiStmt:
     \_return_stmt: , line:4:5, endln:4:11
@@ -395,12 +398,15 @@ design: (work@foo)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:3:21, endln:3:28
+    \_integer_var: (prim_util_pkg::vbits), line:3:21, endln:3:28
+      |vpiParent:
+      \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14
       |vpiTypespec:
       \_integer_typespec: , line:3:21, endln:3:28
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/FileList/pack.sv, line:1:1, endln:7:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::vbits
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:3:43, endln:3:48
@@ -483,9 +489,11 @@ design: (work@foo)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:3:21, endln:3:28
+    \_integer_var: (prim_util_pkg::vbits), line:3:21, endln:3:28
     |vpiIODecl:
     \_io_decl: (value), line:3:43, endln:3:48
+      |vpiParent:
+      \_function: (prim_util_pkg::vbits), line:3:2, endln:5:14
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
@@ -557,7 +565,11 @@ design: (work@foo)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@foo.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:2:11, endln:2:14
+      |vpiName:clk
+      |vpiFullName:work@foo.clk.clk
       |vpiActual:
       \_logic_net: (work@foo.clk), line:2:11, endln:2:14
     |vpiTypedef:
@@ -569,7 +581,11 @@ design: (work@foo)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@foo.out.out)
+      |vpiParent:
+      \_port: (out), line:3:12, endln:3:15
+      |vpiName:out
+      |vpiFullName:work@foo.out.out
       |vpiActual:
       \_logic_net: (work@foo.out), line:3:12, endln:3:15
     |vpiTypedef:
@@ -617,7 +633,7 @@ design: (work@foo)
               |vpiName:a
               |vpiFullName:work@foo.a
               |vpiActual:
-              \_logic_var: (work@foo.a), line:6:22, endln:6:23
+              \_logic_net: (work@foo.a), line:6:22, endln:6:23
             |vpiOperand:
             \_constant: , line:8:14, endln:8:18
               |vpiParent:
@@ -633,7 +649,7 @@ design: (work@foo)
             |vpiName:a
             |vpiFullName:work@foo.a
             |vpiActual:
-            \_logic_var: (work@foo.a), line:6:22, endln:6:23
+            \_logic_net: (work@foo.a), line:6:22, endln:6:23
     |vpiAlwaysType:1
   |vpiContAssign:
   \_cont_assign: , line:10:8, endln:10:18
@@ -670,8 +686,12 @@ design: (work@foo)
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/FileList/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
     \_logic_typespec: , line:6:1, endln:6:21
+      |vpiParent:
+      \_logic_var: (work@foo.a), line:6:22, endln:6:23
       |vpiRange:
       \_range: , line:6:7, endln:6:21
+        |vpiParent:
+        \_logic_typespec: , line:6:1, endln:6:21
         |vpiLeftRange:
         \_constant: , line:6:8, endln:6:16
           |vpiParent:
@@ -693,6 +713,8 @@ design: (work@foo)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:6:7, endln:6:21
+      |vpiParent:
+      \_logic_var: (work@foo.a), line:6:22, endln:6:23
       |vpiLeftRange:
       \_constant: , line:6:8, endln:6:16
         |vpiParent:
@@ -722,7 +744,7 @@ design: (work@foo)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:3:21, endln:3:28
+    \_integer_var: (prim_util_pkg::vbits), line:3:21, endln:3:28
     |vpiIODecl:
     \_io_decl: (value), line:3:43, endln:3:48
       |vpiParent:
@@ -778,6 +800,8 @@ design: (work@foo)
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/FileList/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
     \_logic_typespec: , line:2:11, endln:2:11
+      |vpiParent:
+      \_logic_net: (work@foo.clk), line:2:11, endln:2:14
     |vpiName:clk
     |vpiFullName:work@foo.clk
   |vpiNet:
@@ -868,7 +892,7 @@ design: (work@foo)
               |vpiName:a
               |vpiFullName:work@foo.a
               |vpiActual:
-              \_logic_var: (work@foo.a), line:6:22, endln:6:23
+              \_logic_net: (work@foo.a), line:6:22, endln:6:23
             |vpiOperand:
             \_constant: , line:8:14, endln:8:18
           |vpiLhs:
@@ -878,7 +902,7 @@ design: (work@foo)
             |vpiName:a
             |vpiFullName:work@foo.a
             |vpiActual:
-            \_logic_var: (work@foo.a), line:6:22, endln:6:23
+            \_logic_net: (work@foo.a), line:6:22, endln:6:23
     |vpiAlwaysType:1
   |vpiContAssign:
   \_cont_assign: , line:10:8, endln:10:18

@@ -134,14 +134,16 @@ design: (work@dut)
     \_module_inst: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
     |vpiPort:
     \_port: (test), line:9:15, endln:9:34
+      |vpiParent:
+      \_ref_module: work@prim_subreg (s), line:9:13, endln:9:14
       |vpiName:test
       |vpiHighConn:
       \_operation: , line:9:21, endln:9:33
+        |vpiParent:
+        \_port: (test), line:9:15, endln:9:34
         |vpiOpType:34
         |vpiOperand:
         \_constant: , line:9:22, endln:9:24
-          |vpiParent:
-          \_operation: , line:9:21, endln:9:33
           |vpiDecompile:24
           |vpiSize:64
           |UINT:24
@@ -180,7 +182,11 @@ design: (work@dut)
     |vpiName:test
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_subreg.test.test)
+      |vpiParent:
+      \_port: (test), line:2:13, endln:2:17
+      |vpiName:test
+      |vpiFullName:work@prim_subreg.test.test
       |vpiActual:
       \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17
     |vpiTypedef:
@@ -206,6 +212,8 @@ design: (work@dut)
       \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
       |vpiTypespec:
       \_logic_typespec: , line:2:7, endln:2:12
+        |vpiParent:
+        \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
       |vpiName:test
       |vpiFullName:work@dut.s.test
       |vpiNetType:36
@@ -219,6 +227,8 @@ design: (work@dut)
       |vpiDirection:1
       |vpiHighConn:
       \_constant: , line:9:21, endln:9:33
+        |vpiParent:
+        \_port: (test), line:2:13, endln:2:17
         |vpiDecompile:000000000000000000000000
         |vpiSize:24
         |BIN:000000000000000000000000

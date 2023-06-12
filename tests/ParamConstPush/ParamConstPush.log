@@ -149,7 +149,7 @@ import_typespec                                        1
 logic_typespec                                        21
 module_inst                                            6
 operation                                              6
-package                                                6
+package                                                4
 param_assign                                          14
 parameter                                             15
 range                                                 21
@@ -164,7 +164,7 @@ import_typespec                                        1
 logic_typespec                                        21
 module_inst                                            6
 operation                                              6
-package                                                6
+package                                                4
 param_assign                                          14
 parameter                                             15
 range                                                 21
@@ -201,6 +201,8 @@ design: (work@top)
       \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
       |vpiRange:
       \_range: , line:2:18, endln:2:23
+        |vpiParent:
+        \_logic_typespec: , line:2:12, endln:2:23
         |vpiLeftRange:
         \_constant: , line:2:19, endln:2:20
           |vpiParent:
@@ -232,6 +234,8 @@ design: (work@top)
       \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
       |vpiRange:
       \_range: , line:3:18, endln:3:23
+        |vpiParent:
+        \_logic_typespec: , line:3:12, endln:3:23
         |vpiLeftRange:
         \_constant: , line:3:19, endln:3:20
           |vpiParent:
@@ -257,6 +261,8 @@ design: (work@top)
     \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:34, endln:2:39
+      |vpiParent:
+      \_param_assign: , line:2:25, endln:2:39
       |vpiDecompile:2'b00
       |vpiSize:2
       |BIN:00
@@ -271,12 +277,15 @@ design: (work@top)
     \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_operation: , line:3:34, endln:3:46
+      |vpiParent:
+      \_param_assign: , line:3:25, endln:3:46
       |vpiOpType:29
       |vpiOperand:
-      \_ref_obj: (BASE), line:3:34, endln:3:38
+      \_ref_obj: (base_pkg::BASE), line:3:34, endln:3:38
         |vpiParent:
         \_operation: , line:3:34, endln:3:46
         |vpiName:BASE
+        |vpiFullName:base_pkg::BASE
         |vpiActual:
         \_parameter: (base_pkg::BASE), line:2:25, endln:2:29
       |vpiOperand:
@@ -308,6 +317,8 @@ design: (work@top)
       \_package: error_pkg (error_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:6:1, endln:8:11
       |vpiRange:
       \_range: , line:7:18, endln:7:23
+        |vpiParent:
+        \_logic_typespec: , line:7:12, endln:7:23
         |vpiLeftRange:
         \_constant: , line:7:19, endln:7:20
           |vpiParent:
@@ -332,8 +343,11 @@ design: (work@top)
     |vpiParent:
     \_package: error_pkg (error_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:6:1, endln:8:11
     |vpiRhs:
-    \_ref_obj: (base_pkg::USAGE), line:7:38, endln:7:48
+    \_ref_obj: (error_pkg::base_pkg::USAGE), line:7:38, endln:7:53
+      |vpiParent:
+      \_param_assign: , line:7:25, endln:7:53
       |vpiName:base_pkg::USAGE
+      |vpiFullName:error_pkg::base_pkg::USAGE
       |vpiActual:
       \_parameter: (base_pkg::USAGE), line:3:25, endln:3:30
     |vpiLhs:
@@ -358,6 +372,8 @@ design: (work@top)
       \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
       |vpiRange:
       \_range: , line:2:18, endln:2:23
+        |vpiParent:
+        \_logic_typespec: , line:2:12, endln:2:23
         |vpiLeftRange:
         \_constant: , line:2:19, endln:2:20
           |vpiParent:
@@ -390,6 +406,8 @@ design: (work@top)
       \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
       |vpiRange:
       \_range: , line:3:18, endln:3:23
+        |vpiParent:
+        \_logic_typespec: , line:3:12, endln:3:23
         |vpiLeftRange:
         \_constant: , line:3:19, endln:3:20
           |vpiParent:
@@ -415,6 +433,8 @@ design: (work@top)
     \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:34, endln:2:39
+      |vpiParent:
+      \_param_assign: , line:2:25, endln:2:39
       |vpiDecompile:2'b00
       |vpiSize:2
       |BIN:00
@@ -429,6 +449,8 @@ design: (work@top)
     \_package: base_pkg (base_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:3:34, endln:3:38
+      |vpiParent:
+      \_param_assign: , line:3:25, endln:3:46
       |vpiDecompile:1
       |vpiSize:2
       |UINT:1
@@ -458,6 +480,8 @@ design: (work@top)
       \_package: error_pkg (error_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:6:1, endln:8:11
       |vpiRange:
       \_range: , line:7:18, endln:7:23
+        |vpiParent:
+        \_logic_typespec: , line:7:12, endln:7:23
         |vpiLeftRange:
         \_constant: , line:7:19, endln:7:20
           |vpiParent:
@@ -483,6 +507,8 @@ design: (work@top)
     \_package: error_pkg (error_pkg::), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:6:1, endln:8:11
     |vpiRhs:
     \_constant: , line:7:38, endln:7:48
+      |vpiParent:
+      \_param_assign: , line:7:25, endln:7:53
       |vpiDecompile:1
       |vpiSize:2
       |UINT:1
@@ -653,6 +679,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamConstPush/dut.sv, line:10:1, endln:11:10
     |vpiRhs:
     \_constant: , line:7:38, endln:7:53
+      |vpiParent:
+      \_param_assign: , line:7:25, endln:7:53
       |vpiDecompile:1
       |vpiSize:2
       |UINT:1

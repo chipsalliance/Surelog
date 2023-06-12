@@ -249,16 +249,19 @@ design: (work@top)
         \_module_inst: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
         |vpiRange:
         \_range: , line:3:18, endln:3:25
+          |vpiParent:
+          \_logic_typespec: (my_type_t), line:3:12, endln:3:25
           |vpiLeftRange:
           \_operation: , line:3:19, endln:3:22
             |vpiParent:
             \_range: , line:3:18, endln:3:25
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (X), line:3:19, endln:3:20
+            \_ref_obj: (work@submodule.my_type_t.X), line:3:19, endln:3:20
               |vpiParent:
               \_operation: , line:3:19, endln:3:22
               |vpiName:X
+              |vpiFullName:work@submodule.my_type_t.X
               |vpiActual:
               \_parameter: (work@top.u_sub_default.X), line:2:18, endln:2:19
             |vpiOperand:
@@ -318,6 +321,8 @@ design: (work@top)
     \_module_inst: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:2:22, endln:2:24
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:24
       |vpiDecompile:20
       |vpiSize:32
       |UINT:20
@@ -332,6 +337,8 @@ design: (work@top)
     \_module_inst: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:4:28, endln:4:30
+      |vpiParent:
+      \_param_assign: , line:4:24, endln:4:30
       |vpiDecompile:1048575
       |vpiSize:20
       |UINT:1048575
@@ -343,6 +350,13 @@ design: (work@top)
   |vpiTypedef:
   \_logic_typespec: (my_type_t), line:3:12, endln:3:25
   |vpiDefName:work@submodule
+  |vpiNet:
+  \_logic_net: (work@submodule.a), line:5:11, endln:5:12
+    |vpiParent:
+    \_module_inst: work@submodule (work@submodule), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:1:1, endln:6:10
+    |vpiName:a
+    |vpiFullName:work@submodule.a
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:5:11, endln:5:22
     |vpiParent:
@@ -368,7 +382,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@submodule.a
       |vpiActual:
-      \_logic_net: (a)
+      \_logic_net: (work@submodule.a), line:5:11, endln:5:12
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
   |vpiParent:
@@ -507,6 +521,8 @@ design: (work@top)
       \_module_inst: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
       |vpiRhs:
       \_constant: , line:2:22, endln:2:24
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:24
         |vpiDecompile:20
         |vpiSize:32
         |UINT:20
@@ -521,6 +537,8 @@ design: (work@top)
       \_module_inst: work@submodule (work@top.u_sub_default), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:9:4, endln:9:30
       |vpiRhs:
       \_constant: , line:4:28, endln:4:30
+        |vpiParent:
+        \_param_assign: , line:4:24, endln:4:30
         |vpiDecompile:1048575
         |vpiSize:20
         |UINT:1048575
@@ -534,10 +552,6 @@ design: (work@top)
     |vpiDefName:work@submodule
     |vpiDefFile:${SURELOG_DIR}/tests/UnsizedParam/dut.sv
     |vpiDefLineNo:1
-    |vpiNet:
-    \_logic_net: (a)
-      |vpiName:a
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:8:1, endln:11:10
     |vpiContAssign:
@@ -569,7 +583,7 @@ design: (work@top)
         |vpiName:a
         |vpiFullName:work@top.u_sub_default.a
         |vpiActual:
-        \_logic_net: (a)
+        \_logic_net: (work@submodule.a), line:5:11, endln:5:12
   |vpiModule:
   \_module_inst: work@submodule (work@top.u_sub_5), file:${SURELOG_DIR}/tests/UnsizedParam/dut.sv, line:10:4, endln:10:33
     |vpiParent:
@@ -681,6 +695,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:22, endln:2:24
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:24
         |vpiDecompile:5
         |vpiSize:32
         |UINT:5
@@ -696,6 +712,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:4:28, endln:4:30
+        |vpiParent:
+        \_param_assign: , line:4:24, endln:4:30
         |vpiDecompile:31
         |vpiSize:5
         |UINT:31
@@ -740,7 +758,7 @@ design: (work@top)
         |vpiName:a
         |vpiFullName:work@top.u_sub_5.a
         |vpiActual:
-        \_logic_net: (a)
+        \_logic_net: (work@submodule.a), line:5:11, endln:5:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

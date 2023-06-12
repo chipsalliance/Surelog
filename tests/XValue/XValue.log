@@ -165,6 +165,8 @@ design: (work@top)
     \_logic_typespec: , line:2:17, endln:2:28
       |vpiRange:
       \_range: , line:2:23, endln:2:28
+        |vpiParent:
+        \_logic_typespec: , line:2:17, endln:2:28
         |vpiLeftRange:
         \_constant: , line:2:24, endln:2:25
           |vpiParent:
@@ -183,12 +185,16 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (REF), line:3:9, endln:3:27
+      |vpiParent:
+      \_enum_typespec: (dfi_cmd_e), line:2:4, endln:5:16
       |vpiName:REF
       |BIN:0001
       |vpiDecompile:4'b0001
       |vpiSize:4
     |vpiEnumConst:
     \_enum_const: (DESELECT), line:4:9, endln:4:27
+      |vpiParent:
+      \_enum_typespec: (dfi_cmd_e), line:2:4, endln:5:16
       |vpiName:DESELECT
       |BIN:1xxx
       |vpiDecompile:4'b1xxx
@@ -215,7 +221,11 @@ design: (work@top)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:1:24, endln:1:27
+      |vpiName:clk
+      |vpiFullName:work@top.clk.clk
       |vpiActual:
       \_logic_net: (work@top.clk), line:1:24, endln:1:27
     |vpiTypedef:
@@ -227,13 +237,19 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:47, endln:1:48
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:47, endln:1:48
     |vpiTypedef:
     \_logic_typespec: , line:1:36, endln:1:46
       |vpiRange:
       \_range: , line:1:41, endln:1:46
+        |vpiParent:
+        \_logic_typespec: , line:1:36, endln:1:46
         |vpiLeftRange:
         \_constant: , line:1:42, endln:1:43
           |vpiParent:
@@ -283,6 +299,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/XValue/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_logic_typespec: , line:1:18, endln:1:23
+      |vpiParent:
+      \_logic_net: (work@top.clk), line:1:24, endln:1:27
     |vpiName:clk
     |vpiFullName:work@top.clk
     |vpiNetType:36
@@ -294,6 +312,8 @@ design: (work@top)
     \_logic_typespec: , line:1:36, endln:1:46
       |vpiRange:
       \_range: , line:1:41, endln:1:46
+        |vpiParent:
+        \_logic_typespec: , line:1:36, endln:1:46
         |vpiLeftRange:
         \_constant: , line:1:42, endln:1:43
           |vpiParent:
@@ -351,7 +371,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:1:41, endln:1:46
         |vpiParent:
-        \_port: (o), line:1:47, endln:1:48
+        \_logic_typespec: , line:1:36, endln:1:46
         |vpiLeftRange:
         \_constant: , line:1:42, endln:1:43
           |vpiParent:

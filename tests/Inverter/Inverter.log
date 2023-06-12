@@ -184,7 +184,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@inverter.a.a)
+      |vpiParent:
+      \_port: (a), line:8:13, endln:8:14
+      |vpiName:a
+      |vpiFullName:work@inverter.a.a
       |vpiActual:
       \_logic_net: (work@inverter.a), line:8:13, endln:8:14
     |vpiTypedef:
@@ -196,7 +200,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@inverter.b.b)
+      |vpiParent:
+      \_port: (b), line:9:14, endln:9:15
+      |vpiName:b
+      |vpiFullName:work@inverter.b.b
       |vpiActual:
       \_logic_net: (work@inverter.b), line:9:14, endln:9:15
     |vpiTypedef:
@@ -217,7 +225,7 @@ design: (work@top)
         |vpiName:a
         |vpiFullName:work@inverter.a
         |vpiActual:
-        \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
+        \_logic_net: (work@inverter.a), line:8:13, endln:8:14
     |vpiLhs:
     \_ref_obj: (work@inverter.b), line:11:8, endln:11:9
       |vpiParent:
@@ -225,7 +233,7 @@ design: (work@top)
       |vpiName:b
       |vpiFullName:work@inverter.b
       |vpiActual:
-      \_logic_net: (work@top.i1.b), line:9:14, endln:9:15
+      \_logic_net: (work@inverter.b), line:9:14, endln:9:15
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiParent:
@@ -253,7 +261,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.a.a)
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24
+      |vpiName:a
+      |vpiFullName:work@top.a.a
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, endln:1:24
     |vpiTypedef:
@@ -265,7 +277,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.b.b)
+      |vpiParent:
+      \_port: (b), line:2:14, endln:2:15
+      |vpiName:b
+      |vpiFullName:work@top.b.b
       |vpiActual:
       \_logic_net: (work@top.b), line:2:14, endln:2:15
     |vpiTypedef:
@@ -281,6 +297,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:1:18, endln:1:22
+      |vpiParent:
+      \_logic_net: (work@top.a), line:1:23, endln:1:24
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:1
@@ -290,6 +308,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:2:9, endln:2:13
+      |vpiParent:
+      \_logic_net: (work@top.b), line:2:14, endln:2:15
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:1
@@ -352,6 +372,8 @@ design: (work@top)
       \_module_inst: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiTypespec:
       \_logic_typespec: , line:8:8, endln:8:12
+        |vpiParent:
+        \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
       |vpiName:a
       |vpiFullName:work@top.i1.a
       |vpiNetType:1
@@ -434,7 +456,7 @@ design: (work@top)
           |vpiName:a
           |vpiFullName:work@top.i1.a
           |vpiActual:
-          \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
+          \_logic_net: (work@inverter.a), line:8:13, endln:8:14
       |vpiLhs:
       \_ref_obj: (work@top.i1.b), line:11:8, endln:11:9
         |vpiParent:
@@ -458,6 +480,8 @@ design: (work@top)
       \_module_inst: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiTypespec:
       \_logic_typespec: , line:8:8, endln:8:12
+        |vpiParent:
+        \_logic_net: (work@top.i2.a), line:8:13, endln:8:14
       |vpiName:a
       |vpiFullName:work@top.i2.a
       |vpiNetType:1
@@ -540,7 +564,7 @@ design: (work@top)
           |vpiName:a
           |vpiFullName:work@top.i2.a
           |vpiActual:
-          \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
+          \_logic_net: (work@inverter.a), line:8:13, endln:8:14
       |vpiLhs:
       \_ref_obj: (work@top.i2.b), line:11:8, endln:11:9
         |vpiParent:

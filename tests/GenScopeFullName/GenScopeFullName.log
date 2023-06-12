@@ -203,6 +203,13 @@ design: (work@dut)
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.i), line:4:22, endln:4:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+    |vpiName:i
+    |vpiFullName:work@dut.i
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -213,8 +220,6 @@ design: (work@dut)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:4:19, endln:4:20
-        |vpiParent:
-        \_assign_stmt: , line:4:8, endln:4:20
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -223,21 +228,21 @@ design: (work@dut)
       \_ref_var: (work@dut.i), line:4:15, endln:4:16
         |vpiParent:
         \_assign_stmt: , line:4:8, endln:4:20
-        |vpiTypespec:
-        \_unsupported_typespec: (i), line:4:15, endln:4:16
-          |vpiName:i
         |vpiName:i
         |vpiFullName:work@dut.i
     |vpiCondition:
     \_operation: , line:4:22, endln:4:27
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (i), line:4:22, endln:4:23
+      \_ref_obj: (work@dut.i), line:4:22, endln:4:23
         |vpiParent:
         \_operation: , line:4:22, endln:4:27
         |vpiName:i
+        |vpiFullName:work@dut.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@dut.i), line:4:22, endln:4:23
       |vpiOperand:
       \_constant: , line:4:26, endln:4:27
         |vpiParent:
@@ -248,30 +253,46 @@ design: (work@dut)
         |vpiConstType:9
     |vpiForIncStmt:
     \_operation: , line:4:29, endln:4:30
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:62
       |vpiOperand:
-      \_ref_obj: (i)
+      \_ref_obj: (work@dut.i)
+        |vpiParent:
+        \_gen_for: 
         |vpiName:i
+        |vpiFullName:work@dut.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@dut.i), line:4:22, endln:4:23
     |vpiStmt:
-    \_named_begin: (gen_modules)
+    \_named_begin: (work@dut.gen_modules)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:gen_modules
+      |vpiFullName:work@dut.gen_modules
       |vpiStmt:
       \_ref_module: work@ibex_counter (module_in_genscope), line:5:20, endln:5:38
+        |vpiParent:
+        \_named_begin: (work@dut.gen_modules)
         |vpiName:module_in_genscope
         |vpiDefName:work@ibex_counter
         |vpiPort:
         \_port: (b), line:5:39, endln:5:47
+          |vpiParent:
+          \_ref_module: work@ibex_counter (module_in_genscope), line:5:20, endln:5:38
           |vpiName:b
           |vpiHighConn:
-          \_bit_select: (a), line:5:42, endln:5:46
+          \_bit_select: (work@dut.gen_modules.module_in_genscope.a), line:5:42, endln:5:46
+            |vpiParent:
+            \_port: (b), line:5:39, endln:5:47
             |vpiName:a
+            |vpiFullName:work@dut.gen_modules.module_in_genscope.a
             |vpiIndex:
-            \_ref_obj: (i), line:5:44, endln:5:45
+            \_ref_obj: (work@dut.gen_modules.module_in_genscope.i), line:5:44, endln:5:45
               |vpiParent:
-              \_bit_select: (a), line:5:42, endln:5:46
+              \_bit_select: (work@dut.gen_modules.module_in_genscope.a), line:5:42, endln:5:46
               |vpiName:i
+              |vpiFullName:work@dut.gen_modules.module_in_genscope.i
 |uhdmallModules:
 \_module_inst: work@ibex_counter (work@ibex_counter), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:12:1, endln:14:10
   |vpiParent:
@@ -292,7 +313,11 @@ design: (work@dut)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@ibex_counter.b.b)
+      |vpiParent:
+      \_port: (b), line:12:33, endln:12:34
+      |vpiName:b
+      |vpiFullName:work@ibex_counter.b.b
       |vpiActual:
       \_logic_net: (work@ibex_counter.b), line:12:33, endln:12:34
     |vpiTypedef:
@@ -306,8 +331,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
     \_logic_typespec: , line:2:4, endln:2:15
+      |vpiParent:
+      \_logic_var: (work@dut.a), line:2:16, endln:2:17
       |vpiRange:
       \_range: , line:2:10, endln:2:15
+        |vpiParent:
+        \_logic_typespec: , line:2:4, endln:2:15
         |vpiLeftRange:
         \_constant: , line:2:11, endln:2:12
           |vpiParent:
@@ -329,6 +358,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:2:10, endln:2:15
+      |vpiParent:
+      \_logic_var: (work@dut.a), line:2:16, endln:2:17
       |vpiLeftRange:
       \_constant: , line:2:11, endln:2:12
         |vpiParent:
@@ -347,10 +378,6 @@ design: (work@dut)
         |vpiConstType:9
   |vpiDefName:work@dut
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (i)
-    |vpiName:i
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.gen_modules[0]), line:4:34, endln:8:7
@@ -388,6 +415,8 @@ design: (work@dut)
           \_module_inst: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
           |vpiTypespec:
           \_logic_typespec: , line:12:27, endln:12:32
+            |vpiParent:
+            \_logic_net: (work@dut.gen_modules[0].module_in_genscope.b), line:12:33, endln:12:34
           |vpiName:b
           |vpiFullName:work@dut.gen_modules[0].module_in_genscope.b
           |vpiNetType:36
@@ -408,7 +437,7 @@ design: (work@dut)
             |vpiIndex:
             \_constant: , line:5:44, endln:5:45
               |vpiParent:
-              \_bit_select: (a), line:5:42, endln:5:46
+              \_bit_select: (work@dut.gen_modules[0].module_in_genscope.a), line:5:42, endln:5:46
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0

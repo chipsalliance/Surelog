@@ -751,11 +751,14 @@ design: (work@dut)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Assignments/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -780,10 +783,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -808,7 +814,10 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -838,10 +847,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -872,10 +884,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -942,11 +957,14 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Assignments/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -956,7 +974,9 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -964,34 +984,45 @@ design: (work@dut)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1037,11 +1068,14 @@ design: (work@dut)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/Assignments/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -1112,10 +1146,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1147,10 +1184,14 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (stream), line:5:62, endln:5:68
+      |vpiParent:
+      \_function: (work@dut.uvm_packer::get_packed_bits), line:5:3, endln:12:14
       |vpiDirection:6
       |vpiName:stream
       |vpiRange:
       \_range: , line:5:68, endln:5:70
+        |vpiParent:
+        \_io_decl: (stream), line:5:62, endln:5:68
         |vpiLeftRange:
         \_constant: , line:5:68, endln:5:69
           |vpiParent:
@@ -1200,6 +1241,8 @@ design: (work@dut)
                 \_ref_obj: (cover_info), line:6:46, endln:6:56
               |vpiActual:
               \_method_func_call: (size), line:6:33, endln:6:37
+                |vpiParent:
+                \_hier_path: (cover_info.size), line:6:22, endln:6:39
                 |vpiName:size
             |vpiOperand:
             \_constant: , line:6:42, endln:6:43
@@ -1215,7 +1258,7 @@ design: (work@dut)
             \_method_func_call: (new), line:6:18, endln:6:57
             |vpiName:cover_info
             |vpiActual:
-            \_logic_net: (cover_info)
+            \_logic_net: (work@dut.cover_info), line:6:5, endln:6:15
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:5, endln:6:15
@@ -1224,7 +1267,7 @@ design: (work@dut)
           |vpiName:cover_info
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info
           |vpiActual:
-          \_logic_net: (cover_info)
+          \_logic_net: (work@dut.cover_info), line:6:5, endln:6:15
       |vpiStmt:
       \_assignment: , line:7:5, endln:7:37
         |vpiParent:
@@ -1239,7 +1282,7 @@ design: (work@dut)
             \_method_func_call: (new), line:7:21, endln:7:37
             |vpiName:m_pack_iter
             |vpiActual:
-            \_logic_net: (m_pack_iter)
+            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream), line:7:5, endln:7:11
@@ -1262,7 +1305,7 @@ design: (work@dut)
           |vpiName:m_pack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
           |vpiActual:
-          \_logic_net: (m_pack_iter)
+          \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
         |vpiLhs:
         \_part_select: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits), line:8:5, endln:8:17
           |vpiParent:
@@ -1296,7 +1339,7 @@ design: (work@dut)
           |vpiName:m_unpack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_unpack_iter
           |vpiActual:
-          \_logic_net: (m_unpack_iter)
+          \_logic_net: (work@dut.m_unpack_iter), line:9:21, endln:9:34
         |vpiLhs:
         \_part_select: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits), line:9:5, endln:9:18
           |vpiParent:
@@ -1377,7 +1420,7 @@ design: (work@dut)
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
             |vpiActual:
-            \_logic_net: (m_pack_iter)
+            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
         |vpiStmt:
         \_assignment: , line:11:7, endln:11:28
           |vpiParent:
@@ -1428,6 +1471,69 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiName:o
     |vpiFullName:work@dut.o
+  |vpiNet:
+  \_logic_net: (work@dut.cover_info), line:6:5, endln:6:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:cover_info
+    |vpiFullName:work@dut.cover_info
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:m_pack_iter
+    |vpiFullName:work@dut.m_pack_iter
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.m_unpack_iter), line:9:21, endln:9:34
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:m_unpack_iter
+    |vpiFullName:work@dut.m_unpack_iter
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.a), line:17:5, endln:17:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:a
+    |vpiFullName:work@dut.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.idle), line:17:13, endln:17:17
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:idle
+    |vpiFullName:work@dut.idle
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.nba), line:18:5, endln:18:8
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:nba
+    |vpiFullName:work@dut.nba
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.next_nba), line:18:12, endln:18:20
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:next_nba
+    |vpiFullName:work@dut.next_nba
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.bb), line:19:5, endln:19:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:bb
+    |vpiFullName:work@dut.bb
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@dut.toto), line:19:13, endln:19:17
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
+    |vpiName:toto
+    |vpiFullName:work@dut.toto
+    |vpiNetType:1
   |vpiPort:
   \_port: (clk), line:1:12, endln:1:15
     |vpiParent:
@@ -1435,7 +1541,11 @@ design: (work@dut)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:1:12, endln:1:15
+      |vpiName:clk
+      |vpiFullName:work@dut.clk.clk
       |vpiActual:
       \_logic_net: (work@dut.clk), line:1:12, endln:1:15
     |vpiTypedef:
@@ -1447,7 +1557,11 @@ design: (work@dut)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o.o)
+      |vpiParent:
+      \_port: (o), line:1:17, endln:1:18
+      |vpiName:o
+      |vpiFullName:work@dut.o.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:1:17, endln:1:18
     |vpiTypedef:
@@ -1491,7 +1605,7 @@ design: (work@dut)
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.m_pack_iter
             |vpiActual:
-            \_logic_net: (m_pack_iter)
+            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
           |vpiLhs:
           \_part_select: m_bits (work@dut.m_bits), line:15:5, endln:15:17
             |vpiParent:
@@ -1544,7 +1658,7 @@ design: (work@dut)
             |vpiName:idle
             |vpiFullName:work@dut.idle
             |vpiActual:
-            \_logic_net: (idle)
+            \_logic_net: (work@dut.idle), line:17:13, endln:17:17
           |vpiLhs:
           \_ref_obj: (work@dut.a), line:17:5, endln:17:6
             |vpiParent:
@@ -1552,7 +1666,7 @@ design: (work@dut)
             |vpiName:a
             |vpiFullName:work@dut.a
             |vpiActual:
-            \_logic_net: (a)
+            \_logic_net: (work@dut.a), line:17:5, endln:17:6
           |vpiDelayControl:
           \_delay_control: , line:17:10, endln:17:12
             |vpiParent:
@@ -1570,7 +1684,7 @@ design: (work@dut)
             |vpiName:next_nba
             |vpiFullName:work@dut.next_nba
             |vpiActual:
-            \_logic_net: (next_nba)
+            \_logic_net: (work@dut.next_nba), line:18:12, endln:18:20
           |vpiLhs:
           \_ref_obj: (work@dut.nba), line:18:5, endln:18:8
             |vpiParent:
@@ -1578,7 +1692,7 @@ design: (work@dut)
             |vpiName:nba
             |vpiFullName:work@dut.nba
             |vpiActual:
-            \_logic_net: (nba)
+            \_logic_net: (work@dut.nba), line:18:5, endln:18:8
         |vpiStmt:
         \_assignment: , line:19:5, endln:19:17
           |vpiParent:
@@ -1592,7 +1706,7 @@ design: (work@dut)
             |vpiName:toto
             |vpiFullName:work@dut.toto
             |vpiActual:
-            \_logic_net: (toto)
+            \_logic_net: (work@dut.toto), line:19:13, endln:19:17
           |vpiLhs:
           \_ref_obj: (work@dut.bb), line:19:5, endln:19:7
             |vpiParent:
@@ -1600,7 +1714,7 @@ design: (work@dut)
             |vpiName:bb
             |vpiFullName:work@dut.bb
             |vpiActual:
-            \_logic_net: (bb)
+            \_logic_net: (work@dut.bb), line:19:5, endln:19:7
           |vpiDelayControl:
           \_delay_control: , line:19:10, endln:19:12
             |vpiParent:
@@ -1681,7 +1795,7 @@ design: (work@dut)
             |vpiName:cover_info
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info
             |vpiActual:
-            \_logic_net: (cover_info)
+            \_logic_net: (work@dut.cover_info), line:6:5, endln:6:15
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:5, endln:6:15
@@ -1690,7 +1804,7 @@ design: (work@dut)
           |vpiName:cover_info
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info
           |vpiActual:
-          \_logic_net: (cover_info)
+          \_logic_net: (work@dut.cover_info), line:6:5, endln:6:15
       |vpiStmt:
       \_assignment: , line:7:5, endln:7:37
         |vpiParent:
@@ -1708,7 +1822,7 @@ design: (work@dut)
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
             |vpiActual:
-            \_logic_net: (m_pack_iter)
+            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream), line:7:5, endln:7:11
@@ -1731,7 +1845,7 @@ design: (work@dut)
           |vpiName:m_pack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
           |vpiActual:
-          \_logic_net: (m_pack_iter)
+          \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
         |vpiLhs:
         \_part_select: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits), line:8:5, endln:8:17
           |vpiParent:
@@ -1757,7 +1871,7 @@ design: (work@dut)
           |vpiName:m_unpack_iter
           |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_unpack_iter
           |vpiActual:
-          \_logic_net: (m_unpack_iter)
+          \_logic_net: (work@dut.m_unpack_iter), line:9:21, endln:9:34
         |vpiLhs:
         \_part_select: m_bits (work@dut.uvm_packer::get_packed_bits.m_bits), line:9:5, endln:9:18
           |vpiParent:
@@ -1823,7 +1937,7 @@ design: (work@dut)
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
             |vpiActual:
-            \_logic_net: (m_pack_iter)
+            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
         |vpiStmt:
         \_assignment: , line:11:7, endln:11:28
           |vpiParent:
@@ -1868,6 +1982,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiTypespec:
     \_logic_typespec: , line:2:9, endln:2:9
+      |vpiParent:
+      \_logic_net: (work@dut.clk), line:1:12, endln:1:15
     |vpiName:clk
     |vpiFullName:work@dut.clk
   |vpiNet:
@@ -1876,44 +1992,10 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Assignments/dut.sv, line:1:1, endln:22:10
     |vpiTypespec:
     \_logic_typespec: , line:3:10, endln:3:10
+      |vpiParent:
+      \_logic_net: (work@dut.o), line:1:17, endln:1:18
     |vpiName:o
     |vpiFullName:work@dut.o
-  |vpiNet:
-  \_logic_net: (cover_info)
-    |vpiName:cover_info
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (m_pack_iter)
-    |vpiName:m_pack_iter
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (m_unpack_iter)
-    |vpiName:m_unpack_iter
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (a)
-    |vpiName:a
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (idle)
-    |vpiName:idle
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (nba)
-    |vpiName:nba
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (next_nba)
-    |vpiName:next_nba
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (bb)
-    |vpiName:bb
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (toto)
-    |vpiName:toto
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (clk), line:1:12, endln:1:15
@@ -1990,7 +2072,7 @@ design: (work@dut)
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.m_pack_iter
             |vpiActual:
-            \_logic_net: (m_pack_iter)
+            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
           |vpiLhs:
           \_part_select: m_bits (work@dut.m_bits), line:15:5, endln:15:17
             |vpiParent:
@@ -2031,7 +2113,7 @@ design: (work@dut)
             |vpiName:idle
             |vpiFullName:work@dut.idle
             |vpiActual:
-            \_logic_net: (idle)
+            \_logic_net: (work@dut.idle), line:17:13, endln:17:17
           |vpiLhs:
           \_ref_obj: (work@dut.a), line:17:5, endln:17:6
             |vpiParent:
@@ -2039,7 +2121,7 @@ design: (work@dut)
             |vpiName:a
             |vpiFullName:work@dut.a
             |vpiActual:
-            \_logic_net: (a)
+            \_logic_net: (work@dut.a), line:17:5, endln:17:6
           |vpiDelayControl:
           \_delay_control: , line:17:10, endln:17:12
             |vpiParent:
@@ -2057,7 +2139,7 @@ design: (work@dut)
             |vpiName:next_nba
             |vpiFullName:work@dut.next_nba
             |vpiActual:
-            \_logic_net: (next_nba)
+            \_logic_net: (work@dut.next_nba), line:18:12, endln:18:20
           |vpiLhs:
           \_ref_obj: (work@dut.nba), line:18:5, endln:18:8
             |vpiParent:
@@ -2065,7 +2147,7 @@ design: (work@dut)
             |vpiName:nba
             |vpiFullName:work@dut.nba
             |vpiActual:
-            \_logic_net: (nba)
+            \_logic_net: (work@dut.nba), line:18:5, endln:18:8
         |vpiStmt:
         \_assignment: , line:19:5, endln:19:17
           |vpiParent:
@@ -2079,7 +2161,7 @@ design: (work@dut)
             |vpiName:toto
             |vpiFullName:work@dut.toto
             |vpiActual:
-            \_logic_net: (toto)
+            \_logic_net: (work@dut.toto), line:19:13, endln:19:17
           |vpiLhs:
           \_ref_obj: (work@dut.bb), line:19:5, endln:19:7
             |vpiParent:
@@ -2087,7 +2169,7 @@ design: (work@dut)
             |vpiName:bb
             |vpiFullName:work@dut.bb
             |vpiActual:
-            \_logic_net: (bb)
+            \_logic_net: (work@dut.bb), line:19:5, endln:19:7
           |vpiDelayControl:
           \_delay_control: , line:19:10, endln:19:12
             |vpiParent:

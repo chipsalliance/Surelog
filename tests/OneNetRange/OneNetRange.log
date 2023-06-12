@@ -57,7 +57,7 @@ initial                                                1
 int_typespec                                          12
 interface_inst                                         6
 interface_typespec                                     3
-logic_net                                             25
+logic_net                                             26
 logic_typespec                                        30
 module_inst                                           23
 operation                                             46
@@ -101,6 +101,8 @@ design: (work@TOP)
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:8:1, endln:9:13
     |vpiRhs:
     \_constant: , line:8:41, endln:8:42
+      |vpiParent:
+      \_param_assign: , line:8:33, endln:8:42
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -131,7 +133,11 @@ design: (work@TOP)
     |vpiName:con_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@ConnectTB.con_i.con_i)
+      |vpiParent:
+      \_port: (con_i), line:8:68, endln:8:73
+      |vpiName:con_i
+      |vpiFullName:work@ConnectTB.con_i.con_i
       |vpiActual:
       \_logic_net: (work@ConnectTB.con_i), line:8:68, endln:8:73
   |vpiPort:
@@ -141,7 +147,11 @@ design: (work@TOP)
     |vpiName:con_o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@ConnectTB.con_o.con_o)
+      |vpiParent:
+      \_port: (con_o), line:8:98, endln:8:103
+      |vpiName:con_o
+      |vpiFullName:work@ConnectTB.con_o.con_o
       |vpiActual:
       \_logic_net: (work@ConnectTB.con_o), line:8:98, endln:8:103
 |uhdmallPrograms:
@@ -164,6 +174,8 @@ design: (work@TOP)
     \_program: work@TESTBENCH (work@TESTBENCH), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:1:1, endln:13:11
     |vpiRhs:
     \_constant: , line:1:39, endln:1:40
+      |vpiParent:
+      \_param_assign: , line:1:31, endln:1:40
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -438,7 +450,11 @@ design: (work@TOP)
     |vpiName:observe
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TESTBENCH.observe.observe)
+      |vpiParent:
+      \_port: (observe), line:1:66, endln:1:73
+      |vpiName:observe
+      |vpiFullName:work@TESTBENCH.observe.observe
       |vpiActual:
       \_logic_net: (work@TESTBENCH.observe), line:1:66, endln:1:73
   |vpiPort:
@@ -448,7 +464,11 @@ design: (work@TOP)
     |vpiName:drive
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@TESTBENCH.drive.drive)
+      |vpiParent:
+      \_port: (drive), line:1:98, endln:1:103
+      |vpiName:drive
+      |vpiFullName:work@TESTBENCH.drive.drive
       |vpiActual:
       \_logic_net: (work@TESTBENCH.drive), line:1:98, endln:1:103
 |uhdmallModules:
@@ -471,6 +491,8 @@ design: (work@TOP)
     \_module_inst: work@SUB (work@SUB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:15:1, endln:17:10
     |vpiRhs:
     \_constant: , line:15:32, endln:15:33
+      |vpiParent:
+      \_param_assign: , line:15:24, endln:15:33
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -501,13 +523,19 @@ design: (work@TOP)
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@SUB.inp.inp)
+      |vpiParent:
+      \_port: (inp), line:15:59, endln:15:62
+      |vpiName:inp
+      |vpiFullName:work@SUB.inp.inp
       |vpiActual:
       \_logic_net: (work@SUB.inp), line:15:59, endln:15:62
     |vpiTypedef:
     \_logic_typespec: , line:15:42, endln:15:58
       |vpiRange:
       \_range: , line:15:47, endln:15:58
+        |vpiParent:
+        \_logic_typespec: , line:15:42, endln:15:58
         |vpiLeftRange:
         \_operation: , line:15:48, endln:15:55
           |vpiParent:
@@ -541,13 +569,19 @@ design: (work@TOP)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@SUB.out.out)
+      |vpiParent:
+      \_port: (out), line:15:87, endln:15:90
+      |vpiName:out
+      |vpiFullName:work@SUB.out.out
       |vpiActual:
       \_logic_net: (work@SUB.out), line:15:87, endln:15:90
     |vpiTypedef:
     \_logic_typespec: , line:15:71, endln:15:86
       |vpiRange:
       \_range: , line:15:75, endln:15:86
+        |vpiParent:
+        \_logic_typespec: , line:15:71, endln:15:86
         |vpiLeftRange:
         \_operation: , line:15:76, endln:15:83
           |vpiParent:
@@ -585,7 +619,7 @@ design: (work@TOP)
       |vpiName:inp
       |vpiFullName:work@SUB.inp
       |vpiActual:
-      \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:15:59, endln:15:62
+      \_logic_net: (work@SUB.inp), line:15:59, endln:15:62
     |vpiLhs:
     \_ref_obj: (work@SUB.out), line:16:10, endln:16:13
       |vpiParent:
@@ -593,7 +627,7 @@ design: (work@TOP)
       |vpiName:out
       |vpiFullName:work@SUB.out
       |vpiActual:
-      \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:15:87, endln:15:90
+      \_logic_net: (work@SUB.out), line:15:87, endln:15:90
 |uhdmallModules:
 \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
   |vpiParent:
@@ -614,6 +648,8 @@ design: (work@TOP)
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
     |vpiRhs:
     \_constant: , line:17:21, endln:17:23
+      |vpiParent:
+      \_param_assign: , line:17:13, endln:17:23
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -647,18 +683,28 @@ design: (work@TOP)
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:8:1, endln:9:13
     |vpiPort:
     \_port: (con_i), line:20:29, endln:20:38
+      |vpiParent:
+      \_ref_module: work@ConnectTB (conntb), line:20:22, endln:20:28
       |vpiName:con_i
       |vpiHighConn:
-      \_ref_obj: (i), line:20:36, endln:20:37
+      \_ref_obj: (work@TOP.conntb.con_i.i), line:20:36, endln:20:37
+        |vpiParent:
+        \_port: (con_i), line:20:29, endln:20:38
         |vpiName:i
+        |vpiFullName:work@TOP.conntb.con_i.i
         |vpiActual:
         \_logic_net: (work@TOP.i), line:18:20, endln:18:21
     |vpiPort:
     \_port: (con_o), line:20:39, endln:20:48
+      |vpiParent:
+      \_ref_module: work@ConnectTB (conntb), line:20:22, endln:20:28
       |vpiName:con_o
       |vpiHighConn:
-      \_ref_obj: (o), line:20:46, endln:20:47
+      \_ref_obj: (work@TOP.conntb.con_o.o), line:20:46, endln:20:47
+        |vpiParent:
+        \_port: (con_o), line:20:39, endln:20:48
         |vpiName:o
+        |vpiFullName:work@TOP.conntb.con_o.o
         |vpiActual:
         \_logic_net: (work@TOP.o), line:19:20, endln:19:21
   |vpiRefModule:
@@ -671,9 +717,13 @@ design: (work@TOP)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:2:1, endln:5:10
     |vpiPort:
     \_port: (i), line:21:21, endln:21:37
+      |vpiParent:
+      \_ref_module: work@dut (dut1), line:21:16, endln:21:20
       |vpiName:i
       |vpiHighConn:
       \_hier_path: (conntb.con_i), line:21:24, endln:21:36
+        |vpiParent:
+        \_port: (i), line:21:21, endln:21:37
         |vpiName:conntb.con_i
         |vpiActual:
         \_ref_obj: (conntb), line:21:24, endln:21:30
@@ -681,15 +731,20 @@ design: (work@TOP)
           \_hier_path: (conntb.con_i), line:21:24, endln:21:36
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_i), line:21:31, endln:21:36
+        \_ref_obj: (work@TOP.dut1.i.con_i), line:21:31, endln:21:36
           |vpiParent:
           \_hier_path: (conntb.con_i), line:21:24, endln:21:36
           |vpiName:con_i
+          |vpiFullName:work@TOP.dut1.i.con_i
     |vpiPort:
     \_port: (o), line:21:39, endln:21:55
+      |vpiParent:
+      \_ref_module: work@dut (dut1), line:21:16, endln:21:20
       |vpiName:o
       |vpiHighConn:
       \_hier_path: (conntb.con_o), line:21:42, endln:21:54
+        |vpiParent:
+        \_port: (o), line:21:39, endln:21:55
         |vpiName:conntb.con_o
         |vpiActual:
         \_ref_obj: (conntb), line:21:42, endln:21:48
@@ -697,10 +752,11 @@ design: (work@TOP)
           \_hier_path: (conntb.con_o), line:21:42, endln:21:54
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_o), line:21:49, endln:21:54
+        \_ref_obj: (work@TOP.dut1.o.con_o), line:21:49, endln:21:54
           |vpiParent:
           \_hier_path: (conntb.con_o), line:21:42, endln:21:54
           |vpiName:con_o
+          |vpiFullName:work@TOP.dut1.o.con_o
   |vpiRefModule:
   \_ref_module: work@TESTBENCH (tb), line:22:22, endln:22:24
     |vpiParent:
@@ -711,9 +767,13 @@ design: (work@TOP)
     \_program: work@TESTBENCH (work@TESTBENCH), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:1:1, endln:13:11
     |vpiPort:
     \_port: (observe), line:22:25, endln:22:47
+      |vpiParent:
+      \_ref_module: work@TESTBENCH (tb), line:22:22, endln:22:24
       |vpiName:observe
       |vpiHighConn:
       \_hier_path: (conntb.con_o), line:22:34, endln:22:46
+        |vpiParent:
+        \_port: (observe), line:22:25, endln:22:47
         |vpiName:conntb.con_o
         |vpiActual:
         \_ref_obj: (conntb), line:22:34, endln:22:40
@@ -721,15 +781,20 @@ design: (work@TOP)
           \_hier_path: (conntb.con_o), line:22:34, endln:22:46
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_o), line:22:41, endln:22:46
+        \_ref_obj: (work@TOP.tb.observe.con_o), line:22:41, endln:22:46
           |vpiParent:
           \_hier_path: (conntb.con_o), line:22:34, endln:22:46
           |vpiName:con_o
+          |vpiFullName:work@TOP.tb.observe.con_o
     |vpiPort:
     \_port: (drive), line:22:48, endln:22:68
+      |vpiParent:
+      \_ref_module: work@TESTBENCH (tb), line:22:22, endln:22:24
       |vpiName:drive
       |vpiHighConn:
       \_hier_path: (conntb.con_i), line:22:55, endln:22:67
+        |vpiParent:
+        \_port: (drive), line:22:48, endln:22:68
         |vpiName:conntb.con_i
         |vpiActual:
         \_ref_obj: (conntb), line:22:55, endln:22:61
@@ -737,10 +802,11 @@ design: (work@TOP)
           \_hier_path: (conntb.con_i), line:22:55, endln:22:67
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_i), line:22:62, endln:22:67
+        \_ref_obj: (work@TOP.tb.drive.con_i), line:22:62, endln:22:67
           |vpiParent:
           \_hier_path: (conntb.con_i), line:22:55, endln:22:67
           |vpiName:con_i
+          |vpiFullName:work@TOP.tb.drive.con_i
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:2:1, endln:5:10
   |vpiParent:
@@ -761,6 +827,8 @@ design: (work@TOP)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:2:1, endln:5:10
     |vpiRhs:
     \_constant: , line:2:32, endln:2:33
+      |vpiParent:
+      \_param_assign: , line:2:24, endln:2:33
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -784,6 +852,13 @@ design: (work@TOP)
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@dut.conntb), line:4:35, endln:4:41
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:2:1, endln:5:10
+    |vpiName:conntb
+    |vpiFullName:work@dut.conntb
+    |vpiNetType:1
   |vpiPort:
   \_port: (i), line:2:59, endln:2:60
     |vpiParent:
@@ -791,13 +866,19 @@ design: (work@TOP)
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.i.i)
+      |vpiParent:
+      \_port: (i), line:2:59, endln:2:60
+      |vpiName:i
+      |vpiFullName:work@dut.i.i
       |vpiActual:
       \_logic_net: (work@dut.i), line:2:59, endln:2:60
     |vpiTypedef:
     \_logic_typespec: , line:2:42, endln:2:58
       |vpiRange:
       \_range: , line:2:47, endln:2:58
+        |vpiParent:
+        \_logic_typespec: , line:2:42, endln:2:58
         |vpiLeftRange:
         \_operation: , line:2:48, endln:2:55
           |vpiParent:
@@ -831,13 +912,19 @@ design: (work@TOP)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o.o)
+      |vpiParent:
+      \_port: (o), line:2:85, endln:2:86
+      |vpiName:o
+      |vpiFullName:work@dut.o.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:2:85, endln:2:86
     |vpiTypedef:
     \_logic_typespec: , line:2:69, endln:2:84
       |vpiRange:
       \_range: , line:2:73, endln:2:84
+        |vpiParent:
+        \_logic_typespec: , line:2:69, endln:2:84
         |vpiLeftRange:
         \_operation: , line:2:74, endln:2:81
           |vpiParent:
@@ -874,20 +961,30 @@ design: (work@TOP)
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:8:1, endln:9:13
     |vpiPort:
     \_port: (con_i), line:3:37, endln:3:46
+      |vpiParent:
+      \_ref_module: work@ConnectTB (conntb), line:3:30, endln:3:36
       |vpiName:con_i
       |vpiHighConn:
-      \_ref_obj: (i), line:3:44, endln:3:45
+      \_ref_obj: (work@dut.conntb.con_i.i), line:3:44, endln:3:45
+        |vpiParent:
+        \_port: (con_i), line:3:37, endln:3:46
         |vpiName:i
+        |vpiFullName:work@dut.conntb.con_i.i
         |vpiActual:
-        \_logic_net: (work@TOP.dut1.i), line:2:59, endln:2:60
+        \_logic_net: (work@dut.i), line:2:59, endln:2:60
     |vpiPort:
     \_port: (con_o), line:3:47, endln:3:56
+      |vpiParent:
+      \_ref_module: work@ConnectTB (conntb), line:3:30, endln:3:36
       |vpiName:con_o
       |vpiHighConn:
-      \_ref_obj: (o), line:3:54, endln:3:55
+      \_ref_obj: (work@dut.conntb.con_o.o), line:3:54, endln:3:55
+        |vpiParent:
+        \_port: (con_o), line:3:47, endln:3:56
         |vpiName:o
+        |vpiFullName:work@dut.conntb.con_o.o
         |vpiActual:
-        \_logic_net: (work@TOP.dut1.o), line:2:85, endln:2:86
+        \_logic_net: (work@dut.o), line:2:85, endln:2:86
   |vpiRefModule:
   \_ref_module: work@middle (middle1), line:4:27, endln:4:34
     |vpiParent:
@@ -898,11 +995,16 @@ design: (work@TOP)
     \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:11:1, endln:13:10
     |vpiPort:
     \_port: , line:4:35, endln:4:41
+      |vpiParent:
+      \_ref_module: work@middle (middle1), line:4:27, endln:4:34
       |vpiHighConn:
-      \_ref_obj: (conntb), line:4:35, endln:4:41
+      \_ref_obj: (work@dut.middle1.conntb), line:4:35, endln:4:41
+        |vpiParent:
+        \_port: , line:4:35, endln:4:41
         |vpiName:conntb
+        |vpiFullName:work@dut.middle1.conntb
         |vpiActual:
-        \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:3:3, endln:3:58
+        \_logic_net: (work@dut.conntb), line:4:35, endln:4:41
 |uhdmallModules:
 \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:11:1, endln:13:10
   |vpiParent:
@@ -923,6 +1025,8 @@ design: (work@TOP)
     \_module_inst: work@middle (work@middle), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:11:1, endln:13:10
     |vpiRhs:
     \_constant: , line:11:35, endln:11:36
+      |vpiParent:
+      \_param_assign: , line:11:27, endln:11:36
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -945,7 +1049,11 @@ design: (work@TOP)
     |vpiName:conn
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@middle.conn.conn)
+      |vpiParent:
+      \_port: (conn), line:11:49, endln:11:53
+      |vpiName:conn
+      |vpiFullName:work@middle.conn.conn
       |vpiActual:
       \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:8:1, endln:9:13
     |vpiTypedef:
@@ -961,9 +1069,13 @@ design: (work@TOP)
     \_module_inst: work@SUB (work@SUB), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:15:1, endln:17:10
     |vpiPort:
     \_port: (inp), line:12:29, endln:12:45
+      |vpiParent:
+      \_ref_module: work@SUB (sub1), line:12:24, endln:12:28
       |vpiName:inp
       |vpiHighConn:
       \_hier_path: (conn.con_i), line:12:34, endln:12:44
+        |vpiParent:
+        \_port: (inp), line:12:29, endln:12:45
         |vpiName:conn.con_i
         |vpiActual:
         \_ref_obj: (conn), line:12:34, endln:12:38
@@ -971,15 +1083,20 @@ design: (work@TOP)
           \_hier_path: (conn.con_i), line:12:34, endln:12:44
           |vpiName:conn
         |vpiActual:
-        \_ref_obj: (con_i), line:12:39, endln:12:44
+        \_ref_obj: (work@middle.sub1.inp.con_i), line:12:39, endln:12:44
           |vpiParent:
           \_hier_path: (conn.con_i), line:12:34, endln:12:44
           |vpiName:con_i
+          |vpiFullName:work@middle.sub1.inp.con_i
     |vpiPort:
     \_port: (out), line:12:46, endln:12:62
+      |vpiParent:
+      \_ref_module: work@SUB (sub1), line:12:24, endln:12:28
       |vpiName:out
       |vpiHighConn:
       \_hier_path: (conn.con_o), line:12:51, endln:12:61
+        |vpiParent:
+        \_port: (out), line:12:46, endln:12:62
         |vpiName:conn.con_o
         |vpiActual:
         \_ref_obj: (conn), line:12:51, endln:12:55
@@ -987,10 +1104,11 @@ design: (work@TOP)
           \_hier_path: (conn.con_o), line:12:51, endln:12:61
           |vpiName:conn
         |vpiActual:
-        \_ref_obj: (con_o), line:12:56, endln:12:61
+        \_ref_obj: (work@middle.sub1.out.con_o), line:12:56, endln:12:61
           |vpiParent:
           \_hier_path: (conn.con_o), line:12:51, endln:12:61
           |vpiName:con_o
+          |vpiFullName:work@middle.sub1.out.con_o
 |uhdmtopModules:
 \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
   |vpiName:work@TOP
@@ -1011,6 +1129,8 @@ design: (work@TOP)
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
     |vpiRhs:
     \_constant: , line:17:21, endln:17:23
+      |vpiParent:
+      \_param_assign: , line:17:13, endln:17:23
       |vpiDecompile:16
       |vpiSize:32
       |UINT:16
@@ -1036,8 +1156,12 @@ design: (work@TOP)
       \_program: work@TESTBENCH (work@TOP.tb), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:22:3, endln:22:70
       |vpiTypespec:
       \_logic_typespec: , line:1:49, endln:1:65
+        |vpiParent:
+        \_logic_net: (work@TOP.tb.observe), line:1:66, endln:1:73
         |vpiRange:
         \_range: , line:1:54, endln:1:65
+          |vpiParent:
+          \_logic_typespec: , line:1:49, endln:1:65
           |vpiLeftRange:
           \_constant: , line:1:55, endln:1:60
             |vpiParent:
@@ -1063,8 +1187,12 @@ design: (work@TOP)
       \_program: work@TESTBENCH (work@TOP.tb), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:22:3, endln:22:70
       |vpiTypespec:
       \_logic_typespec: , line:1:82, endln:1:97
+        |vpiParent:
+        \_logic_net: (work@TOP.tb.drive), line:1:98, endln:1:103
         |vpiRange:
         \_range: , line:1:86, endln:1:97
+          |vpiParent:
+          \_logic_typespec: , line:1:82, endln:1:97
           |vpiLeftRange:
           \_constant: , line:1:87, endln:1:92
             |vpiParent:
@@ -1096,6 +1224,8 @@ design: (work@TOP)
       |vpiDirection:1
       |vpiHighConn:
       \_hier_path: (conntb.con_o), line:22:34, endln:22:46
+        |vpiParent:
+        \_port: (observe), line:1:66, endln:1:73
         |vpiName:conntb.con_o
         |vpiActual:
         \_ref_obj: (conntb), line:22:34, endln:22:40
@@ -1103,12 +1233,15 @@ design: (work@TOP)
           \_hier_path: (conntb.con_o), line:22:34, endln:22:46
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_o), line:22:41, endln:22:46
+        \_ref_obj: (work@TOP.tb.observe.con_o), line:22:41, endln:22:46
           |vpiParent:
           \_hier_path: (conntb.con_o), line:22:34, endln:22:46
           |vpiName:con_o
+          |vpiFullName:work@TOP.tb.observe.con_o
       |vpiLowConn:
       \_ref_obj: (work@TOP.tb.observe), line:22:26, endln:22:33
+        |vpiParent:
+        \_port: (observe), line:1:66, endln:1:73
         |vpiName:observe
         |vpiFullName:work@TOP.tb.observe
         |vpiActual:
@@ -1118,7 +1251,7 @@ design: (work@TOP)
         |vpiRange:
         \_range: , line:1:54, endln:1:65
           |vpiParent:
-          \_port: (observe), line:1:66, endln:1:73
+          \_logic_typespec: , line:1:49, endln:1:65
           |vpiLeftRange:
           \_constant: , line:1:55, endln:1:60
             |vpiParent:
@@ -1143,6 +1276,8 @@ design: (work@TOP)
       |vpiDirection:2
       |vpiHighConn:
       \_hier_path: (conntb.con_i), line:22:55, endln:22:67
+        |vpiParent:
+        \_port: (drive), line:1:98, endln:1:103
         |vpiName:conntb.con_i
         |vpiActual:
         \_ref_obj: (conntb), line:22:55, endln:22:61
@@ -1150,12 +1285,15 @@ design: (work@TOP)
           \_hier_path: (conntb.con_i), line:22:55, endln:22:67
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_i), line:22:62, endln:22:67
+        \_ref_obj: (work@TOP.tb.drive.con_i), line:22:62, endln:22:67
           |vpiParent:
           \_hier_path: (conntb.con_i), line:22:55, endln:22:67
           |vpiName:con_i
+          |vpiFullName:work@TOP.tb.drive.con_i
       |vpiLowConn:
       \_ref_obj: (work@TOP.tb.drive), line:22:49, endln:22:54
+        |vpiParent:
+        \_port: (drive), line:1:98, endln:1:103
         |vpiName:drive
         |vpiFullName:work@TOP.tb.drive
         |vpiActual:
@@ -1165,7 +1303,7 @@ design: (work@TOP)
         |vpiRange:
         \_range: , line:1:86, endln:1:97
           |vpiParent:
-          \_port: (drive), line:1:98, endln:1:103
+          \_logic_typespec: , line:1:82, endln:1:97
           |vpiLeftRange:
           \_constant: , line:1:87, endln:1:92
             |vpiParent:
@@ -1188,8 +1326,12 @@ design: (work@TOP)
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
     |vpiTypespec:
     \_logic_typespec: , line:18:3, endln:18:19
+      |vpiParent:
+      \_logic_net: (work@TOP.i), line:18:20, endln:18:21
       |vpiRange:
       \_range: , line:18:8, endln:18:19
+        |vpiParent:
+        \_logic_typespec: , line:18:3, endln:18:19
         |vpiLeftRange:
         \_constant: , line:18:9, endln:18:14
           |vpiParent:
@@ -1215,8 +1357,12 @@ design: (work@TOP)
     \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:16:1, endln:23:10
     |vpiTypespec:
     \_logic_typespec: , line:19:3, endln:19:19
+      |vpiParent:
+      \_logic_net: (work@TOP.o), line:19:20, endln:19:21
       |vpiRange:
       \_range: , line:19:8, endln:19:19
+        |vpiParent:
+        \_logic_typespec: , line:19:3, endln:19:19
         |vpiLeftRange:
         \_constant: , line:19:9, endln:19:14
           |vpiParent:
@@ -1261,6 +1407,8 @@ design: (work@TOP)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:8:41, endln:8:42
+        |vpiParent:
+        \_param_assign: , line:8:33, endln:8:42
         |vpiDecompile:16
         |vpiSize:32
         |UINT:16
@@ -1278,8 +1426,12 @@ design: (work@TOP)
       \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:20:3, endln:20:50
       |vpiTypespec:
       \_logic_typespec: , line:8:51, endln:8:67
+        |vpiParent:
+        \_logic_net: (work@TOP.conntb.con_i), line:8:68, endln:8:73
         |vpiRange:
         \_range: , line:8:56, endln:8:67
+          |vpiParent:
+          \_logic_typespec: , line:8:51, endln:8:67
           |vpiLeftRange:
           \_constant: , line:8:57, endln:8:62
             |vpiParent:
@@ -1305,8 +1457,12 @@ design: (work@TOP)
       \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:20:3, endln:20:50
       |vpiTypespec:
       \_logic_typespec: , line:8:82, endln:8:97
+        |vpiParent:
+        \_logic_net: (work@TOP.conntb.con_o), line:8:98, endln:8:103
         |vpiRange:
         \_range: , line:8:86, endln:8:97
+          |vpiParent:
+          \_logic_typespec: , line:8:82, endln:8:97
           |vpiLeftRange:
           \_constant: , line:8:87, endln:8:92
             |vpiParent:
@@ -1336,12 +1492,16 @@ design: (work@TOP)
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (work@TOP.i), line:20:36, endln:20:37
+        |vpiParent:
+        \_port: (con_i), line:8:68, endln:8:73
         |vpiName:i
         |vpiFullName:work@TOP.i
         |vpiActual:
         \_logic_net: (work@TOP.i), line:18:20, endln:18:21
       |vpiLowConn:
       \_ref_obj: (work@TOP.conntb.con_i), line:20:30, endln:20:35
+        |vpiParent:
+        \_port: (con_i), line:8:68, endln:8:73
         |vpiName:con_i
         |vpiFullName:work@TOP.conntb.con_i
         |vpiActual:
@@ -1351,7 +1511,7 @@ design: (work@TOP)
         |vpiRange:
         \_range: , line:8:56, endln:8:67
           |vpiParent:
-          \_port: (con_i), line:8:68, endln:8:73
+          \_logic_typespec: , line:8:51, endln:8:67
           |vpiLeftRange:
           \_constant: , line:8:57, endln:8:62
             |vpiParent:
@@ -1376,12 +1536,16 @@ design: (work@TOP)
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@TOP.o), line:20:46, endln:20:47
+        |vpiParent:
+        \_port: (con_o), line:8:98, endln:8:103
         |vpiName:o
         |vpiFullName:work@TOP.o
         |vpiActual:
         \_logic_net: (work@TOP.o), line:19:20, endln:19:21
       |vpiLowConn:
       \_ref_obj: (work@TOP.conntb.con_o), line:20:40, endln:20:45
+        |vpiParent:
+        \_port: (con_o), line:8:98, endln:8:103
         |vpiName:con_o
         |vpiFullName:work@TOP.conntb.con_o
         |vpiActual:
@@ -1391,7 +1555,7 @@ design: (work@TOP)
         |vpiRange:
         \_range: , line:8:86, endln:8:97
           |vpiParent:
-          \_port: (con_o), line:8:98, endln:8:103
+          \_logic_typespec: , line:8:82, endln:8:97
           |vpiLeftRange:
           \_constant: , line:8:87, endln:8:92
             |vpiParent:
@@ -1432,6 +1596,8 @@ design: (work@TOP)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:32, endln:2:33
+        |vpiParent:
+        \_param_assign: , line:2:24, endln:2:33
         |vpiDecompile:16
         |vpiSize:32
         |UINT:16
@@ -1449,8 +1615,12 @@ design: (work@TOP)
       \_module_inst: work@dut (work@TOP.dut1), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:21:3, endln:21:57
       |vpiTypespec:
       \_logic_typespec: , line:2:42, endln:2:58
+        |vpiParent:
+        \_logic_net: (work@TOP.dut1.i), line:2:59, endln:2:60
         |vpiRange:
         \_range: , line:2:47, endln:2:58
+          |vpiParent:
+          \_logic_typespec: , line:2:42, endln:2:58
           |vpiLeftRange:
           \_constant: , line:2:48, endln:2:53
             |vpiParent:
@@ -1476,8 +1646,12 @@ design: (work@TOP)
       \_module_inst: work@dut (work@TOP.dut1), file:${SURELOG_DIR}/tests/OneNetRange/tb.v, line:21:3, endln:21:57
       |vpiTypespec:
       \_logic_typespec: , line:2:69, endln:2:84
+        |vpiParent:
+        \_logic_net: (work@TOP.dut1.o), line:2:85, endln:2:86
         |vpiRange:
         \_range: , line:2:73, endln:2:84
+          |vpiParent:
+          \_logic_typespec: , line:2:69, endln:2:84
           |vpiLeftRange:
           \_constant: , line:2:74, endln:2:79
             |vpiParent:
@@ -1507,6 +1681,8 @@ design: (work@TOP)
       |vpiDirection:1
       |vpiHighConn:
       \_hier_path: (conntb.con_i), line:21:24, endln:21:36
+        |vpiParent:
+        \_port: (i), line:2:59, endln:2:60
         |vpiName:conntb.con_i
         |vpiActual:
         \_ref_obj: (conntb), line:21:24, endln:21:30
@@ -1514,12 +1690,15 @@ design: (work@TOP)
           \_hier_path: (conntb.con_i), line:21:24, endln:21:36
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_i), line:21:31, endln:21:36
+        \_ref_obj: (work@TOP.dut1.i.con_i), line:21:31, endln:21:36
           |vpiParent:
           \_hier_path: (conntb.con_i), line:21:24, endln:21:36
           |vpiName:con_i
+          |vpiFullName:work@TOP.dut1.i.con_i
       |vpiLowConn:
       \_ref_obj: (work@TOP.dut1.i), line:21:22, endln:21:23
+        |vpiParent:
+        \_port: (i), line:2:59, endln:2:60
         |vpiName:i
         |vpiFullName:work@TOP.dut1.i
         |vpiActual:
@@ -1529,7 +1708,7 @@ design: (work@TOP)
         |vpiRange:
         \_range: , line:2:47, endln:2:58
           |vpiParent:
-          \_port: (i), line:2:59, endln:2:60
+          \_logic_typespec: , line:2:42, endln:2:58
           |vpiLeftRange:
           \_constant: , line:2:48, endln:2:53
             |vpiParent:
@@ -1554,6 +1733,8 @@ design: (work@TOP)
       |vpiDirection:2
       |vpiHighConn:
       \_hier_path: (conntb.con_o), line:21:42, endln:21:54
+        |vpiParent:
+        \_port: (o), line:2:85, endln:2:86
         |vpiName:conntb.con_o
         |vpiActual:
         \_ref_obj: (conntb), line:21:42, endln:21:48
@@ -1561,12 +1742,15 @@ design: (work@TOP)
           \_hier_path: (conntb.con_o), line:21:42, endln:21:54
           |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (con_o), line:21:49, endln:21:54
+        \_ref_obj: (work@TOP.dut1.o.con_o), line:21:49, endln:21:54
           |vpiParent:
           \_hier_path: (conntb.con_o), line:21:42, endln:21:54
           |vpiName:con_o
+          |vpiFullName:work@TOP.dut1.o.con_o
       |vpiLowConn:
       \_ref_obj: (work@TOP.dut1.o), line:21:40, endln:21:41
+        |vpiParent:
+        \_port: (o), line:2:85, endln:2:86
         |vpiName:o
         |vpiFullName:work@TOP.dut1.o
         |vpiActual:
@@ -1576,7 +1760,7 @@ design: (work@TOP)
         |vpiRange:
         \_range: , line:2:73, endln:2:84
           |vpiParent:
-          \_port: (o), line:2:85, endln:2:86
+          \_logic_typespec: , line:2:69, endln:2:84
           |vpiLeftRange:
           \_constant: , line:2:74, endln:2:79
             |vpiParent:
@@ -1617,6 +1801,8 @@ design: (work@TOP)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:8:41, endln:8:42
+          |vpiParent:
+          \_param_assign: , line:8:33, endln:8:42
           |vpiDecompile:16
           |vpiSize:32
           |UINT:16
@@ -1634,8 +1820,12 @@ design: (work@TOP)
         \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:3:3, endln:3:58
         |vpiTypespec:
         \_logic_typespec: , line:8:51, endln:8:67
+          |vpiParent:
+          \_logic_net: (work@TOP.dut1.conntb.con_i), line:8:68, endln:8:73
           |vpiRange:
           \_range: , line:8:56, endln:8:67
+            |vpiParent:
+            \_logic_typespec: , line:8:51, endln:8:67
             |vpiLeftRange:
             \_constant: , line:8:57, endln:8:62
               |vpiParent:
@@ -1661,8 +1851,12 @@ design: (work@TOP)
         \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:3:3, endln:3:58
         |vpiTypespec:
         \_logic_typespec: , line:8:82, endln:8:97
+          |vpiParent:
+          \_logic_net: (work@TOP.dut1.conntb.con_o), line:8:98, endln:8:103
           |vpiRange:
           \_range: , line:8:86, endln:8:97
+            |vpiParent:
+            \_logic_typespec: , line:8:82, endln:8:97
             |vpiLeftRange:
             \_constant: , line:8:87, endln:8:92
               |vpiParent:
@@ -1692,12 +1886,16 @@ design: (work@TOP)
         |vpiDirection:1
         |vpiHighConn:
         \_ref_obj: (work@TOP.dut1.i), line:3:44, endln:3:45
+          |vpiParent:
+          \_port: (con_i), line:8:68, endln:8:73
           |vpiName:i
           |vpiFullName:work@TOP.dut1.i
           |vpiActual:
           \_logic_net: (work@TOP.dut1.i), line:2:59, endln:2:60
         |vpiLowConn:
         \_ref_obj: (work@TOP.dut1.conntb.con_i), line:3:38, endln:3:43
+          |vpiParent:
+          \_port: (con_i), line:8:68, endln:8:73
           |vpiName:con_i
           |vpiFullName:work@TOP.dut1.conntb.con_i
           |vpiActual:
@@ -1707,7 +1905,7 @@ design: (work@TOP)
           |vpiRange:
           \_range: , line:8:56, endln:8:67
             |vpiParent:
-            \_port: (con_i), line:8:68, endln:8:73
+            \_logic_typespec: , line:8:51, endln:8:67
             |vpiLeftRange:
             \_constant: , line:8:57, endln:8:62
               |vpiParent:
@@ -1732,12 +1930,16 @@ design: (work@TOP)
         |vpiDirection:2
         |vpiHighConn:
         \_ref_obj: (work@TOP.dut1.o), line:3:54, endln:3:55
+          |vpiParent:
+          \_port: (con_o), line:8:98, endln:8:103
           |vpiName:o
           |vpiFullName:work@TOP.dut1.o
           |vpiActual:
           \_logic_net: (work@TOP.dut1.o), line:2:85, endln:2:86
         |vpiLowConn:
         \_ref_obj: (work@TOP.dut1.conntb.con_o), line:3:48, endln:3:53
+          |vpiParent:
+          \_port: (con_o), line:8:98, endln:8:103
           |vpiName:con_o
           |vpiFullName:work@TOP.dut1.conntb.con_o
           |vpiActual:
@@ -1747,7 +1949,7 @@ design: (work@TOP)
           |vpiRange:
           \_range: , line:8:86, endln:8:97
             |vpiParent:
-            \_port: (con_o), line:8:98, endln:8:103
+            \_logic_typespec: , line:8:82, endln:8:97
             |vpiLeftRange:
             \_constant: , line:8:87, endln:8:92
               |vpiParent:
@@ -1788,6 +1990,8 @@ design: (work@TOP)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:11:35, endln:11:36
+          |vpiParent:
+          \_param_assign: , line:11:27, endln:11:36
           |vpiDecompile:16
           |vpiSize:32
           |UINT:16
@@ -1809,6 +2013,8 @@ design: (work@TOP)
         |vpiDirection:3
         |vpiHighConn:
         \_ref_obj: (work@TOP.dut1.conntb), line:4:35, endln:4:41
+          |vpiParent:
+          \_port: (conn), line:11:49, endln:11:53
           |vpiName:conntb
           |vpiFullName:work@TOP.dut1.conntb
           |vpiActual:
@@ -1854,6 +2060,8 @@ design: (work@TOP)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:15:32, endln:15:33
+            |vpiParent:
+            \_param_assign: , line:15:24, endln:15:33
             |vpiDecompile:16
             |vpiSize:32
             |UINT:16
@@ -1871,8 +2079,12 @@ design: (work@TOP)
           \_module_inst: work@SUB (work@TOP.dut1.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:12:3, endln:12:64
           |vpiTypespec:
           \_logic_typespec: , line:15:42, endln:15:58
+            |vpiParent:
+            \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:15:59, endln:15:62
             |vpiRange:
             \_range: , line:15:47, endln:15:58
+              |vpiParent:
+              \_logic_typespec: , line:15:42, endln:15:58
               |vpiLeftRange:
               \_constant: , line:15:48, endln:15:53
                 |vpiParent:
@@ -1900,6 +2112,8 @@ design: (work@TOP)
           \_logic_typespec: , line:15:71, endln:15:86
             |vpiRange:
             \_range: , line:15:75, endln:15:86
+              |vpiParent:
+              \_logic_typespec: , line:15:71, endln:15:86
               |vpiLeftRange:
               \_constant: , line:15:76, endln:15:81
                 |vpiParent:
@@ -1929,6 +2143,8 @@ design: (work@TOP)
           |vpiDirection:1
           |vpiHighConn:
           \_hier_path: (conn.con_i), line:12:34, endln:12:44
+            |vpiParent:
+            \_port: (inp), line:15:59, endln:15:62
             |vpiName:conn.con_i
             |vpiExpr:
             \_ref_obj: (work@TOP.dut1.middle1.conn), line:4:35, endln:4:41
@@ -1938,14 +2154,17 @@ design: (work@TOP)
               \_hier_path: (conn.con_i), line:12:34, endln:12:44
               |vpiName:conn
             |vpiActual:
-            \_ref_obj: (con_i), line:12:39, endln:12:44
+            \_ref_obj: (work@TOP.dut1.middle1.sub1.inp.con_i), line:12:39, endln:12:44
               |vpiParent:
               \_hier_path: (conn.con_i), line:12:34, endln:12:44
               |vpiName:con_i
+              |vpiFullName:work@TOP.dut1.middle1.sub1.inp.con_i
             |vpiExpr:
             \_ref_obj: (work@TOP.dut1.middle1.conn), line:4:35, endln:4:41
           |vpiLowConn:
           \_ref_obj: (work@TOP.dut1.middle1.sub1.inp), line:12:30, endln:12:33
+            |vpiParent:
+            \_port: (inp), line:15:59, endln:15:62
             |vpiName:inp
             |vpiFullName:work@TOP.dut1.middle1.sub1.inp
             |vpiActual:
@@ -1955,7 +2174,7 @@ design: (work@TOP)
             |vpiRange:
             \_range: , line:15:47, endln:15:58
               |vpiParent:
-              \_port: (inp), line:15:59, endln:15:62
+              \_logic_typespec: , line:15:42, endln:15:58
               |vpiLeftRange:
               \_constant: , line:15:48, endln:15:53
                 |vpiParent:
@@ -1980,6 +2199,8 @@ design: (work@TOP)
           |vpiDirection:2
           |vpiHighConn:
           \_hier_path: (conn.con_o), line:12:51, endln:12:61
+            |vpiParent:
+            \_port: (out), line:15:87, endln:15:90
             |vpiName:conn.con_o
             |vpiExpr:
             \_ref_obj: (work@TOP.dut1.middle1.conn), line:4:35, endln:4:41
@@ -1989,14 +2210,17 @@ design: (work@TOP)
               \_hier_path: (conn.con_o), line:12:51, endln:12:61
               |vpiName:conn
             |vpiActual:
-            \_ref_obj: (con_o), line:12:56, endln:12:61
+            \_ref_obj: (work@TOP.dut1.middle1.sub1.out.con_o), line:12:56, endln:12:61
               |vpiParent:
               \_hier_path: (conn.con_o), line:12:51, endln:12:61
               |vpiName:con_o
+              |vpiFullName:work@TOP.dut1.middle1.sub1.out.con_o
             |vpiExpr:
             \_ref_obj: (work@TOP.dut1.middle1.conn), line:4:35, endln:4:41
           |vpiLowConn:
           \_ref_obj: (work@TOP.dut1.middle1.sub1.out), line:12:47, endln:12:50
+            |vpiParent:
+            \_port: (out), line:15:87, endln:15:90
             |vpiName:out
             |vpiFullName:work@TOP.dut1.middle1.sub1.out
             |vpiActual:
@@ -2006,7 +2230,7 @@ design: (work@TOP)
             |vpiRange:
             \_range: , line:15:75, endln:15:86
               |vpiParent:
-              \_port: (out), line:15:87, endln:15:90
+              \_logic_typespec: , line:15:71, endln:15:86
               |vpiLeftRange:
               \_constant: , line:15:76, endln:15:81
                 |vpiParent:

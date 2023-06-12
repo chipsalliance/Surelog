@@ -765,7 +765,7 @@ logic_var                                              2
 method_func_call                                      23
 module_inst                                            2
 operation                                              1
-package                                                5
+package                                                4
 range                                                  5
 ref_obj                                               35
 ref_var                                               12
@@ -809,13 +809,15 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (printer), line:5:59, endln:5:66
+      |vpiParent:
+      \_function: (uvm_pkg::uvm_sequencer_base::do_print), line:5:3, endln:11:14
       |vpiDirection:1
       |vpiName:printer
       |vpiTypedef:
       \_unsupported_typespec: (uvm_printer), line:5:47, endln:5:58
         |vpiName:uvm_printer
         |vpiInstance:
-        \_package: (uvm_pkg)
+        \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
     |vpiStmt:
     \_begin: (uvm_pkg::uvm_sequencer_base::do_print)
       |vpiParent:
@@ -864,6 +866,8 @@ design: (unnamed)
             |vpiName:arb_sequence_q
           |vpiActual:
           \_method_func_call: (size), line:7:68, endln:7:72
+            |vpiParent:
+            \_hier_path: (arb_sequence_q.size), line:7:53, endln:7:74
             |vpiName:size
         |vpiName:print_array_header
         |vpiPrefix:
@@ -885,7 +889,7 @@ design: (unnamed)
           \_unsupported_typespec: (arb_sequence_q), line:8:14, endln:8:28
             |vpiName:arb_sequence_q
             |vpiInstance:
-            \_package: (uvm_pkg)
+            \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
           |vpiName:arb_sequence_q
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q
         |vpiLoopVars:
@@ -948,7 +952,7 @@ design: (unnamed)
                 |vpiIndex:
                 \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::i), line:10:49, endln:10:50
                   |vpiParent:
-                  \_sys_func_call: ($sformatf), line:10:10, endln:10:97
+                  \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
                   |vpiName:i
                   |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
               |vpiActual:
@@ -958,6 +962,8 @@ design: (unnamed)
                 |vpiName:request
               |vpiActual:
               \_method_func_call: (name), line:10:60, endln:10:64
+                |vpiParent:
+                \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
                 |vpiName:name
             |vpiArgument:
             \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
@@ -973,7 +979,7 @@ design: (unnamed)
                 |vpiIndex:
                 \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::i), line:10:82, endln:10:83
                   |vpiParent:
-                  \_sys_func_call: ($sformatf), line:10:10, endln:10:97
+                  \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
                   |vpiName:i
                   |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
               |vpiActual:
@@ -1055,6 +1061,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (printer), line:5:59, endln:5:66
+      |vpiParent:
+      \_function: (uvm_pkg::uvm_sequencer_base::do_print), line:5:3, endln:11:14
       |vpiDirection:1
       |vpiName:printer
       |vpiTypedef:
@@ -1110,6 +1118,8 @@ design: (unnamed)
             |vpiName:arb_sequence_q
           |vpiActual:
           \_method_func_call: (size), line:7:68, endln:7:72
+            |vpiParent:
+            \_hier_path: (arb_sequence_q.size), line:7:53, endln:7:74
             |vpiName:size
         |vpiName:print_array_header
         |vpiPrefix:
@@ -1135,10 +1145,13 @@ design: (unnamed)
           |vpiName:arb_sequence_q
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q
         |vpiLoopVars:
-        \_int_var: (i), line:8:29, endln:8:30
+        \_int_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8:29, endln:8:30
+          |vpiParent:
+          \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8:5, endln:8:12
           |vpiTypespec:
           \_int_typespec: 
           |vpiName:i
+          |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
         |vpiStmt:
         \_method_func_call: (print_string), line:9:15, endln:9:27
           |vpiParent:
@@ -1162,7 +1175,7 @@ design: (unnamed)
               |vpiName:i
               |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
               |vpiActual:
-              \_int_var: (i), line:8:29, endln:8:30
+              \_int_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8:29, endln:8:30
             |vpiName:$sformatf
           |vpiArgument:
           \_sys_func_call: ($sformatf), line:10:10, endln:10:97
@@ -1190,11 +1203,11 @@ design: (unnamed)
                 |vpiIndex:
                 \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::i), line:10:49, endln:10:50
                   |vpiParent:
-                  \_sys_func_call: ($sformatf), line:10:10, endln:10:97
+                  \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
                   |vpiName:i
                   |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
                   |vpiActual:
-                  \_int_var: (i), line:8:29, endln:8:30
+                  \_int_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8:29, endln:8:30
               |vpiActual:
               \_ref_obj: (request), line:10:52, endln:10:59
                 |vpiParent:
@@ -1202,6 +1215,8 @@ design: (unnamed)
                 |vpiName:request
               |vpiActual:
               \_method_func_call: (name), line:10:60, endln:10:64
+                |vpiParent:
+                \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
                 |vpiName:name
             |vpiArgument:
             \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
@@ -1217,11 +1232,11 @@ design: (unnamed)
                 |vpiIndex:
                 \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::i), line:10:82, endln:10:83
                   |vpiParent:
-                  \_sys_func_call: ($sformatf), line:10:10, endln:10:97
+                  \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
                   |vpiName:i
                   |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
                   |vpiActual:
-                  \_int_var: (i), line:8:29, endln:8:30
+                  \_int_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8:29, endln:8:30
               |vpiActual:
               \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::sequence_id), line:10:85, endln:10:96
                 |vpiParent:
@@ -1259,13 +1274,18 @@ design: (unnamed)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -1286,10 +1306,13 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -1301,6 +1324,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -1312,9 +1337,14 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -1327,6 +1357,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -1338,13 +1370,18 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -1357,6 +1394,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -1368,13 +1407,18 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
@@ -1391,7 +1435,10 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@moreobj::mine)
+      |vpiParent:
+      \_function: (work@moreobj::mine), line:2:6, endln:3:17
+      |vpiFullName:work@moreobj::mine
 |uhdmallClasses:
 \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv
   |vpiParent:
@@ -1404,30 +1451,40 @@ design: (unnamed)
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
@@ -1441,11 +1498,14 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -1455,9 +1515,12 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -1503,13 +1566,18 @@ design: (unnamed)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1531,6 +1599,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1552,6 +1622,8 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1572,13 +1644,18 @@ design: (unnamed)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1689,8 +1766,10 @@ design: (unnamed)
       \_array_typespec: , line:50:21, endln:50:23
         |vpiRange:
         \_range: , line:50:21, endln:50:23
+          |vpiParent:
+          \_array_typespec: , line:50:21, endln:50:23
           |vpiLeftRange:
-          \_constant: , line:50:21, endln:50:22
+          \_constant: 
             |vpiParent:
             \_range: , line:50:21, endln:50:23
             |vpiDecompile:0
@@ -1704,6 +1783,8 @@ design: (unnamed)
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:50:21, endln:50:23
+              |vpiParent:
+              \_operation: 
               |vpiDecompile:10
               |vpiSize:64
               |UINT:10
@@ -1719,9 +1800,12 @@ design: (unnamed)
       |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
       |vpiArrayType:1
       |vpiReg:
-      \_string_var: , line:50:14, endln:50:20
+      \_string_var: (work@uvm_reg_map::set_check_on_read::sarray), line:50:14, endln:50:20
+        |vpiParent:
+        \_array_var: (work@uvm_reg_map::set_check_on_read::sarray), line:50:14, endln:50:20
         |vpiTypespec:
         \_string_typespec: , line:50:7, endln:50:13
+        |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
     |vpiVariables:
     \_class_var: (work@uvm_reg_map::set_check_on_read::an_obj), line:51:14, endln:51:20
       |vpiParent:
@@ -1740,6 +1824,8 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@uvm_reg_map::set_check_on_read), line:49:3, endln:79:15
       |vpiFullName:work@uvm_reg_map::set_check_on_read
+      |vpiVariables:
+      \_string_var: (work@uvm_reg_map::set_check_on_read::sarray), line:50:14, endln:50:20
       |vpiVariables:
       \_array_var: (work@uvm_reg_map::set_check_on_read::sarray), line:50:14, endln:50:20
       |vpiVariables:

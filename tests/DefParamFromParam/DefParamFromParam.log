@@ -192,6 +192,8 @@ design: (work@top)
     \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:25
       |vpiDecompile:9
       |vpiSize:32
       |UINT:9
@@ -206,6 +208,8 @@ design: (work@top)
     \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_constant: , line:3:24, endln:3:25
+      |vpiParent:
+      \_param_assign: , line:3:15, endln:3:25
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -241,6 +245,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:6:1, endln:13:10
     |vpiRhs:
     \_constant: , line:7:25, endln:7:27
+      |vpiParent:
+      \_param_assign: , line:7:15, endln:7:27
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -254,8 +260,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:6:1, endln:13:10
     |vpiRhs:
-    \_ref_obj: (width_a), line:8:25, endln:8:32
+    \_ref_obj: (work@top.width_a), line:8:25, endln:8:32
+      |vpiParent:
+      \_param_assign: , line:8:15, endln:8:32
       |vpiName:width_a
+      |vpiFullName:work@top.width_a
     |vpiLhs:
     \_parameter: (work@top.width_b), line:8:15, endln:8:22
   |vpiDefName:work@top
@@ -293,6 +302,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:6:1, endln:13:10
     |vpiRhs:
     \_constant: , line:7:25, endln:7:27
+      |vpiParent:
+      \_param_assign: , line:7:15, endln:7:27
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -307,6 +318,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:6:1, endln:13:10
     |vpiRhs:
     \_constant: , line:8:25, endln:8:32
+      |vpiParent:
+      \_param_assign: , line:8:15, endln:8:32
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -350,6 +363,8 @@ design: (work@top)
       \_module_inst: work@fifo (work@top.fifo_inst), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:10:5, endln:10:23
       |vpiRhs:
       \_constant: , line:2:24, endln:2:25
+        |vpiParent:
+        \_param_assign: , line:2:15, endln:2:25
         |vpiDecompile:10
         |vpiSize:32
         |UINT:10
@@ -364,6 +379,8 @@ design: (work@top)
       \_module_inst: work@fifo (work@top.fifo_inst), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:10:5, endln:10:23
       |vpiRhs:
       \_constant: , line:3:24, endln:3:25
+        |vpiParent:
+        \_param_assign: , line:3:15, endln:3:25
         |vpiDecompile:10
         |vpiSize:32
         |UINT:10

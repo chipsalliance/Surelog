@@ -43,7 +43,7 @@ logic_net                                              6
 logic_typespec                                        11
 module_inst                                            6
 operation                                             15
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   4
@@ -74,7 +74,7 @@ logic_net                                              6
 logic_typespec                                        11
 module_inst                                            6
 operation                                             20
-package                                                3
+package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   6
@@ -123,6 +123,8 @@ design: (work@top)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitsStructMember/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:3:35, endln:3:37
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:37
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -169,18 +171,18 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:11, endln:7:32
           |vpiParent:
-          \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17
+          \_logic_typespec: , line:7:5, endln:7:32
           |vpiLeftRange:
           \_operation: , line:7:12, endln:7:29
             |vpiParent:
             \_range: , line:7:11, endln:7:32
             |vpiOpType:11
             |vpiOperand:
-            \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth), line:7:12, endln:7:27
+            \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::data::KmacDataIfWidth), line:7:12, endln:7:27
               |vpiParent:
               \_operation: , line:7:12, endln:7:29
               |vpiName:KmacDataIfWidth
-              |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth
+              |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::data::KmacDataIfWidth
               |vpiActual:
               \_parameter: (keymgr_pkg::KmacDataIfWidth), line:3:17, endln:3:32
             |vpiOperand:
@@ -218,7 +220,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:8:11, endln:8:34
           |vpiParent:
-          \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17
+          \_logic_typespec: , line:8:5, endln:8:34
           |vpiLeftRange:
           \_operation: , line:8:12, endln:8:31
             |vpiParent:
@@ -230,11 +232,11 @@ design: (work@top)
               \_operation: , line:8:12, endln:8:31
               |vpiOpType:12
               |vpiOperand:
-              \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth), line:8:12, endln:8:27
+              \_ref_obj: (keymgr_pkg::keymgr_pkg::kmac_data_req_t::strb::KmacDataIfWidth), line:8:12, endln:8:27
                 |vpiParent:
                 \_operation: , line:8:12, endln:8:29
                 |vpiName:KmacDataIfWidth
-                |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::KmacDataIfWidth
+                |vpiFullName:keymgr_pkg::keymgr_pkg::kmac_data_req_t::strb::KmacDataIfWidth
                 |vpiActual:
                 \_parameter: (keymgr_pkg::KmacDataIfWidth), line:3:17, endln:3:32
               |vpiOperand:
@@ -310,6 +312,8 @@ design: (work@top)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitsStructMember/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_constant: , line:3:35, endln:3:37
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:37
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -356,7 +360,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:7:11, endln:7:32
           |vpiParent:
-          \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17
+          \_logic_typespec: , line:7:5, endln:7:32
           |vpiLeftRange:
           \_constant: , line:7:12, endln:7:27
             |vpiParent:
@@ -392,7 +396,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:8:11, endln:8:34
           |vpiParent:
-          \_struct_typespec: (keymgr_pkg::kmac_data_req_t), line:5:11, endln:5:17
+          \_logic_typespec: , line:8:5, endln:8:34
           |vpiLeftRange:
           \_constant: , line:8:12, endln:8:29
             |vpiParent:
@@ -452,6 +456,27 @@ design: (work@top)
     |vpiName:kmac_mask_o
     |vpiFullName:work@top.kmac_mask_o
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.mux_sel), line:20:18, endln:20:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsStructMember/dut.sv, line:16:1, endln:28:10
+    |vpiName:mux_sel
+    |vpiFullName:work@top.mux_sel
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.SelKeyMgr), line:21:7, endln:21:16
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsStructMember/dut.sv, line:16:1, endln:28:10
+    |vpiName:SelKeyMgr
+    |vpiFullName:work@top.SelKeyMgr
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.MsgWidth), line:17:16, endln:17:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsStructMember/dut.sv, line:16:1, endln:28:10
+    |vpiName:MsgWidth
+    |vpiFullName:work@top.MsgWidth
+    |vpiNetType:1
   |vpiPort:
   \_port: (keymgr_data_i), line:16:48, endln:16:61
     |vpiParent:
@@ -459,7 +484,11 @@ design: (work@top)
     |vpiName:keymgr_data_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.keymgr_data_i.keymgr_data_i)
+      |vpiParent:
+      \_port: (keymgr_data_i), line:16:48, endln:16:61
+      |vpiName:keymgr_data_i
+      |vpiFullName:work@top.keymgr_data_i.keymgr_data_i
       |vpiActual:
       \_logic_net: (work@top.keymgr_data_i), line:16:48, endln:16:61
     |vpiTypedef:
@@ -471,13 +500,19 @@ design: (work@top)
     |vpiName:kmac_mask_o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.kmac_mask_o.kmac_mask_o)
+      |vpiParent:
+      \_port: (kmac_mask_o), line:17:30, endln:17:41
+      |vpiName:kmac_mask_o
+      |vpiFullName:work@top.kmac_mask_o.kmac_mask_o
       |vpiActual:
       \_logic_net: (work@top.kmac_mask_o), line:17:30, endln:17:41
     |vpiTypedef:
     \_logic_typespec: , line:17:9, endln:17:29
       |vpiRange:
       \_range: , line:17:15, endln:17:29
+        |vpiParent:
+        \_logic_typespec: , line:17:9, endln:17:29
         |vpiLeftRange:
         \_operation: , line:17:16, endln:17:26
           |vpiParent:
@@ -489,7 +524,7 @@ design: (work@top)
             \_operation: , line:17:16, endln:17:26
             |vpiName:MsgWidth
             |vpiActual:
-            \_logic_net: (MsgWidth)
+            \_logic_net: (work@top.MsgWidth), line:17:16, endln:17:24
           |vpiOperand:
           \_constant: , line:17:25, endln:17:26
             |vpiParent:
@@ -528,7 +563,7 @@ design: (work@top)
           |vpiName:mux_sel
           |vpiFullName:work@top.mux_sel
           |vpiActual:
-          \_logic_net: (mux_sel)
+          \_logic_net: (work@top.mux_sel), line:20:18, endln:20:25
         |vpiCaseItem:
         \_case_item: , line:21:7, endln:25:10
           |vpiParent:
@@ -540,7 +575,7 @@ design: (work@top)
             |vpiName:SelKeyMgr
             |vpiFullName:work@top.SelKeyMgr
             |vpiActual:
-            \_logic_net: (SelKeyMgr)
+            \_logic_net: (work@top.SelKeyMgr), line:21:7, endln:21:16
           |vpiStmt:
           \_begin: (work@top), line:21:18, endln:25:10
             |vpiParent:
@@ -625,8 +660,6 @@ design: (work@top)
                     |vpiOpType:34
                     |vpiOperand:
                     \_constant: , line:23:34, endln:23:35
-                      |vpiParent:
-                      \_operation: , line:23:33, endln:23:59
                       |vpiDecompile:8
                       |vpiSize:64
                       |UINT:8
@@ -634,12 +667,12 @@ design: (work@top)
                     |vpiOperand:
                     \_operation: , line:23:35, endln:23:58
                       |vpiParent:
-                      \_assignment: , line:23:11, endln:23:59
+                      \_operation: , line:23:33, endln:23:59
                       |vpiOpType:33
                       |vpiOperand:
                       \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                         |vpiParent:
-                        \_assignment: , line:23:11, endln:23:59
+                        \_operation: , line:23:35, endln:23:58
                         |vpiName:keymgr_data_i.strb[i]
                         |vpiActual:
                         \_ref_obj: (keymgr_data_i), line:23:36, endln:23:49
@@ -647,17 +680,17 @@ design: (work@top)
                           \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                           |vpiName:keymgr_data_i
                         |vpiActual:
-                        \_bit_select: (work@top.strb)
+                        \_bit_select: (work@top.keymgr_data_i.strb[i].strb)
                           |vpiParent:
-                          \_assignment: , line:23:11, endln:23:59
+                          \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                           |vpiName:strb
-                          |vpiFullName:work@top.strb
+                          |vpiFullName:work@top.keymgr_data_i.strb[i].strb
                           |vpiIndex:
-                          \_ref_obj: (work@top.i), line:23:55, endln:23:56
+                          \_ref_obj: (work@top.keymgr_data_i.strb[i].i), line:23:55, endln:23:56
                             |vpiParent:
-                            \_bit_select: (work@top.strb)
+                            \_bit_select: (work@top.keymgr_data_i.strb[i].strb)
                             |vpiName:i
-                            |vpiFullName:work@top.i
+                            |vpiFullName:work@top.keymgr_data_i.strb[i].i
                             |vpiActual:
                             \_int_var: (work@top.i), line:22:18, endln:22:19
                   |vpiLhs:
@@ -717,20 +750,25 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsStructMember/dut.sv, line:16:1, endln:28:10
     |vpiTypespec:
     \_logic_typespec: , line:17:9, endln:17:29
+      |vpiParent:
+      \_logic_net: (work@top.kmac_mask_o), line:17:30, endln:17:41
       |vpiRange:
       \_range: , line:17:15, endln:17:29
+        |vpiParent:
+        \_logic_typespec: , line:17:9, endln:17:29
         |vpiLeftRange:
         \_operation: , line:17:16, endln:17:26
           |vpiParent:
           \_range: , line:17:15, endln:17:29
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (MsgWidth), line:17:16, endln:17:24
+          \_ref_obj: (work@top.kmac_mask_o.MsgWidth), line:17:16, endln:17:24
             |vpiParent:
             \_operation: , line:17:16, endln:17:26
             |vpiName:MsgWidth
+            |vpiFullName:work@top.kmac_mask_o.MsgWidth
             |vpiActual:
-            \_logic_net: (MsgWidth)
+            \_logic_net: (work@top.MsgWidth), line:17:16, endln:17:24
           |vpiOperand:
           \_constant: , line:17:25, endln:17:26
             |vpiParent:
@@ -750,18 +788,6 @@ design: (work@top)
     |vpiName:kmac_mask_o
     |vpiFullName:work@top.kmac_mask_o
     |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (mux_sel)
-    |vpiName:mux_sel
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (SelKeyMgr)
-    |vpiName:SelKeyMgr
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (MsgWidth)
-    |vpiName:MsgWidth
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (keymgr_data_i), line:16:48, endln:16:61
@@ -800,20 +826,19 @@ design: (work@top)
       |vpiRange:
       \_range: , line:17:15, endln:17:29
         |vpiParent:
-        \_port: (kmac_mask_o), line:17:30, endln:17:41
+        \_logic_typespec: , line:17:9, endln:17:29
         |vpiLeftRange:
         \_operation: , line:17:16, endln:17:26
           |vpiParent:
           \_range: , line:17:15, endln:17:29
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (work@top.kmac_mask_o.MsgWidth), line:17:16, endln:17:24
+          \_ref_obj: (MsgWidth), line:17:16, endln:17:24
             |vpiParent:
             \_operation: , line:17:16, endln:17:26
             |vpiName:MsgWidth
-            |vpiFullName:work@top.kmac_mask_o.MsgWidth
             |vpiActual:
-            \_logic_net: (MsgWidth)
+            \_logic_net: (work@top.MsgWidth), line:17:16, endln:17:24
           |vpiOperand:
           \_constant: , line:17:25, endln:17:26
             |vpiParent:
@@ -854,7 +879,7 @@ design: (work@top)
           |vpiName:mux_sel
           |vpiFullName:work@top.mux_sel
           |vpiActual:
-          \_logic_net: (mux_sel)
+          \_logic_net: (work@top.mux_sel), line:20:18, endln:20:25
         |vpiCaseItem:
         \_case_item: , line:21:7, endln:25:10
           |vpiParent:
@@ -866,7 +891,7 @@ design: (work@top)
             |vpiName:SelKeyMgr
             |vpiFullName:work@top.SelKeyMgr
             |vpiActual:
-            \_logic_net: (SelKeyMgr)
+            \_logic_net: (work@top.SelKeyMgr), line:21:7, endln:21:16
           |vpiStmt:
           \_begin: (work@top), line:21:18, endln:25:10
             |vpiParent:

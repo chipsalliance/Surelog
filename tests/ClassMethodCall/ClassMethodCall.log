@@ -58,7 +58,7 @@ logic_typespec                                         3
 logic_var                                              5
 method_func_call                                       3
 module_inst                                            3
-package                                                3
+package                                                2
 param_assign                                           3
 parameter                                              3
 range                                                  3
@@ -90,7 +90,7 @@ logic_var                                              8
 method_func_call                                       5
 method_task_call                                       1
 module_inst                                            3
-package                                                3
+package                                                2
 param_assign                                           6
 parameter                                              3
 range                                                  3
@@ -136,6 +136,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_int_typespec: , line:6:5, endln:6:8
+        |vpiParent:
+        \_int_var: (pack::door::state), line:6:9, endln:6:14
         |vpiSigned:1
       |vpiName:state
       |vpiFullName:pack::door::state
@@ -147,6 +149,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_int_typespec: , line:7:5, endln:7:8
+        |vpiParent:
+        \_int_var: (pack::door::timer), line:7:9, endln:7:14
         |vpiSigned:1
       |vpiName:timer
       |vpiFullName:pack::door::timer
@@ -158,6 +162,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
+        |vpiParent:
+        \_logic_var: (pack::door::open), line:8:11, endln:8:15
       |vpiName:open
       |vpiFullName:pack::door::open
       |vpiAutomatic:1
@@ -168,6 +174,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
+        |vpiParent:
+        \_logic_var: (pack::door::lock), line:8:16, endln:8:20
       |vpiName:lock
       |vpiFullName:pack::door::lock
       |vpiAutomatic:1
@@ -178,6 +186,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiTypespec:
       \_logic_typespec: , line:8:5, endln:8:10
+        |vpiParent:
+        \_logic_var: (pack::door::clock), line:8:21, endln:8:26
       |vpiName:clock
       |vpiFullName:pack::door::clock
       |vpiAutomatic:1
@@ -191,6 +201,8 @@ design: (work@door_mod)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:1
@@ -208,6 +220,8 @@ design: (work@door_mod)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:1
@@ -225,6 +239,8 @@ design: (work@door_mod)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:1
@@ -239,6 +255,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiRhs:
       \_constant: , line:9:27, endln:9:32
+        |vpiParent:
+        \_param_assign: , line:9:15, endln:9:32
         |vpiDecompile:2'b00
         |vpiSize:2
         |BIN:00
@@ -253,6 +271,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiRhs:
       \_constant: , line:10:20, endln:10:25
+        |vpiParent:
+        \_param_assign: , line:10:8, endln:10:25
         |vpiDecompile:2'b01
         |vpiSize:2
         |BIN:01
@@ -267,6 +287,8 @@ design: (work@door_mod)
       \_class_defn: (pack::door), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:4:9, endln:18:9
       |vpiRhs:
       \_constant: , line:11:20, endln:11:25
+        |vpiParent:
+        \_param_assign: , line:11:8, endln:11:25
         |vpiDecompile:2'b10
         |vpiSize:2
         |BIN:10
@@ -295,7 +317,10 @@ design: (work@door_mod)
       |vpiMethod:1
       |vpiVisibility:1
       |vpiReturn:
-      \_logic_var: 
+      \_logic_var: (pack::door::f1)
+        |vpiParent:
+        \_function: (pack::door::f1), line:14:3, endln:16:14
+        |vpiFullName:pack::door::f1
       |vpiStmt:
       \_func_call: (f2), line:15:5, endln:15:9
         |vpiParent:
@@ -330,12 +355,15 @@ design: (work@door_mod)
         |vpiAccessType:2
         |vpiVisibility:1
         |vpiReturn:
-        \_class_var: 
+        \_class_var: (pack::doorOpen::new)
+          |vpiParent:
+          \_function: (pack::doorOpen::new), line:23:5, endln:23:11
           |vpiTypespec:
           \_class_typespec: (pack::doorOpen)
             |vpiName:pack::doorOpen
             |vpiClassDefn:
             \_class_defn: (pack::doorOpen), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:21:1, endln:38:9
+          |vpiFullName:pack::doorOpen::new
         |vpiIODecl:
         \_io_decl: (a), line:23:30, endln:23:31
           |vpiParent:
@@ -354,7 +382,10 @@ design: (work@door_mod)
         |vpiMethod:1
         |vpiVisibility:1
         |vpiReturn:
-        \_logic_var: 
+        \_logic_var: (pack::doorOpen::f2)
+          |vpiParent:
+          \_function: (pack::doorOpen::f2), line:25:5, endln:27:16
+          |vpiFullName:pack::doorOpen::f2
         |vpiStmt:
         \_func_call: (f1), line:26:7, endln:26:11
           |vpiParent:
@@ -370,11 +401,14 @@ design: (work@door_mod)
         |vpiFullName:pack::doorOpen::new
         |vpiMethod:1
         |vpiReturn:
-        \_class_var: 
+        \_class_var: (pack::doorOpen::new)
+          |vpiParent:
+          \_function: (pack::doorOpen::new), line:29:5, endln:32:16
           |vpiTypespec:
           \_class_typespec: 
             |vpiClassDefn:
             \_class_defn: (pack::doorOpen), file:${SURELOG_DIR}/tests/ClassMethodCall/dut.sv, line:21:1, endln:38:9
+          |vpiFullName:pack::doorOpen::new
         |vpiIODecl:
         \_io_decl: (b), line:29:23, endln:29:24
           |vpiParent:

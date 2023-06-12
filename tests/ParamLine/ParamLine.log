@@ -61,6 +61,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -68,6 +70,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -84,12 +88,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -99,9 +106,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -110,12 +122,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -125,9 +140,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -136,12 +156,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -151,9 +174,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -162,12 +190,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -177,9 +208,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -188,12 +224,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -206,9 +245,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -217,12 +261,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -232,9 +279,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -243,12 +295,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -258,9 +313,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -269,12 +329,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -284,9 +347,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -295,12 +363,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -310,9 +381,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -321,12 +397,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -336,9 +415,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -357,6 +441,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:BLAH
       |vpiSize:32
       |STRING:BLAH
@@ -453,6 +539,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -460,6 +548,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -476,12 +566,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -491,9 +584,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -502,12 +600,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -517,9 +618,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -528,12 +634,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -543,9 +652,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -554,12 +668,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -569,9 +686,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -580,12 +702,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -598,9 +723,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -609,12 +739,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -624,9 +757,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -635,12 +773,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -650,9 +791,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -661,12 +807,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -676,9 +825,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -687,12 +841,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -702,9 +859,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -713,12 +875,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -728,9 +893,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -749,6 +919,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:4'b1001
       |vpiSize:4
       |BIN:1001
@@ -837,6 +1009,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -844,6 +1018,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -860,12 +1036,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -875,9 +1054,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -886,12 +1070,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -901,9 +1088,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -912,12 +1104,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -927,9 +1122,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -938,12 +1138,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -953,9 +1156,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -964,12 +1172,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -982,9 +1193,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -993,12 +1209,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -1008,9 +1227,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -1019,12 +1243,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -1034,9 +1261,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -1045,12 +1277,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -1060,9 +1295,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -1071,12 +1311,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -1086,9 +1329,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -1097,12 +1345,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -1112,9 +1363,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -1133,6 +1389,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:'b1002
       |BIN:1002
       |vpiConstType:3
@@ -1210,6 +1468,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -1217,6 +1477,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -1233,12 +1495,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -1248,9 +1513,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -1259,12 +1529,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -1274,9 +1547,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -1285,12 +1563,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -1300,9 +1581,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -1311,12 +1597,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -1326,9 +1615,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -1337,12 +1631,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -1355,9 +1652,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -1366,12 +1668,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -1381,9 +1686,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -1392,12 +1702,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -1407,9 +1720,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -1418,12 +1736,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -1433,9 +1754,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -1444,12 +1770,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -1459,9 +1788,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -1470,12 +1804,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -1485,9 +1822,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -1506,6 +1848,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:'hFF
       |HEX:FF
       |vpiConstType:5
@@ -1601,6 +1945,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -1608,6 +1954,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -1624,12 +1972,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -1639,9 +1990,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -1650,12 +2006,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -1665,9 +2024,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -1676,12 +2040,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -1691,9 +2058,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -1702,12 +2074,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -1717,9 +2092,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -1728,12 +2108,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -1746,9 +2129,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -1757,12 +2145,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -1772,9 +2163,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -1783,12 +2179,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -1798,9 +2197,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -1809,12 +2213,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -1824,9 +2231,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -1835,12 +2247,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -1850,9 +2265,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -1861,12 +2281,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -1876,9 +2299,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -1897,6 +2325,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:-12
       |vpiSize:64
       |INT:-12
@@ -1993,6 +2423,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -2000,6 +2432,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -2016,12 +2450,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -2031,9 +2468,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -2042,12 +2484,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -2057,9 +2502,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -2068,12 +2518,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -2083,9 +2536,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -2094,12 +2552,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -2109,9 +2570,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -2120,12 +2586,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -2138,9 +2607,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -2149,12 +2623,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -2164,9 +2641,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -2175,12 +2657,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -2190,9 +2675,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -2201,12 +2691,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -2216,9 +2709,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -2227,12 +2725,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -2242,9 +2743,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -2253,12 +2759,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -2268,9 +2777,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -2289,6 +2803,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:12
       |vpiSize:64
       |UINT:12
@@ -2385,6 +2901,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -2392,6 +2910,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -2408,12 +2928,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -2423,9 +2946,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -2434,12 +2962,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -2449,9 +2980,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -2460,12 +2996,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -2475,9 +3014,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -2486,12 +3030,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -2501,9 +3048,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -2512,12 +3064,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -2530,9 +3085,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -2541,12 +3101,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -2556,9 +3119,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -2567,12 +3135,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -2582,9 +3153,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -2593,12 +3169,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -2608,9 +3187,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -2619,12 +3203,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -2634,9 +3221,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -2645,12 +3237,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -2660,9 +3255,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -2681,6 +3281,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:12.120000
       |vpiSize:64
       |REAL:12.120000
@@ -2777,6 +3379,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -2784,6 +3388,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -2800,12 +3406,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -2815,9 +3424,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -2826,12 +3440,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -2841,9 +3458,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -2852,12 +3474,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -2867,9 +3492,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -2878,12 +3508,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -2893,9 +3526,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -2904,12 +3542,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -2922,9 +3563,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -2933,12 +3579,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -2948,9 +3597,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -2959,12 +3613,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -2974,9 +3631,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -2985,12 +3647,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -3000,9 +3665,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -3011,12 +3681,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -3026,9 +3699,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -3037,12 +3715,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -3052,9 +3733,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -3073,6 +3759,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
@@ -3169,6 +3857,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -3176,6 +3866,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -3192,12 +3884,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -3207,9 +3902,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -3218,12 +3918,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -3233,9 +3936,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -3244,12 +3952,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -3259,9 +3970,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -3270,12 +3986,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -3285,9 +4004,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -3296,12 +4020,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -3314,9 +4041,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -3325,12 +4057,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -3340,9 +4075,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -3351,12 +4091,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -3366,9 +4109,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -3377,12 +4125,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -3392,9 +4143,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -3403,12 +4159,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -3418,9 +4177,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -3429,12 +4193,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -3444,9 +4211,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -3465,6 +4237,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:STR.WITH.DOT
       |vpiSize:96
       |STRING:STR.WITH.DOT
@@ -3561,6 +4335,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -3568,6 +4344,8 @@ design: (work@top)
       \_int_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_int_typespec: 
           |vpiLeftRange:
           \_constant: 
             |INT:0
@@ -3584,12 +4362,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:3:8, endln:3:9
+      \_ref_obj: (work@top.p), line:3:8, endln:3:9
         |vpiParent:
         \_operation: , line:3:8, endln:3:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:3:13, endln:3:19
         |vpiParent:
@@ -3599,9 +4380,14 @@ design: (work@top)
         |STRING:BLAH
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:3:4, endln:3:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BLAH
   |vpiGenStmt:
@@ -3610,12 +4396,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:6:8, endln:6:9
+      \_ref_obj: (work@top.p), line:6:8, endln:6:9
         |vpiParent:
         \_operation: , line:6:8, endln:6:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:6:13, endln:6:20
         |vpiParent:
@@ -3625,9 +4414,14 @@ design: (work@top)
         |BIN:1001
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:6:4, endln:6:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN1
   |vpiGenStmt:
@@ -3636,12 +4430,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:9:8, endln:9:9
+      \_ref_obj: (work@top.p), line:9:8, endln:9:9
         |vpiParent:
         \_operation: , line:9:8, endln:9:20
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:9:13, endln:9:20
         |vpiParent:
@@ -3651,9 +4448,14 @@ design: (work@top)
         |BIN:1011
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:9:4, endln:9:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_BIN2
   |vpiGenStmt:
@@ -3662,12 +4464,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:12:8, endln:12:9
+      \_ref_obj: (work@top.p), line:12:8, endln:12:9
         |vpiParent:
         \_operation: , line:12:8, endln:12:17
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:12:13, endln:12:17
         |vpiParent:
@@ -3677,9 +4482,14 @@ design: (work@top)
         |HEX:FF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:12:4, endln:12:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_HEXA
   |vpiGenStmt:
@@ -3688,12 +4498,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:15:8, endln:15:9
+      \_ref_obj: (work@top.p), line:15:8, endln:15:9
         |vpiParent:
         \_operation: , line:15:8, endln:15:16
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_operation: , line:15:13, endln:15:16
         |vpiParent:
@@ -3706,9 +4519,14 @@ design: (work@top)
           |UINT:12
           |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:15:4, endln:15:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS12
   |vpiGenStmt:
@@ -3717,12 +4535,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:18:8, endln:18:9
+      \_ref_obj: (work@top.p), line:18:8, endln:18:9
         |vpiParent:
         \_operation: , line:18:8, endln:18:15
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:18:13, endln:18:15
         |vpiParent:
@@ -3732,9 +4553,14 @@ design: (work@top)
         |UINT:12
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:18:4, endln:18:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_12
   |vpiGenStmt:
@@ -3743,12 +4569,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:21:8, endln:21:9
+      \_ref_obj: (work@top.p), line:21:8, endln:21:9
         |vpiParent:
         \_operation: , line:21:8, endln:21:18
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:21:13, endln:21:18
         |vpiParent:
@@ -3758,9 +4587,14 @@ design: (work@top)
         |REAL:12.120000
         |vpiConstType:2
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:21:4, endln:21:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_REAL12
   |vpiGenStmt:
@@ -3769,12 +4603,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:24:8, endln:24:9
+      \_ref_obj: (work@top.p), line:24:8, endln:24:9
         |vpiParent:
         \_operation: , line:24:8, endln:24:14
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:24:13, endln:24:14
         |vpiParent:
@@ -3784,9 +4621,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:24:4, endln:24:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_0
   |vpiGenStmt:
@@ -3795,12 +4637,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:27:8, endln:27:9
+      \_ref_obj: (work@top.p), line:27:8, endln:27:9
         |vpiParent:
         \_operation: , line:27:8, endln:27:27
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:27:13, endln:27:27
         |vpiParent:
@@ -3810,9 +4655,14 @@ design: (work@top)
         |STRING:STR.WITH.DOT
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:27:4, endln:27:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_STR_WITH_DOT
   |vpiGenStmt:
@@ -3821,12 +4671,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:30:8, endln:30:9
+      \_ref_obj: (work@top.p), line:30:8, endln:30:9
         |vpiParent:
         \_operation: , line:30:8, endln:30:19
         |vpiName:p
+        |vpiFullName:work@top.p
       |vpiOperand:
       \_constant: , line:30:13, endln:30:19
         |vpiParent:
@@ -3836,9 +4689,14 @@ design: (work@top)
         |STRING:-STR
         |vpiConstType:6
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:30:4, endln:30:6
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
 |uhdmtopModules:
@@ -3857,6 +4715,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |vpiRhs:
     \_constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:23
       |vpiDecompile:-STR
       |vpiSize:32
       |STRING:-STR

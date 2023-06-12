@@ -263,7 +263,7 @@ logic_net                                              4
 logic_typespec                                         8
 module_inst                                            6
 operation                                              8
-package                                                3
+package                                                2
 param_assign                                           6
 parameter                                              7
 port                                                   4
@@ -285,7 +285,7 @@ logic_net                                              4
 logic_typespec                                         8
 module_inst                                            6
 operation                                             12
-package                                                3
+package                                                2
 param_assign                                           6
 parameter                                              7
 port                                                   6
@@ -329,6 +329,8 @@ design: (work@dut)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_param_assign: , line:7:24, endln:7:37
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -350,6 +352,8 @@ design: (work@dut)
       \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
       |vpiRange:
       \_range: , line:2:22, endln:2:27
+        |vpiParent:
+        \_logic_typespec: , line:2:16, endln:2:27
         |vpiLeftRange:
         \_constant: , line:2:23, endln:2:24
           |vpiParent:
@@ -368,12 +372,16 @@ design: (work@dut)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:3:5, endln:3:28
+      |vpiParent:
+      \_enum_typespec: (my_pkg::opcode_e), line:2:3, endln:5:14
       |vpiName:OPCODE_LOAD
       |HEX:03
       |vpiDecompile:6'h03
       |vpiSize:6
     |vpiEnumConst:
     \_enum_const: (OPCODE_STORE), line:4:5, endln:4:28
+      |vpiParent:
+      \_enum_typespec: (my_pkg::opcode_e), line:2:3, endln:5:14
       |vpiName:OPCODE_STORE
       |HEX:13
       |vpiDecompile:6'h13
@@ -404,6 +412,8 @@ design: (work@dut)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_param_assign: , line:7:24, endln:7:37
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -425,6 +435,8 @@ design: (work@dut)
       \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
       |vpiRange:
       \_range: , line:2:22, endln:2:27
+        |vpiParent:
+        \_logic_typespec: , line:2:16, endln:2:27
         |vpiLeftRange:
         \_constant: , line:2:23, endln:2:24
           |vpiParent:
@@ -443,12 +455,16 @@ design: (work@dut)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:3:5, endln:3:28
+      |vpiParent:
+      \_enum_typespec: (my_pkg::opcode_e), line:2:3, endln:5:14
       |vpiName:OPCODE_LOAD
       |HEX:03
       |vpiDecompile:6'h03
       |vpiSize:6
     |vpiEnumConst:
     \_enum_const: (OPCODE_STORE), line:4:5, endln:4:28
+      |vpiParent:
+      \_enum_typespec: (my_pkg::opcode_e), line:2:3, endln:5:14
       |vpiName:OPCODE_STORE
       |HEX:13
       |vpiDecompile:6'h13
@@ -538,13 +554,18 @@ design: (work@dut)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:11:13, endln:11:14
+      |vpiFullName:work@dut.a
       |vpiActual:
       \_logic_net: (work@dut.a), line:16:14, endln:16:15
     |vpiTypedef:
     \_logic_typespec: , line:14:9, endln:14:14
       |vpiRange:
       \_range: , line:14:9, endln:14:14
+        |vpiParent:
+        \_logic_typespec: , line:14:9, endln:14:14
         |vpiLeftRange:
         \_constant: , line:14:10, endln:14:11
           |vpiParent:
@@ -568,13 +589,18 @@ design: (work@dut)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.b)
+      |vpiParent:
+      \_port: (b), line:11:16, endln:11:17
+      |vpiFullName:work@dut.b
       |vpiActual:
       \_logic_net: (work@dut.b), line:17:13, endln:17:14
     |vpiTypedef:
     \_logic_typespec: , line:15:10, endln:15:15
       |vpiRange:
       \_range: , line:15:10, endln:15:15
+        |vpiParent:
+        \_logic_typespec: , line:15:10, endln:15:15
         |vpiLeftRange:
         \_constant: , line:15:11, endln:15:12
           |vpiParent:
@@ -676,6 +702,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
     |vpiRhs:
     \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_param_assign: , line:7:24, endln:7:37
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -702,8 +730,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
     |vpiTypespec:
     \_logic_typespec: , line:16:3, endln:16:13
+      |vpiParent:
+      \_logic_net: (work@dut.a), line:16:14, endln:16:15
       |vpiRange:
       \_range: , line:16:8, endln:16:13
+        |vpiParent:
+        \_logic_typespec: , line:16:3, endln:16:13
         |vpiLeftRange:
         \_constant: , line:16:9, endln:16:10
           |vpiParent:
@@ -731,6 +763,8 @@ design: (work@dut)
     \_logic_typespec: , line:17:3, endln:17:12
       |vpiRange:
       \_range: , line:17:7, endln:17:12
+        |vpiParent:
+        \_logic_typespec: , line:17:3, endln:17:12
         |vpiLeftRange:
         \_constant: , line:17:8, endln:17:9
           |vpiParent:
@@ -770,7 +804,7 @@ design: (work@dut)
       |vpiRange:
       \_range: , line:14:9, endln:14:14
         |vpiParent:
-        \_port: (a), line:11:13, endln:11:14
+        \_logic_typespec: , line:14:9, endln:14:14
         |vpiLeftRange:
         \_constant: , line:14:10, endln:14:11
           |vpiParent:
@@ -808,7 +842,7 @@ design: (work@dut)
       |vpiRange:
       \_range: , line:15:10, endln:15:15
         |vpiParent:
-        \_port: (b), line:11:16, endln:11:17
+        \_logic_typespec: , line:15:10, endln:15:15
         |vpiLeftRange:
         \_constant: , line:15:11, endln:15:12
           |vpiParent:

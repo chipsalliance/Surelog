@@ -454,7 +454,7 @@ logic_typespec                                         8
 module_inst                                           33
 named_begin                                            3
 operation                                             14
-package                                                3
+package                                                2
 param_assign                                          27
 parameter                                             31
 part_select                                            3
@@ -482,7 +482,7 @@ logic_typespec                                         8
 module_inst                                           47
 named_begin                                            3
 operation                                             14
-package                                                3
+package                                                2
 param_assign                                          39
 parameter                                             31
 part_select                                            3
@@ -538,16 +538,19 @@ design: (work@test)
       \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:2:1, endln:5:11
       |vpiRange:
       \_range: , line:4:19, endln:4:32
+        |vpiParent:
+        \_logic_typespec: , line:4:13, endln:4:32
         |vpiLeftRange:
         \_operation: , line:4:20, endln:4:29
           |vpiParent:
           \_range: , line:4:19, endln:4:32
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (NAlerts), line:4:20, endln:4:27
+          \_ref_obj: (alert_handler_reg_pkg::AsyncOn::NAlerts), line:4:20, endln:4:27
             |vpiParent:
             \_operation: , line:4:20, endln:4:29
             |vpiName:NAlerts
+            |vpiFullName:alert_handler_reg_pkg::AsyncOn::NAlerts
             |vpiActual:
             \_parameter: (alert_handler_reg_pkg::NAlerts), line:3:17, endln:3:24
           |vpiOperand:
@@ -574,6 +577,8 @@ design: (work@test)
     \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:2:1, endln:5:11
     |vpiRhs:
     \_constant: , line:3:27, endln:3:29
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:29
       |vpiDecompile:35
       |vpiSize:32
       |UINT:35
@@ -588,6 +593,8 @@ design: (work@test)
     \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:2:1, endln:5:11
     |vpiRhs:
     \_constant: , line:4:43, endln:4:82
+      |vpiParent:
+      \_param_assign: , line:4:33, endln:4:82
       |vpiDecompile:35'b11111111111111111100000000000000000
       |vpiSize:35
       |BIN:11111111111111111100000000000000000
@@ -631,6 +638,8 @@ design: (work@test)
       \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:2:1, endln:5:11
       |vpiRange:
       \_range: , line:4:19, endln:4:32
+        |vpiParent:
+        \_logic_typespec: , line:4:13, endln:4:32
         |vpiLeftRange:
         \_constant: , line:4:20, endln:4:27
           |vpiParent:
@@ -655,6 +664,8 @@ design: (work@test)
     \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:2:1, endln:5:11
     |vpiRhs:
     \_constant: , line:3:27, endln:3:29
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:29
       |vpiDecompile:35
       |vpiSize:32
       |UINT:35
@@ -669,6 +680,8 @@ design: (work@test)
     \_package: alert_handler_reg_pkg (alert_handler_reg_pkg::), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:2:1, endln:5:11
     |vpiRhs:
     \_constant: , line:4:43, endln:4:82
+      |vpiParent:
+      \_param_assign: , line:4:33, endln:4:82
       |vpiDecompile:35'b11111111111111111100000000000000000
       |vpiSize:35
       |BIN:11111111111111111100000000000000000
@@ -700,6 +713,8 @@ design: (work@test)
       \_parameter: (work@aes.AlertAsyncOn), line:50:28, endln:50:40
       |vpiRange:
       \_range: , line:50:20, endln:50:27
+        |vpiParent:
+        \_logic_typespec: , line:50:14, endln:50:27
         |vpiLeftRange:
         \_operation: , line:50:21, endln:50:24
           |vpiParent:
@@ -737,11 +752,11 @@ design: (work@test)
     \_module_inst: work@aes (work@aes), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:49:1, endln:60:10
     |vpiRhs:
     \_operation: , line:50:43, endln:50:52
+      |vpiParent:
+      \_param_assign: , line:50:28, endln:50:52
       |vpiOpType:34
       |vpiOperand:
       \_constant: , line:50:44, endln:50:45
-        |vpiParent:
-        \_operation: , line:50:43, endln:50:52
         |vpiDecompile:4
         |vpiSize:64
         |UINT:4
@@ -760,6 +775,13 @@ design: (work@test)
     |vpiLhs:
     \_parameter: (work@aes.AlertAsyncOn), line:50:28, endln:50:40
   |vpiDefName:work@aes
+  |vpiNet:
+  \_logic_net: (work@aes.i), line:52:23, endln:52:24
+    |vpiParent:
+    \_module_inst: work@aes (work@aes), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:49:1, endln:60:10
+    |vpiName:i
+    |vpiFullName:work@aes.i
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -770,8 +792,6 @@ design: (work@test)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:52:20, endln:52:21
-        |vpiParent:
-        \_assign_stmt: , line:52:9, endln:52:21
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -780,21 +800,21 @@ design: (work@test)
       \_ref_var: (work@aes.i), line:52:16, endln:52:17
         |vpiParent:
         \_assign_stmt: , line:52:9, endln:52:21
-        |vpiTypespec:
-        \_unsupported_typespec: (i), line:52:16, endln:52:17
-          |vpiName:i
         |vpiName:i
         |vpiFullName:work@aes.i
     |vpiCondition:
     \_operation: , line:52:23, endln:52:28
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (i), line:52:23, endln:52:24
+      \_ref_obj: (work@aes.i), line:52:23, endln:52:24
         |vpiParent:
         \_operation: , line:52:23, endln:52:28
         |vpiName:i
+        |vpiFullName:work@aes.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@aes.i), line:52:23, endln:52:24
       |vpiOperand:
       \_constant: , line:52:27, endln:52:28
         |vpiParent:
@@ -805,17 +825,27 @@ design: (work@test)
         |vpiConstType:9
     |vpiForIncStmt:
     \_operation: , line:52:30, endln:52:31
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:62
       |vpiOperand:
-      \_ref_obj: (i)
+      \_ref_obj: (work@aes.i)
+        |vpiParent:
+        \_gen_for: 
         |vpiName:i
+        |vpiFullName:work@aes.i
         |vpiActual:
-        \_logic_net: (i)
+        \_logic_net: (work@aes.i), line:52:23, endln:52:24
     |vpiStmt:
-    \_named_begin: (gen_alert_tx)
+    \_named_begin: (work@aes.gen_alert_tx)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:gen_alert_tx
+      |vpiFullName:work@aes.gen_alert_tx
       |vpiStmt:
       \_ref_module: work@prim_alert_sender (alert_sender), line:56:7, endln:56:19
+        |vpiParent:
+        \_named_begin: (work@aes.gen_alert_tx)
         |vpiName:alert_sender
         |vpiDefName:work@prim_alert_sender
 |uhdmallModules:
@@ -851,6 +881,8 @@ design: (work@test)
     \_module_inst: work@prim_alert_sender (work@prim_alert_sender), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:13:1, endln:26:11
     |vpiRhs:
     \_constant: , line:15:27, endln:15:31
+      |vpiParent:
+      \_param_assign: , line:15:17, endln:15:31
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -865,6 +897,8 @@ design: (work@test)
     \_module_inst: work@prim_alert_sender (work@prim_alert_sender), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:13:1, endln:26:11
     |vpiRhs:
     \_constant: , line:16:27, endln:16:31
+      |vpiParent:
+      \_param_assign: , line:16:17, endln:16:31
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -887,11 +921,17 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@prim_alert_sender (work@prim_alert_sender), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:13:1, endln:26:11
     |vpiCondition:
-    \_ref_obj: (AsyncOn), line:23:9, endln:23:16
+    \_ref_obj: (work@prim_alert_sender.AsyncOn), line:23:9, endln:23:16
+      |vpiParent:
+      \_gen_if: , line:23:5, endln:23:7
       |vpiName:AsyncOn
+      |vpiFullName:work@prim_alert_sender.AsyncOn
     |vpiStmt:
-    \_named_begin: (gen_async_assert)
+    \_named_begin: (work@prim_alert_sender.gen_async_assert)
+      |vpiParent:
+      \_gen_if: , line:23:5, endln:23:7
       |vpiName:gen_async_assert
+      |vpiFullName:work@prim_alert_sender.gen_async_assert
 |uhdmallModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
   |vpiParent:
@@ -914,6 +954,8 @@ design: (work@test)
     \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
     |vpiRhs:
     \_constant: , line:32:27, endln:32:31
+      |vpiParent:
+      \_param_assign: , line:32:17, endln:32:31
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -928,13 +970,21 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:31:1, endln:39:10
     |vpiCondition:
-    \_ref_obj: (AsyncOn), line:35:7, endln:35:14
+    \_ref_obj: (work@prim_diff_decode.AsyncOn), line:35:7, endln:35:14
+      |vpiParent:
+      \_gen_if: , line:35:3, endln:35:5
       |vpiName:AsyncOn
+      |vpiFullName:work@prim_diff_decode.AsyncOn
     |vpiStmt:
-    \_named_begin: (gen_async)
+    \_named_begin: (work@prim_diff_decode.gen_async)
+      |vpiParent:
+      \_gen_if: , line:35:3, endln:35:5
       |vpiName:gen_async
+      |vpiFullName:work@prim_diff_decode.gen_async
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:36:11, endln:36:15
+        |vpiParent:
+        \_named_begin: (work@prim_diff_decode.gen_async)
         |vpiName:good
         |vpiDefName:work@GOOD
 |uhdmallModules:
@@ -953,8 +1003,11 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:7:1, endln:10:10
     |vpiRhs:
-    \_part_select: alert_handler_reg_pkg::AsyncOn (alert_handler_reg_pkg::AsyncOn), line:9:50, endln:9:55
+    \_part_select: alert_handler_reg_pkg::AsyncOn (work@test.alert_handler_reg_pkg::AsyncOn), line:9:50, endln:9:55
+      |vpiParent:
+      \_param_assign: , line:9:12, endln:9:56
       |vpiName:alert_handler_reg_pkg::AsyncOn
+      |vpiFullName:work@test.alert_handler_reg_pkg::AsyncOn
       |vpiDefName:alert_handler_reg_pkg::AsyncOn
       |vpiConstantSelect:1
       |vpiLeftRange:
@@ -1001,6 +1054,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:7:1, endln:10:10
     |vpiRhs:
     \_constant: , line:9:19, endln:9:56
+      |vpiParent:
+      \_param_assign: , line:9:12, endln:9:56
       |vpiDecompile:2'b11
       |vpiSize:2
       |BIN:11
@@ -1072,6 +1127,8 @@ design: (work@test)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:50:43, endln:50:52
+        |vpiParent:
+        \_param_assign: , line:50:28, endln:50:52
         |vpiDecompile:2'b11
         |vpiSize:2
         |BIN:11
@@ -1083,10 +1140,6 @@ design: (work@test)
     |vpiDefName:work@aes
     |vpiDefFile:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv
     |vpiDefLineNo:49
-    |vpiNet:
-    \_logic_net: (i)
-      |vpiName:i
-      |vpiNetType:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EarlgreyPackParam/dut.sv, line:41:1, endln:47:10
     |vpiGenScopeArray:
@@ -1145,6 +1198,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
@@ -1160,6 +1215,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31
               |vpiDecompile:0
               |vpiSize:1
               |UINT:0
@@ -1195,6 +1252,8 @@ design: (work@test)
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31
                 |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
@@ -1295,6 +1354,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31
               |vpiDecompile:1'b1
               |vpiSize:1
               |BIN:1
@@ -1310,6 +1371,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31
               |vpiDecompile:1
               |vpiSize:1
               |UINT:1
@@ -1345,6 +1408,8 @@ design: (work@test)
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31
                 |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
@@ -1445,6 +1510,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
@@ -1460,6 +1527,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31
               |vpiDecompile:0
               |vpiSize:1
               |UINT:0
@@ -1495,6 +1564,8 @@ design: (work@test)
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0
@@ -1564,6 +1635,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:15:27, endln:15:31
+              |vpiParent:
+              \_param_assign: , line:15:17, endln:15:31
               |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
@@ -1579,6 +1652,8 @@ design: (work@test)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:16:27, endln:16:31
+              |vpiParent:
+              \_param_assign: , line:16:17, endln:16:31
               |vpiDecompile:1
               |vpiSize:1
               |UINT:1
@@ -1614,6 +1689,8 @@ design: (work@test)
               |vpiOverriden:1
               |vpiRhs:
               \_constant: , line:32:27, endln:32:31
+                |vpiParent:
+                \_param_assign: , line:32:17, endln:32:31
                 |vpiDecompile:1'b0
                 |vpiSize:1
                 |BIN:0

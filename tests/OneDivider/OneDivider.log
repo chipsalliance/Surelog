@@ -92,7 +92,11 @@ design: (work@tb)
     |vpiName:rstn
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.rstn.rstn)
+      |vpiParent:
+      \_port: (rstn), line:1:24, endln:1:28
+      |vpiName:rstn
+      |vpiFullName:work@dut.rstn.rstn
       |vpiActual:
       \_logic_net: (work@dut.rstn), line:1:24, endln:1:28
     |vpiTypedef:
@@ -104,7 +108,11 @@ design: (work@tb)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:2:24, endln:2:27
+      |vpiName:clk
+      |vpiFullName:work@dut.clk.clk
       |vpiActual:
       \_logic_net: (work@dut.clk), line:2:24, endln:2:27
     |vpiTypedef:
@@ -116,7 +124,11 @@ design: (work@tb)
     |vpiName:div
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.div.div)
+      |vpiParent:
+      \_port: (div), line:3:23, endln:3:26
+      |vpiName:div
+      |vpiFullName:work@dut.div.div
       |vpiActual:
       \_logic_net: (work@dut.div), line:3:23, endln:3:26
     |vpiTypedef:
@@ -136,24 +148,30 @@ design: (work@tb)
         |vpiOpType:35
         |vpiOperand:
         \_operation: , line:5:11, endln:5:22
+          |vpiParent:
+          \_operation: , line:5:11, endln:5:38
           |vpiOpType:39
           |vpiOperand:
-          \_ref_obj: (clk), line:5:19, endln:5:22
+          \_ref_obj: (work@dut.clk), line:5:19, endln:5:22
             |vpiParent:
             \_operation: , line:5:11, endln:5:22
             |vpiName:clk
+            |vpiFullName:work@dut.clk
             |vpiActual:
-            \_logic_net: (work@tb.dut1.clk), line:2:24, endln:2:27
+            \_logic_net: (work@dut.clk), line:2:24, endln:2:27
         |vpiOperand:
         \_operation: , line:5:26, endln:5:38
+          |vpiParent:
+          \_operation: , line:5:11, endln:5:38
           |vpiOpType:40
           |vpiOperand:
-          \_ref_obj: (rstn), line:5:34, endln:5:38
+          \_ref_obj: (work@dut.rstn), line:5:34, endln:5:38
             |vpiParent:
             \_operation: , line:5:26, endln:5:38
             |vpiName:rstn
+            |vpiFullName:work@dut.rstn
             |vpiActual:
-            \_logic_net: (work@tb.dut1.rstn), line:1:24, endln:1:28
+            \_logic_net: (work@dut.rstn), line:1:24, endln:1:28
       |vpiStmt:
       \_if_else: , line:6:8, endln:9:23
         |vpiParent:
@@ -170,7 +188,7 @@ design: (work@tb)
             |vpiName:rstn
             |vpiFullName:work@dut.rstn
             |vpiActual:
-            \_logic_net: (work@tb.dut1.rstn), line:1:24, endln:1:28
+            \_logic_net: (work@dut.rstn), line:1:24, endln:1:28
         |vpiStmt:
         \_assignment: , line:7:11, endln:7:19
           |vpiParent:
@@ -189,7 +207,7 @@ design: (work@tb)
             |vpiName:div
             |vpiFullName:work@dut.div
             |vpiActual:
-            \_logic_net: (work@tb.dut1.div), line:3:23, endln:3:26
+            \_logic_net: (work@dut.div), line:3:23, endln:3:26
         |vpiElseStmt:
         \_assignment: , line:9:11, endln:9:22
           |vpiParent:
@@ -207,7 +225,7 @@ design: (work@tb)
               |vpiName:div
               |vpiFullName:work@dut.div
               |vpiActual:
-              \_logic_net: (work@tb.dut1.div), line:3:23, endln:3:26
+              \_logic_net: (work@dut.div), line:3:23, endln:3:26
           |vpiLhs:
           \_ref_obj: (work@dut.div), line:9:11, endln:9:14
             |vpiParent:
@@ -215,7 +233,7 @@ design: (work@tb)
             |vpiName:div
             |vpiFullName:work@dut.div
             |vpiActual:
-            \_logic_net: (work@tb.dut1.div), line:3:23, endln:3:26
+            \_logic_net: (work@dut.div), line:3:23, endln:3:26
     |vpiAlwaysType:1
 |uhdmallModules:
 \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
@@ -252,6 +270,8 @@ design: (work@tb)
     |vpiFullName:work@tb.ap_div2
     |vpiStmt:
     \_sys_func_call: ($display), line:28:60, endln:28:75
+      |vpiParent:
+      \_assert_stmt: (work@tb.ap_div2), line:28:3, endln:28:112
       |vpiArgument:
       \_constant: , line:28:69, endln:28:74
         |vpiParent:
@@ -263,35 +283,21 @@ design: (work@tb)
       |vpiName:$display
     |vpiProperty:
     \_property_spec: , line:28:28, endln:28:58
+      |vpiParent:
+      \_assert_stmt: (work@tb.ap_div2), line:28:3, endln:28:112
       |vpiPropertyExpr:
       \_operation: , line:28:31, endln:28:42
+        |vpiParent:
+        \_property_spec: , line:28:28, endln:28:58
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (clk), line:28:39, endln:28:42
+        \_ref_obj: (work@tb.ap_div2.clk), line:28:39, endln:28:42
           |vpiParent:
           \_operation: , line:28:31, endln:28:42
           |vpiName:clk
+          |vpiFullName:work@tb.ap_div2.clk
           |vpiActual:
           \_logic_net: (work@tb.clk), line:2:7, endln:2:10
-    |vpiElseStmt:
-    \_sys_func_call: ($fatal), line:28:82, endln:28:111
-      |vpiArgument:
-      \_constant: , line:28:89, endln:28:90
-        |vpiParent:
-        \_sys_func_call: ($fatal), line:28:82, endln:28:111
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-      |vpiArgument:
-      \_constant: , line:28:92, endln:28:110
-        |vpiParent:
-        \_sys_func_call: ($fatal), line:28:82, endln:28:111
-        |vpiDecompile:"FAILED ASSERTION"
-        |vpiSize:128
-        |STRING:FAILED ASSERTION
-        |vpiConstType:6
-      |vpiName:$fatal
   |vpiProcess:
   \_initial: , line:5:3, endln:10:6
     |vpiParent:
@@ -351,7 +357,7 @@ design: (work@tb)
           |vpiName:div
           |vpiFullName:work@tb.div
           |vpiActual:
-          \_logic_var: (work@tb.div), line:3:9, endln:3:12
+          \_logic_net: (work@tb.div), line:3:9, endln:3:12
         |vpiName:$monitor
       |vpiStmt:
       \_delay_control: , line:9:5, endln:9:9
@@ -391,7 +397,7 @@ design: (work@tb)
           |vpiName:rstn
           |vpiFullName:work@tb.rstn
           |vpiActual:
-          \_logic_var: (work@tb.rstn), line:4:9, endln:4:13
+          \_logic_net: (work@tb.rstn), line:4:9, endln:4:13
       |vpiStmt:
       \_assignment: , line:15:5, endln:15:12
         |vpiParent:
@@ -436,7 +442,7 @@ design: (work@tb)
             |vpiName:rstn
             |vpiFullName:work@tb.rstn
             |vpiActual:
-            \_logic_var: (work@tb.rstn), line:4:9, endln:4:13
+            \_logic_net: (work@tb.rstn), line:4:9, endln:4:13
   |vpiProcess:
   \_always: , line:19:3, endln:20:19
     |vpiParent:
@@ -483,6 +489,8 @@ design: (work@tb)
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
     \_logic_typespec: , line:3:3, endln:3:8
+      |vpiParent:
+      \_logic_var: (work@tb.div), line:3:9, endln:3:12
     |vpiName:div
     |vpiFullName:work@tb.div
     |vpiVisibility:1
@@ -492,6 +500,8 @@ design: (work@tb)
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
     \_logic_typespec: , line:4:3, endln:4:8
+      |vpiParent:
+      \_logic_var: (work@tb.rstn), line:4:9, endln:4:13
     |vpiName:rstn
     |vpiFullName:work@tb.rstn
     |vpiVisibility:1
@@ -503,6 +513,8 @@ design: (work@tb)
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
     \_logic_typespec: , line:2:3, endln:2:6
+      |vpiParent:
+      \_logic_net: (work@tb.clk), line:2:7, endln:2:10
     |vpiName:clk
     |vpiFullName:work@tb.clk
     |vpiNetType:48
@@ -530,6 +542,8 @@ design: (work@tb)
       \_module_inst: work@dut (work@tb.dut1), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:22:3, endln:22:28
       |vpiTypespec:
       \_logic_typespec: , line:1:18, endln:1:23
+        |vpiParent:
+        \_logic_net: (work@tb.dut1.rstn), line:1:24, endln:1:28
       |vpiName:rstn
       |vpiFullName:work@tb.dut1.rstn
       |vpiNetType:36
@@ -539,6 +553,8 @@ design: (work@tb)
       \_module_inst: work@dut (work@tb.dut1), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:22:3, endln:22:28
       |vpiTypespec:
       \_logic_typespec: , line:2:18, endln:2:23
+        |vpiParent:
+        \_logic_net: (work@tb.dut1.clk), line:2:24, endln:2:27
       |vpiName:clk
       |vpiFullName:work@tb.dut1.clk
       |vpiNetType:36
@@ -548,6 +564,8 @@ design: (work@tb)
       \_module_inst: work@dut (work@tb.dut1), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:22:3, endln:22:28
       |vpiTypespec:
       \_logic_typespec: , line:3:19, endln:3:22
+        |vpiParent:
+        \_logic_net: (work@tb.dut1.div), line:3:23, endln:3:26
       |vpiName:div
       |vpiFullName:work@tb.dut1.div
       |vpiNetType:48
@@ -561,12 +579,16 @@ design: (work@tb)
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (work@tb.rstn), line:22:12, endln:22:16
+        |vpiParent:
+        \_port: (rstn), line:1:24, endln:1:28
         |vpiName:rstn
         |vpiFullName:work@tb.rstn
         |vpiActual:
         \_logic_var: (work@tb.rstn), line:4:9, endln:4:13
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.rstn), line:1:24, endln:1:28
+        |vpiParent:
+        \_port: (rstn), line:1:24, endln:1:28
         |vpiName:rstn
         |vpiFullName:work@tb.dut1.rstn
         |vpiActual:
@@ -581,12 +603,16 @@ design: (work@tb)
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (work@tb.clk), line:22:18, endln:22:21
+        |vpiParent:
+        \_port: (clk), line:2:24, endln:2:27
         |vpiName:clk
         |vpiFullName:work@tb.clk
         |vpiActual:
         \_logic_net: (work@tb.clk), line:2:7, endln:2:10
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.clk), line:2:24, endln:2:27
+        |vpiParent:
+        \_port: (clk), line:2:24, endln:2:27
         |vpiName:clk
         |vpiFullName:work@tb.dut1.clk
         |vpiActual:
@@ -601,12 +627,16 @@ design: (work@tb)
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@tb.div), line:22:23, endln:22:26
+        |vpiParent:
+        \_port: (div), line:3:23, endln:3:26
         |vpiName:div
         |vpiFullName:work@tb.div
         |vpiActual:
         \_logic_var: (work@tb.div), line:3:9, endln:3:12
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.div), line:3:23, endln:3:26
+        |vpiParent:
+        \_port: (div), line:3:23, endln:3:26
         |vpiName:div
         |vpiFullName:work@tb.dut1.div
         |vpiActual:

@@ -286,6 +286,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnpackedTypespec/dut.sv, line:1:1, endln:23:10
     |vpiRange:
     \_range: , line:16:23, endln:16:28
+      |vpiParent:
+      \_packed_array_typespec: (fmt_unit_types_t), line:16:11, endln:16:22
       |vpiLeftRange:
       \_constant: , line:16:24, endln:16:25
         |vpiParent:
@@ -313,6 +315,8 @@ design: (work@top)
       \_logic_typespec: , line:10:17, endln:10:28
         |vpiRange:
         \_range: , line:10:23, endln:10:28
+          |vpiParent:
+          \_logic_typespec: , line:10:17, endln:10:28
           |vpiLeftRange:
           \_constant: , line:10:24, endln:10:25
             |vpiParent:
@@ -331,18 +335,24 @@ design: (work@top)
             |vpiConstType:9
       |vpiEnumConst:
       \_enum_const: (DISABLED), line:11:5, endln:11:13
+        |vpiParent:
+        \_enum_typespec: (unit_type_t), line:10:4, endln:14:17
         |vpiName:DISABLED
         |INT:0
         |vpiDecompile:0
         |vpiSize:2
       |vpiEnumConst:
       \_enum_const: (PARALLEL), line:12:5, endln:12:13
+        |vpiParent:
+        \_enum_typespec: (unit_type_t), line:10:4, endln:14:17
         |vpiName:PARALLEL
         |INT:1
         |vpiDecompile:1
         |vpiSize:2
       |vpiEnumConst:
       \_enum_const: (MERGED), line:13:5, endln:13:11
+        |vpiParent:
+        \_enum_typespec: (unit_type_t), line:10:4, endln:14:17
         |vpiName:MERGED
         |INT:2
         |vpiDecompile:2
@@ -378,6 +388,8 @@ design: (work@top)
     \_packed_array_typespec: , line:18:11, endln:18:22
       |vpiRange:
       \_range: , line:18:23, endln:18:28
+        |vpiParent:
+        \_packed_array_typespec: , line:18:11, endln:18:22
         |vpiLeftRange:
         \_constant: , line:18:24, endln:18:25
           |vpiParent:
@@ -405,6 +417,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnpackedTypespec/dut.sv, line:1:1, endln:23:10
     |vpiRange:
     \_range: , line:7:35, endln:7:40
+      |vpiParent:
+      \_array_typespec: (logic_7_0_t)
       |vpiLeftRange:
       \_constant: , line:7:36, endln:7:37
         |vpiParent:
@@ -425,6 +439,8 @@ design: (work@top)
     \_logic_typespec: , line:7:11, endln:7:22
       |vpiRange:
       \_range: , line:7:17, endln:7:22
+        |vpiParent:
+        \_logic_typespec: , line:7:11, endln:7:22
         |vpiLeftRange:
         \_constant: , line:7:18, endln:7:19
           |vpiParent:
@@ -450,6 +466,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnpackedTypespec/dut.sv, line:1:1, endln:23:10
     |vpiRange:
     \_range: , line:21:28, endln:21:33
+      |vpiParent:
+      \_packed_array_typespec: (opgrp_fmt_unit_types_t), line:21:11, endln:21:27
       |vpiLeftRange:
       \_constant: , line:21:29, endln:21:30
         |vpiParent:
@@ -477,6 +495,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnpackedTypespec/dut.sv, line:1:1, endln:23:10
     |vpiRange:
     \_range: , line:4:22, endln:4:27
+      |vpiParent:
+      \_array_typespec: (triple)
       |vpiLeftRange:
       \_constant: , line:4:23, endln:4:24
         |vpiParent:
@@ -545,9 +565,13 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_operation: , line:5:14, endln:5:31
+      |vpiParent:
+      \_array_var: (work@top.b), line:5:10, endln:5:11
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:5:18, endln:5:19
+        |vpiParent:
+        \_operation: , line:5:14, endln:5:31
         |vpiPattern:
         \_constant: , line:5:18, endln:5:19
           |vpiDecompile:1
@@ -559,6 +583,8 @@ design: (work@top)
           |INT:1
       |vpiOperand:
       \_tagged_pattern: , line:5:29, endln:5:30
+        |vpiParent:
+        \_operation: , line:5:14, endln:5:31
         |vpiPattern:
         \_constant: , line:5:29, endln:5:30
           |vpiDecompile:0
@@ -567,6 +593,8 @@ design: (work@top)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (default), line:5:21, endln:5:28
+          |vpiParent:
+          \_tagged_pattern: , line:5:29, endln:5:30
           |vpiName:default
   |vpiTypedef:
   \_packed_array_typespec: (fmt_unit_types_t), line:16:11, endln:16:22

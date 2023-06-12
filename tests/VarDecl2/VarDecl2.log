@@ -186,10 +186,13 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:2:23, endln:2:26
+    \_int_var: (work@top.theta), line:2:23, endln:2:26
+      |vpiParent:
+      \_function: (work@top.theta), line:2:4, endln:9:23
       |vpiTypespec:
       \_int_typespec: , line:2:23, endln:2:26
         |vpiSigned:1
+      |vpiFullName:work@top.theta
       |vpiSigned:1
     |vpiStmt:
     \_begin: (work@top.theta)
@@ -288,8 +291,6 @@ design: (work@top)
             \_begin: (work@top.theta), line:3:37, endln:7:10
             |vpiCondition:
             \_constant: , line:6:17, endln:6:18
-              |vpiParent:
-              \_return_stmt: , line:6:10, endln:6:16
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -300,8 +301,6 @@ design: (work@top)
         \_begin: (work@top.theta)
         |vpiCondition:
         \_constant: , line:8:14, endln:8:15
-          |vpiParent:
-          \_return_stmt: , line:8:7, endln:8:13
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -321,7 +320,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -336,6 +339,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
     |vpiTypespec:
     \_int_typespec: , line:1:19, endln:1:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:1:23, endln:1:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -352,7 +357,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_int_var: , line:2:23, endln:2:26
+    \_int_var: (work@top.theta), line:2:23, endln:2:26
     |vpiStmt:
     \_begin: (work@top.theta)
       |vpiParent:

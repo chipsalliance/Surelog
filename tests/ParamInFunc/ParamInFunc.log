@@ -238,19 +238,29 @@ design: (work@func_block_top)
     |vpiName:func3
     |vpiFullName:work@func_block_top.func3
     |vpiParameter:
-    \_parameter: (A), line:5:28, endln:5:29
+    \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+      |vpiParent:
+      \_param_assign: , line:5:28, endln:5:34
       |UINT:31
       |vpiTypespec:
       \_int_typespec: 
       |vpiLocalParam:1
       |vpiName:A
+      |vpiFullName:work@func_block_top.func3.A
     |vpiParameter:
-    \_parameter: (B), line:6:27, endln:6:28
+    \_parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
+      |vpiParent:
+      \_param_assign: , line:6:27, endln:6:36
       |vpiName:B
+      |vpiFullName:work@func_block_top.func3.B
     |vpiParamAssign:
     \_param_assign: , line:5:28, endln:5:34
+      |vpiParent:
+      \_function: (work@func_block_top.func3), line:4:9, endln:9:20
       |vpiRhs:
       \_constant: , line:5:32, endln:5:34
+        |vpiParent:
+        \_param_assign: , line:5:28, endln:5:34
         |vpiDecompile:31
         |vpiSize:32
         |UINT:31
@@ -258,11 +268,15 @@ design: (work@func_block_top)
         \_int_typespec: 
         |vpiConstType:9
       |vpiLhs:
-      \_parameter: (A), line:5:28, endln:5:29
+      \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
     |vpiParamAssign:
     \_param_assign: , line:6:27, endln:6:36
+      |vpiParent:
+      \_function: (work@func_block_top.func3), line:4:9, endln:9:20
       |vpiRhs:
       \_operation: , line:6:31, endln:6:36
+        |vpiParent:
+        \_param_assign: , line:6:27, endln:6:36
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:6:31, endln:6:32
@@ -281,15 +295,19 @@ design: (work@func_block_top)
           |UINT:0
           |vpiConstType:9
       |vpiLhs:
-      \_parameter: (B), line:6:27, endln:6:28
+      \_parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:4:28, endln:4:34
+    \_logic_var: (work@func_block_top.func3), line:4:28, endln:4:34
+      |vpiParent:
+      \_function: (work@func_block_top.func3), line:4:9, endln:9:20
       |vpiTypespec:
       \_logic_typespec: , line:4:28, endln:4:34
         |vpiRange:
         \_range: , line:4:28, endln:4:34
+          |vpiParent:
+          \_logic_typespec: , line:4:28, endln:4:34
           |vpiLeftRange:
           \_constant: , line:4:29, endln:4:31
             |vpiParent:
@@ -306,6 +324,7 @@ design: (work@func_block_top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+      |vpiFullName:work@func_block_top.func3
     |vpiIODecl:
     \_io_decl: (inp), line:7:30, endln:7:33
       |vpiParent:
@@ -317,7 +336,7 @@ design: (work@func_block_top)
         |vpiRange:
         \_range: , line:7:23, endln:7:29
           |vpiParent:
-          \_function: (work@func_block_top.func3), line:4:9, endln:9:20
+          \_logic_typespec: , line:7:23, endln:7:29
           |vpiLeftRange:
           \_constant: , line:7:24, endln:7:26
             |vpiParent:
@@ -357,7 +376,7 @@ design: (work@func_block_top)
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.inp.A
           |vpiActual:
-          \_parameter: (A), line:5:28, endln:5:29
+          \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
         |vpiRightRange:
         \_ref_obj: (work@func_block_top.func3.inp.B), line:8:36, endln:8:37
           |vpiParent:
@@ -365,7 +384,7 @@ design: (work@func_block_top)
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.inp.B
           |vpiActual:
-          \_parameter: (B), line:6:27, endln:6:28
+          \_parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
       |vpiLhs:
       \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
         |vpiParent:
@@ -374,7 +393,7 @@ design: (work@func_block_top)
         |vpiFullName:work@func_block_top.func3.func3
         |vpiDefName:func3
         |vpiActual:
-        \_logic_var: , line:4:28, endln:4:34
+        \_logic_var: (work@func_block_top.func3), line:4:28, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_ref_obj: (work@func_block_top.func3.func3.A), line:8:23, endln:8:24
@@ -383,7 +402,7 @@ design: (work@func_block_top)
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.func3.A
           |vpiActual:
-          \_parameter: (A), line:5:28, endln:5:29
+          \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
         |vpiRightRange:
         \_ref_obj: (work@func_block_top.func3.func3.B), line:8:25, endln:8:26
           |vpiParent:
@@ -391,7 +410,7 @@ design: (work@func_block_top)
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.func3.B
           |vpiActual:
-          \_parameter: (B), line:6:27, endln:6:28
+          \_parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
     |vpiInstance:
     \_module_inst: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
   |vpiNet:
@@ -425,7 +444,11 @@ design: (work@func_block_top)
     |vpiName:inp
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@func_block_top.inp.inp)
+      |vpiParent:
+      \_port: (inp), line:3:23, endln:3:26
+      |vpiName:inp
+      |vpiFullName:work@func_block_top.inp.inp
       |vpiActual:
       \_logic_net: (work@func_block_top.inp), line:3:23, endln:3:26
   |vpiPort:
@@ -435,7 +458,11 @@ design: (work@func_block_top)
     |vpiName:out1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@func_block_top.out1.out1)
+      |vpiParent:
+      \_port: (out1), line:3:28, endln:3:32
+      |vpiName:out1
+      |vpiFullName:work@func_block_top.out1.out1
       |vpiActual:
       \_logic_net: (work@func_block_top.out1), line:3:28, endln:3:32
   |vpiPort:
@@ -445,7 +472,11 @@ design: (work@func_block_top)
     |vpiName:out2
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@func_block_top.out2.out2)
+      |vpiParent:
+      \_port: (out2), line:3:34, endln:3:38
+      |vpiName:out2
+      |vpiFullName:work@func_block_top.out2.out2
       |vpiActual:
       \_logic_net: (work@func_block_top.out2), line:3:34, endln:3:38
   |vpiPort:
@@ -455,7 +486,11 @@ design: (work@func_block_top)
     |vpiName:out3
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@func_block_top.out3.out3)
+      |vpiParent:
+      \_port: (out3), line:3:40, endln:3:44
+      |vpiName:out3
+      |vpiFullName:work@func_block_top.out3.out3
       |vpiActual:
       \_logic_net: (work@func_block_top.out3), line:3:40, endln:3:44
 |uhdmtopModules:
@@ -523,7 +558,7 @@ design: (work@func_block_top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:4:28, endln:4:34
+    \_logic_var: (work@func_block_top.func3), line:4:28, endln:4:34
     |vpiIODecl:
     \_io_decl: (inp), line:7:30, endln:7:33
       |vpiParent:
@@ -555,7 +590,7 @@ design: (work@func_block_top)
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.inp.A
           |vpiActual:
-          \_parameter: (A), line:5:28, endln:5:29
+          \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
         |vpiRightRange:
         \_ref_obj: (work@func_block_top.func3.inp.B), line:8:36, endln:8:37
           |vpiParent:
@@ -563,7 +598,7 @@ design: (work@func_block_top)
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.inp.B
           |vpiActual:
-          \_parameter: (B), line:6:27, endln:6:28
+          \_parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
       |vpiLhs:
       \_part_select: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
         |vpiParent:
@@ -572,7 +607,7 @@ design: (work@func_block_top)
         |vpiFullName:work@func_block_top.func3.func3
         |vpiDefName:func3
         |vpiActual:
-        \_logic_var: , line:4:28, endln:4:34
+        \_logic_var: (work@func_block_top.func3), line:4:28, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_ref_obj: (work@func_block_top.func3.func3.A), line:8:23, endln:8:24
@@ -581,7 +616,7 @@ design: (work@func_block_top)
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.func3.A
           |vpiActual:
-          \_parameter: (A), line:5:28, endln:5:29
+          \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
         |vpiRightRange:
         \_ref_obj: (work@func_block_top.func3.func3.B), line:8:25, endln:8:26
           |vpiParent:
@@ -589,7 +624,7 @@ design: (work@func_block_top)
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.func3.B
           |vpiActual:
-          \_parameter: (B), line:6:27, endln:6:28
+          \_parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
     |vpiInstance:
     \_module_inst: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
   |vpiNet:

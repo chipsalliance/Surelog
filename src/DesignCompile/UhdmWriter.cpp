@@ -430,6 +430,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
           any* pclone = UHDM::clone_tree(orig, s, &listener);
           pclone->VpiParent(m);
           paramSet.emplace(name, pclone);
+
           /*
 
             Keep the value of the parameter used during definition. The
@@ -553,6 +554,14 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     port* dest_port = s.MakePort();
     signalBaseMap.emplace(orig_port, dest_port);
     signalMap.emplace(orig_port->getName(), orig_port);
+
+    if (orig_port->attributes()) {
+      dest_port->Attributes(orig_port->attributes());
+      for (auto ats : *orig_port->attributes()) {
+        ats->VpiParent(dest_port);
+      }
+    }
+
     const FileContent* fC = orig_port->getFileContent();
     if (fC->Type(orig_port->getNodeId()) == VObjectType::slStringConst)
       dest_port->VpiName(orig_port->getName());
@@ -565,6 +574,8 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     dest_port->VpiParent(parent);
     if (ModPort* orig_modport = orig_port->getModPort()) {
       ref_obj* ref = s.MakeRef_obj();
+      ref->VpiName(orig_port->getName());
+      ref->VpiParent(dest_port);
       dest_port->Low_conn(ref);
       std::map<ModPort*, modport*>::iterator itr =
           modPortMap.find(orig_modport);
@@ -573,6 +584,8 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
       }
     } else if (ModuleDefinition* orig_interf = orig_port->getInterfaceDef()) {
       ref_obj* ref = s.MakeRef_obj();
+      ref->VpiName(orig_port->getName());
+      ref->VpiParent(dest_port);
       dest_port->Low_conn(ref);
       const auto& found = componentMap.find(orig_interf);
       if (found != componentMap.end()) {
@@ -582,7 +595,7 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     if (NodeId defId = orig_port->getDefaultValue()) {
       any* exp =
           m_helper.compileExpression(mod, fC, defId, m_compileDesign,
-                                     Reduce::No, nullptr, instance, false);
+                                     Reduce::No, dest_port, instance, false);
       dest_port->High_conn(exp);
     }
     if (orig_port->getTypeSpecId() && mod) {
@@ -602,6 +615,7 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
             array_ts->VpiEndColumnNo(ranges->back()->VpiEndColumnNo());
           }
           for (range* r : *ranges) {
+            r->VpiParent(array_ts);
             const expr* rrange = r->Right_expr();
             if (rrange->VpiValue() == "STRING:associative") {
               array_ts->VpiArrayType(vpiAssocArray);
@@ -618,13 +632,13 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
 
           if (typespec* typespec = m_helper.compileTypespec(
                   mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
-                  Reduce::No, nullptr, nullptr, true)) {
+                  Reduce::No, array_ts, nullptr, true)) {
             array_ts->Elem_typespec(typespec);
           }
         }
       } else if (typespec* typespec = m_helper.compileTypespec(
                      mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
-                     Reduce::No, nullptr, nullptr, true)) {
+                     Reduce::No, dest_port, nullptr, true)) {
         dest_port->Typespec(typespec);
       }
     }
@@ -700,13 +714,17 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
               port* p = (port*)((*itr).second);
               if (p->Low_conn() == nullptr) {
                 ref_obj* ref = s.MakeRef_obj();
+                ref->VpiName(p->VpiName());
                 ref->Actual_group(dest_net);
+                ref->VpiParent(p);
                 p->Low_conn(ref);
               } else if (p->Low_conn()->UhdmType() == uhdmref_obj) {
                 ref_obj* ref = (ref_obj*)p->Low_conn();
+                ref->VpiName(p->VpiName());
                 if (ref->Actual_group() == nullptr) {
                   ref->Actual_group(dest_net);
                 }
+                ref->VpiParent(p);
               }
             }
           }
@@ -728,15 +746,16 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
                  UhdmWriter::SignalBaseClassMap& signalBaseMap) {
   for (Signal* orig_port : orig_ports) {
     if (Signal* lowconn = orig_port->getLowConn()) {
-      std::map<Signal*, BaseClass*>::iterator itrlow =
+      UhdmWriter::SignalBaseClassMap::iterator itrlow =
           signalBaseMap.find(lowconn);
       if (itrlow != signalBaseMap.end()) {
-        std::map<Signal*, BaseClass*>::iterator itrport =
+        UhdmWriter::SignalBaseClassMap::iterator itrport =
             signalBaseMap.find(orig_port);
         if (itrport != signalBaseMap.end()) {
           ref_obj* ref = s.MakeRef_obj();
-          ((port*)(*itrport).second)->Low_conn(ref);
-          ref->Actual_group((*itrlow).second);
+          ((port*)itrport->second)->Low_conn(ref);
+          ref->VpiParent(itrport->second);
+          ref->Actual_group(itrlow->second);
         }
       }
     }
@@ -811,7 +830,12 @@ void UhdmWriter::writeClass(ClassDefinition* classDef,
     const std::string_view name = classDef->getName();
     if (c->VpiName().empty()) c->VpiName(name);
     if (c->VpiFullName().empty()) c->VpiFullName(name);
-    c->Attributes(classDef->Attributes());
+    if (classDef->Attributes() != nullptr) {
+      c->Attributes(classDef->Attributes());
+      for (auto a : *c->Attributes()) {
+        a->VpiParent(c);
+      }
+    }
     if (fC) {
       // Builtin classes have no file
       const NodeId modId = classDef->getNodeIds()[0];
@@ -870,8 +894,7 @@ class ReInstanceTypespec : public VpiListener {
 
   void leaveAny(const any* object, vpiHandle handle) final {
     if (any_cast<const typespec*>(object) != nullptr) {
-      if ((object->UhdmType() != uhdmclass_typespec) &&
-          (object->UhdmType() != uhdmevent_typespec) &&
+      if ((object->UhdmType() != uhdmevent_typespec) &&
           (object->UhdmType() != uhdmimport_typespec) &&
           (object->UhdmType() != uhdmtype_parameter)) {
         reInstance(object);
@@ -985,6 +1008,12 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
     }
   }
 
+  if (p->Variables()) {
+    for (auto v : *p->Variables()) {
+      reInstanceTypespec(s, v, p);
+    }
+  }
+
   // Function and tasks
   if (pack->getTask_funcs()) {
     p->Task_funcs(s.MakeTask_funcVec());
@@ -1069,6 +1098,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
     VectorOflet_decl* decls = s.MakeLet_declVec();
     m->Let_decls(decls);
     for (auto stmt : mod->getLetStmts()) {
+      const_cast<let_decl*>(stmt.second->Decl())->VpiParent(m);
       decls->push_back((let_decl*)stmt.second->Decl());
     }
   }
@@ -1157,6 +1187,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
   // ClockingBlocks
   for (const auto& ctupple : mod->getClockingBlockMap()) {
     const ClockingBlock& cblock = ctupple.second;
+    cblock.getActual()->VpiParent(m);
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         m->Default_clocking(cblock.getActual());
@@ -1228,6 +1259,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
           const std::string typeName = sig->getInterfaceTypeName();
           interface_array* smarray = s.MakeInterface_array();
           smarray->Ranges(unpackedDimensions);
+          for (auto d : *unpackedDimensions) d->VpiParent(smarray);
           if (fC->Type(id) == VObjectType::slStringConst) {
             smarray->VpiName(sig->getName());
           }
@@ -1250,6 +1282,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
       }
     }
   }
+  lateBinding(s, mod, m, componentMap);
 }
 
 void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
@@ -1318,12 +1351,13 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
         m_helper.checkForLoops(true);
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
-                                       Reduce::Yes, nullptr, instance, true);
+                                       Reduce::Yes, io, instance, true);
         m_helper.checkForLoops(false);
         io->Expr(exp);
       }
       uint32_t direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
+      io->VpiParent(dest_modport);
       ios->push_back(io);
     }
     dest_modport->Io_decls(ios);
@@ -1382,6 +1416,7 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
   // ClockingBlocks
   for (const auto& ctupple : mod->getClockingBlockMap()) {
     const ClockingBlock& cblock = ctupple.second;
+    cblock.getActual()->VpiParent(m);
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         m->Default_clocking(cblock.getActual());
@@ -1489,6 +1524,7 @@ void UhdmWriter::writeProgram(Program* mod, program* m, Serializer& s,
   // ClockingBlocks
   for (const auto& ctupple : mod->getClockingBlockMap()) {
     const ClockingBlock& cblock = ctupple.second;
+    cblock.getActual()->VpiParent(m);
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         m->Default_clocking(cblock.getActual());
@@ -1510,7 +1546,7 @@ void UhdmWriter::writeProgram(Program* mod, program* m, Serializer& s,
 }
 
 bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
-                                  program* m) {
+                                  program* m, ModPortMap& modPortMap) {
   Netlist* netlist = instance->getNetlist();
   ComponentMap componentMap;
   DesignComponent* mod = instance->getDefinition();
@@ -1533,13 +1569,39 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
+      for (auto ps : *m->Assertions()) {
+        ps->VpiParent(m);
+      }
     }
   }
   if (netlist) {
     m->Ports(netlist->ports());
     if (netlist->ports()) {
+      typedef std::map<const UHDM::modport*, ModPort*> PortModPortMap;
+      PortModPortMap portModPortMap;
+      for (auto& entry : netlist->getModPortMap()) {
+        portModPortMap.emplace(entry.second.second, entry.second.first);
+      }
+
       for (auto obj : *netlist->ports()) {
         obj->VpiParent(m);
+
+        if (auto lc = obj->Low_conn()) {
+          if (const ref_obj* ro = any_cast<const ref_obj*>(lc)) {
+            if (const any* ag = ro->Actual_group()) {
+              if (ag->UhdmType() == UHDM::uhdmmodport) {
+                PortModPortMap::const_iterator it1 =
+                    portModPortMap.find((const UHDM::modport*)ag);
+                if (it1 != portModPortMap.end()) {
+                  ModPortMap::const_iterator it2 = modPortMap.find(it1->second);
+                  if (it2 != modPortMap.end()) {
+                    const_cast<ref_obj*>(ro)->Actual_group(it2->second);
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
     m->Nets(netlist->nets());
@@ -1609,6 +1671,7 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
     ModuleDefinition* def = (ModuleDefinition*)mod;
     for (const auto& ctupple : def->getClockingBlockMap()) {
       const ClockingBlock& cblock = ctupple.second;
+      cblock.getActual()->VpiParent(m);
       switch (cblock.getType()) {
         case ClockingBlock::Type::Default: {
           m->Default_clocking(cblock.getActual());
@@ -1684,7 +1747,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
           if (rhs->UhdmType() == uhdmoperation) {
             if (cloned == false) {
               ElaboratorListener listener(&s, false, true);
+              const UHDM::any* pp = assign->VpiParent();
               assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              if (pp != nullptr) assign->VpiParent(const_cast<UHDM::any*>(pp));
               lhs = assign->Lhs();
               rhs = assign->Rhs();
               m_helper.checkForLoops(true);
@@ -1731,7 +1796,10 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         if (tmp->UhdmType() == uhdmoperation) {
           if (cloned == false) {
             ElaboratorListener listener(&s, false, true);
+            const UHDM::any* pp = assign->VpiParent();
             assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+            if (pp != nullptr) assign->VpiParent(const_cast<UHDM::any*>(pp));
+            assign->VpiParent(m);
             lhs = assign->Lhs();
             rhs = assign->Rhs();
             delay = assign->Delay();
@@ -1739,6 +1807,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             cloned = true;
           }
           ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+          for (auto o : *((operation*)tmp)->Operands()) {
+            o->VpiParent(const_cast<expr*>(rhs));
+          }
           operation* op = (operation*)rhs;
           int32_t opType = op->VpiOpType();
           if (opType == vpiAssignmentPatternOp || opType == vpiConditionOp) {
@@ -1767,6 +1838,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             if (cloned == false) {
               ElaboratorListener listener(&s, false, true);
               assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              assign->VpiParent(m);
               lhs = assign->Lhs();
               rhs = assign->Rhs();
               delay = assign->Delay();
@@ -1797,6 +1869,7 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             if (cloned == false) {
               ElaboratorListener listener(&s, false, true);
               assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              assign->VpiParent(m);
               lhs = assign->Lhs();
               cloned = true;
               res = m_helper.adjustSize(tps, mod, m_compileDesign,
@@ -1816,9 +1889,12 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         if (detector.unsizedDetected()) {
           ElaboratorListener listener(&s, false, true);
           assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+          assign->VpiParent(m);
           cloned = true;
         }
       }
+      if (tps != nullptr) const_cast<typespec*>(tps)->VpiParent(nullptr);
+      if (cloned || (assign->VpiParent() == nullptr)) assign->VpiParent(m);
       assigns->push_back(assign);
     }
   }
@@ -1849,9 +1925,17 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     }
     // System elab tasks
     m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
+    if (m->Elab_tasks()) {
+      for (auto et : *m->Elab_tasks()) {
+        et->VpiParent(m);
+      }
+    }
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
+      for (auto ps : *m->Assertions()) {
+        ps->VpiParent(m);
+      }
     }
   }
   if (netlist) {
@@ -1961,6 +2045,7 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
   // ClockingBlocks
   for (const auto& ctupple : mod->getClockingBlockMap()) {
     const ClockingBlock& cblock = ctupple.second;
+    cblock.getActual()->VpiParent(m);
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         // No default clocking
@@ -2430,6 +2515,11 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
               ptps->Ranges(unsup->Ranges());
               tps = ptps;
             }
+            if (unsup->Ranges()) {
+              for (auto r : *unsup->Ranges()) {
+                r->VpiParent(const_cast<typespec*>(tps));
+              }
+            }
           }
           break;
         }
@@ -2504,6 +2594,7 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     }
                     if (swapVar) {
                       swapVar->VpiName(ref->VpiName());
+                      swapVar->VpiParent(const_cast<any*>(ref->VpiParent()));
                       swapVar->VpiFile(ref->VpiFile());
                       swapVar->VpiLineNo(ref->VpiLineNo());
                       swapVar->VpiColumnNo(ref->VpiColumnNo());
@@ -2602,8 +2693,8 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
   }
 }
 
-void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
-                             scope* m, ComponentMap& componentMap) {
+void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m,
+                             ComponentMap& componentMap) {
   FileSystem* const fileSystem = FileSystem::getInstance();
   for (UHDM::ref_obj* ref : mod->getLateBinding()) {
     if (ref->Actual_group()) continue;
@@ -2669,10 +2760,10 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
         if (parent->VpiName() == name) {
           if (const any* ret = func->Return()) {
             ElaboratorListener listener(&s, false, true);
-            any* pclone = UHDM::clone_tree(ret, s, &listener);
-            variables* var = (variables*)pclone;
+            variables* var = (variables*)UHDM::clone_tree(ret, s, &listener);
             var->VpiName(name);
-            ref->Actual_group(pclone);
+            var->VpiParent(ref);
+            ref->Actual_group(var);
           }
           break;
         }
@@ -3136,6 +3227,11 @@ void UhdmWriter::lateBinding(UHDM::Serializer& s, DesignComponent* mod,
               instance* inst = (instance*)m;
               logic_net* net = s.MakeLogic_net();
               net->VpiName(name);
+              net->VpiParent(m);
+              net->VpiLineNo(ref->VpiLineNo());
+              net->VpiColumnNo(ref->VpiColumnNo());
+              net->VpiEndLineNo(ref->VpiEndLineNo());
+              net->VpiEndColumnNo(ref->VpiEndColumnNo());
               net->VpiNetType(
                   UhdmWriter::getVpiNetType(elem->m_defaultNetType));
               ref->Actual_group(net);
@@ -3178,9 +3274,17 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
     }
     // System elab tasks
     m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
+    if (m->Elab_tasks()) {
+      for (auto et : *m->Elab_tasks()) {
+        et->VpiParent(m);
+      }
+    }
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
+      for (auto ps : *m->Assertions()) {
+        ps->VpiParent(m);
+      }
     }
   }
 
@@ -3246,6 +3350,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
     ModuleDefinition* def = (ModuleDefinition*)mod;
     for (const auto& ctupple : def->getClockingBlockMap()) {
       const ClockingBlock& cblock = ctupple.second;
+      cblock.getActual()->VpiParent(m);
       switch (cblock.getType()) {
         case ClockingBlock::Type::Default: {
           m->Default_clocking(cblock.getActual());
@@ -3309,9 +3414,17 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     }
     // System elab tasks
     m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
+    if (m->Elab_tasks()) {
+      for (auto et : *m->Elab_tasks()) {
+        et->VpiParent(m);
+      }
+    }
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
+      for (auto ps : *m->Assertions()) {
+        ps->VpiParent(m);
+      }
     }
   }
 
@@ -3399,7 +3512,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
         m_helper.checkForLoops(true);
         any* exp =
             m_helper.compileExpression(mod, fC, Expression, m_compileDesign,
-                                       Reduce::Yes, nullptr, instance, true);
+                                       Reduce::Yes, io, instance, true);
         m_helper.checkForLoops(false);
         io->Expr(exp);
       }
@@ -3418,6 +3531,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     ModuleDefinition* def = (ModuleDefinition*)mod;
     for (const auto& ctupple : def->getClockingBlockMap()) {
       const ClockingBlock& cblock = ctupple.second;
+      cblock.getActual()->VpiParent(m);
       switch (cblock.getType()) {
         case ClockingBlock::Type::Default: {
           m->Default_clocking(cblock.getActual());
@@ -3706,7 +3820,10 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
             VectorOfprimitive* prims = s.MakePrimitiveVec();
             gate_array->Primitives(prims);
             gate_array->Ranges(ranges);
+            gate_array->VpiParent(m);
             prims->push_back(gate);
+            gate->VpiParent(gate_array);
+            for (auto r : *ranges) r->VpiParent(gate_array);
             if (subPrimitiveArrays == nullptr)
               subPrimitiveArrays = s.MakePrimitive_arrayVec();
             subPrimitiveArrays->push_back(gate_array);
@@ -3728,7 +3845,10 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
             VectorOfprimitive* prims = s.MakePrimitiveVec();
             gate_array->Primitives(prims);
             gate_array->Ranges(ranges);
+            gate_array->VpiParent(m);
             prims->push_back(gate);
+            gate->VpiParent(gate_array);
+            for (auto r : *ranges) r->VpiParent(gate_array);
             if (subPrimitiveArrays == nullptr)
               subPrimitiveArrays = s.MakePrimitive_arrayVec();
             subPrimitiveArrays->push_back(gate_array);
@@ -3748,7 +3868,10 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
             VectorOfprimitive* prims = s.MakePrimitiveVec();
             gate_array->Primitives(prims);
             gate_array->Ranges(ranges);
+            gate_array->VpiParent(m);
             prims->push_back(gate);
+            gate->VpiParent(gate_array);
+            for (auto r : *ranges) r->VpiParent(gate_array);
             if (subPrimitiveArrays == nullptr)
               subPrimitiveArrays = s.MakePrimitive_arrayVec();
             subPrimitiveArrays->push_back(gate_array);
@@ -3773,11 +3896,11 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         if (utype == uhdmmodule_inst) {
           ((module_inst*)m)->Primitives(subPrimitives);
           ((module_inst*)m)->Primitive_arrays(subPrimitiveArrays);
-          gate->VpiParent(m);
+          m_helper.setParentNoOverride(gate, m);
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*)m)->Primitives(subPrimitives);
           ((gen_scope*)m)->Primitive_arrays(subPrimitiveArrays);
-          gate->VpiParent(m);
+          m_helper.setParentNoOverride(gate, m);
         }
         writePrimTerms(child, gate, vpiGateType, s);
       } else {
@@ -3804,7 +3927,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
         ((gen_scope*)m)->Programs(subPrograms);
         sm->VpiParent(m);
       }
-      writeElabProgram(s, child, sm);
+      writeElabProgram(s, child, sm, modPortMap);
     } else {
       // Undefined module
       if (subModules == nullptr) subModules = s.MakeModule_instVec();
@@ -3865,8 +3988,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
   }
 
   if (mod && netlist) {
-    scope* sc = dynamic_cast<scope*>(m);
-    if (sc) {
+    if (scope* sc = any_cast<scope*>(m)) {
       lateTypedefBinding(s, mod, sc, componentMap);
       lateBinding(s, mod, sc, componentMap);
       lateTypedefBinding(s, mod, sc, componentMap);
@@ -3908,7 +4030,12 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
 
     // ---------------------------
     // Include File Info
-    d->Include_file_infos(m_compileDesign->getFileInfo());
+    if (m_compileDesign->getFileInfo()) {
+      d->Include_file_infos(m_compileDesign->getFileInfo());
+      for (auto ifi : *m_compileDesign->getFileInfo()) {
+        ifi->VpiParent(d);
+      }
+    }
 
     // -------------------------------
     // Non-Elaborated Model
@@ -3942,8 +4069,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           target = d->Parameters();
         }
         for (auto tf : *from) {
+          tf->VpiParent(d);
           target->push_back(tf);
-          if (tf->VpiParent() == nullptr) tf->VpiParent(d);
         }
       }
 
@@ -3955,8 +4082,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           target = d->Param_assigns();
         }
         for (auto tf : *from) {
+          tf->VpiParent(d);
           target->push_back(tf);
-          if (tf->VpiParent() == nullptr) tf->VpiParent(d);
         }
       }
       lateTypedefBinding(s, fileIdContent.second, nullptr, componentMap);
@@ -3983,7 +4110,12 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         p->VpiParent(d);
         p->VpiTop(true);
         p->VpiDefName(pack->getName());
-        p->Attributes(pack->Attributes());
+        if (pack->Attributes() != nullptr) {
+          p->Attributes(pack->Attributes());
+          for (auto a : *p->Attributes()) {
+            a->VpiParent(p);
+          }
+        }
         writePackage(pack, p, s, componentMap, true);
         if (fC) {
           // Builtin package has no file
@@ -4003,11 +4135,18 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       if (!pack->getFileContents().empty() &&
           pack->getType() == VObjectType::slPackage_declaration) {
         const FileContent* fC = pack->getFileContents()[0];
-        package* p = s.MakePackage();
+        package* p =
+            any_cast<package*>(pack->getUnElabPackage()->getUhdmInstance());
+        if (p == nullptr) p = s.MakePackage();
         p->VpiName(pack->getName());
         p->VpiParent(d);
         p->VpiDefName(pack->getName());
-        p->Attributes(pack->Attributes());
+        if (pack->Attributes() != nullptr) {
+          p->Attributes(pack->Attributes());
+          for (auto a : *p->Attributes()) {
+            a->VpiParent(p);
+          }
+        }
         v3->push_back(p);
         writePackage(pack->getUnElabPackage(), p, s, componentMap, false);
         if (fC) {
@@ -4040,7 +4179,12 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         const NodeId modId = prog->getNodeIds()[0];
         const NodeId startId = fC->sl_collect(modId, VObjectType::slProgram);
         fC->populateCoreMembers(startId, modId, p);
-        p->Attributes(prog->Attributes());
+        if (prog->Attributes() != nullptr) {
+          p->Attributes(prog->Attributes());
+          for (auto a : *p->Attributes()) {
+            a->VpiParent(p);
+          }
+        }
         writeProgram(prog, p, s, componentMap, modPortMap);
         uhdm_programs->push_back(p);
       }
@@ -4064,7 +4208,12 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         const NodeId modId = mod->getNodeIds()[0];
         const NodeId startId = fC->sl_collect(modId, VObjectType::slInterface);
         fC->populateCoreMembers(startId, modId, m);
-        m->Attributes(mod->Attributes());
+        if (mod->Attributes() != nullptr) {
+          m->Attributes(mod->Attributes());
+          for (auto a : *m->Attributes()) {
+            a->VpiParent(m);
+          }
+        }
         uhdm_interfaces->push_back(m);
         writeInterface(mod, m, s, componentMap, modPortMap);
       }
@@ -4090,7 +4239,12 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         moduleMap.emplace(mod->getName(), m);
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
-        m->Attributes(mod->Attributes());
+        if (mod->Attributes() != nullptr) {
+          m->Attributes(mod->Attributes());
+          for (auto a : *m->Attributes()) {
+            a->VpiParent(m);
+          }
+        }
         const NodeId modId = mod->getNodeIds()[0];
         const NodeId startId =
             fC->sl_collect(modId, VObjectType::slModule_keyword);
@@ -4107,7 +4261,12 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           const NodeId startId =
               fC->sl_collect(modId, VObjectType::slPrimitive);
           fC->populateCoreMembers(startId, modId, defn);
-          defn->Attributes(mod->Attributes());
+          if (mod->Attributes() != nullptr) {
+            defn->Attributes(mod->Attributes());
+            for (auto a : *defn->Attributes()) {
+              a->VpiParent(defn);
+            }
+          }
           uhdm_udps->push_back(defn);
         }
       }

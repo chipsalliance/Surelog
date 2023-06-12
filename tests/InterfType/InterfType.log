@@ -120,7 +120,7 @@ design                                                 1
 int_typespec                                           2
 interface_inst                                         7
 interface_typespec                                     2
-logic_net                                              1
+logic_net                                              2
 module_inst                                            6
 param_assign                                           2
 parameter                                              2
@@ -136,7 +136,7 @@ design                                                 1
 int_typespec                                           2
 interface_inst                                         7
 interface_typespec                                     2
-logic_net                                              1
+logic_net                                              2
 module_inst                                            6
 param_assign                                           2
 parameter                                              2
@@ -175,7 +175,11 @@ design: (work@dut)
     |vpiName:types
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@tnoc_flit_if.types.types)
+      |vpiParent:
+      \_port: (types), line:7:15, endln:7:20
+      |vpiName:types
+      |vpiFullName:work@tnoc_flit_if.types.types
       |vpiActual:
       \_logic_net: (work@tnoc_flit_if.types), line:7:15, endln:7:20
 |uhdmallInterfaces:
@@ -202,6 +206,8 @@ design: (work@dut)
     \_interface_inst: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:1:1, endln:4:13
     |vpiRhs:
     \_constant: , line:2:34, endln:2:35
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:35
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -217,6 +223,13 @@ design: (work@dut)
   \_design: (work@dut)
   |vpiFullName:work@dut
   |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.i_types), line:16:20, endln:16:27
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:13:1, endln:18:10
+    |vpiName:i_types
+    |vpiFullName:work@dut.i_types
+    |vpiNetType:1
   |vpiRefModule:
   \_ref_module: work@tnoc_types (i_types), line:15:16, endln:15:23
     |vpiParent:
@@ -235,11 +248,16 @@ design: (work@dut)
     \_interface_inst: work@tnoc_flit_if (work@tnoc_flit_if), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:6:1, endln:10:13
     |vpiPort:
     \_port: , line:16:20, endln:16:27
+      |vpiParent:
+      \_ref_module: work@tnoc_flit_if (tnoc), line:16:14, endln:16:18
       |vpiHighConn:
-      \_ref_obj: (i_types), line:16:20, endln:16:27
+      \_ref_obj: (work@dut.tnoc.i_types), line:16:20, endln:16:27
+        |vpiParent:
+        \_port: , line:16:20, endln:16:27
         |vpiName:i_types
+        |vpiFullName:work@dut.tnoc.i_types
         |vpiActual:
-        \_interface_inst: work@tnoc_types (work@dut.i_types), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:15:1, endln:15:26
+        \_logic_net: (work@dut.i_types), line:16:20, endln:16:27
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:13:1, endln:18:10
   |vpiName:work@dut
@@ -272,6 +290,8 @@ design: (work@dut)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:2:34, endln:2:35
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:35
         |vpiDecompile:2
         |vpiSize:32
         |UINT:2
@@ -311,6 +331,8 @@ design: (work@dut)
       |vpiDirection:3
       |vpiHighConn:
       \_ref_obj: (work@dut.i_types), line:16:20, endln:16:27
+        |vpiParent:
+        \_port: (types), line:7:15, endln:7:20
         |vpiName:i_types
         |vpiFullName:work@dut.i_types
         |vpiActual:

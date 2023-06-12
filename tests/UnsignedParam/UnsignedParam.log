@@ -272,6 +272,8 @@ design: (work@top)
       |vpiSigned:1
       |vpiRange:
       \_range: , line:5:21, endln:5:27
+        |vpiParent:
+        \_int_typespec: , line:5:14, endln:5:20
         |vpiLeftRange:
         \_constant: , line:5:22, endln:5:24
           |vpiParent:
@@ -302,6 +304,8 @@ design: (work@top)
       |vpiSigned:1
       |vpiRange:
       \_range: , line:6:21, endln:6:27
+        |vpiParent:
+        \_int_typespec: , line:6:14, endln:6:20
         |vpiLeftRange:
         \_constant: , line:6:22, endln:6:24
           |vpiParent:
@@ -333,6 +337,8 @@ design: (work@top)
       |vpiSigned:1
       |vpiRange:
       \_range: , line:7:21, endln:7:27
+        |vpiParent:
+        \_int_typespec: , line:7:14, endln:7:20
         |vpiLeftRange:
         \_constant: , line:7:22, endln:7:24
           |vpiParent:
@@ -363,6 +369,8 @@ design: (work@top)
       |vpiSigned:1
       |vpiRange:
       \_range: , line:8:21, endln:8:27
+        |vpiParent:
+        \_int_typespec: , line:8:14, endln:8:20
         |vpiLeftRange:
         \_constant: , line:8:22, endln:8:24
           |vpiParent:
@@ -388,6 +396,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_constant: , line:5:32, endln:5:45
+      |vpiParent:
+      \_param_assign: , line:5:28, endln:5:45
       |vpiDecompile:32'h8000_0000
       |vpiSize:64
       |HEX:80000000
@@ -402,12 +412,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_operation: , line:6:33, endln:6:41
+      |vpiParent:
+      \_param_assign: , line:6:28, endln:6:41
       |vpiOpType:24
       |vpiOperand:
-      \_ref_obj: (n), line:6:33, endln:6:34
+      \_ref_obj: (work@top.n), line:6:33, endln:6:34
         |vpiParent:
         \_operation: , line:6:33, endln:6:41
         |vpiName:n
+        |vpiFullName:work@top.n
       |vpiOperand:
       \_constant: , line:6:37, endln:6:41
         |vpiParent:
@@ -424,6 +437,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:56
+      |vpiParent:
+      \_param_assign: , line:7:28, endln:7:56
       |vpiDecompile:64'h8FFF_FFFF_FFFF_0000
       |vpiSize:64
       |HEX:8FFFFFFFFFFF0000
@@ -438,12 +453,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_operation: , line:8:33, endln:8:61
+      |vpiParent:
+      \_param_assign: , line:8:28, endln:8:61
       |vpiOpType:24
       |vpiOperand:
-      \_ref_obj: (n3), line:8:33, endln:8:35
+      \_ref_obj: (work@top.n3), line:8:33, endln:8:35
         |vpiParent:
         \_operation: , line:8:33, endln:8:61
         |vpiName:n3
+        |vpiFullName:work@top.n3
       |vpiOperand:
       \_constant: , line:8:38, endln:8:61
         |vpiParent:
@@ -461,12 +479,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiCondition:
     \_operation: , line:10:7, endln:10:33
+      |vpiParent:
+      \_gen_if: , line:10:3, endln:10:5
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (n4), line:10:7, endln:10:9
+      \_ref_obj: (work@top.n4), line:10:7, endln:10:9
         |vpiParent:
         \_operation: , line:10:7, endln:10:33
         |vpiName:n4
+        |vpiFullName:work@top.n4
       |vpiOperand:
       \_constant: , line:10:13, endln:10:33
         |vpiParent:
@@ -476,9 +497,14 @@ design: (work@top)
         |UINT:10376293541461622783
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:10:3, endln:10:5
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD (good), line:11:9, endln:11:13
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD
 |uhdmtopModules:
@@ -620,6 +646,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_constant: , line:5:32, endln:5:45
+      |vpiParent:
+      \_param_assign: , line:5:28, endln:5:45
       |vpiDecompile:64'h80000000
       |vpiSize:64
       |HEX:80000000
@@ -634,6 +662,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_constant: , line:6:33, endln:6:41
+      |vpiParent:
+      \_param_assign: , line:6:28, endln:6:41
       |vpiDecompile:2147483649
       |vpiSize:64
       |UINT:2147483649
@@ -648,6 +678,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:56
+      |vpiParent:
+      \_param_assign: , line:7:28, endln:7:56
       |vpiDecompile:64'h8FFFFFFFFFFF0000
       |vpiSize:64
       |HEX:8FFFFFFFFFFF0000
@@ -662,6 +694,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiRhs:
     \_constant: , line:8:33, endln:8:61
+      |vpiParent:
+      \_param_assign: , line:8:28, endln:8:61
       |vpiDecompile:10376293541461622783
       |vpiSize:64
       |UINT:10376293541461622783

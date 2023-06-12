@@ -526,6 +526,8 @@ design: (work@m)
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiRange:
     \_range: , line:4:13, endln:4:19
+      |vpiParent:
+      \_bit_typespec: (bits), line:4:9, endln:4:19
       |vpiLeftRange:
       \_constant: , line:4:14, endln:4:16
         |vpiParent:
@@ -585,14 +587,19 @@ design: (work@m)
     |vpiFullName:work@m.a2
     |vpiProperty:
     \_property_spec: , line:12:22, endln:12:52
+      |vpiParent:
+      \_assert_stmt: (work@m.a2), line:12:1, endln:12:54
       |vpiPropertyExpr:
       \_operation: , line:12:24, endln:12:37
+        |vpiParent:
+        \_property_spec: , line:12:22, endln:12:52
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (clock), line:12:32, endln:12:37
+        \_ref_obj: (work@m.a2.clock), line:12:32, endln:12:37
           |vpiParent:
           \_operation: , line:12:24, endln:12:37
           |vpiName:clock
+          |vpiFullName:work@m.a2.clock
           |vpiActual:
           \_logic_net: (work@m.clock), line:1:16, endln:1:21
   |vpiPort:
@@ -602,7 +609,11 @@ design: (work@m)
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@m.clock.clock)
+      |vpiParent:
+      \_port: (clock), line:1:16, endln:1:21
+      |vpiName:clock
+      |vpiFullName:work@m.clock.clock
       |vpiActual:
       \_logic_net: (work@m.clock), line:1:16, endln:1:21
     |vpiTypedef:
@@ -658,7 +669,7 @@ design: (work@m)
             |vpiName:a
             |vpiFullName:work@m.a1.a
             |vpiActual:
-            \_logic_var: (work@m.a), line:2:14, endln:2:15
+            \_logic_net: (work@m.a), line:2:14, endln:2:15
         |vpiOperand:
         \_operation: , line:8:24, endln:8:32
           |vpiParent:
@@ -696,7 +707,7 @@ design: (work@m)
             |vpiName:b
             |vpiFullName:work@m.a1.b
             |vpiActual:
-            \_logic_var: (work@m.b), line:2:17, endln:2:18
+            \_logic_net: (work@m.b), line:2:17, endln:2:18
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
@@ -707,8 +718,12 @@ design: (work@m)
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:2:1, endln:2:13
+      |vpiParent:
+      \_logic_var: (work@m.b), line:2:17, endln:2:18
       |vpiRange:
       \_range: , line:2:7, endln:2:13
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:13
         |vpiLeftRange:
         \_constant: , line:2:8, endln:2:10
           |vpiParent:
@@ -730,6 +745,8 @@ design: (work@m)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:2:7, endln:2:13
+      |vpiParent:
+      \_logic_var: (work@m.a), line:2:14, endln:2:15
       |vpiLeftRange:
       \_constant: , line:2:8, endln:2:10
         |vpiParent:
@@ -757,6 +774,8 @@ design: (work@m)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:2:7, endln:2:13
+      |vpiParent:
+      \_logic_var: (work@m.b), line:2:17, endln:2:18
       |vpiLeftRange:
       \_constant: , line:2:8, endln:2:10
         |vpiParent:
@@ -779,6 +798,8 @@ design: (work@m)
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:3:1, endln:3:6
+      |vpiParent:
+      \_logic_var: (work@m.d), line:3:10, endln:3:11
     |vpiName:c
     |vpiFullName:work@m.c
     |vpiVisibility:1
@@ -801,6 +822,8 @@ design: (work@m)
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
     |vpiTypespec:
     \_logic_typespec: , line:1:16, endln:1:16
+      |vpiParent:
+      \_logic_net: (work@m.clock), line:1:16, endln:1:21
     |vpiName:clock
     |vpiFullName:work@m.clock
   |vpiAssertion:
@@ -873,7 +896,7 @@ design: (work@m)
             |vpiName:a
             |vpiFullName:work@m.a1.a
             |vpiActual:
-            \_logic_var: (work@m.a), line:2:14, endln:2:15
+            \_logic_net: (work@m.a), line:2:14, endln:2:15
         |vpiOperand:
         \_operation: , line:8:24, endln:8:32
           |vpiParent:
@@ -888,7 +911,7 @@ design: (work@m)
             |vpiName:b
             |vpiFullName:work@m.a1.b
             |vpiActual:
-            \_logic_var: (work@m.b), line:2:17, endln:2:18
+            \_logic_net: (work@m.b), line:2:17, endln:2:18
     |vpiAlwaysType:2
 ===================
 [  FATAL] : 0

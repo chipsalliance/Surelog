@@ -376,6 +376,8 @@ design: (work@dff0_test)
     \_interface_inst: work@AXI_BUS (work@AXI_BUS), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:8:1, endln:26:13
     |vpiRhs:
     \_operation: , line:9:29, endln:9:31
+      |vpiParent:
+      \_param_assign: , line:9:12, endln:9:31
       |vpiOpType:1
       |vpiOperand:
       \_constant: , line:9:30, endln:9:31
@@ -394,6 +396,8 @@ design: (work@dff0_test)
     \_interface_inst: work@AXI_BUS (work@AXI_BUS), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:8:1, endln:26:13
     |vpiRange:
     \_range: , line:12:17, endln:12:35
+      |vpiParent:
+      \_logic_typespec: (id_t), line:12:11, endln:12:16
       |vpiLeftRange:
       \_constant: , line:12:18, endln:12:30
         |vpiParent:
@@ -430,6 +434,8 @@ design: (work@dff0_test)
     |vpiName:Master
     |vpiIODecl:
     \_io_decl: (aw_id), line:17:12, endln:17:17
+      |vpiParent:
+      \_modport: (Master), line:16:11, endln:16:17
       |vpiDirection:2
       |vpiName:aw_id
   |vpiModport:
@@ -439,6 +445,8 @@ design: (work@dff0_test)
     |vpiName:Slave
     |vpiIODecl:
     \_io_decl: (ww_id), line:23:12, endln:23:17
+      |vpiParent:
+      \_modport: (Slave), line:22:11, endln:22:16
       |vpiDirection:2
       |vpiName:ww_id
 |uhdmallInterfaces:
@@ -461,6 +469,8 @@ design: (work@dff0_test)
     |vpiName:memory
     |vpiIODecl:
     \_io_decl: (clk), line:32:27, endln:32:30
+      |vpiParent:
+      \_modport: (memory), line:32:12, endln:32:18
       |vpiDirection:2
       |vpiName:clk
   |vpiModport:
@@ -470,6 +480,8 @@ design: (work@dff0_test)
     |vpiName:system
     |vpiIODecl:
     \_io_decl: (clk), line:31:26, endln:31:29
+      |vpiParent:
+      \_modport: (system), line:31:12, endln:31:18
       |vpiDirection:1
       |vpiName:clk
   |vpiPort:
@@ -479,7 +491,11 @@ design: (work@dff0_test)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@mem_if.clk.clk)
+      |vpiParent:
+      \_port: (clk), line:29:30, endln:29:33
+      |vpiName:clk
+      |vpiFullName:work@mem_if.clk.clk
       |vpiActual:
       \_logic_net: (work@mem_if.clk), line:29:30, endln:29:33
 |uhdmallModules:
@@ -502,11 +518,20 @@ design: (work@dff0_test)
     |vpiName:n1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dff0_test.n1)
+      |vpiParent:
+      \_port: (n1), line:1:18, endln:1:20
+      |vpiFullName:work@dff0_test.n1
       |vpiActual:
       \_logic_net: (work@dff0_test.n1), line:4:7, endln:4:9
     |vpiTypedef:
     \_logic_typespec: , line:3:10, endln:3:10
+    |vpiAttribute:
+    \_attribute: (init), line:2:6, endln:2:18
+      |vpiParent:
+      \_port: (n1), line:1:18, endln:1:20
+      |vpiName:init
+      |DEC:1
 |uhdmallModules:
 \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:36:1, endln:43:10
   |vpiParent:
@@ -521,24 +546,32 @@ design: (work@dff0_test)
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:36:1, endln:43:10
     |vpiEnumConst:
     \_enum_const: (IDLE), line:38:16, endln:38:20
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:38:1, endln:38:44
       |vpiName:IDLE
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WRITE), line:38:21, endln:38:26
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:38:1, endln:38:44
       |vpiName:WRITE
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (READ), line:38:27, endln:38:31
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:38:1, endln:38:44
       |vpiName:READ
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (DONE), line:38:32, endln:38:36
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:38:1, endln:38:44
       |vpiName:DONE
       |INT:3
       |vpiDecompile:3
@@ -563,7 +596,11 @@ design: (work@dff0_test)
     |vpiName:sif
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@memory_ctrl1.sif.sif)
+      |vpiParent:
+      \_port: (sif), line:36:37, endln:36:40
+      |vpiName:sif
+      |vpiFullName:work@memory_ctrl1.sif.sif
       |vpiActual:
       \_interface_inst: work@mem_if (work@mem_if), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:29:1, endln:34:13
     |vpiTypedef:
@@ -583,24 +620,32 @@ design: (work@dff0_test)
     \_module_inst: work@memory_ctrl2 (work@memory_ctrl2), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:45:1, endln:53:10
     |vpiEnumConst:
     \_enum_const: (IDLE), line:47:16, endln:47:20
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:47:1, endln:47:44
       |vpiName:IDLE
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WRITE), line:47:21, endln:47:26
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:47:1, endln:47:44
       |vpiName:WRITE
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (READ), line:47:27, endln:47:31
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:47:1, endln:47:44
       |vpiName:READ
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (DONE), line:47:32, endln:47:36
+      |vpiParent:
+      \_enum_typespec: (fsm_t), line:47:1, endln:47:44
       |vpiName:DONE
       |INT:3
       |vpiDecompile:3
@@ -631,7 +676,11 @@ design: (work@dff0_test)
     |vpiName:sif
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@memory_ctrl2.sif.sif)
+      |vpiParent:
+      \_port: (sif), line:45:36, endln:45:39
+      |vpiName:sif
+      |vpiFullName:work@memory_ctrl2.sif.sif
       |vpiActual:
       \_modport: (system), line:31:12, endln:31:18
     |vpiTypedef:
@@ -651,6 +700,8 @@ design: (work@dff0_test)
     \_module_inst: work@dff0_test (work@dff0_test), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:1:1, endln:5:10
     |vpiTypespec:
     \_logic_typespec: , line:4:3, endln:4:6
+      |vpiParent:
+      \_logic_net: (work@dff0_test.n1), line:4:7, endln:4:17
     |vpiName:n1
     |vpiFullName:work@dff0_test.n1
     |vpiNetType:48
@@ -663,6 +714,8 @@ design: (work@dff0_test)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@dff0_test.n1), line:1:18, endln:1:20
+      |vpiParent:
+      \_port: (n1), line:1:18, endln:1:20
       |vpiName:n1
       |vpiFullName:work@dff0_test.n1
       |vpiActual:
@@ -714,13 +767,20 @@ design: (work@dff0_test)
       |vpiName:memory
       |vpiIODecl:
       \_io_decl: (clk), line:32:27, endln:32:30
+        |vpiParent:
+        \_modport: (memory), line:32:12, endln:32:18
         |vpiDirection:2
         |vpiName:clk
         |vpiExpr:
-        \_logic_net: (clk), line:29:30, endln:29:33
+        \_logic_net: (work@memory_ctrl1.sif.memory.clk.clk), line:29:30, endln:29:33
+          |vpiParent:
+          \_io_decl: (clk), line:32:27, endln:32:30
           |vpiTypespec:
           \_logic_typespec: , line:29:25, endln:29:29
+            |vpiParent:
+            \_logic_net: (work@memory_ctrl1.sif.memory.clk.clk), line:29:30, endln:29:33
           |vpiName:clk
+          |vpiFullName:work@memory_ctrl1.sif.memory.clk.clk
           |vpiNetType:1
       |vpiInterface:
       \_interface_inst: work@mem_if (work@memory_ctrl1.sif), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:36:0
@@ -731,10 +791,12 @@ design: (work@dff0_test)
       |vpiName:system
       |vpiIODecl:
       \_io_decl: (clk), line:31:26, endln:31:29
+        |vpiParent:
+        \_modport: (system), line:31:12, endln:31:18
         |vpiDirection:1
         |vpiName:clk
         |vpiExpr:
-        \_logic_net: (clk), line:29:30, endln:29:33
+        \_logic_net: (work@memory_ctrl1.sif.memory.clk.clk), line:29:30, endln:29:33
       |vpiInterface:
       \_interface_inst: work@mem_if (work@memory_ctrl1.sif), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:36:0
   |vpiInterface:
@@ -761,6 +823,8 @@ design: (work@dff0_test)
     \_module_inst: work@memory_ctrl2 (work@memory_ctrl2), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:45:1, endln:53:10
     |vpiTypespec:
     \_unsupported_typespec: (DD), line:51:1, endln:51:3
+      |vpiParent:
+      \_logic_net: (work@memory_ctrl2.t), line:51:4, endln:51:5
       |vpiName:DD
     |vpiName:t
     |vpiFullName:work@memory_ctrl2.t
@@ -773,6 +837,8 @@ design: (work@dff0_test)
     |vpiDirection:3
     |vpiLowConn:
     \_ref_obj: (work@memory_ctrl2.sif), line:45:36, endln:45:39
+      |vpiParent:
+      \_port: (sif), line:45:36, endln:45:39
       |vpiFullName:work@memory_ctrl2.sif
       |vpiActual:
       \_modport: (system), line:31:12, endln:31:18
@@ -796,13 +862,20 @@ design: (work@dff0_test)
       |vpiName:system
       |vpiIODecl:
       \_io_decl: (clk), line:31:26, endln:31:29
+        |vpiParent:
+        \_modport: (system), line:31:12, endln:31:18
         |vpiDirection:1
         |vpiName:clk
         |vpiExpr:
-        \_logic_net: (clk), line:29:30, endln:29:33
+        \_logic_net: (work@memory_ctrl2.sif.system.clk.clk), line:29:30, endln:29:33
+          |vpiParent:
+          \_io_decl: (clk), line:31:26, endln:31:29
           |vpiTypespec:
           \_logic_typespec: , line:29:25, endln:29:29
+            |vpiParent:
+            \_logic_net: (work@memory_ctrl2.sif.system.clk.clk), line:29:30, endln:29:33
           |vpiName:clk
+          |vpiFullName:work@memory_ctrl2.sif.system.clk.clk
           |vpiNetType:1
       |vpiInterface:
       \_interface_inst: work@mem_if (work@memory_ctrl2.sif), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:45:0

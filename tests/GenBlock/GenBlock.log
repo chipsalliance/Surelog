@@ -250,6 +250,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
+      |vpiParent:
+      \_param_assign: , line:6:15, endln:6:34
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -264,11 +266,14 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_sys_func_call: ($clog2), line:7:33, endln:7:49
+      |vpiParent:
+      \_param_assign: , line:7:15, endln:7:49
       |vpiArgument:
-      \_ref_obj: (N_MASTER), line:7:40, endln:7:48
+      \_ref_obj: (work@axi.N_MASTER), line:7:40, endln:7:48
         |vpiParent:
         \_sys_func_call: ($clog2), line:7:33, endln:7:49
         |vpiName:N_MASTER
+        |vpiFullName:work@axi.N_MASTER
       |vpiName:$clog2
     |vpiLhs:
     \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
@@ -278,6 +283,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_operation: , line:8:36, endln:8:49
+      |vpiParent:
+      \_param_assign: , line:8:16, endln:8:49
       |vpiOpType:43
       |vpiOperand:
       \_constant: , line:8:36, endln:8:37
@@ -288,10 +295,11 @@ design: (work@axi)
         |UINT:2
         |vpiConstType:9
       |vpiOperand:
-      \_ref_obj: (LOG_MASTER), line:8:39, endln:8:49
+      \_ref_obj: (work@axi.LOG_MASTER), line:8:39, endln:8:49
         |vpiParent:
         \_operation: , line:8:36, endln:8:49
         |vpiName:LOG_MASTER
+        |vpiFullName:work@axi.LOG_MASTER
     |vpiLhs:
     \_parameter: (work@axi.TOTAL_N_MASTER), line:8:16, endln:8:30
   |vpiDefName:work@axi
@@ -300,29 +308,46 @@ design: (work@axi)
     |vpiParent:
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@axi)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@axi
       |vpiStmt:
       \_gen_if_else: , line:13:7, endln:19:10
+        |vpiParent:
+        \_begin: (work@axi)
         |vpiCondition:
         \_operation: , line:13:10, endln:13:36
+          |vpiParent:
+          \_gen_if_else: , line:13:7, endln:19:10
           |vpiOpType:15
           |vpiOperand:
-          \_ref_obj: (N_MASTER), line:13:10, endln:13:18
+          \_ref_obj: (work@axi.N_MASTER), line:13:10, endln:13:18
             |vpiParent:
             \_operation: , line:13:10, endln:13:36
             |vpiName:N_MASTER
+            |vpiFullName:work@axi.N_MASTER
           |vpiOperand:
-          \_ref_obj: (TOTAL_N_MASTER), line:13:22, endln:13:36
+          \_ref_obj: (work@axi.TOTAL_N_MASTER), line:13:22, endln:13:36
             |vpiParent:
             \_operation: , line:13:10, endln:13:36
             |vpiName:TOTAL_N_MASTER
+            |vpiFullName:work@axi.TOTAL_N_MASTER
         |vpiStmt:
-        \_named_begin: (ARRAY_INT)
+        \_named_begin: (work@axi.ARRAY_INT)
+          |vpiParent:
+          \_gen_if_else: , line:13:7, endln:19:10
           |vpiName:ARRAY_INT
+          |vpiFullName:work@axi.ARRAY_INT
         |vpiElseStmt:
-        \_begin: 
+        \_begin: (work@axi)
+          |vpiParent:
+          \_gen_if_else: , line:13:7, endln:19:10
+          |vpiFullName:work@axi
           |vpiStmt:
           \_ref_module: work@GOOD (good), line:18:14, endln:18:18
+            |vpiParent:
+            \_begin: (work@axi)
             |vpiName:good
             |vpiDefName:work@GOOD
 |uhdmtopModules:
@@ -358,6 +383,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:6:33, endln:6:34
+      |vpiParent:
+      \_param_assign: , line:6:15, endln:6:34
       |vpiDecompile:8
       |vpiSize:32
       |UINT:8
@@ -372,6 +399,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:7:33, endln:7:49
+      |vpiParent:
+      \_param_assign: , line:7:15, endln:7:49
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
@@ -384,6 +413,8 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |vpiRhs:
     \_constant: , line:8:36, endln:8:49
+      |vpiParent:
+      \_param_assign: , line:8:16, endln:8:49
       |vpiDecompile:8
       |vpiSize:64
       |INT:8

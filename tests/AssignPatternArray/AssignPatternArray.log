@@ -379,7 +379,7 @@ logic_net                                              1
 logic_typespec                                        34
 module_inst                                           10
 operation                                            105
-package                                                6
+package                                                4
 param_assign                                          48
 parameter                                             60
 port                                                   3
@@ -406,7 +406,7 @@ logic_net                                              1
 logic_typespec                                        34
 module_inst                                           10
 operation                                            108
-package                                                6
+package                                                4
 param_assign                                          48
 parameter                                             60
 port                                                   4
@@ -473,6 +473,8 @@ design: (work@top)
     \_package: ctrl_pkg (ctrl_pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:31, endln:2:32
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:32
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -487,6 +489,8 @@ design: (work@top)
     \_package: ctrl_pkg (ctrl_pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:3:35, endln:3:37
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:37
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -570,7 +574,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (pkg::HwDataAttr), line:28:32, endln:28:42
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -585,7 +589,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (pkg::HwDataAttr::HwDataRules), line:28:43, endln:28:54
             |vpiParent:
-            \_parameter: (pkg::HwDataAttr), line:28:32, endln:28:42
+            \_operation: 
             |vpiName:HwDataRules
             |vpiFullName:pkg::HwDataAttr::HwDataRules
             |vpiActual:
@@ -621,6 +625,8 @@ design: (work@top)
               \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
               |vpiRange:
               \_range: , line:15:22, endln:15:27
+                |vpiParent:
+                \_logic_typespec: , line:15:16, endln:15:27
                 |vpiLeftRange:
                 \_constant: , line:15:23, endln:15:24
                   |vpiParent:
@@ -639,24 +645,32 @@ design: (work@top)
                   |vpiConstType:9
             |vpiEnumConst:
             \_enum_const: (PhaseSeed), line:16:5, endln:16:14
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseSeed
               |INT:0
               |vpiDecompile:0
               |vpiSize:2
             |vpiEnumConst:
             \_enum_const: (PhaseRma), line:17:5, endln:17:13
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseRma
               |INT:1
               |vpiDecompile:1
               |vpiSize:2
             |vpiEnumConst:
             \_enum_const: (PhaseNone), line:18:5, endln:18:14
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseNone
               |INT:2
               |vpiDecompile:2
               |vpiSize:2
             |vpiEnumConst:
             \_enum_const: (PhaseInvalid), line:19:5, endln:19:17
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseInvalid
               |INT:3
               |vpiDecompile:3
@@ -697,6 +711,8 @@ design: (work@top)
                   \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
                   |vpiRange:
                   \_range: , line:11:22, endln:11:38
+                    |vpiParent:
+                    \_logic_typespec: , line:11:16, endln:11:38
                     |vpiLeftRange:
                     \_operation: , line:11:23, endln:11:35
                       |vpiParent:
@@ -727,12 +743,16 @@ design: (work@top)
                       |vpiConstType:9
                 |vpiEnumConst:
                 \_enum_const: (MuBi4True), line:12:5, endln:12:21
+                  |vpiParent:
+                  \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
                   |vpiName:MuBi4True
                   |HEX:6
                   |vpiDecompile:4'h6
                   |vpiSize:4
                 |vpiEnumConst:
                 \_enum_const: (MuBi4False), line:13:5, endln:13:22
+                  |vpiParent:
+                  \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
                   |vpiName:MuBi4False
                   |HEX:9
                   |vpiDecompile:4'h9
@@ -756,8 +776,11 @@ design: (work@top)
     |vpiParent:
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
-    \_ref_obj: (ctrl_pkg::RegNumBanks), line:7:44, endln:7:54
+    \_ref_obj: (pkg::ctrl_pkg::RegNumBanks), line:7:44, endln:7:65
+      |vpiParent:
+      \_param_assign: , line:7:26, endln:7:65
       |vpiName:ctrl_pkg::RegNumBanks
+      |vpiFullName:pkg::ctrl_pkg::RegNumBanks
       |vpiActual:
       \_parameter: (ctrl_pkg::RegNumBanks), line:2:17, endln:2:28
     |vpiLhs:
@@ -767,8 +790,11 @@ design: (work@top)
     |vpiParent:
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
-    \_ref_obj: (ctrl_pkg::RegPagesPerBank), line:8:44, endln:8:54
+    \_ref_obj: (pkg::ctrl_pkg::RegPagesPerBank), line:8:44, endln:8:69
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:8:69
       |vpiName:ctrl_pkg::RegPagesPerBank
+      |vpiFullName:pkg::ctrl_pkg::RegPagesPerBank
       |vpiActual:
       \_parameter: (ctrl_pkg::RegPagesPerBank), line:3:17, endln:3:32
     |vpiLhs:
@@ -779,6 +805,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_constant: , line:9:31, endln:9:32
+      |vpiParent:
+      \_param_assign: , line:9:17, endln:9:32
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -793,6 +821,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_constant: , line:10:30, endln:10:31
+      |vpiParent:
+      \_param_assign: , line:10:17, endln:10:31
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -807,6 +837,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_operation: , line:28:58, endln:37:4
+      |vpiParent:
+      \_param_assign: , line:28:32, endln:37:4
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:29:5, endln:32:7
@@ -815,6 +847,8 @@ design: (work@top)
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:30:15, endln:30:24
+          |vpiParent:
+          \_operation: , line:29:5, endln:32:7
           |vpiPattern:
           \_constant: , line:30:15, endln:30:24
             |vpiDecompile:0
@@ -823,9 +857,13 @@ design: (work@top)
             |vpiConstType:7
           |vpiTypespec:
           \_string_typespec: (phase), line:30:8, endln:30:13
+            |vpiParent:
+            \_tagged_pattern: , line:30:15, endln:30:24
             |vpiName:phase
         |vpiOperand:
         \_tagged_pattern: , line:31:15, endln:31:42
+          |vpiParent:
+          \_operation: , line:29:5, endln:32:7
           |vpiPattern:
           \_operation: , line:31:15, endln:31:42
             |vpiParent:
@@ -833,6 +871,8 @@ design: (work@top)
             |vpiOpType:75
             |vpiOperand:
             \_tagged_pattern: , line:31:31, endln:31:40
+              |vpiParent:
+              \_operation: , line:31:15, endln:31:42
               |vpiPattern:
               \_constant: , line:31:31, endln:31:40
                 |vpiDecompile:4'h6
@@ -841,9 +881,13 @@ design: (work@top)
                 |vpiConstType:5
               |vpiTypespec:
               \_string_typespec: (en), line:31:18, endln:31:20
+                |vpiParent:
+                \_tagged_pattern: , line:31:31, endln:31:40
                 |vpiName:en
           |vpiTypespec:
           \_string_typespec: (cfg), line:31:8, endln:31:11
+            |vpiParent:
+            \_tagged_pattern: , line:31:15, endln:31:42
             |vpiName:cfg
       |vpiOperand:
       \_operation: , line:33:5, endln:36:7
@@ -852,6 +896,8 @@ design: (work@top)
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:34:15, endln:34:24
+          |vpiParent:
+          \_operation: , line:33:5, endln:36:7
           |vpiPattern:
           \_constant: , line:34:15, endln:34:24
             |vpiDecompile:0
@@ -860,9 +906,13 @@ design: (work@top)
             |vpiConstType:7
           |vpiTypespec:
           \_string_typespec: (phase), line:34:8, endln:34:13
+            |vpiParent:
+            \_tagged_pattern: , line:34:15, endln:34:24
             |vpiName:phase
         |vpiOperand:
         \_tagged_pattern: , line:35:15, endln:35:42
+          |vpiParent:
+          \_operation: , line:33:5, endln:36:7
           |vpiPattern:
           \_operation: , line:35:15, endln:35:42
             |vpiParent:
@@ -870,6 +920,8 @@ design: (work@top)
             |vpiOpType:75
             |vpiOperand:
             \_tagged_pattern: , line:35:31, endln:35:40
+              |vpiParent:
+              \_operation: , line:35:15, endln:35:42
               |vpiPattern:
               \_constant: , line:35:31, endln:35:40
                 |vpiDecompile:4'h6
@@ -878,9 +930,13 @@ design: (work@top)
                 |vpiConstType:5
               |vpiTypespec:
               \_string_typespec: (en), line:35:18, endln:35:20
+                |vpiParent:
+                \_tagged_pattern: , line:35:31, endln:35:40
                 |vpiName:en
           |vpiTypespec:
           \_string_typespec: (cfg), line:35:8, endln:35:11
+            |vpiParent:
+            \_tagged_pattern: , line:35:15, endln:35:42
             |vpiName:cfg
     |vpiLhs:
     \_parameter: (pkg::HwDataAttr), line:28:32, endln:28:42
@@ -935,6 +991,8 @@ design: (work@top)
     \_package: ctrl_pkg (ctrl_pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:31, endln:2:32
+      |vpiParent:
+      \_param_assign: , line:2:17, endln:2:32
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -949,6 +1007,8 @@ design: (work@top)
     \_package: ctrl_pkg (ctrl_pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:3:35, endln:3:37
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:37
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -1035,7 +1095,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (pkg::HwDataAttr), line:28:32, endln:28:42
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -1049,6 +1109,8 @@ design: (work@top)
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:28:43, endln:28:54
+            |vpiParent:
+            \_operation: 
             |vpiDecompile:2
             |vpiSize:32
             |UINT:2
@@ -1091,6 +1153,8 @@ design: (work@top)
               \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
               |vpiRange:
               \_range: , line:15:22, endln:15:27
+                |vpiParent:
+                \_logic_typespec: , line:15:16, endln:15:27
                 |vpiLeftRange:
                 \_constant: , line:15:23, endln:15:24
                   |vpiParent:
@@ -1109,24 +1173,32 @@ design: (work@top)
                   |vpiConstType:9
             |vpiEnumConst:
             \_enum_const: (PhaseSeed), line:16:5, endln:16:14
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseSeed
               |INT:0
               |vpiDecompile:0
               |vpiSize:2
             |vpiEnumConst:
             \_enum_const: (PhaseRma), line:17:5, endln:17:13
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseRma
               |INT:1
               |vpiDecompile:1
               |vpiSize:2
             |vpiEnumConst:
             \_enum_const: (PhaseNone), line:18:5, endln:18:14
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseNone
               |INT:2
               |vpiDecompile:2
               |vpiSize:2
             |vpiEnumConst:
             \_enum_const: (PhaseInvalid), line:19:5, endln:19:17
+              |vpiParent:
+              \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
               |vpiName:PhaseInvalid
               |INT:3
               |vpiDecompile:3
@@ -1167,6 +1239,8 @@ design: (work@top)
                   \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
                   |vpiRange:
                   \_range: , line:11:22, endln:11:38
+                    |vpiParent:
+                    \_logic_typespec: , line:11:16, endln:11:38
                     |vpiLeftRange:
                     \_constant: , line:11:23, endln:11:33
                       |vpiParent:
@@ -1185,12 +1259,16 @@ design: (work@top)
                       |vpiConstType:9
                 |vpiEnumConst:
                 \_enum_const: (MuBi4True), line:12:5, endln:12:21
+                  |vpiParent:
+                  \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
                   |vpiName:MuBi4True
                   |HEX:6
                   |vpiDecompile:4'h6
                   |vpiSize:4
                 |vpiEnumConst:
                 \_enum_const: (MuBi4False), line:13:5, endln:13:22
+                  |vpiParent:
+                  \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
                   |vpiName:MuBi4False
                   |HEX:9
                   |vpiDecompile:4'h9
@@ -1215,6 +1293,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_constant: , line:7:44, endln:7:54
+      |vpiParent:
+      \_param_assign: , line:7:26, endln:7:65
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1229,6 +1309,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_constant: , line:8:44, endln:8:54
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:8:69
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -1243,6 +1325,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_constant: , line:9:31, endln:9:32
+      |vpiParent:
+      \_param_assign: , line:9:17, endln:9:32
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1257,6 +1341,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_constant: , line:10:30, endln:10:31
+      |vpiParent:
+      \_param_assign: , line:10:17, endln:10:31
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1271,6 +1357,8 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:6:1, endln:39:11
     |vpiRhs:
     \_operation: , line:28:58, endln:37:4
+      |vpiParent:
+      \_param_assign: , line:28:32, endln:37:4
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:29:5, endln:32:7
@@ -1279,6 +1367,8 @@ design: (work@top)
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:30:15, endln:30:24
+          |vpiParent:
+          \_operation: , line:29:5, endln:32:7
           |vpiPattern:
           \_constant: , line:30:15, endln:30:24
             |vpiDecompile:0
@@ -1287,9 +1377,13 @@ design: (work@top)
             |vpiConstType:7
           |vpiTypespec:
           \_string_typespec: (phase), line:30:8, endln:30:13
+            |vpiParent:
+            \_tagged_pattern: , line:30:15, endln:30:24
             |vpiName:phase
         |vpiOperand:
         \_tagged_pattern: , line:31:15, endln:31:42
+          |vpiParent:
+          \_operation: , line:29:5, endln:32:7
           |vpiPattern:
           \_operation: , line:31:15, endln:31:42
             |vpiParent:
@@ -1297,6 +1391,8 @@ design: (work@top)
             |vpiOpType:75
             |vpiOperand:
             \_tagged_pattern: , line:31:31, endln:31:40
+              |vpiParent:
+              \_operation: , line:31:15, endln:31:42
               |vpiPattern:
               \_constant: , line:31:31, endln:31:40
                 |vpiDecompile:4'h6
@@ -1305,9 +1401,13 @@ design: (work@top)
                 |vpiConstType:5
               |vpiTypespec:
               \_string_typespec: (en), line:31:18, endln:31:20
+                |vpiParent:
+                \_tagged_pattern: , line:31:31, endln:31:40
                 |vpiName:en
           |vpiTypespec:
           \_string_typespec: (cfg), line:31:8, endln:31:11
+            |vpiParent:
+            \_tagged_pattern: , line:31:15, endln:31:42
             |vpiName:cfg
       |vpiOperand:
       \_operation: , line:33:5, endln:36:7
@@ -1316,6 +1416,8 @@ design: (work@top)
         |vpiOpType:75
         |vpiOperand:
         \_tagged_pattern: , line:34:15, endln:34:24
+          |vpiParent:
+          \_operation: , line:33:5, endln:36:7
           |vpiPattern:
           \_constant: , line:34:15, endln:34:24
             |vpiDecompile:0
@@ -1324,9 +1426,13 @@ design: (work@top)
             |vpiConstType:7
           |vpiTypespec:
           \_string_typespec: (phase), line:34:8, endln:34:13
+            |vpiParent:
+            \_tagged_pattern: , line:34:15, endln:34:24
             |vpiName:phase
         |vpiOperand:
         \_tagged_pattern: , line:35:15, endln:35:42
+          |vpiParent:
+          \_operation: , line:33:5, endln:36:7
           |vpiPattern:
           \_operation: , line:35:15, endln:35:42
             |vpiParent:
@@ -1334,6 +1440,8 @@ design: (work@top)
             |vpiOpType:75
             |vpiOperand:
             \_tagged_pattern: , line:35:31, endln:35:40
+              |vpiParent:
+              \_operation: , line:35:15, endln:35:42
               |vpiPattern:
               \_constant: , line:35:31, endln:35:40
                 |vpiDecompile:4'h6
@@ -1342,9 +1450,13 @@ design: (work@top)
                 |vpiConstType:5
               |vpiTypespec:
               \_string_typespec: (en), line:35:18, endln:35:20
+                |vpiParent:
+                \_tagged_pattern: , line:35:31, endln:35:40
                 |vpiName:en
           |vpiTypespec:
           \_string_typespec: (cfg), line:35:8, endln:35:11
+            |vpiParent:
+            \_tagged_pattern: , line:35:15, endln:35:42
             |vpiName:cfg
     |vpiLhs:
     \_parameter: (pkg::HwDataAttr), line:28:32, endln:28:42
@@ -1377,7 +1489,7 @@ design: (work@top)
         |vpiParent:
         \_array_typespec: 
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -1576,7 +1688,7 @@ design: (work@top)
       |vpiParent:
       \_parameter: (work@foo.HwDataAttr), line:28:32, endln:28:42
       |vpiLeftRange:
-      \_constant: , line:28:43, endln:28:44
+      \_constant: 
         |vpiParent:
         \_range: , line:28:43, endln:28:54
         |vpiDecompile:0
@@ -1936,7 +2048,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:28:43, endln:28:44
+          \_constant: 
             |vpiParent:
             \_range: , line:28:43, endln:28:54
             |vpiDecompile:0
@@ -2135,7 +2247,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@foo.HwDataAttr), line:28:32, endln:28:42
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -2196,7 +2308,11 @@ design: (work@top)
     |vpiName:DATA_REG
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@foo.DATA_REG.DATA_REG)
+      |vpiParent:
+      \_port: (DATA_REG), line:44:28, endln:44:36
+      |vpiName:DATA_REG
+      |vpiFullName:work@foo.DATA_REG.DATA_REG
       |vpiActual:
       \_logic_net: (work@foo.DATA_REG), line:44:28, endln:44:36
     |vpiTypedef:
@@ -2220,7 +2336,7 @@ design: (work@top)
         |vpiParent:
         \_array_typespec: 
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -2419,7 +2535,7 @@ design: (work@top)
       |vpiParent:
       \_parameter: (work@top.HwDataAttr), line:28:32, endln:28:42
       |vpiLeftRange:
-      \_constant: , line:28:43, endln:28:44
+      \_constant: 
         |vpiParent:
         \_range: , line:28:43, endln:28:54
         |vpiDecompile:0
@@ -2779,7 +2895,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:28:43, endln:28:44
+          \_constant: 
             |vpiParent:
             \_range: , line:28:43, endln:28:54
             |vpiDecompile:0
@@ -2978,7 +3094,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.HwDataAttr), line:28:32, endln:28:42
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -3036,10 +3152,15 @@ design: (work@top)
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:41:1, endln:45:10
     |vpiPort:
     \_port: (DATA_REG), line:48:7, endln:48:28
+      |vpiParent:
+      \_ref_module: work@foo (f), line:48:5, endln:48:6
       |vpiName:DATA_REG
       |vpiHighConn:
-      \_ref_obj: (HwDataAttr), line:48:17, endln:48:27
+      \_ref_obj: (work@top.f.DATA_REG.HwDataAttr), line:48:17, endln:48:27
+        |vpiParent:
+        \_port: (DATA_REG), line:48:7, endln:48:28
         |vpiName:HwDataAttr
+        |vpiFullName:work@top.f.DATA_REG.HwDataAttr
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:46:1, endln:50:10
   |vpiName:work@top
@@ -3057,7 +3178,7 @@ design: (work@top)
         |vpiParent:
         \_array_typespec: 
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -3256,7 +3377,7 @@ design: (work@top)
       |vpiParent:
       \_parameter: (work@top.HwDataAttr), line:28:32, endln:28:42
       |vpiLeftRange:
-      \_constant: , line:28:43, endln:28:44
+      \_constant: 
         |vpiParent:
         \_range: , line:28:43, endln:28:54
         |vpiDecompile:0
@@ -3359,6 +3480,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:46:1, endln:50:10
     |vpiRhs:
     \_constant: , line:7:44, endln:7:65
+      |vpiParent:
+      \_param_assign: , line:7:26, endln:7:65
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -3373,6 +3496,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:46:1, endln:50:10
     |vpiRhs:
     \_constant: , line:8:44, endln:8:69
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:8:69
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -3387,6 +3512,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:46:1, endln:50:10
     |vpiRhs:
     \_constant: , line:9:31, endln:9:32
+      |vpiParent:
+      \_param_assign: , line:9:17, endln:9:32
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -3401,6 +3528,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:46:1, endln:50:10
     |vpiRhs:
     \_constant: , line:10:30, endln:10:31
+      |vpiParent:
+      \_param_assign: , line:10:17, endln:10:31
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -3426,7 +3555,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:28:43, endln:28:44
+          \_constant: 
             |vpiParent:
             \_range: , line:28:43, endln:28:54
             |vpiDecompile:0
@@ -3772,7 +3901,7 @@ design: (work@top)
           |vpiParent:
           \_array_typespec: 
           |vpiLeftRange:
-          \_constant: , line:28:43, endln:28:44
+          \_constant: 
             |vpiParent:
             \_range: , line:28:43, endln:28:54
             |vpiDecompile:0
@@ -3971,7 +4100,7 @@ design: (work@top)
         |vpiParent:
         \_parameter: (work@top.f.HwDataAttr), line:28:32, endln:28:42
         |vpiLeftRange:
-        \_constant: , line:28:43, endln:28:44
+        \_constant: 
           |vpiParent:
           \_range: , line:28:43, endln:28:54
           |vpiDecompile:0
@@ -4074,6 +4203,8 @@ design: (work@top)
       \_module_inst: work@foo (work@top.f), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:48:1, endln:48:30
       |vpiRhs:
       \_constant: , line:7:44, endln:7:65
+        |vpiParent:
+        \_param_assign: , line:7:26, endln:7:65
         |vpiDecompile:2
         |vpiSize:32
         |UINT:2
@@ -4088,6 +4219,8 @@ design: (work@top)
       \_module_inst: work@foo (work@top.f), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:48:1, endln:48:30
       |vpiRhs:
       \_constant: , line:8:44, endln:8:69
+        |vpiParent:
+        \_param_assign: , line:8:26, endln:8:69
         |vpiDecompile:64
         |vpiSize:32
         |UINT:64
@@ -4102,6 +4235,8 @@ design: (work@top)
       \_module_inst: work@foo (work@top.f), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:48:1, endln:48:30
       |vpiRhs:
       \_constant: , line:9:31, endln:9:32
+        |vpiParent:
+        \_param_assign: , line:9:17, endln:9:32
         |vpiDecompile:2
         |vpiSize:32
         |UINT:2
@@ -4116,6 +4251,8 @@ design: (work@top)
       \_module_inst: work@foo (work@top.f), file:${SURELOG_DIR}/tests/AssignPatternArray/dut.sv, line:48:1, endln:48:30
       |vpiRhs:
       \_constant: , line:10:30, endln:10:31
+        |vpiParent:
+        \_param_assign: , line:10:17, endln:10:31
         |vpiDecompile:4
         |vpiSize:32
         |UINT:4
@@ -4141,7 +4278,7 @@ design: (work@top)
             |vpiParent:
             \_array_typespec: 
             |vpiLeftRange:
-            \_constant: , line:28:43, endln:28:44
+            \_constant: 
               |vpiParent:
               \_range: , line:28:43, endln:28:54
               |vpiDecompile:0
@@ -4479,7 +4616,7 @@ design: (work@top)
             |vpiParent:
             \_array_typespec: 
             |vpiLeftRange:
-            \_constant: , line:28:43, endln:28:44
+            \_constant: 
               |vpiParent:
               \_range: , line:28:43, endln:28:54
               |vpiDecompile:0

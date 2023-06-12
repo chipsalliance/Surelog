@@ -636,11 +636,14 @@ design: (work@top)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/LocalParam/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiParent:
@@ -665,10 +668,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -693,7 +699,10 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiParent:
@@ -723,10 +732,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -757,10 +769,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
@@ -827,11 +842,14 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/LocalParam/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -841,7 +859,9 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
         |vpiParent:
@@ -849,34 +869,45 @@ design: (work@top)
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:FINISHED
           |INT:0
           |vpiDecompile:0
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (RUNNING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:RUNNING
           |INT:1
           |vpiDecompile:1
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (WAITING)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:WAITING
           |INT:2
           |vpiDecompile:2
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (SUSPENDED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:SUSPENDED
           |INT:3
           |vpiDecompile:3
           |vpiSize:64
         |vpiEnumConst:
         \_enum_const: (KILLED)
+          |vpiParent:
+          \_enum_typespec: (state)
           |vpiName:KILLED
           |INT:4
           |vpiDecompile:4
           |vpiSize:64
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -922,11 +953,14 @@ design: (work@top)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/LocalParam/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiParent:
@@ -997,10 +1031,13 @@ design: (work@top)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
@@ -1051,6 +1088,8 @@ design: (work@top)
     \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
     |vpiRhs:
     \_constant: , line:6:38, endln:6:39
+      |vpiParent:
+      \_param_assign: , line:6:29, endln:6:39
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -1065,6 +1104,8 @@ design: (work@top)
     \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
     |vpiRhs:
     \_constant: , line:7:29, endln:7:30
+      |vpiParent:
+      \_param_assign: , line:7:17, endln:7:30
       |vpiDecompile:0
       |vpiSize:32
       |UINT:0
@@ -1095,7 +1136,11 @@ design: (work@top)
     |vpiName:inp
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@assigner.inp.inp)
+      |vpiParent:
+      \_port: (inp), line:6:53, endln:6:56
+      |vpiName:inp
+      |vpiFullName:work@assigner.inp.inp
       |vpiActual:
       \_logic_net: (work@assigner.inp), line:6:53, endln:6:56
     |vpiTypedef:
@@ -1107,7 +1152,11 @@ design: (work@top)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@assigner.out.out)
+      |vpiParent:
+      \_port: (out), line:6:69, endln:6:72
+      |vpiName:out
+      |vpiFullName:work@assigner.out.out
       |vpiActual:
       \_logic_net: (work@assigner.out), line:6:69, endln:6:72
     |vpiTypedef:
@@ -1118,52 +1167,72 @@ design: (work@top)
     \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
     |vpiCondition:
     \_operation: , line:8:6, endln:8:13
+      |vpiParent:
+      \_gen_if: , line:8:2, endln:8:4
       |vpiOpType:3
       |vpiOperand:
-      \_ref_obj: (invert), line:8:7, endln:8:13
+      \_ref_obj: (work@assigner.invert), line:8:7, endln:8:13
         |vpiParent:
         \_operation: , line:8:6, endln:8:13
         |vpiName:invert
+        |vpiFullName:work@assigner.invert
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@assigner)
+      |vpiParent:
+      \_gen_if: , line:8:2, endln:8:4
+      |vpiFullName:work@assigner
       |vpiStmt:
       \_cont_assign: , line:9:11, endln:9:20
+        |vpiParent:
+        \_begin: (work@assigner)
         |vpiRhs:
-        \_ref_obj: (inp), line:9:17, endln:9:20
+        \_ref_obj: (work@assigner.inp), line:9:17, endln:9:20
           |vpiParent:
           \_cont_assign: , line:9:11, endln:9:20
           |vpiName:inp
+          |vpiFullName:work@assigner.inp
         |vpiLhs:
-        \_ref_obj: (out), line:9:11, endln:9:14
+        \_ref_obj: (work@assigner.out), line:9:11, endln:9:14
           |vpiParent:
           \_cont_assign: , line:9:11, endln:9:20
           |vpiName:out
+          |vpiFullName:work@assigner.out
   |vpiGenStmt:
   \_gen_if: , line:10:2, endln:10:4
     |vpiParent:
     \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
     |vpiCondition:
-    \_ref_obj: (invert), line:10:6, endln:10:12
+    \_ref_obj: (work@assigner.invert), line:10:6, endln:10:12
+      |vpiParent:
+      \_gen_if: , line:10:2, endln:10:4
       |vpiName:invert
+      |vpiFullName:work@assigner.invert
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@assigner)
+      |vpiParent:
+      \_gen_if: , line:10:2, endln:10:4
+      |vpiFullName:work@assigner
       |vpiStmt:
       \_cont_assign: , line:11:11, endln:11:21
+        |vpiParent:
+        \_begin: (work@assigner)
         |vpiRhs:
         \_operation: , line:11:17, endln:11:21
           |vpiParent:
           \_cont_assign: , line:11:11, endln:11:21
           |vpiOpType:4
           |vpiOperand:
-          \_ref_obj: (inp), line:11:18, endln:11:21
+          \_ref_obj: (work@assigner.inp), line:11:18, endln:11:21
             |vpiParent:
             \_operation: , line:11:17, endln:11:21
             |vpiName:inp
+            |vpiFullName:work@assigner.inp
         |vpiLhs:
-        \_ref_obj: (out), line:11:11, endln:11:14
+        \_ref_obj: (work@assigner.out), line:11:11, endln:11:14
           |vpiParent:
           \_cont_assign: , line:11:11, endln:11:21
           |vpiName:out
+          |vpiFullName:work@assigner.out
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:1:1, endln:4:10
   |vpiParent:
@@ -1198,7 +1267,11 @@ design: (work@top)
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.i.i)
+      |vpiParent:
+      \_port: (i), line:1:24, endln:1:25
+      |vpiName:i
+      |vpiFullName:work@top.i.i
       |vpiActual:
       \_logic_net: (work@top.i), line:1:24, endln:1:25
     |vpiTypedef:
@@ -1210,7 +1283,11 @@ design: (work@top)
     |vpiName:o1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o1.o1)
+      |vpiParent:
+      \_port: (o1), line:1:38, endln:1:40
+      |vpiName:o1
+      |vpiFullName:work@top.o1.o1
       |vpiActual:
       \_logic_net: (work@top.o1), line:1:38, endln:1:40
     |vpiTypedef:
@@ -1222,7 +1299,11 @@ design: (work@top)
     |vpiName:o2
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o2.o2)
+      |vpiParent:
+      \_port: (o2), line:1:53, endln:1:55
+      |vpiName:o2
+      |vpiFullName:work@top.o2.o2
       |vpiActual:
       \_logic_net: (work@top.o2), line:1:53, endln:1:55
     |vpiTypedef:
@@ -1237,18 +1318,28 @@ design: (work@top)
     \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
     |vpiPort:
     \_port: (inp), line:2:32, endln:2:39
+      |vpiParent:
+      \_ref_module: work@assigner (asgn0), line:2:26, endln:2:31
       |vpiName:inp
       |vpiHighConn:
-      \_ref_obj: (i), line:2:37, endln:2:38
+      \_ref_obj: (work@top.asgn0.inp.i), line:2:37, endln:2:38
+        |vpiParent:
+        \_port: (inp), line:2:32, endln:2:39
         |vpiName:i
+        |vpiFullName:work@top.asgn0.inp.i
         |vpiActual:
         \_logic_net: (work@top.i), line:1:24, endln:1:25
     |vpiPort:
     \_port: (out), line:2:41, endln:2:49
+      |vpiParent:
+      \_ref_module: work@assigner (asgn0), line:2:26, endln:2:31
       |vpiName:out
       |vpiHighConn:
-      \_ref_obj: (o1), line:2:46, endln:2:48
+      \_ref_obj: (work@top.asgn0.out.o1), line:2:46, endln:2:48
+        |vpiParent:
+        \_port: (out), line:2:41, endln:2:49
         |vpiName:o1
+        |vpiFullName:work@top.asgn0.out.o1
         |vpiActual:
         \_logic_net: (work@top.o1), line:1:38, endln:1:40
   |vpiRefModule:
@@ -1261,18 +1352,28 @@ design: (work@top)
     \_module_inst: work@assigner (work@assigner), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:6:1, endln:12:10
     |vpiPort:
     \_port: (inp), line:3:32, endln:3:39
+      |vpiParent:
+      \_ref_module: work@assigner (asgn1), line:3:26, endln:3:31
       |vpiName:inp
       |vpiHighConn:
-      \_ref_obj: (i), line:3:37, endln:3:38
+      \_ref_obj: (work@top.asgn1.inp.i), line:3:37, endln:3:38
+        |vpiParent:
+        \_port: (inp), line:3:32, endln:3:39
         |vpiName:i
+        |vpiFullName:work@top.asgn1.inp.i
         |vpiActual:
         \_logic_net: (work@top.i), line:1:24, endln:1:25
     |vpiPort:
     \_port: (out), line:3:41, endln:3:49
+      |vpiParent:
+      \_ref_module: work@assigner (asgn1), line:3:26, endln:3:31
       |vpiName:out
       |vpiHighConn:
-      \_ref_obj: (o2), line:3:46, endln:3:48
+      \_ref_obj: (work@top.asgn1.out.o2), line:3:46, endln:3:48
+        |vpiParent:
+        \_port: (out), line:3:41, endln:3:49
         |vpiName:o2
+        |vpiFullName:work@top.asgn1.out.o2
         |vpiActual:
         \_logic_net: (work@top.o2), line:1:53, endln:1:55
 |uhdmtopModules:
@@ -1286,6 +1387,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
     \_logic_typespec: , line:1:19, endln:1:23
+      |vpiParent:
+      \_logic_net: (work@top.i), line:1:24, endln:1:25
     |vpiName:i
     |vpiFullName:work@top.i
     |vpiNetType:1
@@ -1295,6 +1398,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
     \_logic_typespec: , line:1:34, endln:1:37
+      |vpiParent:
+      \_logic_net: (work@top.o1), line:1:38, endln:1:40
     |vpiName:o1
     |vpiFullName:work@top.o1
     |vpiNetType:48
@@ -1304,6 +1409,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
     \_logic_typespec: , line:1:49, endln:1:52
+      |vpiParent:
+      \_logic_net: (work@top.o2), line:1:53, endln:1:55
     |vpiName:o2
     |vpiFullName:work@top.o2
     |vpiNetType:48
@@ -1400,6 +1507,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:6:38, endln:6:39
+        |vpiParent:
+        \_param_assign: , line:6:29, endln:6:39
         |vpiDecompile:0
         |vpiSize:32
         |UINT:0
@@ -1414,6 +1523,8 @@ design: (work@top)
       \_module_inst: work@assigner (work@top.asgn0), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:2:3, endln:2:51
       |vpiRhs:
       \_constant: , line:7:29, endln:7:30
+        |vpiParent:
+        \_param_assign: , line:7:17, endln:7:30
         |vpiDecompile:0
         |vpiSize:32
         |UINT:0
@@ -1431,6 +1542,8 @@ design: (work@top)
       \_module_inst: work@assigner (work@top.asgn0), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:2:3, endln:2:51
       |vpiTypespec:
       \_logic_typespec: , line:6:48, endln:6:52
+        |vpiParent:
+        \_logic_net: (work@top.asgn0.inp), line:6:53, endln:6:56
       |vpiName:inp
       |vpiFullName:work@top.asgn0.inp
       |vpiNetType:1
@@ -1566,6 +1679,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:6:38, endln:6:39
+        |vpiParent:
+        \_param_assign: , line:6:29, endln:6:39
         |vpiDecompile:1
         |vpiSize:32
         |UINT:1
@@ -1580,6 +1695,8 @@ design: (work@top)
       \_module_inst: work@assigner (work@top.asgn1), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:3:3, endln:3:51
       |vpiRhs:
       \_constant: , line:7:29, endln:7:30
+        |vpiParent:
+        \_param_assign: , line:7:17, endln:7:30
         |vpiDecompile:0
         |vpiSize:32
         |UINT:0
@@ -1597,6 +1714,8 @@ design: (work@top)
       \_module_inst: work@assigner (work@top.asgn1), file:${SURELOG_DIR}/tests/LocalParam/dut.sv, line:3:3, endln:3:51
       |vpiTypespec:
       \_logic_typespec: , line:6:48, endln:6:52
+        |vpiParent:
+        \_logic_net: (work@top.asgn1.inp), line:6:53, endln:6:56
       |vpiName:inp
       |vpiFullName:work@top.asgn1.inp
       |vpiNetType:1

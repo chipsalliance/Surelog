@@ -135,13 +135,18 @@ design: (work@top)
     |vpiFullName:work@top.doFoo
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:4:14, endln:4:21
+    \_integer_var: (work@top.doFoo), line:4:14, endln:4:21
+      |vpiParent:
+      \_function: (work@top.doFoo), line:4:5, endln:6:16
       |vpiTypespec:
       \_integer_typespec: , line:4:14, endln:4:21
         |vpiSigned:1
+      |vpiFullName:work@top.doFoo
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (depth), line:4:42, endln:4:47
+      |vpiParent:
+      \_function: (work@top.doFoo), line:4:5, endln:6:16
       |vpiDirection:1
       |vpiName:depth
       |vpiTypedef:
@@ -178,7 +183,7 @@ design: (work@top)
         |vpiName:doFoo
         |vpiFullName:work@top.doFoo.doFoo
         |vpiActual:
-        \_integer_var: (doFoo), line:4:14, endln:4:21
+        \_integer_var: (work@top.doFoo.doFoo), line:4:14, endln:4:21
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv, line:3:1, endln:7:10
 |uhdmtopModules:
@@ -194,7 +199,7 @@ design: (work@top)
     |vpiFullName:work@top.doFoo
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:4:14, endln:4:21
+    \_integer_var: (work@top.doFoo), line:4:14, endln:4:21
     |vpiIODecl:
     \_io_decl: (depth), line:4:42, endln:4:47
       |vpiParent:
@@ -234,7 +239,7 @@ design: (work@top)
         |vpiName:doFoo
         |vpiFullName:work@top.doFoo.doFoo
         |vpiActual:
-        \_integer_var: (doFoo), line:4:14, endln:4:21
+        \_integer_var: (work@top.doFoo.doFoo), line:4:14, endln:4:21
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv, line:3:1, endln:7:10
   |vpiTopModule:1

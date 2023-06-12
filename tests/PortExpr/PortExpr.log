@@ -64,15 +64,12 @@ there are 1 more instances of this message.
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_typespec                                         1
-constant                                               2
 design                                                 1
 logic_net                                              5
 logic_typespec                                         6
 module_inst                                            3
 operation                                              1
 port                                                   6
-range                                                  1
 ref_obj                                                6
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -117,7 +114,11 @@ design: (work@top)
     |vpiName:op[79]
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.op[79].op[79])
+      |vpiParent:
+      \_port: (op[79]), line:4:11, endln:4:23
+      |vpiName:op[79]
+      |vpiFullName:work@top.op[79].op[79]
       |vpiActual:
       \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
     |vpiTypedef:
@@ -129,7 +130,11 @@ design: (work@top)
     |vpiName:op[78]
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.op[78].op[78])
+      |vpiParent:
+      \_port: (op[78]), line:5:11, endln:5:23
+      |vpiName:op[78]
+      |vpiFullName:work@top.op[78].op[78]
       |vpiActual:
       \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
     |vpiTypedef:
@@ -145,6 +150,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_logic_typespec: , line:4:11, endln:4:11
+      |vpiParent:
+      \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
     |vpiName:op[79]
     |vpiFullName:work@top.op[79]
   |vpiNet:
@@ -153,6 +160,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_logic_typespec: , line:5:11, endln:5:11
+      |vpiParent:
+      \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
     |vpiName:op[78]
     |vpiFullName:work@top.op[78]
   |vpiTopModule:1
@@ -165,17 +174,7 @@ design: (work@top)
     |vpiLowConn:
     \_operation: , line:2:9, endln:2:21
       |vpiTypespec:
-      \_array_typespec: 
-        |vpiRange:
-        \_range: 
-          |vpiLeftRange:
-          \_constant: 
-            |UINT:1
-          |vpiRightRange:
-          \_constant: 
-            |UINT:0
-        |vpiElemTypespec:
-        \_logic_typespec: , line:5:11, endln:5:11
+      \_unsupported_typespec: 
       |vpiOpType:33
       |vpiOperand:
       \_ref_obj: (op[79]), line:2:9, endln:2:21
@@ -199,6 +198,8 @@ design: (work@top)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.op[79]), line:4:11, endln:4:23
+      |vpiParent:
+      \_port: (op[79]), line:4:11, endln:4:23
       |vpiName:op[79]
       |vpiFullName:work@top.op[79]
       |vpiActual:
@@ -213,6 +214,8 @@ design: (work@top)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@top.op[78]), line:5:11, endln:5:23
+      |vpiParent:
+      \_port: (op[78]), line:5:11, endln:5:23
       |vpiName:op[78]
       |vpiFullName:work@top.op[78]
       |vpiActual:

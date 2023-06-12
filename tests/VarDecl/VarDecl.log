@@ -168,9 +168,12 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:2:23, endln:2:28
+    \_logic_var: (work@top.theta), line:2:23, endln:2:28
+      |vpiParent:
+      \_function: (work@top.theta), line:2:4, endln:6:23
       |vpiTypespec:
       \_logic_typespec: , line:2:23, endln:2:28
+      |vpiFullName:work@top.theta
     |vpiStmt:
     \_for_stmt: (work@top.theta), line:3:7, endln:3:10
       |vpiParent:
@@ -263,7 +266,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:25, endln:1:26
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:25, endln:1:26
     |vpiTypedef:
@@ -282,7 +289,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:2:23, endln:2:28
+    \_logic_var: (work@top.theta), line:2:23, endln:2:28
     |vpiStmt:
     \_for_stmt: (work@top.theta), line:3:7, endln:3:10
       |vpiParent:
@@ -353,6 +360,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiTypespec:
     \_logic_typespec: , line:1:19, endln:1:24
+      |vpiParent:
+      \_logic_net: (work@top.o), line:1:25, endln:1:26
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36

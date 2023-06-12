@@ -179,6 +179,8 @@ design: (work@test)
       \_parameter: (work@test.foo), line:3:17, endln:3:20
       |vpiRange:
       \_range: , line:3:11, endln:3:16
+        |vpiParent:
+        \_int_typespec: , line:3:11, endln:3:16
         |vpiLeftRange:
         \_constant: , line:3:12, endln:3:13
           |vpiParent:
@@ -203,19 +205,17 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_operation: , line:3:23, endln:3:35
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:35
       |vpiOpType:33
       |vpiOperand:
       \_constant: , line:3:24, endln:3:28
-        |vpiParent:
-        \_operation: , line:3:23, endln:3:35
         |vpiDecompile:1'd0
         |vpiSize:1
         |DEC:0
         |vpiConstType:1
       |vpiOperand:
       \_constant: , line:3:30, endln:3:34
-        |vpiParent:
-        \_operation: , line:3:23, endln:3:35
         |vpiDecompile:1'b1
         |vpiSize:1
         |BIN:1
@@ -229,12 +229,15 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiCondition:
     \_operation: , line:5:5, endln:5:17
+      |vpiParent:
+      \_gen_if: , line:5:1, endln:5:3
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (foo), line:5:5, endln:5:8
+      \_ref_obj: (work@test.foo), line:5:5, endln:5:8
         |vpiParent:
         \_operation: , line:5:5, endln:5:17
         |vpiName:foo
+        |vpiFullName:work@test.foo
       |vpiOperand:
       \_constant: , line:5:12, endln:5:17
         |vpiParent:
@@ -244,9 +247,14 @@ design: (work@test)
         |BIN:01
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@test)
+      |vpiParent:
+      \_gen_if: , line:5:1, endln:5:3
+      |vpiFullName:work@test
       |vpiStmt:
       \_ref_module: work@bar (mybar), line:6:9, endln:6:14
+        |vpiParent:
+        \_begin: (work@test)
         |vpiName:mybar
         |vpiDefName:work@bar
 |uhdmtopModules:
@@ -288,6 +296,8 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiRhs:
     \_constant: , line:3:23, endln:3:35
+      |vpiParent:
+      \_param_assign: , line:3:17, endln:3:35
       |vpiDecompile:2'b01
       |vpiSize:2
       |BIN:01

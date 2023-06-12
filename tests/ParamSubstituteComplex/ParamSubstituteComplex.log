@@ -709,6 +709,8 @@ design: (work@top)
             \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
             |vpiRange:
             \_range: , line:6:15, endln:6:20
+              |vpiParent:
+              \_logic_typespec: (fmt_logic_t), line:6:9, endln:6:20
               |vpiLeftRange:
               \_constant: , line:6:16, endln:6:17
                 |vpiParent:
@@ -940,9 +942,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_operation: , line:16:41, endln:22:4
+      |vpiParent:
+      \_param_assign: , line:16:27, endln:22:4
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:17:20, endln:17:22
+        |vpiParent:
+        \_operation: , line:16:41, endln:22:4
         |vpiPattern:
         \_constant: , line:17:20, endln:17:22
           |vpiDecompile:64
@@ -951,9 +957,13 @@ design: (work@top)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (Width), line:17:5, endln:17:10
+          |vpiParent:
+          \_tagged_pattern: , line:17:20, endln:17:22
           |vpiName:Width
       |vpiOperand:
       \_tagged_pattern: , line:18:20, endln:18:24
+        |vpiParent:
+        \_operation: , line:16:41, endln:22:4
         |vpiPattern:
         \_constant: , line:18:20, endln:18:24
           |vpiDecompile:1'b1
@@ -962,9 +972,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (EnableVectors), line:18:5, endln:18:18
+          |vpiParent:
+          \_tagged_pattern: , line:18:20, endln:18:24
           |vpiName:EnableVectors
       |vpiOperand:
       \_tagged_pattern: , line:19:20, endln:19:24
+        |vpiParent:
+        \_operation: , line:16:41, endln:22:4
         |vpiPattern:
         \_constant: , line:19:20, endln:19:24
           |vpiDecompile:1'b1
@@ -973,9 +987,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (EnableNanBox), line:19:5, endln:19:17
+          |vpiParent:
+          \_tagged_pattern: , line:19:20, endln:19:24
           |vpiName:EnableNanBox
       |vpiOperand:
       \_tagged_pattern: , line:20:20, endln:20:28
+        |vpiParent:
+        \_operation: , line:16:41, endln:22:4
         |vpiPattern:
         \_constant: , line:20:20, endln:20:28
           |vpiDecompile:5'b11111
@@ -984,9 +1002,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (FpFmtMask), line:20:5, endln:20:14
+          |vpiParent:
+          \_tagged_pattern: , line:20:20, endln:20:28
           |vpiName:FpFmtMask
       |vpiOperand:
       \_tagged_pattern: , line:21:20, endln:21:27
+        |vpiParent:
+        \_operation: , line:16:41, endln:22:4
         |vpiPattern:
         \_constant: , line:21:20, endln:21:27
           |vpiDecompile:4'b1111
@@ -995,6 +1017,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (IntFmtMask), line:21:5, endln:21:15
+          |vpiParent:
+          \_tagged_pattern: , line:21:20, endln:21:27
           |vpiName:IntFmtMask
     |vpiLhs:
     \_parameter: (work@top.RV64D_Xsflt), line:16:27, endln:16:38
@@ -1004,6 +1028,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:23:20, endln:23:22
+      |vpiParent:
+      \_param_assign: , line:23:13, endln:23:22
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -1018,6 +1044,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_operation: , line:25:25, endln:25:51
+      |vpiParent:
+      \_param_assign: , line:25:12, endln:25:51
       |vpiOpType:32
       |vpiOperand:
       \_operation: , line:25:26, endln:25:36
@@ -1025,10 +1053,11 @@ design: (work@top)
         \_operation: , line:25:25, endln:25:51
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (XLEN), line:25:26, endln:25:30
+        \_ref_obj: (work@top.XLEN), line:25:26, endln:25:30
           |vpiParent:
           \_operation: , line:25:26, endln:25:36
           |vpiName:XLEN
+          |vpiFullName:work@top.XLEN
         |vpiOperand:
         \_constant: , line:25:34, endln:25:36
           |vpiParent:
@@ -1060,8 +1089,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
-    \_ref_obj: (IS_XLEN64), line:26:22, endln:26:31
+    \_ref_obj: (work@top.IS_XLEN64), line:26:22, endln:26:31
+      |vpiParent:
+      \_param_assign: , line:26:16, endln:26:31
       |vpiName:IS_XLEN64
+      |vpiFullName:work@top.IS_XLEN64
     |vpiLhs:
     \_parameter: (work@top.RVF), line:26:16, endln:26:19
   |vpiParamAssign:
@@ -1069,8 +1101,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
-    \_ref_obj: (IS_XLEN64), line:27:22, endln:27:31
+    \_ref_obj: (work@top.IS_XLEN64), line:27:22, endln:27:31
+      |vpiParent:
+      \_param_assign: , line:27:16, endln:27:31
       |vpiName:IS_XLEN64
+      |vpiFullName:work@top.IS_XLEN64
     |vpiLhs:
     \_parameter: (work@top.RVD), line:27:16, endln:27:19
   |vpiParamAssign:
@@ -1079,6 +1114,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:28:26, endln:28:30
+      |vpiParent:
+      \_param_assign: , line:28:16, endln:28:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -1093,6 +1130,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:29:26, endln:29:30
+      |vpiParent:
+      \_param_assign: , line:29:16, endln:29:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -1107,6 +1146,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:30:26, endln:30:30
+      |vpiParent:
+      \_param_assign: , line:30:16, endln:30:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -1121,6 +1162,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:31:26, endln:31:30
+      |vpiParent:
+      \_param_assign: , line:31:16, endln:31:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -1135,9 +1178,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_operation: , line:33:42, endln:39:6
+      |vpiParent:
+      \_param_assign: , line:33:27, endln:39:6
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:34:22, endln:34:24
+        |vpiParent:
+        \_operation: , line:33:42, endln:39:6
         |vpiPattern:
         \_constant: , line:34:22, endln:34:24
           |vpiDecompile:64
@@ -1146,11 +1193,17 @@ design: (work@top)
           |vpiConstType:9
         |vpiTypespec:
         \_string_typespec: (Width), line:34:7, endln:34:12
+          |vpiParent:
+          \_tagged_pattern: , line:34:22, endln:34:24
           |vpiName:Width
       |vpiOperand:
       \_tagged_pattern: , line:35:22, endln:35:27
+        |vpiParent:
+        \_operation: , line:33:42, endln:39:6
         |vpiPattern:
         \_constant: , line:31:26, endln:31:30
+          |vpiParent:
+          \_param_assign: , line:31:16, endln:31:30
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -1161,9 +1214,13 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (EnableVectors), line:35:7, endln:35:20
+          |vpiParent:
+          \_tagged_pattern: , line:35:22, endln:35:27
           |vpiName:EnableVectors
       |vpiOperand:
       \_tagged_pattern: , line:36:22, endln:36:26
+        |vpiParent:
+        \_operation: , line:33:42, endln:39:6
         |vpiPattern:
         \_constant: , line:36:22, endln:36:26
           |vpiDecompile:1'b1
@@ -1172,44 +1229,57 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (EnableNanBox), line:36:7, endln:36:19
+          |vpiParent:
+          \_tagged_pattern: , line:36:22, endln:36:26
           |vpiName:EnableNanBox
       |vpiOperand:
       \_tagged_pattern: , line:37:22, endln:37:52
+        |vpiParent:
+        \_operation: , line:33:42, endln:39:6
         |vpiPattern:
         \_operation: , line:37:22, endln:37:52
           |vpiParent:
           \_operation: , line:33:42, endln:39:6
           |vpiOpType:33
           |vpiOperand:
-          \_ref_obj: (RVF), line:37:23, endln:37:26
+          \_ref_obj: (work@top.RVF), line:37:23, endln:37:26
             |vpiParent:
-            \_operation: , line:33:42, endln:39:6
+            \_operation: , line:37:22, endln:37:52
             |vpiName:RVF
+            |vpiFullName:work@top.RVF
           |vpiOperand:
-          \_ref_obj: (RVD), line:37:28, endln:37:31
+          \_ref_obj: (work@top.RVD), line:37:28, endln:37:31
             |vpiParent:
-            \_operation: , line:33:42, endln:39:6
+            \_operation: , line:37:22, endln:37:52
             |vpiName:RVD
+            |vpiFullName:work@top.RVD
           |vpiOperand:
-          \_ref_obj: (XF16), line:37:33, endln:37:37
+          \_ref_obj: (work@top.XF16), line:37:33, endln:37:37
             |vpiParent:
-            \_operation: , line:33:42, endln:39:6
+            \_operation: , line:37:22, endln:37:52
             |vpiName:XF16
+            |vpiFullName:work@top.XF16
           |vpiOperand:
-          \_ref_obj: (XF8), line:37:39, endln:37:42
+          \_ref_obj: (work@top.XF8), line:37:39, endln:37:42
             |vpiParent:
-            \_operation: , line:33:42, endln:39:6
+            \_operation: , line:37:22, endln:37:52
             |vpiName:XF8
+            |vpiFullName:work@top.XF8
           |vpiOperand:
-          \_ref_obj: (XF16ALT), line:37:44, endln:37:51
+          \_ref_obj: (work@top.XF16ALT), line:37:44, endln:37:51
             |vpiParent:
-            \_operation: , line:33:42, endln:39:6
+            \_operation: , line:37:22, endln:37:52
             |vpiName:XF16ALT
+            |vpiFullName:work@top.XF16ALT
         |vpiTypespec:
         \_string_typespec: (FpFmtMask), line:37:7, endln:37:16
+          |vpiParent:
+          \_tagged_pattern: , line:37:22, endln:37:52
           |vpiName:FpFmtMask
       |vpiOperand:
       \_tagged_pattern: , line:38:22, endln:38:76
+        |vpiParent:
+        \_operation: , line:33:42, endln:39:6
         |vpiPattern:
         \_operation: , line:38:22, endln:38:76
           |vpiParent:
@@ -1218,61 +1288,64 @@ design: (work@top)
           |vpiOperand:
           \_operation: , line:38:23, endln:38:35
             |vpiParent:
-            \_operation: , line:33:42, endln:39:6
+            \_operation: , line:38:22, endln:38:76
             |vpiOpType:26
             |vpiOperand:
-            \_ref_obj: (XFVEC), line:38:23, endln:38:28
+            \_ref_obj: (work@top.XFVEC), line:38:23, endln:38:28
               |vpiParent:
               \_operation: , line:38:23, endln:38:35
               |vpiName:XFVEC
+              |vpiFullName:work@top.XFVEC
             |vpiOperand:
-            \_ref_obj: (XF8), line:38:32, endln:38:35
+            \_ref_obj: (work@top.XF8), line:38:32, endln:38:35
               |vpiParent:
               \_operation: , line:38:23, endln:38:35
               |vpiName:XF8
+              |vpiFullName:work@top.XF8
           |vpiOperand:
           \_operation: , line:38:37, endln:38:63
             |vpiParent:
-            \_operation: , line:33:42, endln:39:6
+            \_operation: , line:38:22, endln:38:76
             |vpiOpType:26
             |vpiOperand:
-            \_ref_obj: (XFVEC), line:38:37, endln:38:42
+            \_ref_obj: (work@top.XFVEC), line:38:37, endln:38:42
               |vpiParent:
               \_operation: , line:38:37, endln:38:63
               |vpiName:XFVEC
+              |vpiFullName:work@top.XFVEC
             |vpiOperand:
             \_operation: , line:38:47, endln:38:62
               |vpiParent:
               \_operation: , line:38:37, endln:38:63
               |vpiOpType:27
               |vpiOperand:
-              \_ref_obj: (XF16), line:38:47, endln:38:51
+              \_ref_obj: (work@top.XF16), line:38:47, endln:38:51
                 |vpiParent:
                 \_operation: , line:38:47, endln:38:62
                 |vpiName:XF16
+                |vpiFullName:work@top.XF16
               |vpiOperand:
-              \_ref_obj: (XF16ALT), line:38:55, endln:38:62
+              \_ref_obj: (work@top.XF16ALT), line:38:55, endln:38:62
                 |vpiParent:
                 \_operation: , line:38:47, endln:38:62
                 |vpiName:XF16ALT
+                |vpiFullName:work@top.XF16ALT
           |vpiOperand:
           \_constant: , line:38:65, endln:38:69
-            |vpiParent:
-            \_operation: , line:38:22, endln:38:76
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
             |vpiConstType:3
           |vpiOperand:
           \_constant: , line:38:71, endln:38:75
-            |vpiParent:
-            \_operation: , line:38:22, endln:38:76
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
             |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (IntFmtMask), line:38:7, endln:38:17
+          |vpiParent:
+          \_tagged_pattern: , line:38:22, endln:38:76
           |vpiName:IntFmtMask
     |vpiLhs:
     \_parameter: (work@top.FPU_FEATURES), line:33:27, endln:33:39
@@ -1281,8 +1354,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
-    \_ref_obj: (FPU_FEATURES), line:40:46, endln:40:58
+    \_ref_obj: (work@top.FPU_FEATURES), line:40:46, endln:40:58
+      |vpiParent:
+      \_param_assign: , line:40:29, endln:40:58
       |vpiName:FPU_FEATURES
+      |vpiFullName:work@top.FPU_FEATURES
     |vpiLhs:
     \_parameter: (work@top.Features), line:40:29, endln:40:37
   |vpiParamAssign:
@@ -1291,6 +1367,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_hier_path: (Features.FpFmtMask), line:41:45, endln:41:63
+      |vpiParent:
+      \_param_assign: , line:41:29, endln:41:63
       |vpiName:Features.FpFmtMask
       |vpiActual:
       \_ref_obj: (Features)
@@ -1309,12 +1387,15 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
-    \_bit_select: (FpFmtMask), line:43:22, endln:43:34
+    \_bit_select: (work@top.FpFmtMask), line:43:22, endln:43:34
+      |vpiParent:
+      \_param_assign: , line:43:12, endln:43:34
       |vpiName:FpFmtMask
+      |vpiFullName:work@top.FpFmtMask
       |vpiIndex:
       \_constant: , line:43:32, endln:43:33
         |vpiParent:
-        \_bit_select: (FpFmtMask), line:43:22, endln:43:34
+        \_bit_select: (work@top.FpFmtMask), line:43:22, endln:43:34
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -1332,12 +1413,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiCondition:
     \_operation: , line:45:5, endln:45:26
+      |vpiParent:
+      \_gen_if: , line:45:1, endln:45:3
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (FpFmtMask), line:45:5, endln:45:14
+      \_ref_obj: (work@top.FpFmtMask), line:45:5, endln:45:14
         |vpiParent:
         \_operation: , line:45:5, endln:45:26
         |vpiName:FpFmtMask
+        |vpiFullName:work@top.FpFmtMask
       |vpiOperand:
       \_constant: , line:45:18, endln:45:26
         |vpiParent:
@@ -1347,9 +1431,14 @@ design: (work@top)
         |BIN:11000
         |vpiConstType:3
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:45:1, endln:45:3
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD (good1), line:46:8, endln:46:13
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good1
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -1358,12 +1447,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiCondition:
     \_operation: , line:49:5, endln:49:17
+      |vpiParent:
+      \_gen_if: , line:49:1, endln:49:3
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (DEBUGME), line:49:5, endln:49:12
+      \_ref_obj: (work@top.DEBUGME), line:49:5, endln:49:12
         |vpiParent:
         \_operation: , line:49:5, endln:49:17
         |vpiName:DEBUGME
+        |vpiFullName:work@top.DEBUGME
       |vpiOperand:
       \_constant: , line:49:16, endln:49:17
         |vpiParent:
@@ -1373,9 +1465,14 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@top)
+      |vpiParent:
+      \_gen_if: , line:49:1, endln:49:3
+      |vpiFullName:work@top
       |vpiStmt:
       \_ref_module: work@GOOD (good2), line:50:8, endln:50:13
+        |vpiParent:
+        \_begin: (work@top)
         |vpiName:good2
         |vpiDefName:work@GOOD
 |uhdmtopModules:
@@ -2257,7 +2354,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:17:20, endln:17:22
         |vpiParent:
-        \_tagged_pattern: , line:17:20, endln:17:22
+        \_operation: , line:16:41, endln:22:4
         |vpiDecompile:64
         |vpiSize:32
         |UINT:64
@@ -2265,7 +2362,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:18:20, endln:18:24
         |vpiParent:
-        \_tagged_pattern: , line:18:20, endln:18:24
+        \_operation: , line:16:41, endln:22:4
         |vpiDecompile:1'b1
         |vpiSize:1
         |BIN:1
@@ -2273,7 +2370,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:19:20, endln:19:24
         |vpiParent:
-        \_tagged_pattern: , line:19:20, endln:19:24
+        \_operation: , line:16:41, endln:22:4
         |vpiDecompile:1'b1
         |vpiSize:1
         |BIN:1
@@ -2281,7 +2378,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:20:20, endln:20:28
         |vpiParent:
-        \_tagged_pattern: , line:20:20, endln:20:28
+        \_operation: , line:16:41, endln:22:4
         |vpiDecompile:5'b11111
         |vpiSize:5
         |BIN:11111
@@ -2289,7 +2386,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:21:20, endln:21:27
         |vpiParent:
-        \_tagged_pattern: , line:21:20, endln:21:27
+        \_operation: , line:16:41, endln:22:4
         |vpiDecompile:4'b1111
         |vpiSize:5
         |BIN:1111
@@ -2302,6 +2399,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:23:20, endln:23:22
+      |vpiParent:
+      \_param_assign: , line:23:13, endln:23:22
       |vpiDecompile:64
       |vpiSize:32
       |UINT:64
@@ -2316,6 +2415,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:25:25, endln:25:51
+      |vpiParent:
+      \_param_assign: , line:25:12, endln:25:51
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -2328,6 +2429,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:26:22, endln:26:31
+      |vpiParent:
+      \_param_assign: , line:26:16, endln:26:31
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -2342,6 +2445,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:27:22, endln:27:31
+      |vpiParent:
+      \_param_assign: , line:27:16, endln:27:31
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -2356,6 +2461,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:28:26, endln:28:30
+      |vpiParent:
+      \_param_assign: , line:28:16, endln:28:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -2370,6 +2477,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:29:26, endln:29:30
+      |vpiParent:
+      \_param_assign: , line:29:16, endln:29:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -2384,6 +2493,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:30:26, endln:30:30
+      |vpiParent:
+      \_param_assign: , line:30:16, endln:30:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -2398,6 +2509,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:31:26, endln:31:30
+      |vpiParent:
+      \_param_assign: , line:31:16, endln:31:30
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
@@ -2586,7 +2699,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:34:22, endln:34:24
         |vpiParent:
-        \_tagged_pattern: , line:34:22, endln:34:24
+        \_operation: , line:33:42, endln:39:6
         |vpiDecompile:64
         |vpiSize:32
         |UINT:64
@@ -2594,7 +2707,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:35:22, endln:35:27
         |vpiParent:
-        \_tagged_pattern: , line:35:22, endln:35:27
+        \_operation: , line:33:42, endln:39:6
         |vpiDecompile:1'b0
         |vpiSize:1
         |BIN:0
@@ -2602,7 +2715,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:36:22, endln:36:26
         |vpiParent:
-        \_tagged_pattern: , line:36:22, endln:36:26
+        \_operation: , line:33:42, endln:39:6
         |vpiDecompile:1'b1
         |vpiSize:1
         |BIN:1
@@ -2610,7 +2723,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:37:22, endln:37:52
         |vpiParent:
-        \_tagged_pattern: , line:37:22, endln:37:52
+        \_operation: , line:33:42, endln:39:6
         |vpiSize:5
         |BIN:11000
         |vpiTypespec:
@@ -2667,7 +2780,7 @@ design: (work@top)
       |vpiOperand:
       \_operation: , line:38:22, endln:38:76
         |vpiParent:
-        \_tagged_pattern: , line:38:22, endln:38:76
+        \_operation: , line:33:42, endln:39:6
         |vpiSize:5
         |vpiOpType:33
         |vpiOperand:
@@ -2709,8 +2822,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
-    \_ref_obj: (FPU_FEATURES), line:40:46, endln:40:58
+    \_ref_obj: (work@top.FPU_FEATURES), line:40:46, endln:40:58
+      |vpiParent:
+      \_param_assign: , line:40:29, endln:40:58
       |vpiName:FPU_FEATURES
+      |vpiFullName:work@top.FPU_FEATURES
       |vpiActual:
       \_parameter: (work@top.FPU_FEATURES), line:33:27, endln:33:39
     |vpiLhs:
@@ -2721,6 +2837,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:41:45, endln:41:63
+      |vpiParent:
+      \_param_assign: , line:41:29, endln:41:63
       |vpiDecompile:5'b11000
       |vpiSize:5
       |BIN:11000
@@ -2735,6 +2853,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamSubstituteComplex/dut.sv, line:4:1, endln:53:10
     |vpiRhs:
     \_constant: , line:43:22, endln:43:34
+      |vpiParent:
+      \_param_assign: , line:43:12, endln:43:34
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1

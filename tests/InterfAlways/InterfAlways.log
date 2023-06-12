@@ -196,7 +196,11 @@ design: (work@top)
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@sw_test_status_if.x.x)
+      |vpiParent:
+      \_port: (x), line:1:40, endln:1:41
+      |vpiName:x
+      |vpiFullName:work@sw_test_status_if.x.x
       |vpiActual:
       \_logic_net: (work@sw_test_status_if.x), line:1:40, endln:1:41
 |uhdmallModules:
@@ -218,7 +222,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:7:23, endln:7:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:7:23, endln:7:24
     |vpiTypedef:
@@ -234,12 +242,17 @@ design: (work@top)
     \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:1:1, endln:5:13
     |vpiPort:
     \_port: (x), line:8:27, endln:8:32
+      |vpiParent:
+      \_ref_module: work@sw_test_status_if (u_sw), line:8:22, endln:8:26
       |vpiName:x
       |vpiHighConn:
-      \_ref_obj: (o), line:8:30, endln:8:31
+      \_ref_obj: (work@top.u_sw.x.o), line:8:30, endln:8:31
+        |vpiParent:
+        \_port: (x), line:8:27, endln:8:32
         |vpiName:o
+        |vpiFullName:work@top.u_sw.x.o
         |vpiActual:
-        \_int_var: (work@top.o), line:7:23, endln:7:24
+        \_logic_net: (work@top.o), line:7:23, endln:7:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:7:1, endln:9:10
   |vpiName:work@top
@@ -249,6 +262,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:7:1, endln:9:10
     |vpiTypespec:
     \_int_typespec: , line:7:19, endln:7:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:7:23, endln:7:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -288,6 +303,8 @@ design: (work@top)
       \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:8:4, endln:8:34
       |vpiTypespec:
       \_int_typespec: , line:1:36, endln:1:39
+        |vpiParent:
+        \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41
         |vpiSigned:1
       |vpiName:x
       |vpiFullName:work@top.u_sw.x
@@ -308,12 +325,16 @@ design: (work@top)
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (work@top.o), line:8:30, endln:8:31
+        |vpiParent:
+        \_port: (x), line:1:40, endln:1:41
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiActual:
         \_int_var: (work@top.o), line:7:23, endln:7:24
       |vpiLowConn:
       \_ref_obj: (work@top.u_sw.x), line:8:28, endln:8:29
+        |vpiParent:
+        \_port: (x), line:1:40, endln:1:41
         |vpiName:x
         |vpiFullName:work@top.u_sw.x
         |vpiActual:

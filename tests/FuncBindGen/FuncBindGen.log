@@ -301,6 +301,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |vpiRhs:
     \_constant: , line:2:37, endln:2:40
+      |vpiParent:
+      \_param_assign: , line:2:28, endln:2:40
       |vpiDecompile:500
       |vpiSize:32
       |UINT:500
@@ -315,6 +317,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |vpiRhs:
     \_constant: , line:3:40, endln:3:41
+      |vpiParent:
+      \_param_assign: , line:3:28, endln:3:41
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -337,7 +341,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -349,12 +357,15 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |vpiCondition:
     \_operation: , line:5:8, endln:5:17
+      |vpiParent:
+      \_gen_if: , line:5:4, endln:5:6
       |vpiOpType:18
       |vpiOperand:
-      \_ref_obj: (Depth), line:5:8, endln:5:13
+      \_ref_obj: (work@top.Depth), line:5:8, endln:5:13
         |vpiParent:
         \_operation: , line:5:8, endln:5:17
         |vpiName:Depth
+        |vpiFullName:work@top.Depth
       |vpiOperand:
       \_constant: , line:5:16, endln:5:17
         |vpiParent:
@@ -364,10 +375,15 @@ design: (work@top)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (gen_block)
+    \_named_begin: (work@top.gen_block)
+      |vpiParent:
+      \_gen_if: , line:5:4, endln:5:6
       |vpiName:gen_block
+      |vpiFullName:work@top.gen_block
       |vpiStmt:
       \_cont_assign: , line:11:14, endln:11:42
+        |vpiParent:
+        \_named_begin: (work@top.gen_block)
         |vpiRhs:
         \_operation: , line:11:18, endln:11:42
           |vpiParent:
@@ -382,10 +398,11 @@ design: (work@top)
             \_operation: , line:11:18, endln:11:42
             |vpiName:get_casted_param
         |vpiLhs:
-        \_ref_obj: (o), line:11:14, endln:11:15
+        \_ref_obj: (work@top.gen_block.o), line:11:14, endln:11:15
           |vpiParent:
           \_cont_assign: , line:11:14, endln:11:42
           |vpiName:o
+          |vpiFullName:work@top.gen_block.o
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
   |vpiName:work@top
@@ -429,6 +446,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |vpiRhs:
     \_constant: , line:2:37, endln:2:40
+      |vpiParent:
+      \_param_assign: , line:2:28, endln:2:40
       |vpiDecompile:500
       |vpiSize:32
       |UINT:500
@@ -443,6 +462,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |vpiRhs:
     \_constant: , line:3:40, endln:3:41
+      |vpiParent:
+      \_param_assign: , line:3:28, endln:3:41
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -517,7 +538,7 @@ design: (work@top)
             |vpiRange:
             \_range: , line:7:16, endln:7:31
               |vpiParent:
-              \_begin: (work@top.gen_block.get_casted_param)
+              \_logic_typespec: , line:7:10, endln:7:31
               |vpiLeftRange:
               \_operation: , line:7:17, endln:7:28
                 |vpiParent:
@@ -556,11 +577,15 @@ design: (work@top)
         |vpiVisibility:1
         |vpiAutomatic:1
         |vpiReturn:
-        \_logic_var: , line:6:26, endln:6:41
+        \_logic_var: (work@top.gen_block.get_casted_param), line:6:26, endln:6:41
+          |vpiParent:
+          \_function: (work@top.gen_block.get_casted_param), line:6:7, endln:9:18
           |vpiTypespec:
           \_logic_typespec: , line:6:26, endln:6:41
             |vpiRange:
             \_range: , line:6:26, endln:6:41
+              |vpiParent:
+              \_logic_typespec: , line:6:26, endln:6:41
               |vpiLeftRange:
               \_operation: , line:6:27, endln:6:38
                 |vpiParent:
@@ -594,6 +619,7 @@ design: (work@top)
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
+          |vpiFullName:work@top.gen_block.get_casted_param
         |vpiStmt:
         \_begin: (work@top.gen_block.get_casted_param)
           |vpiParent:

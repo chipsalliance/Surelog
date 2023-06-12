@@ -476,7 +476,7 @@ logic_typespec                                        21
 module_inst                                           27
 named_begin                                            3
 operation                                             39
-package                                                6
+package                                                4
 packed_array_typespec                                 13
 param_assign                                          24
 parameter                                             31
@@ -514,7 +514,7 @@ logic_typespec                                        21
 module_inst                                           43
 named_begin                                            3
 operation                                             39
-package                                                6
+package                                                4
 packed_array_typespec                                 13
 param_assign                                          40
 parameter                                             31
@@ -560,6 +560,8 @@ design: (work@top)
       \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:1:1, endln:6:34
       |vpiRange:
       \_range: , line:2:24, endln:2:29
+        |vpiParent:
+        \_logic_typespec: , line:2:18, endln:2:29
         |vpiLeftRange:
         \_constant: , line:2:25, endln:2:26
           |vpiParent:
@@ -578,12 +580,16 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (A), line:3:7, endln:3:15
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
       |vpiName:A
       |HEX:0
       |vpiDecompile:3'h0
       |vpiSize:3
     |vpiEnumConst:
     \_enum_const: (B), line:4:7, endln:4:15
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
       |vpiName:B
       |HEX:1
       |vpiDecompile:3'h1
@@ -636,18 +642,18 @@ design: (work@top)
           |vpiRange:
           \_range: , line:14:18, endln:14:32
             |vpiParent:
-            \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18
+            \_packed_array_typespec: , line:14:7, endln:14:17
             |vpiLeftRange:
             \_operation: , line:14:19, endln:14:29
               |vpiParent:
               \_range: , line:14:18, endln:14:32
               |vpiOpType:11
               |vpiOperand:
-              \_ref_obj: (pinmux_pkg::pinmux_pkg::target_cfg_t::NDioPads), line:14:19, endln:14:27
+              \_ref_obj: (pinmux_pkg::pinmux_pkg::target_cfg_t::dio_pad_type::NDioPads), line:14:19, endln:14:27
                 |vpiParent:
                 \_operation: , line:14:19, endln:14:29
                 |vpiName:NDioPads
-                |vpiFullName:pinmux_pkg::pinmux_pkg::target_cfg_t::NDioPads
+                |vpiFullName:pinmux_pkg::pinmux_pkg::target_cfg_t::dio_pad_type::NDioPads
                 |vpiActual:
                 \_parameter: (pinmux_pkg::NDioPads), line:11:18, endln:11:26
               |vpiOperand:
@@ -679,6 +685,8 @@ design: (work@top)
               \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:1:1, endln:6:34
               |vpiRange:
               \_range: , line:2:24, endln:2:29
+                |vpiParent:
+                \_logic_typespec: , line:2:18, endln:2:29
                 |vpiLeftRange:
                 \_constant: , line:2:25, endln:2:26
                   |vpiParent:
@@ -697,12 +705,16 @@ design: (work@top)
                   |vpiConstType:9
             |vpiEnumConst:
             \_enum_const: (A), line:3:7, endln:3:15
+              |vpiParent:
+              \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
               |vpiName:A
               |HEX:0
               |vpiDecompile:3'h0
               |vpiSize:3
             |vpiEnumConst:
             \_enum_const: (B), line:4:7, endln:4:15
+              |vpiParent:
+              \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:5:17
               |vpiName:B
               |HEX:1
               |vpiDecompile:3'h1
@@ -720,6 +732,8 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:30
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -734,9 +748,13 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_operation: , line:17:46, endln:19:5
+      |vpiParent:
+      \_param_assign: , line:17:27, endln:19:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:18:21, endln:18:34
+        |vpiParent:
+        \_operation: , line:17:46, endln:19:5
         |vpiPattern:
         \_constant: , line:18:21, endln:18:34
           |vpiDecompile:001001001001
@@ -748,6 +766,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:18:7, endln:18:19
+          |vpiParent:
+          \_tagged_pattern: , line:18:21, endln:18:34
           |vpiName:dio_pad_type
     |vpiLhs:
     \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43
@@ -815,7 +835,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:14:18, endln:14:32
             |vpiParent:
-            \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18
+            \_packed_array_typespec: , line:14:7, endln:14:17
             |vpiLeftRange:
             \_constant: , line:14:19, endln:14:27
               |vpiParent:
@@ -847,6 +867,8 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:30
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -861,9 +883,13 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:8:1, endln:20:24
     |vpiRhs:
     \_operation: , line:17:46, endln:19:5
+      |vpiParent:
+      \_param_assign: , line:17:27, endln:19:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:18:21, endln:18:34
+        |vpiParent:
+        \_operation: , line:17:46, endln:19:5
         |vpiPattern:
         \_constant: , line:18:21, endln:18:34
           |vpiDecompile:001001001001
@@ -875,6 +901,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:18:7, endln:18:19
+          |vpiParent:
+          \_tagged_pattern: , line:18:21, endln:18:34
           |vpiName:dio_pad_type
     |vpiLhs:
     \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43
@@ -904,8 +932,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:23:1, endln:29:34
     |vpiRhs:
-    \_ref_obj: (A), line:25:35, endln:25:36
+    \_ref_obj: (work@prim_generic_pad_attr.A), line:25:35, endln:25:36
+      |vpiParent:
+      \_param_assign: , line:25:25, endln:25:36
       |vpiName:A
+      |vpiFullName:work@prim_generic_pad_attr.A
       |vpiActual:
       \_enum_const: (A), line:3:7, endln:3:15
     |vpiLhs:
@@ -928,7 +959,11 @@ design: (work@top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_generic_pad_attr.a.a)
+      |vpiParent:
+      \_port: (a), line:23:41, endln:23:42
+      |vpiName:a
+      |vpiFullName:work@prim_generic_pad_attr.a.a
       |vpiActual:
       \_logic_net: (work@prim_generic_pad_attr.a), line:23:41, endln:23:42
     |vpiTypedef:
@@ -940,24 +975,33 @@ design: (work@top)
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:23:1, endln:29:34
     |vpiCondition:
     \_operation: , line:26:8, endln:26:20
+      |vpiParent:
+      \_gen_if: , line:26:4, endln:26:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (PadType), line:26:8, endln:26:15
+      \_ref_obj: (work@prim_generic_pad_attr.PadType), line:26:8, endln:26:15
         |vpiParent:
         \_operation: , line:26:8, endln:26:20
         |vpiName:PadType
+        |vpiFullName:work@prim_generic_pad_attr.PadType
       |vpiOperand:
-      \_ref_obj: (B), line:26:19, endln:26:20
+      \_ref_obj: (work@prim_generic_pad_attr.B), line:26:19, endln:26:20
         |vpiParent:
         \_operation: , line:26:8, endln:26:20
         |vpiName:B
+        |vpiFullName:work@prim_generic_pad_attr.B
         |vpiActual:
         \_enum_const: (B), line:4:7, endln:4:15
     |vpiStmt:
-    \_named_begin: (gen_assign)
+    \_named_begin: (work@prim_generic_pad_attr.gen_assign)
+      |vpiParent:
+      \_gen_if: , line:26:4, endln:26:6
       |vpiName:gen_assign
+      |vpiFullName:work@prim_generic_pad_attr.gen_assign
       |vpiStmt:
       \_cont_assign: , line:27:14, endln:27:19
+        |vpiParent:
+        \_named_begin: (work@prim_generic_pad_attr.gen_assign)
         |vpiRhs:
         \_constant: , line:27:18, endln:27:19
           |vpiParent:
@@ -967,10 +1011,11 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (a), line:27:14, endln:27:15
+        \_ref_obj: (work@prim_generic_pad_attr.gen_assign.a), line:27:14, endln:27:15
           |vpiParent:
           \_cont_assign: , line:27:14, endln:27:19
           |vpiName:a
+          |vpiFullName:work@prim_generic_pad_attr.gen_assign.a
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:32:1, endln:42:10
   |vpiParent:
@@ -989,8 +1034,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:32:1, endln:42:10
     |vpiRhs:
-    \_ref_obj: (A), line:34:35, endln:34:36
+    \_ref_obj: (work@prim_pad_attr.A), line:34:35, endln:34:36
+      |vpiParent:
+      \_param_assign: , line:34:25, endln:34:36
       |vpiName:A
+      |vpiFullName:work@prim_pad_attr.A
       |vpiActual:
       \_enum_const: (A), line:3:7, endln:3:15
     |vpiLhs:
@@ -1013,7 +1061,11 @@ design: (work@top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@prim_pad_attr.b.b)
+      |vpiParent:
+      \_port: (b), line:32:33, endln:32:34
+      |vpiName:b
+      |vpiFullName:work@prim_pad_attr.b.b
       |vpiActual:
       \_logic_net: (work@prim_pad_attr.b), line:32:33, endln:32:34
     |vpiTypedef:
@@ -1025,23 +1077,35 @@ design: (work@top)
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:32:1, endln:42:10
     |vpiCondition:
     \_constant: , line:36:8, endln:36:9
+      |vpiParent:
+      \_gen_if: , line:36:4, endln:36:6
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (gen_generic)
+    \_named_begin: (work@prim_pad_attr.gen_generic)
+      |vpiParent:
+      \_gen_if: , line:36:4, endln:36:6
       |vpiName:gen_generic
+      |vpiFullName:work@prim_pad_attr.gen_generic
       |vpiStmt:
       \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:39:9, endln:39:23
+        |vpiParent:
+        \_named_begin: (work@prim_pad_attr.gen_generic)
         |vpiName:u_impl_generic
         |vpiDefName:work@prim_generic_pad_attr
         |vpiPort:
         \_port: (a), line:39:24, endln:39:29
+          |vpiParent:
+          \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:39:9, endln:39:23
           |vpiName:a
           |vpiHighConn:
-          \_ref_obj: (b), line:39:27, endln:39:28
+          \_ref_obj: (work@prim_pad_attr.gen_generic.u_impl_generic.a.b), line:39:27, endln:39:28
+            |vpiParent:
+            \_port: (a), line:39:24, endln:39:29
             |vpiName:b
+            |vpiFullName:work@prim_pad_attr.gen_generic.u_impl_generic.a.b
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
   |vpiParent:
@@ -1342,8 +1406,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
     |vpiRhs:
-    \_ref_obj: (DefaultTargetCfg), line:46:39, endln:46:55
+    \_ref_obj: (work@top.DefaultTargetCfg), line:46:39, endln:46:55
+      |vpiParent:
+      \_param_assign: , line:46:27, endln:46:55
       |vpiName:DefaultTargetCfg
+      |vpiFullName:work@top.DefaultTargetCfg
     |vpiLhs:
     \_parameter: (work@top.TargetCfg), line:46:27, endln:46:36
   |vpiTypedef:
@@ -1359,6 +1426,13 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
     |vpiName:o
     |vpiFullName:work@top.o
+  |vpiNet:
+  \_logic_net: (work@top.k), line:48:22, endln:48:23
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
+    |vpiName:k
+    |vpiFullName:work@top.k
+    |vpiNetType:1
   |vpiPort:
   \_port: (o), line:44:23, endln:44:24
     |vpiParent:
@@ -1366,7 +1440,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:44:23, endln:44:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:44:23, endln:44:24
     |vpiTypedef:
@@ -1382,8 +1460,6 @@ design: (work@top)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:48:19, endln:48:20
-        |vpiParent:
-        \_assign_stmt: , line:48:8, endln:48:20
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -1392,21 +1468,21 @@ design: (work@top)
       \_ref_var: (work@top.k), line:48:15, endln:48:16
         |vpiParent:
         \_assign_stmt: , line:48:8, endln:48:20
-        |vpiTypespec:
-        \_unsupported_typespec: (k), line:48:15, endln:48:16
-          |vpiName:k
         |vpiName:k
         |vpiFullName:work@top.k
     |vpiCondition:
     \_operation: , line:48:22, endln:48:34
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (k), line:48:22, endln:48:23
+      \_ref_obj: (work@top.k), line:48:22, endln:48:23
         |vpiParent:
         \_operation: , line:48:22, endln:48:34
         |vpiName:k
+        |vpiFullName:work@top.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@top.k), line:48:22, endln:48:23
       |vpiOperand:
       \_constant: , line:48:26, endln:48:34
         |vpiParent:
@@ -1424,25 +1500,40 @@ design: (work@top)
         |vpiConstType:9
     |vpiForIncStmt:
     \_operation: , line:48:36, endln:48:37
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:62
       |vpiOperand:
-      \_ref_obj: (k)
+      \_ref_obj: (work@top.k)
+        |vpiParent:
+        \_gen_for: 
         |vpiName:k
+        |vpiFullName:work@top.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@top.k), line:48:22, endln:48:23
     |vpiStmt:
-    \_named_begin: (gen_dio_attr)
+    \_named_begin: (work@top.gen_dio_attr)
+      |vpiParent:
+      \_gen_for: 
       |vpiName:gen_dio_attr
+      |vpiFullName:work@top.gen_dio_attr
       |vpiStmt:
       \_ref_module: work@prim_pad_attr (u_prim_pad_attr), line:51:8, endln:51:23
+        |vpiParent:
+        \_named_begin: (work@top.gen_dio_attr)
         |vpiName:u_prim_pad_attr
         |vpiDefName:work@prim_pad_attr
         |vpiPort:
         \_port: (b), line:51:24, endln:51:29
+          |vpiParent:
+          \_ref_module: work@prim_pad_attr (u_prim_pad_attr), line:51:8, endln:51:23
           |vpiName:b
           |vpiHighConn:
-          \_ref_obj: (o), line:51:27, endln:51:28
+          \_ref_obj: (work@top.gen_dio_attr.u_prim_pad_attr.b.o), line:51:27, endln:51:28
+            |vpiParent:
+            \_port: (b), line:51:24, endln:51:29
             |vpiName:o
+            |vpiFullName:work@top.gen_dio_attr.u_prim_pad_attr.b.o
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
   |vpiName:work@top
@@ -1452,6 +1543,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
     |vpiTypespec:
     \_int_typespec: , line:44:19, endln:44:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:44:23, endln:44:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -1678,6 +1771,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
     |vpiRhs:
     \_constant: , line:11:29, endln:11:30
+      |vpiParent:
+      \_param_assign: , line:11:18, endln:11:30
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1791,7 +1886,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:18:21, endln:18:34
         |vpiParent:
-        \_tagged_pattern: , line:18:21, endln:18:34
+        \_operation: , line:17:46, endln:19:5
         |vpiDecompile:001001001001
         |vpiSize:12
         |BIN:001001001001
@@ -1808,8 +1903,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:44:1, endln:53:10
     |vpiRhs:
-    \_ref_obj: (DefaultTargetCfg), line:46:39, endln:46:55
+    \_ref_obj: (work@top.DefaultTargetCfg), line:46:39, endln:46:55
+      |vpiParent:
+      \_param_assign: , line:46:27, endln:46:55
       |vpiName:DefaultTargetCfg
+      |vpiFullName:work@top.DefaultTargetCfg
       |vpiActual:
       \_parameter: (work@top.DefaultTargetCfg), line:17:27, endln:17:43
     |vpiLhs:
@@ -1822,10 +1920,6 @@ design: (work@top)
   \_import_typespec: (pinmux_pkg), line:45:11, endln:45:24
   |vpiDefName:work@top
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (k)
-    |vpiName:k
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (o), line:44:23, endln:44:24
@@ -1879,6 +1973,8 @@ design: (work@top)
           \_module_inst: work@prim_pad_attr (work@top.gen_dio_attr[0].u_prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:49:6, endln:51:31
           |vpiTypespec:
           \_int_typespec: , line:32:29, endln:32:32
+            |vpiParent:
+            \_int_var: (work@top.gen_dio_attr[0].u_prim_pad_attr.b), line:32:33, endln:32:34
             |vpiSigned:1
           |vpiName:b
           |vpiFullName:work@top.gen_dio_attr[0].u_prim_pad_attr.b
@@ -1948,6 +2044,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:34:35, endln:34:36
+            |vpiParent:
+            \_param_assign: , line:34:25, endln:34:36
             |vpiDecompile:3'b001
             |vpiSize:3
             |BIN:001
@@ -2082,6 +2180,8 @@ design: (work@top)
                 |vpiOverriden:1
                 |vpiRhs:
                 \_constant: , line:25:35, endln:25:36
+                  |vpiParent:
+                  \_param_assign: , line:25:25, endln:25:36
                   |vpiDecompile:3'b001
                   |vpiSize:3
                   |BIN:001
@@ -2188,6 +2288,8 @@ design: (work@top)
           \_module_inst: work@prim_pad_attr (work@top.gen_dio_attr[1].u_prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:49:6, endln:51:31
           |vpiTypespec:
           \_int_typespec: , line:32:29, endln:32:32
+            |vpiParent:
+            \_int_var: (work@top.gen_dio_attr[1].u_prim_pad_attr.b), line:32:33, endln:32:34
             |vpiSigned:1
           |vpiName:b
           |vpiFullName:work@top.gen_dio_attr[1].u_prim_pad_attr.b
@@ -2257,6 +2359,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:34:35, endln:34:36
+            |vpiParent:
+            \_param_assign: , line:34:25, endln:34:36
             |vpiDecompile:3'b001
             |vpiSize:3
             |BIN:001
@@ -2391,6 +2495,8 @@ design: (work@top)
                 |vpiOverriden:1
                 |vpiRhs:
                 \_constant: , line:25:35, endln:25:36
+                  |vpiParent:
+                  \_param_assign: , line:25:25, endln:25:36
                   |vpiDecompile:3'b001
                   |vpiSize:3
                   |BIN:001
@@ -2497,6 +2603,8 @@ design: (work@top)
           \_module_inst: work@prim_pad_attr (work@top.gen_dio_attr[2].u_prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:49:6, endln:51:31
           |vpiTypespec:
           \_int_typespec: , line:32:29, endln:32:32
+            |vpiParent:
+            \_int_var: (work@top.gen_dio_attr[2].u_prim_pad_attr.b), line:32:33, endln:32:34
             |vpiSigned:1
           |vpiName:b
           |vpiFullName:work@top.gen_dio_attr[2].u_prim_pad_attr.b
@@ -2566,6 +2674,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:34:35, endln:34:36
+            |vpiParent:
+            \_param_assign: , line:34:25, endln:34:36
             |vpiDecompile:3'b001
             |vpiSize:3
             |BIN:001
@@ -2700,6 +2810,8 @@ design: (work@top)
                 |vpiOverriden:1
                 |vpiRhs:
                 \_constant: , line:25:35, endln:25:36
+                  |vpiParent:
+                  \_param_assign: , line:25:25, endln:25:36
                   |vpiDecompile:3'b001
                   |vpiSize:3
                   |BIN:001
@@ -2806,6 +2918,8 @@ design: (work@top)
           \_module_inst: work@prim_pad_attr (work@top.gen_dio_attr[3].u_prim_pad_attr), file:${SURELOG_DIR}/tests/GenScopeHierPath/dut.sv, line:49:6, endln:51:31
           |vpiTypespec:
           \_int_typespec: , line:32:29, endln:32:32
+            |vpiParent:
+            \_int_var: (work@top.gen_dio_attr[3].u_prim_pad_attr.b), line:32:33, endln:32:34
             |vpiSigned:1
           |vpiName:b
           |vpiFullName:work@top.gen_dio_attr[3].u_prim_pad_attr.b
@@ -2875,6 +2989,8 @@ design: (work@top)
           |vpiOverriden:1
           |vpiRhs:
           \_constant: , line:34:35, endln:34:36
+            |vpiParent:
+            \_param_assign: , line:34:25, endln:34:36
             |vpiDecompile:3'b001
             |vpiSize:3
             |BIN:001
@@ -3009,6 +3125,8 @@ design: (work@top)
                 |vpiOverriden:1
                 |vpiRhs:
                 \_constant: , line:25:35, endln:25:36
+                  |vpiParent:
+                  \_param_assign: , line:25:25, endln:25:36
                   |vpiDecompile:3'b001
                   |vpiSize:3
                   |BIN:001

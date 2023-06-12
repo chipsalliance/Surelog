@@ -257,20 +257,35 @@ design: (work@gen_test9)
     |vpiParent:
     \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
     |vpiStmt:
-    \_named_begin: (A)
+    \_named_begin: (work@gen_test9.A)
+      |vpiParent:
+      \_gen_region: 
       |vpiName:A
+      |vpiFullName:work@gen_test9.A
       |vpiStmt:
       \_gen_region: , line:6:25, endln:10:36
+        |vpiParent:
+        \_named_begin: (work@gen_test9.A)
         |vpiStmt:
-        \_named_begin: (B)
+        \_named_begin: (work@gen_test9.A.B)
+          |vpiParent:
+          \_gen_region: , line:6:25, endln:10:36
           |vpiName:B
+          |vpiFullName:work@gen_test9.A.B
       |vpiStmt:
       \_gen_region: , line:11:25, endln:15:36
+        |vpiParent:
+        \_named_begin: (work@gen_test9.A)
         |vpiStmt:
-        \_named_begin: (C)
+        \_named_begin: (work@gen_test9.A.C)
+          |vpiParent:
+          \_gen_region: , line:11:25, endln:15:36
           |vpiName:C
+          |vpiFullName:work@gen_test9.A.C
       |vpiStmt:
       \_cont_assign: , line:16:32, endln:16:53
+        |vpiParent:
+        \_named_begin: (work@gen_test9.A)
         |vpiRhs:
         \_operation: , line:16:36, endln:16:53
           |vpiParent:
@@ -292,12 +307,13 @@ design: (work@gen_test9)
                 \_hier_path: (B.y), line:16:36, endln:16:39
                 |vpiName:B
                 |vpiActual:
-                \_named_begin: (B)
+                \_named_begin: (work@gen_test9.A.B)
               |vpiActual:
-              \_ref_obj: (y), line:16:38, endln:16:39
+              \_ref_obj: (work@gen_test9.A.y), line:16:38, endln:16:39
                 |vpiParent:
                 \_hier_path: (B.y), line:16:36, endln:16:39
                 |vpiName:y
+                |vpiFullName:work@gen_test9.A.y
             |vpiOperand:
             \_constant: , line:16:42, endln:16:47
               |vpiParent:
@@ -317,17 +333,19 @@ design: (work@gen_test9)
               \_hier_path: (C.z), line:16:50, endln:16:53
               |vpiName:C
               |vpiActual:
-              \_named_begin: (C)
+              \_named_begin: (work@gen_test9.A.C)
             |vpiActual:
-            \_ref_obj: (z), line:16:52, endln:16:53
+            \_ref_obj: (work@gen_test9.A.z), line:16:52, endln:16:53
               |vpiParent:
               \_hier_path: (C.z), line:16:50, endln:16:53
               |vpiName:z
+              |vpiFullName:work@gen_test9.A.z
         |vpiLhs:
-        \_ref_obj: (x), line:16:32, endln:16:33
+        \_ref_obj: (work@gen_test9.A.x), line:16:32, endln:16:33
           |vpiParent:
           \_cont_assign: , line:16:32, endln:16:53
           |vpiName:x
+          |vpiFullName:work@gen_test9.A.x
 |uhdmtopModules:
 \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateBlock/dut.sv, line:1:1, endln:19:10
   |vpiName:work@gen_test9
@@ -341,6 +359,8 @@ design: (work@gen_test9)
     \_logic_typespec: , line:2:9, endln:2:19
       |vpiRange:
       \_range: , line:2:14, endln:2:19
+        |vpiParent:
+        \_logic_typespec: , line:2:9, endln:2:19
         |vpiLeftRange:
         \_constant: , line:2:15, endln:2:16
           |vpiParent:
@@ -378,8 +398,12 @@ design: (work@gen_test9)
         \_gen_scope: (work@gen_test9.A)
         |vpiTypespec:
         \_logic_typespec: , line:5:25, endln:5:35
+          |vpiParent:
+          \_logic_net: (work@gen_test9.A.x), line:5:36, endln:5:37
           |vpiRange:
           \_range: , line:5:30, endln:5:35
+            |vpiParent:
+            \_logic_typespec: , line:5:25, endln:5:35
             |vpiLeftRange:
             \_constant: , line:5:31, endln:5:32
               |vpiParent:
@@ -488,6 +512,8 @@ design: (work@gen_test9)
             \_logic_typespec: , line:8:33, endln:8:43
               |vpiRange:
               \_range: , line:8:38, endln:8:43
+                |vpiParent:
+                \_logic_typespec: , line:8:33, endln:8:43
                 |vpiLeftRange:
                 \_constant: , line:8:39, endln:8:40
                   |vpiParent:
@@ -541,6 +567,8 @@ design: (work@gen_test9)
             \_logic_typespec: , line:13:33, endln:13:43
               |vpiRange:
               \_range: , line:13:38, endln:13:43
+                |vpiParent:
+                \_logic_typespec: , line:13:33, endln:13:43
                 |vpiLeftRange:
                 \_constant: , line:13:39, endln:13:40
                   |vpiParent:

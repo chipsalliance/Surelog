@@ -145,13 +145,18 @@ design: (work@m2)
   |vpiFullName:work@m2
   |vpiLetDecl:
   \_let_decl: (p2), line:3:1, endln:3:30
+    |vpiParent:
+    \_module_inst: work@m2 (work@m2), file:${SURELOG_DIR}/tests/SystemCall/dut.sv, line:1:1, endln:6:10
     |vpiExpr:
     \_sys_func_call: ($past), line:3:13, endln:3:29
+      |vpiParent:
+      \_let_decl: (p2), line:3:1, endln:3:30
       |vpiArgument:
-      \_ref_obj: (x), line:3:19, endln:3:20
+      \_ref_obj: (work@m2.p2.x), line:3:19, endln:3:20
         |vpiParent:
         \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:x
+        |vpiFullName:work@m2.p2.x
       |vpiArgument:
       \_constant: , line:3:21, endln:3:21
         |vpiDecompile:0
@@ -165,13 +170,35 @@ design: (work@m2)
         |INT:0
         |vpiConstType:7
       |vpiArgument:
-      \_ref_obj: (clock), line:3:23, endln:3:28
+      \_ref_obj: (work@m2.p2.clock), line:3:23, endln:3:28
         |vpiParent:
         \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:clock
+        |vpiFullName:work@m2.p2.clock
       |vpiName:$past
     |vpiName:p2
   |vpiDefName:work@m2
+  |vpiNet:
+  \_logic_net: (work@m2.a), line:4:8, endln:4:9
+    |vpiParent:
+    \_module_inst: work@m2 (work@m2), file:${SURELOG_DIR}/tests/SystemCall/dut.sv, line:1:1, endln:6:10
+    |vpiName:a
+    |vpiFullName:work@m2.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m2.x), line:4:18, endln:4:19
+    |vpiParent:
+    \_module_inst: work@m2 (work@m2), file:${SURELOG_DIR}/tests/SystemCall/dut.sv, line:1:1, endln:6:10
+    |vpiName:x
+    |vpiFullName:work@m2.x
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m2.clock), line:4:32, endln:4:37
+    |vpiParent:
+    \_module_inst: work@m2 (work@m2), file:${SURELOG_DIR}/tests/SystemCall/dut.sv, line:1:1, endln:6:10
+    |vpiName:clock
+    |vpiFullName:work@m2.clock
+    |vpiNetType:1
   |vpiContAssign:
   \_cont_assign: , line:4:8, endln:4:39
     |vpiParent:
@@ -187,7 +214,7 @@ design: (work@m2)
         |vpiName:x
         |vpiFullName:work@m2.x
         |vpiActual:
-        \_logic_net: (x)
+        \_logic_net: (work@m2.x), line:4:18, endln:4:19
       |vpiArgument:
       \_constant: , line:4:20, endln:4:20
         |vpiDecompile:0
@@ -212,7 +239,7 @@ design: (work@m2)
           |vpiName:clock
           |vpiFullName:work@m2.clock
           |vpiActual:
-          \_logic_net: (clock)
+          \_logic_net: (work@m2.clock), line:4:32, endln:4:37
       |vpiName:$past
     |vpiLhs:
     \_ref_obj: (work@m2.a), line:4:8, endln:4:9
@@ -221,7 +248,7 @@ design: (work@m2)
       |vpiName:a
       |vpiFullName:work@m2.a
       |vpiActual:
-      \_logic_net: (a)
+      \_logic_net: (work@m2.a), line:4:8, endln:4:9
 |uhdmtopModules:
 \_module_inst: work@m2 (work@m2), file:${SURELOG_DIR}/tests/SystemCall/dut.sv, line:1:1, endln:6:10
   |vpiName:work@m2
@@ -239,8 +266,6 @@ design: (work@m2)
         \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:x
         |vpiFullName:work@m2.p2.x
-        |vpiActual:
-        \_logic_net: (x)
       |vpiArgument:
       \_constant: , line:3:21, endln:3:21
       |vpiArgument:
@@ -251,24 +276,10 @@ design: (work@m2)
         \_sys_func_call: ($past), line:3:13, endln:3:29
         |vpiName:clock
         |vpiFullName:work@m2.p2.clock
-        |vpiActual:
-        \_logic_net: (clock)
       |vpiName:$past
     |vpiName:p2
   |vpiDefName:work@m2
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (a)
-    |vpiName:a
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (x)
-    |vpiName:x
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (clock)
-    |vpiName:clock
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiContAssign:
   \_cont_assign: , line:4:8, endln:4:39
@@ -285,7 +296,7 @@ design: (work@m2)
         |vpiName:x
         |vpiFullName:work@m2.x
         |vpiActual:
-        \_logic_net: (x)
+        \_logic_net: (work@m2.x), line:4:18, endln:4:19
       |vpiArgument:
       \_constant: , line:4:20, endln:4:20
       |vpiArgument:
@@ -302,7 +313,7 @@ design: (work@m2)
           |vpiName:clock
           |vpiFullName:work@m2.clock
           |vpiActual:
-          \_logic_net: (clock)
+          \_logic_net: (work@m2.clock), line:4:32, endln:4:37
       |vpiName:$past
     |vpiLhs:
     \_ref_obj: (work@m2.a), line:4:8, endln:4:9
@@ -311,7 +322,7 @@ design: (work@m2)
       |vpiName:a
       |vpiFullName:work@m2.a
       |vpiActual:
-      \_logic_net: (a)
+      \_logic_net: (work@m2.a), line:4:8, endln:4:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -265,6 +265,8 @@ design: (work@top)
       \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
       |vpiTypespec:
       \_logic_typespec: , line:2:3, endln:2:8
+        |vpiParent:
+        \_logic_var: (work@top.u_sw.data_valid), line:2:9, endln:2:19
       |vpiName:data_valid
       |vpiFullName:work@top.u_sw.data_valid
       |vpiVisibility:1
@@ -274,6 +276,8 @@ design: (work@top)
       \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
       |vpiTypespec:
       \_bit_typespec: , line:5:3, endln:5:6
+        |vpiParent:
+        \_bit_var: (work@top.u_sw.sw_test_done), line:5:7, endln:5:19
       |vpiName:sw_test_done
       |vpiFullName:work@top.u_sw.sw_test_done
       |vpiVisibility:1
@@ -284,13 +288,16 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:13:1, endln:15:10
     |vpiContAssign:
     \_cont_assign: , line:3:10, endln:3:27
+      |vpiParent:
+      \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:14:4, endln:14:29
       |vpiRhs:
       \_constant: , line:3:23, endln:3:27
       |vpiLhs:
-      \_ref_obj: (data_valid), line:3:10, endln:3:20
+      \_ref_obj: (work@top.u_sw.data_valid), line:3:10, endln:3:20
         |vpiParent:
         \_cont_assign: , line:3:10, endln:3:27
         |vpiName:data_valid
+        |vpiFullName:work@top.u_sw.data_valid
         |vpiActual:
         \_logic_var: (work@top.u_sw.data_valid), line:2:9, endln:2:19
     |vpiProcess:

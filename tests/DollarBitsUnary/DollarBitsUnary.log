@@ -230,7 +230,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:3:13, endln:3:19
           |vpiParent:
-          \_struct_typespec: (dmi_t), line:2:12, endln:2:18
+          \_logic_typespec: , line:3:7, endln:3:19
           |vpiLeftRange:
           \_constant: , line:3:14, endln:3:16
             |vpiParent:
@@ -274,13 +274,19 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:32, endln:1:33
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, endln:1:33
     |vpiTypedef:
     \_logic_typespec: , line:1:19, endln:1:31
       |vpiRange:
       \_range: , line:1:25, endln:1:31
+        |vpiParent:
+        \_logic_typespec: , line:1:19, endln:1:31
         |vpiLeftRange:
         \_constant: , line:1:26, endln:1:28
           |vpiParent:
@@ -330,7 +336,7 @@ design: (work@top)
               |vpiName:dr_q
               |vpiFullName:work@top.dr_x.dr_q
               |vpiActual:
-              \_logic_var: (work@top.dr_q), line:6:28, endln:6:32
+              \_logic_net: (work@top.dr_q), line:6:28, endln:6:32
           |vpiName:$bits
         |vpiOperand:
         \_constant: , line:8:33, endln:8:34
@@ -363,8 +369,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_logic_typespec: , line:6:3, endln:6:27
+      |vpiParent:
+      \_logic_var: (work@top.dr_q), line:6:28, endln:6:32
       |vpiRange:
       \_range: , line:6:9, endln:6:27
+        |vpiParent:
+        \_logic_typespec: , line:6:3, endln:6:27
         |vpiLeftRange:
         \_constant: , line:6:10, endln:6:22
           |vpiParent:
@@ -386,6 +396,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:6:9, endln:6:27
+      |vpiParent:
+      \_logic_var: (work@top.dr_q), line:6:28, endln:6:32
       |vpiLeftRange:
       \_constant: , line:6:10, endln:6:22
         |vpiParent:
@@ -414,6 +426,8 @@ design: (work@top)
     \_logic_typespec: , line:1:19, endln:1:31
       |vpiRange:
       \_range: , line:1:25, endln:1:31
+        |vpiParent:
+        \_logic_typespec: , line:1:19, endln:1:31
         |vpiLeftRange:
         \_constant: , line:1:26, endln:1:28
           |vpiParent:
@@ -453,7 +467,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:1:25, endln:1:31
         |vpiParent:
-        \_port: (o), line:1:32, endln:1:33
+        \_logic_typespec: , line:1:19, endln:1:31
         |vpiLeftRange:
         \_constant: , line:1:26, endln:1:28
           |vpiParent:
@@ -505,7 +519,7 @@ design: (work@top)
               |vpiName:dr_q
               |vpiFullName:work@top.dr_x.dr_q
               |vpiActual:
-              \_logic_var: (work@top.dr_q), line:6:28, endln:6:32
+              \_logic_net: (work@top.dr_q), line:6:28, endln:6:32
           |vpiName:$bits
         |vpiOperand:
         \_constant: , line:8:33, endln:8:34

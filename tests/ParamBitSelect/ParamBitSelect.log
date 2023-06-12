@@ -279,6 +279,8 @@ design: (work@dut)
     \_int_typespec: 
       |vpiRange:
       \_range: 
+        |vpiParent:
+        \_int_typespec: 
         |vpiLeftRange:
         \_constant: 
           |INT:3
@@ -293,6 +295,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:18, endln:7:25
+      |vpiParent:
+      \_param_assign: , line:7:11, endln:7:25
       |vpiDecompile:4'b0011
       |vpiSize:4
       |BIN:0011
@@ -302,6 +306,13 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15
   |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.k), line:9:20, endln:9:21
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
+    |vpiName:k
+    |vpiFullName:work@dut.k
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -312,8 +323,6 @@ design: (work@dut)
       \_gen_for: 
       |vpiRhs:
       \_constant: , line:9:17, endln:9:18
-        |vpiParent:
-        \_assign_stmt: , line:9:6, endln:9:18
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -322,21 +331,21 @@ design: (work@dut)
       \_ref_var: (work@dut.k), line:9:13, endln:9:14
         |vpiParent:
         \_assign_stmt: , line:9:6, endln:9:18
-        |vpiTypespec:
-        \_unsupported_typespec: (k), line:9:13, endln:9:14
-          |vpiName:k
         |vpiName:k
         |vpiFullName:work@dut.k
     |vpiCondition:
     \_operation: , line:9:20, endln:9:25
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:20
       |vpiOperand:
-      \_ref_obj: (k), line:9:20, endln:9:21
+      \_ref_obj: (work@dut.k), line:9:20, endln:9:21
         |vpiParent:
         \_operation: , line:9:20, endln:9:25
         |vpiName:k
+        |vpiFullName:work@dut.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@dut.k), line:9:20, endln:9:21
       |vpiOperand:
       \_constant: , line:9:24, endln:9:25
         |vpiParent:
@@ -347,34 +356,57 @@ design: (work@dut)
         |vpiConstType:9
     |vpiForIncStmt:
     \_operation: , line:9:27, endln:9:28
+      |vpiParent:
+      \_gen_for: 
       |vpiOpType:62
       |vpiOperand:
-      \_ref_obj: (k)
+      \_ref_obj: (work@dut.k)
+        |vpiParent:
+        \_gen_for: 
         |vpiName:k
+        |vpiFullName:work@dut.k
         |vpiActual:
-        \_logic_net: (k)
+        \_logic_net: (work@dut.k), line:9:20, endln:9:21
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_for: 
+      |vpiFullName:work@dut
       |vpiStmt:
       \_gen_if: , line:10:3, endln:10:5
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiCondition:
-        \_bit_select: (test), line:10:7, endln:10:14
+        \_bit_select: (work@dut.test), line:10:7, endln:10:14
+          |vpiParent:
+          \_gen_if: , line:10:3, endln:10:5
           |vpiName:test
+          |vpiFullName:work@dut.test
           |vpiIndex:
-          \_ref_obj: (k), line:10:12, endln:10:13
+          \_ref_obj: (work@dut.k), line:10:12, endln:10:13
             |vpiParent:
-            \_bit_select: (test), line:10:7, endln:10:14
+            \_bit_select: (work@dut.test), line:10:7, endln:10:14
             |vpiName:k
+            |vpiFullName:work@dut.k
         |vpiStmt:
-        \_begin: 
+        \_begin: (work@dut)
+          |vpiParent:
+          \_gen_if: , line:10:3, endln:10:5
+          |vpiFullName:work@dut
           |vpiStmt:
           \_ref_module: work@MOD (m), line:11:9, endln:11:10
+            |vpiParent:
+            \_begin: (work@dut)
             |vpiName:m
             |vpiDefName:work@MOD
           |vpiStmt:
           \_gen_if_else: , line:12:5, endln:16:8
+            |vpiParent:
+            \_begin: (work@dut)
             |vpiCondition:
             \_operation: , line:12:9, endln:12:25
+              |vpiParent:
+              \_gen_if_else: , line:12:5, endln:16:8
               |vpiOpType:27
               |vpiOperand:
               \_operation: , line:12:9, endln:12:15
@@ -382,10 +414,11 @@ design: (work@dut)
                 \_operation: , line:12:9, endln:12:25
                 |vpiOpType:14
                 |vpiOperand:
-                \_ref_obj: (k), line:12:9, endln:12:10
+                \_ref_obj: (work@dut.k), line:12:9, endln:12:10
                   |vpiParent:
                   \_operation: , line:12:9, endln:12:15
                   |vpiName:k
+                  |vpiFullName:work@dut.k
                 |vpiOperand:
                 \_constant: , line:12:14, endln:12:15
                   |vpiParent:
@@ -400,10 +433,11 @@ design: (work@dut)
                 \_operation: , line:12:9, endln:12:25
                 |vpiOpType:14
                 |vpiOperand:
-                \_ref_obj: (k), line:12:19, endln:12:20
+                \_ref_obj: (work@dut.k), line:12:19, endln:12:20
                   |vpiParent:
                   \_operation: , line:12:19, endln:12:25
                   |vpiName:k
+                  |vpiFullName:work@dut.k
                 |vpiOperand:
                 \_constant: , line:12:24, endln:12:25
                   |vpiParent:
@@ -413,15 +447,25 @@ design: (work@dut)
                   |UINT:1
                   |vpiConstType:9
             |vpiStmt:
-            \_begin: 
+            \_begin: (work@dut)
+              |vpiParent:
+              \_gen_if_else: , line:12:5, endln:16:8
+              |vpiFullName:work@dut
               |vpiStmt:
               \_ref_module: work@GOOD (good), line:13:13, endln:13:17
+                |vpiParent:
+                \_begin: (work@dut)
                 |vpiName:good
                 |vpiDefName:work@GOOD
             |vpiElseStmt:
-            \_begin: 
+            \_begin: (work@dut)
+              |vpiParent:
+              \_gen_if_else: , line:12:5, endln:16:8
+              |vpiFullName:work@dut
               |vpiStmt:
               \_ref_module: work@BAD (bad), line:15:12, endln:15:15
+                |vpiParent:
+                \_begin: (work@dut)
                 |vpiName:bad
                 |vpiDefName:work@BAD
 |uhdmtopModules:
@@ -458,6 +502,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
     |vpiRhs:
     \_constant: , line:7:18, endln:7:25
+      |vpiParent:
+      \_param_assign: , line:7:11, endln:7:25
       |vpiDecompile:4'b0011
       |vpiSize:4
       |BIN:0011
@@ -465,6 +511,8 @@ design: (work@dut)
       \_logic_typespec: 
         |vpiRange:
         \_range: 
+          |vpiParent:
+          \_logic_typespec: 
           |vpiLeftRange:
           \_constant: 
             |UINT:3
@@ -476,10 +524,6 @@ design: (work@dut)
     \_parameter: (work@dut.test), line:7:11, endln:7:15
   |vpiDefName:work@dut
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (k)
-    |vpiName:k
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.genblk1[0]), line:9:32, endln:19:4

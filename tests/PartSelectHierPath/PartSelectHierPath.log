@@ -154,7 +154,7 @@ import_typespec                                        1
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                            4
-package                                                3
+package                                                2
 part_select                                            2
 range                                                  4
 ref_obj                                                1
@@ -173,7 +173,7 @@ import_typespec                                        1
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                            4
-package                                                3
+package                                                2
 part_select                                            4
 range                                                  4
 ref_obj                                                2
@@ -221,7 +221,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:4:30, endln:4:35
           |vpiParent:
-          \_struct_typespec: (swerv_types::trace_pkt_t), line:3:9, endln:3:15
+          \_logic_typespec: , line:4:24, endln:4:35
           |vpiLeftRange:
           \_constant: , line:4:31, endln:4:32
             |vpiParent:
@@ -257,7 +257,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:5:30, endln:5:36
           |vpiParent:
-          \_struct_typespec: (swerv_types::trace_pkt_t), line:3:9, endln:3:15
+          \_logic_typespec: , line:5:24, endln:5:36
           |vpiLeftRange:
           \_constant: , line:5:31, endln:5:33
             |vpiParent:
@@ -308,7 +308,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:4:30, endln:4:35
           |vpiParent:
-          \_struct_typespec: (swerv_types::trace_pkt_t), line:3:9, endln:3:15
+          \_logic_typespec: , line:4:24, endln:4:35
           |vpiLeftRange:
           \_constant: , line:4:31, endln:4:32
             |vpiParent:
@@ -344,7 +344,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:5:30, endln:5:36
           |vpiParent:
-          \_struct_typespec: (swerv_types::trace_pkt_t), line:3:9, endln:3:15
+          \_logic_typespec: , line:5:24, endln:5:36
           |vpiLeftRange:
           \_constant: , line:5:31, endln:5:33
             |vpiParent:
@@ -400,6 +400,8 @@ design: (work@top)
         |vpiName:trace_rv_trace_pkt
       |vpiActual:
       \_part_select: (trace_rv_trace_pkt.trace_rv_i_insn_ip[63:0]), line:13:60, endln:13:83
+        |vpiParent:
+        \_hier_path: (trace_rv_trace_pkt.trace_rv_i_insn_ip[63:0]), line:13:41, endln:13:84
         |vpiName:trace_rv_i_insn_ip
         |vpiFullName:trace_rv_trace_pkt.trace_rv_i_insn_ip[63:0]
         |vpiConstantSelect:1

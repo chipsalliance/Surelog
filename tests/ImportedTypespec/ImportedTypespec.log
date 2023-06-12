@@ -132,7 +132,7 @@ logic_net                                              1
 logic_typespec                                         2
 module_inst                                            7
 operation                                              4
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                           6
 parameter                                              7
@@ -153,7 +153,7 @@ logic_net                                              1
 logic_typespec                                         2
 module_inst                                            7
 operation                                              4
-package                                                3
+package                                                2
 packed_array_typespec                                  2
 param_assign                                           6
 parameter                                              7
@@ -198,6 +198,8 @@ design: (work@top)
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:36, endln:2:38
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:38
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -215,16 +217,19 @@ design: (work@top)
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
     |vpiRange:
     \_range: , line:3:18, endln:3:30
+      |vpiParent:
+      \_logic_typespec: (spi_device_pkg::sram_addr_t), line:3:12, endln:3:30
       |vpiLeftRange:
       \_operation: , line:3:19, endln:3:27
         |vpiParent:
         \_range: , line:3:18, endln:3:30
         |vpiOpType:11
         |vpiOperand:
-        \_ref_obj: (SramAw), line:3:19, endln:3:25
+        \_ref_obj: (spi_device_pkg::spi_device_pkg::sram_addr_t::SramAw), line:3:19, endln:3:25
           |vpiParent:
           \_operation: , line:3:19, endln:3:27
           |vpiName:SramAw
+          |vpiFullName:spi_device_pkg::spi_device_pkg::sram_addr_t::SramAw
           |vpiActual:
           \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33
         |vpiOperand:
@@ -269,6 +274,8 @@ design: (work@top)
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:36, endln:2:38
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:38
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -286,6 +293,8 @@ design: (work@top)
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
     |vpiRange:
     \_range: , line:3:18, endln:3:30
+      |vpiParent:
+      \_logic_typespec: (spi_device_pkg::sram_addr_t), line:3:12, endln:3:30
       |vpiLeftRange:
       \_constant: , line:3:19, endln:3:25
         |vpiParent:
@@ -373,7 +382,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:6:23, endln:6:24
     |vpiTypedef:
@@ -398,7 +411,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:6:23, endln:6:24
+      \_logic_net: (work@top.o), line:6:23, endln:6:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:6:1, endln:10:10
   |vpiName:work@top
@@ -433,6 +446,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:6:1, endln:10:10
     |vpiRhs:
     \_constant: , line:2:36, endln:2:38
+      |vpiParent:
+      \_param_assign: , line:2:27, endln:2:38
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -486,7 +501,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:6:23, endln:6:24
+      \_logic_net: (work@top.o), line:6:23, endln:6:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

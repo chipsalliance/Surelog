@@ -399,7 +399,7 @@ logic_typespec                                        15
 module_inst                                           15
 named_begin                                            2
 operation                                             29
-package                                                6
+package                                                4
 packed_array_typespec                                 13
 param_assign                                          24
 parameter                                             31
@@ -430,7 +430,7 @@ logic_typespec                                        15
 module_inst                                           16
 named_begin                                            2
 operation                                             29
-package                                                6
+package                                                4
 packed_array_typespec                                 13
 param_assign                                          26
 parameter                                             31
@@ -481,6 +481,8 @@ design: (work@top)
     \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:1:1, endln:8:34
     |vpiRhs:
     \_constant: , line:2:29, endln:2:31
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:31
       |vpiDecompile:24
       |vpiSize:32
       |UINT:24
@@ -502,6 +504,8 @@ design: (work@top)
       \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:1:1, endln:8:34
       |vpiRange:
       \_range: , line:4:24, endln:4:29
+        |vpiParent:
+        \_logic_typespec: , line:4:18, endln:4:29
         |vpiLeftRange:
         \_constant: , line:4:25, endln:4:26
           |vpiParent:
@@ -520,12 +524,16 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (A), line:5:7, endln:5:15
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17
       |vpiName:A
       |HEX:0
       |vpiDecompile:3'h0
       |vpiSize:3
     |vpiEnumConst:
     \_enum_const: (B), line:6:7, endln:6:15
+      |vpiParent:
+      \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17
       |vpiName:B
       |HEX:1
       |vpiDecompile:3'h1
@@ -579,7 +587,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:14:18, endln:14:32
             |vpiParent:
-            \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18
+            \_packed_array_typespec: , line:14:7, endln:14:17
             |vpiLeftRange:
             \_operation: , line:14:19, endln:14:29
               |vpiParent:
@@ -629,6 +637,8 @@ design: (work@top)
               \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:1:1, endln:8:34
               |vpiRange:
               \_range: , line:4:24, endln:4:29
+                |vpiParent:
+                \_logic_typespec: , line:4:18, endln:4:29
                 |vpiLeftRange:
                 \_constant: , line:4:25, endln:4:26
                   |vpiParent:
@@ -647,12 +657,16 @@ design: (work@top)
                   |vpiConstType:9
             |vpiEnumConst:
             \_enum_const: (A), line:5:7, endln:5:15
+              |vpiParent:
+              \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17
               |vpiName:A
               |HEX:0
               |vpiDecompile:3'h0
               |vpiSize:3
             |vpiEnumConst:
             \_enum_const: (B), line:6:7, endln:6:15
+              |vpiParent:
+              \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:4:4, endln:7:17
               |vpiName:B
               |HEX:1
               |vpiDecompile:3'h1
@@ -705,9 +719,13 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:10:1, endln:20:24
     |vpiRhs:
     \_operation: , line:17:46, endln:19:5
+      |vpiParent:
+      \_param_assign: , line:17:27, endln:19:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:18:21, endln:18:34
+        |vpiParent:
+        \_operation: , line:17:46, endln:19:5
         |vpiPattern:
         \_constant: , line:18:21, endln:18:34
           |vpiDecompile:001001001001001001001001001001001001001001001001001001001001001001001001
@@ -719,6 +737,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:18:7, endln:18:19
+          |vpiParent:
+          \_tagged_pattern: , line:18:21, endln:18:34
           |vpiName:dio_pad_type
     |vpiLhs:
     \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43
@@ -756,6 +776,8 @@ design: (work@top)
     \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:1:1, endln:8:34
     |vpiRhs:
     \_constant: , line:2:29, endln:2:31
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:31
       |vpiDecompile:24
       |vpiSize:32
       |UINT:24
@@ -816,7 +838,7 @@ design: (work@top)
           |vpiRange:
           \_range: , line:14:18, endln:14:32
             |vpiParent:
-            \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:13:18
+            \_packed_array_typespec: , line:14:7, endln:14:17
             |vpiLeftRange:
             \_constant: , line:14:19, endln:14:27
               |vpiParent:
@@ -883,9 +905,13 @@ design: (work@top)
     \_package: pinmux_pkg (pinmux_pkg::), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:10:1, endln:20:24
     |vpiRhs:
     \_operation: , line:17:46, endln:19:5
+      |vpiParent:
+      \_param_assign: , line:17:27, endln:19:5
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:18:21, endln:18:34
+        |vpiParent:
+        \_operation: , line:17:46, endln:19:5
         |vpiPattern:
         \_constant: , line:18:21, endln:18:34
           |vpiDecompile:001001001001001001001001001001001001001001001001001001001001001001001001
@@ -897,6 +923,8 @@ design: (work@top)
           |vpiConstType:3
         |vpiTypespec:
         \_string_typespec: (dio_pad_type), line:18:7, endln:18:19
+          |vpiParent:
+          \_tagged_pattern: , line:18:21, endln:18:34
           |vpiName:dio_pad_type
     |vpiLhs:
     \_parameter: (pinmux_pkg::DefaultTargetCfg), line:17:27, endln:17:43
@@ -977,8 +1005,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:23:1, endln:29:34
     |vpiRhs:
-    \_ref_obj: (A), line:25:35, endln:25:36
+    \_ref_obj: (work@prim_generic_pad_attr.A), line:25:35, endln:25:36
+      |vpiParent:
+      \_param_assign: , line:25:25, endln:25:36
       |vpiName:A
+      |vpiFullName:work@prim_generic_pad_attr.A
       |vpiActual:
       \_enum_const: (A), line:5:7, endln:5:15
     |vpiLhs:
@@ -994,24 +1025,33 @@ design: (work@top)
     \_module_inst: work@prim_generic_pad_attr (work@prim_generic_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:23:1, endln:29:34
     |vpiCondition:
     \_operation: , line:26:8, endln:26:20
+      |vpiParent:
+      \_gen_if: , line:26:4, endln:26:6
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (PadType), line:26:8, endln:26:15
+      \_ref_obj: (work@prim_generic_pad_attr.PadType), line:26:8, endln:26:15
         |vpiParent:
         \_operation: , line:26:8, endln:26:20
         |vpiName:PadType
+        |vpiFullName:work@prim_generic_pad_attr.PadType
       |vpiOperand:
-      \_ref_obj: (B), line:26:19, endln:26:20
+      \_ref_obj: (work@prim_generic_pad_attr.B), line:26:19, endln:26:20
         |vpiParent:
         \_operation: , line:26:8, endln:26:20
         |vpiName:B
+        |vpiFullName:work@prim_generic_pad_attr.B
         |vpiActual:
         \_enum_const: (B), line:6:7, endln:6:15
     |vpiStmt:
-    \_named_begin: (gen_assign)
+    \_named_begin: (work@prim_generic_pad_attr.gen_assign)
+      |vpiParent:
+      \_gen_if: , line:26:4, endln:26:6
       |vpiName:gen_assign
+      |vpiFullName:work@prim_generic_pad_attr.gen_assign
       |vpiStmt:
       \_cont_assign: , line:27:14, endln:27:19
+        |vpiParent:
+        \_named_begin: (work@prim_generic_pad_attr.gen_assign)
         |vpiRhs:
         \_constant: , line:27:18, endln:27:19
           |vpiParent:
@@ -1021,10 +1061,11 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
         |vpiLhs:
-        \_ref_obj: (a), line:27:14, endln:27:15
+        \_ref_obj: (work@prim_generic_pad_attr.gen_assign.a), line:27:14, endln:27:15
           |vpiParent:
           \_cont_assign: , line:27:14, endln:27:19
           |vpiName:a
+          |vpiFullName:work@prim_generic_pad_attr.gen_assign.a
 |uhdmallModules:
 \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:32:1, endln:42:10
   |vpiParent:
@@ -1094,8 +1135,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:32:1, endln:42:10
     |vpiRhs:
-    \_ref_obj: (A), line:34:35, endln:34:36
+    \_ref_obj: (work@prim_pad_attr.A), line:34:35, endln:34:36
+      |vpiParent:
+      \_param_assign: , line:34:25, endln:34:36
       |vpiName:A
+      |vpiFullName:work@prim_pad_attr.A
       |vpiActual:
       \_enum_const: (A), line:5:7, endln:5:15
     |vpiLhs:
@@ -1111,15 +1155,22 @@ design: (work@top)
     \_module_inst: work@prim_pad_attr (work@prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:32:1, endln:42:10
     |vpiCondition:
     \_constant: , line:36:8, endln:36:9
+      |vpiParent:
+      \_gen_if: , line:36:4, endln:36:6
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_named_begin: (gen_generic)
+    \_named_begin: (work@prim_pad_attr.gen_generic)
+      |vpiParent:
+      \_gen_if: , line:36:4, endln:36:6
       |vpiName:gen_generic
+      |vpiFullName:work@prim_pad_attr.gen_generic
       |vpiStmt:
       \_ref_module: work@prim_generic_pad_attr (u_impl_generic), line:39:9, endln:39:23
+        |vpiParent:
+        \_named_begin: (work@prim_pad_attr.gen_generic)
         |vpiName:u_impl_generic
         |vpiDefName:work@prim_generic_pad_attr
 |uhdmallModules:
@@ -1422,8 +1473,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:44:1, endln:50:10
     |vpiRhs:
-    \_ref_obj: (DefaultTargetCfg), line:46:39, endln:46:55
+    \_ref_obj: (work@top.DefaultTargetCfg), line:46:39, endln:46:55
+      |vpiParent:
+      \_param_assign: , line:46:27, endln:46:55
       |vpiName:DefaultTargetCfg
+      |vpiFullName:work@top.DefaultTargetCfg
     |vpiLhs:
     \_parameter: (work@top.TargetCfg), line:46:27, endln:46:36
   |vpiTypedef:
@@ -1665,6 +1719,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:44:1, endln:50:10
     |vpiRhs:
     \_constant: , line:2:29, endln:2:31
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:31
       |vpiDecompile:24
       |vpiSize:32
       |UINT:24
@@ -1778,7 +1834,7 @@ design: (work@top)
       |vpiOperand:
       \_constant: , line:18:21, endln:18:34
         |vpiParent:
-        \_tagged_pattern: , line:18:21, endln:18:34
+        \_operation: , line:17:46, endln:19:5
         |vpiDecompile:001001001001001001001001001001001001001001001001001001001001001001001001
         |vpiSize:72
         |BIN:001001001001001001001001001001001001001001001001001001001001001001001001
@@ -1795,8 +1851,11 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:44:1, endln:50:10
     |vpiRhs:
-    \_ref_obj: (DefaultTargetCfg), line:46:39, endln:46:55
+    \_ref_obj: (work@top.DefaultTargetCfg), line:46:39, endln:46:55
+      |vpiParent:
+      \_param_assign: , line:46:27, endln:46:55
       |vpiName:DefaultTargetCfg
+      |vpiFullName:work@top.DefaultTargetCfg
       |vpiActual:
       \_parameter: (work@top.DefaultTargetCfg), line:17:27, endln:17:43
     |vpiLhs:
@@ -1893,6 +1952,8 @@ design: (work@top)
       \_module_inst: work@prim_pad_attr (work@top.u_prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:47:5, endln:49:25
       |vpiRhs:
       \_constant: , line:2:29, endln:2:31
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:31
         |vpiDecompile:24
         |vpiSize:32
         |UINT:24
@@ -1908,6 +1969,8 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:34:35, endln:34:36
+        |vpiParent:
+        \_param_assign: , line:34:25, endln:34:36
         |vpiDecompile:3'b001
         |vpiSize:3
         |BIN:001
@@ -2019,6 +2082,8 @@ design: (work@top)
             \_module_inst: work@prim_generic_pad_attr (work@top.u_prim_pad_attr.gen_generic.u_impl_generic), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:37:7, endln:39:26
             |vpiRhs:
             \_constant: , line:2:29, endln:2:31
+              |vpiParent:
+              \_param_assign: , line:2:18, endln:2:31
               |vpiDecompile:24
               |vpiSize:32
               |UINT:24
@@ -2034,6 +2099,8 @@ design: (work@top)
             |vpiOverriden:1
             |vpiRhs:
             \_constant: , line:25:35, endln:25:36
+              |vpiParent:
+              \_param_assign: , line:25:25, endln:25:36
               |vpiDecompile:3'b001
               |vpiSize:3
               |BIN:001

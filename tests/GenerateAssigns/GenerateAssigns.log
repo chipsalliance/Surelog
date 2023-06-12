@@ -668,13 +668,18 @@ design: (work@dut)
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GenerateAssigns/builtin.sv
+      |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound)
+      |vpiParent:
+      \_function: (work@mailbox::new)
       |vpiDirection:1
       |vpiName:bound
       |vpiExpr:
@@ -695,10 +700,13 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::num)
+      |vpiParent:
+      \_function: (work@mailbox::num)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
   \_task: (work@mailbox::put)
@@ -710,6 +718,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -721,9 +731,14 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (work@mailbox::try_put)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
+      |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_put)
       |vpiDirection:1
       |vpiName:message
   |vpiMethod:
@@ -736,6 +751,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -747,13 +764,18 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_get)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_get)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -766,6 +788,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_task: (work@mailbox::peek)
       |vpiDirection:6
       |vpiName:message
   |vpiMethod:
@@ -777,13 +801,18 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@mailbox::try_peek)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (message)
+      |vpiParent:
+      \_function: (work@mailbox::try_peek)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
@@ -798,30 +827,40 @@ design: (work@dut)
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:FINISHED
       |INT:0
       |vpiDecompile:0
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (RUNNING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:RUNNING
       |INT:1
       |vpiDecompile:1
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (WAITING)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:WAITING
       |INT:2
       |vpiDecompile:2
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (SUSPENDED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:SUSPENDED
       |INT:3
       |vpiDecompile:3
       |vpiSize:64
     |vpiEnumConst:
     \_enum_const: (KILLED)
+      |vpiParent:
+      \_enum_typespec: (state)
       |vpiName:KILLED
       |INT:4
       |vpiDecompile:4
@@ -835,11 +874,14 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@process::self)
+      |vpiParent:
+      \_function: (work@process::self)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GenerateAssigns/builtin.sv
+      |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status)
     |vpiParent:
@@ -849,9 +891,12 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_enum_var: 
+    \_enum_var: (work@process::status)
+      |vpiParent:
+      \_function: (work@process::status)
       |vpiTypespec:
       \_enum_typespec: (state)
+      |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill)
     |vpiParent:
@@ -897,13 +942,18 @@ design: (work@dut)
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/GenerateAssigns/builtin.sv
+      |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::new)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -925,6 +975,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::put)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -946,6 +998,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_task: (work@semaphore::get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -966,13 +1020,18 @@ design: (work@dut)
     |vpiMethod:1
     |vpiVisibility:1
     |vpiReturn:
-    \_int_var: 
+    \_int_var: (work@semaphore::try_get)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiTypespec:
       \_int_typespec: 
         |vpiSigned:1
+      |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (keyCount)
+      |vpiParent:
+      \_function: (work@semaphore::try_get)
       |vpiDirection:1
       |vpiName:keyCount
       |vpiExpr:
@@ -1013,6 +1072,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:17, endln:2:18
+      |vpiParent:
+      \_param_assign: , line:2:13, endln:2:18
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1027,6 +1088,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_param_assign: , line:2:20, endln:2:25
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1061,7 +1124,11 @@ design: (work@dut)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.a.a)
+      |vpiParent:
+      \_port: (a), line:1:18, endln:1:19
+      |vpiName:a
+      |vpiFullName:work@dut.a.a
       |vpiActual:
       \_logic_net: (work@dut.a), line:1:18, endln:1:19
     |vpiTypedef:
@@ -1073,7 +1140,11 @@ design: (work@dut)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.b.b)
+      |vpiParent:
+      \_port: (b), line:1:27, endln:1:28
+      |vpiName:b
+      |vpiFullName:work@dut.b.b
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:27, endln:1:28
     |vpiTypedef:
@@ -1085,7 +1156,11 @@ design: (work@dut)
     |vpiName:y
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.y.y)
+      |vpiParent:
+      \_port: (y), line:1:37, endln:1:38
+      |vpiName:y
+      |vpiFullName:work@dut.y.y
       |vpiActual:
       \_logic_net: (work@dut.y), line:1:37, endln:1:38
     |vpiTypedef:
@@ -1096,12 +1171,15 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiCondition:
     \_operation: , line:10:7, endln:10:13
+      |vpiParent:
+      \_gen_if_else: 
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (p), line:10:7, endln:10:8
+      \_ref_obj: (work@dut.p), line:10:7, endln:10:8
         |vpiParent:
         \_operation: , line:10:7, endln:10:13
         |vpiName:p
+        |vpiFullName:work@dut.p
       |vpiOperand:
       \_constant: , line:10:12, endln:10:13
         |vpiParent:
@@ -1111,17 +1189,25 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@dut)
+      |vpiParent:
+      \_gen_if_else: 
+      |vpiFullName:work@dut
       |vpiStmt:
       \_gen_if_else: , line:11:5, endln:26:10
+        |vpiParent:
+        \_begin: (work@dut)
         |vpiCondition:
         \_operation: , line:11:9, endln:11:15
+          |vpiParent:
+          \_gen_if_else: , line:11:5, endln:26:10
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (q), line:11:9, endln:11:10
+          \_ref_obj: (work@dut.q), line:11:9, endln:11:10
             |vpiParent:
             \_operation: , line:11:9, endln:11:15
             |vpiName:q
+            |vpiFullName:work@dut.q
           |vpiOperand:
           \_constant: , line:11:14, endln:11:15
             |vpiParent:
@@ -1131,42 +1217,58 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
         |vpiStmt:
-        \_named_begin: (u1)
+        \_named_begin: (work@dut.u1)
+          |vpiParent:
+          \_gen_if_else: , line:11:5, endln:26:10
           |vpiName:u1
+          |vpiFullName:work@dut.u1
           |vpiStmt:
           \_cont_assign: , line:14:16, endln:14:25
+            |vpiParent:
+            \_named_begin: (work@dut.u1)
             |vpiRhs:
             \_operation: , line:14:20, endln:14:25
               |vpiParent:
               \_cont_assign: , line:14:16, endln:14:25
               |vpiOpType:28
               |vpiOperand:
-              \_ref_obj: (a), line:14:20, endln:14:21
+              \_ref_obj: (work@dut.u1.a), line:14:20, endln:14:21
                 |vpiParent:
                 \_operation: , line:14:20, endln:14:25
                 |vpiName:a
+                |vpiFullName:work@dut.u1.a
               |vpiOperand:
-              \_ref_obj: (b), line:14:24, endln:14:25
+              \_ref_obj: (work@dut.u1.b), line:14:24, endln:14:25
                 |vpiParent:
                 \_operation: , line:14:20, endln:14:25
                 |vpiName:b
+                |vpiFullName:work@dut.u1.b
             |vpiLhs:
-            \_ref_obj: (y), line:14:16, endln:14:17
+            \_ref_obj: (work@dut.u1.y), line:14:16, endln:14:17
               |vpiParent:
               \_cont_assign: , line:14:16, endln:14:25
               |vpiName:y
+              |vpiFullName:work@dut.u1.y
         |vpiElseStmt:
-        \_begin: 
+        \_begin: (work@dut)
+          |vpiParent:
+          \_gen_if_else: , line:11:5, endln:26:10
+          |vpiFullName:work@dut
           |vpiStmt:
           \_gen_if_else: , line:17:10, endln:26:10
+            |vpiParent:
+            \_begin: (work@dut)
             |vpiCondition:
             \_operation: , line:17:14, endln:17:20
+              |vpiParent:
+              \_gen_if_else: , line:17:10, endln:26:10
               |vpiOpType:14
               |vpiOperand:
-              \_ref_obj: (q), line:17:14, endln:17:15
+              \_ref_obj: (work@dut.q), line:17:14, endln:17:15
                 |vpiParent:
                 \_operation: , line:17:14, endln:17:20
                 |vpiName:q
+                |vpiFullName:work@dut.q
               |vpiOperand:
               \_constant: , line:17:19, endln:17:20
                 |vpiParent:
@@ -1176,100 +1278,135 @@ design: (work@dut)
                 |UINT:2
                 |vpiConstType:9
             |vpiStmt:
-            \_named_begin: (u1)
+            \_named_begin: (work@dut.u1)
+              |vpiParent:
+              \_gen_if_else: , line:17:10, endln:26:10
               |vpiName:u1
+              |vpiFullName:work@dut.u1
               |vpiStmt:
               \_cont_assign: , line:20:16, endln:20:25
+                |vpiParent:
+                \_named_begin: (work@dut.u1)
                 |vpiRhs:
                 \_operation: , line:20:20, endln:20:25
                   |vpiParent:
                   \_cont_assign: , line:20:16, endln:20:25
                   |vpiOpType:29
                   |vpiOperand:
-                  \_ref_obj: (a), line:20:20, endln:20:21
+                  \_ref_obj: (work@dut.u1.a), line:20:20, endln:20:21
                     |vpiParent:
                     \_operation: , line:20:20, endln:20:25
                     |vpiName:a
+                    |vpiFullName:work@dut.u1.a
                   |vpiOperand:
-                  \_ref_obj: (b), line:20:24, endln:20:25
+                  \_ref_obj: (work@dut.u1.b), line:20:24, endln:20:25
                     |vpiParent:
                     \_operation: , line:20:20, endln:20:25
                     |vpiName:b
+                    |vpiFullName:work@dut.u1.b
                 |vpiLhs:
-                \_ref_obj: (y), line:20:16, endln:20:17
+                \_ref_obj: (work@dut.u1.y), line:20:16, endln:20:17
                   |vpiParent:
                   \_cont_assign: , line:20:16, endln:20:25
                   |vpiName:y
+                  |vpiFullName:work@dut.u1.y
             |vpiElseStmt:
-            \_named_begin: (u1)
+            \_named_begin: (work@dut.u1)
+              |vpiParent:
+              \_gen_if_else: , line:17:10, endln:26:10
               |vpiName:u1
+              |vpiFullName:work@dut.u1
               |vpiStmt:
               \_cont_assign: , line:25:16, endln:25:26
+                |vpiParent:
+                \_named_begin: (work@dut.u1)
                 |vpiRhs:
                 \_operation: , line:25:20, endln:25:26
                   |vpiParent:
                   \_cont_assign: , line:25:16, endln:25:26
                   |vpiOpType:6
                   |vpiOperand:
-                  \_ref_obj: (a), line:25:20, endln:25:21
+                  \_ref_obj: (work@dut.u1.a), line:25:20, endln:25:21
                     |vpiParent:
                     \_operation: , line:25:20, endln:25:26
                     |vpiName:a
+                    |vpiFullName:work@dut.u1.a
                   |vpiOperand:
-                  \_ref_obj: (b), line:25:25, endln:25:26
+                  \_ref_obj: (work@dut.u1.b), line:25:25, endln:25:26
                     |vpiParent:
                     \_operation: , line:25:20, endln:25:26
                     |vpiName:b
+                    |vpiFullName:work@dut.u1.b
                 |vpiLhs:
-                \_ref_obj: (y), line:25:16, endln:25:17
+                \_ref_obj: (work@dut.u1.y), line:25:16, endln:25:17
                   |vpiParent:
                   \_cont_assign: , line:25:16, endln:25:26
                   |vpiName:y
+                  |vpiFullName:work@dut.u1.y
     |vpiElseStmt:
-    \_named_begin: (u2)
+    \_named_begin: (work@dut.u2)
+      |vpiParent:
+      \_gen_if_else: 
       |vpiName:u2
+      |vpiFullName:work@dut.u2
       |vpiStmt:
       \_gen_case: , line:29:7, endln:40:14
+        |vpiParent:
+        \_named_begin: (work@dut.u2)
         |vpiCondition:
-        \_ref_obj: (q), line:29:13, endln:29:14
+        \_ref_obj: (work@dut.u2.q), line:29:13, endln:29:14
+          |vpiParent:
+          \_gen_case: , line:29:7, endln:40:14
           |vpiName:q
+          |vpiFullName:work@dut.u2.q
         |vpiCaseItem:
         \_case_item: 
           |vpiExpr:
           \_constant: , line:30:9, endln:30:10
+            |vpiParent:
+            \_case_item: 
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
           |vpiStmt:
           \_begin: 
+            |vpiParent:
+            \_case_item: 
         |vpiCaseItem:
         \_case_item: 
           |vpiStmt:
           \_named_begin: (u1)
+            |vpiParent:
+            \_case_item: 
             |vpiName:u1
             |vpiStmt:
             \_cont_assign: , line:38:20, endln:38:30
+              |vpiParent:
+              \_named_begin: (u1)
               |vpiRhs:
               \_operation: , line:38:24, endln:38:30
                 |vpiParent:
                 \_cont_assign: , line:38:20, endln:38:30
                 |vpiOpType:31
                 |vpiOperand:
-                \_ref_obj: (a), line:38:24, endln:38:25
+                \_ref_obj: (u1.a), line:38:24, endln:38:25
                   |vpiParent:
                   \_operation: , line:38:24, endln:38:30
                   |vpiName:a
+                  |vpiFullName:u1.a
                 |vpiOperand:
-                \_ref_obj: (b), line:38:29, endln:38:30
+                \_ref_obj: (u1.b), line:38:29, endln:38:30
                   |vpiParent:
                   \_operation: , line:38:24, endln:38:30
                   |vpiName:b
+                  |vpiFullName:u1.b
               |vpiLhs:
-              \_ref_obj: (y), line:38:20, endln:38:21
+              \_ref_obj: (u1.y), line:38:20, endln:38:21
                 |vpiParent:
                 \_cont_assign: , line:38:20, endln:38:30
                 |vpiName:y
+                |vpiFullName:u1.y
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
   |vpiName:work@dut
@@ -1301,6 +1438,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:17, endln:2:18
+      |vpiParent:
+      \_param_assign: , line:2:13, endln:2:18
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
@@ -1315,6 +1454,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiRhs:
     \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_param_assign: , line:2:20, endln:2:25
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -1331,6 +1472,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiTypespec:
     \_logic_typespec: , line:1:18, endln:1:18
+      |vpiParent:
+      \_logic_net: (work@dut.a), line:1:18, endln:1:19
     |vpiName:a
     |vpiFullName:work@dut.a
   |vpiNet:
@@ -1339,6 +1482,8 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenerateAssigns/top.v, line:1:1, endln:43:10
     |vpiTypespec:
     \_logic_typespec: , line:1:27, endln:1:27
+      |vpiParent:
+      \_logic_net: (work@dut.b), line:1:27, endln:1:28
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiNet:
@@ -1358,6 +1503,8 @@ design: (work@dut)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@dut.a), line:1:18, endln:1:19
+      |vpiParent:
+      \_port: (a), line:1:18, endln:1:19
       |vpiName:a
       |vpiFullName:work@dut.a
       |vpiActual:
@@ -1372,6 +1519,8 @@ design: (work@dut)
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: (work@dut.b), line:1:27, endln:1:28
+      |vpiParent:
+      \_port: (b), line:1:27, endln:1:28
       |vpiName:b
       |vpiFullName:work@dut.b
       |vpiActual:
@@ -1386,6 +1535,8 @@ design: (work@dut)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@dut.y), line:1:37, endln:1:38
+      |vpiParent:
+      \_port: (y), line:1:37, endln:1:38
       |vpiName:y
       |vpiFullName:work@dut.y
       |vpiActual:

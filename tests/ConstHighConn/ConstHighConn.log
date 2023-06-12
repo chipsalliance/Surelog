@@ -149,7 +149,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o.o)
+      |vpiParent:
+      \_port: (o), line:1:26, endln:1:27
+      |vpiName:o
+      |vpiFullName:work@dut.o.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:1:26, endln:1:27
     |vpiTypedef:
@@ -173,7 +177,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@dut.o
       |vpiActual:
-      \_logic_net: (work@top.d.o), line:1:26, endln:1:27
+      \_logic_net: (work@dut.o), line:1:26, endln:1:27
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:5:1, endln:9:10
   |vpiParent:
@@ -194,7 +198,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:5:26, endln:5:27
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:5:26, endln:5:27
     |vpiTypedef:
@@ -209,6 +217,8 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:1:1, endln:3:10
     |vpiPort:
     \_port: (o), line:7:10, endln:7:19
+      |vpiParent:
+      \_ref_module: work@dut (d), line:7:8, endln:7:9
       |vpiName:o
       |vpiHighConn:
       \_constant: , line:7:13, endln:7:18
@@ -227,6 +237,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:5:1, endln:9:10
     |vpiTypespec:
     \_logic_typespec: , line:5:20, endln:5:25
+      |vpiParent:
+      \_logic_net: (work@top.o), line:5:26, endln:5:27
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -277,6 +289,8 @@ design: (work@top)
       |vpiDirection:2
       |vpiHighConn:
       \_constant: , line:7:13, endln:7:18
+        |vpiParent:
+        \_port: (o), line:1:26, endln:1:27
         |vpiDecompile:15'b0
         |vpiSize:15
         |BIN:0
@@ -306,7 +320,7 @@ design: (work@top)
         |vpiName:o
         |vpiFullName:work@top.d.o
         |vpiActual:
-        \_logic_net: (work@top.d.o), line:1:26, endln:1:27
+        \_logic_net: (work@dut.o), line:1:26, endln:1:27
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

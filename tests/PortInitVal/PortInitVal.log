@@ -191,6 +191,13 @@ design: (work@dut)
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (work@dut.c), line:7:11, endln:7:12
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
+    |vpiName:c
+    |vpiFullName:work@dut.c
+    |vpiNetType:1
   |vpiPort:
   \_port: (b), line:1:13, endln:1:14
     |vpiParent:
@@ -204,7 +211,11 @@ design: (work@dut)
       |UINT:0
       |vpiConstType:9
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.b.b)
+      |vpiParent:
+      \_port: (b), line:1:13, endln:1:14
+      |vpiName:b
+      |vpiFullName:work@dut.b.b
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:13, endln:1:14
     |vpiTypedef:
@@ -274,7 +285,7 @@ design: (work@dut)
       |vpiName:c
       |vpiFullName:work@dut.c
       |vpiActual:
-      \_logic_net: (c)
+      \_logic_net: (work@dut.c), line:7:11, endln:7:12
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
   |vpiName:work@dut
@@ -295,13 +306,11 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
     \_logic_typespec: , line:3:16, endln:3:19
+      |vpiParent:
+      \_logic_net: (work@dut.b), line:1:13, endln:1:14
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:48
-  |vpiNet:
-  \_logic_net: (c)
-    |vpiName:c
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
   \_port: (b), line:1:13, endln:1:14
@@ -403,7 +412,7 @@ design: (work@dut)
       |vpiName:c
       |vpiFullName:work@dut.c
       |vpiActual:
-      \_logic_net: (c)
+      \_logic_net: (work@dut.c), line:7:11, endln:7:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

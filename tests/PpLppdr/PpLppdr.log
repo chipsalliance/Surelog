@@ -181,7 +181,7 @@ design: (work@top)
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
-          \_logic_net: (DDR_CMN_OFFSET)
+          \_logic_net: (work@top.DDR_CMN_OFFSET), line:11:45, endln:11:59
         |vpiArgument:
         \_constant: , line:11:60, endln:11:72
           |vpiParent:
@@ -197,7 +197,7 @@ design: (work@top)
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
-          \_logic_net: (wdata)
+          \_logic_net: (work@top.wdata), line:11:74, endln:11:79
         |vpiName:csr_read
       |vpiStmt:
       \_assignment: , line:12:36, endln:12:51
@@ -212,7 +212,7 @@ design: (work@top)
           |vpiName:en
           |vpiFullName:work@top.set_refgen_en.en
           |vpiActual:
-          \_logic_net: (en)
+          \_logic_net: (work@top.en), line:12:49, endln:12:51
         |vpiLhs:
         \_bit_select: (work@top.set_refgen_en.wdata), line:12:36, endln:12:46
           |vpiParent:
@@ -238,7 +238,7 @@ design: (work@top)
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
-          \_logic_net: (DDR_CMN_OFFSET)
+          \_logic_net: (work@top.DDR_CMN_OFFSET), line:11:45, endln:11:59
         |vpiArgument:
         \_constant: , line:13:61, endln:13:73
           |vpiParent:
@@ -254,10 +254,31 @@ design: (work@top)
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
-          \_logic_net: (wdata)
+          \_logic_net: (work@top.wdata), line:11:74, endln:11:79
         |vpiName:csr_write
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PpLppdr/dut.sv, line:16:1, endln:25:10
+  |vpiNet:
+  \_logic_net: (work@top.DDR_CMN_OFFSET), line:11:45, endln:11:59
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PpLppdr/dut.sv, line:16:1, endln:25:10
+    |vpiName:DDR_CMN_OFFSET
+    |vpiFullName:work@top.DDR_CMN_OFFSET
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.wdata), line:11:74, endln:11:79
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PpLppdr/dut.sv, line:16:1, endln:25:10
+    |vpiName:wdata
+    |vpiFullName:work@top.wdata
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@top.en), line:12:49, endln:12:51
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PpLppdr/dut.sv, line:16:1, endln:25:10
+    |vpiName:en
+    |vpiFullName:work@top.en
+    |vpiNetType:1
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PpLppdr/dut.sv, line:16:1, endln:25:10
   |vpiName:work@top
@@ -287,7 +308,7 @@ design: (work@top)
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
-          \_logic_net: (DDR_CMN_OFFSET)
+          \_logic_net: (work@top.DDR_CMN_OFFSET), line:11:45, endln:11:59
         |vpiArgument:
         \_constant: , line:11:60, endln:11:72
         |vpiArgument:
@@ -297,7 +318,7 @@ design: (work@top)
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
-          \_logic_net: (wdata)
+          \_logic_net: (work@top.wdata), line:11:74, endln:11:79
         |vpiName:csr_read
       |vpiStmt:
       \_assignment: , line:12:36, endln:12:51
@@ -312,14 +333,13 @@ design: (work@top)
           |vpiName:en
           |vpiFullName:work@top.set_refgen_en.en
           |vpiActual:
-          \_logic_net: (en)
+          \_logic_net: (work@top.en), line:12:49, endln:12:51
         |vpiLhs:
-        \_bit_select: (wdata), line:12:36, endln:12:46
+        \_bit_select: (work@top.set_refgen_en.wdata), line:12:36, endln:12:46
           |vpiParent:
           \_assignment: , line:12:36, endln:12:51
           |vpiName:wdata
-          |vpiActual:
-          \_logic_net: (wdata)
+          |vpiFullName:work@top.set_refgen_en.wdata
           |vpiIndex:
           \_constant: , line:12:42, endln:12:43
       |vpiStmt:
@@ -333,7 +353,7 @@ design: (work@top)
           |vpiName:DDR_CMN_OFFSET
           |vpiFullName:work@top.set_refgen_en.DDR_CMN_OFFSET
           |vpiActual:
-          \_logic_net: (DDR_CMN_OFFSET)
+          \_logic_net: (work@top.DDR_CMN_OFFSET), line:11:45, endln:11:59
         |vpiArgument:
         \_constant: , line:13:61, endln:13:73
         |vpiArgument:
@@ -343,22 +363,10 @@ design: (work@top)
           |vpiName:wdata
           |vpiFullName:work@top.set_refgen_en.wdata
           |vpiActual:
-          \_logic_net: (wdata)
+          \_logic_net: (work@top.wdata), line:11:74, endln:11:79
         |vpiName:csr_write
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PpLppdr/dut.sv, line:16:1, endln:25:10
-  |vpiNet:
-  \_logic_net: (DDR_CMN_OFFSET)
-    |vpiName:DDR_CMN_OFFSET
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (wdata)
-    |vpiName:wdata
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (en)
-    |vpiName:en
-    |vpiNetType:1
   |vpiTopModule:1
 ===================
 [  FATAL] : 0

@@ -766,7 +766,7 @@ logic_typespec                                         2
 logic_var                                              1
 module_inst                                           17
 operation                                             23
-package                                                3
+package                                                2
 param_assign                                          64
 parameter                                             64
 range                                                  3
@@ -796,7 +796,7 @@ logic_typespec                                         2
 logic_var                                              2
 module_inst                                           17
 operation                                             46
-package                                                3
+package                                                2
 param_assign                                          64
 parameter                                             64
 range                                                  3
@@ -837,7 +837,7 @@ design: (work@top)
       |vpiTypespec:
       \_integer_typespec: , line:4:5, endln:4:12
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
         |vpiSigned:1
       |vpiName:result
       |vpiFullName:prim_util_pkg::_clog2::result
@@ -845,12 +845,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:3:22, endln:3:29
+    \_integer_var: (prim_util_pkg::_clog2), line:3:22, endln:3:29
+      |vpiParent:
+      \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
       |vpiTypespec:
       \_integer_typespec: , line:3:22, endln:3:29
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::_clog2
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:3:45, endln:3:50
@@ -861,7 +864,7 @@ design: (work@top)
       |vpiTypedef:
       \_integer_typespec: , line:3:37, endln:3:44
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
         |vpiSigned:1
     |vpiStmt:
     \_begin: (prim_util_pkg::_clog2)
@@ -1056,12 +1059,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:12:22, endln:12:29
+    \_integer_var: (prim_util_pkg::vbits), line:12:22, endln:12:29
+      |vpiParent:
+      \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
       |vpiTypespec:
       \_integer_typespec: , line:12:22, endln:12:29
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::vbits
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:12:44, endln:12:49
@@ -1072,7 +1078,7 @@ design: (work@top)
       |vpiTypedef:
       \_integer_typespec: , line:12:36, endln:12:43
         |vpiInstance:
-        \_package: (prim_util_pkg)
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
         |vpiSigned:1
     |vpiStmt:
     \_return_stmt: , line:14:5, endln:14:11
@@ -1163,12 +1169,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:3:22, endln:3:29
+    \_integer_var: (prim_util_pkg::_clog2), line:3:22, endln:3:29
+      |vpiParent:
+      \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
       |vpiTypespec:
       \_integer_typespec: , line:3:22, endln:3:29
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::_clog2
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:3:45, endln:3:50
@@ -1371,12 +1380,15 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:12:22, endln:12:29
+    \_integer_var: (prim_util_pkg::vbits), line:12:22, endln:12:29
+      |vpiParent:
+      \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
       |vpiTypespec:
       \_integer_typespec: , line:12:22, endln:12:29
         |vpiInstance:
         \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
         |vpiSigned:1
+      |vpiFullName:prim_util_pkg::vbits
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:12:44, endln:12:49
@@ -1495,6 +1507,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_constant: , line:63:20, endln:63:22
+      |vpiParent:
+      \_param_assign: , line:63:12, endln:63:22
       |vpiDecompile:30
       |vpiSize:32
       |UINT:30
@@ -1509,11 +1523,14 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_func_call: (log2), line:64:25, endln:64:29
+      |vpiParent:
+      \_param_assign: , line:64:12, endln:64:36
       |vpiArgument:
-      \_ref_obj: (RATIO), line:64:30, endln:64:35
+      \_ref_obj: (work@top.RATIO), line:64:30, endln:64:35
         |vpiParent:
         \_func_call: (log2), line:64:25, endln:64:29
         |vpiName:RATIO
+        |vpiFullName:work@top.RATIO
       |vpiName:log2
       |vpiFunction:
       \_function: (work@top.log2), line:33:1, endln:48:12
@@ -1525,11 +1542,14 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_func_call: (vbits), line:65:25, endln:65:30
+      |vpiParent:
+      \_param_assign: , line:65:12, endln:65:37
       |vpiArgument:
-      \_ref_obj: (RATIO), line:65:31, endln:65:36
+      \_ref_obj: (work@top.RATIO), line:65:31, endln:65:36
         |vpiParent:
         \_func_call: (vbits), line:65:25, endln:65:30
         |vpiName:RATIO
+        |vpiFullName:work@top.RATIO
       |vpiName:vbits
       |vpiFunction:
       \_function: (work@top.vbits), line:24:1, endln:26:12
@@ -1541,11 +1561,14 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_func_call: (log2_2), line:66:25, endln:66:31
+      |vpiParent:
+      \_param_assign: , line:66:12, endln:66:38
       |vpiArgument:
-      \_ref_obj: (RATIO), line:66:32, endln:66:37
+      \_ref_obj: (work@top.RATIO), line:66:32, endln:66:37
         |vpiParent:
         \_func_call: (log2_2), line:66:25, endln:66:31
         |vpiName:RATIO
+        |vpiFullName:work@top.RATIO
       |vpiName:log2_2
       |vpiFunction:
       \_function: (work@top.log2_2), line:51:1, endln:61:12
@@ -1557,11 +1580,14 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_func_call: (prim_util_pkg::vbits), line:67:25, endln:67:40
+      |vpiParent:
+      \_param_assign: , line:67:12, endln:67:52
       |vpiArgument:
-      \_ref_obj: (RATIO), line:67:46, endln:67:51
+      \_ref_obj: (work@top.RATIO), line:67:46, endln:67:51
         |vpiParent:
         \_func_call: (prim_util_pkg::vbits), line:67:25, endln:67:40
         |vpiName:RATIO
+        |vpiFullName:work@top.RATIO
       |vpiName:prim_util_pkg::vbits
       |vpiFunction:
       \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
@@ -1577,13 +1603,18 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:24:20, endln:24:27
+    \_integer_var: (work@top.vbits), line:24:20, endln:24:27
+      |vpiParent:
+      \_function: (work@top.vbits), line:24:1, endln:26:12
       |vpiTypespec:
       \_integer_typespec: , line:24:20, endln:24:27
         |vpiSigned:1
+      |vpiFullName:work@top.vbits
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:24:42, endln:24:47
+      |vpiParent:
+      \_function: (work@top.vbits), line:24:1, endln:26:12
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
@@ -1650,10 +1681,13 @@ design: (work@top)
     |vpiFullName:work@top.foo
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:28:10, endln:28:17
+    \_integer_var: (work@top.foo), line:28:10, endln:28:17
+      |vpiParent:
+      \_function: (work@top.foo), line:28:1, endln:31:12
       |vpiTypespec:
       \_integer_typespec: , line:28:10, endln:28:17
         |vpiSigned:1
+      |vpiFullName:work@top.foo
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:29:15, endln:29:20
@@ -1685,13 +1719,15 @@ design: (work@top)
     |vpiName:log2
     |vpiFullName:work@top.log2
     |vpiVariables:
-    \_logic_var: (shifted), line:35:1, endln:35:11
+    \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
+      |vpiParent:
+      \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
       \_logic_typespec: , line:35:1, endln:35:11
         |vpiRange:
         \_range: , line:35:5, endln:35:11
           |vpiParent:
-          \_function: (work@top.log2), line:33:1, endln:48:12
+          \_logic_typespec: , line:35:1, endln:35:11
           |vpiLeftRange:
           \_constant: , line:35:6, endln:35:8
             |vpiParent:
@@ -1709,21 +1745,28 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
       |vpiName:shifted
+      |vpiFullName:work@top.log2.shifted
       |vpiAutomatic:1
     |vpiVariables:
-    \_integer_var: (res), line:36:1, endln:36:8
+    \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
+      |vpiParent:
+      \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
       \_integer_typespec: , line:36:1, endln:36:8
         |vpiSigned:1
       |vpiName:res
+      |vpiFullName:work@top.log2.res
       |vpiSigned:1
       |vpiAutomatic:1
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:33:10, endln:33:17
+    \_integer_var: (work@top.log2), line:33:10, endln:33:17
+      |vpiParent:
+      \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
       \_integer_typespec: , line:33:10, endln:33:17
         |vpiSigned:1
+      |vpiFullName:work@top.log2
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:34:15, endln:34:20
@@ -1785,7 +1828,7 @@ design: (work@top)
             |vpiName:log2
             |vpiFullName:work@top.log2.log2
             |vpiActual:
-            \_integer_var: (log2), line:33:10, endln:33:17
+            \_integer_var: (work@top.log2.log2), line:33:10, endln:33:17
         |vpiElseStmt:
         \_begin: (work@top.log2), line:41:2, endln:46:5
           |vpiParent:
@@ -1825,7 +1868,7 @@ design: (work@top)
               |vpiName:shifted
               |vpiFullName:work@top.log2.shifted
               |vpiActual:
-              \_logic_var: (shifted), line:35:1, endln:35:11
+              \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
           |vpiStmt:
           \_for_stmt: (work@top.log2), line:43:3, endln:43:6
             |vpiParent:
@@ -1867,7 +1910,7 @@ design: (work@top)
                   |vpiName:res
                   |vpiFullName:work@top.log2.res
                   |vpiActual:
-                  \_integer_var: (res), line:36:1, endln:36:8
+                  \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
                 |vpiOperand:
                 \_constant: , line:43:34, endln:43:35
                   |vpiParent:
@@ -1883,7 +1926,7 @@ design: (work@top)
                 |vpiName:res
                 |vpiFullName:work@top.log2.res
                 |vpiActual:
-                \_integer_var: (res), line:36:1, endln:36:8
+                \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
             |vpiCondition:
             \_operation: , line:43:15, endln:43:24
               |vpiParent:
@@ -1896,7 +1939,7 @@ design: (work@top)
                 |vpiName:shifted
                 |vpiFullName:work@top.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:35:1, endln:35:11
+                \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
               |vpiOperand:
               \_constant: , line:43:23, endln:43:24
                 |vpiParent:
@@ -1923,7 +1966,7 @@ design: (work@top)
                   |vpiName:shifted
                   |vpiFullName:work@top.log2.shifted
                   |vpiActual:
-                  \_logic_var: (shifted), line:35:1, endln:35:11
+                  \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
                 |vpiOperand:
                 \_constant: , line:44:23, endln:44:24
                   |vpiParent:
@@ -1939,7 +1982,7 @@ design: (work@top)
                 |vpiName:shifted
                 |vpiFullName:work@top.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:35:1, endln:35:11
+                \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
           |vpiStmt:
           \_assignment: , line:45:3, endln:45:13
             |vpiParent:
@@ -1953,7 +1996,7 @@ design: (work@top)
               |vpiName:res
               |vpiFullName:work@top.log2.res
               |vpiActual:
-              \_integer_var: (res), line:36:1, endln:36:8
+              \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
             |vpiLhs:
             \_ref_obj: (work@top.log2.log2), line:45:3, endln:45:7
               |vpiParent:
@@ -1961,7 +2004,7 @@ design: (work@top)
               |vpiName:log2
               |vpiFullName:work@top.log2.log2
               |vpiActual:
-              \_integer_var: (log2), line:33:10, endln:33:17
+              \_integer_var: (work@top.log2.log2), line:33:10, endln:33:17
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
   |vpiTaskFunc:
@@ -1972,10 +2015,13 @@ design: (work@top)
     |vpiFullName:work@top.log2_2
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:51:10, endln:51:17
+    \_integer_var: (work@top.log2_2), line:51:10, endln:51:17
+      |vpiParent:
+      \_function: (work@top.log2_2), line:51:1, endln:61:12
       |vpiTypespec:
       \_integer_typespec: , line:51:10, endln:51:17
         |vpiSigned:1
+      |vpiFullName:work@top.log2_2
       |vpiSigned:1
     |vpiIODecl:
     \_io_decl: (value), line:52:15, endln:52:20
@@ -2010,7 +2056,7 @@ design: (work@top)
           |vpiName:log2_2
           |vpiFullName:work@top.log2_2.log2_2
           |vpiActual:
-          \_integer_var: (log2_2), line:51:10, endln:51:17
+          \_integer_var: (work@top.log2_2.log2_2), line:51:10, endln:51:17
       |vpiStmt:
       \_if_stmt: , line:55:1, endln:59:4
         |vpiParent:
@@ -2093,7 +2139,7 @@ design: (work@top)
                   |vpiName:log2_2
                   |vpiFullName:work@top.log2_2.log2_2
                   |vpiActual:
-                  \_integer_var: (log2_2), line:51:10, endln:51:17
+                  \_integer_var: (work@top.log2_2.log2_2), line:51:10, endln:51:17
                 |vpiOperand:
                 \_constant: , line:57:41, endln:57:42
                   |vpiParent:
@@ -2109,7 +2155,7 @@ design: (work@top)
                 |vpiName:log2_2
                 |vpiFullName:work@top.log2_2.log2_2
                 |vpiActual:
-                \_integer_var: (log2_2), line:51:10, endln:51:17
+                \_integer_var: (work@top.log2_2.log2_2), line:51:10, endln:51:17
             |vpiCondition:
             \_operation: , line:57:12, endln:57:21
               |vpiParent:
@@ -2217,6 +2263,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_constant: , line:63:20, endln:63:22
+      |vpiParent:
+      \_param_assign: , line:63:12, endln:63:22
       |vpiDecompile:30
       |vpiSize:32
       |UINT:30
@@ -2231,6 +2279,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_constant: , line:64:25, endln:64:36
+      |vpiParent:
+      \_param_assign: , line:64:12, endln:64:36
       |vpiDecompile:5
       |vpiSize:64
       |UINT:5
@@ -2243,6 +2293,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_constant: , line:65:25, endln:65:37
+      |vpiParent:
+      \_param_assign: , line:65:12, endln:65:37
       |vpiDecompile:5
       |vpiSize:64
       |INT:5
@@ -2255,6 +2307,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_constant: , line:66:25, endln:66:38
+      |vpiParent:
+      \_param_assign: , line:66:12, endln:66:38
       |vpiDecompile:5
       |vpiSize:64
       |UINT:5
@@ -2267,6 +2321,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |vpiRhs:
     \_constant: , line:67:25, endln:67:52
+      |vpiParent:
+      \_param_assign: , line:67:12, endln:67:52
       |vpiDecompile:5
       |vpiSize:64
       |INT:5
@@ -2284,7 +2340,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_integer_var: , line:24:20, endln:24:27
+    \_integer_var: (work@top.vbits), line:24:20, endln:24:27
     |vpiIODecl:
     \_io_decl: (value), line:24:42, endln:24:47
       |vpiParent:
@@ -2342,7 +2398,7 @@ design: (work@top)
     |vpiFullName:work@top.foo
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:28:10, endln:28:17
+    \_integer_var: (work@top.foo), line:28:10, endln:28:17
     |vpiIODecl:
     \_io_decl: (value), line:29:15, endln:29:20
       |vpiParent:
@@ -2392,7 +2448,7 @@ design: (work@top)
       |vpiAutomatic:1
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:33:10, endln:33:17
+    \_integer_var: (work@top.log2), line:33:10, endln:33:17
     |vpiIODecl:
     \_io_decl: (value), line:34:15, endln:34:20
       |vpiParent:
@@ -2446,7 +2502,7 @@ design: (work@top)
             |vpiName:log2
             |vpiFullName:work@top.log2.log2
             |vpiActual:
-            \_integer_var: (log2), line:33:10, endln:33:17
+            \_integer_var: (work@top.log2.log2), line:33:10, endln:33:17
         |vpiElseStmt:
         \_begin: (work@top.log2), line:41:2, endln:46:5
           |vpiParent:
@@ -2480,7 +2536,7 @@ design: (work@top)
               |vpiName:shifted
               |vpiFullName:work@top.log2.shifted
               |vpiActual:
-              \_logic_var: (shifted), line:35:1, endln:35:11
+              \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
           |vpiStmt:
           \_for_stmt: (work@top.log2), line:43:3, endln:43:6
             |vpiParent:
@@ -2518,7 +2574,7 @@ design: (work@top)
                   |vpiName:res
                   |vpiFullName:work@top.log2.res
                   |vpiActual:
-                  \_integer_var: (res), line:36:1, endln:36:8
+                  \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
                 |vpiOperand:
                 \_constant: , line:43:34, endln:43:35
               |vpiLhs:
@@ -2528,7 +2584,7 @@ design: (work@top)
                 |vpiName:res
                 |vpiFullName:work@top.log2.res
                 |vpiActual:
-                \_integer_var: (res), line:36:1, endln:36:8
+                \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
             |vpiCondition:
             \_operation: , line:43:15, endln:43:24
               |vpiParent:
@@ -2541,7 +2597,7 @@ design: (work@top)
                 |vpiName:shifted
                 |vpiFullName:work@top.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:35:1, endln:35:11
+                \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
               |vpiOperand:
               \_constant: , line:43:23, endln:43:24
             |vpiStmt:
@@ -2562,7 +2618,7 @@ design: (work@top)
                   |vpiName:shifted
                   |vpiFullName:work@top.log2.shifted
                   |vpiActual:
-                  \_logic_var: (shifted), line:35:1, endln:35:11
+                  \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
                 |vpiOperand:
                 \_constant: , line:44:23, endln:44:24
               |vpiLhs:
@@ -2572,7 +2628,7 @@ design: (work@top)
                 |vpiName:shifted
                 |vpiFullName:work@top.log2.shifted
                 |vpiActual:
-                \_logic_var: (shifted), line:35:1, endln:35:11
+                \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
           |vpiStmt:
           \_assignment: , line:45:3, endln:45:13
             |vpiParent:
@@ -2586,7 +2642,7 @@ design: (work@top)
               |vpiName:res
               |vpiFullName:work@top.log2.res
               |vpiActual:
-              \_integer_var: (res), line:36:1, endln:36:8
+              \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
             |vpiLhs:
             \_ref_obj: (work@top.log2.log2), line:45:3, endln:45:7
               |vpiParent:
@@ -2594,7 +2650,7 @@ design: (work@top)
               |vpiName:log2
               |vpiFullName:work@top.log2.log2
               |vpiActual:
-              \_integer_var: (log2), line:33:10, endln:33:17
+              \_integer_var: (work@top.log2.log2), line:33:10, endln:33:17
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
   |vpiTaskFunc:
@@ -2605,7 +2661,7 @@ design: (work@top)
     |vpiFullName:work@top.log2_2
     |vpiVisibility:1
     |vpiReturn:
-    \_integer_var: , line:51:10, endln:51:17
+    \_integer_var: (work@top.log2_2), line:51:10, endln:51:17
     |vpiIODecl:
     \_io_decl: (value), line:52:15, endln:52:20
       |vpiParent:
@@ -2634,7 +2690,7 @@ design: (work@top)
           |vpiName:log2_2
           |vpiFullName:work@top.log2_2.log2_2
           |vpiActual:
-          \_integer_var: (log2_2), line:51:10, endln:51:17
+          \_integer_var: (work@top.log2_2.log2_2), line:51:10, endln:51:17
       |vpiStmt:
       \_if_stmt: , line:55:1, endln:59:4
         |vpiParent:
@@ -2711,7 +2767,7 @@ design: (work@top)
                   |vpiName:log2_2
                   |vpiFullName:work@top.log2_2.log2_2
                   |vpiActual:
-                  \_integer_var: (log2_2), line:51:10, endln:51:17
+                  \_integer_var: (work@top.log2_2.log2_2), line:51:10, endln:51:17
                 |vpiOperand:
                 \_constant: , line:57:41, endln:57:42
               |vpiLhs:
@@ -2721,7 +2777,7 @@ design: (work@top)
                 |vpiName:log2_2
                 |vpiFullName:work@top.log2_2.log2_2
                 |vpiActual:
-                \_integer_var: (log2_2), line:51:10, endln:51:17
+                \_integer_var: (work@top.log2_2.log2_2), line:51:10, endln:51:17
             |vpiCondition:
             \_operation: , line:57:12, endln:57:21
               |vpiParent:

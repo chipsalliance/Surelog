@@ -148,7 +148,7 @@ logic_net                                              2
 logic_typespec                                         3
 logic_var                                              1
 module_inst                                            5
-package                                                3
+package                                                2
 part_select                                            1
 range                                                  4
 ref_obj                                                2
@@ -167,7 +167,7 @@ logic_net                                              2
 logic_typespec                                         3
 logic_var                                              1
 module_inst                                            5
-package                                                3
+package                                                2
 part_select                                            2
 range                                                  4
 ref_obj                                                4
@@ -215,7 +215,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:12, endln:3:18
           |vpiParent:
-          \_struct_typespec: (tlul_pkg::tl_d2h_t), line:2:11, endln:2:17
+          \_logic_typespec: , line:3:5, endln:3:18
           |vpiLeftRange:
           \_constant: , line:3:13, endln:3:15
             |vpiParent:
@@ -266,7 +266,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:12, endln:3:18
           |vpiParent:
-          \_struct_typespec: (tlul_pkg::tl_d2h_t), line:2:11, endln:2:17
+          \_logic_typespec: , line:3:5, endln:3:18
           |vpiLeftRange:
           \_constant: , line:3:13, endln:3:15
             |vpiParent:
@@ -326,6 +326,8 @@ design: (work@dut)
         |vpiName:drsp_fifo_o
       |vpiActual:
       \_part_select: (drsp_fifo_o.d_source[8:3]), line:9:36, endln:9:48
+        |vpiParent:
+        \_hier_path: (drsp_fifo_o.d_source[8:3]), line:9:24, endln:9:49
         |vpiName:d_source
         |vpiFullName:drsp_fifo_o.d_source[8:3]
         |vpiConstantSelect:1
@@ -348,7 +350,7 @@ design: (work@dut)
       |vpiName:hfifo_rspid
       |vpiFullName:work@dut.hfifo_rspid
       |vpiActual:
-      \_logic_var: (work@dut.hfifo_rspid), line:8:15, endln:8:26
+      \_logic_net: (work@dut.hfifo_rspid), line:8:15, endln:8:26
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PartSelectHier/dut.sv, line:6:1, endln:10:10
   |vpiName:work@dut
@@ -360,6 +362,8 @@ design: (work@dut)
     \_logic_typespec: , line:8:3, endln:8:14
       |vpiRange:
       \_range: , line:8:9, endln:8:14
+        |vpiParent:
+        \_logic_typespec: , line:8:3, endln:8:14
         |vpiLeftRange:
         \_constant: , line:8:10, endln:8:11
           |vpiParent:
@@ -381,6 +385,8 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:8:9, endln:8:14
+      |vpiParent:
+      \_logic_var: (work@dut.hfifo_rspid), line:8:15, endln:8:26
       |vpiLeftRange:
       \_constant: , line:8:10, endln:8:11
         |vpiParent:
@@ -445,7 +451,7 @@ design: (work@dut)
       |vpiName:hfifo_rspid
       |vpiFullName:work@dut.hfifo_rspid
       |vpiActual:
-      \_logic_var: (work@dut.hfifo_rspid), line:8:15, endln:8:26
+      \_logic_net: (work@dut.hfifo_rspid), line:8:15, endln:8:26
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

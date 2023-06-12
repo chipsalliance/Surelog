@@ -64,7 +64,7 @@ design                                                 1
 function                                               6
 logic_typespec                                         2
 logic_var                                              4
-package                                                3
+package                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -73,7 +73,7 @@ design                                                 1
 function                                              12
 logic_typespec                                         2
 logic_var                                              4
-package                                                3
+package                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ReturnVal/slpp_all/surelog.uhdm ...
 
@@ -113,11 +113,14 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:4:23, endln:4:28
+    \_logic_var: (my_pkg::assign_2), line:4:23, endln:4:28
+      |vpiParent:
+      \_function: (my_pkg::assign_2), line:4:4, endln:5:15
       |vpiTypespec:
       \_logic_typespec: , line:4:23, endln:4:28
         |vpiInstance:
-        \_package: (my_pkg)
+        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+      |vpiFullName:my_pkg::assign_2
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
   |vpiTaskFunc:
@@ -129,7 +132,10 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (my_pkg::assign_3)
+      |vpiParent:
+      \_function: (my_pkg::assign_3), line:6:4, endln:7:15
+      |vpiFullName:my_pkg::assign_3
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
 |uhdmtopPackages:
@@ -159,11 +165,14 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: , line:4:23, endln:4:28
+    \_logic_var: (my_pkg::assign_2), line:4:23, endln:4:28
+      |vpiParent:
+      \_function: (my_pkg::assign_2), line:4:4, endln:5:15
       |vpiTypespec:
       \_logic_typespec: , line:4:23, endln:4:28
         |vpiInstance:
         \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+      |vpiFullName:my_pkg::assign_2
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
   |vpiTaskFunc:
@@ -175,7 +184,10 @@ design: (unnamed)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: 
+    \_logic_var: (my_pkg::assign_3)
+      |vpiParent:
+      \_function: (my_pkg::assign_3), line:6:4, endln:7:15
+      |vpiFullName:my_pkg::assign_3
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
 ===================

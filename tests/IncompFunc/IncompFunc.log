@@ -253,6 +253,8 @@ design: (work@top)
     \_logic_typespec: , line:2:17, endln:2:28
       |vpiRange:
       \_range: , line:2:23, endln:2:28
+        |vpiParent:
+        \_logic_typespec: , line:2:17, endln:2:28
         |vpiLeftRange:
         \_constant: , line:2:24, endln:2:25
           |vpiParent:
@@ -271,12 +273,16 @@ design: (work@top)
           |vpiConstType:9
     |vpiEnumConst:
     \_enum_const: (A), line:3:7, endln:3:17
+      |vpiParent:
+      \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
       |vpiName:A
       |BIN:000
       |vpiDecompile:3'b000
       |vpiSize:3
     |vpiEnumConst:
     \_enum_const: (B), line:4:7, endln:4:17
+      |vpiParent:
+      \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
       |vpiName:B
       |BIN:111
       |vpiDecompile:3'b111
@@ -297,7 +303,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:8:14, endln:8:19
           |vpiParent:
-          \_begin: (work@top.get_BA)
+          \_packed_array_typespec: , line:8:7, endln:8:13
           |vpiLeftRange:
           \_constant: , line:8:15, endln:8:16
             |vpiParent:
@@ -321,7 +327,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:8:14, endln:8:19
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
         |vpiLeftRange:
         \_constant: , line:8:15, endln:8:16
           |vpiParent:
@@ -339,17 +345,24 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiElement:
-      \_enum_var: 
+      \_enum_var: (work@top.get_BA.out)
+        |vpiParent:
+        \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
         |vpiTypespec:
         \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+        |vpiFullName:work@top.get_BA.out
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_packed_array_var: , line:7:23, endln:7:35
+    \_packed_array_var: (work@top.get_BA), line:7:23, endln:7:35
+      |vpiParent:
+      \_function: (work@top.get_BA), line:7:4, endln:11:15
       |vpiTypespec:
       \_packed_array_typespec: , line:7:23, endln:7:29
         |vpiRange:
         \_range: , line:7:30, endln:7:35
+          |vpiParent:
+          \_packed_array_typespec: , line:7:23, endln:7:29
           |vpiLeftRange:
           \_constant: , line:7:31, endln:7:32
             |vpiParent:
@@ -368,8 +381,11 @@ design: (work@top)
             |vpiConstType:9
         |vpiElemTypespec:
         \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+      |vpiFullName:work@top.get_BA
       |vpiRange:
       \_range: , line:7:30, endln:7:35
+        |vpiParent:
+        \_packed_array_var: (work@top.get_BA), line:7:23, endln:7:35
         |vpiLeftRange:
         \_constant: , line:7:31, endln:7:32
           |vpiParent:
@@ -387,9 +403,12 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiElement:
-      \_enum_var: 
+      \_enum_var: (work@top.get_BA)
+        |vpiParent:
+        \_packed_array_var: (work@top.get_BA), line:7:23, endln:7:35
         |vpiTypespec:
         \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+        |vpiFullName:work@top.get_BA
     |vpiStmt:
     \_begin: (work@top.get_BA)
       |vpiParent:
@@ -454,7 +473,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -486,7 +509,7 @@ design: (work@top)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_int_var: (work@top.o), line:1:23, endln:1:24
+      \_logic_net: (work@top.o), line:1:23, endln:1:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IncompFunc/dut.sv, line:1:1, endln:14:10
   |vpiName:work@top
@@ -537,7 +560,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_packed_array_var: , line:7:23, endln:7:35
+    \_packed_array_var: (work@top.get_BA), line:7:23, endln:7:35
     |vpiStmt:
     \_begin: (work@top.get_BA)
       |vpiParent:

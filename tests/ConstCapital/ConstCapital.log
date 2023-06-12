@@ -196,20 +196,37 @@ design: (work@test)
   \_design: (work@test)
   |vpiFullName:work@test
   |vpiDefName:work@test
+  |vpiNet:
+  \_logic_net: (work@test.foo), line:10:5, endln:10:8
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+    |vpiName:foo
+    |vpiFullName:work@test.foo
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@test.foo2), line:15:5, endln:15:9
+    |vpiParent:
+    \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
+    |vpiName:foo2
+    |vpiFullName:work@test.foo2
+    |vpiNetType:1
   |vpiGenStmt:
   \_gen_if: , line:10:1, endln:10:3
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
     |vpiCondition:
     \_operation: , line:10:5, endln:10:20
+      |vpiParent:
+      \_gen_if: , line:10:1, endln:10:3
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (foo), line:10:5, endln:10:8
+      \_ref_obj: (work@test.foo), line:10:5, endln:10:8
         |vpiParent:
         \_operation: , line:10:5, endln:10:20
         |vpiName:foo
+        |vpiFullName:work@test.foo
         |vpiActual:
-        \_logic_net: (foo)
+        \_logic_net: (work@test.foo), line:10:5, endln:10:8
       |vpiOperand:
       \_constant: , line:10:12, endln:10:20
         |vpiParent:
@@ -219,9 +236,14 @@ design: (work@test)
         |HEX:7fFF
         |vpiConstType:5
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@test)
+      |vpiParent:
+      \_gen_if: , line:10:1, endln:10:3
+      |vpiFullName:work@test
       |vpiStmt:
       \_ref_module: work@GOOD (good1), line:11:14, endln:11:19
+        |vpiParent:
+        \_begin: (work@test)
         |vpiName:good1
         |vpiDefName:work@GOOD
   |vpiGenStmt:
@@ -230,14 +252,17 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
     |vpiCondition:
     \_operation: , line:15:5, endln:15:18
+      |vpiParent:
+      \_gen_if: , line:15:1, endln:15:3
       |vpiOpType:14
       |vpiOperand:
-      \_ref_obj: (foo2), line:15:5, endln:15:9
+      \_ref_obj: (work@test.foo2), line:15:5, endln:15:9
         |vpiParent:
         \_operation: , line:15:5, endln:15:18
         |vpiName:foo2
+        |vpiFullName:work@test.foo2
         |vpiActual:
-        \_logic_net: (foo2)
+        \_logic_net: (work@test.foo2), line:15:5, endln:15:9
       |vpiOperand:
       \_constant: , line:15:13, endln:15:18
         |vpiParent:
@@ -247,9 +272,14 @@ design: (work@test)
         |DEC:1
         |vpiConstType:1
     |vpiStmt:
-    \_begin: 
+    \_begin: (work@test)
+      |vpiParent:
+      \_gen_if: , line:15:1, endln:15:3
+      |vpiFullName:work@test
       |vpiStmt:
       \_ref_module: work@GOOD (good2), line:16:14, endln:16:19
+        |vpiParent:
+        \_begin: (work@test)
         |vpiName:good2
         |vpiDefName:work@GOOD
 |vpiParameter:
@@ -282,6 +312,8 @@ design: (work@test)
   \_design: (work@test)
   |vpiRhs:
   \_constant: , line:1:21, endln:1:29
+    |vpiParent:
+    \_param_assign: , line:1:15, endln:1:29
     |vpiDecompile:32'H7fFF
     |vpiSize:32
     |HEX:7fFF
@@ -296,6 +328,8 @@ design: (work@test)
   \_design: (work@test)
   |vpiRhs:
   \_constant: , line:2:22, endln:2:28
+    |vpiParent:
+    \_param_assign: , line:2:15, endln:2:28
     |vpiDecompile:32'Sd1
     |vpiSize:32
     |DEC:1
@@ -309,14 +343,6 @@ design: (work@test)
   |vpiName:work@test
   |vpiDefName:work@test
   |vpiTop:1
-  |vpiNet:
-  \_logic_net: (foo)
-    |vpiName:foo
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (foo2)
-    |vpiName:foo2
-    |vpiNetType:1
   |vpiTopModule:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4

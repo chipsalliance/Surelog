@@ -213,7 +213,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -244,6 +248,8 @@ design: (work@top)
         |vpiFullName:sram_otp_key_o[2 - 2]
         |vpiIndex:
         \_operation: , line:9:26, endln:9:29
+          |vpiParent:
+          \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:9:26, endln:9:27
@@ -276,6 +282,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_int_typespec: , line:1:19, endln:1:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:1:23, endln:1:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -290,6 +298,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiRange:
     \_range: , line:7:23, endln:7:28
+      |vpiParent:
+      \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
       |vpiLeftRange:
       \_constant: , line:7:24, endln:7:25
         |vpiParent:

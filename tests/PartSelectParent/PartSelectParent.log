@@ -184,7 +184,11 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
@@ -218,7 +222,7 @@ design: (work@top)
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
-          \_int_var: (work@top.o), line:1:23, endln:1:24
+          \_logic_net: (work@top.o), line:1:23, endln:1:24
       |vpiStmt:
       \_assignment: , line:4:7, endln:4:23
         |vpiParent:
@@ -239,7 +243,7 @@ design: (work@top)
           |vpiOperand:
           \_part_select: o (work@top.o), line:4:8, endln:4:14
             |vpiParent:
-            \_assignment: , line:4:7, endln:4:23
+            \_operation: , line:4:8, endln:4:14
             |vpiName:o
             |vpiFullName:work@top.o
             |vpiDefName:o
@@ -302,6 +306,8 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_int_typespec: , line:1:19, endln:1:22
+      |vpiParent:
+      \_int_var: (work@top.o), line:1:23, endln:1:24
       |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
@@ -353,7 +359,7 @@ design: (work@top)
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
-          \_int_var: (work@top.o), line:1:23, endln:1:24
+          \_logic_net: (work@top.o), line:1:23, endln:1:24
       |vpiStmt:
       \_assignment: , line:4:7, endln:4:23
         |vpiParent:
@@ -405,7 +411,7 @@ design: (work@top)
         |vpiLeftRange:
         \_constant: , line:7:16, endln:7:17
           |vpiParent:
-          \_part_select: o (o), line:7:14, endln:7:20
+          \_part_select: o (work@top.o), line:7:14, endln:7:20
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -413,7 +419,7 @@ design: (work@top)
         |vpiRightRange:
         \_constant: , line:7:18, endln:7:19
           |vpiParent:
-          \_part_select: o (o), line:7:14, endln:7:20
+          \_part_select: o (work@top.o), line:7:14, endln:7:20
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0

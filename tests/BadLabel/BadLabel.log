@@ -380,7 +380,7 @@ module_inst                                            8
 named_begin                                            1
 named_fork                                             3
 operation                                              1
-package                                                3
+package                                                2
 ref_obj                                                2
 sys_func_call                                          1
 === UHDM Object Stats End ===
@@ -407,7 +407,7 @@ module_inst                                            8
 named_begin                                            2
 named_fork                                             6
 operation                                              2
-package                                                3
+package                                                2
 ref_obj                                                4
 sys_func_call                                          2
 === UHDM Object Stats End ===
@@ -456,6 +456,8 @@ design: (work@test)
   |vpiFullName:work@itf
   |vpiAttribute:
   \_attribute: (test_interface), line:12:4, endln:12:18
+    |vpiParent:
+    \_interface_inst: work@itf (work@itf), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:12:22, endln:20:13
     |vpiName:test_interface
   |vpiDefName:work@itf
 |uhdmallInterfaces:
@@ -465,6 +467,8 @@ design: (work@test)
   |vpiFullName:work@itf2
   |vpiAttribute:
   \_attribute: (test_interface2), line:14:6, endln:14:21
+    |vpiParent:
+    \_interface_inst: work@itf2 (work@itf2), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:14:25, endln:15:22
     |vpiName:test_interface2
   |vpiDefName:work@itf2
 |uhdmallInterfaces:
@@ -474,6 +478,8 @@ design: (work@test)
   |vpiFullName:work@itf3
   |vpiAttribute:
   \_attribute: (test_interface2), line:17:6, endln:17:21
+    |vpiParent:
+    \_interface_inst: work@itf3 (work@itf3), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:17:25, endln:18:26
     |vpiName:test_interface2
   |vpiDefName:work@itf3
 |uhdmallModules:
@@ -518,7 +524,7 @@ design: (work@test)
           |vpiName:a
           |vpiFullName:work@block_tb.name1.a
           |vpiActual:
-          \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+          \_logic_net: (work@block_tb.a), line:61:6, endln:61:7
 |uhdmallModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:23:1, endln:57:21
   |vpiParent:
@@ -557,7 +563,7 @@ design: (work@test)
             |vpiName:err
             |vpiFullName:work@test.dummy_label.err
             |vpiActual:
-            \_bit_var: (work@test.err), line:27:8, endln:27:15
+            \_logic_net: (work@test.err), line:27:8, endln:27:11
         |vpiStmt:
         \_sys_func_call: ($display), line:31:17, endln:31:35
           |vpiParent:
@@ -654,11 +660,15 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:23:1, endln:57:21
     |vpiTypespec:
     \_bit_typespec: , line:27:4, endln:27:7
+      |vpiParent:
+      \_bit_var: (work@test.err), line:27:8, endln:27:15
     |vpiName:err
     |vpiFullName:work@test.err
     |vpiVisibility:1
     |vpiExpr:
     \_constant: , line:27:14, endln:27:15
+      |vpiParent:
+      \_bit_var: (work@test.err), line:27:8, endln:27:15
       |vpiDecompile:0
       |vpiSize:1
       |UINT:0
@@ -692,7 +702,7 @@ design: (work@test)
             |vpiName:err
             |vpiFullName:work@test.dummy_label.err
             |vpiActual:
-            \_bit_var: (work@test.err), line:27:8, endln:27:15
+            \_logic_net: (work@test.err), line:27:8, endln:27:11
         |vpiStmt:
         \_sys_func_call: ($display), line:31:17, endln:31:35
           |vpiParent:
@@ -787,7 +797,7 @@ design: (work@test)
           |vpiName:a
           |vpiFullName:work@block_tb.name1.a
           |vpiActual:
-          \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+          \_logic_net: (work@block_tb.a), line:61:6, endln:61:7
   |vpiContAssign:
   \_cont_assign: , line:61:6, endln:61:7
     |vpiParent:

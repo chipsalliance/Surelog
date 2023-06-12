@@ -92,19 +92,21 @@ design: (work@top)
       |vpiSigned:1
   |vpiParamAssign:
   \_param_assign: 
+    |vpiParent:
+    \_class_defn: (work@config_db), file:${SURELOG_DIR}/tests/ClassParamAsParam/dut.sv, line:14:1, endln:15:9
     |vpiRhs:
-    \_type_parameter: (work@top.misc2.config_db.T)
+    \_type_parameter: (work@top.misc2.config_db.T), line:14:23, endln:14:24
       |vpiParent:
-      \_param_assign: 
+      \_param_assign: , line:14:23, endln:14:24
       |vpiName:T
       |vpiFullName:work@top.misc2.config_db.T
       |vpiTypespec:
       \_class_typespec: (object), line:18:14, endln:18:20
         |vpiParent:
-        \_type_parameter: (config_db.T)
+        \_type_parameter: (config_db.T), line:14:23, endln:14:24
         |vpiName:object
         |vpiParameter:
-        \_type_parameter: (config_db.T.object.T)
+        \_type_parameter: (config_db.T.object.T), line:1:28, endln:1:29
           |vpiParent:
           \_class_typespec: (object), line:18:14, endln:18:20
           |vpiName:T
@@ -112,12 +114,14 @@ design: (work@top)
           |vpiTypespec:
           \_long_int_typespec: , line:18:22, endln:18:29
             |vpiParent:
-            \_type_parameter: (config_db.T.object.T)
+            \_type_parameter: (config_db.T.object.T), line:1:28, endln:1:29
             |vpiSigned:1
         |vpiParamAssign:
-        \_param_assign: 
+        \_param_assign: , line:1:28, endln:1:29
+          |vpiParent:
+          \_class_typespec: (object), line:18:14, endln:18:20
           |vpiRhs:
-          \_type_parameter: (config_db.T.object.T)
+          \_type_parameter: (config_db.T.object.T), line:1:28, endln:1:29
           |vpiLhs:
           \_type_parameter: (work@object::T), line:1:28, endln:1:29
             |vpiParent:
@@ -170,8 +174,10 @@ design: (work@top)
       |vpiSigned:1
   |vpiParamAssign:
   \_param_assign: 
+    |vpiParent:
+    \_class_defn: (work@resource), file:${SURELOG_DIR}/tests/ClassParamAsParam/dut.sv, line:4:1, endln:5:9
     |vpiRhs:
-    \_type_parameter: (work@top.misc2.config_db.T)
+    \_type_parameter: (work@top.misc2.config_db.T), line:14:23, endln:14:24
     |vpiLhs:
     \_type_parameter: (work@resource::T), line:4:23, endln:4:24
 |uhdmallClasses:
@@ -207,8 +213,10 @@ design: (work@top)
       |vpiSigned:1
   |vpiParamAssign:
   \_param_assign: 
+    |vpiParent:
+    \_class_defn: (work@resource_db), file:${SURELOG_DIR}/tests/ClassParamAsParam/dut.sv, line:7:1, endln:12:9
     |vpiRhs:
-    \_type_parameter: (work@top.misc2.config_db.T)
+    \_type_parameter: (work@top.misc2.config_db.T), line:14:23, endln:14:24
     |vpiLhs:
     \_type_parameter: (work@resource_db::T), line:7:26, endln:7:27
   |vpiTypedef:
@@ -245,7 +253,7 @@ design: (work@top)
       \_class_var: (work@top.misc2), line:18:32, endln:18:43
       |vpiName:config_db
       |vpiParameter:
-      \_type_parameter: (work@top.misc2.config_db.T)
+      \_type_parameter: (work@top.misc2.config_db.T), line:14:23, endln:14:24
         |vpiParent:
         \_class_typespec: (config_db), line:18:3, endln:18:12
         |vpiName:T
@@ -253,15 +261,15 @@ design: (work@top)
         |vpiTypespec:
         \_class_typespec: (object), line:18:14, endln:18:20
       |vpiParamAssign:
-      \_param_assign: 
+      \_param_assign: , line:14:23, endln:14:24
         |vpiParent:
         \_class_typespec: (config_db), line:18:3, endln:18:12
         |vpiRhs:
-        \_type_parameter: (work@top.misc2.config_db.T)
+        \_type_parameter: (work@top.misc2.config_db.T), line:14:23, endln:14:24
         |vpiLhs:
         \_type_parameter: (work@top.misc2.config_db.T), line:14:23, endln:14:24
           |vpiParent:
-          \_param_assign: 
+          \_param_assign: , line:14:23, endln:14:24
           |vpiName:T
           |vpiFullName:work@top.misc2.config_db.T
           |vpiTypespec:
@@ -273,6 +281,8 @@ design: (work@top)
     |vpiVisibility:1
     |vpiExpr:
     \_method_func_call: (new)
+      |vpiParent:
+      \_class_var: (work@top.misc2), line:18:32, endln:18:43
       |vpiName:new
   |vpiDefName:work@top
   |vpiTop:1

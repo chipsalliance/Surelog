@@ -302,7 +302,7 @@ io_decl                                               10
 logic_net                                              5
 modport                                                2
 module_inst                                            3
-package                                                3
+package                                                2
 param_assign                                           7
 parameter                                              8
 ref_obj                                                2
@@ -321,7 +321,7 @@ io_decl                                               10
 logic_net                                              5
 modport                                                2
 module_inst                                            3
-package                                                3
+package                                                2
 param_assign                                           7
 parameter                                              8
 ref_obj                                                2
@@ -361,6 +361,8 @@ design: (unnamed)
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:45, endln:2:46
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:46
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -392,6 +394,8 @@ design: (unnamed)
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_constant: , line:2:45, endln:2:46
+      |vpiParent:
+      \_param_assign: , line:2:15, endln:2:46
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -480,6 +484,8 @@ design: (unnamed)
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiRhs:
     \_constant: , line:9:50, endln:9:76
+      |vpiParent:
+      \_param_assign: , line:9:33, endln:9:76
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -494,6 +500,8 @@ design: (unnamed)
     \_interface_inst: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiRhs:
     \_hier_path: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
+      |vpiParent:
+      \_param_assign: , line:11:19, endln:11:61
       |vpiName:PACKET_CONFIG.virtual_channels
       |vpiActual:
       \_ref_obj: (PACKET_CONFIG)
@@ -552,22 +560,32 @@ design: (unnamed)
     |vpiName:controller
     |vpiIODecl:
     \_io_decl: (request), line:28:13, endln:28:20
+      |vpiParent:
+      \_modport: (controller), line:27:11, endln:27:21
       |vpiDirection:1
       |vpiName:request
     |vpiIODecl:
     \_io_decl: (grant), line:29:13, endln:29:18
+      |vpiParent:
+      \_modport: (controller), line:27:11, endln:27:21
       |vpiDirection:2
       |vpiName:grant
     |vpiIODecl:
     \_io_decl: (free), line:30:13, endln:30:17
+      |vpiParent:
+      \_modport: (controller), line:27:11, endln:27:21
       |vpiDirection:1
       |vpiName:free
     |vpiIODecl:
     \_io_decl: (start_of_packet), line:31:13, endln:31:28
+      |vpiParent:
+      \_modport: (controller), line:27:11, endln:27:21
       |vpiDirection:1
       |vpiName:start_of_packet
     |vpiIODecl:
     \_io_decl: (end_of_packet), line:32:13, endln:32:26
+      |vpiParent:
+      \_modport: (controller), line:27:11, endln:27:21
       |vpiDirection:1
       |vpiName:end_of_packet
   |vpiModport:
@@ -577,22 +595,32 @@ design: (unnamed)
     |vpiName:requester
     |vpiIODecl:
     \_io_decl: (request), line:20:13, endln:20:20
+      |vpiParent:
+      \_modport: (requester), line:19:11, endln:19:20
       |vpiDirection:2
       |vpiName:request
     |vpiIODecl:
     \_io_decl: (grant), line:21:13, endln:21:18
+      |vpiParent:
+      \_modport: (requester), line:19:11, endln:19:20
       |vpiDirection:1
       |vpiName:grant
     |vpiIODecl:
     \_io_decl: (free), line:22:13, endln:22:17
+      |vpiParent:
+      \_modport: (requester), line:19:11, endln:19:20
       |vpiDirection:2
       |vpiName:free
     |vpiIODecl:
     \_io_decl: (start_of_packet), line:23:13, endln:23:28
+      |vpiParent:
+      \_modport: (requester), line:19:11, endln:19:20
       |vpiDirection:2
       |vpiName:start_of_packet
     |vpiIODecl:
     \_io_decl: (end_of_packet), line:24:13, endln:24:26
+      |vpiParent:
+      \_modport: (requester), line:19:11, endln:19:20
       |vpiDirection:2
       |vpiName:end_of_packet
 ===================

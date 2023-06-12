@@ -250,7 +250,7 @@ hier_path                                              6
 logic_net                                              3
 logic_typespec                                         5
 module_inst                                            5
-package                                                6
+package                                                4
 port                                                   6
 range                                                  5
 ref_obj                                               18
@@ -297,7 +297,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:15, endln:3:20
           |vpiParent:
-          \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19
+          \_logic_typespec: , line:3:9, endln:3:20
           |vpiLeftRange:
           \_constant: , line:3:16, endln:3:17
             |vpiParent:
@@ -348,7 +348,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:9:15, endln:9:20
           |vpiParent:
-          \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19
+          \_logic_typespec: , line:9:9, endln:9:20
           |vpiLeftRange:
           \_constant: , line:9:16, endln:9:17
             |vpiParent:
@@ -399,7 +399,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:15, endln:3:20
           |vpiParent:
-          \_struct_typespec: (pkg1::struct1), line:2:13, endln:2:19
+          \_logic_typespec: , line:3:9, endln:3:20
           |vpiLeftRange:
           \_constant: , line:3:16, endln:3:17
             |vpiParent:
@@ -451,7 +451,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:9:15, endln:9:20
           |vpiParent:
-          \_struct_typespec: (pkg2::struct1), line:8:13, endln:8:19
+          \_logic_typespec: , line:9:9, endln:9:20
           |vpiLeftRange:
           \_constant: , line:9:16, endln:9:17
             |vpiParent:
@@ -500,7 +500,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:15:15, endln:15:20
           |vpiParent:
-          \_struct_typespec: (struct2), line:14:13, endln:14:19
+          \_logic_typespec: , line:15:9, endln:15:20
           |vpiLeftRange:
           \_constant: , line:15:16, endln:15:17
             |vpiParent:
@@ -550,7 +550,11 @@ design: (work@dut)
     |vpiName:var1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.var1.var1)
+      |vpiParent:
+      \_port: (var1), line:13:12, endln:13:16
+      |vpiName:var1
+      |vpiFullName:work@dut.var1.var1
       |vpiActual:
       \_logic_net: (work@dut.var1), line:13:12, endln:13:16
     |vpiTypedef:
@@ -562,7 +566,11 @@ design: (work@dut)
     |vpiName:var2
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.var2.var2)
+      |vpiParent:
+      \_port: (var2), line:13:18, endln:13:22
+      |vpiName:var2
+      |vpiFullName:work@dut.var2.var2
       |vpiActual:
       \_logic_net: (work@dut.var2), line:13:18, endln:13:22
     |vpiTypedef:
@@ -574,7 +582,11 @@ design: (work@dut)
     |vpiName:var3
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.var3.var3)
+      |vpiParent:
+      \_port: (var3), line:13:24, endln:13:28
+      |vpiName:var3
+      |vpiFullName:work@dut.var3.var3
       |vpiActual:
       \_logic_net: (work@dut.var3), line:13:24, endln:13:28
     |vpiTypedef:
@@ -702,6 +714,8 @@ design: (work@dut)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@dut.var1), line:13:12, endln:13:16
+      |vpiParent:
+      \_port: (var1), line:13:12, endln:13:16
       |vpiName:var1
       |vpiFullName:work@dut.var1
       |vpiActual:
@@ -716,6 +730,8 @@ design: (work@dut)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@dut.var2), line:13:18, endln:13:22
+      |vpiParent:
+      \_port: (var2), line:13:18, endln:13:22
       |vpiName:var2
       |vpiFullName:work@dut.var2
       |vpiActual:
@@ -730,6 +746,8 @@ design: (work@dut)
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: (work@dut.var3), line:13:24, endln:13:28
+      |vpiParent:
+      \_port: (var3), line:13:24, endln:13:28
       |vpiName:var3
       |vpiFullName:work@dut.var3
       |vpiActual:
@@ -738,6 +756,8 @@ design: (work@dut)
     \_struct_typespec: (struct2), line:14:13, endln:14:19
   |vpiContAssign:
   \_cont_assign: , line:22:12, endln:22:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonAnsiPort/dut.sv, line:13:1, endln:25:10
     |vpiRhs:
     \_constant: , line:22:25, endln:22:28
     |vpiLhs:
@@ -757,6 +777,8 @@ design: (work@dut)
         |vpiName:first
   |vpiContAssign:
   \_cont_assign: , line:23:12, endln:23:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonAnsiPort/dut.sv, line:13:1, endln:25:10
     |vpiRhs:
     \_constant: , line:23:26, endln:23:29
     |vpiLhs:
@@ -776,6 +798,8 @@ design: (work@dut)
         |vpiName:second
   |vpiContAssign:
   \_cont_assign: , line:24:12, endln:24:27
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonAnsiPort/dut.sv, line:13:1, endln:25:10
     |vpiRhs:
     \_constant: , line:24:25, endln:24:27
     |vpiLhs:

@@ -74,7 +74,7 @@ constant                                               9
 design                                                 1
 int_typespec                                           6
 module_inst                                            3
-package                                                6
+package                                                4
 param_assign                                           8
 parameter                                              8
 ref_obj                                                3
@@ -86,7 +86,7 @@ constant                                               9
 design                                                 1
 int_typespec                                           6
 module_inst                                            3
-package                                                6
+package                                                4
 param_assign                                           8
 parameter                                              8
 ref_obj                                                3
@@ -125,6 +125,8 @@ design: (unnamed)
     \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:16, endln:2:17
+      |vpiParent:
+      \_param_assign: , line:2:12, endln:2:17
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -152,8 +154,11 @@ design: (unnamed)
     |vpiParent:
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |vpiRhs:
-    \_ref_obj: (pkg1::X), line:6:16, endln:6:22
+    \_ref_obj: (pkg2::pkg1::X), line:6:16, endln:6:23
+      |vpiParent:
+      \_param_assign: , line:6:12, endln:6:23
       |vpiName:pkg1::X
+      |vpiFullName:pkg2::pkg1::X
       |vpiActual:
       \_parameter: (pkg1::X), line:2:12, endln:2:13
     |vpiLhs:
@@ -181,6 +186,8 @@ design: (unnamed)
     \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:16, endln:2:17
+      |vpiParent:
+      \_param_assign: , line:2:12, endln:2:17
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -213,6 +220,8 @@ design: (unnamed)
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |vpiRhs:
     \_constant: , line:6:16, endln:6:22
+      |vpiParent:
+      \_param_assign: , line:6:12, endln:6:23
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4

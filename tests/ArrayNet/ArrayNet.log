@@ -178,7 +178,7 @@ design: (work@memory)
           |vpiName:my_memory
           |vpiFullName:work@memory.my_memory
           |vpiActual:
-          \_array_net: (work@memory.my_memory), line:2:11, endln:2:20
+          \_logic_net: (work@memory.my_memory), line:2:11, endln:2:20
         |vpiName:$readmemh
 |uhdmtopModules:
 \_module_inst: work@memory (work@memory), file:${SURELOG_DIR}/tests/ArrayNet/dut.sv, line:1:1, endln:7:10
@@ -194,6 +194,8 @@ design: (work@memory)
     |vpiFullName:work@memory.my_memory
     |vpiRange:
     \_range: , line:2:21, endln:2:28
+      |vpiParent:
+      \_array_net: (work@memory.my_memory), line:2:11, endln:2:20
       |vpiLeftRange:
       \_constant: , line:2:22, endln:2:23
         |vpiParent:
@@ -216,8 +218,12 @@ design: (work@memory)
       \_array_net: (work@memory.my_memory), line:2:11, endln:2:20
       |vpiTypespec:
       \_logic_typespec: , line:2:1, endln:2:10
+        |vpiParent:
+        \_logic_net: (work@memory.my_memory), line:2:11, endln:2:20
         |vpiRange:
         \_range: , line:2:5, endln:2:10
+          |vpiParent:
+          \_logic_typespec: , line:2:1, endln:2:10
           |vpiLeftRange:
           \_constant: , line:2:6, endln:2:7
             |vpiParent:
@@ -259,7 +265,7 @@ design: (work@memory)
           |vpiName:my_memory
           |vpiFullName:work@memory.my_memory
           |vpiActual:
-          \_array_net: (work@memory.my_memory), line:2:11, endln:2:20
+          \_logic_net: (work@memory.my_memory), line:2:11, endln:2:20
         |vpiName:$readmemh
 ===================
 [  FATAL] : 0

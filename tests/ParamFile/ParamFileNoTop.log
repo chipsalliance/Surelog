@@ -286,6 +286,8 @@ design: (unnamed)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:3:1, endln:10:10
     |vpiRhs:
     \_constant: , line:4:29, endln:4:31
+      |vpiParent:
+      \_param_assign: , line:4:14, endln:4:31
       |vpiDecompile:""
       |STRING:
       |vpiTypespec:
@@ -308,7 +310,11 @@ design: (unnamed)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o.o)
+      |vpiParent:
+      \_port: (o), line:3:26, endln:3:27
+      |vpiName:o
+      |vpiFullName:work@dut.o.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:3:26, endln:3:27
     |vpiTypedef:
@@ -323,10 +329,17 @@ design: (unnamed)
     \_module_inst: work@ram_1p (work@ram_1p), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:12:1, endln:30:10
     |vpiPort:
     \_port: (out), line:8:12, endln:8:19
+      |vpiParent:
+      \_ref_module: work@ram_1p (u_ram), line:7:6, endln:7:11
       |vpiName:out
       |vpiHighConn:
-      \_ref_obj: (o), line:8:17, endln:8:18
+      \_ref_obj: (work@dut.u_ram.out.o), line:8:17, endln:8:18
+        |vpiParent:
+        \_port: (out), line:8:12, endln:8:19
         |vpiName:o
+        |vpiFullName:work@dut.u_ram.out.o
+        |vpiActual:
+        \_logic_net: (work@dut.o), line:3:26, endln:3:27
 |uhdmallModules:
 \_module_inst: work@ram_1p (work@ram_1p), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:12:1, endln:30:10
   |vpiParent:
@@ -347,6 +360,8 @@ design: (unnamed)
     \_module_inst: work@ram_1p (work@ram_1p), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:12:1, endln:30:10
     |vpiRhs:
     \_constant: , line:13:37, endln:13:39
+      |vpiParent:
+      \_param_assign: , line:13:23, endln:13:39
       |vpiDecompile:""
       |STRING:
       |vpiTypespec:
@@ -369,7 +384,11 @@ design: (unnamed)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@ram_1p.out.out)
+      |vpiParent:
+      \_port: (out), line:15:22, endln:15:25
+      |vpiName:out
+      |vpiFullName:work@ram_1p.out.out
       |vpiActual:
       \_logic_net: (work@ram_1p.out), line:15:22, endln:15:25
     |vpiTypedef:
@@ -448,6 +467,8 @@ design: (unnamed)
               \_assign_stmt: , line:21:7, endln:21:24
               |vpiName:out
               |vpiFullName:work@ram_1p.gen_meminit.out
+              |vpiActual:
+              \_logic_net: (work@ram_1p.out), line:15:22, endln:15:25
       |vpiStmt:
       \_if_stmt: , line:24:3, endln:27:6
         |vpiParent:
@@ -507,6 +528,8 @@ design: (unnamed)
               \_assign_stmt: , line:26:7, endln:26:24
               |vpiName:out
               |vpiFullName:work@ram_1p.gen_nomeminit.out
+              |vpiActual:
+              \_logic_net: (work@ram_1p.out), line:15:22, endln:15:25
 ===================
 [  FATAL] : 1
 [ SYNTAX] : 0

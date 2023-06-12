@@ -238,7 +238,7 @@ int_typespec                                          18
 logic_typespec                                         4
 module_inst                                           16
 operation                                              7
-package                                                6
+package                                                4
 param_assign                                          18
 parameter                                             19
 range                                                  4
@@ -255,7 +255,7 @@ int_typespec                                          18
 logic_typespec                                         4
 module_inst                                           16
 operation                                              7
-package                                                6
+package                                                4
 param_assign                                          18
 parameter                                             19
 range                                                  4
@@ -302,6 +302,8 @@ design: (work@top_earlgrey)
     \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:42, endln:2:43
+      |vpiParent:
+      \_param_assign: , line:2:19, endln:2:43
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -345,6 +347,8 @@ design: (work@top_earlgrey)
       \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
       |vpiRange:
       \_range: , line:7:21, endln:7:27
+        |vpiParent:
+        \_logic_typespec: , line:7:15, endln:7:27
         |vpiLeftRange:
         \_constant: , line:7:22, endln:7:24
           |vpiParent:
@@ -370,6 +374,8 @@ design: (work@top_earlgrey)
     \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_constant: , line:6:33, endln:6:35
+      |vpiParent:
+      \_param_assign: , line:6:19, endln:6:35
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -384,12 +390,15 @@ design: (work@top_earlgrey)
     \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_operation: , line:7:47, endln:7:62
+      |vpiParent:
+      \_param_assign: , line:7:28, endln:7:62
       |vpiOpType:24
       |vpiOperand:
-      \_ref_obj: (HaltAddress), line:7:47, endln:7:58
+      \_ref_obj: (dm::HaltAddress), line:7:47, endln:7:58
         |vpiParent:
         \_operation: , line:7:47, endln:7:62
         |vpiName:HaltAddress
+        |vpiFullName:dm::HaltAddress
         |vpiActual:
         \_parameter: (dm::HaltAddress), line:6:19, endln:6:30
       |vpiOperand:
@@ -431,6 +440,8 @@ design: (work@top_earlgrey)
     \_package: tl_main_pkg (tl_main_pkg::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_constant: , line:2:42, endln:2:43
+      |vpiParent:
+      \_param_assign: , line:2:19, endln:2:43
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -476,6 +487,8 @@ design: (work@top_earlgrey)
       \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
       |vpiRange:
       \_range: , line:7:21, endln:7:27
+        |vpiParent:
+        \_logic_typespec: , line:7:15, endln:7:27
         |vpiLeftRange:
         \_constant: , line:7:22, endln:7:24
           |vpiParent:
@@ -501,6 +514,8 @@ design: (work@top_earlgrey)
     \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_constant: , line:6:33, endln:6:35
+      |vpiParent:
+      \_param_assign: , line:6:19, endln:6:35
       |vpiDecompile:10
       |vpiSize:32
       |UINT:10
@@ -515,6 +530,8 @@ design: (work@top_earlgrey)
     \_package: dm (dm::), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:5:1, endln:8:16
     |vpiRhs:
     \_constant: , line:7:47, endln:7:58
+      |vpiParent:
+      \_param_assign: , line:7:28, endln:7:62
       |vpiDecompile:12
       |vpiSize:32
       |UINT:12
@@ -547,6 +564,8 @@ design: (work@top_earlgrey)
     \_module_inst: work@ibex_core (work@ibex_core), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:25:1, endln:27:10
     |vpiRhs:
     \_constant: , line:26:45, endln:26:46
+      |vpiParent:
+      \_param_assign: , line:26:27, endln:26:46
       |vpiDecompile:4
       |vpiSize:32
       |UINT:4
@@ -578,6 +597,8 @@ design: (work@top_earlgrey)
     \_module_inst: work@rv_core_ibex (work@rv_core_ibex), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:18:1, endln:23:10
     |vpiRhs:
     \_constant: , line:19:45, endln:19:46
+      |vpiParent:
+      \_param_assign: , line:19:27, endln:19:46
       |vpiDecompile:3
       |vpiSize:32
       |UINT:3
@@ -690,6 +711,8 @@ design: (work@top_earlgrey)
     \_module_inst: work@top_earlgrey (work@top_earlgrey), file:${SURELOG_DIR}/tests/ParamRef/dut.sv, line:10:1, endln:16:10
     |vpiRhs:
     \_constant: , line:2:42, endln:2:43
+      |vpiParent:
+      \_param_assign: , line:2:19, endln:2:43
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
@@ -727,6 +750,8 @@ design: (work@top_earlgrey)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:19:45, endln:19:46
+        |vpiParent:
+        \_param_assign: , line:19:27, endln:19:46
         |vpiDecompile:13
         |vpiSize:32
         |UINT:13
@@ -764,6 +789,8 @@ design: (work@top_earlgrey)
         |vpiOverriden:1
         |vpiRhs:
         \_constant: , line:26:45, endln:26:46
+          |vpiParent:
+          \_param_assign: , line:26:27, endln:26:46
           |vpiDecompile:13
           |vpiSize:32
           |UINT:13

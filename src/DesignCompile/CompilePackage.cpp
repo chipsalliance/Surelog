@@ -58,17 +58,18 @@ bool CompilePackage::compile(Reduce reduce) {
   if (!m_package) return false;
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
+  const FileContent* fC = m_package->m_fileContents[0];
+  NodeId packId = m_package->m_nodeIds[0];
   m_helper.setUnElabMode(reduce == Reduce::No);
   if (pack == nullptr) {
     pack = s.MakePackage();
     pack->VpiName(m_package->getName());
     m_package->setUhdmInstance(pack);
+    fC->populateCoreMembers(packId, packId, pack);
   }
   m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
   m_package->m_exprBuilder.setDesign(
       m_compileDesign->getCompiler()->getDesign());
-  const FileContent* fC = m_package->m_fileContents[0];
-  NodeId packId = m_package->m_nodeIds[0];
   if (reduce == Reduce::Yes) {
     Location loc(fC->getFileId(packId), fC->Line(packId), fC->Column(packId),
                  m_symbols->getId(m_package->getName()));
@@ -93,9 +94,10 @@ bool CompilePackage::compile(Reduce reduce) {
     packId = current.m_child;
   } while (packId && (fC->Type(packId) != VObjectType::slAttribute_instance));
   if (packId) {
-    UHDM::VectorOfattribute* attributes =
-        m_helper.compileAttributes(m_package, fC, packId, m_compileDesign);
-    m_package->Attributes(attributes);
+    if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
+            m_package, fC, packId, m_compileDesign, nullptr)) {
+      m_package->Attributes(attributes);
+    }
   }
 
   return true;
@@ -247,8 +249,8 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
         }
         case VObjectType::slAttribute_instance: {
           if (collectType != CollectType::DEFINITION) break;
-          m_attributes =
-              m_helper.compileAttributes(m_package, fC, id, m_compileDesign);
+          m_attributes = m_helper.compileAttributes(m_package, fC, id,
+                                                    m_compileDesign, nullptr);
           break;
         }
         case VObjectType::slDpi_import_export: {
