@@ -144,14 +144,14 @@ class CompileHelper final {
   // ------------------------------------------------------------------------------------------
   // UHDM modeling
 
-  std::vector<UHDM::cont_assign*> compileContinuousAssignment(DesignComponent* component,
+  std::vector<UHDM::cont_assign*> compileContinuousAssignment(
+      DesignComponent* component, const FileContent* fC, NodeId id,
+      CompileDesign* compileDesign, ValuedComponentI* instance);
+
+  UHDM::always* compileAlwaysBlock(DesignComponent* component,
                                    const FileContent* fC, NodeId id,
                                    CompileDesign* compileDesign,
                                    ValuedComponentI* instance);
-
-  UHDM::always* compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
-                          NodeId id, CompileDesign* compileDesign,
-                          ValuedComponentI* instance);
 
   UHDM::any* compileTfCall(DesignComponent* component, const FileContent* fC,
                            NodeId Tf_call_stmt, CompileDesign* compileDesign,
@@ -219,18 +219,21 @@ class CompileHelper final {
                                      const FileContent* fC, NodeId nodeId,
                                      CompileDesign* compileDesign,
                                      UHDM::any* pstmt = nullptr,
-                                     ValuedComponentI* instance = nullptr, bool muteErrors = false);
+                                     ValuedComponentI* instance = nullptr,
+                                     bool muteErrors = false);
   UHDM::atomic_stmt* compileRandcaseStmt(DesignComponent* component,
                                          const FileContent* fC, NodeId nodeId,
                                          CompileDesign* compileDesign,
                                          UHDM::any* pstmt = nullptr,
-                                         ValuedComponentI* instance = nullptr, bool muteErrors = false);
+                                         ValuedComponentI* instance = nullptr,
+                                         bool muteErrors = false);
 
   UHDM::VectorOfany* compileStmt(DesignComponent* component,
                                  const FileContent* fC, NodeId nodeId,
                                  CompileDesign* compileDesign, Reduce reduce,
                                  UHDM::any* pstmt = nullptr,
-                                 ValuedComponentI* instance = nullptr, bool muteError = false);
+                                 ValuedComponentI* instance = nullptr,
+                                 bool muteError = false);
 
   UHDM::any* compileVariable(DesignComponent* component, const FileContent* fC,
                              NodeId nodeId, CompileDesign* compileDesign,
@@ -281,11 +284,13 @@ class CompileHelper final {
                                         UHDM::any* pstmt,
                                         ValuedComponentI* instance);
 
-  UHDM::initial* compileInitialBlock(DesignComponent* component, const FileContent* fC,
-                           NodeId id, CompileDesign* compileDesign);
+  UHDM::initial* compileInitialBlock(DesignComponent* component,
+                                     const FileContent* fC, NodeId id,
+                                     CompileDesign* compileDesign);
 
-  UHDM::final_stmt* compileFinalBlock(DesignComponent* component, const FileContent* fC,
-                         NodeId id, CompileDesign* compileDesign);
+  UHDM::final_stmt* compileFinalBlock(DesignComponent* component,
+                                      const FileContent* fC, NodeId id,
+                                      CompileDesign* compileDesign);
 
   void compileBindStmt(DesignComponent* component, const FileContent* fC,
                        NodeId nodeId, CompileDesign* compileDesign,
@@ -337,7 +342,8 @@ class CompileHelper final {
       ValuedComponentI* instance = nullptr);
 
   UHDM::any* compileForLoop(DesignComponent* component, const FileContent* fC,
-                            NodeId nodeId, CompileDesign* compileDesign, bool muteErrors = false);
+                            NodeId nodeId, CompileDesign* compileDesign,
+                            bool muteErrors = false);
 
   UHDM::any* compileSelectExpression(
       DesignComponent* component, const FileContent* fC, NodeId Bit_select,
@@ -451,8 +457,8 @@ class CompileHelper final {
                       ValuedComponentI* instance);
 
   void compileUdpInstantiation(ModuleDefinition* mod, const FileContent* fC,
-                                CompileDesign* compileDesign, NodeId id,
-                                ValuedComponentI* instance);
+                               CompileDesign* compileDesign, NodeId id,
+                               ValuedComponentI* instance);
 
   void compileGateInstantiation(ModuleDefinition* mod, const FileContent* fC,
                                 CompileDesign* compileDesign, NodeId id,
@@ -462,8 +468,10 @@ class CompileHelper final {
                        CompileDesign* compileDesign, NodeId id,
                        UHDM::VectorOfport* ports);
 
-  UHDM::VectorOfgen_stmt*  compileGenStmt(ModuleDefinition* component, const FileContent* fC,
-                       CompileDesign* compileDesign, NodeId id);
+  UHDM::VectorOfgen_stmt* compileGenStmt(ModuleDefinition* component,
+                                         const FileContent* fC,
+                                         CompileDesign* compileDesign,
+                                         NodeId id);
 
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);
@@ -573,7 +581,8 @@ class CompileHelper final {
                             uint32_t lineNumber, UHDM::any* pexpr,
                             bool muteErrors, bool returnTypespec);
 
-  bool valueRange(Value* val, const UHDM::typespec* lhstps, const UHDM::typespec* rhstps, DesignComponent* component,
+  bool valueRange(Value* val, const UHDM::typespec* lhstps,
+                  const UHDM::typespec* rhstps, DesignComponent* component,
                   CompileDesign* compileDesign, ValuedComponentI* instance);
 
   void setRange(UHDM::constant* c, Value* val, CompileDesign* compileDesign);
@@ -593,7 +602,7 @@ class CompileHelper final {
 
   std::string decompileHelper(const UHDM::any* sel);
 
-  void setUnElabMode(bool on) { m_unElabMode = on; }
+  void setElabMode(bool on) { m_elabMode = on; }
 
  private:
   CompileHelper(const CompileHelper&) = delete;
@@ -620,7 +629,7 @@ class CompileHelper final {
   bool m_checkForLoops = false;
   int32_t m_stackLevel = 0;
   bool m_unwind = false;
-  bool m_unElabMode = false;
+  bool m_elabMode = true;
 };
 
 }  // namespace SURELOG

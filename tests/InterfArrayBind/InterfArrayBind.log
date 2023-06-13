@@ -230,11 +230,11 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
 bit_select                                             6
-constant                                              38
+constant                                              40
 cont_assign                                            6
 design                                                 1
-enum_const                                             1
-enum_typespec                                          1
+enum_const                                             2
+enum_typespec                                          2
 enum_var                                               1
 gen_region                                             1
 gen_scope                                              4
@@ -243,27 +243,28 @@ hier_path                                              6
 int_typespec                                           4
 interface_inst                                         5
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              2
 module_array                                           1
 module_inst                                            8
 module_typespec                                        1
-operation                                              8
+operation                                              9
 param_assign                                           2
 parameter                                              4
-range                                                  4
-ref_obj                                               13
+range                                                  5
+ref_obj                                               14
+sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  1
 bit_select                                             9
-constant                                              38
+constant                                              40
 cont_assign                                            9
 design                                                 1
-enum_const                                             1
-enum_typespec                                          1
+enum_const                                             2
+enum_typespec                                          2
 enum_var                                               1
 gen_region                                             1
 gen_scope                                              6
@@ -272,16 +273,17 @@ hier_path                                              9
 int_typespec                                           4
 interface_inst                                         5
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              2
 module_array                                           1
 module_inst                                            8
 module_typespec                                        1
-operation                                              8
+operation                                              9
 param_assign                                           2
 parameter                                              4
-range                                                  4
-ref_obj                                               19
+range                                                  5
+ref_obj                                               20
+sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfArrayBind/slpp_all/surelog.uhdm ...
 
@@ -305,6 +307,8 @@ design: (work@soc_tb)
   \_logic_net: (work@io_bus_interface.write_en), line:2:11, endln:2:19
     |vpiParent:
     \_interface_inst: work@io_bus_interface (work@io_bus_interface), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:1:1, endln:4:13
+    |vpiTypespec:
+    \_logic_typespec: , line:2:5, endln:2:10
     |vpiName:write_en
     |vpiFullName:work@io_bus_interface.write_en
     |vpiNetType:36
@@ -319,7 +323,7 @@ design: (work@soc_tb)
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:8:5, endln:8:35
     |vpiLocalParam:1
     |vpiName:NUM_PERIPHERALS
     |vpiFullName:work@soc_tb.NUM_PERIPHERALS
@@ -335,7 +339,7 @@ design: (work@soc_tb)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:8:5, endln:8:35
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@soc_tb.NUM_PERIPHERALS), line:8:16, endln:8:31
@@ -344,6 +348,53 @@ design: (work@soc_tb)
   \_logic_net: (work@soc_tb.io_bus_source), line:12:7, endln:12:20
     |vpiParent:
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
+    |vpiTypespec:
+    \_enum_typespec: 
+      |vpiBaseTypespec:
+      \_logic_typespec: , line:10:10, endln:10:46
+        |vpiRange:
+        \_range: , line:10:15, endln:10:46
+          |vpiParent:
+          \_logic_typespec: , line:10:10, endln:10:46
+          |vpiLeftRange:
+          \_operation: , line:10:16, endln:10:43
+            |vpiParent:
+            \_range: , line:10:15, endln:10:46
+            |vpiOpType:11
+            |vpiOperand:
+            \_sys_func_call: ($clog2), line:10:16, endln:10:39
+              |vpiParent:
+              \_operation: , line:10:16, endln:10:43
+              |vpiArgument:
+              \_ref_obj: (NUM_PERIPHERALS), line:10:23, endln:10:38
+                |vpiParent:
+                \_sys_func_call: ($clog2), line:10:16, endln:10:39
+                |vpiName:NUM_PERIPHERALS
+              |vpiName:$clog2
+            |vpiOperand:
+            \_constant: , line:10:42, endln:10:43
+              |vpiParent:
+              \_operation: , line:10:16, endln:10:43
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:10:44, endln:10:45
+            |vpiParent:
+            \_range: , line:10:15, endln:10:46
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiEnumConst:
+      \_enum_const: (IO_ONES), line:11:7, endln:11:14
+        |vpiParent:
+        \_enum_typespec: 
+        |vpiName:IO_ONES
+        |INT:0
+        |vpiDecompile:0
+        |vpiSize:1
     |vpiName:io_bus_source
     |vpiFullName:work@soc_tb.io_bus_source
   |vpiNet:
@@ -427,7 +478,7 @@ design: (work@soc_tb)
           |vpiActual:
           \_logic_net: (work@soc_tb.IO_ONES), line:16:30, endln:16:37
       |vpiActual:
-      \_ref_obj: (peripheral_io_bus[IO_ONES].write_en)
+      \_ref_obj: (peripheral_io_bus[IO_ONES].write_en), line:16:39, endln:16:47
         |vpiParent:
         \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
         |vpiName:write_en
@@ -491,7 +542,7 @@ design: (work@soc_tb)
     \_module_inst: work@soc_tb (work@soc_tb), file:${SURELOG_DIR}/tests/InterfArrayBind/dut.sv, line:6:1, endln:26:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:8:5, endln:8:35
       |vpiParent:
       \_parameter: (work@soc_tb.NUM_PERIPHERALS), line:8:16, endln:8:31
     |vpiLocalParam:1
@@ -509,7 +560,7 @@ design: (work@soc_tb)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:8:5, endln:8:35
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@soc_tb.NUM_PERIPHERALS), line:8:16, endln:8:31
@@ -567,14 +618,14 @@ design: (work@soc_tb)
     |vpiName:io_gen[0]
     |vpiFullName:work@soc_tb.io_gen[0]
     |vpiGenScope:
-    \_gen_scope: (work@soc_tb.io_gen[0])
+    \_gen_scope: (work@soc_tb.io_gen[0]), line:21:9, endln:23:12
       |vpiParent:
       \_gen_scope_array: (work@soc_tb.io_gen[0]), line:21:9, endln:23:12
       |vpiFullName:work@soc_tb.io_gen[0]
       |vpiParameter:
       \_parameter: (work@soc_tb.io_gen[0].io_idx), line:20:0
         |vpiParent:
-        \_gen_scope: (work@soc_tb.io_gen[0])
+        \_gen_scope: (work@soc_tb.io_gen[0]), line:21:9, endln:23:12
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -584,7 +635,7 @@ design: (work@soc_tb)
       |vpiContAssign:
       \_cont_assign: , line:22:20, endln:22:58
         |vpiParent:
-        \_gen_scope: (work@soc_tb.io_gen[0])
+        \_gen_scope: (work@soc_tb.io_gen[0]), line:21:9, endln:23:12
         |vpiRhs:
         \_constant: , line:22:57, endln:22:58
           |vpiParent:
@@ -615,7 +666,7 @@ design: (work@soc_tb)
               |vpiActual:
               \_parameter: (work@soc_tb.io_gen[0].io_idx), line:20:0
           |vpiActual:
-          \_ref_obj: (peripheral_io_bus[io_idx].write_en)
+          \_ref_obj: (peripheral_io_bus[io_idx].write_en), line:22:46, endln:22:54
             |vpiParent:
             \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
             |vpiName:write_en
@@ -629,14 +680,14 @@ design: (work@soc_tb)
     |vpiName:io_gen[1]
     |vpiFullName:work@soc_tb.io_gen[1]
     |vpiGenScope:
-    \_gen_scope: (work@soc_tb.io_gen[1])
+    \_gen_scope: (work@soc_tb.io_gen[1]), line:21:9, endln:23:12
       |vpiParent:
       \_gen_scope_array: (work@soc_tb.io_gen[1]), line:21:9, endln:23:12
       |vpiFullName:work@soc_tb.io_gen[1]
       |vpiParameter:
       \_parameter: (work@soc_tb.io_gen[1].io_idx), line:20:0
         |vpiParent:
-        \_gen_scope: (work@soc_tb.io_gen[1])
+        \_gen_scope: (work@soc_tb.io_gen[1]), line:21:9, endln:23:12
         |UINT:1
         |vpiTypespec:
         \_int_typespec: 
@@ -646,7 +697,7 @@ design: (work@soc_tb)
       |vpiContAssign:
       \_cont_assign: , line:22:20, endln:22:58
         |vpiParent:
-        \_gen_scope: (work@soc_tb.io_gen[1])
+        \_gen_scope: (work@soc_tb.io_gen[1]), line:21:9, endln:23:12
         |vpiRhs:
         \_constant: , line:22:57, endln:22:58
           |vpiParent:
@@ -677,7 +728,7 @@ design: (work@soc_tb)
               |vpiActual:
               \_parameter: (work@soc_tb.io_gen[1].io_idx), line:20:0
           |vpiActual:
-          \_ref_obj: (peripheral_io_bus[io_idx].write_en)
+          \_ref_obj: (peripheral_io_bus[io_idx].write_en), line:22:46, endln:22:54
             |vpiParent:
             \_hier_path: (peripheral_io_bus[io_idx].write_en), line:22:20, endln:22:37
             |vpiName:write_en
@@ -712,7 +763,7 @@ design: (work@soc_tb)
           |vpiActual:
           \_logic_net: (work@soc_tb.IO_ONES), line:16:30, endln:16:37
       |vpiActual:
-      \_ref_obj: (peripheral_io_bus[IO_ONES].write_en)
+      \_ref_obj: (peripheral_io_bus[IO_ONES].write_en), line:16:39, endln:16:47
         |vpiParent:
         \_hier_path: (peripheral_io_bus[IO_ONES].write_en), line:16:12, endln:16:29
         |vpiName:write_en
@@ -725,6 +776,3 @@ design: (work@soc_tb)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/InterfArrayBind/dut.sv | ${SURELOG_DIR}/build/regression/InterfArrayBind/roundtrip/dut_000.sv | 12 | 26 |

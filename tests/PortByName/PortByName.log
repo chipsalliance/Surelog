@@ -30,16 +30,16 @@
 array_net                                              2
 array_typespec                                         5
 array_var                                              3
-constant                                              67
+constant                                              75
 cont_assign                                            1
 design                                                 1
 logic_net                                             10
-logic_typespec                                        13
+logic_typespec                                        17
 logic_var                                              4
 module_inst                                            7
 operation                                              9
 port                                                   9
-range                                                 29
+range                                                 33
 ref_module                                             1
 ref_obj                                               14
 === UHDM Object Stats End ===
@@ -49,16 +49,16 @@ ref_obj                                               14
 array_net                                              2
 array_typespec                                         5
 array_var                                              3
-constant                                              67
+constant                                              75
 cont_assign                                            2
 design                                                 1
 logic_net                                             10
-logic_typespec                                        13
+logic_typespec                                        17
 logic_var                                              4
 module_inst                                            7
 operation                                              9
 port                                                  12
-range                                                 29
+range                                                 33
 ref_module                                             1
 ref_obj                                               22
 === UHDM Object Stats End ===
@@ -105,6 +105,28 @@ design: (work@top)
   \_logic_net: (work@ibex_id_stage.fourth), line:17:16, endln:17:22
     |vpiParent:
     \_module_inst: work@ibex_id_stage (work@ibex_id_stage), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:12:1, endln:20:10
+    |vpiTypespec:
+    \_logic_typespec: , line:17:3, endln:17:25
+      |vpiRange:
+      \_range: , line:17:9, endln:17:15
+        |vpiParent:
+        \_logic_typespec: , line:17:3, endln:17:25
+        |vpiLeftRange:
+        \_constant: , line:17:10, endln:17:12
+          |vpiParent:
+          \_range: , line:17:9, endln:17:15
+          |vpiDecompile:33
+          |vpiSize:64
+          |UINT:33
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:17:13, endln:17:14
+          |vpiParent:
+          \_range: , line:17:9, endln:17:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:fourth
     |vpiFullName:work@ibex_id_stage.fourth
     |vpiNetType:36
@@ -115,7 +137,7 @@ design: (work@top)
     |vpiName:first
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@ibex_id_stage.first.first)
+    \_ref_obj: (work@ibex_id_stage.first.first), line:13:39, endln:13:44
       |vpiParent:
       \_port: (first), line:13:39, endln:13:44
       |vpiName:first
@@ -151,7 +173,7 @@ design: (work@top)
     |vpiName:second
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@ibex_id_stage.second.second)
+    \_ref_obj: (work@ibex_id_stage.second.second), line:14:39, endln:14:45
       |vpiParent:
       \_port: (second), line:14:39, endln:14:45
       |vpiName:second
@@ -176,14 +198,14 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:14:46, endln:14:47
           |vpiParent:
           \_range: , line:14:46, endln:14:47
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:14:46, endln:14:47
             |vpiParent:
-            \_operation: 
+            \_operation: , line:14:46, endln:14:47
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -222,7 +244,7 @@ design: (work@top)
     |vpiName:third
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@ibex_id_stage.third.third)
+    \_ref_obj: (work@ibex_id_stage.third.third), line:15:39, endln:15:44
       |vpiParent:
       \_port: (third), line:15:39, endln:15:44
       |vpiName:third
@@ -247,14 +269,14 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:15:45, endln:15:46
           |vpiParent:
           \_range: , line:15:45, endln:15:46
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:15:45, endln:15:46
             |vpiParent:
-            \_operation: 
+            \_operation: , line:15:45, endln:15:46
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -316,6 +338,28 @@ design: (work@top)
   \_logic_net: (work@top.top_second), line:2:16, endln:2:26
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:3, endln:2:29
+      |vpiRange:
+      \_range: , line:2:9, endln:2:15
+        |vpiParent:
+        \_logic_typespec: , line:2:3, endln:2:29
+        |vpiLeftRange:
+        \_constant: , line:2:10, endln:2:12
+          |vpiParent:
+          \_range: , line:2:9, endln:2:15
+          |vpiDecompile:33
+          |vpiSize:64
+          |UINT:33
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:13, endln:2:14
+          |vpiParent:
+          \_range: , line:2:9, endln:2:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:top_second
     |vpiFullName:work@top.top_second
     |vpiNetType:36
@@ -323,6 +367,28 @@ design: (work@top)
   \_logic_net: (work@top.top_third), line:3:16, endln:3:25
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:3, endln:3:28
+      |vpiRange:
+      \_range: , line:3:9, endln:3:15
+        |vpiParent:
+        \_logic_typespec: , line:3:3, endln:3:28
+        |vpiLeftRange:
+        \_constant: , line:3:10, endln:3:12
+          |vpiParent:
+          \_range: , line:3:9, endln:3:15
+          |vpiDecompile:33
+          |vpiSize:64
+          |UINT:33
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:13, endln:3:14
+          |vpiParent:
+          \_range: , line:3:9, endln:3:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:top_third
     |vpiFullName:work@top.top_third
     |vpiNetType:36
@@ -330,6 +396,28 @@ design: (work@top)
   \_logic_net: (work@top.top_first), line:4:16, endln:4:25
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:4:3, endln:4:14
+      |vpiRange:
+      \_range: , line:4:9, endln:4:14
+        |vpiParent:
+        \_logic_typespec: , line:4:3, endln:4:14
+        |vpiLeftRange:
+        \_constant: , line:4:10, endln:4:11
+          |vpiParent:
+          \_range: , line:4:9, endln:4:14
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:12, endln:4:13
+          |vpiParent:
+          \_range: , line:4:9, endln:4:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:top_first
     |vpiFullName:work@top.top_first
     |vpiNetType:36
@@ -384,7 +472,7 @@ design: (work@top)
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:1:1, endln:11:10
   |vpiName:work@top
   |vpiVariables:
-  \_array_var: (work@top.top_second), line:2:16, endln:2:29
+  \_array_var: (work@top.top_second), line:2:16, endln:2:26
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:1:1, endln:11:10
     |vpiSize:2
@@ -398,7 +486,7 @@ design: (work@top)
     |vpiRange:
     \_range: , line:2:27, endln:2:28
       |vpiParent:
-      \_array_var: (work@top.top_second), line:2:16, endln:2:29
+      \_array_var: (work@top.top_second), line:2:16, endln:2:26
       |vpiLeftRange:
       \_constant: 
         |vpiParent:
@@ -408,14 +496,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:2:27, endln:2:28
         |vpiParent:
         \_range: , line:2:27, endln:2:28
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:2:27, endln:2:28
           |vpiParent:
-          \_operation: 
+          \_operation: , line:2:27, endln:2:28
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -428,7 +516,7 @@ design: (work@top)
     |vpiReg:
     \_logic_var: (work@top.top_second), line:2:16, endln:2:26
       |vpiParent:
-      \_array_var: (work@top.top_second), line:2:16, endln:2:29
+      \_array_var: (work@top.top_second), line:2:16, endln:2:26
       |vpiTypespec:
       \_logic_typespec: , line:2:3, endln:2:15
         |vpiParent:
@@ -457,7 +545,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:2:9, endln:2:15
         |vpiParent:
-        \_array_var: (work@top.top_second), line:2:16, endln:2:29
+        \_array_var: (work@top.top_second), line:2:16, endln:2:26
         |vpiLeftRange:
         \_constant: , line:2:10, endln:2:12
           |vpiParent:
@@ -475,7 +563,7 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
   |vpiVariables:
-  \_array_var: (work@top.top_third), line:3:16, endln:3:28
+  \_array_var: (work@top.top_third), line:3:16, endln:3:25
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:1:1, endln:11:10
     |vpiSize:2
@@ -489,7 +577,7 @@ design: (work@top)
     |vpiRange:
     \_range: , line:3:26, endln:3:27
       |vpiParent:
-      \_array_var: (work@top.top_third), line:3:16, endln:3:28
+      \_array_var: (work@top.top_third), line:3:16, endln:3:25
       |vpiLeftRange:
       \_constant: 
         |vpiParent:
@@ -499,14 +587,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:3:26, endln:3:27
         |vpiParent:
         \_range: , line:3:26, endln:3:27
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:3:26, endln:3:27
           |vpiParent:
-          \_operation: 
+          \_operation: , line:3:26, endln:3:27
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -519,7 +607,7 @@ design: (work@top)
     |vpiReg:
     \_logic_var: (work@top.top_third), line:3:16, endln:3:25
       |vpiParent:
-      \_array_var: (work@top.top_third), line:3:16, endln:3:28
+      \_array_var: (work@top.top_third), line:3:16, endln:3:25
       |vpiTypespec:
       \_logic_typespec: , line:3:3, endln:3:15
         |vpiParent:
@@ -548,7 +636,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:3:9, endln:3:15
         |vpiParent:
-        \_array_var: (work@top.top_third), line:3:16, endln:3:28
+        \_array_var: (work@top.top_third), line:3:16, endln:3:25
         |vpiLeftRange:
         \_constant: , line:3:10, endln:3:12
           |vpiParent:
@@ -626,7 +714,7 @@ design: (work@top)
     |vpiName:id_stage_i
     |vpiFullName:work@top.id_stage_i
     |vpiVariables:
-    \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:25
+    \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:22
       |vpiParent:
       \_module_inst: work@ibex_id_stage (work@top.id_stage_i), file:${SURELOG_DIR}/tests/PortByName/dut.sv, line:5:3, endln:9:5
       |vpiSize:2
@@ -640,7 +728,7 @@ design: (work@top)
       |vpiRange:
       \_range: , line:17:23, endln:17:24
         |vpiParent:
-        \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:25
+        \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:22
         |vpiLeftRange:
         \_constant: 
           |vpiParent:
@@ -650,14 +738,14 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:17:23, endln:17:24
           |vpiParent:
           \_range: , line:17:23, endln:17:24
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:17:23, endln:17:24
             |vpiParent:
-            \_operation: 
+            \_operation: , line:17:23, endln:17:24
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -670,7 +758,7 @@ design: (work@top)
       |vpiReg:
       \_logic_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:22
         |vpiParent:
-        \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:25
+        \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:22
         |vpiTypespec:
         \_logic_typespec: , line:17:3, endln:17:15
           |vpiParent:
@@ -699,7 +787,7 @@ design: (work@top)
         |vpiRange:
         \_range: , line:17:9, endln:17:15
           |vpiParent:
-          \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:25
+          \_array_var: (work@top.id_stage_i.fourth), line:17:16, endln:17:22
           |vpiLeftRange:
           \_constant: , line:17:10, endln:17:12
             |vpiParent:
@@ -770,14 +858,14 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:14:46, endln:14:47
           |vpiParent:
           \_range: , line:14:46, endln:14:47
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:14:46, endln:14:47
             |vpiParent:
-            \_operation: 
+            \_operation: , line:14:46, endln:14:47
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -837,14 +925,14 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:15:45, endln:15:46
           |vpiParent:
           \_range: , line:15:45, endln:15:46
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:15:45, endln:15:46
             |vpiParent:
-            \_operation: 
+            \_operation: , line:15:45, endln:15:46
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -945,7 +1033,7 @@ design: (work@top)
         |vpiName:top_second
         |vpiFullName:work@top.top_second
         |vpiActual:
-        \_array_var: (work@top.top_second), line:2:16, endln:2:29
+        \_array_var: (work@top.top_second), line:2:16, endln:2:26
       |vpiLowConn:
       \_ref_obj: (work@top.id_stage_i.second), line:8:8, endln:8:14
         |vpiParent:
@@ -991,7 +1079,7 @@ design: (work@top)
         |vpiName:top_third
         |vpiFullName:work@top.top_third
         |vpiActual:
-        \_array_var: (work@top.top_third), line:3:16, endln:3:28
+        \_array_var: (work@top.top_third), line:3:16, endln:3:25
       |vpiLowConn:
       \_ref_obj: (work@top.id_stage_i.third), line:6:8, endln:6:13
         |vpiParent:
@@ -1052,4 +1140,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PortByName/dut.sv | ${SURELOG_DIR}/build/regression/PortByName/roundtrip/dut_000.sv | 13 | 20 |
+[roundtrip]: ${SURELOG_DIR}/tests/PortByName/dut.sv | ${SURELOG_DIR}/build/regression/PortByName/roundtrip/dut_000.sv | 12 | 20 |

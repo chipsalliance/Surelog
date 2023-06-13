@@ -113,7 +113,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             2
-constant                                              11
+constant                                              13
 cont_assign                                            2
 design                                                 1
 hier_path                                              2
@@ -125,17 +125,18 @@ operation                                              2
 packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   2
-range                                                  2
+range                                                  3
 ref_obj                                                4
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             3
-constant                                              12
+constant                                              14
 cont_assign                                            3
 design                                                 1
 hier_path                                              3
@@ -147,11 +148,12 @@ operation                                              3
 packed_array_typespec                                  1
 packed_array_var                                       1
 port                                                   3
-range                                                  2
+range                                                  3
 ref_obj                                                6
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitSelectExpr/slpp_all/surelog.uhdm ...
 
@@ -171,7 +173,7 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
-  \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:3:18
+  \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:5:5
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
     |vpiName:sram_otp_key_rsp_t
@@ -181,7 +183,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (nonce), line:4:14, endln:4:19
       |vpiParent:
-      \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:3:18
+      \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:5:5
       |vpiName:nonce
       |vpiTypespec:
       \_int_typespec: , line:4:7, endln:4:10
@@ -204,6 +206,9 @@ design: (work@top)
   \_logic_net: (work@top.sram_otp_key_o), line:7:29, endln:7:43
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
+    |vpiTypespec:
+    \_unsupported_typespec: (sram_otp_key_rsp_t), line:7:4, endln:7:28
+      |vpiName:sram_otp_key_rsp_t
     |vpiName:sram_otp_key_o
     |vpiFullName:work@top.sram_otp_key_o
   |vpiPort:
@@ -213,7 +218,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:1:23, endln:1:24
       |vpiParent:
       \_port: (o), line:1:23, endln:1:24
       |vpiName:o
@@ -268,7 +273,7 @@ design: (work@top)
             |UINT:2
             |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (sram_otp_key_o[2 - 2].nonce)
+      \_ref_obj: (sram_otp_key_o[2 - 2].nonce), line:9:31, endln:9:36
         |vpiParent:
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
         |vpiName:nonce
@@ -321,10 +326,10 @@ design: (work@top)
       |vpiParent:
       \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
       |vpiTypespec:
-      \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:3:18
+      \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:5:5
       |vpiFullName:work@top.sram_otp_key_o
   |vpiTypedef:
-  \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:3:18
+  \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:5:5
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
@@ -388,7 +393,7 @@ design: (work@top)
             |UINT:2
             |vpiConstType:9
       |vpiActual:
-      \_ref_obj: (sram_otp_key_o[2 - 2].nonce)
+      \_ref_obj: (sram_otp_key_o[2 - 2].nonce), line:9:31, endln:9:36
         |vpiParent:
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:9:11, endln:9:25
         |vpiName:nonce

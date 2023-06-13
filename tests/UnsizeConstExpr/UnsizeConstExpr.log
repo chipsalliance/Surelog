@@ -94,31 +94,31 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              10
+constant                                              12
 cont_assign                                            2
 design                                                 1
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            4
 operation                                              2
 part_select                                            2
-range                                                  2
+range                                                  3
 ref_obj                                                2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              11
+constant                                              13
 cont_assign                                            3
 design                                                 1
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            4
 operation                                              3
 part_select                                            3
-range                                                  2
+range                                                  3
 ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizeConstExpr/slpp_all/surelog.uhdm ...
@@ -143,6 +143,28 @@ design: (work@top)
   \_logic_net: (work@top.product_exponent), line:3:14, endln:3:30
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizeConstExpr/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:13
+      |vpiRange:
+      \_range: , line:3:7, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
+        |vpiLeftRange:
+        \_constant: , line:3:8, endln:3:10
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:10
+          |vpiSize:64
+          |UINT:10
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:11, endln:3:12
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:product_exponent
     |vpiFullName:work@top.product_exponent
     |vpiNetType:36
@@ -312,4 +334,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/UnsizeConstExpr/dut.sv | ${SURELOG_DIR}/build/regression/UnsizeConstExpr/roundtrip/dut_000.sv | 2 | 7 |
+[roundtrip]: ${SURELOG_DIR}/tests/UnsizeConstExpr/dut.sv | ${SURELOG_DIR}/build/regression/UnsizeConstExpr/roundtrip/dut_000.sv | 1 | 7 |

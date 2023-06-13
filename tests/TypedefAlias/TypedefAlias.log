@@ -42,6 +42,7 @@ packed_array_typespec                                  1
 range                                                  5
 struct_typespec                                        4
 typespec_member                                        4
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -57,6 +58,7 @@ packed_array_typespec                                  1
 range                                                  5
 struct_typespec                                        4
 typespec_member                                        4
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypedefAlias/slpp_unit/surelog.uhdm ...
 
@@ -77,7 +79,7 @@ design: (work@test)
   |vpiName:package1
   |vpiFullName:package1::
   |vpiTypedef:
-  \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+  \_struct_typespec: (package1::type_t), line:2:11, endln:4:4
     |vpiParent:
     \_package: package1 (package1::), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:1:1, endln:7:22
     |vpiName:package1::type_t
@@ -87,7 +89,7 @@ design: (work@test)
     |vpiTypespecMember:
     \_typespec_member: (q), line:3:20, endln:3:21
       |vpiParent:
-      \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+      \_struct_typespec: (package1::type_t), line:2:11, endln:4:4
       |vpiName:q
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -115,12 +117,12 @@ design: (work@test)
   |vpiName:package1
   |vpiFullName:package1::
   |vpiTypedef:
-  \_struct_typespec: (package1::type_alias), line:2:11, endln:2:17
+  \_struct_typespec: (package1::type_alias), line:2:11, endln:4:4
     |vpiParent:
     \_package: package1 (package1::), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:1:1, endln:7:22
     |vpiName:package1::type_alias
     |vpiTypedefAlias:
-    \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+    \_struct_typespec: (package1::type_t), line:2:11, endln:4:4
       |vpiParent:
       \_package: package1 (package1::), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:1:1, endln:7:22
       |vpiName:package1::type_t
@@ -130,7 +132,7 @@ design: (work@test)
       |vpiTypespecMember:
       \_typespec_member: (q), line:3:20, endln:3:21
         |vpiParent:
-        \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+        \_struct_typespec: (package1::type_t), line:2:11, endln:4:4
         |vpiName:q
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12
@@ -149,7 +151,7 @@ design: (work@test)
     |vpiTypespecMember:
     \_typespec_member: (q), line:3:20, endln:3:21
       |vpiParent:
-      \_struct_typespec: (package1::type_alias), line:2:11, endln:2:17
+      \_struct_typespec: (package1::type_alias), line:2:11, endln:4:4
       |vpiName:q
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -163,7 +165,7 @@ design: (work@test)
       |vpiRefEndLineNo:3
       |vpiRefEndColumnNo:12
   |vpiTypedef:
-  \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+  \_struct_typespec: (package1::type_t), line:2:11, endln:4:4
   |vpiDefName:package1
   |vpiTop:1
 |uhdmtopPackages:
@@ -173,19 +175,19 @@ design: (work@test)
   |vpiName:package2
   |vpiFullName:package2::
   |vpiTypedef:
-  \_struct_typespec: (package2::type_alias), line:2:11, endln:2:17
+  \_struct_typespec: (package2::type_alias), line:2:11, endln:4:4
     |vpiParent:
     \_package: package2 (package2::), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:9:1, endln:11:22
     |vpiName:package2::type_alias
     |vpiTypedefAlias:
-    \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+    \_struct_typespec: (package1::type_t), line:2:11, endln:4:4
     |vpiInstance:
     \_package: package2 (package2::), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:9:1, endln:11:22
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (q), line:3:20, endln:3:21
       |vpiParent:
-      \_struct_typespec: (package2::type_alias), line:2:11, endln:2:17
+      \_struct_typespec: (package2::type_alias), line:2:11, endln:4:4
       |vpiName:q
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:12
@@ -266,6 +268,9 @@ design: (work@test)
   \_logic_net: (work@test.kkkk), line:18:16, endln:18:20
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:15:1, endln:20:10
+    |vpiTypespec:
+    \_unsupported_typespec: (t_two_bits), line:18:5, endln:18:15
+      |vpiName:t_two_bits
     |vpiName:kkkk
     |vpiFullName:work@test.kkkk
     |vpiNetType:36
@@ -273,6 +278,9 @@ design: (work@test)
   \_logic_net: (work@test.zzzz), line:19:21, endln:19:25
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:15:1, endln:20:10
+    |vpiTypespec:
+    \_unsupported_typespec: (t_two_bits_copy), line:19:5, endln:19:20
+      |vpiName:t_two_bits_copy
     |vpiName:zzzz
     |vpiFullName:work@test.zzzz
     |vpiNetType:36
@@ -333,4 +341,4 @@ design: (work@test)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/TypedefAlias/dut.sv | ${SURELOG_DIR}/build/regression/TypedefAlias/roundtrip/dut_000.sv | 7 | 20 |
+[roundtrip]: ${SURELOG_DIR}/tests/TypedefAlias/dut.sv | ${SURELOG_DIR}/build/regression/TypedefAlias/roundtrip/dut_000.sv | 5 | 20 |

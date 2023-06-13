@@ -200,7 +200,7 @@ assign_stmt                                            1
 assignment                                             2
 begin                                                  3
 bit_select                                             2
-constant                                              25
+constant                                              27
 design                                                 1
 enum_const                                             2
 enum_typespec                                          2
@@ -211,14 +211,14 @@ gen_scope_array                                        2
 import_typespec                                        1
 int_typespec                                           1
 logic_net                                              4
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            6
 operation                                              9
 package                                                2
 parameter                                              1
 port                                                   2
-range                                                  5
+range                                                  6
 ref_obj                                               10
 ref_var                                                1
 unsupported_typespec                                   1
@@ -233,7 +233,7 @@ assign_stmt                                            1
 assignment                                             3
 begin                                                  4
 bit_select                                             3
-constant                                              25
+constant                                              27
 design                                                 1
 enum_const                                             2
 enum_typespec                                          2
@@ -244,14 +244,14 @@ gen_scope_array                                        3
 import_typespec                                        1
 int_typespec                                           1
 logic_net                                              4
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            6
 operation                                             11
 package                                                2
 parameter                                              1
 port                                                   3
-range                                                  5
+range                                                  6
 ref_obj                                               14
 ref_var                                                1
 unsupported_typespec                                   1
@@ -375,6 +375,28 @@ design: (work@dut)
   \_logic_net: (work@dut.c), line:12:14, endln:12:15
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiTypespec:
+    \_logic_typespec: , line:12:2, endln:12:19
+      |vpiRange:
+      \_range: , line:12:8, endln:12:13
+        |vpiParent:
+        \_logic_typespec: , line:12:2, endln:12:19
+        |vpiLeftRange:
+        \_constant: , line:12:9, endln:12:10
+          |vpiParent:
+          \_range: , line:12:8, endln:12:13
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:12:11, endln:12:12
+          |vpiParent:
+          \_range: , line:12:8, endln:12:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:c
     |vpiFullName:work@dut.c
     |vpiNetType:36
@@ -398,7 +420,7 @@ design: (work@dut)
     |vpiName:a0
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@dut.a0.a0)
+    \_ref_obj: (work@dut.a0.a0), line:7:12, endln:7:14
       |vpiParent:
       \_port: (a0), line:7:12, endln:7:14
       |vpiName:a0
@@ -524,7 +546,7 @@ design: (work@dut)
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
   |vpiName:work@dut
   |vpiVariables:
-  \_array_var: (work@dut.c), line:12:14, endln:12:19
+  \_array_var: (work@dut.c), line:12:14, endln:12:15
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiSize:4
@@ -538,7 +560,7 @@ design: (work@dut)
     |vpiRange:
     \_range: , line:12:17, endln:12:18
       |vpiParent:
-      \_array_var: (work@dut.c), line:12:14, endln:12:19
+      \_array_var: (work@dut.c), line:12:14, endln:12:15
       |vpiLeftRange:
       \_constant: 
         |vpiParent:
@@ -548,14 +570,14 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:12:17, endln:12:18
         |vpiParent:
         \_range: , line:12:17, endln:12:18
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:12:17, endln:12:18
           |vpiParent:
-          \_operation: 
+          \_operation: , line:12:17, endln:12:18
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
@@ -568,7 +590,7 @@ design: (work@dut)
     |vpiReg:
     \_logic_var: (work@dut.c), line:12:14, endln:12:15
       |vpiParent:
-      \_array_var: (work@dut.c), line:12:14, endln:12:19
+      \_array_var: (work@dut.c), line:12:14, endln:12:15
       |vpiTypespec:
       \_logic_typespec: , line:12:2, endln:12:13
         |vpiParent:
@@ -597,7 +619,7 @@ design: (work@dut)
       |vpiRange:
       \_range: , line:12:8, endln:12:13
         |vpiParent:
-        \_array_var: (work@dut.c), line:12:14, endln:12:19
+        \_array_var: (work@dut.c), line:12:14, endln:12:15
         |vpiLeftRange:
         \_constant: , line:12:9, endln:12:10
           |vpiParent:
@@ -656,14 +678,14 @@ design: (work@dut)
     |vpiName:genblk1[0]
     |vpiFullName:work@dut.genblk1[0]
     |vpiGenScope:
-    \_gen_scope: (work@dut.genblk1[0])
+    \_gen_scope: (work@dut.genblk1[0]), line:14:33, endln:18:5
       |vpiParent:
       \_gen_scope_array: (work@dut.genblk1[0]), line:14:33, endln:18:5
       |vpiFullName:work@dut.genblk1[0]
       |vpiParameter:
       \_parameter: (work@dut.genblk1[0].i), line:14:0
         |vpiParent:
-        \_gen_scope: (work@dut.genblk1[0])
+        \_gen_scope: (work@dut.genblk1[0]), line:14:33, endln:18:5
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -673,7 +695,7 @@ design: (work@dut)
       |vpiProcess:
       \_always: , line:15:3, endln:17:6
         |vpiParent:
-        \_gen_scope: (work@dut.genblk1[0])
+        \_gen_scope: (work@dut.genblk1[0]), line:14:33, endln:18:5
         |vpiStmt:
         \_event_control: , line:15:10, endln:15:23
           |vpiParent:
@@ -722,7 +744,7 @@ design: (work@dut)
                 |vpiName:c
                 |vpiFullName:work@dut.genblk1[0].c
                 |vpiActual:
-                \_array_var: (work@dut.c), line:12:14, endln:12:19
+                \_array_var: (work@dut.c), line:12:14, endln:12:15
                 |vpiIndex:
                 \_ref_obj: (work@dut.genblk1[0].i), line:16:6, endln:16:7
                   |vpiParent:

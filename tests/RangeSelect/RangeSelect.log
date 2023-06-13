@@ -29,40 +29,42 @@
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              1
 bit_select                                             1
-constant                                              14
+constant                                              16
 design                                                 1
 hier_path                                              2
 indexed_part_select                                    2
 logic_net                                              4
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              2
 module_inst                                            3
 operation                                              1
-range                                                  4
+range                                                  5
 ref_obj                                                1
 struct_net                                             2
 struct_typespec                                        1
 typespec_member                                        1
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              1
 bit_select                                             1
-constant                                              14
+constant                                              16
 design                                                 1
 hier_path                                              2
 indexed_part_select                                    2
 logic_net                                              4
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              2
 module_inst                                            3
 operation                                              1
-range                                                  4
+range                                                  5
 ref_obj                                                1
 struct_net                                             2
 struct_typespec                                        1
 typespec_member                                        1
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/RangeSelect/slpp_unit/surelog.uhdm ...
 
@@ -82,7 +84,7 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
-  \_struct_typespec: (tl_h2d_t), line:2:12, endln:2:18
+  \_struct_typespec: (tl_h2d_t), line:2:12, endln:4:5
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiName:tl_h2d_t
@@ -92,7 +94,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (source), line:3:19, endln:3:25
       |vpiParent:
-      \_struct_typespec: (tl_h2d_t), line:2:12, endln:2:18
+      \_struct_typespec: (tl_h2d_t), line:2:12, endln:4:5
       |vpiName:source
       |vpiTypespec:
       \_logic_typespec: , line:3:7, endln:3:18
@@ -128,18 +130,26 @@ design: (work@top)
   \_logic_net: (work@top.a), line:6:13, endln:6:14
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_unsupported_typespec: (tl_h2d_t), line:6:4, endln:6:17
+      |vpiName:tl_h2d_t
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiNet:
   \_logic_net: (work@top.b), line:7:13, endln:7:14
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_unsupported_typespec: (tl_h2d_t), line:7:4, endln:7:12
+      |vpiName:tl_h2d_t
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
   \_logic_net: (work@top.c), line:8:10, endln:8:11
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:8:4, endln:8:33
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiNetType:36
@@ -147,6 +157,28 @@ design: (work@top)
   \_logic_net: (work@top.d), line:9:16, endln:9:17
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:9:4, endln:9:36
+      |vpiRange:
+      \_range: , line:9:10, endln:9:15
+        |vpiParent:
+        \_logic_typespec: , line:9:4, endln:9:36
+        |vpiLeftRange:
+        \_constant: , line:9:11, endln:9:12
+          |vpiParent:
+          \_range: , line:9:10, endln:9:15
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:9:13, endln:9:14
+          |vpiParent:
+          \_range: , line:9:10, endln:9:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:d
     |vpiFullName:work@top.d
     |vpiNetType:36
@@ -287,7 +319,7 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
   |vpiTypedef:
-  \_struct_typespec: (tl_h2d_t), line:2:12, endln:2:18
+  \_struct_typespec: (tl_h2d_t), line:2:12, endln:4:5
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
@@ -295,7 +327,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (tl_h2d_t), line:2:12, endln:2:18
+    \_struct_typespec: (tl_h2d_t), line:2:12, endln:4:5
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiArrayNet:
@@ -318,14 +350,14 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:6:15, endln:6:16
         |vpiParent:
         \_range: , line:6:15, endln:6:16
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:6:15, endln:6:16
           |vpiParent:
-          \_operation: 
+          \_operation: , line:6:15, endln:6:16
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
@@ -340,7 +372,7 @@ design: (work@top)
       |vpiParent:
       \_array_net: (work@top.a), line:6:13, endln:6:14
       |vpiTypespec:
-      \_struct_typespec: (tl_h2d_t), line:2:12, endln:2:18
+      \_struct_typespec: (tl_h2d_t), line:2:12, endln:4:5
       |vpiName:a
       |vpiFullName:work@top.a.a
   |vpiTopModule:1
@@ -352,4 +384,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/RangeSelect/dut.sv | ${SURELOG_DIR}/build/regression/RangeSelect/roundtrip/dut_000.sv | 4 | 11 |
+[roundtrip]: ${SURELOG_DIR}/tests/RangeSelect/dut.sv | ${SURELOG_DIR}/build/regression/RangeSelect/roundtrip/dut_000.sv | 3 | 11 |

@@ -58,6 +58,7 @@ range                                                  4
 ref_obj                                               31
 task                                                   7
 task_call                                              4
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -94,6 +95,7 @@ range                                                  4
 ref_obj                                              159
 task                                                  45
 task_call                                             76
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassFsm/slpp_unit/surelog.uhdm ...
 
@@ -339,7 +341,7 @@ design: (work@fsm_class)
         \_param_assign: , line:28:17, endln:28:33
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:28:5, endln:28:33
         |vpiLocalParam:1
         |vpiName:STATE_00_BIT
         |vpiFullName:work@fsm_class::specificFSM::STATE_00_BIT
@@ -349,7 +351,7 @@ design: (work@fsm_class)
         \_param_assign: , line:29:17, endln:29:33
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:29:5, endln:29:33
         |vpiLocalParam:1
         |vpiName:STATE_01_BIT
         |vpiFullName:work@fsm_class::specificFSM::STATE_01_BIT
@@ -359,7 +361,7 @@ design: (work@fsm_class)
         \_param_assign: , line:30:17, endln:30:33
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:30:5, endln:30:33
         |vpiLocalParam:1
         |vpiName:STATE_10_BIT
         |vpiFullName:work@fsm_class::specificFSM::STATE_10_BIT
@@ -369,7 +371,7 @@ design: (work@fsm_class)
         \_param_assign: , line:31:17, endln:31:33
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_int_typespec: , line:31:5, endln:31:33
         |vpiLocalParam:1
         |vpiName:STATE_11_BIT
         |vpiFullName:work@fsm_class::specificFSM::STATE_11_BIT
@@ -385,7 +387,7 @@ design: (work@fsm_class)
           |vpiSize:32
           |UINT:0
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:28:5, endln:28:33
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:29
@@ -401,7 +403,7 @@ design: (work@fsm_class)
           |vpiSize:32
           |UINT:1
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:29:5, endln:29:33
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:29
@@ -417,7 +419,7 @@ design: (work@fsm_class)
           |vpiSize:32
           |UINT:2
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:30:5, endln:30:33
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:29
@@ -433,7 +435,7 @@ design: (work@fsm_class)
           |vpiSize:32
           |UINT:3
           |vpiTypespec:
-          \_int_typespec: 
+          \_int_typespec: , line:31:5, endln:31:33
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:29
@@ -704,7 +706,7 @@ design: (work@fsm_class)
               |vpiParent:
               \_case_stmt: , line:71:9, endln:76:16
               |vpiExpr:
-              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
+              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:25, endln:72:37
                 |vpiParent:
                 \_case_item: , line:72:11, endln:72:54
                 |vpiName:current_state
@@ -714,7 +716,7 @@ design: (work@fsm_class)
                 |vpiIndex:
                 \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_00_BIT), line:72:25, endln:72:37
                   |vpiParent:
-                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
+                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:25, endln:72:37
                   |vpiName:STATE_00_BIT
                   |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_00_BIT
                   |vpiActual:
@@ -731,7 +733,7 @@ design: (work@fsm_class)
               |vpiParent:
               \_case_stmt: , line:71:9, endln:76:16
               |vpiExpr:
-              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
+              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:25, endln:73:37
                 |vpiParent:
                 \_case_item: , line:73:11, endln:73:54
                 |vpiName:current_state
@@ -741,7 +743,7 @@ design: (work@fsm_class)
                 |vpiIndex:
                 \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_01_BIT), line:73:25, endln:73:37
                   |vpiParent:
-                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
+                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:25, endln:73:37
                   |vpiName:STATE_01_BIT
                   |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_01_BIT
                   |vpiActual:
@@ -758,7 +760,7 @@ design: (work@fsm_class)
               |vpiParent:
               \_case_stmt: , line:71:9, endln:76:16
               |vpiExpr:
-              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
+              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:25, endln:74:37
                 |vpiParent:
                 \_case_item: , line:74:11, endln:74:54
                 |vpiName:current_state
@@ -768,7 +770,7 @@ design: (work@fsm_class)
                 |vpiIndex:
                 \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_10_BIT), line:74:25, endln:74:37
                   |vpiParent:
-                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
+                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:25, endln:74:37
                   |vpiName:STATE_10_BIT
                   |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_10_BIT
                   |vpiActual:
@@ -785,7 +787,7 @@ design: (work@fsm_class)
               |vpiParent:
               \_case_stmt: , line:71:9, endln:76:16
               |vpiExpr:
-              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
+              \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:25, endln:75:37
                 |vpiParent:
                 \_case_item: , line:75:11, endln:75:54
                 |vpiName:current_state
@@ -795,7 +797,7 @@ design: (work@fsm_class)
                 |vpiIndex:
                 \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_11_BIT), line:75:25, endln:75:37
                   |vpiParent:
-                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
+                  \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:25, endln:75:37
                   |vpiName:STATE_11_BIT
                   |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_11_BIT
                   |vpiActual:
@@ -831,6 +833,9 @@ design: (work@fsm_class)
   \_logic_net: (work@fsm_class.P), line:81:15, endln:81:16
     |vpiParent:
     \_module_inst: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
+    |vpiTypespec:
+    \_unsupported_typespec: (specificFSM), line:81:3, endln:81:14
+      |vpiName:specificFSM
     |vpiName:P
     |vpiFullName:work@fsm_class.P
   |vpiPort:
@@ -840,7 +845,7 @@ design: (work@fsm_class)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_class.clk.clk)
+    \_ref_obj: (work@fsm_class.clk.clk), line:1:25, endln:1:28
       |vpiParent:
       \_port: (clk), line:1:25, endln:1:28
       |vpiName:clk
@@ -856,7 +861,7 @@ design: (work@fsm_class)
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_class.reset.reset)
+    \_ref_obj: (work@fsm_class.reset.reset), line:1:36, endln:1:41
       |vpiParent:
       \_port: (reset), line:1:36, endln:1:41
       |vpiName:reset
@@ -872,7 +877,7 @@ design: (work@fsm_class)
     |vpiName:x
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@fsm_class.x.x)
+    \_ref_obj: (work@fsm_class.x.x), line:1:49, endln:1:50
       |vpiParent:
       \_port: (x), line:1:49, endln:1:50
       |vpiName:x
@@ -1432,7 +1437,7 @@ design: (work@fsm_class)
             |vpiParent:
             \_case_stmt: , line:71:9, endln:76:16
             |vpiExpr:
-            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
+            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:25, endln:72:37
               |vpiParent:
               \_case_item: , line:72:11, endln:72:54
               |vpiName:current_state
@@ -1442,7 +1447,7 @@ design: (work@fsm_class)
               |vpiIndex:
               \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_00_BIT), line:72:25, endln:72:37
                 |vpiParent:
-                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:11, endln:72:38
+                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:72:25, endln:72:37
                 |vpiName:STATE_00_BIT
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_00_BIT
                 |vpiActual:
@@ -1459,7 +1464,7 @@ design: (work@fsm_class)
             |vpiParent:
             \_case_stmt: , line:71:9, endln:76:16
             |vpiExpr:
-            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
+            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:25, endln:73:37
               |vpiParent:
               \_case_item: , line:73:11, endln:73:54
               |vpiName:current_state
@@ -1469,7 +1474,7 @@ design: (work@fsm_class)
               |vpiIndex:
               \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_01_BIT), line:73:25, endln:73:37
                 |vpiParent:
-                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:11, endln:73:38
+                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:73:25, endln:73:37
                 |vpiName:STATE_01_BIT
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_01_BIT
                 |vpiActual:
@@ -1486,7 +1491,7 @@ design: (work@fsm_class)
             |vpiParent:
             \_case_stmt: , line:71:9, endln:76:16
             |vpiExpr:
-            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
+            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:25, endln:74:37
               |vpiParent:
               \_case_item: , line:74:11, endln:74:54
               |vpiName:current_state
@@ -1496,7 +1501,7 @@ design: (work@fsm_class)
               |vpiIndex:
               \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_10_BIT), line:74:25, endln:74:37
                 |vpiParent:
-                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:11, endln:74:38
+                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:74:25, endln:74:37
                 |vpiName:STATE_10_BIT
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_10_BIT
                 |vpiActual:
@@ -1513,7 +1518,7 @@ design: (work@fsm_class)
             |vpiParent:
             \_case_stmt: , line:71:9, endln:76:16
             |vpiExpr:
-            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
+            \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:25, endln:75:37
               |vpiParent:
               \_case_item: , line:75:11, endln:75:54
               |vpiName:current_state
@@ -1523,7 +1528,7 @@ design: (work@fsm_class)
               |vpiIndex:
               \_ref_obj: (work@fsm_class::specificFSM::main_comb::STATE_11_BIT), line:75:25, endln:75:37
                 |vpiParent:
-                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:11, endln:75:38
+                \_bit_select: (work@fsm_class::specificFSM::main_comb::current_state), line:75:25, endln:75:37
                 |vpiName:STATE_11_BIT
                 |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_11_BIT
                 |vpiActual:
@@ -1694,6 +1699,3 @@ design: (work@fsm_class)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/ClassFsm/dut.sv | ${SURELOG_DIR}/build/regression/ClassFsm/roundtrip/dut_000.sv | 13 | 87 |

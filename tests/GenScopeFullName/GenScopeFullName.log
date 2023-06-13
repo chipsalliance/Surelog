@@ -133,21 +133,21 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
 bit_select                                             3
-constant                                              14
+constant                                              16
 design                                                 1
 gen_for                                                1
 gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           1
 logic_net                                              4
-logic_typespec                                         4
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            7
 named_begin                                            1
 operation                                              4
 parameter                                              1
 port                                                   4
-range                                                  2
+range                                                  3
 ref_module                                             2
 ref_obj                                                6
 ref_var                                                1
@@ -158,21 +158,21 @@ unsupported_typespec                                   1
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
 bit_select                                             6
-constant                                              14
+constant                                              16
 design                                                 1
 gen_for                                                1
 gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           1
 logic_net                                              4
-logic_typespec                                         4
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            8
 named_begin                                            1
 operation                                              4
 parameter                                              1
 port                                                   7
-range                                                  2
+range                                                  3
 ref_module                                             2
 ref_obj                                                9
 ref_var                                                1
@@ -200,6 +200,28 @@ design: (work@dut)
   \_logic_net: (work@dut.a), line:2:16, endln:2:17
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:4, endln:2:15
+      |vpiRange:
+      \_range: , line:2:10, endln:2:15
+        |vpiParent:
+        \_logic_typespec: , line:2:4, endln:2:15
+        |vpiLeftRange:
+        \_constant: , line:2:11, endln:2:12
+          |vpiParent:
+          \_range: , line:2:10, endln:2:15
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:13, endln:2:14
+          |vpiParent:
+          \_range: , line:2:10, endln:2:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:36
@@ -282,7 +304,7 @@ design: (work@dut)
           \_ref_module: work@ibex_counter (module_in_genscope), line:5:20, endln:5:38
           |vpiName:b
           |vpiHighConn:
-          \_bit_select: (work@dut.gen_modules.module_in_genscope.a), line:5:42, endln:5:46
+          \_bit_select: (work@dut.gen_modules.module_in_genscope.a), line:5:44, endln:5:45
             |vpiParent:
             \_port: (b), line:5:39, endln:5:47
             |vpiName:a
@@ -290,7 +312,7 @@ design: (work@dut)
             |vpiIndex:
             \_ref_obj: (work@dut.gen_modules.module_in_genscope.i), line:5:44, endln:5:45
               |vpiParent:
-              \_bit_select: (work@dut.gen_modules.module_in_genscope.a), line:5:42, endln:5:46
+              \_bit_select: (work@dut.gen_modules.module_in_genscope.a), line:5:44, endln:5:45
               |vpiName:i
               |vpiFullName:work@dut.gen_modules.module_in_genscope.i
 |uhdmallModules:
@@ -313,7 +335,7 @@ design: (work@dut)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@ibex_counter.b.b)
+    \_ref_obj: (work@ibex_counter.b.b), line:12:33, endln:12:34
       |vpiParent:
       \_port: (b), line:12:33, endln:12:34
       |vpiName:b
@@ -386,14 +408,14 @@ design: (work@dut)
     |vpiName:gen_modules[0]
     |vpiFullName:work@dut.gen_modules[0]
     |vpiGenScope:
-    \_gen_scope: (work@dut.gen_modules[0])
+    \_gen_scope: (work@dut.gen_modules[0]), line:4:34, endln:8:7
       |vpiParent:
       \_gen_scope_array: (work@dut.gen_modules[0]), line:4:34, endln:8:7
       |vpiFullName:work@dut.gen_modules[0]
       |vpiParameter:
       \_parameter: (work@dut.gen_modules[0].i), line:4:0
         |vpiParent:
-        \_gen_scope: (work@dut.gen_modules[0])
+        \_gen_scope: (work@dut.gen_modules[0]), line:4:34, endln:8:7
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -403,7 +425,7 @@ design: (work@dut)
       |vpiModule:
       \_module_inst: work@ibex_counter (work@dut.gen_modules[0].module_in_genscope), file:${SURELOG_DIR}/tests/GenScopeFullName/dut.sv, line:5:7, endln:5:49
         |vpiParent:
-        \_gen_scope: (work@dut.gen_modules[0])
+        \_gen_scope: (work@dut.gen_modules[0]), line:4:34, endln:8:7
         |vpiName:module_in_genscope
         |vpiFullName:work@dut.gen_modules[0].module_in_genscope
         |vpiDefName:work@ibex_counter
@@ -427,7 +449,7 @@ design: (work@dut)
           |vpiName:b
           |vpiDirection:1
           |vpiHighConn:
-          \_bit_select: (work@dut.gen_modules[0].module_in_genscope.a), line:5:42, endln:5:46
+          \_bit_select: (work@dut.gen_modules[0].module_in_genscope.a), line:5:44, endln:5:45
             |vpiParent:
             \_port: (b), line:12:33, endln:12:34
             |vpiName:a
@@ -437,7 +459,7 @@ design: (work@dut)
             |vpiIndex:
             \_constant: , line:5:44, endln:5:45
               |vpiParent:
-              \_bit_select: (work@dut.gen_modules[0].module_in_genscope.a), line:5:42, endln:5:46
+              \_bit_select: (work@dut.gen_modules[0].module_in_genscope.a), line:5:44, endln:5:45
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -460,6 +482,3 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/GenScopeFullName/dut.sv | ${SURELOG_DIR}/build/regression/GenScopeFullName/roundtrip/dut_000.sv | 5 | 14 |

@@ -101,7 +101,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              18
+constant                                              22
 design                                                 1
 logic_net                                              1
 logic_typespec                                         3
@@ -109,12 +109,12 @@ logic_var                                              1
 module_inst                                            4
 package                                                2
 packed_array_typespec                                  2
-range                                                  9
+range                                                 11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              18
+constant                                              22
 design                                                 1
 logic_net                                              1
 logic_typespec                                         3
@@ -122,7 +122,7 @@ logic_var                                              1
 module_inst                                            4
 package                                                2
 packed_array_typespec                                  2
-range                                                  9
+range                                                 11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicTypespec/slpp_all/surelog.uhdm ...
 
@@ -177,7 +177,7 @@ design: (work@logic_typespec)
   |vpiName:my_package
   |vpiFullName:my_package::
   |vpiTypedef:
-  \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:2:20
+  \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
     |vpiParent:
     \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/LogicTypespec/dut.sv, line:1:1, endln:3:23
     |vpiName:my_package::typedef_logic_typespec
@@ -186,7 +186,7 @@ design: (work@logic_typespec)
     |vpiRange:
     \_range: , line:2:15, endln:2:20
       |vpiParent:
-      \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:2:20
+      \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
       |vpiLeftRange:
       \_constant: , line:2:16, endln:2:17
         |vpiParent:
@@ -215,6 +215,8 @@ design: (work@logic_typespec)
   \_logic_net: (work@logic_typespec.my_instance), line:7:50, endln:7:61
     |vpiParent:
     \_module_inst: work@logic_typespec (work@logic_typespec), file:${SURELOG_DIR}/tests/LogicTypespec/dut.sv, line:5:1, endln:9:27
+    |vpiTypespec:
+    \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
     |vpiName:my_instance
     |vpiFullName:work@logic_typespec.my_instance
 |uhdmtopModules:

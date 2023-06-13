@@ -100,13 +100,13 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              1
 begin                                                  1
-constant                                               7
+constant                                               9
 design                                                 1
 initial                                                1
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 module_inst                                            3
-range                                                  3
+range                                                  4
 ref_obj                                                1
 sys_func_call                                          1
 === UHDM Object Stats End ===
@@ -115,13 +115,13 @@ sys_func_call                                          1
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              1
 begin                                                  2
-constant                                               7
+constant                                               9
 design                                                 1
 initial                                                2
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 module_inst                                            3
-range                                                  3
+range                                                  4
 ref_obj                                                2
 sys_func_call                                          2
 === UHDM Object Stats End ===
@@ -147,6 +147,28 @@ design: (work@memory)
   \_logic_net: (work@memory.my_memory), line:2:11, endln:2:20
     |vpiParent:
     \_module_inst: work@memory (work@memory), file:${SURELOG_DIR}/tests/ArrayNet/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:28
+      |vpiRange:
+      \_range: , line:2:5, endln:2:10
+        |vpiParent:
+        \_logic_typespec: , line:2:1, endln:2:28
+        |vpiLeftRange:
+        \_constant: , line:2:6, endln:2:7
+          |vpiParent:
+          \_range: , line:2:5, endln:2:10
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:8, endln:2:9
+          |vpiParent:
+          \_range: , line:2:5, endln:2:10
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:my_memory
     |vpiFullName:work@memory.my_memory
     |vpiNetType:48

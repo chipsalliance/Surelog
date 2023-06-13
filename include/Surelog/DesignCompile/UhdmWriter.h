@@ -76,6 +76,12 @@ class UhdmWriter final {
                   ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap,
                   SignalMap& signalMap, ModuleInstance* instance = nullptr,
                   ModuleDefinition* mod = nullptr);
+  void writeNets(std::vector<Signal*>& orig_nets, UHDM::BaseClass* parent,
+                 UHDM::VectorOfnet* dest_nets, UHDM::Serializer& s,
+                 UhdmWriter::SignalBaseClassMap& signalBaseMap,
+                 UhdmWriter::SignalMap& signalMap,
+                 UhdmWriter::SignalMap& portMap,
+                 ModuleInstance* instance = nullptr);
   void writeModule(ModuleDefinition* mod, UHDM::module_inst* m,
                    UHDM::Serializer& s, ComponentMap& componentMap,
                    ModuleMap& moduleMap, ModPortMap& modPortMap,

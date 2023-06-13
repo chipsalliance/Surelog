@@ -1635,6 +1635,7 @@ struct_typespec                                       30
 typespec_member                                      162
 union_typespec                                         3
 union_var                                              1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -1666,6 +1667,7 @@ struct_typespec                                       30
 typespec_member                                      162
 union_typespec                                         3
 union_var                                              1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnionCast/slpp_all/surelog.uhdm ...
 
@@ -2118,7 +2120,7 @@ design: (work@r5p_lsu)
         |UINT:0
         |vpiConstType:9
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
     |vpiParent:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
     |vpiName:riscv_isa_pkg::op32_b_t
@@ -2128,7 +2130,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_12), line:110:38, endln:110:44
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_12
       |vpiTypespec:
       \_logic_typespec: , line:110:24, endln:110:37
@@ -2164,7 +2166,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_10_5), line:110:59, endln:110:67
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_10_5
       |vpiTypespec:
       \_logic_typespec: , line:110:46, endln:110:58
@@ -2200,7 +2202,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:110:81, endln:110:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:110:69, endln:110:80
@@ -2236,7 +2238,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:110:98, endln:110:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:110:86, endln:110:97
@@ -2272,7 +2274,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:110:109, endln:110:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -2324,7 +2326,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_4_1), line:110:128, endln:110:135
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_4_1
       |vpiTypespec:
       \_logic_typespec: , line:110:116, endln:110:127
@@ -2360,7 +2362,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11), line:110:151, endln:110:157
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_11
       |vpiTypespec:
       \_logic_typespec: , line:110:137, endln:110:150
@@ -2396,10 +2398,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:110:173, endln:110:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
         |vpiParent:
         \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
         |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -2409,7 +2411,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (opc), line:52:16, endln:52:19
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
           |vpiName:opc
           |vpiTypespec:
           \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -2706,7 +2708,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (c11), line:53:16, endln:53:19
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
           |vpiName:c11
           |vpiTypespec:
           \_logic_typespec: , line:53:3, endln:53:14
@@ -2745,7 +2747,7 @@ design: (work@r5p_lsu)
       |vpiRefEndLineNo:110
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
     |vpiParent:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
     |vpiName:riscv_isa_pkg::op32_i_t
@@ -2755,7 +2757,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11_0), line:108:38, endln:108:46
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:imm_11_0
       |vpiTypespec:
       \_logic_typespec: , line:108:24, endln:108:37
@@ -2791,7 +2793,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:108:98, endln:108:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:108:86, endln:108:97
@@ -2827,7 +2829,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:108:109, endln:108:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -2879,7 +2881,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:108:128, endln:108:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:108:116, endln:108:127
@@ -2915,17 +2917,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:108:173, endln:108:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:108
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:108
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
     |vpiParent:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
     |vpiName:riscv_isa_pkg::op32_j_t
@@ -2935,7 +2937,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_20), line:112:38, endln:112:44
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_20
       |vpiTypespec:
       \_logic_typespec: , line:112:24, endln:112:37
@@ -2971,7 +2973,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_10_1), line:112:59, endln:112:67
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_10_1
       |vpiTypespec:
       \_logic_typespec: , line:112:46, endln:112:58
@@ -3007,7 +3009,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11), line:112:83, endln:112:89
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_11
       |vpiTypespec:
       \_logic_typespec: , line:112:69, endln:112:82
@@ -3043,7 +3045,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_19_12), line:112:105, endln:112:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_19_12
       |vpiTypespec:
       \_logic_typespec: , line:112:91, endln:112:104
@@ -3079,7 +3081,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:112:128, endln:112:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:112:116, endln:112:127
@@ -3115,10 +3117,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:112:173, endln:112:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:112
       |vpiRefColumnNo:159
@@ -3127,9 +3129,9 @@ design: (work@r5p_lsu)
   |vpiTypedef:
   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
     |vpiParent:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
     |vpiName:riscv_isa_pkg::op32_r4_t
@@ -3139,7 +3141,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs3), line:106:36, endln:106:39
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rs3
       |vpiTypespec:
       \_logic_typespec: , line:106:24, endln:106:35
@@ -3175,7 +3177,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func2), line:106:53, endln:106:58
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:func2
       |vpiTypespec:
       \_logic_typespec: , line:106:41, endln:106:52
@@ -3211,7 +3213,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:106:81, endln:106:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:106:69, endln:106:80
@@ -3247,7 +3249,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:106:98, endln:106:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:106:86, endln:106:97
@@ -3283,7 +3285,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:106:109, endln:106:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -3335,7 +3337,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:106:128, endln:106:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:106:116, endln:106:127
@@ -3371,17 +3373,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:106:173, endln:106:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:106
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:106
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
     |vpiParent:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
     |vpiName:riscv_isa_pkg::op32_r_t
@@ -3391,7 +3393,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func7), line:107:53, endln:107:58
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:func7
       |vpiTypespec:
       \_logic_typespec: , line:107:41, endln:107:52
@@ -3427,7 +3429,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:107:81, endln:107:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:107:69, endln:107:80
@@ -3463,7 +3465,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:107:98, endln:107:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:107:86, endln:107:97
@@ -3499,7 +3501,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:107:109, endln:107:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -3551,7 +3553,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:107:128, endln:107:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:107:116, endln:107:127
@@ -3587,17 +3589,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:107:173, endln:107:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:107
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:107
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
     |vpiParent:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
     |vpiName:riscv_isa_pkg::op32_s_t
@@ -3607,7 +3609,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11_5), line:109:38, endln:109:46
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:imm_11_5
       |vpiTypespec:
       \_logic_typespec: , line:109:24, endln:109:37
@@ -3643,7 +3645,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:109:81, endln:109:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:109:69, endln:109:80
@@ -3679,7 +3681,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:109:98, endln:109:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:109:86, endln:109:97
@@ -3715,7 +3717,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:109:109, endln:109:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -3767,7 +3769,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_4_0), line:109:128, endln:109:135
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:imm_4_0
       |vpiTypespec:
       \_logic_typespec: , line:109:116, endln:109:127
@@ -3803,17 +3805,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:109:173, endln:109:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:109
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:109
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
     |vpiParent:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
     |vpiName:riscv_isa_pkg::op32_t
@@ -3823,10 +3825,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (r4), line:116:13, endln:116:15
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:r4
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:116
       |vpiRefColumnNo:3
@@ -3835,10 +3837,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (r), line:117:13, endln:117:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:r
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:117
       |vpiRefColumnNo:3
@@ -3847,10 +3849,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (i), line:118:13, endln:118:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:i
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:118
       |vpiRefColumnNo:3
@@ -3859,10 +3861,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (s), line:119:13, endln:119:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:s
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:119
       |vpiRefColumnNo:3
@@ -3871,10 +3873,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (b), line:120:13, endln:120:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:b
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:120
       |vpiRefColumnNo:3
@@ -3883,10 +3885,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (u), line:121:13, endln:121:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:u
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+      \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
         |vpiParent:
         \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
         |vpiName:riscv_isa_pkg::op32_u_t
@@ -3896,7 +3898,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (imm_31_12), line:111:38, endln:111:47
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
           |vpiName:imm_31_12
           |vpiTypespec:
           \_logic_typespec: , line:111:24, endln:111:37
@@ -3932,7 +3934,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (rd), line:111:128, endln:111:130
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
           |vpiName:rd
           |vpiTypespec:
           \_logic_typespec: , line:111:116, endln:111:127
@@ -3968,10 +3970,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (opcode), line:111:173, endln:111:179
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
           |vpiName:opcode
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
           |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
           |vpiRefLineNo:111
           |vpiRefColumnNo:159
@@ -3985,17 +3987,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (j), line:122:13, endln:122:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:j
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:122
       |vpiRefColumnNo:3
       |vpiRefEndLineNo:122
       |vpiRefEndColumnNo:11
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
   |vpiDefName:riscv_isa_pkg
   |vpiTaskFunc:
   \_function: (riscv_isa_pkg::opsiz), line:25:1, endln:34:19
@@ -4021,13 +4023,13 @@ design: (work@r5p_lsu)
       |vpiDirection:1
       |vpiName:op
       |vpiTypedef:
-      \_logic_typespec: , line:25:40, endln:25:54
+      \_logic_typespec: , line:25:40, endln:25:45
         |vpiInstance:
         \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
         |vpiRange:
         \_range: , line:25:46, endln:25:54
           |vpiParent:
-          \_logic_typespec: , line:25:40, endln:25:54
+          \_logic_typespec: , line:25:40, endln:25:45
           |vpiLeftRange:
           \_operation: , line:25:47, endln:25:51
             |vpiParent:
@@ -4503,7 +4505,7 @@ design: (work@r5p_lsu)
         |UINT:0
         |vpiConstType:9
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiName:riscv_isa_pkg::op32_b_t
@@ -4513,7 +4515,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_12), line:110:38, endln:110:44
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_12
       |vpiTypespec:
       \_logic_typespec: , line:110:24, endln:110:37
@@ -4549,7 +4551,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_10_5), line:110:59, endln:110:67
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_10_5
       |vpiTypespec:
       \_logic_typespec: , line:110:46, endln:110:58
@@ -4585,7 +4587,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:110:81, endln:110:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:110:69, endln:110:80
@@ -4621,7 +4623,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:110:98, endln:110:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:110:86, endln:110:97
@@ -4657,7 +4659,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:110:109, endln:110:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -4696,7 +4698,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_4_1), line:110:128, endln:110:135
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_4_1
       |vpiTypespec:
       \_logic_typespec: , line:110:116, endln:110:127
@@ -4732,7 +4734,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11), line:110:151, endln:110:157
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:imm_11
       |vpiTypespec:
       \_logic_typespec: , line:110:137, endln:110:150
@@ -4768,10 +4770,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:110:173, endln:110:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
         |vpiParent:
         \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
         |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -4781,7 +4783,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (opc), line:52:16, endln:52:19
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
           |vpiName:opc
           |vpiTypespec:
           \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -5078,7 +5080,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (c11), line:53:16, endln:53:19
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
           |vpiName:c11
           |vpiTypespec:
           \_logic_typespec: , line:53:3, endln:53:14
@@ -5117,7 +5119,7 @@ design: (work@r5p_lsu)
       |vpiRefEndLineNo:110
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiName:riscv_isa_pkg::op32_i_t
@@ -5127,7 +5129,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11_0), line:108:38, endln:108:46
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:imm_11_0
       |vpiTypespec:
       \_logic_typespec: , line:108:24, endln:108:37
@@ -5163,7 +5165,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:108:98, endln:108:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:108:86, endln:108:97
@@ -5199,7 +5201,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:108:109, endln:108:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -5238,7 +5240,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:108:128, endln:108:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:108:116, endln:108:127
@@ -5274,17 +5276,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:108:173, endln:108:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:108
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:108
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiName:riscv_isa_pkg::op32_j_t
@@ -5294,7 +5296,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_20), line:112:38, endln:112:44
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_20
       |vpiTypespec:
       \_logic_typespec: , line:112:24, endln:112:37
@@ -5330,7 +5332,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_10_1), line:112:59, endln:112:67
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_10_1
       |vpiTypespec:
       \_logic_typespec: , line:112:46, endln:112:58
@@ -5366,7 +5368,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11), line:112:83, endln:112:89
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_11
       |vpiTypespec:
       \_logic_typespec: , line:112:69, endln:112:82
@@ -5402,7 +5404,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_19_12), line:112:105, endln:112:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:imm_19_12
       |vpiTypespec:
       \_logic_typespec: , line:112:91, endln:112:104
@@ -5438,7 +5440,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:112:128, endln:112:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:112:116, endln:112:127
@@ -5474,10 +5476,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:112:173, endln:112:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:112
       |vpiRefColumnNo:159
@@ -5486,9 +5488,9 @@ design: (work@r5p_lsu)
   |vpiTypedef:
   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiName:riscv_isa_pkg::op32_r4_t
@@ -5498,7 +5500,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs3), line:106:36, endln:106:39
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rs3
       |vpiTypespec:
       \_logic_typespec: , line:106:24, endln:106:35
@@ -5534,7 +5536,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func2), line:106:53, endln:106:58
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:func2
       |vpiTypespec:
       \_logic_typespec: , line:106:41, endln:106:52
@@ -5570,7 +5572,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:106:81, endln:106:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:106:69, endln:106:80
@@ -5606,7 +5608,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:106:98, endln:106:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:106:86, endln:106:97
@@ -5642,7 +5644,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:106:109, endln:106:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -5681,7 +5683,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:106:128, endln:106:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:106:116, endln:106:127
@@ -5717,17 +5719,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:106:173, endln:106:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:106
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:106
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiName:riscv_isa_pkg::op32_r_t
@@ -5737,7 +5739,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func7), line:107:53, endln:107:58
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:func7
       |vpiTypespec:
       \_logic_typespec: , line:107:41, endln:107:52
@@ -5773,7 +5775,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:107:81, endln:107:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:107:69, endln:107:80
@@ -5809,7 +5811,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:107:98, endln:107:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:107:86, endln:107:97
@@ -5845,7 +5847,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:107:109, endln:107:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -5884,7 +5886,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rd), line:107:128, endln:107:130
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:rd
       |vpiTypespec:
       \_logic_typespec: , line:107:116, endln:107:127
@@ -5920,17 +5922,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:107:173, endln:107:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:107
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:107
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiName:riscv_isa_pkg::op32_s_t
@@ -5940,7 +5942,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_11_5), line:109:38, endln:109:46
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:imm_11_5
       |vpiTypespec:
       \_logic_typespec: , line:109:24, endln:109:37
@@ -5976,7 +5978,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs2), line:109:81, endln:109:84
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:rs2
       |vpiTypespec:
       \_logic_typespec: , line:109:69, endln:109:80
@@ -6012,7 +6014,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (rs1), line:109:98, endln:109:101
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:rs1
       |vpiTypespec:
       \_logic_typespec: , line:109:86, endln:109:97
@@ -6048,7 +6050,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (func3), line:109:109, endln:109:114
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:func3
       |vpiTypespec:
       \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -6087,7 +6089,7 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (imm_4_0), line:109:128, endln:109:135
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:imm_4_0
       |vpiTypespec:
       \_logic_typespec: , line:109:116, endln:109:127
@@ -6123,17 +6125,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:109:173, endln:109:179
       |vpiParent:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiName:opcode
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+      \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:109
       |vpiRefColumnNo:159
       |vpiRefEndLineNo:109
       |vpiRefEndColumnNo:172
   |vpiTypedef:
-  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
     |vpiName:riscv_isa_pkg::op32_t
     |vpiInstance:
     \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
@@ -6141,10 +6143,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (r4), line:116:13, endln:116:15
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:r4
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:116
       |vpiRefColumnNo:3
@@ -6153,10 +6155,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (r), line:117:13, endln:117:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:r
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+      \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:117
       |vpiRefColumnNo:3
@@ -6165,10 +6167,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (i), line:118:13, endln:118:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:i
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+      \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:118
       |vpiRefColumnNo:3
@@ -6177,10 +6179,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (s), line:119:13, endln:119:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:s
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+      \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:119
       |vpiRefColumnNo:3
@@ -6189,10 +6191,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (b), line:120:13, endln:120:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:b
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+      \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:120
       |vpiRefColumnNo:3
@@ -6201,10 +6203,10 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (u), line:121:13, endln:121:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:u
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+      \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
         |vpiParent:
         \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
         |vpiName:riscv_isa_pkg::op32_u_t
@@ -6214,7 +6216,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (imm_31_12), line:111:38, endln:111:47
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
           |vpiName:imm_31_12
           |vpiTypespec:
           \_logic_typespec: , line:111:24, endln:111:37
@@ -6250,7 +6252,7 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (rd), line:111:128, endln:111:130
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
           |vpiName:rd
           |vpiTypespec:
           \_logic_typespec: , line:111:116, endln:111:127
@@ -6286,10 +6288,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (opcode), line:111:173, endln:111:179
           |vpiParent:
-          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
           |vpiName:opcode
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+          \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
           |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
           |vpiRefLineNo:111
           |vpiRefColumnNo:159
@@ -6303,17 +6305,17 @@ design: (work@r5p_lsu)
     |vpiTypespecMember:
     \_typespec_member: (j), line:122:13, endln:122:14
       |vpiParent:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiName:j
       |vpiTypespec:
-      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+      \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
       |vpiRefFile:${SURELOG_DIR}/tests/UnionCast/dut.sv
       |vpiRefLineNo:122
       |vpiRefColumnNo:3
       |vpiRefEndLineNo:122
       |vpiRefEndColumnNo:11
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
   |vpiDefName:riscv_isa_pkg
   |vpiTop:1
   |vpiTaskFunc:
@@ -6340,13 +6342,13 @@ design: (work@r5p_lsu)
       |vpiDirection:1
       |vpiName:op
       |vpiTypedef:
-      \_logic_typespec: , line:25:40, endln:25:54
+      \_logic_typespec: , line:25:40, endln:25:45
         |vpiInstance:
         \_package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:19:1, endln:125:26
         |vpiRange:
         \_range: , line:25:46, endln:25:54
           |vpiParent:
-          \_logic_typespec: , line:25:40, endln:25:54
+          \_logic_typespec: , line:25:40, endln:25:45
           |vpiLeftRange:
           \_operation: , line:25:47, endln:25:51
             |vpiParent:
@@ -6464,25 +6466,25 @@ design: (work@r5p_lsu)
   |vpiTypedef:
   \_logic_typespec: (riscv_isa_pkg::fn3_t), line:48:9, endln:48:22
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
   |vpiTypedef:
   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
   |vpiTypedef:
-  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
   |vpiTypedef:
   \_import_typespec: (riscv_isa_pkg), line:146:10, endln:146:26
   |vpiDefName:work@r5p_lsu
@@ -6503,7 +6505,7 @@ design: (work@r5p_lsu)
       |vpiDirection:1
       |vpiName:op
       |vpiTypedef:
-      \_logic_typespec: , line:25:40, endln:25:54
+      \_logic_typespec: , line:25:40, endln:25:45
     |vpiStmt:
     \_case_stmt: , line:26:1, endln:33:8
       |vpiParent:
@@ -6601,6 +6603,9 @@ design: (work@r5p_lsu)
   \_logic_net: (work@r5p_lsu.dec), line:157:8, endln:157:11
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
+    |vpiTypespec:
+    \_unsupported_typespec: (op32_t), line:157:1, endln:157:7
+      |vpiName:op32_t
     |vpiName:dec
     |vpiFullName:work@r5p_lsu.dec
   |vpiPort:
@@ -6610,7 +6615,7 @@ design: (work@r5p_lsu)
     |vpiName:ins
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@r5p_lsu.ins.ins)
+    \_ref_obj: (work@r5p_lsu.ins.ins), line:149:25, endln:149:28
       |vpiParent:
       \_port: (ins), line:149:25, endln:149:28
       |vpiName:ins
@@ -6659,7 +6664,7 @@ design: (work@r5p_lsu)
     |vpiName:rd
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@r5p_lsu.rd.rd)
+    \_ref_obj: (work@r5p_lsu.rd.rd), line:151:25, endln:151:27
       |vpiParent:
       \_port: (rd), line:151:25, endln:151:27
       |vpiName:rd
@@ -6708,7 +6713,7 @@ design: (work@r5p_lsu)
     |vpiName:rs1
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@r5p_lsu.rs1.rs1)
+    \_ref_obj: (work@r5p_lsu.rs1.rs1), line:152:25, endln:152:28
       |vpiParent:
       \_port: (rs1), line:152:25, endln:152:28
       |vpiName:rs1
@@ -6757,7 +6762,7 @@ design: (work@r5p_lsu)
     |vpiName:rs2
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@r5p_lsu.rs2.rs2)
+    \_ref_obj: (work@r5p_lsu.rs2.rs2), line:153:25, endln:153:28
       |vpiParent:
       \_port: (rs2), line:153:25, endln:153:28
       |vpiName:rs2
@@ -6806,7 +6811,7 @@ design: (work@r5p_lsu)
     |vpiName:imm
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@r5p_lsu.imm.imm)
+    \_ref_obj: (work@r5p_lsu.imm.imm), line:154:25, endln:154:28
       |vpiParent:
       \_port: (imm), line:154:25, endln:154:28
       |vpiName:imm
@@ -6857,7 +6862,7 @@ design: (work@r5p_lsu)
       |vpiParent:
       \_cont_assign: , line:159:8, endln:159:26
       |vpiTypespec:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
       |vpiOpType:67
       |vpiOperand:
       \_ref_obj: (work@r5p_lsu.ins), line:159:22, endln:159:25
@@ -7015,7 +7020,7 @@ design: (work@r5p_lsu)
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiTypespec:
-    \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+    \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
     |vpiName:dec
     |vpiFullName:work@r5p_lsu.dec
     |vpiVisibility:1
@@ -7030,25 +7035,25 @@ design: (work@r5p_lsu)
   |vpiTypedef:
   \_logic_typespec: (riscv_isa_pkg::fn3_t), line:48:9, endln:48:22
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+  \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+  \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+  \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
   |vpiTypedef:
   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+  \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+  \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
   |vpiTypedef:
-  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+  \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
   |vpiTypedef:
-  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+  \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
   |vpiTypedef:
   \_import_typespec: (riscv_isa_pkg), line:146:10, endln:146:26
   |vpiDefName:work@r5p_lsu
@@ -7070,7 +7075,7 @@ design: (work@r5p_lsu)
       |vpiDirection:1
       |vpiName:op
       |vpiTypedef:
-      \_logic_typespec: , line:25:40, endln:25:54
+      \_logic_typespec: , line:25:40, endln:25:45
     |vpiStmt:
     \_case_stmt: , line:26:1, endln:33:8
       |vpiParent:
@@ -7476,7 +7481,7 @@ design: (work@r5p_lsu)
       |vpiParent:
       \_cont_assign: , line:159:8, endln:159:26
       |vpiTypespec:
-      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+      \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
         |vpiParent:
         \_operation: , line:159:14, endln:159:26
         |vpiName:riscv_isa_pkg::op32_t
@@ -7486,10 +7491,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (r4), line:116:13, endln:116:15
           |vpiParent:
-          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
           |vpiName:r4
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+          \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
             |vpiParent:
             \_typespec_member: (r4), line:116:13, endln:116:15
             |vpiName:riscv_isa_pkg::op32_r4_t
@@ -7499,7 +7504,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs3), line:106:36, endln:106:39
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
               |vpiName:rs3
               |vpiTypespec:
               \_logic_typespec: , line:106:24, endln:106:35
@@ -7535,7 +7540,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (func2), line:106:53, endln:106:58
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
               |vpiName:func2
               |vpiTypespec:
               \_logic_typespec: , line:106:41, endln:106:52
@@ -7571,7 +7576,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs2), line:106:81, endln:106:84
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
               |vpiName:rs2
               |vpiTypespec:
               \_logic_typespec: , line:106:69, endln:106:80
@@ -7607,7 +7612,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs1), line:106:98, endln:106:101
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
               |vpiName:rs1
               |vpiTypespec:
               \_logic_typespec: , line:106:86, endln:106:97
@@ -7643,7 +7648,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (func3), line:106:109, endln:106:114
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
               |vpiName:func3
               |vpiTypespec:
               \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -7707,7 +7712,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rd), line:106:128, endln:106:130
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
               |vpiName:rd
               |vpiTypespec:
               \_logic_typespec: , line:106:116, endln:106:127
@@ -7743,10 +7748,10 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (opcode), line:106:173, endln:106:179
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r4_t), line:106:9, endln:106:181
               |vpiName:opcode
               |vpiTypespec:
-              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                 |vpiParent:
                 \_typespec_member: (opcode), line:106:173, endln:106:179
                 |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -7756,7 +7761,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (opc), line:52:16, endln:52:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:opc
                   |vpiTypespec:
                   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -8055,7 +8060,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (c11), line:53:16, endln:53:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:c11
                   |vpiTypespec:
                   \_logic_typespec: , line:53:3, endln:53:14
@@ -8101,10 +8106,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (r), line:117:13, endln:117:14
           |vpiParent:
-          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
           |vpiName:r
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+          \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
             |vpiParent:
             \_typespec_member: (r), line:117:13, endln:117:14
             |vpiName:riscv_isa_pkg::op32_r_t
@@ -8114,7 +8119,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (func7), line:107:53, endln:107:58
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
               |vpiName:func7
               |vpiTypespec:
               \_logic_typespec: , line:107:41, endln:107:52
@@ -8150,7 +8155,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs2), line:107:81, endln:107:84
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
               |vpiName:rs2
               |vpiTypespec:
               \_logic_typespec: , line:107:69, endln:107:80
@@ -8186,7 +8191,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs1), line:107:98, endln:107:101
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
               |vpiName:rs1
               |vpiTypespec:
               \_logic_typespec: , line:107:86, endln:107:97
@@ -8222,7 +8227,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (func3), line:107:109, endln:107:114
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
               |vpiName:func3
               |vpiTypespec:
               \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -8286,7 +8291,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rd), line:107:128, endln:107:130
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
               |vpiName:rd
               |vpiTypespec:
               \_logic_typespec: , line:107:116, endln:107:127
@@ -8322,10 +8327,10 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (opcode), line:107:173, endln:107:179
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:15
+              \_struct_typespec: (riscv_isa_pkg::op32_r_t), line:107:9, endln:107:181
               |vpiName:opcode
               |vpiTypespec:
-              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                 |vpiParent:
                 \_typespec_member: (opcode), line:107:173, endln:107:179
                 |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -8335,7 +8340,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (opc), line:52:16, endln:52:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:opc
                   |vpiTypespec:
                   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -8634,7 +8639,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (c11), line:53:16, endln:53:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:c11
                   |vpiTypespec:
                   \_logic_typespec: , line:53:3, endln:53:14
@@ -8680,10 +8685,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (i), line:118:13, endln:118:14
           |vpiParent:
-          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
           |vpiName:i
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+          \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
             |vpiParent:
             \_typespec_member: (i), line:118:13, endln:118:14
             |vpiName:riscv_isa_pkg::op32_i_t
@@ -8693,7 +8698,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_11_0), line:108:38, endln:108:46
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
               |vpiName:imm_11_0
               |vpiTypespec:
               \_logic_typespec: , line:108:24, endln:108:37
@@ -8729,7 +8734,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs1), line:108:98, endln:108:101
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
               |vpiName:rs1
               |vpiTypespec:
               \_logic_typespec: , line:108:86, endln:108:97
@@ -8765,7 +8770,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (func3), line:108:109, endln:108:114
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
               |vpiName:func3
               |vpiTypespec:
               \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -8829,7 +8834,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rd), line:108:128, endln:108:130
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
               |vpiName:rd
               |vpiTypespec:
               \_logic_typespec: , line:108:116, endln:108:127
@@ -8865,10 +8870,10 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (opcode), line:108:173, endln:108:179
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:15
+              \_struct_typespec: (riscv_isa_pkg::op32_i_t), line:108:9, endln:108:181
               |vpiName:opcode
               |vpiTypespec:
-              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                 |vpiParent:
                 \_typespec_member: (opcode), line:108:173, endln:108:179
                 |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -8878,7 +8883,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (opc), line:52:16, endln:52:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:opc
                   |vpiTypespec:
                   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -9177,7 +9182,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (c11), line:53:16, endln:53:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:c11
                   |vpiTypespec:
                   \_logic_typespec: , line:53:3, endln:53:14
@@ -9223,10 +9228,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (s), line:119:13, endln:119:14
           |vpiParent:
-          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
           |vpiName:s
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+          \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
             |vpiParent:
             \_typespec_member: (s), line:119:13, endln:119:14
             |vpiName:riscv_isa_pkg::op32_s_t
@@ -9236,7 +9241,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_11_5), line:109:38, endln:109:46
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
               |vpiName:imm_11_5
               |vpiTypespec:
               \_logic_typespec: , line:109:24, endln:109:37
@@ -9272,7 +9277,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs2), line:109:81, endln:109:84
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
               |vpiName:rs2
               |vpiTypespec:
               \_logic_typespec: , line:109:69, endln:109:80
@@ -9308,7 +9313,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs1), line:109:98, endln:109:101
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
               |vpiName:rs1
               |vpiTypespec:
               \_logic_typespec: , line:109:86, endln:109:97
@@ -9344,7 +9349,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (func3), line:109:109, endln:109:114
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
               |vpiName:func3
               |vpiTypespec:
               \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -9408,7 +9413,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_4_0), line:109:128, endln:109:135
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
               |vpiName:imm_4_0
               |vpiTypespec:
               \_logic_typespec: , line:109:116, endln:109:127
@@ -9444,10 +9449,10 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (opcode), line:109:173, endln:109:179
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:15
+              \_struct_typespec: (riscv_isa_pkg::op32_s_t), line:109:9, endln:109:181
               |vpiName:opcode
               |vpiTypespec:
-              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                 |vpiParent:
                 \_typespec_member: (opcode), line:109:173, endln:109:179
                 |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -9457,7 +9462,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (opc), line:52:16, endln:52:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:opc
                   |vpiTypespec:
                   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -9756,7 +9761,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (c11), line:53:16, endln:53:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:c11
                   |vpiTypespec:
                   \_logic_typespec: , line:53:3, endln:53:14
@@ -9802,10 +9807,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (b), line:120:13, endln:120:14
           |vpiParent:
-          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
           |vpiName:b
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+          \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
             |vpiParent:
             \_typespec_member: (b), line:120:13, endln:120:14
             |vpiName:riscv_isa_pkg::op32_b_t
@@ -9815,7 +9820,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_12), line:110:38, endln:110:44
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:imm_12
               |vpiTypespec:
               \_logic_typespec: , line:110:24, endln:110:37
@@ -9851,7 +9856,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_10_5), line:110:59, endln:110:67
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:imm_10_5
               |vpiTypespec:
               \_logic_typespec: , line:110:46, endln:110:58
@@ -9887,7 +9892,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs2), line:110:81, endln:110:84
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:rs2
               |vpiTypespec:
               \_logic_typespec: , line:110:69, endln:110:80
@@ -9923,7 +9928,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rs1), line:110:98, endln:110:101
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:rs1
               |vpiTypespec:
               \_logic_typespec: , line:110:86, endln:110:97
@@ -9959,7 +9964,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (func3), line:110:109, endln:110:114
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:func3
               |vpiTypespec:
               \_logic_typespec: (fn3_t), line:48:9, endln:48:22
@@ -10023,7 +10028,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_4_1), line:110:128, endln:110:135
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:imm_4_1
               |vpiTypespec:
               \_logic_typespec: , line:110:116, endln:110:127
@@ -10059,7 +10064,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_11), line:110:151, endln:110:157
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:imm_11
               |vpiTypespec:
               \_logic_typespec: , line:110:137, endln:110:150
@@ -10095,10 +10100,10 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (opcode), line:110:173, endln:110:179
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:15
+              \_struct_typespec: (riscv_isa_pkg::op32_b_t), line:110:9, endln:110:181
               |vpiName:opcode
               |vpiTypespec:
-              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                 |vpiParent:
                 \_typespec_member: (opcode), line:110:173, endln:110:179
                 |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -10108,7 +10113,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (opc), line:52:16, endln:52:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:opc
                   |vpiTypespec:
                   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -10407,7 +10412,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (c11), line:53:16, endln:53:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:c11
                   |vpiTypespec:
                   \_logic_typespec: , line:53:3, endln:53:14
@@ -10453,10 +10458,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (u), line:121:13, endln:121:14
           |vpiParent:
-          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
           |vpiName:u
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+          \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
             |vpiParent:
             \_typespec_member: (u), line:121:13, endln:121:14
             |vpiName:riscv_isa_pkg::op32_u_t
@@ -10466,7 +10471,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_31_12), line:111:38, endln:111:47
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+              \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
               |vpiName:imm_31_12
               |vpiTypespec:
               \_logic_typespec: , line:111:24, endln:111:37
@@ -10502,7 +10507,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rd), line:111:128, endln:111:130
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+              \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
               |vpiName:rd
               |vpiTypespec:
               \_logic_typespec: , line:111:116, endln:111:127
@@ -10538,10 +10543,10 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (opcode), line:111:173, endln:111:179
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:15
+              \_struct_typespec: (riscv_isa_pkg::op32_u_t), line:111:9, endln:111:181
               |vpiName:opcode
               |vpiTypespec:
-              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                 |vpiParent:
                 \_typespec_member: (opcode), line:111:173, endln:111:179
                 |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -10551,7 +10556,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (opc), line:52:16, endln:52:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:opc
                   |vpiTypespec:
                   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -10850,7 +10855,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (c11), line:53:16, endln:53:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:c11
                   |vpiTypespec:
                   \_logic_typespec: , line:53:3, endln:53:14
@@ -10896,10 +10901,10 @@ design: (work@r5p_lsu)
         |vpiTypespecMember:
         \_typespec_member: (j), line:122:13, endln:122:14
           |vpiParent:
-          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:115:14
+          \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
           |vpiName:j
           |vpiTypespec:
-          \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+          \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
             |vpiParent:
             \_typespec_member: (j), line:122:13, endln:122:14
             |vpiName:riscv_isa_pkg::op32_j_t
@@ -10909,7 +10914,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_20), line:112:38, endln:112:44
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
               |vpiName:imm_20
               |vpiTypespec:
               \_logic_typespec: , line:112:24, endln:112:37
@@ -10945,7 +10950,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_10_1), line:112:59, endln:112:67
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
               |vpiName:imm_10_1
               |vpiTypespec:
               \_logic_typespec: , line:112:46, endln:112:58
@@ -10981,7 +10986,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_11), line:112:83, endln:112:89
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
               |vpiName:imm_11
               |vpiTypespec:
               \_logic_typespec: , line:112:69, endln:112:82
@@ -11017,7 +11022,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (imm_19_12), line:112:105, endln:112:114
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
               |vpiName:imm_19_12
               |vpiTypespec:
               \_logic_typespec: , line:112:91, endln:112:104
@@ -11053,7 +11058,7 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (rd), line:112:128, endln:112:130
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
               |vpiName:rd
               |vpiTypespec:
               \_logic_typespec: , line:112:116, endln:112:127
@@ -11089,10 +11094,10 @@ design: (work@r5p_lsu)
             |vpiTypespecMember:
             \_typespec_member: (opcode), line:112:173, endln:112:179
               |vpiParent:
-              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:15
+              \_struct_typespec: (riscv_isa_pkg::op32_j_t), line:112:9, endln:112:181
               |vpiName:opcode
               |vpiTypespec:
-              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+              \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                 |vpiParent:
                 \_typespec_member: (opcode), line:112:173, endln:112:179
                 |vpiName:riscv_isa_pkg::op32_opcode_t
@@ -11102,7 +11107,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (opc), line:52:16, endln:52:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:opc
                   |vpiTypespec:
                   \_enum_typespec: (riscv_isa_pkg::op32_op62_et), line:41:1, endln:46:16
@@ -11401,7 +11406,7 @@ design: (work@r5p_lsu)
                 |vpiTypespecMember:
                 \_typespec_member: (c11), line:53:16, endln:53:19
                   |vpiParent:
-                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:51:15
+                  \_struct_typespec: (riscv_isa_pkg::op32_opcode_t), line:51:9, endln:54:2
                   |vpiName:c11
                   |vpiTypespec:
                   \_logic_typespec: , line:53:3, endln:53:14
@@ -11625,4 +11630,4 @@ design: (work@r5p_lsu)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/UnionCast/dut.sv | ${SURELOG_DIR}/build/regression/UnionCast/roundtrip/dut_000.sv | 39 | 166 |
+[roundtrip]: ${SURELOG_DIR}/tests/UnionCast/dut.sv | ${SURELOG_DIR}/build/regression/UnionCast/roundtrip/dut_000.sv | 38 | 166 |

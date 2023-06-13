@@ -33,6 +33,7 @@ logic_var                                              1
 module_inst                                            3
 packed_array_typespec                                  3
 range                                                 11
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -47,6 +48,7 @@ logic_var                                              1
 module_inst                                            3
 packed_array_typespec                                  3
 range                                                 11
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicTypedef/slpp_unit/surelog.uhdm ...
 
@@ -151,6 +153,9 @@ design: (work@test)
   \_logic_net: (work@test.logn), line:3:18, endln:3:22
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_unsupported_typespec: (log_two_bits), line:3:5, endln:3:17
+      |vpiName:log_two_bits
     |vpiName:logn
     |vpiFullName:work@test.logn
     |vpiNetType:36
@@ -158,6 +163,9 @@ design: (work@test)
   \_logic_net: (work@test.regn), line:6:18, endln:6:22
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_unsupported_typespec: (reg_two_bits), line:6:5, endln:6:17
+      |vpiName:reg_two_bits
     |vpiName:regn
     |vpiFullName:work@test.regn
     |vpiNetType:48
@@ -165,6 +173,9 @@ design: (work@test)
   \_logic_net: (work@test.bitn), line:9:18, endln:9:22
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_unsupported_typespec: (bit_two_bits), line:9:5, endln:9:17
+      |vpiName:bit_two_bits
     |vpiName:bitn
     |vpiFullName:work@test.bitn
 |uhdmtopModules:
@@ -256,4 +267,4 @@ design: (work@test)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/LogicTypedef/dut.sv | ${SURELOG_DIR}/build/regression/LogicTypedef/roundtrip/dut_000.sv | 5 | 11 |
+[roundtrip]: ${SURELOG_DIR}/tests/LogicTypedef/dut.sv | ${SURELOG_DIR}/build/regression/LogicTypedef/roundtrip/dut_000.sv | 2 | 11 |

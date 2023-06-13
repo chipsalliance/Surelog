@@ -576,6 +576,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       resolutionFunctionName = name;
     } else {
       array_tps = s.MakeArray_typespec();
+      fC->populateCoreMembers(
+          data_type, Variable_dimension ? Variable_dimension : data_type,
+          array_tps);
       int32_t size;
       if (VectorOfrange* ranges =
               compileRanges(scope, fC, Variable_dimension, compileDesign,
@@ -617,6 +620,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   if (Packed_dimension &&
       (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
     packed_array_tps = s.MakePacked_array_typespec();
+    fC->populateCoreMembers(data_type, data_type, packed_array_tps);
     int32_t size;
     if (VectorOfrange* ranges =
             compileRanges(scope, fC, Packed_dimension, compileDesign, reduce,
@@ -645,6 +649,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       UHDM::typespec* ts =
           compileTypespec(scope, fC, enum_base_type, compileDesign, reduce,
                           nullptr, nullptr, false);
+      fC->populateCoreMembers(data_type, data_type, ts);
       if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
@@ -670,6 +675,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       UHDM::typespec* ts =
           compileTypespec(scope, fC, enum_base_type, compileDesign, reduce,
                           nullptr, nullptr, false);
+      fC->populateCoreMembers(data_type, data_type, ts);
       if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
         ts->Instance(scope->getUhdmInstance());
       }
@@ -2085,6 +2091,10 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
       item_name->set("*");
     }
     UHDM::constant* imported_item = constantFromValue(item_name, compileDesign);
+    if (item_name_id) {
+      // In case of "*" item_name_id will be 0
+      fC->populateCoreMembers(item_name_id, item_name_id, imported_item);
+    }
     m_exprBuilder.deleteValue(item_name);
     import_stmt->Item(imported_item);
 
@@ -2862,6 +2872,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(
     ref_obj* ref = s.MakeRef_obj();
     ref->VpiName(value);
     ref->VpiParent(pstmt);
+    fC->populateCoreMembers(IntConst, IntConst, ref);
     dc->Delay(ref);
   }
   fC->populateCoreMembers(Delay_control, Delay_control, dc);
@@ -3343,6 +3354,8 @@ bool CompileHelper::compileParameterDeclaration(
         atps->Elem_typespec(ts);
         param->Typespec(atps);
         p->setTypespec(atps);
+        fC->populateCoreMembers(Data_type_or_implicit,
+                                value ? value : Data_type_or_implicit, atps);
         atps->Ranges(unpackedDimensions);
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
           value = fC->Sibling(value);
@@ -3519,6 +3532,7 @@ bool CompileHelper::compileParameterDeclaration(
               case vpiIntConst: {
                 int_typespec* its = s.MakeInt_typespec();
                 its->VpiSigned(false);
+                fC->populateCoreMembers(nodeId, nodeId, its);
                 const std::string_view v = c->VpiValue();
                 if (v.front() == '-') {
                   its->VpiSigned(true);
@@ -3533,6 +3547,7 @@ bool CompileHelper::compileParameterDeclaration(
               case vpiBinaryConst: {
                 int_typespec* its = s.MakeInt_typespec();
                 its->VpiSigned(false);
+                fC->populateCoreMembers(nodeId, nodeId, its);
                 if (c->VpiSize() != -1) {  // Unsized
                   range* r = s.MakeRange();
                   constant* l = s.MakeConstant();
@@ -3554,6 +3569,7 @@ bool CompileHelper::compileParameterDeclaration(
               }
               case vpiUIntConst: {
                 int_typespec* its = s.MakeInt_typespec();
+                fC->populateCoreMembers(nodeId, nodeId, its);
                 its->VpiSigned(false);
                 ts = its;
                 p->setTypespec(ts);

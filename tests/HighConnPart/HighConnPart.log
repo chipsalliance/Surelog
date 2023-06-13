@@ -264,32 +264,32 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              66
+constant                                              68
 cont_assign                                            3
 design                                                 1
 logic_net                                             15
-logic_typespec                                        18
+logic_typespec                                        19
 module_inst                                            9
 operation                                              3
 part_select                                            6
 port                                                  16
-range                                                 27
+range                                                 28
 ref_module                                             1
 ref_obj                                               25
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              66
+constant                                              68
 cont_assign                                            5
 design                                                 1
 logic_net                                             15
-logic_typespec                                        18
+logic_typespec                                        19
 module_inst                                            9
 operation                                              5
 part_select                                           10
 port                                                  24
-range                                                 27
+range                                                 28
 ref_module                                             1
 ref_obj                                               41
 === UHDM Object Stats End ===
@@ -329,6 +329,28 @@ design: (work@Device)
   \_logic_net: (work@Device.ignored), line:11:16, endln:11:23
     |vpiParent:
     \_module_inst: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiTypespec:
+    \_logic_typespec: , line:11:5, endln:11:15
+      |vpiRange:
+      \_range: , line:11:10, endln:11:15
+        |vpiParent:
+        \_logic_typespec: , line:11:5, endln:11:15
+        |vpiLeftRange:
+        \_constant: , line:11:11, endln:11:12
+          |vpiParent:
+          \_range: , line:11:10, endln:11:15
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:11:13, endln:11:14
+          |vpiParent:
+          \_range: , line:11:10, endln:11:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:ignored
     |vpiFullName:work@Device.ignored
     |vpiNetType:1
@@ -339,7 +361,7 @@ design: (work@Device)
     |vpiName:doubleNibble
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@Device.doubleNibble.doubleNibble)
+    \_ref_obj: (work@Device.doubleNibble.doubleNibble), line:4:22, endln:4:34
       |vpiParent:
       \_port: (doubleNibble), line:4:22, endln:4:34
       |vpiName:doubleNibble
@@ -375,7 +397,7 @@ design: (work@Device)
     |vpiName:sum
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@Device.sum.sum)
+    \_ref_obj: (work@Device.sum.sum), line:5:23, endln:5:26
       |vpiParent:
       \_port: (sum), line:5:23, endln:5:26
       |vpiName:sum
@@ -509,7 +531,7 @@ design: (work@Device)
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@Helper.a.a)
+    \_ref_obj: (work@Helper.a.a), line:22:22, endln:22:23
       |vpiParent:
       \_port: (a), line:22:22, endln:22:23
       |vpiName:a
@@ -545,7 +567,7 @@ design: (work@Device)
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@Helper.b.b)
+    \_ref_obj: (work@Helper.b.b), line:22:25, endln:22:26
       |vpiParent:
       \_port: (b), line:22:25, endln:22:26
       |vpiName:b
@@ -581,7 +603,7 @@ design: (work@Device)
     |vpiName:result
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@Helper.result.result)
+    \_ref_obj: (work@Helper.result.result), line:23:23, endln:23:29
       |vpiParent:
       \_port: (result), line:23:23, endln:23:29
       |vpiName:result

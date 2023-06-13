@@ -159,7 +159,7 @@ SV3_1aTreeShapeHelper::getFileLine(antlr4::ParserRuleContext* ctx,
   uint32_t endLine = 0;
   uint16_t endColumn = 0;
   PathId fileId;
-  if (m_ppOutputFileLocation) {
+  if (m_ppOutputFileLocation || !m_pf->getPpFileId()) {
     fileId = m_pf->getFileId(0);
     line = lineCol.first;
     column = lineCol.second;

@@ -170,18 +170,18 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              26
+constant                                              28
 cont_assign                                            2
 design                                                 1
 logic_net                                              3
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            8
 operation                                              6
 param_assign                                           2
 parameter                                              2
 port                                                   3
-range                                                  8
+range                                                  9
 ref_module                                             1
 ref_obj                                                4
 string_typespec                                        6
@@ -190,18 +190,18 @@ tagged_pattern                                         6
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              26
+constant                                              28
 cont_assign                                            3
 design                                                 1
 logic_net                                              3
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            8
 operation                                              6
 param_assign                                           2
 parameter                                              2
 port                                                   4
-range                                                  8
+range                                                  9
 ref_module                                             1
 ref_obj                                                6
 string_typespec                                        6
@@ -285,6 +285,28 @@ design: (work@dut)
   \_logic_net: (work@dut.data), line:6:14, endln:6:18
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DefaultAssign/dut.sv, line:4:1, endln:14:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:1, endln:6:13
+      |vpiRange:
+      \_range: , line:6:7, endln:6:13
+        |vpiParent:
+        \_logic_typespec: , line:6:1, endln:6:13
+        |vpiLeftRange:
+        \_constant: , line:6:8, endln:6:10
+          |vpiParent:
+          \_range: , line:6:7, endln:6:13
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:11, endln:6:12
+          |vpiParent:
+          \_range: , line:6:7, endln:6:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:data
     |vpiFullName:work@dut.data
     |vpiNetType:36
@@ -373,7 +395,7 @@ design: (work@dut)
     |vpiName:data
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@foo.data.data)
+    \_ref_obj: (work@foo.data.data), line:1:31, endln:1:35
       |vpiParent:
       \_port: (data), line:1:31, endln:1:35
       |vpiName:data
@@ -612,4 +634,4 @@ design: (work@dut)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/DefaultAssign/dut.sv | ${SURELOG_DIR}/build/regression/DefaultAssign/roundtrip/dut_000.sv | 3 | 14 |
+[roundtrip]: ${SURELOG_DIR}/tests/DefaultAssign/dut.sv | ${SURELOG_DIR}/build/regression/DefaultAssign/roundtrip/dut_000.sv | 2 | 14 |

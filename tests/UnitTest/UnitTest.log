@@ -663,7 +663,7 @@ begin                                                  5
 class_defn                                             1
 class_typespec                                         1
 class_var                                              1
-constant                                              24
+constant                                              28
 cont_assign                                            1
 design                                                 1
 if_else                                                3
@@ -673,15 +673,15 @@ interface_inst                                         3
 interface_typespec                                     9
 io_decl                                                5
 logic_net                                             24
-logic_typespec                                        16
+logic_typespec                                        20
 modport                                                5
 module_inst                                            8
 operation                                             16
 port                                                  11
-range                                                  4
+range                                                  6
 ref_obj                                               47
 sys_func_call                                          5
-unsupported_typespec                                   1
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [ERR:UH0718] ${SURELOG_DIR}/tests/UnitTest/top.v:11:5: Illegal lhs of type wire "shifter".
 
@@ -763,7 +763,7 @@ design: (work@tb_operators)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@mem_if.clk.clk)
+    \_ref_obj: (work@mem_if.clk.clk), line:47:30, endln:47:33
       |vpiParent:
       \_port: (clk), line:47:30, endln:47:33
       |vpiName:clk
@@ -780,18 +780,26 @@ design: (work@tb_operators)
   \_logic_net: (work@memory_ctrl1.toto1), line:59:5, endln:59:10
     |vpiParent:
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:57:1, endln:67:10
+    |vpiTypespec:
+    \_unsupported_typespec: (DD1), line:59:1, endln:59:4
+      |vpiName:DD1
     |vpiName:toto1
     |vpiFullName:work@memory_ctrl1.toto1
   |vpiNet:
   \_logic_net: (work@memory_ctrl1.toto2), line:61:5, endln:61:10
     |vpiParent:
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:57:1, endln:67:10
+    |vpiTypespec:
+    \_unsupported_typespec: (DD2), line:61:1, endln:61:4
+      |vpiName:DD2
     |vpiName:toto2
     |vpiFullName:work@memory_ctrl1.toto2
   |vpiNet:
   \_logic_net: (work@memory_ctrl1.i1), line:63:6, endln:63:8
     |vpiParent:
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:57:1, endln:67:10
+    |vpiTypespec:
+    \_logic_typespec: , line:63:1, endln:63:5
     |vpiName:i1
     |vpiFullName:work@memory_ctrl1.i1
     |vpiNetType:1
@@ -799,6 +807,8 @@ design: (work@tb_operators)
   \_logic_net: (work@memory_ctrl1.o1), line:65:5, endln:65:7
     |vpiParent:
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:57:1, endln:67:10
+    |vpiTypespec:
+    \_logic_typespec: , line:65:1, endln:65:4
     |vpiName:o1
     |vpiFullName:work@memory_ctrl1.o1
     |vpiNetType:48
@@ -821,7 +831,7 @@ design: (work@tb_operators)
     |vpiName:sif1
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@memory_ctrl1.sif1.sif1)
+    \_ref_obj: (work@memory_ctrl1.sif1.sif1), line:57:29, endln:57:33
       |vpiParent:
       \_port: (sif1), line:57:29, endln:57:33
       |vpiName:sif1
@@ -838,7 +848,7 @@ design: (work@tb_operators)
     |vpiName:sif2
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@memory_ctrl1.sif2.sif2)
+    \_ref_obj: (work@memory_ctrl1.sif2.sif2), line:57:49, endln:57:53
       |vpiParent:
       \_port: (sif2), line:57:49, endln:57:53
       |vpiName:sif2
@@ -861,6 +871,28 @@ design: (work@tb_operators)
   \_logic_net: (work@tb_operators.shifter), line:5:13, endln:5:20
     |vpiParent:
     \_module_inst: work@tb_operators (work@tb_operators), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:3:1, endln:38:10
+    |vpiTypespec:
+    \_logic_typespec: , line:5:1, endln:5:12
+      |vpiRange:
+      \_range: , line:5:6, endln:5:12
+        |vpiParent:
+        \_logic_typespec: , line:5:1, endln:5:12
+        |vpiLeftRange:
+        \_constant: , line:5:7, endln:5:9
+          |vpiParent:
+          \_range: , line:5:6, endln:5:12
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:10, endln:5:11
+          |vpiParent:
+          \_range: , line:5:6, endln:5:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:shifter
     |vpiFullName:work@tb_operators.shifter
     |vpiNetType:1
@@ -868,6 +900,28 @@ design: (work@tb_operators)
   \_logic_net: (work@tb_operators.result), line:6:13, endln:6:19
     |vpiParent:
     \_module_inst: work@tb_operators (work@tb_operators), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:3:1, endln:38:10
+    |vpiTypespec:
+    \_logic_typespec: , line:6:1, endln:6:12
+      |vpiRange:
+      \_range: , line:6:6, endln:6:12
+        |vpiParent:
+        \_logic_typespec: , line:6:1, endln:6:12
+        |vpiLeftRange:
+        \_constant: , line:6:7, endln:6:9
+          |vpiParent:
+          \_range: , line:6:6, endln:6:12
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:10, endln:6:11
+          |vpiParent:
+          \_range: , line:6:6, endln:6:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:result
     |vpiFullName:work@tb_operators.result
     |vpiNetType:1
@@ -1500,7 +1554,7 @@ design: (work@tb_operators)
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@top.i)
+    \_ref_obj: (work@top.i), line:40:19, endln:40:20
       |vpiParent:
       \_port: (i), line:40:19, endln:40:20
       |vpiFullName:work@top.i
@@ -1515,7 +1569,7 @@ design: (work@tb_operators)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o)
+    \_ref_obj: (work@top.o), line:40:29, endln:40:30
       |vpiParent:
       \_port: (o), line:40:29, endln:40:30
       |vpiFullName:work@top.o
@@ -1864,4 +1918,4 @@ design: (work@tb_operators)
 [   NOTE] : 8
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/UnitTest/top.v | ${SURELOG_DIR}/build/regression/UnitTest/roundtrip/top_000.v | 13 | 67 |
+[roundtrip]: ${SURELOG_DIR}/tests/UnitTest/top.v | ${SURELOG_DIR}/build/regression/UnitTest/roundtrip/top_000.v | 11 | 67 |

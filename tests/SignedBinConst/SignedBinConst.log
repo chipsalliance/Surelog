@@ -197,32 +197,32 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              36
+constant                                              40
 cont_assign                                            4
 design                                                 1
-int_typespec                                          20
+int_typespec                                          21
 int_var                                                1
 logic_net                                              7
-logic_typespec                                         4
+logic_typespec                                         6
 module_inst                                            9
 param_assign                                           6
 parameter                                              6
-range                                                 10
+range                                                 12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              36
+constant                                              40
 cont_assign                                            6
 design                                                 1
-int_typespec                                          20
+int_typespec                                          21
 int_var                                                1
 logic_net                                              7
-logic_typespec                                         4
+logic_typespec                                         6
 module_inst                                            9
 param_assign                                           6
 parameter                                              6
-range                                                 10
+range                                                 12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SignedBinConst/slpp_all/surelog.uhdm ...
 
@@ -375,6 +375,28 @@ design: (work@top1)
   \_logic_net: (work@top2.p1), line:9:13, endln:9:15
     |vpiParent:
     \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
+    |vpiTypespec:
+    \_logic_typespec: , line:9:3, endln:9:24
+      |vpiRange:
+      \_range: , line:9:7, endln:9:12
+        |vpiParent:
+        \_logic_typespec: , line:9:3, endln:9:24
+        |vpiLeftRange:
+        \_constant: , line:9:8, endln:9:9
+          |vpiParent:
+          \_range: , line:9:7, endln:9:12
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:9:10, endln:9:11
+          |vpiParent:
+          \_range: , line:9:7, endln:9:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:p1
     |vpiFullName:work@top2.p1
     |vpiNetType:48
@@ -382,6 +404,28 @@ design: (work@top1)
   \_logic_net: (work@top2.p2), line:10:13, endln:10:15
     |vpiParent:
     \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
+    |vpiTypespec:
+    \_logic_typespec: , line:10:3, endln:10:25
+      |vpiRange:
+      \_range: , line:10:7, endln:10:12
+        |vpiParent:
+        \_logic_typespec: , line:10:3, endln:10:25
+        |vpiLeftRange:
+        \_constant: , line:10:8, endln:10:9
+          |vpiParent:
+          \_range: , line:10:7, endln:10:12
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:10:10, endln:10:11
+          |vpiParent:
+          \_range: , line:10:7, endln:10:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:p2
     |vpiFullName:work@top2.p2
     |vpiNetType:48
@@ -389,6 +433,9 @@ design: (work@top1)
   \_logic_net: (work@top2.p3), line:11:7, endln:11:9
     |vpiParent:
     \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/SignedBinConst/dut.sv, line:8:1, endln:12:10
+    |vpiTypespec:
+    \_int_typespec: , line:11:3, endln:11:19
+      |vpiSigned:1
     |vpiName:p3
     |vpiFullName:work@top2.p3
 |uhdmtopModules:

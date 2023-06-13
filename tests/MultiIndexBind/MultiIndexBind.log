@@ -188,7 +188,7 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             2
-constant                                              13
+constant                                              17
 cont_assign                                            1
 design                                                 1
 enum_const                                             1
@@ -199,18 +199,19 @@ logic_typespec                                         1
 module_inst                                            5
 packed_array_typespec                                  1
 packed_array_var                                       1
-range                                                  5
+range                                                  7
 ref_obj                                                5
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        3
 union_typespec                                         1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             4
-constant                                              13
+constant                                              17
 cont_assign                                            2
 design                                                 1
 enum_const                                             1
@@ -221,12 +222,13 @@ logic_typespec                                         1
 module_inst                                            5
 packed_array_typespec                                  1
 packed_array_var                                       1
-range                                                  5
+range                                                  7
 ref_obj                                               10
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        3
 union_typespec                                         1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultiIndexBind/slpp_all/surelog.uhdm ...
 
@@ -283,7 +285,7 @@ design: (work@PreDecodeStage)
       |vpiDecompile:4'b0000
       |vpiSize:4
   |vpiTypedef:
-  \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:9:15
+  \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:12:2
     |vpiParent:
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
     |vpiName:IntMicroOpOperand
@@ -293,7 +295,7 @@ design: (work@PreDecodeStage)
     |vpiTypespecMember:
     \_typespec_member: (aluCode), line:11:17, endln:11:24
       |vpiParent:
-      \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:9:15
+      \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:12:2
       |vpiName:aluCode
       |vpiTypespec:
       \_enum_typespec: (IntALU_Code), line:4:1, endln:7:15
@@ -303,7 +305,7 @@ design: (work@PreDecodeStage)
       |vpiRefEndLineNo:11
       |vpiRefEndColumnNo:16
   |vpiTypedef:
-  \_union_typespec: (MicroOpOperand), line:14:9, endln:14:14
+  \_union_typespec: (MicroOpOperand), line:14:9, endln:17:2
     |vpiParent:
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
     |vpiName:MicroOpOperand
@@ -313,17 +315,17 @@ design: (work@PreDecodeStage)
     |vpiTypespecMember:
     \_typespec_member: (intOp), line:16:27, endln:16:32
       |vpiParent:
-      \_union_typespec: (MicroOpOperand), line:14:9, endln:14:14
+      \_union_typespec: (MicroOpOperand), line:14:9, endln:17:2
       |vpiName:intOp
       |vpiTypespec:
-      \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:9:15
+      \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:12:2
       |vpiRefFile:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv
       |vpiRefLineNo:16
       |vpiRefColumnNo:5
       |vpiRefEndLineNo:16
       |vpiRefEndColumnNo:22
   |vpiTypedef:
-  \_struct_typespec: (OpInfo), line:19:9, endln:19:15
+  \_struct_typespec: (OpInfo), line:19:9, endln:22:2
     |vpiParent:
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
     |vpiName:OpInfo
@@ -333,10 +335,10 @@ design: (work@PreDecodeStage)
     |vpiTypespecMember:
     \_typespec_member: (operand), line:21:20, endln:21:27
       |vpiParent:
-      \_struct_typespec: (OpInfo), line:19:9, endln:19:15
+      \_struct_typespec: (OpInfo), line:19:9, endln:22:2
       |vpiName:operand
       |vpiTypespec:
-      \_union_typespec: (MicroOpOperand), line:14:9, endln:14:14
+      \_union_typespec: (MicroOpOperand), line:14:9, endln:17:2
       |vpiRefFile:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv
       |vpiRefLineNo:21
       |vpiRefColumnNo:5
@@ -347,6 +349,9 @@ design: (work@PreDecodeStage)
   \_logic_net: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
     |vpiParent:
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_unsupported_typespec: (OpInfo), line:26:1, endln:26:13
+      |vpiName:OpInfo
     |vpiName:microOps
     |vpiFullName:work@PreDecodeStage.microOps
   |vpiNet:
@@ -478,16 +483,16 @@ design: (work@PreDecodeStage)
       |vpiParent:
       \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
       |vpiTypespec:
-      \_struct_typespec: (OpInfo), line:19:9, endln:19:15
+      \_struct_typespec: (OpInfo), line:19:9, endln:22:2
       |vpiFullName:work@PreDecodeStage.microOps
   |vpiTypedef:
   \_enum_typespec: (IntALU_Code), line:4:1, endln:7:15
   |vpiTypedef:
-  \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:9:15
+  \_struct_typespec: (IntMicroOpOperand), line:9:9, endln:12:2
   |vpiTypedef:
-  \_union_typespec: (MicroOpOperand), line:14:9, endln:14:14
+  \_union_typespec: (MicroOpOperand), line:14:9, endln:17:2
   |vpiTypedef:
-  \_struct_typespec: (OpInfo), line:19:9, endln:19:15
+  \_struct_typespec: (OpInfo), line:19:9, endln:22:2
   |vpiDefName:work@PreDecodeStage
   |vpiTop:1
   |vpiTopModule:1

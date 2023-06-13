@@ -143,7 +143,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 design                                                 1
 logic_net                                             10
-logic_typespec                                        10
+logic_typespec                                        12
 module_inst                                            5
 port                                                   8
 ref_module                                             1
@@ -154,7 +154,7 @@ ref_obj                                               11
 === UHDM Object Stats Begin (Elaborated Model) ===
 design                                                 1
 logic_net                                             10
-logic_typespec                                        10
+logic_typespec                                        12
 module_inst                                            5
 port                                                  11
 ref_module                                             1
@@ -204,7 +204,7 @@ design: (work@implicit)
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dff.q)
+    \_ref_obj: (work@dff.q), line:11:13, endln:11:14
       |vpiParent:
       \_port: (q), line:11:13, endln:11:14
       |vpiFullName:work@dff.q
@@ -219,7 +219,7 @@ design: (work@implicit)
     |vpiName:q_bar
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dff.q_bar.q_bar)
+    \_ref_obj: (work@dff.q_bar.q_bar), line:11:16, endln:11:21
       |vpiParent:
       \_port: (q_bar), line:11:16, endln:11:21
       |vpiName:q_bar
@@ -235,7 +235,7 @@ design: (work@implicit)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@dff.clk.clk)
+    \_ref_obj: (work@dff.clk.clk), line:11:23, endln:11:26
       |vpiParent:
       \_port: (clk), line:11:23, endln:11:26
       |vpiName:clk
@@ -254,6 +254,8 @@ design: (work@implicit)
   \_logic_net: (work@implicit.clk), line:2:7, endln:2:10
     |vpiParent:
     \_module_inst: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:3, endln:2:6
     |vpiName:clk
     |vpiFullName:work@implicit.clk
     |vpiNetType:48
@@ -261,6 +263,8 @@ design: (work@implicit)
   \_logic_net: (work@implicit.q), line:3:8, endln:3:9
     |vpiParent:
     \_module_inst: work@implicit (work@implicit), file:${SURELOG_DIR}/tests/ImplicitPorts2/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:q
     |vpiFullName:work@implicit.q
     |vpiNetType:1

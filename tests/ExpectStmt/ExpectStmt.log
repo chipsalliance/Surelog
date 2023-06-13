@@ -122,7 +122,7 @@ design                                                 1
 expect_stmt                                            1
 initial                                                1
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         6
 logic_var                                              3
 module_inst                                            2
 operation                                              2
@@ -138,7 +138,7 @@ design                                                 1
 expect_stmt                                            2
 initial                                                2
 logic_net                                              3
-logic_typespec                                         3
+logic_typespec                                         6
 logic_var                                              3
 module_inst                                            2
 operation                                              4
@@ -167,6 +167,8 @@ design: (work@top)
   \_logic_net: (work@top.clk), line:3:7, endln:3:10
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:clk
     |vpiFullName:work@top.clk
     |vpiNetType:36
@@ -174,6 +176,8 @@ design: (work@top)
   \_logic_net: (work@top.a), line:4:7, endln:4:8
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:4:1, endln:4:6
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
@@ -181,6 +185,8 @@ design: (work@top)
   \_logic_net: (work@top.b), line:5:7, endln:5:8
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_logic_typespec: , line:5:1, endln:5:6
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
@@ -215,14 +221,14 @@ design: (work@top)
               |vpiActual:
               \_logic_net: (work@top.clk), line:3:7, endln:3:10
           |vpiPropertyExpr:
-          \_operation: , line:8:28, endln:8:29
+          \_operation: , line:8:28, endln:8:35
             |vpiParent:
             \_property_spec: , line:8:13, endln:8:35
             |vpiOpType:54
             |vpiOperand:
             \_ref_obj: (work@top.a), line:8:28, endln:8:29
               |vpiParent:
-              \_operation: , line:8:28, endln:8:29
+              \_operation: , line:8:28, endln:8:35
               |vpiName:a
               |vpiFullName:work@top.a
               |vpiActual:
@@ -236,7 +242,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@top.b), line:8:34, endln:8:35
               |vpiParent:
-              \_operation: , line:8:28, endln:8:29
+              \_operation: , line:8:28, endln:8:35
               |vpiName:b
               |vpiFullName:work@top.b
               |vpiActual:
@@ -311,14 +317,14 @@ design: (work@top)
               |vpiActual:
               \_logic_net: (work@top.clk), line:3:7, endln:3:10
           |vpiPropertyExpr:
-          \_operation: , line:8:28, endln:8:29
+          \_operation: , line:8:28, endln:8:35
             |vpiParent:
             \_property_spec: , line:8:13, endln:8:35
             |vpiOpType:54
             |vpiOperand:
             \_ref_obj: (work@top.a), line:8:28, endln:8:29
               |vpiParent:
-              \_operation: , line:8:28, endln:8:29
+              \_operation: , line:8:28, endln:8:35
               |vpiName:a
               |vpiFullName:work@top.a
               |vpiActual:
@@ -328,7 +334,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (work@top.b), line:8:34, endln:8:35
               |vpiParent:
-              \_operation: , line:8:28, endln:8:29
+              \_operation: , line:8:28, endln:8:35
               |vpiName:b
               |vpiFullName:work@top.b
               |vpiActual:
@@ -341,4 +347,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ExpectStmt/dut.sv | ${SURELOG_DIR}/build/regression/ExpectStmt/roundtrip/dut_000.sv | 4 | 11 |
+[roundtrip]: ${SURELOG_DIR}/tests/ExpectStmt/dut.sv | ${SURELOG_DIR}/build/regression/ExpectStmt/roundtrip/dut_000.sv | 1 | 11 |

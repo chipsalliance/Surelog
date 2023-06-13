@@ -127,6 +127,7 @@ parameter                                              1
 port                                                   3
 ref_module                                             1
 ref_obj                                                4
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -143,6 +144,7 @@ parameter                                              1
 port                                                   3
 ref_module                                             1
 ref_obj                                                4
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfTypeBad/slpp_all/surelog.uhdm ...
 
@@ -175,7 +177,7 @@ design: (work@dut)
     |vpiName:types
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@tnoc_flit_if.types.types)
+    \_ref_obj: (work@tnoc_flit_if.types.types), line:7:15, endln:7:20
       |vpiParent:
       \_port: (types), line:7:15, endln:7:20
       |vpiName:types
@@ -227,6 +229,9 @@ design: (work@dut)
   \_logic_net: (work@dut.i_types), line:15:16, endln:15:23
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InterfTypeBad/dut.sv, line:13:1, endln:18:10
+    |vpiTypespec:
+    \_unsupported_typespec: (tnoc_types), line:15:1, endln:15:11
+      |vpiName:tnoc_types
     |vpiName:i_types
     |vpiFullName:work@dut.i_types
   |vpiRefModule:

@@ -202,38 +202,40 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              19
+constant                                              21
 design                                                 1
 int_typespec                                           2
 logic_net                                              1
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            5
-operation                                              2
+operation                                              3
 package                                                2
 packed_array_typespec                                  1
 param_assign                                           2
 parameter                                              2
-range                                                  6
+range                                                  7
+ref_obj                                                1
 struct_typespec                                        3
 typespec_member                                        6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              19
+constant                                              21
 design                                                 1
 int_typespec                                           2
 logic_net                                              1
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            5
-operation                                              2
+operation                                              3
 package                                                2
 packed_array_typespec                                  1
 param_assign                                           2
 parameter                                              2
-range                                                  6
+range                                                  7
+ref_obj                                                1
 struct_typespec                                        3
 typespec_member                                        6
 === UHDM Object Stats End ===
@@ -256,7 +258,7 @@ design: (work@top)
   |vpiName:SchedulerTypes
   |vpiFullName:SchedulerTypes::
   |vpiTypedef:
-  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiName:SchedulerTypes::IntIssueQueueEntry
@@ -266,7 +268,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (a), line:5:11, endln:5:12
       |vpiParent:
-      \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+      \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
       |vpiName:a
       |vpiTypespec:
       \_logic_typespec: , line:5:5, endln:5:10
@@ -287,7 +289,7 @@ design: (work@top)
   |vpiName:SchedulerTypes
   |vpiFullName:SchedulerTypes::
   |vpiTypedef:
-  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
   |vpiDefName:SchedulerTypes
   |vpiTop:1
 |uhdmallModules:
@@ -301,7 +303,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |UINT:12
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:24:1, endln:24:38
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -316,14 +318,14 @@ design: (work@top)
       |vpiSize:32
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:24:1, endln:24:38
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.p), line:24:11, endln:24:12
   |vpiTypedef:
-  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
   |vpiTypedef:
-  \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+  \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:22:6
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |vpiName:ReplayQueueEntry
@@ -333,7 +335,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (intValid), line:16:23, endln:16:31
       |vpiParent:
-      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:22:6
       |vpiName:intValid
       |vpiTypespec:
       \_logic_typespec: , line:16:9, endln:16:22
@@ -367,16 +369,16 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (intData), line:17:36, endln:17:43
       |vpiParent:
-      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:22:6
       |vpiName:intData
       |vpiTypespec:
-      \_packed_array_typespec: , line:17:9, endln:17:27
+      \_packed_array_typespec: , line:17:9, endln:17:35
         |vpiParent:
         \_typespec_member: (intData), line:17:36, endln:17:43
         |vpiRange:
         \_range: , line:17:28, endln:17:35
           |vpiParent:
-          \_packed_array_typespec: , line:17:9, endln:17:27
+          \_packed_array_typespec: , line:17:9, endln:17:35
           |vpiLeftRange:
           \_constant: , line:17:29, endln:17:30
             |vpiParent:
@@ -394,7 +396,7 @@ design: (work@top)
             |UINT:0
             |vpiConstType:9
         |vpiElemTypespec:
-        \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+        \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
       |vpiRefFile:${SURELOG_DIR}/tests/BitsLogic/dut.sv
       |vpiRefLineNo:17
       |vpiRefColumnNo:9
@@ -403,7 +405,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (memValid), line:20:23, endln:20:31
       |vpiParent:
-      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:22:6
       |vpiName:memValid
       |vpiTypespec:
       \_logic_typespec: , line:20:9, endln:20:22
@@ -437,7 +439,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (memAddrHit), line:21:22, endln:21:32
       |vpiParent:
-      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+      \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:22:6
       |vpiName:memAddrHit
       |vpiTypespec:
       \_logic_typespec: , line:21:9, endln:21:21
@@ -473,6 +475,38 @@ design: (work@top)
   \_logic_net: (work@top.b), line:26:15, endln:26:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
+    |vpiTypespec:
+    \_logic_typespec: , line:26:1, endln:26:14
+      |vpiRange:
+      \_range: , line:26:7, endln:26:14
+        |vpiParent:
+        \_logic_typespec: , line:26:1, endln:26:14
+        |vpiLeftRange:
+        \_operation: , line:26:8, endln:26:11
+          |vpiParent:
+          \_range: , line:26:7, endln:26:14
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (p), line:26:8, endln:26:9
+            |vpiParent:
+            \_operation: , line:26:8, endln:26:11
+            |vpiName:p
+          |vpiOperand:
+          \_constant: , line:26:10, endln:26:11
+            |vpiParent:
+            \_operation: , line:26:8, endln:26:11
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:26:12, endln:26:13
+          |vpiParent:
+          \_range: , line:26:7, endln:26:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
@@ -536,7 +570,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
     |UINT:12
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:24:1, endln:24:38
       |vpiParent:
       \_parameter: (work@top.p), line:24:11, endln:24:12
     |vpiName:p
@@ -553,14 +587,14 @@ design: (work@top)
       |vpiSize:32
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:24:1, endln:24:38
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.p), line:24:11, endln:24:12
   |vpiTypedef:
-  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:3:15
+  \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
   |vpiTypedef:
-  \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:14:16
+  \_struct_typespec: (ReplayQueueEntry), line:14:10, endln:22:6
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
@@ -570,6 +604,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/BitsLogic/dut.sv | ${SURELOG_DIR}/build/regression/BitsLogic/roundtrip/dut_000.sv | 6 | 28 |

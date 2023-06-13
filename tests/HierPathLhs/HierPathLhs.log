@@ -182,7 +182,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            1
 bit_select                                             9
-constant                                              28
+constant                                              32
 cont_assign                                            5
 design                                                 1
 gen_for                                                1
@@ -197,20 +197,20 @@ operation                                              4
 packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
-range                                                  4
+range                                                  6
 ref_obj                                               12
 ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
-unsupported_typespec                                   1
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assign_stmt                                            1
 bit_select                                            13
-constant                                              28
+constant                                              32
 cont_assign                                            7
 design                                                 1
 gen_for                                                1
@@ -225,13 +225,13 @@ operation                                              4
 packed_array_typespec                                  1
 packed_array_var                                       1
 parameter                                              1
-range                                                  4
+range                                                  6
 ref_obj                                               15
 ref_var                                                1
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
-unsupported_typespec                                   1
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/HierPathLhs/dut.sv:3:12: Unresolved hierarchical reference "hw2reg.alert_cause[k].d".
 
@@ -338,7 +338,7 @@ design: (work@alert_handler_reg_wrap)
           \_cont_assign: , line:3:12, endln:3:43
           |vpiName:hw2reg.alert_cause[k].d
           |vpiActual:
-          \_ref_obj: (hw2reg)
+          \_ref_obj: (hw2reg), line:3:19, endln:3:30
             |vpiParent:
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:hw2reg
@@ -354,7 +354,7 @@ design: (work@alert_handler_reg_wrap)
               \_hier_path: (alert_cause[k].d), line:3:19, endln:3:30
               |vpiName:k
           |vpiActual:
-          \_ref_obj: (alert_cause[k].d)
+          \_ref_obj: (alert_cause[k].d), line:3:37, endln:3:37
             |vpiParent:
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:d
@@ -365,7 +365,7 @@ design: (work@alert_handler_reg_wrap)
   \_design: (work@alert_handler_reg_wrap)
   |vpiFullName:work@top
   |vpiTypedef:
-  \_struct_typespec: (struct_t), line:9:11, endln:9:17
+  \_struct_typespec: (struct_t), line:9:11, endln:11:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
     |vpiName:struct_t
@@ -375,7 +375,7 @@ design: (work@alert_handler_reg_wrap)
     |vpiTypespecMember:
     \_typespec_member: (x), line:10:9, endln:10:10
       |vpiParent:
-      \_struct_typespec: (struct_t), line:9:11, endln:9:17
+      \_struct_typespec: (struct_t), line:9:11, endln:11:4
       |vpiName:x
       |vpiTypespec:
       \_int_typespec: , line:10:5, endln:10:8
@@ -392,6 +392,9 @@ design: (work@alert_handler_reg_wrap)
   \_logic_net: (work@top.a), line:13:23, endln:13:24
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
+    |vpiTypespec:
+    \_unsupported_typespec: (struct_t), line:13:3, endln:13:17
+      |vpiName:struct_t
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiContAssign:
@@ -435,7 +438,7 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: (a[0][0].x[0])
+      \_bit_select: (a[0][0].x[0]), line:15:20, endln:15:21
         |vpiParent:
         \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
         |vpiName:x
@@ -443,7 +446,7 @@ design: (work@alert_handler_reg_wrap)
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
-          \_bit_select: (a[0][0].x[0])
+          \_bit_select: (a[0][0].x[0]), line:15:20, endln:15:21
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -461,14 +464,14 @@ design: (work@alert_handler_reg_wrap)
     |vpiName:gen_alert_cause[0]
     |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0]
     |vpiGenScope:
-    \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0])
+    \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
       |vpiParent:
       \_gen_scope_array: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
       |vpiFullName:work@alert_handler_reg_wrap.gen_alert_cause[0]
       |vpiParameter:
       \_parameter: (work@alert_handler_reg_wrap.gen_alert_cause[0].k), line:2:0
         |vpiParent:
-        \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0])
+        \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -478,7 +481,7 @@ design: (work@alert_handler_reg_wrap)
       |vpiContAssign:
       \_cont_assign: , line:3:12, endln:3:43
         |vpiParent:
-        \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0])
+        \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
         |vpiRhs:
         \_constant: , line:3:39, endln:3:43
           |vpiParent:
@@ -493,7 +496,7 @@ design: (work@alert_handler_reg_wrap)
           \_cont_assign: , line:3:12, endln:3:43
           |vpiName:hw2reg.alert_cause[k].d
           |vpiActual:
-          \_ref_obj: (hw2reg)
+          \_ref_obj: (hw2reg), line:3:19, endln:3:30
             |vpiParent:
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:hw2reg
@@ -512,7 +515,7 @@ design: (work@alert_handler_reg_wrap)
               |vpiActual:
               \_parameter: (work@alert_handler_reg_wrap.gen_alert_cause[0].k), line:2:0
           |vpiActual:
-          \_ref_obj: (alert_cause[k].d)
+          \_ref_obj: (alert_cause[k].d), line:3:37, endln:3:37
             |vpiParent:
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:d
@@ -572,10 +575,10 @@ design: (work@alert_handler_reg_wrap)
       |vpiParent:
       \_packed_array_var: (work@top.a), line:13:23, endln:13:24
       |vpiTypespec:
-      \_struct_typespec: (struct_t), line:9:11, endln:9:17
+      \_struct_typespec: (struct_t), line:9:11, endln:11:4
       |vpiFullName:work@top.a
   |vpiTypedef:
-  \_struct_typespec: (struct_t), line:9:11, endln:9:17
+  \_struct_typespec: (struct_t), line:9:11, endln:11:4
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
@@ -620,7 +623,7 @@ design: (work@alert_handler_reg_wrap)
           |UINT:0
           |vpiConstType:9
       |vpiActual:
-      \_bit_select: (a[0][0].x[0])
+      \_bit_select: (a[0][0].x[0]), line:15:20, endln:15:21
         |vpiParent:
         \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
         |vpiName:x
@@ -630,7 +633,7 @@ design: (work@alert_handler_reg_wrap)
         |vpiIndex:
         \_constant: , line:15:20, endln:15:21
           |vpiParent:
-          \_bit_select: (a[0][0].x[0])
+          \_bit_select: (a[0][0].x[0]), line:15:20, endln:15:21
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -641,6 +644,3 @@ design: (work@alert_handler_reg_wrap)
 [  ERROR] : 1
 [WARNING] : 2
 [   NOTE] : 7
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/HierPathLhs/dut.sv | ${SURELOG_DIR}/build/regression/HierPathLhs/roundtrip/dut_000.sv | 5 | 16 |

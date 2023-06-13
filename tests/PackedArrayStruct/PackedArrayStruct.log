@@ -125,6 +125,7 @@ ref_obj                                                4
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -142,6 +143,7 @@ ref_obj                                                7
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedArrayStruct/slpp_all/surelog.uhdm ...
 
@@ -161,7 +163,7 @@ design: (work@top)
   \_design: (work@top)
   |vpiFullName:work@top
   |vpiTypedef:
-  \_packed_array_typespec: (struct_array_t), line:5:4, endln:5:18
+  \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
     |vpiName:struct_array_t
@@ -170,7 +172,7 @@ design: (work@top)
     |vpiRange:
     \_range: , line:4:6, endln:4:12
       |vpiParent:
-      \_packed_array_typespec: (struct_array_t), line:5:4, endln:5:18
+      \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
       |vpiLeftRange:
       \_constant: , line:4:7, endln:4:9
         |vpiParent:
@@ -193,7 +195,7 @@ design: (work@top)
       |vpiTypespecMember:
       \_typespec_member: (x), line:3:13, endln:3:14
         |vpiParent:
-        \_packed_array_typespec: (struct_array_t), line:5:4, endln:5:18
+        \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
         |vpiName:x
         |vpiTypespec:
         \_logic_typespec: , line:3:7, endln:3:12
@@ -216,6 +218,9 @@ design: (work@top)
   \_logic_net: (work@top.a), line:5:19, endln:5:20
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_unsupported_typespec: (struct_array_t), line:5:4, endln:5:18
+      |vpiName:struct_array_t
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiPort:
@@ -225,7 +230,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:1:32, endln:1:33
       |vpiParent:
       \_port: (o), line:1:32, endln:1:33
       |vpiName:o
@@ -282,7 +287,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_packed_array_typespec: (struct_array_t), line:5:4, endln:5:18
+    \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -295,7 +300,7 @@ design: (work@top)
       |UINT:4294967295
       |vpiConstType:9
   |vpiTypedef:
-  \_packed_array_typespec: (struct_array_t), line:5:4, endln:5:18
+  \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:

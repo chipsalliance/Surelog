@@ -1394,7 +1394,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
 bit_select                                             2
-constant                                             166
+constant                                             172
 cont_assign                                            4
 design                                                 1
 enum_const                                            10
@@ -1406,14 +1406,14 @@ indexed_part_select                                    2
 initial                                                1
 int_typespec                                          29
 logic_net                                              7
-logic_typespec                                        35
+logic_typespec                                        38
 module_inst                                            9
-operation                                             68
+operation                                             69
 param_assign                                          16
 parameter                                             16
-range                                                 36
+range                                                 39
 ref_module                                             2
-ref_obj                                               30
+ref_obj                                               31
 struct_typespec                                        7
 sys_func_call                                          8
 typespec_member                                       25
@@ -1423,7 +1423,7 @@ typespec_member                                       25
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  1
 bit_select                                             3
-constant                                             167
+constant                                             173
 cont_assign                                            6
 design                                                 1
 enum_const                                            10
@@ -1435,14 +1435,14 @@ indexed_part_select                                    3
 initial                                                2
 int_typespec                                          29
 logic_net                                              7
-logic_typespec                                        35
+logic_typespec                                        38
 module_inst                                           10
-operation                                             78
+operation                                             79
 param_assign                                          16
 parameter                                             16
-range                                                 36
+range                                                 39
 ref_module                                             2
-ref_obj                                               32
+ref_obj                                               33
 struct_typespec                                        7
 sys_func_call                                          9
 typespec_member                                       25
@@ -1476,7 +1476,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:48
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:143:3, endln:143:32
     |vpiName:dword_width_gp
     |vpiFullName:work@top.dword_width_gp
   |vpiParameter:
@@ -1575,7 +1575,7 @@ design: (work@top)
       |vpiSize:32
       |UINT:48
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:143:3, endln:143:32
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
@@ -1762,7 +1762,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.easy), line:12:11, endln:12:15
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:74:17
+  \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiName:bp_icache_data_mem_pkt_s
@@ -1772,7 +1772,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (index), line:76:68, endln:76:73
       |vpiParent:
-      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:74:17
+      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:index
       |vpiTypespec:
       \_logic_typespec: , line:76:5, endln:76:56
@@ -1858,7 +1858,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (way_id), line:77:70, endln:77:76
       |vpiParent:
-      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:74:17
+      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:way_id
       |vpiTypespec:
       \_logic_typespec: , line:77:5, endln:77:58
@@ -1944,7 +1944,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (data), line:78:52, endln:78:56
       |vpiParent:
-      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:74:17
+      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:data
       |vpiTypespec:
       \_logic_typespec: , line:78:5, endln:78:29
@@ -1991,7 +1991,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (fill_index), line:79:46, endln:79:56
       |vpiParent:
-      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:74:17
+      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:fill_index
       |vpiTypespec:
       \_logic_typespec: , line:79:5, endln:79:45
@@ -2051,7 +2051,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:80:53, endln:80:59
       |vpiParent:
-      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:74:17
+      \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:opcode
       |vpiTypespec:
       \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
@@ -2112,7 +2112,7 @@ design: (work@top)
       |vpiRefEndLineNo:80
       |vpiRefEndColumnNo:31
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:33:17
+  \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:37:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiName:bp_icache_req_metadata_s
@@ -2122,7 +2122,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (hit_or_repl_way), line:35:59, endln:35:74
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:33:17
+      \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:37:4
       |vpiName:hit_or_repl_way
       |vpiTypespec:
       \_logic_typespec: , line:35:5, endln:35:58
@@ -2208,7 +2208,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (dirty), line:36:11, endln:36:16
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:33:17
+      \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:37:4
       |vpiName:dirty
       |vpiTypespec:
       \_logic_typespec: , line:36:5, endln:36:10
@@ -2220,7 +2220,7 @@ design: (work@top)
       |vpiRefEndLineNo:36
       |vpiRefEndColumnNo:10
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+  \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiName:bp_icache_req_s
@@ -2230,7 +2230,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (hit), line:21:11, endln:21:14
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:hit
       |vpiTypespec:
       \_logic_typespec: , line:21:5, endln:21:10
@@ -2244,7 +2244,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (data), line:22:32, endln:22:36
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:data
       |vpiTypespec:
       \_logic_typespec: , line:22:5, endln:22:31
@@ -2291,7 +2291,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (size), line:23:9, endln:23:13
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:size
       |vpiTypespec:
       \_int_typespec: , line:23:5, endln:23:8
@@ -2306,7 +2306,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (addr), line:24:31, endln:24:35
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:addr
       |vpiTypespec:
       \_logic_typespec: , line:24:5, endln:24:30
@@ -2353,7 +2353,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (msg_type), line:25:9, endln:25:17
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:msg_type
       |vpiTypespec:
       \_int_typespec: , line:25:5, endln:25:8
@@ -2368,7 +2368,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (subop), line:26:9, endln:26:14
       |vpiParent:
-      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+      \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:subop
       |vpiTypespec:
       \_int_typespec: , line:26:5, endln:26:8
@@ -2381,7 +2381,7 @@ design: (work@top)
       |vpiRefEndLineNo:26
       |vpiRefEndColumnNo:8
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:121:17
+  \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:125:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiName:bp_icache_stat_info_s
@@ -2391,7 +2391,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (lru), line:123:55, endln:123:58
       |vpiParent:
-      \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:121:17
+      \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:125:4
       |vpiName:lru
       |vpiTypespec:
       \_logic_typespec: , line:123:5, endln:123:54
@@ -2472,7 +2472,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (dirty), line:124:43, endln:124:48
       |vpiParent:
-      \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:121:17
+      \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:125:4
       |vpiName:dirty
       |vpiTypespec:
       \_logic_typespec: , line:124:5, endln:124:24
@@ -2517,7 +2517,7 @@ design: (work@top)
       |vpiRefEndLineNo:124
       |vpiRefEndColumnNo:24
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:110:17
+  \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiName:bp_icache_stat_mem_pkt_s
@@ -2527,7 +2527,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (index), line:112:60, endln:112:65
       |vpiParent:
-      \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:110:17
+      \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
       |vpiName:index
       |vpiTypespec:
       \_logic_typespec: , line:112:5, endln:112:56
@@ -2613,7 +2613,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (way_id), line:113:62, endln:113:68
       |vpiParent:
-      \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:110:17
+      \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
       |vpiName:way_id
       |vpiTypespec:
       \_logic_typespec: , line:113:5, endln:113:58
@@ -2699,7 +2699,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:114:22, endln:114:28
       |vpiParent:
-      \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:110:17
+      \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
       |vpiName:opcode
       |vpiTypespec:
       \_int_typespec: , line:114:5, endln:114:8
@@ -2712,7 +2712,7 @@ design: (work@top)
       |vpiRefEndLineNo:114
       |vpiRefEndColumnNo:8
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:101:17
+  \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:104:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiName:bp_icache_tag_info_s
@@ -2722,7 +2722,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (state), line:102:40, endln:102:45
       |vpiParent:
-      \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:101:17
+      \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:104:4
       |vpiName:state
       |vpiTypespec:
       \_logic_typespec: , line:102:5, endln:102:39
@@ -2769,7 +2769,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (tag), line:103:40, endln:103:43
       |vpiParent:
-      \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:101:17
+      \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:104:4
       |vpiName:tag
       |vpiTypespec:
       \_logic_typespec: , line:103:5, endln:103:29
@@ -2814,7 +2814,7 @@ design: (work@top)
       |vpiRefEndLineNo:103
       |vpiRefEndColumnNo:29
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:88:17
+  \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiName:bp_icache_tag_mem_pkt_s
@@ -2824,7 +2824,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (index), line:90:64, endln:90:69
       |vpiParent:
-      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:88:17
+      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:index
       |vpiTypespec:
       \_logic_typespec: , line:90:5, endln:90:56
@@ -2910,7 +2910,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (way_id), line:91:65, endln:91:71
       |vpiParent:
-      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:88:17
+      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:way_id
       |vpiTypespec:
       \_logic_typespec: , line:91:4, endln:91:57
@@ -2996,7 +2996,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (state), line:92:37, endln:92:42
       |vpiParent:
-      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:88:17
+      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:state
       |vpiTypespec:
       \_int_typespec: , line:92:5, endln:92:8
@@ -3011,7 +3011,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (tag), line:93:49, endln:93:52
       |vpiParent:
-      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:88:17
+      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:tag
       |vpiTypespec:
       \_logic_typespec: , line:93:5, endln:93:29
@@ -3058,7 +3058,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (opcode), line:94:27, endln:94:33
       |vpiParent:
-      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:88:17
+      \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:opcode
       |vpiTypespec:
       \_int_typespec: , line:94:5, endln:94:8
@@ -3075,6 +3075,28 @@ design: (work@top)
   \_logic_net: (work@top.pc), line:144:15, endln:144:17
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
+    |vpiTypespec:
+    \_logic_typespec: , line:144:3, endln:144:14
+      |vpiRange:
+      \_range: , line:144:8, endln:144:14
+        |vpiParent:
+        \_logic_typespec: , line:144:3, endln:144:14
+        |vpiLeftRange:
+        \_constant: , line:144:9, endln:144:11
+          |vpiParent:
+          \_range: , line:144:8, endln:144:14
+          |vpiDecompile:12
+          |vpiSize:64
+          |UINT:12
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:144:12, endln:144:13
+          |vpiParent:
+          \_range: , line:144:8, endln:144:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:pc
     |vpiFullName:work@top.pc
     |vpiNetType:1
@@ -3082,6 +3104,28 @@ design: (work@top)
   \_logic_net: (work@top.bp_coh_states_e), line:145:14, endln:145:29
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
+    |vpiTypespec:
+    \_logic_typespec: , line:145:3, endln:145:13
+      |vpiRange:
+      \_range: , line:145:7, endln:145:13
+        |vpiParent:
+        \_logic_typespec: , line:145:3, endln:145:13
+        |vpiLeftRange:
+        \_constant: , line:145:8, endln:145:10
+          |vpiParent:
+          \_range: , line:145:7, endln:145:13
+          |vpiDecompile:12
+          |vpiSize:64
+          |UINT:12
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:145:11, endln:145:12
+          |vpiParent:
+          \_range: , line:145:7, endln:145:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:bp_coh_states_e
     |vpiFullName:work@top.bp_coh_states_e
     |vpiNetType:48
@@ -3089,6 +3133,38 @@ design: (work@top)
   \_logic_net: (work@top.pc_sext_li), line:9:27, endln:9:37
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
+    |vpiTypespec:
+    \_logic_typespec: , line:9:1, endln:9:26
+      |vpiRange:
+      \_range: , line:9:6, endln:9:26
+        |vpiParent:
+        \_logic_typespec: , line:9:1, endln:9:26
+        |vpiLeftRange:
+        \_operation: , line:9:7, endln:9:23
+          |vpiParent:
+          \_range: , line:9:6, endln:9:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (dword_width_gp), line:9:7, endln:9:21
+            |vpiParent:
+            \_operation: , line:9:7, endln:9:23
+            |vpiName:dword_width_gp
+          |vpiOperand:
+          \_constant: , line:9:22, endln:9:23
+            |vpiParent:
+            \_operation: , line:9:7, endln:9:23
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:9:24, endln:9:25
+          |vpiParent:
+          \_range: , line:9:6, endln:9:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:pc_sext_li
     |vpiFullName:work@top.pc_sext_li
     |vpiNetType:1
@@ -3294,7 +3370,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:48
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:143:3, endln:143:32
       |vpiParent:
       \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
     |vpiName:dword_width_gp
@@ -3395,7 +3471,7 @@ design: (work@top)
       |vpiSize:32
       |UINT:48
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:143:3, endln:143:32
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
@@ -3513,19 +3589,19 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (work@top.easy), line:12:11, endln:12:15
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:74:17
+  \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:33:17
+  \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:37:4
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_req_s), line:19:11, endln:19:17
+  \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:121:17
+  \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:125:4
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:110:17
+  \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:101:17
+  \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:104:4
   |vpiTypedef:
-  \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:88:17
+  \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
   |vpiDefName:work@top
   |vpiTop:1
   |vpiNet:
@@ -3646,14 +3722,14 @@ design: (work@top)
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1)
+    \_gen_scope: (work@top.genblk1), line:158:1, endln:160:4
       |vpiParent:
       \_gen_scope_array: (work@top.genblk1), line:158:1, endln:160:4
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@top.genblk1.good), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:159:5, endln:159:17
         |vpiParent:
-        \_gen_scope: (work@top.genblk1)
+        \_gen_scope: (work@top.genblk1), line:158:1, endln:160:4
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
         |vpiDefName:work@GOOD
@@ -3686,7 +3762,7 @@ design: (work@top)
           \_operation: , line:10:5, endln:10:93
           |vpiOpType:33
           |vpiOperand:
-          \_bit_select: (work@top.pc), line:10:76, endln:10:91
+          \_bit_select: (work@top.pc), line:10:79, endln:10:90
             |vpiParent:
             \_operation: , line:10:75, endln:10:92
             |vpiName:pc
@@ -3696,7 +3772,7 @@ design: (work@top)
             |vpiIndex:
             \_operation: , line:10:79, endln:10:90
               |vpiParent:
-              \_bit_select: (work@top.pc), line:10:76, endln:10:91
+              \_bit_select: (work@top.pc), line:10:79, endln:10:90
               |vpiOpType:11
               |vpiOperand:
               \_constant: , line:10:79, endln:10:88
@@ -3750,7 +3826,7 @@ design: (work@top)
             |vpiSize:32
             |UINT:48
             |vpiTypespec:
-            \_int_typespec: 
+            \_int_typespec: , line:143:3, endln:143:32
               |vpiParent:
               \_constant: , line:10:136, endln:10:150
             |vpiConstType:9
@@ -3790,6 +3866,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/BlackConst/dut.sv | ${SURELOG_DIR}/build/regression/BlackConst/roundtrip/dut_000.sv | 109 | 164 |

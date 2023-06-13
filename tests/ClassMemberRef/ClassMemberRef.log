@@ -184,7 +184,7 @@ begin                                                  1
 bit_typespec                                           4
 bit_var                                                1
 class_defn                                             2
-class_typespec                                         2
+class_typespec                                         3
 class_var                                              2
 constant                                               1
 design                                                 1
@@ -206,7 +206,7 @@ begin                                                  2
 bit_typespec                                           4
 bit_var                                                2
 class_defn                                             2
-class_typespec                                         3
+class_typespec                                         4
 class_var                                              3
 constant                                               1
 design                                                 1
@@ -276,12 +276,12 @@ design: (work@top)
         \_assignment: , line:17:1, endln:17:27
         |vpiName:knobs.identifier
         |vpiActual:
-        \_ref_obj: (knobs)
+        \_ref_obj: (knobs), line:17:7, endln:17:17
           |vpiParent:
           \_hier_path: (knobs.identifier), line:17:1, endln:17:17
           |vpiName:knobs
         |vpiActual:
-        \_ref_obj: (identifier)
+        \_ref_obj: (identifier), line:17:7, endln:17:17
           |vpiParent:
           \_hier_path: (knobs.identifier), line:17:1, endln:17:17
           |vpiName:identifier
@@ -397,14 +397,14 @@ design: (work@top)
           \_assignment: , line:17:1, endln:17:27
           |vpiName:knobs.identifier
           |vpiActual:
-          \_ref_obj: (knobs)
+          \_ref_obj: (knobs), line:17:7, endln:17:17
             |vpiParent:
             \_hier_path: (knobs.identifier), line:17:1, endln:17:17
             |vpiName:knobs
             |vpiActual:
             \_class_var: (pkg::uvm_printer::knobs), line:12:23, endln:12:28
           |vpiActual:
-          \_ref_obj: (identifier)
+          \_ref_obj: (identifier), line:17:7, endln:17:17
             |vpiParent:
             \_hier_path: (knobs.identifier), line:17:1, endln:17:17
             |vpiName:identifier
@@ -422,6 +422,11 @@ design: (work@top)
   \_logic_net: (work@top.printer), line:24:18, endln:24:25
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassMemberRef/dut.sv, line:22:1, endln:29:10
+    |vpiTypespec:
+    \_class_typespec: (pkg::uvm_printer), line:24:1, endln:24:6
+      |vpiName:pkg::uvm_printer
+      |vpiClassDefn:
+      \_class_defn: (pkg::uvm_printer), file:${SURELOG_DIR}/tests/ClassMemberRef/dut.sv, line:9:1, endln:14:9
     |vpiName:printer
     |vpiFullName:work@top.printer
   |vpiNet:

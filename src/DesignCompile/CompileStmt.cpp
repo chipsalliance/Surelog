@@ -309,6 +309,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         scope = begin;
       }
       scope->VpiParent(pstmt);
+      fC->populateCoreMembers(labelId, labelId, scope);
       while (item) {
         if (item && (fC->Type(item) == VObjectType::slEnd)) {
           if (NodeId endLabel = fC->Sibling(item)) {
@@ -1144,8 +1145,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(
             fC->populateCoreMembers(Var, Var, arr);
             array_typespec* tps = s.MakeArray_typespec();
             tps->Elem_typespec((typespec*)var->Typespec());
-            tps->VpiLineNo(unpackedDimensions->front()->VpiLineNo());
-            tps->VpiColumnNo(unpackedDimensions->front()->VpiColumnNo());
+            fC->populateCoreMembers(Var, fC->Sibling(Var), tps);
             tps->VpiEndLineNo(unpackedDimensions->back()->VpiEndLineNo());
             tps->VpiEndColumnNo(unpackedDimensions->back()->VpiEndColumnNo());
             tps->Ranges(unpackedDimensions);
@@ -1447,6 +1447,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
         insideOp->VpiOpType(vpiInsideOp);
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         insideOp->Operands(operands);
+        fC->populateCoreMembers(Open_range_list, Open_range_list, insideOp);
         NodeId Value_range = fC->Child(Open_range_list);
         VectorOfany* exprs = s.MakeAnyVec();
         case_item->VpiExprs(exprs);
@@ -1699,6 +1700,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
             compileTypespec(component, fC, type, compileDesign, Reduce::No,
                             decl, nullptr, true)) {
       ts = tempts;
+      fC->populateCoreMembers(type, type, ts);
       if (ts->UhdmType() == uhdmunsupported_typespec) {
         component->needLateTypedefBinding(decl);
       }
@@ -1933,6 +1935,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
     begin* begin = s.MakeBegin();
     task->Stmt(begin);
     begin->VpiParent(task);
+    fC->populateCoreMembers(MoreStatement_or_null, MoreStatement_or_null,
+                            begin);
     VectorOfany* stmts = s.MakeAnyVec();
     begin->Stmts(stmts);
     while (Statement_or_null) {
@@ -2079,6 +2083,10 @@ bool CompileHelper::compileClassConstructorDeclaration(
   func->Return(var);
   UHDM::class_typespec* tps = s.MakeClass_typespec();
   var->Typespec(tps);
+  NodeId tf_Port_ItemId = fC->Child(Tf_port_list);
+  NodeId data_type_or_implicitId = fC->Child(tf_Port_ItemId);
+  NodeId varId = fC->Sibling(data_type_or_implicitId);
+  if (varId) fC->populateCoreMembers(varId, varId, var);
   ClassDefinition* cdef = valuedcomponenti_cast<ClassDefinition*>(component);
   if (cdef) {
     tps->Class_defn(cdef->getUhdmDefinition());
@@ -2364,6 +2372,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     begin->VpiParent(func);
     VectorOfany* stmts = s.MakeAnyVec();
     begin->Stmts(stmts);
+    fC->populateCoreMembers(MoreFunction_statement_or_null,
+                            MoreFunction_statement_or_null, begin);
     while (Function_statement_or_null) {
       NodeId Statement = fC->Child(Function_statement_or_null);
       if (Statement) {
@@ -2968,6 +2978,7 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
                                        const UHDM::any* scope,
                                        std::string_view name,
                                        CompileDesign* compileDesign) {
+  if (scope == nullptr) return nullptr;
   UHDM_OBJECT_TYPE scope_type = scope->UhdmType();
   switch (scope_type) {
     case uhdmfunction: {
@@ -3024,10 +3035,7 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
     default:
       break;
   }
-  if (scope->VpiParent()) {
-    return bindVariable(component, scope->VpiParent(), name, compileDesign);
-  }
-  return nullptr;
+  return bindVariable(component, scope->VpiParent(), name, compileDesign);
 }
 
 UHDM::method_func_call* CompileHelper::compileRandomizeCall(

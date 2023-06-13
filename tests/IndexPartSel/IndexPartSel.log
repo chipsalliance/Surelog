@@ -173,29 +173,29 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             2
-constant                                              18
+constant                                              24
 cont_assign                                            2
 design                                                 1
 indexed_part_select                                    2
 logic_net                                              6
-logic_typespec                                         3
+logic_typespec                                         6
 module_inst                                            4
 operation                                              2
-range                                                  6
+range                                                  9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             4
-constant                                              18
+constant                                              24
 cont_assign                                            4
 design                                                 1
 indexed_part_select                                    4
 logic_net                                              6
-logic_typespec                                         3
+logic_typespec                                         6
 module_inst                                            4
 operation                                              4
-range                                                  6
+range                                                  9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexPartSel/slpp_all/surelog.uhdm ...
 
@@ -219,6 +219,28 @@ design: (work@dut)
   \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:13
+      |vpiRange:
+      \_range: , line:3:6, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
+        |vpiLeftRange:
+        \_constant: , line:3:7, endln:3:10
+          |vpiParent:
+          \_range: , line:3:6, endln:3:13
+          |vpiDecompile:220
+          |vpiSize:64
+          |UINT:220
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:11, endln:3:12
+          |vpiParent:
+          \_range: , line:3:6, endln:3:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:hw2reg_wrap
     |vpiFullName:work@dut.hw2reg_wrap
     |vpiNetType:1
@@ -226,6 +248,28 @@ design: (work@dut)
   \_logic_net: (work@dut.notworking_indexed_part_select), line:4:14, endln:4:44
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
+    |vpiTypespec:
+    \_logic_typespec: , line:4:1, endln:4:13
+      |vpiRange:
+      \_range: , line:4:6, endln:4:13
+        |vpiParent:
+        \_logic_typespec: , line:4:1, endln:4:13
+        |vpiLeftRange:
+        \_constant: , line:4:7, endln:4:10
+          |vpiParent:
+          \_range: , line:4:6, endln:4:13
+          |vpiDecompile:237
+          |vpiSize:64
+          |UINT:237
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:4:11, endln:4:12
+          |vpiParent:
+          \_range: , line:4:6, endln:4:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:notworking_indexed_part_select
     |vpiFullName:work@dut.notworking_indexed_part_select
     |vpiNetType:1
@@ -233,6 +277,28 @@ design: (work@dut)
   \_logic_net: (work@dut.working_bitselect), line:5:13, endln:5:30
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
+    |vpiTypespec:
+    \_logic_typespec: , line:5:1, endln:5:12
+      |vpiRange:
+      \_range: , line:5:6, endln:5:12
+        |vpiParent:
+        \_logic_typespec: , line:5:1, endln:5:12
+        |vpiLeftRange:
+        \_constant: , line:5:7, endln:5:9
+          |vpiParent:
+          \_range: , line:5:6, endln:5:12
+          |vpiDecompile:10
+          |vpiSize:64
+          |UINT:10
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:10, endln:5:11
+          |vpiParent:
+          \_range: , line:5:6, endln:5:12
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:working_bitselect
     |vpiFullName:work@dut.working_bitselect
     |vpiNetType:1
@@ -241,7 +307,7 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiRhs:
-    \_bit_select: (work@dut.hw2reg_wrap), line:6:33, endln:6:49
+    \_bit_select: (work@dut.hw2reg_wrap), line:6:45, endln:6:48
       |vpiParent:
       \_cont_assign: , line:6:8, endln:6:49
       |vpiName:hw2reg_wrap
@@ -249,7 +315,7 @@ design: (work@dut)
       |vpiIndex:
       \_constant: , line:6:45, endln:6:48
         |vpiParent:
-        \_bit_select: (work@dut.hw2reg_wrap), line:6:33, endln:6:49
+        \_bit_select: (work@dut.hw2reg_wrap), line:6:45, endln:6:48
         |vpiDecompile:203
         |vpiSize:64
         |UINT:203
@@ -428,7 +494,7 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiRhs:
-    \_bit_select: (work@dut.hw2reg_wrap), line:6:33, endln:6:49
+    \_bit_select: (work@dut.hw2reg_wrap), line:6:45, endln:6:48
       |vpiParent:
       \_cont_assign: , line:6:8, endln:6:49
       |vpiName:hw2reg_wrap
@@ -497,6 +563,3 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/IndexPartSel/dut.sv | ${SURELOG_DIR}/build/regression/IndexPartSel/roundtrip/dut_000.sv | 6 | 8 |

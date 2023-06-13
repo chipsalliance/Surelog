@@ -190,46 +190,46 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              19
+constant                                              21
 design                                                 1
 int_typespec                                           2
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
 logic_net                                              8
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              2
 modport                                                4
 module_inst                                            9
-operation                                              5
+operation                                              6
 param_assign                                           2
 parameter                                              2
 port                                                   7
-range                                                  4
+range                                                  5
 ref_module                                             3
-ref_obj                                                9
+ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              19
+constant                                              21
 design                                                 1
 int_typespec                                           2
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
 logic_net                                              8
-logic_typespec                                         6
+logic_typespec                                         7
 logic_var                                              2
 modport                                                4
 module_inst                                            9
-operation                                              5
+operation                                              6
 param_assign                                           2
 parameter                                              2
 port                                                   8
-range                                                  4
+range                                                  5
 ref_module                                             3
-ref_obj                                               11
+ref_obj                                               12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceElab/slpp_all/surelog.uhdm ...
 
@@ -289,6 +289,38 @@ design: (work@testharness)
   \_logic_net: (work@REG_BUS.addr), line:9:28, endln:9:32
     |vpiParent:
     \_interface_inst: work@REG_BUS (work@REG_BUS), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:2:1, endln:13:13
+    |vpiTypespec:
+    \_logic_typespec: , line:9:3, endln:9:25
+      |vpiRange:
+      \_range: , line:9:9, endln:9:25
+        |vpiParent:
+        \_logic_typespec: , line:9:3, endln:9:25
+        |vpiLeftRange:
+        \_operation: , line:9:10, endln:9:22
+          |vpiParent:
+          \_range: , line:9:9, endln:9:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (ADDR_WIDTH), line:9:10, endln:9:20
+            |vpiParent:
+            \_operation: , line:9:10, endln:9:22
+            |vpiName:ADDR_WIDTH
+          |vpiOperand:
+          \_constant: , line:9:21, endln:9:22
+            |vpiParent:
+            \_operation: , line:9:10, endln:9:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:9:23, endln:9:24
+          |vpiParent:
+          \_range: , line:9:9, endln:9:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:addr
     |vpiFullName:work@REG_BUS.addr
     |vpiNetType:36
@@ -310,7 +342,7 @@ design: (work@testharness)
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@REG_BUS.clk_i.clk_i)
+    \_ref_obj: (work@REG_BUS.clk_i.clk_i), line:6:15, endln:6:20
       |vpiParent:
       \_port: (clk_i), line:6:15, endln:6:20
       |vpiName:clk_i
@@ -336,7 +368,7 @@ design: (work@testharness)
     |vpiName:reg_o
     |vpiDirection:3
     |vpiLowConn:
-    \_ref_obj: (work@apb_to_reg.reg_o.reg_o)
+    \_ref_obj: (work@apb_to_reg.reg_o.reg_o), line:16:16, endln:16:21
       |vpiParent:
       \_port: (reg_o), line:16:16, endln:16:21
       |vpiName:reg_o
@@ -706,4 +738,4 @@ design: (work@testharness)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InterfaceElab/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceElab/roundtrip/dut_000.sv | 12 | 36 |
+[roundtrip]: ${SURELOG_DIR}/tests/InterfaceElab/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceElab/roundtrip/dut_000.sv | 11 | 36 |

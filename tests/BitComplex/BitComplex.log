@@ -329,7 +329,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
   |vpiTypedef:
-  \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:5:18
+  \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
     |vpiParent:
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
     |vpiName:keymgr_pkg::hw_key_req_t
@@ -339,7 +339,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (key), line:6:40, endln:6:43
       |vpiParent:
-      \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:5:18
+      \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
       |vpiName:key
       |vpiTypespec:
       \_logic_typespec: , line:6:7, endln:6:39
@@ -488,7 +488,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
   |vpiTypedef:
-  \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:5:18
+  \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
     |vpiParent:
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
     |vpiName:keymgr_pkg::hw_key_req_t
@@ -498,7 +498,7 @@ design: (work@top)
     |vpiTypespecMember:
     \_typespec_member: (key), line:6:40, endln:6:43
       |vpiParent:
-      \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:5:18
+      \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
       |vpiName:key
       |vpiTypespec:
       \_logic_typespec: , line:6:7, endln:6:39
@@ -564,7 +564,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:12:4, endln:12:46
     |vpiName:PP
     |vpiFullName:work@top.PP
   |vpiParamAssign:
@@ -579,7 +579,7 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:12:4, endln:12:46
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PP), line:12:14, endln:12:16
@@ -594,6 +594,8 @@ design: (work@top)
   \_logic_net: (work@top.keymgr_key_i), line:11:29, endln:11:41
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
+    |vpiTypespec:
+    \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
     |vpiNetType:1
@@ -604,7 +606,7 @@ design: (work@top)
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@top.o.o)
+    \_ref_obj: (work@top.o.o), line:10:23, endln:10:24
       |vpiParent:
       \_port: (o), line:10:23, endln:10:24
       |vpiName:o
@@ -654,7 +656,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:12:4, endln:12:46
       |vpiParent:
       \_parameter: (work@top.PP), line:12:14, endln:12:16
     |vpiName:PP
@@ -671,7 +673,7 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:12:4, endln:12:46
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PP), line:12:14, endln:12:16
@@ -682,7 +684,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |vpiTypespec:
-    \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:5:18
+    \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
     |vpiNetType:1
@@ -732,6 +734,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/BitComplex/dut.sv | ${SURELOG_DIR}/build/regression/BitComplex/roundtrip/dut_000.sv | 4 | 14 |

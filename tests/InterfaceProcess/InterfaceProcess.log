@@ -120,7 +120,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             1
 begin                                                  1
-bit_typespec                                           1
+bit_typespec                                           2
 bit_var                                                1
 constant                                               3
 cont_assign                                            2
@@ -128,7 +128,7 @@ design                                                 1
 initial                                                1
 interface_inst                                         3
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            3
 ref_module                                             1
@@ -139,7 +139,7 @@ ref_obj                                                3
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             1
 begin                                                  1
-bit_typespec                                           1
+bit_typespec                                           2
 bit_var                                                1
 constant                                               3
 cont_assign                                            2
@@ -147,7 +147,7 @@ design                                                 1
 initial                                                1
 interface_inst                                         3
 logic_net                                              2
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            3
 ref_module                                             1
@@ -175,6 +175,8 @@ design: (work@top)
   \_logic_net: (work@sw_test_status_if.data_valid), line:2:9, endln:2:19
     |vpiParent:
     \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
+    |vpiTypespec:
+    \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:data_valid
     |vpiFullName:work@sw_test_status_if.data_valid
     |vpiNetType:36
@@ -182,6 +184,8 @@ design: (work@top)
   \_logic_net: (work@sw_test_status_if.sw_test_done), line:5:7, endln:5:19
     |vpiParent:
     \_interface_inst: work@sw_test_status_if (work@sw_test_status_if), file:${SURELOG_DIR}/tests/InterfaceProcess/dut.sv, line:1:1, endln:11:13
+    |vpiTypespec:
+    \_bit_typespec: , line:5:3, endln:5:6
     |vpiName:sw_test_done
     |vpiFullName:work@sw_test_status_if.sw_test_done
   |vpiContAssign:
@@ -310,4 +314,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InterfaceProcess/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceProcess/roundtrip/dut_000.sv | 3 | 15 |
+[roundtrip]: ${SURELOG_DIR}/tests/InterfaceProcess/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceProcess/roundtrip/dut_000.sv | 1 | 15 |

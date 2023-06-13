@@ -332,7 +332,7 @@ function                                               4
 gen_if_else                                            2
 gen_scope                                              4
 gen_scope_array                                        4
-int_typespec                                          10
+int_typespec                                          12
 int_var                                                6
 interface_inst                                         3
 logic_net                                              2
@@ -357,7 +357,7 @@ function                                               6
 gen_if_else                                            2
 gen_scope                                              5
 gen_scope_array                                        5
-int_typespec                                          10
+int_typespec                                          12
 int_var                                                6
 interface_inst                                         3
 logic_net                                              2
@@ -448,6 +448,9 @@ design: (work@top)
   \_logic_net: (work@intf.o), line:3:27, endln:3:28
     |vpiParent:
     \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+    |vpiTypespec:
+    \_int_typespec: , line:3:4, endln:3:7
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@intf.o
   |vpiGenStmt:
@@ -583,6 +586,9 @@ design: (work@top)
   \_logic_net: (work@top.o), line:23:27, endln:23:28
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+    |vpiTypespec:
+    \_int_typespec: , line:23:4, endln:23:7
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiRefModule:
@@ -780,14 +786,14 @@ design: (work@top)
       |vpiName:gen_block
       |vpiFullName:work@top.interf.gen_block
       |vpiGenScope:
-      \_gen_scope: (work@top.interf.gen_block)
+      \_gen_scope: (work@top.interf.gen_block), line:9:4, endln:17:19
         |vpiParent:
         \_gen_scope_array: (work@top.interf.gen_block), line:9:4, endln:17:19
         |vpiFullName:work@top.interf.gen_block
         |vpiContAssign:
         \_cont_assign: , line:14:14, endln:14:24
           |vpiParent:
-          \_gen_scope: (work@top.interf.gen_block)
+          \_gen_scope: (work@top.interf.gen_block), line:9:4, endln:17:19
           |vpiRhs:
           \_constant: , line:11:17, endln:11:18
             |vpiParent:
@@ -807,7 +813,7 @@ design: (work@top)
         |vpiTaskFunc:
         \_function: (work@top.interf.gen_block.get3), line:10:7, endln:12:18
           |vpiParent:
-          \_gen_scope: (work@top.interf.gen_block)
+          \_gen_scope: (work@top.interf.gen_block), line:9:4, endln:17:19
           |vpiName:get3
           |vpiFullName:work@top.interf.gen_block.get3
           |vpiVisibility:1
@@ -838,14 +844,14 @@ design: (work@top)
     |vpiName:gen_block
     |vpiFullName:work@top.gen_block
     |vpiGenScope:
-    \_gen_scope: (work@top.gen_block)
+    \_gen_scope: (work@top.gen_block), line:29:4, endln:37:19
       |vpiParent:
       \_gen_scope_array: (work@top.gen_block), line:29:4, endln:37:19
       |vpiFullName:work@top.gen_block
       |vpiContAssign:
       \_cont_assign: , line:34:14, endln:34:24
         |vpiParent:
-        \_gen_scope: (work@top.gen_block)
+        \_gen_scope: (work@top.gen_block), line:29:4, endln:37:19
         |vpiRhs:
         \_constant: , line:31:17, endln:31:18
           |vpiParent:
@@ -865,7 +871,7 @@ design: (work@top)
       |vpiTaskFunc:
       \_function: (work@top.gen_block.get1), line:30:7, endln:32:18
         |vpiParent:
-        \_gen_scope: (work@top.gen_block)
+        \_gen_scope: (work@top.gen_block), line:29:4, endln:37:19
         |vpiName:get1
         |vpiFullName:work@top.gen_block.get1
         |vpiVisibility:1
@@ -897,4 +903,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv | ${SURELOG_DIR}/build/regression/FuncDeclScope/roundtrip/dut_000.sv | 15 | 40 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv | ${SURELOG_DIR}/build/regression/FuncDeclScope/roundtrip/dut_000.sv | 13 | 40 |

@@ -23,29 +23,29 @@
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              10
+constant                                              18
 cont_assign                                            2
 design                                                 1
 logic_net                                              6
-logic_typespec                                         2
+logic_typespec                                         8
 logic_var                                              6
 module_inst                                            4
 operation                                              4
-range                                                  5
+range                                                  9
 ref_obj                                               12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              10
+constant                                              18
 cont_assign                                            3
 design                                                 1
 logic_net                                              6
-logic_typespec                                         2
+logic_typespec                                         8
 logic_var                                              6
 module_inst                                            4
 operation                                              6
-range                                                  5
+range                                                  9
 ref_obj                                               18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TernaryAssoc/slpp_unit/surelog.uhdm ...
@@ -70,6 +70,8 @@ design: (work@top)
   \_logic_net: (work@top.first_condition), line:2:14, endln:2:29
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:6
     |vpiName:first_condition
     |vpiFullName:work@top.first_condition
     |vpiNetType:36
@@ -77,6 +79,8 @@ design: (work@top)
   \_logic_net: (work@top.first_condition_false), line:2:31, endln:2:52
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:1, endln:2:6
     |vpiName:first_condition_false
     |vpiFullName:work@top.first_condition_false
     |vpiNetType:36
@@ -84,6 +88,28 @@ design: (work@top)
   \_logic_net: (work@top.first_condition_true), line:3:14, endln:3:34
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:13
+      |vpiRange:
+      \_range: , line:3:7, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
+        |vpiLeftRange:
+        \_constant: , line:3:8, endln:3:10
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:11, endln:3:12
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:first_condition_true
     |vpiFullName:work@top.first_condition_true
     |vpiNetType:36
@@ -91,6 +117,28 @@ design: (work@top)
   \_logic_net: (work@top.second_condition_true), line:3:35, endln:3:56
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:13
+      |vpiRange:
+      \_range: , line:3:7, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
+        |vpiLeftRange:
+        \_constant: , line:3:8, endln:3:10
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:11, endln:3:12
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:second_condition_true
     |vpiFullName:work@top.second_condition_true
     |vpiNetType:36
@@ -98,6 +146,28 @@ design: (work@top)
   \_logic_net: (work@top.second_condition_false), line:3:58, endln:3:80
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:13
+      |vpiRange:
+      \_range: , line:3:7, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
+        |vpiLeftRange:
+        \_constant: , line:3:8, endln:3:10
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:11, endln:3:12
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:second_condition_false
     |vpiFullName:work@top.second_condition_false
     |vpiNetType:36
@@ -105,6 +175,28 @@ design: (work@top)
   \_logic_net: (work@top.result), line:3:82, endln:3:88
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TernaryAssoc/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:13
+      |vpiRange:
+      \_range: , line:3:7, endln:3:13
+        |vpiParent:
+        \_logic_typespec: , line:3:1, endln:3:13
+        |vpiLeftRange:
+        \_constant: , line:3:8, endln:3:10
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:11, endln:3:12
+          |vpiParent:
+          \_range: , line:3:7, endln:3:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:result
     |vpiFullName:work@top.result
     |vpiNetType:36

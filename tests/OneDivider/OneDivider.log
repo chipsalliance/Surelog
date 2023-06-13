@@ -38,7 +38,7 @@ event_control                                          1
 if_else                                                1
 initial                                                2
 logic_net                                             10
-logic_typespec                                        12
+logic_typespec                                        15
 logic_var                                              2
 module_inst                                            4
 operation                                              7
@@ -92,7 +92,7 @@ design: (work@tb)
     |vpiName:rstn
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@dut.rstn.rstn)
+    \_ref_obj: (work@dut.rstn.rstn), line:1:24, endln:1:28
       |vpiParent:
       \_port: (rstn), line:1:24, endln:1:28
       |vpiName:rstn
@@ -108,7 +108,7 @@ design: (work@tb)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@dut.clk.clk)
+    \_ref_obj: (work@dut.clk.clk), line:2:24, endln:2:27
       |vpiParent:
       \_port: (clk), line:2:24, endln:2:27
       |vpiName:clk
@@ -124,7 +124,7 @@ design: (work@tb)
     |vpiName:div
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@dut.div.div)
+    \_ref_obj: (work@dut.div.div), line:3:23, endln:3:26
       |vpiParent:
       \_port: (div), line:3:23, endln:3:26
       |vpiName:div
@@ -245,6 +245,8 @@ design: (work@tb)
   \_logic_net: (work@tb.clk), line:2:7, endln:2:10
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_logic_typespec: , line:2:3, endln:2:6
     |vpiName:clk
     |vpiFullName:work@tb.clk
     |vpiNetType:48
@@ -252,6 +254,8 @@ design: (work@tb)
   \_logic_net: (work@tb.div), line:3:9, endln:3:12
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_logic_typespec: , line:3:3, endln:3:12
     |vpiName:div
     |vpiFullName:work@tb.div
     |vpiNetType:36
@@ -259,6 +263,8 @@ design: (work@tb)
   \_logic_net: (work@tb.rstn), line:4:9, endln:4:13
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_logic_typespec: , line:4:3, endln:4:13
     |vpiName:rstn
     |vpiFullName:work@tb.rstn
     |vpiNetType:36
@@ -654,4 +660,4 @@ design: (work@tb)
 
 
 [roundtrip]: ${SURELOG_DIR}/tests/OneDivider/dut.v | ${SURELOG_DIR}/build/regression/OneDivider/roundtrip/dut_000.v | 3 | 10 |
-[roundtrip]: ${SURELOG_DIR}/tests/OneDivider/tb.v  | ${SURELOG_DIR}/build/regression/OneDivider/roundtrip/tb_000.v  | 9 | 30 |
+[roundtrip]: ${SURELOG_DIR}/tests/OneDivider/tb.v  | ${SURELOG_DIR}/build/regression/OneDivider/roundtrip/tb_000.v  | 7 | 30 |

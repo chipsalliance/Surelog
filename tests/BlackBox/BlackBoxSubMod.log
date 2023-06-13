@@ -165,6 +165,7 @@ constant                                               1
 cont_assign                                            1
 design                                                 1
 hier_path                                              1
+int_typespec                                           1
 logic_net                                              2
 module_inst                                            6
 ref_module                                             1
@@ -178,6 +179,7 @@ constant                                               1
 cont_assign                                            2
 design                                                 1
 hier_path                                              2
+int_typespec                                           1
 logic_net                                              2
 module_inst                                            6
 ref_module                                             1
@@ -207,6 +209,9 @@ design: (work@top)
   \_logic_net: (work@core.wb_writeback_en), line:7:5, endln:7:20
     |vpiParent:
     \_module_inst: work@core (work@core), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:5:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:7:1, endln:7:4
+      |vpiSigned:1
     |vpiName:wb_writeback_en
     |vpiFullName:work@core.wb_writeback_en
 |uhdmallModules:
@@ -349,4 +354,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BlackBox/dut.sv | ${SURELOG_DIR}/build/regression/BlackBoxSubMod/roundtrip/dut_000.sv | 11 | 34 |
+[roundtrip]: ${SURELOG_DIR}/tests/BlackBox/dut.sv | ${SURELOG_DIR}/build/regression/BlackBoxSubMod/roundtrip/dut_000.sv | 10 | 34 |

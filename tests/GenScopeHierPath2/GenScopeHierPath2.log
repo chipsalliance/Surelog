@@ -440,7 +440,7 @@ design: (work@mod)
     \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:5, endln:4:20
     |vpiName:P
     |vpiFullName:work@mod.P
   |vpiParamAssign:
@@ -455,7 +455,7 @@ design: (work@mod)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:5, endln:4:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@mod.P), line:4:15, endln:4:16
@@ -474,7 +474,7 @@ design: (work@mod)
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@mod.out.out)
+    \_ref_obj: (work@mod.out.out), line:2:24, endln:2:27
       |vpiParent:
       \_port: (out), line:2:24, endln:2:27
       |vpiName:out
@@ -838,7 +838,7 @@ design: (work@mod)
     \_module_inst: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:5, endln:4:20
       |vpiParent:
       \_parameter: (work@mod.P), line:4:15, endln:4:16
     |vpiName:P
@@ -855,7 +855,7 @@ design: (work@mod)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:5, endln:4:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@mod.P), line:4:15, endln:4:16
@@ -936,14 +936,14 @@ design: (work@mod)
     |vpiName:blk4
     |vpiFullName:work@mod.blk4
     |vpiGenScope:
-    \_gen_scope: (work@mod.blk4)
+    \_gen_scope: (work@mod.blk4), line:14:10, endln:16:8
       |vpiParent:
       \_gen_scope_array: (work@mod.blk4), line:14:10, endln:16:8
       |vpiFullName:work@mod.blk4
       |vpiArrayNet:
       \_array_net: (work@mod.blk4.z), line:15:14, endln:15:15
         |vpiParent:
-        \_gen_scope: (work@mod.blk4)
+        \_gen_scope: (work@mod.blk4), line:14:10, endln:16:8
         |vpiSize:7
         |vpiName:z
         |vpiFullName:work@mod.blk4.z
@@ -960,14 +960,14 @@ design: (work@mod)
             |UINT:0
             |vpiConstType:9
           |vpiRightRange:
-          \_operation: 
+          \_operation: , line:15:17, endln:15:18
             |vpiParent:
             \_range: , line:15:17, endln:15:18
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:15:17, endln:15:18
               |vpiParent:
-              \_operation: 
+              \_operation: , line:15:17, endln:15:18
               |vpiDecompile:7
               |vpiSize:64
               |UINT:7
@@ -994,14 +994,14 @@ design: (work@mod)
     |vpiName:genblk2
     |vpiFullName:work@mod.genblk2
     |vpiGenScope:
-    \_gen_scope: (work@mod.genblk2)
+    \_gen_scope: (work@mod.genblk2), line:17:5, endln:24:36
       |vpiParent:
       \_gen_scope_array: (work@mod.genblk2), line:17:5, endln:24:36
       |vpiFullName:work@mod.genblk2
       |vpiContAssign:
       \_cont_assign: , line:24:16, endln:24:35
         |vpiParent:
-        \_gen_scope: (work@mod.genblk2)
+        \_gen_scope: (work@mod.genblk2), line:17:5, endln:24:36
         |vpiRhs:
         \_sys_func_call: ($bits), line:24:22, endln:24:35
           |vpiParent:
@@ -1029,7 +1029,7 @@ design: (work@mod)
               \_hier_path: (blk4.z), line:24:28, endln:24:34
               |vpiName:blk4
               |vpiActual:
-              \_gen_scope: (work@mod.blk4)
+              \_gen_scope: (work@mod.blk4), line:14:10, endln:16:8
             |vpiActual:
             \_ref_obj: (work@mod.genblk2.z), line:24:33, endln:24:34
               |vpiParent:
@@ -1053,6 +1053,3 @@ design: (work@mod)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 8
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv | ${SURELOG_DIR}/build/regression/GenScopeHierPath2/roundtrip/dut_000.sv | 18 | 25 |

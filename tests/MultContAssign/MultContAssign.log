@@ -572,10 +572,10 @@ gen_region                                             1
 gen_scope                                              4
 gen_scope_array                                        4
 initial                                                1
-int_typespec                                           3
+int_typespec                                           4
 int_var                                                1
 logic_net                                             20
-logic_typespec                                         8
+logic_typespec                                         9
 module_inst                                           10
 operation                                             10
 param_assign                                           2
@@ -599,10 +599,10 @@ gen_region                                             1
 gen_scope                                              6
 gen_scope_array                                        6
 initial                                                2
-int_typespec                                           3
+int_typespec                                           4
 int_var                                                1
 logic_net                                             20
-logic_typespec                                         8
+logic_typespec                                         9
 module_inst                                           10
 operation                                             18
 param_assign                                           2
@@ -634,7 +634,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:29:1, endln:29:23
     |vpiName:NUM_WAYS
     |vpiFullName:work@top.NUM_WAYS
   |vpiParamAssign:
@@ -649,7 +649,7 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:29:1, endln:29:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NUM_WAYS), line:29:11, endln:29:19
@@ -658,6 +658,9 @@ design: (work@top)
   \_logic_net: (work@top.v), line:5:6, endln:5:7
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
+    |vpiTypespec:
+    \_int_typespec: , line:5:2, endln:5:5
+      |vpiSigned:1
     |vpiName:v
     |vpiFullName:work@top.v
   |vpiNet:
@@ -1183,14 +1186,14 @@ design: (work@top)
                 \_cont_assign: , line:39:19, endln:39:43
                 |vpiOpType:3
                 |vpiOperand:
-                \_bit_select: (lru_flags), line:39:31, endln:39:43
+                \_bit_select: (lru_flags), line:39:41, endln:39:42
                   |vpiParent:
                   \_operation: , line:39:30, endln:39:43
                   |vpiName:lru_flags
                   |vpiIndex:
                   \_constant: , line:39:41, endln:39:42
                     |vpiParent:
-                    \_bit_select: (lru_flags), line:39:31, endln:39:43
+                    \_bit_select: (lru_flags), line:39:41, endln:39:42
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
@@ -1210,6 +1213,8 @@ design: (work@top)
   \_logic_net: (work@top2.two), line:58:9, endln:58:12
     |vpiParent:
     \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:57:1, endln:64:10
+    |vpiTypespec:
+    \_logic_typespec: , line:58:3, endln:58:8
     |vpiName:two
     |vpiFullName:work@top2.two
     |vpiNetType:13
@@ -1302,7 +1307,7 @@ design: (work@top)
     |vpiName:A
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@wandwor_test0.A.A)
+    \_ref_obj: (work@wandwor_test0.A.A), line:48:23, endln:48:24
       |vpiParent:
       \_port: (A), line:48:23, endln:48:24
       |vpiName:A
@@ -1318,7 +1323,7 @@ design: (work@top)
     |vpiName:B
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@wandwor_test0.B.B)
+    \_ref_obj: (work@wandwor_test0.B.B), line:48:26, endln:48:27
       |vpiParent:
       \_port: (B), line:48:26, endln:48:27
       |vpiName:B
@@ -1334,7 +1339,7 @@ design: (work@top)
     |vpiName:X
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@wandwor_test0.X.X)
+    \_ref_obj: (work@wandwor_test0.X.X), line:48:29, endln:48:30
       |vpiParent:
       \_port: (X), line:48:29, endln:48:30
       |vpiName:X
@@ -1402,7 +1407,7 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:29:1, endln:29:23
       |vpiParent:
       \_parameter: (work@top.NUM_WAYS), line:29:11, endln:29:19
     |vpiName:NUM_WAYS
@@ -1419,7 +1424,7 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:29:1, endln:29:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NUM_WAYS), line:29:11, endln:29:19
@@ -1433,14 +1438,14 @@ design: (work@top)
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1)
+    \_gen_scope: (work@top.genblk1), line:17:4, endln:18:50
       |vpiParent:
       \_gen_scope_array: (work@top.genblk1), line:17:4, endln:18:50
       |vpiFullName:work@top.genblk1
       |vpiContAssign:
       \_cont_assign: , line:18:35, endln:18:49
         |vpiParent:
-        \_gen_scope: (work@top.genblk1)
+        \_gen_scope: (work@top.genblk1), line:17:4, endln:18:50
         |vpiStrength0:8
         |vpiStrength1:8
         |vpiRhs:
@@ -1467,14 +1472,14 @@ design: (work@top)
     |vpiName:genblk2
     |vpiFullName:work@top.genblk2
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk2)
+    \_gen_scope: (work@top.genblk2), line:31:4, endln:42:11
       |vpiParent:
       \_gen_scope_array: (work@top.genblk2), line:31:4, endln:42:11
       |vpiFullName:work@top.genblk2
       |vpiContAssign:
       \_cont_assign: , line:34:19, endln:34:31
         |vpiParent:
-        \_gen_scope: (work@top.genblk2)
+        \_gen_scope: (work@top.genblk2), line:31:4, endln:42:11
         |vpiRhs:
         \_constant: , line:34:30, endln:34:31
           |vpiParent:
@@ -1949,6 +1954,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 3
 [   NOTE] : 8
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/MultContAssign/dut.sv | ${SURELOG_DIR}/build/regression/MultContAssign/roundtrip/dut_000.sv | 25 | 64 |

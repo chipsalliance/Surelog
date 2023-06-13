@@ -146,7 +146,7 @@ design: (work@dut2)
   \_design: (work@dut2)
   |vpiFullName:work@dut2
   |vpiTypedef:
-  \_struct_typespec: (struct_typedef), line:3:9, endln:3:15
+  \_struct_typespec: (struct_typedef), line:3:9, endln:5:2
     |vpiParent:
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/HierPathSelect/dut.sv, line:1:1, endln:10:10
     |vpiName:struct_typedef
@@ -156,7 +156,7 @@ design: (work@dut2)
     |vpiTypespecMember:
     \_typespec_member: (q), line:4:15, endln:4:16
       |vpiParent:
-      \_struct_typespec: (struct_typedef), line:3:9, endln:3:15
+      \_struct_typespec: (struct_typedef), line:3:9, endln:5:2
       |vpiName:q
       |vpiTypespec:
       \_logic_typespec: , line:4:3, endln:4:14
@@ -212,12 +212,12 @@ design: (work@dut2)
       \_cont_assign: , line:8:8, endln:8:28
       |vpiName:read_buf.q[1]
       |vpiActual:
-      \_ref_obj: (read_buf)
+      \_ref_obj: (read_buf), line:8:17, endln:8:18
         |vpiParent:
         \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
         |vpiName:read_buf
       |vpiActual:
-      \_bit_select: (work@dut2.read_buf.q[1].q), line:8:17, endln:8:18
+      \_bit_select: (work@dut2.read_buf.q[1].q), line:8:19, endln:8:20
         |vpiParent:
         \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
         |vpiName:q
@@ -225,7 +225,7 @@ design: (work@dut2)
         |vpiIndex:
         \_constant: , line:8:19, endln:8:20
           |vpiParent:
-          \_bit_select: (work@dut2.read_buf.q[1].q), line:8:17, endln:8:18
+          \_bit_select: (work@dut2.read_buf.q[1].q), line:8:19, endln:8:20
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -234,7 +234,7 @@ design: (work@dut2)
 \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/HierPathSelect/dut.sv, line:1:1, endln:10:10
   |vpiName:work@dut2
   |vpiTypedef:
-  \_struct_typespec: (struct_typedef), line:3:9, endln:3:15
+  \_struct_typespec: (struct_typedef), line:3:9, endln:5:2
   |vpiDefName:work@dut2
   |vpiTop:1
   |vpiNet:
@@ -242,7 +242,7 @@ design: (work@dut2)
     |vpiParent:
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/HierPathSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_struct_typespec: (struct_typedef), line:3:9, endln:3:15
+    \_struct_typespec: (struct_typedef), line:3:9, endln:5:2
     |vpiName:read_buf
     |vpiFullName:work@dut2.read_buf
   |vpiTopModule:1
@@ -258,14 +258,14 @@ design: (work@dut2)
       \_cont_assign: , line:8:8, endln:8:28
       |vpiName:read_buf.q[1]
       |vpiActual:
-      \_ref_obj: (read_buf)
+      \_ref_obj: (read_buf), line:8:17, endln:8:18
         |vpiParent:
         \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
         |vpiName:read_buf
         |vpiActual:
         \_struct_net: (work@dut2.read_buf), line:6:16, endln:6:24
       |vpiActual:
-      \_bit_select: (work@dut2.read_buf.q[1].q), line:8:17, endln:8:18
+      \_bit_select: (work@dut2.read_buf.q[1].q), line:8:19, endln:8:20
         |vpiParent:
         \_hier_path: (read_buf.q[1]), line:8:8, endln:8:21
         |vpiName:q
@@ -275,7 +275,7 @@ design: (work@dut2)
         |vpiIndex:
         \_constant: , line:8:19, endln:8:20
           |vpiParent:
-          \_bit_select: (work@dut2.read_buf.q[1].q), line:8:17, endln:8:18
+          \_bit_select: (work@dut2.read_buf.q[1].q), line:8:19, endln:8:20
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -286,6 +286,3 @@ design: (work@dut2)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/HierPathSelect/dut.sv | ${SURELOG_DIR}/build/regression/HierPathSelect/roundtrip/dut_000.sv | 3 | 10 |

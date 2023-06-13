@@ -203,7 +203,7 @@ enum_typespec                                          1
 enum_var                                               2
 func_call                                              2
 function                                               1
-int_typespec                                           3
+int_typespec                                           4
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         1
@@ -231,7 +231,7 @@ enum_typespec                                          1
 enum_var                                               4
 func_call                                              2
 function                                               2
-int_typespec                                           3
+int_typespec                                           4
 int_var                                                1
 logic_net                                              1
 logic_typespec                                         1
@@ -317,13 +317,13 @@ design: (work@top)
     |vpiVariables:
     \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
       |vpiParent:
-      \_begin: (work@top.get_BA)
+      \_begin: (work@top.get_BA), line:11:7, endln:11:18
       |vpiTypespec:
-      \_packed_array_typespec: , line:10:7, endln:10:13
+      \_packed_array_typespec: , line:10:7, endln:10:19
         |vpiRange:
         \_range: , line:10:14, endln:10:19
           |vpiParent:
-          \_packed_array_typespec: , line:10:7, endln:10:13
+          \_packed_array_typespec: , line:10:7, endln:10:19
           |vpiLeftRange:
           \_constant: , line:10:15, endln:10:16
             |vpiParent:
@@ -378,11 +378,11 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.get_BA), line:9:4, endln:14:15
       |vpiTypespec:
-      \_packed_array_typespec: , line:9:23, endln:9:29
+      \_packed_array_typespec: , line:9:23, endln:9:35
         |vpiRange:
         \_range: , line:9:30, endln:9:35
           |vpiParent:
-          \_packed_array_typespec: , line:9:23, endln:9:29
+          \_packed_array_typespec: , line:9:23, endln:9:35
           |vpiLeftRange:
           \_constant: , line:9:31, endln:9:32
             |vpiParent:
@@ -430,7 +430,7 @@ design: (work@top)
         \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
         |vpiFullName:work@top.get_BA
     |vpiStmt:
-    \_begin: (work@top.get_BA)
+    \_begin: (work@top.get_BA), line:11:7, endln:11:18
       |vpiParent:
       \_function: (work@top.get_BA), line:9:4, endln:14:15
       |vpiFullName:work@top.get_BA
@@ -439,7 +439,7 @@ design: (work@top)
       |vpiStmt:
       \_assignment: , line:11:7, endln:11:17
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_begin: (work@top.get_BA), line:11:7, endln:11:18
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -469,7 +469,7 @@ design: (work@top)
       |vpiStmt:
       \_assignment: , line:12:7, endln:12:17
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_begin: (work@top.get_BA), line:11:7, endln:11:18
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -499,7 +499,7 @@ design: (work@top)
       |vpiStmt:
       \_return_stmt: , line:13:7, endln:13:13
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_begin: (work@top.get_BA), line:11:7, endln:11:18
         |vpiCondition:
         \_ref_obj: (work@top.get_BA.out), line:13:14, endln:13:17
           |vpiParent:
@@ -514,6 +514,9 @@ design: (work@top)
   \_logic_net: (work@top.o), line:8:17, endln:8:18
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumVar/dut.sv, line:1:1, endln:19:10
+    |vpiTypespec:
+    \_int_typespec: , line:8:4, endln:8:7
+      |vpiSigned:1
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiContAssign:
@@ -571,7 +574,7 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.get_BA), line:9:4, endln:14:15
       |vpiTypespec:
-      \_packed_array_typespec: , line:10:7, endln:10:13
+      \_packed_array_typespec: , line:10:7, endln:10:19
       |vpiName:out
       |vpiFullName:work@top.get_BA.out
       |vpiRange:
@@ -594,16 +597,16 @@ design: (work@top)
     |vpiReturn:
     \_packed_array_var: (work@top.get_BA), line:9:23, endln:9:35
     |vpiStmt:
-    \_begin: (work@top.get_BA)
+    \_begin: (work@top.get_BA), line:11:7, endln:11:18
       |vpiParent:
       \_function: (work@top.get_BA), line:9:4, endln:14:15
       |vpiFullName:work@top.get_BA
       |vpiVariables:
       \_packed_array_var: (work@top.get_BA.out), line:10:20, endln:10:23
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_begin: (work@top.get_BA), line:11:7, endln:11:18
         |vpiTypespec:
-        \_packed_array_typespec: , line:10:7, endln:10:13
+        \_packed_array_typespec: , line:10:7, endln:10:19
         |vpiName:out
         |vpiFullName:work@top.get_BA.out
         |vpiRange:
@@ -624,7 +627,7 @@ design: (work@top)
       |vpiStmt:
       \_assignment: , line:11:7, endln:11:17
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_begin: (work@top.get_BA), line:11:7, endln:11:18
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -648,7 +651,7 @@ design: (work@top)
       |vpiStmt:
       \_assignment: , line:12:7, endln:12:17
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_begin: (work@top.get_BA), line:11:7, endln:11:18
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -672,7 +675,7 @@ design: (work@top)
       |vpiStmt:
       \_return_stmt: , line:13:7, endln:13:13
         |vpiParent:
-        \_begin: (work@top.get_BA)
+        \_begin: (work@top.get_BA), line:11:7, endln:11:18
         |vpiCondition:
         \_ref_obj: (work@top.get_BA.out), line:13:14, endln:13:17
           |vpiParent:

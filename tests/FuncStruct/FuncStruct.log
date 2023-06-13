@@ -259,7 +259,7 @@ AST_DEBUG_END
 assignment                                             4
 begin                                                  2
 bit_select                                             5
-constant                                              64
+constant                                              68
 cont_assign                                            3
 design                                                 1
 func_call                                              1
@@ -274,8 +274,9 @@ package                                                2
 packed_array_typespec                                  2
 param_assign                                           2
 parameter                                              2
-range                                                 26
+range                                                 28
 ref_obj                                                6
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -283,7 +284,7 @@ ref_obj                                                6
 assignment                                            10
 begin                                                  5
 bit_select                                            10
-constant                                              64
+constant                                              68
 cont_assign                                            5
 design                                                 1
 func_call                                              2
@@ -298,8 +299,9 @@ package                                                2
 packed_array_typespec                                  2
 param_assign                                           2
 parameter                                              2
-range                                                 26
+range                                                 28
 ref_obj                                               14
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/surelog.uhdm ...
 
@@ -394,7 +396,7 @@ design: (work@dut)
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiTypespec:
-      \_logic_typespec: , line:3:20, endln:3:30
+      \_logic_typespec: , line:3:20, endln:3:36
         |vpiInstance:
         \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiElemTypespec:
@@ -427,7 +429,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:31, endln:3:36
           |vpiParent:
-          \_logic_typespec: , line:3:20, endln:3:30
+          \_logic_typespec: , line:3:20, endln:3:36
           |vpiLeftRange:
           \_constant: , line:3:32, endln:3:33
             |vpiParent:
@@ -452,7 +454,7 @@ design: (work@dut)
       |vpiDirection:1
       |vpiName:w
       |vpiTypedef:
-      \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+      \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
         |vpiName:sha_word_t
         |vpiTypedefAlias:
         \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
@@ -461,7 +463,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:2:15, endln:2:21
           |vpiParent:
-          \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+          \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
           |vpiLeftRange:
           \_constant: , line:2:16, endln:2:18
             |vpiParent:
@@ -491,7 +493,7 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_logic_typespec: , line:3:73, endln:3:83
+      \_logic_typespec: , line:3:73, endln:3:89
         |vpiInstance:
         \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiElemTypespec:
@@ -524,7 +526,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:84, endln:3:89
           |vpiParent:
-          \_logic_typespec: , line:3:73, endln:3:83
+          \_logic_typespec: , line:3:73, endln:3:89
           |vpiLeftRange:
           \_constant: , line:3:85, endln:3:86
             |vpiParent:
@@ -542,14 +544,14 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
     |vpiStmt:
-    \_begin: (hmac_pkg::compress)
+    \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiFullName:hmac_pkg::compress
       |vpiVariables:
       \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
         |vpiName:sigma_0
@@ -558,7 +560,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -578,7 +580,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:7:3, endln:7:26
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -689,7 +691,7 @@ design: (work@dut)
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiTypespec:
-      \_logic_typespec: , line:3:20, endln:3:30
+      \_logic_typespec: , line:3:20, endln:3:36
         |vpiInstance:
         \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiElemTypespec:
@@ -722,7 +724,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:31, endln:3:36
           |vpiParent:
-          \_logic_typespec: , line:3:20, endln:3:30
+          \_logic_typespec: , line:3:20, endln:3:36
           |vpiLeftRange:
           \_constant: , line:3:32, endln:3:33
             |vpiParent:
@@ -747,7 +749,7 @@ design: (work@dut)
       |vpiDirection:1
       |vpiName:w
       |vpiTypedef:
-      \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+      \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
         |vpiName:sha_word_t
         |vpiTypedefAlias:
         \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
@@ -756,7 +758,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:2:15, endln:2:21
           |vpiParent:
-          \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+          \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
           |vpiLeftRange:
           \_constant: , line:2:16, endln:2:18
             |vpiParent:
@@ -786,7 +788,7 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_logic_typespec: , line:3:73, endln:3:83
+      \_logic_typespec: , line:3:73, endln:3:89
         |vpiInstance:
         \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:1:1, endln:9:11
         |vpiElemTypespec:
@@ -819,7 +821,7 @@ design: (work@dut)
         |vpiRange:
         \_range: , line:3:84, endln:3:89
           |vpiParent:
-          \_logic_typespec: , line:3:73, endln:3:83
+          \_logic_typespec: , line:3:73, endln:3:89
           |vpiLeftRange:
           \_constant: , line:3:85, endln:3:86
             |vpiParent:
@@ -837,14 +839,14 @@ design: (work@dut)
             |UINT:0
             |vpiConstType:9
     |vpiStmt:
-    \_begin: (hmac_pkg::compress)
+    \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiFullName:hmac_pkg::compress
       |vpiVariables:
       \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
         |vpiName:sigma_0
@@ -853,7 +855,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -873,7 +875,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:7:3, endln:7:26
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -921,7 +923,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (hmac_pkg::compress::sigma_0), line:4:24, endln:4:31
       |vpiParent:
-      \_begin: (hmac_pkg::compress)
+      \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
       |vpiTypespec:
       \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
       |vpiName:sigma_0
@@ -938,7 +940,7 @@ design: (work@dut)
       |vpiDirection:1
       |vpiName:w
       |vpiTypedef:
-      \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+      \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
     |vpiIODecl:
     \_io_decl: (h_i), line:3:90, endln:3:93
       |vpiParent:
@@ -948,9 +950,9 @@ design: (work@dut)
       |vpiExpr:
       \_constant: , line:3:96, endln:3:97
       |vpiTypedef:
-      \_logic_typespec: , line:3:73, endln:3:83
+      \_logic_typespec: , line:3:73, endln:3:89
     |vpiStmt:
-    \_begin: (hmac_pkg::compress)
+    \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiFullName:hmac_pkg::compress
@@ -959,7 +961,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -975,7 +977,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:7:3, endln:7:26
         |vpiParent:
-        \_begin: (hmac_pkg::compress)
+        \_begin: (hmac_pkg::compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -1002,6 +1004,9 @@ design: (work@dut)
   \_logic_net: (work@dut.w), line:14:19, endln:14:20
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
+    |vpiTypespec:
+    \_unsupported_typespec: (sha_word_t), line:14:1, endln:14:18
+      |vpiName:sha_word_t
     |vpiName:w
     |vpiFullName:work@dut.w
     |vpiNetType:36
@@ -1009,6 +1014,9 @@ design: (work@dut)
   \_logic_net: (work@dut.hash), line:15:18, endln:15:22
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
+    |vpiTypespec:
+    \_unsupported_typespec: (sha_word_t), line:15:1, endln:15:17
+      |vpiName:sha_word_t
     |vpiName:hash
     |vpiFullName:work@dut.hash
     |vpiNetType:36
@@ -1047,17 +1055,17 @@ design: (work@dut)
       |vpiParent:
       \_cont_assign: , line:17:8, endln:17:35
       |vpiArgument:
-      \_bit_select: (work@dut.w), line:17:24, endln:17:28
+      \_bit_select: (work@dut.w), line:17:26, endln:17:27
         |vpiParent:
         \_func_call: (compress), line:17:15, endln:17:35
         |vpiTypespec:
-        \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+        \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
         |vpiName:w
         |vpiFullName:work@dut.w
         |vpiIndex:
         \_constant: , line:17:26, endln:17:27
           |vpiParent:
-          \_bit_select: (work@dut.w), line:17:24, endln:17:28
+          \_bit_select: (work@dut.w), line:17:26, endln:17:27
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -1067,7 +1075,7 @@ design: (work@dut)
         |vpiParent:
         \_func_call: (compress), line:17:15, endln:17:35
         |vpiTypespec:
-        \_logic_typespec: , line:3:73, endln:3:83
+        \_logic_typespec: , line:3:73, endln:3:89
         |vpiName:hash
         |vpiFullName:work@dut.hash
         |vpiActual:
@@ -1182,7 +1190,7 @@ design: (work@dut)
       |vpiDirection:1
       |vpiName:w
       |vpiTypedef:
-      \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+      \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
     |vpiIODecl:
     \_io_decl: (h_i), line:3:90, endln:3:93
       |vpiParent:
@@ -1192,16 +1200,16 @@ design: (work@dut)
       |vpiExpr:
       \_constant: , line:3:96, endln:3:97
       |vpiTypedef:
-      \_logic_typespec: , line:3:73, endln:3:83
+      \_logic_typespec: , line:3:73, endln:3:89
     |vpiStmt:
-    \_begin: (work@dut.compress)
+    \_begin: (work@dut.compress), line:6:3, endln:6:26
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiFullName:work@dut.compress
       |vpiVariables:
       \_logic_var: (work@dut.compress.sigma_0), line:4:24, endln:4:31
         |vpiParent:
-        \_begin: (work@dut.compress)
+        \_begin: (work@dut.compress), line:6:3, endln:6:26
         |vpiTypespec:
         \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
         |vpiName:sigma_0
@@ -1210,7 +1218,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:6:3, endln:6:25
         |vpiParent:
-        \_begin: (work@dut.compress)
+        \_begin: (work@dut.compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -1226,7 +1234,7 @@ design: (work@dut)
       |vpiStmt:
       \_assignment: , line:7:3, endln:7:26
         |vpiParent:
-        \_begin: (work@dut.compress)
+        \_begin: (work@dut.compress), line:6:3, endln:6:26
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -1281,11 +1289,11 @@ design: (work@dut)
       |vpiParent:
       \_cont_assign: , line:17:8, endln:17:35
       |vpiArgument:
-      \_bit_select: (work@dut.w), line:17:24, endln:17:28
+      \_bit_select: (work@dut.w), line:17:26, endln:17:27
         |vpiParent:
         \_func_call: (compress), line:17:15, endln:17:35
         |vpiTypespec:
-        \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
+        \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
         |vpiName:w
         |vpiFullName:work@dut.w
         |vpiActual:
@@ -1297,7 +1305,7 @@ design: (work@dut)
         |vpiParent:
         \_func_call: (compress), line:17:15, endln:17:35
         |vpiTypespec:
-        \_logic_typespec: , line:3:73, endln:3:83
+        \_logic_typespec: , line:3:73, endln:3:89
         |vpiName:hash
         |vpiFullName:work@dut.hash
         |vpiActual:
@@ -1319,6 +1327,3 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/FuncStruct/dut.sv | ${SURELOG_DIR}/build/regression/FuncStruct/roundtrip/dut_000.sv | 8 | 19 |

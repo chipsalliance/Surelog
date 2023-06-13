@@ -187,7 +187,7 @@ array_var                                              2
 assignment                                             1
 begin                                                  1
 class_defn                                             3
-class_typespec                                         3
+class_typespec                                         4
 class_var                                              4
 constant                                               4
 design                                                 1
@@ -211,7 +211,7 @@ array_var                                              6
 assignment                                             2
 begin                                                  2
 class_defn                                             3
-class_typespec                                         4
+class_typespec                                         5
 class_var                                             13
 constant                                               4
 design                                                 1
@@ -324,11 +324,11 @@ design: (work@top)
         |vpiParent:
         \_function: (pkg::uvm_callbacks::get_all), line:12:2, endln:21:12
         |vpiTypespec:
-        \_array_typespec: , line:15:26, endln:15:27
+        \_array_typespec: , line:15:6, endln:15:27
           |vpiRange:
           \_range: , line:15:26, endln:15:27
             |vpiParent:
-            \_array_typespec: , line:15:26, endln:15:27
+            \_array_typespec: , line:15:6, endln:15:27
             |vpiLeftRange:
             \_constant: 
               |vpiParent:
@@ -362,11 +362,11 @@ design: (work@top)
         |vpiParent:
         \_function: (pkg::uvm_callbacks::get_all), line:12:2, endln:21:12
         |vpiTypespec:
-        \_array_typespec: , line:16:33, endln:16:34
+        \_array_typespec: , line:16:6, endln:16:34
           |vpiRange:
           \_range: , line:16:33, endln:16:34
             |vpiParent:
-            \_array_typespec: , line:16:33, endln:16:34
+            \_array_typespec: , line:16:6, endln:16:34
             |vpiLeftRange:
             \_constant: 
               |vpiParent:
@@ -398,14 +398,14 @@ design: (work@top)
       |vpiMethod:1
       |vpiVisibility:1
       |vpiStmt:
-      \_begin: (pkg::uvm_callbacks::get_all)
+      \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
         |vpiParent:
         \_function: (pkg::uvm_callbacks::get_all), line:12:2, endln:21:12
         |vpiFullName:pkg::uvm_callbacks::get_all
         |vpiVariables:
         \_class_var: (pkg::uvm_callbacks::get_all::cb), line:14:6, endln:14:8
           |vpiParent:
-          \_begin: (pkg::uvm_callbacks::get_all)
+          \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
           |vpiTypespec:
           \_class_typespec: (uvm_callback), line:10:50, endln:10:62
           |vpiName:cb
@@ -413,16 +413,16 @@ design: (work@top)
         |vpiVariables:
         \_class_var: (pkg::uvm_callbacks::get_all), line:15:6, endln:15:25
           |vpiParent:
-          \_begin: (pkg::uvm_callbacks::get_all)
+          \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
           |vpiTypespec:
           \_class_typespec: (uvm_callback), line:10:50, endln:10:62
           |vpiFullName:pkg::uvm_callbacks::get_all
         |vpiVariables:
         \_array_var: (pkg::uvm_callbacks::get_all::callbacks_to_append), line:15:6, endln:15:25
           |vpiParent:
-          \_begin: (pkg::uvm_callbacks::get_all)
+          \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
           |vpiTypespec:
-          \_array_typespec: , line:15:26, endln:15:27
+          \_array_typespec: , line:15:6, endln:15:27
           |vpiName:callbacks_to_append
           |vpiFullName:pkg::uvm_callbacks::get_all::callbacks_to_append
           |vpiArrayType:4
@@ -436,16 +436,16 @@ design: (work@top)
         |vpiVariables:
         \_class_var: (pkg::uvm_callbacks::get_all), line:16:6, endln:16:32
           |vpiParent:
-          \_begin: (pkg::uvm_callbacks::get_all)
+          \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
           |vpiTypespec:
           \_class_typespec: (uvm_callback), line:10:50, endln:10:62
           |vpiFullName:pkg::uvm_callbacks::get_all
         |vpiVariables:
         \_array_var: (pkg::uvm_callbacks::get_all::unique_callbacks_to_append), line:16:6, endln:16:32
           |vpiParent:
-          \_begin: (pkg::uvm_callbacks::get_all)
+          \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
           |vpiTypespec:
-          \_array_typespec: , line:16:33, endln:16:34
+          \_array_typespec: , line:16:6, endln:16:34
           |vpiName:unique_callbacks_to_append
           |vpiFullName:pkg::uvm_callbacks::get_all::unique_callbacks_to_append
           |vpiArrayType:4
@@ -459,7 +459,7 @@ design: (work@top)
         |vpiStmt:
         \_assignment: , line:19:3, endln:19:90
           |vpiParent:
-          \_begin: (pkg::uvm_callbacks::get_all)
+          \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
@@ -532,6 +532,11 @@ design: (work@top)
   \_logic_net: (work@top.c1), line:29:20, endln:29:22
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayMethodIterator/dut.sv, line:27:1, endln:31:10
+    |vpiTypespec:
+    \_class_typespec: (pkg::uvm_callbacks), line:29:1, endln:29:6
+      |vpiName:pkg::uvm_callbacks
+      |vpiClassDefn:
+      \_class_defn: (pkg::uvm_callbacks), file:${SURELOG_DIR}/tests/ArrayMethodIterator/dut.sv, line:10:1, endln:23:9
     |vpiName:c1
     |vpiFullName:work@top.c1
 |uhdmtopModules:

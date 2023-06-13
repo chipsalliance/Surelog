@@ -4629,7 +4629,7 @@ if_stmt                                                1
 int_typespec                                           2
 integer_typespec                                       2
 logic_net                                             52
-logic_typespec                                       125
+logic_typespec                                       130
 logic_var                                             46
 module_inst                                           12
 operation                                            233
@@ -4645,7 +4645,7 @@ struct_typespec                                        2
 struct_var                                             2
 sys_func_call                                          4
 typespec_member                                       36
-unsupported_typespec                                  39
+unsupported_typespec                                  40
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -4671,7 +4671,7 @@ if_stmt                                                2
 int_typespec                                           2
 integer_typespec                                       2
 logic_net                                             52
-logic_typespec                                       125
+logic_typespec                                       130
 logic_var                                             76
 module_inst                                           14
 operation                                            431
@@ -4687,7 +4687,7 @@ struct_typespec                                        2
 struct_var                                             2
 sys_func_call                                          8
 typespec_member                                       36
-unsupported_typespec                                  39
+unsupported_typespec                                  40
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierBitSlice/slpp_all/surelog.uhdm ...
 
@@ -4870,12 +4870,17 @@ design: (work@int_execute_stage)
   \_logic_net: (work@int_execute_stage.vector_result), line:90:14, endln:90:27
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiTypespec:
+    \_unsupported_typespec: (vector_t), line:90:5, endln:90:13
+      |vpiName:vector_t
     |vpiName:vector_result
     |vpiFullName:work@int_execute_stage.vector_result
   |vpiNet:
   \_logic_net: (work@int_execute_stage.eret), line:91:11, endln:91:15
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiTypespec:
+    \_logic_typespec: , line:91:5, endln:91:10
     |vpiName:eret
     |vpiFullName:work@int_execute_stage.eret
     |vpiNetType:36
@@ -4883,6 +4888,8 @@ design: (work@int_execute_stage)
   \_logic_net: (work@int_execute_stage.privileged_op_fault), line:92:11, endln:92:30
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiTypespec:
+    \_logic_typespec: , line:92:5, endln:92:10
     |vpiName:privileged_op_fault
     |vpiFullName:work@int_execute_stage.privileged_op_fault
     |vpiNetType:36
@@ -4890,6 +4897,8 @@ design: (work@int_execute_stage)
   \_logic_net: (work@int_execute_stage.branch_taken), line:93:11, endln:93:23
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiTypespec:
+    \_logic_typespec: , line:93:5, endln:93:10
     |vpiName:branch_taken
     |vpiFullName:work@int_execute_stage.branch_taken
     |vpiNetType:36
@@ -4897,6 +4906,8 @@ design: (work@int_execute_stage)
   \_logic_net: (work@int_execute_stage.conditional_branch), line:94:11, endln:94:29
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiTypespec:
+    \_logic_typespec: , line:94:5, endln:94:10
     |vpiName:conditional_branch
     |vpiFullName:work@int_execute_stage.conditional_branch
     |vpiNetType:36
@@ -4904,6 +4915,8 @@ design: (work@int_execute_stage)
   \_logic_net: (work@int_execute_stage.valid_instruction), line:95:11, endln:95:28
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
+    |vpiTypespec:
+    \_logic_typespec: , line:95:5, endln:95:10
     |vpiName:valid_instruction
     |vpiFullName:work@int_execute_stage.valid_instruction
     |vpiNetType:36
@@ -4970,7 +4983,7 @@ design: (work@int_execute_stage)
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.clk.clk)
+    \_ref_obj: (work@int_execute_stage.clk.clk), line:54:39, endln:54:42
       |vpiParent:
       \_port: (clk), line:54:39, endln:54:42
       |vpiName:clk
@@ -4986,7 +4999,7 @@ design: (work@int_execute_stage)
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.reset.reset)
+    \_ref_obj: (work@int_execute_stage.reset.reset), line:55:39, endln:55:44
       |vpiParent:
       \_port: (reset), line:55:39, endln:55:44
       |vpiName:reset
@@ -5002,7 +5015,7 @@ design: (work@int_execute_stage)
     |vpiName:of_operand1
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.of_operand1.of_operand1)
+    \_ref_obj: (work@int_execute_stage.of_operand1.of_operand1), line:58:39, endln:58:50
       |vpiParent:
       \_port: (of_operand1), line:58:39, endln:58:50
       |vpiName:of_operand1
@@ -5017,9 +5030,9 @@ design: (work@int_execute_stage)
       |vpiInstance:
       \_design: (work@int_execute_stage)
       |vpiElemTypespec:
-      \_logic_typespec: , line:51:9, endln:51:17
+      \_logic_typespec: , line:51:9, endln:51:41
         |vpiTypedefAlias:
-        \_logic_typespec: , line:51:9, endln:51:17
+        \_logic_typespec: , line:51:9, endln:51:41
           |vpiElemTypespec:
           \_logic_typespec: (scalar_t), line:50:9, endln:50:20
             |vpiName:scalar_t
@@ -5073,7 +5086,7 @@ design: (work@int_execute_stage)
           |vpiRange:
           \_range: , line:51:17, endln:51:41
             |vpiParent:
-            \_logic_typespec: , line:51:9, endln:51:17
+            \_logic_typespec: , line:51:9, endln:51:41
             |vpiLeftRange:
             \_operation: , line:51:18, endln:51:38
               |vpiParent:
@@ -5103,7 +5116,7 @@ design: (work@int_execute_stage)
         |vpiElemTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiParent:
-          \_logic_typespec: , line:51:9, endln:51:17
+          \_logic_typespec: , line:51:9, endln:51:41
           |vpiName:scalar_t
           |vpiTypedefAlias:
           \_logic_typespec: (scalar_t), line:50:9, endln:50:20
@@ -5153,7 +5166,7 @@ design: (work@int_execute_stage)
         |vpiRange:
         \_range: , line:51:17, endln:51:41
           |vpiParent:
-          \_logic_typespec: , line:51:9, endln:51:17
+          \_logic_typespec: , line:51:9, endln:51:41
           |vpiLeftRange:
           \_operation: , line:51:18, endln:51:38
             |vpiParent:
@@ -5183,7 +5196,7 @@ design: (work@int_execute_stage)
       |vpiRange:
       \_range: , line:51:17, endln:51:41
         |vpiParent:
-        \_packed_array_typespec: 
+        \_packed_array_typespec: , line:51:9, endln:51:41
         |vpiLeftRange:
         \_operation: , line:51:18, endln:51:38
           |vpiParent:
@@ -5217,7 +5230,7 @@ design: (work@int_execute_stage)
     |vpiName:of_operand2
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.of_operand2.of_operand2)
+    \_ref_obj: (work@int_execute_stage.of_operand2.of_operand2), line:59:39, endln:59:50
       |vpiParent:
       \_port: (of_operand2), line:59:39, endln:59:50
       |vpiName:of_operand2
@@ -5233,7 +5246,7 @@ design: (work@int_execute_stage)
     |vpiName:of_mask_value
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.of_mask_value.of_mask_value)
+    \_ref_obj: (work@int_execute_stage.of_mask_value.of_mask_value), line:60:39, endln:60:52
       |vpiParent:
       \_port: (of_mask_value), line:60:39, endln:60:52
       |vpiName:of_mask_value
@@ -5250,7 +5263,7 @@ design: (work@int_execute_stage)
     |vpiName:of_instruction_valid
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.of_instruction_valid.of_instruction_valid)
+    \_ref_obj: (work@int_execute_stage.of_instruction_valid.of_instruction_valid), line:61:39, endln:61:59
       |vpiParent:
       \_port: (of_instruction_valid), line:61:39, endln:61:59
       |vpiName:of_instruction_valid
@@ -5266,7 +5279,7 @@ design: (work@int_execute_stage)
     |vpiName:of_instruction
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.of_instruction.of_instruction)
+    \_ref_obj: (work@int_execute_stage.of_instruction.of_instruction), line:62:39, endln:62:53
       |vpiParent:
       \_port: (of_instruction), line:62:39, endln:62:53
       |vpiName:of_instruction
@@ -5274,7 +5287,7 @@ design: (work@int_execute_stage)
       |vpiActual:
       \_logic_net: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
     |vpiTypedef:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
       |vpiParent:
       \_design: (work@int_execute_stage)
       |vpiName:decoded_instruction_t
@@ -5284,7 +5297,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (pc), line:9:14, endln:9:16
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:pc
         |vpiTypespec:
         \_unsupported_typespec: (scalar_t), line:9:5, endln:9:13
@@ -5299,7 +5312,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (injected), line:12:11, endln:12:19
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:injected
         |vpiTypespec:
         \_logic_typespec: , line:12:5, endln:12:10
@@ -5313,7 +5326,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (has_trap), line:15:11, endln:15:19
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:has_trap
         |vpiTypespec:
         \_logic_typespec: , line:15:5, endln:15:10
@@ -5327,7 +5340,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (trap_cause), line:16:18, endln:16:28
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:trap_cause
         |vpiTypespec:
         \_unsupported_typespec: (trap_cause_t), line:16:5, endln:16:17
@@ -5342,7 +5355,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (has_scalar1), line:19:11, endln:19:22
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:has_scalar1
         |vpiTypespec:
         \_logic_typespec: , line:19:5, endln:19:10
@@ -5356,7 +5369,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (scalar_sel1), line:20:20, endln:20:31
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:scalar_sel1
         |vpiTypespec:
         \_unsupported_typespec: (register_idx_t), line:20:5, endln:20:19
@@ -5371,7 +5384,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (has_scalar2), line:21:11, endln:21:22
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:has_scalar2
         |vpiTypespec:
         \_logic_typespec: , line:21:5, endln:21:10
@@ -5385,7 +5398,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (scalar_sel2), line:22:20, endln:22:31
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:scalar_sel2
         |vpiTypespec:
         \_unsupported_typespec: (register_idx_t), line:22:5, endln:22:19
@@ -5400,7 +5413,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (has_vector1), line:23:11, endln:23:22
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:has_vector1
         |vpiTypespec:
         \_logic_typespec: , line:23:5, endln:23:10
@@ -5414,7 +5427,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (vector_sel1), line:24:20, endln:24:31
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:vector_sel1
         |vpiTypespec:
         \_unsupported_typespec: (register_idx_t), line:24:5, endln:24:19
@@ -5429,7 +5442,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (has_vector2), line:25:11, endln:25:22
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:has_vector2
         |vpiTypespec:
         \_logic_typespec: , line:25:5, endln:25:10
@@ -5443,7 +5456,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (vector_sel2), line:26:20, endln:26:31
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:vector_sel2
         |vpiTypespec:
         \_unsupported_typespec: (register_idx_t), line:26:5, endln:26:19
@@ -5458,7 +5471,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (has_dest), line:27:11, endln:27:19
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:has_dest
         |vpiTypespec:
         \_logic_typespec: , line:27:5, endln:27:10
@@ -5472,7 +5485,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (dest_vector), line:28:11, endln:28:22
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:dest_vector
         |vpiTypespec:
         \_logic_typespec: , line:28:5, endln:28:10
@@ -5486,7 +5499,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (dest_reg), line:29:20, endln:29:28
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:dest_reg
         |vpiTypespec:
         \_unsupported_typespec: (register_idx_t), line:29:5, endln:29:19
@@ -5501,7 +5514,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (alu_op), line:30:14, endln:30:20
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:alu_op
         |vpiTypespec:
         \_unsupported_typespec: (alu_op_t), line:30:5, endln:30:13
@@ -5516,7 +5529,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (mask_src), line:31:16, endln:31:24
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:mask_src
         |vpiTypespec:
         \_unsupported_typespec: (mask_src_t), line:31:5, endln:31:15
@@ -5531,7 +5544,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (op1_src), line:32:15, endln:32:22
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:op1_src
         |vpiTypespec:
         \_unsupported_typespec: (op1_src_t), line:32:5, endln:32:14
@@ -5546,7 +5559,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (op2_src), line:33:15, endln:33:22
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:op2_src
         |vpiTypespec:
         \_unsupported_typespec: (op2_src_t), line:33:5, endln:33:14
@@ -5561,7 +5574,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (store_value_vector), line:34:11, endln:34:29
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:store_value_vector
         |vpiTypespec:
         \_logic_typespec: , line:34:5, endln:34:10
@@ -5575,7 +5588,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (immediate_value), line:35:14, endln:35:29
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:immediate_value
         |vpiTypespec:
         \_unsupported_typespec: (scalar_t), line:35:5, endln:35:13
@@ -5590,7 +5603,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (branch), line:36:11, endln:36:17
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:branch
         |vpiTypespec:
         \_logic_typespec: , line:36:5, endln:36:10
@@ -5604,7 +5617,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (branch_type), line:37:19, endln:37:30
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:branch_type
         |vpiTypespec:
         \_unsupported_typespec: (branch_type_t), line:37:5, endln:37:18
@@ -5619,7 +5632,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (call), line:38:11, endln:38:15
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:call
         |vpiTypespec:
         \_logic_typespec: , line:38:5, endln:38:10
@@ -5633,7 +5646,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (pipeline_sel), line:39:20, endln:39:32
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:pipeline_sel
         |vpiTypespec:
         \_unsupported_typespec: (pipeline_sel_t), line:39:5, endln:39:19
@@ -5648,7 +5661,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (memory_access), line:40:11, endln:40:24
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:memory_access
         |vpiTypespec:
         \_logic_typespec: , line:40:5, endln:40:10
@@ -5662,7 +5675,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (memory_access_type), line:41:17, endln:41:35
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:memory_access_type
         |vpiTypespec:
         \_unsupported_typespec: (memory_op_t), line:41:5, endln:41:16
@@ -5677,7 +5690,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (load), line:42:11, endln:42:15
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:load
         |vpiTypespec:
         \_logic_typespec: , line:42:5, endln:42:10
@@ -5691,7 +5704,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (compare), line:43:11, endln:43:18
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:compare
         |vpiTypespec:
         \_logic_typespec: , line:43:5, endln:43:10
@@ -5705,7 +5718,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (last_subcycle), line:44:16, endln:44:29
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:last_subcycle
         |vpiTypespec:
         \_unsupported_typespec: (subcycle_t), line:44:5, endln:44:15
@@ -5720,7 +5733,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (creg_index), line:45:24, endln:45:34
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:creg_index
         |vpiTypespec:
         \_unsupported_typespec: (control_register_t), line:45:5, endln:45:23
@@ -5735,7 +5748,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (cache_control), line:46:11, endln:46:24
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:cache_control
         |vpiTypespec:
         \_logic_typespec: , line:46:5, endln:46:10
@@ -5749,7 +5762,7 @@ design: (work@int_execute_stage)
       |vpiTypespecMember:
       \_typespec_member: (cache_control_op), line:47:16, endln:47:32
         |vpiParent:
-        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+        \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
         |vpiName:cache_control_op
         |vpiTypespec:
         \_unsupported_typespec: (cache_op_t), line:47:5, endln:47:15
@@ -5768,7 +5781,7 @@ design: (work@int_execute_stage)
     |vpiName:of_thread_idx
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.of_thread_idx.of_thread_idx)
+    \_ref_obj: (work@int_execute_stage.of_thread_idx.of_thread_idx), line:63:39, endln:63:52
       |vpiParent:
       \_port: (of_thread_idx), line:63:39, endln:63:52
       |vpiName:of_thread_idx
@@ -5785,7 +5798,7 @@ design: (work@int_execute_stage)
     |vpiName:of_subcycle
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.of_subcycle.of_subcycle)
+    \_ref_obj: (work@int_execute_stage.of_subcycle.of_subcycle), line:64:39, endln:64:50
       |vpiParent:
       \_port: (of_subcycle), line:64:39, endln:64:50
       |vpiName:of_subcycle
@@ -5802,7 +5815,7 @@ design: (work@int_execute_stage)
     |vpiName:wb_rollback_en
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.wb_rollback_en.wb_rollback_en)
+    \_ref_obj: (work@int_execute_stage.wb_rollback_en.wb_rollback_en), line:67:39, endln:67:53
       |vpiParent:
       \_port: (wb_rollback_en), line:67:39, endln:67:53
       |vpiName:wb_rollback_en
@@ -5818,7 +5831,7 @@ design: (work@int_execute_stage)
     |vpiName:wb_rollback_thread_idx
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.wb_rollback_thread_idx.wb_rollback_thread_idx)
+    \_ref_obj: (work@int_execute_stage.wb_rollback_thread_idx.wb_rollback_thread_idx), line:68:39, endln:68:61
       |vpiParent:
       \_port: (wb_rollback_thread_idx), line:68:39, endln:68:61
       |vpiName:wb_rollback_thread_idx
@@ -5835,7 +5848,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_instruction_valid
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_instruction_valid.ix_instruction_valid)
+    \_ref_obj: (work@int_execute_stage.ix_instruction_valid.ix_instruction_valid), line:71:39, endln:71:59
       |vpiParent:
       \_port: (ix_instruction_valid), line:71:39, endln:71:59
       |vpiName:ix_instruction_valid
@@ -5851,7 +5864,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_instruction
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_instruction.ix_instruction)
+    \_ref_obj: (work@int_execute_stage.ix_instruction.ix_instruction), line:72:39, endln:72:53
       |vpiParent:
       \_port: (ix_instruction), line:72:39, endln:72:53
       |vpiName:ix_instruction
@@ -5859,7 +5872,7 @@ design: (work@int_execute_stage)
       |vpiActual:
       \_logic_net: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
     |vpiTypedef:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
   |vpiPort:
   \_port: (ix_result), line:73:39, endln:73:48
     |vpiParent:
@@ -5867,7 +5880,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_result
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_result.ix_result)
+    \_ref_obj: (work@int_execute_stage.ix_result.ix_result), line:73:39, endln:73:48
       |vpiParent:
       \_port: (ix_result), line:73:39, endln:73:48
       |vpiName:ix_result
@@ -5883,7 +5896,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_mask_value
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_mask_value.ix_mask_value)
+    \_ref_obj: (work@int_execute_stage.ix_mask_value.ix_mask_value), line:74:39, endln:74:52
       |vpiParent:
       \_port: (ix_mask_value), line:74:39, endln:74:52
       |vpiName:ix_mask_value
@@ -5900,7 +5913,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_thread_idx
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_thread_idx.ix_thread_idx)
+    \_ref_obj: (work@int_execute_stage.ix_thread_idx.ix_thread_idx), line:75:39, endln:75:52
       |vpiParent:
       \_port: (ix_thread_idx), line:75:39, endln:75:52
       |vpiName:ix_thread_idx
@@ -5917,7 +5930,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_rollback_en
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_rollback_en.ix_rollback_en)
+    \_ref_obj: (work@int_execute_stage.ix_rollback_en.ix_rollback_en), line:76:39, endln:76:53
       |vpiParent:
       \_port: (ix_rollback_en), line:76:39, endln:76:53
       |vpiName:ix_rollback_en
@@ -5933,7 +5946,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_rollback_pc
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_rollback_pc.ix_rollback_pc)
+    \_ref_obj: (work@int_execute_stage.ix_rollback_pc.ix_rollback_pc), line:77:39, endln:77:53
       |vpiParent:
       \_port: (ix_rollback_pc), line:77:39, endln:77:53
       |vpiName:ix_rollback_pc
@@ -5974,7 +5987,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_subcycle
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_subcycle.ix_subcycle)
+    \_ref_obj: (work@int_execute_stage.ix_subcycle.ix_subcycle), line:78:39, endln:78:50
       |vpiParent:
       \_port: (ix_subcycle), line:78:39, endln:78:50
       |vpiName:ix_subcycle
@@ -5991,7 +6004,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_privileged_op_fault
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_privileged_op_fault.ix_privileged_op_fault)
+    \_ref_obj: (work@int_execute_stage.ix_privileged_op_fault.ix_privileged_op_fault), line:79:39, endln:79:61
       |vpiParent:
       \_port: (ix_privileged_op_fault), line:79:39, endln:79:61
       |vpiName:ix_privileged_op_fault
@@ -6007,7 +6020,7 @@ design: (work@int_execute_stage)
     |vpiName:cr_eret_address
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.cr_eret_address.cr_eret_address)
+    \_ref_obj: (work@int_execute_stage.cr_eret_address.cr_eret_address), line:82:39, endln:82:54
       |vpiParent:
       \_port: (cr_eret_address), line:82:39, endln:82:54
       |vpiName:cr_eret_address
@@ -6032,14 +6045,14 @@ design: (work@int_execute_stage)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:82:55, endln:82:56
           |vpiParent:
           \_range: , line:82:55, endln:82:56
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:82:55, endln:82:56
             |vpiParent:
-            \_operation: 
+            \_operation: , line:82:55, endln:82:56
             |vpiDecompile:8
             |vpiSize:64
             |UINT:8
@@ -6083,7 +6096,7 @@ design: (work@int_execute_stage)
     |vpiName:cr_supervisor_en
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.cr_supervisor_en.cr_supervisor_en)
+    \_ref_obj: (work@int_execute_stage.cr_supervisor_en.cr_supervisor_en), line:83:39, endln:83:55
       |vpiParent:
       \_port: (cr_supervisor_en), line:83:39, endln:83:55
       |vpiName:cr_supervisor_en
@@ -6108,14 +6121,14 @@ design: (work@int_execute_stage)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:83:56, endln:83:57
           |vpiParent:
           \_range: , line:83:56, endln:83:57
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:83:56, endln:83:57
             |vpiParent:
-            \_operation: 
+            \_operation: , line:83:56, endln:83:57
             |vpiDecompile:8
             |vpiSize:64
             |UINT:8
@@ -6134,7 +6147,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_perf_uncond_branch
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_perf_uncond_branch.ix_perf_uncond_branch)
+    \_ref_obj: (work@int_execute_stage.ix_perf_uncond_branch.ix_perf_uncond_branch), line:86:39, endln:86:60
       |vpiParent:
       \_port: (ix_perf_uncond_branch), line:86:39, endln:86:60
       |vpiName:ix_perf_uncond_branch
@@ -6150,7 +6163,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_perf_cond_branch_taken
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_taken.ix_perf_cond_branch_taken)
+    \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_taken.ix_perf_cond_branch_taken), line:87:39, endln:87:64
       |vpiParent:
       \_port: (ix_perf_cond_branch_taken), line:87:39, endln:87:64
       |vpiName:ix_perf_cond_branch_taken
@@ -6166,7 +6179,7 @@ design: (work@int_execute_stage)
     |vpiName:ix_perf_cond_branch_not_taken
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_not_taken.ix_perf_cond_branch_not_taken)
+    \_ref_obj: (work@int_execute_stage.ix_perf_cond_branch_not_taken.ix_perf_cond_branch_not_taken), line:88:39, endln:88:68
       |vpiParent:
       \_port: (ix_perf_cond_branch_not_taken), line:88:39, endln:88:68
       |vpiName:ix_perf_cond_branch_not_taken
@@ -6331,7 +6344,7 @@ design: (work@int_execute_stage)
                     \_assignment: , line:297:21, endln:297:55
                     |vpiOpType:14
                     |vpiOperand:
-                    \_bit_select: (work@int_execute_stage.of_operand1), line:297:36, endln:297:50
+                    \_bit_select: (work@int_execute_stage.of_operand1), line:297:48, endln:297:49
                       |vpiParent:
                       \_operation: , line:297:36, endln:297:55
                       |vpiName:of_operand1
@@ -6339,7 +6352,7 @@ design: (work@int_execute_stage)
                       |vpiIndex:
                       \_constant: , line:297:48, endln:297:49
                         |vpiParent:
-                        \_bit_select: (work@int_execute_stage.of_operand1), line:297:36, endln:297:50
+                        \_bit_select: (work@int_execute_stage.of_operand1), line:297:48, endln:297:49
                         |vpiDecompile:0
                         |vpiSize:64
                         |UINT:0
@@ -6409,7 +6422,7 @@ design: (work@int_execute_stage)
                     \_assignment: , line:303:21, endln:303:55
                     |vpiOpType:15
                     |vpiOperand:
-                    \_bit_select: (work@int_execute_stage.of_operand1), line:303:36, endln:303:50
+                    \_bit_select: (work@int_execute_stage.of_operand1), line:303:48, endln:303:49
                       |vpiParent:
                       \_operation: , line:303:36, endln:303:55
                       |vpiName:of_operand1
@@ -6417,7 +6430,7 @@ design: (work@int_execute_stage)
                       |vpiIndex:
                       \_constant: , line:303:48, endln:303:49
                         |vpiParent:
-                        \_bit_select: (work@int_execute_stage.of_operand1), line:303:36, endln:303:50
+                        \_bit_select: (work@int_execute_stage.of_operand1), line:303:48, endln:303:49
                         |vpiDecompile:0
                         |vpiSize:64
                         |UINT:0
@@ -6711,7 +6724,7 @@ design: (work@int_execute_stage)
               \_case_item: , line:333:13, endln:334:63
               |vpiOpType:82
               |vpiRhs:
-              \_bit_select: (work@int_execute_stage.of_operand1), line:334:48, endln:334:62
+              \_bit_select: (work@int_execute_stage.of_operand1), line:334:60, endln:334:61
                 |vpiParent:
                 \_assignment: , line:334:30, endln:334:62
                 |vpiName:of_operand1
@@ -6719,7 +6732,7 @@ design: (work@int_execute_stage)
                 |vpiIndex:
                 \_constant: , line:334:60, endln:334:61
                   |vpiParent:
-                  \_bit_select: (work@int_execute_stage.of_operand1), line:334:48, endln:334:62
+                  \_bit_select: (work@int_execute_stage.of_operand1), line:334:60, endln:334:61
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -6750,7 +6763,7 @@ design: (work@int_execute_stage)
               \_case_item: , line:335:13, endln:335:75
               |vpiOpType:82
               |vpiRhs:
-              \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:44, endln:335:74
+              \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:60, endln:335:73
                 |vpiParent:
                 \_assignment: , line:335:26, endln:335:74
                 |vpiName:cr_eret_address
@@ -6758,7 +6771,7 @@ design: (work@int_execute_stage)
                 |vpiIndex:
                 \_ref_obj: (work@int_execute_stage.of_thread_idx), line:335:60, endln:335:73
                   |vpiParent:
-                  \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:44, endln:335:74
+                  \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:60, endln:335:73
                   |vpiName:of_thread_idx
                   |vpiFullName:work@int_execute_stage.of_thread_idx
                   |vpiActual:
@@ -7436,7 +7449,7 @@ design: (work@int_execute_stage)
         \_operation: , line:283:34, endln:283:74
         |vpiOpType:3
         |vpiOperand:
-        \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:43, endln:283:74
+        \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:60, endln:283:73
           |vpiParent:
           \_operation: , line:283:42, endln:283:74
           |vpiName:cr_supervisor_en
@@ -7444,7 +7457,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_ref_obj: (work@int_execute_stage.of_thread_idx), line:283:60, endln:283:73
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:43, endln:283:74
+            \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:60, endln:283:73
             |vpiName:of_thread_idx
             |vpiFullName:work@int_execute_stage.of_thread_idx
             |vpiActual:
@@ -7467,9 +7480,9 @@ design: (work@int_execute_stage)
       \_gen_region: 
       |vpiFullName:work@int_execute_stage
 |vpiTypedef:
-\_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+\_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
 |vpiTypedef:
-\_struct_typespec: (float32_t), line:2:9, endln:2:15
+\_struct_typespec: (float32_t), line:2:9, endln:6:2
   |vpiParent:
   \_design: (work@int_execute_stage)
   |vpiName:float32_t
@@ -7479,7 +7492,7 @@ design: (work@int_execute_stage)
   |vpiTypespecMember:
   \_typespec_member: (sign), line:3:9, endln:3:13
     |vpiParent:
-    \_struct_typespec: (float32_t), line:2:9, endln:2:15
+    \_struct_typespec: (float32_t), line:2:9, endln:6:2
     |vpiName:sign
     |vpiTypespec:
     \_logic_typespec: , line:3:3, endln:3:8
@@ -7493,7 +7506,7 @@ design: (work@int_execute_stage)
   |vpiTypespecMember:
   \_typespec_member: (exponent), line:4:34, endln:4:42
     |vpiParent:
-    \_struct_typespec: (float32_t), line:2:9, endln:2:15
+    \_struct_typespec: (float32_t), line:2:9, endln:6:2
     |vpiName:exponent
     |vpiTypespec:
     \_logic_typespec: , line:4:3, endln:4:33
@@ -7538,7 +7551,7 @@ design: (work@int_execute_stage)
   |vpiTypespecMember:
   \_typespec_member: (significand), line:5:34, endln:5:45
     |vpiParent:
-    \_struct_typespec: (float32_t), line:2:9, endln:2:15
+    \_struct_typespec: (float32_t), line:2:9, endln:6:2
     |vpiName:significand
     |vpiTypespec:
     \_logic_typespec: , line:5:3, endln:5:33
@@ -7617,7 +7630,7 @@ design: (work@int_execute_stage)
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
     |vpiName:of_instruction
     |vpiFullName:work@int_execute_stage.of_instruction
     |vpiVisibility:1
@@ -7647,7 +7660,7 @@ design: (work@int_execute_stage)
     |vpiParent:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
     |vpiTypespec:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
     |vpiName:ix_instruction
     |vpiFullName:work@int_execute_stage.ix_instruction
     |vpiVisibility:1
@@ -7877,14 +7890,14 @@ design: (work@int_execute_stage)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:82:55, endln:82:56
         |vpiParent:
         \_range: , line:82:55, endln:82:56
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:82:55, endln:82:56
           |vpiParent:
-          \_operation: 
+          \_operation: , line:82:55, endln:82:56
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -7923,14 +7936,14 @@ design: (work@int_execute_stage)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:83:56, endln:83:57
         |vpiParent:
         \_range: , line:83:56, endln:83:57
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:83:56, endln:83:57
           |vpiParent:
-          \_operation: 
+          \_operation: , line:83:56, endln:83:57
           |vpiDecompile:8
           |vpiSize:64
           |UINT:8
@@ -8074,7 +8087,7 @@ design: (work@int_execute_stage)
       |vpiActual:
       \_struct_var: (work@int_execute_stage.of_instruction), line:62:39, endln:62:53
     |vpiTypedef:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
     |vpiInstance:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
   |vpiPort:
@@ -8185,7 +8198,7 @@ design: (work@int_execute_stage)
       |vpiActual:
       \_struct_var: (work@int_execute_stage.ix_instruction), line:72:39, endln:72:53
     |vpiTypedef:
-    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:8:15
+    \_struct_typespec: (decoded_instruction_t), line:8:9, endln:48:2
     |vpiInstance:
     \_module_inst: work@int_execute_stage (work@int_execute_stage), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:53:1, endln:374:10
   |vpiPort:
@@ -8609,7 +8622,7 @@ design: (work@int_execute_stage)
                     \_assignment: , line:297:21, endln:297:55
                     |vpiOpType:14
                     |vpiOperand:
-                    \_bit_select: (work@int_execute_stage.of_operand1), line:297:36, endln:297:50
+                    \_bit_select: (work@int_execute_stage.of_operand1), line:297:48, endln:297:49
                       |vpiParent:
                       \_operation: , line:297:36, endln:297:55
                       |vpiName:of_operand1
@@ -8673,7 +8686,7 @@ design: (work@int_execute_stage)
                     \_assignment: , line:303:21, endln:303:55
                     |vpiOpType:15
                     |vpiOperand:
-                    \_bit_select: (work@int_execute_stage.of_operand1), line:303:36, endln:303:50
+                    \_bit_select: (work@int_execute_stage.of_operand1), line:303:48, endln:303:49
                       |vpiParent:
                       \_operation: , line:303:36, endln:303:55
                       |vpiName:of_operand1
@@ -8961,7 +8974,7 @@ design: (work@int_execute_stage)
               \_case_item: , line:333:13, endln:334:63
               |vpiOpType:82
               |vpiRhs:
-              \_bit_select: (work@int_execute_stage.of_operand1), line:334:48, endln:334:62
+              \_bit_select: (work@int_execute_stage.of_operand1), line:334:60, endln:334:61
                 |vpiParent:
                 \_assignment: , line:334:30, endln:334:62
                 |vpiName:of_operand1
@@ -8996,7 +9009,7 @@ design: (work@int_execute_stage)
               \_case_item: , line:335:13, endln:335:75
               |vpiOpType:82
               |vpiRhs:
-              \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:44, endln:335:74
+              \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:60, endln:335:73
                 |vpiParent:
                 \_assignment: , line:335:26, endln:335:74
                 |vpiName:cr_eret_address
@@ -9006,7 +9019,7 @@ design: (work@int_execute_stage)
                 |vpiIndex:
                 \_ref_obj: (work@int_execute_stage.of_thread_idx), line:335:60, endln:335:73
                   |vpiParent:
-                  \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:44, endln:335:74
+                  \_bit_select: (work@int_execute_stage.cr_eret_address), line:335:60, endln:335:73
                   |vpiName:of_thread_idx
                   |vpiFullName:work@int_execute_stage.of_thread_idx
                   |vpiActual:
@@ -9503,14 +9516,14 @@ design: (work@int_execute_stage)
     |vpiName:lane_alu_gen[0]
     |vpiFullName:work@int_execute_stage.lane_alu_gen[0]
     |vpiGenScope:
-    \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+    \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
       |vpiParent:
       \_gen_scope_array: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
       |vpiFullName:work@int_execute_stage.lane_alu_gen[0]
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:101:22, endln:101:35
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -9540,7 +9553,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:102:22, endln:102:35
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -9570,7 +9583,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].lane_result), line:103:22, endln:103:33
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -9600,7 +9613,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].difference), line:104:22, endln:104:32
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -9630,7 +9643,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].borrow), line:105:19, endln:105:25
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:105:13, endln:105:18
           |vpiParent:
@@ -9641,7 +9654,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].negative), line:106:19, endln:106:27
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:106:13, endln:106:18
           |vpiParent:
@@ -9652,7 +9665,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].overflow), line:107:19, endln:107:27
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:107:13, endln:107:18
           |vpiParent:
@@ -9663,7 +9676,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].zero), line:108:19, endln:108:23
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:108:13, endln:108:18
           |vpiParent:
@@ -9674,7 +9687,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].signed_gtr), line:109:19, endln:109:29
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:109:13, endln:109:18
           |vpiParent:
@@ -9685,7 +9698,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].lz), line:110:24, endln:110:26
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:110:13, endln:110:23
           |vpiParent:
@@ -9736,7 +9749,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].tz), line:111:24, endln:111:26
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:111:13, endln:111:23
           |vpiParent:
@@ -9787,7 +9800,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].reciprocal), line:112:22, endln:112:32
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -9817,7 +9830,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].reciprocal_estimate), line:114:24, endln:114:43
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:114:13, endln:114:23
           |vpiParent:
@@ -9868,7 +9881,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].shift_in_sign), line:115:19, endln:115:32
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:115:13, endln:115:18
           |vpiParent:
@@ -9879,7 +9892,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[0].rshift), line:116:22, endln:116:28
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -9909,7 +9922,7 @@ design: (work@int_execute_stage)
       |vpiParameter:
       \_parameter: (work@int_execute_stage.lane_alu_gen[0].lane), line:99:0
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -9919,15 +9932,15 @@ design: (work@int_execute_stage)
       |vpiNet:
       \_struct_net: (work@int_execute_stage.lane_alu_gen[0].fp_operand), line:113:23, endln:113:33
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiTypespec:
-        \_struct_typespec: (float32_t), line:2:9, endln:2:15
+        \_struct_typespec: (float32_t), line:2:9, endln:6:2
         |vpiName:fp_operand
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].fp_operand
       |vpiProcess:
       \_always: , line:127:13, endln:165:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[0]), line:128:13, endln:165:16
           |vpiParent:
@@ -11031,7 +11044,7 @@ design: (work@int_execute_stage)
       |vpiProcess:
       \_always: , line:168:13, endln:206:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[0]), line:169:13, endln:206:16
           |vpiParent:
@@ -12135,7 +12148,7 @@ design: (work@int_execute_stage)
       |vpiProcess:
       \_always: , line:218:13, endln:238:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[0]), line:219:13, endln:238:16
           |vpiParent:
@@ -12571,7 +12584,7 @@ design: (work@int_execute_stage)
       |vpiProcess:
       \_always: , line:240:13, endln:271:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[0]), line:241:13, endln:271:16
           |vpiParent:
@@ -13992,7 +14005,7 @@ design: (work@int_execute_stage)
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiRhs:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:267:47, endln:267:74
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:267:59, endln:267:73
                   |vpiParent:
                   \_assignment: , line:267:33, endln:267:74
                   |vpiName:of_operand1
@@ -14002,7 +14015,7 @@ design: (work@int_execute_stage)
                   |vpiIndex:
                   \_operation: , line:267:59, endln:267:73
                     |vpiParent:
-                    \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:267:47, endln:267:74
+                    \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:267:59, endln:267:73
                     |vpiOpType:4
                     |vpiOperand:
                     \_ref_obj: (work@int_execute_stage.lane_alu_gen[0].of_operand1.lane_operand2), line:267:60, endln:267:73
@@ -14080,9 +14093,9 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:118:20, endln:118:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
-        \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:118:36, endln:118:53
+        \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:118:48, endln:118:52
           |vpiParent:
           \_cont_assign: , line:118:20, endln:118:53
           |vpiName:of_operand1
@@ -14092,7 +14105,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_ref_obj: (work@int_execute_stage.lane_alu_gen[0].lane), line:118:48, endln:118:52
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:118:36, endln:118:53
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand1), line:118:48, endln:118:52
             |vpiName:lane
             |vpiFullName:work@int_execute_stage.lane_alu_gen[0].lane
             |vpiActual:
@@ -14108,9 +14121,9 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:119:20, endln:119:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
-        \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand2), line:119:36, endln:119:53
+        \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand2), line:119:48, endln:119:52
           |vpiParent:
           \_cont_assign: , line:119:20, endln:119:53
           |vpiName:of_operand2
@@ -14120,7 +14133,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_ref_obj: (work@int_execute_stage.lane_alu_gen[0].lane), line:119:48, endln:119:52
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand2), line:119:36, endln:119:53
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].of_operand2), line:119:48, endln:119:52
             |vpiName:lane
             |vpiFullName:work@int_execute_stage.lane_alu_gen[0].lane
             |vpiActual:
@@ -14136,7 +14149,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:120:20, endln:120:88
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:120:43, endln:120:88
           |vpiParent:
@@ -14204,9 +14217,9 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:121:20, endln:121:45
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
-        \_bit_select: (work@int_execute_stage.lane_alu_gen[0].difference), line:121:31, endln:121:45
+        \_bit_select: (work@int_execute_stage.lane_alu_gen[0].difference), line:121:42, endln:121:44
           |vpiParent:
           \_cont_assign: , line:121:20, endln:121:45
           |vpiName:difference
@@ -14216,7 +14229,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_constant: , line:121:42, endln:121:44
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].difference), line:121:31, endln:121:45
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].difference), line:121:42, endln:121:44
             |vpiDecompile:31
             |vpiSize:64
             |UINT:31
@@ -14232,7 +14245,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:122:20, endln:122:102
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:122:31, endln:122:102
           |vpiParent:
@@ -14244,7 +14257,7 @@ design: (work@int_execute_stage)
             \_operation: , line:122:31, endln:122:102
             |vpiOpType:14
             |vpiOperand:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:31, endln:122:48
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:45, endln:122:47
               |vpiParent:
               \_operation: , line:122:31, endln:122:60
               |vpiName:lane_operand2
@@ -14254,7 +14267,7 @@ design: (work@int_execute_stage)
               |vpiIndex:
               \_constant: , line:122:45, endln:122:47
                 |vpiParent:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:31, endln:122:48
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:45, endln:122:47
                 |vpiDecompile:31
                 |vpiSize:64
                 |UINT:31
@@ -14273,7 +14286,7 @@ design: (work@int_execute_stage)
             \_operation: , line:122:31, endln:122:102
             |vpiOpType:15
             |vpiOperand:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:122:64, endln:122:81
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:122:78, endln:122:80
               |vpiParent:
               \_operation: , line:122:64, endln:122:102
               |vpiName:lane_operand1
@@ -14283,13 +14296,13 @@ design: (work@int_execute_stage)
               |vpiIndex:
               \_constant: , line:122:78, endln:122:80
                 |vpiParent:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:122:64, endln:122:81
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:122:78, endln:122:80
                 |vpiDecompile:31
                 |vpiSize:64
                 |UINT:31
                 |vpiConstType:9
             |vpiOperand:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:85, endln:122:102
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:99, endln:122:101
               |vpiParent:
               \_operation: , line:122:64, endln:122:102
               |vpiName:lane_operand2
@@ -14299,7 +14312,7 @@ design: (work@int_execute_stage)
               |vpiIndex:
               \_constant: , line:122:99, endln:122:101
                 |vpiParent:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:85, endln:122:102
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:122:99, endln:122:101
                 |vpiDecompile:31
                 |vpiSize:64
                 |UINT:31
@@ -14315,7 +14328,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:123:20, endln:123:42
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:123:27, endln:123:42
           |vpiParent:
@@ -14348,7 +14361,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:124:20, endln:124:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:124:33, endln:124:53
           |vpiParent:
@@ -14381,7 +14394,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:209:20, endln:209:95
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:209:36, endln:209:95
           |vpiParent:
@@ -14419,7 +14432,7 @@ design: (work@int_execute_stage)
               |vpiName:OP_ASHR
               |vpiFullName:work@int_execute_stage.lane_alu_gen[0].OP_ASHR
           |vpiOperand:
-          \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:209:71, endln:209:88
+          \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:209:85, endln:209:87
             |vpiParent:
             \_operation: , line:209:36, endln:209:95
             |vpiName:lane_operand1
@@ -14429,7 +14442,7 @@ design: (work@int_execute_stage)
             |vpiIndex:
             \_constant: , line:209:85, endln:209:87
               |vpiParent:
-              \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:209:71, endln:209:88
+              \_bit_select: (work@int_execute_stage.lane_alu_gen[0].lane_operand1), line:209:85, endln:209:87
               |vpiDecompile:31
               |vpiSize:64
               |UINT:31
@@ -14453,7 +14466,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:210:20, endln:210:98
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:210:29, endln:210:98
           |vpiParent:
@@ -14586,7 +14599,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:213:20, endln:213:46
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_ref_obj: (work@int_execute_stage.lane_alu_gen[0].lane_operand2), line:213:33, endln:213:46
           |vpiParent:
@@ -14606,7 +14619,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:273:20, endln:273:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiRhs:
         \_ref_obj: (work@int_execute_stage.lane_alu_gen[0].lane_result), line:273:42, endln:273:53
           |vpiParent:
@@ -14634,7 +14647,7 @@ design: (work@int_execute_stage)
       |vpiModule:
       \_module_inst: work@int_execute_stage.lane_alu_gen[0]::reciprocal_rom (work@int_execute_stage.lane_alu_gen[0].rom), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:214:13, endln:216:39
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[0]), line:100:9, endln:274:12
         |vpiName:rom
         |vpiFullName:work@int_execute_stage.lane_alu_gen[0].rom
         |vpiDefName:work@int_execute_stage.lane_alu_gen[0]::reciprocal_rom
@@ -14648,7 +14661,7 @@ design: (work@int_execute_stage)
             |vpiParent:
             \_port: (significand), line:215:18, endln:215:29
             |vpiTypespec:
-            \_struct_typespec: (float32_t), line:2:9, endln:2:15
+            \_struct_typespec: (float32_t), line:2:9, endln:6:2
             |vpiName:fp_operand.significand[22:17]
             |vpiExpr:
             \_struct_net: (work@int_execute_stage.lane_alu_gen[0].fp_operand), line:113:23, endln:113:33
@@ -14706,14 +14719,14 @@ design: (work@int_execute_stage)
     |vpiName:lane_alu_gen[1]
     |vpiFullName:work@int_execute_stage.lane_alu_gen[1]
     |vpiGenScope:
-    \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+    \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
       |vpiParent:
       \_gen_scope_array: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
       |vpiFullName:work@int_execute_stage.lane_alu_gen[1]
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:101:22, endln:101:35
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -14743,7 +14756,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:102:22, endln:102:35
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -14773,7 +14786,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].lane_result), line:103:22, endln:103:33
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -14803,7 +14816,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].difference), line:104:22, endln:104:32
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -14833,7 +14846,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].borrow), line:105:19, endln:105:25
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:105:13, endln:105:18
           |vpiParent:
@@ -14844,7 +14857,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].negative), line:106:19, endln:106:27
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:106:13, endln:106:18
           |vpiParent:
@@ -14855,7 +14868,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].overflow), line:107:19, endln:107:27
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:107:13, endln:107:18
           |vpiParent:
@@ -14866,7 +14879,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].zero), line:108:19, endln:108:23
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:108:13, endln:108:18
           |vpiParent:
@@ -14877,7 +14890,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].signed_gtr), line:109:19, endln:109:29
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:109:13, endln:109:18
           |vpiParent:
@@ -14888,7 +14901,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].lz), line:110:24, endln:110:26
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:110:13, endln:110:23
           |vpiParent:
@@ -14939,7 +14952,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].tz), line:111:24, endln:111:26
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:111:13, endln:111:23
           |vpiParent:
@@ -14990,7 +15003,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].reciprocal), line:112:22, endln:112:32
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -15020,7 +15033,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].reciprocal_estimate), line:114:24, endln:114:43
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:114:13, endln:114:23
           |vpiParent:
@@ -15071,7 +15084,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].shift_in_sign), line:115:19, endln:115:32
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: , line:115:13, endln:115:18
           |vpiParent:
@@ -15082,7 +15095,7 @@ design: (work@int_execute_stage)
       |vpiVariables:
       \_logic_var: (work@int_execute_stage.lane_alu_gen[1].rshift), line:116:22, endln:116:28
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
         \_logic_typespec: (scalar_t), line:50:9, endln:50:20
           |vpiName:scalar_t
@@ -15112,7 +15125,7 @@ design: (work@int_execute_stage)
       |vpiParameter:
       \_parameter: (work@int_execute_stage.lane_alu_gen[1].lane), line:99:0
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |UINT:1
         |vpiTypespec:
         \_int_typespec: 
@@ -15122,15 +15135,15 @@ design: (work@int_execute_stage)
       |vpiNet:
       \_struct_net: (work@int_execute_stage.lane_alu_gen[1].fp_operand), line:113:23, endln:113:33
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiTypespec:
-        \_struct_typespec: (float32_t), line:2:9, endln:2:15
+        \_struct_typespec: (float32_t), line:2:9, endln:6:2
         |vpiName:fp_operand
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].fp_operand
       |vpiProcess:
       \_always: , line:127:13, endln:165:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[1]), line:128:13, endln:165:16
           |vpiParent:
@@ -16234,7 +16247,7 @@ design: (work@int_execute_stage)
       |vpiProcess:
       \_always: , line:168:13, endln:206:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[1]), line:169:13, endln:206:16
           |vpiParent:
@@ -17338,7 +17351,7 @@ design: (work@int_execute_stage)
       |vpiProcess:
       \_always: , line:218:13, endln:238:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[1]), line:219:13, endln:238:16
           |vpiParent:
@@ -17774,7 +17787,7 @@ design: (work@int_execute_stage)
       |vpiProcess:
       \_always: , line:240:13, endln:271:16
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiStmt:
         \_begin: (work@int_execute_stage.lane_alu_gen[1]), line:241:13, endln:271:16
           |vpiParent:
@@ -19195,7 +19208,7 @@ design: (work@int_execute_stage)
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiRhs:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:267:47, endln:267:74
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:267:59, endln:267:73
                   |vpiParent:
                   \_assignment: , line:267:33, endln:267:74
                   |vpiName:of_operand1
@@ -19205,7 +19218,7 @@ design: (work@int_execute_stage)
                   |vpiIndex:
                   \_operation: , line:267:59, endln:267:73
                     |vpiParent:
-                    \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:267:47, endln:267:74
+                    \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:267:59, endln:267:73
                     |vpiOpType:4
                     |vpiOperand:
                     \_ref_obj: (work@int_execute_stage.lane_alu_gen[1].of_operand1.lane_operand2), line:267:60, endln:267:73
@@ -19283,9 +19296,9 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:118:20, endln:118:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
-        \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:118:36, endln:118:53
+        \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:118:48, endln:118:52
           |vpiParent:
           \_cont_assign: , line:118:20, endln:118:53
           |vpiName:of_operand1
@@ -19295,7 +19308,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_ref_obj: (work@int_execute_stage.lane_alu_gen[1].lane), line:118:48, endln:118:52
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:118:36, endln:118:53
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand1), line:118:48, endln:118:52
             |vpiName:lane
             |vpiFullName:work@int_execute_stage.lane_alu_gen[1].lane
             |vpiActual:
@@ -19311,9 +19324,9 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:119:20, endln:119:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
-        \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand2), line:119:36, endln:119:53
+        \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand2), line:119:48, endln:119:52
           |vpiParent:
           \_cont_assign: , line:119:20, endln:119:53
           |vpiName:of_operand2
@@ -19323,7 +19336,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_ref_obj: (work@int_execute_stage.lane_alu_gen[1].lane), line:119:48, endln:119:52
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand2), line:119:36, endln:119:53
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].of_operand2), line:119:48, endln:119:52
             |vpiName:lane
             |vpiFullName:work@int_execute_stage.lane_alu_gen[1].lane
             |vpiActual:
@@ -19339,7 +19352,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:120:20, endln:120:88
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:120:43, endln:120:88
           |vpiParent:
@@ -19407,9 +19420,9 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:121:20, endln:121:45
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
-        \_bit_select: (work@int_execute_stage.lane_alu_gen[1].difference), line:121:31, endln:121:45
+        \_bit_select: (work@int_execute_stage.lane_alu_gen[1].difference), line:121:42, endln:121:44
           |vpiParent:
           \_cont_assign: , line:121:20, endln:121:45
           |vpiName:difference
@@ -19419,7 +19432,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_constant: , line:121:42, endln:121:44
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].difference), line:121:31, endln:121:45
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].difference), line:121:42, endln:121:44
             |vpiDecompile:31
             |vpiSize:64
             |UINT:31
@@ -19435,7 +19448,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:122:20, endln:122:102
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:122:31, endln:122:102
           |vpiParent:
@@ -19447,7 +19460,7 @@ design: (work@int_execute_stage)
             \_operation: , line:122:31, endln:122:102
             |vpiOpType:14
             |vpiOperand:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:31, endln:122:48
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:45, endln:122:47
               |vpiParent:
               \_operation: , line:122:31, endln:122:60
               |vpiName:lane_operand2
@@ -19457,7 +19470,7 @@ design: (work@int_execute_stage)
               |vpiIndex:
               \_constant: , line:122:45, endln:122:47
                 |vpiParent:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:31, endln:122:48
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:45, endln:122:47
                 |vpiDecompile:31
                 |vpiSize:64
                 |UINT:31
@@ -19476,7 +19489,7 @@ design: (work@int_execute_stage)
             \_operation: , line:122:31, endln:122:102
             |vpiOpType:15
             |vpiOperand:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:122:64, endln:122:81
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:122:78, endln:122:80
               |vpiParent:
               \_operation: , line:122:64, endln:122:102
               |vpiName:lane_operand1
@@ -19486,13 +19499,13 @@ design: (work@int_execute_stage)
               |vpiIndex:
               \_constant: , line:122:78, endln:122:80
                 |vpiParent:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:122:64, endln:122:81
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:122:78, endln:122:80
                 |vpiDecompile:31
                 |vpiSize:64
                 |UINT:31
                 |vpiConstType:9
             |vpiOperand:
-            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:85, endln:122:102
+            \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:99, endln:122:101
               |vpiParent:
               \_operation: , line:122:64, endln:122:102
               |vpiName:lane_operand2
@@ -19502,7 +19515,7 @@ design: (work@int_execute_stage)
               |vpiIndex:
               \_constant: , line:122:99, endln:122:101
                 |vpiParent:
-                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:85, endln:122:102
+                \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:122:99, endln:122:101
                 |vpiDecompile:31
                 |vpiSize:64
                 |UINT:31
@@ -19518,7 +19531,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:123:20, endln:123:42
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:123:27, endln:123:42
           |vpiParent:
@@ -19551,7 +19564,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:124:20, endln:124:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:124:33, endln:124:53
           |vpiParent:
@@ -19584,7 +19597,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:209:20, endln:209:95
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:209:36, endln:209:95
           |vpiParent:
@@ -19622,7 +19635,7 @@ design: (work@int_execute_stage)
               |vpiName:OP_ASHR
               |vpiFullName:work@int_execute_stage.lane_alu_gen[1].OP_ASHR
           |vpiOperand:
-          \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:209:71, endln:209:88
+          \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:209:85, endln:209:87
             |vpiParent:
             \_operation: , line:209:36, endln:209:95
             |vpiName:lane_operand1
@@ -19632,7 +19645,7 @@ design: (work@int_execute_stage)
             |vpiIndex:
             \_constant: , line:209:85, endln:209:87
               |vpiParent:
-              \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:209:71, endln:209:88
+              \_bit_select: (work@int_execute_stage.lane_alu_gen[1].lane_operand1), line:209:85, endln:209:87
               |vpiDecompile:31
               |vpiSize:64
               |UINT:31
@@ -19656,7 +19669,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:210:20, endln:210:98
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_operation: , line:210:29, endln:210:98
           |vpiParent:
@@ -19789,7 +19802,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:213:20, endln:213:46
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_ref_obj: (work@int_execute_stage.lane_alu_gen[1].lane_operand2), line:213:33, endln:213:46
           |vpiParent:
@@ -19809,7 +19822,7 @@ design: (work@int_execute_stage)
       |vpiContAssign:
       \_cont_assign: , line:273:20, endln:273:53
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiRhs:
         \_ref_obj: (work@int_execute_stage.lane_alu_gen[1].lane_result), line:273:42, endln:273:53
           |vpiParent:
@@ -19837,7 +19850,7 @@ design: (work@int_execute_stage)
       |vpiModule:
       \_module_inst: work@int_execute_stage.lane_alu_gen[1]::reciprocal_rom (work@int_execute_stage.lane_alu_gen[1].rom), file:${SURELOG_DIR}/tests/HierBitSlice/dut.sv, line:214:13, endln:216:39
         |vpiParent:
-        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1])
+        \_gen_scope: (work@int_execute_stage.lane_alu_gen[1]), line:100:9, endln:274:12
         |vpiName:rom
         |vpiFullName:work@int_execute_stage.lane_alu_gen[1].rom
         |vpiDefName:work@int_execute_stage.lane_alu_gen[1]::reciprocal_rom
@@ -19851,7 +19864,7 @@ design: (work@int_execute_stage)
             |vpiParent:
             \_port: (significand), line:215:18, endln:215:29
             |vpiTypespec:
-            \_struct_typespec: (float32_t), line:2:9, endln:2:15
+            \_struct_typespec: (float32_t), line:2:9, endln:6:2
             |vpiName:fp_operand.significand[22:17]
             |vpiExpr:
             \_struct_net: (work@int_execute_stage.lane_alu_gen[1].fp_operand), line:113:23, endln:113:33
@@ -20110,7 +20123,7 @@ design: (work@int_execute_stage)
         \_operation: , line:283:34, endln:283:74
         |vpiOpType:3
         |vpiOperand:
-        \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:43, endln:283:74
+        \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:60, endln:283:73
           |vpiParent:
           \_operation: , line:283:42, endln:283:74
           |vpiName:cr_supervisor_en
@@ -20120,7 +20133,7 @@ design: (work@int_execute_stage)
           |vpiIndex:
           \_ref_obj: (work@int_execute_stage.of_thread_idx), line:283:60, endln:283:73
             |vpiParent:
-            \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:43, endln:283:74
+            \_bit_select: (work@int_execute_stage.cr_supervisor_en), line:283:60, endln:283:73
             |vpiName:of_thread_idx
             |vpiFullName:work@int_execute_stage.of_thread_idx
             |vpiActual:
@@ -20139,6 +20152,3 @@ design: (work@int_execute_stage)
 [  ERROR] : 0
 [WARNING] : 5
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/HierBitSlice/dut.sv | ${SURELOG_DIR}/build/regression/HierBitSlice/roundtrip/dut_000.sv | 201 | 374 |

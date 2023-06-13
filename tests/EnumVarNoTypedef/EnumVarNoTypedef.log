@@ -67,28 +67,28 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                               3
+constant                                               6
 design                                                 1
-enum_const                                             1
-enum_typespec                                          1
+enum_const                                             2
+enum_typespec                                          2
 enum_var                                               1
 logic_net                                              1
-logic_typespec                                         1
-module_inst                                            3
-range                                                  1
+logic_typespec                                         2
+module_inst                                            4
+range                                                  2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                               3
+constant                                               6
 design                                                 1
-enum_const                                             1
-enum_typespec                                          1
+enum_const                                             2
+enum_typespec                                          2
 enum_var                                               1
 logic_net                                              1
-logic_typespec                                         1
-module_inst                                            3
-range                                                  1
+logic_typespec                                         2
+module_inst                                            4
+range                                                  2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumVarNoTypedef/slpp_all/surelog.uhdm ...
 
@@ -112,6 +112,38 @@ design: (work@top)
   \_logic_net: (work@top.myenum), line:5:4, endln:5:10
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EnumVarNoTypedef/dut.sv, line:1:1, endln:7:10
+    |vpiTypespec:
+    \_enum_typespec: 
+      |vpiBaseTypespec:
+      \_logic_typespec: , line:3:7, endln:3:18
+        |vpiRange:
+        \_range: , line:3:13, endln:3:18
+          |vpiParent:
+          \_logic_typespec: , line:3:7, endln:3:18
+          |vpiLeftRange:
+          \_constant: , line:3:14, endln:3:15
+            |vpiParent:
+            \_range: , line:3:13, endln:3:18
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiRightRange:
+          \_constant: , line:3:16, endln:3:17
+            |vpiParent:
+            \_range: , line:3:13, endln:3:18
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiEnumConst:
+      \_enum_const: (Global), line:4:4, endln:4:17
+        |vpiParent:
+        \_enum_typespec: 
+        |vpiName:Global
+        |UINT:2
+        |vpiDecompile:4'h2
+        |vpiSize:4
     |vpiName:myenum
     |vpiFullName:work@top.myenum
 |uhdmtopModules:

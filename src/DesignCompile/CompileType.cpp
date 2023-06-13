@@ -246,6 +246,7 @@ UHDM::any* CompileHelper::compileVariable(
     obj->VpiName(fullName);
     obj->VpiParent(path);
     elems->push_back(obj);
+    fC->populateCoreMembers(variable, variable, obj);
     while (fC->Type(Packed_dimension) == VObjectType::slStringConst) {
       ref_obj* obj = s.MakeRef_obj();
       const std::string_view name = fC->SymName(Packed_dimension);
@@ -282,14 +283,14 @@ UHDM::any* CompileHelper::compileVariable(
 
       if (const DataType* dt = component->getDataType(typeName)) {
         dt = dt->getActual();
-        typespec* tps = dt->getTypespec();
-        if (tps) {
-          variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
-          if (var) {
+        if (typespec* tps = dt->getTypespec()) {
+          if (variables* var =
+                  getSimpleVarFromTypespec(tps, ranges, compileDesign)) {
+            fC->populateCoreMembers(declarationId, declarationId, var);
             var->VpiName(fC->SymName(variable));
             if (ts) var->Typespec(ts);
+            result = var;
           }
-          result = var;
         }
       }
       if (result == nullptr) {
@@ -311,6 +312,7 @@ UHDM::any* CompileHelper::compileVariable(
           class_typespec* tps = s.MakeClass_typespec();
           var->Typespec(tps);
           tps->Class_defn(cl->getUhdmDefinition());
+          fC->populateCoreMembers(declarationId, declarationId, tps);
           fC->populateCoreMembers(declarationId, declarationId, var);
           result = var;
         }
@@ -982,7 +984,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
       logic_typespec* var = s.MakeLogic_typespec();
       var->Ranges(ranges);
       var->VpiSigned(isSigned);
-      fC->populateCoreMembers(type, type, var);
+      fC->populateCoreMembers(type, isSigned ? sign : type, var);
       result = var;
       break;
     }
@@ -1035,7 +1037,7 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
         isSigned = true;
       }
       var->VpiSigned(isSigned);
-      fC->populateCoreMembers(type, type, var);
+      fC->populateCoreMembers(type, isSigned ? sign : type, var);
       result = var;
       break;
     }
@@ -1491,6 +1493,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
           pats->Ranges(ranges);
           result = pats;
         }
+        // Include the ranges in the location information
+        NodeId packedDims = fC->Sibling(type);
+        NodeId last_Packed_dimension = packedDims;
+        while ((fC->Type(packedDims) == VObjectType::slUnpacked_dimension) ||
+               (fC->Type(packedDims) == VObjectType::slPacked_dimension)) {
+          packedDims = fC->Sibling(packedDims);
+          if (packedDims) last_Packed_dimension = packedDims;
+        }
+        fC->populateCoreMembers(
+            type, last_Packed_dimension ? last_Packed_dimension : type, result);
       }
 
       while (struct_or_union_member) {
@@ -1537,7 +1549,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                   reduce, nullptr, instance, false);
             m->Default_value((expr*)ex);
           }
-          if (member_ts &&
+          if (component && member_ts &&
               (member_ts->UhdmType() == uhdmunsupported_typespec)) {
             component->needLateTypedefBinding(m);
           }
@@ -1624,6 +1636,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
                           ref_obj* ref = s.MakeRef_obj();
                           ref->VpiName(typeName);
                           ref->VpiParent(path);
+                          fC->populateCoreMembers(type, type, ref);
                           path->Path_elems()->push_back(ref);
                         }
                         if (path) {
@@ -1726,6 +1739,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
             pats->Ranges(ranges);
             result = pats;
           }
+          // Include the ranges in the location information
+          NodeId packedDims = fC->Sibling(type);
+          NodeId last_Packed_dimension = packedDims;
+          while ((fC->Type(packedDims) == VObjectType::slUnpacked_dimension) ||
+                 (fC->Type(packedDims) == VObjectType::slPacked_dimension)) {
+            packedDims = fC->Sibling(packedDims);
+            if (packedDims) last_Packed_dimension = packedDims;
+          }
+          fC->populateCoreMembers(
+              type, last_Packed_dimension ? last_Packed_dimension : type,
+              result);
         }
         if (result && (result->VpiLineNo() == 0)) {
           fC->populateCoreMembers(type, type, result);

@@ -25,17 +25,17 @@
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_net                                              1
 array_typespec                                         1
-constant                                              24
+constant                                              26
 cont_assign                                            1
 design                                                 1
 logic_net                                              3
-logic_typespec                                         4
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            4
 operation                                              3
 part_select                                            1
 port                                                   2
-range                                                  9
+range                                                 10
 ref_obj                                                3
 var_select                                             1
 === UHDM Object Stats End ===
@@ -44,17 +44,17 @@ var_select                                             1
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_net                                              1
 array_typespec                                         1
-constant                                              24
+constant                                              26
 cont_assign                                            2
 design                                                 1
 logic_net                                              3
-logic_typespec                                         4
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            4
 operation                                              3
 part_select                                            2
 port                                                   3
-range                                                  9
+range                                                 10
 ref_obj                                                5
 var_select                                             2
 === UHDM Object Stats End ===
@@ -87,6 +87,28 @@ design: (work@ibex_multdiv_fast)
   \_logic_net: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
     |vpiParent:
     \_module_inst: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_logic_typespec: , line:5:3, endln:5:15
+      |vpiRange:
+      \_range: , line:5:9, endln:5:15
+        |vpiParent:
+        \_logic_typespec: , line:5:3, endln:5:15
+        |vpiLeftRange:
+        \_constant: , line:5:10, endln:5:12
+          |vpiParent:
+          \_range: , line:5:9, endln:5:15
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:13, endln:5:14
+          |vpiParent:
+          \_range: , line:5:9, endln:5:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:op_denominator_q
     |vpiFullName:work@ibex_multdiv_fast.op_denominator_q
     |vpiNetType:36
@@ -97,7 +119,7 @@ design: (work@ibex_multdiv_fast)
     |vpiName:imd_val_q_i
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: (work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i)
+    \_ref_obj: (work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i), line:2:24, endln:2:35
       |vpiParent:
       \_port: (imd_val_q_i), line:2:24, endln:2:35
       |vpiName:imd_val_q_i
@@ -122,14 +144,14 @@ design: (work@ibex_multdiv_fast)
           |UINT:0
           |vpiConstType:9
         |vpiRightRange:
-        \_operation: 
+        \_operation: , line:2:36, endln:2:37
           |vpiParent:
           \_range: , line:2:36, endln:2:37
           |vpiOpType:11
           |vpiOperand:
           \_constant: , line:2:36, endln:2:37
             |vpiParent:
-            \_operation: 
+            \_operation: , line:2:36, endln:2:37
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
@@ -281,14 +303,14 @@ design: (work@ibex_multdiv_fast)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:2:36, endln:2:37
         |vpiParent:
         \_range: , line:2:36, endln:2:37
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:2:36, endln:2:37
           |vpiParent:
-          \_operation: 
+          \_operation: , line:2:36, endln:2:37
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
@@ -411,4 +433,4 @@ design: (work@ibex_multdiv_fast)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PortMultiDim/dut.sv | ${SURELOG_DIR}/build/regression/PortMultiDim/roundtrip/dut_000.sv | 4 | 8 |
+[roundtrip]: ${SURELOG_DIR}/tests/PortMultiDim/dut.sv | ${SURELOG_DIR}/build/regression/PortMultiDim/roundtrip/dut_000.sv | 3 | 8 |

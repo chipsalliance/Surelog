@@ -122,7 +122,7 @@ constant                                               6
 design                                                 1
 foreach_stmt                                           2
 initial                                                1
-int_typespec                                           1
+int_typespec                                           2
 int_var                                                1
 logic_net                                              3
 module_inst                                            3
@@ -144,7 +144,7 @@ constant                                               6
 design                                                 1
 foreach_stmt                                           4
 initial                                                2
-int_typespec                                           1
+int_typespec                                           2
 int_var                                                1
 logic_net                                              3
 module_inst                                            3
@@ -177,6 +177,9 @@ design: (work@dut)
   \_logic_net: (work@dut.array), line:3:9, endln:3:14
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ForeachSquare/dut.sv, line:1:1, endln:11:10
+    |vpiTypespec:
+    \_int_typespec: , line:3:5, endln:3:18
+      |vpiSigned:1
     |vpiName:array
     |vpiFullName:work@dut.array
   |vpiNet:
@@ -299,7 +302,7 @@ design: (work@dut)
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ForeachSquare/dut.sv, line:1:1, endln:11:10
   |vpiName:work@dut
   |vpiVariables:
-  \_array_var: (work@dut.array), line:3:9, endln:3:18
+  \_array_var: (work@dut.array), line:3:9, endln:3:14
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ForeachSquare/dut.sv, line:1:1, endln:11:10
     |vpiSize:256
@@ -313,7 +316,7 @@ design: (work@dut)
     |vpiRange:
     \_range: , line:3:15, endln:3:17
       |vpiParent:
-      \_array_var: (work@dut.array), line:3:9, endln:3:18
+      \_array_var: (work@dut.array), line:3:9, endln:3:14
       |vpiLeftRange:
       \_constant: 
         |vpiParent:
@@ -323,14 +326,14 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:3:15, endln:3:17
         |vpiParent:
         \_range: , line:3:15, endln:3:17
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:3:15, endln:3:17
           |vpiParent:
-          \_operation: 
+          \_operation: , line:3:15, endln:3:17
           |vpiDecompile:16
           |vpiSize:64
           |UINT:16
@@ -343,7 +346,7 @@ design: (work@dut)
     |vpiRange:
     \_range: , line:3:19, endln:3:21
       |vpiParent:
-      \_array_var: (work@dut.array), line:3:9, endln:3:18
+      \_array_var: (work@dut.array), line:3:9, endln:3:14
       |vpiLeftRange:
       \_constant: 
         |vpiParent:
@@ -353,14 +356,14 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiRightRange:
-      \_operation: 
+      \_operation: , line:3:19, endln:3:21
         |vpiParent:
         \_range: , line:3:19, endln:3:21
         |vpiOpType:11
         |vpiOperand:
         \_constant: , line:3:19, endln:3:21
           |vpiParent:
-          \_operation: 
+          \_operation: , line:3:19, endln:3:21
           |vpiDecompile:16
           |vpiSize:64
           |UINT:16
@@ -373,7 +376,7 @@ design: (work@dut)
     |vpiReg:
     \_int_var: (work@dut.array), line:3:9, endln:3:14
       |vpiParent:
-      \_array_var: (work@dut.array), line:3:9, endln:3:18
+      \_array_var: (work@dut.array), line:3:9, endln:3:14
       |vpiTypespec:
       \_int_typespec: , line:3:5, endln:3:8
         |vpiParent:
@@ -406,7 +409,7 @@ design: (work@dut)
           |vpiName:array
           |vpiFullName:work@dut.array
           |vpiActual:
-          \_array_var: (work@dut.array), line:3:9, endln:3:18
+          \_array_var: (work@dut.array), line:3:9, endln:3:14
         |vpiLoopVars:
         \_ref_var: (work@dut.i), line:6:23, endln:6:24
           |vpiParent:
@@ -429,7 +432,7 @@ design: (work@dut)
             |vpiName:array
             |vpiFullName:work@dut.array
             |vpiActual:
-            \_array_var: (work@dut.array), line:3:9, endln:3:18
+            \_array_var: (work@dut.array), line:3:9, endln:3:14
           |vpiLoopVars:
           \_ref_var: (work@dut.i), line:7:27, endln:7:28
             |vpiParent:
@@ -480,7 +483,7 @@ design: (work@dut)
               |vpiName:array
               |vpiFullName:work@dut.array
               |vpiActual:
-              \_array_var: (work@dut.array), line:3:9, endln:3:18
+              \_array_var: (work@dut.array), line:3:9, endln:3:14
               |vpiIndex:
               \_ref_obj: (work@dut.array.i), line:8:23, endln:8:24
                 |vpiParent:

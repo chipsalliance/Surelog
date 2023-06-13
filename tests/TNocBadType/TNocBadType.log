@@ -98,7 +98,7 @@ interface_typespec                                     1
 logic_net                                              2
 logic_var                                              1
 module_inst                                            2
-unsupported_typespec                                   1
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -110,7 +110,7 @@ interface_typespec                                     1
 logic_net                                              2
 logic_var                                              1
 module_inst                                            2
-unsupported_typespec                                   1
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm ...
 
@@ -155,12 +155,18 @@ design: (work@top)
   \_logic_net: (work@top.types), line:8:16, endln:8:21
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
+    |vpiTypespec:
+    \_unsupported_typespec: (tnoc_types), line:8:4, endln:8:14
+      |vpiName:tnoc_types
     |vpiName:types
     |vpiFullName:work@top.types
   |vpiNet:
   \_logic_net: (work@top.common_header), line:12:23, endln:12:36
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
+    |vpiTypespec:
+    \_unsupported_typespec: (tnoc_common_header), line:12:3, endln:12:21
+      |vpiName:tnoc_common_header
     |vpiName:common_header
     |vpiFullName:work@top.common_header
 |uhdmtopModules:
@@ -186,4 +192,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/TNocBadType/dut.sv | ${SURELOG_DIR}/build/regression/TNocBadType/roundtrip/dut_000.sv | 4 | 13 |
+[roundtrip]: ${SURELOG_DIR}/tests/TNocBadType/dut.sv | ${SURELOG_DIR}/build/regression/TNocBadType/roundtrip/dut_000.sv | 2 | 13 |

@@ -163,6 +163,7 @@ AST_DEBUG_END
 begin                                                  1
 design                                                 1
 gen_region                                             1
+int_typespec                                           1
 logic_net                                              1
 module_inst                                            4
 === UHDM Object Stats End ===
@@ -172,6 +173,7 @@ module_inst                                            4
 begin                                                  1
 design                                                 1
 gen_region                                             1
+int_typespec                                           1
 logic_net                                              1
 module_inst                                            4
 === UHDM Object Stats End ===
@@ -197,6 +199,9 @@ design: (work@top)
   \_logic_net: (work@core.wb_writeback_en), line:7:5, endln:7:20
     |vpiParent:
     \_module_inst: work@core (work@core), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:5:1, endln:9:10
+    |vpiTypespec:
+    \_int_typespec: , line:7:1, endln:7:4
+      |vpiSigned:1
     |vpiName:wb_writeback_en
     |vpiFullName:work@core.wb_writeback_en
 |uhdmallModules:
@@ -234,4 +239,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BlackBox/dut.sv | ${SURELOG_DIR}/build/regression/BlackBoxInstTop/roundtrip/dut_000.sv | 11 | 34 |
+[roundtrip]: ${SURELOG_DIR}/tests/BlackBox/dut.sv | ${SURELOG_DIR}/build/regression/BlackBoxInstTop/roundtrip/dut_000.sv | 10 | 34 |

@@ -208,7 +208,7 @@ io_decl                                                3
 let_decl                                               3
 let_expr                                               3
 logic_net                                              1
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            2
 operation                                              1
@@ -228,7 +228,7 @@ io_decl                                                3
 let_decl                                               9
 let_expr                                               6
 logic_net                                              1
-logic_typespec                                         1
+logic_typespec                                         2
 logic_var                                              1
 module_inst                                            2
 operation                                              3
@@ -329,6 +329,8 @@ design: (work@m)
   \_logic_net: (work@m.a), line:3:7, endln:3:8
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/LetExpr/dut.sv, line:2:1, endln:16:14
+    |vpiTypespec:
+    \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:a
     |vpiFullName:work@m.a
     |vpiNetType:36
@@ -611,4 +613,4 @@ design: (work@m)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/LetExpr/dut.sv | ${SURELOG_DIR}/build/regression/LetExpr/roundtrip/dut_000.sv | 8 | 16 |
+[roundtrip]: ${SURELOG_DIR}/tests/LetExpr/dut.sv | ${SURELOG_DIR}/build/regression/LetExpr/roundtrip/dut_000.sv | 7 | 16 |

@@ -834,16 +834,16 @@ assignment                                            24
 begin                                                  1
 case_item                                             24
 case_stmt                                              8
-constant                                              74
+constant                                              84
 cont_assign                                           18
 design                                                 1
 initial                                                1
 int_typespec                                          10
 logic_net                                             43
-logic_typespec                                        28
+logic_typespec                                        37
 module_inst                                            4
 port                                                  16
-range                                                 15
+range                                                 20
 ref_obj                                               66
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -853,16 +853,16 @@ assignment                                            48
 begin                                                  2
 case_item                                             48
 case_stmt                                             16
-constant                                              74
+constant                                              84
 cont_assign                                           27
 design                                                 1
 initial                                                2
 int_typespec                                          10
 logic_net                                             43
-logic_typespec                                        28
+logic_typespec                                        37
 module_inst                                            4
 port                                                  24
-range                                                 15
+range                                                 20
 ref_obj                                              124
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CaseExpression/slpp_all/surelog.uhdm ...
@@ -943,6 +943,8 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_1b0), line:7:9, endln:7:14
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:7:5, endln:7:21
     |vpiName:x_1b0
     |vpiFullName:work@case_expr_non_const_top.x_1b0
     |vpiNetType:48
@@ -950,6 +952,8 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_1b1), line:8:9, endln:8:14
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:8:5, endln:8:21
     |vpiName:x_1b1
     |vpiFullName:work@case_expr_non_const_top.x_1b1
     |vpiNetType:48
@@ -957,6 +961,9 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_1sb0), line:9:16, endln:9:22
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:9:5, endln:9:30
+      |vpiSigned:1
     |vpiName:x_1sb0
     |vpiFullName:work@case_expr_non_const_top.x_1sb0
     |vpiNetType:48
@@ -964,6 +971,9 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_1sb1), line:10:16, endln:10:22
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:10:5, endln:10:30
+      |vpiSigned:1
     |vpiName:x_1sb1
     |vpiFullName:work@case_expr_non_const_top.x_1sb1
     |vpiNetType:48
@@ -971,6 +981,28 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_2b0), line:11:15, endln:11:20
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:11:5, endln:11:27
+      |vpiRange:
+      \_range: , line:11:9, endln:11:14
+        |vpiParent:
+        \_logic_typespec: , line:11:5, endln:11:27
+        |vpiLeftRange:
+        \_constant: , line:11:10, endln:11:11
+          |vpiParent:
+          \_range: , line:11:9, endln:11:14
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:11:12, endln:11:13
+          |vpiParent:
+          \_range: , line:11:9, endln:11:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:x_2b0
     |vpiFullName:work@case_expr_non_const_top.x_2b0
     |vpiNetType:48
@@ -978,6 +1010,28 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_2b11), line:12:15, endln:12:21
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:12:5, endln:12:29
+      |vpiRange:
+      \_range: , line:12:9, endln:12:14
+        |vpiParent:
+        \_logic_typespec: , line:12:5, endln:12:29
+        |vpiLeftRange:
+        \_constant: , line:12:10, endln:12:11
+          |vpiParent:
+          \_range: , line:12:9, endln:12:14
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:12:12, endln:12:13
+          |vpiParent:
+          \_range: , line:12:9, endln:12:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:x_2b11
     |vpiFullName:work@case_expr_non_const_top.x_2b11
     |vpiNetType:48
@@ -985,6 +1039,29 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_2sb01), line:13:22, endln:13:29
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:13:5, endln:13:38
+      |vpiRange:
+      \_range: , line:13:16, endln:13:21
+        |vpiParent:
+        \_logic_typespec: , line:13:5, endln:13:38
+        |vpiLeftRange:
+        \_constant: , line:13:17, endln:13:18
+          |vpiParent:
+          \_range: , line:13:16, endln:13:21
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:13:19, endln:13:20
+          |vpiParent:
+          \_range: , line:13:16, endln:13:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
     |vpiName:x_2sb01
     |vpiFullName:work@case_expr_non_const_top.x_2sb01
     |vpiNetType:48
@@ -992,6 +1069,29 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_2sb11), line:14:22, endln:14:29
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:14:5, endln:14:38
+      |vpiRange:
+      \_range: , line:14:16, endln:14:21
+        |vpiParent:
+        \_logic_typespec: , line:14:5, endln:14:38
+        |vpiLeftRange:
+        \_constant: , line:14:17, endln:14:18
+          |vpiParent:
+          \_range: , line:14:16, endln:14:21
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:14:19, endln:14:20
+          |vpiParent:
+          \_range: , line:14:16, endln:14:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
     |vpiName:x_2sb11
     |vpiFullName:work@case_expr_non_const_top.x_2sb11
     |vpiNetType:48
@@ -999,6 +1099,28 @@ design: (work@case_expr_non_const_top)
   \_logic_net: (work@case_expr_non_const_top.x_3b0), line:15:15, endln:15:20
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
+    |vpiTypespec:
+    \_logic_typespec: , line:15:5, endln:15:27
+      |vpiRange:
+      \_range: , line:15:9, endln:15:14
+        |vpiParent:
+        \_logic_typespec: , line:15:5, endln:15:27
+        |vpiLeftRange:
+        \_constant: , line:15:10, endln:15:11
+          |vpiParent:
+          \_range: , line:15:9, endln:15:14
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:15:12, endln:15:13
+          |vpiParent:
+          \_range: , line:15:9, endln:15:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:x_3b0
     |vpiFullName:work@case_expr_non_const_top.x_3b0
     |vpiNetType:48
@@ -1009,7 +1131,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.a.a)
+    \_ref_obj: (work@case_expr_non_const_top.a.a), line:5:16, endln:5:17
       |vpiParent:
       \_port: (a), line:5:16, endln:5:17
       |vpiName:a
@@ -1025,7 +1147,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.b.b)
+    \_ref_obj: (work@case_expr_non_const_top.b.b), line:5:19, endln:5:20
       |vpiParent:
       \_port: (b), line:5:19, endln:5:20
       |vpiName:b
@@ -1041,7 +1163,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:c
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.c.c)
+    \_ref_obj: (work@case_expr_non_const_top.c.c), line:5:22, endln:5:23
       |vpiParent:
       \_port: (c), line:5:22, endln:5:23
       |vpiName:c
@@ -1057,7 +1179,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:d
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.d.d)
+    \_ref_obj: (work@case_expr_non_const_top.d.d), line:5:25, endln:5:26
       |vpiParent:
       \_port: (d), line:5:25, endln:5:26
       |vpiName:d
@@ -1073,7 +1195,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:e
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.e.e)
+    \_ref_obj: (work@case_expr_non_const_top.e.e), line:5:28, endln:5:29
       |vpiParent:
       \_port: (e), line:5:28, endln:5:29
       |vpiName:e
@@ -1089,7 +1211,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:f
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.f.f)
+    \_ref_obj: (work@case_expr_non_const_top.f.f), line:5:31, endln:5:32
       |vpiParent:
       \_port: (f), line:5:31, endln:5:32
       |vpiName:f
@@ -1105,7 +1227,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:g
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.g.g)
+    \_ref_obj: (work@case_expr_non_const_top.g.g), line:5:34, endln:5:35
       |vpiParent:
       \_port: (g), line:5:34, endln:5:35
       |vpiName:g
@@ -1121,7 +1243,7 @@ design: (work@case_expr_non_const_top)
     |vpiName:h
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: (work@case_expr_non_const_top.h.h)
+    \_ref_obj: (work@case_expr_non_const_top.h.h), line:5:37, endln:5:38
       |vpiParent:
       \_port: (h), line:5:37, endln:5:38
       |vpiName:h
@@ -2065,7 +2187,7 @@ design: (work@case_expr_non_const_top)
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:5, endln:9:8
+    \_logic_typespec: , line:9:5, endln:9:15
       |vpiSigned:1
     |vpiName:x_1sb0
     |vpiFullName:work@case_expr_non_const_top.x_1sb0
@@ -2076,7 +2198,7 @@ design: (work@case_expr_non_const_top)
     |vpiParent:
     \_module_inst: work@case_expr_non_const_top (work@case_expr_non_const_top), file:${SURELOG_DIR}/tests/CaseExpression/dut.sv, line:3:1, endln:59:10
     |vpiTypespec:
-    \_logic_typespec: , line:10:5, endln:10:8
+    \_logic_typespec: , line:10:5, endln:10:15
       |vpiSigned:1
     |vpiName:x_1sb1
     |vpiFullName:work@case_expr_non_const_top.x_1sb1

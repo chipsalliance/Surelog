@@ -368,7 +368,7 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:3, endln:4:18
     |vpiName:N
     |vpiFullName:work@test.N
   |vpiParamAssign:
@@ -399,7 +399,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:3, endln:4:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.N), line:4:13, endln:4:14
@@ -711,7 +711,7 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: 
+    \_int_typespec: , line:4:3, endln:4:18
       |vpiParent:
       \_parameter: (work@test.N), line:4:13, endln:4:14
     |vpiName:N
@@ -754,7 +754,7 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: 
+      \_int_typespec: , line:4:3, endln:4:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.N), line:4:13, endln:4:14
@@ -768,14 +768,14 @@ design: (work@test)
     |vpiName:loop[0]
     |vpiFullName:work@test.loop[0]
     |vpiGenScope:
-    \_gen_scope: (work@test.loop[0])
+    \_gen_scope: (work@test.loop[0]), line:8:6, endln:17:9
       |vpiParent:
       \_gen_scope_array: (work@test.loop[0]), line:8:6, endln:17:9
       |vpiFullName:work@test.loop[0]
       |vpiParameter:
       \_parameter: (work@test.loop[0].i), line:7:0
         |vpiParent:
-        \_gen_scope: (work@test.loop[0])
+        \_gen_scope: (work@test.loop[0]), line:8:6, endln:17:9
         |UINT:0
         |vpiTypespec:
         \_int_typespec: 
@@ -785,18 +785,18 @@ design: (work@test)
       |vpiGenScopeArray:
       \_gen_scope_array: (work@test.loop[0].foo), line:9:2, endln:16:7
         |vpiParent:
-        \_gen_scope: (work@test.loop[0])
+        \_gen_scope: (work@test.loop[0]), line:8:6, endln:17:9
         |vpiName:foo
         |vpiFullName:work@test.loop[0].foo
         |vpiGenScope:
-        \_gen_scope: (work@test.loop[0].foo)
+        \_gen_scope: (work@test.loop[0].foo), line:9:2, endln:16:7
           |vpiParent:
           \_gen_scope_array: (work@test.loop[0].foo), line:9:2, endln:16:7
           |vpiFullName:work@test.loop[0].foo
           |vpiModule:
           \_module_inst: work@test.loop[0].foo::foo (work@test.loop[0].foo.i0), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:11:7, endln:11:17
             |vpiParent:
-            \_gen_scope: (work@test.loop[0].foo)
+            \_gen_scope: (work@test.loop[0].foo), line:9:2, endln:16:7
             |vpiName:i0
             |vpiFullName:work@test.loop[0].foo.i0
             |vpiDefName:work@test.loop[0].foo::foo
@@ -807,14 +807,14 @@ design: (work@test)
     |vpiName:loop[1]
     |vpiFullName:work@test.loop[1]
     |vpiGenScope:
-    \_gen_scope: (work@test.loop[1])
+    \_gen_scope: (work@test.loop[1]), line:8:6, endln:17:9
       |vpiParent:
       \_gen_scope_array: (work@test.loop[1]), line:8:6, endln:17:9
       |vpiFullName:work@test.loop[1]
       |vpiParameter:
       \_parameter: (work@test.loop[1].i), line:7:0
         |vpiParent:
-        \_gen_scope: (work@test.loop[1])
+        \_gen_scope: (work@test.loop[1]), line:8:6, endln:17:9
         |UINT:1
         |vpiTypespec:
         \_int_typespec: 
@@ -824,18 +824,18 @@ design: (work@test)
       |vpiGenScopeArray:
       \_gen_scope_array: (work@test.loop[1].bar), line:15:7, endln:15:17
         |vpiParent:
-        \_gen_scope: (work@test.loop[1])
+        \_gen_scope: (work@test.loop[1]), line:8:6, endln:17:9
         |vpiName:bar
         |vpiFullName:work@test.loop[1].bar
         |vpiGenScope:
-        \_gen_scope: (work@test.loop[1].bar)
+        \_gen_scope: (work@test.loop[1].bar), line:15:7, endln:15:17
           |vpiParent:
           \_gen_scope_array: (work@test.loop[1].bar), line:15:7, endln:15:17
           |vpiFullName:work@test.loop[1].bar
           |vpiModule:
           \_module_inst: work@test.loop[1].bar::bar (work@test.loop[1].bar.i0), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:15:7, endln:15:17
             |vpiParent:
-            \_gen_scope: (work@test.loop[1].bar)
+            \_gen_scope: (work@test.loop[1].bar), line:15:7, endln:15:17
             |vpiName:i0
             |vpiFullName:work@test.loop[1].bar.i0
             |vpiDefName:work@test.loop[1].bar::bar
@@ -845,6 +845,3 @@ design: (work@test)
 [  ERROR] : 0
 [WARNING] : 5
 [   NOTE] : 5
-
-
-[roundtrip]: ${SURELOG_DIR}/tests/PartSelectRange/dut.sv | ${SURELOG_DIR}/build/regression/PartSelectRange/roundtrip/dut_000.sv | 13 | 19 |
