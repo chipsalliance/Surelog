@@ -162,7 +162,6 @@ ref_obj                                                9
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -184,7 +183,6 @@ ref_obj                                               13
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfBinding/slpp_all/surelog.uhdm ...
 
@@ -275,8 +273,7 @@ design: (work@BypassNetwork)
     |vpiParent:
     \_interface_inst: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
     |vpiTypespec:
-    \_unsupported_typespec: (PipelineControll), line:18:4, endln:18:20
-      |vpiName:PipelineControll
+    \_struct_typespec: (pack::PipelineControll), line:2:9, endln:6:2
     |vpiName:backEnd
     |vpiFullName:work@ControllerIF.backEnd
   |vpiNet:
@@ -491,4 +488,4 @@ design: (work@BypassNetwork)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/InterfBinding/dut.sv | ${SURELOG_DIR}/build/regression/InterfBinding/roundtrip/dut_000.sv | 13 | 36 |
+[roundtrip]: ${SURELOG_DIR}/tests/InterfBinding/dut.sv | ${SURELOG_DIR}/build/regression/InterfBinding/roundtrip/dut_000.sv | 14 | 36 |

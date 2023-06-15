@@ -384,14 +384,14 @@ AST_DEBUG_END
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              22
+constant                                              23
 design                                                 1
 enum_const                                            13
 enum_typespec                                          3
 enum_var                                               1
 function                                               9
 import_typespec                                        1
-int_typespec                                          23
+int_typespec                                          24
 int_var                                                4
 io_decl                                               11
 logic_net                                              1
@@ -403,7 +403,7 @@ package                                                4
 param_assign                                           6
 parameter                                              7
 range                                                  3
-ref_obj                                                7
+ref_obj                                                6
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -412,14 +412,14 @@ task                                                   9
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              22
+constant                                              23
 design                                                 1
 enum_const                                            18
 enum_typespec                                          4
 enum_var                                               1
 function                                              18
 import_typespec                                        1
-int_typespec                                          23
+int_typespec                                          24
 int_var                                                4
 io_decl                                               22
 logic_net                                              1
@@ -431,7 +431,7 @@ package                                                4
 param_assign                                           6
 parameter                                              7
 range                                                  3
-ref_obj                                                7
+ref_obj                                                6
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamCast/slpp_all/surelog.uhdm ...
@@ -1161,10 +1161,20 @@ design: (work@otp_ctrl)
           \_range: , line:17:9, endln:17:24
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (NumAgents), line:17:10, endln:17:19
+          \_constant: , line:17:10, endln:17:19
             |vpiParent:
             \_operation: , line:17:10, endln:17:21
-            |vpiName:NumAgents
+            |vpiDecompile:3
+            |vpiSize:32
+            |UINT:3
+            |vpiTypespec:
+            \_int_typespec: , line:10:12, endln:10:15
+              |vpiParent:
+              \_constant: , line:17:10, endln:17:19
+              |vpiInstance:
+              \_package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/ParamCast/dut.sv, line:1:1, endln:12:11
+              |vpiSigned:1
+            |vpiConstType:9
           |vpiOperand:
           \_constant: , line:17:20, endln:17:21
             |vpiParent:
@@ -1286,4 +1296,4 @@ design: (work@otp_ctrl)
 
 
 [roundtrip]: ${SURELOG_DIR}/tests/ParamCast/builtin.sv | ${SURELOG_DIR}/build/regression/ParamCast/roundtrip/builtin_000.sv | 0 | 0 |
-[roundtrip]: ${SURELOG_DIR}/tests/ParamCast/dut.sv     | ${SURELOG_DIR}/build/regression/ParamCast/roundtrip/dut_000.sv     | 1 | 18 |
+[roundtrip]: ${SURELOG_DIR}/tests/ParamCast/dut.sv     | ${SURELOG_DIR}/build/regression/ParamCast/roundtrip/dut_000.sv     | 2 | 18 |

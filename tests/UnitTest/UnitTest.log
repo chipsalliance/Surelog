@@ -661,7 +661,7 @@ AST_DEBUG_END
 assignment                                            11
 begin                                                  5
 class_defn                                             1
-class_typespec                                         1
+class_typespec                                         2
 class_var                                              1
 constant                                              28
 cont_assign                                            1
@@ -681,7 +681,7 @@ port                                                  11
 range                                                  6
 ref_obj                                               47
 sys_func_call                                          5
-unsupported_typespec                                   3
+unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [ERR:UH0718] ${SURELOG_DIR}/tests/UnitTest/top.v:11:5: Illegal lhs of type wire "shifter".
 
@@ -790,8 +790,10 @@ design: (work@tb_operators)
     |vpiParent:
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:57:1, endln:67:10
     |vpiTypespec:
-    \_unsupported_typespec: (DD2), line:61:1, endln:61:4
+    \_class_typespec: (DD2), line:61:1, endln:61:4
       |vpiName:DD2
+      |vpiClassDefn:
+      \_class_defn: (work@DD2), file:${SURELOG_DIR}/tests/UnitTest/top.v, line:54:1, endln:55:9
     |vpiName:toto2
     |vpiFullName:work@memory_ctrl1.toto2
   |vpiNet:

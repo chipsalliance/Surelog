@@ -113,12 +113,11 @@ enum_typespec                                          1
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            4
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 range                                                  4
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        4
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -130,12 +129,11 @@ enum_typespec                                          1
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            4
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 range                                                  4
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        4
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/surelog.uhdm ...
 
@@ -193,10 +191,31 @@ design: (work@dut)
         \_struct_typespec: , line:4:4, endln:4:17
         |vpiName:class_esc_state
         |vpiTypespec:
-        \_unsupported_typespec: (cstate_e), line:5:7, endln:5:21
+        \_packed_array_typespec: , line:5:7, endln:5:21
           |vpiParent:
           \_typespec_member: (class_esc_state), line:5:22, endln:5:37
-          |vpiName:cstate_e
+          |vpiRange:
+          \_range: , line:5:16, endln:5:21
+            |vpiParent:
+            \_packed_array_typespec: , line:5:7, endln:5:21
+            |vpiLeftRange:
+            \_constant: , line:5:17, endln:5:18
+              |vpiParent:
+              \_range: , line:5:16, endln:5:21
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiRightRange:
+            \_constant: , line:5:19, endln:5:20
+              |vpiParent:
+              \_range: , line:5:16, endln:5:21
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiElemTypespec:
+          \_enum_typespec: (cstate_e), line:2:4, endln:2:47
         |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
         |vpiRefLineNo:5
         |vpiRefColumnNo:7

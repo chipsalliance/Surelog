@@ -22,9 +22,9 @@
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         4
-constant                                              42
+constant                                              39
 design                                                 1
-int_typespec                                          11
+int_typespec                                          10
 logic_typespec                                         4
 module_inst                                            2
 operation                                             10
@@ -32,17 +32,18 @@ package                                                2
 param_assign                                          12
 parameter                                             12
 range                                                  8
-ref_obj                                                3
+ref_obj                                                6
 struct_typespec                                        2
+sys_func_call                                          3
 typespec_member                                        4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         4
-constant                                              42
+constant                                              39
 design                                                 1
-int_typespec                                          11
+int_typespec                                          10
 logic_typespec                                         4
 module_inst                                            2
 operation                                             10
@@ -50,8 +51,9 @@ package                                                2
 param_assign                                          12
 parameter                                             12
 range                                                  8
-ref_obj                                                3
+ref_obj                                                6
 struct_typespec                                        2
+sys_func_call                                          3
 typespec_member                                        4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageEval/slpp_unit/surelog.uhdm ...
@@ -143,9 +145,6 @@ design: (unnamed)
   \_parameter: (test_pkg::TEST_SIZE), line:11:11, endln:11:20
     |vpiParent:
     \_package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
-    |UINT:65
-    |vpiTypespec:
-    \_int_typespec: , line:11:1, endln:11:36
     |vpiName:TEST_SIZE
     |vpiFullName:test_pkg::TEST_SIZE
   |vpiParamAssign:
@@ -192,15 +191,16 @@ design: (unnamed)
     |vpiParent:
     \_package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
-    \_constant: , line:11:23, endln:11:36
+    \_sys_func_call: ($bits), line:11:23, endln:11:36
       |vpiParent:
       \_param_assign: , line:11:11, endln:11:36
-      |vpiDecompile:65
-      |vpiSize:32
-      |UINT:65
-      |vpiTypespec:
-      \_int_typespec: , line:11:1, endln:11:36
-      |vpiConstType:9
+      |vpiArgument:
+      \_ref_obj: (test_pkg::t_test), line:11:29, endln:11:35
+        |vpiParent:
+        \_sys_func_call: ($bits), line:11:23, endln:11:36
+        |vpiName:t_test
+        |vpiFullName:test_pkg::t_test
+      |vpiName:$bits
     |vpiLhs:
     \_parameter: (test_pkg::TEST_SIZE), line:11:11, endln:11:20
   |vpiTypedef:
@@ -456,3 +456,6 @@ design: (unnamed)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 4
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/PackageEval/dut.sv | ${SURELOG_DIR}/build/regression/PackageEval/roundtrip/dut_000.sv | 1 | 14 |

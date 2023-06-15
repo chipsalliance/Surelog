@@ -36,7 +36,7 @@ bit_var                                                2
 case_item                                              4
 case_stmt                                              1
 class_defn                                             3
-class_typespec                                         2
+class_typespec                                         3
 class_var                                              1
 constant                                              17
 design                                                 1
@@ -58,7 +58,6 @@ range                                                  4
 ref_obj                                               31
 task                                                   7
 task_call                                              4
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -72,7 +71,7 @@ bit_var                                               10
 case_item                                             28
 case_stmt                                              7
 class_defn                                             5
-class_typespec                                         9
+class_typespec                                        10
 class_var                                              1
 constant                                              17
 design                                                 1
@@ -95,7 +94,6 @@ range                                                  4
 ref_obj                                              159
 task                                                  45
 task_call                                             76
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassFsm/slpp_unit/surelog.uhdm ...
 
@@ -834,8 +832,10 @@ design: (work@fsm_class)
     |vpiParent:
     \_module_inst: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiTypespec:
-    \_unsupported_typespec: (specificFSM), line:81:3, endln:81:14
+    \_class_typespec: (specificFSM), line:81:3, endln:81:14
       |vpiName:specificFSM
+      |vpiClassDefn:
+      \_class_defn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
     |vpiName:P
     |vpiFullName:work@fsm_class.P
   |vpiPort:

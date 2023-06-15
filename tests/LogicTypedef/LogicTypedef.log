@@ -23,32 +23,30 @@
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_typespec                                           3
+bit_typespec                                           4
 bit_var                                                1
-constant                                              22
+constant                                              28
 design                                                 1
 logic_net                                              4
-logic_typespec                                         5
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            3
 packed_array_typespec                                  3
-range                                                 11
-unsupported_typespec                                   3
+range                                                 14
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_typespec                                           3
+bit_typespec                                           4
 bit_var                                                1
-constant                                              22
+constant                                              28
 design                                                 1
 logic_net                                              4
-logic_typespec                                         5
+logic_typespec                                         7
 logic_var                                              1
 module_inst                                            3
 packed_array_typespec                                  3
-range                                                 11
-unsupported_typespec                                   3
+range                                                 14
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicTypedef/slpp_unit/surelog.uhdm ...
 
@@ -154,8 +152,32 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_unsupported_typespec: (log_two_bits), line:3:5, endln:3:17
+    \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
       |vpiName:log_two_bits
+      |vpiTypedefAlias:
+      \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+      |vpiInstance:
+      \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+      |vpiRange:
+      \_range: , line:2:19, endln:2:24
+        |vpiParent:
+        \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+        |vpiLeftRange:
+        \_constant: , line:2:20, endln:2:21
+          |vpiParent:
+          \_range: , line:2:19, endln:2:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:2:22, endln:2:23
+          |vpiParent:
+          \_range: , line:2:19, endln:2:24
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:logn
     |vpiFullName:work@test.logn
     |vpiNetType:36
@@ -164,8 +186,32 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_unsupported_typespec: (reg_two_bits), line:6:5, endln:6:17
+    \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
       |vpiName:reg_two_bits
+      |vpiTypedefAlias:
+      \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
+      |vpiInstance:
+      \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+      |vpiRange:
+      \_range: , line:5:17, endln:5:22
+        |vpiParent:
+        \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
+        |vpiLeftRange:
+        \_constant: , line:5:18, endln:5:19
+          |vpiParent:
+          \_range: , line:5:17, endln:5:22
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:5:20, endln:5:21
+          |vpiParent:
+          \_range: , line:5:17, endln:5:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:regn
     |vpiFullName:work@test.regn
     |vpiNetType:48
@@ -174,8 +220,32 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_unsupported_typespec: (bit_two_bits), line:9:5, endln:9:17
+    \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
       |vpiName:bit_two_bits
+      |vpiTypedefAlias:
+      \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+      |vpiInstance:
+      \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+      |vpiRange:
+      \_range: , line:8:17, endln:8:22
+        |vpiParent:
+        \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+        |vpiLeftRange:
+        \_constant: , line:8:18, endln:8:19
+          |vpiParent:
+          \_range: , line:8:17, endln:8:22
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:20, endln:8:21
+          |vpiParent:
+          \_range: , line:8:17, endln:8:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:bitn
     |vpiFullName:work@test.bitn
 |uhdmtopModules:
@@ -267,4 +337,4 @@ design: (work@test)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/LogicTypedef/dut.sv | ${SURELOG_DIR}/build/regression/LogicTypedef/roundtrip/dut_000.sv | 2 | 11 |
+[roundtrip]: ${SURELOG_DIR}/tests/LogicTypedef/dut.sv | ${SURELOG_DIR}/build/regression/LogicTypedef/roundtrip/dut_000.sv | 5 | 11 |

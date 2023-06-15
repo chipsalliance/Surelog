@@ -94,11 +94,11 @@ AST_DEBUG_END
 design                                                 1
 int_typespec                                           1
 interface_inst                                         1
-interface_typespec                                     1
+interface_typespec                                     2
 logic_net                                              2
 logic_var                                              1
 module_inst                                            2
-unsupported_typespec                                   3
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -106,11 +106,11 @@ unsupported_typespec                                   3
 design                                                 1
 int_typespec                                           1
 interface_inst                                         1
-interface_typespec                                     1
+interface_typespec                                     2
 logic_net                                              2
 logic_var                                              1
 module_inst                                            2
-unsupported_typespec                                   3
+unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm ...
 
@@ -156,7 +156,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiTypespec:
-    \_unsupported_typespec: (tnoc_types), line:8:4, endln:8:14
+    \_interface_typespec: (tnoc_types), line:8:4, endln:8:14
       |vpiName:tnoc_types
     |vpiName:types
     |vpiFullName:work@top.types
@@ -165,8 +165,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiTypespec:
-    \_unsupported_typespec: (tnoc_common_header), line:12:3, endln:12:21
-      |vpiName:tnoc_common_header
+    \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
     |vpiName:common_header
     |vpiFullName:work@top.common_header
 |uhdmtopModules:

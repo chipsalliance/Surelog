@@ -50,9 +50,9 @@
 always                                                 1
 assignment                                             1
 begin                                                  2
-bit_typespec                                           4
+bit_typespec                                           5
 bit_var                                                1
-constant                                             314
+constant                                             313
 cont_assign                                            2
 design                                                 1
 enum_const                                             4
@@ -74,13 +74,12 @@ param_assign                                          96
 parameter                                             96
 part_select                                            1
 port                                                   2
-range                                                 47
-ref_obj                                               74
+range                                                 48
+ref_obj                                               77
 struct_net                                             2
 struct_typespec                                        9
-sys_func_call                                         26
+sys_func_call                                         29
 typespec_member                                       32
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -88,9 +87,9 @@ unsupported_typespec                                   1
 always                                                 2
 assignment                                             2
 begin                                                  4
-bit_typespec                                           4
+bit_typespec                                           5
 bit_var                                                1
-constant                                             314
+constant                                             313
 cont_assign                                            3
 design                                                 1
 enum_const                                             4
@@ -112,13 +111,12 @@ param_assign                                          96
 parameter                                             96
 part_select                                            2
 port                                                   3
-range                                                 47
-ref_obj                                               81
+range                                                 48
+ref_obj                                               84
 struct_net                                             2
 struct_typespec                                        9
-sys_func_call                                         26
+sys_func_call                                         29
 typespec_member                                       32
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitsOp/slpp_unit/surelog.uhdm ...
 
@@ -1208,13 +1206,16 @@ design: (work@dut)
       \_param_assign: , line:60:18, endln:60:48
       |vpiOpType:12
       |vpiOperand:
-      \_constant: , line:60:29, endln:60:46
+      \_sys_func_call: ($bits), line:60:29, endln:60:46
         |vpiParent:
         \_operation: , line:60:29, endln:60:48
-        |vpiDecompile:32
-        |vpiSize:64
-        |UINT:32
-        |vpiConstType:9
+        |vpiArgument:
+        \_ref_obj: (hmac_pkg::sha_word_t), line:60:35, endln:60:45
+          |vpiParent:
+          \_sys_func_call: ($bits), line:60:29, endln:60:46
+          |vpiName:sha_word_t
+          |vpiFullName:hmac_pkg::sha_word_t
+        |vpiName:$bits
       |vpiOperand:
       \_constant: , line:60:47, endln:60:48
         |vpiParent:
@@ -3136,8 +3137,32 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/BitsOp/dut.sv, line:75:1, endln:101:10
     |vpiTypespec:
-    \_unsupported_typespec: (MyBits), line:98:3, endln:98:9
+    \_bit_typespec: (MyBits), line:97:11, endln:97:31
       |vpiName:MyBits
+      |vpiTypedefAlias:
+      \_bit_typespec: (MyBits), line:97:11, endln:97:31
+      |vpiInstance:
+      \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/BitsOp/dut.sv, line:75:1, endln:101:10
+      |vpiRange:
+      \_range: , line:97:14, endln:97:31
+        |vpiParent:
+        \_bit_typespec: (MyBits), line:97:11, endln:97:31
+        |vpiLeftRange:
+        \_constant: , line:97:15, endln:97:28
+          |vpiParent:
+          \_range: , line:97:14, endln:97:31
+          |vpiDecompile:9
+          |vpiSize:64
+          |UINT:9
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:97:29, endln:97:30
+          |vpiParent:
+          \_range: , line:97:14, endln:97:31
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiPort:

@@ -241,7 +241,6 @@ struct_net                                             1
 struct_typespec                                       15
 tagged_pattern                                        12
 typespec_member                                       15
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -263,7 +262,6 @@ struct_net                                             1
 struct_typespec                                       15
 tagged_pattern                                        12
 typespec_member                                       15
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PAssignType/slpp_all/surelog.uhdm ...
 
@@ -591,8 +589,7 @@ design: (work@aes_core)
     |vpiParent:
     \_module_inst: work@aes_core (work@aes_core), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:22:1, endln:26:10
     |vpiTypespec:
-    \_unsupported_typespec: (ctrl_reg_t), line:24:3, endln:24:13
-      |vpiName:ctrl_reg_t
+    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
     |vpiName:ctrl_q
     |vpiFullName:work@aes_core.ctrl_q
   |vpiRefModule:
@@ -970,4 +967,4 @@ design: (work@aes_core)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PAssignType/dut.sv | ${SURELOG_DIR}/build/regression/PAssignType/roundtrip/dut_000.sv | 6 | 26 |
+[roundtrip]: ${SURELOG_DIR}/tests/PAssignType/dut.sv | ${SURELOG_DIR}/build/regression/PAssignType/roundtrip/dut_000.sv | 7 | 26 |

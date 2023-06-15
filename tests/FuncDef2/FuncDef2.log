@@ -3659,7 +3659,7 @@ bit_select                                            39
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             2
-constant                                             337
+constant                                             332
 design                                                 1
 enum_const                                            28
 enum_typespec                                          9
@@ -3688,12 +3688,13 @@ param_assign                                         118
 parameter                                            125
 port                                                   6
 range                                                  9
-ref_obj                                              437
+ref_obj                                              442
 ref_var                                                1
 return_stmt                                           88
 short_int_typespec                                   104
 string_typespec                                       96
 struct_typespec                                       15
+sys_func_call                                          5
 tagged_pattern                                        96
 typespec_member                                      110
 unsupported_typespec                                  10
@@ -3711,7 +3712,7 @@ bit_select                                            76
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             5
-constant                                             340
+constant                                             335
 design                                                 1
 enum_const                                            28
 enum_typespec                                          9
@@ -3740,12 +3741,13 @@ param_assign                                         118
 parameter                                            125
 port                                                   9
 range                                                  9
-ref_obj                                             1006
+ref_obj                                             1016
 ref_var                                                1
 return_stmt                                          220
 short_int_typespec                                   104
 string_typespec                                       96
 struct_typespec                                       15
+sys_func_call                                         10
 tagged_pattern                                        96
 typespec_member                                      110
 unsupported_typespec                                  10
@@ -6616,11 +6618,16 @@ design: (work@tnoc_vc_splitter)
         |vpiOpType:24
         |vpiBlocking:1
         |vpiRhs:
-        \_constant: , line:230:14, endln:230:37
-          |vpiDecompile:8
-          |vpiSize:64
-          |UINT:8
-          |vpiConstType:9
+        \_sys_func_call: ($bits), line:230:14, endln:230:37
+          |vpiParent:
+          \_assignment: , line:230:5, endln:230:37
+          |vpiArgument:
+          \_ref_obj: (tnoc_pkg::get_common_header_field_width::tnoc_packet_type), line:230:20, endln:230:36
+            |vpiParent:
+            \_sys_func_call: ($bits), line:230:14, endln:230:37
+            |vpiName:tnoc_packet_type
+            |vpiFullName:tnoc_pkg::get_common_header_field_width::tnoc_packet_type
+          |vpiName:$bits
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_common_header_field_width::width), line:230:5, endln:230:10
           |vpiParent:
@@ -6980,11 +6987,16 @@ design: (work@tnoc_vc_splitter)
         |vpiOpType:24
         |vpiBlocking:1
         |vpiRhs:
-        \_constant: , line:246:14, endln:246:36
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
+        \_sys_func_call: ($bits), line:246:14, endln:246:36
+          |vpiParent:
+          \_assignment: , line:246:5, endln:246:36
+          |vpiArgument:
+          \_ref_obj: (tnoc_pkg::get_request_header_width::tnoc_burst_type), line:246:20, endln:246:35
+            |vpiParent:
+            \_sys_func_call: ($bits), line:246:14, endln:246:36
+            |vpiName:tnoc_burst_type
+            |vpiFullName:tnoc_pkg::get_request_header_width::tnoc_burst_type
+          |vpiName:$bits
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_request_header_width::width), line:246:5, endln:246:10
           |vpiParent:
@@ -7174,11 +7186,16 @@ design: (work@tnoc_vc_splitter)
         |vpiOpType:24
         |vpiBlocking:1
         |vpiRhs:
-        \_constant: , line:256:14, endln:256:41
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
+        \_sys_func_call: ($bits), line:256:14, endln:256:41
+          |vpiParent:
+          \_assignment: , line:256:5, endln:256:41
+          |vpiArgument:
+          \_ref_obj: (tnoc_pkg::get_response_header_width::tnoc_response_status), line:256:20, endln:256:40
+            |vpiParent:
+            \_sys_func_call: ($bits), line:256:14, endln:256:41
+            |vpiName:tnoc_response_status
+            |vpiFullName:tnoc_pkg::get_response_header_width::tnoc_response_status
+          |vpiName:$bits
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_header_width::width), line:256:5, endln:256:10
           |vpiParent:
@@ -7702,11 +7719,16 @@ design: (work@tnoc_vc_splitter)
         |vpiOpType:24
         |vpiBlocking:1
         |vpiRhs:
-        \_constant: , line:286:14, endln:286:41
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
+        \_sys_func_call: ($bits), line:286:14, endln:286:41
+          |vpiParent:
+          \_assignment: , line:286:5, endln:286:41
+          |vpiArgument:
+          \_ref_obj: (tnoc_pkg::get_response_payload_width::tnoc_response_status), line:286:20, endln:286:40
+            |vpiParent:
+            \_sys_func_call: ($bits), line:286:14, endln:286:41
+            |vpiName:tnoc_response_status
+            |vpiFullName:tnoc_pkg::get_response_payload_width::tnoc_response_status
+          |vpiName:$bits
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_response_payload_width::width), line:286:5, endln:286:10
           |vpiParent:
@@ -8296,11 +8318,16 @@ design: (work@tnoc_vc_splitter)
         |vpiOpType:24
         |vpiBlocking:1
         |vpiRhs:
-        \_constant: , line:332:14, endln:332:35
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
+        \_sys_func_call: ($bits), line:332:14, endln:332:35
+          |vpiParent:
+          \_assignment: , line:332:5, endln:332:35
+          |vpiArgument:
+          \_ref_obj: (tnoc_pkg::get_flit_width::tnoc_flit_type), line:332:20, endln:332:34
+            |vpiParent:
+            \_sys_func_call: ($bits), line:332:14, endln:332:35
+            |vpiName:tnoc_flit_type
+            |vpiFullName:tnoc_pkg::get_flit_width::tnoc_flit_type
+          |vpiName:$bits
         |vpiLhs:
         \_ref_obj: (tnoc_pkg::get_flit_width::width), line:332:5, endln:332:10
           |vpiParent:

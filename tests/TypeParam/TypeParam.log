@@ -45,7 +45,6 @@ range                                                  5
 ref_module                                             3
 ref_obj                                                3
 type_parameter                                         7
-unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -64,7 +63,6 @@ range                                                  5
 ref_module                                             3
 ref_obj                                                3
 type_parameter                                         7
-unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypeParam/slpp_unit/surelog.uhdm ...
 
@@ -135,8 +133,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/TypeParam/dut.sv, line:17:1, endln:21:10
     |vpiTypespec:
-    \_unsupported_typespec: (TP1), line:18:5, endln:18:8
-      |vpiName:TP1
+    \_logic_typespec: , line:17:38, endln:17:43
     |vpiName:DATA1
     |vpiFullName:work@bottom.DATA1
   |vpiNet:
@@ -170,8 +167,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/TypeParam/dut.sv, line:17:1, endln:21:10
     |vpiTypespec:
-    \_unsupported_typespec: (TP2), line:20:5, endln:20:8
-      |vpiName:TP2
+    \_int_typespec: , line:17:85, endln:17:88
     |vpiName:DATA2
     |vpiFullName:work@bottom.DATA2
 |uhdmallModules:
@@ -540,4 +536,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/TypeParam/dut.sv | ${SURELOG_DIR}/build/regression/TypeParam/roundtrip/dut_000.sv | 8 | 21 |
+[roundtrip]: ${SURELOG_DIR}/tests/TypeParam/dut.sv | ${SURELOG_DIR}/build/regression/TypeParam/roundtrip/dut_000.sv | 10 | 21 |

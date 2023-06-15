@@ -158,14 +158,13 @@ int_typespec                                           3
 int_var                                                1
 logic_net                                              2
 module_inst                                            3
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                  3
 ref_obj                                                3
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -181,14 +180,13 @@ int_typespec                                           3
 int_var                                                1
 logic_net                                              2
 module_inst                                            3
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                  3
 ref_obj                                                6
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.uhdm ...
 
@@ -235,8 +233,29 @@ design: (work@t)
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_unsupported_typespec: (S), line:3:4, endln:3:10
-      |vpiName:S
+    \_packed_array_typespec: , line:3:4, endln:3:10
+      |vpiRange:
+      \_range: , line:3:5, endln:3:10
+        |vpiParent:
+        \_packed_array_typespec: , line:3:4, endln:3:10
+        |vpiLeftRange:
+        \_constant: , line:3:6, endln:3:7
+          |vpiParent:
+          \_range: , line:3:5, endln:3:10
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:8, endln:3:9
+          |vpiParent:
+          \_range: , line:3:5, endln:3:10
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (S), line:2:12, endln:2:29
     |vpiName:s
     |vpiFullName:work@t.s
   |vpiNet:

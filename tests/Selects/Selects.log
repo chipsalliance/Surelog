@@ -173,14 +173,13 @@ logic_net                                              4
 logic_typespec                                         5
 logic_var                                              2
 module_inst                                            3
-packed_array_typespec                                  2
+packed_array_typespec                                  3
 packed_array_var                                       1
 range                                                  4
 ref_obj                                                3
 struct_typespec                                        2
 struct_var                                             2
 typespec_member                                        2
-unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -193,14 +192,13 @@ logic_net                                              4
 logic_typespec                                         5
 logic_var                                              2
 module_inst                                            3
-packed_array_typespec                                  2
+packed_array_typespec                                  3
 packed_array_var                                       1
 range                                                  4
 ref_obj                                                3
 struct_typespec                                        2
 struct_var                                             2
 typespec_member                                        2
-unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Selects/slpp_all/surelog.uhdm ...
 
@@ -291,8 +289,7 @@ design: (work@t)
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
     |vpiTypespec:
-    \_unsupported_typespec: (rstmgr_reg2hw_t), line:11:3, endln:11:18
-      |vpiName:rstmgr_reg2hw_t
+    \_struct_typespec: (rstmgr_reg2hw_t), line:7:11, endln:9:4
     |vpiName:reg2hw
     |vpiFullName:work@t.reg2hw
   |vpiNet:
@@ -300,8 +297,29 @@ design: (work@t)
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
     |vpiTypespec:
-    \_unsupported_typespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:12:3, endln:12:43
-      |vpiName:rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+    \_packed_array_typespec: , line:12:3, endln:12:43
+      |vpiRange:
+      \_range: , line:12:38, endln:12:43
+        |vpiParent:
+        \_packed_array_typespec: , line:12:3, endln:12:43
+        |vpiLeftRange:
+        \_constant: , line:12:39, endln:12:40
+          |vpiParent:
+          \_range: , line:12:38, endln:12:43
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:12:41, endln:12:42
+          |vpiParent:
+          \_range: , line:12:38, endln:12:43
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
     |vpiName:sw_rst_ctrl_n
     |vpiFullName:work@t.sw_rst_ctrl_n
   |vpiNet:
@@ -462,4 +480,4 @@ design: (work@t)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/Selects/dut.sv | ${SURELOG_DIR}/build/regression/Selects/roundtrip/dut_000.sv | 5 | 16 |
+[roundtrip]: ${SURELOG_DIR}/tests/Selects/dut.sv | ${SURELOG_DIR}/build/regression/Selects/roundtrip/dut_000.sv | 6 | 16 |
