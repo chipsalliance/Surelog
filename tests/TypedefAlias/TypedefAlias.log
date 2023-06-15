@@ -31,34 +31,32 @@
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              10
+constant                                              12
 design                                                 1
 logic_net                                              2
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              2
 module_inst                                            3
 package                                                4
 packed_array_typespec                                  1
-range                                                  5
+range                                                  6
 struct_typespec                                        4
 typespec_member                                        4
-unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              10
+constant                                              12
 design                                                 1
 logic_net                                              2
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              2
 module_inst                                            3
 package                                                4
 packed_array_typespec                                  1
-range                                                  5
+range                                                  6
 struct_typespec                                        4
 typespec_member                                        4
-unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypedefAlias/slpp_unit/surelog.uhdm ...
 
@@ -269,8 +267,32 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:15:1, endln:20:10
     |vpiTypespec:
-    \_unsupported_typespec: (t_two_bits), line:18:5, endln:18:15
+    \_logic_typespec: (t_two_bits), line:16:13, endln:16:24
       |vpiName:t_two_bits
+      |vpiTypedefAlias:
+      \_logic_typespec: (t_two_bits), line:16:13, endln:16:24
+      |vpiInstance:
+      \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:15:1, endln:20:10
+      |vpiRange:
+      \_range: , line:16:19, endln:16:24
+        |vpiParent:
+        \_logic_typespec: (t_two_bits), line:16:13, endln:16:24
+        |vpiLeftRange:
+        \_constant: , line:16:20, endln:16:21
+          |vpiParent:
+          \_range: , line:16:19, endln:16:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:16:22, endln:16:23
+          |vpiParent:
+          \_range: , line:16:19, endln:16:24
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:kkkk
     |vpiFullName:work@test.kkkk
     |vpiNetType:36
@@ -279,8 +301,7 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/TypedefAlias/dut.sv, line:15:1, endln:20:10
     |vpiTypespec:
-    \_unsupported_typespec: (t_two_bits_copy), line:19:5, endln:19:20
-      |vpiName:t_two_bits_copy
+    \_logic_typespec: (t_two_bits_copy), line:16:13, endln:16:24
     |vpiName:zzzz
     |vpiFullName:work@test.zzzz
     |vpiNetType:36
@@ -341,4 +362,4 @@ design: (work@test)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/TypedefAlias/dut.sv | ${SURELOG_DIR}/build/regression/TypedefAlias/roundtrip/dut_000.sv | 5 | 20 |
+[roundtrip]: ${SURELOG_DIR}/tests/TypedefAlias/dut.sv | ${SURELOG_DIR}/build/regression/TypedefAlias/roundtrip/dut_000.sv | 6 | 20 |

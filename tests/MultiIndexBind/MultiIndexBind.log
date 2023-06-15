@@ -197,7 +197,7 @@ hier_path                                              1
 logic_net                                              3
 logic_typespec                                         1
 module_inst                                            5
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                  7
 ref_obj                                                5
@@ -205,7 +205,6 @@ struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        3
 union_typespec                                         1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -220,7 +219,7 @@ hier_path                                              2
 logic_net                                              3
 logic_typespec                                         1
 module_inst                                            5
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                  7
 ref_obj                                               10
@@ -228,7 +227,6 @@ struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        3
 union_typespec                                         1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultiIndexBind/slpp_all/surelog.uhdm ...
 
@@ -350,8 +348,49 @@ design: (work@PreDecodeStage)
     |vpiParent:
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_unsupported_typespec: (OpInfo), line:26:1, endln:26:13
-      |vpiName:OpInfo
+    \_packed_array_typespec: , line:26:1, endln:26:13
+      |vpiRange:
+      \_range: , line:26:8, endln:26:13
+        |vpiParent:
+        \_packed_array_typespec: , line:26:1, endln:26:13
+        |vpiLeftRange:
+        \_constant: , line:26:9, endln:26:10
+          |vpiParent:
+          \_range: , line:26:8, endln:26:13
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:26:11, endln:26:12
+          |vpiParent:
+          \_range: , line:26:8, endln:26:13
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:26:13, endln:26:18
+        |vpiParent:
+        \_packed_array_typespec: , line:26:1, endln:26:13
+        |vpiLeftRange:
+        \_constant: , line:26:14, endln:26:15
+          |vpiParent:
+          \_range: , line:26:13, endln:26:18
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:26:16, endln:26:17
+          |vpiParent:
+          \_range: , line:26:13, endln:26:18
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (OpInfo), line:19:9, endln:22:2
     |vpiName:microOps
     |vpiFullName:work@PreDecodeStage.microOps
   |vpiNet:

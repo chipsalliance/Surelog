@@ -412,7 +412,7 @@ logic_typespec                                         3
 logic_var                                              2
 module_inst                                            3
 package                                                2
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                 10
 ref_obj                                                1
@@ -420,7 +420,6 @@ struct_typespec                                        1
 struct_var                                             1
 task                                                   9
 typespec_member                                        1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -444,7 +443,7 @@ logic_typespec                                         3
 logic_var                                              2
 module_inst                                            3
 package                                                2
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                 10
 ref_obj                                                1
@@ -452,7 +451,6 @@ struct_typespec                                        1
 struct_var                                             1
 task                                                  18
 typespec_member                                        1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SelectSelect/slpp_all/surelog.uhdm ...
 
@@ -995,8 +993,49 @@ design: (work@adc_ctrl_core)
     |vpiParent:
     \_module_inst: work@adc_ctrl_core (work@adc_ctrl_core), file:${SURELOG_DIR}/tests/SelectSelect/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_unsupported_typespec: (filter_ctl_t), line:6:4, endln:6:22
-      |vpiName:filter_ctl_t
+    \_packed_array_typespec: , line:6:4, endln:6:22
+      |vpiRange:
+      \_range: , line:6:17, endln:6:22
+        |vpiParent:
+        \_packed_array_typespec: , line:6:4, endln:6:22
+        |vpiLeftRange:
+        \_constant: , line:6:18, endln:6:19
+          |vpiParent:
+          \_range: , line:6:17, endln:6:22
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:20, endln:6:21
+          |vpiParent:
+          \_range: , line:6:17, endln:6:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:6:22, endln:6:27
+        |vpiParent:
+        \_packed_array_typespec: , line:6:4, endln:6:22
+        |vpiLeftRange:
+        \_constant: , line:6:23, endln:6:24
+          |vpiParent:
+          \_range: , line:6:22, endln:6:27
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:25, endln:6:26
+          |vpiParent:
+          \_range: , line:6:22, endln:6:27
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (filter_ctl_t), line:2:12, endln:4:5
     |vpiName:a
     |vpiFullName:work@adc_ctrl_core.a
   |vpiNet:
@@ -1186,4 +1225,4 @@ design: (work@adc_ctrl_core)
 
 
 [roundtrip]: ${SURELOG_DIR}/tests/SelectSelect/builtin.sv | ${SURELOG_DIR}/build/regression/SelectSelect/roundtrip/builtin_000.sv | 0 | 0 |
-[roundtrip]: ${SURELOG_DIR}/tests/SelectSelect/dut.sv     | ${SURELOG_DIR}/build/regression/SelectSelect/roundtrip/dut_000.sv     | 2 | 8 |
+[roundtrip]: ${SURELOG_DIR}/tests/SelectSelect/dut.sv     | ${SURELOG_DIR}/build/regression/SelectSelect/roundtrip/dut_000.sv     | 3 | 8 |

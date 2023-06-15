@@ -140,7 +140,7 @@ int_var                                                1
 logic_net                                              2
 logic_typespec                                         1
 module_inst                                            4
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 port                                                   2
 range                                                  7
@@ -148,7 +148,6 @@ ref_obj                                                4
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -163,7 +162,7 @@ int_var                                                1
 logic_net                                              2
 logic_typespec                                         1
 module_inst                                            4
-packed_array_typespec                                  1
+packed_array_typespec                                  2
 packed_array_var                                       1
 port                                                   3
 range                                                  7
@@ -171,7 +170,6 @@ ref_obj                                                6
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitSelectSelect/slpp_all/surelog.uhdm ...
 
@@ -244,8 +242,49 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
     |vpiTypespec:
-    \_unsupported_typespec: (filter_ctl_t), line:7:4, endln:7:22
-      |vpiName:filter_ctl_t
+    \_packed_array_typespec: , line:7:4, endln:7:22
+      |vpiRange:
+      \_range: , line:7:17, endln:7:22
+        |vpiParent:
+        \_packed_array_typespec: , line:7:4, endln:7:22
+        |vpiLeftRange:
+        \_constant: , line:7:18, endln:7:19
+          |vpiParent:
+          \_range: , line:7:17, endln:7:22
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:7:20, endln:7:21
+          |vpiParent:
+          \_range: , line:7:17, endln:7:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiRange:
+      \_range: , line:7:22, endln:7:27
+        |vpiParent:
+        \_packed_array_typespec: , line:7:4, endln:7:22
+        |vpiLeftRange:
+        \_constant: , line:7:23, endln:7:24
+          |vpiParent:
+          \_range: , line:7:22, endln:7:27
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:7:25, endln:7:26
+          |vpiParent:
+          \_range: , line:7:22, endln:7:27
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElemTypespec:
+      \_struct_typespec: (filter_ctl_t), line:3:12, endln:5:5
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiPort:
@@ -465,4 +504,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/BitSelectSelect/dut.sv | ${SURELOG_DIR}/build/regression/BitSelectSelect/roundtrip/dut_000.sv | 3 | 9 |
+[roundtrip]: ${SURELOG_DIR}/tests/BitSelectSelect/dut.sv | ${SURELOG_DIR}/build/regression/BitSelectSelect/roundtrip/dut_000.sv | 4 | 9 |

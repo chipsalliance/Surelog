@@ -1630,12 +1630,12 @@ package                                                2
 packed_array_typespec                                  2
 port                                                  10
 range                                                159
-ref_obj                                               36
+ref_obj                                               40
 struct_typespec                                       30
+sys_func_call                                          4
 typespec_member                                      162
 union_typespec                                         3
 union_var                                              1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -1643,7 +1643,7 @@ unsupported_typespec                                   1
 assignment                                            10
 case_item                                             10
 case_stmt                                              5
-constant                                             633
+constant                                             641
 cont_assign                                           11
 design                                                 1
 enum_const                                           342
@@ -1662,12 +1662,12 @@ package                                                2
 packed_array_typespec                                  2
 port                                                  15
 range                                                159
-ref_obj                                               68
+ref_obj                                               72
 struct_typespec                                       30
+sys_func_call                                          4
 typespec_member                                      162
 union_typespec                                         3
 union_var                                              1
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnionCast/slpp_all/surelog.uhdm ...
 
@@ -1708,13 +1708,15 @@ design: (work@r5p_lsu)
           \_range: , line:57:20, endln:57:38
           |vpiOpType:11
           |vpiOperand:
-          \_constant: , line:57:21, endln:57:33
+          \_sys_func_call: ($bits), line:57:21, endln:57:33
             |vpiParent:
             \_operation: , line:57:21, endln:57:35
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
+            |vpiArgument:
+            \_ref_obj: (fn3_t), line:57:27, endln:57:32
+              |vpiParent:
+              \_sys_func_call: ($bits), line:57:21, endln:57:33
+              |vpiName:fn3_t
+            |vpiName:$bits
           |vpiOperand:
           \_constant: , line:57:34, endln:57:35
             |vpiParent:
@@ -1816,13 +1818,15 @@ design: (work@r5p_lsu)
           \_range: , line:94:20, endln:94:38
           |vpiOpType:11
           |vpiOperand:
-          \_constant: , line:94:21, endln:94:33
+          \_sys_func_call: ($bits), line:94:21, endln:94:33
             |vpiParent:
             \_operation: , line:94:21, endln:94:35
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
+            |vpiArgument:
+            \_ref_obj: (fn3_t), line:94:27, endln:94:32
+              |vpiParent:
+              \_sys_func_call: ($bits), line:94:21, endln:94:33
+              |vpiName:fn3_t
+            |vpiName:$bits
           |vpiOperand:
           \_constant: , line:94:34, endln:94:35
             |vpiParent:
@@ -1908,13 +1912,15 @@ design: (work@r5p_lsu)
           \_range: , line:69:20, endln:69:38
           |vpiOpType:11
           |vpiOperand:
-          \_constant: , line:69:21, endln:69:33
+          \_sys_func_call: ($bits), line:69:21, endln:69:33
             |vpiParent:
             \_operation: , line:69:21, endln:69:35
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
+            |vpiArgument:
+            \_ref_obj: (fn3_t), line:69:27, endln:69:32
+              |vpiParent:
+              \_sys_func_call: ($bits), line:69:21, endln:69:33
+              |vpiName:fn3_t
+            |vpiName:$bits
           |vpiOperand:
           \_constant: , line:69:34, endln:69:35
             |vpiParent:
@@ -2016,13 +2022,15 @@ design: (work@r5p_lsu)
           \_range: , line:82:20, endln:82:38
           |vpiOpType:11
           |vpiOperand:
-          \_constant: , line:82:21, endln:82:33
+          \_sys_func_call: ($bits), line:82:21, endln:82:33
             |vpiParent:
             \_operation: , line:82:21, endln:82:35
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
+            |vpiArgument:
+            \_ref_obj: (fn3_t), line:82:27, endln:82:32
+              |vpiParent:
+              \_sys_func_call: ($bits), line:82:21, endln:82:33
+              |vpiName:fn3_t
+            |vpiName:$bits
           |vpiOperand:
           \_constant: , line:82:34, endln:82:35
             |vpiParent:
@@ -6604,8 +6612,7 @@ design: (work@r5p_lsu)
     |vpiParent:
     \_module_inst: work@r5p_lsu (work@r5p_lsu), file:${SURELOG_DIR}/tests/UnionCast/dut.sv, line:145:1, endln:166:19
     |vpiTypespec:
-    \_unsupported_typespec: (op32_t), line:157:1, endln:157:7
-      |vpiName:op32_t
+    \_union_typespec: (riscv_isa_pkg::op32_t), line:115:9, endln:123:2
     |vpiName:dec
     |vpiFullName:work@r5p_lsu.dec
   |vpiPort:
@@ -11630,4 +11637,4 @@ design: (work@r5p_lsu)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/UnionCast/dut.sv | ${SURELOG_DIR}/build/regression/UnionCast/roundtrip/dut_000.sv | 38 | 166 |
+[roundtrip]: ${SURELOG_DIR}/tests/UnionCast/dut.sv | ${SURELOG_DIR}/build/regression/UnionCast/roundtrip/dut_000.sv | 39 | 166 |

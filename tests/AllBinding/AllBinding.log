@@ -110,7 +110,6 @@ module_inst                                            3
 port                                                   2
 range                                                  1
 ref_obj                                                2
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -126,7 +125,6 @@ module_inst                                            3
 port                                                   3
 range                                                  1
 ref_obj                                                3
-unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/surelog.uhdm ...
 
@@ -157,25 +155,6 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_unsupported_typespec: (type_scr1_mem_resp_e), line:3:1, endln:3:21
-      |vpiName:type_scr1_mem_resp_e
-    |vpiName:dmem2exu_resp_ii
-    |vpiFullName:work@top.dmem2exu_resp_ii
-  |vpiPort:
-  \_port: (dmem2exu_resp_i), line:1:57, endln:1:72
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
-    |vpiName:dmem2exu_resp_i
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: (work@top.dmem2exu_resp_i.dmem2exu_resp_i), line:1:57, endln:1:72
-      |vpiParent:
-      \_port: (dmem2exu_resp_i), line:1:57, endln:1:72
-      |vpiName:dmem2exu_resp_i
-      |vpiFullName:work@top.dmem2exu_resp_i.dmem2exu_resp_i
-      |vpiActual:
-      \_logic_net: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
-    |vpiTypedef:
     \_enum_typespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
       |vpiParent:
       \_design: (work@top)
@@ -228,6 +207,24 @@ design: (work@top)
         |BIN:10
         |vpiDecompile:2'b10
         |vpiSize:2
+    |vpiName:dmem2exu_resp_ii
+    |vpiFullName:work@top.dmem2exu_resp_ii
+  |vpiPort:
+  \_port: (dmem2exu_resp_i), line:1:57, endln:1:72
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
+    |vpiName:dmem2exu_resp_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.dmem2exu_resp_i.dmem2exu_resp_i), line:1:57, endln:1:72
+      |vpiParent:
+      \_port: (dmem2exu_resp_i), line:1:57, endln:1:72
+      |vpiName:dmem2exu_resp_i
+      |vpiFullName:work@top.dmem2exu_resp_i.dmem2exu_resp_i
+      |vpiActual:
+      \_logic_net: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
+    |vpiTypedef:
+    \_enum_typespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
 |vpiTypedef:
 \_enum_typespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
 |uhdmtopModules:
@@ -280,5 +277,5 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/AllBinding/dut.sv  | ${SURELOG_DIR}/build/regression/AllBinding/roundtrip/dut_000.sv  | 1 | 5 |
+[roundtrip]: ${SURELOG_DIR}/tests/AllBinding/dut.sv  | ${SURELOG_DIR}/build/regression/AllBinding/roundtrip/dut_000.sv  | 2 | 5 |
 [roundtrip]: ${SURELOG_DIR}/tests/AllBinding/enum.sv | ${SURELOG_DIR}/build/regression/AllBinding/roundtrip/enum_000.sv | 0 | 5 |

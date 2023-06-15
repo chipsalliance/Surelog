@@ -139,13 +139,13 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             1
 begin                                                  1
-constant                                              35
+constant                                              41
 design                                                 1
 import_typespec                                        1
 initial                                                1
 int_typespec                                          14
 logic_net                                              5
-logic_typespec                                         6
+logic_typespec                                         9
 logic_var                                              1
 module_inst                                            5
 operation                                              1
@@ -153,22 +153,21 @@ package                                                2
 packed_array_typespec                                  2
 param_assign                                          12
 parameter                                             14
-range                                                  8
+range                                                 11
 ref_obj                                                1
-unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             2
 begin                                                  2
-constant                                              35
+constant                                              41
 design                                                 1
 import_typespec                                        1
 initial                                                2
 int_typespec                                          14
 logic_net                                              5
-logic_typespec                                         6
+logic_typespec                                         9
 logic_var                                              1
 module_inst                                            5
 operation                                              2
@@ -176,9 +175,8 @@ package                                                2
 packed_array_typespec                                  2
 param_assign                                          12
 parameter                                             14
-range                                                  8
+range                                                 11
 ref_obj                                                2
-unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageNet/slpp_all/surelog.uhdm ...
 
@@ -282,8 +280,32 @@ design: (work@test)
     |vpiParent:
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiTypespec:
-    \_unsupported_typespec: (word), line:8:1, endln:8:5
-      |vpiName:word
+    \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+      |vpiName:my_package1::word
+      |vpiTypedefAlias:
+      \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+      |vpiInstance:
+      \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
+      |vpiRange:
+      \_range: , line:6:15, endln:6:20
+        |vpiParent:
+        \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+        |vpiLeftRange:
+        \_constant: , line:6:16, endln:6:17
+          |vpiParent:
+          \_range: , line:6:15, endln:6:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:18, endln:6:19
+          |vpiParent:
+          \_range: , line:6:15, endln:6:20
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:v
     |vpiFullName:my_package1::v
 |uhdmtopPackages:
@@ -377,8 +399,32 @@ design: (work@test)
     |vpiParent:
     \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
     |vpiTypespec:
-    \_unsupported_typespec: (word), line:8:1, endln:8:5
-      |vpiName:word
+    \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+      |vpiName:my_package1::word
+      |vpiTypedefAlias:
+      \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+      |vpiInstance:
+      \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
+      |vpiRange:
+      \_range: , line:6:15, endln:6:20
+        |vpiParent:
+        \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+        |vpiLeftRange:
+        \_constant: , line:6:16, endln:6:17
+          |vpiParent:
+          \_range: , line:6:15, endln:6:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:18, endln:6:19
+          |vpiParent:
+          \_range: , line:6:15, endln:6:20
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:v
     |vpiFullName:my_package1::v
     |vpiNetType:36
@@ -479,8 +525,32 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:13:1, endln:21:10
     |vpiTypespec:
-    \_unsupported_typespec: (word), line:8:1, endln:8:5
-      |vpiName:word
+    \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+      |vpiName:my_package1::word
+      |vpiTypedefAlias:
+      \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+      |vpiInstance:
+      \_package: my_package1 (my_package1::), file:${SURELOG_DIR}/tests/PackageNet/dut.sv, line:1:1, endln:10:11
+      |vpiRange:
+      \_range: , line:6:15, endln:6:20
+        |vpiParent:
+        \_logic_typespec: (my_package1::word), line:6:9, endln:6:20
+        |vpiLeftRange:
+        \_constant: , line:6:16, endln:6:17
+          |vpiParent:
+          \_range: , line:6:15, endln:6:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:6:18, endln:6:19
+          |vpiParent:
+          \_range: , line:6:15, endln:6:20
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiName:v
     |vpiFullName:work@test.v
     |vpiNetType:36

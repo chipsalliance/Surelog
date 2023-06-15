@@ -4223,7 +4223,7 @@ UHDM::any *CompileHelper::compileBits(
           typeSpecId = StringConst;
           tps = getTypespec(component, fC, typeSpecId, compileDesign, reduce,
                             instance);
-          if ((reduce == Reduce::No) && tps) {
+          if (m_elabMode && (reduce == Reduce::No) && tps) {
             UHDM::ExprEval eval;
             if (eval.isFullySpecified(tps)) {
               reduce = Reduce::Yes;
@@ -4248,7 +4248,7 @@ UHDM::any *CompileHelper::compileBits(
   if (bits == 0) {
     tps =
         getTypespec(component, fC, typeSpecId, compileDesign, reduce, instance);
-    if ((reduce == Reduce::No) && tps) {
+    if (m_elabMode && (reduce == Reduce::No) && tps) {
       UHDM::ExprEval eval;
       if (eval.isFullySpecified(tps)) {
         reduce = Reduce::Yes;

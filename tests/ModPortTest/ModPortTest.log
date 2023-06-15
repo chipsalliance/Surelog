@@ -346,7 +346,7 @@ parameter                                              1
 port                                                   9
 range                                                  2
 ref_obj                                               11
-unsupported_typespec                                   6
+unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortTest/slpp_unit/surelog.uhdm ...
 
@@ -429,8 +429,7 @@ design: (work@dff0_test)
     |vpiParent:
     \_interface_inst: work@AXI_BUS (work@AXI_BUS), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:8:1, endln:26:13
     |vpiTypespec:
-    \_unsupported_typespec: (id_t), line:20:3, endln:20:7
-      |vpiName:id_t
+    \_logic_typespec: (id_t), line:12:11, endln:12:16
     |vpiName:rw_id
     |vpiFullName:work@AXI_BUS.rw_id
   |vpiModport:
@@ -588,8 +587,7 @@ design: (work@dff0_test)
     |vpiParent:
     \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:36:1, endln:43:10
     |vpiTypespec:
-    \_unsupported_typespec: (fsm_t), line:40:1, endln:40:6
-      |vpiName:fsm_t
+    \_enum_typespec: (fsm_t), line:38:1, endln:38:44
     |vpiName:state
     |vpiFullName:work@memory_ctrl1.state
   |vpiNet:
@@ -665,8 +663,7 @@ design: (work@dff0_test)
     |vpiParent:
     \_module_inst: work@memory_ctrl2 (work@memory_ctrl2), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:45:1, endln:53:10
     |vpiTypespec:
-    \_unsupported_typespec: (fsm_t), line:49:1, endln:49:6
-      |vpiName:fsm_t
+    \_enum_typespec: (fsm_t), line:47:1, endln:47:44
     |vpiName:state
     |vpiFullName:work@memory_ctrl2.state
   |vpiNet:
@@ -902,4 +899,4 @@ design: (work@dff0_test)
 [   NOTE] : 9
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/ModPortTest/top.v | ${SURELOG_DIR}/build/regression/ModPortTest/roundtrip/top_000.v | 14 | 53 |
+[roundtrip]: ${SURELOG_DIR}/tests/ModPortTest/top.v | ${SURELOG_DIR}/build/regression/ModPortTest/roundtrip/top_000.v | 16 | 53 |

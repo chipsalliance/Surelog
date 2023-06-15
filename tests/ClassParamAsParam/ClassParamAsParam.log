@@ -32,37 +32,35 @@
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 class_defn                                             5
-class_typespec                                         4
+class_typespec                                         6
 class_var                                              2
 design                                                 1
 extends                                                1
 int_typespec                                           4
 logic_net                                              1
-long_int_typespec                                      1
+long_int_typespec                                      2
 method_func_call                                       1
 module_inst                                            3
-param_assign                                           2
+param_assign                                           4
 ref_obj                                                1
-type_parameter                                         6
-unsupported_typespec                                   1
+type_parameter                                         8
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 class_defn                                             5
-class_typespec                                         8
+class_typespec                                        10
 class_var                                              3
 design                                                 1
 extends                                                3
 int_typespec                                           4
 logic_net                                              1
-long_int_typespec                                      1
+long_int_typespec                                      2
 method_func_call                                       1
 module_inst                                            3
-param_assign                                           6
+param_assign                                           8
 ref_obj                                                1
-type_parameter                                         9
-unsupported_typespec                                   1
+type_parameter                                        11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassParamAsParam/slpp_unit/surelog.uhdm ...
 
@@ -241,8 +239,50 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ClassParamAsParam/dut.sv, line:17:1, endln:19:10
     |vpiTypespec:
-    \_unsupported_typespec: (config_db), line:18:3, endln:18:43
+    \_class_typespec: (config_db), line:18:3, endln:18:43
       |vpiName:config_db
+      |vpiParameter:
+      \_type_parameter: (config_db.T), line:14:23, endln:14:24
+        |vpiParent:
+        \_class_typespec: (config_db), line:18:3, endln:18:43
+        |vpiName:T
+        |vpiFullName:config_db.T
+        |vpiTypespec:
+        \_class_typespec: (object), line:18:14, endln:18:20
+          |vpiParent:
+          \_type_parameter: (config_db.T), line:14:23, endln:14:24
+          |vpiName:object
+          |vpiParameter:
+          \_type_parameter: (config_db.T.object.T), line:1:28, endln:1:29
+            |vpiParent:
+            \_class_typespec: (object), line:18:14, endln:18:20
+            |vpiName:T
+            |vpiFullName:config_db.T.object.T
+            |vpiTypespec:
+            \_long_int_typespec: , line:18:22, endln:18:29
+              |vpiParent:
+              \_type_parameter: (config_db.T.object.T), line:1:28, endln:1:29
+              |vpiSigned:1
+          |vpiParamAssign:
+          \_param_assign: , line:1:28, endln:1:29
+            |vpiParent:
+            \_class_typespec: (object), line:18:14, endln:18:20
+            |vpiRhs:
+            \_type_parameter: (config_db.T.object.T), line:1:28, endln:1:29
+            |vpiLhs:
+            \_type_parameter: (work@object::T), line:1:28, endln:1:29
+          |vpiClassDefn:
+          \_class_defn: (work@object), file:${SURELOG_DIR}/tests/ClassParamAsParam/dut.sv, line:1:9, endln:2:9
+      |vpiParamAssign:
+      \_param_assign: , line:14:23, endln:14:24
+        |vpiParent:
+        \_class_typespec: (config_db), line:18:3, endln:18:43
+        |vpiRhs:
+        \_type_parameter: (config_db.T), line:14:23, endln:14:24
+        |vpiLhs:
+        \_type_parameter: (work@config_db::T), line:14:23, endln:14:24
+      |vpiClassDefn:
+      \_class_defn: (work@config_db), file:${SURELOG_DIR}/tests/ClassParamAsParam/dut.sv, line:14:1, endln:15:9
     |vpiName:misc2
     |vpiFullName:work@top.misc2
 |uhdmtopModules:

@@ -681,7 +681,8 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
   }
 }
 
-void UhdmWriter::writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
+void UhdmWriter::writeNets(DesignComponent* mod,
+                           std::vector<Signal*>& orig_nets, BaseClass* parent,
                            VectorOfnet* dest_nets, Serializer& s,
                            SignalBaseClassMap& signalBaseMap,
                            SignalMap& signalMap, SignalMap& portMap,
@@ -733,23 +734,19 @@ void UhdmWriter::writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
               }
             }
           }
-        } else {
-          // compileTypespec function need to take care of range informatio  if
-          // there is any in the typespec. Because all the type of typespec do
-          // not have Range(). Later we will remove the code below when solve
-          // typespec problems.
+        } else if (dest_net->Typespec() == nullptr) {
+          // compileTypespec function need to account for range
+          // location information if there is any in the typespec.
           if (orig_net->getTypeSpecId()) {
             if (typespec* typespec = m_helper.compileTypespec(
-                    nullptr, fC, orig_net->getTypeSpecId(), m_compileDesign,
+                    mod, fC, orig_net->getTypeSpecId(), m_compileDesign,
                     Reduce::No, nullptr, nullptr, true)) {
               dest_net->Typespec(typespec);
-              NodeId unpackedDimensions = orig_net->getUnpackedDimension();
-              NodeId packedDimensions = unpackedDimensions
-                                            ? unpackedDimensions
-                                            : orig_net->getPackedDimension();
-              if (packedDimensions)
-                fC->populateCoreMembers(InvalidNodeId, packedDimensions,
-                                        typespec);
+              NodeId dimensions = orig_net->getUnpackedDimension();
+              if (!dimensions) dimensions = orig_net->getPackedDimension();
+              if (dimensions) {
+                fC->populateCoreMembers(InvalidNodeId, dimensions, typespec);
+              }
             }
           }
         }
@@ -1104,7 +1101,7 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
   SignalMap netMap;
   std::vector<Signal*> orig_nets = pack->getSignals();
   VectorOfnet* dest_nets = s.MakeNetVec();
-  writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
+  writeNets(pack, orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap,
             nullptr);
   p->Nets(dest_nets);
   if (elaborated) {
@@ -1154,7 +1151,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
   m->Ports(dest_ports);
   // Nets
   std::vector<Signal*> orig_nets = mod->getSignals();
-  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap,
+  writeNets(mod, orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap,
             instance);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
@@ -1356,7 +1353,7 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
              signalBaseMap, portMap, instance);
   m->Ports(dest_ports);
   std::vector<Signal*> orig_nets = mod->getSignals();
-  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap,
+  writeNets(mod, orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap,
             instance);
   m->Nets(dest_nets);
   // Modports
@@ -1494,7 +1491,7 @@ void UhdmWriter::writeProgram(Program* mod, program* m, Serializer& s,
   m->Ports(dest_ports);
   // Nets
   std::vector<Signal*>& orig_nets = mod->getSignals();
-  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap,
+  writeNets(mod, orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap,
             instance);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
@@ -4052,6 +4049,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
       m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
+  m_helper.setElabMode(false);
+
   vpiHandle designHandle = 0;
   std::vector<vpiHandle> designs;
   design* d = nullptr;
@@ -4137,6 +4136,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       }
     }
 
+    m_helper.setElabMode(true);
+
     VectorOfpackage* v2 = s.MakePackageVec();
     for (Package* pack : packages) {
       if (!pack) continue;
@@ -4165,6 +4166,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       }
     }
     d->TopPackages(v2);
+
+    m_helper.setElabMode(false);
 
     VectorOfpackage* v3 = s.MakePackageVec();
     d->AllPackages(v3);
@@ -4341,6 +4344,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     // -------------------------------
     // Elaborated Model (Folded)
 
+    m_helper.setElabMode(true);
+
     // Top-level modules
     VectorOfmodule_inst* uhdm_top_modules = s.MakeModule_instVec();
     for (ModuleInstance* inst : topLevelModules) {
@@ -4390,6 +4395,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     annotate->listenDesigns(designs);
     delete annotate;
   }
+
+  m_helper.setElabMode(true);
 
   // ----------------------------------
   // Fully elaborated model
