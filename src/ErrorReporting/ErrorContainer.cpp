@@ -29,8 +29,8 @@
 #include <Surelog/ErrorReporting/LogListener.h>
 #include <Surelog/ErrorReporting/Waiver.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
-#include <stdio.h>
 
+#include <cstdio>
 #include <iostream>
 
 namespace SURELOG {

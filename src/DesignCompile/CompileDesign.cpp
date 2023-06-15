@@ -101,7 +101,9 @@ bool CompileDesign::compile() {
 
   Location loc(BadSymbolId);
   Error err1(ErrorDefinition::COMP_COMPILE, loc);
-  ErrorContainer* errors = new ErrorContainer(getCompiler()->getSymbolTable());
+  ErrorContainer* errors =
+      new ErrorContainer(getCompiler()->getSymbolTable(),
+                         getCompiler()->getErrorContainer()->getLogListener());
   errors->registerCmdLine(getCompiler()->getCommandLineParser());
   errors->addError(err1);
   errors->printMessage(err1,
@@ -261,7 +263,9 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
 bool CompileDesign::elaborate() {
   Location loc(BadSymbolId);
   Error err2(ErrorDefinition::ELAB_ELABORATING_DESIGN, loc);
-  ErrorContainer* errors = new ErrorContainer(getCompiler()->getSymbolTable());
+  ErrorContainer* errors =
+      new ErrorContainer(getCompiler()->getSymbolTable(),
+                         getCompiler()->getErrorContainer()->getLogListener());
   errors->registerCmdLine(getCompiler()->getCommandLineParser());
   errors->addError(err2);
   errors->printMessage(err2,
@@ -288,7 +292,8 @@ bool CompileDesign::compilation_() {
     SymbolTable* symbols =
         m_compiler->getCommandLineParser()->getSymbolTable()->CreateSnapshot();
     m_symbolTables.push_back(symbols);
-    ErrorContainer* errors = new ErrorContainer(symbols);
+    ErrorContainer* errors = new ErrorContainer(
+        symbols, m_compiler->getErrorContainer()->getLogListener());
     errors->registerCmdLine(m_compiler->getCommandLineParser());
     m_errorContainers.push_back(errors);
     index++;

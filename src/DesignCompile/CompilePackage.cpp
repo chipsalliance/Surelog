@@ -75,7 +75,8 @@ bool CompilePackage::compile(Reduce reduce) {
                  m_symbols->getId(m_package->getName()));
     Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
 
-    ErrorContainer* errors = new ErrorContainer(m_symbols);
+    ErrorContainer* errors =
+        new ErrorContainer(m_symbols, m_errors->getLogListener());
     errors->registerCmdLine(
         m_compileDesign->getCompiler()->getCommandLineParser());
     errors->addError(err);

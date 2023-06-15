@@ -170,7 +170,8 @@ bool Compiler::ppinit_() {
       symbols = m_commandLineParser->getSymbolTable()->CreateSnapshot();
       m_symbolTables.push_back(symbols);
     }
-    ErrorContainer* errors = new ErrorContainer(symbols);
+    ErrorContainer* errors =
+        new ErrorContainer(symbols, m_errors->getLogListener());
     m_errorContainers.push_back(errors);
     errors->registerCmdLine(m_commandLineParser);
 
@@ -223,7 +224,8 @@ bool Compiler::ppinit_() {
       symbols = m_commandLineParser->getSymbolTable()->CreateSnapshot();
       m_symbolTables.push_back(symbols);
     }
-    ErrorContainer* errors = new ErrorContainer(symbols);
+    ErrorContainer* errors =
+        new ErrorContainer(symbols, m_errors->getLogListener());
     m_errorContainers.push_back(errors);
     errors->registerCmdLine(m_commandLineParser);
 
@@ -261,7 +263,8 @@ bool Compiler::ppinit_() {
         symbols = m_commandLineParser->getSymbolTable()->CreateSnapshot();
         m_symbolTables.push_back(symbols);
       }
-      ErrorContainer* errors = new ErrorContainer(symbols);
+      ErrorContainer* errors =
+          new ErrorContainer(symbols, m_errors->getLogListener());
       m_errorContainers.push_back(errors);
       errors->registerCmdLine(m_commandLineParser);
 
@@ -713,7 +716,8 @@ bool Compiler::parseinit_() {
         m_symbolTables.push_back(symbols);
         compiler->setSymbolTable(symbols);
         // fileContent->setSymbolTable(symbols);
-        ErrorContainer* errors = new ErrorContainer(symbols);
+        ErrorContainer* errors =
+            new ErrorContainer(symbols, m_errors->getLogListener());
         m_errorContainers.push_back(errors);
         errors->registerCmdLine(m_commandLineParser);
         compiler->setErrorContainer(errors);
@@ -735,7 +739,8 @@ bool Compiler::parseinit_() {
         tmp_compilers.push_back(chunkCompiler);
 
         chunkCompiler->setSymbolTable(symbols);
-        ErrorContainer* errors = new ErrorContainer(symbols);
+        ErrorContainer* errors =
+            new ErrorContainer(symbols, m_errors->getLogListener());
         m_errorContainers.push_back(errors);
         errors->registerCmdLine(m_commandLineParser);
         chunkCompiler->setErrorContainer(errors);
@@ -757,7 +762,8 @@ bool Compiler::parseinit_() {
             m_commandLineParser->getSymbolTable()->CreateSnapshot();
         m_symbolTables.push_back(symbols);
         compiler->setSymbolTable(symbols);
-        ErrorContainer* errors = new ErrorContainer(symbols);
+        ErrorContainer* errors =
+            new ErrorContainer(symbols, m_errors->getLogListener());
         m_errorContainers.push_back(errors);
         errors->registerCmdLine(m_commandLineParser);
         compiler->setErrorContainer(errors);
