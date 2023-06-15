@@ -56,7 +56,8 @@ bool CompileProgram::compile() {
                m_symbols->registerSymbol(m_program->getName()));
 
   Error err1(ErrorDefinition::COMP_COMPILE_PROGRAM, loc);
-  ErrorContainer* errors = new ErrorContainer(m_symbols);
+  ErrorContainer* errors =
+      new ErrorContainer(m_symbols, m_errors->getLogListener());
   errors->registerCmdLine(
       m_compileDesign->getCompiler()->getCommandLineParser());
   errors->addError(err1);

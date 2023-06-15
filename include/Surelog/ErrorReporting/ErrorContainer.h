@@ -63,6 +63,8 @@ class ErrorContainer final {
                           LogListener* logListener = nullptr);
   virtual ~ErrorContainer();
 
+  LogListener* getLogListener() { return m_logListener; }
+
   void registerCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,

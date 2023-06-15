@@ -128,7 +128,8 @@ bool CompileModule::compile() {
   }
 
   Error err(errType, loc);
-  ErrorContainer* errors = new ErrorContainer(m_symbols);
+  ErrorContainer* errors =
+      new ErrorContainer(m_symbols, m_errors->getLogListener());
   errors->registerCmdLine(clp);
   errors->addError(err);
   errors->printMessage(err, clp->muteStdout());
