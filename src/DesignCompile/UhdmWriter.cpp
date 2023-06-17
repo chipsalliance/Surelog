@@ -4377,25 +4377,6 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     s.PrintStats(std::cerr, "Non-Elaborated Model");
   }
 
-  // ----------------------------------
-  // Lint only the elaborated model
-  UhdmLint* linter = new UhdmLint(&s, d);
-  linter->listenDesigns(designs);
-  delete linter;
-
-  if (m_compileDesign->getCompiler()
-          ->getCommandLineParser()
-          ->reportNonSynthesizable()) {
-    std::set<const any*> nonSynthesizableObjects;
-    SynthSubset* annotate =
-        new SynthSubset(&s, nonSynthesizableObjects, true,
-                        m_compileDesign->getCompiler()
-                            ->getCommandLineParser()
-                            ->reportNonSynthesizableWithFormal());
-    annotate->listenDesigns(designs);
-    delete annotate;
-  }
-
   m_helper.setElabMode(true);
 
   // ----------------------------------
@@ -4416,6 +4397,25 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
             ->getUhdmStats()) {
       s.PrintStats(std::cerr, "Elaborated Model");
     }
+  }
+
+  // ----------------------------------
+  // Lint only the elaborated model
+  UhdmLint* linter = new UhdmLint(&s, d);
+  linter->listenDesigns(designs);
+  delete linter;
+
+  if (m_compileDesign->getCompiler()
+          ->getCommandLineParser()
+          ->reportNonSynthesizable()) {
+    std::set<const any*> nonSynthesizableObjects;
+    SynthSubset* annotate =
+        new SynthSubset(&s, nonSynthesizableObjects, true,
+                        m_compileDesign->getCompiler()
+                            ->getCommandLineParser()
+                            ->reportNonSynthesizableWithFormal());
+    annotate->listenDesigns(designs);
+    delete annotate;
   }
 
   UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d);

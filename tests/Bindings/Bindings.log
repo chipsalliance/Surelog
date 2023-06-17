@@ -1393,10 +1393,6 @@ sys_func_call                                          3
 task                                                   9
 unsupported_typespec                                   5
 === UHDM Object Stats End ===
-[ERR:UH0718] ${SURELOG_DIR}/tests/Bindings/dut.sv:75:11: Illegal lhs of type wire "data_r".
-
-[ERR:UH0718] ${SURELOG_DIR}/tests/Bindings/dut.sv:77:11: Illegal lhs of type wire "data_r".
-
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
@@ -1409,7 +1405,7 @@ case_stmt                                              1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             191
+constant                                             180
 cont_assign                                           12
 design                                                 1
 enum_const                                            28
@@ -1443,6 +1439,10 @@ sys_func_call                                          3
 task                                                  18
 unsupported_typespec                                   5
 === UHDM Object Stats End ===
+[ERR:UH0718] ${SURELOG_DIR}/tests/Bindings/dut.sv:75:11: Illegal lhs of type wire "data_r".
+
+[ERR:UH0718] ${SURELOG_DIR}/tests/Bindings/dut.sv:77:11: Illegal lhs of type wire "data_r".
+
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Bindings/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Bindings/slpp_all/checker/surelog.chk.html ...
@@ -2231,7 +2231,7 @@ design: (work@dut1)
         |vpiName:width_p
         |vpiFullName:width_p.width_p
         |vpiActual:
-        \_parameter: (work@bsg_dff_reset.width_p), line:67:25, endln:67:32
+        \_parameter: (work@dut3.a2.width_p), line:67:25, endln:67:32
     |vpiName:width_p
     |vpiFullName:work@bsg_dff_reset.width_p
   |vpiParameter:
@@ -2539,8 +2539,6 @@ design: (work@dut1)
             |vpiParent:
             \_operation: , line:25:10, endln:25:28
             |vpiName:NumBitsDeviceSel
-            |vpiActual:
-            \_parameter: (work@dut1.NumBitsDeviceSel), line:24:27, endln:24:43
           |vpiOperand:
           \_constant: , line:25:27, endln:25:28
             |vpiParent:
@@ -3770,7 +3768,7 @@ design: (work@dut1)
             |vpiName:device
             |vpiFullName:work@dut1.device
             |vpiActual:
-            \_logic_net: (work@dut1.device), line:26:7, endln:26:13
+            \_int_var: (work@dut1.device), line:26:7, endln:26:17
         |vpiLhs:
         \_ref_obj: (work@dut1.device_sel_req), line:28:5, endln:28:19
           |vpiParent:
@@ -3778,7 +3776,7 @@ design: (work@dut1)
           |vpiName:device_sel_req
           |vpiFullName:work@dut1.device_sel_req
           |vpiActual:
-          \_logic_net: (work@dut1.device_sel_req), line:25:32, endln:25:46
+          \_logic_var: (work@dut1.device_sel_req), line:25:32, endln:25:46
     |vpiAlwaysType:2
 |uhdmtopModules:
 \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/Bindings/dut.sv, line:35:1, endln:50:10
