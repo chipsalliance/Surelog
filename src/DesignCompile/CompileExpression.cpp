@@ -488,7 +488,10 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
         if (isSigned) {
           int_typespec *tps = s.MakeInt_typespec();
           tps->VpiSigned(true);
-          c->Typespec(tps);
+          ref_typespec *rttps = s.MakeRef_typespec();
+          rttps->VpiParent(c);
+          rttps->Actual_group(tps);
+          c->Typespec(rttps);
         }
         switch (base) {
           case 'h':
@@ -846,14 +849,17 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
       if (Package *pack = design->getPackage(packName)) {
         if (expr *val = pack->getComplexValue(varName)) {
           result = val;
-          if (result) {
-            if (result->UhdmType() == uhdmoperation) {
-              operation *op = (operation *)result;
-              UHDM::ExprEval eval;
-              expr *res = eval.flattenPatternAssignments(s, op->Typespec(),
-                                                         (UHDM::expr *)result);
+          if (result && (result->UhdmType() == uhdmoperation)) {
+            operation *op = (operation *)result;
+            const UHDM::typespec *opts = nullptr;
+            if (ref_typespec *rt = op->Typespec()) {
+              opts = rt->Actual_group();
+            }
+            UHDM::ExprEval eval;
+            if (expr *res = eval.flattenPatternAssignments(
+                    s, opts, (UHDM::expr *)result)) {
               if (res->UhdmType() == uhdmoperation) {
-                ((operation *)result)->Operands(((operation *)res)->Operands());
+                op->Operands(((operation *)res)->Operands());
               }
             }
           }
@@ -915,10 +921,13 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                     int32_t opType = op->VpiOpType();
                     if (opType == vpiAssignmentPatternOp) {
                       const any *lhs = param->Lhs();
-                      any *rhs = (any *)param->Rhs();
+                      any *rhs = param->Rhs();
                       const typespec *ts = nullptr;
                       if (lhs->UhdmType() == uhdmparameter) {
-                        ts = ((parameter *)lhs)->Typespec();
+                        if (const ref_typespec *rt =
+                                ((parameter *)lhs)->Typespec()) {
+                          ts = rt->Actual_group();
+                        }
                       }
                       rhs = expandPatternAssignment(ts, (expr *)rhs, component,
                                                     compileDesign, instance);
@@ -1015,10 +1024,13 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                 int32_t opType = op->VpiOpType();
                 if (opType == vpiAssignmentPatternOp) {
                   const any *lhs = param->Lhs();
-                  any *rhs = (any *)param->Rhs();
+                  any *rhs = param->Rhs();
                   const typespec *ts = nullptr;
                   if (lhs->UhdmType() == uhdmparameter) {
-                    ts = ((parameter *)lhs)->Typespec();
+                    if (const ref_typespec *rt =
+                            ((parameter *)lhs)->Typespec()) {
+                      ts = rt->Actual_group();
+                    }
                   }
                   rhs = expandPatternAssignment(ts, (expr *)rhs, component,
                                                 compileDesign, instance);
@@ -1558,7 +1570,10 @@ UHDM::any *CompileHelper::compileExpression(
           }
         }
         unsupported_typespec *tps = s.MakeUnsupported_typespec();
-        op->Typespec(tps);
+        ref_typespec *rttps = s.MakeRef_typespec();
+        rttps->VpiParent(op);
+        rttps->Actual_group(tps);
+        op->Typespec(rttps);
         component->needLateTypedefBinding(op);
         Port_reference = fC->Sibling(Port_reference);
       }
@@ -2374,7 +2389,10 @@ UHDM::any *CompileHelper::compileExpression(
             if (UHDM::typespec *tps =
                     compileTypespec(component, fC, Simple_type, compileDesign,
                                     reduce, operation, instance, false)) {
-              operation->Typespec(tps);
+              ref_typespec *rttps = s.MakeRef_typespec();
+              rttps->VpiParent(operation);
+              rttps->Actual_group(tps);
+              operation->Typespec(rttps);
               if (tps->UhdmType() == uhdmunsupported_typespec) {
                 component->needLateTypedefBinding(operation);
               }
@@ -2572,16 +2590,27 @@ UHDM::any *CompileHelper::compileExpression(
                               result->VpiParent(
                                   const_cast<param_assign *>(param_ass));
                               fC->populateCoreMembers(child, child, result);
+                              typespec *tps = nullptr;
                               const any *lhs = param_ass->Lhs();
-                              expr *res = (expr *)result;
-                              const typespec *tps = nullptr;
                               if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
-                                tps = ((UHDM::type_parameter *)lhs)->Typespec();
-                              } else {
-                                tps = ((UHDM::parameter *)lhs)->Typespec();
+                                if (ref_typespec *lhs_ts =
+                                        ((UHDM::type_parameter *)lhs)
+                                            ->Typespec()) {
+                                  tps = lhs_ts->Actual_group();
+                                }
+                              } else if (lhs->UhdmType() ==
+                                         UHDM::uhdmparameter) {
+                                if (ref_typespec *lhs_ts =
+                                        ((UHDM::parameter *)lhs)->Typespec()) {
+                                  tps = lhs_ts->Actual_group();
+                                }
                               }
+                              expr *res = (expr *)result;
                               if (tps && (res->Typespec() == nullptr)) {
-                                res->Typespec((UHDM::typespec *)tps);
+                                ref_typespec *rttps = s.MakeRef_typespec();
+                                rttps->VpiParent(res);
+                                rttps->Actual_group(tps);
+                                res->Typespec(rttps);
                               }
                               break;
                             }
@@ -2597,9 +2626,8 @@ UHDM::any *CompileHelper::compileExpression(
               }
             }
             if (component && (result == nullptr)) {
-              UHDM::VectorOfparam_assign *param_assigns =
-                  component->getParam_assigns();
-              if (param_assigns) {
+              if (UHDM::VectorOfparam_assign *param_assigns =
+                      component->getParam_assigns()) {
                 for (param_assign *param_ass : *param_assigns) {
                   if (param_ass && param_ass->Lhs()) {
                     const std::string_view param_name =
@@ -2632,16 +2660,25 @@ UHDM::any *CompileHelper::compileExpression(
                                 const_cast<param_assign *>(param_ass));
                             fC->populateCoreMembers(child, child, result);
                           }
+                          typespec *tps = nullptr;
                           const any *lhs = param_ass->Lhs();
-                          expr *res = (expr *)result;
-                          const typespec *tps = nullptr;
                           if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
-                            tps = ((UHDM::type_parameter *)lhs)->Typespec();
-                          } else {
-                            tps = ((UHDM::parameter *)lhs)->Typespec();
+                            if (ref_typespec *lhs_rt =
+                                    ((UHDM::type_parameter *)lhs)->Typespec()) {
+                              tps = lhs_rt->Actual_group();
+                            }
+                          } else if (lhs->UhdmType() == UHDM::uhdmparameter) {
+                            if (ref_typespec *lhs_rt =
+                                    ((UHDM::parameter *)lhs)->Typespec()) {
+                              tps = lhs_rt->Actual_group();
+                            }
                           }
+                          expr *res = (expr *)result;
                           if (tps && (res->Typespec() == nullptr)) {
-                            res->Typespec((UHDM::typespec *)tps);
+                            ref_typespec *rttps = s.MakeRef_typespec();
+                            rttps->VpiParent(res);
+                            rttps->Actual_group(tps);
+                            res->Typespec(rttps);
                           }
                           break;
                         }
@@ -2682,7 +2719,10 @@ UHDM::any *CompileHelper::compileExpression(
             if (sval->isSigned()) {
               int_typespec *ts = s.MakeInt_typespec();
               ts->VpiSigned(true);
-              c->Typespec(ts);
+              ref_typespec *rtts = s.MakeRef_typespec();
+              rtts->VpiParent(c);
+              rtts->Actual_group(ts);
+              c->Typespec(rtts);
             }
             result = c;
           }
@@ -2792,7 +2832,10 @@ UHDM::any *CompileHelper::compileExpression(
         }
         case VObjectType::slEmpty_queue: {
           UHDM::array_var *var = s.MakeArray_var();
-          var->Typespec(s.MakeArray_typespec());
+          ref_typespec *rtts = s.MakeRef_typespec();
+          rtts->VpiParent(var);
+          rtts->Actual_group(s.MakeArray_typespec());
+          var->Typespec(rtts);
           var->VpiArrayType(vpiQueueArray);
           result = var;
           break;
@@ -3388,14 +3431,22 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
             fC->populateCoreMembers(Constant_expression, Constant_expression,
                                     tps);
             tps->VpiParent(pattern);
-            pattern->Typespec(tps);
+            ref_typespec *rttps = s.MakeRef_typespec();
+            rttps->VpiParent(pattern);
+            rttps->Actual_group(tps);
+            pattern->Typespec(rttps);
           } else {
             NodeId Primary_literal = Constant_primary;
             if (fC->Type(Primary_literal) != VObjectType::slPrimary_literal)
               Primary_literal = fC->Child(Constant_primary);
-            pattern->Typespec(compileTypespec(component, fC, Primary_literal,
-                                              compileDesign, Reduce::Yes,
-                                              nullptr, instance, false));
+            if (typespec *tps = compileTypespec(component, fC, Primary_literal,
+                                                compileDesign, Reduce::Yes,
+                                                nullptr, instance, false)) {
+              ref_typespec *rttps = s.MakeRef_typespec();
+              rttps->VpiParent(pattern);
+              rttps->Actual_group(tps);
+              pattern->Typespec(rttps);
+            }
           }
           pattern->VpiParent(operation);
           operands->push_back(pattern);
@@ -3673,24 +3724,23 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
             lexpc->VpiSize(64);
             lexpc->VpiValue("UINT:0");
             lexpc->VpiDecompile("0");
-            fC->populateCoreMembers(Packed_dimension, Packed_dimension, lexpc);
-            lexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
-            range->Left_expr(lexpc);
             lexpc->VpiParent(range);
+            range->Left_expr(lexpc);
 
             constant *rexpc = s.MakeConstant();
             rexpc->VpiConstType(vpiStringConst);
             rexpc->VpiSize(0);
             rexpc->VpiValue("STRING:associative");
             rexpc->VpiDecompile("associative");
-            fC->populateCoreMembers(Packed_dimension, Packed_dimension, range);
-            fC->populateCoreMembers(Packed_dimension, Packed_dimension, rexpc);
-            rexpc->VpiEndColumnNo(fC->Column(Packed_dimension) + 1);
-            rexpc->Typespec(assoc_tps);
-            range->Right_expr(rexpc);
-            range->VpiParent(pexpr);
             rexpc->VpiParent(range);
+            range->Right_expr(rexpc);
 
+            ref_typespec *assoc_tps_rt = s.MakeRef_typespec();
+            assoc_tps_rt->VpiParent(rexpc);
+            assoc_tps_rt->Actual_group(assoc_tps);
+            rexpc->Typespec(assoc_tps_rt);
+
+            range->VpiParent(pexpr);
             ranges->push_back(range);
             Packed_dimension = fC->Sibling(Packed_dimension);
             continue;
@@ -3758,23 +3808,27 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         lexpc->VpiSize(64);
         lexpc->VpiValue("UINT:0");
         lexpc->VpiDecompile("0");
-        range->Left_expr(lexpc);
         lexpc->VpiParent(range);
+        range->Left_expr(lexpc);
 
         constant *rexpc = s.MakeConstant();
         rexpc->VpiConstType(vpiStringConst);
         rexpc->VpiSize(0);
         rexpc->VpiValue("STRING:associative");
         rexpc->VpiDecompile("associative");
+        rexpc->VpiParent(range);
+        range->Right_expr(rexpc);
 
         if (typespec *assoc_tps =
                 compileTypespec(component, fC, DataType, compileDesign, reduce,
                                 nullptr, instance, true)) {
-          rexpc->Typespec(assoc_tps);
+          ref_typespec *assoc_tps_rt = s.MakeRef_typespec();
+          assoc_tps_rt->VpiParent(rexpc);
+          assoc_tps_rt->Actual_group(assoc_tps);
+          rexpc->Typespec(assoc_tps_rt);
         }
-        range->Right_expr(rexpc);
+
         range->VpiParent(pexpr);
-        rexpc->VpiParent(range);
         ranges->push_back(range);
       }
       Packed_dimension = fC->Sibling(Packed_dimension);
@@ -3926,8 +3980,10 @@ const typespec *getMemberTypespec(const typespec *tpss,
     const struct_typespec *ts = (const struct_typespec *)tpss;
     for (typespec_member *memb : *ts->Members()) {
       if (memb->VpiName() == suffixes[index]) {
-        result = memb->Typespec();
-        if (index < (suffixes.size() - 1)) {
+        if (const UHDM::ref_typespec *rt = memb->Typespec()) {
+          result = rt->Actual_group();
+        }
+        if (result && (index < (suffixes.size() - 1))) {
           if (result->UhdmType() == uhdmstruct_typespec) {
             result = getMemberTypespec(result, suffixes, index + 1);
           }
@@ -4093,11 +4149,15 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
         if (fC->Type(Unpacked_dimension) != VObjectType::sl_INVALID_) {
           array_typespec *array = s.MakeArray_typespec();
           int32_t size;
-          VectorOfrange *ranges =
-              compileRanges(component, fC, Unpacked_dimension, compileDesign,
-                            reduce, nullptr, instance, size, false);
-          array->Ranges(ranges);
-          array->Elem_typespec((typespec *)result);
+          if (VectorOfrange *ranges = compileRanges(
+                  component, fC, Unpacked_dimension, compileDesign, reduce,
+                  nullptr, instance, size, false)) {
+            array->Ranges(ranges);
+          }
+          ref_typespec *resultRef = s.MakeRef_typespec();
+          resultRef->VpiParent(array);
+          resultRef->Actual_group(const_cast<UHDM::typespec *>(result));
+          array->Elem_typespec(resultRef);
           fC->populateCoreMembers(
               sigTypeId, Unpacked_dimension ? Unpacked_dimension : sigTypeId,
               array);
@@ -4114,16 +4174,20 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
         if (fC->Type(Unpacked_dimension) != VObjectType::sl_INVALID_) {
           array_typespec *array = s.MakeArray_typespec();
           int32_t size;
-          VectorOfrange *ranges =
-              compileRanges(component, fC, Unpacked_dimension, compileDesign,
-                            reduce, nullptr, instance, size, false);
-          array->Ranges(ranges);
+          if (VectorOfrange *ranges = compileRanges(
+                  component, fC, Unpacked_dimension, compileDesign, reduce,
+                  nullptr, instance, size, false)) {
+            array->Ranges(ranges);
+          }
           if (result == nullptr) {
             result =
                 compileBuiltinTypespec(component, fC, sig->getNodeId(),
                                        sig->getType(), compileDesign, nullptr);
           }
-          array->Elem_typespec((typespec *)result);
+          ref_typespec *resultRef = s.MakeRef_typespec();
+          resultRef->VpiParent(array);
+          resultRef->Actual_group(const_cast<UHDM::typespec *>(result));
+          array->Elem_typespec(resultRef);
           result = array;
         }
       }
@@ -4133,26 +4197,22 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
     const TypeDef *typed = datatype_cast<const TypeDef *>(dtype);
     if (typed) {
       const DataType *dt = typed->getDataType();
-      const Enum *en = datatype_cast<const Enum *>(dt);
-      if (en) {
+      if (const Enum *en = datatype_cast<const Enum *>(dt)) {
         result = en->getTypespec();
         break;
       }
-      const Struct *st = datatype_cast<const Struct *>(dt);
-      if (st) {
+      if (const Struct *st = datatype_cast<const Struct *>(dt)) {
         result = st->getTypespec();
         if (!suffixnames.empty()) {
           result = getMemberTypespec(result, suffixnames, 0);
         }
         break;
       }
-      const Union *un = datatype_cast<const Union *>(dt);
-      if (un) {
+      if (const Union *un = datatype_cast<const Union *>(dt)) {
         result = un->getTypespec();
         break;
       }
-      const SimpleType *sit = datatype_cast<const SimpleType *>(dt);
-      if (sit) {
+      if (const SimpleType *sit = datatype_cast<const SimpleType *>(dt)) {
         result = sit->getTypespec();
         break;
       }
@@ -4161,14 +4221,16 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
   }
 
   if (result == nullptr) {
-    ModuleInstance *inst = valuedcomponenti_cast<ModuleInstance *>(instance);
-    if (inst) {
-      Netlist *netlist = inst->getNetlist();
-      if (netlist) {
+    if (ModuleInstance *inst =
+            valuedcomponenti_cast<ModuleInstance *>(instance)) {
+      if (Netlist *netlist = inst->getNetlist()) {
         if (netlist->ports()) {
           for (port *p : *netlist->ports()) {
             if (p->VpiName() == basename) {
-              const typespec *tps = p->Typespec();
+              const typespec *tps = nullptr;
+              if (const UHDM::ref_typespec *rt = p->Typespec()) {
+                tps = rt->Actual_group();
+              }
               if (!suffixnames.empty()) {
                 result = getMemberTypespec(tps, suffixnames, 0);
               }
@@ -4182,10 +4244,14 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
             if (param->VpiName() == basename) {
               if (param->UhdmType() == uhdmparameter) {
                 parameter *p = (parameter *)param;
-                result = p->Typespec();
+                if (const UHDM::ref_typespec *rt = p->Typespec()) {
+                  result = rt->Actual_group();
+                }
               } else {
                 type_parameter *p = (type_parameter *)param;
-                result = p->Typespec();
+                if (const UHDM::ref_typespec *rt = p->Typespec()) {
+                  result = rt->Actual_group();
+                }
               }
               break;
             }
@@ -4440,11 +4506,13 @@ UHDM::any *CompileHelper::compileBound(
   if (fC->Type(Expression) == VObjectType::slList_of_arguments) {
     Expression = fC->Child(Expression);
   }
-  expr *operand =
-      (expr *)compileExpression(component, fC, Expression, compileDesign,
-                                Reduce::No, pexpr, instance, muteErrors);
-  if (operand) {
-    const typespec *ts = operand->Typespec();
+  if (expr *operand =
+          (expr *)compileExpression(component, fC, Expression, compileDesign,
+                                    Reduce::No, pexpr, instance, muteErrors)) {
+    const typespec *ts = nullptr;
+    if (const UHDM::ref_typespec *rt = operand->Typespec()) {
+      ts = rt->Actual_group();
+    }
     VectorOfrange *ranges = nullptr;
     if (ts) {
       switch (ts->UhdmType()) {
@@ -4479,8 +4547,8 @@ UHDM::any *CompileHelper::compileBound(
     }
     if (ranges) {
       range *r = ranges->at(0);
-      expr *lr = (expr *)r->Left_expr();
-      expr *rr = (expr *)r->Right_expr();
+      expr *lr = r->Left_expr();
+      expr *rr = r->Right_expr();
       bool invalidValue = false;
       lr = reduceExpr(lr, invalidValue, component, compileDesign, instance,
                       BadPathId, 0, nullptr, true);
@@ -4981,22 +5049,32 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
         if (rootValue) {
           if (expr *expval = any_cast<expr *>(rootValue)) {
             path->Root_value(rootValue);
-            path->Typespec((typespec *)expval->Typespec());
+            if (ref_typespec *expval_rt = expval->Typespec()) {
+              ref_typespec *path_rt = s.MakeRef_typespec();
+              path_rt->VpiParent(path);
+              path_rt->Actual_group(expval_rt->Actual_group());
+              path->Typespec(path_rt);
+            }
           } else if (UHDM::port *expval = any_cast<port *>(rootValue)) {
-            path->Root_value((any *)expval->Low_conn());
+            path->Root_value(expval->Low_conn());
           } else if (UHDM::param_assign *passign =
                          any_cast<param_assign *>(rootValue)) {
             path->Root_value((any *)passign->Rhs());
             const any *param = passign->Lhs();
-            const typespec *tps = nullptr;
+            typespec *tps = nullptr;
             if (param->UhdmType() == uhdmparameter) {
               parameter *p = (parameter *)param;
-              tps = p->Typespec();
+              if (UHDM::ref_typespec *rt = p->Typespec())
+                tps = rt->Actual_group();
             } else {
               type_parameter *p = (type_parameter *)param;
-              tps = p->Typespec();
+              if (UHDM::ref_typespec *rt = p->Typespec())
+                tps = rt->Actual_group();
             }
-            path->Typespec((typespec *)tps);
+            ref_typespec *rttps = s.MakeRef_typespec();
+            rttps->VpiParent(path);
+            rttps->Actual_group(tps);
+            path->Typespec(rttps);
           }
         }
       }
@@ -5421,16 +5499,18 @@ void CompileHelper::reorderAssignmentPattern(
       VectorOfrange *ranges = nullptr;
       if (p->Ranges()) {
         ranges = p->Ranges();
-      } else if (const typespec *tps = p->Typespec()) {
-        UHDM_OBJECT_TYPE ttype = tps->UhdmType();
-        if (ttype == uhdmbit_typespec) {
-          ranges = ((bit_typespec *)tps)->Ranges();
-        } else if (ttype == uhdmlogic_typespec) {
-          ranges = ((logic_typespec *)tps)->Ranges();
-        } else if (ttype == uhdmarray_typespec) {
-          ranges = ((array_typespec *)tps)->Ranges();
-        } else if (ttype == uhdmpacked_array_typespec) {
-          ranges = ((packed_array_typespec *)tps)->Ranges();
+      } else if (const ref_typespec *ro = p->Typespec()) {
+        if (const typespec *tps = ro->Actual_group()) {
+          UHDM_OBJECT_TYPE ttype = tps->UhdmType();
+          if (ttype == uhdmbit_typespec) {
+            ranges = ((bit_typespec *)tps)->Ranges();
+          } else if (ttype == uhdmlogic_typespec) {
+            ranges = ((logic_typespec *)tps)->Ranges();
+          } else if (ttype == uhdmarray_typespec) {
+            ranges = ((array_typespec *)tps)->Ranges();
+          } else if (ttype == uhdmpacked_array_typespec) {
+            ranges = ((packed_array_typespec *)tps)->Ranges();
+          }
         }
       }
       if (ranges) {

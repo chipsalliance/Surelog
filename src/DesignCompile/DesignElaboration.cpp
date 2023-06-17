@@ -665,7 +665,10 @@ const UHDM::any* resize(UHDM::Serializer& serializer, const UHDM::any* object,
       UHDM::ElaboratorContext elaboratorContext(&serializer);
       c = (UHDM::constant*)UHDM::clone_tree(c, &elaboratorContext);
       int32_t constType = c->VpiConstType();
-      const UHDM::typespec* tps = c->Typespec();
+      const UHDM::typespec* tps = nullptr;
+      if (const UHDM::ref_typespec* rt = c->Typespec()) {
+        tps = rt->Actual_group();
+      }
       bool is_signed = false;
       if (tps) {
         if (tps->UhdmType() == UHDM::uhdmint_typespec) {
@@ -1144,7 +1147,10 @@ void DesignElaboration::elaborateInstance_(
                 if (tmpExp && (tmpExp->UhdmType() == UHDM::uhdmconstant)) {
                   UHDM::constant* c = (UHDM::constant*)tmpExp;
                   maxsize = std::max(maxsize, c->VpiSize());
-                  const UHDM::typespec* tps = c->Typespec();
+                  const UHDM::typespec* tps = nullptr;
+                  if (const UHDM::ref_typespec* rt = c->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   bool is_signed = false;
                   if (tps) {
                     if (tps->UhdmType() == UHDM::uhdmint_typespec) {
@@ -1775,7 +1781,10 @@ void DesignElaboration::elaborateInstance_(
                 NodeId typespecId = fC->Child(subInstanceId);
                 tps->VpiName(fC->SymName(typespecId));
                 fC->populateCoreMembers(typespecId, typespecId, tps);
-                mod_array->Elem_typespec(tps);
+                UHDM::ref_typespec* tpsRef = s.MakeRef_typespec();
+                tpsRef->VpiParent(mod_array);
+                tpsRef->Actual_group(tps);
+                mod_array->Elem_typespec(tpsRef);
                 parent->getModuleArrayModuleInstancesMap().emplace(
                     mod_array, localSubInstances);
               }
@@ -2066,7 +2075,10 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
           } else if (exprtype == UHDM::uhdmparameter) {
             UHDM::parameter* param = (UHDM::parameter*)complexV;
             const std::string_view pname = param->VpiName();
-            const UHDM::typespec* tps = param->Typespec();
+            const UHDM::typespec* tps = nullptr;
+            if (const UHDM::ref_typespec* rt = param->Typespec()) {
+              tps = rt->Actual_group();
+            }
             const UHDM::instance* pinst = tps->Instance();
             if (pinst->UhdmType() == UHDM::uhdmpackage) {
               Design* design = m_compileDesign->getCompiler()->getDesign();
@@ -2337,10 +2349,15 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
               ts = p->getTypespec();
               if (UHDM::any* param = p->getUhdmParam()) {
                 if (param->UhdmType() == UHDM::uhdmparameter) {
-                  ts = (UHDM::typespec*)((UHDM::parameter*)param)->Typespec();
+                  if (UHDM::ref_typespec* rt =
+                          ((UHDM::parameter*)param)->Typespec()) {
+                    ts = rt->Actual_group();
+                  }
                 } else {
-                  ts = (UHDM::typespec*)((UHDM::type_parameter*)param)
-                           ->Typespec();
+                  if (UHDM::ref_typespec* rt =
+                          ((UHDM::type_parameter*)param)->Typespec()) {
+                    ts = rt->Actual_group();
+                  }
                 }
               }
             }
@@ -2351,17 +2368,27 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                   if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
                     m_helper.adjustSize(ts, instance->getDefinition(),
                                         m_compileDesign, instance, c);
-                    if (c->Typespec() == nullptr) c->Typespec(ts);
+                    if (c->Typespec() == nullptr) {
+                      UHDM::Serializer& s = m_compileDesign->getSerializer();
+                      UHDM::ref_typespec* tsRef = s.MakeRef_typespec();
+                      tsRef->VpiParent(c);
+                      tsRef->Actual_group(ts);
+                      c->Typespec(tsRef);
+                    }
                   }
                 }
 
                 const std::string_view v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
-                value->setTypespec(((c->Typespec()) ? c->Typespec() : ts));
+                const UHDM::typespec* cts = nullptr;
+                if (const UHDM::ref_typespec* rt = c->Typespec()) {
+                  cts = rt->Actual_group();
+                }
+                value->setTypespec(cts ? cts : ts);
                 if (ts)
-                  m_helper.valueRange(
-                      value, ts, (c->Typespec()) ? c->Typespec() : ts,
-                      instance->getDefinition(), m_compileDesign, instance);
+                  m_helper.valueRange(value, ts, cts ? cts : ts,
+                                      instance->getDefinition(),
+                                      m_compileDesign, instance);
               } else if (expr->UhdmType() == UHDM::uhdmoperation) {
                 if (instance) {
                   complex = true;
@@ -2385,15 +2412,23 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                     if (UHDM::typespec* ts = p->getTypespec()) {
                       if (UHDM::any* param = p->getUhdmParam()) {
                         if (param->UhdmType() == UHDM::uhdmparameter) {
-                          ts = (UHDM::typespec*)((UHDM::parameter*)param)
-                                   ->Typespec();
+                          if (UHDM::ref_typespec* rt =
+                                  ((UHDM::parameter*)param)->Typespec()) {
+                            ts = rt->Actual_group();
+                          }
                         } else {
-                          ts = (UHDM::typespec*)((UHDM::type_parameter*)param)
-                                   ->Typespec();
+                          if (UHDM::ref_typespec* rt =
+                                  ((UHDM::type_parameter*)param)->Typespec()) {
+                            ts = rt->Actual_group();
+                          }
                         }
                       }
                       if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
-                        op->Typespec(ts);
+                        UHDM::Serializer& s = m_compileDesign->getSerializer();
+                        UHDM::ref_typespec* tsRef = s.MakeRef_typespec();
+                        tsRef->VpiParent(op);
+                        tsRef->Actual_group(ts);
+                        op->Typespec(tsRef);
                       }
                     }
                     m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),

@@ -408,8 +408,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
   inline std::string getTypespecName(const UHDM::typespec *const object) {
     constexpr std::string_view keyword = "unsigned";
 
-    if (const UHDM::typespec *const alias = object->Typedef_alias()) {
-      return getTypespecName(alias);
+    if (const UHDM::ref_typespec *const rt = object->Typedef_alias()) {
+      if (const UHDM::typespec *const alias = rt->Actual_group()) {
+        return getTypespecName(alias);
+      }
     }
 
     const std::string_view name = object->VpiName();
@@ -485,11 +487,15 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     std::string prefix;
     const std::string name = formatName(object->VpiName());
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      prefix.append(getTypespecName(typespec));
-      if (typespec->VpiColumnNo() != 0) {
-        insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(),
-               prefix);
+    const UHDM::typespec *ts = nullptr;
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      ts = rt->Actual_group();
+    }
+
+    if (ts != nullptr) {
+      prefix.append(getTypespecName(ts));
+      if (ts->VpiColumnNo() != 0) {
+        insert(filepath, ts->VpiLineNo(), ts->VpiColumnNo(), prefix);
         prefix.clear();
       } else {
         prefix.append(1, kOverwriteMarker);
@@ -499,11 +505,13 @@ class RoundTripTracer final : public UHDM::UhdmListener {
           static_cast<const UHDM::array_var *>(object)->Variables();
       if ((variables != nullptr) && !variables->empty()) {
         const UHDM::variables *const variable = variables->at(0);
-        if (const UHDM::typespec *const typespec = variable->Typespec()) {
-          prefix.append(getTypespecName(typespec));
-          if (typespec->VpiColumnNo() != 0) {
-            insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(),
-                   prefix);
+        if (const UHDM::ref_typespec *const rt = variable->Typespec()) {
+          ts = rt->Actual_group();
+        }
+        if (ts != nullptr) {
+          prefix.append(getTypespecName(ts));
+          if (ts->VpiColumnNo() != 0) {
+            insert(filepath, ts->VpiLineNo(), ts->VpiColumnNo(), prefix);
             prefix.clear();
           } else {
             prefix.append(1, kOverwriteMarker);
@@ -569,18 +577,18 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const std::filesystem::path &filepath = object->VpiFile();
 
-    const UHDM::any *typespec = object;
+    const UHDM::typespec *typespec = object;
     if (object->UhdmType() == UHDM::uhdmarray_typespec) {
-      if (const UHDM::any *const element_typespec =
+      if (const UHDM::ref_typespec *const element_typespec =
               static_cast<const UHDM::array_typespec *>(object)
                   ->Elem_typespec()) {
-        typespec = element_typespec;
+        typespec = element_typespec->Actual_group();
       }
     } else if (object->UhdmType() == UHDM::uhdmpacked_array_typespec) {
-      if (const UHDM::any *const element_typespec =
+      if (const UHDM::ref_typespec *const element_typespec =
               static_cast<const UHDM::packed_array_typespec *>(object)
                   ->Elem_typespec()) {
-        typespec = element_typespec;
+        typespec = element_typespec->Actual_group();
       }
     }
 
@@ -599,18 +607,22 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       case UHDM::uhdmenum_typespec: {
         const UHDM::enum_typespec *const enum_typespec =
             static_cast<const UHDM::enum_typespec *>(typespec);
-        if (const UHDM::typespec *const alias =
+        if (const UHDM::ref_typespec *const rt =
                 enum_typespec->Typedef_alias()) {
-          text = formatName(alias->VpiName());
+          if (const UHDM::typespec *const alias = rt->Actual_group()) {
+            text = formatName(alias->VpiName());
+          }
         }
       } break;
 
       case UHDM::uhdmstruct_typespec: {
         const UHDM::struct_typespec *const struct_typespec =
             static_cast<const UHDM::struct_typespec *>(typespec);
-        if (const UHDM::typespec *const alias =
+        if (const UHDM::ref_typespec *const rt =
                 struct_typespec->Typedef_alias()) {
-          text = formatName(alias->VpiName());
+          if (const UHDM::typespec *const alias = rt->Actual_group()) {
+            text = formatName(alias->VpiName());
+          }
         }
       } break;
 
@@ -937,15 +949,14 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     constexpr std::string_view keyword1 = "disable";
     const std::filesystem::path &filepath = object->VpiFile();
-    const UHDM::any *const any = object->VpiExpr();
 
     std::string text;
     text.append(keyword1).append(1, kOverwriteMarker);
 
-    if (const UHDM::expr *const expr = any_cast<const UHDM::expr *>(any)) {
+    if (const UHDM::expr *const expr = object->VpiExpr<UHDM::expr>()) {
       text.append(expr->VpiName());
     } else if (const UHDM::scope *const scope =
-                   any_cast<const UHDM::scope *>(any)) {
+                   object->VpiExpr<UHDM::scope>()) {
       text.append(scope->VpiName());
     }
 
@@ -1355,7 +1366,11 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const std::filesystem::path &filepath = object->VpiFile();
 
-    const UHDM::typespec *const typespec = object->Typespec();
+    const UHDM::typespec *typespec = nullptr;
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      typespec = rt->Actual_group();
+    }
+
     const UHDM::any *const pattern = object->Pattern();
     if ((typespec != nullptr) && (pattern != nullptr)) {
       std::string value;
@@ -1514,8 +1529,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     }
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      visited.insert(typespec);
+    if (const UHDM::ref_typespec *rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        visited.insert(typespec);
+      }
     }
   }
 
@@ -1791,10 +1808,13 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const std::filesystem::path &filepath = object->VpiFile();
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo() - 1, "[");
-      insert(filepath, typespec->VpiEndLineNo(), typespec->VpiEndColumnNo(),
-             "]");
+    if (const UHDM::ref_typespec *rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo() - 1,
+               "[");
+        insert(filepath, typespec->VpiEndLineNo(), typespec->VpiEndColumnNo(),
+               "]");
+      }
     }
 
     if (const UHDM::VectorOfvariables *const variables = object->Variables()) {
@@ -2247,20 +2267,22 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const std::filesystem::path &filepath = object->VpiFile();
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      const std::string name = getTypespecName(typespec);
-      switch (typespec->UhdmType()) {
-        case UHDM::uhdmclass_typespec:
-        case UHDM::uhdmenum_typespec:
-        case UHDM::uhdmstruct_typespec: {
-          insert(filepath, object->VpiLineNo(),
-                 object->VpiColumnNo() - name.length() - 1, name);
-        } break;
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        const std::string name = getTypespecName(typespec);
+        switch (typespec->UhdmType()) {
+          case UHDM::uhdmclass_typespec:
+          case UHDM::uhdmenum_typespec:
+          case UHDM::uhdmstruct_typespec: {
+            insert(filepath, object->VpiLineNo(),
+                   object->VpiColumnNo() - name.length() - 1, name);
+          } break;
 
-        default: {
-          insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(),
-                 name);
-        } break;
+          default: {
+            insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(),
+                   name);
+          } break;
+        }
       }
     }
 
@@ -2487,8 +2509,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
+      }
     }
 
     std::string text = prefix;
@@ -2510,8 +2534,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
+      }
     }
 
     std::string text = prefix;
@@ -2533,8 +2559,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
+      }
     }
 
     std::string text = prefix;
@@ -2614,15 +2642,17 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     int32_t line = object->VpiLineNo();
     int32_t column = object->VpiColumnNo();
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      if ((typespec->UhdmType() == UHDM::uhdmenum_typespec) ||
-          (typespec->UhdmType() == UHDM::uhdmstruct_typespec)) {
-        const std::string name = getTypespecName(typespec);
-        column = object->VpiColumnNo() - name.length() - 1;
-        insert(filepath, line, column, name);
-      } else if (typespec->VpiColumnNo() != 0) {
-        // TODO(HS): This check needs to go!
-        column = typespec->VpiColumnNo();
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        if ((typespec->UhdmType() == UHDM::uhdmenum_typespec) ||
+            (typespec->UhdmType() == UHDM::uhdmstruct_typespec)) {
+          const std::string name = getTypespecName(typespec);
+          column = object->VpiColumnNo() - name.length() - 1;
+          insert(filepath, line, column, name);
+        } else if (typespec->VpiColumnNo() != 0) {
+          // TODO(HS): This check needs to go!
+          column = typespec->VpiColumnNo();
+        }
       }
     }
 
@@ -2657,8 +2687,11 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     insert(filepath, object->VpiLineNo(),
            object->VpiColumnNo() - keyword1.length() - 1, keyword1);
 
-    if (const UHDM::class_typespec *const typespec = object->Class_typespec()) {
-      enterTypespec(typespec);
+    if (const UHDM::ref_typespec *const rt = object->Class_typespec()) {
+      if (const UHDM::class_typespec *const typespec =
+              rt->Actual_group<UHDM::class_typespec>()) {
+        enterTypespec(typespec);
+      }
     }
   }
 
@@ -2792,15 +2825,17 @@ class RoundTripTracer final : public UHDM::UhdmListener {
           const UHDM::port *const port = ports->at(i);
 
           const UHDM::VectorOfrange *ranges = nullptr;
-          if (const UHDM::typespec *const typespec = port->Typespec()) {
-            if (typespec->UhdmType() == UHDM::uhdmarray_typespec) {
-              ranges =
-                  static_cast<const UHDM::array_typespec *>(typespec)->Ranges();
-            } else if (typespec->UhdmType() ==
-                       UHDM::uhdmpacked_array_typespec) {
-              ranges =
-                  static_cast<const UHDM::packed_array_typespec *>(typespec)
-                      ->Ranges();
+          if (const UHDM::ref_typespec *const rt = port->Typespec()) {
+            if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+              if (typespec->UhdmType() == UHDM::uhdmarray_typespec) {
+                ranges = static_cast<const UHDM::array_typespec *>(typespec)
+                             ->Ranges();
+              } else if (typespec->UhdmType() ==
+                         UHDM::uhdmpacked_array_typespec) {
+                ranges =
+                    static_cast<const UHDM::packed_array_typespec *>(typespec)
+                        ->Ranges();
+              }
             }
           }
 
@@ -2874,10 +2909,18 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         const UHDM::any *const jlhs = ordered[j]->Lhs();
         if ((ilhs->UhdmType() == UHDM::uhdmparameter) &&
             (jlhs->UhdmType() == UHDM::uhdmparameter)) {
-          const UHDM::typespec *const itypespec =
-              static_cast<const UHDM::parameter *>(ilhs)->Typespec();
-          const UHDM::typespec *const jtypespec =
-              static_cast<const UHDM::parameter *>(jlhs)->Typespec();
+          const UHDM::typespec *itypespec = nullptr;
+          if (const UHDM::ref_typespec *const rt =
+                  static_cast<const UHDM::parameter *>(ilhs)->Typespec()) {
+            itypespec = rt->Actual_group();
+          }
+
+          const UHDM::typespec *jtypespec = nullptr;
+          if (const UHDM::ref_typespec *const rt =
+                  static_cast<const UHDM::parameter *>(jlhs)->Typespec()) {
+            jtypespec = rt->Actual_group();
+          }
+
           if ((itypespec != nullptr) && (jtypespec != nullptr) &&
               (itypespec->VpiLineNo() != 0) &&
               (itypespec->VpiColumnNo() != 0) &&
@@ -3024,8 +3067,10 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     std::string text("typedef enum ");
 
-    if (const UHDM::typespec *const base_typespec = object->Base_typespec()) {
-      text.append(getTypespecName(base_typespec)).append(1, kOverwriteMarker);
+    if (const UHDM::ref_typespec *const rt = object->Base_typespec()) {
+      if (const UHDM::typespec *const base_typespec = rt->Actual_group()) {
+        text.append(getTypespecName(base_typespec)).append(1, kOverwriteMarker);
+      }
     }
 
     text.append("{");
@@ -3119,16 +3164,17 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     constexpr std::string_view keyword2 = "=logic";
 
     const std::filesystem::path &filepath = object->VpiFile();
+    if (const UHDM::ref_typespec *rt = object->Typespec()) {
+      if (const UHDM::typespec *const typespec = rt->Actual_group()) {
+        switch (typespec->UhdmType()) {
+          case UHDM::uhdmlogic_typespec: {
+            insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo() - 1,
+                   keyword2);
+          } break;
 
-    if (const UHDM::typespec *const typespec = object->Typespec()) {
-      switch (typespec->UhdmType()) {
-        case UHDM::uhdmlogic_typespec: {
-          insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo() - 1,
-                 keyword2);
-        } break;
-
-        default:
-          break;
+          default:
+            break;
+        }
       }
     }
     insert(filepath, object->VpiLineNo(),
@@ -3142,9 +3188,12 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
     const std::filesystem::path &filepath = object->VpiFile();
 
-    const UHDM::typespec *const typespec = object->Typespec();
-    insert(filepath, object->VpiRefLineNo(), object->VpiRefColumnNo(),
-           getTypespecName(typespec));
+    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
+      if (const UHDM::typespec *typespec = rt->Actual_group()) {
+        insert(filepath, object->VpiRefLineNo(), object->VpiRefColumnNo(),
+               getTypespecName(typespec));
+      }
+    }
     insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
            formatName(object->VpiName()));
   }
@@ -3594,7 +3643,7 @@ int main(int argc, const char **argv) {
   clp->setElaborate(false);
   clp->setElabUhdm(false);  // Force disable elaboration!
   clp->setCoverUhdm(false);
-  clp->setDebugAstModel(false);
+  // clp->setDebugAstModel(false);
   clp->setDebugUhdm(true);
   clp->showVpiIds(true);
   errors->printMessages(clp->muteStdout());

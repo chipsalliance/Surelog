@@ -618,7 +618,14 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
             const expr* rrange = r->Right_expr();
             if (rrange->VpiValue() == "STRING:associative") {
               array_ts->VpiArrayType(vpiAssocArray);
-              array_ts->Index_typespec((typespec*)rrange->Typespec());
+              if (const ref_typespec* rt = rrange->Typespec()) {
+                if (const typespec* ag = rt->Actual_group()) {
+                  ref_typespec* crt = s.MakeRef_typespec();
+                  crt->VpiParent(array_ts);
+                  crt->Actual_group(const_cast<typespec*>(ag));
+                  array_ts->Index_typespec(crt);
+                }
+              }
             } else if (rrange->VpiValue() == "STRING:unsized") {
               array_ts->VpiArrayType(vpiDynamicArray);
             } else if (rrange->VpiValue() == "STRING:$") {
@@ -627,18 +634,27 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
               array_ts->VpiArrayType(vpiStaticArray);
             }
           }
-          dest_port->Typespec(array_ts);
+          ref_typespec* dest_port_rt = s.MakeRef_typespec();
+          dest_port_rt->VpiParent(dest_port);
+          dest_port_rt->Actual_group(array_ts);
+          dest_port->Typespec(dest_port_rt);
 
-          if (typespec* typespec = m_helper.compileTypespec(
+          if (typespec* ts = m_helper.compileTypespec(
                   mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
                   Reduce::No, array_ts, nullptr, true)) {
-            array_ts->Elem_typespec(typespec);
+            ref_typespec* array_ts_rt = s.MakeRef_typespec();
+            array_ts_rt->VpiParent(array_ts);
+            array_ts_rt->Actual_group(ts);
+            array_ts->Elem_typespec(array_ts_rt);
           }
         }
-      } else if (typespec* typespec = m_helper.compileTypespec(
+      } else if (typespec* ts = m_helper.compileTypespec(
                      mod, fC, orig_port->getTypeSpecId(), m_compileDesign,
                      Reduce::No, dest_port, nullptr, true)) {
-        dest_port->Typespec(typespec);
+        ref_typespec* dest_port_rt = s.MakeRef_typespec();
+        dest_port_rt->VpiParent(dest_port);
+        dest_port_rt->Actual_group(ts);
+        dest_port->Typespec(dest_port_rt);
       }
     }
     dest_ports->push_back(dest_port);
@@ -737,14 +753,17 @@ void UhdmWriter::writeNets(DesignComponent* mod,
           // compileTypespec function need to account for range
           // location information if there is any in the typespec.
           if (orig_net->getTypeSpecId()) {
-            if (typespec* typespec = m_helper.compileTypespec(
+            if (typespec* ts = m_helper.compileTypespec(
                     mod, fC, orig_net->getTypeSpecId(), m_compileDesign,
                     Reduce::No, nullptr, nullptr, true)) {
-              dest_net->Typespec(typespec);
+              ref_typespec* rt = s.MakeRef_typespec();
+              rt->VpiParent(dest_net);
+              rt->Actual_group(ts);
+              dest_net->Typespec(rt);
               NodeId dimensions = orig_net->getUnpackedDimension();
               if (!dimensions) dimensions = orig_net->getPackedDimension();
               if (dimensions) {
-                fC->populateCoreMembers(InvalidNodeId, dimensions, typespec);
+                fC->populateCoreMembers(InvalidNodeId, dimensions, ts);
               }
             }
           }
@@ -819,19 +838,22 @@ void UhdmWriter::writeClass(ClassDefinition* classDef,
     }
     // Extends, fix late binding
     if (const extends* ext = c->Extends()) {
-      if (const class_typespec* tps = ext->Class_typespec()) {
-        if (tps->Class_defn() == nullptr) {
-          const std::string_view tpsName = tps->VpiName();
-          if (c->Parameters()) {
-            for (auto ps : *c->Parameters()) {
-              if (ps->VpiName() == tpsName) {
-                if (ps->UhdmType() == uhdmtype_parameter) {
-                  type_parameter* tp = (type_parameter*)ps;
-                  if (const typespec* ptp = tp->Typespec()) {
-                    if (ptp->UhdmType() == uhdmclass_typespec) {
-                      class_typespec* cptp = (class_typespec*)ptp;
-                      ((class_typespec*)tps)
-                          ->Class_defn((class_defn*)cptp->Class_defn());
+      if (const ref_typespec* ext_rt = ext->Class_typespec()) {
+        if (const class_typespec* tps =
+                ext_rt->Actual_group<UHDM::class_typespec>()) {
+          if (tps->Class_defn() == nullptr) {
+            const std::string_view tpsName = tps->VpiName();
+            if (c->Parameters()) {
+              for (auto ps : *c->Parameters()) {
+                if (ps->VpiName() == tpsName) {
+                  if (ps->UhdmType() == uhdmtype_parameter) {
+                    type_parameter* tp = (type_parameter*)ps;
+                    if (const UHDM::ref_typespec* tp_rt = tp->Typespec()) {
+                      if (const class_typespec* cptp =
+                              tp_rt->Actual_group<UHDM::class_typespec>()) {
+                        ((class_typespec*)tps)
+                            ->Class_defn((class_defn*)cptp->Class_defn());
+                      }
                     }
                   }
                 }
@@ -1300,9 +1322,12 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
             typespecEnd = fC->Sibling(typespecEnd);
           }
           interface_typespec* tps = s.MakeInterface_typespec();
+          ref_typespec* tps_rt = s.MakeRef_typespec();
+          tps_rt->VpiParent(smarray);
+          tps_rt->Actual_group(tps);
           tps->VpiName(typeName);
           fC->populateCoreMembers(typespecStart, typespecEnd, tps);
-          smarray->Elem_typespec(tps);
+          smarray->Elem_typespec(tps_rt);
 
           subInterfaceArrays->push_back(smarray);
         }
@@ -1754,7 +1779,10 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
       const expr* lhs = assign->Lhs();
       const expr* rhs = assign->Rhs();
       const expr* delay = assign->Delay();
-      const typespec* tps = lhs->Typespec();
+      const typespec* tps = nullptr;
+      if (const ref_typespec* rt = lhs->Typespec()) {
+        tps = rt->Actual_group();
+      }
       bool simplified = false;
       bool cloned = false;
       if (delay && delay->UhdmType() == uhdmref_obj) {
@@ -1764,7 +1792,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         assign = (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
         lhs = assign->Lhs();
         rhs = assign->Rhs();
-        tps = lhs->Typespec();
+        if (const ref_typespec* rt = lhs->Typespec()) {
+          tps = rt->Actual_group();
+        }
         delay = assign->Delay();
         ref_obj* ref = (ref_obj*)delay;
         ref->Actual_group(var);
@@ -1794,10 +1824,14 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
                       m_compileDesign->getCompiler()->getSymbolTable()),
                   rhs->VpiLineNo(), assign, true);
               m_helper.checkForLoops(false);
-              tps = lhs->Typespec();
+              if (const ref_typespec* rt = lhs->Typespec()) {
+                tps = rt->Actual_group();
+              }
               if (expr* exp = any_cast<expr*>(var)) {
-                if (const typespec* temp = exp->Typespec()) {
-                  tps = temp;
+                if (const ref_typespec* rt = exp->Typespec()) {
+                  if (const typespec* temp = rt->Actual_group()) {
+                    tps = temp;
+                  }
                 }
               }
               if ((invalidValue == false) && rhstmp) {
@@ -1816,8 +1850,10 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
           }
 
           if (expr* exp = any_cast<expr*>(var)) {
-            if (const typespec* temp = exp->Typespec()) {
-              tps = temp;
+            if (const ref_typespec* rt = exp->Typespec()) {
+              if (const typespec* temp = rt->Actual_group()) {
+                tps = temp;
+              }
             }
           }
         }
@@ -1835,7 +1871,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
             lhs = assign->Lhs();
             rhs = assign->Rhs();
             delay = assign->Delay();
-            tps = lhs->Typespec();
+            if (const ref_typespec* rt = lhs->Typespec()) {
+              tps = rt->Actual_group();
+            }
             cloned = true;
           }
           ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
@@ -1863,31 +1901,39 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         }
       } else if (rhs->UhdmType() == uhdmoperation) {
         operation* op = (operation*)rhs;
-        if (const typespec* tps = op->Typespec()) {
-          UHDM::ExprEval eval(true);
-          expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
-          if (tmp->UhdmType() == uhdmoperation) {
-            if (cloned == false) {
-              ElaboratorContext elaboratorContext(&s, false, true);
-              assign =
-                  (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
-              assign->VpiParent(m);
-              lhs = assign->Lhs();
-              rhs = assign->Rhs();
-              delay = assign->Delay();
-              tps = lhs->Typespec();
-              cloned = true;
+        if (const ref_typespec* rt1 = op->Typespec()) {
+          if (const typespec* tps = rt1->Actual_group()) {
+            UHDM::ExprEval eval(true);
+            expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+            if (tmp->UhdmType() == uhdmoperation) {
+              if (cloned == false) {
+                ElaboratorContext elaboratorContext(&s, false, true);
+                assign =
+                    (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
+                assign->VpiParent(m);
+                lhs = assign->Lhs();
+                rhs = assign->Rhs();
+                delay = assign->Delay();
+                if (const ref_typespec* rt2 = lhs->Typespec()) {
+                  tps = rt2->Actual_group();
+                }
+                cloned = true;
+              }
+              ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+              simplified = true;
             }
-            ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
-            simplified = true;
           }
         }
       }
       if (simplified == false) {
         bool invalidValue = false;
         if ((rhs->UhdmType() == uhdmsys_func_call) &&
-            ((expr*)rhs)->Typespec() == nullptr)
-          ((expr*)rhs)->Typespec((UHDM::typespec*)tps);
+            ((expr*)rhs)->Typespec() == nullptr) {
+          ref_typespec* crt = s.MakeRef_typespec();
+          crt->VpiParent((expr*)rhs);
+          crt->Actual_group(const_cast<typespec*>(tps));
+          ((expr*)rhs)->Typespec(crt);
+        }
         m_helper.checkForLoops(true);
         any* res = m_helper.reduceExpr(
             (expr*)rhs, invalidValue, mod, m_compileDesign,
@@ -2029,7 +2075,10 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
           p->VpiParent(m);
           p->VpiLocalParam(true);
           int_typespec* ts = s.MakeInt_typespec();
-          p->Typespec(ts);
+          ref_typespec* rt = s.MakeRef_typespec();
+          rt->VpiParent(p);
+          rt->Actual_group(ts);
+          p->Typespec(rt);
           params->push_back(p);
         }
       }
@@ -2111,15 +2160,25 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
   for (UHDM::any* var : mod->getLateTypedefBinding()) {
     const typespec* orig = nullptr;
     if (expr* ex = any_cast<expr*>(var)) {
-      orig = ex->Typespec();
+      if (ref_typespec* rt = ex->Typespec()) {
+        orig = rt->Actual_group();
+      }
     } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-      orig = ex->Typespec();
+      if (ref_typespec* rt = ex->Typespec()) {
+        orig = rt->Actual_group();
+      }
     } else if (parameter* ex = any_cast<parameter*>(var)) {
-      orig = ex->Typespec();
+      if (ref_typespec* rt = ex->Typespec()) {
+        orig = rt->Actual_group();
+      }
     } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-      orig = ex->Typespec();
+      if (ref_typespec* rt = ex->Typespec()) {
+        orig = rt->Actual_group();
+      }
     } else if (io_decl* ex = any_cast<io_decl*>(var)) {
-      orig = ex->Typespec();
+      if (ref_typespec* rt = ex->Typespec()) {
+        orig = rt->Actual_group();
+      }
     }
     if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
       unsupported_typespec* unsup = (unsupported_typespec*)orig;
@@ -2168,7 +2227,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             if (const any* ret = func->Return()) {
               variables* var = (variables*)ret;
               found = true;
-              tps = var->Typespec();
+              if (const ref_typespec* rt = var->Typespec()) {
+                tps = rt->Actual_group();
+              }
             }
             break;
           }
@@ -2178,7 +2239,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (const ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2189,7 +2252,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (const ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2199,9 +2264,14 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
               if (decl->VpiName() == name) {
                 found = true;
                 if (decl->UhdmType() == uhdmparameter) {
-                  tps = ((parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt = ((parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 } else {
-                  tps = ((type_parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt =
+                          ((type_parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 }
                 break;
               }
@@ -2216,7 +2286,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     if (n->UhdmType() == uhdmref_var) continue;
                     if (n->UhdmType() == uhdmref_obj) continue;
                     found = true;
-                    tps = n->Typespec();
+                    if (ref_typespec* rt = n->Typespec()) {
+                      tps = rt->Actual_group();
+                    }
                     break;
                   }
                   const std::string pname = StrCat(m->VpiName(), "::", name);
@@ -2224,7 +2296,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     if (n->UhdmType() == uhdmref_var) continue;
                     if (n->UhdmType() == uhdmref_obj) continue;
                     found = true;
-                    tps = n->Typespec();
+                    if (ref_typespec* rt = n->Typespec()) {
+                      tps = rt->Actual_group();
+                    }
                     break;
                   }
                 }
@@ -2240,7 +2314,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2251,7 +2327,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2265,7 +2343,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     if (n->UhdmType() == uhdmref_var) continue;
                     if (n->UhdmType() == uhdmref_obj) continue;
                     found = true;
-                    tps = n->Typespec();
+                    if (ref_typespec* rt = n->Typespec()) {
+                      tps = rt->Actual_group();
+                    }
                     break;
                   }
                   const std::string pname = StrCat(m->VpiName(), "::", name);
@@ -2273,7 +2353,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     if (n->UhdmType() == uhdmref_var) continue;
                     if (n->UhdmType() == uhdmref_obj) continue;
                     found = true;
-                    tps = n->Typespec();
+                    if (ref_typespec* rt = n->Typespec()) {
+                      tps = rt->Actual_group();
+                    }
                     break;
                   }
                 }
@@ -2293,7 +2375,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
-                  tps = lhs->Typespec();
+                  if (const ref_typespec* rt = lhs->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   break;
                 }
               }
@@ -2308,7 +2392,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (var->UhdmType() == uhdmref_var) continue;
                 if (var->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = ((variables*)var)->Typespec();
+                if (ref_typespec* rt = ((variables*)var)->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2321,7 +2407,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2331,10 +2419,14 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             for (auto decl : *params) {
               if (decl->VpiName() == name) {
                 if (decl->UhdmType() == uhdmparameter) {
-                  tps = ((parameter*)decl)->Typespec();
+                  if (ref_typespec* rt = ((parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   found = true;
                 } else {
-                  tps = ((type_parameter*)decl)->Typespec();
+                  if (ref_typespec* rt = ((type_parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   found = true;
                 }
                 break;
@@ -2347,7 +2439,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             for (auto port : *ports) {
               if (port->VpiName() == name) {
                 found = true;
-                tps = port->Typespec();
+                if (ref_typespec* rt = port->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2358,7 +2452,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             for (auto net : *nets) {
               if (net->VpiName() == name) {
                 found = true;
-                tps = net->Typespec();
+                if (ref_typespec* rt = net->Typespec()) {
+                  tps = rt->Actual_group();
+                }
               }
             }
           }
@@ -2371,7 +2467,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2381,9 +2479,13 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             for (auto decl : *params) {
               if (decl->VpiName() == name) {
                 if (decl->UhdmType() == uhdmparameter) {
-                  tps = ((parameter*)decl)->Typespec();
+                  if (ref_typespec* rt = ((parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 } else {
-                  tps = ((type_parameter*)decl)->Typespec();
+                  if (ref_typespec* rt = ((type_parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 }
                 break;
               }
@@ -2400,7 +2502,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
-                  tps = lhs->Typespec();
+                  if (const ref_typespec* rt = lhs->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   break;
                 }
               }
@@ -2414,7 +2518,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (const ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2424,9 +2530,14 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             for (auto decl : *params) {
               if (decl->VpiName() == name) {
                 if (decl->UhdmType() == uhdmparameter) {
-                  tps = ((parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt = ((parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 } else {
-                  tps = ((type_parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt =
+                          ((type_parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 }
                 break;
               }
@@ -2443,7 +2554,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
-                  tps = lhs->Typespec();
+                  if (const ref_typespec* rt = lhs->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   break;
                 }
               }
@@ -2457,7 +2570,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (const ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2468,9 +2583,14 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
               if (decl->VpiName() == name) {
                 found = true;
                 if (decl->UhdmType() == uhdmparameter) {
-                  tps = ((parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt = ((parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 } else {
-                  tps = ((type_parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt =
+                          ((type_parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 }
                 break;
               }
@@ -2487,7 +2607,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
-                  tps = lhs->Typespec();
+                  if (const ref_typespec* rt = lhs->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   break;
                 }
               }
@@ -2501,7 +2623,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (decl->UhdmType() == uhdmref_var) continue;
                 if (decl->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = decl->Typespec();
+                if (const ref_typespec* rt = decl->Typespec()) {
+                  tps = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -2512,9 +2636,14 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
               if (decl->VpiName() == name) {
                 found = true;
                 if (decl->UhdmType() == uhdmparameter) {
-                  tps = ((parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt = ((parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 } else {
-                  tps = ((type_parameter*)decl)->Typespec();
+                  if (const ref_typespec* rt =
+                          ((type_parameter*)decl)->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                 }
                 break;
               }
@@ -2531,7 +2660,9 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                 if (lhs->UhdmType() == uhdmref_obj) continue;
                 if (lhs->VpiName() == name) {
                   found = true;
-                  tps = lhs->Typespec();
+                  if (const ref_typespec* rt = lhs->Typespec()) {
+                    tps = rt->Actual_group();
+                  }
                   break;
                 }
               }
@@ -2540,14 +2671,18 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
         }
         if (found) {
           if (unsup->Ranges()) {
+            ref_typespec* tpsRef = s.MakeRef_typespec();
+            tpsRef->Actual_group(const_cast<UHDM::typespec*>(tps));
             if (unsup->VpiPacked()) {
               packed_array_typespec* ptps = s.MakePacked_array_typespec();
-              ptps->Elem_typespec((typespec*)tps);
+              tpsRef->VpiParent(ptps);
+              ptps->Elem_typespec(tpsRef);
               ptps->Ranges(unsup->Ranges());
               tps = ptps;
             } else {
               array_typespec* ptps = s.MakeArray_typespec();
-              ptps->Elem_typespec((typespec*)tps);
+              tpsRef->VpiParent(ptps);
+              ptps->Elem_typespec(tpsRef);
               ptps->Ranges(unsup->Ranges());
               tps = ptps;
             }
@@ -2572,8 +2707,11 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
               if (tmp->VpiName() == name) {
                 if (var->UhdmType() == uhdmref_var) {
                   ref_var* ref = (ref_var*)var;
-                  const typespec* tp = ref->Typespec();
-                  if (tp && tp->UhdmType() == uhdmunsupported_typespec) {
+                  const typespec* tp = nullptr;
+                  if (const ref_typespec* rt = ref->Typespec()) {
+                    tp = rt->Actual_group();
+                  }
+                  if (tp && (tp->UhdmType() == uhdmunsupported_typespec)) {
                     const typespec* indexTypespec = nullptr;
                     if (for_stmt->Variables()) {
                       for (auto var : *for_stmt->Variables()) {
@@ -2625,7 +2763,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                           (typespec*)indexTypespec, nullptr, m_compileDesign);
                     } else {
                       int_var* ivar = s.MakeInt_var();
-                      ivar->Typespec(s.MakeInt_typespec());
+                      ref_typespec* ivar_rt = s.MakeRef_typespec();
+                      ivar_rt->VpiParent(ivar);
+                      ivar_rt->Actual_group(s.MakeInt_typespec());
+                      ivar->Typespec(ivar_rt);
                       swapVar = ivar;
                     }
                     if (swapVar) {
@@ -2655,11 +2796,12 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           for (any* oper : *op->Operands()) {
             if (oper->UhdmType() == uhdmref_obj) {
               ref_obj* ref = (ref_obj*)oper;
-              const any* actual = ref->Actual_group();
-              if (const expr* ex = any_cast<const expr*>(actual)) {
-                const typespec* tps = ex->Typespec();
-                if (tps) {
-                  baseTypespec = tps;
+              if (const expr* ex = ref->Actual_group<expr>()) {
+                if (const UHDM::ref_typespec* rt = ex->Typespec()) {
+                  if (const typespec* tps = rt->Actual_group()) {
+                    baseTypespec = tps;
+                    break;
+                  }
                 }
               }
             }
@@ -2669,7 +2811,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             array_typespec* arr = s.MakeArray_typespec();
             tps = arr;
             found = true;
-            arr->Elem_typespec((typespec*)baseTypespec);
+            ref_typespec* baseRef = s.MakeRef_typespec();
+            baseRef->VpiParent(arr);
+            baseRef->Actual_group(const_cast<typespec*>(baseTypespec));
+            arr->Elem_typespec(baseRef);
             VectorOfrange* ranges = s.MakeRangeVec();
             range* ra = s.MakeRange();
             ranges->push_back(ra);
@@ -2684,16 +2829,37 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
         }
       }
       if (found == true) {
-        if (expr* ex = any_cast<expr*>(var)) {
-          ex->Typespec((typespec*)tps);
-        } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-          ex->Typespec((typespec*)tps);
-        } else if (parameter* ex = any_cast<parameter*>(var)) {
-          ex->Typespec((typespec*)tps);
-        } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-          ex->Typespec((typespec*)tps);
-        } else if (io_decl* ex = any_cast<io_decl*>(var)) {
-          ex->Typespec((typespec*)tps);
+        if (tps == nullptr) {
+          if (expr* ex = any_cast<expr*>(var)) {
+            ex->Typespec(nullptr);
+          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+            ex->Typespec(nullptr);
+          } else if (parameter* ex = any_cast<parameter*>(var)) {
+            ex->Typespec(nullptr);
+          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+            ex->Typespec(nullptr);
+          } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+            ex->Typespec(nullptr);
+          }
+        } else {
+          ref_typespec* rt = s.MakeRef_typespec();
+          rt->Actual_group(const_cast<UHDM::typespec*>(tps));
+          if (expr* ex = any_cast<expr*>(var)) {
+            rt->VpiParent(ex);
+            ex->Typespec(rt);
+          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+            rt->VpiParent(ex);
+            ex->Typespec(rt);
+          } else if (parameter* ex = any_cast<parameter*>(var)) {
+            rt->VpiParent(ex);
+            ex->Typespec(rt);
+          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+            rt->VpiParent(ex);
+            ex->Typespec(rt);
+          } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+            rt->VpiParent(ex);
+            ex->Typespec(rt);
+          }
         }
       }
     }
@@ -3225,13 +3391,15 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
     if (m->Variables()) {
       for (auto var : *m->Variables()) {
         if (var->UhdmType() == uhdmenum_var) {
-          const enum_typespec* tps =
-              any_cast<const enum_typespec*>(var->Typespec());
-          if (tps && tps->Enum_consts()) {
-            for (auto c : *tps->Enum_consts()) {
-              if (c->VpiName() == name) {
-                ref->Actual_group(c);
-                break;
+          if (const ref_typespec* rt = var->Typespec()) {
+            if (const enum_typespec* tps = rt->Actual_group<enum_typespec>()) {
+              if (tps->Enum_consts()) {
+                for (auto c : *tps->Enum_consts()) {
+                  if (c->VpiName() == name) {
+                    ref->Actual_group(c);
+                    break;
+                  }
+                }
               }
             }
           }

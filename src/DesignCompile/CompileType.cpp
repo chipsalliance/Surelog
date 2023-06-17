@@ -125,7 +125,10 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     case uhdmenum_typespec: {
       UHDM::enum_var* enum_var = s.MakeEnum_var();
       var = enum_var;
-      enum_var->Typespec(spec);
+      ref_typespec* specRef = s.MakeRef_typespec();
+      specRef->VpiParent(enum_var);
+      specRef->Actual_group(spec);
+      enum_var->Typespec(specRef);
       if (packedDimensions) {
         packed_array_var* array = s.MakePacked_array_var();
         VectorOfany* vars = s.MakeAnyVec();
@@ -147,7 +150,10 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     case uhdmunion_typespec: {
       UHDM::union_var* unionv = s.MakeUnion_var();
       var = unionv;
-      var->Typespec(spec);
+      ref_typespec* specRef = s.MakeRef_typespec();
+      specRef->VpiParent(var);
+      specRef->Actual_group(spec);
+      var->Typespec(specRef);
       if (packedDimensions) {
         packed_array_var* array = s.MakePacked_array_var();
         VectorOfany* vars = s.MakeAnyVec();
@@ -163,7 +169,10 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     case uhdmstruct_typespec: {
       UHDM::struct_var* structv = s.MakeStruct_var();
       var = structv;
-      var->Typespec(spec);
+      ref_typespec* specRef = s.MakeRef_typespec();
+      specRef->VpiParent(var);
+      specRef->Actual_group(spec);
+      var->Typespec(specRef);
       if (packedDimensions) {
         packed_array_var* array = s.MakePacked_array_var();
         VectorOfany* vars = s.MakeAnyVec();
@@ -178,12 +187,17 @@ variables* CompileHelper::getSimpleVarFromTypespec(
     }
     case uhdmarray_typespec: {
       array_typespec* atps = (array_typespec*)spec;
-      if (const typespec* indextps = atps->Index_typespec()) {
-        return getSimpleVarFromTypespec((typespec*)indextps, packedDimensions,
-                                        compileDesign);
+      if (ref_typespec* atps_rt = atps->Index_typespec()) {
+        if (typespec* indextps = atps_rt->Actual_group()) {
+          return getSimpleVarFromTypespec(indextps, packedDimensions,
+                                          compileDesign);
+        }
       } else {
         UHDM::array_var* array = s.MakeArray_var();
-        array->Typespec(s.MakeArray_typespec());
+        ref_typespec* tpsRef = s.MakeRef_typespec();
+        tpsRef->VpiParent(array);
+        tpsRef->Actual_group(s.MakeArray_typespec());
+        array->Typespec(tpsRef);
         var = array;
       }
       break;
@@ -192,7 +206,10 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       break;
   }
   if (var) {
-    var->Typespec(spec);
+    ref_typespec* specRef = s.MakeRef_typespec();
+    specRef->VpiParent(var);
+    specRef->Actual_group(spec);
+    var->Typespec(specRef);
   }
   return var;
 }
@@ -288,7 +305,12 @@ UHDM::any* CompileHelper::compileVariable(
                   getSimpleVarFromTypespec(tps, ranges, compileDesign)) {
             fC->populateCoreMembers(declarationId, declarationId, var);
             var->VpiName(fC->SymName(variable));
-            if (ts) var->Typespec(ts);
+            if (ts) {
+              ref_typespec* tsRef = s.MakeRef_typespec();
+              tsRef->VpiParent(var);
+              tsRef->Actual_group(ts);
+              var->Typespec(tsRef);
+            }
             result = var;
           }
         }
@@ -310,7 +332,10 @@ UHDM::any* CompileHelper::compileVariable(
         if (cl) {
           class_var* var = s.MakeClass_var();
           class_typespec* tps = s.MakeClass_typespec();
-          var->Typespec(tps);
+          ref_typespec* tpsRef = s.MakeRef_typespec();
+          tpsRef->VpiParent(var);
+          tpsRef->Actual_group(tps);
+          var->Typespec(tpsRef);
           tps->Class_defn(cl->getUhdmDefinition());
           fC->populateCoreMembers(declarationId, declarationId, tps);
           fC->populateCoreMembers(declarationId, declarationId, var);
@@ -322,7 +347,10 @@ UHDM::any* CompileHelper::compileVariable(
           if (ts) {
             if (ts->UhdmType() == uhdmclass_typespec) {
               class_var* var = s.MakeClass_var();
-              var->Typespec(ts);
+              ref_typespec* tsRef = s.MakeRef_typespec();
+              tsRef->VpiParent(var);
+              tsRef->Actual_group(ts);
+              var->Typespec(tsRef);
               fC->populateCoreMembers(declarationId, declarationId, var);
               result = var;
             }
@@ -332,13 +360,23 @@ UHDM::any* CompileHelper::compileVariable(
       if (result == nullptr) {
         if (the_type == VObjectType::slChandle_type) {
           chandle_var* var = s.MakeChandle_var();
-          var->Typespec(ts);
+          if (ts) {
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(var);
+            tsRef->Actual_group(ts);
+            var->Typespec(tsRef);
+          }
           result = var;
         } else {
           ref_var* ref = s.MakeRef_var();
-          ref->Typespec(ts);
-          if (ts && (ts->UhdmType() == uhdmunsupported_typespec)) {
-            component->needLateTypedefBinding(ref);
+          if (ts) {
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(ref);
+            tsRef->Actual_group(ts);
+            ref->Typespec(tsRef);
+            if (ts->UhdmType() == uhdmunsupported_typespec) {
+              component->needLateTypedefBinding(ref);
+            }
           }
           ref->VpiName(typeName);
           result = ref;
@@ -349,81 +387,117 @@ UHDM::any* CompileHelper::compileVariable(
     case VObjectType::slIntVec_TypeLogic:
     case VObjectType::slIntVec_TypeReg: {
       logic_var* var = s.MakeLogic_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       fC->populateCoreMembers(declarationId, declarationId, var);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Int: {
       int_var* var = s.MakeInt_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Integer: {
       integer_var* var = s.MakeInteger_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slSigning_Unsigned: {
       int_var* var = s.MakeInt_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slSigning_Signed: {
       int_var* var = s.MakeInt_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Byte: {
       byte_var* var = s.MakeByte_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_LongInt: {
       long_int_var* var = s.MakeLong_int_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Shortint: {
       short_int_var* var = s.MakeShort_int_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
     case VObjectType::slIntegerAtomType_Time: {
       time_var* var = s.MakeTime_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       result = var;
       break;
     }
     case VObjectType::slIntVec_TypeBit: {
       bit_var* var = s.MakeBit_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       result = var;
       break;
     }
     case VObjectType::slNonIntType_ShortReal: {
       short_real_var* var = s.MakeShort_real_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       result = var;
       break;
     }
     case VObjectType::slNonIntType_Real: {
       real_var* var = s.MakeReal_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       result = var;
       break;
     }
@@ -439,10 +513,14 @@ UHDM::any* CompileHelper::compileVariable(
       if (pack) {
         const DataType* dtype = pack->getDataType(typeName);
         while (dtype) {
-          typespec* tps = dtype->getTypespec();
-          if (tps) {
+          if (typespec* tps = dtype->getTypespec()) {
             var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
-            if (ts) var->Typespec(ts);
+            if (ts) {
+              ref_typespec* tsRef = s.MakeRef_typespec();
+              tsRef->VpiParent(var);
+              tsRef->Actual_group(ts);
+              var->Typespec(tsRef);
+            }
             break;
           }
           dtype = dtype->getDefinition();
@@ -467,7 +545,12 @@ UHDM::any* CompileHelper::compileVariable(
           while (dtype) {
             if (typespec* tps = dtype->getTypespec()) {
               var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
-              if (ts) var->Typespec(ts);
+              if (ts) {
+                ref_typespec* tsRef = s.MakeRef_typespec();
+                tsRef->VpiParent(var);
+                tsRef->Actual_group(ts);
+                var->Typespec(tsRef);
+              }
               break;
             }
             dtype = dtype->getDefinition();
@@ -479,16 +562,21 @@ UHDM::any* CompileHelper::compileVariable(
       if (var == nullptr) var = s.MakeClass_var();
       unsupported_typespec* tp = s.MakeUnsupported_typespec();
       tp->VpiName(completeName);
-      var->Typespec(tp);
-      component->needLateTypedefBinding(var);
       var->VpiName(completeName);
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
+      component->needLateTypedefBinding(var);
       result = var;
       break;
     }
     case VObjectType::slString_type: {
       string_var* var = s.MakeString_var();
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       result = var;
       break;
     }
@@ -497,7 +585,10 @@ UHDM::any* CompileHelper::compileVariable(
       NodeId nameid = fC->Child(hier_ident);
       int_var* var = s.MakeInt_var();
       var->VpiName(fC->SymName(nameid));
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       result = var;
       break;
     }
@@ -505,7 +596,10 @@ UHDM::any* CompileHelper::compileVariable(
       // Implicit type
       logic_var* var = s.MakeLogic_var();
       result = var;
-      var->Typespec(ts);
+      ref_typespec* tsRef = s.MakeRef_typespec();
+      tsRef->VpiParent(var);
+      tsRef->Actual_group(ts);
+      var->Typespec(tsRef);
       break;
     }
   }
@@ -527,11 +621,11 @@ const UHDM::typespec* bindTypespec(std::string_view name,
     for (Parameter* param : modInst->getTypeParams()) {
       const std::string_view pname = param->getName();
       if (pname == name) {
-        any* uparam = param->getUhdmParam();
-        if (uparam) {
-          type_parameter* tparam = any_cast<type_parameter*>(uparam);
-          if (tparam) {
-            result = tparam->Typespec();
+        if (any* uparam = param->getUhdmParam()) {
+          if (type_parameter* tparam = any_cast<type_parameter*>(uparam)) {
+            if (const ref_typespec* rt = tparam->Typespec()) {
+              result = rt->Actual_group();
+            }
             ElaboratorContext elaboratorContext(&s, false, true);
             result = any_cast<typespec*>(
                 UHDM::clone_tree((any*)result, &elaboratorContext));
@@ -541,23 +635,20 @@ const UHDM::typespec* bindTypespec(std::string_view name,
       }
     }
     if (result == nullptr) {
-      ModuleDefinition* mod = (ModuleDefinition*)modInst->getDefinition();
-      if (mod) {
-        Parameter* param = mod->getParameter(name);
-        if (param) {
-          any* uparam = param->getUhdmParam();
-          if (uparam) {
-            type_parameter* tparam = any_cast<type_parameter*>(uparam);
-            if (tparam) {
-              result = tparam->Typespec();
+      if (ModuleDefinition* mod = (ModuleDefinition*)modInst->getDefinition()) {
+        if (Parameter* param = mod->getParameter(name)) {
+          if (any* uparam = param->getUhdmParam()) {
+            if (type_parameter* tparam = any_cast<type_parameter*>(uparam)) {
+              if (const ref_typespec* rt = tparam->Typespec()) {
+                result = rt->Actual_group();
+              }
               ElaboratorContext elaboratorContext(&s, false, true);
               result = any_cast<typespec*>(
                   UHDM::clone_tree((any*)result, &elaboratorContext));
             }
           }
         }
-        const DataType* dt = mod->getDataType(name);
-        if (dt) {
+        if (const DataType* dt = mod->getDataType(name)) {
           dt = dt->getActual();
           result = dt->getTypespec();
           ElaboratorContext elaboratorContext(&s, false, true);
@@ -610,13 +701,20 @@ typespec* CompileHelper::compileDatastructureTypespec(
           if (fCP->SymName(passign->getParamId()) == typeName) {
             UHDM::param_assign* param_assign = passign->getUhdmParamAssign();
             UHDM::parameter* lhs = (UHDM::parameter*)param_assign->Lhs();
-            result = (typespec*)lhs->Typespec();
+            if (ref_typespec* rt = lhs->Typespec()) {
+              result = rt->Actual_group();
+            }
             if (result == nullptr) {
-              int_typespec* tps = buildIntTypespec(
-                  compileDesign, fC->getFileId(), typeName, "", fC->Line(type),
-                  fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
-              lhs->Typespec(tps);
-              result = tps;
+              if (int_typespec* tps = buildIntTypespec(
+                      compileDesign, fC->getFileId(), typeName, "",
+                      fC->Line(type), fC->Column(type), fC->EndLine(type),
+                      fC->EndColumn(type))) {
+                ref_typespec* tpsRef = s.MakeRef_typespec();
+                tpsRef->VpiParent(lhs);
+                tpsRef->Actual_group(tps);
+                lhs->Typespec(tpsRef);
+                result = tps;
+              }
             }
             if (result->UhdmType() == uhdmint_typespec) {
               int_typespec* ts = (int_typespec*)result;
@@ -711,7 +809,9 @@ typespec* CompileHelper::compileDatastructureTypespec(
           struct_typespec* tpss = (struct_typespec*)result;
           for (typespec_member* memb : *tpss->Members()) {
             if (memb->VpiName() == suffixname) {
-              result = (UHDM::typespec*)memb->Typespec();
+              if (ref_typespec* rt = memb->Typespec()) {
+                result = rt->Actual_group();
+              }
               break;
             }
           }
@@ -732,7 +832,10 @@ typespec* CompileHelper::compileDatastructureTypespec(
           typespec* new_result = any_cast<typespec*>(
               UHDM::clone_tree((any*)result, &elaboratorContext));
           if (new_result) {
-            new_result->Typedef_alias(result);
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(new_result);
+            tsRef->Actual_group(result);
+            new_result->Typedef_alias(tsRef);
             result = new_result;
           }
         }
@@ -793,7 +896,10 @@ typespec* CompileHelper::compileDatastructureTypespec(
                   tp->VpiName(fName);
                   tp->VpiParent(ref);
                   tps->VpiParent(tp);
-                  tp->Typespec(tps);
+                  ref_typespec* tpsRef = s.MakeRef_typespec();
+                  tpsRef->VpiParent(tp);
+                  tpsRef->Actual_group(tps);
+                  tp->Typespec(tpsRef);
                   p->getFileContent()->populateCoreMembers(p->getNodeId(),
                                                            p->getNodeId(), tp);
                   params->push_back(tp);
@@ -816,7 +922,10 @@ typespec* CompileHelper::compileDatastructureTypespec(
                             instance, "", name)) {
                       type_parameter* tp = s.MakeType_parameter();
                       tp->VpiName(fName);
-                      tp->Typespec(tps);
+                      ref_typespec* tpsRef = s.MakeRef_typespec();
+                      tpsRef->VpiParent(tp);
+                      tpsRef->Actual_group(tps);
+                      tp->Typespec(tpsRef);
                       tps->VpiParent(tp);
                       tp->VpiParent(ref);
                       params->push_back(tp);
@@ -1162,7 +1271,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
                  instance, fC->getFileId(), baseType->VpiLineNo(), true);
       }
       enum_typespec* en = s.MakeEnum_typespec();
-      en->Base_typespec(baseType);
+      ref_typespec* baseTypeRef = s.MakeRef_typespec();
+      baseTypeRef->VpiParent(en);
+      baseTypeRef->Actual_group(baseType);
+      en->Base_typespec(baseTypeRef);
       VectorOfenum_const* econsts = s.MakeEnum_constVec();
       en->Enum_consts(econsts);
       NodeId enum_name_declaration = type;
@@ -1424,9 +1536,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
           if ((result->UhdmType() != uhdmlogic_typespec) &&
               (result->UhdmType() != uhdmbit_typespec) &&
               (result->UhdmType() != uhdmint_typespec)) {
+            ref_typespec* resultRef = s.MakeRef_typespec();
+            resultRef->Actual_group(result);
             if (isPacked) {
               packed_array_typespec* pats = s.MakePacked_array_typespec();
-              pats->Elem_typespec(result);
+              pats->Elem_typespec(resultRef);
+              resultRef->VpiParent(pats);
               if (ranges) {
                 pats->Ranges(ranges);
                 for (auto r : *ranges) r->VpiParent(pats);
@@ -1434,7 +1549,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
               result = pats;
             } else {
               array_typespec* pats = s.MakeArray_typespec();
-              pats->Elem_typespec(result);
+              pats->Elem_typespec(resultRef);
+              resultRef->VpiParent(pats);
               if (ranges) {
                 pats->Ranges(ranges);
                 for (auto r : *ranges) r->VpiParent(pats);
@@ -1482,15 +1598,19 @@ UHDM::typespec* CompileHelper::compileTypespec(
       fC->populateCoreMembers(type, type, result);
 
       if (ranges) {
+        ref_typespec* resultRef = s.MakeRef_typespec();
+        resultRef->Actual_group(result);
         if (isPacked) {
           packed_array_typespec* pats = s.MakePacked_array_typespec();
-          pats->Elem_typespec(result);
+          pats->Elem_typespec(resultRef);
           pats->Ranges(ranges);
+          resultRef->VpiParent(pats);
           result = pats;
         } else {
           array_typespec* pats = s.MakeArray_typespec();
-          pats->Elem_typespec(result);
+          pats->Elem_typespec(resultRef);
           pats->Ranges(ranges);
+          resultRef->VpiParent(pats);
           result = pats;
         }
         // Include the ranges in the location information
@@ -1539,7 +1659,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
           m->VpiRefEndColumnNo(fC->EndColumn(Data_type));
           m->VpiParent(result);
           if (member_ts != nullptr) {
-            m->Typespec(member_ts);
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(m);
+            tsRef->Actual_group(member_ts);
+            m->Typespec(tsRef);
             member_ts->VpiParent(m);
           }
           if (Expression &&
@@ -1657,31 +1780,29 @@ UHDM::typespec* CompileHelper::compileTypespec(
           instance = (ValuedComponentI*)instance->getParentScope();
         }
       }
-      if (!result) {
-        if (component) {
-          UHDM::VectorOfparam_assign* param_assigns =
-              component->getParam_assigns();
-          if (param_assigns) {
-            for (param_assign* param : *param_assigns) {
-              const std::string_view param_name = param->Lhs()->VpiName();
-              if (param_name == typeName) {
-                const any* rhs = param->Rhs();
-                if (const constant* exp = any_cast<const constant*>(rhs)) {
-                  int_typespec* its = buildIntTypespec(
-                      compileDesign,
-                      fileSystem->toPathId(
-                          param->VpiFile(),
-                          compileDesign->getCompiler()->getSymbolTable()),
-                      typeName, exp->VpiValue(), param->VpiLineNo(),
-                      param->VpiColumnNo(), param->VpiLineNo(),
-                      param->VpiColumnNo());
-                  result = its;
-                } else if (const operation* exp =
-                               any_cast<const operation*>(rhs)) {
-                  result = (typespec*)exp->Typespec();
-                }
-                break;
+      if (!result && component) {
+        if (UHDM::VectorOfparam_assign* param_assigns =
+                component->getParam_assigns()) {
+          for (param_assign* param : *param_assigns) {
+            const std::string_view param_name = param->Lhs()->VpiName();
+            if (param_name == typeName) {
+              const any* rhs = param->Rhs();
+              if (const constant* exp = any_cast<const constant*>(rhs)) {
+                int_typespec* its = buildIntTypespec(
+                    compileDesign,
+                    fileSystem->toPathId(
+                        param->VpiFile(),
+                        compileDesign->getCompiler()->getSymbolTable()),
+                    typeName, exp->VpiValue(), param->VpiLineNo(),
+                    param->VpiColumnNo(), param->VpiLineNo(),
+                    param->VpiColumnNo());
+                result = its;
+              } else if (const operation* exp =
+                             any_cast<const operation*>(rhs)) {
+                if (const ref_typespec* rt = exp->Typespec())
+                  result = const_cast<typespec*>(rt->Actual_group());
               }
+              break;
             }
           }
         }
@@ -1716,28 +1837,34 @@ UHDM::typespec* CompileHelper::compileTypespec(
             component, fC, type, compileDesign, reduce, instance, "", typeName);
         if (ranges && result) {
           UHDM_OBJECT_TYPE dstype = result->UhdmType();
+          ref_typespec* resultRef = s.MakeRef_typespec();
+          resultRef->Actual_group(result);
           if (dstype == uhdmstruct_typespec || dstype == uhdmenum_typespec ||
               dstype == uhdmunion_typespec) {
             packed_array_typespec* pats = s.MakePacked_array_typespec();
-            pats->Elem_typespec(result);
+            pats->Elem_typespec(resultRef);
             pats->Ranges(ranges);
             result = pats;
           } else if (dstype == uhdmlogic_typespec) {
             logic_typespec* pats = s.MakeLogic_typespec();
-            pats->Logic_typespec((logic_typespec*)result);
+            pats->Elem_typespec(resultRef);
             pats->Ranges(ranges);
             result = pats;
           } else if (dstype == uhdmarray_typespec ||
                      dstype == uhdminterface_typespec) {
             array_typespec* pats = s.MakeArray_typespec();
-            pats->Elem_typespec(result);
+            pats->Elem_typespec(resultRef);
             pats->Ranges(ranges);
             result = pats;
           } else if (dstype == uhdmpacked_array_typespec) {
             packed_array_typespec* pats = s.MakePacked_array_typespec();
-            pats->Elem_typespec(result);
+            pats->Elem_typespec(resultRef);
             pats->Ranges(ranges);
             result = pats;
+          }
+          resultRef->VpiParent(result);
+          if (ranges != nullptr) {
+            for (auto r : *ranges) r->VpiParent(result);
           }
           // Include the ranges in the location information
           NodeId packedDims = fC->Sibling(type);
@@ -1756,13 +1883,14 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
       }
       if ((!result) && component) {
-        UHDM::VectorOfany* params = component->getParameters();
-        if (params) {
+        if (UHDM::VectorOfany* params = component->getParameters()) {
           for (any* param : *params) {
             if (param->UhdmType() == uhdmtype_parameter) {
               if (param->VpiName() == typeName) {
                 type_parameter* tparam = (type_parameter*)param;
-                result = (typespec*)tparam->Typespec();
+                if (ref_typespec* rt = tparam->Typespec()) {
+                  result = rt->Actual_group();
+                }
                 break;
               }
             }
@@ -1981,8 +2109,8 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
   }
   if (ranges) {
     for (UHDM::range* oldRange : *ranges) {
-      expr* oldLeft = (expr*)oldRange->Left_expr();
-      expr* oldRight = (expr*)oldRange->Right_expr();
+      expr* oldLeft = oldRange->Left_expr();
+      expr* oldRight = oldRange->Right_expr();
       bool invalidValue = false;
       expr* newLeft = reduceExpr(
           oldLeft, invalidValue, component, compileDesign, instance,
@@ -2024,15 +2152,19 @@ bool CompileHelper::isOverloaded(const UHDM::any* expr,
         break;
       }
       case uhdmconstant: {
-        if (const typespec* tp = ((constant*)tmp)->Typespec()) {
-          stack.push(tp);
+        if (const ref_typespec* rt = ((constant*)tmp)->Typespec()) {
+          if (const any* tp = rt->Actual_group()) {
+            stack.push(tp);
+          }
         }
         break;
       }
       case uhdmtypespec: {
         typespec* tps = (typespec*)tmp;
-        if (const typespec* atps = tps->Typedef_alias()) {
-          stack.push(atps);
+        if (const ref_typespec* rt = tps->Typedef_alias()) {
+          if (const any* atps = rt->Actual_group()) {
+            stack.push(atps);
+          }
         }
         break;
       }
@@ -2061,8 +2193,10 @@ bool CompileHelper::isOverloaded(const UHDM::any* expr,
             stack.push(op);
           }
         }
-        if (const typespec* etps = tps->Elem_typespec()) {
-          stack.push(etps);
+        if (const ref_typespec* rt = tps->Elem_typespec()) {
+          if (const any* etps = rt->Actual_group()) {
+            stack.push(etps);
+          }
         }
         break;
       }
@@ -2073,8 +2207,10 @@ bool CompileHelper::isOverloaded(const UHDM::any* expr,
             stack.push(op);
           }
         }
-        if (const any* etps = tps->Elem_typespec()) {
-          stack.push(etps);
+        if (const ref_typespec* rt = tps->Elem_typespec()) {
+          if (const any* etps = rt->Actual_group()) {
+            stack.push(etps);
+          }
         }
         break;
       }

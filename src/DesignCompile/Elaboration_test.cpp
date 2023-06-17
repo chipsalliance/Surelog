@@ -39,6 +39,7 @@
 #include <uhdm/int_typespec.h>
 #include <uhdm/module_inst.h>
 #include <uhdm/param_assign.h>
+#include <uhdm/ref_typespec.h>
 #include <uhdm/variables.h>
 #include <uhdm/vpi_user.h>
 
@@ -491,8 +492,10 @@ endmodule
       if (name == "p1") {
         // Val is 1, but it has a signed typespec (Meaning negative bin number)
         EXPECT_EQ(val, 3);
-        const UHDM::typespec* tps = rhs->Typespec();
-        UHDM::int_typespec* itps = (UHDM::int_typespec*)tps;
+        const UHDM::int_typespec* itps = nullptr;
+        if (const UHDM::ref_typespec* rt = rhs->Typespec()) {
+          itps = rt->Actual_group<UHDM::int_typespec>();
+        }
         EXPECT_EQ(itps->VpiSigned(), false);
       } else if (name == "p2") {
         EXPECT_EQ(val, 2);
