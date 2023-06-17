@@ -637,12 +637,6 @@ range                                                  1
 ref_obj                                               25
 task                                                   9
 === UHDM Object Stats End ===
-[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:17:5: Illegal lhs of type wire "a".
-
-[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:18:5: Illegal lhs of type wire "nba".
-
-[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:19:5: Illegal lhs of type wire "bb".
-
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
@@ -681,6 +675,12 @@ range                                                  2
 ref_obj                                               48
 task                                                  18
 === UHDM Object Stats End ===
+[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:17:5: Illegal lhs of type wire "a".
+
+[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:18:5: Illegal lhs of type wire "nba".
+
+[ERR:UH0718] ${SURELOG_DIR}/tests/Assignments/dut.sv:19:5: Illegal lhs of type wire "bb".
+
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Assignments/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Assignments/slpp_all/checker/surelog.chk.html ...
@@ -1258,7 +1258,7 @@ design: (work@dut)
             \_method_func_call: (new), line:6:18, endln:6:57
             |vpiName:cover_info
             |vpiActual:
-            \_logic_net: (work@dut.cover_info), line:6:5, endln:6:15
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:46, endln:6:56
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:5, endln:6:15
@@ -1282,7 +1282,7 @@ design: (work@dut)
             \_method_func_call: (new), line:7:21, endln:7:37
             |vpiName:m_pack_iter
             |vpiActual:
-            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:7:25, endln:7:36
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream), line:7:5, endln:7:11
@@ -1780,7 +1780,7 @@ design: (work@dut)
                 \_hier_path: (cover_info.size), line:6:22, endln:6:39
                 |vpiName:cover_info
                 |vpiActual:
-                \_ref_obj: (cover_info), line:6:46, endln:6:56
+                \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:46, endln:6:56
               |vpiActual:
               \_method_func_call: (size), line:6:33, endln:6:37
                 |vpiParent:
@@ -1795,7 +1795,7 @@ design: (work@dut)
             |vpiName:cover_info
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info
             |vpiActual:
-            \_logic_net: (work@dut.cover_info), line:6:5, endln:6:15
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:46, endln:6:56
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6:5, endln:6:15
@@ -1822,7 +1822,7 @@ design: (work@dut)
             |vpiName:m_pack_iter
             |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
             |vpiActual:
-            \_logic_net: (work@dut.m_pack_iter), line:7:25, endln:7:36
+            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:7:25, endln:7:36
           |vpiName:new
         |vpiLhs:
         \_ref_obj: (work@dut.uvm_packer::get_packed_bits.stream), line:7:5, endln:7:11

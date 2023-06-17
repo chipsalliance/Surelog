@@ -566,11 +566,28 @@ design: (work@top)
           \_range: , line:14:10, endln:14:39
           |vpiOpType:11
           |vpiOperand:
-          \_constant: , line:14:11, endln:14:36
-            |vpiDecompile:0
-            |vpiSize:64
-            |INT:0
-            |vpiConstType:7
+          \_operation: , line:14:11, endln:14:34
+            |vpiParent:
+            \_operation: , line:14:11, endln:14:36
+            |vpiOpType:12
+            |vpiOperand:
+            \_sys_func_call: ($bits), line:14:11, endln:14:32
+              |vpiParent:
+              \_operation: , line:14:11, endln:14:34
+              |vpiArgument:
+              \_ref_obj: (PartInvDefault), line:14:17, endln:14:31
+                |vpiParent:
+                \_sys_func_call: ($bits), line:14:11, endln:14:32
+                |vpiName:PartInvDefault
+              |vpiName:$bits
+            |vpiOperand:
+            \_constant: , line:14:33, endln:14:34
+              |vpiParent:
+              \_operation: , line:14:11, endln:14:34
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
           |vpiOperand:
           \_constant: , line:14:35, endln:14:36
             |vpiParent:
@@ -820,7 +837,7 @@ design: (work@top)
         |vpiName:part_buf_data
         |vpiFullName:work@top.part_buf_data
         |vpiActual:
-        \_logic_net: (work@top.part_buf_data), line:14:40, endln:14:53
+        \_logic_var: (work@top.part_buf_data), line:14:40, endln:14:58
     |vpiLhs:
     \_ref_obj: (work@top.o), line:15:11, endln:15:12
       |vpiParent:

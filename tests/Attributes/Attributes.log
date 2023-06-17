@@ -960,12 +960,6 @@ table_entry                                           14
 task                                                   9
 udp_defn                                               1
 === UHDM Object Stats End ===
-[ERR:UH0718] ${SURELOG_DIR}/tests/Attributes/dut.sv:31:9: Illegal lhs of type wire "b".
-
-[ERR:UH0718] ${SURELOG_DIR}/tests/Attributes/dut.sv:33:9: Illegal lhs of type wire "b".
-
-[ERR:UH0718] ${SURELOG_DIR}/tests/Attributes/dut.sv:35:9: Illegal lhs of type wire "b".
-
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
@@ -1005,6 +999,12 @@ table_entry                                           14
 task                                                  18
 udp_defn                                               1
 === UHDM Object Stats End ===
+[ERR:UH0718] ${SURELOG_DIR}/tests/Attributes/dut.sv:31:9: Illegal lhs of type wire "b".
+
+[ERR:UH0718] ${SURELOG_DIR}/tests/Attributes/dut.sv:33:9: Illegal lhs of type wire "b".
+
+[ERR:UH0718] ${SURELOG_DIR}/tests/Attributes/dut.sv:35:9: Illegal lhs of type wire "b".
+
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Attributes/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Attributes/slpp_all/checker/surelog.chk.html ...
@@ -2593,7 +2593,7 @@ design: (work@foo)
         |vpiName:clk
         |vpiFullName:work@foo.clk
         |vpiActual:
-        \_logic_net: (work@foo.clk), line:13:12, endln:13:15
+        \_logic_net: (work@foo.bar_instance.clk), line:1:12, endln:1:15
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.clk), line:19:52, endln:19:55
         |vpiParent:
@@ -2625,7 +2625,7 @@ design: (work@foo)
         |vpiName:rst
         |vpiFullName:work@foo.rst
         |vpiActual:
-        \_logic_net: (work@foo.rst), line:13:17, endln:13:20
+        \_logic_net: (work@foo.bar_instance.rst), line:1:17, endln:1:20
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.rst), line:19:57, endln:19:60
         |vpiParent:
@@ -2651,7 +2651,7 @@ design: (work@foo)
         |vpiName:inp
         |vpiFullName:work@foo.inp
         |vpiActual:
-        \_logic_net: (work@foo.inp), line:13:22, endln:13:25
+        \_logic_net: (work@foo.bar_instance.inp), line:1:22, endln:1:25
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.inp), line:19:95, endln:19:98
         |vpiParent:
@@ -2683,7 +2683,7 @@ design: (work@foo)
         |vpiName:out
         |vpiFullName:work@foo.out
         |vpiActual:
-        \_logic_net: (work@foo.out), line:13:27, endln:13:30
+        \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30
       |vpiLowConn:
       \_ref_obj: (work@foo.bar_instance.out), line:19:100, endln:19:103
         |vpiParent:
@@ -2716,7 +2716,7 @@ design: (work@foo)
             |vpiName:clk
             |vpiFullName:work@foo.bar_instance.clk
             |vpiActual:
-            \_logic_net: (work@bar.clk), line:1:12, endln:1:15
+            \_logic_net: (work@foo.bar_instance.clk), line:1:12, endln:1:15
         |vpiStmt:
         \_if_else: , line:8:5, endln:9:26
           |vpiParent:
@@ -2728,7 +2728,7 @@ design: (work@foo)
             |vpiName:rst
             |vpiFullName:work@foo.bar_instance.rst
             |vpiActual:
-            \_logic_net: (work@bar.rst), line:1:17, endln:1:20
+            \_logic_net: (work@foo.bar_instance.rst), line:1:17, endln:1:20
           |vpiStmt:
           \_assignment: , line:8:14, endln:8:25
             |vpiParent:
@@ -2743,7 +2743,7 @@ design: (work@foo)
               |vpiName:out
               |vpiFullName:work@foo.bar_instance.out
               |vpiActual:
-              \_logic_net: (work@bar.out), line:1:27, endln:1:30
+              \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30
           |vpiElseStmt:
           \_assignment: , line:9:14, endln:9:25
             |vpiParent:
@@ -2761,7 +2761,7 @@ design: (work@foo)
                 |vpiName:inp
                 |vpiFullName:work@foo.bar_instance.inp
                 |vpiActual:
-                \_logic_net: (work@bar.inp), line:1:22, endln:1:25
+                \_logic_net: (work@foo.bar_instance.inp), line:1:22, endln:1:25
             |vpiLhs:
             \_ref_obj: (work@foo.bar_instance.out), line:9:14, endln:9:17
               |vpiParent:
@@ -2769,7 +2769,7 @@ design: (work@foo)
               |vpiName:out
               |vpiFullName:work@foo.bar_instance.out
               |vpiActual:
-              \_logic_net: (work@bar.out), line:1:27, endln:1:30
+              \_logic_net: (work@foo.bar_instance.out), line:1:27, endln:1:30
       |vpiAlwaysType:1
   |vpiContAssign:
   \_cont_assign: , line:22:10, endln:22:62

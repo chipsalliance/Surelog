@@ -784,8 +784,6 @@ tagged_pattern                                         2
 task                                                   9
 typespec_member                                        8
 === UHDM Object Stats End ===
-[ERR:UH0718] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:7: Illegal lhs of type wire "resumereq_o".
-
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
@@ -831,6 +829,8 @@ task                                                  18
 typespec_member                                        8
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:20: Unresolved hierarchical reference "dmcontrol_q.resumereq".
+
+[ERR:UH0718] ${SURELOG_DIR}/tests/CastTypespec/dut.sv:38:7: Illegal lhs of type wire "resumereq_o".
 
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastTypespec/slpp_all/surelog.uhdm ...
 
@@ -2564,7 +2564,7 @@ design: (work@tlul_adapter_host)
                     |vpiName:a
                     |vpiFullName:work@top.a
                     |vpiActual:
-                    \_logic_net: (work@top.a), line:28:9, endln:28:10
+                    \_int_var: (work@top.a), line:28:9, endln:28:10
                   |vpiOperand:
                   \_operation: , line:32:24, endln:32:33
                     |vpiParent:
@@ -2584,7 +2584,7 @@ design: (work@tlul_adapter_host)
                         |vpiName:b
                         |vpiFullName:work@top.b
                         |vpiActual:
-                        \_logic_net: (work@top.b), line:28:11, endln:28:12
+                        \_int_var: (work@top.b), line:28:11, endln:28:12
                       |vpiOperand:
                       \_ref_obj: (work@top.c), line:32:30, endln:32:31
                         |vpiParent:
@@ -2592,7 +2592,7 @@ design: (work@tlul_adapter_host)
                         |vpiName:c
                         |vpiFullName:work@top.c
                         |vpiActual:
-                        \_logic_net: (work@top.c), line:28:13, endln:28:14
+                        \_int_var: (work@top.c), line:28:13, endln:28:14
         |vpiLhs:
         \_ref_obj: (work@top.v1), line:32:7, endln:32:9
           |vpiParent:
