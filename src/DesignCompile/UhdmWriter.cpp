@@ -4397,6 +4397,10 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
             ->getUhdmStats()) {
       s.PrintStats(std::cerr, "Elaborated Model");
     }
+
+    UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d);
+    adjuster->listenDesigns(designs);
+    delete adjuster;
   }
 
   // ----------------------------------
@@ -4417,10 +4421,6 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     annotate->listenDesigns(designs);
     delete annotate;
   }
-
-  UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d);
-  adjuster->listenDesigns(designs);
-  delete adjuster;
 
   // s.GarbageCollect();
 
