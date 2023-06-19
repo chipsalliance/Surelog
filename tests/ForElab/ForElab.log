@@ -79,7 +79,7 @@ assign_stmt                                            1
 begin                                                  1
 bit_select                                             1
 bit_typespec                                           2
-constant                                             146
+constant                                             144
 cont_assign                                            1
 design                                                 1
 gate                                                   6
@@ -632,15 +632,16 @@ design: (work@tlul_socket_m1)
           \_module_inst: work@prim_arbiter_tree (work@tlul_socket_m1.gen_tree_arb.u_reqarb), file:${SURELOG_DIR}/tests/ForElab/top.v, line:55:5, endln:61:7
           |vpiOverriden:1
           |vpiRhs:
-          \_constant: , line:18:31, endln:18:33
+          \_sys_func_call: ($bits), line:57:16, endln:57:41
             |vpiParent:
             \_param_assign: , line:18:26, endln:18:33
-            |vpiDecompile:0
-            |vpiSize:32
-            |UINT:0
-            |vpiTypespec:
-            \_int_typespec: , line:18:13, endln:18:25
-            |vpiConstType:9
+            |vpiArgument:
+            \_ref_obj: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.tlul_pkg::tl_h2d_t), line:57:22, endln:57:32
+              |vpiParent:
+              \_sys_func_call: ($bits), line:57:16, endln:57:41
+              |vpiName:tlul_pkg::tl_h2d_t
+              |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.tlul_pkg::tl_h2d_t
+            |vpiName:$bits
           |vpiLhs:
           \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW), line:18:26, endln:18:28
         |vpiParamAssign:
