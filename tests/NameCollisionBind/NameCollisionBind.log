@@ -326,6 +326,15 @@ design: (work@CSR_Unit)
     \_module_inst: work@CSR_Unit (work@CSR_Unit), file:${SURELOG_DIR}/tests/NameCollisionBind/dut.sv, line:20:1, endln:27:10
     |vpiName:perfCounter
     |vpiFullName:work@CSR_Unit.perfCounter
+    |vpiVariables:
+    \_struct_var: (work@CSR_Unit.perfCounter.perfCounter), line:13:21, endln:13:32
+      |vpiParent:
+      \_interface_inst: work@PerformanceCounterIF (work@CSR_Unit.perfCounter), file:${SURELOG_DIR}/tests/NameCollisionBind/dut.sv, line:20:0
+      |vpiTypespec:
+      \_struct_typespec: (PerfCounterPath), line:4:9, endln:8:2
+      |vpiName:perfCounter
+      |vpiFullName:work@CSR_Unit.perfCounter.perfCounter
+      |vpiVisibility:1
     |vpiDefName:work@PerformanceCounterIF
     |vpiModport:
     \_modport: (CSR), line:14:13, endln:14:16
@@ -339,14 +348,7 @@ design: (work@CSR_Unit)
         |vpiDirection:1
         |vpiName:perfCounter
         |vpiExpr:
-        \_struct_var: (work@CSR_Unit.perfCounter.CSR.perfCounter.perfCounter), line:13:21, endln:13:32
-          |vpiParent:
-          \_io_decl: (perfCounter), line:16:5, endln:16:16
-          |vpiTypespec:
-          \_struct_typespec: (PerfCounterPath), line:4:9, endln:8:2
-          |vpiName:perfCounter
-          |vpiFullName:work@CSR_Unit.perfCounter.CSR.perfCounter.perfCounter
-          |vpiVisibility:1
+        \_struct_var: (work@CSR_Unit.perfCounter.perfCounter), line:13:21, endln:13:32
       |vpiInterface:
       \_interface_inst: work@PerformanceCounterIF (work@CSR_Unit.perfCounter), file:${SURELOG_DIR}/tests/NameCollisionBind/dut.sv, line:20:0
   |vpiContAssign:

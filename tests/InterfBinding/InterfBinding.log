@@ -426,6 +426,15 @@ design: (work@BypassNetwork)
     \_module_inst: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiName:ctrl
     |vpiFullName:work@BypassNetwork.ctrl
+    |vpiVariables:
+    \_logic_var: (work@BypassNetwork.ctrl.rst), line:15:14, endln:15:17
+      |vpiParent:
+      \_interface_inst: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
+      |vpiTypespec:
+      \_logic_typespec: , line:15:14, endln:15:17
+      |vpiName:rst
+      |vpiFullName:work@BypassNetwork.ctrl.rst
+      |vpiVisibility:1
     |vpiDefName:work@ControllerIF
     |vpiModport:
     \_modport: (BypassNetwork), line:20:12, endln:20:25
@@ -448,6 +457,36 @@ design: (work@BypassNetwork)
           |vpiFullName:work@BypassNetwork.ctrl.BypassNetwork.backEnd.backEnd
       |vpiInterface:
       \_interface_inst: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
+    |vpiPort:
+    \_port: (clk), line:14:14, endln:14:17
+      |vpiParent:
+      \_interface_inst: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
+      |vpiName:clk
+      |vpiDirection:1
+      |vpiLowConn:
+      \_ref_obj: (work@BypassNetwork.ctrl.clk), line:14:14, endln:14:17
+        |vpiParent:
+        \_port: (clk), line:14:14, endln:14:17
+        |vpiName:clk
+        |vpiFullName:work@BypassNetwork.ctrl.clk
+        |vpiActual:
+        \_logic_net: (clk), line:14:14, endln:14:17
+      |vpiTypedef:
+      \_logic_typespec: , line:14:8, endln:14:13
+    |vpiPort:
+    \_port: (rst), line:15:14, endln:15:17
+      |vpiParent:
+      \_interface_inst: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
+      |vpiName:rst
+      |vpiDirection:1
+      |vpiLowConn:
+      \_ref_obj: (work@BypassNetwork.ctrl.rst), line:15:14, endln:15:17
+        |vpiParent:
+        \_port: (rst), line:15:14, endln:15:17
+        |vpiName:rst
+        |vpiFullName:work@BypassNetwork.ctrl.rst
+        |vpiActual:
+        \_logic_var: (work@BypassNetwork.ctrl.rst), line:15:14, endln:15:17
   |vpiContAssign:
   \_cont_assign: , line:33:9, endln:33:25
     |vpiParent:
