@@ -1562,7 +1562,20 @@ interface_inst* NetlistElaboration::elab_interface_(
     dest_modports->push_back(dest_modport);
   }
   sm->Modports(dest_modports);
-
+  if (Netlist* netl = interf_instance->getNetlist()) {
+    if (auto vars = netl->variables()) {
+      sm->Variables(vars);
+      for (auto v : *vars) {
+        v->VpiParent(sm);
+      }
+    }
+    if (auto vars = netl->ports()) {
+      sm->Ports(vars);
+      for (auto v : *vars) {
+        v->VpiParent(sm);
+      }
+    }
+  }
   return sm;
 }
 

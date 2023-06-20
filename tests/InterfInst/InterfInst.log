@@ -191,8 +191,6 @@ port                                                  11
 ref_module                                             2
 ref_obj                                               27
 === UHDM Object Stats End ===
-[ERR:UH0725] ${SURELOG_DIR}/tests/InterfInst/dut.sv:7:15: Unresolved hierarchical reference "ss_if.start_addr".
-
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfInst/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfInst/slpp_all/checker/surelog.chk.html ...
@@ -547,6 +545,18 @@ design: (work@top)
       \_module_inst: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:13:4, endln:13:44
       |vpiName:ss_if
       |vpiFullName:work@top.u_dut.ss_if
+      |vpiVariables:
+      \_int_var: (work@top.u_dut.ss_if.start_addr), line:3:8, endln:3:18
+        |vpiParent:
+        \_interface_inst: work@sim_sram_if (work@top.u_dut.ss_if), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:13:0
+        |vpiTypespec:
+        \_int_typespec: , line:3:4, endln:3:7
+          |vpiParent:
+          \_int_var: (work@top.u_dut.ss_if.start_addr), line:3:8, endln:3:18
+          |vpiSigned:1
+        |vpiName:start_addr
+        |vpiFullName:work@top.u_dut.ss_if.start_addr
+        |vpiVisibility:1
       |vpiDefName:work@sim_sram_if
     |vpiInterface:
     \_interface_inst: work@sim_sram_if (work@top.u_dut.ss_if), file:${SURELOG_DIR}/tests/InterfInst/dut.sv, line:13:0
@@ -572,6 +582,8 @@ design: (work@top)
           \_hier_path: (ss_if.start_addr), line:7:15, endln:7:31
           |vpiName:start_addr
           |vpiFullName:work@top.u_dut.start_addr
+          |vpiActual:
+          \_int_var: (work@top.u_dut.ss_if.start_addr), line:3:8, endln:3:18
       |vpiLhs:
       \_ref_obj: (work@top.u_dut.a), line:7:11, endln:7:12
         |vpiParent:
@@ -608,7 +620,7 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 3
 [   NOTE] : 5
 
