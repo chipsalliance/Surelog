@@ -426,8 +426,8 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
           }
         } else {
           // Regular param
-          ElaboratorListener listener(&s, false, true);
-          any* pclone = UHDM::clone_tree(orig, s, &listener);
+          ElaboratorContext elaboratorContext(&s, false, true);
+          any* pclone = UHDM::clone_tree(orig, &elaboratorContext);
           pclone->VpiParent(m);
           paramSet.emplace(name, pclone);
 
@@ -1758,8 +1758,8 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
       if (delay && delay->UhdmType() == uhdmref_obj) {
         UHDM::any* var = m_helper.bindParameter(
             mod, netlist->getParent(), delay->VpiName(), m_compileDesign, true);
-        ElaboratorListener listener(&s, false, true);
-        assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+        ElaboratorContext elaboratorContext(&s, false, true);
+        assign = (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
         lhs = assign->Lhs();
         rhs = assign->Rhs();
         tps = lhs->Typespec();
@@ -1775,9 +1775,10 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         if (var) {
           if (rhs->UhdmType() == uhdmoperation) {
             if (cloned == false) {
-              ElaboratorListener listener(&s, false, true);
+              ElaboratorContext elaboratorContext(&s, false, true);
               const UHDM::any* pp = assign->VpiParent();
-              assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              assign =
+                  (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
               if (pp != nullptr) assign->VpiParent(const_cast<UHDM::any*>(pp));
               lhs = assign->Lhs();
               rhs = assign->Rhs();
@@ -1824,9 +1825,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
         if (tmp->UhdmType() == uhdmoperation) {
           if (cloned == false) {
-            ElaboratorListener listener(&s, false, true);
+            ElaboratorContext elaboratorContext(&s, false, true);
             const UHDM::any* pp = assign->VpiParent();
-            assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+            assign = (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
             if (pp != nullptr) assign->VpiParent(const_cast<UHDM::any*>(pp));
             assign->VpiParent(m);
             lhs = assign->Lhs();
@@ -1865,8 +1866,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
           expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
           if (tmp->UhdmType() == uhdmoperation) {
             if (cloned == false) {
-              ElaboratorListener listener(&s, false, true);
-              assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              ElaboratorContext elaboratorContext(&s, false, true);
+              assign =
+                  (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
               assign->VpiParent(m);
               lhs = assign->Lhs();
               rhs = assign->Rhs();
@@ -1896,8 +1898,9 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         if (invalidValue == false) {
           if (res && (res->UhdmType() == uhdmconstant)) {
             if (cloned == false) {
-              ElaboratorListener listener(&s, false, true);
-              assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+              ElaboratorContext elaboratorContext(&s, false, true);
+              assign =
+                  (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
               assign->VpiParent(m);
               lhs = assign->Lhs();
               cloned = true;
@@ -1916,8 +1919,8 @@ void UhdmWriter::writeCont_assign(Netlist* netlist, Serializer& s,
         detector.listenAny(h_rhs);
         vpi_free_object(h_rhs);
         if (detector.unsizedDetected()) {
-          ElaboratorListener listener(&s, false, true);
-          assign = (cont_assign*)UHDM::clone_tree(assign, s, &listener);
+          ElaboratorContext elaboratorContext(&s, false, true);
+          assign = (cont_assign*)UHDM::clone_tree(assign, &elaboratorContext);
           assign->VpiParent(m);
           cloned = true;
         }
@@ -2788,8 +2791,9 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m,
         function* func = (function*)parent;
         if (parent->VpiName() == name) {
           if (const any* ret = func->Return()) {
-            ElaboratorListener listener(&s, false, true);
-            variables* var = (variables*)UHDM::clone_tree(ret, s, &listener);
+            ElaboratorContext elaboratorContext(&s, false, true);
+            variables* var =
+                (variables*)UHDM::clone_tree(ret, &elaboratorContext);
             var->VpiName(name);
             var->VpiParent(ref);
             ref->Actual_group(var);
@@ -4387,10 +4391,12 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
         m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
-    ElaboratorListener* listener = new ElaboratorListener(&s, false, false);
-    listener->uniquifyTypespec(false);
-    listener->listenDesigns(designs);
-    delete listener;
+    if (ElaboratorContext* elaboratorContext =
+            new ElaboratorContext(&s, false, false)) {
+      elaboratorContext->m_elaborator.uniquifyTypespec(false);
+      elaboratorContext->m_elaborator.listenDesigns(designs);
+      delete elaboratorContext;
+    }
 
     if (m_compileDesign->getCompiler()
             ->getCommandLineParser()
@@ -4398,28 +4404,31 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       s.PrintStats(std::cerr, "Elaborated Model");
     }
 
-    UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d);
-    adjuster->listenDesigns(designs);
-    delete adjuster;
+    if (UhdmAdjuster* adjuster = new UhdmAdjuster(&s, d)) {
+      adjuster->listenDesigns(designs);
+      delete adjuster;
+    }
   }
 
   // ----------------------------------
   // Lint only the elaborated model
-  UhdmLint* linter = new UhdmLint(&s, d);
-  linter->listenDesigns(designs);
-  delete linter;
+  if (UhdmLint* linter = new UhdmLint(&s, d)) {
+    linter->listenDesigns(designs);
+    delete linter;
+  }
 
   if (m_compileDesign->getCompiler()
           ->getCommandLineParser()
           ->reportNonSynthesizable()) {
     std::set<const any*> nonSynthesizableObjects;
-    SynthSubset* annotate =
-        new SynthSubset(&s, nonSynthesizableObjects, true,
-                        m_compileDesign->getCompiler()
-                            ->getCommandLineParser()
-                            ->reportNonSynthesizableWithFormal());
-    annotate->listenDesigns(designs);
-    delete annotate;
+    if (SynthSubset* annotate =
+            new SynthSubset(&s, nonSynthesizableObjects, true,
+                            m_compileDesign->getCompiler()
+                                ->getCommandLineParser()
+                                ->reportNonSynthesizableWithFormal())) {
+      annotate->listenDesigns(designs);
+      delete annotate;
+    }
   }
 
   // s.GarbageCollect();

@@ -532,9 +532,9 @@ const UHDM::typespec* bindTypespec(std::string_view name,
           type_parameter* tparam = any_cast<type_parameter*>(uparam);
           if (tparam) {
             result = tparam->Typespec();
-            ElaboratorListener listener(&s, false, true);
+            ElaboratorContext elaboratorContext(&s, false, true);
             result = any_cast<typespec*>(
-                UHDM::clone_tree((any*)result, s, &listener));
+                UHDM::clone_tree((any*)result, &elaboratorContext));
           }
         }
         break;
@@ -550,9 +550,9 @@ const UHDM::typespec* bindTypespec(std::string_view name,
             type_parameter* tparam = any_cast<type_parameter*>(uparam);
             if (tparam) {
               result = tparam->Typespec();
-              ElaboratorListener listener(&s, false, true);
+              ElaboratorContext elaboratorContext(&s, false, true);
               result = any_cast<typespec*>(
-                  UHDM::clone_tree((any*)result, s, &listener));
+                  UHDM::clone_tree((any*)result, &elaboratorContext));
             }
           }
         }
@@ -560,9 +560,9 @@ const UHDM::typespec* bindTypespec(std::string_view name,
         if (dt) {
           dt = dt->getActual();
           result = dt->getTypespec();
-          ElaboratorListener listener(&s, false, true);
-          result =
-              any_cast<typespec*>(UHDM::clone_tree((any*)result, s, &listener));
+          ElaboratorContext elaboratorContext(&s, false, true);
+          result = any_cast<typespec*>(
+              UHDM::clone_tree((any*)result, &elaboratorContext));
         }
       }
     }
@@ -728,9 +728,9 @@ typespec* CompileHelper::compileDatastructureTypespec(
       } else if (const SimpleType* sit = datatype_cast<const SimpleType*>(dt)) {
         result = sit->getTypespec();
         if (parent_tpd && result) {
-          ElaboratorListener listener(&s, false, true);
-          typespec* new_result =
-              any_cast<typespec*>(UHDM::clone_tree((any*)result, s, &listener));
+          ElaboratorContext elaboratorContext(&s, false, true);
+          typespec* new_result = any_cast<typespec*>(
+              UHDM::clone_tree((any*)result, &elaboratorContext));
           if (new_result) {
             new_result->Typedef_alias(result);
             result = new_result;
@@ -1932,9 +1932,9 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       bit_typespec* tps = (bit_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s, false, true);
-        bit_typespec* res =
-            any_cast<bit_typespec*>(UHDM::clone_tree((any*)spec, s, &listener));
+        ElaboratorContext elaboratorContext(&s, false, true);
+        bit_typespec* res = any_cast<bit_typespec*>(
+            UHDM::clone_tree((any*)spec, &elaboratorContext));
         ranges = res->Ranges();
         result = res;
       }
@@ -1944,9 +1944,9 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       logic_typespec* tps = (logic_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s, false, true);
+        ElaboratorContext elaboratorContext(&s, false, true);
         logic_typespec* res = any_cast<logic_typespec*>(
-            UHDM::clone_tree((any*)spec, s, &listener));
+            UHDM::clone_tree((any*)spec, &elaboratorContext));
         ranges = res->Ranges();
         result = res;
       }
@@ -1956,9 +1956,9 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       array_typespec* tps = (array_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s, false, true);
+        ElaboratorContext elaboratorContext(&s, false, true);
         array_typespec* res = any_cast<array_typespec*>(
-            UHDM::clone_tree((any*)spec, s, &listener));
+            UHDM::clone_tree((any*)spec, &elaboratorContext));
         ranges = res->Ranges();
         result = res;
       }
@@ -1968,9 +1968,9 @@ UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component,
       packed_array_typespec* tps = (packed_array_typespec*)spec;
       ranges = tps->Ranges();
       if (ranges) {
-        ElaboratorListener listener(&s, false, true);
+        ElaboratorContext elaboratorContext(&s, false, true);
         packed_array_typespec* res = any_cast<packed_array_typespec*>(
-            UHDM::clone_tree((any*)spec, s, &listener));
+            UHDM::clone_tree((any*)spec, &elaboratorContext));
         ranges = res->Ranges();
         result = res;
       }
