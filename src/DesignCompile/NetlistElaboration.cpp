@@ -209,16 +209,16 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           // Don't reduce these operations
           if (opType == vpiAssignmentPatternOp ||
               opType == vpiMultiAssignmentPatternOp) {
-            ElaboratorListener listener(&s, false, true);
+            ElaboratorContext elaboratorContext(&s, false, true);
             param_assign* pclone =
-                (param_assign*)UHDM::clone_tree(mod_assign, s, &listener);
+                (param_assign*)UHDM::clone_tree(mod_assign, &elaboratorContext);
             pclone->VpiParent((any*)mod_assign->VpiParent());
             pclone->VpiOverriden(instance->isOverridenParam(paramName));
             if (opType == vpiAssignmentPatternOp) {
               const any* lhs = pclone->Lhs();
               any* rhs = (any*)pclone->Rhs();
               if (complexVal) {
-                rhs = UHDM::clone_tree(complexVal, s, &listener);
+                rhs = UHDM::clone_tree(complexVal, &elaboratorContext);
                 rhs->VpiParent(pclone);
               }
               const typespec* ts = nullptr;

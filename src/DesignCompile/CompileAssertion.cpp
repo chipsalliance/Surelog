@@ -77,13 +77,13 @@ UHDM::property_inst* createPropertyInst(DesignComponent* component,
     UHDM::func_call* call = (UHDM::func_call*)property_expr;
     UHDM::property_inst* real_property_expr = s.MakeProperty_inst();
     if (call->Tf_call_args()) {
-      UHDM::ElaboratorListener listener(&s, false, true);
+      UHDM::ElaboratorContext elaboratorContext(&s, false, true);
       UHDM::VectorOfany* args = s.MakeAnyVec();
       real_property_expr->VpiArguments(args);
       for (auto arg : *call->Tf_call_args()) {
         if (arg->UhdmType() == UHDM::uhdmref_obj) {
           UHDM::ref_obj* ref =
-              (UHDM::ref_obj*)UHDM::clone_tree(arg, s, &listener);
+              (UHDM::ref_obj*)UHDM::clone_tree(arg, &elaboratorContext);
           args->emplace_back(ref);
           ref->VpiParent(real_property_expr);
           component->needLateBinding(ref);

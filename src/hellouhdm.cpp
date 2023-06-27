@@ -69,10 +69,10 @@ int main(int argc, const char** argv) {
   if (the_design && (!vpi_get(vpiElaborated, the_design))) {
     std::cout << "UHDM Elaboration...\n";
     UHDM::Serializer serializer;
-    UHDM::ElaboratorListener* listener =
-        new UHDM::ElaboratorListener(&serializer, true);
-    listener->listenDesigns({the_design});
-    delete listener;
+    UHDM::ElaboratorContext* elaboratorContext =
+        new UHDM::ElaboratorContext(&serializer, true);
+    elaboratorContext->m_elaborator.listenDesigns({the_design});
+    delete elaboratorContext;
   }
 
   // Browse the UHDM Data Model using the IEEE VPI API.

@@ -55,7 +55,6 @@
 #include <Surelog/Utils/StringUtils.h>
 
 // UHDM
-#include <string.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/VpiListener.h>
@@ -63,6 +62,7 @@
 #include <uhdm/uhdm.h>
 
 #include <climits>
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -192,8 +192,8 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       }
 
       if (p) {
-        ElaboratorListener listener(&s, false, true);
-        any* pclone = UHDM::clone_tree(p, s, &listener);
+        ElaboratorContext elaboratorContext(&s, false, true);
+        any* pclone = UHDM::clone_tree(p, &elaboratorContext);
         if (pclone->UhdmType() == uhdmtype_parameter) {
           type_parameter* the_p = (type_parameter*)pclone;
           the_p->VpiImported(pack_name);
@@ -238,9 +238,9 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         parameters = scope->getParameters();  // NOLINT(*.DeadStores)
       }
 
-      ElaboratorListener listener(&s, false, true);
+      ElaboratorContext elaboratorContext(&s, false, true);
       UHDM::param_assign* cpass =
-          (UHDM::param_assign*)UHDM::clone_tree(pass, s, &listener);
+          (UHDM::param_assign*)UHDM::clone_tree(pass, &elaboratorContext);
       clone->setUhdmParamAssign(cpass);
       param_assigns->push_back(cpass);
       UHDM::any* orig_p = (UHDM::any*)cpass->Lhs();
@@ -295,9 +295,10 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         }
         if (!duplicate) {
           if (inPackage) {
-            ElaboratorListener listener(&s, false, /*mute errors */ true);
+            ElaboratorContext elaboratorContext(&s, false,
+                                                /*mute errors */ true);
             task_func* clone =
-                (task_func*)UHDM::clone_tree((any*)func, s, &listener);
+                (task_func*)UHDM::clone_tree((any*)func, &elaboratorContext);
             sfuncs->push_back(clone);
           } else {
             sfuncs->push_back(func);
@@ -835,9 +836,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                              reduce, nullptr, nullptr, false);
         if (ts && (ts->UhdmType() != uhdmclass_typespec) &&
             (ts->UhdmType() != uhdmunsupported_typespec)) {
-          ElaboratorListener listener(&s, false, true);
+          ElaboratorContext elaboratorContext(&s, false, true);
           typespec* tpclone =
-              (typespec*)UHDM::clone_tree((any*)ts, s, &listener);
+              (typespec*)UHDM::clone_tree((any*)ts, &elaboratorContext);
 
           if (array_tps) {
             array_tps->Instance(scope->getUhdmInstance());
@@ -3480,8 +3481,8 @@ bool CompileHelper::compileParameterDeclaration(
           UHDM::param_assign* param_assign = s.MakeParam_assign();
           fC->populateCoreMembers(Param_assignment, Param_assignment,
                                   param_assign);
-          ElaboratorListener listener(&s, false, true);
-          any* pclone = UHDM::clone_tree(param, s, &listener);
+          ElaboratorContext elaboratorContext(&s, false, true);
+          any* pclone = UHDM::clone_tree(param, &elaboratorContext);
           param_assign->Lhs(pclone);
           if (rhs != nullptr) {
             rhs->VpiParent(param_assign);
@@ -3682,8 +3683,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
       uint64_t uval = (uint64_t)val;
       uval = uval & mask;
       if (uniquify) {
-        UHDM::ElaboratorListener listener(&s, false, true);
-        c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+        UHDM::ElaboratorContext elaboratorContext(&s, false, true);
+        c = (UHDM::constant*)UHDM::clone_tree(c, &elaboratorContext);
         result = c;
       }
       c->VpiValue("UINT:" + std::to_string(uval));
@@ -3738,8 +3739,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                 val = std::strtoll(v.c_str(), 0, 2);
               }
               if (uniquify) {
-                UHDM::ElaboratorListener listener(&s, false, true);
-                c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                UHDM::ElaboratorContext elaboratorContext(&s, false, true);
+                c = (UHDM::constant*)UHDM::clone_tree(c, &elaboratorContext);
                 result = c;
               }
               c->VpiValue("INT:" + std::to_string(val));
@@ -3748,8 +3749,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
             } else if ((orig_size == 1) && (val == 1)) {
               uint64_t mask = NumUtils::getMask(size);
               if (uniquify) {
-                UHDM::ElaboratorListener listener(&s, false, true);
-                c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                UHDM::ElaboratorContext elaboratorContext(&s, false, true);
+                c = (UHDM::constant*)UHDM::clone_tree(c, &elaboratorContext);
                 result = c;
               }
               c->VpiValue("UINT:" + std::to_string(mask));
@@ -3760,8 +3761,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
             if ((orig_size == -1) && (val == 1)) {
               uint64_t mask = NumUtils::getMask(size);
               if (uniquify) {
-                UHDM::ElaboratorListener listener(&s, false, true);
-                c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+                UHDM::ElaboratorContext elaboratorContext(&s, false, true);
+                c = (UHDM::constant*)UHDM::clone_tree(c, &elaboratorContext);
                 result = c;
               }
               c->VpiValue("UINT:" + std::to_string(mask));
@@ -3777,8 +3778,8 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
         uint64_t uval = (uint64_t)val;
         if (uval == 1) {
           if (uniquify) {
-            UHDM::ElaboratorListener listener(&s, false, true);
-            c = (UHDM::constant*)UHDM::clone_tree(c, s, &listener);
+            UHDM::ElaboratorContext elaboratorContext(&s, false, true);
+            c = (UHDM::constant*)UHDM::clone_tree(c, &elaboratorContext);
             result = c;
           }
           if (size <= 64) {
@@ -3959,11 +3960,13 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
           assigns->push_back(cts);
           modTmp->Cont_assigns(assigns);
 
-          ElaboratorListener* listener = new ElaboratorListener(&s, false);
-          vpiHandle defModule = NewVpiHandle(modTmp);
-          listener->listenModule_inst(defModule);
-          vpi_free_object(defModule);
-          delete listener;
+          if (ElaboratorContext* elaboratorContext =
+                  new ElaboratorContext(&s, false)) {
+            vpiHandle defModule = NewVpiHandle(modTmp);
+            elaboratorContext->m_elaborator.listenModule_inst(defModule);
+            vpi_free_object(defModule);
+            delete elaboratorContext;
+          }
           return (any*)cts->Rhs();
         } else {
           let_expr* let = s.MakeLet_expr();
