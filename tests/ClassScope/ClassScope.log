@@ -10410,7 +10410,7 @@ AST_DEBUG_END
 begin                                                 24
 bit_select                                            32
 class_defn                                             1
-constant                                             878
+constant                                             883
 delay_control                                         18
 design                                                 1
 gen_if                                                 8
@@ -10440,7 +10440,7 @@ unsupported_typespec                                  38
 begin                                                 32
 bit_select                                            32
 class_defn                                             1
-constant                                             894
+constant                                             899
 delay_control                                        122
 design                                                 1
 gen_if                                                 8
@@ -15523,6 +15523,15 @@ design: (work@top)
         \_param_assign: , line:18:15, endln:18:16
           |vpiParent:
           \_module_inst: work@M (work@top.genblk2.m2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:59:13, endln:59:62
+          |vpiOverriden:1
+          |vpiRhs:
+          \_constant: 
+            |vpiParent:
+            \_param_assign: , line:18:15, endln:18:16
+            |vpiDecompile:1'b0
+            |vpiSize:1
+            |BIN:0
+            |vpiConstType:3
           |vpiLhs:
           \_parameter: (work@top.genblk2.m2.E), line:18:15, endln:18:16
         |vpiDefName:work@M
@@ -16053,6 +16062,7 @@ design: (work@top)
         \_param_assign: , line:29:15, endln:29:16
           |vpiParent:
           \_interface_inst: work@I (work@top.genblk2.i2), file:${SURELOG_DIR}/tests/ClassScope/dut.sv, line:58:13, endln:58:62
+          |vpiOverriden:1
           |vpiRhs:
           \_constant: 
             |vpiParent:
