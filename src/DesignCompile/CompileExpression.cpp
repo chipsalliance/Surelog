@@ -1112,6 +1112,9 @@ UHDM::any *CompileHelper::compileSelectExpression(
     VectorOfexpr *exprs = s.MakeExprVec();
     var_select->Exprs(exprs);
     var_select->VpiName(name);
+    if (name.find("::") != std::string::npos) {
+      var_select->VpiFullName(name);
+    }
     var_select->VpiParent(pexpr);
     result = var_select;
   }
@@ -1153,6 +1156,9 @@ UHDM::any *CompileHelper::compileSelectExpression(
             VectorOfexpr *exprs = s.MakeExprVec();
             var_select->Exprs(exprs);
             var_select->VpiName(name);
+            if (name.find("::") != std::string::npos) {
+              var_select->VpiFullName(name);
+            }
             var_select->VpiParent(pexpr);
             sel->VpiParent(var_select);
             exprs->push_back(sel);
@@ -1160,6 +1166,9 @@ UHDM::any *CompileHelper::compileSelectExpression(
           } else {
             bit_select *bit_select = s.MakeBit_select();
             bit_select->VpiName(name);
+            if (name.find("::") != std::string::npos) {
+              bit_select->VpiFullName(name);
+            }
             bit_select->VpiIndex(sel);
             bit_select->VpiParent(pexpr);
             sel->VpiParent(bit_select);
@@ -1188,6 +1197,9 @@ UHDM::any *CompileHelper::compileSelectExpression(
         VectorOfexpr *exprs = s.MakeExprVec();
         var_select->Exprs(exprs);
         var_select->VpiName(name);
+        if (name.find("::") != std::string::npos) {
+          var_select->VpiFullName(name);
+        }
         var_select->VpiParent(pexpr);
         exprs->push_back(sel);
         sel->VpiParent(var_select);
@@ -3780,6 +3792,9 @@ UHDM::any *CompileHelper::compilePartSelectRange(
   NodeId Constant_expression = fC->Child(Constant_range);
   if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
     UHDM::part_select *part_select = s.MakePart_select();
+    if (name.find("::") != std::string::npos) {
+      part_select->VpiFullName(name);
+    }
     fC->populateCoreMembers(Constant_expression,
                             fC->Sibling(Constant_expression), part_select);
     if (UHDM::expr *lexp = (expr *)compileExpression(
@@ -4837,8 +4852,9 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             if ((fC->Type(List_of_arguments) == VObjectType::slSelect) &&
                 (fC->Child(List_of_arguments))) {
               result = compileSelectExpression(
-                  component, fC, fC->Child(List_of_arguments), "",
-                  compileDesign, reduce, pexpr, instance, muteErrors);
+                  component, fC, fC->Child(List_of_arguments),
+                  StrCat(packagename, "::", functionname), compileDesign,
+                  reduce, pexpr, instance, muteErrors);
               if (result)
                 result->VpiParent(param);
               else
