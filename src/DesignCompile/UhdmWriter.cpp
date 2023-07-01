@@ -1695,10 +1695,13 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
     ModuleDefinition* def = (ModuleDefinition*)mod;
     for (const auto& ctupple : def->getClockingBlockMap()) {
       const ClockingBlock& cblock = ctupple.second;
-      cblock.getActual()->VpiParent(m);
       switch (cblock.getType()) {
         case ClockingBlock::Type::Default: {
-          m->Default_clocking(cblock.getActual());
+          ElaboratorContext elaboratorContext(&s, false, true);
+          clocking_block* cb = (clocking_block*)UHDM::clone_tree(
+              cblock.getActual(), &elaboratorContext);
+          cb->VpiParent(m);
+          m->Default_clocking(cb);
           break;
         }
         case ClockingBlock::Type::Global: {
@@ -1706,12 +1709,16 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
           break;
         }
         case ClockingBlock::Type::Regular: {
+          ElaboratorContext elaboratorContext(&s, false, true);
+          clocking_block* cb = (clocking_block*)UHDM::clone_tree(
+              cblock.getActual(), &elaboratorContext);
+          cb->VpiParent(m);
           VectorOfclocking_block* cblocks = m->Clocking_blocks();
           if (cblocks == nullptr) {
             m->Clocking_blocks(s.MakeClocking_blockVec());
             cblocks = m->Clocking_blocks();
           }
-          cblocks->push_back(cblock.getActual());
+          cblocks->push_back(cb);
           break;
         }
       }
@@ -2071,7 +2078,6 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
   // ClockingBlocks
   for (const auto& ctupple : mod->getClockingBlockMap()) {
     const ClockingBlock& cblock = ctupple.second;
-    cblock.getActual()->VpiParent(m);
     switch (cblock.getType()) {
       case ClockingBlock::Type::Default: {
         // No default clocking
@@ -2079,12 +2085,16 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
         break;
       }
       case ClockingBlock::Type::Regular: {
+        ElaboratorContext elaboratorContext(&s, false, true);
+        clocking_block* cb = (clocking_block*)UHDM::clone_tree(
+            cblock.getActual(), &elaboratorContext);
+        cb->VpiParent(m);
         VectorOfclocking_block* cblocks = m->Clocking_blocks();
         if (cblocks == nullptr) {
           m->Clocking_blocks(s.MakeClocking_blockVec());
           cblocks = m->Clocking_blocks();
         }
-        cblocks->push_back(cblock.getActual());
+        cblocks->push_back(cb);
         break;
       }
       default:
@@ -3379,14 +3389,17 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
     ModuleDefinition* def = (ModuleDefinition*)mod;
     for (const auto& ctupple : def->getClockingBlockMap()) {
       const ClockingBlock& cblock = ctupple.second;
-      cblock.getActual()->VpiParent(m);
+      ElaboratorContext elaboratorContext(&s, false, true);
+      clocking_block* cb = (clocking_block*)UHDM::clone_tree(
+          cblock.getActual(), &elaboratorContext);
+      cb->VpiParent(m);
       switch (cblock.getType()) {
         case ClockingBlock::Type::Default: {
-          m->Default_clocking(cblock.getActual());
+          m->Default_clocking(cb);
           break;
         }
         case ClockingBlock::Type::Global: {
-          m->Global_clocking(cblock.getActual());
+          m->Global_clocking(cb);
           break;
         }
         case ClockingBlock::Type::Regular: {
@@ -3395,7 +3408,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
             m->Clocking_blocks(s.MakeClocking_blockVec());
             cblocks = m->Clocking_blocks();
           }
-          cblocks->push_back(cblock.getActual());
+          cblocks->push_back(cb);
           break;
         }
       }
@@ -3559,14 +3572,17 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     ModuleDefinition* def = (ModuleDefinition*)mod;
     for (const auto& ctupple : def->getClockingBlockMap()) {
       const ClockingBlock& cblock = ctupple.second;
-      cblock.getActual()->VpiParent(m);
+      ElaboratorContext elaboratorContext(&s, false, true);
+      clocking_block* cb = (clocking_block*)UHDM::clone_tree(
+          cblock.getActual(), &elaboratorContext);
+      cb->VpiParent(m);
       switch (cblock.getType()) {
         case ClockingBlock::Type::Default: {
-          m->Default_clocking(cblock.getActual());
+          m->Default_clocking(cb);
           break;
         }
         case ClockingBlock::Type::Global: {
-          m->Global_clocking(cblock.getActual());
+          m->Global_clocking(cb);
           break;
         }
         case ClockingBlock::Type::Regular: {
@@ -3575,7 +3591,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
             m->Clocking_blocks(s.MakeClocking_blockVec());
             cblocks = m->Clocking_blocks();
           }
-          cblocks->push_back(cblock.getActual());
+          cblocks->push_back(cb);
           break;
         }
       }
