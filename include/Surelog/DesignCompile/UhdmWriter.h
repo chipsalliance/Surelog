@@ -25,7 +25,7 @@
 #define SURELOG_UHDMWRITER_H
 #pragma once
 
-#include <Surelog/Design/Netlist.h>
+#include <Surelog/Design/DesignComponent.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
@@ -38,11 +38,11 @@ namespace SURELOG {
 
 class CompileDesign;
 class Design;
-class DesignComponent;
 class ExprBuilder;
 class ModPort;
 class ModuleDefinition;
 class ModuleInstance;
+class Netlist;
 class Signal;
 
 class UhdmWriter final {

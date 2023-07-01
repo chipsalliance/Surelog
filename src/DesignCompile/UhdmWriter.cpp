@@ -4272,9 +4272,21 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
           m->VpiCellInstance(true);
         }
         m_componentMap.emplace(mod, m);
-        moduleMap.emplace(mod->getName(), m);
-        m->VpiParent(d);
-        m->VpiDefName(mod->getName());
+        std::string_view modName = mod->getName();
+        moduleMap.emplace(modName, m);
+        m->VpiDefName(modName);
+        if (modName.find("::") == std::string_view::npos) {
+          m->VpiParent(d);
+        } else {
+          modName = StringUtils::rtrim_until(modName, ':');
+          modName.remove_suffix(1);
+          ModuleMap::const_iterator pmodIt = moduleMap.find(modName);
+          if (pmodIt == moduleMap.end()) {
+            m->VpiParent(d);
+          } else {
+            m->VpiParent(pmodIt->second);
+          }
+        }
         if (mod->Attributes() != nullptr) {
           m->Attributes(mod->Attributes());
           for (auto a : *m->Attributes()) {
