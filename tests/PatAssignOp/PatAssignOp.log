@@ -194,10 +194,10 @@ n<> u<187> t<List_of_port_connections> p<188> c<186> l<11:14> el<11:14>
 n<> u<188> t<Hierarchical_instance> p<189> c<185> l<11:10> el<11:15>
 n<> u<189> t<Module_instantiation> p<190> c<183> l<11:6> el<11:16>
 n<> u<190> t<Module_or_generate_item> p<191> c<189> l<11:6> el<11:16>
-n<> u<191> t<Generate_item> p<192> c<190> l<11:6> el<11:16>
-n<> u<192> t<Generate_block> p<194> c<191> s<193> l<11:6> el<11:16>
-n<> u<193> t<End> p<194> l<12:3> el<12:6>
-n<> u<194> t<Generate_block> p<196> c<192> l<10:35> el<12:6>
+n<> u<191> t<Generate_item> p<193> c<190> s<192> l<11:6> el<11:16>
+n<> u<192> t<End> p<193> l<12:3> el<12:6>
+n<> u<193> t<Generate_begin_end_block> p<194> c<191> l<10:35> el<12:6>
+n<> u<194> t<Generate_item> p<196> c<193> l<10:35> el<12:6>
 n<> u<195> t<IF> p<196> s<182> l<10:3> el<10:5>
 n<> u<196> t<If_generate_construct> p<197> c<195> l<10:3> el<12:6>
 n<> u<197> t<Conditional_generate_construct> p<198> c<196> l<10:3> el<12:6>
@@ -223,10 +223,10 @@ n<> u<216> t<List_of_port_connections> p<217> c<215> l<14:16> el<14:16>
 n<> u<217> t<Hierarchical_instance> p<218> c<214> l<14:11> el<14:17>
 n<> u<218> t<Module_instantiation> p<219> c<212> l<14:6> el<14:18>
 n<> u<219> t<Module_or_generate_item> p<220> c<218> l<14:6> el<14:18>
-n<> u<220> t<Generate_item> p<221> c<219> l<14:6> el<14:18>
-n<> u<221> t<Generate_block> p<223> c<220> s<222> l<14:6> el<14:18>
-n<> u<222> t<End> p<223> l<15:3> el<15:6>
-n<> u<223> t<Generate_block> p<225> c<221> l<13:34> el<15:6>
+n<> u<220> t<Generate_item> p<222> c<219> s<221> l<14:6> el<14:18>
+n<> u<221> t<End> p<222> l<15:3> el<15:6>
+n<> u<222> t<Generate_begin_end_block> p<223> c<220> l<13:34> el<15:6>
+n<> u<223> t<Generate_item> p<225> c<222> l<13:34> el<15:6>
 n<> u<224> t<IF> p<225> s<211> l<13:2> el<13:4>
 n<> u<225> t<If_generate_construct> p<226> c<224> l<13:2> el<15:6>
 n<> u<226> t<Conditional_generate_construct> p<227> c<225> l<13:2> el<15:6>
@@ -508,7 +508,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/PatAssignOp/dut.sv:13:2: Compile generate block "work@top.genblk2".
+[INF:CP0335] ${SURELOG_DIR}/tests/PatAssignOp/dut.sv:14:6: Compile generate block "work@top.genblk2".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/PatAssignOp/dut.sv:2:1: Top level module "work@top".
 
@@ -1636,20 +1636,20 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk2), line:13:2, endln:15:6
+  \_gen_scope_array: (work@top.genblk2), line:14:6, endln:14:18
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatAssignOp/dut.sv, line:2:1, endln:16:10
     |vpiName:genblk2
     |vpiFullName:work@top.genblk2
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk2), line:13:2, endln:15:6
+    \_gen_scope: (work@top.genblk2), line:14:6, endln:14:18
       |vpiParent:
-      \_gen_scope_array: (work@top.genblk2), line:13:2, endln:15:6
+      \_gen_scope_array: (work@top.genblk2), line:14:6, endln:14:18
       |vpiFullName:work@top.genblk2
       |vpiModule:
       \_module_inst: work@top.genblk2::GOOD (work@top.genblk2.good), file:${SURELOG_DIR}/tests/PatAssignOp/dut.sv, line:14:6, endln:14:18
         |vpiParent:
-        \_gen_scope: (work@top.genblk2), line:13:2, endln:15:6
+        \_gen_scope: (work@top.genblk2), line:14:6, endln:14:18
         |vpiName:good
         |vpiFullName:work@top.genblk2.good
         |vpiDefName:work@top.genblk2::GOOD

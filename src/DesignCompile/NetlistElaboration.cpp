@@ -497,7 +497,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
       (insttype != VObjectType::slGenerate_interface_block) &&
       (insttype != VObjectType::slGenerate_module_item) &&
       (insttype != VObjectType::slGenerate_interface_item) &&
-      (insttype != VObjectType::slGenerate_block)) {
+      (insttype != VObjectType::slGenerate_begin_end_block)) {
     elabPortsNets = true;
   }
 
@@ -1607,7 +1607,7 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
     VObjectType insttype = instance->getType();
     if (insttype == VObjectType::slConditional_generate_construct ||
         insttype == VObjectType::slLoop_generate_construct ||
-        insttype == VObjectType::slGenerate_block ||
+        insttype == VObjectType::slGenerate_begin_end_block ||
         insttype == VObjectType::slGenerate_item ||
         insttype == VObjectType::slGenerate_region ||
         insttype == VObjectType::slGenerate_module_conditional_statement ||
@@ -2316,7 +2316,7 @@ bool NetlistElaboration::elab_ports_nets_(
         compType == VObjectType::slGenerate_interface_block ||
         compType == VObjectType::slGenerate_module_item ||
         compType == VObjectType::slGenerate_interface_item ||
-        compType == VObjectType::slGenerate_block ||
+        compType == VObjectType::slGenerate_begin_end_block ||
         compType == VObjectType::slInterface_declaration ||
         compType == VObjectType::slProgram_declaration) {
       if (pass == 1)
@@ -2622,7 +2622,7 @@ UHDM::any* NetlistElaboration::bind_net_(const FileContent* origfC, NodeId id,
         (insttype != VObjectType::slGenerate_interface_block) &&
         (insttype != VObjectType::slGenerate_module_item) &&
         (insttype != VObjectType::slGenerate_interface_item) &&
-        (insttype != VObjectType::slGenerate_block)) {
+        (insttype != VObjectType::slGenerate_begin_end_block)) {
       break;
     }
     itrInst = itrInst->getParent();

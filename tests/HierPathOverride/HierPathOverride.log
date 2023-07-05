@@ -174,7 +174,7 @@ n<> u<167> t<Constant_primary> p<168> c<166> l<26:19> el<26:20>
 n<> u<168> t<Constant_expression> p<170> c<167> l<26:19> el<26:20>
 n<> u<169> t<BinOp_Equiv> p<170> s<168> l<26:16> el<26:18>
 n<> u<170> t<Constant_expression> p<191> c<164> s<189> l<26:8> el<26:20>
-n<gen_assign> u<171> t<StringConst> p<189> s<187> l<26:30> el<26:40>
+n<gen_assign> u<171> t<StringConst> p<188> s<186> l<26:30> el<26:40>
 n<a> u<172> t<StringConst> p<173> l<27:14> el<27:15>
 n<> u<173> t<Ps_or_hierarchical_identifier> p<176> c<172> s<175> l<27:14> el<27:15>
 n<> u<174> t<Constant_bit_select> p<175> l<27:16> el<27:16>
@@ -189,10 +189,10 @@ n<> u<182> t<List_of_net_assignments> p<183> c<181> l<27:14> el<27:19>
 n<> u<183> t<Continuous_assign> p<184> c<182> l<27:7> el<27:20>
 n<> u<184> t<Module_common_item> p<185> c<183> l<27:7> el<27:20>
 n<> u<185> t<Module_or_generate_item> p<186> c<184> l<27:7> el<27:20>
-n<> u<186> t<Generate_item> p<187> c<185> l<27:7> el<27:20>
-n<> u<187> t<Generate_block> p<189> c<186> s<188> l<27:7> el<27:20>
-n<> u<188> t<End> p<189> l<28:4> el<28:7>
-n<> u<189> t<Generate_block> p<191> c<171> l<26:22> el<28:7>
+n<> u<186> t<Generate_item> p<188> c<185> s<187> l<27:7> el<27:20>
+n<> u<187> t<End> p<188> l<28:4> el<28:7>
+n<> u<188> t<Generate_begin_end_block> p<189> c<171> l<26:22> el<28:7>
+n<> u<189> t<Generate_item> p<191> c<188> l<26:22> el<28:7>
 n<> u<190> t<IF> p<191> s<170> l<26:4> el<26:6>
 n<> u<191> t<If_generate_construct> p<192> c<190> l<26:4> el<28:7>
 n<> u<192> t<Conditional_generate_construct> p<193> c<191> l<26:4> el<28:7>
@@ -242,7 +242,7 @@ n<1> u<235> t<IntConst> p<236> l<36:8> el<36:9>
 n<> u<236> t<Primary_literal> p<237> c<235> l<36:8> el<36:9>
 n<> u<237> t<Constant_primary> p<238> c<236> l<36:8> el<36:9>
 n<> u<238> t<Constant_expression> p<263> c<237> s<261> l<36:8> el<36:9>
-n<gen_generic> u<239> t<StringConst> p<261> s<259> l<36:19> el<36:30>
+n<gen_generic> u<239> t<StringConst> p<260> s<258> l<36:19> el<36:30>
 n<prim_generic_pad_attr> u<240> t<StringConst> p<256> s<250> l<37:7> el<37:28>
 n<PadType> u<241> t<StringConst> p<248> s<247> l<38:11> el<38:18>
 n<PadType> u<242> t<StringConst> p<243> l<38:19> el<38:26>
@@ -261,10 +261,10 @@ n<> u<254> t<List_of_port_connections> p<255> c<253> l<39:24> el<39:24>
 n<> u<255> t<Hierarchical_instance> p<256> c<252> l<39:9> el<39:25>
 n<> u<256> t<Module_instantiation> p<257> c<240> l<37:7> el<39:26>
 n<> u<257> t<Module_or_generate_item> p<258> c<256> l<37:7> el<39:26>
-n<> u<258> t<Generate_item> p<259> c<257> l<37:7> el<39:26>
-n<> u<259> t<Generate_block> p<261> c<258> s<260> l<37:7> el<39:26>
-n<> u<260> t<End> p<261> l<40:4> el<40:7>
-n<> u<261> t<Generate_block> p<263> c<239> l<36:11> el<40:7>
+n<> u<258> t<Generate_item> p<260> c<257> s<259> l<37:7> el<39:26>
+n<> u<259> t<End> p<260> l<40:4> el<40:7>
+n<> u<260> t<Generate_begin_end_block> p<261> c<239> l<36:11> el<40:7>
+n<> u<261> t<Generate_item> p<263> c<260> l<36:11> el<40:7>
 n<> u<262> t<IF> p<263> s<238> l<36:4> el<36:6>
 n<> u<263> t<If_generate_construct> p<264> c<262> l<36:4> el<40:7>
 n<> u<264> t<Conditional_generate_construct> p<265> c<263> l<36:4> el<40:7>
@@ -366,9 +366,9 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/HierPathOverride/dut.sv:36:4: Compile generate block "work@top.u_prim_pad_attr.gen_generic".
+[INF:CP0335] ${SURELOG_DIR}/tests/HierPathOverride/dut.sv:36:11: Compile generate block "work@top.u_prim_pad_attr.gen_generic".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/HierPathOverride/dut.sv:26:4: Compile generate block "work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign".
+[INF:CP0335] ${SURELOG_DIR}/tests/HierPathOverride/dut.sv:26:22: Compile generate block "work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/HierPathOverride/dut.sv:44:1: Top level module "work@top".
 
@@ -1989,20 +1989,20 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:44:1, endln:50:10
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic), line:36:4, endln:40:7
+    \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic), line:36:11, endln:40:7
       |vpiParent:
       \_module_inst: work@prim_pad_attr (work@top.u_prim_pad_attr), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:47:5, endln:49:25
       |vpiName:gen_generic
       |vpiFullName:work@top.u_prim_pad_attr.gen_generic
       |vpiGenScope:
-      \_gen_scope: (work@top.u_prim_pad_attr.gen_generic), line:36:4, endln:40:7
+      \_gen_scope: (work@top.u_prim_pad_attr.gen_generic), line:36:11, endln:40:7
         |vpiParent:
-        \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic), line:36:4, endln:40:7
+        \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic), line:36:11, endln:40:7
         |vpiFullName:work@top.u_prim_pad_attr.gen_generic
         |vpiModule:
         \_module_inst: work@prim_generic_pad_attr (work@top.u_prim_pad_attr.gen_generic.u_impl_generic), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:37:7, endln:39:26
           |vpiParent:
-          \_gen_scope: (work@top.u_prim_pad_attr.gen_generic), line:36:4, endln:40:7
+          \_gen_scope: (work@top.u_prim_pad_attr.gen_generic), line:36:11, endln:40:7
           |vpiName:u_impl_generic
           |vpiFullName:work@top.u_prim_pad_attr.gen_generic.u_impl_generic
           |vpiParameter:
@@ -2117,20 +2117,20 @@ design: (work@top)
           |vpiDefFile:${SURELOG_DIR}/tests/HierPathOverride/dut.sv
           |vpiDefLineNo:23
           |vpiGenScopeArray:
-          \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:4, endln:28:7
+          \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:22, endln:28:7
             |vpiParent:
             \_module_inst: work@prim_generic_pad_attr (work@top.u_prim_pad_attr.gen_generic.u_impl_generic), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:37:7, endln:39:26
             |vpiName:gen_assign
             |vpiFullName:work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign
             |vpiGenScope:
-            \_gen_scope: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:4, endln:28:7
+            \_gen_scope: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:22, endln:28:7
               |vpiParent:
-              \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:4, endln:28:7
+              \_gen_scope_array: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:22, endln:28:7
               |vpiFullName:work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign
               |vpiContAssign:
               \_cont_assign: , line:27:14, endln:27:19
                 |vpiParent:
-                \_gen_scope: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:4, endln:28:7
+                \_gen_scope: (work@top.u_prim_pad_attr.gen_generic.u_impl_generic.gen_assign), line:26:22, endln:28:7
                 |vpiRhs:
                 \_constant: , line:27:18, endln:27:19
                   |vpiParent:

@@ -449,11 +449,11 @@ void SV3_1aTreeShapeListener::exitGenerate_interface_block(
   addVObject(ctx, VObjectType::slGenerate_interface_block);
 }
 
-void SV3_1aTreeShapeListener::exitGenerate_block(
-    SV3_1aParser::Generate_blockContext *ctx) {
+void SV3_1aTreeShapeListener::exitGenerate_begin_end_block(
+    SV3_1aParser::Generate_begin_end_blockContext *ctx) {
   if (ctx->END())
     addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::slEnd);
-  addVObject(ctx, VObjectType::slGenerate_block);
+  addVObject(ctx, VObjectType::slGenerate_begin_end_block);
 }
 
 void SV3_1aTreeShapeListener::exitNamed_port_connection(

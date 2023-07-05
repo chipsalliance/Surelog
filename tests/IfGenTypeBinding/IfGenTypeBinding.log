@@ -113,7 +113,7 @@ n<PMPEnable> u<106> t<StringConst> p<107> l<20:8> el<20:17>
 n<> u<107> t<Primary_literal> p<108> c<106> l<20:8> el<20:17>
 n<> u<108> t<Constant_primary> p<109> c<107> l<20:8> el<20:17>
 n<> u<109> t<Constant_expression> p<130> c<108> s<128> l<20:8> el<20:17>
-n<g_pmp_registers> u<110> t<StringConst> p<128> s<126> l<20:27> el<20:42>
+n<g_pmp_registers> u<110> t<StringConst> p<127> s<125> l<20:27> el<20:42>
 n<pmp_cfg_t> u<111> t<StringConst> p<120> s<119> l<21:7> el<21:16>
 n<pmp_cfg2> u<112> t<StringConst> p<118> s<117> l<21:36> el<21:44>
 n<PMPNumRegions> u<113> t<StringConst> p<114> l<21:54> el<21:67>
@@ -128,10 +128,10 @@ n<> u<121> t<Package_or_generate_item_declaration> p<122> c<120> l<21:7> el<21:6
 n<> u<122> t<Module_or_generate_item_declaration> p<123> c<121> l<21:7> el<21:69>
 n<> u<123> t<Module_common_item> p<124> c<122> l<21:7> el<21:69>
 n<> u<124> t<Module_or_generate_item> p<125> c<123> l<21:7> el<21:69>
-n<> u<125> t<Generate_item> p<126> c<124> l<21:7> el<21:69>
-n<> u<126> t<Generate_block> p<128> c<125> s<127> l<21:7> el<21:69>
-n<> u<127> t<End> p<128> l<22:4> el<22:7>
-n<> u<128> t<Generate_block> p<130> c<110> l<20:19> el<22:7>
+n<> u<125> t<Generate_item> p<127> c<124> s<126> l<21:7> el<21:69>
+n<> u<126> t<End> p<127> l<22:4> el<22:7>
+n<> u<127> t<Generate_begin_end_block> p<128> c<110> l<20:19> el<22:7>
+n<> u<128> t<Generate_item> p<130> c<127> l<20:19> el<22:7>
 n<> u<129> t<IF> p<130> s<109> l<20:4> el<20:6>
 n<> u<130> t<If_generate_construct> p<131> c<129> l<20:4> el<22:7>
 n<> u<131> t<Conditional_generate_construct> p<132> c<130> l<20:4> el<22:7>
@@ -417,7 +417,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv:20:4: Compile generate block "work@top.g_pmp_registers".
+[INF:CP0335] ${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv:20:19: Compile generate block "work@top.g_pmp_registers".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv:13:1: Top level module "work@top".
 
@@ -1355,20 +1355,20 @@ design: (work@top)
       |vpiFullName:work@top.pmp_cfg1.pmp_cfg1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.g_pmp_registers), line:20:4, endln:22:7
+  \_gen_scope_array: (work@top.g_pmp_registers), line:20:19, endln:22:7
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IfGenTypeBinding/dut.sv, line:13:1, endln:24:10
     |vpiName:g_pmp_registers
     |vpiFullName:work@top.g_pmp_registers
     |vpiGenScope:
-    \_gen_scope: (work@top.g_pmp_registers), line:20:4, endln:22:7
+    \_gen_scope: (work@top.g_pmp_registers), line:20:19, endln:22:7
       |vpiParent:
-      \_gen_scope_array: (work@top.g_pmp_registers), line:20:4, endln:22:7
+      \_gen_scope_array: (work@top.g_pmp_registers), line:20:19, endln:22:7
       |vpiFullName:work@top.g_pmp_registers
       |vpiArrayNet:
       \_array_net: (work@top.g_pmp_registers.pmp_cfg2), line:21:36, endln:21:44
         |vpiParent:
-        \_gen_scope: (work@top.g_pmp_registers), line:20:4, endln:22:7
+        \_gen_scope: (work@top.g_pmp_registers), line:20:19, endln:22:7
         |vpiSize:1
         |vpiName:pmp_cfg2
         |vpiFullName:work@top.g_pmp_registers.pmp_cfg2

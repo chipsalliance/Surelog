@@ -101,10 +101,10 @@ n<> u<94> t<List_of_port_connections> p<95> c<93> l<14:52> el<14:52>
 n<> u<95> t<Hierarchical_instance> p<96> c<92> l<14:50> el<14:53>
 n<> u<96> t<Module_instantiation> p<97> c<74> l<14:6> el<14:54>
 n<> u<97> t<Module_or_generate_item> p<98> c<96> l<14:6> el<14:54>
-n<> u<98> t<Generate_item> p<99> c<97> l<14:6> el<14:54>
-n<> u<99> t<Generate_block> p<101> c<98> s<100> l<14:6> el<14:54>
-n<> u<100> t<End> p<101> l<15:4> el<15:7>
-n<> u<101> t<Generate_block> p<103> c<99> l<13:25> el<15:7>
+n<> u<98> t<Generate_item> p<100> c<97> s<99> l<14:6> el<14:54>
+n<> u<99> t<End> p<100> l<15:4> el<15:7>
+n<> u<100> t<Generate_begin_end_block> p<101> c<98> l<13:25> el<15:7>
+n<> u<101> t<Generate_item> p<103> c<100> l<13:25> el<15:7>
 n<> u<102> t<IF> p<103> s<73> l<13:4> el<13:6>
 n<> u<103> t<If_generate_construct> p<104> c<102> l<13:4> el<15:7>
 n<> u<104> t<Conditional_generate_construct> p<105> c<103> l<13:4> el<15:7>
@@ -134,15 +134,15 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:13:4: Compile generate block "work@top.u1.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:14:6: Compile generate block "work@top.u1.genblk1".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:13:4: Compile generate block "work@top.u1.genblk1.u.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:14:6: Compile generate block "work@top.u1.genblk1.u.genblk1".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:13:4: Compile generate block "work@top.u1.genblk1.u.genblk1.u.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:14:6: Compile generate block "work@top.u1.genblk1.u.genblk1.u.genblk1".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:13:4: Compile generate block "work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:14:6: Compile generate block "work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:13:4: Compile generate block "work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/Loop/dut.sv:14:6: Compile generate block "work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/Loop/dut.sv:1:1: Top level module "work@top".
 
@@ -336,20 +336,20 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:1:1, endln:4:10
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@top.u1.genblk1), line:13:4, endln:15:7
+    \_gen_scope_array: (work@top.u1.genblk1), line:14:6, endln:14:54
       |vpiParent:
       \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
       |vpiName:genblk1
       |vpiFullName:work@top.u1.genblk1
       |vpiGenScope:
-      \_gen_scope: (work@top.u1.genblk1), line:13:4, endln:15:7
+      \_gen_scope: (work@top.u1.genblk1), line:14:6, endln:14:54
         |vpiParent:
-        \_gen_scope_array: (work@top.u1.genblk1), line:13:4, endln:15:7
+        \_gen_scope_array: (work@top.u1.genblk1), line:14:6, endln:14:54
         |vpiFullName:work@top.u1.genblk1
         |vpiModule:
         \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
           |vpiParent:
-          \_gen_scope: (work@top.u1.genblk1), line:13:4, endln:15:7
+          \_gen_scope: (work@top.u1.genblk1), line:14:6, endln:14:54
           |vpiName:u
           |vpiFullName:work@top.u1.genblk1.u
           |vpiParameter:
@@ -384,20 +384,20 @@ design: (work@top)
           |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
           |vpiDefLineNo:10
           |vpiGenScopeArray:
-          \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:13:4, endln:15:7
+          \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
             |vpiParent:
             \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
             |vpiName:genblk1
             |vpiFullName:work@top.u1.genblk1.u.genblk1
             |vpiGenScope:
-            \_gen_scope: (work@top.u1.genblk1.u.genblk1), line:13:4, endln:15:7
+            \_gen_scope: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
               |vpiParent:
-              \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:13:4, endln:15:7
+              \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
               |vpiFullName:work@top.u1.genblk1.u.genblk1
               |vpiModule:
               \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                 |vpiParent:
-                \_gen_scope: (work@top.u1.genblk1.u.genblk1), line:13:4, endln:15:7
+                \_gen_scope: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
                 |vpiName:u
                 |vpiFullName:work@top.u1.genblk1.u.genblk1.u
                 |vpiParameter:
@@ -432,20 +432,20 @@ design: (work@top)
                 |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
                 |vpiDefLineNo:10
                 |vpiGenScopeArray:
-                \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                   |vpiParent:
                   \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                   |vpiName:genblk1
                   |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1
                   |vpiGenScope:
-                  \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                  \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                     |vpiParent:
-                    \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                    \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                     |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1
                     |vpiModule:
                     \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                       |vpiParent:
-                      \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                      \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                       |vpiName:u
                       |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u
                       |vpiParameter:
@@ -480,20 +480,20 @@ design: (work@top)
                       |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
                       |vpiDefLineNo:10
                       |vpiGenScopeArray:
-                      \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                      \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                         |vpiParent:
                         \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                         |vpiName:genblk1
                         |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1
                         |vpiGenScope:
-                        \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                        \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                           |vpiParent:
-                          \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                          \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                           |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1
                           |vpiModule:
                           \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                             |vpiParent:
-                            \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                            \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                             |vpiName:u
                             |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u
                             |vpiParameter:
@@ -528,20 +528,20 @@ design: (work@top)
                             |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
                             |vpiDefLineNo:10
                             |vpiGenScopeArray:
-                            \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                            \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                               |vpiParent:
                               \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                               |vpiName:genblk1
                               |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1
                               |vpiGenScope:
-                              \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                              \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                                 |vpiParent:
-                                \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                                \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                                 |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1
                                 |vpiModule:
                                 \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
                                   |vpiParent:
-                                  \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:13:4, endln:15:7
+                                  \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
                                   |vpiName:u
                                   |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u
                                   |vpiParameter:

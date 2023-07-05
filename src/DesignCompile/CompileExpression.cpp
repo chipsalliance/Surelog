@@ -184,7 +184,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
               (insttype != VObjectType::slGenerate_interface_block) &&
               (insttype != VObjectType::slGenerate_module_item) &&
               (insttype != VObjectType::slGenerate_interface_item) &&
-              (insttype != VObjectType::slGenerate_block)) {
+              (insttype != VObjectType::slGenerate_begin_end_block)) {
             break;
           } else {
             inst = inst->getParent();

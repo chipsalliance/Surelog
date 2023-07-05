@@ -297,10 +297,10 @@ n<> u<290> t<List_of_port_connections> p<291> c<289> l<49:16> el<49:16>
 n<> u<291> t<Hierarchical_instance> p<292> c<288> l<49:11> el<49:17>
 n<> u<292> t<Module_instantiation> p<293> c<286> l<49:6> el<49:18>
 n<> u<293> t<Module_or_generate_item> p<294> c<292> l<49:6> el<49:18>
-n<> u<294> t<Generate_item> p<295> c<293> l<49:6> el<49:18>
-n<> u<295> t<Generate_block> p<297> c<294> s<296> l<49:6> el<49:18>
-n<> u<296> t<End> p<297> l<50:2> el<50:5>
-n<> u<297> t<Generate_block> p<312> c<295> s<311> l<48:24> el<50:5>
+n<> u<294> t<Generate_item> p<296> c<293> s<295> l<49:6> el<49:18>
+n<> u<295> t<End> p<296> l<50:2> el<50:5>
+n<> u<296> t<Generate_begin_end_block> p<297> c<294> l<48:24> el<50:5>
+n<> u<297> t<Generate_item> p<312> c<296> s<311> l<48:24> el<50:5>
 n<BAD> u<298> t<StringConst> p<304> s<303> l<51:6> el<51:9>
 n<bad> u<299> t<StringConst> p<300> l<51:10> el<51:13>
 n<> u<300> t<Name_of_instance> p<303> c<299> s<302> l<51:10> el<51:13>
@@ -309,10 +309,10 @@ n<> u<302> t<List_of_port_connections> p<303> c<301> l<51:14> el<51:14>
 n<> u<303> t<Hierarchical_instance> p<304> c<300> l<51:10> el<51:15>
 n<> u<304> t<Module_instantiation> p<305> c<298> l<51:6> el<51:16>
 n<> u<305> t<Module_or_generate_item> p<306> c<304> l<51:6> el<51:16>
-n<> u<306> t<Generate_item> p<307> c<305> l<51:6> el<51:16>
-n<> u<307> t<Generate_block> p<309> c<306> s<308> l<51:6> el<51:16>
-n<> u<308> t<End> p<309> l<52:2> el<52:5>
-n<> u<309> t<Generate_block> p<312> c<307> l<50:11> el<52:5>
+n<> u<306> t<Generate_item> p<308> c<305> s<307> l<51:6> el<51:16>
+n<> u<307> t<End> p<308> l<52:2> el<52:5>
+n<> u<308> t<Generate_begin_end_block> p<309> c<306> l<50:11> el<52:5>
+n<> u<309> t<Generate_item> p<312> c<308> l<50:11> el<52:5>
 n<> u<310> t<IF> p<312> s<285> l<48:2> el<48:4>
 n<> u<311> t<Else> p<312> s<309> l<50:6> el<50:10>
 n<> u<312> t<If_generate_construct> p<313> c<310> l<48:2> el<52:5>
@@ -343,7 +343,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:48:2: Compile generate block "work@testbench.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:49:6: Compile generate block "work@testbench.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/ConcatOrder/dut.sv:39:2: Top level module "work@testbench".
 
@@ -2270,20 +2270,20 @@ design: (work@testbench)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@testbench.genblk1), line:48:2, endln:52:5
+  \_gen_scope_array: (work@testbench.genblk1), line:49:6, endln:49:18
     |vpiParent:
     \_module_inst: work@testbench (work@testbench), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:39:2, endln:54:11
     |vpiName:genblk1
     |vpiFullName:work@testbench.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@testbench.genblk1), line:48:2, endln:52:5
+    \_gen_scope: (work@testbench.genblk1), line:49:6, endln:49:18
       |vpiParent:
-      \_gen_scope_array: (work@testbench.genblk1), line:48:2, endln:52:5
+      \_gen_scope_array: (work@testbench.genblk1), line:49:6, endln:49:18
       |vpiFullName:work@testbench.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@testbench.genblk1.good), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:49:6, endln:49:18
         |vpiParent:
-        \_gen_scope: (work@testbench.genblk1), line:48:2, endln:52:5
+        \_gen_scope: (work@testbench.genblk1), line:49:6, endln:49:18
         |vpiName:good
         |vpiFullName:work@testbench.genblk1.good
         |vpiDefName:work@GOOD

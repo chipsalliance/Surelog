@@ -349,10 +349,10 @@ n<> u<342> t<List_of_port_connections> p<343> c<341> l<63:11> el<63:11>
 n<> u<343> t<Hierarchical_instance> p<344> c<340> l<63:8> el<63:12>
 n<> u<344> t<Module_instantiation> p<345> c<338> l<63:5> el<63:13>
 n<> u<345> t<Module_or_generate_item> p<346> c<344> l<63:5> el<63:13>
-n<> u<346> t<Generate_item> p<347> c<345> l<63:5> el<63:13>
-n<> u<347> t<Generate_block> p<349> c<346> s<348> l<63:5> el<63:13>
-n<> u<348> t<End> p<349> l<64:2> el<64:5>
-n<> u<349> t<Generate_block> p<351> c<347> l<62:23> el<64:5>
+n<> u<346> t<Generate_item> p<348> c<345> s<347> l<63:5> el<63:13>
+n<> u<347> t<End> p<348> l<64:2> el<64:5>
+n<> u<348> t<Generate_begin_end_block> p<349> c<346> l<62:23> el<64:5>
+n<> u<349> t<Generate_item> p<351> c<348> l<62:23> el<64:5>
 n<> u<350> t<IF> p<351> s<337> l<62:2> el<62:4>
 n<> u<351> t<If_generate_construct> p<352> c<350> l<62:2> el<64:5>
 n<> u<352> t<Conditional_generate_construct> p<353> c<351> l<62:2> el<64:5>
@@ -638,7 +638,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:62:2: Compile generate block "work@top.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:63:5: Compile generate block "work@top.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv:55:1: Top level module "work@top".
 
@@ -3415,20 +3415,20 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk1), line:62:2, endln:64:5
+  \_gen_scope_array: (work@top.genblk1), line:63:5, endln:63:13
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:55:1, endln:66:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1), line:62:2, endln:64:5
+    \_gen_scope: (work@top.genblk1), line:63:5, endln:63:13
       |vpiParent:
-      \_gen_scope_array: (work@top.genblk1), line:62:2, endln:64:5
+      \_gen_scope_array: (work@top.genblk1), line:63:5, endln:63:13
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module_inst: work@top.genblk1::OK (work@top.genblk1.ok), file:${SURELOG_DIR}/tests/BlackParrotStructParam/dut.sv, line:63:5, endln:63:13
         |vpiParent:
-        \_gen_scope: (work@top.genblk1), line:62:2, endln:64:5
+        \_gen_scope: (work@top.genblk1), line:63:5, endln:63:13
         |vpiName:ok
         |vpiFullName:work@top.genblk1.ok
         |vpiDefName:work@top.genblk1::OK

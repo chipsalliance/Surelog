@@ -2091,16 +2091,11 @@ generate_interface_block
   )?
   ;
 
-// This grammar differs from the spec. The spec states that a generate_region is simply a repeated
-// generate_item. This is probably wrong though. The spec states that a generate block can have a
-// labeled begin end block. Which means that there should be a generate_block somwwhere in the
-// generate_region. It's unclear to me if the generate block should be allowed to be repeated. My
-// expectation is that it should not be allowed.
-generate_region: GENERATE generate_block* ENDGENERATE;
+generate_region: GENERATE generate_item* ENDGENERATE;
 
 loop_generate_construct
   : FOR OPEN_PARENS genvar_initialization SEMICOLON constant_expression SEMICOLON genvar_iteration
-      CLOSE_PARENS generate_block
+      CLOSE_PARENS generate_item
   ;
 
 genvar_initialization
@@ -2119,25 +2114,22 @@ conditional_generate_construct
   ;
 
 if_generate_construct
-  : IF OPEN_PARENS constant_expression CLOSE_PARENS generate_block (
-    ELSE generate_block
-  )?
-  ;
+  : IF OPEN_PARENS constant_expression CLOSE_PARENS generate_item 
+    ( ELSE generate_item  | {_input->LA(1) != ELSE}? );
 
 case_generate_construct
-  : CASE OPEN_PARENS constant_expression CLOSE_PARENS case_generate_item case_generate_item* ENDCASE
+  : CASE OPEN_PARENS constant_expression CLOSE_PARENS (case_generate_item)+ ENDCASE
   ;
 
 case_generate_item
-  : constant_expression (COMMA constant_expression)* COLON generate_block
-  | DEFAULT COLON? generate_block
+  : constant_expression (COMMA constant_expression)* COLON generate_item
+  | DEFAULT COLON? generate_item
   ;
 
-generate_block
-  : generate_item
-  | (identifier COLON)? BEGIN (COLON identifier)? generate_block* END (
-    COLON identifier
-  )?
+generate_begin_end_block:
+ ( identifier COLON )? BEGIN ( COLON identifier | {_input->LA(1) != COLON}? )
+        ( generate_item )*
+    END ( COLON identifier | {_input->LA(1) != COLON}? )
   ;
 
 //generate_item
@@ -2153,6 +2145,7 @@ generate_item
   )
   | checker_or_generate_item_declaration
   | generate_region
+  | generate_begin_end_block
   ;
 
 udp_nonansi_declaration

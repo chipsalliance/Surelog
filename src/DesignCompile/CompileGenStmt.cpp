@@ -87,7 +87,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
     VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                      Reduce::No, nullptr, nullptr, true);
     checkForLoops(false);
-    NodeId blockNameId = fC->Child(stmtId);
+    NodeId blockNameId = fC->Child(fC->Child(stmtId));
     if (fC->Type(blockNameId) == VObjectType::slStringConst) {
       std::string_view blockName = fC->SymName(blockNameId);
       named_begin* stmt = s.MakeNamed_begin();
@@ -143,7 +143,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                          Reduce::No, nullptr, nullptr, true);
         checkForLoops(false);
-        NodeId blockNameId = fC->Child(stmtId);
+        NodeId blockNameId = fC->Child(fC->Child(stmtId));
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
           std::string_view blockName = fC->SymName(blockNameId);
           named_begin* stmt = s.MakeNamed_begin();
@@ -173,7 +173,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         stmts = compileStmt(component, fC, elseStmtId, compileDesign,
                             Reduce::No, nullptr, nullptr, true);
         checkForLoops(false);
-        blockNameId = fC->Child(elseStmtId);
+        blockNameId = fC->Child(fC->Child(elseStmtId));
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
           std::string_view blockName = fC->SymName(blockNameId);
           named_begin* stmt = s.MakeNamed_begin();
@@ -208,7 +208,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
         VectorOfany* stmts = compileStmt(component, fC, stmtId, compileDesign,
                                          Reduce::No, nullptr, nullptr, true);
         checkForLoops(false);
-        NodeId blockNameId = fC->Child(stmtId);
+        NodeId blockNameId = fC->Child(fC->Child(stmtId));
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
           std::string_view blockName = fC->SymName(blockNameId);
           named_begin* stmt = s.MakeNamed_begin();
@@ -271,7 +271,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
           ex->VpiParent(citem);
           exprs->push_back(ex);
         }
-        NodeId blockNameId = fC->Child(stmtId);
+        NodeId blockNameId = fC->Child(fC->Child(stmtId));
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
           std::string_view blockName = fC->SymName(blockNameId);
           named_begin* stmt = s.MakeNamed_begin();
@@ -376,7 +376,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
     stmts = compileStmt(component, fC, genBlock, compileDesign, Reduce::No,
                         nullptr, nullptr, true);
     checkForLoops(false);
-    NodeId blockNameId = fC->Child(genBlock);
+    NodeId blockNameId = fC->Child(fC->Child(genBlock));
     if (fC->Type(blockNameId) == VObjectType::slStringConst) {
       std::string_view blockName = fC->SymName(blockNameId);
       named_begin* stmt = s.MakeNamed_begin();

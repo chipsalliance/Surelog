@@ -162,10 +162,10 @@ n<info> u<155> t<StringConst> p<156> s<154> l<12:4> el<12:8>
 n<> u<156> t<Elaboration_system_task> p<157> c<155> l<12:3> el<12:44>
 n<> u<157> t<Module_common_item> p<158> c<156> l<12:3> el<12:44>
 n<> u<158> t<Module_or_generate_item> p<159> c<157> l<12:3> el<12:44>
-n<> u<159> t<Generate_item> p<160> c<158> l<12:3> el<12:44>
-n<> u<160> t<Generate_block> p<162> c<159> s<161> l<12:3> el<12:44>
-n<> u<161> t<End> p<162> l<13:2> el<13:5>
-n<> u<162> t<Generate_block> p<164> c<160> l<11:21> el<13:5>
+n<> u<159> t<Generate_item> p<161> c<158> s<160> l<12:3> el<12:44>
+n<> u<160> t<End> p<161> l<13:2> el<13:5>
+n<> u<161> t<Generate_begin_end_block> p<162> c<159> l<11:21> el<13:5>
+n<> u<162> t<Generate_item> p<164> c<161> l<11:21> el<13:5>
 n<> u<163> t<IF> p<164> s<138> l<11:2> el<11:4>
 n<> u<164> t<If_generate_construct> p<165> c<163> l<11:2> el<13:5>
 n<> u<165> t<Conditional_generate_construct> p<166> c<164> l<11:2> el<13:5>
@@ -214,10 +214,10 @@ n<info> u<207> t<StringConst> p<208> s<206> l<15:4> el<15:8>
 n<> u<208> t<Elaboration_system_task> p<209> c<207> l<15:3> el<15:44>
 n<> u<209> t<Module_common_item> p<210> c<208> l<15:3> el<15:44>
 n<> u<210> t<Module_or_generate_item> p<211> c<209> l<15:3> el<15:44>
-n<> u<211> t<Generate_item> p<212> c<210> l<15:3> el<15:44>
-n<> u<212> t<Generate_block> p<214> c<211> s<213> l<15:3> el<15:44>
-n<> u<213> t<End> p<214> l<16:2> el<16:5>
-n<> u<214> t<Generate_block> p<216> c<212> l<14:21> el<16:5>
+n<> u<211> t<Generate_item> p<213> c<210> s<212> l<15:3> el<15:44>
+n<> u<212> t<End> p<213> l<16:2> el<16:5>
+n<> u<213> t<Generate_begin_end_block> p<214> c<211> l<14:21> el<16:5>
+n<> u<214> t<Generate_item> p<216> c<213> l<14:21> el<16:5>
 n<> u<215> t<IF> p<216> s<190> l<14:2> el<14:4>
 n<> u<216> t<If_generate_construct> p<217> c<215> l<14:2> el<16:5>
 n<> u<217> t<Conditional_generate_construct> p<218> c<216> l<14:2> el<16:5>
@@ -266,10 +266,10 @@ n<info> u<259> t<StringConst> p<260> s<258> l<18:4> el<18:8>
 n<> u<260> t<Elaboration_system_task> p<261> c<259> l<18:3> el<18:40>
 n<> u<261> t<Module_common_item> p<262> c<260> l<18:3> el<18:40>
 n<> u<262> t<Module_or_generate_item> p<263> c<261> l<18:3> el<18:40>
-n<> u<263> t<Generate_item> p<264> c<262> l<18:3> el<18:40>
-n<> u<264> t<Generate_block> p<266> c<263> s<265> l<18:3> el<18:40>
-n<> u<265> t<End> p<266> l<19:2> el<19:5>
-n<> u<266> t<Generate_block> p<268> c<264> l<17:21> el<19:5>
+n<> u<263> t<Generate_item> p<265> c<262> s<264> l<18:3> el<18:40>
+n<> u<264> t<End> p<265> l<19:2> el<19:5>
+n<> u<265> t<Generate_begin_end_block> p<266> c<263> l<17:21> el<19:5>
+n<> u<266> t<Generate_item> p<268> c<265> l<17:21> el<19:5>
 n<> u<267> t<IF> p<268> s<242> l<17:2> el<17:4>
 n<> u<268> t<If_generate_construct> p<269> c<267> l<17:2> el<19:5>
 n<> u<269> t<Conditional_generate_construct> p<270> c<268> l<17:2> el<19:5>
@@ -317,7 +317,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/FuncRetArray/dut.sv:17:2: Compile generate block "work@main.top1.genblk4".
+[INF:CP0335] ${SURELOG_DIR}/tests/FuncRetArray/dut.sv:18:3: Compile generate block "work@main.top1.genblk4".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/FuncRetArray/dut.sv:22:1: Top level module "work@main".
 
@@ -979,20 +979,20 @@ design: (work@main)
     |vpiInstance:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:22:1, endln:24:10
     |vpiGenScopeArray:
-    \_gen_scope_array: (work@main.top1.genblk4), line:17:2, endln:19:5
+    \_gen_scope_array: (work@main.top1.genblk4), line:18:3, endln:18:40
       |vpiParent:
       \_module_inst: work@top (work@main.top1), file:${SURELOG_DIR}/tests/FuncRetArray/dut.sv, line:23:5, endln:23:20
       |vpiName:genblk4
       |vpiFullName:work@main.top1.genblk4
       |vpiGenScope:
-      \_gen_scope: (work@main.top1.genblk4), line:17:2, endln:19:5
+      \_gen_scope: (work@main.top1.genblk4), line:18:3, endln:18:40
         |vpiParent:
-        \_gen_scope_array: (work@main.top1.genblk4), line:17:2, endln:19:5
+        \_gen_scope_array: (work@main.top1.genblk4), line:18:3, endln:18:40
         |vpiFullName:work@main.top1.genblk4
         |vpiSysTaskCall:
         \_sys_task_call: (info), line:18:3, endln:18:40
           |vpiParent:
-          \_gen_scope: (work@main.top1.genblk4), line:17:2, endln:19:5
+          \_gen_scope: (work@main.top1.genblk4), line:18:3, endln:18:40
           |vpiArgument:
           \_constant: 
             |vpiDecompile:"--[1] (%d) is 5!!!"

@@ -311,10 +311,10 @@ n<> u<304> t<List_of_port_connections> p<305> c<303> l<20:9> el<20:9>
 n<> u<305> t<Hierarchical_instance> p<306> c<302> l<20:6> el<20:10>
 n<> u<306> t<Module_instantiation> p<307> c<300> l<20:3> el<20:11>
 n<> u<307> t<Module_or_generate_item> p<308> c<306> l<20:3> el<20:11>
-n<> u<308> t<Generate_item> p<309> c<307> l<20:3> el<20:11>
-n<> u<309> t<Generate_block> p<311> c<308> s<310> l<20:3> el<20:11>
-n<> u<310> t<End> p<311> l<21:1> el<21:4>
-n<> u<311> t<Generate_block> p<313> c<309> l<19:31> el<21:4>
+n<> u<308> t<Generate_item> p<310> c<307> s<309> l<20:3> el<20:11>
+n<> u<309> t<End> p<310> l<21:1> el<21:4>
+n<> u<310> t<Generate_begin_end_block> p<311> c<308> l<19:31> el<21:4>
+n<> u<311> t<Generate_item> p<313> c<310> l<19:31> el<21:4>
 n<> u<312> t<IF> p<313> s<299> l<19:1> el<19:3>
 n<> u<313> t<If_generate_construct> p<314> c<312> l<19:1> el<21:4>
 n<> u<314> t<Conditional_generate_construct> p<315> c<313> l<19:1> el<21:4>
@@ -596,7 +596,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/CastShift/dut.sv:19:1: Compile generate block "work@dut.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/CastShift/dut.sv:20:3: Compile generate block "work@dut.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/CastShift/dut.sv:1:1: Top level module "work@dut".
 
@@ -1837,20 +1837,20 @@ design: (work@dut)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@dut.genblk1), line:19:1, endln:21:4
+  \_gen_scope_array: (work@dut.genblk1), line:20:3, endln:20:11
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiName:genblk1
     |vpiFullName:work@dut.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@dut.genblk1), line:19:1, endln:21:4
+    \_gen_scope: (work@dut.genblk1), line:20:3, endln:20:11
       |vpiParent:
-      \_gen_scope_array: (work@dut.genblk1), line:19:1, endln:21:4
+      \_gen_scope_array: (work@dut.genblk1), line:20:3, endln:20:11
       |vpiFullName:work@dut.genblk1
       |vpiModule:
       \_module_inst: work@dut.genblk1::OK (work@dut.genblk1.ok), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:20:3, endln:20:11
         |vpiParent:
-        \_gen_scope: (work@dut.genblk1), line:19:1, endln:21:4
+        \_gen_scope: (work@dut.genblk1), line:20:3, endln:20:11
         |vpiName:ok
         |vpiFullName:work@dut.genblk1.ok
         |vpiDefName:work@dut.genblk1::OK

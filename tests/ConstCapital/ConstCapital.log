@@ -66,10 +66,10 @@ n<> u<59> t<List_of_port_connections> p<60> c<58> l<11:20> el<11:20>
 n<> u<60> t<Hierarchical_instance> p<61> c<57> l<11:14> el<11:21>
 n<> u<61> t<Module_instantiation> p<62> c<55> l<11:9> el<11:22>
 n<> u<62> t<Module_or_generate_item> p<63> c<61> l<11:9> el<11:22>
-n<> u<63> t<Generate_item> p<64> c<62> l<11:9> el<11:22>
-n<> u<64> t<Generate_block> p<66> c<63> s<65> l<11:9> el<11:22>
-n<> u<65> t<End> p<66> l<12:1> el<12:4>
-n<> u<66> t<Generate_block> p<68> c<64> l<10:22> el<12:4>
+n<> u<63> t<Generate_item> p<65> c<62> s<64> l<11:9> el<11:22>
+n<> u<64> t<End> p<65> l<12:1> el<12:4>
+n<> u<65> t<Generate_begin_end_block> p<66> c<63> l<10:22> el<12:4>
+n<> u<66> t<Generate_item> p<68> c<65> l<10:22> el<12:4>
 n<> u<67> t<IF> p<68> s<54> l<10:1> el<10:3>
 n<> u<68> t<If_generate_construct> p<69> c<67> l<10:1> el<12:4>
 n<> u<69> t<Conditional_generate_construct> p<70> c<68> l<10:1> el<12:4>
@@ -94,10 +94,10 @@ n<> u<87> t<List_of_port_connections> p<88> c<86> l<16:20> el<16:20>
 n<> u<88> t<Hierarchical_instance> p<89> c<85> l<16:14> el<16:21>
 n<> u<89> t<Module_instantiation> p<90> c<83> l<16:9> el<16:22>
 n<> u<90> t<Module_or_generate_item> p<91> c<89> l<16:9> el<16:22>
-n<> u<91> t<Generate_item> p<92> c<90> l<16:9> el<16:22>
-n<> u<92> t<Generate_block> p<94> c<91> s<93> l<16:9> el<16:22>
-n<> u<93> t<End> p<94> l<17:1> el<17:4>
-n<> u<94> t<Generate_block> p<96> c<92> l<15:20> el<17:4>
+n<> u<91> t<Generate_item> p<93> c<90> s<92> l<16:9> el<16:22>
+n<> u<92> t<End> p<93> l<17:1> el<17:4>
+n<> u<93> t<Generate_begin_end_block> p<94> c<91> l<15:20> el<17:4>
+n<> u<94> t<Generate_item> p<96> c<93> l<15:20> el<17:4>
 n<> u<95> t<IF> p<96> s<82> l<15:1> el<15:3>
 n<> u<96> t<If_generate_construct> p<97> c<95> l<15:1> el<17:4>
 n<> u<97> t<Conditional_generate_construct> p<98> c<96> l<15:1> el<17:4>
@@ -122,9 +122,9 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ConstCapital/dut.sv:10:1: Compile generate block "work@test.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/ConstCapital/dut.sv:11:9: Compile generate block "work@test.genblk1".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ConstCapital/dut.sv:15:1: Compile generate block "work@test.genblk2".
+[INF:CP0335] ${SURELOG_DIR}/tests/ConstCapital/dut.sv:16:9: Compile generate block "work@test.genblk2".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/ConstCapital/dut.sv:8:1: Top level module "work@test".
 
@@ -345,40 +345,40 @@ design: (work@test)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4
+  \_gen_scope_array: (work@test.genblk1), line:11:9, endln:11:22
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
     |vpiName:genblk1
     |vpiFullName:work@test.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@test.genblk1), line:10:1, endln:12:4
+    \_gen_scope: (work@test.genblk1), line:11:9, endln:11:22
       |vpiParent:
-      \_gen_scope_array: (work@test.genblk1), line:10:1, endln:12:4
+      \_gen_scope_array: (work@test.genblk1), line:11:9, endln:11:22
       |vpiFullName:work@test.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@test.genblk1.good1), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:11:9, endln:11:22
         |vpiParent:
-        \_gen_scope: (work@test.genblk1), line:10:1, endln:12:4
+        \_gen_scope: (work@test.genblk1), line:11:9, endln:11:22
         |vpiName:good1
         |vpiFullName:work@test.genblk1.good1
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/ConstCapital/dut.sv
         |vpiDefLineNo:4
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@test.genblk2), line:15:1, endln:17:4
+  \_gen_scope_array: (work@test.genblk2), line:16:9, endln:16:22
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:8:1, endln:19:10
     |vpiName:genblk2
     |vpiFullName:work@test.genblk2
     |vpiGenScope:
-    \_gen_scope: (work@test.genblk2), line:15:1, endln:17:4
+    \_gen_scope: (work@test.genblk2), line:16:9, endln:16:22
       |vpiParent:
-      \_gen_scope_array: (work@test.genblk2), line:15:1, endln:17:4
+      \_gen_scope_array: (work@test.genblk2), line:16:9, endln:16:22
       |vpiFullName:work@test.genblk2
       |vpiModule:
       \_module_inst: work@GOOD (work@test.genblk2.good2), file:${SURELOG_DIR}/tests/ConstCapital/dut.sv, line:16:9, endln:16:22
         |vpiParent:
-        \_gen_scope: (work@test.genblk2), line:15:1, endln:17:4
+        \_gen_scope: (work@test.genblk2), line:16:9, endln:16:22
         |vpiName:good2
         |vpiFullName:work@test.genblk2.good2
         |vpiDefName:work@GOOD

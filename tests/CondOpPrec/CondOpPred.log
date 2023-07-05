@@ -112,10 +112,10 @@ n<> u<105> t<List_of_port_connections> p<106> c<104> l<14:16> el<14:16>
 n<> u<106> t<Hierarchical_instance> p<107> c<103> l<14:11> el<14:17>
 n<> u<107> t<Module_instantiation> p<108> c<101> l<14:6> el<14:18>
 n<> u<108> t<Module_or_generate_item> p<109> c<107> l<14:6> el<14:18>
-n<> u<109> t<Generate_item> p<110> c<108> l<14:6> el<14:18>
-n<> u<110> t<Generate_block> p<112> c<109> s<111> l<14:6> el<14:18>
-n<> u<111> t<End> p<112> l<15:3> el<15:6>
-n<> u<112> t<Generate_block> p<114> c<110> l<13:22> el<15:6>
+n<> u<109> t<Generate_item> p<111> c<108> s<110> l<14:6> el<14:18>
+n<> u<110> t<End> p<111> l<15:3> el<15:6>
+n<> u<111> t<Generate_begin_end_block> p<112> c<109> l<13:22> el<15:6>
+n<> u<112> t<Generate_item> p<114> c<111> l<13:22> el<15:6>
 n<> u<113> t<IF> p<114> s<100> l<13:3> el<13:5>
 n<> u<114> t<If_generate_construct> p<115> c<113> l<13:3> el<15:6>
 n<> u<115> t<Conditional_generate_construct> p<116> c<114> l<13:3> el<15:6>
@@ -140,7 +140,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/CondOpPrec/dut.sv:13:3: Compile generate block "work@top.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/CondOpPrec/dut.sv:14:6: Compile generate block "work@top.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/CondOpPrec/dut.sv:5:1: Top level module "work@top".
 
@@ -487,20 +487,20 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk1), line:13:3, endln:15:6
+  \_gen_scope_array: (work@top.genblk1), line:14:6, endln:14:18
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1), line:13:3, endln:15:6
+    \_gen_scope: (work@top.genblk1), line:14:6, endln:14:18
       |vpiParent:
-      \_gen_scope_array: (work@top.genblk1), line:13:3, endln:15:6
+      \_gen_scope_array: (work@top.genblk1), line:14:6, endln:14:18
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@top.genblk1.good), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:14:6, endln:14:18
         |vpiParent:
-        \_gen_scope: (work@top.genblk1), line:13:3, endln:15:6
+        \_gen_scope: (work@top.genblk1), line:14:6, endln:14:18
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
         |vpiDefName:work@GOOD
