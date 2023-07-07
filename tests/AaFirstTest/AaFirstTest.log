@@ -1,8 +1,74 @@
-[INF:CM0023] Creating log file /home/alain/Surelog/build/regression/AaFirstTest/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/AaFirstTest/slpp_unit/surelog.log.
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[INF:PP0122] Preprocessing source file "/home/alain/Surelog/tests/AaFirstTest/dut.sv".
+[INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/AaFirstTest/dut.sv".
 
-[INF:PA0201] Parsing source file "/home/alain/Surelog/tests/AaFirstTest/dut.sv".
+[INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/AaFirstTest/dut.sv".
 
+[WRN:PA0205] ${SURELOG_DIR}/tests/AaFirstTest/dut.sv:3:1: No timescale set for "top".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] ${SURELOG_DIR}/tests/AaFirstTest/dut.sv:3:1: Compile module "work@top".
+
+[INF:CP0302] Compile class "work@mailbox".
+
+[INF:CP0302] Compile class "work@process".
+
+[INF:CP0302] Compile class "work@semaphore".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] ${SURELOG_DIR}/tests/AaFirstTest/dut.sv:3:1: Top level module "work@top".
+
+[WRN:EL0500] ${SURELOG_DIR}/tests/AaFirstTest/dut.sv:5:3: Cannot find a module definition for "work@top::bottom".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 2.
+
+[NTE:EL0510] Nb instances: 2.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+[WRN:EL0512] Nb undefined modules: 1.
+
+[WRN:EL0513] Nb undefined instances: 1.
+
+[INF:UH0706] Creating UHDM Model...
+
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                               5
+design                                                 1
+enum_const                                             5
+enum_typespec                                          1
+enum_var                                               1
+function                                               9
+int_typespec                                           9
+int_var                                                4
+io_decl                                               11
+logic_net                                              2
+logic_typespec                                         3
+logic_var                                              1
+module_inst                                            4
+package                                                2
+port                                                   4
+ref_module                                             1
+ref_obj                                                4
+task                                                   9
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AaFirstTest/slpp_unit/surelog.uhdm ...
+
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 4
+[   NOTE] : 5
+
+
+[roundtrip]: ${SURELOG_DIR}/tests/AaFirstTest/builtin.sv | ${SURELOG_DIR}/build/regression/AaFirstTest/roundtrip/builtin_000.sv | 0 | 0 |
+[roundtrip]: ${SURELOG_DIR}/tests/AaFirstTest/dut.sv     | ${SURELOG_DIR}/build/regression/AaFirstTest/roundtrip/dut_000.sv     | 2 | 7 |

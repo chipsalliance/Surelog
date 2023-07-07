@@ -1,8 +1,8 @@
-[INF:CM0023] Creating log file /home/alain/Surelog/build/regression/BlackParrotSkipParam/slpp_all/surelog.log.
+[INF:CM0023] Creating log file ${SURELOG_DIR}/build/regression/BlackParrotSkipParam/slpp_all/surelog.log.
 
 AST_DEBUG_BEGIN
 LIB:  work
-FILE: /home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv
+FILE: ${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<98> s<97> l<2:1> el<1:2>
 n<module> u<2> t<Module_keyword> p<57> s<3> l<2:1> el<2:7>
@@ -103,19 +103,19 @@ n<> u<96> t<Description> p<97> c<95> l<9:1> el<17:10>
 n<> u<97> t<Source_text> p<98> c<60> l<2:1> el<17:10>
 n<> u<98> t<Top_level_rule> c<1> l<2:1> el<18:1>
 AST_DEBUG_END
-[WRN:PA0205] /home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv:2:1: No timescale set for "bsg_counter_set_en".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv:2:1: No timescale set for "bsg_counter_set_en".
 
-[WRN:PA0205] /home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv:9:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv:9:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] /home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv:2:1: Compile module "work@bsg_counter_set_en".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv:2:1: Compile module "work@bsg_counter_set_en".
 
-[INF:CP0303] /home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv:9:1: Compile module "work@top".
+[INF:CP0303] ${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv:9:1: Compile module "work@top".
 
 AST_DEBUG_BEGIN
 LIB:  work
-FILE: /home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv
+FILE: ${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<249> s<248> f<0> l<1:3> el<1:3>
 n<mailbox> u<2> t<StringConst> p<102> s<16> f<0> l<1:9> el<1:16>
@@ -375,7 +375,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] /home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv:9:1: Top level module "work@top".
+[NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv:9:1: Top level module "work@top".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -439,11 +439,11 @@ string_typespec                                        2
 sys_func_call                                          1
 task                                                  18
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: /home/alain/Surelog/build/regression/BlackParrotSkipParam/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BlackParrotSkipParam/slpp_all/surelog.uhdm ...
 
-[INF:UH0709] Writing UHDM Html Coverage: /home/alain/Surelog/build/regression/BlackParrotSkipParam/slpp_all/checker/surelog.chk.html ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BlackParrotSkipParam/slpp_all/checker/surelog.chk.html ...
 
-[INF:UH0710] Loading UHDM DB: /home/alain/Surelog/build/regression/BlackParrotSkipParam/slpp_all/surelog.uhdm ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BlackParrotSkipParam/slpp_all/surelog.uhdm ...
 
 [INF:UH0711] Decompiling UHDM...
 
@@ -497,14 +497,14 @@ design: (work@top)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+\_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), line:3:5, endln:4:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -515,7 +515,7 @@ design: (work@top)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -535,7 +535,7 @@ design: (work@top)
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -552,7 +552,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@mailbox::put), line:9:5, endln:10:12
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
@@ -566,7 +566,7 @@ design: (work@top)
   |vpiMethod:
   \_function: (work@mailbox::try_put), line:12:5, endln:13:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -585,7 +585,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@mailbox::get), line:15:5, endln:16:12
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
@@ -599,7 +599,7 @@ design: (work@top)
   |vpiMethod:
   \_function: (work@mailbox::try_get), line:18:5, endln:19:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -622,7 +622,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@mailbox::peek), line:21:5, endln:22:12
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
@@ -636,7 +636,7 @@ design: (work@top)
   |vpiMethod:
   \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:1:3, endln:27:11
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -657,14 +657,14 @@ design: (work@top)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
-\_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+\_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:work@process
   |vpiTypedef:
   \_enum_typespec: (state), line:32:5, endln:32:74
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED), line:32:20, endln:32:28
@@ -709,7 +709,7 @@ design: (work@top)
   |vpiMethod:
   \_function: (work@process::self), line:34:5, endln:34:11
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -721,12 +721,12 @@ design: (work@top)
       |vpiTypespec:
       \_class_typespec: , line:34:21, endln:34:28
         |vpiClassDefn:
-        \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -738,7 +738,7 @@ design: (work@top)
       |vpiTypespec:
       \_enum_typespec: (state), line:32:5, endln:32:74
         |vpiParent:
-        \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED), line:32:20, endln:32:28
@@ -784,7 +784,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
@@ -792,7 +792,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@process::await), line:43:5, endln:44:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
@@ -800,7 +800,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@process::suspend), line:46:5, endln:47:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
@@ -808,20 +808,20 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@process::resume), line:49:5, endln:50:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:30:3, endln:52:11
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
+\_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
   |vpiParent:
   \_design: (work@top)
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), line:57:5, endln:58:16
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -832,7 +832,7 @@ design: (work@top)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
+        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -852,7 +852,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
@@ -875,7 +875,7 @@ design: (work@top)
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
@@ -898,7 +898,7 @@ design: (work@top)
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/builtin.sv, line:55:3, endln:69:11
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -928,14 +928,14 @@ design: (work@top)
       \_int_typespec: , line:66:26, endln:66:29
         |vpiSigned:1
 |uhdmallModules:
-\_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+\_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@bsg_counter_set_en
   |vpiParameter:
   \_parameter: (work@bsg_counter_set_en.max_val_p), line:3:15, endln:3:24
     |vpiParent:
-    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
     |STRING:inv
     |vpiTypespec:
     \_string_typespec: 
@@ -944,13 +944,13 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (work@bsg_counter_set_en.lg_max_val_lp), line:4:17, endln:4:30
     |vpiParent:
-    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
     |vpiName:lg_max_val_lp
     |vpiFullName:work@bsg_counter_set_en.lg_max_val_lp
   |vpiParameter:
   \_parameter: (work@bsg_counter_set_en.reset_val_p), line:5:17, endln:5:28
     |vpiParent:
-    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
     |UINT:0
     |vpiTypespec:
     \_int_typespec: , line:5:7, endln:5:30
@@ -959,7 +959,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:30
     |vpiParent:
-    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
     |vpiRhs:
     \_constant: , line:3:25, endln:3:30
       |vpiParent:
@@ -975,7 +975,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:4:17, endln:4:52
     |vpiParent:
-    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
     |vpiRhs:
     \_sys_func_call: ($clog2), line:4:32, endln:4:51
       |vpiParent:
@@ -1005,7 +1005,7 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:5:17, endln:5:30
     |vpiParent:
-    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
     |vpiRhs:
     \_constant: , line:5:29, endln:5:30
       |vpiParent:
@@ -1020,7 +1020,7 @@ design: (work@top)
     \_parameter: (work@bsg_counter_set_en.reset_val_p), line:5:17, endln:5:28
   |vpiDefName:work@bsg_counter_set_en
 |uhdmallModules:
-\_module_inst: work@top (work@top), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -1028,27 +1028,27 @@ design: (work@top)
   |vpiRefModule:
   \_ref_module: work@bsg_counter_set_en (mtime_counter), line:14:2, endln:14:15
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
     |vpiName:mtime_counter
     |vpiDefName:work@bsg_counter_set_en
     |vpiActual:
-    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
+    \_module_inst: work@bsg_counter_set_en (work@bsg_counter_set_en), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:2:1, endln:7:10
 |uhdmtopModules:
-\_module_inst: work@top (work@top), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
+  \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
     |vpiName:mtime_counter
     |vpiFullName:work@top.mtime_counter
     |vpiParameter:
     \_parameter: (work@top.mtime_counter.max_val_p), line:3:15, endln:3:24
       |vpiParent:
-      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
+      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
       |STRING:inv
       |vpiTypespec:
       \_string_typespec: 
@@ -1059,13 +1059,13 @@ design: (work@top)
     |vpiParameter:
     \_parameter: (work@top.mtime_counter.lg_max_val_lp), line:4:17, endln:4:30
       |vpiParent:
-      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
+      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
       |vpiName:lg_max_val_lp
       |vpiFullName:work@top.mtime_counter.lg_max_val_lp
     |vpiParameter:
     \_parameter: (work@top.mtime_counter.reset_val_p), line:5:17, endln:5:28
       |vpiParent:
-      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
+      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
       |UINT:0
       |vpiTypespec:
       \_int_typespec: , line:5:7, endln:5:30
@@ -1076,7 +1076,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:3:15, endln:3:30
       |vpiParent:
-      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
+      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
       |vpiRhs:
       \_constant: , line:3:25, endln:3:30
         |vpiParent:
@@ -1092,7 +1092,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:4:17, endln:4:52
       |vpiParent:
-      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
+      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:4:31, endln:4:52
@@ -1107,7 +1107,7 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:5:17, endln:5:30
       |vpiParent:
-      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
+      \_module_inst: work@bsg_counter_set_en (work@top.mtime_counter), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:10:1, endln:14:18
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:5:29, endln:5:30
@@ -1122,10 +1122,10 @@ design: (work@top)
       |vpiLhs:
       \_parameter: (work@top.mtime_counter.reset_val_p), line:5:17, endln:5:28
     |vpiDefName:work@bsg_counter_set_en
-    |vpiDefFile:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv
+    |vpiDefFile:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv
     |vpiDefLineNo:2
     |vpiInstance:
-    \_module_inst: work@top (work@top), file:/home/alain/Surelog/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackParrotSkipParam/dut.sv, line:9:1, endln:17:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
