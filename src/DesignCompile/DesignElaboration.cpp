@@ -828,7 +828,7 @@ void DesignElaboration::elaborateInstance_(
       VObjectType::slGenerate_module_loop_statement,
       VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block, VObjectType::slSeq_block,
-      VObjectType::slGenerate_region};
+      VObjectType::slGenerate_region, VObjectType::slGenerate_begin_end_block};
 
   VObjectTypeUnorderedSet stopPoints = {
       VObjectType::slConditional_generate_construct,
@@ -841,7 +841,8 @@ void DesignElaboration::elaborateInstance_(
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration,
       VObjectType::slBind_directive,
-      VObjectType::slGenerate_region};
+      VObjectType::slGenerate_region,
+      VObjectType::slGenerate_begin_end_block};
 
   std::vector<NodeId> subInstances =
       fC->sl_collect_all(nodeId, types, stopPoints);
@@ -851,18 +852,18 @@ void DesignElaboration::elaborateInstance_(
     std::vector<NodeId> subSubInstances;
     std::string instName;
     if (type == VObjectType::slGenerate_region) {
-      NodeId Generate_block = fC->Child(subInstanceId);
-      if (fC->Type(Generate_block) != VObjectType::slGenerate_block) {
+      NodeId Generate_item = fC->Child(subInstanceId);
+      if (fC->Type(Generate_item) != VObjectType::slGenerate_item) {
         continue;
       }
-      NodeId nameId = fC->Child(Generate_block);
+      NodeId nameId = fC->Child(Generate_item);
       if (fC->Name(nameId)) {
         instName = fC->SymName(nameId);
         subSubInstances.push_back(subInstanceId);
       } else {
-        while (Generate_block) {
+        while (Generate_item) {
           std::vector<NodeId> subIds =
-              fC->sl_collect_all(Generate_block, types, stopPoints);
+              fC->sl_collect_all(Generate_item, types, stopPoints);
           if (!subIds.empty()) {
             for (auto id : subIds) {
               subSubInstances.push_back(id);
@@ -870,7 +871,7 @@ void DesignElaboration::elaborateInstance_(
           } else {
             if (DesignComponent* def = parent->getDefinition()) {
               // Compile generate block
-              ((ModuleDefinition*)def)->setGenBlockId(Generate_block);
+              ((ModuleDefinition*)def)->setGenBlockId(Generate_item);
               FunctorCompileModule funct(
                   m_compileDesign, (ModuleDefinition*)def, design,
                   m_compileDesign->getCompiler()->getSymbolTable(),
@@ -878,9 +879,9 @@ void DesignElaboration::elaborateInstance_(
               funct.operator()();
             }
           }
-          Generate_block = fC->Sibling(Generate_block);
-          if (Generate_block &&
-              (fC->Type(Generate_block) == VObjectType::slEndgenerate)) {
+          Generate_item = fC->Sibling(Generate_item);
+          if (Generate_item &&
+              (fC->Type(Generate_item) == VObjectType::slEndgenerate)) {
             break;
           }
         }
@@ -924,6 +925,12 @@ void DesignElaboration::elaborateInstance_(
       } else {
         NodeId instId =
             fC->sl_collect(subInstanceId, VObjectType::slName_of_instance);
+        if (instId == InvalidNodeId) {
+          NodeId nameId = fC->Child(subInstanceId);
+          if (fC->Type(nameId) == VObjectType::slStringConst) {
+            instId = subInstanceId;
+          }
+        }
         NodeId identifierId;
         if (instId) {
           identifierId = fC->Child(instId);
@@ -972,7 +979,7 @@ void DesignElaboration::elaborateInstance_(
         VObjectTypeUnorderedSet btypes = {
             VObjectType::slGenerate_module_block,
             VObjectType::slGenerate_interface_block,
-            VObjectType::slGenerate_block,
+            VObjectType::slGenerate_begin_end_block,
             VObjectType::slGenerate_module_named_block,
             VObjectType::slGenerate_interface_named_block};
 
@@ -1038,6 +1045,7 @@ void DesignElaboration::elaborateInstance_(
           }
           // Generate block
           NodeId genBlock = fC->Sibling(iteration);
+          genBlock = fC->Child(genBlock);
           m_helper.checkForLoops(true);
           int64_t condVal = m_helper.getValue(
               validValue, parentDef, fC, endLoopTest, m_compileDesign,
@@ -1055,7 +1063,7 @@ void DesignElaboration::elaborateInstance_(
 
             def = design->getComponentDefinition(indexedModName);
             if (def == nullptr) {
-              def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
+              def = m_moduleDefFactory->newModuleDefinition(fC, genBlock,
                                                             indexedModName);
               if (DesignComponent* defParent = parent->getDefinition())
                 def->setParentScope(defParent);
@@ -1177,7 +1185,7 @@ void DesignElaboration::elaborateInstance_(
             while (nomatch) {
               NodeId exprItem = fC->Child(caseItem);
               if (fC->Type(exprItem) ==
-                  VObjectType::slGenerate_block)  // Default block
+                  VObjectType::slGenerate_item)  // Default block
                 nomatch = false;
               while (nomatch) {
                 // Find if one of the case expr matches the case expr
@@ -1241,11 +1249,24 @@ void DesignElaboration::elaborateInstance_(
                   tmp = fC->Sibling(tmp);
                   int64_t condVal = 0;
 
-                  NodeId Generate_block = tmp;
-                  NodeId Generate_item = fC->Child(Generate_block);
+                  NodeId Generate_item = tmp;
+                  NodeId Generate_begin_end_block = fC->Child(Generate_item);
+                  NodeId Module_or_generate_item;
+                  if (fC->Type(Generate_begin_end_block) ==
+                      VObjectType::slModule_or_generate_item) {
+                    Module_or_generate_item = Generate_begin_end_block;
+                  } else {
+                    Module_or_generate_item =
+                        fC->Child(Generate_begin_end_block);
+                  }
+                  if (fC->Type(Module_or_generate_item) ==
+                      VObjectType::slStringConst) {
+                    Generate_item = fC->Sibling(Module_or_generate_item);
+                    Module_or_generate_item = fC->Child(Generate_item);
+                  }
                   NodeId Cond;
-                  if (fC->Type(Generate_item) == VObjectType::slGenerate_item) {
-                    NodeId Module_or_generate_item = fC->Child(Generate_item);
+                  if (fC->Type(Module_or_generate_item) ==
+                      VObjectType::slModule_or_generate_item) {
                     NodeId Module_common_item =
                         fC->Child(Module_or_generate_item);
                     NodeId Conditional_generate_construct =
@@ -1311,9 +1332,15 @@ void DesignElaboration::elaborateInstance_(
               NodeId blockNameId = fC->Child(tmp);
               if (fC->Type(blockNameId) == VObjectType::slStringConst ||
                   fC->Type(blockNameId) ==
-                      VObjectType::slGenerate_block) {  // if-else
-                if (fC->Type(blockNameId) == VObjectType::slGenerate_block) {
-                  NodeId Generate_item = fC->Child(blockNameId);
+                      VObjectType::slGenerate_begin_end_block) {  // if-else
+                if (fC->Type(blockNameId) ==
+                    VObjectType::slGenerate_begin_end_block) {
+                  NodeId Identifier = fC->Child(blockNameId);
+                  NodeId Generate_item = Identifier;
+                  if (fC->Type(Identifier) == VObjectType::slStringConst) {
+                    Generate_item = fC->Sibling(Identifier);
+                    modName = fC->SymName(Identifier);
+                  }
                   NodeId Module_or_generate_item = fC->Child(Generate_item);
                   NodeId Module_common_item =
                       fC->Child(Module_or_generate_item);
@@ -1323,7 +1350,8 @@ void DesignElaboration::elaborateInstance_(
                       fC->Child(Conditional_generate_construct);
                   if (fC->Type(If_generate_construct) ==
                       VObjectType::slIf_generate_construct) {
-                    if (fC->Type(childId) == VObjectType::slGenerate_block)
+                    if (fC->Type(childId) ==
+                        VObjectType::slGenerate_begin_end_block)
                       childId = fC->Child(childId);
                     blockIds = fC->sl_collect_all(childId, btypes, true);
                     if (!blockIds.empty()) {
@@ -1369,11 +1397,18 @@ void DesignElaboration::elaborateInstance_(
         libName = fC->getLibrary()->getName();
         // fullName = parent->getModuleName() + "." + instName;
         // def = design->getComponentDefinition(fullName);
-
+        NodeId blockId = childId;
+        if (fC->Type(fC->Child(blockId)) ==
+            VObjectType::slGenerate_begin_end_block) {
+          blockId = fC->Child(blockId);
+        }
+        if (fC->Type(blockId) == VObjectType::slGenerate_begin_end_block &&
+            (fC->Type(fC->Child(blockId)) != VObjectType::slStringConst))
+          blockId = fC->Child(blockId);
         std::string indexedModName = parent->getFullPathName() + "." + modName;
         def = design->getComponentDefinition(indexedModName);
         if (def == nullptr) {
-          def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
+          def = m_moduleDefFactory->newModuleDefinition(fC, blockId,
                                                         indexedModName);
           if (DesignComponent* defParent = parent->getDefinition())
             def->setParentScope(defParent);
@@ -1387,27 +1422,27 @@ void DesignElaboration::elaborateInstance_(
         //}
 
         // Compile generate block
-        ((ModuleDefinition*)def)->setGenBlockId(childId);
+        ((ModuleDefinition*)def)->setGenBlockId(blockId);
         FunctorCompileModule funct(
             m_compileDesign, (ModuleDefinition*)def, design,
             m_compileDesign->getCompiler()->getSymbolTable(),
             m_compileDesign->getCompiler()->getErrorContainer(), parent);
         funct.operator()();
 
-        child = factory->newModuleInstance(def, fC, subInstanceId, parent,
-                                           instName, indexedModName);
-        while (childId) {
-          elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
+        child = factory->newModuleInstance(def, fC, blockId, parent, instName,
+                                           indexedModName);
+        while (blockId) {
+          elaborateInstance_(def->getFileContents()[0], blockId, paramOverride,
                              factory, child, config, allSubInstances);
-          childId = fC->Sibling(childId);
-          if (fC->Type(childId) == VObjectType::slGenerate_block) {
-            NodeId subChild = fC->Child(childId);
-            if (fC->Type(subChild) == VObjectType::slGenerate_block) {
+          blockId = fC->Sibling(blockId);
+          if (fC->Type(blockId) == VObjectType::slGenerate_begin_end_block) {
+            NodeId subChild = fC->Child(blockId);
+            if (fC->Type(subChild) == VObjectType::slGenerate_begin_end_block) {
               break;
             }
           }
-          if (fC->Type(childId) == VObjectType::slGenerate_module_item) {
-            NodeId node = fC->Child(childId);
+          if (fC->Type(blockId) == VObjectType::slGenerate_module_item) {
+            NodeId node = fC->Child(blockId);
             if (fC->Type(node) ==
                 VObjectType::slGenerate_module_conditional_statement) {
               break;
@@ -1416,8 +1451,8 @@ void DesignElaboration::elaborateInstance_(
               break;
             }
           }
-          if (fC->Type(childId) == VObjectType::slElse) break;
-          if (fC->Type(childId) == VObjectType::slEnd) break;
+          if (fC->Type(blockId) == VObjectType::slElse) break;
+          if (fC->Type(blockId) == VObjectType::slEnd) break;
         }
         parent->addSubInstance(child);
       }
@@ -1441,11 +1476,12 @@ void DesignElaboration::elaborateInstance_(
         parent->addSubInstance(child);
 
       } else if (type == VObjectType::slGenerate_region) {
-        NodeId Generate_block = fC->Child(subInstanceId);
-        if (fC->Type(Generate_block) != VObjectType::slGenerate_block) {
+        NodeId Generate_begin_end_block = fC->Child(subInstanceId);
+        if (fC->Type(Generate_begin_end_block) !=
+            VObjectType::slGenerate_begin_end_block) {
           continue;
         }
-        NodeId nameId = fC->Child(Generate_block);
+        NodeId nameId = fC->Child(Generate_begin_end_block);
         if (fC->Name(nameId)) {
           instName = fC->SymName(nameId);
         }
@@ -1483,7 +1519,45 @@ void DesignElaboration::elaborateInstance_(
                            paramOverride, factory, child, config,
                            allSubInstances);
         parent->addSubInstance(child);
+      } else if (type == VObjectType::slGenerate_begin_end_block) {
+        NodeId nameId = fC->Child(subInstanceId);
+        if (fC->Name(nameId)) {
+          instName = fC->SymName(nameId);
+        }
 
+        std::string fullName;
+        if (instName.empty())
+          fullName = StrCat(parent->getModuleName(), ".", genBlkBaseName,
+                            std::to_string(genBlkIndex));
+        else
+          fullName = StrCat(parent->getModuleName(), ".", instName);
+
+        def = design->getComponentDefinition(fullName);
+        NodeId childId = fC->Child(subInstanceId);
+        if (def == nullptr) {
+          def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
+                                                        fullName);
+          design->addModuleDefinition(fullName, (ModuleDefinition*)def);
+        }
+
+        if (instName.empty()) {
+          instName = genBlkBaseName + std::to_string(genBlkIndex);
+        } else {
+          // Compile generate block
+          ((ModuleDefinition*)def)->setGenBlockId(childId);
+          FunctorCompileModule funct(
+              m_compileDesign, (ModuleDefinition*)def, design,
+              m_compileDesign->getCompiler()->getSymbolTable(),
+              m_compileDesign->getCompiler()->getErrorContainer(), parent);
+          funct.operator()();
+        }
+
+        ModuleInstance* child = factory->newModuleInstance(
+            def, fC, subInstanceId, parent, instName, modName);
+        elaborateInstance_(def->getFileContents()[0], subInstanceId,
+                           paramOverride, factory, child, config,
+                           allSubInstances);
+        parent->addSubInstance(child);
       } else {
         // Regular module binding
         NodeId moduleName =
@@ -2427,7 +2501,7 @@ void DesignElaboration::reduceUnnamedBlocks_() {
            type == VObjectType::slLoop_generate_construct ||
            type == VObjectType::slGenerate_module_loop_statement ||
            type == VObjectType::slGenerate_interface_loop_statement ||
-           type == VObjectType::slGenerate_block) &&
+           type == VObjectType::slGenerate_begin_end_block) &&
           (typeP == VObjectType::slConditional_generate_construct ||
            typeP == VObjectType::slGenerate_module_conditional_statement ||
            typeP == VObjectType::slGenerate_interface_conditional_statement ||
@@ -2533,7 +2607,7 @@ bool DesignElaboration::bindDataTypes_() {
                compType == VObjectType::slGenerate_interface_block ||
                compType == VObjectType::slGenerate_module_item ||
                compType == VObjectType::slGenerate_interface_item ||
-               compType == VObjectType::slGenerate_block) {
+               compType == VObjectType::slGenerate_begin_end_block) {
       const FileContent* fC = mod->getFileContents()[0];
       std::vector<Signal*>& ports = mod->getPorts();
       std::vector<Signal*>& signals = mod->getSignals();

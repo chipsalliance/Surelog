@@ -3758,7 +3758,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                       instanceMap, exprBuilder);
       } else if (insttype == VObjectType::slConditional_generate_construct ||
                  insttype == VObjectType::slLoop_generate_construct ||
-                 insttype == VObjectType::slGenerate_block ||
+                 insttype == VObjectType::slGenerate_begin_end_block ||
                  insttype == VObjectType::slGenerate_item ||
                  insttype == VObjectType::slGenerate_region ||
                  insttype == VObjectType::slGenerate_module_loop_statement ||

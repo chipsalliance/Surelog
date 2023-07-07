@@ -528,7 +528,7 @@ n<> u<48> t<Constant_primary> p<49> c<47> l<15:12> el<15:13>
 n<> u<49> t<Constant_expression> p<51> c<48> l<15:12> el<15:13>
 n<> u<50> t<BinOp_Great> p<51> s<49> l<15:10> el<15:11>
 n<> u<51> t<Constant_expression> p<66> c<45> s<64> l<15:5> el<15:13>
-n<inst> u<52> t<StringConst> p<64> s<62> l<15:23> el<15:27>
+n<inst> u<52> t<StringConst> p<63> s<61> l<15:23> el<15:27>
 n<M1> u<53> t<StringConst> p<59> s<58> l<16:4> el<16:6>
 n<u1> u<54> t<StringConst> p<55> l<16:7> el<16:9>
 n<> u<55> t<Name_of_instance> p<58> c<54> s<57> l<16:7> el<16:9>
@@ -537,10 +537,10 @@ n<> u<57> t<List_of_port_connections> p<58> c<56> l<16:10> el<16:10>
 n<> u<58> t<Hierarchical_instance> p<59> c<55> l<16:7> el<16:11>
 n<> u<59> t<Module_instantiation> p<60> c<53> l<16:4> el<16:12>
 n<> u<60> t<Module_or_generate_item> p<61> c<59> l<16:4> el<16:12>
-n<> u<61> t<Generate_item> p<62> c<60> l<16:4> el<16:12>
-n<> u<62> t<Generate_block> p<64> c<61> s<63> l<16:4> el<16:12>
-n<> u<63> t<End> p<64> l<17:3> el<17:6>
-n<> u<64> t<Generate_block> p<66> c<52> l<15:15> el<17:6>
+n<> u<61> t<Generate_item> p<63> c<60> s<62> l<16:4> el<16:12>
+n<> u<62> t<End> p<63> l<17:3> el<17:6>
+n<> u<63> t<Generate_begin_end_block> p<64> c<52> l<15:15> el<17:6>
+n<> u<64> t<Generate_item> p<66> c<63> l<15:15> el<17:6>
 n<> u<65> t<IF> p<66> s<51> l<15:1> el<15:3>
 n<> u<66> t<If_generate_construct> p<67> c<65> l<15:1> el<17:6>
 n<> u<67> t<Conditional_generate_construct> p<68> c<66> l<15:1> el<17:6>
@@ -995,7 +995,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv:15:1: Compile generate block "work@simple_package.inst".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv:15:15: Compile generate block "work@simple_package.inst".
 
 Instance tree:
 [TOP] work@simple_package work@simple_package
@@ -1021,7 +1021,7 @@ Instance tree:
 
 [NTE:EL0523] ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv:11:1: Instance "work@simple_package".
 
-[NTE:EL0522] ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv:15:1: Scope "work@simple_package.inst".
+[NTE:EL0522] ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv:15:15: Scope "work@simple_package.inst".
 
 [NTE:EL0522] ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv:19:9: Scope "work@simple_package.genblk2".
 
@@ -1895,7 +1895,7 @@ design: (work@simple_package)
   |vpiTypedef:
   \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
     |vpiParent:
-    \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+    \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
     |vpiName:definesPkg::bool
     |vpiInstance:
     \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
@@ -4227,15 +4227,15 @@ design: (work@simple_package)
             |vpiTask:
             \_task: (msgPkg::msg_fatal), line:40:3, endln:43:10
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@simple_package.inst), line:15:1, endln:17:6
+  \_gen_scope_array: (work@simple_package.inst), line:15:15, endln:17:6
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiName:inst
     |vpiFullName:work@simple_package.inst
     |vpiGenScope:
-    \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+    \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
       |vpiParent:
-      \_gen_scope_array: (work@simple_package.inst), line:15:1, endln:17:6
+      \_gen_scope_array: (work@simple_package.inst), line:15:15, endln:17:6
       |vpiFullName:work@simple_package.inst
       |vpiParameter:
       \_parameter: (work@simple_package.inst.u1.SIZE)
@@ -4248,7 +4248,7 @@ design: (work@simple_package)
       |vpiModule:
       \_module_inst: work@simple_package.inst::M1 (work@simple_package.inst.u1), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:16:4, endln:16:12
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:u1
         |vpiFullName:work@simple_package.inst.u1
         |vpiParamAssign:
@@ -4267,7 +4267,7 @@ design: (work@simple_package)
       |vpiTaskFunc:
       \_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:initMsgPkg
         |vpiFullName:msgPkg::initMsgPkg
         |vpiVisibility:1
@@ -4341,7 +4341,7 @@ design: (work@simple_package)
       |vpiTaskFunc:
       \_task: (msgPkg::msg_info), line:19:3, endln:21:10
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:msg_info
         |vpiFullName:msgPkg::msg_info
         |vpiVisibility:1
@@ -4386,7 +4386,7 @@ design: (work@simple_package)
       |vpiTaskFunc:
       \_task: (msgPkg::msg_warn), line:25:3, endln:28:10
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:msg_warn
         |vpiFullName:msgPkg::msg_warn
         |vpiVisibility:1
@@ -4449,7 +4449,7 @@ design: (work@simple_package)
       |vpiTaskFunc:
       \_task: (msgPkg::msg_error), line:32:3, endln:36:10
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:msg_error
         |vpiFullName:msgPkg::msg_error
         |vpiVisibility:1
@@ -4529,7 +4529,7 @@ design: (work@simple_package)
       |vpiTaskFunc:
       \_task: (msgPkg::msg_fatal), line:40:3, endln:43:10
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:msg_fatal
         |vpiFullName:msgPkg::msg_fatal
         |vpiVisibility:1
@@ -4584,7 +4584,7 @@ design: (work@simple_package)
       |vpiTaskFunc:
       \_function: (msgPkg::getErrCnt), line:47:3, endln:49:14
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:getErrCnt
         |vpiFullName:msgPkg::getErrCnt
         |vpiVisibility:1
@@ -4617,7 +4617,7 @@ design: (work@simple_package)
       |vpiTaskFunc:
       \_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14
         |vpiParent:
-        \_gen_scope: (work@simple_package.inst), line:15:1, endln:17:6
+        \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
         |vpiName:getWarnCnt
         |vpiFullName:msgPkg::getWarnCnt
         |vpiVisibility:1

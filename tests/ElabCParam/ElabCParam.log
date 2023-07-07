@@ -36,7 +36,7 @@ n<> u<29> t<Constant_primary> p<30> c<28> l<8:16> el<8:17>
 n<> u<30> t<Constant_expression> p<32> c<29> l<8:16> el<8:17>
 n<> u<31> t<BinOp_Equiv> p<32> s<30> l<8:13> el<8:15>
 n<> u<32> t<Constant_expression> p<96> c<26> s<51> l<8:7> el<8:17>
-n<gen_passthru> u<33> t<StringConst> p<51> s<49> l<8:27> el<8:39>
+n<gen_passthru> u<33> t<StringConst> p<50> s<48> l<8:27> el<8:39>
 n<depth> u<34> t<StringConst> p<35> l<11:12> el<11:17>
 n<> u<35> t<Ps_or_hierarchical_identifier> p<38> c<34> s<37> l<11:12> el<11:17>
 n<> u<36> t<Constant_bit_select> p<37> l<11:18> el<11:18>
@@ -51,11 +51,11 @@ n<> u<44> t<List_of_net_assignments> p<45> c<43> l<11:12> el<11:24>
 n<> u<45> t<Continuous_assign> p<46> c<44> l<11:5> el<11:25>
 n<> u<46> t<Module_common_item> p<47> c<45> l<11:5> el<11:25>
 n<> u<47> t<Module_or_generate_item> p<48> c<46> l<11:5> el<11:25>
-n<> u<48> t<Generate_item> p<49> c<47> l<11:5> el<11:25>
-n<> u<49> t<Generate_block> p<51> c<48> s<50> l<11:5> el<11:25>
-n<> u<50> t<End> p<51> l<15:3> el<15:6>
-n<> u<51> t<Generate_block> p<96> c<33> s<95> l<8:19> el<15:6>
-n<gen_normal> u<52> t<StringConst> p<93> s<91> l<15:20> el<15:30>
+n<> u<48> t<Generate_item> p<50> c<47> s<49> l<11:5> el<11:25>
+n<> u<49> t<End> p<50> l<15:3> el<15:6>
+n<> u<50> t<Generate_begin_end_block> p<51> c<33> l<8:19> el<15:6>
+n<> u<51> t<Generate_item> p<96> c<50> s<95> l<8:19> el<15:6>
+n<gen_normal> u<52> t<StringConst> p<92> s<90> l<15:20> el<15:30>
 n<> u<53> t<IntegerAtomType_Int> p<55> s<54> l<18:16> el<18:19>
 n<> u<54> t<Signing_Unsigned> p<55> l<18:20> el<18:28>
 n<> u<55> t<Data_type> p<56> c<53> l<18:16> el<18:28>
@@ -93,10 +93,10 @@ n<> u<86> t<Package_or_generate_item_declaration> p<87> c<85> l<18:5> el<18:73>
 n<> u<87> t<Module_or_generate_item_declaration> p<88> c<86> l<18:5> el<18:73>
 n<> u<88> t<Module_common_item> p<89> c<87> l<18:5> el<18:73>
 n<> u<89> t<Module_or_generate_item> p<90> c<88> l<18:5> el<18:73>
-n<> u<90> t<Generate_item> p<91> c<89> l<18:5> el<18:73>
-n<> u<91> t<Generate_block> p<93> c<90> s<92> l<18:5> el<18:73>
-n<> u<92> t<End> p<93> l<20:3> el<20:6>
-n<> u<93> t<Generate_block> p<96> c<52> l<15:12> el<20:6>
+n<> u<90> t<Generate_item> p<92> c<89> s<91> l<18:5> el<18:73>
+n<> u<91> t<End> p<92> l<20:3> el<20:6>
+n<> u<92> t<Generate_begin_end_block> p<93> c<52> l<15:12> el<20:6>
+n<> u<93> t<Generate_item> p<96> c<92> l<15:12> el<20:6>
 n<> u<94> t<IF> p<96> s<32> l<8:3> el<8:5>
 n<> u<95> t<Else> p<96> s<93> l<15:7> el<15:11>
 n<> u<96> t<If_generate_construct> p<97> c<94> l<8:3> el<20:6>
@@ -306,7 +306,7 @@ n<> u<299> t<Constant_expression> p<345> c<293> s<302> l<44:23> el<44:28>
 n<i> u<300> t<StringConst> p<302> s<301> l<44:31> el<44:32>
 n<> u<301> t<IncDec_PlusPlus> p<302> l<44:32> el<44:34>
 n<> u<302> t<Genvar_iteration> p<345> c<300> s<344> l<44:31> el<44:34>
-n<gen_dfifo> u<303> t<StringConst> p<344> s<342> l<44:44> el<44:53>
+n<gen_dfifo> u<303> t<StringConst> p<343> s<341> l<44:44> el<44:53>
 n<fifo_sync> u<304> t<StringConst> p<339> s<333> l<45:5> el<45:14>
 n<ReqDepth> u<305> t<StringConst> p<331> s<330> l<46:8> el<46:16>
 n<DReqDepth> u<306> t<StringConst> p<326> s<325> l<46:17> el<46:26>
@@ -344,10 +344,10 @@ n<> u<337> t<List_of_port_connections> p<338> c<336> l<47:15> el<47:15>
 n<> u<338> t<Hierarchical_instance> p<339> c<335> l<47:7> el<47:16>
 n<> u<339> t<Module_instantiation> p<340> c<304> l<45:5> el<47:17>
 n<> u<340> t<Module_or_generate_item> p<341> c<339> l<45:5> el<47:17>
-n<> u<341> t<Generate_item> p<342> c<340> l<45:5> el<47:17>
-n<> u<342> t<Generate_block> p<344> c<341> s<343> l<45:5> el<47:17>
-n<> u<343> t<End> p<344> l<48:3> el<48:6>
-n<> u<344> t<Generate_block> p<345> c<303> l<44:36> el<48:6>
+n<> u<341> t<Generate_item> p<343> c<340> s<342> l<45:5> el<47:17>
+n<> u<342> t<End> p<343> l<48:3> el<48:6>
+n<> u<343> t<Generate_begin_end_block> p<344> c<303> l<44:36> el<48:6>
+n<> u<344> t<Generate_item> p<345> c<343> l<44:36> el<48:6>
 n<> u<345> t<Loop_generate_construct> p<346> c<289> l<44:3> el<48:6>
 n<> u<346> t<Module_common_item> p<347> c<345> l<44:3> el<48:6>
 n<> u<347> t<Module_or_generate_item> p<348> c<346> l<44:3> el<48:6>
@@ -513,7 +513,7 @@ n<> u<506> t<Constant_expression> p<552> c<500> s<509> l<60:23> el<60:28>
 n<i> u<507> t<StringConst> p<509> s<508> l<60:31> el<60:32>
 n<> u<508> t<IncDec_PlusPlus> p<509> l<60:32> el<60:34>
 n<> u<509> t<Genvar_iteration> p<552> c<507> s<551> l<60:31> el<60:34>
-n<gen_dfifo> u<510> t<StringConst> p<551> s<549> l<60:44> el<60:53>
+n<gen_dfifo> u<510> t<StringConst> p<550> s<548> l<60:44> el<60:53>
 n<fifo_sync> u<511> t<StringConst> p<546> s<540> l<61:5> el<61:14>
 n<ReqDepth> u<512> t<StringConst> p<538> s<537> l<62:8> el<62:16>
 n<DReqDepth> u<513> t<StringConst> p<533> s<532> l<62:17> el<62:26>
@@ -551,10 +551,10 @@ n<> u<544> t<List_of_port_connections> p<545> c<543> l<63:15> el<63:15>
 n<> u<545> t<Hierarchical_instance> p<546> c<542> l<63:7> el<63:16>
 n<> u<546> t<Module_instantiation> p<547> c<511> l<61:5> el<63:17>
 n<> u<547> t<Module_or_generate_item> p<548> c<546> l<61:5> el<63:17>
-n<> u<548> t<Generate_item> p<549> c<547> l<61:5> el<63:17>
-n<> u<549> t<Generate_block> p<551> c<548> s<550> l<61:5> el<63:17>
-n<> u<550> t<End> p<551> l<64:3> el<64:6>
-n<> u<551> t<Generate_block> p<552> c<510> l<60:36> el<64:6>
+n<> u<548> t<Generate_item> p<550> c<547> s<549> l<61:5> el<63:17>
+n<> u<549> t<End> p<550> l<64:3> el<64:6>
+n<> u<550> t<Generate_begin_end_block> p<551> c<510> l<60:36> el<64:6>
+n<> u<551> t<Generate_item> p<552> c<550> l<60:36> el<64:6>
 n<> u<552> t<Loop_generate_construct> p<553> c<496> l<60:3> el<64:6>
 n<> u<553> t<Module_common_item> p<554> c<552> l<60:3> el<64:6>
 n<> u<554> t<Module_or_generate_item> p<555> c<553> l<60:3> el<64:6>
@@ -849,21 +849,21 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:44:3: Compile generate block "work@socket_1n.gen_dfifo[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:44:36: Compile generate block "work@socket_1n.gen_dfifo[0]".
 
 [INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:15:12: Compile generate block "work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.gen_normal".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:44:3: Compile generate block "work@socket_1n.gen_dfifo[1]".
+[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:44:36: Compile generate block "work@socket_1n.gen_dfifo[1]".
 
 [INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:15:12: Compile generate block "work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:60:3: Compile generate block "work@all_zero.gen_dfifo[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:60:36: Compile generate block "work@all_zero.gen_dfifo[0]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:8:3: Compile generate block "work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru".
+[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:8:19: Compile generate block "work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:60:3: Compile generate block "work@all_zero.gen_dfifo[1]".
+[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:60:36: Compile generate block "work@all_zero.gen_dfifo[1]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:8:3: Compile generate block "work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru".
+[INF:CP0335] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:8:19: Compile generate block "work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/ElabCParam/dut.sv:38:1: Top level module "work@socket_1n".
 
@@ -2933,20 +2933,20 @@ design: (work@socket_1n)
           |vpiInstance:
           \_module_inst: work@fifo_sync (work@all_zero.gen_dfifo[0].fifo_d), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:61:5, endln:63:17
           |vpiGenScopeArray:
-          \_gen_scope_array: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+          \_gen_scope_array: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
             |vpiParent:
             \_module_inst: work@prim_fifo_sync (work@all_zero.gen_dfifo[0].fifo_d.reqfifo), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:30:3, endln:30:49
             |vpiName:gen_passthru
             |vpiFullName:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
             |vpiGenScope:
-            \_gen_scope: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+            \_gen_scope: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
               |vpiParent:
-              \_gen_scope_array: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+              \_gen_scope_array: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
               |vpiFullName:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
               |vpiContAssign:
               \_cont_assign: , line:11:12, endln:11:24
                 |vpiParent:
-                \_gen_scope: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+                \_gen_scope: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
                 |vpiRhs:
                 \_constant: , line:11:20, endln:11:24
                   |vpiParent:
@@ -3059,20 +3059,20 @@ design: (work@socket_1n)
           |vpiInstance:
           \_module_inst: work@fifo_sync (work@all_zero.gen_dfifo[1].fifo_d), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:61:5, endln:63:17
           |vpiGenScopeArray:
-          \_gen_scope_array: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+          \_gen_scope_array: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
             |vpiParent:
             \_module_inst: work@prim_fifo_sync (work@all_zero.gen_dfifo[1].fifo_d.reqfifo), file:${SURELOG_DIR}/tests/ElabCParam/dut.sv, line:30:3, endln:30:49
             |vpiName:gen_passthru
             |vpiFullName:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
             |vpiGenScope:
-            \_gen_scope: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+            \_gen_scope: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
               |vpiParent:
-              \_gen_scope_array: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+              \_gen_scope_array: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
               |vpiFullName:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
               |vpiContAssign:
               \_cont_assign: , line:11:12, endln:11:24
                 |vpiParent:
-                \_gen_scope: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:3, endln:20:6
+                \_gen_scope: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8:19, endln:15:6
                 |vpiRhs:
                 \_constant: , line:11:20, endln:11:24
                   |vpiParent:

@@ -143,7 +143,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       }
       break;
     }
-    case VObjectType::slGenerate_block: {
+    case VObjectType::slGenerate_begin_end_block: {
       if (instance) break;
       NodeId child = fC->Child(the_stmt);
       if (!child) {

@@ -80,7 +80,7 @@ n<> u<73> t<Constant_primary> p<74> c<72> l<17:17> el<17:28>
 n<> u<74> t<Constant_expression> p<76> c<73> l<17:17> el<17:28>
 n<> u<75> t<BinOp_Equiv> p<76> s<74> l<17:14> el<17:16>
 n<> u<76> t<Constant_expression> p<132> c<70> s<130> l<17:9> el<17:28>
-n<gen_pad_generic> u<77> t<StringConst> p<130> s<128> l<17:38> el<17:53>
+n<gen_pad_generic> u<77> t<StringConst> p<129> s<127> l<17:38> el<17:53>
 n<> u<78> t<AlwaysKeywd_Comb> p<124> s<123> l<19:5> el<19:16>
 n<p_diff_fsm> u<79> t<StringConst> p<121> s<119> l<19:25> el<19:35>
 n<> u<80> t<Unique> p<81> l<21:7> el<21:13>
@@ -130,10 +130,10 @@ n<> u<123> t<Statement> p<124> c<122> l<19:17> el<29:8>
 n<> u<124> t<Always_construct> p<125> c<78> l<19:5> el<29:8>
 n<> u<125> t<Module_common_item> p<126> c<124> l<19:5> el<29:8>
 n<> u<126> t<Module_or_generate_item> p<127> c<125> l<19:5> el<29:8>
-n<> u<127> t<Generate_item> p<128> c<126> l<19:5> el<29:8>
-n<> u<128> t<Generate_block> p<130> c<127> s<129> l<19:5> el<29:8>
-n<> u<129> t<End> p<130> l<31:3> el<31:6>
-n<> u<130> t<Generate_block> p<132> c<77> l<17:30> el<31:6>
+n<> u<127> t<Generate_item> p<129> c<126> s<128> l<19:5> el<29:8>
+n<> u<128> t<End> p<129> l<31:3> el<31:6>
+n<> u<129> t<Generate_begin_end_block> p<130> c<77> l<17:30> el<31:6>
+n<> u<130> t<Generate_item> p<132> c<129> l<17:30> el<31:6>
 n<> u<131> t<IF> p<132> s<76> l<17:5> el<17:7>
 n<> u<132> t<If_generate_construct> p<133> c<131> l<17:5> el<31:6>
 n<> u<133> t<Conditional_generate_construct> p<134> c<132> l<17:5> el<31:6>
@@ -864,7 +864,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/PackageValue/top.sv:17:5: Compile generate block "work@prim_diff_decode.gen_pad_generic".
+[INF:CP0335] ${SURELOG_DIR}/tests/PackageValue/top.sv:17:30: Compile generate block "work@prim_diff_decode.gen_pad_generic".
 
 Instance tree:
 [TOP] work@prim_diff_decode work@prim_diff_decode
@@ -884,7 +884,7 @@ Instance tree:
 
 [NTE:EL0523] ${SURELOG_DIR}/tests/PackageValue/top.sv:11:1: Instance "work@prim_diff_decode".
 
-[NTE:EL0522] ${SURELOG_DIR}/tests/PackageValue/top.sv:17:5: Scope "work@prim_diff_decode.gen_pad_generic".
+[NTE:EL0522] ${SURELOG_DIR}/tests/PackageValue/top.sv:17:30: Scope "work@prim_diff_decode.gen_pad_generic".
 
 [NTE:EL0522] ${SURELOG_DIR}/tests/PackageValue/top.sv:19:17: Scope "work@prim_diff_decode.gen_pad_generic.p_diff_fsm".
 
@@ -3181,20 +3181,20 @@ design: (work@prim_diff_decode)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@prim_diff_decode.gen_pad_generic), line:17:5, endln:31:6
+  \_gen_scope_array: (work@prim_diff_decode.gen_pad_generic), line:17:30, endln:31:6
     |vpiParent:
     \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |vpiName:gen_pad_generic
     |vpiFullName:work@prim_diff_decode.gen_pad_generic
     |vpiGenScope:
-    \_gen_scope: (work@prim_diff_decode.gen_pad_generic), line:17:5, endln:31:6
+    \_gen_scope: (work@prim_diff_decode.gen_pad_generic), line:17:30, endln:31:6
       |vpiParent:
-      \_gen_scope_array: (work@prim_diff_decode.gen_pad_generic), line:17:5, endln:31:6
+      \_gen_scope_array: (work@prim_diff_decode.gen_pad_generic), line:17:30, endln:31:6
       |vpiFullName:work@prim_diff_decode.gen_pad_generic
       |vpiProcess:
       \_always: , line:19:5, endln:29:8
         |vpiParent:
-        \_gen_scope: (work@prim_diff_decode.gen_pad_generic), line:17:5, endln:31:6
+        \_gen_scope: (work@prim_diff_decode.gen_pad_generic), line:17:30, endln:31:6
         |vpiStmt:
         \_named_begin: (work@prim_diff_decode.gen_pad_generic.p_diff_fsm), line:19:25, endln:19:35
           |vpiParent:

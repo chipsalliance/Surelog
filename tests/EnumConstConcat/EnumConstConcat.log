@@ -134,10 +134,10 @@ n<> u<127> t<List_of_port_connections> p<128> c<126> l<25:17> el<25:17>
 n<> u<128> t<Hierarchical_instance> p<129> c<125> l<25:12> el<25:18>
 n<> u<129> t<Module_instantiation> p<130> c<123> l<25:7> el<25:19>
 n<> u<130> t<Module_or_generate_item> p<131> c<129> l<25:7> el<25:19>
-n<> u<131> t<Generate_item> p<132> c<130> l<25:7> el<25:19>
-n<> u<132> t<Generate_block> p<134> c<131> s<133> l<25:7> el<25:19>
-n<> u<133> t<End> p<134> l<26:4> el<26:7>
-n<> u<134> t<Generate_block> p<136> c<132> l<24:32> el<26:7>
+n<> u<131> t<Generate_item> p<133> c<130> s<132> l<25:7> el<25:19>
+n<> u<132> t<End> p<133> l<26:4> el<26:7>
+n<> u<133> t<Generate_begin_end_block> p<134> c<131> l<24:32> el<26:7>
+n<> u<134> t<Generate_item> p<136> c<133> l<24:32> el<26:7>
 n<> u<135> t<IF> p<136> s<122> l<24:4> el<24:6>
 n<> u<136> t<If_generate_construct> p<137> c<135> l<24:4> el<26:7>
 n<> u<137> t<Conditional_generate_construct> p<138> c<136> l<24:4> el<26:7>
@@ -171,7 +171,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/EnumConstConcat/dut.sv:24:4: Compile generate block "work@top.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/EnumConstConcat/dut.sv:25:7: Compile generate block "work@top.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/EnumConstConcat/dut.sv:22:1: Top level module "work@top".
 
@@ -569,20 +569,20 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk1), line:24:4, endln:26:7
+  \_gen_scope_array: (work@top.genblk1), line:25:7, endln:25:19
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EnumConstConcat/dut.sv, line:22:1, endln:28:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1), line:24:4, endln:26:7
+    \_gen_scope: (work@top.genblk1), line:25:7, endln:25:19
       |vpiParent:
-      \_gen_scope_array: (work@top.genblk1), line:24:4, endln:26:7
+      \_gen_scope_array: (work@top.genblk1), line:25:7, endln:25:19
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@top.genblk1.good), file:${SURELOG_DIR}/tests/EnumConstConcat/dut.sv, line:25:7, endln:25:19
         |vpiParent:
-        \_gen_scope: (work@top.genblk1), line:24:4, endln:26:7
+        \_gen_scope: (work@top.genblk1), line:25:7, endln:25:19
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
         |vpiDefName:work@GOOD

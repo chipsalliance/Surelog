@@ -220,10 +220,10 @@ n<> u<213> t<List_of_port_connections> p<214> c<212> l<8:15> el<8:15>
 n<> u<214> t<Hierarchical_instance> p<215> c<211> l<8:10> el<8:16>
 n<> u<215> t<Module_instantiation> p<216> c<209> l<8:5> el<8:17>
 n<> u<216> t<Module_or_generate_item> p<217> c<215> l<8:5> el<8:17>
-n<> u<217> t<Generate_item> p<218> c<216> l<8:5> el<8:17>
-n<> u<218> t<Generate_block> p<220> c<217> s<219> l<8:5> el<8:17>
-n<> u<219> t<End> p<220> l<9:3> el<9:6>
-n<> u<220> t<Generate_block> p<222> c<218> l<7:53> el<9:6>
+n<> u<217> t<Generate_item> p<219> c<216> s<218> l<8:5> el<8:17>
+n<> u<218> t<End> p<219> l<9:3> el<9:6>
+n<> u<219> t<Generate_begin_end_block> p<220> c<217> l<7:53> el<9:6>
+n<> u<220> t<Generate_item> p<222> c<219> l<7:53> el<9:6>
 n<> u<221> t<IF> p<222> s<208> l<7:3> el<7:5>
 n<> u<222> t<If_generate_construct> p<223> c<221> l<7:3> el<9:6>
 n<> u<223> t<Conditional_generate_construct> p<224> c<222> l<7:3> el<9:6>
@@ -245,7 +245,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/LeftPadding/dut.sv:7:3: Compile generate block "work@socket_1n.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/LeftPadding/dut.sv:8:5: Compile generate block "work@socket_1n.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/LeftPadding/dut.sv:1:1: Top level module "work@socket_1n".
 
@@ -858,20 +858,20 @@ design: (work@socket_1n)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@socket_1n.genblk1), line:7:3, endln:9:6
+  \_gen_scope_array: (work@socket_1n.genblk1), line:8:5, endln:8:17
     |vpiParent:
     \_module_inst: work@socket_1n (work@socket_1n), file:${SURELOG_DIR}/tests/LeftPadding/dut.sv, line:1:1, endln:11:10
     |vpiName:genblk1
     |vpiFullName:work@socket_1n.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@socket_1n.genblk1), line:7:3, endln:9:6
+    \_gen_scope: (work@socket_1n.genblk1), line:8:5, endln:8:17
       |vpiParent:
-      \_gen_scope_array: (work@socket_1n.genblk1), line:7:3, endln:9:6
+      \_gen_scope_array: (work@socket_1n.genblk1), line:8:5, endln:8:17
       |vpiFullName:work@socket_1n.genblk1
       |vpiModule:
       \_module_inst: work@socket_1n.genblk1::GOOD (work@socket_1n.genblk1.good), file:${SURELOG_DIR}/tests/LeftPadding/dut.sv, line:8:5, endln:8:17
         |vpiParent:
-        \_gen_scope: (work@socket_1n.genblk1), line:7:3, endln:9:6
+        \_gen_scope: (work@socket_1n.genblk1), line:8:5, endln:8:17
         |vpiName:good
         |vpiFullName:work@socket_1n.genblk1.good
         |vpiDefName:work@socket_1n.genblk1::GOOD

@@ -160,10 +160,10 @@ n<> u<153> t<List_of_port_connections> p<154> c<152> l<11:14> el<11:14>
 n<> u<154> t<Hierarchical_instance> p<155> c<151> l<11:9> el<11:15>
 n<> u<155> t<Module_instantiation> p<156> c<149> l<11:4> el<11:16>
 n<> u<156> t<Module_or_generate_item> p<157> c<155> l<11:4> el<11:16>
-n<> u<157> t<Generate_item> p<158> c<156> l<11:4> el<11:16>
-n<> u<158> t<Generate_block> p<160> c<157> s<159> l<11:4> el<11:16>
-n<> u<159> t<End> p<160> l<12:3> el<12:6>
-n<> u<160> t<Generate_block> p<162> c<158> l<10:35> el<12:6>
+n<> u<157> t<Generate_item> p<159> c<156> s<158> l<11:4> el<11:16>
+n<> u<158> t<End> p<159> l<12:3> el<12:6>
+n<> u<159> t<Generate_begin_end_block> p<160> c<157> l<10:35> el<12:6>
+n<> u<160> t<Generate_item> p<162> c<159> l<10:35> el<12:6>
 n<> u<161> t<IF> p<162> s<148> l<10:3> el<10:5>
 n<> u<162> t<If_generate_construct> p<163> c<161> l<10:3> el<12:6>
 n<> u<163> t<Conditional_generate_construct> p<164> c<162> l<10:3> el<12:6>
@@ -189,7 +189,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnsignedParam/dut.sv:10:3: Compile generate block "work@top.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnsignedParam/dut.sv:11:4: Compile generate block "work@top.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/UnsignedParam/dut.sv:4:1: Top level module "work@top".
 
@@ -708,20 +708,20 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.genblk1), line:10:3, endln:12:6
+  \_gen_scope_array: (work@top.genblk1), line:11:4, endln:11:16
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:4:1, endln:13:10
     |vpiName:genblk1
     |vpiFullName:work@top.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@top.genblk1), line:10:3, endln:12:6
+    \_gen_scope: (work@top.genblk1), line:11:4, endln:11:16
       |vpiParent:
-      \_gen_scope_array: (work@top.genblk1), line:10:3, endln:12:6
+      \_gen_scope_array: (work@top.genblk1), line:11:4, endln:11:16
       |vpiFullName:work@top.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@top.genblk1.good), file:${SURELOG_DIR}/tests/UnsignedParam/dut.sv, line:11:4, endln:11:16
         |vpiParent:
-        \_gen_scope: (work@top.genblk1), line:10:3, endln:12:6
+        \_gen_scope: (work@top.genblk1), line:11:4, endln:11:16
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
         |vpiDefName:work@GOOD

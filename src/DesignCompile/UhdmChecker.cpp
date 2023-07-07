@@ -130,7 +130,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
         type == VObjectType::slGenerate_region ||
         ((type == VObjectType::slPackage_or_generate_item_declaration) &&
          !current.m_child) ||  // SEMICOLUMN ALONE ;
-        type == VObjectType::slGenerate_block) {
+        type == VObjectType::slGenerate_begin_end_block) {
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);

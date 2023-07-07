@@ -68,7 +68,7 @@ bool CompileModule::compile() {
   switch (moduleType) {
     case VObjectType::slLoop_generate_construct:
     case VObjectType::slConditional_generate_construct:
-    case VObjectType::slGenerate_block:
+    case VObjectType::slGenerate_begin_end_block:
     case VObjectType::slGenerate_item:
     case VObjectType::slGenerate_module_conditional_statement:
     case VObjectType::slGenerate_module_loop_statement:
@@ -150,7 +150,7 @@ bool CompileModule::compile() {
     case VObjectType::slLoop_generate_construct:
     case VObjectType::slConditional_generate_construct:
     case VObjectType::slGenerate_item:
-    case VObjectType::slGenerate_block:
+    case VObjectType::slGenerate_begin_end_block:
     case VObjectType::slGenerate_module_conditional_statement:
     case VObjectType::slGenerate_module_loop_statement:
     case VObjectType::slGenerate_module_block:
@@ -534,9 +534,9 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         endOfBlockId = fC->Sibling(endOfBlockId);
       }
       if (!endOfBlockId) endOfBlockId = fC->Sibling(m_module->getGenBlockId());
-      if (fC->Type(id) == VObjectType::slGenerate_item) {
-        id = fC->Parent(id);
-      }
+      // if (fC->Type(id) == VObjectType::slGenerate_begin_end_block) {
+      //   id = fC->Parent(id);
+      // }
     }
     if (!id) id = current.m_sibling;
     if (!id) return false;
@@ -560,7 +560,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
-
+    NodeId startId = id;
     while (!stack.empty()) {
       id = stack.top();
       if (endOfBlockId && (id == endOfBlockId)) {
@@ -636,6 +636,10 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           m_attributes = m_helper.compileAttributes(m_module, fC, id,
                                                     m_compileDesign, nullptr);
+          break;
+        }
+        case VObjectType::slGenerate_begin_end_block: {
+          if (id != startId) skipChildren = true;
           break;
         }
         case VObjectType::slPort_declaration: {

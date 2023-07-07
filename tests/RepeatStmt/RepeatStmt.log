@@ -150,10 +150,10 @@ n<> u<143> t<List_of_port_connections> p<144> c<142> l<20:14> el<20:14>
 n<> u<144> t<Hierarchical_instance> p<145> c<141> l<20:9> el<20:15>
 n<> u<145> t<Module_instantiation> p<146> c<139> l<20:4> el<20:16>
 n<> u<146> t<Module_or_generate_item> p<147> c<145> l<20:4> el<20:16>
-n<> u<147> t<Generate_item> p<148> c<146> l<20:4> el<20:16>
-n<> u<148> t<Generate_block> p<150> c<147> s<149> l<20:4> el<20:16>
-n<> u<149> t<End> p<150> l<21:1> el<21:4>
-n<> u<150> t<Generate_block> p<152> c<148> l<19:17> el<21:4>
+n<> u<147> t<Generate_item> p<149> c<146> s<148> l<20:4> el<20:16>
+n<> u<148> t<End> p<149> l<21:1> el<21:4>
+n<> u<149> t<Generate_begin_end_block> p<150> c<147> l<19:17> el<21:4>
+n<> u<150> t<Generate_item> p<152> c<149> l<19:17> el<21:4>
 n<> u<151> t<IF> p<152> s<138> l<19:1> el<19:3>
 n<> u<152> t<If_generate_construct> p<153> c<151> l<19:1> el<21:4>
 n<> u<153> t<Conditional_generate_construct> p<154> c<152> l<19:1> el<21:4>
@@ -179,7 +179,7 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:19:1: Compile generate block "work@constfunc11.genblk1".
+[INF:CP0335] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:20:4: Compile generate block "work@constfunc11.genblk1".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/RepeatStmt/dut.sv:4:1: Top level module "work@constfunc11".
 
@@ -584,20 +584,20 @@ design: (work@constfunc11)
     \_module_inst: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4
+  \_gen_scope_array: (work@constfunc11.genblk1), line:20:4, endln:20:16
     |vpiParent:
     \_module_inst: work@constfunc11 (work@constfunc11), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:4:1, endln:23:10
     |vpiName:genblk1
     |vpiFullName:work@constfunc11.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@constfunc11.genblk1), line:19:1, endln:21:4
+    \_gen_scope: (work@constfunc11.genblk1), line:20:4, endln:20:16
       |vpiParent:
-      \_gen_scope_array: (work@constfunc11.genblk1), line:19:1, endln:21:4
+      \_gen_scope_array: (work@constfunc11.genblk1), line:20:4, endln:20:16
       |vpiFullName:work@constfunc11.genblk1
       |vpiModule:
       \_module_inst: work@GOOD (work@constfunc11.genblk1.good), file:${SURELOG_DIR}/tests/RepeatStmt/dut.sv, line:20:4, endln:20:16
         |vpiParent:
-        \_gen_scope: (work@constfunc11.genblk1), line:19:1, endln:21:4
+        \_gen_scope: (work@constfunc11.genblk1), line:20:4, endln:20:16
         |vpiName:good
         |vpiFullName:work@constfunc11.genblk1.good
         |vpiDefName:work@GOOD

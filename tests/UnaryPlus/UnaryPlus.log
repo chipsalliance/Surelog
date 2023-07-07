@@ -4,16 +4,16 @@ AST_DEBUG_BEGIN
 LIB:  work
 FILE: ${SURELOG_DIR}/tests/UnaryPlus/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<35> s<34> l<1:1> el<1:0>
+n<> u<1> t<Null_rule> p<36> s<35> l<1:1> el<1:0>
 n<module> u<2> t<Module_keyword> p<4> s<3> l<1:1> el<1:7>
 n<alert_handler_reg_wrap> u<3> t<StringConst> p<4> l<1:8> el<1:30>
-n<> u<4> t<Module_ansi_header> p<32> c<2> s<30> l<1:1> el<1:31>
+n<> u<4> t<Module_ansi_header> p<33> c<2> s<31> l<1:1> el<1:31>
 n<i_word> u<5> t<StringConst> p<10> s<9> l<2:14> el<2:20>
 n<0> u<6> t<IntConst> p<7> l<2:23> el<2:24>
 n<> u<7> t<Primary_literal> p<8> c<6> l<2:23> el<2:24>
 n<> u<8> t<Constant_primary> p<9> c<7> l<2:23> el<2:24>
 n<> u<9> t<Constant_expression> p<10> c<8> l<2:23> el<2:24>
-n<> u<10> t<Genvar_initialization> p<27> c<5> s<20> l<2:7> el<2:24>
+n<> u<10> t<Genvar_initialization> p<28> c<5> s<20> l<2:7> el<2:24>
 n<i_word> u<11> t<StringConst> p<12> l<2:26> el<2:32>
 n<> u<12> t<Primary_literal> p<13> c<11> l<2:26> el<2:32>
 n<> u<13> t<Constant_primary> p<14> c<12> l<2:26> el<2:32>
@@ -23,22 +23,23 @@ n<> u<16> t<Primary_literal> p<17> c<15> l<2:35> el<2:36>
 n<> u<17> t<Constant_primary> p<18> c<16> l<2:35> el<2:36>
 n<> u<18> t<Constant_expression> p<20> c<17> l<2:35> el<2:36>
 n<> u<19> t<BinOp_Less> p<20> s<18> l<2:33> el<2:34>
-n<> u<20> t<Constant_expression> p<27> c<14> s<23> l<2:26> el<2:36>
+n<> u<20> t<Constant_expression> p<28> c<14> s<23> l<2:26> el<2:36>
 n<> u<21> t<IncDec_PlusPlus> p<23> s<22> l<2:38> el<2:40>
 n<i_word> u<22> t<StringConst> p<23> l<2:40> el<2:46>
-n<> u<23> t<Genvar_iteration> p<27> c<21> s<26> l<2:38> el<2:46>
+n<> u<23> t<Genvar_iteration> p<28> c<21> s<27> l<2:38> el<2:46>
 n<g_dmem_intg_check> u<24> t<StringConst> p<26> s<25> l<2:56> el<2:73>
 n<> u<25> t<End> p<26> l<3:3> el<3:6>
-n<> u<26> t<Generate_block> p<27> c<24> l<2:48> el<3:6>
-n<> u<27> t<Loop_generate_construct> p<28> c<10> l<2:2> el<3:6>
-n<> u<28> t<Module_common_item> p<29> c<27> l<2:2> el<3:6>
-n<> u<29> t<Module_or_generate_item> p<30> c<28> l<2:2> el<3:6>
-n<> u<30> t<Non_port_module_item> p<32> c<29> s<31> l<2:2> el<3:6>
-n<> u<31> t<Endmodule> p<32> l<4:1> el<4:10>
-n<> u<32> t<Module_declaration> p<33> c<4> l<1:1> el<4:10>
-n<> u<33> t<Description> p<34> c<32> l<1:1> el<4:10>
-n<> u<34> t<Source_text> p<35> c<33> l<1:1> el<4:10>
-n<> u<35> t<Top_level_rule> c<1> l<1:1> el<5:1>
+n<> u<26> t<Generate_begin_end_block> p<27> c<24> l<2:48> el<3:6>
+n<> u<27> t<Generate_item> p<28> c<26> l<2:48> el<3:6>
+n<> u<28> t<Loop_generate_construct> p<29> c<10> l<2:2> el<3:6>
+n<> u<29> t<Module_common_item> p<30> c<28> l<2:2> el<3:6>
+n<> u<30> t<Module_or_generate_item> p<31> c<29> l<2:2> el<3:6>
+n<> u<31> t<Non_port_module_item> p<33> c<30> s<32> l<2:2> el<3:6>
+n<> u<32> t<Endmodule> p<33> l<4:1> el<4:10>
+n<> u<33> t<Module_declaration> p<34> c<4> l<1:1> el<4:10>
+n<> u<34> t<Description> p<35> c<33> l<1:1> el<4:10>
+n<> u<35> t<Source_text> p<36> c<34> l<1:1> el<4:10>
+n<> u<36> t<Top_level_rule> c<1> l<1:1> el<5:1>
 AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:1:1: No timescale set for "alert_handler_reg_wrap".
 
@@ -48,21 +49,21 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[0]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[1]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[1]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[2]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[2]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[3]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[3]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[4]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[4]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[5]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[5]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[6]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[6]".
 
-[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:2: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[7]".
+[INF:CP0335] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:2:48: Compile generate block "work@alert_handler_reg_wrap.g_dmem_intg_check[7]".
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/UnaryPlus/dut.sv:1:1: Top level module "work@alert_handler_reg_wrap".
 
