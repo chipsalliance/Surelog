@@ -534,9 +534,6 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         endOfBlockId = fC->Sibling(endOfBlockId);
       }
       if (!endOfBlockId) endOfBlockId = fC->Sibling(m_module->getGenBlockId());
-      // if (fC->Type(id) == VObjectType::slGenerate_begin_end_block) {
-      //   id = fC->Parent(id);
-      // }
     }
     if (!id) id = current.m_sibling;
     if (!id) return false;
@@ -1030,6 +1027,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
+    NodeId startId = id;
     while (!stack.empty()) {
       id = stack.top();
       if (ParameterPortListId && (id == ParameterPortListId)) {
@@ -1038,6 +1036,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
       stack.pop();
       current = fC->Object(id);
       VObjectType type = fC->Type(id);
+      bool skipChildren = false;
       switch (type) {
         case VObjectType::slPackage_import_item: {
           if (collectType != CollectType::FUNCTION) break;
@@ -1076,6 +1075,10 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           m_helper.compileNetDeclaration(m_module, fC, id, true,
                                          m_compileDesign);
           m_attributes = nullptr;
+          break;
+        }
+        case VObjectType::slGenerate_begin_end_block: {
+          if (id != startId) skipChildren = true;
           break;
         }
         case VObjectType::slData_declaration: {
@@ -1426,7 +1429,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
       }
 
       if (current.m_sibling) stack.push(current.m_sibling);
-      if (current.m_child) {
+      if (current.m_child && (!skipChildren)) {
         if (!stopPoints.empty()) {
           bool stop = false;
           for (auto t : stopPoints) {

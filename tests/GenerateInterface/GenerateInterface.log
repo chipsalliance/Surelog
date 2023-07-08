@@ -725,9 +725,9 @@ AST_DEBUG_END
 
 [INF:CP0335] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:6:34: Compile generate block "work@top.intf.block[2]".
 
-[INF:CP0303] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:48: Compile module "work@top2.intf.each_pin_intf[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:40: Compile generate block "work@top2.intf.each_pin_intf[0]".
 
-[INF:CP0303] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:48: Compile module "work@top2.intf.each_pin_intf[1]".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:40: Compile generate block "work@top2.intf.each_pin_intf[1]".
 
 [INF:CP0335] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:38:40: Compile generate block "work@top2.each_pin[0]".
 
@@ -778,22 +778,22 @@ Instance tree:
 
 [NTE:EL0522] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:6:34: Scope "work@top.intf.block[2]".
 
-[NTE:EL0522] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:48: Scope "work@top2.intf.each_pin_intf[0]".
+[NTE:EL0522] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:40: Scope "work@top2.intf.each_pin_intf[0]".
 
-[NTE:EL0522] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:48: Scope "work@top2.intf.each_pin_intf[1]".
+[NTE:EL0522] ${SURELOG_DIR}/tests/GenerateInterface/top.sv:28:40: Scope "work@top2.intf.each_pin_intf[1]".
 
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assign_stmt                                            2
 begin                                                  2
-bit_select                                            12
+bit_select                                            18
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
 clocking_block                                         6
-constant                                             109
-cont_assign                                            2
+constant                                             113
+cont_assign                                            4
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -802,9 +802,9 @@ event_control                                          6
 function                                               9
 gen_for                                                2
 gen_region                                             1
-gen_scope                                             10
-gen_scope_array                                       10
-int_typespec                                          36
+gen_scope                                             14
+gen_scope_array                                       14
+int_typespec                                          38
 int_var                                                4
 interface_inst                                         6
 io_decl                                               11
@@ -813,14 +813,14 @@ logic_typespec                                        11
 logic_var                                              4
 module_inst                                           12
 named_begin                                            1
-operation                                             38
+operation                                             40
 package                                                2
 param_assign                                           6
-parameter                                             11
+parameter                                             13
 port                                                   5
 range                                                 16
 ref_module                                             2
-ref_obj                                               28
+ref_obj                                               34
 ref_var                                                2
 task                                                   9
 unsupported_typespec                                   2
@@ -2298,6 +2298,154 @@ design: (work@top)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8
+      |vpiParent:
+      \_interface_inst: work@pins_if (work@top2.intf), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:35:1, endln:35:39
+      |vpiName:each_pin_intf[0]
+      |vpiFullName:work@top2.intf.each_pin_intf[0]
+      |vpiGenScope:
+      \_gen_scope: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8
+        |vpiParent:
+        \_gen_scope_array: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8
+        |vpiFullName:work@top2.intf.each_pin_intf[0]
+        |vpiParameter:
+        \_parameter: (work@top2.intf.each_pin_intf[0].i), line:28:0
+          |vpiParent:
+          \_gen_scope: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8
+          |UINT:0
+          |vpiTypespec:
+          \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top2.intf.each_pin_intf[0].i
+        |vpiContAssign:
+        \_cont_assign: , line:29:14, endln:29:53
+          |vpiParent:
+          \_gen_scope: (work@top2.intf.each_pin_intf[0]), line:28:40, endln:30:8
+          |vpiRhs:
+          \_operation: , line:29:24, endln:29:53
+            |vpiParent:
+            \_cont_assign: , line:29:14, endln:29:53
+            |vpiOpType:32
+            |vpiOperand:
+            \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:32, endln:29:33
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
+              |vpiName:pins_oe
+              |vpiFullName:work@top2.intf.each_pin_intf[0].pins_oe
+              |vpiIndex:
+              \_ref_obj: (work@top2.intf.each_pin_intf[0].i), line:29:32, endln:29:33
+                |vpiParent:
+                \_bit_select: (work@top2.intf.each_pin_intf[0].pins_oe), line:29:32, endln:29:33
+                |vpiName:i
+                |vpiFullName:work@top2.intf.each_pin_intf[0].i
+            |vpiOperand:
+            \_bit_select: (work@top2.intf.each_pin_intf[0].pins_o), line:29:44, endln:29:45
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
+              |vpiName:pins_o
+              |vpiFullName:work@top2.intf.each_pin_intf[0].pins_o
+              |vpiIndex:
+              \_ref_obj: (work@top2.intf.each_pin_intf[0].i), line:29:44, endln:29:45
+                |vpiParent:
+                \_bit_select: (work@top2.intf.each_pin_intf[0].pins_o), line:29:44, endln:29:45
+                |vpiName:i
+                |vpiFullName:work@top2.intf.each_pin_intf[0].i
+            |vpiOperand:
+            \_constant: , line:29:49, endln:29:53
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
+              |vpiDecompile:1'bz
+              |vpiSize:1
+              |BIN:z
+              |vpiConstType:3
+          |vpiLhs:
+          \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21
+            |vpiParent:
+            \_cont_assign: , line:29:14, endln:29:53
+            |vpiName:pins
+            |vpiFullName:work@top2.intf.each_pin_intf[0].pins
+            |vpiIndex:
+            \_ref_obj: (work@top2.intf.each_pin_intf[0].i), line:29:19, endln:29:20
+              |vpiParent:
+              \_bit_select: (work@top2.intf.each_pin_intf[0].pins), line:29:14, endln:29:21
+              |vpiName:i
+              |vpiFullName:work@top2.intf.each_pin_intf[0].i
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
+      |vpiParent:
+      \_interface_inst: work@pins_if (work@top2.intf), file:${SURELOG_DIR}/tests/GenerateInterface/top.sv, line:35:1, endln:35:39
+      |vpiName:each_pin_intf[1]
+      |vpiFullName:work@top2.intf.each_pin_intf[1]
+      |vpiGenScope:
+      \_gen_scope: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
+        |vpiParent:
+        \_gen_scope_array: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
+        |vpiFullName:work@top2.intf.each_pin_intf[1]
+        |vpiParameter:
+        \_parameter: (work@top2.intf.each_pin_intf[1].i), line:28:0
+          |vpiParent:
+          \_gen_scope: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
+          |UINT:1
+          |vpiTypespec:
+          \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top2.intf.each_pin_intf[1].i
+        |vpiContAssign:
+        \_cont_assign: , line:29:14, endln:29:53
+          |vpiParent:
+          \_gen_scope: (work@top2.intf.each_pin_intf[1]), line:28:40, endln:30:8
+          |vpiRhs:
+          \_operation: , line:29:24, endln:29:53
+            |vpiParent:
+            \_cont_assign: , line:29:14, endln:29:53
+            |vpiOpType:32
+            |vpiOperand:
+            \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:32, endln:29:33
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
+              |vpiName:pins_oe
+              |vpiFullName:work@top2.intf.each_pin_intf[1].pins_oe
+              |vpiIndex:
+              \_ref_obj: (work@top2.intf.each_pin_intf[1].i), line:29:32, endln:29:33
+                |vpiParent:
+                \_bit_select: (work@top2.intf.each_pin_intf[1].pins_oe), line:29:32, endln:29:33
+                |vpiName:i
+                |vpiFullName:work@top2.intf.each_pin_intf[1].i
+            |vpiOperand:
+            \_bit_select: (work@top2.intf.each_pin_intf[1].pins_o), line:29:44, endln:29:45
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
+              |vpiName:pins_o
+              |vpiFullName:work@top2.intf.each_pin_intf[1].pins_o
+              |vpiIndex:
+              \_ref_obj: (work@top2.intf.each_pin_intf[1].i), line:29:44, endln:29:45
+                |vpiParent:
+                \_bit_select: (work@top2.intf.each_pin_intf[1].pins_o), line:29:44, endln:29:45
+                |vpiName:i
+                |vpiFullName:work@top2.intf.each_pin_intf[1].i
+            |vpiOperand:
+            \_constant: , line:29:49, endln:29:53
+              |vpiParent:
+              \_operation: , line:29:24, endln:29:53
+              |vpiDecompile:1'bz
+              |vpiSize:1
+              |BIN:z
+              |vpiConstType:3
+          |vpiLhs:
+          \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21
+            |vpiParent:
+            \_cont_assign: , line:29:14, endln:29:53
+            |vpiName:pins
+            |vpiFullName:work@top2.intf.each_pin_intf[1].pins
+            |vpiIndex:
+            \_ref_obj: (work@top2.intf.each_pin_intf[1].i), line:29:19, endln:29:20
+              |vpiParent:
+              \_bit_select: (work@top2.intf.each_pin_intf[1].pins), line:29:14, endln:29:21
+              |vpiName:i
+              |vpiFullName:work@top2.intf.each_pin_intf[1].i
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top2.each_pin[0]), line:38:40, endln:40:8
     |vpiParent:

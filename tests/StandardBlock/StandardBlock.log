@@ -259,7 +259,7 @@ AST_DEBUG_END
 
 [INF:CP0335] ${SURELOG_DIR}/tests/StandardBlock/dut.sv:16:8: Compile generate block "work@top.g1[0].genblk1".
 
-[INF:CP0303] ${SURELOG_DIR}/tests/StandardBlock/dut.sv:25:1: Compile module "work@top.genblk4[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/StandardBlock/dut.sv:25:1: Compile generate block "work@top.genblk4[0]".
 
 [INF:CP0335] ${SURELOG_DIR}/tests/StandardBlock/dut.sv:25:8: Compile generate block "work@top.genblk4[0].genblk1".
 
@@ -286,9 +286,9 @@ design                                                 1
 gen_for                                                2
 gen_if                                                 3
 gen_if_else                                            2
-gen_scope                                             11
-gen_scope_array                                       11
-int_typespec                                           3
+gen_scope                                             14
+gen_scope_array                                       14
+int_typespec                                           4
 logic_net                                              1
 logic_typespec                                        12
 logic_var                                             12
@@ -296,7 +296,7 @@ module_inst                                            5
 named_begin                                            1
 operation                                              8
 param_assign                                           2
-parameter                                              3
+parameter                                              4
 ref_obj                                                8
 ref_var                                                2
 unsupported_typespec                                   2
@@ -312,17 +312,17 @@ design                                                 1
 gen_for                                                2
 gen_if                                                 3
 gen_if_else                                            2
-gen_scope                                             16
-gen_scope_array                                       16
-int_typespec                                           3
+gen_scope                                             21
+gen_scope_array                                       21
+int_typespec                                           4
 logic_net                                              1
 logic_typespec                                        12
-logic_var                                             16
+logic_var                                             17
 module_inst                                            5
 named_begin                                            1
 operation                                              8
 param_assign                                           2
-parameter                                              3
+parameter                                              4
 ref_obj                                                8
 ref_var                                                2
 unsupported_typespec                                   2
@@ -832,6 +832,49 @@ design: (work@top)
               \_logic_var: (work@top.g1[0].genblk1.a), line:16:14, endln:16:15
             |vpiName:a
             |vpiFullName:work@top.g1[0].genblk1.a
+            |vpiVisibility:1
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.genblk4[0]), line:25:1, endln:25:16
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+    |vpiName:genblk4[0]
+    |vpiFullName:work@top.genblk4[0]
+    |vpiGenScope:
+    \_gen_scope: (work@top.genblk4[0]), line:25:1, endln:25:16
+      |vpiParent:
+      \_gen_scope_array: (work@top.genblk4[0]), line:25:1, endln:25:16
+      |vpiFullName:work@top.genblk4[0]
+      |vpiParameter:
+      \_parameter: (work@top.genblk4[0].i), line:22:0
+        |vpiParent:
+        \_gen_scope: (work@top.genblk4[0]), line:25:1, endln:25:16
+        |UINT:0
+        |vpiTypespec:
+        \_int_typespec: 
+        |vpiLocalParam:1
+        |vpiName:i
+        |vpiFullName:work@top.genblk4[0].i
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+        |vpiParent:
+        \_gen_scope: (work@top.genblk4[0]), line:25:1, endln:25:16
+        |vpiName:genblk1
+        |vpiFullName:work@top.genblk4[0].genblk1
+        |vpiGenScope:
+        \_gen_scope: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+          |vpiParent:
+          \_gen_scope_array: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+          |vpiFullName:work@top.genblk4[0].genblk1
+          |vpiVariables:
+          \_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
+            |vpiParent:
+            \_gen_scope: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+            |vpiTypespec:
+            \_logic_typespec: , line:25:8, endln:25:13
+              |vpiParent:
+              \_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
+            |vpiName:a
+            |vpiFullName:work@top.genblk4[0].genblk1.a
             |vpiVisibility:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.genblk5), line:27:8, endln:27:16

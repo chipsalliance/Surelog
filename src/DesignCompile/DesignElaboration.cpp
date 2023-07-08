@@ -1045,7 +1045,9 @@ void DesignElaboration::elaborateInstance_(
           }
           // Generate block
           NodeId genBlock = fC->Sibling(iteration);
-          genBlock = fC->Child(genBlock);
+          if (fC->Type(fC->Child(genBlock)) ==
+              VObjectType::slGenerate_begin_end_block)
+            genBlock = fC->Child(genBlock);
           m_helper.checkForLoops(true);
           int64_t condVal = m_helper.getValue(
               validValue, parentDef, fC, endLoopTest, m_compileDesign,
