@@ -1352,8 +1352,7 @@ void DesignElaboration::elaborateInstance_(
                       fC->Child(Conditional_generate_construct);
                   if (fC->Type(If_generate_construct) ==
                       VObjectType::slIf_generate_construct) {
-                    if (fC->Type(childId) ==
-                        VObjectType::slGenerate_begin_end_block)
+                    if (fC->Type(childId) == VObjectType::slGenerate_item)
                       childId = fC->Child(childId);
                     blockIds = fC->sl_collect_all(childId, btypes, true);
                     if (!blockIds.empty()) {
