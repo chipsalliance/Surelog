@@ -70,6 +70,30 @@ ref_module                                             6
 ref_obj                                               69
 sys_func_call                                          9
 === UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+
+=== UHDM Object Stats Begin (Elaborated Model) ===
+assignment                                             2
+begin                                                  1
+constant                                              10
+cont_assign                                            3
+delay_control                                          4
+design                                                 1
+hier_path                                             14
+immediate_assert                                       2
+initial                                                1
+interface_inst                                         7
+interface_typespec                                     5
+logic_net                                             31
+logic_typespec                                        39
+module_inst                                           18
+operation                                              2
+port                                                  45
+program                                                2
+ref_module                                             6
+ref_obj                                               91
+sys_func_call                                          9
+=== UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetInterf/slpp_unit/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/OneNetInterf/slpp_unit/checker/surelog.chk.html ...
@@ -80,6 +104,7 @@ sys_func_call                                          9
 
 ====== UHDM =======
 design: (work@dut)
+|vpiElaborated:1
 |vpiName:work@dut
 |uhdmallInterfaces:
 \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:7:1, endln:8:13
@@ -864,6 +889,8 @@ design: (work@dut)
       \_logic_net: (work@dut.i), line:2:24, endln:2:25
     |vpiTypedef:
     \_logic_typespec: , line:2:19, endln:2:23
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
   |vpiPort:
   \_port: (o), line:2:38, endln:2:39
     |vpiParent:
@@ -880,6 +907,8 @@ design: (work@dut)
       \_logic_net: (work@dut.o), line:2:38, endln:2:39
     |vpiTypedef:
     \_logic_typespec: , line:2:34, endln:2:37
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
   |vpiInterface:
   \_interface_inst: work@ConnectTB (work@dut.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:3:3, endln:3:41
     |vpiParent:
@@ -985,15 +1014,19 @@ design: (work@dut)
         |vpiName:conntb
         |vpiFullName:work@dut.conntb
         |vpiActual:
-        \_interface_inst: work@ConnectTB (work@dut.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:3:0
+        \_interface_inst: work@ConnectTB (work@dut.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:3:3, endln:3:41
       |vpiLowConn:
       \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
+        |vpiParent:
+        \_port: (conn), line:10:26, endln:10:30
         |vpiFullName:work@dut.middle1.conn
         |vpiActual:
         \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
       |vpiTypedef:
       \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
         |vpiName:ConnectTB
+      |vpiInstance:
+      \_module_inst: work@middle (work@dut.middle1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:3, endln:4:26
     |vpiInterface:
     \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
       |vpiParent:
@@ -1079,17 +1112,24 @@ design: (work@dut)
           |vpiName:conn.con_i
           |vpiExpr:
           \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
+            |vpiFullName:work@dut.middle1.conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
           |vpiActual:
           \_ref_obj: (conn), line:11:17, endln:11:21
             |vpiParent:
             \_hier_path: (conn.con_i), line:11:17, endln:11:27
             |vpiName:conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
           |vpiActual:
           \_ref_obj: (work@dut.middle1.sub1.inp.con_i), line:11:22, endln:11:27
             |vpiParent:
             \_hier_path: (conn.con_i), line:11:17, endln:11:27
             |vpiName:con_i
             |vpiFullName:work@dut.middle1.sub1.inp.con_i
+            |vpiActual:
+            \_logic_net: (con_i), line:7:33, endln:7:38
           |vpiExpr:
           \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
         |vpiLowConn:
@@ -1102,6 +1142,8 @@ design: (work@dut)
           \_logic_net: (work@dut.middle1.sub1.inp), line:14:24, endln:14:27
         |vpiTypedef:
         \_logic_typespec: , line:14:19, endln:14:23
+        |vpiInstance:
+        \_module_inst: work@SUB (work@dut.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiPort:
       \_port: (out), line:14:40, endln:14:43
         |vpiParent:
@@ -1120,12 +1162,16 @@ design: (work@dut)
             |vpiParent:
             \_hier_path: (conn.con_o), line:11:34, endln:11:44
             |vpiName:conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
           |vpiActual:
           \_ref_obj: (work@dut.middle1.sub1.out.con_o), line:11:39, endln:11:44
             |vpiParent:
             \_hier_path: (conn.con_o), line:11:34, endln:11:44
             |vpiName:con_o
             |vpiFullName:work@dut.middle1.sub1.out.con_o
+            |vpiActual:
+            \_logic_net: (con_o), line:7:51, endln:7:56
           |vpiExpr:
           \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
         |vpiLowConn:
@@ -1138,8 +1184,28 @@ design: (work@dut)
           \_logic_net: (work@dut.middle1.sub1.out), line:14:40, endln:14:43
         |vpiTypedef:
         \_logic_typespec: , line:14:36, endln:14:39
+        |vpiInstance:
+        \_module_inst: work@SUB (work@dut.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiContAssign:
       \_cont_assign: , line:15:10, endln:15:19
+        |vpiParent:
+        \_module_inst: work@SUB (work@dut.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
+        |vpiRhs:
+        \_ref_obj: (work@dut.middle1.sub1.inp), line:15:16, endln:15:19
+          |vpiParent:
+          \_cont_assign: , line:15:10, endln:15:19
+          |vpiName:inp
+          |vpiFullName:work@dut.middle1.sub1.inp
+          |vpiActual:
+          \_logic_net: (work@dut.middle1.sub1.inp), line:14:24, endln:14:27
+        |vpiLhs:
+        \_ref_obj: (work@dut.middle1.sub1.out), line:15:10, endln:15:13
+          |vpiParent:
+          \_cont_assign: , line:15:10, endln:15:19
+          |vpiName:out
+          |vpiFullName:work@dut.middle1.sub1.out
+          |vpiActual:
+          \_logic_net: (work@dut.middle1.sub1.out), line:14:40, endln:14:43
 |uhdmtopModules:
 \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
   |vpiName:work@tb
@@ -1196,6 +1262,8 @@ design: (work@dut)
           |vpiParent:
           \_hier_path: (conntb.con_o), line:18:25, endln:18:37
           |vpiName:conntb
+          |vpiActual:
+          \_interface_inst: work@ConnectTB (work@tb.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:16:3, endln:16:41
         |vpiActual:
         \_ref_obj: (work@tb.tb.observe.con_o), line:18:32, endln:18:37
           |vpiParent:
@@ -1228,6 +1296,8 @@ design: (work@dut)
           |vpiParent:
           \_hier_path: (conntb.con_i), line:18:46, endln:18:58
           |vpiName:conntb
+          |vpiActual:
+          \_interface_inst: work@ConnectTB (work@tb.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:16:3, endln:16:41
         |vpiActual:
         \_ref_obj: (work@tb.tb.drive.con_i), line:18:53, endln:18:58
           |vpiParent:
@@ -1370,15 +1440,19 @@ design: (work@dut)
         |vpiName:conntb
         |vpiFullName:work@tb.conntb
         |vpiActual:
-        \_interface_inst: work@ConnectTB (work@tb.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:16:0
+        \_interface_inst: work@ConnectTB (work@tb.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:16:3, endln:16:41
       |vpiLowConn:
       \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
+        |vpiParent:
+        \_port: (conn), line:10:26, endln:10:30
         |vpiFullName:work@tb.dut1.conn
         |vpiActual:
         \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
       |vpiTypedef:
       \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
         |vpiName:ConnectTB
+      |vpiInstance:
+      \_module_inst: work@middle (work@tb.dut1), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:3, endln:17:23
     |vpiInterface:
     \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
       |vpiParent:
@@ -1464,17 +1538,24 @@ design: (work@dut)
           |vpiName:conn.con_i
           |vpiExpr:
           \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
+            |vpiFullName:work@tb.dut1.conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
           |vpiActual:
           \_ref_obj: (conn), line:11:17, endln:11:21
             |vpiParent:
             \_hier_path: (conn.con_i), line:11:17, endln:11:27
             |vpiName:conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
           |vpiActual:
           \_ref_obj: (work@tb.dut1.sub1.inp.con_i), line:11:22, endln:11:27
             |vpiParent:
             \_hier_path: (conn.con_i), line:11:17, endln:11:27
             |vpiName:con_i
             |vpiFullName:work@tb.dut1.sub1.inp.con_i
+            |vpiActual:
+            \_logic_net: (con_i), line:7:33, endln:7:38
           |vpiExpr:
           \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
         |vpiLowConn:
@@ -1487,6 +1568,8 @@ design: (work@dut)
           \_logic_net: (work@tb.dut1.sub1.inp), line:14:24, endln:14:27
         |vpiTypedef:
         \_logic_typespec: , line:14:19, endln:14:23
+        |vpiInstance:
+        \_module_inst: work@SUB (work@tb.dut1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiPort:
       \_port: (out), line:14:40, endln:14:43
         |vpiParent:
@@ -1505,12 +1588,16 @@ design: (work@dut)
             |vpiParent:
             \_hier_path: (conn.con_o), line:11:34, endln:11:44
             |vpiName:conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
           |vpiActual:
           \_ref_obj: (work@tb.dut1.sub1.out.con_o), line:11:39, endln:11:44
             |vpiParent:
             \_hier_path: (conn.con_o), line:11:34, endln:11:44
             |vpiName:con_o
             |vpiFullName:work@tb.dut1.sub1.out.con_o
+            |vpiActual:
+            \_logic_net: (con_o), line:7:51, endln:7:56
           |vpiExpr:
           \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
         |vpiLowConn:
@@ -1523,8 +1610,28 @@ design: (work@dut)
           \_logic_net: (work@tb.dut1.sub1.out), line:14:40, endln:14:43
         |vpiTypedef:
         \_logic_typespec: , line:14:36, endln:14:39
+        |vpiInstance:
+        \_module_inst: work@SUB (work@tb.dut1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiContAssign:
       \_cont_assign: , line:15:10, endln:15:19
+        |vpiParent:
+        \_module_inst: work@SUB (work@tb.dut1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
+        |vpiRhs:
+        \_ref_obj: (work@tb.dut1.sub1.inp), line:15:16, endln:15:19
+          |vpiParent:
+          \_cont_assign: , line:15:10, endln:15:19
+          |vpiName:inp
+          |vpiFullName:work@tb.dut1.sub1.inp
+          |vpiActual:
+          \_logic_net: (work@tb.dut1.sub1.inp), line:14:24, endln:14:27
+        |vpiLhs:
+        \_ref_obj: (work@tb.dut1.sub1.out), line:15:10, endln:15:13
+          |vpiParent:
+          \_cont_assign: , line:15:10, endln:15:19
+          |vpiName:out
+          |vpiFullName:work@tb.dut1.sub1.out
+          |vpiActual:
+          \_logic_net: (work@tb.dut1.sub1.out), line:14:40, endln:14:43
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
