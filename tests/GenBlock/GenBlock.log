@@ -136,12 +136,12 @@ AST_DEBUG_END
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] ${SURELOG_DIR}/tests/GenBlock/dut.sv:18:9: Compile generate block "work@axi.ARRAY_INT".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenBlock/dut.sv:18:9: Compile generate block "work@axi.genblk1".
 
 Instance tree:
 [TOP] work@axi work@axi
-[SCO] work@axi.ARRAY_INT work@axi.ARRAY_INT
-[MOD] work@GOOD work@axi.ARRAY_INT.good
+[SCO] work@axi.genblk1 work@axi.genblk1
+[MOD] work@GOOD work@axi.genblk1.good
 
 [NTE:EL0503] ${SURELOG_DIR}/tests/GenBlock/dut.sv:4:1: Top level module "work@axi".
 
@@ -155,9 +155,9 @@ Instance tree:
 
 [NTE:EL0523] ${SURELOG_DIR}/tests/GenBlock/dut.sv:4:1: Instance "work@axi".
 
-[NTE:EL0522] ${SURELOG_DIR}/tests/GenBlock/dut.sv:18:9: Scope "work@axi.ARRAY_INT".
+[NTE:EL0522] ${SURELOG_DIR}/tests/GenBlock/dut.sv:18:9: Scope "work@axi.genblk1".
 
-[NTE:EL0523] ${SURELOG_DIR}/tests/GenBlock/dut.sv:18:9: Instance "work@axi.ARRAY_INT.good".
+[NTE:EL0523] ${SURELOG_DIR}/tests/GenBlock/dut.sv:18:9: Instance "work@axi.genblk1.good".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -425,22 +425,22 @@ design: (work@axi)
   |vpiTop:1
   |vpiTopModule:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@axi.ARRAY_INT), line:18:9, endln:18:21
+  \_gen_scope_array: (work@axi.genblk1), line:18:9, endln:18:21
     |vpiParent:
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
-    |vpiName:ARRAY_INT
-    |vpiFullName:work@axi.ARRAY_INT
+    |vpiName:genblk1
+    |vpiFullName:work@axi.genblk1
     |vpiGenScope:
-    \_gen_scope: (work@axi.ARRAY_INT), line:18:9, endln:18:21
+    \_gen_scope: (work@axi.genblk1), line:18:9, endln:18:21
       |vpiParent:
-      \_gen_scope_array: (work@axi.ARRAY_INT), line:18:9, endln:18:21
-      |vpiFullName:work@axi.ARRAY_INT
+      \_gen_scope_array: (work@axi.genblk1), line:18:9, endln:18:21
+      |vpiFullName:work@axi.genblk1
       |vpiModule:
-      \_module_inst: work@GOOD (work@axi.ARRAY_INT.good), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:18:9, endln:18:21
+      \_module_inst: work@GOOD (work@axi.genblk1.good), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:18:9, endln:18:21
         |vpiParent:
-        \_gen_scope: (work@axi.ARRAY_INT), line:18:9, endln:18:21
+        \_gen_scope: (work@axi.genblk1), line:18:9, endln:18:21
         |vpiName:good
-        |vpiFullName:work@axi.ARRAY_INT.good
+        |vpiFullName:work@axi.genblk1.good
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/GenBlock/dut.sv
         |vpiDefLineNo:1

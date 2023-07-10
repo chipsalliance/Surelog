@@ -981,8 +981,8 @@ constant                                             273
 design                                                 1
 event_control                                          1
 gen_region                                             1
-gen_scope                                             40
-gen_scope_array                                       40
+gen_scope                                             39
+gen_scope_array                                       39
 if_stmt                                                1
 int_typespec                                          20
 module_inst                                            5
@@ -1002,8 +1002,8 @@ constant                                             273
 design                                                 1
 event_control                                          2
 gen_region                                             1
-gen_scope                                             60
-gen_scope_array                                       60
+gen_scope                                             58
+gen_scope_array                                       58
 if_stmt                                                2
 int_typespec                                          20
 module_inst                                            5
@@ -1140,113 +1140,102 @@ design: (work@Foo)
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[1].i
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@Foo.genblk1[1].genblk1), line:14:18, endln:85:16
+      \_gen_scope_array: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
         |vpiParent:
         \_gen_scope: (work@Foo.genblk1[1]), line:5:45, endln:87:12
         |vpiName:genblk1
         |vpiFullName:work@Foo.genblk1[1].genblk1
         |vpiGenScope:
-        \_gen_scope: (work@Foo.genblk1[1].genblk1), line:14:18, endln:85:16
+        \_gen_scope: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
           |vpiParent:
-          \_gen_scope_array: (work@Foo.genblk1[1].genblk1), line:14:18, endln:85:16
+          \_gen_scope_array: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
           |vpiFullName:work@Foo.genblk1[1].genblk1
-          |vpiGenScopeArray:
-          \_gen_scope_array: (work@Foo.genblk1[1].genblk1.genblk1), line:15:17, endln:20:20
+          |vpiProcess:
+          \_always: , line:15:17, endln:20:20
             |vpiParent:
-            \_gen_scope: (work@Foo.genblk1[1].genblk1), line:14:18, endln:85:16
-            |vpiName:genblk1
-            |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1
-            |vpiGenScope:
-            \_gen_scope: (work@Foo.genblk1[1].genblk1.genblk1), line:15:17, endln:20:20
+            \_gen_scope: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
+            |vpiStmt:
+            \_event_control: , line:15:27, endln:15:41
               |vpiParent:
-              \_gen_scope_array: (work@Foo.genblk1[1].genblk1.genblk1), line:15:17, endln:20:20
-              |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1
-              |vpiProcess:
               \_always: , line:15:17, endln:20:20
+              |vpiCondition:
+              \_operation: , line:15:29, endln:15:40
                 |vpiParent:
-                \_gen_scope: (work@Foo.genblk1[1].genblk1.genblk1), line:15:17, endln:20:20
-                |vpiStmt:
                 \_event_control: , line:15:27, endln:15:41
+                |vpiOpType:39
+                |vpiOperand:
+                \_ref_obj: (work@Foo.genblk1[1].genblk1.clk), line:15:37, endln:15:40
                   |vpiParent:
-                  \_always: , line:15:17, endln:20:20
-                  |vpiCondition:
                   \_operation: , line:15:29, endln:15:40
+                  |vpiName:clk
+                  |vpiFullName:work@Foo.genblk1[1].genblk1.clk
+              |vpiStmt:
+              \_begin: (work@Foo.genblk1[1].genblk1), line:15:42, endln:20:20
+                |vpiParent:
+                \_event_control: , line:15:27, endln:15:41
+                |vpiFullName:work@Foo.genblk1[1].genblk1
+                |vpiStmt:
+                \_if_stmt: , line:16:21, endln:18:24
+                  |vpiParent:
+                  \_begin: (work@Foo.genblk1[1].genblk1), line:15:42, endln:20:20
+                  |vpiCondition:
+                  \_ref_obj: (work@Foo.genblk1[1].genblk1.shift_foo_bar), line:16:25, endln:16:38
                     |vpiParent:
-                    \_event_control: , line:15:27, endln:15:41
-                    |vpiOpType:39
-                    |vpiOperand:
-                    \_ref_obj: (work@Foo.genblk1[1].genblk1.genblk1.clk), line:15:37, endln:15:40
-                      |vpiParent:
-                      \_operation: , line:15:29, endln:15:40
-                      |vpiName:clk
-                      |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1.clk
-                  |vpiStmt:
-                  \_begin: (work@Foo.genblk1[1].genblk1.genblk1), line:15:42, endln:20:20
-                    |vpiParent:
-                    \_event_control: , line:15:27, endln:15:41
-                    |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1
-                    |vpiStmt:
                     \_if_stmt: , line:16:21, endln:18:24
+                    |vpiName:shift_foo_bar
+                    |vpiFullName:work@Foo.genblk1[1].genblk1.shift_foo_bar
+                  |vpiStmt:
+                  \_begin: (work@Foo.genblk1[1].genblk1), line:16:41, endln:18:24
+                    |vpiParent:
+                    \_if_stmt: , line:16:21, endln:18:24
+                    |vpiFullName:work@Foo.genblk1[1].genblk1
+                    |vpiStmt:
+                    \_assignment: , line:17:25, endln:17:55
                       |vpiParent:
-                      \_begin: (work@Foo.genblk1[1].genblk1.genblk1), line:15:42, endln:20:20
-                      |vpiCondition:
-                      \_ref_obj: (work@Foo.genblk1[1].genblk1.genblk1.shift_foo_bar), line:16:25, endln:16:38
+                      \_begin: (work@Foo.genblk1[1].genblk1), line:16:41, endln:18:24
+                      |vpiOpType:82
+                      |vpiRhs:
+                      \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:51, endln:17:54
                         |vpiParent:
-                        \_if_stmt: , line:16:21, endln:18:24
-                        |vpiName:shift_foo_bar
-                        |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1.shift_foo_bar
-                      |vpiStmt:
-                      \_begin: (work@Foo.genblk1[1].genblk1.genblk1), line:16:41, endln:18:24
-                        |vpiParent:
-                        \_if_stmt: , line:16:21, endln:18:24
-                        |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1
-                        |vpiStmt:
                         \_assignment: , line:17:25, endln:17:55
+                        |vpiName:foo_bar_4
+                        |vpiFullName:work@Foo.genblk1[1].genblk1.foo_bar_4
+                        |vpiIndex:
+                        \_operation: , line:17:51, endln:17:54
                           |vpiParent:
-                          \_begin: (work@Foo.genblk1[1].genblk1.genblk1), line:16:41, endln:18:24
-                          |vpiOpType:82
-                          |vpiRhs:
-                          \_bit_select: (work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4), line:17:51, endln:17:54
+                          \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:51, endln:17:54
+                          |vpiOpType:24
+                          |vpiOperand:
+                          \_ref_obj: (work@Foo.genblk1[1].genblk1.foo_bar_4.i), line:17:51, endln:17:52
                             |vpiParent:
-                            \_assignment: , line:17:25, endln:17:55
-                            |vpiName:foo_bar_4
-                            |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4
-                            |vpiIndex:
                             \_operation: , line:17:51, endln:17:54
-                              |vpiParent:
-                              \_bit_select: (work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4), line:17:51, endln:17:54
-                              |vpiOpType:24
-                              |vpiOperand:
-                              \_ref_obj: (work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4.i), line:17:51, endln:17:52
-                                |vpiParent:
-                                \_operation: , line:17:51, endln:17:54
-                                |vpiName:i
-                                |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4.i
-                                |vpiActual:
-                                \_parameter: (work@Foo.genblk1[1].i), line:5:0
-                              |vpiOperand:
-                              \_constant: , line:17:53, endln:17:54
-                                |vpiParent:
-                                \_operation: , line:17:51, endln:17:54
-                                |vpiDecompile:1
-                                |vpiSize:64
-                                |UINT:1
-                                |vpiConstType:9
-                          |vpiLhs:
-                          \_bit_select: (work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4), line:17:25, endln:17:37
+                            |vpiName:i
+                            |vpiFullName:work@Foo.genblk1[1].genblk1.foo_bar_4.i
+                            |vpiActual:
+                            \_parameter: (work@Foo.genblk1[1].i), line:5:0
+                          |vpiOperand:
+                          \_constant: , line:17:53, endln:17:54
                             |vpiParent:
-                            \_assignment: , line:17:25, endln:17:55
-                            |vpiName:foo_bar_4
-                            |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4
-                            |vpiIndex:
-                            \_ref_obj: (work@Foo.genblk1[1].genblk1.genblk1.i), line:17:35, endln:17:36
-                              |vpiParent:
-                              \_bit_select: (work@Foo.genblk1[1].genblk1.genblk1.foo_bar_4), line:17:25, endln:17:37
-                              |vpiName:i
-                              |vpiFullName:work@Foo.genblk1[1].genblk1.genblk1.i
-                              |vpiActual:
-                              \_parameter: (work@Foo.genblk1[1].i), line:5:0
-                |vpiAlwaysType:3
+                            \_operation: , line:17:51, endln:17:54
+                            |vpiDecompile:1
+                            |vpiSize:64
+                            |UINT:1
+                            |vpiConstType:9
+                      |vpiLhs:
+                      \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:25, endln:17:37
+                        |vpiParent:
+                        \_assignment: , line:17:25, endln:17:55
+                        |vpiName:foo_bar_4
+                        |vpiFullName:work@Foo.genblk1[1].genblk1.foo_bar_4
+                        |vpiIndex:
+                        \_ref_obj: (work@Foo.genblk1[1].genblk1.i), line:17:35, endln:17:36
+                          |vpiParent:
+                          \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:25, endln:17:37
+                          |vpiName:i
+                          |vpiFullName:work@Foo.genblk1[1].genblk1.i
+                          |vpiActual:
+                          \_parameter: (work@Foo.genblk1[1].i), line:5:0
+            |vpiAlwaysType:3
   |vpiGenScopeArray:
   \_gen_scope_array: (work@Foo.genblk1[2]), line:5:45, endln:87:12
     |vpiParent:
