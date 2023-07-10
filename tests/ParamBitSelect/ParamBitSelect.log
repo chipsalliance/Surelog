@@ -184,7 +184,7 @@ AST_DEBUG_END
 
 [NTE:EL0508] Nb Top level modules: 1.
 
-[NTE:EL0509] Max instance depth: 5.
+[NTE:EL0509] Max instance depth: 4.
 
 [NTE:EL0510] Nb instances: 5.
 
@@ -205,8 +205,8 @@ design                                                 1
 gen_for                                                1
 gen_if                                                 1
 gen_if_else                                            1
-gen_scope                                             16
-gen_scope_array                                       16
+gen_scope                                             14
+gen_scope_array                                       14
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         4
@@ -231,8 +231,8 @@ design                                                 1
 gen_for                                                1
 gen_if                                                 1
 gen_if_else                                            1
-gen_scope                                             24
-gen_scope_array                                       24
+gen_scope                                             20
+gen_scope_array                                       20
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         4
@@ -545,44 +545,33 @@ design: (work@dut)
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[0].k
+      |vpiModule:
+      \_module_inst: work@dut.genblk1[0].genblk1::MOD (work@dut.genblk1[0].genblk1.m), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:11:5, endln:11:14
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[0]), line:9:32, endln:19:4
+        |vpiName:m
+        |vpiFullName:work@dut.genblk1[0].genblk1.m
+        |vpiDefName:work@dut.genblk1[0].genblk1::MOD
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:11:5, endln:11:14
+      \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:13:8, endln:13:20
         |vpiParent:
         \_gen_scope: (work@dut.genblk1[0]), line:9:32, endln:19:4
         |vpiName:genblk1
         |vpiFullName:work@dut.genblk1[0].genblk1
         |vpiGenScope:
-        \_gen_scope: (work@dut.genblk1[0].genblk1), line:11:5, endln:11:14
+        \_gen_scope: (work@dut.genblk1[0].genblk1), line:13:8, endln:13:20
           |vpiParent:
-          \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:11:5, endln:11:14
+          \_gen_scope_array: (work@dut.genblk1[0].genblk1), line:13:8, endln:13:20
           |vpiFullName:work@dut.genblk1[0].genblk1
           |vpiModule:
-          \_module_inst: work@dut.genblk1[0].genblk1::MOD (work@dut.genblk1[0].genblk1.m), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:11:5, endln:11:14
+          \_module_inst: work@GOOD (work@dut.genblk1[0].genblk1.good), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:13:8, endln:13:20
             |vpiParent:
-            \_gen_scope: (work@dut.genblk1[0].genblk1), line:11:5, endln:11:14
-            |vpiName:m
-            |vpiFullName:work@dut.genblk1[0].genblk1.m
-            |vpiDefName:work@dut.genblk1[0].genblk1::MOD
-          |vpiGenScopeArray:
-          \_gen_scope_array: (work@dut.genblk1[0].genblk1.genblk1), line:13:8, endln:13:20
-            |vpiParent:
-            \_gen_scope: (work@dut.genblk1[0].genblk1), line:11:5, endln:11:14
-            |vpiName:genblk1
-            |vpiFullName:work@dut.genblk1[0].genblk1.genblk1
-            |vpiGenScope:
-            \_gen_scope: (work@dut.genblk1[0].genblk1.genblk1), line:13:8, endln:13:20
-              |vpiParent:
-              \_gen_scope_array: (work@dut.genblk1[0].genblk1.genblk1), line:13:8, endln:13:20
-              |vpiFullName:work@dut.genblk1[0].genblk1.genblk1
-              |vpiModule:
-              \_module_inst: work@GOOD (work@dut.genblk1[0].genblk1.genblk1.good), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:13:8, endln:13:20
-                |vpiParent:
-                \_gen_scope: (work@dut.genblk1[0].genblk1.genblk1), line:13:8, endln:13:20
-                |vpiName:good
-                |vpiFullName:work@dut.genblk1[0].genblk1.genblk1.good
-                |vpiDefName:work@GOOD
-                |vpiDefFile:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv
-                |vpiDefLineNo:1
+            \_gen_scope: (work@dut.genblk1[0].genblk1), line:13:8, endln:13:20
+            |vpiName:good
+            |vpiFullName:work@dut.genblk1[0].genblk1.good
+            |vpiDefName:work@GOOD
+            |vpiDefFile:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv
+            |vpiDefLineNo:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.genblk1[1]), line:9:32, endln:19:4
     |vpiParent:
@@ -604,44 +593,33 @@ design: (work@dut)
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[1].k
+      |vpiModule:
+      \_module_inst: work@dut.genblk1[1].genblk1::MOD (work@dut.genblk1[1].genblk1.m), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:11:5, endln:11:14
+        |vpiParent:
+        \_gen_scope: (work@dut.genblk1[1]), line:9:32, endln:19:4
+        |vpiName:m
+        |vpiFullName:work@dut.genblk1[1].genblk1.m
+        |vpiDefName:work@dut.genblk1[1].genblk1::MOD
       |vpiGenScopeArray:
-      \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:11:5, endln:11:14
+      \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:13:8, endln:13:20
         |vpiParent:
         \_gen_scope: (work@dut.genblk1[1]), line:9:32, endln:19:4
         |vpiName:genblk1
         |vpiFullName:work@dut.genblk1[1].genblk1
         |vpiGenScope:
-        \_gen_scope: (work@dut.genblk1[1].genblk1), line:11:5, endln:11:14
+        \_gen_scope: (work@dut.genblk1[1].genblk1), line:13:8, endln:13:20
           |vpiParent:
-          \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:11:5, endln:11:14
+          \_gen_scope_array: (work@dut.genblk1[1].genblk1), line:13:8, endln:13:20
           |vpiFullName:work@dut.genblk1[1].genblk1
           |vpiModule:
-          \_module_inst: work@dut.genblk1[1].genblk1::MOD (work@dut.genblk1[1].genblk1.m), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:11:5, endln:11:14
+          \_module_inst: work@GOOD (work@dut.genblk1[1].genblk1.good), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:13:8, endln:13:20
             |vpiParent:
-            \_gen_scope: (work@dut.genblk1[1].genblk1), line:11:5, endln:11:14
-            |vpiName:m
-            |vpiFullName:work@dut.genblk1[1].genblk1.m
-            |vpiDefName:work@dut.genblk1[1].genblk1::MOD
-          |vpiGenScopeArray:
-          \_gen_scope_array: (work@dut.genblk1[1].genblk1.genblk1), line:13:8, endln:13:20
-            |vpiParent:
-            \_gen_scope: (work@dut.genblk1[1].genblk1), line:11:5, endln:11:14
-            |vpiName:genblk1
-            |vpiFullName:work@dut.genblk1[1].genblk1.genblk1
-            |vpiGenScope:
-            \_gen_scope: (work@dut.genblk1[1].genblk1.genblk1), line:13:8, endln:13:20
-              |vpiParent:
-              \_gen_scope_array: (work@dut.genblk1[1].genblk1.genblk1), line:13:8, endln:13:20
-              |vpiFullName:work@dut.genblk1[1].genblk1.genblk1
-              |vpiModule:
-              \_module_inst: work@GOOD (work@dut.genblk1[1].genblk1.genblk1.good), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:13:8, endln:13:20
-                |vpiParent:
-                \_gen_scope: (work@dut.genblk1[1].genblk1.genblk1), line:13:8, endln:13:20
-                |vpiName:good
-                |vpiFullName:work@dut.genblk1[1].genblk1.genblk1.good
-                |vpiDefName:work@GOOD
-                |vpiDefFile:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv
-                |vpiDefLineNo:1
+            \_gen_scope: (work@dut.genblk1[1].genblk1), line:13:8, endln:13:20
+            |vpiName:good
+            |vpiFullName:work@dut.genblk1[1].genblk1.good
+            |vpiDefName:work@GOOD
+            |vpiDefFile:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv
+            |vpiDefLineNo:1
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.genblk1[2]), line:9:32, endln:19:4
     |vpiParent:

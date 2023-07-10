@@ -983,15 +983,7 @@ void DesignElaboration::elaborateInstance_(
             VObjectType::slGenerate_module_named_block,
             VObjectType::slGenerate_interface_named_block};
 
-        std::vector<NodeId> blockIds =
-            fC->sl_collect_all(subInstanceId, btypes, true);
-        if (!blockIds.empty()) {
-          NodeId blockId = blockIds[0];
-          NodeId blockNameId = fC->Child(blockId);
-          if (fC->Type(blockNameId) == VObjectType::slStringConst) {
-            modName = fC->SymName(blockNameId);
-          }
-        }
+        std::vector<NodeId> blockIds;
         genBlkIndex++;
         instName = modName;
         std::string fullName;
@@ -1055,6 +1047,10 @@ void DesignElaboration::elaborateInstance_(
           m_helper.checkForLoops(false);
           bool cont = (validValue && (condVal > 0));
 
+          NodeId blockNameId = fC->Child(genBlock);
+          if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+            modName = fC->SymName(blockNameId);
+          }
           while (cont) {
             Value* currentIndexValue = parent->getValue(name, m_exprBuilder);
             uint64_t currVal = currentIndexValue->getValueUL();
@@ -1406,6 +1402,11 @@ void DesignElaboration::elaborateInstance_(
         if (fC->Type(blockId) == VObjectType::slGenerate_begin_end_block &&
             (fC->Type(fC->Child(blockId)) != VObjectType::slStringConst))
           blockId = fC->Child(blockId);
+        NodeId blockNameId = fC->Child(blockId);
+        if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+          modName = fC->SymName(blockNameId);
+          instName = modName;
+        }
         std::string indexedModName = parent->getFullPathName() + "." + modName;
         def = design->getComponentDefinition(indexedModName);
         if (def == nullptr) {
@@ -2502,14 +2503,16 @@ void DesignElaboration::reduceUnnamedBlocks_() {
            type == VObjectType::slLoop_generate_construct ||
            type == VObjectType::slGenerate_module_loop_statement ||
            type == VObjectType::slGenerate_interface_loop_statement ||
-           type == VObjectType::slGenerate_begin_end_block) &&
+           type == VObjectType::slGenerate_begin_end_block ||
+           type == VObjectType::slGenerate_item) &&
           (typeP == VObjectType::slConditional_generate_construct ||
            typeP == VObjectType::slGenerate_module_conditional_statement ||
            typeP == VObjectType::slGenerate_interface_conditional_statement ||
            typeP == VObjectType::slLoop_generate_construct ||
            typeP == VObjectType::slGenerate_module_loop_statement ||
            typeP == VObjectType::slGenerate_interface_loop_statement ||
-           typeP == VObjectType::slGenerate_region)) {
+           typeP == VObjectType::slGenerate_region ||
+           typeP == VObjectType::slGenerate_item)) {
         std::string_view fullModName =
             StringUtils::leaf(current->getModuleName());
         std::string_view fullModNameP =
@@ -2522,9 +2525,13 @@ void DesignElaboration::reduceUnnamedBlocks_() {
             parent->getParent()->overrideParentChild(parent->getParent(),
                                                      parent, current);
         } else {
-          if (fullModNameP.find("genblk") != std::string::npos)
-            parent->getParent()->overrideParentChild(parent->getParent(),
-                                                     parent, current);
+          if (type == VObjectType::slGenerate_item &&
+              typeP == VObjectType::slGenerate_item) {
+          } else {
+            if (fullModNameP.find("genblk") != std::string::npos)
+              parent->getParent()->overrideParentChild(parent->getParent(),
+                                                       parent, current);
+          }
         }
       }
     }
