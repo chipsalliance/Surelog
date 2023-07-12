@@ -473,6 +473,43 @@ bool ElaborationStep::bindTypedefsPostElab_() {
                 }
               }
             }
+            if (tps == nullptr) {
+              if (const DataType* dtype = comp->getDataType(need)) {
+                while (dtype) {
+                  if ((tps = dtype->getTypespec())) {
+                    found = true;
+                    break;
+                  }
+                  dtype = dtype->getDefinition();
+                }
+              }
+            }
+            if (tps == nullptr) {
+              if (const TypeDef* dtype = comp->getTypeDef(need)) {
+                if ((tps = dtype->getTypespec())) {
+                  found = true;
+                } else {
+                  std::string_view name = dtype->getFileContent()->SymName(
+                      dtype->getDefinitionNode());
+                  const DataType* def = bindDataType_(
+                      name, dtype->getFileContent(), dtype->getDefinitionNode(),
+                      comp, ErrorDefinition::NO_ERROR_MESSAGE);
+
+                  if (def && (dtype != def)) {
+                    dtype->setDefinition(def);
+                    ((TypeDef*)dtype)->setDataType((DataType*)def);
+                  }
+                  const DataType* dtype2 = dtype->getDataType();
+                  while (dtype2) {
+                    if ((tps = dtype2->getTypespec())) {
+                      found = true;
+                      break;
+                    }
+                    dtype2 = dtype2->getDefinition();
+                  }
+                }
+              }
+            }
             if (found == true) {
               if (expr* ex = any_cast<expr*>(var)) {
                 ex->Typespec(tps);
